@@ -1,19 +1,22 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
 from django.contrib.auth.password_validation import validate_password
+from .models import Classroom, ClassroomInvitation
+from questions.models import Subject
+
+
 
 User = get_user_model()
 
 class UserSerializer(serializers.ModelSerializer):
-    """
-    Docstring for UserSerializer
-    Serializer for User model
-    Converts User object to/from JSON
-    """
     class Meta:
         model = User
-        fields = ['id', 'username', 'email','role','grade', 'first_name','last_name']
-        read_only_data = ['id']
+        fields = [
+            'id', 'username', 'email', 'role', 'grade',
+            'first_name', 'last_name',
+            'is_staff', 'is_superuser'  # ADD THESE TWO
+        ]
+        read_only_fields = ['id', 'is_staff', 'is_superuser']
 
 class RegisterSerializer(serializers.ModelSerializer):
     """
@@ -77,3 +80,127 @@ class LoginSerializer(serializers.Serializer):
     """
     username = serializers.CharField()
     password = serializers.CharField(style={'input_type': 'password'})
+
+
+class SubjectField(serializers.RelatedField):
+    """Custom field to handle subject by ID or name"""
+    def to_representation(self, value):
+        return {
+            'id': value.id,
+            'name': value.name,
+            'icon': value.icon
+        }
+    
+    def to_internal_value(self, data):
+        if isinstance(data, dict):
+            return Subject.objects.get(id=data['id'])
+        try:
+            # Try as ID first
+            return Subject.objects.get(id=int(data))
+        except (ValueError, TypeError):
+            # Try as name
+            return Subject.objects.get(name__iexact=str(data))
+        except Subject.DoesNotExist:
+            raise serializers.ValidationError(f"Subject '{data}' not found")
+
+
+class ClassroomSerializer(serializers.ModelSerializer):
+    """Serializer for listing classrooms"""
+    subject_name = serializers.CharField(source='subject.name', read_only=True)
+    subject_icon = serializers.CharField(source='subject.icon', read_only=True)
+    teacher_name = serializers.CharField(source='teacher.username', read_only=True)
+    teacher_full_name = serializers.SerializerMethodField()
+    student_count = serializers.SerializerMethodField()  # ← FIXED
+    
+    class Meta:
+        model = Classroom
+        fields = [
+            'id', 'name', 'grade', 'subject', 'subject_name', 'subject_icon',
+            'teacher', 'teacher_name', 'teacher_full_name', 'student_count',
+            'join_code', 'description', 'is_active', 'created_at', 'updated_at'
+        ]
+        read_only_fields = ['join_code', 'teacher', 'created_at', 'updated_at']
+    
+    def get_teacher_full_name(self, obj):
+        return f"{obj.teacher.first_name} {obj.teacher.last_name}".strip() or obj.teacher.username
+    
+    def get_student_count(self, obj):  # ← ADD THIS
+        return obj.students.count()
+
+
+class ClassroomCreateSerializer(serializers.ModelSerializer):
+    """Serializer for creating classrooms (accepts subject ID)"""
+    class Meta:
+        model = Classroom
+        fields = ['name', 'grade', 'subject', 'description', 'is_active']
+    
+    def validate(self, data):
+        # Check if teacher already has this class
+        teacher = self.context['request'].user
+        if Classroom.objects.filter(
+            teacher=teacher,
+            name=data['name'],
+            subject=data['subject'],
+            grade=data['grade']
+        ).exists():
+            raise serializers.ValidationError(
+                f"You already have a {data['subject']} Grade {data['grade']}{data['name']} class"
+            )
+        return data
+
+
+class ClassroomDetailSerializer(serializers.ModelSerializer):
+    """Serializer for detailed classroom view with students list"""
+    subject_name = serializers.CharField(source='subject.name', read_only=True)
+    subject_icon = serializers.CharField(source='subject.icon', read_only=True)
+    teacher_name = serializers.CharField(source='teacher.username', read_only=True)
+    students = serializers.SerializerMethodField()
+    
+    class Meta:
+        model = Classroom
+        fields = [
+            'id', 'name', 'grade', 'subject', 'subject_name', 'subject_icon',
+            'teacher', 'teacher_name', 'students', 'student_count',
+            'join_code', 'description', 'is_active', 'created_at', 'updated_at'
+        ]
+        read_only_fields = ['join_code', 'teacher', 'created_at', 'updated_at']
+    
+    def get_students(self, obj):
+        from .serializers import UserSerializer
+        return UserSerializer(obj.students.all(), many=True).data
+
+
+class JoinClassroomSerializer(serializers.Serializer):
+    """Serializer for students joining a classroom"""
+    join_code = serializers.CharField(max_length=12, required=True)
+    
+    def validate_join_code(self, value):
+        try:
+            classroom = Classroom.objects.get(join_code=value, is_active=True)
+        except Classroom.DoesNotExist:
+            raise serializers.ValidationError("Invalid or expired join code")
+        
+        # Check if student already in class
+        request = self.context.get('request')
+        if request and request.user.is_authenticated:
+            if classroom.students.filter(id=request.user.id).exists():
+                raise serializers.ValidationError("You are already in this class")
+        
+        return value
+
+
+class UpdateClassroomSerializer(serializers.ModelSerializer):
+    """Serializer for updating classroom settings"""
+    class Meta:
+        model = Classroom
+        fields = ['name', 'description', 'is_active']
+
+
+class RegenerateJoinCodeSerializer(serializers.Serializer):
+    """Serializer for regenerating join code"""
+    confirm = serializers.BooleanField(required=True)
+    
+    def validate_confirm(self, value):
+        if not value:
+            raise serializers.ValidationError("You must confirm to regenerate join code")
+        return value
