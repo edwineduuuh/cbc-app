@@ -703,7 +703,7 @@ const handleQuizSubmit = async () => {
             {/* Question Image (if exists) */}
 {currentQ.question_image_url && (
   <div className="mb-6">
-    {currentQ.question_image_url && (
+ {currentQ.question_image_url && (
   <div className="mb-6 relative">
     <div className="relative w-full max-w-2xl mx-auto rounded-xl overflow-hidden border border-white/10">
       <Image 
@@ -712,10 +712,8 @@ const handleQuizSubmit = async () => {
         width={800}
         height={600}
         className="w-full h-auto cursor-pointer hover:opacity-90 transition-opacity"
-        onClick={(e) => {
-          window.open(currentQ.question_image_url, '_blank');
-        }}
-        priority={currentIdx === 0} // Preload first question's image
+        onClick={() => window.open(currentQ.question_image_url, '_blank')}
+        priority={currentIdx === 0}
       />
     </div>
     <p className="text-xs text-white/30 text-center mt-2">
