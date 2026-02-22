@@ -427,27 +427,6 @@ export default function QuizTakePage({ params }) {
         });
         setQuiz(data);
         setQuestions(data.questions || []);
-
-        // Start / resume attempt — gracefully skip if endpoint not available
-        // try {
-        //   const attempt = await safeFetch(`${API}/quizzes/${quizId}/start/`, {
-        //     method: "POST",
-        //     headers: {
-        //       Authorization: `Bearer ${token}`,
-        //       "Content-Type": "application/json",
-        //     },
-        //   });
-        //   if (attempt.id) setAttemptId(attempt.id);
-        //   if (attempt.answers) {
-        //     const saved = {};
-        //     attempt.answers.forEach((a, i) => {
-        //       if (a) saved[i] = a;
-        //     });
-        //     setAnswers(saved);
-        //   }
-        // } catch (startErr) {
-        //   console.warn("Could not start/resume attempt:", startErr.message);
-        // }
       } catch (err) {
         console.error("Failed to load quiz:", err.message);
       } finally {
@@ -462,50 +441,48 @@ export default function QuizTakePage({ params }) {
     },
     [currentIdx],
   );
-const handleQuizSubmit = async () => {
-  try {
-    setSubmitting(true);
 
-    // ✅ Convert to dictionary with question IDs as keys
-    const answersDict = {};
-    questions.forEach((question, idx) => {
-      if (answers[idx]) {
-        answersDict[question.id] = answers[idx];
+  const handleQuizSubmit = async () => {
+    try {
+      setSubmitting(true);
+
+      const answersDict = {};
+      questions.forEach((question, idx) => {
+        if (answers[idx]) {
+          answersDict[question.id] = answers[idx];
+        }
+      });
+
+      console.log("Submitting:", answersDict);
+
+      const response = await fetch(`${API}/quizzes/submit/`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          quiz_id: parseInt(quizId),
+          answers: answersDict,
+        }),
+      });
+
+      const text = await response.text();
+
+      if (response.ok) {
+        const data = JSON.parse(text);
+        const attemptId = data.attempt_id || data.id;
+        router.replace(`/attempts/${attemptId}`);
+      } else {
+        alert(`Error: ${text.substring(0, 200)}`);
       }
-    });
-
-    console.log("Submitting:", answersDict);
-
-    const response = await fetch(`${API}/quizzes/submit/`, {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        quiz_id: parseInt(quizId),
-        answers: answersDict, // ✅ Send as dictionary
-      }),
-    });
-
-    const text = await response.text();
-
-    if (response.ok) {
-      const data = JSON.parse(text);
-      const attemptId = data.attempt_id || data.id;
-      router.replace(`/attempts/${attemptId}`);
-    } else {
-      alert(`Error: ${text.substring(0, 200)}`);
+    } catch (error) {
+      console.error("Quiz submission failed:", error);
+      alert("Submission failed: " + error.message);
+    } finally {
+      setSubmitting(false);
     }
-  } catch (error) {
-    console.error("Quiz submission failed:", error);
-    alert("Submission failed: " + error.message);
-  } finally {
-    setSubmitting(false);
-  }
-};// ✅ MAKE SURE THIS CLOSING BRACE IS HERE
-
-
+  };
 
   const toggleFlag = () => {
     setFlagged((prev) => {
@@ -701,26 +678,25 @@ const handleQuizSubmit = async () => {
             </div>
 
             {/* Question Image (if exists) */}
-{currentQ.question_image_url && (
-  <div className="mb-6">
- {currentQ.question_image_url && (
-  <div className="mb-6 relative">
-    <div className="relative w-full max-w-2xl mx-auto rounded-xl overflow-hidden border border-white/10">
-      <Image 
-        src={currentQ.question_image_url} 
-        alt="Question diagram"
-        width={800}
-        height={600}
-        className="w-full h-auto cursor-pointer hover:opacity-90 transition-opacity"
-        onClick={() => window.open(currentQ.question_image_url, '_blank')}
-        priority={currentIdx === 0}
-      />
-    </div>
-    <p className="text-xs text-white/30 text-center mt-2">
-      Click image to view full size
-    </p>
-  </div>
-)}
+            {currentQ.question_image_url && (
+              <div className="mb-6 relative">
+                <div className="relative w-full max-w-2xl mx-auto rounded-xl overflow-hidden border border-white/10">
+                  <Image
+                    src={currentQ.question_image_url}
+                    alt="Question diagram"
+                    width={800}
+                    height={600}
+                    className="w-full h-auto cursor-pointer hover:opacity-90 transition-opacity"
+                    onClick={() => window.open(currentQ.question_image_url, "_blank")}
+                    priority={currentIdx === 0}
+                  />
+                </div>
+                <p className="text-xs text-white/30 text-center mt-2">
+                  Click image to view full size
+                </p>
+              </div>
+            )}
+
             {/* MCQ */}
             {isMCQ && (
               <div className="space-y-3">
