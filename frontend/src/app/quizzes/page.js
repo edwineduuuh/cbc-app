@@ -914,7 +914,7 @@ export default function QuizzesPage() {
       </div>
 
       {/* ── Subscription upsell banner (bottom, only for free users) ── */}
-      {user && !user.is_subscribed && (
+      {/* {user && !user.is_subscribed && (
         <div className="fixed bottom-0 left-0 right-0 z-30 p-4">
           <motion.div
             initial={{ y: 80 }}
@@ -942,7 +942,7 @@ export default function QuizzesPage() {
             </Link>
           </motion.div>
         </div>
-      )}
+      )} */}
     </div>
   );
 }

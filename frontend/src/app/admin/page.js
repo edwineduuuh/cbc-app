@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link";
 import {
   BarChart2,
   BookOpen,
@@ -21,14 +22,15 @@ import {
   ChevronRight,
   FileText,
   Layers,
+  FileQuestion,
+  ClipboardList,
+  BarChart3,
+  Settings,
 } from "lucide-react";
 import Button from "@/components/ui/Button";
-import Card from "@/components/ui/Card";
 import Toast from "@/components/ui/Toast";
-import Link from "next/link";
 import AdminPaymentsPanel from "@/components/AdminPaymentsPanel";
 import AdminNavigation from "@/components/AdminNavigation";
-
 const API = "http://127.0.0.1:8000/api";
 
 // ─── Stat Card ────────────────────────────────────────────────────────────────
@@ -39,7 +41,11 @@ function StatCard({ label, value, icon: Icon, gradient, delay = 0 }) {
     amber: "from-amber-400 to-orange-500",
     rose: "from-rose-500 to-pink-600",
   };
-const { user, loading } = useRoleGuard(["admin", "superadmin", "school_admin"]);
+  const { user, loading } = useRoleGuard([
+    "admin",
+    "superadmin",
+    "school_admin",
+  ]);
   return (
     <motion.div
       initial={{ opacity: 0, y: 24 }}
@@ -985,7 +991,6 @@ export default function AdminPage() {
         {...toast}
         onClose={() => setToast((t) => ({ ...t, visible: false }))}
       />
-
       <QuestionModal
         open={showCreate || !!editQuestion}
         onClose={() => {
@@ -1000,7 +1005,6 @@ export default function AdminPage() {
         topics={topics}
         editData={editQuestion}
       />
-
       <BulkImportModal
         open={showImport}
         onClose={() => setShowImport(false)}
@@ -1009,7 +1013,6 @@ export default function AdminPage() {
           showToast("Bulk import completed!");
         }}
       />
-
       {/* ── Header ── */}
       <header className="bg-gradient-to-r from-emerald-800 to-teal-700 sticky top-0 z-10 shadow-lg">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
@@ -1045,10 +1048,8 @@ export default function AdminPage() {
           </div>
         </div>
       </header>
-
       ── Admin Navigation ──
       <AdminNavigation />
-
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
         {/* ── Quick Action Buttons ── */}
         {/* <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -1104,7 +1105,75 @@ export default function AdminPage() {
             delay={0.24}
           />
         </div>
+        {/* Quick Actions / Navigation */}
+        <div className="mt-8">
+          <h2 className="text-xl font-bold text-gray-900 mb-4">
+            Quick Actions
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <Link href="/admin/questions">
+              <div className="bg-white p-6 rounded-xl border border-gray-200 hover:shadow-lg transition-all cursor-pointer">
+                <FileQuestion className="w-8 h-8 text-emerald-600 mb-3" />
+                <h3 className="font-bold text-gray-900 mb-1">
+                  Manage Questions
+                </h3>
+                <p className="text-sm text-gray-500">
+                  View, edit, and create questions
+                </p>
+              </div>
+            </Link>
 
+            <Link href="/admin/bulk-upload">
+              <div className="bg-white p-6 rounded-xl border border-gray-200 hover:shadow-lg transition-all cursor-pointer">
+                <Upload className="w-8 h-8 text-blue-600 mb-3" />
+                <h3 className="font-bold text-gray-900 mb-1">Bulk Upload</h3>
+                <p className="text-sm text-gray-500">
+                  Upload PDFs with questions
+                </p>
+              </div>
+            </Link>
+
+            <Link href="/admin/quizzes">
+              <div className="bg-white p-6 rounded-xl border border-gray-200 hover:shadow-lg transition-all cursor-pointer">
+                <ClipboardList className="w-8 h-8 text-purple-600 mb-3" />
+                <h3 className="font-bold text-gray-900 mb-1">Manage Quizzes</h3>
+                <p className="text-sm text-gray-500">
+                  Create and organize quiz sets
+                </p>
+              </div>
+            </Link>
+
+            <Link href="/admin/analytics">
+              <div className="bg-white p-6 rounded-xl border border-gray-200 hover:shadow-lg transition-all cursor-pointer">
+                <BarChart3 className="w-8 h-8 text-orange-600 mb-3" />
+                <h3 className="font-bold text-gray-900 mb-1">Analytics</h3>
+                <p className="text-sm text-gray-500">
+                  View performance reports
+                </p>
+              </div>
+            </Link>
+
+            <Link href="/teacher/classrooms">
+              <div className="bg-white p-6 rounded-xl border border-gray-200 hover:shadow-lg transition-all cursor-pointer">
+                <Users className="w-8 h-8 text-pink-600 mb-3" />
+                <h3 className="font-bold text-gray-900 mb-1">Classrooms</h3>
+                <p className="text-sm text-gray-500">
+                  Manage classes and students
+                </p>
+              </div>
+            </Link>
+
+            <Link href="/admin/settings">
+              <div className="bg-white p-6 rounded-xl border border-gray-200 hover:shadow-lg transition-all cursor-pointer">
+                <Settings className="w-8 h-8 text-gray-600 mb-3" />
+                <h3 className="font-bold text-gray-900 mb-1">Settings</h3>
+                <p className="text-sm text-gray-500">
+                  Configure platform settings
+                </p>
+              </div>
+            </Link>
+          </div>
+        </div>
         <AdminPaymentsPanel />
 
         {/* ── Quick Actions ── */}

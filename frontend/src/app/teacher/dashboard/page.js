@@ -155,6 +155,12 @@ const SUBJECTS = {
   ],
 };
 
+const panels = [
+  { id: "lessons", label: "Lesson Plans" },
+  { id: "classroom", label: "Quiz Classrooms" },
+  { id: "history", label: "Past Quizzes" }, // ← ADD THIS LINE
+  { id: "analytics", label: "Analytics" },
+];
 // ── Claude API ────────────────────────────────────────────────────────────────
 // ── Backend API ───────────────────────────────────────────────────────────────
 const BASE = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000/api";
@@ -3376,10 +3382,129 @@ export default function App() {
             {panel === "dashboard" && <Dashboard go={setPanel} />}
             {panel === "lesson" && <LessonPlanner />}
             {panel === "classroom" && <Classrooms />}
+            {panel === "history" && <PastQuizzesView />}
             {panel === "reports" && <Reports />}
           </div>
         </div>
       </div>
     </>
+  );
+}
+
+function PastQuizzesView() {
+  const [rooms, setRooms] = useState([]);
+  const [busy, setBusy] = useState(false);
+
+  useEffect(() => {
+    loadRooms();
+  }, []);
+
+  async function loadRooms() {
+    setBusy(true);
+    try {
+      const data = await api("GET", "/classrooms/");
+      setRooms(
+        data.sort((a, b) => new Date(b.created_at) - new Date(a.created_at)),
+      );
+    } catch (e) {
+      console.error(e);
+    }
+    setBusy(false);
+  }
+
+  async function deleteRoom(id) {
+    if (!confirm("Delete this classroom?")) return;
+    try {
+      await api("DELETE", `/classrooms/${id}/`);
+      setRooms(rooms.filter((r) => r.id !== id));
+    } catch (e) {
+      alert("Error: " + e.message);
+    }
+  }
+
+  if (busy) return <div>Loading...</div>;
+
+  return (
+    <div style={{ padding: 20 }}>
+      <h2 style={{ fontSize: 24, marginBottom: 20 }}>
+        Past Quizzes ({rooms.length})
+      </h2>
+
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fill,minmax(300px,1fr))",
+          gap: 16,
+        }}
+      >
+        {rooms.map((room) => (
+          <div
+            key={room.id}
+            style={{
+              background: "white",
+              border: "1px solid #e5e7eb",
+              borderRadius: 12,
+              padding: 20,
+            }}
+          >
+            <div style={{ fontWeight: 700, fontSize: 16, marginBottom: 8 }}>
+              {room.name}
+            </div>
+            <div style={{ fontSize: 13, color: "#6b7280", marginBottom: 12 }}>
+              {room.grade} • {room.subject}
+            </div>
+            <div style={{ fontSize: 13, marginBottom: 12 }}>
+              📝 {room.questions?.length || 0} questions • 👥{" "}
+              {room.student_count || 0} students
+            </div>
+            <div
+              style={{
+                background: "#f0faf0",
+                padding: "8px 12px",
+                borderRadius: 8,
+                marginBottom: 12,
+                display: "flex",
+                justifyContent: "space-between",
+              }}
+            >
+              <span style={{ fontSize: 11, color: "#6b7280" }}>CODE</span>
+              <span style={{ fontSize: 16, fontWeight: 900, color: "#f5a623" }}>
+                {room.join_code}
+              </span>
+            </div>
+            <div style={{ fontSize: 11, color: "#9ca3af", marginBottom: 12 }}>
+              {new Date(room.created_at).toLocaleDateString()}
+            </div>
+            <button
+              onClick={() => deleteRoom(room.id)}
+              style={{
+                width: "100%",
+                background: "#fee2e2",
+                color: "#dc2626",
+                border: "none",
+                borderRadius: 8,
+                padding: "8px",
+                cursor: "pointer",
+              }}
+            >
+              🗑️ Delete
+            </button>
+          </div>
+        ))}
+
+        {rooms.length === 0 && (
+          <div
+            style={{
+              gridColumn: "1/-1",
+              textAlign: "center",
+              padding: 60,
+              color: "#9ca3af",
+            }}
+          >
+            No past quizzes yet
+          </div>
+        )}
+      </div>
+    </div>
   );
 }

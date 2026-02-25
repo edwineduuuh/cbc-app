@@ -1,5 +1,5 @@
 "use client";
-
+import AdminNav from "@/components/AdminNav";
 import { useState, useEffect } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { useRouter } from "next/navigation";
@@ -19,6 +19,7 @@ import {
   Check,
 } from "lucide-react";
 
+const API = "http://127.0.0.1:8000/api";
 export default function QuestionManagementPage() {
   const { user } = useAuth();
   const router = useRouter();
@@ -64,10 +65,13 @@ export default function QuestionManagementPage() {
   });
 
   useEffect(() => {
-    if (!user || user.role !== "teacher") {
-      router.push("/dashboard");
-      return;
-    }
+   if (
+     !user ||
+     !["teacher", "admin", "superadmin", "school_admin"].includes(user.role)
+   ) {
+     router.push("/dashboard");
+     return;
+   }
 
     fetch("http://127.0.0.1:8000/api/subjects/")
       .then((res) => res.json())
