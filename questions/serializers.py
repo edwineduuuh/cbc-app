@@ -1,6 +1,14 @@
 from rest_framework import serializers
-from .models import Subject, Topic, Question, Quiz, Attempt, QuestionSet, SubscriptionPlan, PaymentRequest
+from .models import (
+    Subject, Topic, Question, Quiz, Attempt, QuestionSet, 
+    SubscriptionPlan, PaymentRequest, LessonPlan, Classroom, 
+    LiveQuestion, StudentSession, StudentAnswer
+)
 
+
+# ═══════════════════════════════════════════════════════════════
+# QUIZ SYSTEM SERIALIZERS
+# ═══════════════════════════════════════════════════════════════
 
 class SubjectSerializer(serializers.ModelSerializer):
     topic_count    = serializers.SerializerMethodField()
@@ -29,15 +37,11 @@ class TopicSerializer(serializers.ModelSerializer):
         return obj.questions.count()
 
 
-# UPDATE YOUR QuestionSerializer IN questions/serializers.py
-
 class QuestionSerializer(serializers.ModelSerializer):
-    """for quiz taking"""
+    """For quiz taking"""
     subject_name = serializers.CharField(source='topic.subject.name', read_only=True)
     topic_name   = serializers.CharField(source='topic.name', read_only=True)
     grade        = serializers.IntegerField(source='topic.grade', read_only=True)
-    
-    # ✅ ADD THIS LINE
     question_image_url = serializers.SerializerMethodField()
 
     class Meta:
@@ -48,12 +52,10 @@ class QuestionSerializer(serializers.ModelSerializer):
             'option_a', 'option_b', 'option_c', 'option_d',
             'correct_answer',
             'difficulty', 'question_type', 'max_marks',
-            'question_image_url',  # ✅ ADD THIS
+            'question_image_url',
         ]
     
-    # ✅ ADD THIS METHOD
     def get_question_image_url(self, obj):
-        """Return full URL for question image"""
         if obj.question_image:
             request = self.context.get('request')
             if request:
@@ -62,16 +64,12 @@ class QuestionSerializer(serializers.ModelSerializer):
         return None
 
 
-# ALSO UPDATE QuestionDetailSerializer (for admin viewing):
-
 class QuestionDetailSerializer(serializers.ModelSerializer):
-    """Full detail - used for admin/authoring and attempt review"""
+    """Full detail - for admin/authoring and attempt review"""
     subject_name = serializers.CharField(source='topic.subject.name', read_only=True)
     topic_name   = serializers.CharField(source='topic.name', read_only=True)
     grade        = serializers.IntegerField(source='topic.grade', read_only=True)
     subject      = serializers.IntegerField(source='topic.subject.id', read_only=True)
-    
-    # ✅ ADD THIS LINE
     question_image_url = serializers.SerializerMethodField()
 
     class Meta:
@@ -84,7 +82,7 @@ class QuestionDetailSerializer(serializers.ModelSerializer):
             'correct_answer', 'correct_answers',
             'explanation', 'difficulty',
             'created_at', 'created_by',
-            'question_image_url',  # ✅ ADD THIS
+            'question_image_url',
         ]
         read_only_fields = [
             'id', 'subject', 'subject_name', 'topic_name', 'grade',
@@ -117,20 +115,13 @@ class QuizListSerializer(serializers.ModelSerializer):
             'duration_minutes', 'passing_score', 'is_active',
             'owner_type', 'available_to_teachers',
             'attempt_status', 'quiz_type',
-            'quiz_type', 'term', 'set_number', 'created_at',
+            'term', 'set_number', 'created_at',
         ]
     
     def get_attempt_status(self, obj):
         request = self.context.get('request')
         
-        print(f"=== ATTEMPT STATUS CHECK ===")
-        print(f"Quiz ID: {obj.id}")
-        print(f"Request: {request}")
-        print(f"User: {request.user if request else 'NO REQUEST'}")
-        print(f"Is authenticated: {request.user.is_authenticated if request else False}")
-    
         if not request or not request.user.is_authenticated:
-            print(f"RETURNING NULL - not authenticated")
             return None
     
         latest_attempt = Attempt.objects.filter(
@@ -138,15 +129,12 @@ class QuizListSerializer(serializers.ModelSerializer):
             student=request.user
         ).order_by('-started_at').first()
         
-        print(f"Found attempt: {latest_attempt}")
-    
         if not latest_attempt:
-            print(f"RETURNING NULL - no attempt found")
             return None
         
         answered_count = len(latest_attempt.answers) if latest_attempt.answers else 0
         
-        result = {
+        return {
             'id': latest_attempt.id,
             'status': latest_attempt.status,
             'score': latest_attempt.score,
@@ -156,9 +144,6 @@ class QuizListSerializer(serializers.ModelSerializer):
             'total_questions': obj.questions.count(),
             'completed_at': latest_attempt.completed_at,
         }
-        
-        print(f"RETURNING: {result}")
-        return result
 
 
 class QuizDetailSerializer(serializers.ModelSerializer):
@@ -289,6 +274,7 @@ class AttemptDetailSerializer(serializers.ModelSerializer):
     def get_detailed_feedback(self, obj):
         return obj.detailed_feedback or {}
 
+
 class QuestionSetSerializer(serializers.ModelSerializer):
     questions    = QuestionDetailSerializer(many=True, read_only=True)
     question_ids = serializers.ListField(child=serializers.IntegerField(), write_only=True)
@@ -303,14 +289,15 @@ class QuestionSetSerializer(serializers.ModelSerializer):
         question_set = QuestionSet.objects.create(**validated_data)
         question_set.questions.set(question_ids)
         return question_set
-    
-# ─── Serializers ─────────────────────────────────────────────
+
+
+# ═══════════════════════════════════════════════════════════════
+# SUBSCRIPTION & PAYMENTS
+# ═══════════════════════════════════════════════════════════════
 
 class SubscriptionPlanSerializer(serializers.ModelSerializer):
     class Meta:
-        # from questions.models import SubscriptionPlan
-        # model = SubscriptionPlan
-        model = SubscriptionPlan  # Replace with: model = SubscriptionPlan
+        model = SubscriptionPlan
         fields = [
             'id', 'name', 'slug', 'description', 'price_kes',
             'billing_period', 'duration_days',
@@ -326,11 +313,7 @@ class SubmitPaymentSerializer(serializers.Serializer):
     amount_paid = serializers.IntegerField()
 
     def validate_mpesa_code(self, value):
-        value = value.strip().upper()
-        # from questions.models import PaymentRequest
-        # if PaymentRequest.objects.filter(mpesa_code=value).exists():
-        #     raise serializers.ValidationError("This M-Pesa code has already been submitted.")
-        return value
+        return value.strip().upper()
 
 
 class PaymentRequestSerializer(serializers.ModelSerializer):
@@ -348,21 +331,15 @@ class PaymentRequestSerializer(serializers.ModelSerializer):
         ]
 
 
-class SubscriptionStatusSerializer(serializers.ModelSerializer):
-    plan_name = serializers.CharField(source='plan.name', read_only=True)
-    days_remaining = serializers.IntegerField(read_only=True)
-    is_valid = serializers.BooleanField(read_only=True)
+# ═══════════════════════════════════════════════════════════════
+# KAHOOT-STYLE CLASSROOMS (TEACHER PANEL)
+# ═══════════════════════════════════════════════════════════════
 
+class LiveQuestionSerializer(serializers.ModelSerializer):
+    """For Kahoot-style live quiz questions"""
     class Meta:
-        # model = Subscription
-        model = None  # Replace with: model = Subscription
-        fields = [
-            'id', 'plan_name', 'start_date', 'end_date',
-            'is_active', 'is_valid', 'days_remaining'
-        ]
-
-from rest_framework import serializers
-from .models import LessonPlan, Classroom, Question, StudentSession, StudentAnswer
+        model = LiveQuestion
+        fields = ['id', 'order', 'text', 'question_type', 'options', 'correct_index', 'points']
 
 
 class LessonPlanSerializer(serializers.ModelSerializer):
@@ -372,15 +349,9 @@ class LessonPlanSerializer(serializers.ModelSerializer):
         read_only_fields = ["teacher", "generated_plan", "created_at", "updated_at"]
 
 
-class QuestionSerializer(serializers.ModelSerializer):
-    class Meta:
-        model  = Question
-        fields = "__all__"
-        read_only_fields = ["classroom"]
-
-
 class ClassroomSerializer(serializers.ModelSerializer):
-    questions      = QuestionSerializer(many=True, read_only=True)
+    """For Kahoot-style classrooms"""
+    questions      = LiveQuestionSerializer(many=True, read_only=True)
     student_count  = serializers.SerializerMethodField()
 
     class Meta:
@@ -403,10 +374,10 @@ class StudentAnswerSerializer(serializers.ModelSerializer):
 
 
 class StudentSessionSerializer(serializers.ModelSerializer):
-    answers     = StudentAnswerSerializer(many=True, read_only=True)
+    answers        = StudentAnswerSerializer(many=True, read_only=True)
     classroom_name = serializers.CharField(source="classroom.name", read_only=True)
-    subject     = serializers.CharField(source="classroom.subject", read_only=True)
-    grade       = serializers.CharField(source="classroom.grade", read_only=True)
+    subject        = serializers.CharField(source="classroom.subject", read_only=True)
+    grade          = serializers.CharField(source="classroom.grade", read_only=True)
 
     class Meta:
         model  = StudentSession
@@ -418,11 +389,3 @@ class LeaderboardSerializer(serializers.ModelSerializer):
     class Meta:
         model  = StudentSession
         fields = ["id", "student_name", "total_score", "joined_at"]
-
-from .models import LiveQuestion
-
-class LiveQuestionSerializer(serializers.ModelSerializer):
-    class Meta:
-        model  = LiveQuestion
-        fields = "__all__"
-        read_only_fields = ["classroom"]

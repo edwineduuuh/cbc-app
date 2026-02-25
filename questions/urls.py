@@ -101,7 +101,7 @@ urlpatterns = [
     # ── LESSON PLANS ──────────────────────────────────────────────
     path("lessons/", views.list_lesson_plans, name="lesson-list"),
     path("lessons/generate/", views.generate_lesson, name="lesson-generate"),
-    path("lessons/generate-questions/", views.generate_lesson, name="lesson-gen-questions"),
+    # path("lessons/generate-questions/", views.generate_lesson, name="lesson-gen-questions"),
     path("lessons/<int:pk>/", views.lesson_plan_detail, name="lesson-detail"),
 
     # ── CLASSROOMS (teacher, requires auth) ──────────────────────
@@ -120,4 +120,6 @@ urlpatterns = [
     # ── STUDENT ANSWERS (no auth) ─────────────────────────────────
     path("sessions/<int:session_id>/answer/", views.submit_answer, name="submit-answer"),
     path("sessions/<int:session_id>/results/", views.session_results, name="session-results"),
+
+path("lessons/generate-questions/", views.generate_quiz_questions, name="generate-quiz-questions"),
 ]

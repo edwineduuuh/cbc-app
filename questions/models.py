@@ -890,7 +890,7 @@ class StudentSession(models.Model):
 
 class StudentAnswer(models.Model):
     session     = models.ForeignKey(StudentSession, on_delete=models.CASCADE, related_name="answers")
-    question    = models.ForeignKey(Question, on_delete=models.CASCADE)
+    question    = models.ForeignKey(LiveQuestion, on_delete=models.CASCADE)
     answer_text = models.TextField()                    # raw student answer
     selected_index = models.IntegerField(null=True, blank=True)  # for MCQ/TF
     is_correct  = models.BooleanField(null=True, blank=True)

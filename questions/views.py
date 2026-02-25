@@ -574,7 +574,7 @@ import json
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
-@requires_subscription
+# @requires_subscription
 def submit_quiz(request):
     """
     Submit quiz answers and get AI-graded results
@@ -1022,7 +1022,7 @@ def classrooms(request):
     )
 
     for i, qdata in enumerate(questions_data):
-        Question.objects.create(
+        LiveQuestion.objects.create(  # ← CORRECT MODEL
             classroom=classroom,
             order=qdata.get("order", i + 1),
             text=qdata["text"],
@@ -1206,7 +1206,7 @@ def submit_answer(request, session_id):
     answer_text   = request.data.get("answer_text", "")
     selected_index = request.data.get("selected_index")
 
-    question = get_object_or_404(Question, pk=question_id, classroom=classroom)
+    question = get_object_or_404(LiveQuestion, pk=question_id, classroom=classroom)
 
     # Prevent double-submission
     if StudentAnswer.objects.filter(session=session, question=question).exists():
@@ -1372,6 +1372,52 @@ def teacher_analytics(request):
         "quizzes_ended":        Classroom.objects.filter(teacher=teacher, status="ended").count(),
     })
 
+@api_view(['POST'])
+# @permission_classes([IsAuthenticated])
+def generate_quiz_questions(request):
+    """
+    POST /api/lessons/generate-questions/
+    Generate quiz questions with AI for Kahoot-style classrooms
+    Body: { grade, subject, topic, count }
+    """
+    from .ai_service import client, MODEL, parse_ai_json
+    
+    grade = request.data.get('grade', 'Grade 7')
+    subject = request.data.get('subject', 'Mathematics')
+    topic = request.data.get('topic', '')
+    count = int(request.data.get('count', 5))
+    
+    if not topic:
+        return Response({'error': 'Topic is required'}, status=400)
+    
+    prompt = f"""Generate {count} multiple-choice quiz questions for a {grade} {subject} quiz on: {topic}
 
+Return ONLY valid JSON:
+{{
+  "questions": [
+    {{
+      "text": "Question text?",
+      "type": "mcq",
+      "options": ["Option A", "Option B", "Option C", "Option D"],
+      "correct_index": 2,
+      "points": 10
+    }}
+  ]
+}}
+
+Make questions appropriate for {grade} level."""
+
+    try:
+        message = client.messages.create(
+            model=MODEL,
+            max_tokens=2048,
+            messages=[{"role": "user", "content": prompt}],
+        )
+        
+        result = parse_ai_json(message.content[0].text)
+        return Response(result)
+        
+    except Exception as e:
+        return Response({'error': str(e)}, status=500)
 
 

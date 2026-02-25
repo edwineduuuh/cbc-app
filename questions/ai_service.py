@@ -4,11 +4,45 @@ All Anthropic API calls go through this file.
 Set ANTHROPIC_API_KEY in your .env / Django settings.
 """
 import json
+import re
 import anthropic
 from django.conf import settings
 
 client = anthropic.Anthropic(api_key=settings.ANTHROPIC_API_KEY)
-MODEL  = "claude-opus-4-6"   # swap to claude-haiku-4-5-20251001 for cheaper/faster
+MODEL  = "claude-sonnet-4-20250514"   # Use Sonnet 4 for best results
+
+
+def parse_ai_json(raw_text: str) -> dict:
+    """
+    Robust JSON parser for AI responses.
+    Handles markdown fences, trailing commas, and extra text.
+    """
+    raw = raw_text.strip()
+    
+    # Remove markdown code blocks
+    raw = re.sub(r'```json\s*', '', raw)
+    raw = re.sub(r'```\s*', '', raw)
+    
+    # Find first { and last }
+    start = raw.find('{')
+    end = raw.rfind('}')
+    
+    if start == -1 or end == -1:
+        raise ValueError("No valid JSON object found in response")
+    
+    raw = raw[start:end+1]
+    
+    # Remove trailing commas before } or ]
+    raw = re.sub(r',(\s*[}\]])', r'\1', raw)
+    
+    # Try to parse
+    try:
+        return json.loads(raw)
+    except json.JSONDecodeError as e:
+        # Log the problematic JSON for debugging
+        print(f"JSON Parse Error: {e}")
+        print(f"Problematic JSON (first 500 chars):\n{raw[:500]}")
+        raise ValueError(f"Invalid JSON from AI: {str(e)}")
 
 
 # ─────────────────────────────────────────────────────────────
@@ -78,7 +112,7 @@ Return ONLY a JSON object with EXACTLY these keys:
   }},
   "extended_activity": "Challenge activity for gifted/fast learners",
   "support_activity": "Remedial activity for learners who need support",
-  "practical_project": {"string describing the practical project with materials, steps, expected outcome" if data.get('is_practical') else "null"},
+  "practical_project": "string describing the practical project",
   "teacher_notes": "Important pedagogical notes, common misconceptions to address",
   "scheme_entry": {{
     "wk": "{data['week']}",
@@ -99,14 +133,14 @@ Return ONLY a JSON object with EXACTLY these keys:
       "description": "Why this video is useful for this lesson"
     }}
   ],
-  "diagrams": [
-    {{
-      "title": "Diagram title",
-      "type": "labeled_diagram | flowchart | table | cycle | bar_chart",
-      "description": "Detailed description of what to draw — include labels, arrows, components",
-      "caption": "Caption to write under diagram in student notes"
-    }}
-  ],
+  # "diagrams": [
+  #   {{
+  #     "title": "Diagram title",
+  #     "type": "labeled_diagram | flowchart | table | cycle | bar_chart",
+  #     "description": "Detailed description of what to draw — include labels, arrows, components",
+  #     "caption": "Caption to write under diagram in student notes"
+  #   }}
+  # ],
   "student_notes": {{
     "heading": "Topic heading for student notes",
     "body": "Full student notes content with key facts, definitions, examples. Write 3-5 paragraphs.",
@@ -122,15 +156,8 @@ Return ONLY a JSON object with EXACTLY these keys:
         messages=[{"role": "user", "content": prompt}],
     )
 
-    raw = message.content[0].text.strip()
-    # Strip markdown fences if model adds them anyway
-    if raw.startswith("```"):
-        raw = raw.split("```")[1]
-        if raw.startswith("json"):
-            raw = raw[4:]
-        raw = raw.strip()
-
-    return json.loads(raw)
+    raw = message.content[0].text
+    return parse_ai_json(raw)
 
 
 # ─────────────────────────────────────────────────────────────
@@ -168,14 +195,8 @@ Evaluate the answer and return JSON:
         messages=[{"role": "user", "content": prompt}],
     )
 
-    raw = message.content[0].text.strip()
-    if raw.startswith("```"):
-        raw = raw.split("```")[1]
-        if raw.startswith("json"):
-            raw = raw[4:]
-        raw = raw.strip()
-
-    return json.loads(raw)
+    raw = message.content[0].text
+    return parse_ai_json(raw)
 
 
 # ─────────────────────────────────────────────────────────────
@@ -215,11 +236,5 @@ Return JSON:
         messages=[{"role": "user", "content": prompt}],
     )
 
-    raw = message.content[0].text.strip()
-    if raw.startswith("```"):
-        raw = raw.split("```")[1]
-        if raw.startswith("json"):
-            raw = raw[4:]
-        raw = raw.strip()
-
-    return json.loads(raw)
+    raw = message.content[0].text
+    return parse_ai_json(raw)
