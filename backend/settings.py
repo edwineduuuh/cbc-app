@@ -162,6 +162,8 @@ SIMPLE_JWT = {
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://localhost:3001",
+    "https://cbc-app-9nlr-hks9tj69q-edwineduuuhs-projects.vercel.app",  # ← ADD THIS
+    "https://cbc-app-9nlr.vercel.app",
 ]
 
 CORS_ALLOW_CREDENTIALS = True
