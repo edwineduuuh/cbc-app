@@ -10,54 +10,40 @@ const GlobalStyles = () => (
     .font-display{font-family:'Playfair Display',serif;}
     .hero-bg{background:linear-gradient(135deg,#0a3d1f 0%,#0f5c2e 40%,#1a7a42 100%);}
     .card{background:white;border-radius:16px;border:1px solid #e2ece2;box-shadow:0 2px 10px rgba(0,40,0,0.07);}
-    .card-hover{transition:transform 0.2s,box-shadow 0.2s;cursor:pointer;}
-    .card-hover:hover{transform:translateY(-3px);box-shadow:0 14px 32px rgba(0,40,0,0.13);}
-    .btn-primary{background:linear-gradient(135deg,#0f5c2e,#1a7a42);color:white;border:none;border-radius:12px;padding:11px 22px;font-family:'DM Sans',sans-serif;font-weight:700;font-size:14px;cursor:pointer;transition:all 0.2s;display:inline-flex;align-items:center;gap:8px;}
-    .btn-primary:hover{transform:translateY(-1px);box-shadow:0 8px 20px rgba(15,92,46,0.35);}
-    .btn-primary:disabled{opacity:0.55;cursor:not-allowed;transform:none;box-shadow:none;}
-    .btn-gold{background:linear-gradient(135deg,#f5a623,#e8870a);color:white;border:none;border-radius:12px;padding:11px 22px;font-family:'DM Sans',sans-serif;font-weight:700;font-size:14px;cursor:pointer;transition:all 0.2s;display:inline-flex;align-items:center;gap:8px;}
-    .btn-gold:hover{transform:translateY(-1px);box-shadow:0 8px 20px rgba(245,166,35,0.4);}
-    .btn-outline{background:transparent;color:#0f5c2e;border:2px solid #0f5c2e;border-radius:12px;padding:9px 18px;font-family:'DM Sans',sans-serif;font-weight:700;font-size:14px;cursor:pointer;transition:all 0.2s;display:inline-flex;align-items:center;gap:8px;}
-    .btn-outline:hover{background:#f0faf0;}
-    .input{width:100%;padding:10px 13px;border:1.5px solid #d1d5db;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:14px;outline:none;transition:border 0.2s;}
-    .input:focus{border-color:#0f5c2e;box-shadow:0 0 0 3px rgba(15,92,46,0.1);}
-    .select{width:100%;padding:10px 13px;border:1.5px solid #d1d5db;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:14px;outline:none;background:white;cursor:pointer;}
-    .select:focus{border-color:#0f5c2e;}
-    .textarea{width:100%;padding:10px 13px;border:1.5px solid #d1d5db;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:14px;outline:none;resize:vertical;min-height:90px;}
-    .textarea:focus{border-color:#0f5c2e;}
-    .label{display:block;font-size:12px;font-weight:700;color:#374151;margin-bottom:5px;text-transform:uppercase;letter-spacing:0.04em;}
-    .badge{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.04em;}
-    .badge-green{background:#dcfce7;color:#15803d;}
-    .badge-amber{background:#fef3c7;color:#92400e;}
-    .badge-blue{background:#dbeafe;color:#1d4ed8;}
-    .badge-red{background:#fee2e2;color:#dc2626;}
-    .badge-purple{background:#ede9fe;color:#7c3aed;}
-    .nav-btn{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:11px;cursor:pointer;font-size:14px;font-weight:600;border:none;width:100%;text-align:left;transition:all 0.15s;color:rgba(255,255,255,0.65);background:transparent;}
-    .nav-btn:hover{background:rgba(255,255,255,0.1);color:white;}
-    .nav-btn.active{background:rgba(255,255,255,0.18);color:white;}
-    .spin{animation:spin 1s linear infinite;}
-    @keyframes spin{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
-    .pulse{animation:pulse 2s ease-in-out infinite;}
-    @keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.4;}}
-    .slide-up{animation:slideUp 0.35s ease;}
-    @keyframes slideUp{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
-    .dot-bg{background-image:radial-gradient(circle,rgba(255,255,255,0.14) 1px,transparent 1px);background-size:26px 26px;}
-    .lesson-out h1{font-family:'Playfair Display',serif;font-size:21px;color:#0a3d1f;margin:18px 0 10px;border-bottom:2px solid #dcfce7;padding-bottom:8px;}
-    .lesson-out h2{font-family:'Playfair Display',serif;font-size:17px;color:#0f5c2e;margin:15px 0 8px;}
-    .lesson-out h3{font-size:14px;font-weight:700;color:#1a7a42;margin:11px 0 5px;}
-    .lesson-out p{font-size:13px;line-height:1.75;color:#374151;margin-bottom:9px;}
-    .lesson-out ul,.lesson-out ol{margin:7px 0 11px 18px;}
-    .lesson-out li{font-size:13px;line-height:1.7;color:#374151;margin-bottom:3px;}
-    .lesson-out table{width:100%;border-collapse:collapse;margin:11px 0;font-size:12px;}
-    .lesson-out th{background:#0f5c2e;color:white;padding:8px 10px;text-align:left;font-weight:700;}
-    .lesson-out td{padding:7px 10px;border-bottom:1px solid #e8ede8;}
-    .lesson-out tr:nth-child(even) td{background:#f5fff5;}
-    .lesson-out .yt{display:inline-flex;align-items:center;gap:6px;background:#fee2e2;color:#dc2626;padding:5px 11px;border-radius:8px;font-size:12px;font-weight:700;text-decoration:none;margin:3px 0;}
-    .lesson-out .diagram{background:#f0faf0;border:1.5px solid #86efac;border-radius:11px;padding:14px;margin:10px 0;font-size:12px;font-family:monospace;white-space:pre-wrap;line-height:1.5;}
-    .lesson-out .tag{display:inline-block;background:#0f5c2e;color:white;font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:3px;}
-    ::-webkit-scrollbar{width:5px;}
-    ::-webkit-scrollbar-thumb{background:#86efac;border-radius:3px;}
-    @media print{.no-print{display:none!important;}.print-show{display:block!important;}body{background:white;}}
+    /* ... rest of your existing styles ... */
+    
+    /* MOBILE SIDEBAR */
+    @media (max-width: 768px) {
+      .sidebar {
+        position: fixed !important;
+        left: -230px !important;
+        top: 0 !important;
+        bottom: 0 !important;
+        z-index: 1000 !important;
+        transition: left 0.3s ease !important;
+      }
+      .sidebar.open {
+        left: 0 !important;
+      }
+      .sidebar-overlay {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.5);
+        z-index: 999;
+      }
+      .sidebar-overlay.show {
+        display: block;
+      }
+      .hamburger {
+        display: flex !important;
+      }
+    }
+    @media (min-width: 769px) {
+      .hamburger {
+        display: none !important;
+      }
+    }
   `}</style>
 );
 
@@ -3175,12 +3161,15 @@ function Dashboard({ go }) {
 // ══════════════════════════════════════════════════════════
 export default function App() {
   const [panel, setPanel] = useState("dashboard");
+  const [sidebarOpen, setSidebarOpen] = useState(false); // ← ADD THIS
+  
   const nav = [
     { id: "dashboard", label: "Dashboard", icon: "dashboard" },
     { id: "lesson", label: "Lesson Planner", icon: "lesson" },
     { id: "classroom", label: "Quiz Classrooms", icon: "classroom" },
     { id: "reports", label: "Reports", icon: "report" },
   ];
+  
   return (
     <>
       <GlobalStyles />
@@ -3192,8 +3181,15 @@ export default function App() {
           fontFamily: "'DM Sans',sans-serif",
         }}
       >
+        {/* OVERLAY - ADD THIS */}
+        <div 
+          className={`sidebar-overlay ${sidebarOpen ? 'show' : ''}`}
+          onClick={() => setSidebarOpen(false)}
+        />
+        
         {/* Sidebar */}
         <div
+          className={`sidebar ${sidebarOpen ? 'open' : ''}`} {/* ← ADD CLASS */}
           style={{
             width: 230,
             flexShrink: 0,
@@ -3203,6 +3199,7 @@ export default function App() {
             padding: 14,
           }}
         >
+          {/* ... your existing sidebar content ... */}
           <div
             style={{
               display: "flex",
@@ -3262,7 +3259,10 @@ export default function App() {
               <button
                 key={item.id}
                 className={`nav-btn ${panel === item.id ? "active" : ""}`}
-                onClick={() => setPanel(item.id)}
+                onClick={() => {
+                  setPanel(item.id);
+                  setSidebarOpen(false); // ← CLOSE ON MOBILE
+                }}
               >
                 <Ic
                   n={item.icon}
@@ -3342,6 +3342,23 @@ export default function App() {
               flexShrink: 0,
             }}
           >
+            {/* HAMBURGER BUTTON - ADD THIS */}
+            <button
+              className="hamburger"
+              onClick={() => setSidebarOpen(!sidebarOpen)}
+              style={{
+                background: 'none',
+                border: 'none',
+                padding: 8,
+                cursor: 'pointer',
+                marginRight: 12,
+              }}
+            >
+              <svg width="24" height="24" fill="none" stroke="#0a3d1f" strokeWidth="2">
+                <path d="M4 6h16M4 12h16M4 18h16"/>
+              </svg>
+            </button>
+            
             <span
               className="font-display"
               style={{ fontSize: 17, color: "#0a3d1f", fontWeight: 700 }}
@@ -3390,7 +3407,6 @@ export default function App() {
     </>
   );
 }
-
 function PastQuizzesView() {
   const [rooms, setRooms] = useState([]);
   const [busy, setBusy] = useState(false);
