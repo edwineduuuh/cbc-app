@@ -919,12 +919,12 @@ def list_lesson_plans(request):
 def generate_lesson(request):
     """
     POST /api/lessons/generate/
-    Body: { grade, subject, term, week, lesson_number, topic, subtopic,
+    Body: { grade, subject, term, week, lesson_number, strand, substrand,
             duration, learner_level, prior_knowledge, resources,
             is_practical, practical_area }
     Creates a LessonPlan record + calls Claude + stores + returns result.
     """
-    required = ["grade", "subject", "term", "week", "lesson_number", "topic", "duration"]
+    required = ["grade", "subject", "term", "week", "lesson_number", "strand", "duration"]
     for field in required:
         if not request.data.get(field):
             return Response({"error": f"'{field}' is required."}, status=400)
@@ -936,8 +936,8 @@ def generate_lesson(request):
         "term":           request.data["term"],
         "week":           int(request.data["week"]),
         "lesson_number":  int(request.data["lesson_number"]),
-        "topic":          request.data["topic"],
-        "subtopic":       request.data.get("subtopic", ""),
+        "strand":         request.data["strand"],
+        "substrand":      request.data.get("substrand", ""),
         "duration":       request.data["duration"],
         "learner_level":  request.data.get("learner_level", "Mixed ability"),
         "prior_knowledge":request.data.get("prior_knowledge", ""),
@@ -1378,19 +1378,22 @@ def generate_quiz_questions(request):
     """
     POST /api/lessons/generate-questions/
     Generate quiz questions with AI for Kahoot-style classrooms
-    Body: { grade, subject, topic, count }
+    Body: { grade, subject, strand, substrand, count }
     """
     from .ai_service import client, MODEL, parse_ai_json
     
     grade = request.data.get('grade', 'Grade 7')
     subject = request.data.get('subject', 'Mathematics')
-    topic = request.data.get('topic', '')
+    strand = request.data.get('strand', '')
+    substrand = request.data.get('substrand', '')
     count = int(request.data.get('count', 5))
     
     if not topic:
         return Response({'error': 'Topic is required'}, status=400)
     
-    prompt = f"""Generate {count} multiple-choice quiz questions for a {grade} {subject} quiz on: {topic}
+    topic_text = f"{strand}" + (f" - {substrand}" if substrand else "")
+    
+    prompt = f"""Generate {count} multiple-choice quiz questions for a {grade} {subject} quiz on: {topic_text}
 
 Return ONLY valid JSON:
 {{
@@ -1419,5 +1422,3 @@ Make questions appropriate for {grade} level."""
         
     except Exception as e:
         return Response({'error': str(e)}, status=500)
-
-

@@ -55,7 +55,7 @@ Always respond with valid JSON only — no markdown fences, no commentary outsid
 
 def generate_lesson_plan(data: dict) -> dict:
     """
-    data keys: grade, subject, term, week, lesson_number, topic, subtopic,
+    data keys: grade, subject, term, week, lesson_number, strand, substrand,
                duration, learner_level, prior_knowledge, resources,
                is_practical, practical_area
     Returns the full lesson plan as a dict.
@@ -65,8 +65,8 @@ def generate_lesson_plan(data: dict) -> dict:
 Grade: {data['grade']}
 Subject: {data['subject']}
 Term: {data['term']}  |  Week: {data['week']}  |  Lesson: {data['lesson_number']}
-Topic: {data['topic']}
-Sub-topic: {data.get('subtopic') or 'General'}
+Strand: {data['strand']}
+Sub-strand: {data.get('substrand') or 'General'}
 Duration: {data['duration']}
 Learner Level: {data['learner_level']}
 Prior Knowledge: {data.get('prior_knowledge') or 'Basic concepts'}

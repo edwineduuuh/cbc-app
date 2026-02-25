@@ -804,8 +804,8 @@ class LessonPlan(models.Model):
     term           = models.CharField(max_length=20)
     week           = models.PositiveSmallIntegerField()
     lesson_number  = models.PositiveSmallIntegerField()
-    topic          = models.CharField(max_length=200)
-    subtopic       = models.CharField(max_length=200, blank=True)
+    strand         = models.CharField(max_length=200)
+    substrand      = models.CharField(max_length=200, blank=True)
     duration       = models.CharField(max_length=40)
     learner_level  = models.CharField(max_length=60)
     prior_knowledge= models.TextField(blank=True)
@@ -823,7 +823,7 @@ class LessonPlan(models.Model):
         ordering = ["-created_at"]
 
     def __str__(self):
-        return f"{self.grade} | {self.subject} | {self.topic} (Wk {self.week})"
+        return f"{self.grade} | {self.subject} | {self.strand} (Wk {self.week})"
 
 
 # ─────────────────────────────────────────────
