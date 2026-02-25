@@ -3189,7 +3189,7 @@ export default function App() {
         
         {/* Sidebar */}
         <div
-          className={`sidebar ${sidebarOpen ? 'open' : ''}`} {/* ← ADD CLASS */}
+          className={`sidebar ${sidebarOpen ? 'open' : ''}`}
           style={{
             width: 230,
             flexShrink: 0,
