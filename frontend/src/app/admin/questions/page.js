@@ -19,7 +19,7 @@ import {
   Check,
 } from "lucide-react";
 
-const API = "http://127.0.0.1:8000/api";
+const API = "https://cbc-backend-76im.onrender.com/api";
 export default function QuestionManagementPage() {
   const { user } = useAuth();
   const router = useRouter();
@@ -73,13 +73,13 @@ export default function QuestionManagementPage() {
      return;
    }
 
-    fetch("http://127.0.0.1:8000/api/subjects/")
-      .then((res) => res.json())
-      .then((data) => setSubjects(data));
+fetch(`${API}/subjects/`)
+  .then((res) => res.json())
+  .then((data) => setSubjects(data));
 
-    fetch("http://127.0.0.1:8000/api/topics/")
-      .then((res) => res.json())
-      .then((data) => setTopics(data));
+fetch(`${API}/topics/`)
+  .then((res) => res.json())
+  .then((data) => setTopics(data));
 
     loadQuestions();
   }, [user, router]);
@@ -203,17 +203,14 @@ const handleCreateQuestion = async (e) => {
   console.log("Sending payload:", payload);
 
   try {
-    const response = await fetch(
-      "http://127.0.0.1:8000/api/admin/questions/create/",
-      {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(payload),
+    const response = await fetch(`${API}/admin/questions/create/`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
       },
-    );
+      body: JSON.stringify(payload),
+    });
 
     const data = await response.json();
 
@@ -259,7 +256,7 @@ const handleCreateQuestion = async (e) => {
 
     try {
       const response = await fetch(
-        `http://127.0.0.1:8000/api/admin/questions/${editingQuestion.id}/`,
+        `${API}/admin/questions/${editingQuestion.id}/`,
         {
           method: "PUT",
           headers: {
@@ -319,13 +316,10 @@ const handleCreateQuestion = async (e) => {
     const token = localStorage.getItem("accessToken");
 
     try {
-      const response = await fetch(
-        `http://127.0.0.1:8000/api/admin/questions/${questionId}/`,
-        {
-          method: "DELETE",
-          headers: { Authorization: `Bearer ${token}` },
-        },
-      );
+      const response = await fetch(`${API}/admin/questions/${questionId}/`, {
+        method: "DELETE",
+        headers: { Authorization: `Bearer ${token}` },
+      });
 
       if (response.ok) {
         setToast({
@@ -355,12 +349,9 @@ const handleCreateQuestion = async (e) => {
  const openEditModal = async (questionSummary) => {
    try {
      const token = localStorage.getItem("accessToken");
-     const res = await fetch(
-       `http://127.0.0.1:8000/api/admin/questions/${questionSummary.id}/`,
-       {
-         headers: { Authorization: `Bearer ${token}` },
-       },
-     );
+     const res = await fetch(`${API}/admin/questions/${questionSummary.id}/`, {
+       headers: { Authorization: `Bearer ${token}` },
+     });
 
      if (!res.ok) {
        throw new Error(`HTTP ${res.status}`);
@@ -396,14 +387,11 @@ const handleCreateQuestion = async (e) => {
     formDataObj.append("file", csvFile);
 
     try {
-      const response = await fetch(
-        "http://127.0.0.1:8000/api/admin/questions/bulk-import/",
-        {
-          method: "POST",
-          headers: { Authorization: `Bearer ${token}` },
-          body: formDataObj,
-        },
-      );
+      const response = await fetch(`${API}/admin/questions/bulk-import/`, {
+        method: "POST",
+        headers: { Authorization: `Bearer ${token}` },
+        body: formDataObj,
+      });
 
       const data = await response.json();
 
