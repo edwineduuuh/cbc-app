@@ -575,18 +575,24 @@ import json
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 # @requires_subscription
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+@check_quiz_credits  # ← NEW: Check free trial credits
 def submit_quiz(request):
     """
     Submit quiz answers and get AI-graded results
+    
+    SPEED: Uses parallel grading (5-10 sec) instead of sequential (20-30 sec)
+    CREDITS: Deducts 1 free quiz credit (or checks subscription)
     
     POST /api/quizzes/submit/
     Body: {
         "quiz_id": 1,
         "answers": {
-            "1": "A",           # MCQ
-            "2": "photosynthesis",  # Fill blank
-            "3": "x=4",         # Math
-            "4": "Plants absorb water through roots..."  # Structured
+            "1": "A",
+            "2": "photosynthesis",
+            "3": "x=4",
+            "4": "Plants absorb water through roots..."
         }
     }
     """
@@ -603,25 +609,26 @@ def submit_quiz(request):
         return Response({'error': 'Quiz not found'}, status=status.HTTP_404_NOT_FOUND)
     
     # Get all questions in quiz
-    questions = quiz.questions.all()
+    questions = list(quiz.questions.all())
     
-    # Grade each answer
-    results = []
-    total_marks_awarded = 0
-    total_max_marks = 0
+    if not questions:
+        return Response({'error': 'Quiz has no questions'}, status=status.HTTP_400_BAD_REQUEST)
+    
+    # ========== PARALLEL GRADING (FAST!) ==========
+    print(f"🚀 Starting parallel grading for {len(questions)} questions...")
+    results = grade_quiz_fast(questions, answers)
+    
+    # Calculate totals
+    total_marks_awarded = sum(r['marks_awarded'] for r in results)
+    total_max_marks = sum(r['max_marks'] for r in results)
+    score_percentage = (total_marks_awarded / total_max_marks * 100) if total_max_marks > 0 else 0
+    
+    # Build detailed feedback
     detailed_feedback = {}
-    
-    for question in questions:
-        student_answer = answers.get(str(question.id), "")
-        
-        # Grade using AI engine
-        grading_result = grade_answer(question, student_answer)
-        total_marks_awarded += grading_result['marks_awarded']
-        total_max_marks += grading_result['max_marks']
-        
-        # --- NEW: Map MCQ letters to actual text for better display ---
-        display_correct_answer = question.correct_answer
-        display_student_answer = student_answer
+    for question, result in zip(questions, results):
+        # Map MCQ letters to full text for display
+        display_correct = question.correct_answer
+        display_student = answers.get(str(question.id), "")
         
         if question.question_type == 'mcq':
             options_map = {
@@ -630,47 +637,33 @@ def submit_quiz(request):
                 'C': question.option_c,
                 'D': question.option_d
             }
-            # Format Correct Answer (e.g., "A: Nairobi")
-            c_text = options_map.get(str(question.correct_answer).strip().upper(), '')
-            if c_text:
-                display_correct_answer = f"{str(question.correct_answer).strip().upper()}: {c_text}"
-                
-            # Format Student Answer (e.g., "C: Kisumu")
-            s_text = options_map.get(str(student_answer).strip().upper(), '')
-            if s_text:
-                display_student_answer = f"{str(student_answer).strip().upper()}: {s_text}"
-        # --------------------------------------------------------------
-
-        # Store detailed feedback
+            correct_text = options_map.get(str(question.correct_answer).upper(), '')
+            student_text = options_map.get(str(display_student).upper(), '')
+            
+            if correct_text:
+                display_correct = f"{question.correct_answer}: {correct_text}"
+            if student_text:
+                display_student = f"{display_student.upper()}: {student_text}"
+        
         detailed_feedback[str(question.id)] = {
             'question_text': question.question_text,
-            'question_type': question.question_type,          
-            'option_a': question.option_a,                    
-            'option_b': question.option_b,                    
-            'option_c': question.option_c,                    
+            'question_type': question.question_type,
+            'option_a': question.option_a,
+            'option_b': question.option_b,
+            'option_c': question.option_c,
             'option_d': question.option_d,
-            'student_answer': display_student_answer,         # <--- Updated to show full text
-            'marks_awarded': grading_result['marks_awarded'],
-            'max_marks': grading_result['max_marks'],
-            'feedback': grading_result['feedback'],
-            'is_correct': grading_result['is_correct'],
-            'correct_answer': display_correct_answer if not grading_result['is_correct'] else None, # <--- Updated to show full text
-            'explanation': question.explanation if not grading_result['is_correct'] else None,
-            'points_earned': grading_result.get('points_earned', []),
-            'points_missed': grading_result.get('points_missed', []),
-            'personalized_message': grading_result.get('personalized_message', ''),  
-            'study_tip': grading_result.get('study_tip', ''),  
+            'student_answer': display_student,
+            'marks_awarded': result['marks_awarded'],
+            'max_marks': result['max_marks'],
+            'feedback': result['feedback'],
+            'is_correct': result['is_correct'],
+            'correct_answer': display_correct if not result['is_correct'] else None,
+            'explanation': question.explanation if not result['is_correct'] else None,
+            'points_earned': result.get('points_earned', []),
+            'points_missed': result.get('points_missed', []),
+            'personalized_message': result.get('personalized_message', ''),
+            'study_tip': result.get('study_tip', ''),
         }
-        
-        results.append({
-            'question_id': question.id,
-            'marks_awarded': grading_result['marks_awarded'],
-            'max_marks': grading_result['max_marks'],
-            'is_correct': grading_result['is_correct']
-        })
-    
-    # Calculate score percentage
-    score_percentage = (total_marks_awarded / total_max_marks * 100) if total_max_marks > 0 else 0
     
     # Create attempt record
     with transaction.atomic():
@@ -678,26 +671,43 @@ def submit_quiz(request):
             student=request.user,
             quiz=quiz,
             score=score_percentage,
-            total_questions=questions.count(),
+            total_questions=len(questions),
             correct_answers=sum(1 for r in results if r['is_correct']),
             total_marks_awarded=total_marks_awarded,
             total_max_marks=total_max_marks,
             status='completed',
-            detailed_feedback=detailed_feedback
+            completed_at=timezone.now(),
+            detailed_feedback=detailed_feedback,
+            answers=answers
         )
+    
+    # Get updated credits status
+    credits_status = get_user_credits_status(request.user)
     
     return Response({
         'id': attempt.id,
         'score': round(score_percentage, 1),
         'total_marks_awarded': total_marks_awarded,
         'total_max_marks': total_max_marks,
-        'total_questions': questions.count(),
+        'total_questions': len(questions),
         'correct_answers': sum(1 for r in results if r['is_correct']),
         'passed': score_percentage >= quiz.passing_score,
-        'results': results,
-        'message': 'Quiz submitted successfully!'
+        'results': [
+            {
+                'question_id': q.id,
+                'marks_awarded': r['marks_awarded'],
+                'max_marks': r['max_marks'],
+                'is_correct': r['is_correct']
+            }
+            for q, r in zip(questions, results)
+        ],
+        'message': 'Quiz submitted successfully! ✅',
+        
+        # Credits info
+        'credits_status': credits_status,
+        'quiz_credits': credits_status['quiz_credits'],
+        
     }, status=status.HTTP_201_CREATED)
-
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
@@ -919,12 +929,12 @@ def list_lesson_plans(request):
 def generate_lesson(request):
     """
     POST /api/lessons/generate/
-    Body: { grade, subject, term, week, lesson_number, strand, substrand,
+    Body: { grade, subject, term, week, lesson_number, topic, subtopic,
             duration, learner_level, prior_knowledge, resources,
             is_practical, practical_area }
     Creates a LessonPlan record + calls Claude + stores + returns result.
     """
-    required = ["grade", "subject", "term", "week", "lesson_number", "strand", "duration"]
+    required = ["grade", "subject", "term", "week", "lesson_number", "topic", "duration"]
     for field in required:
         if not request.data.get(field):
             return Response({"error": f"'{field}' is required."}, status=400)
@@ -936,8 +946,8 @@ def generate_lesson(request):
         "term":           request.data["term"],
         "week":           int(request.data["week"]),
         "lesson_number":  int(request.data["lesson_number"]),
-        "strand":         request.data["strand"],
-        "substrand":      request.data.get("substrand", ""),
+        "topic":          request.data["topic"],
+        "subtopic":       request.data.get("subtopic", ""),
         "duration":       request.data["duration"],
         "learner_level":  request.data.get("learner_level", "Mixed ability"),
         "prior_knowledge":request.data.get("prior_knowledge", ""),
@@ -1378,22 +1388,19 @@ def generate_quiz_questions(request):
     """
     POST /api/lessons/generate-questions/
     Generate quiz questions with AI for Kahoot-style classrooms
-    Body: { grade, subject, strand, substrand, count }
+    Body: { grade, subject, topic, count }
     """
     from .ai_service import client, MODEL, parse_ai_json
     
     grade = request.data.get('grade', 'Grade 7')
     subject = request.data.get('subject', 'Mathematics')
-    strand = request.data.get('strand', '')
-    substrand = request.data.get('substrand', '')
+    topic = request.data.get('topic', '')
     count = int(request.data.get('count', 5))
     
     if not topic:
         return Response({'error': 'Topic is required'}, status=400)
     
-    topic_text = f"{strand}" + (f" - {substrand}" if substrand else "")
-    
-    prompt = f"""Generate {count} multiple-choice quiz questions for a {grade} {subject} quiz on: {topic_text}
+    prompt = f"""Generate {count} multiple-choice quiz questions for a {grade} {subject} quiz on: {topic}
 
 Return ONLY valid JSON:
 {{
@@ -1422,3 +1429,5 @@ Make questions appropriate for {grade} level."""
         
     except Exception as e:
         return Response({'error': str(e)}, status=500)
+
+

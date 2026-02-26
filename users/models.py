@@ -57,6 +57,15 @@ class User(AbstractUser):
     trial_end = models.DateTimeField(null=True, blank=True)
     has_used_trial = models.BooleanField(default=False)
 
+    # FREE TRIAL CREDITS
+    quiz_credits = models.IntegerField(
+        default=2,
+        help_text='Free quiz attempts remaining'
+    )
+    total_quizzes_taken = models.IntegerField(
+        default=0,
+        help_text='Total quizzes taken (analytics)'
+    )
     # Authentication settings
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['email']
