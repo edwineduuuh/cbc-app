@@ -164,39 +164,17 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://localhost:3001",
     "https://cbc-app-9nlr.vercel.app",
-    "https://cbc-app-9nlr-a4bc90ad7-edwineduuuhs-projects.vercel.app",
-    "https://cbc-app-9nlr-hks9tj69q-edwineduuuhs-projects.vercel.app",
-]
-
-CORS_ALLOW_CREDENTIALS = True
-CORS_ALLOW_METHODS = [
-    'DELETE',
-    'GET',
-    'OPTIONS',
-    'PATCH',
-    'POST',
-    'PUT',
-]
-CORS_ALLOW_HEADERS = [
-    'accept',
-    'accept-encoding',
-    'authorization',
-    'content-type',
-    'dnt',
-    'origin',
-    'user-agent',
-    'x-csrftoken',
-    'x-requested-with',
 ]
 
 CORS_ALLOWED_ORIGIN_REGEXES = [
-    r"^https://.*\.vercel\.app$",
+    r"^https://cbc-app-9nlr-.*\.vercel\.app$",  # This allows ALL preview deployments
 ]
+
+CORS_ALLOW_CREDENTIALS = True
 
 CSRF_TRUSTED_ORIGINS = [
     "https://cbc-app-9nlr.vercel.app",
-    "https://cbc-app-9nlr-a4bc90ad7-edwineduuuhs-projects.vercel.app",
-    "https://cbc-app-9nlr-hks9tj69q-edwineduuuhs-projects.vercel.app",
+    "https://cbc-app-9nlr-6jpwumcbt-edwineduuuhs-projects.vercel.app",
     "https://cbc-backend-76im.onrender.com",
 ]
 # OAuth Configuration
