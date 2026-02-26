@@ -15,8 +15,8 @@ from django.db import transaction
 from .models import Question, Topic, Subject
 import anthropic
 from django.conf import settings
-import os
-os.environ['PATH'] += r';C:\Program Files\Tesseract-OCR'
+# import os
+# os.environ['PATH'] += r';C:\Program Files\Tesseract-OCR'
 
 class BulkExamUploader:
     """
