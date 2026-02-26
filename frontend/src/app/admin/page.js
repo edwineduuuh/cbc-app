@@ -931,6 +931,7 @@ export default function AdminPage() {
 
       setQuestions(Array.isArray(qData) ? qData : (qData.results ?? []));
       setSubjects(Array.isArray(sData) ? sData : []);
+      setTopics(Array.isArray(tData) ? tData : []);
       setStats(stData);
     } catch (err) {
       console.error("Fetch error:", err);
