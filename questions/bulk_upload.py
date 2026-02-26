@@ -3,7 +3,8 @@ BULK UPLOAD WITH IMAGE EXTRACTION
 Automatically extracts images from PDFs/Word docs and links them to questions
 
 SETUP:
-pip install PyPDF2 python-docx Pillow pytesseract pdf2image PyMuPDF --break-system-packages
+pip install PyPDF2 python-docx Pillow PyMuPDF --break-system-packages
+(No tesseract needed - Claude Vision is used as fallback)
 """
 
 import re
@@ -15,27 +16,23 @@ from django.db import transaction
 from .models import Question, Topic, Subject
 import anthropic
 from django.conf import settings
-# import os
-# os.environ['PATH'] += r';C:\Program Files\Tesseract-OCR'
+
 
 class BulkExamUploader:
     """
-    Extracts questions AND images from uploaded files
+    Extracts questions AND images from uploaded files.
+    Uses Claude Vision as fallback when PDF/image extraction fails.
     """
     
     def __init__(self):
         self.client = anthropic.Anthropic(api_key=settings.ANTHROPIC_API_KEY)
-        self.extracted_images = []  # Store extracted images
+        self.extracted_images = []
     
     def process_upload(self, file, subject_id, grade, topic_id=None, created_by=None):
-        """
-        Main entry point - processes any file type
-        """
+        """Main entry point - processes any file type"""
         
-        # Reset images for this upload
         self.extracted_images = []
         
-        # Extract text AND images from file
         text = self._extract_text_from_file(file)
         print(f"=== EXTRACTED TEXT (first 500 chars): {text[:500] if text else 'EMPTY'}")
         print(f"=== EXTRACTED {len(self.extracted_images)} IMAGES")
@@ -47,7 +44,6 @@ class BulkExamUploader:
                 'questions_created': 0
             }
         
-        # Parse questions using Claude API (with image info)
         parsed_questions = self._parse_questions_with_ai(text, subject_id, grade)
         
         if not parsed_questions:
@@ -58,7 +54,6 @@ class BulkExamUploader:
                 'raw_text_preview': text[:500]
             }
         
-        # Create questions in database (with images)
         result = self._create_questions_in_db(
             parsed_questions, 
             subject_id, 
@@ -90,42 +85,34 @@ class BulkExamUploader:
             return None
     
     def _extract_from_pdf(self, file):
-        """Extract text AND images from PDF using PyMuPDF"""
+        """Extract text AND images from PDF using PyMuPDF, fallback to Claude Vision"""
         try:
             import fitz  # PyMuPDF
             
-            # Read PDF
             pdf_bytes = file.read()
             doc = fitz.open(stream=pdf_bytes, filetype="pdf")
             
             text = ""
             
-            # Extract text and images from each page
             for page_num in range(len(doc)):
                 page = doc[page_num]
-                
-                # Extract text
                 page_text = page.get_text()
                 text += page_text + f"\n[PAGE {page_num + 1}]\n"
                 
-                # Extract images
                 image_list = page.get_images()
-                
                 for img_index, img in enumerate(image_list):
                     try:
                         xref = img[0]
                         base_image = doc.extract_image(xref)
                         image_bytes = base_image["image"]
                         
-                        # Store image
                         self.extracted_images.append({
                             'bytes': image_bytes,
                             'page': page_num + 1,
                             'index': img_index,
-                            'ext': base_image["ext"]  # png, jpg, etc
+                            'ext': base_image["ext"]
                         })
                         
-                        # Add marker in text
                         text += f"\n[IMAGE_{len(self.extracted_images)-1}]\n"
                     
                     except Exception as e:
@@ -133,36 +120,31 @@ class BulkExamUploader:
             
             doc.close()
             
-            # If text is too short, use OCR
             clean_text = text.replace('CamScanner', '').replace('[PAGE', '').replace('[IMAGE_', '').strip()
             
             if len(clean_text) < 50:
-                print("⚠️ PDF has no text, trying OCR...")
+                print("PDF has no text, trying Claude Vision...")
                 file.seek(0)
-                return self._ocr_pdf(file)
+                return self._extract_with_claude_vision(file)
             
             return text
         
         except Exception as e:
             print(f"PDF extraction error: {e}")
-            # Fallback to OCR
             file.seek(0)
-            return self._ocr_pdf(file)
+            return self._extract_with_claude_vision(file)
     
     def _extract_from_word(self, file):
         """Extract text AND images from Word document"""
         try:
             import docx
-            from docx.oxml import parse_xml
             
             doc = docx.Document(file)
             text = ""
             
-            # Extract paragraphs
             for paragraph in doc.paragraphs:
                 text += paragraph.text + "\n"
             
-            # Extract images from document relationships
             for rel in doc.part.rels.values():
                 if "image" in rel.target_ref:
                     try:
@@ -186,75 +168,104 @@ class BulkExamUploader:
             return None
     
     def _extract_from_image(self, file):
-        """Extract text from image using OCR and store the image"""
+        """Extract text from image - uses Claude Vision directly (no tesseract needed)"""
         try:
-            import pytesseract
             from PIL import Image
             
-            # Read image
             image_bytes = file.read()
-            image = Image.open(io.BytesIO(image_bytes))
             
-            # Store image
+            # Store the image
             self.extracted_images.append({
                 'bytes': image_bytes,
                 'index': 0,
                 'ext': file.name.split('.')[-1]
             })
             
-            # OCR text
-            text = pytesseract.image_to_string(image)
-            text += f"\n[IMAGE_0]\n"
-            
+            # Use Claude Vision to extract text
+            print("Using Claude Vision to extract text from image...")
+            file.seek(0)
+            text = self._extract_with_claude_vision(file)
+            if text:
+                text += f"\n[IMAGE_0]\n"
             return text
         
         except Exception as e:
-            print(f"Image OCR error: {e}")
-            return None
+            print(f"Image extraction error: {e}")
+            file.seek(0)
+            return self._extract_with_claude_vision(file)
     
-    def _ocr_pdf(self, file):
-        """OCR a PDF if text extraction fails"""
+    def _extract_with_claude_vision(self, file):
+        """
+        Use Claude Vision to extract text from any image or PDF.
+        This is the main fallback when fitz/tesseract are unavailable.
+        """
         try:
-            from pdf2image import convert_from_bytes
-            import pytesseract
+            print("Extracting text via Claude Vision...")
             
-            # Convert PDF pages to images
-            images = convert_from_bytes(file.read())
+            file_bytes = file.read()
+            b64 = base64.b64encode(file_bytes).decode('utf-8')
             
-            text = ""
-            for page_num, image in enumerate(images):
-                # Store image
-                img_byte_arr = io.BytesIO()
-                image.save(img_byte_arr, format='PNG')
-                image_bytes = img_byte_arr.getvalue()
-                
+            ext = file.name.split('.')[-1].lower()
+            media_type_map = {
+                'pdf':  'application/pdf',
+                'png':  'image/png',
+                'jpg':  'image/jpeg',
+                'jpeg': 'image/jpeg',
+                'bmp':  'image/png',   # convert bmp → treat as png
+                'tiff': 'image/png',
+            }
+            media_type = media_type_map.get(ext, 'image/png')
+
+            # Store image for later attachment if it's an image file
+            if ext in ('png', 'jpg', 'jpeg', 'bmp', 'tiff') and not self.extracted_images:
                 self.extracted_images.append({
-                    'bytes': image_bytes,
-                    'page': page_num + 1,
-                    'index': page_num,
-                    'ext': 'png'
+                    'bytes': file_bytes,
+                    'index': 0,
+                    'ext': ext
                 })
-                
-                # OCR
-                page_text = pytesseract.image_to_string(image)
-                text += page_text + f"\n[PAGE {page_num + 1}]\n[IMAGE_{len(self.extracted_images)-1}]\n"
             
-            return text
+            response = self.client.messages.create(
+                model="claude-sonnet-4-20250514",
+                max_tokens=4000,
+                messages=[{
+                    "role": "user",
+                    "content": [
+                        {
+                            "type": "image",
+                            "source": {
+                                "type": "base64",
+                                "media_type": media_type,
+                                "data": b64
+                            }
+                        },
+                        {
+                            "type": "text",
+                            "text": (
+                                "Extract ALL text from this exam paper exactly as it appears. "
+                                "Preserve question numbers, options (A, B, C, D), and all content. "
+                                "If there are diagrams or images, write [IMAGE] where they appear."
+                            )
+                        }
+                    ]
+                }]
+            )
+            
+            extracted = response.content[0].text
+            print(f"Claude Vision extracted {len(extracted)} characters")
+            return extracted
         
         except Exception as e:
-            print(f"PDF OCR error: {e}")
+            print(f"Claude Vision extraction error: {e}")
             return None
     
     def _parse_questions_with_ai(self, text, subject_id, grade):
-        """Use Claude API to parse questions from raw text with image markers"""
+        """Use Claude API to parse questions from raw text"""
         
         try:
             subject = Subject.objects.get(id=subject_id)
             subject_name = subject.name
         except Subject.DoesNotExist:
             subject_name = "General"
-        
-        has_images = len(self.extracted_images) > 0
         
         prompt = f"""You are parsing questions from an exam paper for Kenyan CBC curriculum.
 
@@ -265,57 +276,50 @@ Images found: {len(self.extracted_images)}
 EXTRACTED TEXT (with image markers):
 {text}
 
-NOTE: Text contains [IMAGE_0], [IMAGE_1] markers where images appear in the document.
+NOTE: Text may contain [IMAGE_0], [IMAGE_1] or [IMAGE] markers where images appear.
 
 INSTRUCTIONS:
 1. Identify ALL questions in the text
-2. If a question has an [IMAGE_X] marker near it, note the image index
+2. If a question has an [IMAGE_X] or [IMAGE] marker near it, note the image index (use 0 if just [IMAGE])
 3. Determine question type:
-   - **mcq**: ONLY if has clear A, B, C, D options
-   - **math**: Calculations, equations, solving for x, algebra, geometry
-   - **structured**: Multi-part questions requiring explanation
-   - **fill_blank**: Fill in the blank questions
-   - **essay**: Long-form written responses
+   - mcq: ONLY if has clear A, B, C, D options
+   - math: Calculations, equations, solving for x
+   - structured: Multi-part questions requiring explanation
+   - fill_blank: Fill in the blank
+   - essay: Long-form written responses
 
-4. **FOR MCQ QUESTIONS - CRITICAL**:
+4. FOR MCQ QUESTIONS:
    - Extract the FULL TEXT of each option (A, B, C, D)
    - Set correct_answer to the LETTER only (A, B, C, or D)
 
-5. **FOR QUESTIONS WITH IMAGES**:
-   - If you see [IMAGE_2] near a question, set "image_index": 2
-   - Example: "Refer to the diagram below [IMAGE_0]" → set "image_index": 0
+5. FOR QUESTIONS WITH IMAGES:
+   - Set "image_index" to the number in [IMAGE_X], or 0 for [IMAGE]
 
-CRITICAL: Return ONLY JSON. No explanations before or after.
+CRITICAL: Return ONLY valid JSON. No explanations.
 
-EXAMPLE WITH IMAGE:
+FORMAT:
 {{
   "questions": [
     {{
       "question_number": "1",
       "question_type": "mcq",
-      "question_text": "In the diagram, what part is labeled X?",
+      "question_text": "Question here",
       "image_index": 0,
-      "option_a": "Nucleus",
-      "option_b": "Mitochondria",
-      "option_c": "Cell wall",
-      "option_d": "Cytoplasm",
+      "option_a": "Option A text",
+      "option_b": "Option B text",
+      "option_c": "Option C text",
+      "option_d": "Option D text",
       "correct_answer": "A",
-      "explanation": "Part X points to the nucleus",
+      "explanation": "Why A is correct",
       "difficulty": "medium",
       "max_marks": 1
-    }}
-  ]
-}}
-
-EXAMPLE WITHOUT IMAGE:
-{{
-  "questions": [
+    }},
     {{
       "question_number": "2",
       "question_type": "math",
       "question_text": "Solve: 2x + 5 = 13",
       "correct_answer": "x = 4",
-      "explanation": "Subtract 5, then divide by 2",
+      "explanation": "Subtract 5, divide by 2",
       "difficulty": "medium",
       "max_marks": 2
     }}
@@ -323,9 +327,9 @@ EXAMPLE WITHOUT IMAGE:
 }}
 
 REMEMBER: 
-- MCQs MUST have option_a, option_b, option_c, option_d
-- Include "image_index" ONLY if the question refers to an image
-- Preserve mathematical notation
+- MCQs MUST have option_a through option_d
+- Only include image_index if the question actually refers to an image
+- Preserve all mathematical notation
 """
         
         try:
@@ -338,13 +342,12 @@ REMEMBER:
             raw_text = response.content[0].text
             print(f"=== AI Response (first 500 chars): {raw_text[:500]}")
             
-            # Extract JSON
             cleaned = re.sub(r'```json\s*', '', raw_text)
             cleaned = re.sub(r'```\s*', '', cleaned)
             
             start = cleaned.find('{')
             if start == -1:
-                print("❌ No JSON found")
+                print("No JSON found in response")
                 return []
             
             brace_count = 0
@@ -363,18 +366,13 @@ REMEMBER:
             questions = result.get('questions', [])
             
             print(f"=== Parsed {len(questions)} questions")
-            for i, q in enumerate(questions[:3]):
-                print(f"Q{i+1}: {q.get('question_text', '')[:80]}")
-                if 'image_index' in q:
-                    print(f"  → Has image #{q['image_index']}")
-            
             return questions
         
         except json.JSONDecodeError as e:
-            print(f"❌ JSON error: {e}")
+            print(f"JSON error: {e}")
             return []
         except Exception as e:
-            print(f"❌ AI error: {e}")
+            print(f"AI error: {e}")
             import traceback
             traceback.print_exc()
             return []
@@ -386,7 +384,6 @@ REMEMBER:
         created_questions = []
         errors = []
         
-        # Get or create default topic
         if not topic_id:
             subject = Subject.objects.get(id=subject_id)
             topic, _ = Topic.objects.get_or_create(
@@ -416,24 +413,22 @@ REMEMBER:
                     created_by=created_by
                 )
                 
-                # ✅ ATTACH IMAGE IF QUESTION HAS ONE
+                # Attach image if question has one
                 image_index = q_data.get('image_index')
                 if image_index is not None and image_index < len(self.extracted_images):
                     img_data = self.extracted_images[image_index]
-                    
                     question.question_image.save(
                         f'question_{question.id}.{img_data["ext"]}',
                         ContentFile(img_data['bytes']),
                         save=True
                     )
-                    
-                    print(f"  ✅ Attached image to question {question.id}")
+                    print(f"Attached image to question {question.id}")
                 
                 created_questions.append(question)
-                print(f"✅ Created Q{question.id}: {question.question_text[:60]}")
+                print(f"Created Q{question.id}: {question.question_text[:60]}")
             
             except Exception as e:
-                print(f"❌ Failed to create question: {e}")
+                print(f"Failed to create question: {e}")
                 errors.append({
                     'question_number': q_data.get('question_number'),
                     'question_text': q_data.get('question_text', '')[:100],
@@ -469,16 +464,6 @@ class BulkUploadView(APIView):
     permission_classes = [IsAdminOrTeacher]
     
     def post(self, request):
-        """
-        Upload exam file and extract questions + images
-        
-        Body:
-            - file: PDF/Word/Image file
-            - subject: Subject ID
-            - grade: Grade level
-            - topic: (optional) Topic ID
-        """
-        
         file = request.FILES.get('file')
         subject_id = request.data.get('subject')
         grade = request.data.get('grade')
