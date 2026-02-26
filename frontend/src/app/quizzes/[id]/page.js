@@ -60,7 +60,6 @@ function MCQOption({ letter, text, selected, onClick }) {
       idleText: "#1e6bb8",
       activeBg: "#1a6fc4",
       activeText: "#fff",
-      activeBorder: "#1a6fc4",
     },
     B: {
       idle: "#eafaf3",
@@ -68,7 +67,6 @@ function MCQOption({ letter, text, selected, onClick }) {
       idleText: "#1a7a4a",
       activeBg: "#1d8f57",
       activeText: "#fff",
-      activeBorder: "#1d8f57",
     },
     C: {
       idle: "#fff8e6",
@@ -76,7 +74,6 @@ function MCQOption({ letter, text, selected, onClick }) {
       idleText: "#9a6c00",
       activeBg: "#d4900a",
       activeText: "#fff",
-      activeBorder: "#d4900a",
     },
     D: {
       idle: "#fdeef0",
@@ -84,19 +81,19 @@ function MCQOption({ letter, text, selected, onClick }) {
       idleText: "#c0334a",
       activeBg: "#c0334a",
       activeText: "#fff",
-      activeBorder: "#c0334a",
     },
   };
   const c = colorMap[letter];
+  const bg = selected ? c.activeBg : c.idle;
+  const border = selected ? c.activeBg : c.idleBorder;
+  const textColor = selected ? c.activeText : "#1a1a2e";
 
   return (
-    <motion.button
-      whileHover={{ y: -2, boxShadow: "0 8px 24px rgba(0,0,0,0.1)" }}
-      whileTap={{ scale: 0.99 }}
+    <button
       onClick={onClick}
       style={{
-        background: selected ? c.activeBg : c.idle,
-        border: `2px solid ${selected ? c.activeBorder : c.idleBorder}`,
+        background: bg,
+        border: `2px solid ${border}`,
         borderRadius: 16,
         padding: "14px 18px",
         display: "flex",
@@ -110,7 +107,6 @@ function MCQOption({ letter, text, selected, onClick }) {
           : "0 2px 8px rgba(0,0,0,0.04)",
       }}
     >
-      {/* Letter badge */}
       <div
         style={{
           width: 36,
@@ -124,37 +120,24 @@ function MCQOption({ letter, text, selected, onClick }) {
           fontWeight: 800,
           fontSize: 14,
           flexShrink: 0,
-          fontFamily: "'Syne', sans-serif",
         }}
       >
         {letter}
       </div>
-
-      {/* Option text */}
       <span
         style={{
           fontSize: 15,
           fontWeight: selected ? 600 : 500,
-          color: selected ? c.activeText : "#1a1a2e",
+          color: textColor,
           lineHeight: 1.5,
           textAlign: "left",
           flex: 1,
-          fontFamily: "'Lato', sans-serif",
         }}
       >
         {text}
       </span>
-
-      {selected && (
-        <motion.div
-          initial={{ scale: 0 }}
-          animate={{ scale: 1 }}
-          transition={{ type: "spring", stiffness: 400 }}
-        >
-          <CheckCircle size={20} color={c.activeText} />
-        </motion.div>
-      )}
-    </motion.button>
+      {selected && <CheckCircle size={20} color={c.activeText} />}
+    </button>
   );
 }
 
