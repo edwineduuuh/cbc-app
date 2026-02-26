@@ -423,8 +423,8 @@ function LessonPlanner() {
   const [f, setF] = useState({
     grade: "Grade 4",
     subject: "Mathematics",
-    topic: "",
-    subtopic: "",
+    strand: "",
+    subStrand: "",
     duration: "40 minutes",
     type: "Both Theory and Practical",
     objectives: "",
@@ -436,6 +436,7 @@ function LessonPlanner() {
     term: "Term 1",
     week: "Week 1",
   });
+
   const [tab, setTab] = useState("plan");
   const [busy, setBusy] = useState(false);
   const [out, setOut] = useState({ plan: "", notes: "", scheme: "" });
@@ -443,7 +444,10 @@ function LessonPlanner() {
   const subs = SUBJECTS[f.grade] || [];
 
   async function generate() {
-    if (!f.topic.trim()) return alert("Please enter a topic.");
+    if (!f.strand.trim()) {
+      alert("Please enter the Strand (e.g. 'Numbers', 'Measurement')");
+      return;
+    }
     setBusy(true);
     setDone(false);
     try {
@@ -453,18 +457,16 @@ function LessonPlanner() {
         term: f.term,
         week: parseInt(f.week?.replace("Week ", "") || "1"),
         lesson_number: 1,
-        strand: f.topic, // ← CHANGED
-        substrand: f.subtopic || "", // ← CHANGED
+        strand: f.strand.trim(),
+        substrand: f.subStrand.trim() || f.strand.trim(),
         duration: f.duration,
         learner_level: f.needs || "Mixed ability",
         prior_knowledge: f.prior || "",
         resources: f.resources || "",
         is_practical: f.project || false,
-        practical_area: f.project ? f.topic + " practical" : "",
+        practical_area: f.project ? f.strand + " practical" : "",
       });
-      // result = { id, plan, meta }
-      // plan has: scheme_entry, student_notes, youtube_links, diagrams etc.
-      // We convert the JSON plan into printable HTML for the 3 tabs
+
       const p = result.plan;
       const planHtml = buildLessonPlanHtml(p, f, result.meta);
       const notesHtml = buildNotesHtml(p, f);
@@ -502,11 +504,11 @@ function LessonPlanner() {
       .join("");
     return `
 <h1>CBC Lesson Plan — ${f.subject}</h1>
-<div class="tag">${p.strand || ""}</div> &nbsp; <div class="tag">${p.substrand || ""}</div>
+<div class="tag">${p.strand || f.strand}</div> &nbsp; <div class="tag">${p.substrand || f.subStrand}</div>
 <table><tr><th>Grade</th><th>Subject</th><th>Term</th><th>Week</th><th>Duration</th><th>Date</th></tr>
 <tr><td>${f.grade}</td><td>${f.subject}</td><td>${f.term}</td><td>${f.week}</td><td>${f.duration}</td><td>____________</td></tr></table>
 <table><tr><th>School</th><th>Teacher</th><th>Strand</th><th>Sub-strand</th></tr>
-<tr><td>________________________</td><td>________________________</td><td>${p.strand || ""}</td><td>${p.substrand || ""}</td></tr></table>
+<tr><td>________________________</td><td>________________________</td><td>${p.strand || f.strand}</td><td>${p.substrand || f.subStrand}</td></tr></table>
 <h2>Specific Learning Outcomes</h2><ol>${slos}</ol>
 <h2>Key Inquiry Questions</h2><ul>${(p.key_inquiry_questions || []).map((q) => `<li>${q}</li>`).join("")}</ul>
 <h2>Core Competencies</h2>${(p.core_competencies || []).join(" &bull; ")}
@@ -558,7 +560,7 @@ Caption: ${d.caption}</div>`,
       )
       .join("");
     return `
-<h1>${notes.heading || f.topic} — Learner Notes</h1>
+<h1>${notes.heading || f.subStrand || f.strand} — Learner Notes</h1>
 <p><b>Grade:</b> ${f.grade} &nbsp;|&nbsp; <b>Subject:</b> ${f.subject} &nbsp;|&nbsp; <b>Term:</b> ${f.term}</p>
 <h2>Introduction</h2><p>${notes.body || ""}</p>
 <h2>Key Vocabulary</h2><table><tr><th>Term</th><th>Definition</th></tr>${terms}</table>
@@ -576,8 +578,8 @@ ${p.practical_project ? `<h2>Practical Project / Experiment</h2><div style="back
 <h1>Scheme of Work — ${f.subject} | ${f.grade} | ${f.term}</h1>
 <table>
 <tr><th>Wk</th><th>Lsn</th><th>Strand</th><th>Sub-strand</th><th>Specific Outcomes</th><th>Key Questions</th><th>Learning Experiences</th><th>Resources</th><th>Assessment</th><th>Remarks</th></tr>
-<tr><td>${se.wk || f.week}</td><td>${se.lsn || "1"}</td><td>${se.strand || p.strand || ""}</td>
-<td>${se.substrand || p.substrand || ""}</td><td>${se.specific_outcomes || ""}</td>
+<tr><td>${se.wk || f.week}</td><td>${se.lsn || "1"}</td><td>${se.strand || p.strand || f.strand}</td>
+<td>${se.substrand || p.substrand || f.subStrand}</td><td>${se.specific_outcomes || ""}</td>
 <td>${se.key_questions || ""}</td><td>${se.learning_experiences || ""}</td>
 <td>${se.learning_resources || ""}</td><td>${se.assessment || ""}</td>
 <td>${se.reflection || ""}</td></tr>
@@ -598,7 +600,7 @@ Weeks 2-4: Continue with related sub-strands as per term planner</td></tr>
           : "Scheme of Work";
     const w = window.open("", "_blank");
     w.document
-      .write(`<!DOCTYPE html><html><head><title>CBC ${title} – ${f.topic}</title>
+      .write(`<!DOCTYPE html><html><head><title>CBC ${title} – ${f.strand}</title>
     <style>body{font-family:Georgia,serif;max-width:820px;margin:40px auto;padding:20px;color:#111;line-height:1.7;}
     h1{color:#0a3d1f;border-bottom:3px solid #0f5c2e;padding-bottom:8px;font-size:22px;}
     h2{color:#0f5c2e;font-size:18px;margin-top:20px;}h3{color:#1a7a42;font-size:15px;}
@@ -716,21 +718,24 @@ Weeks 2-4: Continue with related sub-strands as per term planner</td></tr>
               </select>
             </div>
             <div>
-              <label className="label">Topic / Strand *</label>
+              <label className="label">Strand (CBC curriculum) *</label>
               <input
                 className="input"
-                placeholder="e.g. Photosynthesis, Fractions…"
-                value={f.topic}
-                onChange={(e) => setF({ ...f, topic: e.target.value })}
+                placeholder="e.g. Numbers, Measurement, Geometry"
+                value={f.strand}
+                onChange={(e) => setF({ ...f, strand: e.target.value })}
               />
+              <p style={{ fontSize: 11, color: "#666", marginTop: 4 }}>
+                Required — use official CBC strand name
+              </p>
             </div>
             <div>
-              <label className="label">Sub-topic</label>
+              <label className="label">Sub-strand / Topic</label>
               <input
                 className="input"
-                placeholder="Optional refinement…"
-                value={f.subtopic}
-                onChange={(e) => setF({ ...f, subtopic: e.target.value })}
+                placeholder="e.g. Place Value, Fractions, Length"
+                value={f.subStrand}
+                onChange={(e) => setF({ ...f, subStrand: e.target.value })}
               />
             </div>
             <div
@@ -890,7 +895,7 @@ Weeks 2-4: Continue with related sub-strands as per term planner</td></tr>
         </div>
       </div>
 
-      {/* Output */}
+      {/* Output - EXACTLY THE SAME AS YOUR ORIGINAL */}
       <div
         style={{
           flex: 1,
@@ -1025,7 +1030,6 @@ Weeks 2-4: Continue with related sub-strands as per term planner</td></tr>
     </div>
   );
 }
-
 // ══════════════════════════════════════════════════════════
 // KAHOOT CLASSROOMS
 // ══════════════════════════════════════════════════════════
