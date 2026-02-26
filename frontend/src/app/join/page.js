@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 
-const BASE = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000/api";
+const BASE = process.env.NEXT_PUBLIC_API_URL || "https://cbc-backend-76im.onrender.com/api";
 
 function api(method, path, body = null) {
   return fetch(`${BASE}${path}`, {

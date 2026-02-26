@@ -26,7 +26,7 @@ export default function QuizzesPage() {
 
   // Fetch subjects
   useEffect(() => {
-    fetch("http://127.0.0.1:8000/api/subjects/")
+    fetch("https://cbc-backend-76im.onrender.com/api/subjects/")
       .then((res) => res.json())
       .then((data) => setSubjects(data))
       .catch((err) => console.error(err));
@@ -35,7 +35,7 @@ export default function QuizzesPage() {
   // Fetch quizzes with filters - UPDATED
   useEffect(() => {
     setLoading(true);
-    let url = "http://127.0.0.1:8000/api/quizzes/?";
+    let url = "https://cbc-backend-76im.onrender.com/api/quizzes/?";
 
     if (selectedSubject) url += `subject=${selectedSubject}&`;
     if (selectedGrade) url += `grade=${selectedGrade}&`;

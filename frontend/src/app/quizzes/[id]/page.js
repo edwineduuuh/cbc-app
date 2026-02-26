@@ -24,7 +24,7 @@ import {
   Menu,
 } from "lucide-react";
 
-const API = "http://127.0.0.1:8000/api";
+const API = "https://cbc-backend-76im.onrender.com/api";
 
 // ─── Timer ────────────────────────────────────────────────────────────────────
 function useTimer(totalSeconds, onExpire) {

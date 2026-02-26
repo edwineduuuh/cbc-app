@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
 import ImprovedFeedbackDisplay from "@/components/ImprovedFeedbackDisplay";
 
-const API = "http://127.0.0.1:8000/api";
+const API = "https://cbc-backend-76im.onrender.com/api";
 
 export default function QuizResultsPage() {
   const params = useParams();

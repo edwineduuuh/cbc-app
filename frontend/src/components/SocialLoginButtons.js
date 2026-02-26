@@ -7,7 +7,7 @@ import Button from "@/components/ui/Button";
 import { FcGoogle } from "react-icons/fc";
 import { FaMicrosoft } from "react-icons/fa";
 
-const API = "http://127.0.0.1:8000/api";
+const API = "https://cbc-backend-76im.onrender.com/api";
 
 export default function SocialLoginButtons() {
   const router = useRouter();

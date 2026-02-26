@@ -9,7 +9,7 @@ import Card from "@/components/ui/Card";
 import Button from "@/components/ui/Button";
 import { BookOpen, Clock, Calendar, Award } from "lucide-react";
 
-const API = "http://127.0.0.1:8000/api";
+const API = "https://cbc-backend-76im.onrender.com/api";
 
 export default function StudentQuizzesPage() {
   const { user, loading: authLoading } = useAuth();

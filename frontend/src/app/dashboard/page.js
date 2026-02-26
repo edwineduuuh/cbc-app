@@ -286,7 +286,7 @@ function StudentDashboard({ user, logout }) {
 
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
-    fetch("http://127.0.0.1:8000/api/analytics/student/", {
+    fetch("https://cbc-backend-76im.onrender.com/api/analytics/student/", {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((r) => r.json())
@@ -478,7 +478,7 @@ function TeacherDashboard({ user, logout }) {
 
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
-    fetch("http://127.0.0.1:8000/api/analytics/teacher/", {
+    fetch("https://cbc-backend-76im.onrender.com/api/analytics/teacher/", {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((r) => r.json())
