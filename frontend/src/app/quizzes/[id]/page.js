@@ -1,5 +1,5 @@
 "use client";
-import Image from "next/image"; 
+import Image from "next/image";
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { useRouter } from "next/navigation";
@@ -11,26 +11,21 @@ import {
   ArrowRight,
   CheckCircle,
   Clock,
-  AlertCircle,
-  BookOpen,
-  Zap,
   Flag,
-  RotateCcw,
-  Trophy,
-  ChevronRight,
   Send,
   Loader2,
   X,
   Menu,
+  BookOpen,
+  ChevronRight,
 } from "lucide-react";
 
 const API = "https://cbc-backend-76im.onrender.com/api";
 
-// ─── Timer ────────────────────────────────────────────────────────────────────
+// ─── Timer Hook ───────────────────────────────────────────────────────────────
 function useTimer(totalSeconds, onExpire) {
   const [remaining, setRemaining] = useState(totalSeconds);
   const intervalRef = useRef(null);
-
   useEffect(() => {
     intervalRef.current = setInterval(() => {
       setRemaining((prev) => {
@@ -44,123 +39,148 @@ function useTimer(totalSeconds, onExpire) {
     }, 1000);
     return () => clearInterval(intervalRef.current);
   }, []);
-
   const pct = (remaining / totalSeconds) * 100;
   const mins = Math.floor(remaining / 60);
   const secs = remaining % 60;
   const isUrgent = pct < 20;
-  const display = `${String(mins).padStart(2, "0")}:${String(secs).padStart(2, "0")}`;
-  return { display, pct, isUrgent, remaining };
+  return {
+    display: `${String(mins).padStart(2, "0")}:${String(secs).padStart(2, "0")}`,
+    pct,
+    isUrgent,
+    remaining,
+  };
 }
 
 // ─── MCQ Option ───────────────────────────────────────────────────────────────
-function MCQOption({ letter, text, selected, onClick, disabled }) {
-  const letters = { A: 0, B: 1, C: 2, D: 3 };
-  const colors = [
-    {
-      ring: "ring-blue-500",
-      bg: "bg-blue-500",
-      pill: "bg-blue-500/20 text-blue-400 border-blue-500/40",
+function MCQOption({ letter, text, selected, onClick }) {
+  const colorMap = {
+    A: {
+      idle: "#e8f4ff",
+      idleBorder: "#bdd7f5",
+      idleText: "#1e6bb8",
+      activeBg: "#1a6fc4",
+      activeText: "#fff",
+      activeBorder: "#1a6fc4",
     },
-    {
-      ring: "ring-emerald-500",
-      bg: "bg-emerald-500",
-      pill: "bg-emerald-500/20 text-emerald-400 border-emerald-500/40",
+    B: {
+      idle: "#eafaf3",
+      idleBorder: "#a8e6c4",
+      idleText: "#1a7a4a",
+      activeBg: "#1d8f57",
+      activeText: "#fff",
+      activeBorder: "#1d8f57",
     },
-    {
-      ring: "ring-amber-500",
-      bg: "bg-amber-500",
-      pill: "bg-amber-500/20 text-amber-400 border-amber-500/40",
+    C: {
+      idle: "#fff8e6",
+      idleBorder: "#f0d690",
+      idleText: "#9a6c00",
+      activeBg: "#d4900a",
+      activeText: "#fff",
+      activeBorder: "#d4900a",
     },
-    {
-      ring: "ring-rose-500",
-      bg: "bg-rose-500",
-      pill: "bg-rose-500/20 text-rose-400 border-rose-500/40",
+    D: {
+      idle: "#fdeef0",
+      idleBorder: "#f5b8c0",
+      idleText: "#c0334a",
+      activeBg: "#c0334a",
+      activeText: "#fff",
+      activeBorder: "#c0334a",
     },
-  ];
-  const c = colors[letters[letter] ?? 0];
+  };
+  const c = colorMap[letter];
 
   return (
     <motion.button
-      whileHover={!disabled ? { x: 4 } : {}}
-      whileTap={!disabled ? { scale: 0.98 } : {}}
+      whileHover={{ y: -2, boxShadow: "0 8px 24px rgba(0,0,0,0.1)" }}
+      whileTap={{ scale: 0.99 }}
       onClick={onClick}
-      disabled={disabled}
-      className={`w-full flex items-center gap-4 p-4 rounded-2xl border-2 text-left transition-all duration-150 ${
-        selected
-          ? `border-transparent ${c.ring} ring-2 bg-white/8`
-          : "border-white/8 bg-white/3 hover:bg-white/6 hover:border-white/15"
-      } ${disabled ? "cursor-default" : "cursor-pointer"}`}
+      style={{
+        background: selected ? c.activeBg : c.idle,
+        border: `2px solid ${selected ? c.activeBorder : c.idleBorder}`,
+        borderRadius: 16,
+        padding: "14px 18px",
+        display: "flex",
+        alignItems: "center",
+        gap: 14,
+        width: "100%",
+        cursor: "pointer",
+        transition: "all 0.15s ease",
+        boxShadow: selected
+          ? `0 4px 20px ${c.activeBg}44`
+          : "0 2px 8px rgba(0,0,0,0.04)",
+      }}
     >
+      {/* Letter badge */}
       <div
-        className={`w-9 h-9 rounded-xl border flex items-center justify-center text-sm font-bold flex-shrink-0 transition-all ${
-          selected
-            ? `${c.bg} border-transparent text-white`
-            : `${c.pill} border`
-        }`}
+        style={{
+          width: 36,
+          height: 36,
+          borderRadius: 10,
+          background: selected ? "rgba(255,255,255,0.25)" : c.idleBorder,
+          color: selected ? c.activeText : c.idleText,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          fontWeight: 800,
+          fontSize: 14,
+          flexShrink: 0,
+          fontFamily: "'Syne', sans-serif",
+        }}
       >
         {letter}
       </div>
+
+      {/* Option text */}
       <span
-        className={`text-sm leading-relaxed transition-colors ${selected ? "text-white font-medium" : "text-white/70"}`}
+        style={{
+          fontSize: 15,
+          fontWeight: selected ? 600 : 500,
+          color: selected ? c.activeText : "#1a1a2e",
+          lineHeight: 1.5,
+          textAlign: "left",
+          flex: 1,
+          fontFamily: "'Lato', sans-serif",
+        }}
       >
         {text}
       </span>
+
       {selected && (
         <motion.div
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
-          className="ml-auto flex-shrink-0"
+          transition={{ type: "spring", stiffness: 400 }}
         >
-          <CheckCircle className="w-5 h-5 text-emerald-400" />
+          <CheckCircle size={20} color={c.activeText} />
         </motion.div>
       )}
     </motion.button>
   );
 }
 
-// ─── Text answer input ────────────────────────────────────────────────────────
-function TextAnswer({ value, onChange, type, placeholder }) {
-  return (
-    <div className="relative">
-      <textarea
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-        rows={type === "essay" ? 8 : type === "structured" ? 5 : 2}
-        placeholder={placeholder}
-        style={{
-          backgroundColor: "#ffffff",
-          color: "#111827",
-          borderColor: "#d1d5db",
-        }}
-        className="w-full border-2 rounded-2xl p-4 text-sm outline-none focus:border-emerald-500 transition-all resize-none leading-relaxed"
-        onFocus={(e) => (e.target.style.borderColor = "#10b981")}
-        onBlur={(e) => (e.target.style.borderColor = "var(--border, #e5e7eb)")}
-      />
-      <div
-        className="absolute bottom-3 right-3 text-xs font-medium"
-        style={{ color: "var(--text-muted, #9ca3af)" }}
-      >
-        {value.length} chars
-      </div>
-    </div>
-  );
-}
-
-// ─── Question nav dots ────────────────────────────────────────────────────────
+// ─── Question Nav Panel ───────────────────────────────────────────────────────
 function QuestionNav({ questions, answers, currentIdx, onJump, show }) {
   return (
     <AnimatePresence>
       {show && (
         <motion.div
-          initial={{ opacity: 0, x: 16 }}
+          initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
-          exit={{ opacity: 0, x: 16 }}
-          className="fixed right-0 top-1/2 -translate-y-1/2 z-30 flex flex-col gap-1.5 p-3 rounded-l-2xl"
+          exit={{ opacity: 0, x: 20 }}
           style={{
-            background: "rgba(9,9,15,0.9)",
-            backdropFilter: "blur(12px)",
-            border: "1px solid rgba(255,255,255,0.08)",
+            position: "fixed",
+            right: 0,
+            top: "50%",
+            transform: "translateY(-50%)",
+            zIndex: 30,
+            display: "flex",
+            flexDirection: "column",
+            gap: 6,
+            padding: "14px 10px",
+            borderRadius: "16px 0 0 16px",
+            background: "#fff",
+            boxShadow: "-4px 0 24px rgba(0,0,0,0.08)",
+            border: "1px solid #e8eaf0",
             borderRight: "none",
           }}
         >
@@ -172,13 +192,26 @@ function QuestionNav({ questions, answers, currentIdx, onJump, show }) {
                 key={i}
                 onClick={() => onJump(i)}
                 title={`Q${i + 1}`}
-                className={`transition-all rounded-lg font-bold text-[10px] flex items-center justify-center ${
-                  current
-                    ? "w-8 h-8 bg-emerald-500 text-white"
+                style={{
+                  width: current ? 36 : 28,
+                  height: current ? 36 : 28,
+                  borderRadius: 8,
+                  border: "none",
+                  cursor: "pointer",
+                  fontWeight: 700,
+                  fontSize: 11,
+                  background: current
+                    ? "#1a6fc4"
                     : answered
-                      ? "w-6 h-6 bg-emerald-500/30 text-emerald-400 hover:bg-emerald-500/50"
-                      : "w-6 h-6 bg-white/8 text-white/30 hover:bg-white/15"
-                }`}
+                      ? "#d4edda"
+                      : "#f0f2f7",
+                  color: current ? "#fff" : answered ? "#1a7a4a" : "#8892a4",
+                  transition: "all 0.15s",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  fontFamily: "'Syne', sans-serif",
+                }}
               >
                 {i + 1}
               </button>
@@ -190,7 +223,7 @@ function QuestionNav({ questions, answers, currentIdx, onJump, show }) {
   );
 }
 
-// ─── Submit confirm modal ─────────────────────────────────────────────────────
+// ─── Submit Modal ─────────────────────────────────────────────────────────────
 function SubmitModal({ open, onConfirm, onCancel, unanswered, submitting }) {
   return (
     <AnimatePresence>
@@ -199,51 +232,130 @@ function SubmitModal({ open, onConfirm, onCancel, unanswered, submitting }) {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="fixed inset-0 z-50 flex items-center justify-center p-4"
-          style={{ background: "rgba(0,0,0,0.7)", backdropFilter: "blur(8px)" }}
+          style={{
+            position: "fixed",
+            inset: 0,
+            zIndex: 50,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            padding: 16,
+            background: "rgba(10,10,30,0.5)",
+            backdropFilter: "blur(8px)",
+          }}
         >
           <motion.div
-            initial={{ scale: 0.92, y: 20 }}
+            initial={{ scale: 0.93, y: 20 }}
             animate={{ scale: 1, y: 0 }}
-            exit={{ scale: 0.92, y: 20 }}
-            className="w-full max-w-sm rounded-3xl p-7"
+            exit={{ scale: 0.93, y: 20 }}
             style={{
-              background: "#111827",
-              border: "1px solid rgba(255,255,255,0.1)",
+              background: "#fff",
+              borderRadius: 24,
+              padding: 32,
+              width: "100%",
+              maxWidth: 400,
+              boxShadow: "0 24px 80px rgba(0,0,0,0.2)",
             }}
           >
-            <div className="w-14 h-14 rounded-2xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center mx-auto mb-5">
-              <Send className="w-6 h-6 text-emerald-400" />
+            <div
+              style={{
+                width: 56,
+                height: 56,
+                borderRadius: 16,
+                background: "#e8f4ff",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                margin: "0 auto 20px",
+              }}
+            >
+              <Send size={24} color="#1a6fc4" />
             </div>
-            <h3 className="text-xl font-bold text-white text-center mb-2">
+            <h3
+              style={{
+                fontSize: 22,
+                fontWeight: 800,
+                textAlign: "center",
+                color: "#0d0d1a",
+                marginBottom: 10,
+                fontFamily: "'Syne', sans-serif",
+              }}
+            >
               Submit Quiz?
             </h3>
             {unanswered > 0 ? (
-              <p className="text-sm text-amber-400 text-center mb-5 leading-relaxed">
-                You have <strong>{unanswered}</strong> unanswered question
-                {unanswered !== 1 ? "s" : ""}. You can still go back and answer
-                them.
+              <p
+                style={{
+                  fontSize: 14,
+                  color: "#d4900a",
+                  textAlign: "center",
+                  marginBottom: 24,
+                  lineHeight: 1.6,
+                  fontFamily: "'Lato', sans-serif",
+                }}
+              >
+                <strong>{unanswered}</strong> question
+                {unanswered !== 1 ? "s" : ""} unanswered. You can still go back.
               </p>
             ) : (
-              <p className="text-sm text-white/50 text-center mb-5">
-                All questions answered. Ready to submit!
+              <p
+                style={{
+                  fontSize: 14,
+                  color: "#6b7280",
+                  textAlign: "center",
+                  marginBottom: 24,
+                  fontFamily: "'Lato', sans-serif",
+                }}
+              >
+                All questions answered. Ready!
               </p>
             )}
-            <div className="flex gap-3">
+            <div style={{ display: "flex", gap: 12 }}>
               <button
                 onClick={onCancel}
-                className="flex-1 py-3 rounded-xl border border-white/10 text-white/60 text-sm font-semibold hover:bg-white/5 transition-all"
+                style={{
+                  flex: 1,
+                  padding: "12px 0",
+                  borderRadius: 12,
+                  border: "2px solid #e8eaf0",
+                  background: "#fff",
+                  color: "#6b7280",
+                  fontSize: 14,
+                  fontWeight: 600,
+                  cursor: "pointer",
+                  fontFamily: "'Syne', sans-serif",
+                }}
               >
                 Go Back
               </button>
               <button
                 onClick={onConfirm}
                 disabled={submitting}
-                className="flex-1 py-3 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 text-white text-sm font-bold hover:from-emerald-700 hover:to-teal-700 transition-all disabled:opacity-60 flex items-center justify-center gap-2"
+                style={{
+                  flex: 1,
+                  padding: "12px 0",
+                  borderRadius: 12,
+                  border: "none",
+                  background: "linear-gradient(135deg, #1a6fc4, #0ea5c9)",
+                  color: "#fff",
+                  fontSize: 14,
+                  fontWeight: 700,
+                  cursor: submitting ? "not-allowed" : "pointer",
+                  opacity: submitting ? 0.7 : 1,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: 8,
+                  fontFamily: "'Syne', sans-serif",
+                }}
               >
                 {submitting ? (
                   <>
-                    <Loader2 className="w-4 h-4 animate-spin" /> Submitting…
+                    <Loader2
+                      size={16}
+                      style={{ animation: "spin 1s linear infinite" }}
+                    />{" "}
+                    Submitting…
                   </>
                 ) : (
                   "Submit Now"
@@ -257,108 +369,217 @@ function SubmitModal({ open, onConfirm, onCancel, unanswered, submitting }) {
   );
 }
 
-// ─── Results screen ───────────────────────────────────────────────────────────
+// ─── Results Screen ───────────────────────────────────────────────────────────
 function ResultsScreen({ result, quiz }) {
   const score = Math.round(result.score ?? 0);
   const passed = score >= (quiz?.passing_score ?? 75);
-  const color = score >= 75 ? "#10b981" : score >= 50 ? "#f59e0b" : "#f87171";
+  const color = score >= 75 ? "#1d8f57" : score >= 50 ? "#d4900a" : "#c0334a";
+  const circumference = 2 * Math.PI * 68;
 
   return (
-    <div className="min-h-screen bg-gray-950 flex items-center justify-center p-4">
+    <div
+      style={{
+        minHeight: "100vh",
+        background: "linear-gradient(160deg, #f0f6ff 0%, #f9fff4 100%)",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        padding: 16,
+        fontFamily: "'Lato', sans-serif",
+      }}
+    >
+      <style>{`@import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Lato:wght@400;500;600;700&display=swap');`}</style>
       <motion.div
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-        className="w-full max-w-md"
+        transition={{ duration: 0.5 }}
+        style={{ width: "100%", maxWidth: 440 }}
       >
         {/* Score ring */}
-        <div className="relative flex flex-col items-center mb-8">
-          <svg width="160" height="160" className="-rotate-90 mb-4">
+        <div
+          style={{
+            position: "relative",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            marginBottom: 32,
+          }}
+        >
+          <svg width={160} height={160} style={{ transform: "rotate(-90deg)" }}>
             <circle
-              cx="80"
-              cy="80"
-              r="68"
+              cx={80}
+              cy={80}
+              r={68}
               fill="none"
-              stroke="rgba(255,255,255,0.06)"
-              strokeWidth="10"
+              stroke="#e8eaf0"
+              strokeWidth={10}
             />
             <motion.circle
-              cx="80"
-              cy="80"
-              r="68"
+              cx={80}
+              cy={80}
+              r={68}
               fill="none"
               stroke={color}
-              strokeWidth="10"
+              strokeWidth={10}
               strokeLinecap="round"
-              strokeDasharray={2 * Math.PI * 68}
-              initial={{ strokeDashoffset: 2 * Math.PI * 68 }}
-              animate={{
-                strokeDashoffset: 2 * Math.PI * 68 * (1 - score / 100),
-              }}
+              strokeDasharray={circumference}
+              initial={{ strokeDashoffset: circumference }}
+              animate={{ strokeDashoffset: circumference * (1 - score / 100) }}
               transition={{
-                duration: 1.5,
+                duration: 1.4,
                 ease: [0.22, 1, 0.36, 1],
                 delay: 0.3,
               }}
             />
           </svg>
-          <div className="absolute inset-0 flex flex-col items-center justify-center">
-            <span className="text-5xl font-bold text-white">{score}%</span>
-            <span className="text-xs text-white/40 mt-1">
-              {passed ? "Passed ✓" : "Keep trying"}
+          <div
+            style={{
+              position: "absolute",
+              inset: 0,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <span
+              style={{
+                fontSize: 48,
+                fontWeight: 800,
+                color: "#0d0d1a",
+                fontFamily: "'Syne', sans-serif",
+              }}
+            >
+              {score}%
+            </span>
+            <span
+              style={{
+                fontSize: 12,
+                color: passed ? "#1d8f57" : "#c0334a",
+                fontWeight: 700,
+                marginTop: 2,
+              }}
+            >
+              {passed ? "PASSED ✓" : "TRY AGAIN"}
             </span>
           </div>
         </div>
 
         <div
-          className="rounded-3xl p-7 mb-4"
           style={{
-            background: "#111827",
-            border: "1px solid rgba(255,255,255,0.08)",
+            background: "#fff",
+            borderRadius: 24,
+            padding: 28,
+            marginBottom: 16,
+            boxShadow: "0 8px 40px rgba(0,0,0,0.08)",
+            border: "1px solid #e8eaf0",
           }}
         >
-          <h2 className="text-2xl font-bold text-white text-center mb-6">
+          <h2
+            style={{
+              fontSize: 24,
+              fontWeight: 800,
+              textAlign: "center",
+              color: "#0d0d1a",
+              marginBottom: 24,
+              fontFamily: "'Syne', sans-serif",
+            }}
+          >
             {passed ? "🎉 Well done!" : "📚 Keep going!"}
           </h2>
-
-          <div className="grid grid-cols-2 gap-3 mb-6">
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "1fr 1fr",
+              gap: 12,
+              marginBottom: 24,
+            }}
+          >
             {[
               {
                 label: "Marks",
                 value: `${result.total_marks_awarded ?? 0} / ${result.total_max_marks ?? 0}`,
               },
               {
-                label: "Questions",
-                value: `${result.correct_answers ?? "—"} correct`,
+                label: "Correct",
+                value: `${result.correct_answers ?? "—"} questions`,
               },
               {
-                label: "Time",
+                label: "Time Taken",
                 value: result.time_taken
                   ? `${Math.floor(result.time_taken / 60)}m ${result.time_taken % 60}s`
                   : "—",
               },
-              { label: "Pass mark", value: `${quiz?.passing_score ?? 75}%` },
+              { label: "Pass Mark", value: `${quiz?.passing_score ?? 75}%` },
             ].map(({ label, value }) => (
               <div
                 key={label}
-                className="bg-white/5 rounded-2xl p-3 text-center"
+                style={{
+                  background: "#f7f9fc",
+                  borderRadius: 14,
+                  padding: "14px 12px",
+                  textAlign: "center",
+                }}
               >
-                <p className="text-xs text-white/30 font-medium mb-0.5">
+                <p
+                  style={{
+                    fontSize: 11,
+                    color: "#8892a4",
+                    fontWeight: 600,
+                    marginBottom: 4,
+                    textTransform: "uppercase",
+                    letterSpacing: "0.05em",
+                  }}
+                >
                   {label}
                 </p>
-                <p className="text-base font-bold text-white">{value}</p>
+                <p
+                  style={{
+                    fontSize: 16,
+                    fontWeight: 700,
+                    color: "#0d0d1a",
+                    fontFamily: "'Syne', sans-serif",
+                  }}
+                >
+                  {value}
+                </p>
               </div>
             ))}
           </div>
-
-          <div className="flex gap-3">
-            <Link href="/quizzes" className="flex-1">
-              <button className="w-full py-3 rounded-xl border border-white/10 text-white/60 text-sm font-semibold hover:bg-white/5 transition-all">
+          <div style={{ display: "flex", gap: 12 }}>
+            <Link href="/quizzes" style={{ flex: 1 }}>
+              <button
+                style={{
+                  width: "100%",
+                  padding: "12px 0",
+                  borderRadius: 12,
+                  border: "2px solid #e8eaf0",
+                  background: "#fff",
+                  color: "#6b7280",
+                  fontSize: 14,
+                  fontWeight: 600,
+                  cursor: "pointer",
+                  fontFamily: "'Syne', sans-serif",
+                }}
+              >
                 Browse Quizzes
               </button>
             </Link>
-            <Link href={`/attempts/${result.attempt_id}`} className="flex-1">
-              <button className="w-full py-3 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 text-white text-sm font-bold hover:opacity-90 transition-all">
+            <Link href={`/attempts/${result.attempt_id}`} style={{ flex: 1 }}>
+              <button
+                style={{
+                  width: "100%",
+                  padding: "12px 0",
+                  borderRadius: 12,
+                  border: "none",
+                  background: "linear-gradient(135deg, #1a6fc4, #0ea5c9)",
+                  color: "#fff",
+                  fontSize: 14,
+                  fontWeight: 700,
+                  cursor: "pointer",
+                  fontFamily: "'Syne', sans-serif",
+                }}
+              >
                 Review Answers
               </button>
             </Link>
@@ -366,8 +587,24 @@ function ResultsScreen({ result, quiz }) {
         </div>
 
         <Link href="/progress">
-          <button className="w-full py-3 rounded-xl text-sm font-semibold text-white/30 hover:text-white/60 transition-colors flex items-center justify-center gap-2">
-            View Progress <ChevronRight className="w-4 h-4" />
+          <button
+            style={{
+              width: "100%",
+              padding: "12px 0",
+              background: "none",
+              border: "none",
+              color: "#8892a4",
+              fontSize: 14,
+              fontWeight: 600,
+              cursor: "pointer",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: 6,
+              fontFamily: "'Syne', sans-serif",
+            }}
+          >
+            View My Progress <ChevronRight size={16} />
           </button>
         </Link>
       </motion.div>
@@ -375,7 +612,39 @@ function ResultsScreen({ result, quiz }) {
   );
 }
 
-// ─── Main quiz-take page ──────────────────────────────────────────────────────
+// ─── Timer Badge ──────────────────────────────────────────────────────────────
+function TimerBadge({ totalSeconds, onExpire }) {
+  const { display, isUrgent } = useTimer(totalSeconds, onExpire);
+  return (
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        gap: 6,
+        padding: "8px 14px",
+        borderRadius: 12,
+        background: isUrgent ? "#fdeef0" : "#f0f6ff",
+        border: `2px solid ${isUrgent ? "#f5b8c0" : "#bdd7f5"}`,
+        animation: isUrgent ? "pulse 1s infinite" : "none",
+      }}
+    >
+      <Clock size={14} color={isUrgent ? "#c0334a" : "#1a6fc4"} />
+      <span
+        style={{
+          fontSize: 15,
+          fontWeight: 800,
+          color: isUrgent ? "#c0334a" : "#1a6fc4",
+          fontFamily: "'Syne', sans-serif",
+          fontVariantNumeric: "tabular-nums",
+        }}
+      >
+        {display}
+      </span>
+    </div>
+  );
+}
+
+// ─── Main Page ────────────────────────────────────────────────────────────────
 export default function QuizTakePage({ params }) {
   const { user } = useAuth();
   const router = useRouter();
@@ -391,7 +660,6 @@ export default function QuizTakePage({ params }) {
   const [result, setResult] = useState(null);
   const [showNav, setShowNav] = useState(true);
   const [flagged, setFlagged] = useState(new Set());
-  const [attemptId, setAttemptId] = useState(null);
 
   const currentQ = questions[currentIdx];
   const totalQ = questions.length;
@@ -399,8 +667,8 @@ export default function QuizTakePage({ params }) {
     (v) => v !== undefined && v !== "",
   ).length;
   const unanswered = totalQ - answeredCount;
+  const progressPct = totalQ > 0 ? (answeredCount / totalQ) * 100 : 0;
 
-  // ── Load quiz ──
   useEffect(() => {
     if (!user) {
       router.push("/login");
@@ -408,23 +676,12 @@ export default function QuizTakePage({ params }) {
     }
     if (!quizId) return;
     const token = localStorage.getItem("accessToken");
-
-    const safeFetch = async (url, opts = {}) => {
-      const res = await fetch(url, opts);
-      const ct = res.headers.get("content-type") || "";
-      if (!ct.includes("application/json")) {
-        throw new Error(
-          `Expected JSON but got HTML from ${url} (status ${res.status}). Check your API URL and auth token.`,
-        );
-      }
-      return res.json();
-    };
-
     (async () => {
       try {
-        const data = await safeFetch(`${API}/quizzes/${quizId}/`, {
+        const res = await fetch(`${API}/quizzes/${quizId}/`, {
           headers: { Authorization: `Bearer ${token}` },
         });
+        const data = await res.json();
         setQuiz(data);
         setQuestions(data.questions || []);
       } catch (err) {
@@ -443,18 +700,12 @@ export default function QuizTakePage({ params }) {
   );
 
   const handleQuizSubmit = async () => {
+    setSubmitting(true);
     try {
-      setSubmitting(true);
-
       const answersDict = {};
-      questions.forEach((question, idx) => {
-        if (answers[idx]) {
-          answersDict[question.id] = answers[idx];
-        }
+      questions.forEach((q, idx) => {
+        if (answers[idx]) answersDict[q.id] = answers[idx];
       });
-
-      console.log("Submitting:", answersDict);
-
       const response = await fetch(`${API}/quizzes/submit/`, {
         method: "POST",
         headers: {
@@ -466,18 +717,14 @@ export default function QuizTakePage({ params }) {
           answers: answersDict,
         }),
       });
-
       const text = await response.text();
-
       if (response.ok) {
         const data = JSON.parse(text);
-        const attemptId = data.attempt_id || data.id;
-        router.replace(`/attempts/${attemptId}`);
+        router.replace(`/attempts/${data.attempt_id || data.id}`);
       } else {
         alert(`Error: ${text.substring(0, 200)}`);
       }
     } catch (error) {
-      console.error("Quiz submission failed:", error);
       alert("Submission failed: " + error.message);
     } finally {
       setSubmitting(false);
@@ -492,40 +739,80 @@ export default function QuizTakePage({ params }) {
     });
   };
 
-  // ── Timer expiry ──
   const handleTimerExpire = useCallback(() => {
     if (!result) setShowSubmitModal(true);
   }, [result]);
 
   // ── Loading ──
-  if (loading) {
+  if (loading)
     return (
-      <div className="min-h-screen bg-gray-950 flex items-center justify-center">
-        <div className="text-center">
-          <div className="w-12 h-12 rounded-full border-2 border-emerald-500/30 border-t-emerald-500 animate-spin mx-auto mb-4" />
-          <p className="text-white/30 text-sm">Loading quiz…</p>
+      <div
+        style={{
+          minHeight: "100vh",
+          background: "#f7f9fc",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <div style={{ textAlign: "center" }}>
+          <div
+            style={{
+              width: 48,
+              height: 48,
+              border: "3px solid #e8eaf0",
+              borderTopColor: "#1a6fc4",
+              borderRadius: "50%",
+              animation: "spin 0.8s linear infinite",
+              margin: "0 auto 16px",
+            }}
+          />
+          <p
+            style={{
+              color: "#8892a4",
+              fontSize: 14,
+              fontFamily: "'Lato', sans-serif",
+            }}
+          >
+            Loading quiz…
+          </p>
         </div>
+        <style>{`@keyframes spin { to { transform: rotate(360deg); } } @import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Lato:wght@400;500;600;700&display=swap');`}</style>
       </div>
     );
-  }
 
-  // ── Results ──
   if (result) return <ResultsScreen result={result} quiz={quiz} />;
 
-  if (!currentQ) {
+  if (!currentQ)
     return (
-      <div className="min-h-screen bg-gray-950 flex items-center justify-center">
-        <div className="text-center">
-          <p className="text-white/40 text-sm">No questions found.</p>
+      <div
+        style={{
+          minHeight: "100vh",
+          background: "#f7f9fc",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <div style={{ textAlign: "center" }}>
+          <p style={{ color: "#8892a4", fontSize: 14 }}>No questions found.</p>
           <Link href="/quizzes">
-            <button className="mt-4 text-emerald-400 text-sm underline">
-              Back to Quizzes
+            <button
+              style={{
+                marginTop: 16,
+                color: "#1a6fc4",
+                background: "none",
+                border: "none",
+                cursor: "pointer",
+                fontSize: 14,
+              }}
+            >
+              ← Back to Quizzes
             </button>
           </Link>
         </div>
       </div>
     );
-  }
 
   const isMCQ = currentQ.question_type === "mcq";
   const isFillBlank = currentQ.question_type === "fill_blank";
@@ -534,18 +821,22 @@ export default function QuizTakePage({ params }) {
     currentQ.question_type === "structured" ||
     currentQ.question_type === "essay";
 
-  const progressPct = (answeredCount / totalQ) * 100;
-
   return (
     <div
-      className="min-h-screen flex flex-col"
       style={{
-        backgroundColor: "var(--bg, #f9fafb)",
-        color: "var(--text, #111827)",
-        fontFamily: "'DM Sans', sans-serif",
+        minHeight: "100vh",
+        background: "#f7f9fc",
+        fontFamily: "'Lato', sans-serif",
       }}
     >
-      <style>{`@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap');`}</style>
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Lato:wght@400;500;600;700&display=swap');
+        @keyframes spin { to { transform: rotate(360deg); } }
+        @keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:0.7; } }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        textarea:focus, input:focus { outline: none; }
+        button { font-family: inherit; }
+      `}</style>
 
       <SubmitModal
         open={showSubmitModal}
@@ -554,7 +845,6 @@ export default function QuizTakePage({ params }) {
         unanswered={unanswered}
         submitting={submitting}
       />
-
       <QuestionNav
         questions={questions}
         answers={answers}
@@ -563,40 +853,83 @@ export default function QuizTakePage({ params }) {
         show={showNav}
       />
 
-      {/* ── Top bar ── */}
+      {/* ── Top Bar ── */}
       <div
-        className="sticky top-0 z-20 border-b"
         style={{
-          background: "var(--bg-secondary, #f3f4f6)",
-          borderColor: "var(--border, #e5e7eb)",
-          backdropFilter: "blur(16px)",
+          position: "sticky",
+          top: 0,
+          zIndex: 20,
+          background: "#fff",
+          borderBottom: "1px solid #e8eaf0",
+          boxShadow: "0 2px 12px rgba(0,0,0,0.05)",
         }}
       >
-        <div className="max-w-2xl mx-auto px-4 h-14 flex items-center justify-between gap-4">
+        <div
+          style={{
+            maxWidth: 680,
+            margin: "0 auto",
+            padding: "0 16px",
+            height: 64,
+            display: "flex",
+            alignItems: "center",
+            gap: 14,
+          }}
+        >
           <Link href="/quizzes">
-            <button className="w-9 h-9 rounded-xl flex items-center justify-center hover:bg-white/8 transition-colors border border-white/8">
-              <X className="w-4 h-4 text-white/50" />
+            <button
+              style={{
+                width: 38,
+                height: 38,
+                borderRadius: 10,
+                border: "2px solid #e8eaf0",
+                background: "#fff",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                cursor: "pointer",
+                flexShrink: 0,
+              }}
+            >
+              <X size={16} color="#6b7280" />
             </button>
           </Link>
 
-          {/* Progress bar */}
-          <div className="flex-1 flex flex-col gap-1">
-            <div className="h-1.5 bg-white/8 rounded-full overflow-hidden">
+          {/* Progress */}
+          <div style={{ flex: 1 }}>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                marginBottom: 5,
+              }}
+            >
+              <span style={{ fontSize: 12, fontWeight: 600, color: "#8892a4" }}>
+                {answeredCount} of {totalQ} answered
+              </span>
+              <span style={{ fontSize: 12, fontWeight: 700, color: "#1a6fc4" }}>
+                {Math.round(progressPct)}%
+              </span>
+            </div>
+            <div
+              style={{
+                height: 6,
+                background: "#e8eaf0",
+                borderRadius: 99,
+                overflow: "hidden",
+              }}
+            >
               <motion.div
                 animate={{ width: `${progressPct}%` }}
                 transition={{ duration: 0.4 }}
-                className="h-full rounded-full bg-gradient-to-r from-emerald-500 to-teal-500"
+                style={{
+                  height: "100%",
+                  background: "linear-gradient(90deg, #1a6fc4, #0ea5c9)",
+                  borderRadius: 99,
+                }}
               />
-            </div>
-            <div className="flex items-center justify-between">
-              <span className="text-[10px] text-white/30">
-                {answeredCount}/{totalQ} answered
-              </span>
-              <span className="text-[10px] text-white/30">{quiz?.title}</span>
             </div>
           </div>
 
-          {/* Timer */}
           {quiz?.duration_minutes && (
             <TimerBadge
               totalSeconds={quiz.duration_minutes * 60}
@@ -606,103 +939,199 @@ export default function QuizTakePage({ params }) {
 
           <button
             onClick={() => setShowNav((p) => !p)}
-            className="w-9 h-9 rounded-xl flex items-center justify-center hover:bg-white/8 transition-colors border border-white/8"
+            style={{
+              width: 38,
+              height: 38,
+              borderRadius: 10,
+              border: "2px solid #e8eaf0",
+              background: showNav ? "#e8f4ff" : "#fff",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              cursor: "pointer",
+              flexShrink: 0,
+            }}
           >
-            <Menu className="w-4 h-4 text-white/50" />
+            <Menu size={16} color={showNav ? "#1a6fc4" : "#6b7280"} />
           </button>
         </div>
       </div>
 
-      {/* ── Question ── */}
-      <div className="flex-1 max-w-2xl mx-auto w-full px-4 py-8 pb-32">
+      {/* ── Content ── */}
+      <div
+        style={{ maxWidth: 680, margin: "0 auto", padding: "32px 16px 120px" }}
+      >
         <AnimatePresence mode="wait">
           <motion.div
             key={currentIdx}
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -20 }}
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -12 }}
             transition={{ duration: 0.2 }}
           >
-            {/* Question header */}
-            <div className="flex items-start justify-between gap-3 mb-6">
-              <div className="flex items-center gap-3">
-                <div className="w-9 h-9 rounded-xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center flex-shrink-0">
-                  <span className="text-sm font-bold text-emerald-400">
-                    {currentIdx + 1}
-                  </span>
+            {/* Question number + flag */}
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                marginBottom: 20,
+              }}
+            >
+              <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                <div
+                  style={{
+                    background: "#1a6fc4",
+                    color: "#fff",
+                    width: 36,
+                    height: 36,
+                    borderRadius: 10,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    fontWeight: 800,
+                    fontSize: 15,
+                    fontFamily: "'Syne', sans-serif",
+                    flexShrink: 0,
+                  }}
+                >
+                  {currentIdx + 1}
                 </div>
                 <div>
-                  <div className="flex items-center gap-2 flex-wrap">
-                    <span className="text-xs font-semibold text-white/30 uppercase tracking-wide">
-                      {currentQ.question_type?.replace("_", " ") || "MCQ"}
+                  <span
+                    style={{
+                      fontSize: 13,
+                      fontWeight: 700,
+                      color: "#8892a4",
+                      textTransform: "uppercase",
+                      letterSpacing: "0.06em",
+                    }}
+                  >
+                    {currentQ.question_type?.replace("_", " ") || "MCQ"}
+                  </span>
+                  <span
+                    style={{ fontSize: 13, color: "#bcc3d0", marginLeft: 8 }}
+                  >
+                    · {currentQ.max_marks} mark
+                    {currentQ.max_marks !== 1 ? "s" : ""}
+                  </span>
+                  {flagged.has(currentIdx) && (
+                    <span
+                      style={{
+                        fontSize: 12,
+                        color: "#d4900a",
+                        fontWeight: 700,
+                        marginLeft: 10,
+                      }}
+                    >
+                      ⚑ Flagged
                     </span>
-                    <span className="text-xs text-white/20">•</span>
-                    <span className="text-xs text-white/30">
-                      {currentQ.max_marks} mark
-                      {currentQ.max_marks !== 1 ? "s" : ""}
-                    </span>
-                    {flagged.has(currentIdx) && (
-                      <span className="text-xs font-bold text-amber-400 flex items-center gap-1">
-                        <Flag className="w-3 h-3" /> Flagged
-                      </span>
-                    )}
-                  </div>
+                  )}
                 </div>
               </div>
               <button
                 onClick={toggleFlag}
-                className={`w-8 h-8 rounded-lg flex items-center justify-center transition-colors flex-shrink-0 ${
-                  flagged.has(currentIdx)
-                    ? "bg-amber-500/20 text-amber-400"
-                    : "text-white/20 hover:text-white/50 hover:bg-white/5"
-                }`}
+                style={{
+                  width: 36,
+                  height: 36,
+                  borderRadius: 10,
+                  border: `2px solid ${flagged.has(currentIdx) ? "#f0d690" : "#e8eaf0"}`,
+                  background: flagged.has(currentIdx) ? "#fff8e6" : "#fff",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  cursor: "pointer",
+                }}
               >
-                <Flag className="w-4 h-4" />
+                <Flag
+                  size={15}
+                  color={flagged.has(currentIdx) ? "#d4900a" : "#bcc3d0"}
+                />
               </button>
             </div>
 
+            {/* Quiz title */}
+            {quiz?.title && (
+              <p
+                style={{
+                  fontSize: 12,
+                  fontWeight: 600,
+                  color: "#bcc3d0",
+                  marginBottom: 10,
+                  textTransform: "uppercase",
+                  letterSpacing: "0.06em",
+                }}
+              >
+                {quiz.title}
+              </p>
+            )}
+
             {/* Question text */}
             <div
-              className="rounded-2xl p-5 mb-6"
               style={{
-                background: "var(--bg-card, #ffffff)",
-                border: "1px solid var(--border, #e5e7eb)",
+                background: "#fff",
+                borderRadius: 20,
+                padding: "22px 24px",
+                marginBottom: 24,
+                border: "2px solid #e8eaf0",
+                boxShadow: "0 4px 16px rgba(0,0,0,0.05)",
               }}
             >
               <p
-                className="text-base leading-relaxed font-medium"
-                style={{ color: "var(--text, #111827)" }}
+                style={{
+                  fontSize: 18,
+                  fontWeight: 600,
+                  color: "#0d0d1a",
+                  lineHeight: 1.65,
+                }}
               >
                 {currentQ.question_text}
               </p>
             </div>
 
-            {/* Question Image (if exists) */}
+            {/* Question image */}
             {currentQ.question_image_url && (
-              <div className="mb-6 relative">
-                <div className="relative w-full max-w-2xl mx-auto rounded-xl overflow-hidden border border-white/10">
-                  <Image
-                    src={currentQ.question_image_url}
-                    alt="Question diagram"
-                    width={800}
-                    height={600}
-                    className="w-full h-auto cursor-pointer hover:opacity-90 transition-opacity"
-                    onClick={() => window.open(currentQ.question_image_url, "_blank")}
-                    priority={currentIdx === 0}
-                  />
+              <div
+                style={{
+                  marginBottom: 24,
+                  borderRadius: 16,
+                  overflow: "hidden",
+                  border: "2px solid #e8eaf0",
+                  cursor: "pointer",
+                }}
+                onClick={() =>
+                  window.open(currentQ.question_image_url, "_blank")
+                }
+              >
+                <Image
+                  src={currentQ.question_image_url}
+                  alt="Question diagram"
+                  width={800}
+                  height={500}
+                  style={{ width: "100%", height: "auto", display: "block" }}
+                  priority={currentIdx === 0}
+                />
+                <div
+                  style={{
+                    padding: "8px 14px",
+                    background: "#f7f9fc",
+                    fontSize: 11,
+                    color: "#8892a4",
+                    fontWeight: 600,
+                  }}
+                >
+                  Click to view full size
                 </div>
-                <p className="text-xs text-white/30 text-center mt-2">
-                  Click image to view full size
-                </p>
               </div>
             )}
 
-            {/* MCQ */}
+            {/* MCQ Options */}
             {isMCQ && (
-              <div className="space-y-3">
+              <div
+                style={{ display: "flex", flexDirection: "column", gap: 12 }}
+              >
                 {["A", "B", "C", "D"].map((letter) => {
-                  const key = `option_${letter.toLowerCase()}`;
-                  const text = currentQ[key];
+                  const text = currentQ[`option_${letter.toLowerCase()}`];
                   if (!text) return null;
                   return (
                     <MCQOption
@@ -720,10 +1149,17 @@ export default function QuizTakePage({ params }) {
             {/* Fill blank / Math */}
             {(isFillBlank || isMath) && (
               <div>
-                <p className="text-xs text-white/30 mb-3 uppercase tracking-wide font-semibold">
-                  {isMath
-                    ? "Enter your answer (numbers only)"
-                    : "Type your answer"}
+                <p
+                  style={{
+                    fontSize: 12,
+                    fontWeight: 700,
+                    color: "#8892a4",
+                    textTransform: "uppercase",
+                    letterSpacing: "0.06em",
+                    marginBottom: 10,
+                  }}
+                >
+                  {isMath ? "Enter your answer" : "Type your answer"}
                 </p>
                 <input
                   type="text"
@@ -733,15 +1169,20 @@ export default function QuizTakePage({ params }) {
                     isMath ? "e.g. 42 or x = 5" : "Type your answer here…"
                   }
                   style={{
-                    backgroundColor: "var(--input-bg, #ffffff)",
-                    color: "var(--input-text, #111827)",
-                    borderColor: "var(--border, #e5e7eb)",
+                    width: "100%",
+                    border: "2px solid #e8eaf0",
+                    borderRadius: 16,
+                    padding: "14px 18px",
+                    fontSize: 16,
+                    fontWeight: 500,
+                    color: "#0d0d1a",
+                    background: "#fff",
+                    fontFamily: "'Lato', sans-serif",
+                    transition: "border-color 0.15s",
+                    boxShadow: "0 2px 8px rgba(0,0,0,0.04)",
                   }}
-                  className="w-full border-2 rounded-2xl px-5 py-4 text-base font-medium outline-none focus:border-emerald-500 transition-all"
-                  onFocus={(e) => (e.target.style.borderColor = "#10b981")}
-                  onBlur={(e) =>
-                    (e.target.style.borderColor = "var(--border, #e5e7eb)")
-                  }
+                  onFocus={(e) => (e.target.style.borderColor = "#1a6fc4")}
+                  onBlur={(e) => (e.target.style.borderColor = "#e8eaf0")}
                 />
               </div>
             )}
@@ -749,25 +1190,64 @@ export default function QuizTakePage({ params }) {
             {/* Structured / Essay */}
             {isText && (
               <div>
-                <p className="text-xs text-white/30 mb-3 uppercase tracking-wide font-semibold">
+                <p
+                  style={{
+                    fontSize: 12,
+                    fontWeight: 700,
+                    color: "#8892a4",
+                    textTransform: "uppercase",
+                    letterSpacing: "0.06em",
+                    marginBottom: 10,
+                  }}
+                >
                   {currentQ.question_type === "essay"
-                    ? "Write your essay below"
-                    : "Write your answer — use full sentences"}
+                    ? "Write your essay"
+                    : "Write your answer"}
                 </p>
-                <TextAnswer
-                  value={answers[currentIdx] ?? ""}
-                  onChange={handleAnswer}
-                  type={currentQ.question_type}
-                  placeholder={
-                    currentQ.question_type === "essay"
-                      ? "Begin your essay here…"
-                      : "Explain your answer in detail…"
-                  }
-                />
+                <div style={{ position: "relative" }}>
+                  <textarea
+                    value={answers[currentIdx] ?? ""}
+                    onChange={(e) => handleAnswer(e.target.value)}
+                    rows={currentQ.question_type === "essay" ? 8 : 5}
+                    placeholder={
+                      currentQ.question_type === "essay"
+                        ? "Begin your essay here…"
+                        : "Explain your answer in detail…"
+                    }
+                    style={{
+                      width: "100%",
+                      border: "2px solid #e8eaf0",
+                      borderRadius: 16,
+                      padding: "14px 18px",
+                      fontSize: 15,
+                      color: "#0d0d1a",
+                      background: "#fff",
+                      fontFamily: "'Lato', sans-serif",
+                      lineHeight: 1.7,
+                      resize: "none",
+                      transition: "border-color 0.15s",
+                      boxShadow: "0 2px 8px rgba(0,0,0,0.04)",
+                    }}
+                    onFocus={(e) => (e.target.style.borderColor = "#1a6fc4")}
+                    onBlur={(e) => (e.target.style.borderColor = "#e8eaf0")}
+                  />
+                  <span
+                    style={{
+                      position: "absolute",
+                      bottom: 12,
+                      right: 14,
+                      fontSize: 11,
+                      color: "#bcc3d0",
+                      fontWeight: 600,
+                    }}
+                  >
+                    {(answers[currentIdx] ?? "").length} chars
+                  </span>
+                </div>
                 {currentQ.max_marks > 1 && (
-                  <p className="text-xs text-white/20 mt-2">
-                    This question is worth {currentQ.max_marks} marks — provide
-                    a detailed answer.
+                  <p style={{ fontSize: 12, color: "#8892a4", marginTop: 8 }}>
+                    Worth {currentQ.max_marks} marks — provide a detailed
+                    answer.
                   </p>
                 )}
               </div>
@@ -776,78 +1256,119 @@ export default function QuizTakePage({ params }) {
         </AnimatePresence>
       </div>
 
-      {/* ── Bottom nav ── */}
+      {/* ── Bottom Nav ── */}
       <div
-        className="fixed bottom-0 left-0 right-0 z-20 border-t px-4 py-4"
         style={{
-          background: "var(--bg-secondary, #f3f4f6)",
-          borderColor: "var(--border, #e5e7eb)",
-          backdropFilter: "blur(16px)",
+          position: "fixed",
+          bottom: 0,
+          left: 0,
+          right: 0,
+          zIndex: 20,
+          background: "#fff",
+          borderTop: "1px solid #e8eaf0",
+          padding: "14px 16px",
+          boxShadow: "0 -4px 20px rgba(0,0,0,0.08)",
         }}
       >
-        <div className="max-w-2xl mx-auto flex items-center gap-3">
+        <div
+          style={{
+            maxWidth: 680,
+            margin: "0 auto",
+            display: "flex",
+            alignItems: "center",
+            gap: 12,
+          }}
+        >
           <button
             onClick={() => setCurrentIdx((p) => Math.max(0, p - 1))}
             disabled={currentIdx === 0}
-            className="w-12 h-12 rounded-xl border border-white/10 flex items-center justify-center text-white/50 hover:text-white hover:bg-white/8 transition-all disabled:opacity-30 disabled:cursor-not-allowed flex-shrink-0"
+            style={{
+              width: 48,
+              height: 48,
+              borderRadius: 14,
+              border: "2px solid #e8eaf0",
+              background: "#fff",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              cursor: currentIdx === 0 ? "not-allowed" : "pointer",
+              opacity: currentIdx === 0 ? 0.4 : 1,
+              flexShrink: 0,
+            }}
           >
-            <ArrowLeft className="w-5 h-5" />
+            <ArrowLeft size={20} color="#6b7280" />
           </button>
 
           {currentIdx < totalQ - 1 ? (
             <button
               onClick={() => setCurrentIdx((p) => p + 1)}
-              className="flex-1 h-12 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-bold text-sm hover:from-emerald-700 hover:to-teal-700 transition-all flex items-center justify-center gap-2"
+              style={{
+                flex: 1,
+                height: 48,
+                borderRadius: 14,
+                border: "none",
+                background: "linear-gradient(135deg, #1a6fc4, #0ea5c9)",
+                color: "#fff",
+                fontSize: 15,
+                fontWeight: 700,
+                cursor: "pointer",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: 8,
+                fontFamily: "'Syne', sans-serif",
+                boxShadow: "0 4px 16px rgba(26,111,196,0.3)",
+              }}
             >
-              Next <ArrowRight className="w-4 h-4" />
+              Next Question <ArrowRight size={18} />
             </button>
           ) : (
             <button
               onClick={() => setShowSubmitModal(true)}
-              className="flex-1 h-12 rounded-xl font-bold text-sm transition-all flex items-center justify-center gap-2 text-white"
               style={{
-                background: "linear-gradient(135deg, #10b981, #0891b2)",
+                flex: 1,
+                height: 48,
+                borderRadius: 14,
+                border: "none",
+                background: "linear-gradient(135deg, #1d8f57, #0ea5c9)",
+                color: "#fff",
+                fontSize: 15,
+                fontWeight: 700,
+                cursor: "pointer",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: 8,
+                fontFamily: "'Syne', sans-serif",
+                boxShadow: "0 4px 16px rgba(29,143,87,0.3)",
               }}
             >
-              <Send className="w-4 h-4" /> Submit Quiz
+              <Send size={18} /> Submit Quiz
             </button>
           )}
 
-          {/* Quick submit */}
           {currentIdx < totalQ - 1 && unanswered === 0 && (
             <button
               onClick={() => setShowSubmitModal(true)}
-              className="w-12 h-12 rounded-xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-emerald-400 hover:bg-emerald-500/25 transition-all flex-shrink-0"
-              title="Submit now (all answered)"
+              style={{
+                width: 48,
+                height: 48,
+                borderRadius: 14,
+                border: "2px solid #a8e6c4",
+                background: "#eafaf3",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                cursor: "pointer",
+                flexShrink: 0,
+              }}
+              title="All answered — submit now"
             >
-              <Send className="w-4 h-4" />
+              <Send size={18} color="#1d8f57" />
             </button>
           )}
         </div>
       </div>
-    </div>
-  );
-}
-
-// ─── Timer badge (separate to avoid full re-render) ───────────────────────────
-function TimerBadge({ totalSeconds, onExpire }) {
-  const { display, isUrgent } = useTimer(totalSeconds, onExpire);
-  return (
-    <div
-      className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl border transition-all flex-shrink-0 ${
-        isUrgent
-          ? "bg-rose-500/20 border-rose-500/40 animate-pulse"
-          : "bg-white/5 border-white/10"
-      }`}
-    >
-      <Clock
-        className={`w-3.5 h-3.5 ${isUrgent ? "text-rose-400" : "text-white/40"}`}
-      />
-      <span
-        className={`text-sm font-bold tabular-nums ${isUrgent ? "text-rose-400" : "text-white/60"}`}
-      >
-        {display}
-      </span>
     </div>
   );
 }
