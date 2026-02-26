@@ -31,8 +31,9 @@ import Button from "@/components/ui/Button";
 import Toast from "@/components/ui/Toast";
 import AdminPaymentsPanel from "@/components/AdminPaymentsPanel";
 import AdminNavigation from "@/components/AdminNavigation";
-const API = "http://127.0.0.1:8000/api";
-
+const API =
+  process.env.NEXT_PUBLIC_API_URL ||
+  "https://cbc-backend-76im.onrender.com/api";
 // ─── Stat Card ────────────────────────────────────────────────────────────────
 function StatCard({ label, value, icon: Icon, gradient, delay = 0 }) {
   const gradients = {
