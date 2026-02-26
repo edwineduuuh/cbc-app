@@ -457,8 +457,8 @@ function LessonPlanner() {
         term: f.term,
         week: parseInt(f.week?.replace("Week ", "") || "1"),
         lesson_number: 1,
-        strand: f.strand.trim(),
-        substrand: f.subStrand.trim() || f.strand.trim(),
+        strand: f.strand, // ← THIS MUST BE EXACTLY "strand"
+        substrand: f.subStrand, // ← THIS MUST BE EXACTLY "substrand"
         duration: f.duration,
         learner_level: f.needs || "Mixed ability",
         prior_knowledge: f.prior || "",
