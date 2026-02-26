@@ -453,8 +453,8 @@ function LessonPlanner() {
         term: f.term,
         week: parseInt(f.week?.replace("Week ", "") || "1"),
         lesson_number: 1,
-        topic: f.topic,
-        subtopic: f.subtopic || "",
+        strand: f.topic, // ← CHANGED
+        substrand: f.subtopic || "", // ← CHANGED
         duration: f.duration,
         learner_level: f.needs || "Mixed ability",
         prior_knowledge: f.prior || "",
