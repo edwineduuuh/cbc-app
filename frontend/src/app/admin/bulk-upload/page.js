@@ -9,8 +9,7 @@ import {
   AlertCircle,
 } from "lucide-react";
 
-const API = "http://127.0.0.1:8000/api";
-
+const API = "https://cbc-backend-76im.onrender.com/api";
 export default function BulkUploadPage() {
   const [file, setFile] = useState(null);
   const [subject, setSubject] = useState("");
