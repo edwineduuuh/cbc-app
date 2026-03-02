@@ -900,3 +900,15 @@ class StudentAnswer(models.Model):
 
     def __str__(self):
         return f"{self.session.student_name} — Q{self.question.order}"
+
+class GuestUsage(models.Model):
+    fingerprint = models.CharField(max_length=64, unique=True)
+    quizzes_taken = models.IntegerField(default=0)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def remaining(self):
+        return max(0, 2 - self.quizzes_taken)
+
+    def __str__(self):
+        return f"{self.fingerprint} - {self.quizzes_taken}"

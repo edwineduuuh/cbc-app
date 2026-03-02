@@ -61,6 +61,24 @@ export function AuthProvider({ children }) {
     initializeAuth();
   }, [initializeAuth]);
 
+  // Fetch user quota info
+  const fetchQuotaInfo = async (token) => {
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/credits/status/`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        },
+      );
+      if (response.ok) {
+        const quotaData = await response.json();
+        return quotaData;
+      }
+    } catch (error) {
+      console.error("Failed to fetch quota:", error);
+    }
+    return null;
+  };
   // Redirect based on role after login/register
   const redirectByRole = (userData) => {
     if (!userData) return "/login";
@@ -69,6 +87,7 @@ export function AuthProvider({ children }) {
       userData.is_superuser ||
       userData.is_staff ||
       userData.role === "admin" ||
+      userData.role === "super_admin" ||
       userData.role === "superadmin"
     ) {
       return "/admin"; // Admin dashboard
@@ -82,37 +101,47 @@ export function AuthProvider({ children }) {
     }
   };
 
-const login = async (credentials) => {
-  try {
-    const data = await loginAPI(credentials);
+  const login = async (credentials) => {
+    try {
+      const data = await loginAPI(credentials);
 
-    localStorage.setItem("accessToken", data.tokens.access);
-    localStorage.setItem("refreshToken", data.tokens.refresh);
+      localStorage.setItem("accessToken", data.tokens.access);
+      localStorage.setItem("refreshToken", data.tokens.refresh);
 
-    // Fetch full user data
-    const userData = await getCurrentUser(data.tokens.access);
-    setUser(userData);
+      // Fetch full user data
+      // Fetch full user data
+      const userData = await getCurrentUser(data.tokens.access);
+      const quotaInfo = await fetchQuotaInfo(data.tokens.access);
 
-    // Route based on role - covers all admin variants
-    const adminRoles = ["admin", "superadmin", "school_admin"];
-    if (
-      adminRoles.includes(userData.role) ||
-      userData.is_staff ||
-      userData.is_superuser
-    ) {
-      router.push("/admin");
-    } else if (userData.role === "teacher") {
-      router.push("/teacher/dashboard");
-    } else {
-      router.push("/dashboard");
+      // DEBUG - See what we got
+      console.log("🔍 USER DATA:", userData);
+      console.log("🔍 ROLE:", userData.role);
+      console.log("🔍 IS_STAFF:", userData.is_staff);
+
+      const fullUser = { ...userData, ...quotaInfo };
+      setUser(fullUser);
+      localStorage.setItem("user", JSON.stringify(fullUser)); // SAVE TO LOCALSTORAGE
+
+      // Route based on role - covers all admin variants
+      const adminRoles = ["admin", "super_admin", "superadmin", "school_admin"];
+      if (
+        adminRoles.includes(userData.role) ||
+        userData.is_staff ||
+        userData.is_superuser
+      ) {
+        router.push("/admin");
+      } else if (userData.role === "teacher") {
+        router.push("/teacher/dashboard");
+      } else {
+        router.push("/dashboard");
+      }
+
+      return { success: true };
+    } catch (error) {
+      console.error("Login error:", error);
+      return { success: false, error: error.message || "Login failed" };
     }
-
-    return { success: true };
-  } catch (error) {
-    console.error("Login error:", error);
-    return { success: false, error: error.message || "Login failed" };
-  }
-};
+  };
 
   const register = async (userData) => {
     try {
@@ -137,8 +166,9 @@ const login = async (credentials) => {
   const logout = () => {
     localStorage.removeItem("accessToken");
     localStorage.removeItem("refreshToken");
+    localStorage.removeItem("user");
     setUser(null);
-    router.push("/login");
+    router.push("/login"); // ← CORRECT
   };
 
   const value = {

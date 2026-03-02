@@ -149,7 +149,9 @@ const panels = [
 ];
 // ── Claude API ────────────────────────────────────────────────────────────────
 // ── Backend API ───────────────────────────────────────────────────────────────
-const BASE = "https://cbc-backend-76im.onrender.com/api";
+const BASE =
+  process.env.NEXT_PUBLIC_API_URL ||
+  "https://cbc-backend-76im.onrender.com/api";
 function authToken() {
   return typeof window !== "undefined"
     ? localStorage.getItem("accessToken")
@@ -3418,6 +3420,14 @@ function PastQuizzesView() {
     loadRooms();
   }, []);
 
+  useEffect(() => {
+    if (user?.role?.includes("admin")) {
+      // Make sure history entry is clean
+      window.history.replaceState(null, "", "/admin");
+    } else {
+      window.history.replaceState(null, "", "/dashboard");
+    }
+  }, [user]);
   async function loadRooms() {
     setBusy(true);
     try {

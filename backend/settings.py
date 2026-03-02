@@ -37,7 +37,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 
-
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # Application definition
 
 INSTALLED_APPS = [
@@ -100,7 +101,13 @@ DATABASES = {
     )
 }
 
-
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
+        'LOCATION': 'django_cache_table',
+        'TIMEOUT': 86400 * 30,  # 30 days
+    }
+}
 # Password validation
 # https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators
 

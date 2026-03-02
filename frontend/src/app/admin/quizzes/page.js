@@ -20,8 +20,7 @@ import {
   XCircle,
 } from "lucide-react";
 
-const API = "https://cbc-backend-76im.onrender.com/api";
-
+const API = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api";
 export default function QuizzesManagementPage() {
   const { user, loading: authLoading } = useAuth();
   const router = useRouter();

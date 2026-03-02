@@ -266,6 +266,8 @@ export default function PricingPage() {
             onSuccess={() => {
               setShowModal(false);
               fetchSubscriptionStatus();
+
+              window.location.href = "/student/dashboard?subscribed=true";
             }}
           />
         )}

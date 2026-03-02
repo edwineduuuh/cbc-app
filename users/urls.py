@@ -14,7 +14,7 @@ from .views import (
     TeacherClassroomListView, TeacherClassroomDetailView,
     RegenerateJoinCodeView, RemoveStudentFromClassroomView,
     JoinClassroomView, LeaveClassroomView, MyClassroomsView,
-    SearchClassroomsView, GoogleLogin, MicrosoftLogin, update_profile, credits_status
+    SearchClassroomsView, GoogleLogin, MicrosoftLogin, update_profile
 )
 from rest_framework_simplejwt.views import TokenRefreshView
 
@@ -46,6 +46,5 @@ urlpatterns = [
 
     path('auth/me/', update_profile, name='update-profile'),
 
-    path('credits/status/', credits_status, name='credits-status'),
 ]
 

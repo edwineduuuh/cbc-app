@@ -9,7 +9,8 @@ import {
   AlertCircle,
 } from "lucide-react";
 
-const API = "https://cbc-backend-76im.onrender.com/api";
+const API = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api";
+
 export default function BulkUploadPage() {
   const [file, setFile] = useState(null);
   const [subject, setSubject] = useState("");
@@ -17,6 +18,7 @@ export default function BulkUploadPage() {
   const [subjects, setSubjects] = useState([]);
   const [uploading, setUploading] = useState(false);
   const [result, setResult] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     loadSubjects();
@@ -24,15 +26,27 @@ export default function BulkUploadPage() {
 
   const loadSubjects = async () => {
     try {
-      const res = await fetch(`${API}/subjects/`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-        },
-      });
+      setLoading(true);
+
+      // NO AUTH - subjects is public
+      const res = await fetch(`${API}/subjects/`);
+
+      if (!res.ok) {
+        throw new Error(`HTTP ${res.status}`);
+      }
+
       const data = await res.json();
-      setSubjects(data);
+
+      if (Array.isArray(data)) {
+        setSubjects(data);
+      } else {
+        setSubjects([]);
+      }
     } catch (error) {
-      console.error("Failed to load subjects");
+      console.error("Failed to load subjects:", error);
+      setSubjects([]);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -56,10 +70,19 @@ export default function BulkUploadPage() {
     formData.append("grade", grade);
 
     try {
+      const token = localStorage.getItem("accessToken");
+
+      if (!token) {
+        alert("You must be logged in as admin to upload");
+        setUploading(false);
+        return;
+      }
+
+      // AUTH REQUIRED - this is admin action
       const res = await fetch(`${API}/admin/bulk-upload/`, {
         method: "POST",
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          Authorization: `Bearer ${token}`,
         },
         body: formData,
       });
@@ -73,10 +96,11 @@ export default function BulkUploadPage() {
           questions: data.questions,
         });
         setFile(null);
+        document.getElementById("file-upload").value = "";
       } else {
         setResult({
           success: false,
-          message: `❌ Upload failed: ${data.error || "Unknown error"}`,
+          message: `❌ Upload failed: ${data.error || "Check if you're logged in as admin"}`,
         });
       }
     } catch (error) {
@@ -147,15 +171,23 @@ export default function BulkUploadPage() {
                 <select
                   value={subject}
                   onChange={(e) => setSubject(e.target.value)}
-                  className="w-full px-4 py-3 border-2 border-emerald-200 rounded-lg focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200"
+                  disabled={loading}
+                  className="w-full px-4 py-3 border-2 border-emerald-200 rounded-lg focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 disabled:opacity-50"
                 >
-                  <option value="">Select Subject</option>
+                  <option value="">
+                    {loading ? "Loading..." : "Select Subject"}
+                  </option>
                   {subjects.map((s) => (
                     <option key={s.id} value={s.id}>
                       {s.name}
                     </option>
                   ))}
                 </select>
+                {!loading && subjects.length === 0 && (
+                  <p className="text-xs text-red-600 mt-1">
+                    No subjects found. Add subjects first.
+                  </p>
+                )}
               </div>
 
               <div>
@@ -181,7 +213,7 @@ export default function BulkUploadPage() {
             <button
               onClick={handleUpload}
               disabled={!file || !subject || !grade || uploading}
-              className="w-full py-4 bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 text-white rounded-xl font-bold text-lg shadow-lg disabled:opacity-50 disabled:cursor-not-allowed transition-all transform hover:scale-105"
+              className="w-full py-4 bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 text-white rounded-xl font-bold text-lg shadow-lg disabled:opacity-50 disabled:cursor-not-allowed transition-all"
             >
               {uploading ? (
                 <span className="flex items-center justify-center gap-2">
@@ -220,21 +252,28 @@ export default function BulkUploadPage() {
                 </p>
 
                 {result.success && result.questions && (
-                  <div className="mt-4 space-y-2">
+                  <div className="mt-4 space-y-2 max-h-96 overflow-y-auto">
                     <p className="text-sm font-semibold text-green-800">
-                      Questions Created:
+                      Questions Created ({result.questions.length}):
                     </p>
                     {result.questions.map((q, idx) => (
                       <div
                         key={idx}
                         className="bg-white rounded-lg p-3 border border-green-200"
                       >
-                        <span className="text-xs font-bold text-green-700">
-                          {q.type.toUpperCase()}
-                        </span>
-                        <p className="text-sm text-gray-900 mt-1">
-                          {q.question_text}
-                        </p>
+                        <div className="flex items-start gap-2">
+                          <span className="text-xs font-bold text-green-700 bg-green-100 px-2 py-1 rounded">
+                            {q.type?.toUpperCase() || "Q"}
+                          </span>
+                          {q.has_image && (
+                            <span className="text-xs font-bold text-blue-700 bg-blue-100 px-2 py-1 rounded">
+                              📷 IMAGE
+                            </span>
+                          )}
+                          <p className="text-sm text-gray-900 flex-1">
+                            {q.question_text}
+                          </p>
+                        </div>
                       </div>
                     ))}
                   </div>

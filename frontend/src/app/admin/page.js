@@ -506,6 +506,34 @@ function QuestionModal({ open, onClose, onSave, subjects, topics, editData }) {
                 placeholder="Explain the correct answer in detail..."
               />
             </div>
+            {/* ADD THIS AFTER EXPLANATION FIELD */}
+            <div>
+              <label className={labelCls}>
+                Question Image{" "}
+                <span className="normal-case font-normal text-gray-400">
+                  — optional
+                </span>
+              </label>
+              <input
+                type="file"
+                accept="image/*"
+                onChange={(e) => {
+                  const file = e.target.files[0];
+                  if (file) {
+                    // Store file for upload
+                    setForm((prev) => ({ ...prev, image_file: file }));
+                  }
+                }}
+                className={inputCls}
+              />
+              {editData?.question_image_url && (
+                <img
+                  src={editData.question_image_url}
+                  alt="Current"
+                  className="mt-2 w-32 h-32 object-cover rounded-lg border"
+                />
+              )}
+            </div>
           </div>
 
           <div className="flex gap-3 px-7 py-5 border-t border-gray-100 bg-gray-50/50">
@@ -949,6 +977,15 @@ export default function AdminPage() {
     fetchAll();
   }, [fetchAll]);
 
+  useEffect(() => {
+    if (user?.role?.includes("admin")) {
+      // Make sure history entry is clean
+      window.history.replaceState(null, "", "/admin");
+    } else {
+      window.history.replaceState(null, "", "/dashboard");
+    }
+  }, [user]);
+
   const handleDelete = async (id) => {
     if (!confirm("Delete this question permanently?")) return;
     try {
@@ -1322,6 +1359,7 @@ export default function AdminPage() {
                     <th className="text-left px-6 py-3.5 text-xs font-semibold text-gray-500 uppercase tracking-wide">
                       Subject / Topic
                     </th>
+
                     <th className="text-left px-6 py-3.5 text-xs font-semibold text-gray-500 uppercase tracking-wide">
                       Grade
                     </th>
@@ -1336,6 +1374,16 @@ export default function AdminPage() {
                     </th>
                   </tr>
                 </thead>
+                <thead>
+                  <tr className="bg-gray-50">
+                    <th className="text-left px-6 py-3.5 text-xs font-semibold text-gray-500 uppercase tracking-wide">
+                      Image
+                    </th>
+                    <th className="text-left px-6 py-3.5 text-xs font-semibold text-gray-500 uppercase tracking-wide">
+                      Question
+                    </th>
+                  </tr>
+                </thead>
                 <tbody className="divide-y divide-gray-50">
                   {questions.map((q, i) => (
                     <motion.tr
@@ -1345,11 +1393,25 @@ export default function AdminPage() {
                       transition={{ delay: i * 0.02 }}
                       className="hover:bg-gray-50/70 transition-colors group"
                     >
+                      <td className="px-6 py-4">
+                        {q.question_image_url ? (
+                          <img
+                            src={q.question_image_url}
+                            alt="Q"
+                            className="w-16 h-16 object-cover rounded-lg border border-gray-200"
+                          />
+                        ) : (
+                          <div className="w-16 h-16 bg-gray-100 rounded-lg flex items-center justify-center text-gray-400 text-xs">
+                            No image
+                          </div>
+                        )}
+                      </td>
                       <td className="px-6 py-4 max-w-xs">
                         <p className="text-sm font-medium text-gray-900 line-clamp-2 leading-snug">
                           {q.question_text}
                         </p>
                       </td>
+
                       <td className="px-6 py-4">
                         <div>
                           <span className="text-sm font-semibold text-gray-800">

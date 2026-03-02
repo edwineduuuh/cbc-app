@@ -57,10 +57,14 @@ class User(AbstractUser):
     trial_end = models.DateTimeField(null=True, blank=True)
     has_used_trial = models.BooleanField(default=False)
 
-    # FREE TRIAL CREDITS
+    # FREE TRIAL CREDITS (4 total: 2 as guest + 2 after signup)
     quiz_credits = models.IntegerField(
-        default=2,
+        default=4,
         help_text='Free quiz attempts remaining'
+    )
+    free_quizzes_used = models.IntegerField(
+        default=0,
+        help_text='Number of free quizzes used (0-4)'
     )
     total_quizzes_taken = models.IntegerField(
         default=0,

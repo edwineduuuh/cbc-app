@@ -51,7 +51,7 @@ class QuestionSerializer(serializers.ModelSerializer):
             'question_text',
             'option_a', 'option_b', 'option_c', 'option_d',
             'correct_answer',
-            'difficulty', 'question_type', 'max_marks',
+            'difficulty', 'question_type', 'max_marks','question_image',
             'question_image_url',
         ]
     
@@ -82,7 +82,7 @@ class QuestionDetailSerializer(serializers.ModelSerializer):
             'correct_answer', 'correct_answers',
             'explanation', 'difficulty',
             'created_at', 'created_by',
-            'question_image_url',
+            'question_image_url','question_image'
         ]
         read_only_fields = [
             'id', 'subject', 'subject_name', 'topic_name', 'grade',
@@ -389,3 +389,11 @@ class LeaderboardSerializer(serializers.ModelSerializer):
     class Meta:
         model  = StudentSession
         fields = ["id", "student_name", "total_score", "joined_at"]
+
+class UserQuotaSerializer(serializers.Serializer):
+    """Return user quota and subscription status"""
+    quiz_credits = serializers.IntegerField()
+    free_quizzes_used = serializers.IntegerField()
+    has_subscription = serializers.BooleanField()
+    subscription_plan = serializers.CharField(allow_null=True)
+    subscription_expires = serializers.DateTimeField(allow_null=True)

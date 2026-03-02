@@ -16,16 +16,17 @@ import {
   Sparkles,
 } from "lucide-react";
 
-const API = "https://cbc-backend-76im.onrender.com/api";
-
+const API = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api";
 export default function AttemptResultsPage() {
   const params = useParams();
   const router = useRouter();
   const { user } = useAuth();
 
-  const [results, setResults] = useState(null);
-  const [quizGrade, setQuizGrade] = useState(null);
-  const [loading, setLoading] = useState(true);
+ const [results, setResults] = useState(null);
+ const [quizGrade, setQuizGrade] = useState(null);
+ const [credits, setCredits] = useState(0);
+ const [isPremium, setIsPremium] = useState(false);
+ const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (!user) {
@@ -33,7 +34,43 @@ export default function AttemptResultsPage() {
       return;
     }
     fetchResults();
+    fetchCreditsStatus();
   }, [params.id, user]);
+
+  useEffect(() => {
+    // Replace the history entry of the questions page with current URL
+    // → back button skips the attempt/questions page entirely
+    const currentPath = window.location.pathname;
+    window.history.replaceState(null, "", currentPath);
+
+    // Then still protect against popstate
+    const handler = () => {
+      window.history.pushState(null, "", currentPath);
+      // Optional toast / modal: "You cannot go back after submission"
+    };
+
+    window.addEventListener("popstate", handler);
+    return () => window.removeEventListener("popstate", handler);
+  }, []);
+  const fetchCreditsStatus = async () => {
+    const token = localStorage.getItem("accessToken");
+    try {
+      const res = await fetch(`${API}/credits/status/`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      if (res.ok) {
+        const data = await res.json();
+        setCredits(
+          data.quiz_credits === "unlimited" ? 999 : data.quiz_credits || 0,
+        );
+        setIsPremium(
+          data.has_subscription === true || data.quiz_credits === "unlimited",
+        );
+      }
+    } catch (error) {
+      console.error("Error fetching credits:", error);
+    }
+  };
 
   const fetchResults = async () => {
     const token = localStorage.getItem("accessToken");
@@ -359,8 +396,13 @@ export default function AttemptResultsPage() {
           {/* Stats */}
           <div className="flex items-center justify-center gap-8 text-base md:text-lg mb-6">
             <div>
-              <span className="font-semibold">{results.correct_answers}</span>
-              <span className="opacity-80"> / {results.total_questions}</span>
+              <span className="font-semibold">
+                {results.correct_answers ?? 0}
+              </span>
+              <span className="opacity-80">
+                {" "}
+                / {results.total_questions ?? 0}
+              </span>
               <p className="text-xs md:text-sm opacity-75">Questions Correct</p>
             </div>
           </div>
@@ -535,23 +577,86 @@ export default function AttemptResultsPage() {
         })}
       </div>
 
-      {/* Action Buttons */}
-      <div className="max-w-4xl mx-auto mt-8 flex flex-col sm:flex-row gap-4">
-        <Button
-          variant="outline"
-          onClick={() => router.push("/quizzes")}
-          className="flex-1"
-        >
-          Back to Quizzes
-        </Button>
-        <Button
-          variant="primary"
-          onClick={() => window.print()}
-          className="flex-1"
-        >
-          <Download className="w-4 h-4 mr-2" />
-          Download Results
-        </Button>
+      {/* Action Buttons - CONDITIONAL BASED ON QUOTA */}
+      <div className="max-w-4xl mx-auto mt-8">
+        {(() => {
+          // SCENARIO 1: Premium/Subscribed user
+          if (isPremium) {
+            return (
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Button
+                  variant="primary"
+                  onClick={() => router.push("/explore")}
+                  className="flex-1"
+                >
+                  Continue Learning
+                </Button>
+                <Button
+                  variant="outline"
+                  onClick={() => router.push("/dashboard")}
+                  className="flex-1"
+                >
+                  View Dashboard
+                </Button>
+              </div>
+            );
+          }
+
+          // SCENARIO 2: Free user with credits left
+          if (credits > 0) {
+            return (
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Button
+                  variant="primary"
+                  onClick={() => router.push("/explore")}
+                  className="flex-1"
+                >
+                  Take Another Quiz ({credits} free left)
+                </Button>
+                <Button
+                  variant="outline"
+                  onClick={() => router.push("/dashboard")}
+                  className="flex-1"
+                >
+                  View Dashboard
+                </Button>
+              </div>
+            );
+          }
+
+          // SCENARIO 3: Free user - all credits used
+          return (
+            <>
+              <div className="flex flex-col sm:flex-row gap-4 mb-4">
+                <Button
+                  variant="primary"
+                  onClick={() => router.push("/subscribe")}
+                  className="flex-1 bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600"
+                >
+                  🎓 Subscribe to Continue
+                </Button>
+                <Button
+                  variant="outline"
+                  onClick={() => router.push("/progress")}
+                  className="flex-1"
+                >
+                  View Progress
+                </Button>
+              </div>
+
+              {/* Paywall Banner */}
+              <div className="bg-gradient-to-r from-yellow-50 to-orange-50 border-2 border-yellow-300 rounded-xl p-4 text-center">
+                <p className="text-lg font-bold text-yellow-900 mb-2">
+                  🎉 You've completed all 4 free quizzes!
+                </p>
+                <p className="text-sm text-yellow-800">
+                  Subscribe now to unlock unlimited access and continue your
+                  learning journey.
+                </p>
+              </div>
+            </>
+          );
+        })()}
       </div>
 
       {/* Print Styles */}

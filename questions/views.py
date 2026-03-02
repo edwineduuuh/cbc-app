@@ -316,7 +316,7 @@ class QuizListView(generics.ListAPIView):
 class QuizDetailView(generics.RetrieveAPIView):
     queryset = Quiz.objects.filter(is_active=True)
     serializer_class = QuizDetailSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
     # @requires_subscription
 
 
@@ -558,12 +558,6 @@ class StudentAnalyticsView(APIView):
             'current_streak':     0,
         })
     
-"""
-Add this to questions/views.py
-
-Handles quiz submission with AI grading
-"""
-
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
@@ -571,143 +565,367 @@ from rest_framework import status
 from .ai_grading import grade_answer
 import json
 
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.response import Response
+from rest_framework import status
+from django.utils import timezone
+from .models import Quiz, Question, Attempt
+from .ai_grading import grade_answer
+from .parallel_grading import grade_quiz_fast
+from django.db import transaction
+import uuid
+
+
+# ============== GUEST SESSION TRACKING ==============
+
+GUEST_SESSIONS = {}  # In-memory store: {session_id: quiz_count}
+# For production, use Redis or database table
+
 
 @api_view(['POST'])
-@permission_classes([IsAuthenticated])
-# @requires_subscription
+@permission_classes([AllowAny])
+def start_guest_session(request):
+    """
+    POST /api/guest/session/
+    Creates guest session ID for tracking free quizzes
+    """
+    session_id = str(uuid.uuid4())
+    GUEST_SESSIONS[session_id] = 0
+    
+    return Response({
+        'session_id': session_id,
+        'quizzes_remaining': 2
+    })
+
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def check_guest_quota(request):
+    """
+    GET /api/guest/quota/?session_id=xxx
+    Check how many free quizzes guest has left
+    """
+    session_id = request.query_params.get('session_id')
+    
+    if not session_id:
+        return Response({'error': 'session_id required'}, status=400)
+    
+    taken = GUEST_SESSIONS.get(session_id, 0)
+    remaining = max(0, 2 - taken)
+    
+    return Response({
+        'quizzes_taken': taken,
+        'quizzes_remaining': remaining,
+        'can_take_quiz': remaining > 0
+    })
+
+
+# ============== QUIZ SUBMISSION (Guest + Authenticated) ==============
+
 @api_view(['POST'])
-@permission_classes([IsAuthenticated])
-@check_quiz_credits  # ← NEW: Check free trial credits
+@permission_classes([AllowAny])  # Allow both guest and authenticated
 def submit_quiz(request):
     """
-    Submit quiz answers and get AI-graded results
-    
-    SPEED: Uses parallel grading (5-10 sec) instead of sequential (20-30 sec)
-    CREDITS: Deducts 1 free quiz credit (or checks subscription)
-    
     POST /api/quizzes/submit/
+    
+    Handles BOTH:
+    - Guest users (with session_id in body)
+    - Authenticated users (with credits system)
+    
     Body: {
         "quiz_id": 1,
-        "answers": {
-            "1": "A",
-            "2": "photosynthesis",
-            "3": "x=4",
-            "4": "Plants absorb water through roots..."
-        }
+        "answers": {...},
+        "session_id": "xxx"  // For guests only
     }
     """
     data = request.data
-    quiz_id = request.data.get('quiz_id')
-    answers = request.data.get('answers', {})
+    quiz_id = data.get('quiz_id')
+    answers = data.get('answers', {})
+    session_id = data.get('session_id')  # For guests
     
     if not quiz_id:
-        return Response({'error': 'quiz_id required'}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({'error': 'quiz_id required'}, status=400)
     
     try:
         quiz = Quiz.objects.get(id=quiz_id)
     except Quiz.DoesNotExist:
-        return Response({'error': 'Quiz not found'}, status=status.HTTP_404_NOT_FOUND)
+        return Response({'error': 'Quiz not found'}, status=404)
     
-    # Get all questions in quiz
-    questions = list(quiz.questions.all())
-    
-    if not questions:
-        return Response({'error': 'Quiz has no questions'}, status=status.HTTP_400_BAD_REQUEST)
-    
-    # ========== PARALLEL GRADING (FAST!) ==========
-    print(f"🚀 Starting parallel grading for {len(questions)} questions...")
-    results = grade_quiz_fast(questions, answers)
-    
-    # Calculate totals
-    total_marks_awarded = sum(r['marks_awarded'] for r in results)
-    total_max_marks = sum(r['max_marks'] for r in results)
-    score_percentage = (total_marks_awarded / total_max_marks * 100) if total_max_marks > 0 else 0
-    
-    # Build detailed feedback
-    detailed_feedback = {}
-    for question, result in zip(questions, results):
-        # Map MCQ letters to full text for display
-        display_correct = question.correct_answer
-        display_student = answers.get(str(question.id), "")
+    # ========== GUEST USER FLOW ==========
+    if not request.user.is_authenticated:
+        if not session_id:
+            return Response({'error': 'session_id required for guests'}, status=400)
         
-        if question.question_type == 'mcq':
-            options_map = {
-                'A': question.option_a,
-                'B': question.option_b,
-                'C': question.option_c,
-                'D': question.option_d
-            }
-            correct_text = options_map.get(str(question.correct_answer).upper(), '')
-            student_text = options_map.get(str(display_student).upper(), '')
+        # Check guest quota
+        taken = GUEST_SESSIONS.get(session_id, 0)
+        if taken >= 2:
+            return Response({
+                'error': 'Guest quota exceeded',
+                'message': 'Sign up to get 2 more free quizzes!',
+                'quota_exceeded': True,
+                'quizzes_taken': taken
+            }, status=402)  # Payment Required
+        
+        # Grade quiz for guest
+        questions = list(quiz.questions.all())
+        results = grade_quiz_fast(questions, answers)
+        
+        total_marks_awarded = sum(r['marks_awarded'] for r in results)
+        total_max_marks = sum(r['max_marks'] for r in results)
+        score_percentage = (total_marks_awarded / total_max_marks * 100) if total_max_marks > 0 else 0
+        
+        # Build feedback
+        detailed_feedback = {}
+        for question, result in zip(questions, results):
+            display_correct = question.correct_answer
+            display_student = answers.get(str(question.id), "")
             
-            if correct_text:
-                display_correct = f"{question.correct_answer}: {correct_text}"
-            if student_text:
-                display_student = f"{display_student.upper()}: {student_text}"
+            if question.question_type == 'mcq':
+                options_map = {
+                    'A': question.option_a,
+                    'B': question.option_b,
+                    'C': question.option_c,
+                    'D': question.option_d
+                }
+                correct_text = options_map.get(str(question.correct_answer).upper(), '')
+                student_text = options_map.get(str(display_student).upper(), '')
+                
+                if correct_text:
+                    display_correct = f"{question.correct_answer}: {correct_text}"
+                if student_text:
+                    display_student = f"{display_student.upper()}: {student_text}"
+            
+            detailed_feedback[str(question.id)] = {
+                'question_text': question.question_text,
+                'question_type': question.question_type,
+                'option_a': question.option_a,
+                'option_b': question.option_b,
+                'option_c': question.option_c,
+                'option_d': question.option_d,
+                'student_answer': display_student,
+                'marks_awarded': result['marks_awarded'],
+                'max_marks': result['max_marks'],
+                'feedback': result['feedback'],
+                'is_correct': result['is_correct'],
+                'correct_answer': display_correct if not result['is_correct'] else None,
+                'explanation': question.explanation if not result['is_correct'] else None,
+                'points_earned': result.get('points_earned', []),
+                'points_missed': result.get('points_missed', []),
+                'personalized_message': result.get('personalized_message', ''),
+                'study_tip': result.get('study_tip', ''),
+            }
         
-        detailed_feedback[str(question.id)] = {
-            'question_text': question.question_text,
-            'question_type': question.question_type,
-            'option_a': question.option_a,
-            'option_b': question.option_b,
-            'option_c': question.option_c,
-            'option_d': question.option_d,
-            'student_answer': display_student,
-            'marks_awarded': result['marks_awarded'],
-            'max_marks': result['max_marks'],
-            'feedback': result['feedback'],
-            'is_correct': result['is_correct'],
-            'correct_answer': display_correct if not result['is_correct'] else None,
-            'explanation': question.explanation if not result['is_correct'] else None,
-            'points_earned': result.get('points_earned', []),
-            'points_missed': result.get('points_missed', []),
-            'personalized_message': result.get('personalized_message', ''),
-            'study_tip': result.get('study_tip', ''),
-        }
+        # Increment guest counter
+        GUEST_SESSIONS[session_id] = taken + 1
+        remaining = 2 - (taken + 1)
+        
+        return Response({
+            'id': None,  # No saved attempt for guests
+            'score': round(score_percentage, 1),
+            'total_marks_awarded': total_marks_awarded,
+            'total_max_marks': total_max_marks,
+            'total_questions': len(questions),
+            'correct_answers': sum(1 for r in results if r['is_correct']),
+            'passed': score_percentage >= quiz.passing_score,
+            'detailed_feedback': detailed_feedback,
+            'results': [
+                {
+                    'question_id': q.id,
+                    'marks_awarded': r['marks_awarded'],
+                    'max_marks': r['max_marks'],
+                    'is_correct': r['is_correct']
+                }
+                for q, r in zip(questions, results)
+            ],
+            'message': 'Quiz completed! ✅',
+            
+            # Guest quota info
+            'is_guest': True,
+            'guest_quizzes_taken': taken + 1,
+            'guest_quizzes_remaining': remaining,
+            'show_signup_prompt': remaining == 0,
+            
+        }, status=200)
     
-    # Create attempt record
-    with transaction.atomic():
-        attempt = Attempt.objects.create(
-            student=request.user,
-            quiz=quiz,
-            score=score_percentage,
-            total_questions=len(questions),
-            correct_answers=sum(1 for r in results if r['is_correct']),
-            total_marks_awarded=total_marks_awarded,
-            total_max_marks=total_max_marks,
-            status='completed',
-            completed_at=timezone.now(),
-            detailed_feedback=detailed_feedback,
-            answers=answers
-        )
+    # ========== AUTHENTICATED USER FLOW ==========
+    else:
+        # Check credits
+        user = request.user
+        credits = getattr(user, 'quiz_credits', 0)
+        
+        # Check subscription
+        has_subscription = False
+        try:
+            from .models import Subscription
+            subscription = Subscription.objects.get(user=user)
+            has_subscription = subscription.is_valid
+        except:
+            pass
+        
+        if not has_subscription and credits <= 0:
+            return Response({
+                'error': 'No quiz credits remaining',
+                'message': 'Subscribe to unlock unlimited quizzes!',
+                'credits_exhausted': True,
+                'redirect': '/student/payments'
+            }, status=402)
+        
+        # Grade quiz
+        questions = list(quiz.questions.all())
+        results = grade_quiz_fast(questions, answers)
+        
+        total_marks_awarded = sum(r['marks_awarded'] for r in results)
+        total_max_marks = sum(r['max_marks'] for r in results)
+        score_percentage = (total_marks_awarded / total_max_marks * 100) if total_max_marks > 0 else 0
+        
+        # Build feedback
+        detailed_feedback = {}
+        for question, result in zip(questions, results):
+            display_correct = question.correct_answer
+            display_student = answers.get(str(question.id), "")
+            
+            if question.question_type == 'mcq':
+                options_map = {
+                    'A': question.option_a,
+                    'B': question.option_b,
+                    'C': question.option_c,
+                    'D': question.option_d
+                }
+                correct_text = options_map.get(str(question.correct_answer).upper(), '')
+                student_text = options_map.get(str(display_student).upper(), '')
+                
+                if correct_text:
+                    display_correct = f"{question.correct_answer}: {correct_text}"
+                if student_text:
+                    display_student = f"{display_student.upper()}: {student_text}"
+            
+            detailed_feedback[str(question.id)] = {
+                'question_text': question.question_text,
+                'question_type': question.question_type,
+                'option_a': question.option_a,
+                'option_b': question.option_b,
+                'option_c': question.option_c,
+                'option_d': question.option_d,
+                'student_answer': display_student,
+                'marks_awarded': result['marks_awarded'],
+                'max_marks': result['max_marks'],
+                'feedback': result['feedback'],
+                'is_correct': result['is_correct'],
+                'correct_answer': display_correct if not result['is_correct'] else None,
+                'explanation': question.explanation if not result['is_correct'] else None,
+                'points_earned': result.get('points_earned', []),
+                'points_missed': result.get('points_missed', []),
+                'personalized_message': result.get('personalized_message', ''),
+                'study_tip': result.get('study_tip', ''),
+            }
+        
+        # Save attempt
+        with transaction.atomic():
+            attempt = Attempt.objects.create(
+                student=user,
+                quiz=quiz,
+                score=score_percentage,
+                total_questions=len(questions),
+                correct_answers=sum(1 for r in results if r['is_correct']),
+                total_marks_awarded=total_marks_awarded,
+                total_max_marks=total_max_marks,
+                status='completed',
+                completed_at=timezone.now(),
+                detailed_feedback=detailed_feedback,
+                answers=answers
+            )
+            
+            # Deduct credit (if not subscribed)
+            if not has_subscription:
+                user.quiz_credits = max(0, credits - 1)
+                user.free_quizzes_used = getattr(user, 'free_quizzes_used', 0) + 1
+                user.total_quizzes_taken = getattr(user, 'total_quizzes_taken', 0) + 1
+                user.save(update_fields=['quiz_credits', 'free_quizzes_used', 'total_quizzes_taken'])
+        
+        # Get updated credits
+        new_credits = user.quiz_credits if not has_subscription else 'unlimited'
+        
+        return Response({
+            'id': attempt.id,
+            'score': round(score_percentage, 1),
+            'total_marks_awarded': total_marks_awarded,
+            'total_max_marks': total_max_marks,
+            'total_questions': len(questions),
+            'correct_answers': sum(1 for r in results if r['is_correct']),
+            'passed': score_percentage >= quiz.passing_score,
+            'results': [
+                {
+                    'question_id': q.id,
+                    'marks_awarded': r['marks_awarded'],
+                    'max_marks': r['max_marks'],
+                    'is_correct': r['is_correct']
+                }
+                for q, r in zip(questions, results)
+            ],
+            'message': 'Quiz submitted successfully! ✅',
+            
+            # Credits info
+            'is_guest': False,
+            'quiz_credits': new_credits,
+            'show_payment_prompt': new_credits == 0,
+            
+        }, status=201)
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def credits_status(request):
+    """
+    GET /api/credits/status/
+    Returns user's credit and subscription status
+    """
+    user = request.user
     
-    # Get updated credits status
-    credits_status = get_user_credits_status(request.user)
+    # Check subscription
+    has_subscription = False
+    subscription_plan = None
+    subscription_expires = None
+    
+    try:
+        from .models import Subscription
+        subscription = Subscription.objects.get(user=user)
+        if subscription.is_valid:
+            has_subscription = True
+            subscription_plan = subscription.plan.name
+            subscription_expires = subscription.end_date
+            
+            return Response({
+                'has_access': True,
+                'quiz_credits': 'unlimited',
+                'free_quizzes_used': getattr(user, 'free_quizzes_used', 0),
+                'has_subscription': True,
+                'subscription_status': 'active',
+                'subscription_plan': subscription_plan,
+                'subscription_expires': subscription_expires,
+                'message': f'✨ {subscription_plan} - Unlimited access'
+            })
+    except:
+        pass
+    
+    # Free trial user
+    credits = getattr(user, 'quiz_credits', 0)
+    used = getattr(user, 'free_quizzes_used', 0)
     
     return Response({
-        'id': attempt.id,
-        'score': round(score_percentage, 1),
-        'total_marks_awarded': total_marks_awarded,
-        'total_max_marks': total_max_marks,
-        'total_questions': len(questions),
-        'correct_answers': sum(1 for r in results if r['is_correct']),
-        'passed': score_percentage >= quiz.passing_score,
-        'results': [
-            {
-                'question_id': q.id,
-                'marks_awarded': r['marks_awarded'],
-                'max_marks': r['max_marks'],
-                'is_correct': r['is_correct']
-            }
-            for q, r in zip(questions, results)
-        ],
-        'message': 'Quiz submitted successfully! ✅',
-        
-        # Credits info
-        'credits_status': credits_status,
-        'quiz_credits': credits_status['quiz_credits'],
-        
-    }, status=status.HTTP_201_CREATED)
+        'has_access': credits > 0,
+        'quiz_credits': credits,
+        'free_quizzes_used': used,
+        'has_subscription': False,
+        'subscription_status': 'free_trial',
+        'subscription_plan': None,
+        'subscription_expires': None,
+        'message': (
+            f'🎓 {credits} free quiz{"zes" if credits != 1 else ""} remaining' 
+            if credits > 0 
+            else '💳 Subscribe to unlock unlimited quizzes'
+        )
+    })
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
@@ -875,10 +1093,6 @@ class AdminRejectPaymentView(APIView):
             return Response({'error': 'Payment not found'}, status=404)
         payment.reject(admin_user=request.user, reason=reason)
         return Response({'message': 'Payment rejected.'})
-"""
-views.py — CBC Kenya Teacher Portal Backend
-All endpoints for lesson plans, classrooms, quizzes, student sessions, AI marking, reports.
-"""
 import random
 import string
 from datetime import datetime

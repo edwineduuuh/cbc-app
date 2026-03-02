@@ -1,5 +1,6 @@
 from django.urls import path
-
+from django.conf import settings
+from django.conf.urls.static import static
 from . import views
 from .authoring_analytics_views import QuestionAnalyticsView, AISuggestionsView
 from .authoring_quiz_views import (
@@ -23,7 +24,6 @@ from .views import (
     TopicListView,
     QuizListView,
     QuizDetailView,
-    SubmitQuizView,
     AttemptListView,
     AttemptDetailView,
     AdminStatsView,
@@ -40,6 +40,10 @@ from .views import (
     AdminPaymentListView,
     AdminRejectPaymentView,
     AdminVerifyPaymentView,
+    credits_status,
+    start_guest_session,
+    check_guest_quota,
+    generate_quiz_questions,
 )
 
 urlpatterns = [
@@ -48,16 +52,26 @@ urlpatterns = [
     path('topics/', TopicListView.as_view(), name='topic-list'),
     path('quizzes/', QuizListView.as_view(), name='quiz-list'),
     path('quizzes/<int:pk>/', QuizDetailView.as_view(), name='quiz-detail'),
+    path('quizzes/submit/', submit_quiz, name='submit_quiz'),
     path('attempts/', AttemptListView.as_view(), name='attempt-list'),
     path('attempts/<int:pk>/', AttemptDetailView.as_view(), name='attempt-detail'),
-    path('student/quizzes/', StudentQuizListView.as_view(), name='student-quizzes'),
-    path('quizzes/submit/', submit_quiz, name='submit_quiz'),
     path('attempts/<int:attempt_id>/', get_attempt_results, name='attempt_results'),
+    path('student/quizzes/', StudentQuizListView.as_view(), name='student-quizzes'),
+
+    # ── Guest Session ────────────────────────────────────────────
+    path('guest/session/', start_guest_session, name='guest-session'),
+    path('guest/quota/', check_guest_quota, name='guest-quota'),
 
     # ── Analytics ────────────────────────────────────────────────
     path('analytics/teacher/', TeacherAnalyticsView.as_view(), name='teacher-analytics'),
     path('analytics/student/', StudentAnalyticsView.as_view(), name='student-analytics'),
-    # path("analytics/teacher/", views.teacher_analytics, name="teacher-analytics-alt"),
+
+    # ── Credits & Subscription ───────────────────────────────────
+    path('credits/status/', credits_status, name='credits_status'),
+    path('plans/', SubscriptionPlanListView.as_view(), name='subscription-plans'),
+    path('payments/submit/', SubmitPaymentView.as_view(), name='submit-payment'),
+    path('payments/my/', MyPaymentsView.as_view(), name='my-payments'),
+    path('payments/status/', SubscriptionStatusView.as_view(), name='subscription-status'),
 
     # ── Admin — Questions ─────────────────────────────────────────
     path('admin/questions/', QuestionListManageView.as_view(), name='admin-question-list'),
@@ -82,6 +96,11 @@ urlpatterns = [
     path('admin/question-sets/', QuestionSetListCreateView.as_view(), name='question-set-list'),
     path('admin/question-sets/<int:pk>/', QuestionSetDetailView.as_view(), name='question-set-detail'),
 
+    # ── Admin — Payments ──────────────────────────────────────────
+    path('admin/payments/', AdminPaymentListView.as_view(), name='admin-payments'),
+    path('admin/payments/<int:pk>/verify/', AdminVerifyPaymentView.as_view(), name='admin-verify-payment'),
+    path('admin/payments/<int:pk>/reject/', AdminRejectPaymentView.as_view(), name='admin-reject-payment'),
+
     # ── Admin — Bulk Upload ───────────────────────────────────────
     path('admin/bulk-upload/', BulkUploadView.as_view(), name='bulk_upload'),
 
@@ -89,19 +108,10 @@ urlpatterns = [
     path('teacher/quiz-library/', TeacherQuizLibraryView.as_view(), name='teacher-quiz-library'),
     path('teacher/assign-quiz/', AssignQuizToClassroomView.as_view(), name='assign-quiz'),
 
-    # ── Subscription & Payments ───────────────────────────────────
-    path('api/plans/', SubscriptionPlanListView.as_view(), name='subscription-plans'),
-    path('api/payments/submit/', SubmitPaymentView.as_view(), name='submit-payment'),
-    path('api/payments/my/', MyPaymentsView.as_view(), name='my-payments'),
-    path('api/payments/status/', SubscriptionStatusView.as_view(), name='subscription-status'),
-    path('api/admin/payments/', AdminPaymentListView.as_view(), name='admin-payments'),
-    path('api/admin/payments/<int:pk>/verify/', AdminVerifyPaymentView.as_view(), name='admin-verify-payment'),
-    path('api/admin/payments/<int:pk>/reject/', AdminRejectPaymentView.as_view(), name='admin-reject-payment'),
-
     # ── LESSON PLANS ──────────────────────────────────────────────
     path("lessons/", views.list_lesson_plans, name="lesson-list"),
     path("lessons/generate/", views.generate_lesson, name="lesson-generate"),
-    # path("lessons/generate-questions/", views.generate_lesson, name="lesson-gen-questions"),
+    path("lessons/generate-questions/", generate_quiz_questions, name="generate-quiz-questions"),
     path("lessons/<int:pk>/", views.lesson_plan_detail, name="lesson-detail"),
 
     # ── CLASSROOMS (teacher, requires auth) ──────────────────────
@@ -120,6 +130,8 @@ urlpatterns = [
     # ── STUDENT ANSWERS (no auth) ─────────────────────────────────
     path("sessions/<int:session_id>/answer/", views.submit_answer, name="submit-answer"),
     path("sessions/<int:session_id>/results/", views.session_results, name="session-results"),
-
-path("lessons/generate-questions/", views.generate_quiz_questions, name="generate-quiz-questions"),
 ]
+
+# Serve media files in development
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

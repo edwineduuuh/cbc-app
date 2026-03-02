@@ -3,6 +3,7 @@ import Script from "next/script";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import Navbar from "@/components/NavBar";
 
 export const metadata = {
   title: "CBC Education Platform",
@@ -75,7 +76,10 @@ export default function RootLayout({ children }) {
         />
 
         <ThemeProvider>
-          <AuthProvider>{children}</AuthProvider>
+          <AuthProvider>
+            <Navbar />
+            {children}
+          </AuthProvider>
         </ThemeProvider>
         <WhatsAppButton />
       </body>

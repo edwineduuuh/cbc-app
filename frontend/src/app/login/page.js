@@ -33,6 +33,10 @@ export default function LoginPage() {
       setTimeout(() => setShowToast(false), 3001);
       setLoading(false);
     }
+
+    // No else
+    // No redirect
+    // AuthContext handles routing
   };
 
   return (

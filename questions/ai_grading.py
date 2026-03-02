@@ -153,7 +153,7 @@ class AIGrader:
             student_num = float(clean_for_number(student_answer))
             correct_num = float(clean_for_number(correct_str))
             if abs(student_num - correct_num) < 0.01:
-                return self._correct_math_response(student_num)
+                return self._correct_math_response(question,student_num)
         except ValueError:
             pass
 
@@ -163,9 +163,9 @@ class AIGrader:
             correct_expr = sympify(correct_str, evaluate=False)
 
             if simplify(student_expr - correct_expr) == 0:
-                return self._correct_math_response(str(student_expr))
+                return self._correct_math_response(question, str(student_expr))
             if abs(N(student_expr) - N(correct_expr)) < 0.01:
-                return self._correct_math_response(f"≈ {N(student_expr):g}")
+                return self._correct_math_response(question,f"≈ {N(student_expr):g}")
         except (SympifyError, ValueError, TypeError):
             pass
 
@@ -190,7 +190,10 @@ class AIGrader:
             'points_missed': [correct_str]
         }
 
-    def _correct_math_response(self, display_value):
+    def _correct_math_response(self, question, display_value):
+        """Generate dynamic feedback for correct math answers using AI"""
+        
+        # Quick congratulations
         congrats = random.choice([
             "Spot on! Well done.",
             "Perfect — excellent calculation!",
@@ -198,21 +201,13 @@ class AIGrader:
             "Great work — spot on!",
             "Yes! That's exactly right."
         ])
-
-        insight = "Great calculation! Keep practising."
-        # You can expand this list with more keywords later
-        q = question.question_text.lower()
-        if any(w in q for w in ["men", "hours", "workers", "days"]):
-            insight = "This is a classic inverse proportion problem — more workers finish the job faster."
-        elif any(w in q for w in ["hire purchase", "deposit", "installments"]):
-            insight = "Good job calculating total hire purchase and subtracting to find cash price."
-        elif "interest" in q and "simple" in q:
-            insight = "Nice — you correctly applied the simple interest formula."
-        elif any(w in q for w in ["rhombus", "diagonal", "parallelogram"]):
-            insight = "Well done using the rhombus area formula with diagonals."
-
-        feedback = f"{congrats} {insight}".strip()
-
+        
+        # Generate contextual study tip using AI
+        try:
+            study_tip = self._generate_math_study_tip(question, display_value)
+        except:
+            study_tip = "Keep practicing similar problems to build mastery!"
+        
         personalized = random.choice([
             "You're really getting the hang of this!",
             "Excellent — keep up the strong work!",
@@ -220,51 +215,114 @@ class AIGrader:
             "Well done — proud of you!",
             "Superb! On to the next one."
         ])
-
-        study_tip = random.choice([
-            "Tip: Always double-check units and formulas.",
-            "Tip: Practice more word problems — they build real-life skills.",
-            "Tip: Write down the formula first — it saves mistakes.",
-            "Tip: For geometry, draw a quick sketch — it helps.",
-            "Tip: Remember key relationships like inverse proportion."
-        ])
-
+        
         return {
             'marks_awarded': question.max_marks,
             'max_marks': question.max_marks,
-            'feedback': feedback,
+            'feedback': f"{congrats} {study_tip}",
             'is_correct': True,
             'personalized_message': personalized,
             'study_tip': study_tip,
-            'points_earned': [display_value],
+            'points_earned': [str(display_value)],
             'points_missed': []
         }
 
-    def _generate_math_solution(self, question, student_answer, correct_answer):
-        prompt = f"""You are an experienced, patient Kenyan CBC mathematics teacher explaining to a Grade 7–9 student.
+    def _generate_math_study_tip(self, question, correct_answer):
+        """Generate AI study tip for correct math answer"""
+        prompt = f"""You are a Kenyan CBC math teacher giving a quick study tip to a student who just got this question RIGHT.
 
-The student attempted this question:
-QUESTION: {question.question_text}
+    QUESTION: {question.question_text}
+    CORRECT ANSWER: {correct_answer}
 
-They entered final answer: {student_answer}
+    Write ONE sentence (max 15 words) with a helpful study tip related to this type of problem.
 
-The correct final answer is: {correct_answer}
+    Examples:
+    - "Practice more substitution problems to build speed."
+    - "Remember: BODMAS order matters in complex expressions."
+    - "Tip: Always check your signs when working with negatives."
 
-Provide:
-• A short, clear step-by-step solution (4–7 lines maximum)
-• Use very simple language like a real classroom teacher
-• Number each important step (1., 2., 3. etc.)
-• Highlight the most common mistake students make on this type of question
-• End with one encouraging sentence
-
-Write ONLY the explanation text — no introductions, no JSON, no extra commentary.
-Use natural line breaks for readability.
-Keep the tone warm, supportive and professional."""
+    Write ONLY the tip — no preamble, no JSON, no extra text."""
+        
         try:
             api_response = self._call_claude_api(prompt)
             return api_response['content'][0]['text'].strip()
         except:
-            return f"Correct answer: {correct_answer}\n\nReview your calculations step by step."
+            return "Keep practicing similar problems to build mastery!"
+
+    def _generate_math_solution(self, question, student_answer, correct_answer):
+        """Generate professional step-by-step solution for incorrect math answers"""
+        
+        # Get grade level for appropriate language
+        grade = getattr(question.topic, 'grade', 7)
+        
+        prompt = f"""You are a professional Kenyan CBC mathematics educator providing remedial feedback.
+
+    STUDENT CONTEXT:
+    - Grade Level: {grade}
+    - Question Type: Mathematics
+    - CBC Curriculum Aligned
+
+    QUESTION:
+    {question.question_text}
+
+    STUDENT'S ANSWER:
+    {student_answer}
+
+    CORRECT ANSWER:
+    {correct_answer}
+
+    INSTRUCTIONS:
+    Generate a clear, step-by-step solution that:
+
+    1. SOLUTION STEPS:
+    • Break down the problem into 4-7 numbered steps
+    • Show ALL working clearly (formulas, substitutions, calculations)
+    • Use mathematically correct notation
+    • Adapt language complexity to Grade {grade} level
+
+    2. COMMON ERROR ANALYSIS:
+    • Identify the most likely mistake the student made
+    • Explain why this mistake occurs (conceptual gap, calculation error, etc.)
+    • One sentence only
+
+    3. KEY CONCEPT REMINDER:
+    • State the core mathematical principle/formula used
+    • One sentence only
+
+    4. ENCOURAGEMENT:
+    • One brief, genuine encouraging sentence
+    • Appropriate for Grade {grade} student
+
+    FORMAT REQUIREMENTS:
+    - Use clear headings: "SOLUTION:", "COMMON MISTAKE:", "KEY CONCEPT:", "NEXT STEPS:"
+    - Number each solution step (1., 2., 3., etc.)
+    - Use line breaks for readability
+    - Keep total response under 200 words
+    - Write in professional but accessible language
+    - NO JSON, NO code blocks, NO unnecessary commentary
+
+    TONE: Professional educator - clear, precise, supportive, curriculum-aligned."""
+
+        try:
+            api_response = self._call_claude_api(prompt)
+            solution_text = api_response['content'][0]['text'].strip()
+            
+            # Clean up any markdown artifacts
+            solution_text = solution_text.replace('```', '').replace('**', '')
+            
+            return solution_text
+            
+        except Exception as e:
+            # Professional fallback
+            return f"""SOLUTION:
+    The correct answer is: {correct_answer}
+
+    Please review your calculation steps carefully and check:
+    1. Did you use the correct formula?
+    2. Did you substitute values correctly?
+    3. Did you follow the order of operations (BODMAS)?
+
+    Your teacher will provide additional support if needed."""
 
     # ====================== STRUCTURED / ESSAY ======================
     def mark_with_ai(self, question, student_answer):
@@ -300,63 +358,58 @@ Keep the tone warm, supportive and professional."""
     def _build_marking_prompt(self, question, student_answer):
         base = f"""You are an experienced, fair and professional Kenyan CBC examiner marking Grade 7–9 answers.
 Your marking must feel realistic — similar to what a good school teacher or KCSE/CBC internal examiner would award.
-Paying users and parents expect accurate, trustworthy assessment — never inflate marks.
+Parents and students expect accurate, trustworthy assessment — never inflate marks.
 
 Strict rules — follow in this exact priority order:
 
 1. Award marks based on real understanding and correct use of core concepts.
-2. Full marks (or near full) only when all main required ideas are present.
-3. Be fair, not overly generous. Borderline, vague, incomplete, superficial, one-sided or only partially 
-correct answers must receive partial or low marks. ⚠️ CRITICAL - READ THIS FIRST:
-- You MUST be scientifically and factually accurate
-- NEVER mark correct answers as wrong due to confusion or hallucination
-- When in doubt, award marks rather than penalizing correct answers
-- Examples: Algae ARE non-flowering plants, Conifers ARE non-flowering plants, Mosses ARE non-flowering plants
-- Accept ALL scientifically correct answers, even if not in the model answer
-- DON'T BE STUPID ABOUT BASIC FACTS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-4. When the question asks for a specific NUMBER of points/factors/reasons, only consider the first N correct points.
-5. The same core idea explained in different words counts as one point only.
-6. Minor spelling, grammar or phrasing variations → ignore unless they change the scientific/technical meaning.
-7. Extra correct and relevant detail → can justify a slightly higher mark within the maximum, but never exceed the question's max marks.
-8. Wrong, irrelevant or contradictory information → reduce marks accordingly.
-9. Feedback must sound like a real Kenyan teacher: short (1–3 sentences), honest, professional, encouraging when deserved, constructive when marks are lost. Use simple, clear language.
-10. To help the learner improve, you may suggest 1–2 additional correct points they did not mention (put them in the study_tip field).
-11. When the student uses short bullet points/keywords for "state/list" questions, 
-award marks if correct but gently encourage writing in full sentences in the feedback.
+2. Full marks (or close to full marks) only when all main required ideas are clearly present.
+3. Be fair but not overly generous. Borderline, vague, incomplete, superficial, one-sided or only partially
+   correct answers must receive partial or low marks, not full marks.
+4. You must be scientifically and factually accurate.
+   - Never mark correct answers as wrong because of model confusion or hallucination.
+   - Examples: Algae are non-flowering plants; conifers are non-flowering plants; mosses are non-flowering plants.
+   - Accept all scientifically correct answers, even if they are not word-for-word in the model answer.
+5. When the question asks for a specific number of points/factors/reasons, only consider the first N correct points.
+6. The same core idea explained in different words counts as one point only.
+7. Minor spelling, grammar or phrasing variations should be ignored unless they change the scientific/technical meaning.
+8. Extra correct and relevant detail can justify a slightly higher mark within the maximum, but never exceed the question's max marks.
+9. Wrong, irrelevant or contradictory information should reduce marks appropriately.
+10. Feedback must sound like a real Kenyan teacher: short (1–3 sentences), honest, professional, encouraging when deserved,
+    and constructive when marks are lost. Use simple, clear language.
+11. To help the learner improve, you may suggest 1–2 additional correct points they did not mention (put them in the study_tip field).
+12. When the student uses short bullet points/keywords for "state/list/name" questions, award marks if the points are correct
+    but gently encourage writing in full sentences in the feedback.
 """
         # Add a specific rule for MCQs to prevent partial marks
         if question.question_type == 'mcq':
             base += """
-        12. This is a Multiple Choice Question (MCQ).
+13. This is a multiple choice question (MCQ).
 
-            MARKING:
-            - If selected option matches correct option → full marks.
-            - If it does not match → 0 marks. No exceptions.
+    MARKING:
+    - If the selected option matches the correct option, award full marks.
+    - If it does not match, award 0 marks. Do not give partial marks for MCQs.
 
-            FEEDBACK (this is the important part):
-            Whether the student got it right or wrong, your feedback must:
-            
-            1. Confirm or correct their answer in one sentence.
-            
-            2. TEACH related/similar concepts they should know — because students 
-            use this app to take notes and study. For example:
-            - If the question is about earthing up → also mention mulching, 
-                weeding, pruning as related crop management practices.
-            - If the question is about photosynthesis → mention respiration 
-                and transpiration as related plant processes. BUT FUCKING STICK TO CBC KENYAN CURRICULUM, OTHERWISE I WILL BE FLAGGED!!!!!!!!!!!!!
-            - If the question is about the water cycle → mention evaporation, 
-                condensation, precipitation as related concepts.
-            
-            3. Give 1 memorable fact or tip that helps them remember the concept.
-            
-            Format:
-            - ✅ or ❌ + one sentence on their answer
-            - Related concepts: [2-3 related terms with one-line explanations each]
-            - Remember: [one memorable tip or mnemonic]
-            
-            Keep the total feedback under 6 sentences. Sound like an engaging, 
-            knowledgeable Kenyan teacher who wants students to learn beyond the question.
-        \n"""
+    FEEDBACK:
+    Whether the student got it right or wrong, your feedback should:
+    1. Briefly confirm or correct their answer in one sentence.
+    2. Teach 1–3 closely related concepts that fit the Kenyan CBC syllabus for this topic.
+       For example:
+       - If the question is about earthing up, you can also mention mulching, weeding or pruning as related crop
+         management practices.
+       - If the question is about photosynthesis, you can also mention respiration and transpiration as related
+         plant processes.
+       - If the question is about the water cycle, you can also mention evaporation, condensation and precipitation.
+    3. Give one memorable fact or tip that helps them remember the concept.
+
+    Format:
+    - Start with a short “✅ Correct …” or “❌ Not quite …” sentence about their answer.
+    - Then briefly mention the related concepts (each with a short explanation).
+    - Finish with one “Remember:” study tip or simple mnemonic.
+
+    Keep the total feedback under about 6 sentences and sound like an engaging, knowledgeable Kenyan teacher
+    who wants the student to genuinely understand the topic.
+"""
 
         # Format Question Text with Options if MCQ
         q_text = question.question_text

@@ -75,6 +75,7 @@ export default function RegisterPage() {
     if (formData.role === "student") userData.grade = parseInt(formData.grade);
 
     const result = await register(userData);
+
     if (!result.success) {
       try {
         const parsedError = JSON.parse(result.error);
@@ -85,6 +86,21 @@ export default function RegisterPage() {
         setTimeout(() => setShowToast(false), 3000);
       }
       setLoading(false);
+    }
+    // ========== ADD THIS BLOCK - Registration Success Logic ==========
+    else {
+      // Check if user was previously a guest
+      const wasGuest = localStorage.getItem("guest_session_id");
+      const guestQuizzesTaken = parseInt(
+        localStorage.getItem("guest_quizzes_taken") || "0",
+      );
+
+      // Clear guest session data
+      if (wasGuest) {
+        localStorage.removeItem("guest_session_id");
+        localStorage.removeItem("guest_quizzes_taken");
+      }
+      window.location.href = "/explore?welcome=true";
     }
   };
 

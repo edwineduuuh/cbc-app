@@ -1,11 +1,11 @@
 "use client";
-
 import Image from "next/image";
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useAuth } from "@/contexts/AuthContext";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation"; // ADDED useSearchParams
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import { use } from "react";
 import {
   ArrowLeft,
   ArrowRight,
@@ -20,7 +20,7 @@ import {
   ChevronRight,
 } from "lucide-react";
 
-const API = "https://cbc-backend-76im.onrender.com/api";
+const API = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api";
 
 // ─── Timer Hook ───────────────────────────────────────────────────────────────
 function useTimer(totalSeconds, onExpire) {
@@ -167,6 +167,7 @@ function QuestionNav({ questions, answers, currentIdx, onJump, show }) {
             borderRight: "none",
           }}
         >
+          
           {questions.map((_, i) => {
             const answered = answers[i] !== undefined && answers[i] !== "";
             const current = i === currentIdx;
@@ -529,6 +530,236 @@ function ResultsScreen({ result, quiz }) {
               </div>
             ))}
           </div>
+          {/* ========== ADD THIS CODE HERE ========== */}
+          {result.detailed_feedback &&
+            Object.keys(result.detailed_feedback).length > 0 && (
+              <div style={{ marginBottom: 24 }}>
+                <h3
+                  style={{
+                    fontSize: 18,
+                    fontWeight: 700,
+                    marginBottom: 16,
+                    color: "#0d0d1a",
+                    fontFamily: "'Syne', sans-serif",
+                  }}
+                >
+                  📝 Your Answers
+                </h3>
+
+                {Object.entries(result.detailed_feedback).map(
+                  ([qId, feedback], idx) => (
+                    <div
+                      key={qId}
+                      style={{
+                        background: feedback.is_correct ? "#f0fdf4" : "#fffbeb",
+                        border: `2px solid ${feedback.is_correct ? "#1d8f57" : "#d4900a"}`,
+                        borderRadius: 16,
+                        padding: 16,
+                        marginBottom: 12,
+                      }}
+                    >
+                      {/* Question number */}
+                      <div
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          gap: 8,
+                          marginBottom: 8,
+                        }}
+                      >
+                        <div
+                          style={{
+                            background: feedback.is_correct
+                              ? "#1d8f57"
+                              : "#d4900a",
+                            color: "#fff",
+                            width: 28,
+                            height: 28,
+                            borderRadius: 8,
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            fontWeight: 700,
+                            fontSize: 13,
+                          }}
+                        >
+                          {idx + 1}
+                        </div>
+                        <span
+                          style={{
+                            fontSize: 13,
+                            fontWeight: 700,
+                            color: feedback.is_correct ? "#1d8f57" : "#d4900a",
+                          }}
+                        >
+                          {feedback.marks_awarded}/{feedback.max_marks} marks
+                        </span>
+                      </div>
+
+                      {/* Question text */}
+                      <p
+                        style={{
+                          fontSize: 14,
+                          fontWeight: 600,
+                          color: "#0d0d1a",
+                          marginBottom: 8,
+                        }}
+                      >
+                        {feedback.question_text}
+                      </p>
+
+                      {/* Your answer */}
+                      <div style={{ marginBottom: 8 }}>
+                        <p
+                          style={{
+                            fontSize: 12,
+                            color: "#6b7280",
+                            fontWeight: 600,
+                            marginBottom: 4,
+                          }}
+                        >
+                          Your answer:
+                        </p>
+                        <p
+                          style={{
+                            fontSize: 14,
+                            color: "#0d0d1a",
+                            background: "#fff",
+                            padding: 8,
+                            borderRadius: 8,
+                          }}
+                        >
+                          {feedback.student_answer || "No answer"}
+                        </p>
+                      </div>
+
+                      {/* AI Feedback */}
+                      {feedback.feedback && (
+                        <div
+                          style={{
+                            background: "#fff",
+                            padding: 12,
+                            borderRadius: 12,
+                            marginBottom: 8,
+                          }}
+                        >
+                          <p
+                            style={{
+                              fontSize: 12,
+                              color: "#6b7280",
+                              fontWeight: 600,
+                              marginBottom: 4,
+                            }}
+                          >
+                            💡 Feedback:
+                          </p>
+                          <p
+                            style={{
+                              fontSize: 13,
+                              color: "#0d0d1a",
+                              lineHeight: 1.6,
+                            }}
+                          >
+                            {feedback.feedback}
+                          </p>
+                        </div>
+                      )}
+
+                      {/* What you got right */}
+                      {feedback.points_earned &&
+                        feedback.points_earned.length > 0 && (
+                          <div style={{ marginBottom: 8 }}>
+                            <p
+                              style={{
+                                fontSize: 12,
+                                color: "#1d8f57",
+                                fontWeight: 600,
+                                marginBottom: 4,
+                              }}
+                            >
+                              ✓ You got credit for:
+                            </p>
+                            <ul
+                              style={{
+                                margin: 0,
+                                paddingLeft: 20,
+                                fontSize: 13,
+                                color: "#0d0d1a",
+                              }}
+                            >
+                              {feedback.points_earned.map((point, i) => (
+                                <li key={i}>{point}</li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
+
+                      {/* What you missed */}
+                      {feedback.points_missed &&
+                        feedback.points_missed.length > 0 && (
+                          <div>
+                            <p
+                              style={{
+                                fontSize: 12,
+                                color: "#d4900a",
+                                fontWeight: 600,
+                                marginBottom: 4,
+                              }}
+                            >
+                              ✗ You missed:
+                            </p>
+                            <ul
+                              style={{
+                                margin: 0,
+                                paddingLeft: 20,
+                                fontSize: 13,
+                                color: "#0d0d1a",
+                              }}
+                            >
+                              {feedback.points_missed.map((point, i) => (
+                                <li key={i}>{point}</li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
+                    </div>
+                  ),
+                )}
+              </div>
+            )}
+          {/* Guest Progress Notice */}
+          {result.is_guest && (
+            <div
+              style={{
+                marginBottom: 16,
+                padding: 16,
+                background: "linear-gradient(135deg, #e0f2fe 0%, #dbeafe 100%)",
+                border: "2px solid #0ea5e9",
+                borderRadius: 16,
+                textAlign: "center",
+              }}
+            >
+              <p
+                style={{
+                  fontSize: 14,
+                  fontWeight: 600,
+                  color: "#0369a1",
+                  marginBottom: 4,
+                }}
+              >
+                💡 Guest Mode: Results shown once only
+              </p>
+              <p
+                style={{
+                  fontSize: 13,
+                  color: "#075985",
+                }}
+              >
+                Sign up to save your progress, track improvement, and unlock 2
+                more free quizzes!
+              </p>
+            </div>
+          )}
           <div style={{ display: "flex", gap: 12 }}>
             <Link href="/explore" style={{ flex: 1 }}>
               <button
@@ -630,12 +861,25 @@ function TimerBadge({ totalSeconds, onExpire }) {
 }
 
 // ─── Main Page ────────────────────────────────────────────────────────────────
-export default function QuizTakePage() {
+export default function QuizTakePage({ params }) {
   const { user } = useAuth();
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const quizId = searchParams.get("id") || ""; // assuming quiz ID from query param
+  useEffect(() => {
+    if (
+      user &&
+      (user.role === "admin" ||
+        user.role === "super_admin" ||
+        user.role === "teacher")
+    ) {
+      router.push("/admin");
+    }
+  }, [user]);
 
+  
+  const router = useRouter();
+  const { id: quizId } = use(params);
+
+  // READ GUEST SESSION FROM URL QUERY PARAMETER
+  const searchParams = useSearchParams();
   const guestSessionFromUrl = searchParams.get("guest_session");
 
   const [quiz, setQuiz] = useState(null);
@@ -658,31 +902,30 @@ export default function QuizTakePage() {
   const progressPct = totalQ > 0 ? (answeredCount / totalQ) * 100 : 0;
 
   useEffect(() => {
-    if (!quizId) return;
-
-    const token = localStorage.getItem("accessToken");
-
-    // Guests allowed only if guest_session present
+    // Allow guests to access quiz
     if (!user && !guestSessionFromUrl) {
       router.push("/explore");
       return;
     }
-
+    if (!quizId) return;
+    const token = localStorage.getItem("accessToken");
     (async () => {
       try {
-        const headers = token ? { Authorization: `Bearer ${token}` } : {};
+        const headers = {};
+        if (token) {
+          headers.Authorization = `Bearer ${token}`;
+        }
         const res = await fetch(`${API}/quizzes/${quizId}/`, { headers });
-        if (!res.ok) throw new Error("Quiz load failed");
         const data = await res.json();
         setQuiz(data);
         setQuestions(data.questions || []);
       } catch (err) {
-        console.error("Failed to load quiz:", err);
+        console.error("Failed to load quiz:", err.message);
       } finally {
         setLoading(false);
       }
     })();
-  }, [quizId, user, guestSessionFromUrl, router]);
+  }, [user, quizId, router, guestSessionFromUrl]);
 
   const handleAnswer = useCallback(
     (value) => {
@@ -693,104 +936,117 @@ export default function QuizTakePage() {
 
   const handleQuizSubmit = async () => {
     setSubmitting(true);
-
     try {
-      // Build answers dict safely
       const answersDict = {};
       questions.forEach((q, idx) => {
-        const answer = answers[idx];
-        if (answer !== undefined && answer !== null && answer !== "") {
-          answersDict[q.id] = answer;
-        }
+        if (answers[idx]) answersDict[q.id] = answers[idx];
       });
 
+      // Get token and guest session
       const token = localStorage.getItem("accessToken");
       const guestSession =
-        searchParams.get("guest_session") ||
-        localStorage.getItem("guest_session_id");
+        guestSessionFromUrl || localStorage.getItem("guest_session_id");
 
+      // Build payload
       const payload = {
-        quiz_id: parseInt(quizId, 10),
+        quiz_id: parseInt(quizId),
         answers: answersDict,
       };
 
-      // Send session_id ONLY for guests
+      // Add session_id for guests
       if (!token && guestSession) {
         payload.session_id = guestSession;
       }
 
+      // Build headers
       const headers = {
         "Content-Type": "application/json",
       };
+
       if (token) {
         headers.Authorization = `Bearer ${token}`;
       }
 
       const response = await fetch(`${API}/quizzes/submit/`, {
         method: "POST",
-        headers,
+        headers: headers,
         body: JSON.stringify(payload),
       });
 
-      let data;
-      try {
-        data = await response.json();
-      } catch (jsonErr) {
-        // Server sent HTML (Django 500 page) instead of JSON
-        console.error("Invalid JSON from server:", await response.text());
-        throw new Error("Server returned invalid response (not JSON)");
-      }
+      const data = await response.json();
 
-      // Handle 402 (quota/credits exhausted)
+      // Handle quota/credits exhausted (402)
       if (response.status === 402) {
-        if (data?.quota_exceeded) {
-          // Guest: out of free quizzes
-          setShowSignupModal(true);
-        } else if (data?.credits_exhausted) {
-          // Logged-in: no credits left
-          alert(data.message || "No credits remaining. Subscribe to continue.");
-          router.push("/student/payments");
+        if (data.quota_exceeded) {
+          // Guest ran out → show signup modal
+          const shouldSignup = confirm(
+            data.message +
+              "\n\nWould you like to sign up for 2 more free quizzes?",
+          );
+          if (shouldSignup) {
+            router.push("/register");
+          } else {
+            router.push("/explore");
+          }
+        } else if (data.credits_exhausted) {
+          // User ran out → show payment modal
+          const shouldSubscribe = confirm(
+            data.message + "\n\nWould you like to subscribe now?",
+          );
+          if (shouldSubscribe) {
+            router.push("/student/payments");
+          } else {
+            router.push("/explore");
+          }
         }
         return;
       }
 
-      // Handle non-OK status (400, 404, 500, etc.)
-      if (!response.ok) {
-        alert(data?.error || "Submission failed. Please try again.");
-        return;
-      }
-
-      // Success
-      if (data.is_guest) {
-        // Guest: show results inline (no saved attempt ID)
-        setResult(data);
-
-        // Show signup modal if quota exhausted
-        if (data.show_signup_prompt) {
-          setTimeout(() => {
-            setShowSignupModal(true);
-          }, 1500); // delay so user sees score first
-        }
-
-        // Optional: update local guest quota state
-        if (data.guest_quizzes_taken !== undefined) {
-          setGuestQuota({
-            taken: data.guest_quizzes_taken,
-            remaining: data.guest_quizzes_remaining,
+      if (response.ok) {
+        // Handle guest
+        if (data.is_guest) {
+          const guestQuizHistory = JSON.parse(
+            localStorage.getItem("guest_quiz_history") || "[]",
+          );
+          guestQuizHistory.push({
+            quiz_title: quiz?.title || "Quiz",
+            score: data.score || 0,
+            marks: `${data.total_marks_awarded || 0}/${data.total_max_marks || 0}`,
+            date: new Date().toISOString(),
           });
+          localStorage.setItem(
+            "guest_quiz_history",
+            JSON.stringify(guestQuizHistory),
+          );
+          // Update guest quota in localStorage
+          localStorage.setItem("guest_quizzes_taken", data.guest_quizzes_taken);
+
+          // Show signup prompt if they've used both free quizzes
+          if (data.show_signup_prompt) {
+            setTimeout(() => {
+              const shouldSignup = confirm(
+                `🎉 Quiz complete! You scored ${data.score}%\n\n` +
+                  `You've used your 2 free quizzes!\n\n` +
+                  `Sign up now to get 2 MORE free quizzes + save your progress.`,
+              );
+              if (shouldSignup) {
+                router.push("/register");
+                return;
+              }
+            }, 1500);
+          }
+
+          // For guests, show results inline (no saved attempt)
+          setResult(data);
+        } else {
+          // For authenticated users, redirect to saved attempt
+          router.replace(`/attempts/${data.id}`);
         }
       } else {
-        // Logged-in user: redirect to saved attempt
-        if (data.id) {
-          router.replace(`/attempt-results/${data.id}`);
-        } else {
-          console.warn("Authenticated submit but no attempt ID returned");
-          setResult(data); // fallback: show inline
-        }
+        alert(`Error: ${data.error || "Submission failed"}`);
       }
     } catch (error) {
-      console.error("Submit error:", error);
-      alert(error.message || "Failed to submit quiz. Check your connection.");
+      alert("Submission failed: " + error.message);
     } finally {
       setSubmitting(false);
     }
@@ -808,7 +1064,8 @@ export default function QuizTakePage() {
     if (!result) setShowSubmitModal(true);
   }, [result]);
 
-  if (loading) {
+  // ── Loading ──
+  if (loading)
     return (
       <div
         style={{
@@ -841,14 +1098,13 @@ export default function QuizTakePage() {
             Loading quiz…
           </p>
         </div>
-        <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
+        <style>{`@keyframes spin { to { transform: rotate(360deg); } } @import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Lato:wght@400;500;600;700&display=swap');`}</style>
       </div>
     );
-  }
 
   if (result) return <ResultsScreen result={result} quiz={quiz} />;
 
-  if (!currentQ) {
+  if (!currentQ)
     return (
       <div
         style={{
@@ -878,7 +1134,6 @@ export default function QuizTakePage() {
         </div>
       </div>
     );
-  }
 
   const isMCQ = currentQ.question_type === "mcq";
   const isFillBlank = currentQ.question_type === "fill_blank";
@@ -919,7 +1174,7 @@ export default function QuizTakePage() {
         show={showNav}
       />
 
-      {/* Top Bar */}
+      {/* ── Top Bar ── */}
       <div
         style={{
           position: "sticky",
@@ -999,7 +1254,7 @@ export default function QuizTakePage() {
           {quiz?.duration_minutes && (
             <TimerBadge
               totalSeconds={quiz.duration_minutes * 60}
-              onExpire={() => !result && setShowSubmitModal(true)}
+              onExpire={handleTimerExpire}
             />
           )}
 
@@ -1023,7 +1278,7 @@ export default function QuizTakePage() {
         </div>
       </div>
 
-      {/* Content */}
+      {/* ── Content ── */}
       <div
         style={{ maxWidth: 680, margin: "0 auto", padding: "32px 16px 120px" }}
       >
@@ -1035,7 +1290,7 @@ export default function QuizTakePage() {
             exit={{ opacity: 0, y: -12 }}
             transition={{ duration: 0.2 }}
           >
-            {/* Question header */}
+            {/* Question number + flag */}
             <div
               style={{
                 display: "flex",
@@ -1116,6 +1371,22 @@ export default function QuizTakePage() {
               </button>
             </div>
 
+            {/* Quiz title */}
+            {quiz?.title && (
+              <p
+                style={{
+                  fontSize: 12,
+                  fontWeight: 600,
+                  color: "#bcc3d0",
+                  marginBottom: 10,
+                  textTransform: "uppercase",
+                  letterSpacing: "0.06em",
+                }}
+              >
+                {quiz.title}
+              </p>
+            )}
+
             {/* Question text */}
             <div
               style={{
@@ -1139,7 +1410,7 @@ export default function QuizTakePage() {
               </p>
             </div>
 
-            {/* Image */}
+            {/* Question image */}
             {currentQ.question_image_url && (
               <div
                 style={{
@@ -1147,35 +1418,24 @@ export default function QuizTakePage() {
                   borderRadius: 16,
                   overflow: "hidden",
                   border: "2px solid #e8eaf0",
-                  cursor: "pointer",
+                  background: "#fff",
                 }}
-                onClick={() =>
-                  window.open(currentQ.question_image_url, "_blank")
-                }
               >
-                <Image
+                <img
                   src={currentQ.question_image_url}
                   alt="Question diagram"
-                  width={800}
-                  height={500}
-                  style={{ width: "100%", height: "auto", display: "block" }}
-                  priority={currentIdx === 0}
-                />
-                <div
                   style={{
-                    padding: "8px 14px",
-                    background: "#f7f9fc",
-                    fontSize: 11,
-                    color: "#8892a4",
-                    fontWeight: 600,
+                    width: "100%",
+                    height: "auto",
+                    display: "block",
+                    maxHeight: "500px",
+                    objectFit: "contain",
                   }}
-                >
-                  Click to view full size
-                </div>
+                />
               </div>
             )}
 
-            {/* Answers */}
+            {/* MCQ Options */}
             {isMCQ && (
               <div
                 style={{ display: "flex", flexDirection: "column", gap: 12 }}
@@ -1196,6 +1456,7 @@ export default function QuizTakePage() {
               </div>
             )}
 
+            {/* Fill blank / Math */}
             {(isFillBlank || isMath) && (
               <div>
                 <p
@@ -1236,6 +1497,7 @@ export default function QuizTakePage() {
               </div>
             )}
 
+            {/* Structured / Essay */}
             {isText && (
               <div>
                 <p
@@ -1304,7 +1566,7 @@ export default function QuizTakePage() {
         </AnimatePresence>
       </div>
 
-      {/* Bottom Nav */}
+      {/* ── Bottom Nav ── */}
       <div
         style={{
           position: "fixed",

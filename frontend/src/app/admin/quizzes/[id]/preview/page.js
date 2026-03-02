@@ -9,8 +9,7 @@ import Button from "@/components/ui/Button";
 import { ArrowLeft, BookOpen, Clock, Award } from "lucide-react";
 import Link from "next/link";
 
-const API = "https://cbc-backend-76im.onrender.com/api";
-
+const API = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api";
 export default function QuizPreviewPage() {
   const params = useParams();
   const router = useRouter();
