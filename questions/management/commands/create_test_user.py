@@ -46,3 +46,5 @@ class Command(BaseCommand):
         self.stdout.write(self.success_message(
             f"✅ Created user: testpaid / testpaid123 with active subscription"
         ))
+
+    
