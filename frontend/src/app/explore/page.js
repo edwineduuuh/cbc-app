@@ -4,14 +4,16 @@ import { useAuth } from "@/contexts/AuthContext";
 import { useState, useEffect } from "react";
 import PremiumExplore from "@/components/PremiumExplore";
 import FreeExplore from "@/components/FreeExplore"; // Your current explore component
-
+import { useRouter } from "next/navigation";
 const API = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api";
+
 
 export default function ExplorePage() {
   const { user, loading: authLoading } = useAuth();
   const [isPremium, setIsPremium] = useState(false);
   const [loading, setLoading] = useState(true);
 
+const router = useRouter();
   useEffect(() => {
     checkPremiumStatus();
   }, [user]);

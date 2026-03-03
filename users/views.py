@@ -418,17 +418,19 @@ def update_profile(request):
         'grade': getattr(user, 'grade', None),
     })
 
+from rest_framework.decorators import api_view
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def credits_status(request):
-    user = request.user
-    is_premium = user.has_active_trial or user.quiz_credits > 100  #Will remove later
-    
+    """PAID SIMULATION MODE"""
+    # CHANGE THIS LINE ONLY
+    FORCE_PAID = True   # ← Set to False when you want to test FreeExplore again
+
     return Response({
-        "has_subscription": is_premium,
-        "quiz_credits": user.quiz_credits,
-        "trial_active": user.has_active_trial,
-        "trial_end": user.trial_end,
-        "is_premium": is_premium,
-        "has_access": user.has_access
+        "has_subscription": FORCE_PAID,
+        "quiz_credits": 0,                    # depleted credits (your edge case)
+        "is_premium": FORCE_PAID
     })
