@@ -417,3 +417,18 @@ def update_profile(request):
         'role': user.role,
         'grade': getattr(user, 'grade', None),
     })
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def credits_status(request):
+    user = request.user
+    is_premium = user.has_active_trial or user.quiz_credits > 100  #Will remove later
+    
+    return Response({
+        "has_subscription": is_premium,
+        "quiz_credits": user.quiz_credits,
+        "trial_active": user.has_active_trial,
+        "trial_end": user.trial_end,
+        "is_premium": is_premium,
+        "has_access": user.has_access
+    })

@@ -116,15 +116,11 @@ class User(AbstractUser):
     
     @property
     def has_access(self):
-        """Check if user has access (trial OR subscription)"""
+        # Checking if user has access
         if self.has_active_trial:
             return True
-        
-        try:
-            sub = self.subscription
-            return sub.is_valid
-        except:
-            return False
+        # Will add real subscription later....
+        return False
 
     def save(self, *args, **kwargs):
         """Auto-set role and staff status for superusers + activate trial for new students"""
