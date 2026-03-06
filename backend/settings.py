@@ -36,11 +36,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 
 
-CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': 'dnzwiqtcm',  
-    'API_KEY': '985685374821496',  
-    'API_SECRET': 'RAZqPLY1MzHnr789F_DrYQzFwik',  
-}
 
 MEDIA_URL = '/media/'
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
