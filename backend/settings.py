@@ -19,7 +19,6 @@ import dj_database_url
 # Load environment variables from .env file
 load_dotenv()
 
-BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Now use environment variables
 ANTHROPIC_API_KEY = os.environ.get('ANTHROPIC_API_KEY')
@@ -55,8 +54,9 @@ INSTALLED_APPS = [
 
     'users',
     'questions',
+
     'cloudinary_storage',
-    'cloudinary',
+    
 ]
 
 
