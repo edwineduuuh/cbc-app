@@ -37,9 +37,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-# Application definition
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': os.environ.get('dnzwiqtcm'),
+    'API_KEY': os.environ.get('985685374821496'),
+    'API_SECRET': os.environ.get('RAZqPLY1MzHnr789F_DrYQzFwik'),
+}
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -55,8 +63,11 @@ INSTALLED_APPS = [
     'corsheaders',
 
     'users',
-    'questions'
+    'questions',
+    'cloudinary_storage',
+    'cloudinary',
 ]
+
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',

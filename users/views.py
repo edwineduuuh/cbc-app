@@ -159,7 +159,7 @@ class RegenerateJoinCodeView(generics.GenericAPIView):
         except Classroom.DoesNotExist:
             return Response({'error': 'Classroom not found'}, status=status.HTTP_404_NOT_FOUND)
         
-        # Generate new unique code
+        # Generate new unique
         old_code = classroom.join_code
         classroom.join_code = classroom.generate_unique_code()
         classroom.save()

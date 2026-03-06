@@ -33,7 +33,7 @@ import AdminPaymentsPanel from "@/components/AdminPaymentsPanel";
 import AdminNavigation from "@/components/AdminNavigation";
 const API =
   process.env.NEXT_PUBLIC_API_URL ||
-  "https://cbc-backend-76im.onrender.com/api";
+  "http://localhost:8000/api";
 // ─── Stat Card ────────────────────────────────────────────────────────────────
 function StatCard({ label, value, icon: Icon, gradient, delay = 0 }) {
   const gradients = {

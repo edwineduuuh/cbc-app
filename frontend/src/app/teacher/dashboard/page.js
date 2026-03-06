@@ -459,8 +459,8 @@ function LessonPlanner() {
         term: f.term,
         week: parseInt(f.week?.replace("Week ", "") || "1"),
         lesson_number: 1,
-        strand: f.strand, // ← THIS MUST BE EXACTLY "strand"
-        substrand: f.subStrand, // ← THIS MUST BE EXACTLY "substrand"
+        strand: f.strand, // ← KEEP AS strand
+        substrand: f.subStrand, // ← KEEP AS substrand
         duration: f.duration,
         learner_level: f.needs || "Mixed ability",
         prior_knowledge: f.prior || "",
@@ -468,7 +468,6 @@ function LessonPlanner() {
         is_practical: f.project || false,
         practical_area: f.project ? f.strand + " practical" : "",
       });
-
       const p = result.plan;
       const planHtml = buildLessonPlanHtml(p, f, result.meta);
       const notesHtml = buildNotesHtml(p, f);

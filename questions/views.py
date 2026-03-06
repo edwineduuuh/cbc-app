@@ -1139,29 +1139,21 @@ def list_lesson_plans(request):
 
 
 @api_view(["POST"])
-@permission_classes([IsAuthenticated])
+@permission_classes([AllowAny])
 def generate_lesson(request):
-    """
-    POST /api/lessons/generate/
-    Body: { grade, subject, term, week, lesson_number, topic, subtopic,
-            duration, learner_level, prior_knowledge, resources,
-            is_practical, practical_area }
-    Creates a LessonPlan record + calls Claude + stores + returns result.
-    """
-    required = ["grade", "subject", "term", "week", "lesson_number", "topic", "duration"]
+    required = ["grade", "subject", "term", "week", "lesson_number", "strand", "duration"]  # ← CHANGED topic to strand
     for field in required:
         if not request.data.get(field):
             return Response({"error": f"'{field}' is required."}, status=400)
 
-    # Save the plan record first (without AI output)
     plan_data = {
         "grade":          request.data["grade"],
         "subject":        request.data["subject"],
         "term":           request.data["term"],
         "week":           int(request.data["week"]),
         "lesson_number":  int(request.data["lesson_number"]),
-        "topic":          request.data["topic"],
-        "subtopic":       request.data.get("subtopic", ""),
+        "strand":         request.data["strand"],  # ← CHANGED topic to strand
+        "substrand":      request.data.get("substrand", ""),  # ← CHANGED subtopic to substrand
         "duration":       request.data["duration"],
         "learner_level":  request.data.get("learner_level", "Mixed ability"),
         "prior_knowledge":request.data.get("prior_knowledge", ""),
@@ -1182,9 +1174,8 @@ def generate_lesson(request):
             "meta": LessonPlanSerializer(plan).data,
         }, status=201)
     except Exception as e:
-        plan.delete()   # rollback if AI fails
+        plan.delete()
         return Response({"error": f"AI generation failed: {str(e)}"}, status=500)
-
 
 @api_view(["GET", "DELETE"])
 @permission_classes([IsAuthenticated])
