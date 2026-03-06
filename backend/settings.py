@@ -42,11 +42,12 @@ import cloudinary.uploader
 import cloudinary.api
 
 CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': os.environ.get('dnzwiqtcm'),
-    'API_KEY': os.environ.get('985685374821496'),
-    'API_SECRET': os.environ.get('RAZqPLY1MzHnr789F_DrYQzFwik'),
+    'CLOUD_NAME': 'dnzwiqtcm',  
+    'API_KEY': '985685374821496',  
+    'API_SECRET': 'RAZqPLY1MzHnr789F_DrYQzFwik',  
 }
 
+MEDIA_URL = '/media/'
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 INSTALLED_APPS = [
