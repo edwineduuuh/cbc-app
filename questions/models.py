@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth import get_user_model
+from cloudinary_storage.storage import MediaCloudinaryStorage
 # Create your models here.
 User = get_user_model()
 
@@ -118,7 +119,8 @@ class Question(models.Model):
     upload_to='question_images/',
     null=True,
     blank=True,
-    help_text="Optional diagram, graph, or illustration"
+    help_text="Optional diagram, graph, or illustration",
+    storage=MediaCloudinaryStorage(),
 )
     class Meta:
         db_table = 'questions'
