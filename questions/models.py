@@ -416,6 +416,9 @@ class PaymentRequest(models.Model):
     submitted_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    checkout_request_id = models.CharField(max_length=100, blank=True, null=True)
+    merchant_request_id = models.CharField(max_length=100, blank=True, null=True)
+
     class Meta:
         db_table = 'payment_requests'
         ordering = ['-submitted_at']
@@ -497,6 +500,65 @@ class Subscription(models.Model):
         if not self.is_valid:
             return 0
         return (self.end_date - timezone.now()).days
+    
+# ═══════════════════════════════════════════════════════════════
+# FREE TRIAL COUNTER
+# ═══════════════════════════════════════════════════════════════
+
+class UserProfile(models.Model):
+    """User profile with free trial tracking"""
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
+    
+    # Free trial counter
+    free_quizzes_remaining = models.IntegerField(default=3)
+    free_trial_exhausted = models.BooleanField(default=False)
+    
+    # Analytics
+    total_quizzes_attempted = models.IntegerField(default=0)
+    created_at = models.DateTimeField(auto_now_add=True)
+    
+    class Meta:
+        db_table = 'user_profiles'
+    
+    def __str__(self):
+        return f"{self.user.username} - {self.free_quizzes_remaining} free quizzes"
+    
+    def can_start_quiz(self):
+        """Check if user can start a quiz"""
+        # Check subscription
+        if hasattr(self.user, 'subscription') and self.user.subscription.is_active:
+            return True, "Unlimited (Subscribed)"
+        
+        # Check free trial
+        if self.free_quizzes_remaining > 0:
+            return True, f"{self.free_quizzes_remaining} free quizzes remaining"
+        
+        return False, "No free quizzes remaining. Please subscribe."
+    
+    def use_free_quiz(self):
+        """Decrement free quiz counter"""
+        if self.free_quizzes_remaining > 0:
+            self.free_quizzes_remaining -= 1
+            if self.free_quizzes_remaining == 0:
+                self.free_trial_exhausted = True
+            self.save()
+            return True
+        return False
+
+
+# Auto-create profile when user is created
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        UserProfile.objects.create(user=instance)
+
+@receiver(post_save, sender=User)
+def save_user_profile(sender, instance, **kwargs):
+    if hasattr(instance, 'profile'):
+        instance.profile.save()
     
 """
 AI GRADING CONTROLS - Adjust how strict/lenient the AI is

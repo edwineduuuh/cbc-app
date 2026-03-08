@@ -1636,3 +1636,225 @@ Make questions appropriate for {grade} level."""
         return Response({'error': str(e)}, status=500)
 
 
+# ═══════════════════════════════════════════════════════════════
+# M-PESA STK PUSH & FREE TRIAL - ADD THESE 5 FUNCTIONS
+# ═══════════════════════════════════════════════════════════════
+
+from .mpesa_api import MpesaAPI
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def initiate_stk_push(request):
+    """Initiate M-Pesa STK Push payment"""
+    plan_id = request.data.get('plan_id')
+    phone_number = request.data.get('phone_number', '').strip()
+    
+    if not plan_id or not phone_number:
+        return Response({'error': 'plan_id and phone_number required'}, status=400)
+    
+    if not phone_number.startswith('254'):
+        phone_number = '254' + phone_number.lstrip('0')
+    
+    if len(phone_number) != 12:
+        return Response({'error': 'Invalid phone number'}, status=400)
+    
+    try:
+        plan = SubscriptionPlan.objects.get(id=plan_id)
+    except SubscriptionPlan.DoesNotExist:
+        return Response({'error': 'Plan not found'}, status=404)
+    
+    mpesa = MpesaAPI()
+    response = mpesa.stk_push(
+        phone_number=phone_number,
+        amount=plan.price_kes,
+        account_reference=f'{plan.name} Subscription',
+        transaction_desc=f'CBC Kenya {plan.name} Plan'
+    )
+    
+    if response.get('ResponseCode') == '0':
+        payment_request = PaymentRequest.objects.create(
+            user=request.user,
+            plan=plan,
+            phone_number=phone_number,
+            amount_paid=plan.price_kes,
+            mpesa_code='',
+            checkout_request_id=response.get('CheckoutRequestID'),
+            merchant_request_id=response.get('MerchantRequestID'),
+            status='pending',
+        )
+        
+        return Response({
+            'success': True,
+            'message': 'STK Push sent. Enter your M-Pesa PIN.',
+            'checkout_request_id': response.get('CheckoutRequestID'),
+            'payment_request_id': payment_request.id,
+        })
+    else:
+        return Response({'error': response.get('errorMessage', 'Failed')}, status=400)
+
+
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def mpesa_callback(request):
+    """M-Pesa callback endpoint"""
+    print("=" * 50)
+    print("M-PESA CALLBACK RECEIVED")
+    print(json.dumps(request.data, indent=2))
+    print("=" * 50)
+    
+    try:
+        callback_data = request.data
+        result_code = callback_data.get('Body', {}).get('stkCallback', {}).get('ResultCode')
+        checkout_request_id = callback_data.get('Body', {}).get('stkCallback', {}).get('CheckoutRequestID')
+        
+        try:
+            payment_request = PaymentRequest.objects.get(checkout_request_id=checkout_request_id)
+        except PaymentRequest.DoesNotExist:
+            return Response({'message': 'Payment request not found'}, status=404)
+        
+        if result_code == 0:
+            callback_metadata = callback_data.get('Body', {}).get('stkCallback', {}).get('CallbackMetadata', {}).get('Item', [])
+            
+            mpesa_receipt = None
+            for item in callback_metadata:
+                if item.get('Name') == 'MpesaReceiptNumber':
+                    mpesa_receipt = item.get('Value')
+                    break
+            
+            payment_request.mpesa_code = mpesa_receipt or 'AUTO_CONFIRMED'
+            payment_request.status = 'verified'
+            payment_request.verified_at = timezone.now()
+            payment_request.save()
+            
+            user = payment_request.user
+            plan = payment_request.plan
+            
+            start_date = timezone.now()
+            end_date = start_date + timedelta(days=plan.duration_days)
+            
+            subscription, created = Subscription.objects.get_or_create(
+                user=user,
+                defaults={
+                    'plan': plan,
+                    'start_date': start_date,
+                    'end_date': end_date,
+                    'is_active': True,
+                }
+            )
+            
+            if not created:
+                subscription.plan = plan
+                subscription.end_date = max(subscription.end_date, timezone.now()) + timedelta(days=plan.duration_days)
+                subscription.is_active = True
+                subscription.save()
+            
+            print(f"✓ Subscription activated for {user.username}")
+        else:
+            payment_request.status = 'rejected'
+            payment_request.rejection_reason = f'M-Pesa error code: {result_code}'
+            payment_request.save()
+        
+        return Response({'message': 'Callback processed'})
+    except Exception as e:
+        print(f"ERROR: {e}")
+        return Response({'error': str(e)}, status=500)
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def check_payment_status(request, payment_request_id):
+    """Check payment status for polling"""
+    try:
+        payment_request = PaymentRequest.objects.get(id=payment_request_id, user=request.user)
+        return Response({
+            'status': payment_request.status,
+            'plan': payment_request.plan.name,
+            'amount': payment_request.amount_paid,
+            'created_at': payment_request.submitted_at,
+        })
+    except PaymentRequest.DoesNotExist:
+        return Response({'error': 'Payment not found'}, status=404)
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def check_quiz_access(request):
+    """Check if user can start a quiz (free trial + subscription)"""
+    from .models import UserProfile
+    
+    user = request.user
+    profile, created = UserProfile.objects.get_or_create(user=user)
+    
+    has_subscription = False
+    subscription_details = None
+    
+    try:
+        subscription = Subscription.objects.get(user=user, is_active=True)
+        if subscription.end_date >= timezone.now():
+            has_subscription = True
+            subscription_details = {
+                'plan': subscription.plan.name,
+                'days_remaining': (subscription.end_date - timezone.now()).days,
+            }
+    except Subscription.DoesNotExist:
+        pass
+    
+    can_access, message = profile.can_start_quiz()
+    
+    return Response({
+        'can_access': can_access,
+        'message': message,
+        'has_subscription': has_subscription,
+        'subscription': subscription_details,
+        'free_quizzes_remaining': profile.free_quizzes_remaining,
+    })
+
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def start_quiz_with_check(request, quiz_id):
+    """Start quiz - checks access and decrements counter"""
+    from .models import UserProfile
+    
+    user = request.user
+    profile, created = UserProfile.objects.get_or_create(user=user)
+    
+    can_access, message = profile.can_start_quiz()
+    
+    if not can_access:
+        return Response({
+            'error': 'Payment required',
+            'message': message,
+            'redirect': '/subscribe',
+        }, status=402)
+    
+    has_subscription = False
+    try:
+        subscription = Subscription.objects.get(user=user, is_active=True)
+        if subscription.end_date >= timezone.now():
+            has_subscription = True
+    except Subscription.DoesNotExist:
+        pass
+    
+    if not has_subscription:
+        profile.use_free_quiz()
+    
+    profile.total_quizzes_attempted += 1
+    profile.save()
+    
+    try:
+        quiz = Quiz.objects.get(id=quiz_id)
+    except Quiz.DoesNotExist:
+        return Response({'error': 'Quiz not found'}, status=404)
+    
+    attempt = Attempt.objects.create(
+        student=user,
+        quiz=quiz,
+        start_time=timezone.now(),
+    )
+    
+    return Response({
+        'success': True,
+        'attempt_id': attempt.id,
+        'free_quizzes_remaining': profile.free_quizzes_remaining,
+    })

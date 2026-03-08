@@ -130,6 +130,29 @@ urlpatterns = [
     # ── STUDENT ANSWERS (no auth) ─────────────────────────────────
     path("sessions/<int:session_id>/answer/", views.submit_answer, name="submit-answer"),
     path("sessions/<int:session_id>/results/", views.session_results, name="session-results"),
+
+    # ── Credits & Subscription ───────────────────────────────────
+path('credits/status/', credits_status, name='credits_status'),
+path('plans/', SubscriptionPlanListView.as_view(), name='subscription-plans'),
+path('payments/submit/', SubmitPaymentView.as_view(), name='submit-payment'),
+path('payments/my/', MyPaymentsView.as_view(), name='my-payments'),
+path('payments/status/', SubscriptionStatusView.as_view(), name='subscription-status'),
+
+# ── Credits & Subscription ───────────────────────────────────
+path('credits/status/', credits_status, name='credits_status'),
+path('plans/', SubscriptionPlanListView.as_view(), name='subscription-plans'),
+path('payments/submit/', SubmitPaymentView.as_view(), name='submit-payment'),
+path('payments/my/', MyPaymentsView.as_view(), name='my-payments'),
+path('payments/status/', SubscriptionStatusView.as_view(), name='subscription-status'),
+
+# M-Pesa STK Push (NEW)
+path('payments/stk-push/', views.initiate_stk_push, name='stk-push'),
+path('payments/callback/', views.mpesa_callback, name='mpesa-callback'),
+path('payments/status/<int:payment_request_id>/', views.check_payment_status, name='check-payment-status'),
+
+# Free Trial (NEW)
+path('quiz-access/', views.check_quiz_access, name='quiz-access'),
+path('quiz/<int:quiz_id>/start/', views.start_quiz_with_check, name='start-quiz-check'),
 ]
 
 # Serve media files in development

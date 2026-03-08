@@ -51,17 +51,21 @@ class QuestionSerializer(serializers.ModelSerializer):
             'question_text',
             'option_a', 'option_b', 'option_c', 'option_d',
             'correct_answer',
-            'difficulty', 'question_type', 'max_marks','question_image',
+            'difficulty', 'question_type', 'max_marks',
             'question_image_url',
         ]
     
     def get_question_image_url(self, obj):
-        if obj.question_image:
+        if not obj.question_image:
+            return None
+        try:
             request = self.context.get('request')
             if request:
                 return request.build_absolute_uri(obj.question_image.url)
             return obj.question_image.url
-        return None
+        except (ValueError, Exception):
+            # Old image uploaded before Cloudinary - return None
+            return None
 
 
 class QuestionDetailSerializer(serializers.ModelSerializer):
@@ -82,7 +86,7 @@ class QuestionDetailSerializer(serializers.ModelSerializer):
             'correct_answer', 'correct_answers',
             'explanation', 'difficulty',
             'created_at', 'created_by',
-            'question_image_url','question_image'
+            'question_image_url'
         ]
         read_only_fields = [
             'id', 'subject', 'subject_name', 'topic_name', 'grade',
@@ -93,12 +97,16 @@ class QuestionDetailSerializer(serializers.ModelSerializer):
         }
     
     def get_question_image_url(self, obj):
-        if obj.question_image:
+        if not obj.question_image:
+            return None
+        try:
             request = self.context.get('request')
             if request:
                 return request.build_absolute_uri(obj.question_image.url)
             return obj.question_image.url
-        return None
+        except (ValueError, Exception):
+            # Old image uploaded before Cloudinary - return None
+            return None
 
 
 class QuizListSerializer(serializers.ModelSerializer):
