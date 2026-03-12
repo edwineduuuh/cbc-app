@@ -105,6 +105,7 @@ class Question(models.Model):
 
     # COMMON FIELDS
     explanation = models.TextField(blank=True, help_text="Optional explanation of answers")
+    worked_solution = models.JSONField(null=True, blank=True, default=None, help_text="Step-by-step solution with LaTeX")   
     difficulty = models.CharField(max_length=10, choices=DIFFICULTY_CHOICES, default='medium')
 
     # METADATA

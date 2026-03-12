@@ -174,13 +174,6 @@ class BulkExamUploader:
             
             image_bytes = file.read()
             
-            # Store the image
-            self.extracted_images.append({
-                'bytes': image_bytes,
-                'index': 0,
-                'ext': file.name.split('.')[-1]
-            })
-            
             # Use Claude Vision to extract text
             print("Using Claude Vision to extract text from image...")
             file.seek(0)
@@ -216,13 +209,6 @@ class BulkExamUploader:
             }
             media_type = media_type_map.get(ext, 'image/png')
 
-            # Store image for later attachment if it's an image file
-            if ext in ('png', 'jpg', 'jpeg', 'bmp', 'tiff') and not self.extracted_images:
-                self.extracted_images.append({
-                    'bytes': file_bytes,
-                    'index': 0,
-                    'ext': ext
-                })
             
             response = self.client.messages.create(
                 model="claude-sonnet-4-20250514",
@@ -271,12 +257,29 @@ class BulkExamUploader:
 
 Subject: {subject_name}
 Grade: {grade}
-Images found: {len(self.extracted_images)}
 
-EXTRACTED TEXT (with image markers):
+EXTRACTED TEXT:
 {text}
 
-NOTE: Text may contain [IMAGE_0], [IMAGE_1] or [IMAGE] markers where images appear.
+🚨 CRITICAL EXPONENT RULES:
+- 32^1/5 means $32^{{\\frac{{1}}{{5}}}}$ NOT "32 and 1/5"
+- 2^4 means $2^4$ NOT "2 to the 4"
+- x^2/3 means $x^{{\\frac{{2}}{{3}}}}$ NOT "x squared divided by 3"
+- ALWAYS preserve exponent notation with curly braces
+
+🔴 MATH FORMATTING RULES:
+1. Fractions: $\\frac{{1}}{{3}}$ NOT 1/3
+2. Exponents: $x^{{2}}$ or $32^{{\\frac{{1}}{{5}}}}$
+3. Square roots: $\\sqrt{{x}}$
+4. Greek: $\\theta$, $\\pi$
+5. Division of powers: $\\frac{{2^4}}{{32^{{\\frac{{1}}{{5}}}}}}$
+
+EXAMPLE - CORRECT:
+Question: "Evaluate 2^4 / 32^1/5"
+Output: "Evaluate $\\frac{{2^4}}{{32^{{\\frac{{1}}{{5}}}}}}$"
+
+EXAMPLE - WRONG (NEVER):
+"Evaluate $\\frac{{2^4}}{{32\\frac{{1}}{{5}}}}$"  ← This is WRONG
 
 INSTRUCTIONS:
 1. Identify ALL questions in the text

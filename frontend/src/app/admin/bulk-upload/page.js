@@ -19,6 +19,28 @@ export default function BulkUploadPage() {
   const [uploading, setUploading] = useState(false);
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [preview, setPreview] = useState(null);
+  // MathJax 
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    if (!window.MathJax) {
+      window.MathJax = {
+        tex: { inlineMath: [["$", "$"]], displayMath: [["$$", "$$"]] },
+      };
+      const script = document.createElement("script");
+      script.src = "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js";
+      script.async = true;
+      document.head.appendChild(script);
+    }
+  }, []);
+
+  // Trigger MathJax when results appear
+  useEffect(() => {
+    if (result?.questions && window.MathJax) {
+      window.MathJax.typesetPromise?.();
+    }
+  }, [result]);
 
   useEffect(() => {
     loadSubjects();
@@ -68,6 +90,7 @@ export default function BulkUploadPage() {
     formData.append("file", file);
     formData.append("subject", subject);
     formData.append("grade", grade);
+    formData.append("action", "preview"); // ADD THIS
 
     try {
       const token = localStorage.getItem("accessToken");
@@ -78,7 +101,6 @@ export default function BulkUploadPage() {
         return;
       }
 
-      // AUTH REQUIRED - this is admin action
       const res = await fetch(`${API}/admin/bulk-upload/`, {
         method: "POST",
         headers: {
@@ -90,13 +112,7 @@ export default function BulkUploadPage() {
       const data = await res.json();
 
       if (res.ok) {
-        setResult({
-          success: true,
-          message: `✅ Successfully created ${data.questions_created} questions!`,
-          questions: data.questions,
-        });
-        setFile(null);
-        document.getElementById("file-upload").value = "";
+        setPreview(data.questions || []); // CHANGED - show preview instead of result
       } else {
         setResult({
           success: false,
@@ -112,7 +128,72 @@ export default function BulkUploadPage() {
       setUploading(false);
     }
   };
+const handleConfirm = async () => {
+  setUploading(true);
 
+  const token = localStorage.getItem("accessToken");
+
+  try {
+    const res = await fetch(`${API}/admin/bulk-upload/`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        action: "confirm",
+        subject,
+        grade,
+        questions: preview,
+      }),
+    });
+
+    const data = await res.json();
+
+    if (res.ok) {
+      setResult({
+        success: true,
+        message: `✅ Successfully created ${data.questions_created} questions!`,
+        questions: data.questions,
+      });
+      setPreview(null);
+      setFile(null);
+      document.getElementById("file-upload").value = "";
+    }
+  } catch (error) {
+    setResult({
+      success: false,
+      message: `❌ Save failed: ${error.message}`,
+    });
+  } finally {
+    setUploading(false);
+  }
+};
+
+const deleteImage = (index) => {
+  setPreview((prev) =>
+    prev.map((q, i) => (i === index ? { ...q, image_base64: null } : q)),
+  );
+};
+
+const uploadImage = (index, file) => {
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    const base64 = e.target.result.split(",")[1];
+    setPreview((prev) =>
+      prev.map((q, i) =>
+        i === index
+          ? {
+              ...q,
+              image_base64: base64,
+              image_ext: file.name.split(".").pop(),
+            }
+          : q,
+      ),
+    );
+  };
+  reader.readAsDataURL(file);
+};
   return (
     <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-white to-amber-50 p-6">
       <div className="max-w-3xl mx-auto">
@@ -226,7 +307,79 @@ export default function BulkUploadPage() {
             </button>
           </div>
         </div>
+        {/* PREVIEW & IMAGE MANAGEMENT */}
+        {preview && (
+          <div className="mt-6 bg-white rounded-2xl shadow-xl border-2 border-blue-100 p-8">
+            <h2 className="text-2xl font-bold text-blue-900 mb-4">
+              Preview & Manage Images ({preview.length} questions)
+            </h2>
 
+            <div className="space-y-4 max-h-96 overflow-y-auto mb-6">
+              {preview.map((q, idx) => (
+                <div
+                  key={idx}
+                  className="border-2 border-gray-200 rounded-xl p-4 flex gap-4"
+                >
+                  {/* Question */}
+                  <div className="flex-1">
+                    <p className="text-xs font-bold text-gray-500 mb-1">
+                      Q{idx + 1} • {q.question_type?.toUpperCase()}
+                    </p>
+                    <p className="text-sm text-gray-900">{q.question_text}</p>
+                  </div>
+
+                  {/* Image Management */}
+                  <div className="w-40 flex-shrink-0">
+                    {q.image_base64 ? (
+                      <div className="relative group">
+                        <img
+                          src={`data:image/${q.image_ext || "png"};base64,${q.image_base64}`}
+                          className="w-full h-32 object-cover rounded-lg border-2 border-green-200"
+                        />
+                        <button
+                          onClick={() => deleteImage(idx)}
+                          className="absolute top-1 right-1 bg-red-500 text-white p-1 rounded opacity-0 group-hover:opacity-100 transition"
+                        >
+                          <XCircle className="w-4 h-4" />
+                        </button>
+                      </div>
+                    ) : (
+                      <label className="border-2 border-dashed border-gray-300 rounded-lg h-32 flex flex-col items-center justify-center cursor-pointer hover:border-blue-400 transition">
+                        <Upload className="w-6 h-6 text-gray-400 mb-1" />
+                        <span className="text-xs text-gray-500">
+                          Upload Image
+                        </span>
+                        <input
+                          type="file"
+                          accept="image/*"
+                          className="hidden"
+                          onChange={(e) => uploadImage(idx, e.target.files[0])}
+                        />
+                      </label>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Actions */}
+            <div className="flex gap-4">
+              <button
+                onClick={() => setPreview(null)}
+                className="flex-1 py-3 border-2 border-gray-300 text-gray-700 rounded-xl font-bold hover:bg-gray-50 transition"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleConfirm}
+                disabled={uploading}
+                className="flex-1 py-3 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-xl font-bold shadow-lg disabled:opacity-50 transition"
+              >
+                {uploading ? "Saving..." : `✓ Save ${preview.length} Questions`}
+              </button>
+            </div>
+          </div>
+        )}
         {/* Result */}
         {result && (
           <div
@@ -271,7 +424,12 @@ export default function BulkUploadPage() {
                             </span>
                           )}
                           <p className="text-sm text-gray-900 flex-1">
-                            {q.question_text}
+                            <div
+                              className="text-sm text-gray-900 flex-1"
+                              dangerouslySetInnerHTML={{
+                                __html: q.question_text,
+                              }}
+                            />
                           </p>
                         </div>
                       </div>

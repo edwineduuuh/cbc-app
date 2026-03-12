@@ -1,3 +1,4 @@
+from rest_framework.parsers import MultiPartParser, FormParser, JSONParser 
 from rest_framework import generics, status
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, AllowAny
@@ -33,7 +34,8 @@ User = get_user_model()
 
 class AdminQuestionListCreateView(generics.ListCreateAPIView):
     permission_classes = [IsAdminUser]
-    serializer_class = QuestionDetailSerializer  # FIXED: use detail serializer for create too
+    parser_classes = [MultiPartParser, FormParser, JSONParser]  # ADD THIS
+    serializer_class = QuestionDetailSerializer
     queryset = Question.objects.all()
 
     def get_queryset(self):
@@ -59,13 +61,31 @@ class AdminQuestionListCreateView(generics.ListCreateAPIView):
         return queryset
 
     def perform_create(self, serializer):
-        serializer.save(created_by=self.request.user)
+        # Handle image upload on creation
+        if 'question_image' in self.request.FILES:
+            serializer.save(created_by=self.request.user, question_image=self.request.FILES['question_image'])
+        else:
+            serializer.save(created_by=self.request.user)
 
 
 class AdminQuestionDetailView(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [IsAdminUser]
+    parser_classes = [MultiPartParser, FormParser, JSONParser]  # ADD THIS
     serializer_class = QuestionDetailSerializer
     queryset = Question.objects.all()
+    
+    def perform_update(self, serializer):
+        # Handle image deletion
+        if self.request.data.get('delete_image') == 'true':
+            instance = self.get_object()
+            if instance.question_image:
+                instance.question_image.delete(save=False)
+            serializer.save(question_image=None)
+        # Handle image upload
+        elif 'question_image' in self.request.FILES:
+            serializer.save(question_image=self.request.FILES['question_image'])
+        else:
+            serializer.save()
 
 
 class AdminBulkImportView(APIView):
@@ -94,140 +114,125 @@ class AdminBulkImportView(APIView):
         return response
 
     def post(self, request):
-        csv_file = request.FILES.get('file')
-
-        if not csv_file:
-            return Response({'error': 'No CSV file provided'}, status=status.HTTP_400_BAD_REQUEST)
-
-        if not csv_file.name.endswith('.csv'):
-            return Response({'error': 'File must be a CSV'}, status=status.HTTP_400_BAD_REQUEST)
-
-        try:
-            decoded = csv_file.read().decode('utf-8')
-            reader  = csv.DictReader(io.StringIO(decoded))
-        except Exception as e:
-            return Response({'error': f'Could not parse CSV: {str(e)}'}, status=status.HTTP_400_BAD_REQUEST)
-
-        created = 0
-        errors  = []
-
-        for row_num, row in enumerate(reader, start=2):
+        action = request.data.get('action', 'preview')  # 'preview' or 'confirm'
+        
+        if action == 'preview':
+            # Extract and preview (don't save yet)
+            file = request.FILES.get('file')
+            subject_id = request.data.get('subject')
+            grade = request.data.get('grade')
+            
+            if not file or not subject_id or not grade:
+                return Response({'error': 'file, subject, and grade required'}, status=400)
+            
             try:
-                with transaction.atomic():
-                    # Find subject
-                    subject = Subject.objects.filter(
-                        name__iexact=row.get('subject_name', '').strip()
-                    ).first()
-
-                    if not subject:
-                        errors.append({'row': row_num, 'error': f"Subject '{row.get('subject_name')}' not found"})
-                        continue
-
-                    # Find topic
-                    topic = Topic.objects.filter(
-                        name__iexact=row.get('topic_name', '').strip(),
-                        subject=subject
-                    ).first()
-
-                    if not topic:
-                        errors.append({'row': row_num, 'error': f"Topic '{row.get('topic_name')}' not found in {subject.name}"})
-                        continue
-
-                    # Validate grade
-                    try:
-                        grade = int(row.get('grade', 0))
-                        if not (4 <= grade <= 12):
-                            raise ValueError
-                    except (ValueError, TypeError):
-                        errors.append({'row': row_num, 'error': f"Grade must be 4-12. Got: '{row.get('grade')}'"})
-                        continue
-
-                    # Get difficulty
-                    difficulty = row.get('difficulty', 'medium').strip().lower()
-                    if difficulty not in ['easy', 'medium', 'hard']:
-                        difficulty = 'medium'
-
-                    # Detect question type
-                    question_type = row.get('question_type', '').strip().lower()
-                    
-                    # If question_type not specified, detect from columns
-                    if not question_type:
-                        if row.get('option_a') and row.get('option_b'):
-                            question_type = 'mcq'
-                        else:
-                            question_type = 'structured'
-                    
-                    # Validate question type
-                    if question_type not in ['mcq', 'structured', 'fill_blank', 'math', 'essay']:
-                        errors.append({'row': row_num, 'error': f"Invalid question_type: '{question_type}'"})
-                        continue
-
-                    # Get max_marks
-                    try:
-                        max_marks = int(row.get('max_marks', 1))
-                    except (ValueError, TypeError):
-                        max_marks = 1
-
-                    # Common fields
-                    question_data = {
-                        'topic': topic,
-                        'difficulty': difficulty,
-                        'question_text': row.get('question_text', '').strip(),
-                        'question_type': question_type,
-                        'max_marks': max_marks,
-                        'explanation': row.get('explanation', '').strip(),
-                        'created_by': request.user
+                subject = Subject.objects.get(id=subject_id)
+            except Subject.DoesNotExist:
+                return Response({'error': 'Subject not found'}, status=404)
+            
+            # Extract questions (don't save)
+            from .bulk_upload import BulkExamUploader
+            uploader = BulkExamUploader()
+            
+            text = uploader._extract_text_from_file(file)
+            questions_data = uploader._parse_questions_with_ai(text, subject_id, grade)
+            
+            # Convert images to base64 for preview
+            preview_questions = []
+            for q in questions_data:
+                q_preview = {**q}
+                
+                # Add base64 image if exists
+                image_index = q.get('image_index')
+                if image_index is not None and image_index < len(uploader.extracted_images):
+                    img_data = uploader.extracted_images[image_index]
+                    import base64
+                    q_preview['image_base64'] = base64.b64encode(img_data['bytes']).decode('utf-8')
+                    q_preview['image_ext'] = img_data['ext']
+                
+                preview_questions.append(q_preview)
+            
+            # Store in session or cache (for confirm step)
+            request.session[f'preview_{subject_id}_{grade}'] = {
+                'questions': questions_data,
+                'images': [
+                    {
+                        'base64': base64.b64encode(img['bytes']).decode('utf-8'),
+                        'ext': img['ext']
                     }
-
-                    # Type-specific fields
-                    if question_type == 'mcq':
-                        # MCQ validation
-                        correct_answer = row.get('correct_answer', '').strip().upper()
-                        if correct_answer not in ['A', 'B', 'C', 'D']:
-                            errors.append({'row': row_num, 'error': f"MCQ correct_answer must be A, B, C or D. Got: '{correct_answer}'"})
-                            continue
-                        
-                        question_data.update({
-                            'option_a': row.get('option_a', '').strip(),
-                            'option_b': row.get('option_b', '').strip(),
-                            'option_c': row.get('option_c', '').strip(),
-                            'option_d': row.get('option_d', '').strip(),
-                            'correct_answer': correct_answer,
-                        })
+                    for img in uploader.extracted_images
+                ]
+            }
+            
+            return Response({
+                'action': 'preview',
+                'questions': preview_questions,
+                'total': len(preview_questions)
+            })
+        
+        elif action == 'confirm':
+            # Save to database with modifications
+            questions_data = request.data.get('questions', [])
+            subject_id = request.data.get('subject')
+            grade = request.data.get('grade')
+            
+            if not questions_data:
+                return Response({'error': 'No questions to save'}, status=400)
+            
+            try:
+                subject = Subject.objects.get(id=subject_id)
+                topic, _ = Topic.objects.get_or_create(
+                    subject=subject,
+                    grade=grade,
+                    name=f"Imported Questions - Grade {grade}",
+                    defaults={'slug': f'imported-grade-{grade}'}
+                )
+            except Subject.DoesNotExist:
+                return Response({'error': 'Subject not found'}, status=404)
+            
+            created_questions = []
+            
+            for q_data in questions_data:
+                question = Question.objects.create(
+                    topic=topic,
+                    question_type=q_data.get('question_type', 'mcq'),
+                    question_text=q_data.get('question_text', ''),
+                    option_a=q_data.get('option_a', ''),
+                    option_b=q_data.get('option_b', ''),
+                    option_c=q_data.get('option_c', ''),
+                    option_d=q_data.get('option_d', ''),
+                    correct_answer=q_data.get('correct_answer', ''),
+                    explanation=q_data.get('explanation', ''),
+                    difficulty=q_data.get('difficulty', 'medium'),
+                    max_marks=q_data.get('max_marks', 1),
+                    created_by=request.user
+                )
+                
+                # Handle image (base64 from frontend)
+                if q_data.get('image_base64'):
+                    import base64
+                    from django.core.files.base import ContentFile
                     
-                    else:
-                        # Non-MCQ questions (structured, math, essay, fill_blank)
-                        model_answer = row.get('model_answer', '').strip()
-                        if not model_answer:
-                            errors.append({'row': row_num, 'error': f"model_answer required for {question_type} questions"})
-                            continue
-                        
-                        question_data['correct_answer'] = model_answer
-                        
-                        # Parse marking scheme if provided
-                        marking_scheme_str = row.get('marking_scheme', '').strip()
-                        if marking_scheme_str:
-                            try:
-                                marking_scheme = json.loads(marking_scheme_str)
-                                question_data['marking_scheme'] = marking_scheme
-                            except json.JSONDecodeError:
-                                errors.append({'row': row_num, 'error': f"Invalid JSON in marking_scheme"})
-                                continue
-
-                    # Create question
-                    Question.objects.create(**question_data)
-                    created += 1
-
-            except Exception as e:
-                errors.append({'row': row_num, 'error': str(e)})
-                continue
-
-        return Response({
-            'created': created,
-            'errors': errors,
-            'total_rows': created + len(errors),
-            'message': f'Successfully imported {created} questions' + (f' with {len(errors)} errors' if errors else '')
-        }, status=status.HTTP_201_CREATED)
+                    image_data = base64.b64decode(q_data['image_base64'])
+                    ext = q_data.get('image_ext', 'png')
+                    question.question_image.save(
+                        f'question_{question.id}.{ext}',
+                        ContentFile(image_data),
+                        save=True
+                    )
+                
+                created_questions.append({
+                    'id': question.id,
+                    'question_text': question.question_text[:100],
+                    'type': question.question_type,
+                    'has_image': bool(question.question_image)
+                })
+            
+            return Response({
+                'action': 'confirmed',
+                'questions_created': len(created_questions),
+                'questions': created_questions
+            }, status=201)
 
 class AdminStatsView(APIView):
     permission_classes = [IsAdminUser]
@@ -280,8 +285,14 @@ class TopicListView(generics.ListAPIView):
     def get_queryset(self):
         queryset = Topic.objects.all()
         subject_id = self.request.query_params.get('subject')
+        grade = self.request.query_params.get('grade')
+        
         if subject_id:
             queryset = queryset.filter(subject_id=subject_id)
+        
+        if grade:
+            queryset = queryset.filter(grade=grade)
+        
         return queryset
 
 
@@ -814,6 +825,7 @@ def submit_quiz(request):
                 'is_correct': result['is_correct'],
                 'correct_answer': display_correct if not result['is_correct'] else None,
                 'explanation': question.explanation if not result['is_correct'] else None,
+                'worked_solution': question.worked_solution,
                 'points_earned': result.get('points_earned', []),
                 'points_missed': result.get('points_missed', []),
                 'personalized_message': result.get('personalized_message', ''),

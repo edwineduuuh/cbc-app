@@ -127,6 +127,9 @@ function QuestionModal({ open, onClose, onSave, subjects, topics, editData }) {
     correct_answer: "A",
     explanation: "",
     marking_scheme: "",
+    image_preview: null, 
+    image_file: null, 
+    delete_image: false,
   };
 
   const [form, setForm] = useState(blank);
@@ -141,24 +144,26 @@ function QuestionModal({ open, onClose, onSave, subjects, topics, editData }) {
     (t) => String(t.subject) === String(form.subject),
   );
 
-  useEffect(() => {
-    if (editData) {
-      setForm({
-        ...editData,
-        subject: String(editData.topic?.subject?.id ?? editData.subject ?? ""),
-        topic: String(editData.topic?.id ?? ""),
-        grade: String(editData.grade ?? ""),
-        question_type: editData.question_type || "mcq",
-        max_marks: editData.max_marks || 1,
-        marking_scheme: editData.marking_scheme
-          ? JSON.stringify(editData.marking_scheme, null, 2)
-          : "",
-      });
-    } else {
-      setForm(blank);
-    }
-  }, [editData]);
-
+ useEffect(() => {
+   if (editData) {
+     setForm({
+       ...editData,
+       subject: String(editData.topic?.subject?.id ?? editData.subject ?? ""),
+       topic: String(editData.topic?.id ?? ""),
+       grade: String(editData.grade ?? ""),
+       question_type: editData.question_type || "mcq",
+       max_marks: editData.max_marks || 1,
+       marking_scheme: editData.marking_scheme
+         ? JSON.stringify(editData.marking_scheme, null, 2)
+         : "",
+       image_preview: null, // Clear preview when opening
+       image_file: null,
+       delete_image: false,
+     });
+   } else {
+     setForm(blank);
+   }
+ }, [editData]);
   const update = (key, value) => setForm((prev) => ({ ...prev, [key]: value }));
 
   const handleSave = async () => {
@@ -207,34 +212,72 @@ function QuestionModal({ open, onClose, onSave, subjects, topics, editData }) {
     }
 
     try {
-      const payload = {
-        topic: parseInt(form.topic),
-        grade: parseInt(form.grade),
-        question_type: form.question_type,
-        max_marks: parseInt(form.max_marks),
-        question_text: form.question_text.trim(),
-        difficulty: form.difficulty,
-        explanation: form.explanation.trim(),
-      };
+      // Use FormData if image is being uploaded or deleted
+      const hasImage = form.image_file || form.delete_image;
 
-      if (form.question_type === "mcq") {
-        payload.option_a = form.option_a.trim();
-        payload.option_b = form.option_b.trim();
-        payload.option_c = form.option_c.trim();
-        payload.option_d = form.option_d.trim();
-        payload.correct_answer = form.correct_answer;
+      let payload;
+      if (hasImage) {
+        payload = new FormData();
+        payload.append("topic", parseInt(form.topic));
+        payload.append("grade", parseInt(form.grade));
+        payload.append("question_type", form.question_type);
+        payload.append("max_marks", parseInt(form.max_marks));
+        payload.append("question_text", form.question_text.trim());
+        payload.append("difficulty", form.difficulty);
+        payload.append("explanation", form.explanation.trim());
+
+        if (form.question_type === "mcq") {
+          payload.append("option_a", form.option_a.trim());
+          payload.append("option_b", form.option_b.trim());
+          payload.append("option_c", form.option_c.trim());
+          payload.append("option_d", form.option_d.trim());
+          payload.append("correct_answer", form.correct_answer);
+        } else {
+          payload.append("correct_answer", form.correct_answer || "");
+          if (marking_scheme_obj) {
+            payload.append(
+              "marking_scheme",
+              JSON.stringify(marking_scheme_obj),
+            );
+          }
+        }
+
+        // Handle image
+        if (form.image_file) {
+          payload.append("question_image", form.image_file);
+        } else if (form.delete_image) {
+          payload.append("delete_image", "true");
+        }
       } else {
-        payload.correct_answer = form.correct_answer || "";
-        payload.marking_scheme = marking_scheme_obj;
+        payload = {
+          topic: parseInt(form.topic),
+          grade: parseInt(form.grade),
+          question_type: form.question_type,
+          max_marks: parseInt(form.max_marks),
+          question_text: form.question_text.trim(),
+          difficulty: form.difficulty,
+          explanation: form.explanation.trim(),
+        };
+
+        if (form.question_type === "mcq") {
+          payload.option_a = form.option_a.trim();
+          payload.option_b = form.option_b.trim();
+          payload.option_c = form.option_c.trim();
+          payload.option_d = form.option_d.trim();
+          payload.correct_answer = form.correct_answer;
+        } else {
+          payload.correct_answer = form.correct_answer || "";
+          payload.marking_scheme = marking_scheme_obj;
+        }
       }
 
       const res = await fetch(url, {
         method,
         headers: {
           Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
+          ...(hasImage ? {} : { "Content-Type": "application/json" }),
         },
-        body: JSON.stringify(payload),
+        body: hasImage ? payload : JSON.stringify(payload),
       });
 
       if (res.ok) {
@@ -505,6 +548,7 @@ function QuestionModal({ open, onClose, onSave, subjects, topics, editData }) {
               />
             </div>
             {/* ADD THIS AFTER EXPLANATION FIELD */}
+            {/* Image Upload with Delete Control */}
             <div>
               <label className={labelCls}>
                 Question Image{" "}
@@ -512,24 +556,55 @@ function QuestionModal({ open, onClose, onSave, subjects, topics, editData }) {
                   — optional
                 </span>
               </label>
-              <input
-                type="file"
-                accept="image/*"
-                onChange={(e) => {
-                  const file = e.target.files[0];
-                  if (file) {
-                    // Store file for upload
-                    setForm((prev) => ({ ...prev, image_file: file }));
-                  }
-                }}
-                className={inputCls}
-              />
-              {editData?.question_image_url && (
-                <img
-                  src={editData.question_image_url}
-                  alt="Current"
-                  className="mt-2 w-32 h-32 object-cover rounded-lg border"
-                />
+
+              {form.image_preview ||
+              (editData?.question_image_url && !form.delete_image) ? (
+                <div className="relative group w-40">
+                  <img
+                    src={form.image_preview || editData.question_image_url}
+                    alt="Question"
+                    className="w-full h-32 object-cover rounded-lg border-2 border-emerald-200"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setForm((prev) => ({
+                        ...prev,
+                        image_file: null,
+                        image_preview: null,
+                        delete_image: true,
+                      }));
+                    }}
+                    className="absolute top-1 right-1 bg-red-500 text-white p-1 rounded opacity-0 group-hover:opacity-100 transition"
+                  >
+                    <X className="w-4 h-4" />
+                  </button>
+                </div>
+              ) : (
+                <label className="border-2 border-dashed border-gray-300 rounded-lg h-32 w-40 flex flex-col items-center justify-center cursor-pointer hover:border-emerald-400 transition">
+                  <Upload className="w-6 h-6 text-gray-400 mb-1" />
+                  <span className="text-xs text-gray-500">Upload Image</span>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    className="hidden"
+                    onChange={(e) => {
+                      const file = e.target.files[0];
+                      if (file) {
+                        const reader = new FileReader();
+                        reader.onload = (evt) => {
+                          setForm((prev) => ({
+                            ...prev,
+                            image_file: file,
+                            image_preview: evt.target.result,
+                            delete_image: false,
+                          }));
+                        };
+                        reader.readAsDataURL(file);
+                      }
+                    }}
+                  />
+                </label>
               )}
             </div>
           </div>

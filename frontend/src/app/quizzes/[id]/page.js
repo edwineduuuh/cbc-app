@@ -1,5 +1,5 @@
 "use client";
-
+import { use } from "react";
 import Image from "next/image";
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useAuth } from "@/contexts/AuthContext";
@@ -630,11 +630,12 @@ function TimerBadge({ totalSeconds, onExpire }) {
 }
 
 // ─── Main Page ────────────────────────────────────────────────────────────────
-export default function QuizTakePage() {
+export default function QuizTakePage({ params }) {
+  const resolvedParams = use(params);
+  const quizId = resolvedParams.id;
   const { user } = useAuth();
   const router = useRouter();
   const searchParams = useSearchParams();
-  const quizId = searchParams.get("id") || ""; // assuming quiz ID from query param
 
   const guestSessionFromUrl = searchParams.get("guest_session");
 
@@ -650,6 +651,39 @@ export default function QuizTakePage() {
   const [flagged, setFlagged] = useState(new Set());
 
   const currentQ = questions[currentIdx];
+
+  useEffect(() => {
+    if (typeof window === "undefined" || !window.MathJax || !currentQ) return;
+
+    const typesetMath = async () => {
+      try {
+        if (window.MathJax.typesetClear) {
+          window.MathJax.typesetClear();
+        }
+        await window.MathJax.typesetPromise();
+      } catch (err) {
+        console.error("MathJax typeset error:", err);
+      }
+    };
+
+    setTimeout(typesetMath, 50);
+  }); 
+
+  // Typeset whenever question changes
+  useEffect(() => {
+    if (typeof window === "undefined" || !window.MathJax || !currentQ) return;
+
+    const typesetMath = async () => {
+      try {
+        await window.MathJax.typesetPromise();
+      } catch (err) {
+        console.error("MathJax typeset error:", err);
+      }
+    };
+
+    // Wait a bit for DOM to update
+    setTimeout(typesetMath, 100);
+  }, [currentIdx, currentQ]);
   const totalQ = questions.length;
   const answeredCount = Object.values(answers).filter(
     (v) => v !== undefined && v !== "",
@@ -658,12 +692,24 @@ export default function QuizTakePage() {
   const progressPct = totalQ > 0 ? (answeredCount / totalQ) * 100 : 0;
 
   useEffect(() => {
-    if (!quizId) return;
+    console.log("========================================");
+    console.log("🔍 QUIZ LOAD DEBUG");
+    console.log("quizId:", quizId);
+    console.log("user:", user);
+    console.log("guestSessionFromUrl:", guestSessionFromUrl);
+    console.log("========================================");
+
+    if (!quizId) {
+      console.log("❌ No quizId - returning");
+      return;
+    }
 
     const token = localStorage.getItem("accessToken");
+    console.log("🔑 Token exists:", !!token);
 
     // Guests allowed only if guest_session present
     if (!user && !guestSessionFromUrl) {
+      console.log("❌ Not logged in and no guest session - redirecting");
       router.push("/explore");
       return;
     }
@@ -671,14 +717,23 @@ export default function QuizTakePage() {
     (async () => {
       try {
         const headers = token ? { Authorization: `Bearer ${token}` } : {};
-        const res = await fetch(`${API}/quizzes/${quizId}/`, { headers });
+        const url = `${API}/quizzes/${quizId}/`;
+        console.log("📡 Fetching:", url);
+
+        const res = await fetch(url, { headers });
+        console.log("📥 Response status:", res.status);
+
         if (!res.ok) throw new Error("Quiz load failed");
+
         const data = await res.json();
+        console.log("✅ Quiz loaded:", data);
+
         setQuiz(data);
         setQuestions(data.questions || []);
       } catch (err) {
-        console.error("Failed to load quiz:", err);
+        console.error("❌ Failed to load quiz:", err);
       } finally {
+        console.log("✅ Setting loading = false");
         setLoading(false);
       }
     })();
@@ -782,7 +837,7 @@ export default function QuizTakePage() {
       } else {
         // Logged-in user: redirect to saved attempt
         if (data.id) {
-          router.replace(`/attempt-results/${data.id}`);
+          router.replace(`/attempts/${data.id}`);
         } else {
           console.warn("Authenticated submit but no attempt ID returned");
           setResult(data); // fallback: show inline
@@ -1134,9 +1189,8 @@ export default function QuizTakePage() {
                   color: "#0d0d1a",
                   lineHeight: 1.65,
                 }}
-              >
-                {currentQ.question_text}
-              </p>
+                dangerouslySetInnerHTML={{ __html: currentQ.question_text }}
+              />
             </div>
 
             {/* Image */}

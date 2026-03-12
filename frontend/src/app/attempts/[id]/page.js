@@ -5,6 +5,7 @@ import { useParams, useRouter } from "next/navigation";
 import { useAuth } from "@/contexts/AuthContext";
 import Card from "@/components/ui/Card";
 import Button from "@/components/ui/Button";
+import WorkedSolution from "@/components/WorkedSolution";
 import {
   CheckCircle,
   XCircle,
@@ -22,11 +23,42 @@ export default function AttemptResultsPage() {
   const router = useRouter();
   const { user } = useAuth();
 
- const [results, setResults] = useState(null);
- const [quizGrade, setQuizGrade] = useState(null);
- const [credits, setCredits] = useState(0);
- const [isPremium, setIsPremium] = useState(false);
- const [loading, setLoading] = useState(true);
+  const [results, setResults] = useState(null);
+  const [quizGrade, setQuizGrade] = useState(null);
+  const [credits, setCredits] = useState(0);
+  const [isPremium, setIsPremium] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  // MathJax setup
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    if (!window.MathJax) {
+      window.MathJax = {
+        tex: {
+          inlineMath: [["$", "$"]],
+          displayMath: [["$$", "$$"]],
+        },
+      };
+
+      const script = document.createElement("script");
+      script.src =
+        "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js";
+      script.async = true;
+      document.head.appendChild(script);
+    }
+  }, []);
+
+  // Typeset when results load
+  useEffect(() => {
+    if (typeof window === "undefined" || !window.MathJax || !results) return;
+
+    setTimeout(() => {
+      window.MathJax.typesetPromise?.().catch((err) =>
+        console.error("MathJax error:", err),
+      );
+    }, 200);
+  }, [results]);
 
   useEffect(() => {
     if (!user) {
@@ -472,7 +504,10 @@ export default function AttemptResultsPage() {
                     </span>
                   </div>
 
-                  <p className="text-gray-700 mb-4">{item.question_text}</p>
+                  <div
+                    className="text-gray-700 mb-4"
+                    dangerouslySetInnerHTML={{ __html: item.question_text }}
+                  />
 
                   {/* Student Answer */}
                   <div className="bg-blue-50 p-4 rounded-lg mb-4">
@@ -569,6 +604,12 @@ export default function AttemptResultsPage() {
                         </div>
                       )}
                     </div>
+                  )}
+                  {!item.is_correct && item.worked_solution?.steps && (
+                    <WorkedSolution
+                      steps={item.worked_solution.steps}
+                      answer={item.worked_solution.answer}
+                    />
                   )}
                 </div>
               </div>

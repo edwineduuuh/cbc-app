@@ -12,14 +12,14 @@ class SubjectAdmin(admin.ModelAdmin):
 
 @admin.register(Question)
 class QuestionAdmin(admin.ModelAdmin):
-    list_display = ['id', 'question_text_short', 'topic', 'question_type', 'difficulty', 'max_marks']
+    list_display = ['id', 'question_text_short', 'topic', 'question_type', 'difficulty', 'max_marks', 'has_image']
     list_filter = ['question_type', 'difficulty', 'topic__subject', 'topic__grade']
     search_fields = ['question_text', 'id']
     ordering = ['-created_at']
     
     fieldsets = (
         ('Basic Info', {
-            'fields': ('topic', 'question_type', 'difficulty', 'max_marks', 'question_text')
+            'fields': ('topic', 'question_type', 'difficulty', 'max_marks', 'question_text', 'question_image')  # ADD question_image HERE
         }),
         ('MCQ Options', {
             'fields': ('option_a', 'option_b', 'option_c', 'option_d'),
@@ -37,6 +37,10 @@ class QuestionAdmin(admin.ModelAdmin):
     def question_text_short(self, obj):
         return obj.question_text[:80] + '...' if len(obj.question_text) > 80 else obj.question_text
     question_text_short.short_description = 'Question'
+    
+    def has_image(self, obj):
+        return "✓" if obj.question_image else "✗"
+    has_image.short_description = 'Image'
 
 @admin.register(Topic)
 class TopicAdmin(admin.ModelAdmin):

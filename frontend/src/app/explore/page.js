@@ -111,20 +111,21 @@ export default function ExplorePage() {
   }, [step, selectedGrade, selectedSubject, selectedType]);
 
   useEffect(() => {
-    if (step === "quizzes") {
-      if (selectedType === "topical" && !selectedTopic) return;
-
+    if (step === "quizzes" && selectedGrade && selectedSubject) {
       setLoading(true);
       const token = localStorage.getItem("accessToken");
       const params = new URLSearchParams({
         grade: selectedGrade,
         subject: selectedSubject.id,
-        quiz_type: selectedType,
       });
 
-      if (selectedType === "topical" && selectedTopic) {
-        params.append("topic", selectedTopic.id);
+      if (selectedType === "assessment") {
+        params.append("quiz_type", "assessment");
       }
+
+      // if (selectedTopic) {
+      //   params.append("topic", selectedTopic.id);
+      // }
 
       fetch(`${API}/quizzes/?${params}`, {
         headers: { Authorization: `Bearer ${token}` },
@@ -174,7 +175,7 @@ export default function ExplorePage() {
       router.push("/subscribe");
       return;
     }
-    router.push(`/quiz/${quiz.id}`);
+    router.push(`/quizzes/${quiz.id}`);
   };
 
   const handleBack = () => {
@@ -436,16 +437,27 @@ export default function ExplorePage() {
                   <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-500" />
                 </div>
               ) : topics.length === 0 ? (
-                <div className="text-center py-12">
-                  <div className="w-16 h-16 rounded-2xl bg-gray-100 flex items-center justify-center mx-auto mb-4">
-                    <BookOpen className="w-8 h-8 text-gray-400" />
+                <div className="bg-white rounded-2xl p-8 border-2 border-gray-200">
+                  <div className="text-center">
+                    <div className="w-16 h-16 rounded-2xl bg-blue-100 flex items-center justify-center mx-auto mb-4">
+                      <BookOpen className="w-8 h-8 text-blue-600" />
+                    </div>
+                    <h3 className="text-lg font-bold text-gray-700 mb-2">
+                      No topics available yet
+                    </h3>
+                    <p className="text-gray-500 text-sm mb-6">
+                      But you can still see all quizzes for this subject!
+                    </p>
+                    <button
+                      onClick={() => {
+                        setSelectedTopic(null);
+                        setStep("quizzes");
+                      }}
+                      className="px-6 py-3 bg-blue-600 text-white rounded-xl font-semibold hover:bg-blue-700 transition-colors"
+                    >
+                      View All Quizzes
+                    </button>
                   </div>
-                  <h3 className="text-lg font-bold text-gray-700 mb-2">
-                    No topics yet
-                  </h3>
-                  <p className="text-gray-500 text-sm">
-                    Check back soon - we're adding more content!
-                  </p>
                 </div>
               ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -483,7 +495,9 @@ export default function ExplorePage() {
               <h1 className="text-3xl font-bold text-gray-900 mb-2">
                 {selectedType === "topical" && selectedTopic
                   ? selectedTopic.name
-                  : "Assessments"}
+                  : selectedType === "topical"
+                    ? "All Topical Quizzes"
+                    : "Assessments"}
               </h1>
               <p className="text-gray-500 mb-8">
                 {selectedSubject?.name} - Grade {selectedGrade}

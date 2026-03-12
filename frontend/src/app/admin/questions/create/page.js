@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import MathEquationEditor from "@/components/MathEquationEditor";
+import MathEquationEditor from "@/components/WorkedSolution";
 import { Save, X } from "lucide-react";
 
 const API = "https://cbc-backend-76im.onrender.com/api";
