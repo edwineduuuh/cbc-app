@@ -59,12 +59,16 @@ class QuestionSerializer(serializers.ModelSerializer):
         if not obj.question_image:
             return None
         try:
+            url = obj.question_image.url
+            # Cloudinary URLs are already absolute - return as-is
+            if url.startswith('http'):
+                return url
+            # Local files need full URL
             request = self.context.get('request')
             if request:
-                return request.build_absolute_uri(obj.question_image.url)
-            return obj.question_image.url
+                return request.build_absolute_uri(url)
+            return url
         except (ValueError, Exception):
-            # Old image uploaded before Cloudinary - return None
             return None
 
 
