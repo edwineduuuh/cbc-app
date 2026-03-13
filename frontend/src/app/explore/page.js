@@ -451,7 +451,8 @@ export default function ExplorePage() {
                             {topic.name}
                           </h3>
                           <p className="text-sm text-gray-500">
-                            {topic.question_count || 0} questions
+                            {topic.quiz_count || 0} quiz
+                            {topic.quiz_count !== 1 ? "zes" : ""} available
                           </p>
                         </div>
                         <ChevronRight className="w-6 h-6 text-gray-400 group-hover:text-emerald-500 group-hover:translate-x-1 transition-all" />

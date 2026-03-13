@@ -33,13 +33,17 @@ class SubjectSerializer(serializers.ModelSerializer):
 class TopicSerializer(serializers.ModelSerializer):
     subject_name   = serializers.CharField(source='subject.name', read_only=True)
     question_count = serializers.SerializerMethodField()
+    quiz_count     = serializers.SerializerMethodField()
 
     class Meta:
         model  = Topic
-        fields = ['id', 'name', 'slug', 'description', 'subject', 'subject_name', 'grade', 'order', 'question_count']
+        fields = ['id', 'name', 'slug', 'description', 'subject', 'subject_name', 'grade', 'order', 'question_count', 'quiz_count']
 
     def get_question_count(self, obj):
         return obj.questions.count()
+
+    def get_quiz_count(self, obj):
+        return obj.quizzes.filter(is_active=True).count()
 
 
 class QuestionSerializer(serializers.ModelSerializer):
