@@ -46,19 +46,35 @@ export default function ExplorePage() {
     },
   ];
 
-  useEffect(() => {
-    if (!user) return;
-    const token = localStorage.getItem("accessToken");
-    fetch(`${API}/credits/status/`, {
-      headers: { Authorization: `Bearer ${token}` },
-    })
-      .then((r) => r.json())
-      .then((data) => {
-        setFreeAttemptsLeft(data.quiz_credits || 0);
-        setIsSubscribed(data.has_subscription || false);
-      })
-      .catch(() => {});
-  }, [user]);
+  // BEFORE
+  fetch(`${API}/subjects/`, {
+    headers: { Authorization: `Bearer ${token}` },
+  })
+    .then((r) => r.json())
+    .then((data) => {
+      const allSubjects = Array.isArray(data) ? data : [];
+      const filtered = allSubjects.filter((subject) => {
+        if (
+          selectedLevel.id === "primary" &&
+          subject.name === "Pre-Technical Studies"
+        ) {
+          return false;
+        }
+        return true;
+      });
+      setSubjects(filtered);
+      setLoading(false);
+    });
+
+  // AFTER
+  fetch(`${API}/subjects/?grade=${selectedGrade}`, {
+    headers: { Authorization: `Bearer ${token}` },
+  })
+    .then((r) => r.json())
+    .then((data) => {
+      setSubjects(Array.isArray(data) ? data : []);
+      setLoading(false);
+    });
 
   useEffect(() => {
     if (step === "subject" && selectedGrade) {
@@ -353,9 +369,9 @@ export default function ExplorePage() {
                           <h3 className="font-bold text-gray-900 mb-1">
                             {subject.name}
                           </h3>
-                          <p className="text-sm text-gray-500">
-                            {subject.question_count || 0} questions
-                          </p>
+                          {/* <p className="text-sm text-gray-500">
+                           
+                          </p> */}
                         </div>
                         <ChevronRight className="w-6 h-6 text-gray-400 group-hover:text-emerald-500 group-hover:translate-x-1 transition-all" />
                       </div>

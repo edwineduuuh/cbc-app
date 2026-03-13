@@ -19,11 +19,16 @@ class SubjectSerializer(serializers.ModelSerializer):
         fields = ['id', 'name', 'slug', 'description', 'icon', 'topic_count', 'question_count']
 
     def get_topic_count(self, obj):
+        grade = self.context.get('grade')
+        if grade:
+            return obj.topics.filter(grade=grade).count()
         return obj.topics.count()
 
     def get_question_count(self, obj):
+        grade = self.context.get('grade')
+        if grade:
+            return Question.objects.filter(topic__subject=obj, topic__grade=grade).count()
         return Question.objects.filter(topic__subject=obj).count()
-
 
 class TopicSerializer(serializers.ModelSerializer):
     subject_name   = serializers.CharField(source='subject.name', read_only=True)

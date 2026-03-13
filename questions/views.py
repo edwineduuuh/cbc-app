@@ -273,9 +273,27 @@ class AdminStatsView(APIView):
 
 
 class SubjectListView(generics.ListAPIView):
-    queryset = Subject.objects.all()
     serializer_class = SubjectSerializer
     permission_classes = [AllowAny]
+
+    def get_queryset(self):
+        grade = self.request.query_params.get('grade')
+        if grade:
+            # Only return subjects that have at least one topic
+            # with at least one question at this grade
+            return Subject.objects.filter(
+                topics__grade=grade,
+                topics__questions__isnull=False
+            ).distinct()
+        return Subject.objects.all()
+
+    def get_serializer_context(self):
+        context = super().get_serializer_context()
+        grade = self.request.query_params.get('grade')
+        if grade:
+            context['grade'] = int(grade)
+        return context
+
 
 
 class TopicListView(generics.ListAPIView):
