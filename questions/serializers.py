@@ -43,7 +43,12 @@ class TopicSerializer(serializers.ModelSerializer):
         return obj.questions.count()
 
     def get_quiz_count(self, obj):
-        return obj.quizzes.filter(is_active=True).count()
+        return Quiz.objects.filter(
+            subject=obj.subject,
+            grade=obj.grade,
+            quiz_type='topical',
+            is_active=True
+        ).count()
 
 
 class QuestionSerializer(serializers.ModelSerializer):

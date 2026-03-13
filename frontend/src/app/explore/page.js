@@ -97,8 +97,10 @@ export default function ExplorePage() {
         subject: selectedSubject.id,
       });
 
-      if (selectedType === "assessment") {
-        params.append("quiz_type", "assessment");
+      if (selectedType === "topical") {
+        params.append("quiz_type", "topical");
+      } else if (selectedType === "assessment") {
+        params.append("quiz_type", "exam");
       }
 
       // if (selectedTopic) {

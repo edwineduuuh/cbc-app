@@ -333,6 +333,10 @@ class QuizListView(generics.ListAPIView):
         if grade:
             queryset = queryset.filter(grade=grade)
 
+        quiz_type = self.request.query_params.get('quiz_type')
+        if quiz_type:
+            queryset = queryset.filter(quiz_type=quiz_type)
+
         return queryset
     
     def get_serializer_context(self):
