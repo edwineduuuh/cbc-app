@@ -7,7 +7,7 @@ from django.utils import timezone
 from .models import (
     Subject, Topic, Question, Quiz, Attempt, Subscription,
     LessonPlan, Classroom, LiveQuestion, StudentSession, StudentAnswer,
-    SubscriptionPlan, PaymentRequest, ClassQuizAssignment
+    SubscriptionPlan, PaymentRequest, ClassQuizAssignment, UserProfile
 )
 from users.models import Classroom as UsersClassroom
 from django.contrib.auth import get_user_model
@@ -31,7 +31,7 @@ from django.db import transaction
 from questions.decorators import requires_subscription
 User = get_user_model()
 
-
+from datetime import timedelta
 class AdminQuestionListCreateView(generics.ListCreateAPIView):
     permission_classes = [IsAdminUser]
     parser_classes = [MultiPartParser, FormParser, JSONParser]  # ADD THIS
@@ -872,11 +872,9 @@ def submit_quiz(request):
             
             # Deduct credit (if not subscribed)
             if not has_subscription:
-                user.quiz_credits = max(0, credits - 1)
-                user.free_quizzes_used = getattr(user, 'free_quizzes_used', 0) + 1
-                user.total_quizzes_taken = getattr(user, 'total_quizzes_taken', 0) + 1
-                user.save(update_fields=['quiz_credits', 'free_quizzes_used', 'total_quizzes_taken'])
-        
+                    profile, _ = UserProfile.objects.get_or_create(user=user)
+                    profile.use_free_quiz()  # decrements free_quizzes_remaining
+                        
         # Get updated credits
         new_credits = user.quiz_credits if not has_subscription else 'unlimited'
         
@@ -910,53 +908,38 @@ def submit_quiz(request):
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def credits_status(request):
-    """
-    GET /api/credits/status/
-    Returns user's credit and subscription status
-    """
     user = request.user
-    
-    # Check subscription
-    has_subscription = False
-    subscription_plan = None
-    subscription_expires = None
-    
+
+    # Check subscription first
     try:
-        from .models import Subscription
         subscription = Subscription.objects.get(user=user)
         if subscription.is_valid:
-            has_subscription = True
-            subscription_plan = subscription.plan.name
-            subscription_expires = subscription.end_date
-            
             return Response({
                 'has_access': True,
                 'quiz_credits': 'unlimited',
-                'free_quizzes_used': getattr(user, 'free_quizzes_used', 0),
                 'has_subscription': True,
                 'subscription_status': 'active',
-                'subscription_plan': subscription_plan,
-                'subscription_expires': subscription_expires,
-                'message': f'✨ {subscription_plan} - Unlimited access'
+                'subscription_plan': subscription.plan.name,
+                'subscription_expires': subscription.end_date,
+                'message': f'✨ {subscription.plan.name} - Unlimited access'
             })
-    except:
+    except Subscription.DoesNotExist:
         pass
-    
-    # Free trial user
-    credits = getattr(user, 'quiz_credits', 0)
-    used = getattr(user, 'free_quizzes_used', 0)
-    
+
+    # Free trial — read from UserProfile (single source of truth)
+    profile, _ = UserProfile.objects.get_or_create(user=user)
+    credits = profile.free_quizzes_remaining
+
     return Response({
         'has_access': credits > 0,
         'quiz_credits': credits,
-        'free_quizzes_used': used,
         'has_subscription': False,
         'subscription_status': 'free_trial',
         'subscription_plan': None,
         'subscription_expires': None,
         'message': (
-            f'🎓 {credits} free quiz{"zes" if credits != 1 else ""} remaining' 
-            if credits > 0 
+            f'🎓 {credits} free quiz{"zes" if credits != 1 else ""} remaining'
+            if credits > 0
             else '💳 Subscribe to unlock unlimited quizzes'
         )
     })
@@ -995,7 +978,7 @@ def get_attempt_results(request, attempt_id):
 class SubscriptionPlanListView(generics.ListAPIView):
     """GET /api/plans/ — list active plans (public)"""
     permission_classes = [AllowAny]
-    # queryset = SubscriptionPlan.objects.filter(is_active=True)
+    queryset = SubscriptionPlan.objects.filter(is_active=True)
     serializer_class = SubscriptionPlanSerializer
 
 

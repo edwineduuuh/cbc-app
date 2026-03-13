@@ -33,18 +33,18 @@ export function AuthProvider({ children }) {
     }
 
     try {
-      // Try to fetch current user with access token
       const userData = await getCurrentUser(accessToken);
-      setUser(userData);
+      const quotaInfo = await fetchQuotaInfo(accessToken); // ADDED
+      setUser({ ...userData, ...quotaInfo }); // CHANGED
     } catch (error) {
-      // Token likely expired → try refresh
       const refreshToken = localStorage.getItem("refreshToken");
       if (refreshToken) {
         try {
           const { access } = await refreshAccessToken(refreshToken);
           localStorage.setItem("accessToken", access);
           const refreshedUser = await getCurrentUser(access);
-          setUser(refreshedUser);
+          const quotaInfo = await fetchQuotaInfo(access); // ADDED
+          setUser({ ...refreshedUser, ...quotaInfo }); // CHANGED
         } catch (refreshError) {
           console.error("Token refresh failed:", refreshError);
           logout();

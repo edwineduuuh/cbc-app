@@ -35,6 +35,16 @@ export default function ExplorePage() {
   const [freeAttemptsLeft, setFreeAttemptsLeft] = useState(3);
   const [isSubscribed, setIsSubscribed] = useState(false);
 
+  useEffect(() => {
+    if (!user) return;
+    if (user.has_subscription) {
+      setIsSubscribed(true);
+    } else {
+      setIsSubscribed(false);
+      setFreeAttemptsLeft(user.quiz_credits ?? 3);
+    }
+  }, [user]);
+
   const levels = [
     { id: "primary", name: "PRIMARY SCHOOL", grades: [4, 5, 6], active: true },
     { id: "junior", name: "JUNIOR SCHOOL", grades: [7, 8, 9], active: true },

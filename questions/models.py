@@ -388,11 +388,7 @@ class PaymentRequest(models.Model):
     plan = models.ForeignKey(SubscriptionPlan, on_delete=models.PROTECT, related_name='payments')
 
     # M-Pesa details submitted by student
-    mpesa_code = models.CharField(
-        max_length=20,
-        unique=True,
-        help_text="M-Pesa transaction code e.g. QGH7X9K2PL"
-    )
+    mpesa_code = models.CharField(max_length=20, blank=True, default='')
     phone_number = models.CharField(
         max_length=15,
         help_text="Phone number used for payment e.g. 0712345678"
