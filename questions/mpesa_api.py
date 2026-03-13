@@ -63,6 +63,13 @@ class MpesaAPI:
             'Content-Type': 'application/json',
         }
         
+        print("MPESA PAYLOAD:", {
+        'amount': int(amount),
+        'phone': phone_number,
+        'shortcode': self.shortcode,
+        'callback': self.callback_url,
+})
+
         payload = {
             'BusinessShortCode': self.shortcode,
             'Password': password,
