@@ -46,35 +46,7 @@ export default function ExplorePage() {
     },
   ];
 
-  // BEFORE
-  fetch(`${API}/subjects/`, {
-    headers: { Authorization: `Bearer ${token}` },
-  })
-    .then((r) => r.json())
-    .then((data) => {
-      const allSubjects = Array.isArray(data) ? data : [];
-      const filtered = allSubjects.filter((subject) => {
-        if (
-          selectedLevel.id === "primary" &&
-          subject.name === "Pre-Technical Studies"
-        ) {
-          return false;
-        }
-        return true;
-      });
-      setSubjects(filtered);
-      setLoading(false);
-    });
-
-  // AFTER
-  fetch(`${API}/subjects/?grade=${selectedGrade}`, {
-    headers: { Authorization: `Bearer ${token}` },
-  })
-    .then((r) => r.json())
-    .then((data) => {
-      setSubjects(Array.isArray(data) ? data : []);
-      setLoading(false);
-    });
+  
 
   useEffect(() => {
     if (step === "subject" && selectedGrade) {
