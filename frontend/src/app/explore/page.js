@@ -48,15 +48,21 @@ export default function ExplorePage() {
 
   
 
-  fetch(`${API}/subjects/?grade=${selectedGrade}`, {
-    headers: { Authorization: `Bearer ${token}` },
-  })
-    .then((r) => r.json())
-    .then((data) => {
-      setSubjects(Array.isArray(data) ? data : []);
-      setLoading(false);
-    })
-    .catch(() => setLoading(false));
+ useEffect(() => {
+   if (step === "subject" && selectedGrade) {
+     setLoading(true);
+     const token = localStorage.getItem("accessToken");
+     fetch(`${API}/subjects/?grade=${selectedGrade}`, {
+       headers: { Authorization: `Bearer ${token}` },
+     })
+       .then((r) => r.json())
+       .then((data) => {
+         setSubjects(Array.isArray(data) ? data : []);
+         setLoading(false);
+       })
+       .catch(() => setLoading(false));
+   }
+ }, [step, selectedGrade]);
 
   useEffect(() => {
     if (
