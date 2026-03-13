@@ -283,7 +283,7 @@ class SubjectListView(generics.ListAPIView):
             # with at least one question at this grade
             return Subject.objects.filter(
                 topics__grade=grade,
-                topics__questions__isnull=False
+                # topics__questions__isnull=False
             ).distinct()
         return Subject.objects.all()
 

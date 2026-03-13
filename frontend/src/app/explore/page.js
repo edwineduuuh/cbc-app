@@ -48,31 +48,15 @@ export default function ExplorePage() {
 
   
 
-  useEffect(() => {
-    if (step === "subject" && selectedGrade) {
-      setLoading(true);
-      const token = localStorage.getItem("accessToken");
-      fetch(`${API}/subjects/`, {
-        headers: { Authorization: `Bearer ${token}` },
-      })
-        .then((r) => r.json())
-        .then((data) => {
-          const allSubjects = Array.isArray(data) ? data : [];
-          const filtered = allSubjects.filter((subject) => {
-            if (
-              selectedLevel.id === "primary" &&
-              subject.name === "Pre-Technical Studies"
-            ) {
-              return false;
-            }
-            return true;
-          });
-          setSubjects(filtered);
-          setLoading(false);
-        })
-        .catch(() => setLoading(false));
-    }
-  }, [step, selectedGrade, selectedLevel]);
+  fetch(`${API}/subjects/?grade=${selectedGrade}`, {
+    headers: { Authorization: `Bearer ${token}` },
+  })
+    .then((r) => r.json())
+    .then((data) => {
+      setSubjects(Array.isArray(data) ? data : []);
+      setLoading(false);
+    })
+    .catch(() => setLoading(false));
 
   useEffect(() => {
     if (
