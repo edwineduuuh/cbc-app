@@ -29,7 +29,7 @@ const MPESA_CONFIG = {
 
 const PLANS = [
   {
-    id: 1,
+    id: 2,
     slug: "weekly",
     name: "Weekly",
     tagline: "Perfect for exam prep",
@@ -51,7 +51,7 @@ const PLANS = [
     ],
   },
   {
-    id: 2,
+    id: 3,
     slug: "monthly",
     name: "Monthly",
     tagline: "Most students choose this",
@@ -73,7 +73,7 @@ const PLANS = [
     ],
   },
   {
-    id: 3,
+    id: 1,
     slug: "termly",
     name: "Termly",
     tagline: "Best value — pay once per term",
