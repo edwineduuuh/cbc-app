@@ -134,3 +134,18 @@ class AttemptAdmin(admin.ModelAdmin):
 @admin.register(AIGradingSettings)
 class AIGradingSettingsAdmin(admin.ModelAdmin):
        list_display = ['__str__', 'strictness_level', 'updated_at']
+
+
+from .models import SubscriptionPlan, PaymentRequest, Subscription
+
+@admin.register(SubscriptionPlan)
+class SubscriptionPlanAdmin(admin.ModelAdmin):
+    list_display = ['name', 'price_kes', 'billing_period', 'duration_days', 'is_active']
+
+@admin.register(PaymentRequest)
+class PaymentRequestAdmin(admin.ModelAdmin):
+    list_display = ['user', 'plan', 'mpesa_code', 'status', 'submitted_at']
+
+@admin.register(Subscription)
+class SubscriptionAdmin(admin.ModelAdmin):
+    list_display = ['user', 'plan', 'start_date', 'end_date', 'is_active']
