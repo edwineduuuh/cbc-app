@@ -391,29 +391,15 @@ export default function SubscribePage() {
 }
 
 function PaymentModal({ plan, onClose, onSuccess }) {
-  const [step, setStep] = useState(1);
-  const [form, setForm] = useState({
-    mpesa_code: "",
-    phone_number: "",
-    amount_paid: plan.price_kes,
-  });
+  const [step, setStep] = useState(1); // 1=phone, 2=waiting, 3=success
+  const [phone, setPhone] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const [copied, setCopied] = useState(null);
+  const [paymentRequestId, setPaymentRequestId] = useState(null);
 
-  const copy = (text, key) => {
-    navigator.clipboard.writeText(text);
-    setCopied(key);
-    setTimeout(() => setCopied(null), 2000);
-  };
-
-  const handleSubmit = async () => {
-    if (!form.mpesa_code.trim() || !form.phone_number.trim()) {
-      setError("Please fill in all fields");
-      return;
-    }
-    if (!/^[A-Z0-9]{8,12}$/.test(form.mpesa_code.trim().toUpperCase())) {
-      setError("Invalid M-Pesa code format (e.g., QGH7X9K2PL)");
+  const handleSTKPush = async () => {
+    if (!phone.trim()) {
+      setError("Please enter your phone number");
       return;
     }
 
@@ -422,7 +408,7 @@ function PaymentModal({ plan, onClose, onSuccess }) {
 
     try {
       const token = localStorage.getItem("accessToken");
-      const res = await fetch(`${API}/payments/submit/`, {
+      const res = await fetch(`${API}/payments/stk-push/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -430,26 +416,50 @@ function PaymentModal({ plan, onClose, onSuccess }) {
         },
         body: JSON.stringify({
           plan_id: plan.id,
-          mpesa_code: form.mpesa_code.trim().toUpperCase(),
-          phone_number: form.phone_number.trim(),
-          amount_paid: form.amount_paid,
+          phone_number: phone.trim(),
         }),
       });
 
       const data = await res.json();
 
       if (res.ok) {
-        setStep(3);
+        setPaymentRequestId(data.payment_request_id);
+        setStep(2);
+        pollPaymentStatus(data.payment_request_id);
       } else {
-        setError(
-          data.error || data.mpesa_code?.[0] || "Submission failed. Try again.",
-        );
+        setError(data.error || "Failed to initiate payment. Try again.");
       }
     } catch (e) {
       setError("Network error. Please check your connection.");
     } finally {
       setLoading(false);
     }
+  };
+
+  const pollPaymentStatus = (id) => {
+    const token = localStorage.getItem("accessToken");
+    const interval = setInterval(async () => {
+      try {
+        const res = await fetch(`${API}/payments/status/${id}/`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        const data = await res.json();
+
+        if (data.status === "verified") {
+          clearInterval(interval);
+          setStep(3);
+        } else if (data.status === "rejected") {
+          clearInterval(interval);
+          setError("Payment failed. Please try again.");
+          setStep(1);
+        }
+      } catch (e) {
+        // keep polling
+      }
+    }, 5000); // poll every 5 seconds
+
+    // Stop polling after 2 minutes
+    setTimeout(() => clearInterval(interval), 120000);
   };
 
   return (
@@ -466,6 +476,7 @@ function PaymentModal({ plan, onClose, onSuccess }) {
         exit={{ scale: 0.9, opacity: 0, y: 20 }}
         className="bg-white rounded-3xl shadow-2xl w-full max-w-lg overflow-hidden"
       >
+        {/* Header */}
         <div className="bg-gradient-to-r from-emerald-600 to-teal-600 p-6 text-white">
           <div className="flex items-center justify-between mb-3">
             <div className="flex gap-2">
@@ -478,10 +489,7 @@ function PaymentModal({ plan, onClose, onSuccess }) {
                 />
               ))}
             </div>
-            <button
-              onClick={onClose}
-              className="text-white/80 hover:text-white"
-            >
+            <button onClick={onClose} className="text-white/80 hover:text-white">
               <X className="w-5 h-5" />
             </button>
           </div>
@@ -492,6 +500,7 @@ function PaymentModal({ plan, onClose, onSuccess }) {
         </div>
 
         <div className="p-8">
+          {/* Step 1 — Enter phone */}
           {step === 1 && (
             <motion.div
               initial={{ opacity: 0 }}
@@ -500,174 +509,81 @@ function PaymentModal({ plan, onClose, onSuccess }) {
             >
               <div>
                 <h3 className="text-xl font-black text-gray-900 mb-2">
-                  Pay with M-Pesa
+                  Enter Your M-Pesa Number
                 </h3>
                 <p className="text-gray-600">
-                  Follow these steps, then enter your confirmation code
+                  We'll send an STK Push to your phone. Just enter your PIN to pay.
                 </p>
               </div>
 
-              <div className="space-y-4">
-                {[
-                  { step: "1", text: "Open M-Pesa on your phone" },
-                  { step: "2", text: "Go to Lipa na M-Pesa → Buy Goods" },
-                  {
-                    step: "3",
-                    text: "Enter Till Number",
-                    sub: MPESA_CONFIG.paybill,
-                    copyKey: "paybill",
-                  },
-                  { step: "4", text: `Enter KES ${plan.price_kes}` },
-                  { step: "5", text: "Enter your M-Pesa PIN and confirm" },
-                  {
-                    step: "6",
-                    text: "Save your confirmation code from SMS",
-                    sub: "e.g., QGH7X9K2PL",
-                    highlight: true,
-                  },
-                ].map((item) => (
-                  <div key={item.step} className="flex items-start gap-4">
-                    <div className="w-8 h-8 rounded-full bg-emerald-100 text-emerald-700 font-black text-sm flex items-center justify-center flex-shrink-0">
-                      {item.step}
-                    </div>
-                    <div className="flex-1 pt-1">
-                      <p className="text-gray-900 font-medium">{item.text}</p>
-                      {item.sub && (
-                        <div className="flex items-center gap-2 mt-2">
-                          <code
-                            className={`font-mono font-bold px-3 py-1.5 rounded-lg ${
-                              item.highlight
-                                ? "bg-amber-100 text-amber-800"
-                                : "bg-gray-100 text-gray-800"
-                            }`}
-                          >
-                            {item.sub}
-                          </code>
-                          {item.copyKey && (
-                            <button
-                              onClick={() => copy(item.sub, item.copyKey)}
-                              className="text-gray-400 hover:text-emerald-600"
-                            >
-                              {copied === item.copyKey ? (
-                                <CheckCircle className="w-4 h-4 text-emerald-500" />
-                              ) : (
-                                <Copy className="w-4 h-4" />
-                              )}
-                            </button>
-                          )}
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                ))}
+              <div>
+                <label className="block text-sm font-bold text-gray-700 mb-2">
+                  Phone Number *
+                </label>
+                <div className="flex gap-3">
+                  <span className="px-4 py-4 bg-gray-100 border-2 border-gray-300 rounded-xl text-gray-700 font-bold">
+                    +254
+                  </span>
+                  <input
+                    type="tel"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    placeholder="712345678"
+                    className="flex-1 px-4 py-4 border-2 border-gray-300 rounded-xl focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100 outline-none transition-all text-lg"
+                  />
+                </div>
               </div>
 
+              {error && (
+                <div className="bg-red-50 border-2 border-red-200 rounded-xl p-4 flex items-center gap-3 text-red-700">
+                  <X className="w-5 h-5 flex-shrink-0" />
+                  <span className="text-sm font-medium">{error}</span>
+                </div>
+              )}
+
               <button
-                onClick={() => setStep(2)}
-                className="w-full bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-bold py-4 rounded-2xl hover:from-emerald-700 hover:to-teal-700 transition-all flex items-center justify-center gap-2"
+                onClick={handleSTKPush}
+                disabled={loading}
+                className="w-full bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-bold py-4 rounded-2xl hover:from-emerald-700 hover:to-teal-700 disabled:opacity-60 transition-all flex items-center justify-center gap-2"
               >
-                I've Paid — Enter Code
-                <ChevronRight className="w-5 h-5" />
+                {loading ? (
+                  <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                ) : (
+                  <>
+                    Pay KES {plan.price_kes}
+                    <ChevronRight className="w-5 h-5" />
+                  </>
+                )}
               </button>
             </motion.div>
           )}
 
+          {/* Step 2 — Waiting for payment */}
           {step === 2 && (
             <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              className="space-y-6"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="text-center space-y-6 py-6"
             >
+              <div className="w-24 h-24 bg-emerald-100 rounded-full flex items-center justify-center mx-auto">
+                <div className="w-12 h-12 border-4 border-emerald-600 border-t-transparent rounded-full animate-spin" />
+              </div>
               <div>
-                <h3 className="text-xl font-black text-gray-900 mb-2">
-                  Enter M-Pesa Code
+                <h3 className="text-2xl font-black text-gray-900 mb-2">
+                  Check Your Phone
                 </h3>
                 <p className="text-gray-600">
-                  Find the code in your M-Pesa confirmation SMS
+                  An M-Pesa prompt has been sent to <strong>+254{phone}</strong>.
+                  Enter your PIN to complete payment.
                 </p>
               </div>
-
-              <div className="space-y-5">
-                <div>
-                  <label className="block text-sm font-bold text-gray-700 mb-2">
-                    M-Pesa Confirmation Code *
-                  </label>
-                  <input
-                    type="text"
-                    value={form.mpesa_code}
-                    onChange={(e) =>
-                      setForm({
-                        ...form,
-                        mpesa_code: e.target.value.toUpperCase(),
-                      })
-                    }
-                    placeholder="QGH7X9K2PL"
-                    className="w-full px-4 py-4 border-2 border-gray-300 rounded-xl font-mono text-xl tracking-widest focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100 outline-none transition-all"
-                    maxLength={12}
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-bold text-gray-700 mb-2">
-                    Phone Number Used *
-                  </label>
-                  <div className="flex gap-3">
-                    <span className="px-4 py-4 bg-gray-100 border-2 border-gray-300 rounded-xl text-gray-700 font-bold">
-                      +254
-                    </span>
-                    <input
-                      type="tel"
-                      value={form.phone_number}
-                      onChange={(e) =>
-                        setForm({ ...form, phone_number: e.target.value })
-                      }
-                      placeholder="712345678"
-                      className="flex-1 px-4 py-4 border-2 border-gray-300 rounded-xl focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100 outline-none transition-all"
-                    />
-                  </div>
-                </div>
-
-                <div className="bg-amber-50 border-2 border-amber-200 rounded-xl p-4 flex items-start gap-3">
-                  <AlertCircle className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
-                  <p className="text-amber-900 text-sm">
-                    Amount must be exactly <strong>KES {plan.price_kes}</strong>
-                    . Wrong amount will be rejected.
-                  </p>
-                </div>
-
-                {error && (
-                  <div className="bg-red-50 border-2 border-red-200 rounded-xl p-4 flex items-center gap-3 text-red-700">
-                    <X className="w-5 h-5 flex-shrink-0" />
-                    <span className="text-sm font-medium">{error}</span>
-                  </div>
-                )}
-              </div>
-
-              <div className="flex gap-3">
-                <button
-                  onClick={() => setStep(1)}
-                  className="flex-1 py-4 border-2 border-gray-300 rounded-2xl text-gray-700 font-bold hover:bg-gray-50 transition-all"
-                >
-                  Back
-                </button>
-                <button
-                  onClick={handleSubmit}
-                  disabled={loading}
-                  className="flex-1 bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-bold py-4 rounded-2xl hover:from-emerald-700 hover:to-teal-700 disabled:opacity-60 transition-all flex items-center justify-center gap-2"
-                >
-                  {loading ? (
-                    <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                  ) : (
-                    <>
-                      Submit Code
-                      <ChevronRight className="w-5 h-5" />
-                    </>
-                  )}
-                </button>
+              <div className="bg-amber-50 border-2 border-amber-200 rounded-xl p-4 text-amber-800 text-sm">
+                Waiting for confirmation... Do not close this window.
               </div>
             </motion.div>
           )}
 
+          {/* Step 3 — Success */}
           {step === 3 && (
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
@@ -677,42 +593,19 @@ function PaymentModal({ plan, onClose, onSuccess }) {
               <div className="w-24 h-24 bg-emerald-100 rounded-full flex items-center justify-center mx-auto">
                 <CheckCircle className="w-12 h-12 text-emerald-600" />
               </div>
-
               <div>
                 <h3 className="text-2xl font-black text-gray-900 mb-2">
-                  Payment Submitted!
+                  Payment Successful!
                 </h3>
                 <p className="text-gray-600">
-                  We're verifying your payment. This usually takes under 30
-                  minutes.
+                  Your {plan.name} plan is now active. Enjoy unlimited access!
                 </p>
               </div>
-
-              <div className="bg-emerald-50 border-2 border-emerald-200 rounded-2xl p-5 text-left space-y-3">
-                <div className="flex items-center gap-2 text-emerald-800 font-bold">
-                  <Clock className="w-5 h-5" /> What happens next?
-                </div>
-                <ul className="text-sm text-emerald-700 space-y-2">
-                  <li className="flex items-start gap-2">
-                    <CheckCircle className="w-4 h-4 mt-0.5 flex-shrink-0" />
-                    We verify your payment (usually under 30 minutes)
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle className="w-4 h-4 mt-0.5 flex-shrink-0" />
-                    Your {plan.name} plan activates automatically
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle className="w-4 h-4 mt-0.5 flex-shrink-0" />
-                    Check your dashboard to see subscription status
-                  </li>
-                </ul>
-              </div>
-
               <button
                 onClick={onSuccess}
                 className="w-full bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-bold py-4 rounded-2xl hover:from-emerald-700 hover:to-teal-700 transition-all"
               >
-                Back to Dashboard
+                Go to Dashboard
               </button>
             </motion.div>
           )}
