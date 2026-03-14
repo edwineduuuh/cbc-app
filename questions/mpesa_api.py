@@ -74,7 +74,7 @@ class MpesaAPI:
             'BusinessShortCode': self.shortcode,
             'Password': password,
             'Timestamp': timestamp,
-            'TransactionType': 'CustomerBuyGoodsOnline',
+            'TransactionType': 'CustomerPayBillOnline',
             'Amount': int(amount),
             'PartyA': phone_number,
             'PartyB': self.shortcode,
