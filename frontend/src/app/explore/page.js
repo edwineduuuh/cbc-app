@@ -63,7 +63,7 @@ export default function ExplorePage() {
      setLoading(true);
      const token = localStorage.getItem("accessToken");
      fetch(`${API}/subjects/?grade=${selectedGrade}`, {
-       headers: { Authorization: `Bearer ${token}` },
+       headers: token ? { Authorization: `Bearer ${token}` } : {},
      })
        .then((r) => r.json())
        .then((data) => {
@@ -86,7 +86,7 @@ export default function ExplorePage() {
       fetch(
         `${API}/topics/?subject=${selectedSubject.id}&grade=${selectedGrade}`,
         {
-          headers: { Authorization: `Bearer ${token}` },
+          headers: token ? { Authorization: `Bearer ${token}` } : {},
         },
       )
         .then((r) => r.json())
@@ -113,12 +113,8 @@ export default function ExplorePage() {
         params.append("quiz_type", "exam");
       }
 
-      // if (selectedTopic) {
-      //   params.append("topic", selectedTopic.id);
-      // }
-
       fetch(`${API}/quizzes/?${params}`, {
-        headers: { Authorization: `Bearer ${token}` },
+        headers: token ? { Authorization: `Bearer ${token}` } : {},
       })
         .then((r) => r.json())
         .then((data) => {
