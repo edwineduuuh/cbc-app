@@ -15,7 +15,9 @@ import {
   UserCheck,
 } from "lucide-react";
 
-export default function RegisterPage() {
+import { Suspense } from "react";
+
+function RegisterPage() {
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -248,8 +250,6 @@ export default function RegisterPage() {
 
               <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-8">
                 <form onSubmit={handleSubmit} className="space-y-5">
-                  
-
                   {/* Name */}
                   <div className="grid grid-cols-2 gap-4">
                     <div>
@@ -453,5 +453,18 @@ export default function RegisterPage() {
         </div>
       </div>
     </>
+  );
+}
+export default function RegisterPageWrapper() {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-screen flex items-center justify-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-600" />
+        </div>
+      }
+    >
+      <RegisterPage />
+    </Suspense>
   );
 }
