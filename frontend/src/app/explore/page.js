@@ -1,4 +1,5 @@
 "use client";
+
 import { useState, useEffect } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { useRouter } from "next/navigation";
@@ -18,7 +19,7 @@ import {
 const API = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api";
 
 export default function ExplorePage() {
-  const { user } = useAuth();
+  const { user, loading: authLoading } = useAuth();
   const router = useRouter();
 
   const [step, setStep] = useState("level");
@@ -34,15 +35,30 @@ export default function ExplorePage() {
   const [loading, setLoading] = useState(false);
   const [freeAttemptsLeft, setFreeAttemptsLeft] = useState(3);
   const [isSubscribed, setIsSubscribed] = useState(false);
-
   useEffect(() => {
-    if (!user) return;
-    if (user.has_subscription) {
-      setIsSubscribed(true);
-    } else {
+    if (!user) {
+      // Guest — check device-level usage
+      const deviceUsed = parseInt(
+        localStorage.getItem("device_quizzes_used") || "0",
+      );
+      setFreeAttemptsLeft(Math.max(0, 2 - deviceUsed));
       setIsSubscribed(false);
-      setFreeAttemptsLeft(user.quiz_credits ?? 3);
+      return;
     }
+    const token = localStorage.getItem("accessToken");
+    fetch(`${API}/credits/status/`, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.has_subscription) {
+          setIsSubscribed(true);
+        } else {
+          setIsSubscribed(false);
+          setFreeAttemptsLeft(data.quiz_credits ?? 3);
+        }
+      })
+      .catch(() => {});
   }, [user]);
 
   const levels = [
@@ -156,8 +172,18 @@ export default function ExplorePage() {
   };
 
   const handleQuizClick = (quiz) => {
+    if (!user && !authLoading) {
+      const deviceUsed = parseInt(
+        localStorage.getItem("device_quizzes_used") || "0",
+      );
+      if (deviceUsed >= 2) {
+        router.push("/register?reason=quota");
+        return;
+      }
+      router.push(`/quizzes/${quiz.id}`);
+      return;
+    }
     if (!isSubscribed && freeAttemptsLeft <= 0) {
-      alert("Subscribe to continue - KES 500/month");
       router.push("/subscribe");
       return;
     }

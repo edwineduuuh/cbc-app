@@ -207,6 +207,14 @@ function QuestionNav({ questions, answers, currentIdx, onJump, show }) {
 }
 
 // ─── Submit Modal ─────────────────────────────────────────────────────────────
+const facts = [
+  "💡 CBC focuses on skills and competency, not just memorization.",
+  "📚 Regular practice improves retention by up to 80%.",
+  "🧠 Taking quizzes is more effective than re-reading notes.",
+  "⏱️ Short daily practice sessions beat long weekly cramming.",
+  "🎯 Students who review mistakes improve faster than those who don't.",
+];
+const fact = facts[Math.floor(Math.random() * facts.length)];
 function SubmitModal({ open, onConfirm, onCancel, unanswered, submitting }) {
   return (
     <AnimatePresence>
@@ -293,6 +301,31 @@ function SubmitModal({ open, onConfirm, onCancel, unanswered, submitting }) {
                 All questions answered. Ready!
               </p>
             )}
+            {submitting && (
+              <div
+                style={{
+                  background: "#f0f6ff",
+                  borderRadius: 12,
+                  padding: "12px 16px",
+                  marginBottom: 16,
+                  textAlign: "center",
+                }}
+              >
+                <p
+                  style={{
+                    fontSize: 13,
+                    color: "#1a6fc4",
+                    fontWeight: 600,
+                    marginBottom: 6,
+                  }}
+                >
+                 We are marking your answers…
+                </p>
+                <p style={{ fontSize: 12, color: "#8892a4" }}>
+                  {fact}
+                </p>
+              </div>
+            )}
             <div style={{ display: "flex", gap: 12 }}>
               <button
                 onClick={onCancel}
@@ -338,7 +371,7 @@ function SubmitModal({ open, onConfirm, onCancel, unanswered, submitting }) {
                       size={16}
                       style={{ animation: "spin 1s linear infinite" }}
                     />{" "}
-                    Submitting…
+                    Marking your answers…
                   </>
                 ) : (
                   "Submit Now"
@@ -358,244 +391,149 @@ function ResultsScreen({ result, quiz }) {
   const passed = score >= (quiz?.passing_score ?? 75);
   const color = score >= 75 ? "#1d8f57" : score >= 50 ? "#d4900a" : "#c0334a";
   const circumference = 2 * Math.PI * 68;
+  const feedback = result.detailed_feedback || {};
+  const questionIds = Object.keys(feedback);
 
   return (
-    <div
-      style={{
-        minHeight: "100vh",
-        background: "linear-gradient(160deg, #f0f6ff 0%, #f9fff4 100%)",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        padding: 16,
-        fontFamily: "'Lato', sans-serif",
-      }}
-    >
+    <div style={{
+      minHeight: "100vh",
+      background: "linear-gradient(160deg, #f0f6ff 0%, #f9fff4 100%)",
+      padding: "24px 16px 80px",
+      fontFamily: "'Lato', sans-serif",
+    }}>
       <style>{`@import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Lato:wght@400;500;600;700&display=swap');`}</style>
-      <motion.div
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.5 }}
-        style={{ width: "100%", maxWidth: 440 }}
-      >
-        {/* Score ring */}
-        <div
-          style={{
-            position: "relative",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            marginBottom: 32,
-          }}
-        >
+
+      <div style={{ maxWidth: 600, margin: "0 auto" }}>
+
+        {/* Score Ring */}
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", marginBottom: 24 }}>
           <svg width={160} height={160} style={{ transform: "rotate(-90deg)" }}>
-            <circle
-              cx={80}
-              cy={80}
-              r={68}
-              fill="none"
-              stroke="#e8eaf0"
-              strokeWidth={10}
-            />
+            <circle cx={80} cy={80} r={68} fill="none" stroke="#e8eaf0" strokeWidth={10} />
             <motion.circle
-              cx={80}
-              cy={80}
-              r={68}
-              fill="none"
-              stroke={color}
-              strokeWidth={10}
-              strokeLinecap="round"
+              cx={80} cy={80} r={68} fill="none" stroke={color}
+              strokeWidth={10} strokeLinecap="round"
               strokeDasharray={circumference}
               initial={{ strokeDashoffset: circumference }}
               animate={{ strokeDashoffset: circumference * (1 - score / 100) }}
-              transition={{
-                duration: 1.4,
-                ease: [0.22, 1, 0.36, 1],
-                delay: 0.3,
-              }}
+              transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1], delay: 0.3 }}
             />
           </svg>
-          <div
-            style={{
-              position: "absolute",
-              inset: 0,
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <span
-              style={{
-                fontSize: 48,
-                fontWeight: 800,
-                color: "#0d0d1a",
-                fontFamily: "'Syne', sans-serif",
-              }}
-            >
+          <div style={{ position: "absolute", marginTop: 0, textAlign: "center" }}>
+            <span style={{ fontSize: 48, fontWeight: 800, color: "#0d0d1a", fontFamily: "'Syne', sans-serif" }}>
               {score}%
             </span>
-            <span
-              style={{
-                fontSize: 12,
-                color: passed ? "#1d8f57" : "#c0334a",
-                fontWeight: 700,
-                marginTop: 2,
-              }}
-            >
+            <p style={{ fontSize: 12, color: passed ? "#1d8f57" : "#c0334a", fontWeight: 700 }}>
               {passed ? "PASSED ✓" : "TRY AGAIN"}
-            </span>
+            </p>
           </div>
         </div>
 
-        <div
-          style={{
-            background: "#fff",
-            borderRadius: 24,
-            padding: 28,
-            marginBottom: 16,
-            boxShadow: "0 8px 40px rgba(0,0,0,0.08)",
-            border: "1px solid #e8eaf0",
-          }}
-        >
-          <h2
-            style={{
-              fontSize: 24,
-              fontWeight: 800,
-              textAlign: "center",
-              color: "#0d0d1a",
-              marginBottom: 24,
-              fontFamily: "'Syne', sans-serif",
-            }}
-          >
+        {/* Score Card */}
+        <div style={{ background: "#fff", borderRadius: 24, padding: 28, marginBottom: 16, boxShadow: "0 8px 40px rgba(0,0,0,0.08)", border: "1px solid #e8eaf0" }}>
+          <h2 style={{ fontSize: 22, fontWeight: 800, textAlign: "center", color: "#0d0d1a", marginBottom: 20, fontFamily: "'Syne', sans-serif" }}>
             {passed ? "🎉 Well done!" : "📚 Keep going!"}
           </h2>
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "1fr 1fr",
-              gap: 12,
-              marginBottom: 24,
-            }}
-          >
+
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 20 }}>
             {[
-              {
-                label: "Marks",
-                value: `${result.total_marks_awarded ?? 0} / ${result.total_max_marks ?? 0}`,
-              },
-              {
-                label: "Correct",
-                value: `${result.correct_answers ?? "—"} questions`,
-              },
-              {
-                label: "Time Taken",
-                value: result.time_taken
-                  ? `${Math.floor(result.time_taken / 60)}m ${result.time_taken % 60}s`
-                  : "—",
-              },
+              { label: "Marks", value: `${result.total_marks_awarded ?? 0} / ${result.total_max_marks ?? 0}` },
+              { label: "Correct", value: `${result.correct_answers ?? "—"} questions` },
+              { label: "Questions", value: result.total_questions ?? "—" },
               { label: "Pass Mark", value: `${quiz?.passing_score ?? 75}%` },
             ].map(({ label, value }) => (
-              <div
-                key={label}
-                style={{
-                  background: "#f7f9fc",
-                  borderRadius: 14,
-                  padding: "14px 12px",
-                  textAlign: "center",
-                }}
-              >
-                <p
-                  style={{
-                    fontSize: 11,
-                    color: "#8892a4",
-                    fontWeight: 600,
-                    marginBottom: 4,
-                    textTransform: "uppercase",
-                    letterSpacing: "0.05em",
-                  }}
-                >
-                  {label}
-                </p>
-                <p
-                  style={{
-                    fontSize: 16,
-                    fontWeight: 700,
-                    color: "#0d0d1a",
-                    fontFamily: "'Syne', sans-serif",
-                  }}
-                >
-                  {value}
-                </p>
+              <div key={label} style={{ background: "#f7f9fc", borderRadius: 14, padding: "14px 12px", textAlign: "center" }}>
+                <p style={{ fontSize: 11, color: "#8892a4", fontWeight: 600, marginBottom: 4, textTransform: "uppercase", letterSpacing: "0.05em" }}>{label}</p>
+                <p style={{ fontSize: 16, fontWeight: 700, color: "#0d0d1a", fontFamily: "'Syne', sans-serif" }}>{value}</p>
               </div>
             ))}
           </div>
+
           <div style={{ display: "flex", gap: 12 }}>
             <Link href="/explore" style={{ flex: 1 }}>
-              <button
-                style={{
-                  width: "100%",
-                  padding: "12px 0",
-                  borderRadius: 12,
-                  border: "2px solid #e8eaf0",
-                  background: "#fff",
-                  color: "#6b7280",
-                  fontSize: 14,
-                  fontWeight: 600,
-                  cursor: "pointer",
-                  fontFamily: "'Syne', sans-serif",
-                }}
-              >
+              <button style={{ width: "100%", padding: "12px 0", borderRadius: 12, border: "2px solid #e8eaf0", background: "#fff", color: "#6b7280", fontSize: 14, fontWeight: 600, cursor: "pointer" }}>
                 Browse Quizzes
               </button>
             </Link>
-            {result.id && (
-              <Link href={`/attempts/${result.id}`} style={{ flex: 1 }}>
-                <button
-                  style={{
-                    width: "100%",
-                    padding: "12px 0",
-                    borderRadius: 12,
-                    border: "none",
-                    background: "linear-gradient(135deg, #1a6fc4, #0ea5c9)",
-                    color: "#fff",
-                    fontSize: 14,
-                    fontWeight: 700,
-                    cursor: "pointer",
-                    fontFamily: "'Syne', sans-serif",
-                  }}
-                >
-                  Review Answers
-                </button>
-              </Link>
-            )}
+            <Link href="/register?reason=quota" style={{ flex: 1 }}>
+              <button style={{ width: "100%", padding: "12px 0", borderRadius: 12, border: "none", background: "linear-gradient(135deg, #1a6fc4, #0ea5c9)", color: "#fff", fontSize: 14, fontWeight: 700, cursor: "pointer" }}>
+                Save My Results
+              </button>
+            </Link>
           </div>
         </div>
 
-        <Link href="/explore">
-          <button
-            style={{
-              width: "100%",
-              padding: "12px 0",
-              background: "none",
-              border: "none",
-              color: "#8892a4",
-              fontSize: 14,
-              fontWeight: 600,
-              cursor: "pointer",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              gap: 6,
-              fontFamily: "'Syne', sans-serif",
-            }}
-          >
-            Try Another Quiz <ChevronRight size={16} />
-          </button>
-        </Link>
-      </motion.div>
+        {/* Register Upsell Banner */}
+        <div style={{ background: "linear-gradient(135deg, #667eea, #764ba2)", borderRadius: 20, padding: 24, marginBottom: 24, color: "#fff", textAlign: "center" }}>
+          <div style={{ fontSize: 32, marginBottom: 8 }}>🔒</div>
+          <h3 style={{ fontSize: 18, fontWeight: 800, marginBottom: 8, fontFamily: "'Syne', sans-serif" }}>
+            Create a free account to unlock full feedback
+          </h3>
+          <p style={{ fontSize: 13, opacity: 0.9, marginBottom: 16, lineHeight: 1.5 }}>
+            See exactly what you got wrong, AI explanations per question, study tips, and save your progress.
+          </p>
+          <Link href="/register?reason=quota">
+            <button style={{ background: "#fff", color: "#764ba2", padding: "12px 28px", borderRadius: 12, border: "none", fontWeight: 800, fontSize: 14, cursor: "pointer" }}>
+              Create Free Account →
+            </button>
+          </Link>
+        </div>
+
+        {/* Question breakdown — locked for guests */}
+        <h2 style={{ fontSize: 20, fontWeight: 800, color: "#0d0d1a", marginBottom: 16, fontFamily: "'Syne', sans-serif" }}>
+          Question Breakdown
+        </h2>
+
+        {questionIds.map((qId, index) => {
+          const item = feedback[qId];
+          return (
+            <div key={qId} style={{ background: "#fff", borderRadius: 16, padding: 20, marginBottom: 12, border: "1px solid #e8eaf0", boxShadow: "0 2px 8px rgba(0,0,0,0.04)" }}>
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 12 }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                  <div style={{ width: 32, height: 32, borderRadius: 8, background: item.is_correct ? "#d4edda" : "#fdeef0", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                    {item.is_correct
+                      ? <CheckCircle size={16} color="#1d8f57" />
+                      : <span style={{ fontSize: 14 }}>✗</span>}
+                  </div>
+                  <span style={{ fontWeight: 700, color: "#0d0d1a", fontSize: 14 }}>Question {index + 1}</span>
+                </div>
+                <span style={{ fontSize: 13, fontWeight: 700, color: item.is_correct ? "#1d8f57" : "#c0334a", background: item.is_correct ? "#d4edda" : "#fdeef0", padding: "4px 10px", borderRadius: 8 }}>
+                  {item.marks_awarded} / {item.max_marks} marks
+                </span>
+              </div>
+
+              <p style={{ fontSize: 14, color: "#374151", marginBottom: 12, lineHeight: 1.6 }}
+                dangerouslySetInnerHTML={{ __html: item.question_text }}
+              />
+
+              {/* Your answer */}
+              <div style={{ background: "#f0f6ff", borderRadius: 10, padding: "10px 14px", marginBottom: 10 }}>
+                <p style={{ fontSize: 12, fontWeight: 700, color: "#1a6fc4", marginBottom: 4 }}>YOUR ANSWER</p>
+                <p style={{ fontSize: 14, color: "#1e3a5f" }}>{item.student_answer || "(No answer)"}</p>
+              </div>
+
+              {/* Locked AI feedback */}
+              <div style={{ position: "relative", borderRadius: 10, overflow: "hidden" }}>
+                <div style={{ filter: "blur(4px)", background: "#f9fafb", padding: "10px 14px", userSelect: "none" }}>
+                  <p style={{ fontSize: 12, fontWeight: 700, color: "#6b7280", marginBottom: 4 }}>AI FEEDBACK</p>
+                  <p style={{ fontSize: 13, color: "#6b7280" }}>This is detailed AI feedback explaining exactly what you missed and how to improve your answer next time.</p>
+                </div>
+                <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", background: "rgba(255,255,255,0.7)" }}>
+                  <Link href="/register?reason=quota">
+                    <button style={{ background: "#1a6fc4", color: "#fff", padding: "8px 16px", borderRadius: 8, border: "none", fontSize: 12, fontWeight: 700, cursor: "pointer" }}>
+                      🔒 Unlock Free
+                    </button>
+                  </Link>
+                </div>
+              </div>
+            </div>
+          );
+        })}
+
+      </div>
     </div>
   );
 }
+
 
 // ─── Timer Badge ──────────────────────────────────────────────────────────────
 function TimerBadge({ totalSeconds, onExpire }) {
@@ -710,8 +648,8 @@ export default function QuizTakePage({ params }) {
     // Guests allowed only if guest_session present
     if (!user && !guestSessionFromUrl) {
       console.log("❌ Not logged in and no guest session - redirecting");
-      router.push("/explore");
-      return;
+      // router.push("/explore");
+      // return;
     }
 
     (async () => {
@@ -770,8 +708,9 @@ export default function QuizTakePage({ params }) {
       };
 
       // Send session_id ONLY for guests
-      if (!token && guestSession) {
-        payload.session_id = guestSession;
+      if (!token) {
+        payload.session_id =
+          "device_" + (localStorage.getItem("device_quizzes_used") || "0");
       }
 
       const headers = {
@@ -791,24 +730,21 @@ export default function QuizTakePage({ params }) {
       try {
         data = await response.json();
       } catch (jsonErr) {
-        // Server sent HTML (Django 500 page) instead of JSON
         console.error("Invalid JSON from server:", await response.text());
         throw new Error("Server returned invalid response (not JSON)");
       }
 
-      // Handle 402 (quota/credits exhausted)
       if (response.status === 402) {
         if (data?.quota_exceeded) {
-          // Guest: out of free quizzes
-          setShowSignupModal(true);
+          router.push("/register?reason=quota");
         } else if (data?.credits_exhausted) {
-          // Logged-in: no credits left
-          alert(data.message || "No credits remaining. Subscribe to continue.");
-          router.push("/student/payments");
+          router.push("/subscribe");
         }
         return;
       }
-
+      if (data.show_signup_prompt) {
+        router.push("/register?reason=quota");
+      }
       // Handle non-OK status (400, 404, 500, etc.)
       if (!response.ok) {
         alert(data?.error || "Submission failed. Please try again.");
@@ -817,25 +753,24 @@ export default function QuizTakePage({ params }) {
 
       // Success
       if (data.is_guest) {
-        // Guest: show results inline (no saved attempt ID)
+        const used = parseInt(
+          localStorage.getItem("device_quizzes_used") || "0",
+        );
+        localStorage.setItem("device_quizzes_used", String(used + 1));
         setResult(data);
 
-        // Show signup modal if quota exhausted
         if (data.show_signup_prompt) {
-          setTimeout(() => {
-            setShowSignupModal(true);
-          }, 1500); // delay so user sees score first
+          router.push("/register?reason=quota");
         }
 
-        // Optional: update local guest quota state
-        if (data.guest_quizzes_taken !== undefined) {
-          setGuestQuota({
-            taken: data.guest_quizzes_taken,
-            remaining: data.guest_quizzes_remaining,
-          });
-        }
+        // if (data.guest_quizzes_taken !== undefined) {
+        //   setGuestQuota({
+        //     taken: data.guest_quizzes_taken,
+        //     remaining: data.guest_quizzes_remaining,
+        //   });
+        // }
       } else {
-        // Logged-in user: redirect to saved attempt
+        // Logged in user redirect to saved attempt
         if (data.id) {
           router.replace(`/attempts/${data.id}`);
         } else {

@@ -181,15 +181,9 @@ export default function LoginPage() {
 
             <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-8">
               {/* Social login */}
-              <SocialLoginButtons />
+              {/* <SocialLoginButtons /> */}
 
-              <div className="flex items-center gap-3 my-6">
-                <div className="flex-1 h-px bg-gray-200" />
-                <span className="text-xs font-semibold text-gray-400 uppercase tracking-wide">
-                  or continue with
-                </span>
-                <div className="flex-1 h-px bg-gray-200" />
-              </div>
+              
 
               <form onSubmit={handleSubmit} className="space-y-5">
                 <div>

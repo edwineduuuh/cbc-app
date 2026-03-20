@@ -1,5 +1,5 @@
 "use client";
-
+import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { motion, AnimatePresence } from "framer-motion";
@@ -34,7 +34,8 @@ export default function RegisterPage() {
   const [toastMessage, setToastMessage] = useState("");
 
   const { register } = useAuth();
-
+  const searchParams = useSearchParams();
+  const reason = searchParams.get("reason");
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
     if (errors[e.target.name]) setErrors({ ...errors, [e.target.name]: "" });
@@ -216,7 +217,20 @@ export default function RegisterPage() {
                   CBC Kenya
                 </span>
               </div>
-
+              {reason === "quota" && (
+                <div className="mb-6 flex items-center gap-3 bg-emerald-50 border-2 border-emerald-200 rounded-xl px-5 py-4">
+                  <span className="text-2xl">🎉</span>
+                  <div>
+                    <p className="font-bold text-emerald-800 text-sm">
+                      You are enjoying NurtureUp!
+                    </p>
+                    <p className="text-emerald-700 text-xs mt-0.5">
+                      Create a free account to unlock 3 more quizzes — no
+                      payment needed.
+                    </p>
+                  </div>
+                </div>
+              )}
               <div className="mb-8">
                 <h1 className="font-display text-4xl text-gray-900 mb-2">
                   Create Account
@@ -234,54 +248,7 @@ export default function RegisterPage() {
 
               <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-8">
                 <form onSubmit={handleSubmit} className="space-y-5">
-                  {/* Role selection */}
-                  <div>
-                    <label className={labelCls}>I am a</label>
-                    <div className="grid grid-cols-2 gap-3">
-                      {[
-                        {
-                          val: "student",
-                          label: "Student",
-                          icon: GraduationCap,
-                          desc: "Grades 4–10",
-                        },
-                        {
-                          val: "teacher",
-                          label: "Teacher",
-                          icon: UserCheck,
-                          desc: "B2B coming soon",
-                        },
-                      ].map(({ val, label, icon: Icon, desc }) => (
-                        <button
-                          key={val}
-                          type="button"
-                          onClick={() =>
-                            setFormData({ ...formData, role: val })
-                          }
-                          className={`role-card flex items-center gap-3 text-left ${formData.role === val ? "active" : ""}`}
-                        >
-                          <div
-                            className={`w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0 ${formData.role === val ? "bg-green-100" : "bg-gray-100"}`}
-                          >
-                            <Icon
-                              className={`w-4 h-4 ${formData.role === val ? "text-green-700" : "text-gray-500"}`}
-                            />
-                          </div>
-                          <div>
-                            <p
-                              className={`text-sm font-bold ${formData.role === val ? "text-green-800" : "text-gray-700"}`}
-                            >
-                              {label}
-                            </p>
-                            <p className="text-xs text-gray-400">{desc}</p>
-                          </div>
-                          {formData.role === val && (
-                            <CheckCircle className="w-4 h-4 text-green-500 ml-auto flex-shrink-0" />
-                          )}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
+                  
 
                   {/* Name */}
                   <div className="grid grid-cols-2 gap-4">
@@ -467,7 +434,7 @@ export default function RegisterPage() {
               <div className="mt-5 flex items-center justify-center gap-2 bg-amber-50 border border-amber-200 rounded-xl px-5 py-3">
                 <span className="text-amber-500">✦</span>
                 <p className="text-xs font-medium text-amber-800">
-                  7-day free trial · No credit card · M-Pesa accepted
+                  5 quizzes on free trial · No credit card · M-Pesa accepted
                 </p>
               </div>
 

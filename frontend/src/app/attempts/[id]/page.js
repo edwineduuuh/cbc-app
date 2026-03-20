@@ -345,9 +345,13 @@ export default function AttemptResultsPage() {
       <div className="min-h-screen flex items-center justify-center">
         <Card className="p-8 text-center">
           <h2 className="text-xl font-bold mb-4">Results not found</h2>
-          <Button onClick={() => router.push("/quizzes")}>
-            Back to Quizzes
-          </Button>
+          <button
+            onClick={() => router.push("/explore")}
+            className="flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-4"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            Back to Explore
+          </button>
         </Card>
       </div>
     );
@@ -437,6 +441,19 @@ export default function AttemptResultsPage() {
               </span>
               <p className="text-xs md:text-sm opacity-75">Questions Correct</p>
             </div>
+            {results.completed_at && (
+              <div>
+                <span className="font-semibold">
+                  {Math.round(
+                    (new Date(results.completed_at) -
+                      new Date(results.started_at || results.completed_at)) /
+                      60000,
+                  ) || "—"}
+                  m
+                </span>
+                <p className="text-xs md:text-sm opacity-75">Time Taken</p>
+              </div>
+            )}
           </div>
           <div
             className={`inline-block px-6 py-3 rounded-full text-base md:text-lg font-bold ${
@@ -678,6 +695,13 @@ export default function AttemptResultsPage() {
                 </Button>
                 <Button
                   variant="outline"
+                  onClick={() => router.push(`/quizzes/${results.quiz_id}`)}
+                  className="flex-1"
+                >
+                  🔄 Try Again
+                </Button>
+                <Button
+                  variant="outline"
                   onClick={() => router.push("/progress")}
                   className="flex-1"
                 >
@@ -688,7 +712,7 @@ export default function AttemptResultsPage() {
               {/* Paywall Banner */}
               <div className="bg-gradient-to-r from-yellow-50 to-orange-50 border-2 border-yellow-300 rounded-xl p-4 text-center">
                 <p className="text-lg font-bold text-yellow-900 mb-2">
-                  🎉 You've completed all 4 free quizzes!
+                You have used all your free quizzes!
                 </p>
                 <p className="text-sm text-yellow-800">
                   Subscribe now to unlock unlimited access and continue your

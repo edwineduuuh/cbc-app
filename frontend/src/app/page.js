@@ -1,5 +1,6 @@
 "use client";
-
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
@@ -102,6 +103,15 @@ function FAQItem({ q, a }) {
 export default function LandingPage() {
   const [menuOpen, setMenuOpen] = useState(false);
 
+const router = useRouter();
+
+useEffect(() => {
+  const token = localStorage.getItem("accessToken");
+  if (token) {
+    router.replace("/dashboard");
+  }
+}, []);
+  
   const stats = [
     { value: 12000, suffix: "+", label: "Students Learning" },
     { value: 50000, suffix: "+", label: "Questions Answered Daily" },
