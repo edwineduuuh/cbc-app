@@ -693,7 +693,12 @@ export default function QuizTakePage({ params }) {
       questions.forEach((q, idx) => {
         const answer = answers[idx];
         if (answer !== undefined && answer !== null && answer !== "") {
-          answersDict[q.id] = answer;
+          if (typeof answer === "object" && !Array.isArray(answer)) {
+            // Multi-part answer — store as JSON string
+            answersDict[q.id] = answer;
+          } else {
+            answersDict[q.id] = answer;
+          }
         }
       });
 
@@ -893,7 +898,6 @@ export default function QuizTakePage({ params }) {
         textarea:focus, input:focus { outline: none; }
         button { font-family: inherit; }
       `}</style>
-
       <SubmitModal
         open={showSubmitModal}
         onConfirm={handleQuizSubmit}
@@ -908,7 +912,6 @@ export default function QuizTakePage({ params }) {
         onJump={setCurrentIdx}
         show={showNav}
       />
-
       {/* Top Bar */}
       <div
         style={{
@@ -1012,285 +1015,513 @@ export default function QuizTakePage({ params }) {
           </button>
         </div>
       </div>
-
       {/* Content */}
       <div
-        style={{ maxWidth: 680, margin: "0 auto", padding: "32px 16px 120px" }}
+        style={{
+          maxWidth: currentQ?.passage ? 1200 : 680,
+          margin: "0 auto",
+          padding: "32px 16px 120px",
+          display: currentQ?.passage ? "grid" : "block",
+          gridTemplateColumns: currentQ?.passage ? "1fr 1fr" : undefined,
+          gap: currentQ?.passage ? 24 : undefined,
+        }}
       >
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={currentIdx}
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -12 }}
-            transition={{ duration: 0.2 }}
+        {/* Passage panel */}
+        {currentQ?.passage && (
+          <div
+            style={{
+              background: "#fff",
+              borderRadius: 20,
+              border: "2px solid #e8eaf0",
+              padding: 24,
+              height: "calc(100vh - 200px)",
+              overflowY: "auto",
+              position: "sticky",
+              top: 80,
+              alignSelf: "start",
+            }}
           >
-            {/* Question header */}
             <div
               style={{
                 display: "flex",
                 alignItems: "center",
-                justifyContent: "space-between",
-                marginBottom: 20,
+                gap: 8,
+                marginBottom: 16,
               }}
             >
-              <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                <div
+              <span
+                style={{
+                  fontSize: 11,
+                  fontWeight: 700,
+                  textTransform: "uppercase",
+                  letterSpacing: "0.08em",
+                  color: "#8892a4",
+                  background: "#f0f2f7",
+                  padding: "4px 10px",
+                  borderRadius: 6,
+                }}
+              >
+                {currentQ.passage.passage_type}
+              </span>
+              {currentQ.passage.author && (
+                <span style={{ fontSize: 12, color: "#8892a4" }}>
+                  — {currentQ.passage.author}
+                </span>
+              )}
+            </div>
+            <h3
+              style={{
+                fontSize: 16,
+                fontWeight: 800,
+                color: "#0d0d1a",
+                marginBottom: 16,
+                fontFamily: "'Syne', sans-serif",
+              }}
+            >
+              {currentQ.passage.title}
+            </h3>
+            <div
+              style={{
+                fontSize: 15,
+                lineHeight:
+                  currentQ.passage.passage_type === "poem" ? 2.2 : 1.9,
+                color: "#374151",
+                whiteSpace:
+                  currentQ.passage.passage_type === "poem"
+                    ? "pre-line"
+                    : "normal",
+              }}
+            >
+              {currentQ.passage.content}
+            </div>
+          </div>
+        )}
+
+        {/* Questions panel */}
+        <div>
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentIdx}
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -12 }}
+              transition={{ duration: 0.2 }}
+            >
+              {/* Question header */}
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  marginBottom: 20,
+                }}
+              >
+                <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                  <div
+                    style={{
+                      background: "#1a6fc4",
+                      color: "#fff",
+                      width: 36,
+                      height: 36,
+                      borderRadius: 10,
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      fontWeight: 800,
+                      fontSize: 15,
+                      fontFamily: "'Syne', sans-serif",
+                      flexShrink: 0,
+                    }}
+                  >
+                    {currentIdx + 1}
+                  </div>
+                  <div>
+                    <span
+                      style={{
+                        fontSize: 13,
+                        fontWeight: 700,
+                        color: "#8892a4",
+                        textTransform: "uppercase",
+                        letterSpacing: "0.06em",
+                      }}
+                    >
+                      {currentQ.question_type?.replace("_", " ") || "MCQ"}
+                    </span>
+                    <span
+                      style={{ fontSize: 13, color: "#bcc3d0", marginLeft: 8 }}
+                    >
+                      · {currentQ.max_marks} mark
+                      {currentQ.max_marks !== 1 ? "s" : ""}
+                    </span>
+                    {flagged.has(currentIdx) && (
+                      <span
+                        style={{
+                          fontSize: 12,
+                          color: "#d4900a",
+                          fontWeight: 700,
+                          marginLeft: 10,
+                        }}
+                      >
+                        ⚑ Flagged
+                      </span>
+                    )}
+                  </div>
+                </div>
+                <button
+                  onClick={toggleFlag}
                   style={{
-                    background: "#1a6fc4",
-                    color: "#fff",
                     width: 36,
                     height: 36,
                     borderRadius: 10,
+                    border: `2px solid ${flagged.has(currentIdx) ? "#f0d690" : "#e8eaf0"}`,
+                    background: flagged.has(currentIdx) ? "#fff8e6" : "#fff",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
-                    fontWeight: 800,
-                    fontSize: 15,
-                    fontFamily: "'Syne', sans-serif",
-                    flexShrink: 0,
+                    cursor: "pointer",
                   }}
                 >
-                  {currentIdx + 1}
-                </div>
-                <div>
-                  <span
+                  <Flag
+                    size={15}
+                    color={flagged.has(currentIdx) ? "#d4900a" : "#bcc3d0"}
+                  />
+                </button>
+              </div>
+
+              {/* Question text */}
+              <div
+                style={{
+                  background: "#fff",
+                  borderRadius: 20,
+                  padding: "22px 24px",
+                  marginBottom: 24,
+                  border: "2px solid #e8eaf0",
+                  boxShadow: "0 4px 16px rgba(0,0,0,0.05)",
+                }}
+              >
+                <p
+                  style={{
+                    fontSize: 18,
+                    fontWeight: 600,
+                    color: "#0d0d1a",
+                    lineHeight: 1.65,
+                  }}
+                  dangerouslySetInnerHTML={{ __html: currentQ.question_text }}
+                />
+              </div>
+
+              {/* Image */}
+              {currentQ.question_image_url && (
+                <div
+                  style={{
+                    marginBottom: 24,
+                    borderRadius: 16,
+                    overflow: "hidden",
+                    border: "2px solid #e8eaf0",
+                    cursor: "pointer",
+                  }}
+                  onClick={() =>
+                    window.open(currentQ.question_image_url, "_blank")
+                  }
+                >
+                  <Image
+                    src={currentQ.question_image_url}
+                    alt="Question diagram"
+                    width={800}
+                    height={500}
+                    style={{ width: "100%", height: "auto", display: "block" }}
+                    priority={currentIdx === 0}
+                  />
+                  <div
                     style={{
-                      fontSize: 13,
+                      padding: "8px 14px",
+                      background: "#f7f9fc",
+                      fontSize: 11,
+                      color: "#8892a4",
+                      fontWeight: 600,
+                    }}
+                  >
+                    Click to view full size
+                  </div>
+                </div>
+              )}
+
+              {/* Answers */}
+              {isMCQ && (
+                <div
+                  style={{ display: "flex", flexDirection: "column", gap: 12 }}
+                >
+                  {["A", "B", "C", "D"].map((letter) => {
+                    const text = currentQ[`option_${letter.toLowerCase()}`];
+                    if (!text) return null;
+                    return (
+                      <MCQOption
+                        key={letter}
+                        letter={letter}
+                        text={text}
+                        selected={answers[currentIdx] === letter}
+                        onClick={() => handleAnswer(letter)}
+                      />
+                    );
+                  })}
+                </div>
+              )}
+
+              {(isFillBlank || isMath) && (
+                <div>
+                  <p
+                    style={{
+                      fontSize: 12,
                       fontWeight: 700,
                       color: "#8892a4",
                       textTransform: "uppercase",
                       letterSpacing: "0.06em",
+                      marginBottom: 10,
                     }}
                   >
-                    {currentQ.question_type?.replace("_", " ") || "MCQ"}
-                  </span>
-                  <span
-                    style={{ fontSize: 13, color: "#bcc3d0", marginLeft: 8 }}
-                  >
-                    · {currentQ.max_marks} mark
-                    {currentQ.max_marks !== 1 ? "s" : ""}
-                  </span>
-                  {flagged.has(currentIdx) && (
-                    <span
-                      style={{
-                        fontSize: 12,
-                        color: "#d4900a",
-                        fontWeight: 700,
-                        marginLeft: 10,
-                      }}
-                    >
-                      ⚑ Flagged
-                    </span>
-                  )}
-                </div>
-              </div>
-              <button
-                onClick={toggleFlag}
-                style={{
-                  width: 36,
-                  height: 36,
-                  borderRadius: 10,
-                  border: `2px solid ${flagged.has(currentIdx) ? "#f0d690" : "#e8eaf0"}`,
-                  background: flagged.has(currentIdx) ? "#fff8e6" : "#fff",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  cursor: "pointer",
-                }}
-              >
-                <Flag
-                  size={15}
-                  color={flagged.has(currentIdx) ? "#d4900a" : "#bcc3d0"}
-                />
-              </button>
-            </div>
-
-            {/* Question text */}
-            <div
-              style={{
-                background: "#fff",
-                borderRadius: 20,
-                padding: "22px 24px",
-                marginBottom: 24,
-                border: "2px solid #e8eaf0",
-                boxShadow: "0 4px 16px rgba(0,0,0,0.05)",
-              }}
-            >
-              <p
-                style={{
-                  fontSize: 18,
-                  fontWeight: 600,
-                  color: "#0d0d1a",
-                  lineHeight: 1.65,
-                }}
-                dangerouslySetInnerHTML={{ __html: currentQ.question_text }}
-              />
-            </div>
-
-            {/* Image */}
-            {currentQ.question_image_url && (
-              <div
-                style={{
-                  marginBottom: 24,
-                  borderRadius: 16,
-                  overflow: "hidden",
-                  border: "2px solid #e8eaf0",
-                  cursor: "pointer",
-                }}
-                onClick={() =>
-                  window.open(currentQ.question_image_url, "_blank")
-                }
-              >
-                <Image
-                  src={currentQ.question_image_url}
-                  alt="Question diagram"
-                  width={800}
-                  height={500}
-                  style={{ width: "100%", height: "auto", display: "block" }}
-                  priority={currentIdx === 0}
-                />
-                <div
-                  style={{
-                    padding: "8px 14px",
-                    background: "#f7f9fc",
-                    fontSize: 11,
-                    color: "#8892a4",
-                    fontWeight: 600,
-                  }}
-                >
-                  Click to view full size
-                </div>
-              </div>
-            )}
-
-            {/* Answers */}
-            {isMCQ && (
-              <div
-                style={{ display: "flex", flexDirection: "column", gap: 12 }}
-              >
-                {["A", "B", "C", "D"].map((letter) => {
-                  const text = currentQ[`option_${letter.toLowerCase()}`];
-                  if (!text) return null;
-                  return (
-                    <MCQOption
-                      key={letter}
-                      letter={letter}
-                      text={text}
-                      selected={answers[currentIdx] === letter}
-                      onClick={() => handleAnswer(letter)}
-                    />
-                  );
-                })}
-              </div>
-            )}
-
-            {(isFillBlank || isMath) && (
-              <div>
-                <p
-                  style={{
-                    fontSize: 12,
-                    fontWeight: 700,
-                    color: "#8892a4",
-                    textTransform: "uppercase",
-                    letterSpacing: "0.06em",
-                    marginBottom: 10,
-                  }}
-                >
-                  {isMath ? "Enter your answer" : "Type your answer"}
-                </p>
-                <input
-                  type="text"
-                  value={answers[currentIdx] ?? ""}
-                  onChange={(e) => handleAnswer(e.target.value)}
-                  placeholder={
-                    isMath ? "e.g. 42 or x = 5" : "Type your answer here…"
-                  }
-                  style={{
-                    width: "100%",
-                    border: "2px solid #e8eaf0",
-                    borderRadius: 16,
-                    padding: "14px 18px",
-                    fontSize: 16,
-                    fontWeight: 500,
-                    color: "#0d0d1a",
-                    background: "#fff",
-                    fontFamily: "'Lato', sans-serif",
-                    transition: "border-color 0.15s",
-                    boxShadow: "0 2px 8px rgba(0,0,0,0.04)",
-                  }}
-                  onFocus={(e) => (e.target.style.borderColor = "#1a6fc4")}
-                  onBlur={(e) => (e.target.style.borderColor = "#e8eaf0")}
-                />
-              </div>
-            )}
-
-            {isText && (
-              <div>
-                <p
-                  style={{
-                    fontSize: 12,
-                    fontWeight: 700,
-                    color: "#8892a4",
-                    textTransform: "uppercase",
-                    letterSpacing: "0.06em",
-                    marginBottom: 10,
-                  }}
-                >
-                  {currentQ.question_type === "essay"
-                    ? "Write your essay"
-                    : "Write your answer"}
-                </p>
-                <div style={{ position: "relative" }}>
-                  <textarea
+                    {isMath ? "Enter your answer" : "Type your answer"}
+                  </p>
+                  <input
+                    type="text"
                     value={answers[currentIdx] ?? ""}
                     onChange={(e) => handleAnswer(e.target.value)}
-                    rows={currentQ.question_type === "essay" ? 8 : 5}
                     placeholder={
-                      currentQ.question_type === "essay"
-                        ? "Begin your essay here…"
-                        : "Explain your answer in detail…"
+                      isMath ? "e.g. 42 or x = 5" : "Type your answer here…"
                     }
                     style={{
                       width: "100%",
                       border: "2px solid #e8eaf0",
                       borderRadius: 16,
                       padding: "14px 18px",
-                      fontSize: 15,
+                      fontSize: 16,
+                      fontWeight: 500,
                       color: "#0d0d1a",
                       background: "#fff",
                       fontFamily: "'Lato', sans-serif",
-                      lineHeight: 1.7,
-                      resize: "none",
                       transition: "border-color 0.15s",
                       boxShadow: "0 2px 8px rgba(0,0,0,0.04)",
                     }}
                     onFocus={(e) => (e.target.style.borderColor = "#1a6fc4")}
                     onBlur={(e) => (e.target.style.borderColor = "#e8eaf0")}
                   />
-                  <span
+                </div>
+              )}
+
+              {isText && (
+                <div>
+                  <p
                     style={{
-                      position: "absolute",
-                      bottom: 12,
-                      right: 14,
-                      fontSize: 11,
-                      color: "#bcc3d0",
-                      fontWeight: 600,
+                      fontSize: 12,
+                      fontWeight: 700,
+                      color: "#8892a4",
+                      textTransform: "uppercase",
+                      letterSpacing: "0.06em",
+                      marginBottom: 10,
                     }}
                   >
-                    {(answers[currentIdx] ?? "").length} chars
-                  </span>
-                </div>
-                {currentQ.max_marks > 1 && (
-                  <p style={{ fontSize: 12, color: "#8892a4", marginTop: 8 }}>
-                    Worth {currentQ.max_marks} marks — provide a detailed
-                    answer.
+                    {currentQ.question_type === "essay"
+                      ? "Write your essay"
+                      : "Write your answer"}
                   </p>
-                )}
-              </div>
-            )}
-          </motion.div>
-        </AnimatePresence>
+                  <div style={{ position: "relative" }}>
+                    <textarea
+                      value={answers[currentIdx] ?? ""}
+                      onChange={(e) => handleAnswer(e.target.value)}
+                      rows={currentQ.question_type === "essay" ? 8 : 5}
+                      placeholder={
+                        currentQ.question_type === "essay"
+                          ? "Begin your essay here…"
+                          : "Explain your answer in detail…"
+                      }
+                      style={{
+                        width: "100%",
+                        border: "2px solid #e8eaf0",
+                        borderRadius: 16,
+                        padding: "14px 18px",
+                        fontSize: 15,
+                        color: "#0d0d1a",
+                        background: "#fff",
+                        fontFamily: "'Lato', sans-serif",
+                        lineHeight: 1.7,
+                        resize: "none",
+                        transition: "border-color 0.15s",
+                        boxShadow: "0 2px 8px rgba(0,0,0,0.04)",
+                      }}
+                      onFocus={(e) => (e.target.style.borderColor = "#1a6fc4")}
+                      onBlur={(e) => (e.target.style.borderColor = "#e8eaf0")}
+                    />
+                    <span
+                      style={{
+                        position: "absolute",
+                        bottom: 12,
+                        right: 14,
+                        fontSize: 11,
+                        color: "#bcc3d0",
+                        fontWeight: 600,
+                      }}
+                    >
+                      {(answers[currentIdx] ?? "").length} chars
+                    </span>
+                  </div>
+                  {currentQ.max_marks > 1 && (
+                    <p style={{ fontSize: 12, color: "#8892a4", marginTop: 8 }}>
+                      Worth {currentQ.max_marks} marks — provide a detailed
+                      answer.
+                    </p>
+                  )}
+                </div>
+              )}
+              {/* Multi-part questions */}
+              {currentQ.parts && currentQ.parts.length > 0 && (
+                <div
+                  style={{ display: "flex", flexDirection: "column", gap: 20 }}
+                >
+                  {currentQ.parts.map((part) => {
+                    const partAnswer =
+                      typeof answers[currentIdx] === "object"
+                        ? (answers[currentIdx]?.[part.id] ?? "")
+                        : "";
+
+                    const handlePartAnswer = (value) => {
+                      setAnswers((prev) => ({
+                        ...prev,
+                        [currentIdx]: {
+                          ...(typeof prev[currentIdx] === "object"
+                            ? prev[currentIdx]
+                            : {}),
+                          [part.id]: value,
+                        },
+                      }));
+                    };
+
+                    return (
+                      <div
+                        key={part.id}
+                        style={{
+                          background: "#fff",
+                          borderRadius: 16,
+                          padding: 20,
+                          border: "2px solid #e8eaf0",
+                        }}
+                      >
+                        <div
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            gap: 10,
+                            marginBottom: 14,
+                          }}
+                        >
+                          <div
+                            style={{
+                              width: 32,
+                              height: 32,
+                              borderRadius: 8,
+                              background: "#1a6fc4",
+                              color: "#fff",
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              fontWeight: 800,
+                              fontSize: 13,
+                            }}
+                          >
+                            {part.part_label}
+                          </div>
+                          <span
+                            style={{
+                              fontSize: 13,
+                              color: "#8892a4",
+                              fontWeight: 600,
+                            }}
+                          >
+                            {part.max_marks} mark
+                            {part.max_marks !== 1 ? "s" : ""}
+                          </span>
+                        </div>
+
+                        <p
+                          style={{
+                            fontSize: 15,
+                            color: "#0d0d1a",
+                            lineHeight: 1.65,
+                            marginBottom: 14,
+                          }}
+                        >
+                          {part.question_text}
+                        </p>
+
+                        {part.question_type === "mcq" ? (
+                          <div
+                            style={{
+                              display: "flex",
+                              flexDirection: "column",
+                              gap: 10,
+                            }}
+                          >
+                            {["A", "B", "C", "D"].map((letter) => {
+                              const text =
+                                part[`option_${letter.toLowerCase()}`];
+                              if (!text) return null;
+                              return (
+                                <MCQOption
+                                  key={letter}
+                                  letter={letter}
+                                  text={text}
+                                  selected={partAnswer === letter}
+                                  onClick={() => handlePartAnswer(letter)}
+                                />
+                              );
+                            })}
+                          </div>
+                        ) : (
+                          <div style={{ position: "relative" }}>
+                            <textarea
+                              value={partAnswer}
+                              onChange={(e) => handlePartAnswer(e.target.value)}
+                              rows={3}
+                              placeholder="Write your answer here…"
+                              style={{
+                                width: "100%",
+                                border: "2px solid #e8eaf0",
+                                borderRadius: 14,
+                                padding: "12px 16px",
+                                fontSize: 15,
+                                color: "#0d0d1a",
+                                background: "#fff",
+                                fontFamily: "'Lato', sans-serif",
+                                lineHeight: 1.7,
+                                resize: "none",
+                              }}
+                              onFocus={(e) =>
+                                (e.target.style.borderColor = "#1a6fc4")
+                              }
+                              onBlur={(e) =>
+                                (e.target.style.borderColor = "#e8eaf0")
+                              }
+                            />
+                            <span
+                              style={{
+                                position: "absolute",
+                                bottom: 10,
+                                right: 12,
+                                fontSize: 11,
+                                color: "#bcc3d0",
+                                fontWeight: 600,
+                              }}
+                            >
+                              {partAnswer.length} chars
+                            </span>
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+            </motion.div>
+          </AnimatePresence>
+        </div>
       </div>
 
       {/* Bottom Nav */}

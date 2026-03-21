@@ -2,14 +2,26 @@ from rest_framework import serializers
 from .models import (
     Subject, Topic, Question, Quiz, Attempt, QuestionSet, 
     SubscriptionPlan, PaymentRequest, LessonPlan, Classroom, 
-    LiveQuestion, StudentSession, StudentAnswer
+    LiveQuestion, StudentSession, StudentAnswer, Passage, QuestionPart
 )
 
 
 # ═══════════════════════════════════════════════════════════════
 # QUIZ SYSTEM SERIALIZERS
 # ═══════════════════════════════════════════════════════════════
-
+class QuestionPartSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = QuestionPart
+        fields = [
+            'id', 'part_label', 'question_text', 'question_type',
+            'option_a', 'option_b', 'option_c', 'option_d',
+            'correct_answer', 'max_marks', 'marking_scheme',
+            'explanation', 'order'
+        ]
+class PassageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Passage
+        fields = ['id', 'title', 'content', 'passage_type', 'author']
 class SubjectSerializer(serializers.ModelSerializer):
     topic_count    = serializers.SerializerMethodField()
     question_count = serializers.SerializerMethodField()
@@ -49,14 +61,14 @@ class TopicSerializer(serializers.ModelSerializer):
             quiz_type='topical',
             is_active=True
         ).count()
-
-
 class QuestionSerializer(serializers.ModelSerializer):
     """For quiz taking"""
     subject_name = serializers.CharField(source='topic.subject.name', read_only=True)
     topic_name   = serializers.CharField(source='topic.name', read_only=True)
     grade        = serializers.IntegerField(source='topic.grade', read_only=True)
     question_image_url = serializers.SerializerMethodField()
+    passage = PassageSerializer(read_only=True)
+    parts = QuestionPartSerializer(many=True, read_only=True)
 
     class Meta:
         model  = Question
@@ -67,23 +79,9 @@ class QuestionSerializer(serializers.ModelSerializer):
             'correct_answer',
             'difficulty', 'question_type', 'max_marks',
             'question_image_url',
+            'passage',
+            'parts',
         ]
-    
-    def get_question_image_url(self, obj):
-        if not obj.question_image:
-            return None
-        try:
-            url = obj.question_image.url
-            # Cloudinary URLs are already absolute - return as-is
-            if url.startswith('http'):
-                return url
-            # Local files need full URL
-            request = self.context.get('request')
-            if request:
-                return request.build_absolute_uri(url)
-            return url
-        except (ValueError, Exception):
-            return None
 
 
 class QuestionDetailSerializer(serializers.ModelSerializer):

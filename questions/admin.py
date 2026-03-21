@@ -10,8 +10,24 @@ class SubjectAdmin(admin.ModelAdmin):
     search_fields = ['name']
     ordering = ['name']
 
+from .models import QuestionPart
+
+class QuestionPartInline(admin.TabularInline):
+    model = QuestionPart
+    extra = 3
+    fields = ['part_label', 'question_text', 'question_type', 'max_marks', 'correct_answer', 'option_a', 'option_b', 'option_c', 'option_d', 'order']
+
+
+from .models import Passage
+@admin.register(Passage)
+class PassageAdmin(admin.ModelAdmin):
+    list_display = ['title', 'passage_type', 'subject', 'grade', 'created_at']
+    list_filter = ['passage_type', 'subject', 'grade']
+    search_fields = ['title', 'content']
+   
 @admin.register(Question)
 class QuestionAdmin(admin.ModelAdmin):
+    inlines = [QuestionPartInline]
     list_display = ['id', 'question_text_short', 'topic', 'question_type', 'difficulty', 'max_marks', 'has_image']
     list_filter = ['question_type', 'difficulty', 'topic__subject', 'topic__grade']
     search_fields = ['question_text', 'id']
@@ -19,7 +35,7 @@ class QuestionAdmin(admin.ModelAdmin):
     
     fieldsets = (
         ('Basic Info', {
-            'fields': ('topic', 'question_type', 'difficulty', 'max_marks', 'question_text', 'question_image')  # ADD question_image HERE
+            'fields': ('topic', 'passage','question_type', 'difficulty', 'max_marks', 'question_text', 'question_image')  # ADD question_image HERE
         }),
         ('MCQ Options', {
             'fields': ('option_a', 'option_b', 'option_c', 'option_d'),
@@ -149,3 +165,5 @@ class PaymentRequestAdmin(admin.ModelAdmin):
 @admin.register(Subscription)
 class SubscriptionAdmin(admin.ModelAdmin):
     list_display = ['user', 'plan', 'start_date', 'end_date', 'is_active']
+
+

@@ -9,7 +9,7 @@ from .ai_grading import grade_answer
 import time
 
 
-def grade_quiz_parallel(questions, answers, max_workers=5):
+def grade_quiz_parallel(questions, answers, max_workers=10):
     """
     Grade all questions in PARALLEL instead of one-by-one
     

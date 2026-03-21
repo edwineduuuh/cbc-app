@@ -148,6 +148,9 @@ export default function ExplorePage() {
 
       if (selectedType === "topical") {
         params.append("quiz_type", "topical");
+        if (selectedTopic) {
+          params.append("topic", selectedTopic.id);
+        }
       } else if (selectedType === "assessment") {
         params.append("quiz_type", "exam");
       }
@@ -508,8 +511,7 @@ export default function ExplorePage() {
                             {topic.name}
                           </h3>
                           <p className="text-sm text-gray-500">
-                            {topic.quiz_count || 0} quiz
-                            {topic.quiz_count !== 1 ? "zes" : ""} available
+                            View quizzes →
                           </p>
                         </div>
                         <ChevronRight className="w-6 h-6 text-gray-400 group-hover:text-emerald-500 group-hover:translate-x-1 transition-all" />
@@ -623,7 +625,6 @@ export default function ExplorePage() {
                       </button>
                     );
                   })}
-                 
                 </div>
               )}
             </motion.div>

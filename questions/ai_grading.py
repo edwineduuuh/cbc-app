@@ -376,7 +376,8 @@ Strict rules — follow in this exact priority order:
 8. Extra correct and relevant detail can justify a slightly higher mark within the maximum, but never exceed the question's max marks.
 9. Wrong, irrelevant or contradictory information should reduce marks appropriately.
 10. Feedback must sound like a real Kenyan teacher: short (1–3 sentences), honest, professional, encouraging when deserved,
-    and constructive when marks are lost. Use simple, clear language.
+    and constructive when marks are lost. Use simple, clear language. Also, take this seriously:Only provide a study tip if you are completely certain it is factually correct. 
+    If unsure, leave study_tip as an empty string.
 11. To help the learner improve, you may suggest 1–2 additional correct points they did not mention (put them in the study_tip field).
 12. When the student uses short bullet points/keywords for "state/list/name" questions, award marks if the points are correct
     but gently encourage writing in full sentences in the feedback.
@@ -518,6 +519,59 @@ Return ONLY valid JSON — nothing else before or after:
 
 
 def grade_answer(question, student_answer):
-    """Grade any question type"""
+    """Grade any question type — handles multi-part questions"""
     grader = AIGrader()
-    return grader.mark_question(question, student_answer)
+    
+    # Check if question has parts
+    parts = list(question.parts.all())
+    if not parts:
+        return grader.mark_question(question, student_answer)
+    
+    # Grade each part separately
+    total_marks = 0
+    total_max = 0
+    all_feedback = []
+    all_points_earned = []
+    all_points_missed = []
+    
+    for part in parts:
+        part_answer = ""
+        if isinstance(student_answer, dict):
+            part_answer = student_answer.get(str(part.id), "")
+        else:
+            part_answer = student_answer
+        
+        # Create a temporary object to grade with
+        class PartProxy:
+            def __init__(self, part):
+                self.id = part.id
+                self.question_text = f"({part.part_label}) {part.question_text}"
+                self.question_type = part.question_type
+                self.correct_answer = part.correct_answer
+                self.max_marks = part.max_marks
+                self.marking_scheme = part.marking_scheme
+                self.explanation = part.explanation
+                self.option_a = part.option_a
+                self.option_b = part.option_b
+                self.option_c = part.option_c
+                self.option_d = part.option_d
+                self.topic = part.parent_question.topic
+                self.worked_solution = None
+        
+        part_result = grader.mark_question(PartProxy(part), part_answer)
+        total_marks += part_result['marks_awarded']
+        total_max += part_result['max_marks']
+        all_feedback.append(f"({part.part_label}) {part_result['feedback']}")
+        all_points_earned.extend(part_result.get('points_earned', []))
+        all_points_missed.extend(part_result.get('points_missed', []))
+    
+    return {
+        'marks_awarded': total_marks,
+        'max_marks': total_max,
+        'feedback': '\n'.join(all_feedback),
+        'is_correct': total_marks == total_max,
+        'personalized_message': '',
+        'study_tip': '',
+        'points_earned': all_points_earned,
+        'points_missed': all_points_missed,
+    }

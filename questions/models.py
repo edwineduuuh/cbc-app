@@ -42,6 +42,31 @@ class Topic(models.Model):
     
     def __str__(self):
         return f"{self.subject.name} - Grade {self.grade} - {self.name} "
+
+class Passage(models.Model):
+    PASSAGE_TYPES = [
+        ('prose', 'Prose'),
+        ('poem', 'Poem'),
+        ('dialogue', 'Dialogue'),
+        ('excerpt', 'Excerpt'),
+        ('article', 'Article'),
+    ]
+    
+    title = models.CharField(max_length=200)
+    content = models.TextField(help_text="The full passage, poem or excerpt")
+    passage_type = models.CharField(max_length=20, choices=PASSAGE_TYPES, default='prose')
+    subject = models.ForeignKey(Subject, on_delete=models.CASCADE, related_name='passages')
+    grade = models.IntegerField()
+    author = models.CharField(max_length=100, blank=True, help_text="Author or source")
+    created_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        db_table = 'passages'
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return f"{self.title} (Grade {self.grade})"
     
 # ===== DELETE THE FIRST QUESTION CLASS HERE (lines ~35-85) =====
 class Question(models.Model):
@@ -66,7 +91,14 @@ class Question(models.Model):
 
     # RELATIONSHIPS
     topic = models.ForeignKey(Topic, on_delete=models.CASCADE, related_name='questions')
-    
+    passage = models.ForeignKey(
+    Passage,
+    on_delete=models.SET_NULL,
+    null=True,
+    blank=True,
+    related_name='questions',
+    help_text="Link to reading passage if this is a comprehension question"
+)
     # QUESTION TYPE
     question_type = models.CharField(
         max_length=20,
@@ -139,6 +171,48 @@ class Question(models.Model):
     def subject(self):
         """Get subject from topic"""
         return self.topic.subject
+
+class QuestionPart(models.Model):
+    PART_TYPES = [
+        ('mcq', 'Multiple Choice'),
+        ('structured', 'Structured Answer'),
+        ('essay', 'Essay'),
+        ('math', 'Mathematical Expression'),
+        ('fill_blank', 'Fill in the Blank'),
+    ]
+    
+    parent_question = models.ForeignKey(
+        Question,
+        on_delete=models.CASCADE,
+        related_name='parts'
+    )
+    part_label = models.CharField(
+        max_length=10,
+        help_text="e.g. a, b, c, i, ii, iii"
+    )
+    question_text = models.TextField()
+    question_type = models.CharField(max_length=20, choices=PART_TYPES, default='structured')
+    
+    # MCQ fields
+    option_a = models.CharField(max_length=500, blank=True)
+    option_b = models.CharField(max_length=500, blank=True)
+    option_c = models.CharField(max_length=500, blank=True)
+    option_d = models.CharField(max_length=500, blank=True)
+    correct_answer = models.TextField(blank=True)
+    
+    # Marking
+    max_marks = models.IntegerField(default=1)
+    marking_scheme = models.JSONField(null=True, blank=True)
+    explanation = models.TextField(blank=True)
+    
+    order = models.IntegerField(default=0)
+    
+    class Meta:
+        db_table = 'question_parts'
+        ordering = ['order', 'part_label']
+    
+    def __str__(self):
+        return f"Q{self.parent_question.id}({self.part_label}): {self.question_text[:50]}"
 class Quiz(models.Model):
     """Collection of questions from quiz"""
     title = models.CharField(max_length=200)
