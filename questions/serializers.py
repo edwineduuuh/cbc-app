@@ -62,7 +62,6 @@ class TopicSerializer(serializers.ModelSerializer):
             is_active=True
         ).count()
 class QuestionSerializer(serializers.ModelSerializer):
-    """For quiz taking"""
     subject_name = serializers.CharField(source='topic.subject.name', read_only=True)
     topic_name   = serializers.CharField(source='topic.name', read_only=True)
     grade        = serializers.IntegerField(source='topic.grade', read_only=True)
@@ -82,6 +81,17 @@ class QuestionSerializer(serializers.ModelSerializer):
             'passage',
             'parts',
         ]
+
+    def get_question_image_url(self, obj):
+        if not obj.question_image:
+            return None
+        try:
+            request = self.context.get('request')
+            if request:
+                return request.build_absolute_uri(obj.question_image.url)
+            return obj.question_image.url
+        except:
+            return None
 
 
 class QuestionDetailSerializer(serializers.ModelSerializer):

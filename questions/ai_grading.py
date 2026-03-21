@@ -413,6 +413,27 @@ Strict rules — follow in this exact priority order:
 """
 
         # Format Question Text with Options if MCQ
+        # Check if this is a passage/comprehension question
+        has_passage = hasattr(question, 'passage') and question.passage is not None
+        if has_passage:
+            base += f"""
+
+CRITICAL — THIS IS A COMPREHENSION QUESTION:
+The student is answering based on this reading passage:
+
+--- PASSAGE START ---
+{question.passage.content}
+--- PASSAGE END ---
+
+Your feedback MUST:
+1. Reference the specific line, sentence or paragraph in the passage where the answer is found
+2. Say things like "The answer is in paragraph 2..." or "The passage states in line 3..."
+3. NOT give generic study tips about the topic
+4. NOT explain background knowledge — only refer to what the passage says
+5. Keep feedback to 2 sentences maximum
+"""
+
+        # Format Question Text with Options if MCQ
         q_text = question.question_text
         if question.question_type == 'mcq':
             q_text += f"\n\nOPTIONS:\nA: {question.option_a}\nB: {question.option_b}\nC: {question.option_c}\nD: {question.option_d}"
@@ -454,7 +475,7 @@ Return ONLY valid JSON — nothing else before or after:
   "marks_awarded": integer between 0 and {question.max_marks} inclusive,
   "feedback": "1–3 short sentences in realistic Kenyan teacher tone explaining the concept",
   "personalized_message": "short encouraging or motivating sentence",
-  "study_tip": "brief next-step advice or memory trick for this concept",
+  "study_tip": "For comprehension questions: cite the exact line/paragraph from the passage. For other questions: brief next-step advice.",
   "points_earned": ["short description of awarded point 1", "short description of awarded point 2"],
   "points_missed": ["short description of missing/weak/incorrect point 1"]
 }}"""
