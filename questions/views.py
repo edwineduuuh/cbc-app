@@ -1093,6 +1093,16 @@ class AdminVerifyPaymentView(APIView):
             return Response({'error': f'Payment is already {payment.status}'}, status=400)
 
         subscription = payment.approve(admin_user=request.user)
+        try:
+            from .sms import send_payment_confirmation
+            send_payment_confirmation(
+                phone_number=payment.phone_number,
+                username=payment.user.username,
+                plan_name=payment.plan.name,
+                days=payment.plan.duration_days,
+    )
+        except Exception as e:
+            print(f"SMS error: {e}")
         return Response({
             'message': 'Payment verified. Subscription activated.',
             'subscription_expires': subscription.end_date,
@@ -1766,6 +1776,16 @@ def mpesa_callback(request):
                 subscription.save()
             
             print(f"✓ Subscription activated for {user.username}")
+            try:
+                from .sms import send_payment_confirmation
+                send_payment_confirmation(
+                    phone_number=payment_request.phone_number,
+                    username=user.username,
+                    plan_name=plan.name,
+                    days=plan.duration_days,
+                )
+            except Exception as e:
+                print(f"SMS error: {e}")
         else:
             payment_request.status = 'rejected'
             payment_request.rejection_reason = f'M-Pesa error code: {result_code}'
