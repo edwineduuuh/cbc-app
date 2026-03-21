@@ -1016,13 +1016,16 @@ export default function QuizTakePage({ params }) {
         </div>
       </div>
       {/* Content */}
+      {/* Content */}
       <div
         style={{
           maxWidth: currentQ?.passage ? 1200 : 680,
           margin: "0 auto",
           padding: "32px 16px 120px",
           display: currentQ?.passage ? "grid" : "block",
-          gridTemplateColumns: currentQ?.passage ? "1fr 1fr" : undefined,
+          gridTemplateColumns: currentQ?.passage
+            ? "repeat(auto-fit, minmax(300px, 1fr))"
+            : undefined,
           gap: currentQ?.passage ? 24 : undefined,
         }}
       >
@@ -1034,12 +1037,14 @@ export default function QuizTakePage({ params }) {
               borderRadius: 20,
               border: "2px solid #e8eaf0",
               padding: 24,
-              height: "calc(100vh - 200px)",
+              height: "auto",
+              maxHeight: "40vh",
               overflowY: "auto",
               position: "sticky",
               top: 80,
               alignSelf: "start",
             }}
+
           >
             <div
               style={{
