@@ -35,6 +35,7 @@ export default function ExplorePage() {
   const [loading, setLoading] = useState(false);
   const [freeAttemptsLeft, setFreeAttemptsLeft] = useState(3);
   const [isSubscribed, setIsSubscribed] = useState(false);
+  const [attempts, setAttempts] = useState({});
   useEffect(() => {
     if (!user) {
       // Guest — check device-level usage
@@ -57,6 +58,28 @@ export default function ExplorePage() {
           setIsSubscribed(false);
           setFreeAttemptsLeft(data.quiz_credits ?? 3);
         }
+      })
+      .catch(() => {});
+  }, [user]);
+
+  useEffect(() => {
+    if (!user) return;
+    const token = localStorage.getItem("accessToken");
+    fetch(`${API}/attempts/`, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        // Build a map of quiz_id -> best score
+        const map = {};
+        const list = Array.isArray(data) ? data : data.results || [];
+        list.forEach((attempt) => {
+          const qid = attempt.quiz;
+          if (!map[qid] || attempt.score > map[qid].score) {
+            map[qid] = attempt;
+          }
+        });
+        setAttempts(map);
       })
       .catch(() => {});
   }, [user]);
@@ -533,27 +556,74 @@ export default function ExplorePage() {
                 </div>
               ) : (
                 <div className="space-y-4">
-                  {quizzes.map((quiz) => (
-                    <button
-                      key={quiz.id}
-                      onClick={() => handleQuizClick(quiz)}
-                      className="group w-full p-6 bg-white rounded-2xl border-2 border-gray-200 hover:border-emerald-500 hover:shadow-lg transition-all text-left"
-                    >
-                      <div className="flex items-center justify-between">
-                        <div className="flex-1">
-                          <h3 className="font-bold text-gray-900 mb-2">
-                            {quiz.title}
-                          </h3>
-                          <div className="flex items-center gap-4 text-sm text-gray-500">
-                            <span>{quiz.total_questions || 0} questions</span>
-                            <span>•</span>
-                            <span>{quiz.duration_minutes || 30} mins</span>
+                  {quizzes.map((quiz) => {
+                    const attempt = attempts[quiz.id];
+                    const score = attempt ? Math.round(attempt.score) : null;
+                    const barColor =
+                      score >= 75
+                        ? "#1d8f57"
+                        : score >= 50
+                          ? "#d4900a"
+                          : "#c0334a";
+
+                    return (
+                      <button
+                        key={quiz.id}
+                        onClick={() => handleQuizClick(quiz)}
+                        className="group w-full p-6 bg-white rounded-2xl border-2 border-gray-200 hover:border-emerald-500 hover:shadow-lg transition-all text-left"
+                      >
+                        <div className="flex items-center justify-between mb-2">
+                          <div className="flex-1">
+                            <h3 className="font-bold text-gray-900 mb-1">
+                              {quiz.title}
+                            </h3>
+                            <div className="flex items-center gap-4 text-sm text-gray-500">
+                              <span>{quiz.total_questions || 0} questions</span>
+                              <span>•</span>
+                              <span>{quiz.duration_minutes || 30} mins</span>
+                              {score !== null && (
+                                <span
+                                  className="font-semibold"
+                                  style={{ color: barColor }}
+                                >
+                                  Last: {score}%
+                                </span>
+                              )}
+                            </div>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            {score !== null && (
+                              <span
+                                className="text-xs font-bold px-2 py-1 rounded-full"
+                                style={{
+                                  background: barColor + "20",
+                                  color: barColor,
+                                }}
+                              >
+                                ↻ Retry
+                              </span>
+                            )}
+                            <ChevronRight className="w-6 h-6 text-gray-400 group-hover:text-emerald-500 group-hover:translate-x-1 transition-all" />
                           </div>
                         </div>
-                        <ChevronRight className="w-6 h-6 text-gray-400 group-hover:text-emerald-500 group-hover:translate-x-1 transition-all" />
-                      </div>
-                    </button>
-                  ))}
+
+                        {score !== null && (
+                          <div className="h-1.5 bg-gray-100 rounded-full overflow-hidden mt-2">
+                            <div
+                              style={{
+                                width: `${score}%`,
+                                height: "100%",
+                                background: barColor,
+                                borderRadius: 99,
+                                transition: "width 0.6s ease",
+                              }}
+                            />
+                          </div>
+                        )}
+                      </button>
+                    );
+                  })}
+                 
                 </div>
               )}
             </motion.div>
