@@ -434,3 +434,60 @@ def credits_status(request):
         "quiz_credits": 0,                    # depleted credits (your edge case)
         "is_premium": FORCE_PAID
     })
+
+import os
+from django.contrib.auth.tokens import default_token_generator
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.utils.encoding import force_bytes, force_str
+from django.core.mail import send_mail
+
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def forgot_password(request):
+    email = request.data.get('email')
+    if not email:
+        return Response({'error': 'Email required'}, status=400)
+    
+    try:
+        user = User.objects.get(email=email)
+        token = default_token_generator.make_token(user)
+        uid = urlsafe_base64_encode(force_bytes(user.pk))
+        
+        reset_url = f"{os.getenv('FRONTEND_URL', 'http://localhost:3000')}/reset-password?uid={uid}&token={token}"
+        
+        send_mail(
+            subject='Reset your NurtureUp password',
+            message=f'Hi {user.username},\n\nClick this link to reset your password:\n{reset_url}\n\nThis link expires in 24 hours.\n\nIf you did not request this, ignore this email.',
+            from_email=os.getenv('EMAIL_HOST_USER'),
+            recipient_list=[email],
+            fail_silently=False,
+        )
+    except User.DoesNotExist:
+        pass  # Don't reveal if email exists
+    
+    return Response({'message': 'If this email exists, a reset link has been sent.'})
+
+
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def reset_password(request):
+    uid = request.data.get('uid')
+    token = request.data.get('token')
+    new_password = request.data.get('new_password')
+    
+    if not all([uid, token, new_password]):
+        return Response({'error': 'uid, token and new_password required'}, status=400)
+    
+    try:
+        user_id = force_str(urlsafe_base64_decode(uid))
+        user = User.objects.get(pk=user_id)
+    except (User.DoesNotExist, ValueError, Exception):
+        return Response({'error': 'Invalid reset link'}, status=400)
+    
+    if not default_token_generator.check_token(user, token):
+        return Response({'error': 'Reset link expired or invalid'}, status=400)
+    
+    user.set_password(new_password)
+    user.save()
+    
+    return Response({'message': 'Password reset successful. You can now log in.'})

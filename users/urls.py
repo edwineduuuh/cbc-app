@@ -14,7 +14,7 @@ from .views import (
     TeacherClassroomListView, TeacherClassroomDetailView,
     RegenerateJoinCodeView, RemoveStudentFromClassroomView,
     JoinClassroomView, LeaveClassroomView, MyClassroomsView,
-    SearchClassroomsView, GoogleLogin, MicrosoftLogin, update_profile, credits_status
+    SearchClassroomsView, GoogleLogin, MicrosoftLogin, update_profile, credits_status,forgot_password, reset_password,
 )
 from rest_framework_simplejwt.views import TokenRefreshView
 
