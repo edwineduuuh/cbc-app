@@ -48,5 +48,8 @@ urlpatterns = [
 
     path('credits/status/', credits_status, name='credits-status'),
 
+    path('forgot-password/', forgot_password, name='forgot-password'),
+    path('reset-password/', reset_password, name='reset-password'),
+
 ]
 
