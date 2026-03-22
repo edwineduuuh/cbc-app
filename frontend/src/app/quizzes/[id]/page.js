@@ -534,6 +534,170 @@ function ResultsScreen({ result, quiz }) {
   );
 }
 
+// ─── Working Panel ────────────────────────────────────────────
+function WorkingPanel({ questionIdx, onWorkingCapture }) {
+  const [open, setOpen] = useState(false);
+  const [mode, setMode] = useState(null);
+  const [isMobile, setIsMobile] = useState(false);
+  const canvasRef = useRef(null);
+  const [isDrawing, setIsDrawing] = useState(false);
+  const [hasWorking, setHasWorking] = useState(false);
+  const fileInputRef = useRef(null);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+
+  useEffect(() => {
+    setOpen(false);
+    setMode(null);
+    setHasWorking(false);
+  }, [questionIdx]);
+
+  const initCanvas = () => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    ctx.fillStyle = "#fff";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.strokeStyle = "#1a1a2e";
+    ctx.lineWidth = 2;
+    ctx.lineCap = "round";
+  };
+
+  useEffect(() => {
+    if (mode === "canvas") setTimeout(initCanvas, 50);
+  }, [mode]);
+
+  const getPos = (e, canvas) => {
+    const rect = canvas.getBoundingClientRect();
+    const scaleX = canvas.width / rect.width;
+    const scaleY = canvas.height / rect.height;
+    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+    const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+    return { x: (clientX - rect.left) * scaleX, y: (clientY - rect.top) * scaleY };
+  };
+
+  const startDraw = (e) => {
+    e.preventDefault();
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext("2d");
+    const pos = getPos(e, canvas);
+    ctx.beginPath();
+    ctx.moveTo(pos.x, pos.y);
+    setIsDrawing(true);
+  };
+
+  const draw = (e) => {
+    e.preventDefault();
+    if (!isDrawing) return;
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext("2d");
+    const pos = getPos(e, canvas);
+    ctx.lineTo(pos.x, pos.y);
+    ctx.stroke();
+    setHasWorking(true);
+  };
+
+  const stopDraw = (e) => {
+    e.preventDefault();
+    setIsDrawing(false);
+    if (hasWorking) {
+      const canvas = canvasRef.current;
+      const base64 = canvas.toDataURL("image/png").split(",")[1];
+      onWorkingCapture(base64);
+    }
+  };
+
+  const clearCanvas = () => {
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext("2d");
+    ctx.fillStyle = "#fff";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    setHasWorking(false);
+    onWorkingCapture(null);
+  };
+
+  const handlePhotoUpload = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      const base64 = ev.target.result.split(",")[1];
+      onWorkingCapture(base64);
+      setHasWorking(true);
+    };
+    reader.readAsDataURL(file);
+  };
+
+  return (
+    <div style={{ marginTop: 16 }}>
+      <button
+        onClick={() => { setOpen(!open); if (!mode) setMode(isMobile ? "camera" : "canvas"); }}
+        style={{
+          display: "flex", alignItems: "center", gap: 8,
+          padding: "8px 16px", borderRadius: 10,
+          border: "2px dashed #bdd7f5",
+          background: hasWorking ? "#e8f4ff" : "#f7f9fc",
+          color: hasWorking ? "#1a6fc4" : "#8892a4",
+          fontSize: 13, fontWeight: 600, cursor: "pointer",
+        }}
+      >
+        ✏️ {hasWorking ? "Working saved ✓" : "Show your working (optional)"}
+      </button>
+
+      {open && (
+        <div style={{ marginTop: 12, background: "#fff", borderRadius: 16, border: "2px solid #e8eaf0", padding: 16 }}>
+          <div style={{ display: "flex", gap: 8, marginBottom: 12 }}>
+            {["canvas", "camera"].map((m) => (
+              <button key={m} onClick={() => setMode(m)} style={{
+                padding: "6px 14px", borderRadius: 8, fontSize: 12, fontWeight: 700,
+                border: "2px solid " + (mode === m ? "#1a6fc4" : "#e8eaf0"),
+                background: mode === m ? "#e8f4ff" : "#fff",
+                color: mode === m ? "#1a6fc4" : "#8892a4", cursor: "pointer",
+              }}>
+                {m === "canvas" ? "✏️ Draw" : "📷 Photo"}
+              </button>
+            ))}
+          </div>
+
+          {mode === "canvas" && (
+            <div>
+              <canvas
+                ref={canvasRef} width={600} height={200}
+                onMouseDown={startDraw} onMouseMove={draw} onMouseUp={stopDraw} onMouseLeave={stopDraw}
+                onTouchStart={startDraw} onTouchMove={draw} onTouchEnd={stopDraw}
+                style={{ width: "100%", height: 200, borderRadius: 10, border: "1.5px solid #e8eaf0", cursor: "crosshair", touchAction: "none", background: "#fff", display: "block" }}
+              />
+              <div style={{ display: "flex", justifyContent: "flex-end", marginTop: 8 }}>
+                <button onClick={clearCanvas} style={{ fontSize: 12, color: "#c0334a", background: "none", border: "none", cursor: "pointer", fontWeight: 600 }}>
+                  🗑 Clear
+                </button>
+              </div>
+            </div>
+          )}
+
+          {mode === "camera" && (
+            <div style={{ textAlign: "center", padding: "16px 0" }}>
+              <input ref={fileInputRef} type="file" accept="image/*" capture="environment" onChange={handlePhotoUpload} style={{ display: "none" }} />
+              <button onClick={() => fileInputRef.current.click()} style={{
+                padding: "12px 24px", borderRadius: 12,
+                background: "linear-gradient(135deg, #1a6fc4, #0ea5c9)",
+                color: "#fff", border: "none", fontSize: 14, fontWeight: 700, cursor: "pointer",
+              }}>
+                {hasWorking ? "📷 Retake Photo" : "📷 Take Photo / Upload"}
+              </button>
+              {hasWorking && <p style={{ fontSize: 12, color: "#1d8f57", marginTop: 8, fontWeight: 600 }}>✓ Working captured</p>}
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
 
 // ─── Timer Badge ──────────────────────────────────────────────────────────────
 function TimerBadge({ totalSeconds, onExpire }) {
@@ -587,6 +751,7 @@ export default function QuizTakePage({ params }) {
   const [result, setResult] = useState(null);
   const [showNav, setShowNav] = useState(true);
   const [flagged, setFlagged] = useState(new Set());
+  const [workingImages, setWorkingImages] = useState({});
 
   const currentQ = questions[currentIdx];
 
@@ -710,6 +875,7 @@ export default function QuizTakePage({ params }) {
       const payload = {
         quiz_id: parseInt(quizId, 10),
         answers: answersDict,
+        working_images: workingImages,
       };
 
       // Send session_id ONLY for guests
@@ -1375,6 +1541,18 @@ export default function QuizTakePage({ params }) {
                     </p>
                   )}
                 </div>
+              )}
+              {/* Working panel — math questions only */}
+              {(isMath || (currentQ.parts && currentQ.parts.length > 0)) && (
+                <WorkingPanel
+                  questionIdx={currentIdx}
+                  onWorkingCapture={(base64) => {
+                    setWorkingImages((prev) => ({
+                      ...prev,
+                      [currentIdx]: base64,
+                    }));
+                  }}
+                />
               )}
               {/* Multi-part questions */}
               {currentQ.parts && currentQ.parts.length > 0 && (

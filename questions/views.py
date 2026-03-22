@@ -701,8 +701,9 @@ def submit_quiz(request):
             }, status=402)  # Payment Required
         
         # Grade quiz for guest
+        working_images = data.get('working_images', {})
         questions = list(quiz.questions.all())
-        results = grade_quiz_fast(questions, answers)
+        results = grade_quiz_fast(questions, answers, working_images=working_images)
         
         total_marks_awarded = sum(r['marks_awarded'] for r in results)
         total_max_marks = sum(r['max_marks'] for r in results)

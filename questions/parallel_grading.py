@@ -9,7 +9,8 @@ from .ai_grading import grade_answer
 import time
 
 
-def grade_quiz_parallel(questions, answers, max_workers=10):
+def grade_quiz_parallel(questions, answers, max_workers=10, working_images=None):
+    working_images = working_images or {}
     """
     Grade all questions in PARALLEL instead of one-by-one
     
@@ -29,22 +30,23 @@ def grade_quiz_parallel(questions, answers, max_workers=10):
     
     # Prepare grading tasks
     grading_tasks = []
-    for question in questions:
+    for i, question in enumerate(questions):
         student_answer = answers.get(str(question.id), "")
-        grading_tasks.append((question, student_answer))
+        working_image = working_images.get(str(i))
+        grading_tasks.append((question, student_answer, working_image))
     
     # Grade all questions in parallel
     results = [None] * len(questions)  # Preserve order
     
     with ThreadPoolExecutor(max_workers=max_workers) as executor:
         # Submit all grading jobs
-        future_to_index = {
-            executor.submit(grade_answer, q, ans): i 
-            for i, (q, ans) in enumerate(grading_tasks)
+       future_to_index = {
+            executor.submit(grade_answer, q, ans, working_image): i 
+            for i, (q, ans, working_image) in enumerate(grading_tasks)
         }
         
         # Collect results as they complete
-        for future in as_completed(future_to_index):
+    for future in as_completed(future_to_index):
             index = future_to_index[future]
             try:
                 result = future.result(timeout=15)  # 15 sec timeout per question
@@ -67,16 +69,14 @@ def grade_quiz_parallel(questions, answers, max_workers=10):
     return results
 
 
-def grade_quiz_sequential(questions, answers):
-    """
-    Old sequential grading (SLOW - kept as fallback)
-    """
+def grade_quiz_sequential(questions, answers, working_images=None):
+    working_images = working_images or {}
     start_time = time.time()
-    
     results = []
-    for question in questions:
+    for i, question in enumerate(questions):
         student_answer = answers.get(str(question.id), "")
-        result = grade_answer(question, student_answer)
+        working_image = working_images.get(str(i))
+        result = grade_answer(question, student_answer, working_image)
         results.append(result)
     
     elapsed = time.time() - start_time
@@ -86,13 +86,9 @@ def grade_quiz_sequential(questions, answers):
 
 
 # Main function to use
-def grade_quiz_fast(questions, answers):
-    """
-    Grade quiz using parallel processing for speed
-    Falls back to sequential if parallel fails
-    """
+def grade_quiz_fast(questions, answers, working_images=None):
     try:
-        return grade_quiz_parallel(questions, answers)
+        return grade_quiz_parallel(questions, answers, working_images=working_images)
     except Exception as e:
         print(f"⚠️  Parallel grading failed: {e}. Falling back to sequential.")
-        return grade_quiz_sequential(questions, answers)
+        return grade_quiz_sequential(questions, answers, working_images=working_images)

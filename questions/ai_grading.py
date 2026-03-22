@@ -340,7 +340,8 @@ class AIGrader:
 
         try:
             prompt = self._build_marking_prompt(question, student_answer)
-            api_response = self._call_claude_api(prompt)
+            working_image = getattr(self, 'working_image', None)
+            api_response = self._call_claude_api(prompt, working_image=working_image)
             return self._parse_ai_response(api_response, question.max_marks)
         except Exception as e:
             print(f"❌ AI Grading Error (Q{question.id}): {str(e)}")
@@ -483,9 +484,27 @@ Return ONLY valid JSON — nothing else before or after:
 
         return base
 
-    def _call_claude_api(self, prompt):
+    def _call_claude_api(self, prompt, working_image=None):
         import requests
         try:
+            if working_image:
+                content = [
+                    {
+                        "type": "image",
+                        "source": {
+                            "type": "base64",
+                            "media_type": "image/png",
+                            "data": working_image,
+                        }
+                    },
+                    {
+                        "type": "text",
+                        "text": prompt + "\n\nThe student has also provided an image of their working above. Analyse their steps and include feedback on their method in your response."
+                    }
+                ]
+            else:
+                content = prompt
+
             response = requests.post(
                 'https://api.anthropic.com/v1/messages',
                 headers={
@@ -496,9 +515,9 @@ Return ONLY valid JSON — nothing else before or after:
                 json={
                     'model': 'claude-sonnet-4-20250514',
                     'max_tokens': 1000,
-                    'messages': [{'role': 'user', 'content': prompt}]
+                    'messages': [{'role': 'user', 'content': content}]
                 },
-                timeout=20  # ← ADD THIS — don't hang forever
+                timeout=20
             )
             response.raise_for_status()  # ← raises on 4xx/5xx
             return response.json()
@@ -539,9 +558,10 @@ Return ONLY valid JSON — nothing else before or after:
             }
 
 
-def grade_answer(question, student_answer):
+def grade_answer(question, student_answer, working_image=None):
     """Grade any question type — handles multi-part questions"""
     grader = AIGrader()
+    grader.working_image = working_image
     
     # Check if question has parts
     parts = list(question.parts.all())
