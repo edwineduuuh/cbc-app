@@ -147,6 +147,7 @@ function QuestionNav({ questions, answers, currentIdx, onJump, show }) {
     <AnimatePresence>
       {show && (
         <motion.div
+          className="question-nav"
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: 20 }}
@@ -1063,6 +1064,8 @@ export default function QuizTakePage({ params }) {
         * { box-sizing: border-box; margin: 0; padding: 0; }
         textarea:focus, input:focus { outline: none; }
         button { font-family: inherit; }
+        .question-nav { display: flex; }
+        @media (max-width: 768px) { .question-nav { display: none !important; } }
       `}</style>
       <SubmitModal
         open={showSubmitModal}
