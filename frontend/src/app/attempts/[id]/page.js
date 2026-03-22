@@ -531,19 +531,23 @@ export default function AttemptResultsPage() {
                     <p className="text-sm font-semibold text-blue-900 mb-1">
                       Your Answer:
                     </p>
-                    <div className="text-blue-800 whitespace-pre-line">
-                      {item.student_answer
-                        ? item.student_answer.split("\n").map((line, i) => (
-                            <div
-                              key={i}
-                              className="flex items-start gap-2 mb-1"
-                            >
-                              {line.trim() && <span>•</span>}
-                              <span>{line.trim()}</span>
-                            </div>
-                          ))
-                        : "(No answer provided)"}
-                    </div>
+                     <div className="text-blue-800 whitespace-pre-line">
+                    {!item.student_answer
+                      ? "(No answer provided)"
+                      : typeof item.student_answer === "object"
+                      ? Object.entries(item.student_answer).map(([partId, ans]) => (
+                          <div key={partId} className="flex items-start gap-2 mb-1">
+                            <span>•</span>
+                            <span>{String(ans)}</span>
+                          </div>
+                        ))
+                      : item.student_answer.split("\n").map((line, i) => (
+                          <div key={i} className="flex items-start gap-2 mb-1">
+                            {line.trim() && <span>•</span>}
+                            <span>{line.trim()}</span>
+                          </div>
+                        ))
+                    }
                   </div>
 
                   {/* AI Feedback */}
