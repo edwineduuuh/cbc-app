@@ -115,7 +115,154 @@ class AIGrader:
 # Use very simple, supportive language. Max 70 words total."""
 #         api_response = self._call_claude_api(prompt)
 #         return api_response['content'][0]['text'].strip()
+    # ====================== FILL BLANK ======================
+def mark_fill_blank(self, question, student_answer):
+    """
+    Robust fill-in-the-blank grader.
+    Handles: case differences, extra whitespace, punctuation variations,
+    and multiple acceptable answers separated by '|' or ';'.
+    Falls back to AI for semantic near-misses.
+    """
+    import re
 
+    if not question.correct_answer or str(question.correct_answer).strip() == '':
+        return {
+            'marks_awarded': 0,
+            'max_marks': question.max_marks,
+            'feedback': 'This question has no correct answer set.',
+            'is_correct': False,
+            'personalized_message': 'Contact your teacher.',
+            'study_tip': '',
+            'points_earned': [],
+            'points_missed': []
+        }
+
+    student_raw = str(student_answer).strip()
+    if not student_raw:
+        return {
+            'marks_awarded': 0,
+            'max_marks': question.max_marks,
+            'feedback': 'No answer provided.',
+            'is_correct': False,
+            'personalized_message': 'Try again – you can do it!',
+            'study_tip': 'Always write your final answer clearly.',
+            'points_earned': [],
+            'points_missed': []
+        }
+
+    def normalise(s):
+        """Lowercase, strip, collapse whitespace, remove trailing punctuation."""
+        s = s.lower().strip()
+        s = re.sub(r'\s+', ' ', s)
+        s = s.rstrip('.,;:!?')
+        return s
+
+    student_norm = normalise(student_raw)
+
+    # Support multiple accepted answers: "Thousands|thousands|THOUSANDS" or "odd; odd number"
+    raw_correct = str(question.correct_answer).strip()
+    accepted = [normalise(a) for a in re.split(r'[|;]', raw_correct) if a.strip()]
+
+    is_correct = student_norm in accepted
+
+    # ── If not exact, try numeric equivalence (e.g. "24.0" vs "24") ──────────
+    if not is_correct:
+        try:
+            student_num = float(re.sub(r'[^\d.-]', '', student_norm))
+            for a in accepted:
+                try:
+                    if abs(student_num - float(re.sub(r'[^\d.-]', '', a))) < 0.01:
+                        is_correct = True
+                        break
+                except ValueError:
+                    pass
+        except ValueError:
+            pass
+
+    # ── If still not matched, ask Claude ─────────────────────────────────────
+    if not is_correct:
+        try:
+            is_correct = self._ai_fill_blank_check(question, student_raw, raw_correct)
+        except Exception as e:
+            print(f"⚠ AI fill-blank fallback failed: {e}")
+            # Fall through — stay is_correct = False
+
+    if is_correct:
+        congrats = random.choice([
+            "Spot on! Well done.",
+            "Perfect — that's exactly right!",
+            "Correct! Great work.",
+            "Yes — you've got it!",
+            "Excellent answer!",
+        ])
+        personalized = random.choice([
+            "You're really getting the hang of this!",
+            "Excellent — keep up the strong work!",
+            "Fantastic!",
+            "Well done — proud of you!",
+            "Superb! On to the next one.",
+        ])
+        return {
+            'marks_awarded': question.max_marks,
+            'max_marks': question.max_marks,
+            'feedback': congrats,
+            'is_correct': True,
+            'personalized_message': personalized,
+            'study_tip': '',
+            'points_earned': [student_raw],
+            'points_missed': [],
+        }
+
+    # ── Incorrect — generate helpful feedback ────────────────────────────────
+    personalized = random.choice([
+        "Not quite — but you're learning!",
+        "Good try — review the solution below.",
+        "Almost there — check the correct answer.",
+        "Close! Have another look.",
+        "Let's improve this together.",
+    ])
+
+    explanation = (
+        getattr(question, 'explanation', None)
+        or f"The correct answer is: {raw_correct}."
+    )
+
+    return {
+        'marks_awarded': 0,
+        'max_marks': question.max_marks,
+        'feedback': f"Incorrect. The correct answer is {raw_correct}.",
+        'is_correct': False,
+        'personalized_message': personalized,
+        'study_tip': explanation,
+        'points_earned': [],
+        'points_missed': [raw_correct],
+    }
+
+
+def _ai_fill_blank_check(self, question, student_answer, correct_answer):
+    """
+    Ask Claude whether the student's fill-blank answer is semantically correct.
+    Returns True/False only — never raises (caller handles exceptions).
+    """
+    prompt = f"""You are a Kenyan CBC teacher marking a fill-in-the-blank question.
+
+QUESTION: {question.question_text}
+CORRECT ANSWER: {correct_answer}
+STUDENT'S ANSWER: {student_answer}
+
+Is the student's answer correct? Consider:
+- Case differences (e.g. "thousands" vs "Thousands") → CORRECT
+- Equivalent phrasing (e.g. "ten thousand" vs "ten thousands place") → CORRECT  
+- Clearly wrong factual answer → INCORRECT
+
+Reply with ONLY the word TRUE or FALSE. Nothing else."""
+
+    try:
+        response = self._call_claude_api(prompt)
+        verdict = response['content'][0]['text'].strip().upper()
+        return verdict == 'TRUE'
+    except Exception:
+        return False
     # ====================== MATH ======================
     def mark_math(self, question, student_answer):
         if not question.correct_answer or str(question.correct_answer).strip() == '':
