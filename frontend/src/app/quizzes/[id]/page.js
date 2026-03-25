@@ -50,7 +50,59 @@ function useTimer(totalSeconds, onExpire) {
     remaining,
   };
 }
+// ─── MathLive Input ───────────────────────────────────────────────────────────
+function MathInput({ value, onChange }) {
+  const mfRef = useRef(null);
+  const isInternalChange = useRef(false);
 
+  useEffect(() => {
+    // Load MathLive from CDN
+    if (!document.querySelector('script[src*="mathlive"]')) {
+      const script = document.createElement("script");
+      script.src = "https://unpkg.com/mathlive@latest/dist/mathlive.min.js";
+      script.async = true;
+      document.head.appendChild(script);
+    }
+  }, []);
+
+  useEffect(() => {
+    const el = mfRef.current;
+    if (!el) return;
+
+    const handleInput = () => {
+      isInternalChange.current = true;
+      onChange(el.value); // LaTeX string
+    };
+
+    el.addEventListener("input", handleInput);
+    return () => el.removeEventListener("input", handleInput);
+  }, [onChange]);
+
+  // Sync external value changes (e.g. navigating between questions)
+  useEffect(() => {
+    const el = mfRef.current;
+    if (!el || isInternalChange.current) {
+      isInternalChange.current = false;
+      return;
+    }
+    if (el.value !== value) el.value = value ?? "";
+  }, [value]);
+
+  return (
+    <div style={{ border: "2px solid #e8eaf0", borderRadius: 16, overflow: "hidden", background: "#fff", boxShadow: "0 2px 8px rgba(0,0,0,0.04)", transition: "border-color 0.15s" }}
+      onFocus={() => mfRef.current?.parentElement && (mfRef.current.parentElement.style.borderColor = "#1a6fc4")}
+      onBlur={() => mfRef.current?.parentElement && (mfRef.current.parentElement.style.borderColor = "#e8eaf0")}
+    >
+      <math-field
+        ref={mfRef}
+        style={{ width: "100%", padding: "14px 18px", fontSize: 18, fontFamily: "'Lato', sans-serif", display: "block", "--keyboard-zindex": 1000 }}
+        virtual-keyboard-mode="onfocus"
+        smart-fence="true"
+        placeholder="Type or use keyboard…"
+      />
+    </div>
+  );
+}
 // ─── MCQ Option ───────────────────────────────────────────────────────────────
 function MCQOption({ letter, text, selected, onClick }) {
   const colorMap = {
@@ -1455,29 +1507,36 @@ export default function QuizTakePage({ params }) {
                     >
                       {isMath ? "Enter your answer" : "Type your answer"}
                     </p>
-                    <input
-                      type="text"
-                      value={answers[currentIdx] ?? ""}
-                      onChange={(e) => handleAnswer(e.target.value)}
-                      placeholder={
-                        isMath ? "e.g. 42 or x = 5" : "Type your answer here…"
-                      }
-                      style={{
-                        width: "100%",
-                        border: "2px solid #e8eaf0",
-                        borderRadius: 16,
-                        padding: "14px 18px",
-                        fontSize: 16,
-                        fontWeight: 500,
-                        color: "#0d0d1a",
-                        background: "#fff",
-                        fontFamily: "'Lato', sans-serif",
-                        transition: "border-color 0.15s",
-                        boxShadow: "0 2px 8px rgba(0,0,0,0.04)",
-                      }}
-                      onFocus={(e) => (e.target.style.borderColor = "#1a6fc4")}
-                      onBlur={(e) => (e.target.style.borderColor = "#e8eaf0")}
-                    />
+                    {isMath ? (
+                      <MathInput
+                        value={answers[currentIdx] ?? ""}
+                        onChange={(val) => handleAnswer(val)}
+                      />
+                    ) : (
+                      <input
+                        type="text"
+                        value={answers[currentIdx] ?? ""}
+                        onChange={(e) => handleAnswer(e.target.value)}
+                        placeholder="Type your answer here…"
+                        style={{
+                          width: "100%",
+                          border: "2px solid #e8eaf0",
+                          borderRadius: 16,
+                          padding: "14px 18px",
+                          fontSize: 16,
+                          fontWeight: 500,
+                          color: "#0d0d1a",
+                          background: "#fff",
+                          fontFamily: "'Lato', sans-serif",
+                          transition: "border-color 0.15s",
+                          boxShadow: "0 2px 8px rgba(0,0,0,0.04)",
+                        }}
+                        onFocus={(e) =>
+                          (e.target.style.borderColor = "#1a6fc4")
+                        }
+                        onBlur={(e) => (e.target.style.borderColor = "#e8eaf0")}
+                      />
+                    )}
                   </div>
                 )}
 
