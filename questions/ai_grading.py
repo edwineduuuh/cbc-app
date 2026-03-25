@@ -192,12 +192,13 @@ Reply with ONLY the word TRUE or FALSE. Nothing else."""
         def clean_num(s):
             return re.sub(r'[^\d.-]', '', s)
 
-        # Fast numeric check
-        try:
-            if abs(float(clean_num(student_answer)) - float(clean_num(correct_str))) < 0.01:
-                return self._correct_math_response(question, float(clean_num(student_answer)))
-        except ValueError:
-            pass
+        # Fast numeric check — only run if correct answer is purely numeric
+        if not re.search(r'[a-zA-Z]', correct_str):
+            try:
+                if abs(float(clean_num(student_answer)) - float(clean_num(correct_str))) < 0.01:
+                    return self._correct_math_response(question, float(clean_num(student_answer)))
+            except ValueError:
+                pass
 
         # Symbolic comparison
         try:
