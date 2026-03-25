@@ -535,19 +535,26 @@ export default function AttemptResultsPage() {
                       {!item.student_answer
                         ? "(No answer provided)"
                         : typeof item.student_answer === "object"
-                        ? Object.entries(item.student_answer).map(([partId, ans]) => (
-                            <div key={partId} className="flex items-start gap-2 mb-1">
-                              <span>•</span>
-                              <span>{String(ans)}</span>
-                            </div>
-                          ))
-                        : item.student_answer.split("\n").map((line, i) => (
-                            <div key={i} className="flex items-start gap-2 mb-1">
-                              {line.trim() && <span>•</span>}
-                              <span>{line.trim()}</span>
-                            </div>
-                          ))
-                      }
+                          ? Object.entries(item.student_answer).map(
+                              ([partId, ans]) => (
+                                <div
+                                  key={partId}
+                                  className="flex items-start gap-2 mb-1"
+                                >
+                                  <span>•</span>
+                                  <span>{String(ans)}</span>
+                                </div>
+                              ),
+                            )
+                          : item.student_answer.split("\n").map((line, i) => (
+                              <div
+                                key={i}
+                                className="flex items-start gap-2 mb-1"
+                              >
+                                {line.trim() && <span>•</span>}
+                                <span>{line.trim()}</span>
+                              </div>
+                            ))}
                     </div>
                   </div>
 
@@ -577,9 +584,19 @@ export default function AttemptResultsPage() {
                     {/* Study Tip */}
                     {item.study_tip && (
                       <div className="mt-2 p-3 bg-purple-50 rounded-lg border border-purple-200">
-                        <p className="text-sm text-purple-900 whitespace-pre-line">
-                          📚 <strong>Study tip:</strong> {item.study_tip}
+                        <p className="text-sm text-purple-900 font-semibold mb-1">
+                          📚 Study tip:
                         </p>
+                        <div
+                          className="text-sm text-purple-900 whitespace-pre-line"
+                          ref={(el) => {
+                            if (el && window.MathJax)
+                              window.MathJax.typesetPromise([el]);
+                          }}
+                          dangerouslySetInnerHTML={{
+                            __html: item.study_tip.replace(/\n/g, "<br/>"),
+                          }}
+                        />
                       </div>
                     )}
                   </div>
