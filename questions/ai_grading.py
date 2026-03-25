@@ -455,47 +455,51 @@ Return ONLY valid JSON — no text before or after:
 
     def _call_claude_api(self, prompt, working_image=None):
         import requests
-        try:
-            if working_image:
-                content = [
-                    {
-                        "type": "image",
-                        "source": {
-                            "type": "base64",
-                            "media_type": "image/png",
-                            "data": working_image,
-                        }
-                    },
-                    {
-                        "type": "text",
-                        "text": prompt + "\n\nThe student has also shared a photo of their working above. Look at their steps and include feedback on their method in your response."
-                    }
-                ]
-            else:
-                content = prompt
+        import time
 
-            response = requests.post(
-                'https://api.anthropic.com/v1/messages',
-                headers={
-                    'Content-Type': 'application/json',
-                    'x-api-key': settings.ANTHROPIC_API_KEY,
-                    'anthropic-version': '2023-06-01'
-                },
-                json={
-                    'model': 'claude-haiku-4-5-20251001',
-                    'max_tokens': 1000,
-                    'messages': [{'role': 'user', 'content': content}]
-                },
-                timeout=20
-            )
-            response.raise_for_status()
-            return response.json()
-        except requests.Timeout:
-            raise Exception("Claude API timed out after 20s")
-        except requests.HTTPError as e:
-            raise Exception(f"Claude API HTTP error: {e.response.status_code} - {e.response.text[:200]}")
-        except requests.RequestException as e:
-            raise Exception(f"Claude API network error: {str(e)}")
+        if working_image:
+            content = [
+                {"type": "image", "source": {"type": "base64", "media_type": "image/png", "data": working_image}},
+                {"type": "text", "text": prompt + "\n\nThe student has also shared a photo of their working above."}
+            ]
+        else:
+            content = prompt
+
+        payload = {
+            'model': 'claude-haiku-4-5-20251001',
+            'max_tokens': 1000,
+            'messages': [{'role': 'user', 'content': content}]
+        }
+        headers = {
+            'Content-Type': 'application/json',
+            'x-api-key': settings.ANTHROPIC_API_KEY,
+            'anthropic-version': '2023-06-01'
+        }
+
+        for attempt in range(4):  # try up to 4 times
+            try:
+                response = requests.post(
+                    'https://api.anthropic.com/v1/messages',
+                    headers=headers,
+                    json=payload,
+                    timeout=30
+                )
+                if response.status_code == 429:
+                    wait = 2 ** attempt  # 1s, 2s, 4s, 8s
+                    print(f"⚠ Rate limited — waiting {wait}s before retry {attempt + 1}/4")
+                    time.sleep(wait)
+                    continue
+                response.raise_for_status()
+                return response.json()
+            except requests.Timeout:
+                if attempt == 3:
+                    raise Exception("Claude API timed out after 4 attempts")
+                time.sleep(2 ** attempt)
+            except requests.HTTPError as e:
+                if e.response.status_code != 429:
+                    raise Exception(f"Claude API HTTP error: {e.response.status_code} - {e.response.text[:200]}")
+
+        raise Exception("Claude API failed after 4 retries — rate limit persists")
 
     def _parse_ai_response(self, api_response, max_marks):
         try:
