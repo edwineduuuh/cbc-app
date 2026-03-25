@@ -577,7 +577,7 @@ export default function AttemptResultsPage() {
                     {/* Study Tip */}
                     {item.study_tip && (
                       <div className="mt-2 p-3 bg-purple-50 rounded-lg border border-purple-200">
-                        <p className="text-sm text-purple-900">
+                        <p className="text-sm text-purple-900 whitespace-pre-line">
                           📚 <strong>Study tip:</strong> {item.study_tip}
                         </p>
                       </div>
