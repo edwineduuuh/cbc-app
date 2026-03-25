@@ -523,6 +523,10 @@ export default function AttemptResultsPage() {
 
                   <div
                     className="text-gray-700 mb-4"
+                    ref={(el) => {
+                      if (el && window.MathJax)
+                        window.MathJax.typesetPromise([el]);
+                    }}
                     dangerouslySetInnerHTML={{ __html: item.question_text }}
                   />
 
