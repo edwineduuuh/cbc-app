@@ -1,14 +1,12 @@
 """
 AI Grading Engine for CBC Learning Platform
-Uses Claude API to mark open-ended questions
+Uses Claude Haiku API to mark questions
 """
 
 import json
 import re
 import random
 from django.conf import settings
-
-# For symbolic math comparison
 from sympy import sympify, simplify, SympifyError, N
 
 
@@ -16,8 +14,7 @@ class AIGrader:
     """Handles AI-powered grading for different question types"""
 
     def mark_question(self, question, student_answer):
-        """Main grading function"""
-        # Route MCQ to the same AI engine as structured/essay
+        """Main grading function — routes to correct grader"""
         if question.question_type in ['mcq', 'structured', 'essay']:
             return self.mark_with_ai(question, student_answer)
         elif question.question_type == 'fill_blank':
@@ -28,241 +25,141 @@ class AIGrader:
             return {
                 'marks_awarded': 0,
                 'max_marks': question.max_marks,
-                'feedback': 'Unsupported question type',
-                'is_correct': False
+                'feedback': 'Unsupported question type.',
+                'is_correct': False,
+                'personalized_message': '',
+                'study_tip': '',
+                'points_earned': [],
+                'points_missed': []
             }
 
-#     # ====================== SIMPLE TYPES ======================
-#     def mark_mcq(self, question, student_answer):
-#         print("=== MARK MCQ CALLED ===")
-#         try:
-#             from .premium_mcq_grading import premium_grade_mcq
-#             print("✓ Premium module imported successfully")
-#             result = premium_grade_mcq(question, student_answer)
-#             print("✓ Premium grading returned:", result.get('feedback', '')[:50])
-#             return result
-#         except ImportError as e:
-#             print(f"✗ ImportError: {e} – using basic fallback")
-#             return self._basic_mcq_grading(question, student_answer)
-#         except Exception as e:
-#             print(f"✗ Exception in premium grading: {e} – using basic fallback")
-#             return self._basic_mcq_grading(question, student_answer)
-
-#     def _basic_mcq_grading(self, question, student_answer):
-#         """Original basic MCQ grading as fallback"""
-#         student_choice = str(student_answer).strip().upper()
-#         correct_choice = str(question.correct_answer).strip().upper()
-#         is_correct = student_choice == correct_choice
-
-#         base_explanation = question.explanation or ""
-
-#         if is_correct:
-#             feedback = base_explanation or f"Correct! Option {correct_choice} is the right choice."
-#             personalized = random.choice([
-#                 "Well done — you nailed it!",
-#                 "Great job!",
-#                 "Excellent — keep it up!",
-#                 "Fantastic!",
-#                 "Superb work!"
-#             ])
-#             study_tip = base_explanation[:100] + "..." if base_explanation else "Keep practising similar questions."
-#         else:
-#             fallback = (
-#                 base_explanation
-#                 or f"Incorrect. The correct answer is {correct_choice}. "
-#                 f"You chose {student_choice} — review why that doesn't fit."
-#             )
-
-#             if not base_explanation.strip():
-#                 try:
-#                     feedback = self._generate_mcq_explanation(question, student_choice, correct_choice)
-#                 except:
-#                     feedback = fallback
-#             else:
-#                 feedback = fallback
-
-#             personalized = random.choice([
-#                 "Not quite — but you're learning!",
-#                 "Good try — let's fix this.",
-#                 "Almost there!",
-#                 "Close! Review the explanation.",
-#                 "Let's improve this together."
-#             ])
-#             study_tip = "Try again after reading the explanation."
-
-#         return {
-#             'marks_awarded': question.max_marks if is_correct else 0,
-#             'max_marks': question.max_marks,
-#             'feedback': feedback,
-#             'is_correct': is_correct,
-#             'personalized_message': personalized,
-#             'study_tip': study_tip,
-#             'points_earned': [correct_choice] if is_correct else [],
-#             'points_missed': [] if is_correct else [correct_choice]
-#         }
-#     def _generate_mcq_explanation(self, question, student_choice, correct_choice):
-#         prompt = f"""You are a kind, experienced Kenyan CBC teacher explaining to a Grade 7–9 student.
-
-# Question: {question.question_text}
-# Student chose: {student_choice}
-# Correct answer: {correct_choice}
-
-# Write ONLY 2–3 short sentences:
-# 1. Explain in simple words why {correct_choice} is correct.
-# 2. Explain why {student_choice} might seem right but is actually wrong (common mistake).
-# 3. One warm encouraging sentence.
-
-# Use very simple, supportive language. Max 70 words total."""
-#         api_response = self._call_claude_api(prompt)
-#         return api_response['content'][0]['text'].strip()
     # ====================== FILL BLANK ======================
-def mark_fill_blank(self, question, student_answer):
-    """
-    Robust fill-in-the-blank grader.
-    Handles: case differences, extra whitespace, punctuation variations,
-    and multiple acceptable answers separated by '|' or ';'.
-    Falls back to AI for semantic near-misses.
-    """
-    import re
+    def mark_fill_blank(self, question, student_answer):
+        """
+        Fill-in-the-blank grader.
+        Handles case differences, whitespace, punctuation, multiple accepted answers.
+        Falls back to AI for near-misses.
+        """
+        if not question.correct_answer or str(question.correct_answer).strip() == '':
+            return {
+                'marks_awarded': 0,
+                'max_marks': question.max_marks,
+                'feedback': 'This question has no correct answer set.',
+                'is_correct': False,
+                'personalized_message': 'Please contact your teacher.',
+                'study_tip': '',
+                'points_earned': [],
+                'points_missed': []
+            }
 
-    if not question.correct_answer or str(question.correct_answer).strip() == '':
+        student_raw = str(student_answer).strip()
+        if not student_raw:
+            return {
+                'marks_awarded': 0,
+                'max_marks': question.max_marks,
+                'feedback': 'You did not write an answer.',
+                'is_correct': False,
+                'personalized_message': 'Try again — you can do it!',
+                'study_tip': 'Always write your answer clearly.',
+                'points_earned': [],
+                'points_missed': []
+            }
+
+        def normalise(s):
+            s = s.lower().strip()
+            s = re.sub(r'\s+', ' ', s)
+            s = s.rstrip('.,;:!?')
+            return s
+
+        student_norm = normalise(student_raw)
+        raw_correct = str(question.correct_answer).strip()
+        accepted = [normalise(a) for a in re.split(r'[|;]', raw_correct) if a.strip()]
+        is_correct = student_norm in accepted
+
+        # Numeric equivalence check
+        if not is_correct:
+            try:
+                student_num = float(re.sub(r'[^\d.-]', '', student_norm))
+                for a in accepted:
+                    try:
+                        if abs(student_num - float(re.sub(r'[^\d.-]', '', a))) < 0.01:
+                            is_correct = True
+                            break
+                    except ValueError:
+                        pass
+            except ValueError:
+                pass
+
+        # AI semantic check as last resort
+        if not is_correct:
+            try:
+                is_correct = self._ai_fill_blank_check(question, student_raw, raw_correct)
+            except Exception as e:
+                print(f"⚠ AI fill-blank fallback failed: {e}")
+
+        if is_correct:
+            return {
+                'marks_awarded': question.max_marks,
+                'max_marks': question.max_marks,
+                'feedback': random.choice([
+                    "Spot on! Well done.",
+                    "That's exactly right!",
+                    "Correct! Great work.",
+                    "Yes — you've got it!",
+                    "Excellent answer!",
+                ]),
+                'is_correct': True,
+                'personalized_message': random.choice([
+                    "You are really getting the hang of this!",
+                    "Keep up the great work!",
+                    "Fantastic!",
+                    "Well done — so proud of you!",
+                    "Superb! On to the next one.",
+                ]),
+                'study_tip': '',
+                'points_earned': [student_raw],
+                'points_missed': [],
+            }
+
+        explanation = getattr(question, 'explanation', None) or f"The correct answer is: {raw_correct}."
         return {
             'marks_awarded': 0,
             'max_marks': question.max_marks,
-            'feedback': 'This question has no correct answer set.',
+            'feedback': f"Not quite. The correct answer is {raw_correct}.",
             'is_correct': False,
-            'personalized_message': 'Contact your teacher.',
-            'study_tip': '',
+            'personalized_message': random.choice([
+                "Not quite — but you are learning!",
+                "Good try — have another look.",
+                "Almost there — check the correct answer.",
+                "Close! Try again.",
+                "Let us improve this together.",
+            ]),
+            'study_tip': explanation,
             'points_earned': [],
-            'points_missed': []
+            'points_missed': [raw_correct],
         }
 
-    student_raw = str(student_answer).strip()
-    if not student_raw:
-        return {
-            'marks_awarded': 0,
-            'max_marks': question.max_marks,
-            'feedback': 'No answer provided.',
-            'is_correct': False,
-            'personalized_message': 'Try again – you can do it!',
-            'study_tip': 'Always write your final answer clearly.',
-            'points_earned': [],
-            'points_missed': []
-        }
-
-    def normalise(s):
-        """Lowercase, strip, collapse whitespace, remove trailing punctuation."""
-        s = s.lower().strip()
-        s = re.sub(r'\s+', ' ', s)
-        s = s.rstrip('.,;:!?')
-        return s
-
-    student_norm = normalise(student_raw)
-
-    # Support multiple accepted answers: "Thousands|thousands|THOUSANDS" or "odd; odd number"
-    raw_correct = str(question.correct_answer).strip()
-    accepted = [normalise(a) for a in re.split(r'[|;]', raw_correct) if a.strip()]
-
-    is_correct = student_norm in accepted
-
-    # ── If not exact, try numeric equivalence (e.g. "24.0" vs "24") ──────────
-    if not is_correct:
-        try:
-            student_num = float(re.sub(r'[^\d.-]', '', student_norm))
-            for a in accepted:
-                try:
-                    if abs(student_num - float(re.sub(r'[^\d.-]', '', a))) < 0.01:
-                        is_correct = True
-                        break
-                except ValueError:
-                    pass
-        except ValueError:
-            pass
-
-    # ── If still not matched, ask Claude ─────────────────────────────────────
-    if not is_correct:
-        try:
-            is_correct = self._ai_fill_blank_check(question, student_raw, raw_correct)
-        except Exception as e:
-            print(f"⚠ AI fill-blank fallback failed: {e}")
-            # Fall through — stay is_correct = False
-
-    if is_correct:
-        congrats = random.choice([
-            "Spot on! Well done.",
-            "Perfect — that's exactly right!",
-            "Correct! Great work.",
-            "Yes — you've got it!",
-            "Excellent answer!",
-        ])
-        personalized = random.choice([
-            "You're really getting the hang of this!",
-            "Excellent — keep up the strong work!",
-            "Fantastic!",
-            "Well done — proud of you!",
-            "Superb! On to the next one.",
-        ])
-        return {
-            'marks_awarded': question.max_marks,
-            'max_marks': question.max_marks,
-            'feedback': congrats,
-            'is_correct': True,
-            'personalized_message': personalized,
-            'study_tip': '',
-            'points_earned': [student_raw],
-            'points_missed': [],
-        }
-
-    # ── Incorrect — generate helpful feedback ────────────────────────────────
-    personalized = random.choice([
-        "Not quite — but you're learning!",
-        "Good try — review the solution below.",
-        "Almost there — check the correct answer.",
-        "Close! Have another look.",
-        "Let's improve this together.",
-    ])
-
-    explanation = (
-        getattr(question, 'explanation', None)
-        or f"The correct answer is: {raw_correct}."
-    )
-
-    return {
-        'marks_awarded': 0,
-        'max_marks': question.max_marks,
-        'feedback': f"Incorrect. The correct answer is {raw_correct}.",
-        'is_correct': False,
-        'personalized_message': personalized,
-        'study_tip': explanation,
-        'points_earned': [],
-        'points_missed': [raw_correct],
-    }
-
-
-def _ai_fill_blank_check(self, question, student_answer, correct_answer):
-    """
-    Ask Claude whether the student's fill-blank answer is semantically correct.
-    Returns True/False only — never raises (caller handles exceptions).
-    """
-    prompt = f"""You are a Kenyan CBC teacher marking a fill-in-the-blank question.
+    def _ai_fill_blank_check(self, question, student_answer, correct_answer):
+        """Ask Claude if the fill-blank answer is correct. Returns True or False only."""
+        prompt = f"""You are a Kenyan CBC teacher checking a fill-in-the-blank answer.
 
 QUESTION: {question.question_text}
 CORRECT ANSWER: {correct_answer}
-STUDENT'S ANSWER: {student_answer}
+STUDENT ANSWER: {student_answer}
 
-Is the student's answer correct? Consider:
-- Case differences (e.g. "thousands" vs "Thousands") → CORRECT
-- Equivalent phrasing (e.g. "ten thousand" vs "ten thousands place") → CORRECT  
-- Clearly wrong factual answer → INCORRECT
+Is the student's answer correct?
+- "thousands" vs "Thousands" → TRUE
+- "ten thousand" vs "ten thousands place" → TRUE
+- Clearly wrong answer → FALSE
 
 Reply with ONLY the word TRUE or FALSE. Nothing else."""
+        try:
+            response = self._call_claude_api(prompt)
+            verdict = response['content'][0]['text'].strip().upper()
+            return verdict == 'TRUE'
+        except Exception:
+            return False
 
-    try:
-        response = self._call_claude_api(prompt)
-        verdict = response['content'][0]['text'].strip().upper()
-        return verdict == 'TRUE'
-    except Exception:
-        return False
     # ====================== MATH ======================
     def mark_math(self, question, student_answer):
         if not question.correct_answer or str(question.correct_answer).strip() == '':
@@ -271,7 +168,7 @@ Reply with ONLY the word TRUE or FALSE. Nothing else."""
                 'max_marks': question.max_marks,
                 'feedback': 'This question has no correct answer set.',
                 'is_correct': False,
-                'personalized_message': 'Contact your teacher.',
+                'personalized_message': 'Please contact your teacher.',
                 'study_tip': '',
                 'points_earned': [],
                 'points_missed': []
@@ -282,9 +179,9 @@ Reply with ONLY the word TRUE or FALSE. Nothing else."""
             return {
                 'marks_awarded': 0,
                 'max_marks': question.max_marks,
-                'feedback': 'No answer provided.',
+                'feedback': 'You did not write an answer.',
                 'is_correct': False,
-                'personalized_message': 'Try again – you can do it!',
+                'personalized_message': 'Try again — you can do it!',
                 'study_tip': 'Always write your final answer clearly.',
                 'points_earned': [],
                 'points_missed': []
@@ -292,15 +189,13 @@ Reply with ONLY the word TRUE or FALSE. Nothing else."""
 
         correct_str = str(question.correct_answer).strip()
 
-        # Fast numeric check
-        def clean_for_number(s):
+        def clean_num(s):
             return re.sub(r'[^\d.-]', '', s)
 
+        # Fast numeric check
         try:
-            student_num = float(clean_for_number(student_answer))
-            correct_num = float(clean_for_number(correct_str))
-            if abs(student_num - correct_num) < 0.01:
-                return self._correct_math_response(question,student_num)
+            if abs(float(clean_num(student_answer)) - float(clean_num(correct_str))) < 0.01:
+                return self._correct_math_response(question, float(clean_num(student_answer)))
         except ValueError:
             pass
 
@@ -308,183 +203,113 @@ Reply with ONLY the word TRUE or FALSE. Nothing else."""
         try:
             student_expr = sympify(student_answer, evaluate=False)
             correct_expr = sympify(correct_str, evaluate=False)
-
             if simplify(student_expr - correct_expr) == 0:
                 return self._correct_math_response(question, str(student_expr))
             if abs(N(student_expr) - N(correct_expr)) < 0.01:
-                return self._correct_math_response(question,f"≈ {N(student_expr):g}")
+                return self._correct_math_response(question, f"≈ {N(student_expr):g}")
         except (SympifyError, ValueError, TypeError):
             pass
 
-        # Incorrect → AI steps
+        # Incorrect — generate step-by-step solution
         solution_text = self._generate_math_solution(question, student_answer, correct_str)
-        personalized = random.choice([
-            "Close! Let's look at the steps.",
-            "Not quite — but you're learning fast!",
-            "Almost there — check the working.",
-            "Good try — review the solution below.",
-            "Let's fix this together — see the steps."
-        ])
-
         return {
             'marks_awarded': 0,
             'max_marks': question.max_marks,
-            'feedback': f'Incorrect. The correct answer is {correct_str}.',
+            'feedback': f'Not quite. The correct answer is {correct_str}.',
             'is_correct': False,
-            'personalized_message': personalized,
+            'personalized_message': random.choice([
+                "Close! Let us look at the steps together.",
+                "Not quite — but you are learning fast!",
+                "Almost there — check the working below.",
+                "Good try — review the steps below.",
+                "Let us fix this together — see the steps.",
+            ]),
             'study_tip': solution_text,
             'points_earned': [],
             'points_missed': [correct_str]
         }
 
     def _correct_math_response(self, question, display_value):
-        """Generate dynamic feedback for correct math answers using AI"""
-        
-        # Quick congratulations
+        grade = getattr(getattr(question, 'topic', None), 'grade', 7)
+        try:
+            study_tip = self._generate_math_study_tip(question, display_value, grade)
+        except Exception:
+            study_tip = "Keep practising similar problems to get even faster!"
         congrats = random.choice([
             "Spot on! Well done.",
-            "Perfect — excellent calculation!",
-            "Correct! You nailed it.",
-            "Great work — spot on!",
-            "Yes! That's exactly right."
+            "Perfect — great calculation!",
+            "Correct! You got it.",
+            "Great work!",
+            "Yes! That is exactly right.",
         ])
-        
-        # Generate contextual study tip using AI
-        try:
-            study_tip = self._generate_math_study_tip(question, display_value)
-        except:
-            study_tip = "Keep practicing similar problems to build mastery!"
-        
-        personalized = random.choice([
-            "You're really getting the hang of this!",
-            "Excellent — keep up the strong work!",
-            "Fantastic calculation!",
-            "Well done — proud of you!",
-            "Superb! On to the next one."
-        ])
-        
         return {
             'marks_awarded': question.max_marks,
             'max_marks': question.max_marks,
             'feedback': f"{congrats} {study_tip}",
             'is_correct': True,
-            'personalized_message': personalized,
+            'personalized_message': random.choice([
+                "You are really getting the hang of this!",
+                "Excellent — keep up the great work!",
+                "Fantastic calculation!",
+                "Well done — so proud of you!",
+                "Superb! On to the next one.",
+            ]),
             'study_tip': study_tip,
             'points_earned': [str(display_value)],
             'points_missed': []
         }
 
-    def _generate_math_study_tip(self, question, correct_answer):
-        """Generate AI study tip for correct math answer"""
-        prompt = f"""You are a Kenyan CBC math teacher giving a quick study tip to a student who just got this question RIGHT.
+    def _generate_math_study_tip(self, question, correct_answer, grade):
+        prompt = f"""You are a Kenyan CBC Grade {grade} maths teacher.
+A student just got this question RIGHT.
 
-    QUESTION: {question.question_text}
-    CORRECT ANSWER: {correct_answer}
+QUESTION: {question.question_text}
+CORRECT ANSWER: {correct_answer}
 
-    Write ONE sentence (max 15 words) with a helpful study tip related to this type of problem.
-
-    Examples:
-    - "Practice more substitution problems to build speed."
-    - "Remember: BODMAS order matters in complex expressions."
-    - "Tip: Always check your signs when working with negatives."
-
-    Write ONLY the tip — no preamble, no JSON, no extra text."""
-        
+Write ONE short sentence (max 12 words) as a helpful tip for this type of problem.
+Use simple words a Grade {grade} student understands.
+Write ONLY the tip. No extra text."""
         try:
             api_response = self._call_claude_api(prompt)
             return api_response['content'][0]['text'].strip()
-        except:
-            return "Keep practicing similar problems to build mastery!"
+        except Exception:
+            return "Keep practising similar problems to get even faster!"
 
     def _generate_math_solution(self, question, student_answer, correct_answer):
-        """Generate professional step-by-step solution for incorrect math answers"""
-        
-        # Get grade level for appropriate language
-        grade = getattr(question.topic, 'grade', 7)
-        
-        prompt = f"""You are a professional Kenyan CBC mathematics educator providing remedial feedback.
+        grade = getattr(getattr(question, 'topic', None), 'grade', 7)
+        prompt = f"""You are a Kenyan CBC Grade {grade} maths teacher helping a student who got a question WRONG.
 
-    STUDENT CONTEXT:
-    - Grade Level: {grade}
-    - Question Type: Mathematics
-    - CBC Curriculum Aligned
+QUESTION: {question.question_text}
+STUDENT ANSWER: {student_answer}
+CORRECT ANSWER: {correct_answer}
 
-    QUESTION:
-    {question.question_text}
-
-    STUDENT'S ANSWER:
-    {student_answer}
-
-    CORRECT ANSWER:
-    {correct_answer}
-
-    INSTRUCTIONS:
-    Generate a clear, step-by-step solution that:
-
-    1. SOLUTION STEPS:
-    • Break down the problem into 4-7 numbered steps
-    • Show ALL working clearly (formulas, substitutions, calculations)
-    • Use mathematically correct notation
-    • Adapt language complexity to Grade {grade} level
-
-    2. COMMON ERROR ANALYSIS:
-    • Identify the most likely mistake the student made
-    • Explain why this mistake occurs (conceptual gap, calculation error, etc.)
-    • One sentence only
-
-    3. KEY CONCEPT REMINDER:
-    • State the core mathematical principle/formula used
-    • One sentence only
-
-    4. ENCOURAGEMENT:
-    • One brief, genuine encouraging sentence
-    • Appropriate for Grade {grade} student
-
-    FORMAT REQUIREMENTS:
-    - Use clear headings: "SOLUTION:", "COMMON MISTAKE:", "KEY CONCEPT:", "NEXT STEPS:"
-    - Number each solution step (1., 2., 3., etc.)
-    - Use line breaks for readability
-    - Keep total response under 200 words
-    - Write in professional but accessible language
-    - NO JSON, NO code blocks, NO unnecessary commentary
-
-    TONE: Professional educator - clear, precise, supportive, curriculum-aligned."""
-
+Write a step-by-step solution in simple words a Grade {grade} student can follow.
+- Use short, clear sentences
+- Number each step (Step 1, Step 2, etc.)
+- Show the working clearly. 
+- At the end, say what mistake the student likely made in one short sentence. If working was shown, correct his working.
+- Keep it under 150 words total
+- NO complicated words — write like you are talking to a child
+- NO markdown, NO code blocks"""
         try:
             api_response = self._call_claude_api(prompt)
-            solution_text = api_response['content'][0]['text'].strip()
-            
-            # Clean up any markdown artifacts
-            solution_text = solution_text.replace('```', '').replace('**', '')
-            
-            return solution_text
-            
-        except Exception as e:
-            # Professional fallback
-            return f"""SOLUTION:
-    The correct answer is: {correct_answer}
+            return api_response['content'][0]['text'].strip().replace('```', '').replace('**', '')
+        except Exception:
+            return f"The correct answer is {correct_answer}. Check your steps and try again."
 
-    Please review your calculation steps carefully and check:
-    1. Did you use the correct formula?
-    2. Did you substitute values correctly?
-    3. Did you follow the order of operations (BODMAS)?
-
-    Your teacher will provide additional support if needed."""
-
-    # ====================== STRUCTURED / ESSAY ======================
+    # ====================== MCQ / STRUCTURED / ESSAY ======================
     def mark_with_ai(self, question, student_answer):
         if not getattr(settings, 'ANTHROPIC_API_KEY', None):
             return {
                 'marks_awarded': 0,
                 'max_marks': question.max_marks,
-                'feedback': 'AI grading is not configured (missing ANTHROPIC_API_KEY)',
+                'feedback': 'AI grading is not set up.',
                 'is_correct': False,
-                'personalized_message': 'Contact administrator',
+                'personalized_message': 'Please contact your teacher.',
                 'study_tip': '',
                 'points_earned': [],
                 'points_missed': []
             }
-
         try:
             prompt = self._build_marking_prompt(question, student_answer)
             working_image = getattr(self, 'working_image', None)
@@ -495,139 +320,136 @@ Reply with ONLY the word TRUE or FALSE. Nothing else."""
             return {
                 'marks_awarded': 0,
                 'max_marks': question.max_marks,
-                'feedback': f'AI grading failed → {str(e)[:120]}',
+                'feedback': 'Marking failed. Your answer was saved and a teacher will review it.',
                 'is_correct': False,
-                'personalized_message': 'Answer was recorded. A teacher will review it manually.',
+                'personalized_message': 'Do not worry — your answer was recorded.',
                 'study_tip': '',
                 'points_earned': [],
                 'points_missed': []
             }
 
     def _build_marking_prompt(self, question, student_answer):
-        base = f"""You are an experienced, fair and professional Kenyan CBC examiner marking Grade 7–9 answers.
-Your marking must feel realistic — similar to what a good school teacher or KCSE/CBC internal examiner would award.
-Parents and students expect accurate, trustworthy assessment — never inflate marks.
+        grade = getattr(getattr(question, 'topic', None), 'grade', 7)
+        has_passage = hasattr(question, 'passage') and question.passage is not None
 
-Strict rules — follow in this exact priority order:
+        base = f"""You are a Kenyan CBC teacher marking a Grade {grade} student's answer.
 
-1. Award marks based on real understanding and correct use of core concepts.
-2. Full marks (or close to full marks) only when all main required ideas are clearly present.
-3. Be fair but not overly generous. Borderline, vague, incomplete, superficial, one-sided or only partially
-   correct answers must receive partial or low marks, not full marks.
-4. You must be scientifically and factually accurate.
-   - Never mark correct answers as wrong because of model confusion or hallucination.
-   - Examples: Algae are non-flowering plants; conifers are non-flowering plants; mosses are non-flowering plants.
-   - Accept all scientifically correct answers, even if they are not word-for-word in the model answer.
-5. When the question asks for a specific number of points/factors/reasons, only consider the first N correct points.
-6. The same core idea explained in different words counts as one point only.
-7. Minor spelling, grammar or phrasing variations should be ignored unless they change the scientific/technical meaning.
-8. Extra correct and relevant detail can justify a slightly higher mark within the maximum, but never exceed the question's max marks.
-9. Wrong, irrelevant or contradictory information should reduce marks appropriately.
-10. Feedback must sound like a real Kenyan teacher: short (1–3 sentences), honest, professional, encouraging when deserved,
-    and constructive when marks are lost. Use simple, clear language. Also, take this seriously:Only provide a study tip if you are completely certain it is factually correct. 
-    If unsure, leave study_tip as an empty string.
-11. To help the learner improve, you may suggest 1–2 additional correct points they did not mention (put them in the study_tip field).
-12. When the student uses short bullet points/keywords for "state/list/name" questions, award marks if the points are correct
-    but gently encourage writing in full sentences in the feedback.
+LANGUAGE RULES — FOLLOW THESE STRICTLY:
+- Write in simple English that a Grade {grade} Kenyan student can understand
+- Use the same simple words found in Kenyan CBC textbooks
+- Never use difficult scientific or academic words the student has not seen in class
+- If you must use a subject-specific term, explain it simply right after in brackets
+  Good example: "egg-laying mammals (mammals that lay eggs)"
+  Bad example: "monotremes" with no explanation - Do not use terms not in CBC Kenyan Curriculum please.
+- Short sentences only — maximum 3 sentences for feedback
+- Talk directly to the student using "you" and "your"
+- Sound like a kind, encouraging teacher — not a textbook. Let there be a student - teacher connection
+- Never use these words: demonstrate, indicate, facilitate, pertain, enumerate, elaborate, subsequently, primarily, comprise, constitute, thus, hence, moreover, furthermore, utilize
+
+MARKING RULES:
+1. Award marks for real understanding — exact wording is not required
+2. Full marks only when all key ideas are clearly present
+3. Partial or vague answers get partial marks — be fair but honest and marks cannot be fractional or decimals. Just integers
+4. Accept any factually correct answer even if worded differently
+5. When the question asks for N points, only mark the first N correct ones
+6. The same idea said in different words counts as one point only
+7. Spelling mistakes are fine unless they change the meaning — if spelling is wrong, gently correct it
+8. Never go above the question's maximum marks
+9. Wrong or irrelevant information reduces marks
+10. If student writes jargon, notice it and obviously no marks. 
 """
-        # Add a specific rule for MCQs to prevent partial marks
+
+        # MCQ specific rules
         if question.question_type == 'mcq':
             base += """
-13. This is a multiple choice question (MCQ).
+MCQ RULES:
+- If the student chose the correct option: full marks
+- If wrong: 0 marks — no partial marks for MCQs
 
-    MARKING:
-    - If the selected option matches the correct option, award full marks.
-    - If it does not match, award 0 marks. Do not give partial marks for MCQs.
-
-    FEEDBACK:
-    Whether the student got it right or wrong, your feedback should:
-    1. Briefly confirm or correct their answer in one sentence.
-    2. Teach 1–3 closely related concepts that fit the Kenyan CBC syllabus for this topic.
-       For example:
-       - If the question is about earthing up, you can also mention mulching, weeding or pruning as related crop
-         management practices.
-       - If the question is about photosynthesis, you can also mention respiration and transpiration as related
-         plant processes.
-       - If the question is about the water cycle, you can also mention evaporation, condensation and precipitation.
-    3. Give one memorable fact or tip that helps them remember the concept.
-
-    Format:
-    - Start with a short “✅ Correct …” or “❌ Not quite …” sentence about their answer.
-    - Then briefly mention the related concepts (each with a short explanation).
-    - Finish with one “Remember:” study tip or simple mnemonic.
-
-    Keep the total feedback under about 6 sentences and sound like an engaging, knowledgeable Kenyan teacher
-    who wants the student to genuinely understand the topic.
+FEEDBACK FORMAT FOR MCQ:
+- Start with "✅ Correct! ..." or "❌ Not quite. The right answer is ..."
+- In 1–2 sentences explain WHY that answer is correct using simple words
+- Mention 1–2 related ideas from the CBC syllabus that connect to this topic
+- End with one short "Remember:" tip to help them recall the concept
+- Total: maximum 5 sentences, simple language, warm tone
 """
 
-        # Format Question Text with Options if MCQ
-        # Check if this is a passage/comprehension question
-        has_passage = hasattr(question, 'passage') and question.passage is not None
+        # Comprehension/passage rules
         if has_passage:
             base += f"""
+COMPREHENSION QUESTION RULES:
+This student is answering based on a reading passage. Here is the passage:
 
-CRITICAL — THIS IS A COMPREHENSION QUESTION:
-The student is answering based on this reading passage:
-
---- PASSAGE START ---
+--- PASSAGE ---
 {question.passage.content}
---- PASSAGE END ---
+--- END PASSAGE ---
 
 Your feedback MUST:
-1. Reference the specific line, sentence or paragraph in the passage where the answer is found
-2. Say things like "The answer is in paragraph 2..." or "The passage states in line 3..."
-3. NOT give generic study tips about the topic
-4. NOT explain background knowledge — only refer to what the passage says
-5. Keep feedback to 2 sentences maximum
+- Point to where in the passage the answer is found — say "The passage says in paragraph..." or "Look at line..."
+- NOT give general topic knowledge — only refer to the passage
+- Keep feedback to 2 sentences maximum
 """
 
-        # Format Question Text with Options if MCQ
+        # Build question text
         q_text = question.question_text
         if question.question_type == 'mcq':
             q_text += f"\n\nOPTIONS:\nA: {question.option_a}\nB: {question.option_b}\nC: {question.option_c}\nD: {question.option_d}"
-            
+
         base += f"\n\nQUESTION:\n{q_text}"
 
-        # Format Student Answer
+        # Build student answer text
         s_ans = str(student_answer).strip()
         if question.question_type == 'mcq':
             s_ans_upper = s_ans.upper()
-            options_map = {'A': question.option_a, 'B': question.option_b, 'C': question.option_c, 'D': question.option_d}
+            options_map = {
+                'A': question.option_a, 'B': question.option_b,
+                'C': question.option_c, 'D': question.option_d
+            }
             if s_ans_upper in options_map:
                 s_ans = f"Option {s_ans_upper}: {options_map[s_ans_upper]}"
-                
+
         base += f"\n\nSTUDENT ANSWER:\n{s_ans}"
 
-        # Format Expected Answer
+        # Build expected answer text
         if question.question_type == 'mcq':
             correct_letter = str(question.correct_answer).strip().upper()
-            options_map = {'A': question.option_a, 'B': question.option_b, 'C': question.option_c, 'D': question.option_d}
+            options_map = {
+                'A': question.option_a, 'B': question.option_b,
+                'C': question.option_c, 'D': question.option_d
+            }
             correct_text = options_map.get(correct_letter, '')
-            base += f"\n\nEXPECTED CORRECT ANSWER:\nOption {correct_letter}: {correct_text}"
-            
+            base += f"\n\nCORRECT ANSWER:\nOption {correct_letter}: {correct_text}"
             if getattr(question, 'explanation', None):
-                base += f"\nEXPLANATION NOTE: {question.explanation}"
+                base += f"\nEXPLANATION: {question.explanation}"
         else:
             if getattr(question, 'marking_scheme', None):
-                points_text = "\n".join([f"- {p['description']} ({p['marks']} marks)" for p in question.marking_scheme.get('points', [])])
+                points_text = "\n".join([
+                    f"- {p['description']} ({p['marks']} marks)"
+                    for p in question.marking_scheme.get('points', [])
+                ])
                 base += f"\n\nMARKING SCHEME:\n{points_text}"
             else:
-                base += f"\n\nEXPECTED UNDERSTANDING / KEY ACCEPTABLE POINTS:\n{question.correct_answer}"
+                base += f"\n\nEXPECTED ANSWER / KEY POINTS:\n{question.correct_answer}"
+
+        # Study tip instruction
+        if has_passage:
+            study_tip_instruction = "Point to the specific line or paragraph in the passage where the answer is found. Do NOT repeat the feedback."
+        else:
+            study_tip_instruction = "One NEW helpful tip not already in the feedback — a simple memory trick, related idea, or exam tip. Only include if you are 100% sure it is factually correct. If not sure, leave empty."
 
         base += f"""
 
 MAX MARKS: {question.max_marks}
 
-Return ONLY valid JSON — nothing else before or after:
+Return ONLY valid JSON — no text before or after:
 {{
-  "marks_awarded": integer between 0 and {question.max_marks} inclusive,
-  "feedback": "1–3 short sentences in realistic Kenyan teacher tone explaining the concept",
-  "personalized_message": "short encouraging or motivating sentence",
-  "study_tip": "For comprehension questions: cite the exact line/paragraph from the passage. For other questions: brief next-step advice.",
-  "points_earned": ["short description of awarded point 1", "short description of awarded point 2"],
-  "points_missed": ["short description of missing/weak/incorrect point 1"]
+  "marks_awarded": integer between 0 and {question.max_marks},
+  "feedback": "1–3 short simple sentences in warm Kenyan teacher tone. Let student feel the student - teacher connection",
+  "personalized_message": "one short encouraging sentence directed at the student",
+  "study_tip": "{study_tip_instruction}",
+  "points_earned": ["what the student got right — in simple words"],
+  "points_missed": ["what the student missed — in simple words"]
 }}"""
-
 
         return base
 
@@ -646,7 +468,7 @@ Return ONLY valid JSON — nothing else before or after:
                     },
                     {
                         "type": "text",
-                        "text": prompt + "\n\nThe student has also provided an image of their working above. Analyse their steps and include feedback on their method in your response."
+                        "text": prompt + "\n\nThe student has also shared a photo of their working above. Look at their steps and include feedback on their method in your response."
                     }
                 ]
             else:
@@ -660,13 +482,13 @@ Return ONLY valid JSON — nothing else before or after:
                     'anthropic-version': '2023-06-01'
                 },
                 json={
-                    'model': 'claude-sonnet-4-20250514',
+                    'model': 'claude-haiku-4-5-20251001',
                     'max_tokens': 1000,
                     'messages': [{'role': 'user', 'content': content}]
                 },
                 timeout=20
             )
-            response.raise_for_status()  # ← raises on 4xx/5xx
+            response.raise_for_status()
             return response.json()
         except requests.Timeout:
             raise Exception("Claude API timed out after 20s")
@@ -681,7 +503,6 @@ Return ONLY valid JSON — nothing else before or after:
             content = content.replace('```json', '').replace('```', '').strip()
             result = json.loads(content)
             marks = min(result.get('marks_awarded', 0), max_marks)
-
             return {
                 'marks_awarded': marks,
                 'max_marks': max_marks,
@@ -692,11 +513,11 @@ Return ONLY valid JSON — nothing else before or after:
                 'points_earned': result.get('points_earned', []),
                 'points_missed': result.get('points_missed', [])
             }
-        except:
+        except Exception:
             return {
                 'marks_awarded': 0,
                 'max_marks': max_marks,
-                'feedback': 'Error parsing feedback',
+                'feedback': 'Could not read the marking result. Your answer was saved.',
                 'is_correct': False,
                 'personalized_message': '',
                 'study_tip': '',
@@ -706,30 +527,28 @@ Return ONLY valid JSON — nothing else before or after:
 
 
 def grade_answer(question, student_answer, working_image=None):
-    """Grade any question type — handles multi-part questions"""
+    """Grade any question — handles multi-part questions too"""
     grader = AIGrader()
     grader.working_image = working_image
-    
-    # Check if question has parts
+
     parts = list(question.parts.all())
     if not parts:
         return grader.mark_question(question, student_answer)
-    
-    # Grade each part separately
+
+    # Multi-part grading
     total_marks = 0
     total_max = 0
     all_feedback = []
     all_points_earned = []
     all_points_missed = []
-    
+
     for part in parts:
         part_answer = ""
         if isinstance(student_answer, dict):
             part_answer = student_answer.get(str(part.id), "")
         else:
             part_answer = student_answer
-        
-        # Create a temporary object to grade with
+
         class PartProxy:
             def __init__(self, part):
                 self.id = part.id
@@ -744,15 +563,16 @@ def grade_answer(question, student_answer, working_image=None):
                 self.option_c = part.option_c
                 self.option_d = part.option_d
                 self.topic = part.parent_question.topic
+                self.passage = None
                 self.worked_solution = None
-        
+
         part_result = grader.mark_question(PartProxy(part), part_answer)
         total_marks += part_result['marks_awarded']
         total_max += part_result['max_marks']
         all_feedback.append(f"({part.part_label}) {part_result['feedback']}")
         all_points_earned.extend(part_result.get('points_earned', []))
         all_points_missed.extend(part_result.get('points_missed', []))
-    
+
     return {
         'marks_awarded': total_marks,
         'max_marks': total_max,
