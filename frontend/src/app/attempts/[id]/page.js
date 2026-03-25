@@ -569,7 +569,16 @@ export default function AttemptResultsPage() {
                     <p className="text-sm font-semibold mb-1">
                       {item.is_correct ? "✓ Correct!" : "Feedback:"}
                     </p>
-                    <p className="text-sm">{item.feedback}</p>
+                    <div
+                      className="text-sm"
+                      ref={(el) => {
+                        if (el && window.MathJax)
+                          window.MathJax.typesetPromise([el]);
+                      }}
+                      dangerouslySetInnerHTML={{
+                        __html: item.feedback.replace(/\n/g, "<br/>"),
+                      }}
+                    />
 
                     {/* Personalized Message */}
                     {item.personalized_message && (
@@ -634,12 +643,28 @@ export default function AttemptResultsPage() {
                       <p className="text-sm font-semibold text-gray-900 mb-1">
                         Correct Answer:
                       </p>
-                      <p className="text-gray-700">{item.correct_answer}</p>
+                      <div
+                        className="text-gray-700"
+                        ref={(el) => {
+                          if (el && window.MathJax)
+                            window.MathJax.typesetPromise([el]);
+                        }}
+                        dangerouslySetInnerHTML={{
+                          __html: item.correct_answer.replace(/\n/g, "<br/>"),
+                        }}
+                      />
                       {item.explanation && (
                         <div className="mt-2 pt-2 border-t border-gray-200">
-                          <p className="text-sm text-gray-600">
-                            {item.explanation}
-                          </p>
+                          <div
+                            className="text-sm text-gray-600"
+                            ref={(el) => {
+                              if (el && window.MathJax)
+                                window.MathJax.typesetPromise([el]);
+                            }}
+                            dangerouslySetInnerHTML={{
+                              __html: item.explanation.replace(/\n/g, "<br/>"),
+                            }}
+                          />
                         </div>
                       )}
                     </div>
