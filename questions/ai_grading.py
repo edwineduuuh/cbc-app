@@ -290,7 +290,10 @@ Write a step-by-step solution in simple words a Grade {grade} student can follow
 - At the end, say what mistake the student likely made in one short sentence. If working was shown, correct his working.
 - Keep it under 150 words total
 - NO complicated words — write like you are talking to a child
-- NO markdown, NO code blocks"""
+- NO markdown, NO code blocks
+- Use LaTeX for ALL numbers and calculations: inline use $...$ and display use $$...$$
+- Example: "Step 1: Subtract $7540 - 2465 = 5075$"
+"""
         try:
             api_response = self._call_claude_api(prompt)
             return api_response['content'][0]['text'].strip().replace('```', '').replace('**', '')
