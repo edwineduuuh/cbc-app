@@ -536,8 +536,7 @@ export default function AttemptResultsPage() {
                       Your Answer:
                     </p>
                     <div className="text-blue-800">
-                      // In AttemptResultsPage, replace the student answer
-                      rendering:
+                      
                       {!item.student_answer ? (
                         "(No answer provided)"
                       ) : typeof item.student_answer === "object" ? (
@@ -637,7 +636,7 @@ export default function AttemptResultsPage() {
                     )}
                   </div>
 
-                  {item.points_missed.map((point, i) => (
+                  {/* {item.points_missed.map((point, i) => (
                     <li
                       key={i}
                       ref={(el) => {
@@ -646,7 +645,7 @@ export default function AttemptResultsPage() {
                       }}
                       dangerouslySetInnerHTML={{ __html: point }}
                     />
-                  ))}
+                  ))} */}
 
                   {item.points_missed && item.points_missed.length > 0 && (
                     <div className="bg-orange-50 p-3 rounded-lg">

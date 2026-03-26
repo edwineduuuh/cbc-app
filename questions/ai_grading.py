@@ -464,11 +464,7 @@ MAX MARKS: {question.max_marks}
 Return ONLY valid JSON — no text before or after:
 {{
   "marks_awarded": integer between 0 and {question.max_marks},
-  "feedback": "4–6 short simple sentences in warm Kenyan teacher tone. Let student feel the student - teacher connection
-  First acknowledge exactly what the student got RIGHT and why it earned marks. 
-  Then clearly explain each mistake — what was wrong, WHY it was wrong, and what the correct concept is. 
-  Use a warm but precise teacher tone. Reference the specific CBC topic/concept by name.
- Make the student feel guided, not just judged.",
+  "feedback": "Write 4-6 sentences. (1) Start by acknowledging specifically what the student got right and why. (2) For each wrong or missing point, explicitly state the CORRECT answer — do not just say 'you need to explain more', actually tell them WHAT the correct explanation is. (3) Give the full correct answer so the student walks away knowing exactly what they should have written. Warm teacher tone but be direct and educational.",
   "personalized_message": "one short encouraging sentence directed at the student",
   "study_tip": "{study_tip_instruction}",
   "points_earned": ["what the student got right — in simple words"],
