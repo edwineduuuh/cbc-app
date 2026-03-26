@@ -200,15 +200,16 @@ Reply with ONLY the word TRUE or FALSE. Nothing else."""
             except ValueError:
                 pass
 
-        # Symbolic comparison
+        # Symbolic comparison — handles plain text AND LaTeX from MathLive
         try:
-            student_expr = sympify(student_answer, evaluate=False)
-            correct_expr = sympify(correct_str, evaluate=False)
-            if simplify(student_expr - correct_expr) == 0:
-                return self._correct_math_response(question, str(student_expr))
-            if abs(N(student_expr) - N(correct_expr)) < 0.01:
-                return self._correct_math_response(question, f"≈ {N(student_expr):g}")
-        except (SympifyError, ValueError, TypeError):
+            student_expr = self._parse_answer(student_answer)
+            correct_expr = self._parse_answer(correct_str)
+            if student_expr is not None and correct_expr is not None:
+                if simplify(student_expr - correct_expr) == 0:
+                    return self._correct_math_response(question, str(student_expr))
+                if abs(N(student_expr) - N(correct_expr)) < 0.01:
+                    return self._correct_math_response(question, f"≈ {N(student_expr):g}")
+        except Exception:
             pass
 
         # Incorrect — generate step-by-step solution
@@ -229,7 +230,19 @@ Reply with ONLY the word TRUE or FALSE. Nothing else."""
             'points_earned': [],
             'points_missed': [correct_str]
         }
-
+    
+    def _parse_answer(self, s):
+        """Try plain sympy first, fall back to LaTeX parser"""
+        from sympy.parsing.latex import parse_latex
+        s = str(s).strip().strip('$')
+        try:
+            return sympify(s, evaluate=False)
+        except Exception:
+            try:
+                return parse_latex(s)
+            except Exception:
+                return None
+            
     def _correct_math_response(self, question, display_value):
         grade = getattr(getattr(question, 'topic', None), 'grade', 7)
         try:
