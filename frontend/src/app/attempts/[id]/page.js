@@ -536,7 +536,6 @@ export default function AttemptResultsPage() {
                       Your Answer:
                     </p>
                     <div className="text-blue-800">
-                      
                       {!item.student_answer ? (
                         "(No answer provided)"
                       ) : typeof item.student_answer === "object" ? (
@@ -602,7 +601,13 @@ export default function AttemptResultsPage() {
                           window.MathJax.typesetPromise([el]);
                       }}
                       dangerouslySetInnerHTML={{
-                        __html: item.feedback.replace(/\n/g, "<br/>"),
+                        __html: item.feedback
+                          .replace(
+                            /\(([a-z])\)\s*/g,
+                            "<br/><strong>Part ($1):</strong> ",
+                          )
+                          .replace(/^<br\/>/, "")
+                          .replace(/\n/g, "<br/>"),
                       }}
                     />
 
