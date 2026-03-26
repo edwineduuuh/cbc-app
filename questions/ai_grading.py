@@ -464,7 +464,11 @@ MAX MARKS: {question.max_marks}
 Return ONLY valid JSON — no text before or after:
 {{
   "marks_awarded": integer between 0 and {question.max_marks},
-  "feedback": "1–3 short simple sentences in warm Kenyan teacher tone. Let student feel the student - teacher connection",
+  "feedback": "4–6 short simple sentences in warm Kenyan teacher tone. Let student feel the student - teacher connection
+  First acknowledge exactly what the student got RIGHT and why it earned marks. 
+  Then clearly explain each mistake — what was wrong, WHY it was wrong, and what the correct concept is. 
+  Use a warm but precise teacher tone. Reference the specific CBC topic/concept by name.
+ Make the student feel guided, not just judged.",
   "personalized_message": "one short encouraging sentence directed at the student",
   "study_tip": "{study_tip_instruction}",
   "points_earned": ["what the student got right — in simple words"],
@@ -487,7 +491,7 @@ Return ONLY valid JSON — no text before or after:
 
         payload = {
             'model': 'claude-haiku-4-5-20251001',
-            'max_tokens': 1000,
+            'max_tokens': 2000,
             'messages': [{'role': 'user', 'content': content}]
         }
         headers = {

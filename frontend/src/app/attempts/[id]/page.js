@@ -536,6 +536,8 @@ export default function AttemptResultsPage() {
                       Your Answer:
                     </p>
                     <div className="text-blue-800">
+                      // In AttemptResultsPage, replace the student answer
+                      rendering:
                       {!item.student_answer ? (
                         "(No answer provided)"
                       ) : typeof item.student_answer === "object" ? (
@@ -546,30 +548,38 @@ export default function AttemptResultsPage() {
                               className="flex items-start gap-2 mb-1"
                             >
                               <span>•</span>
-                              <div
-                                ref={(el) => {
-                                  if (el && window.MathJax)
-                                    window.MathJax.typesetPromise([el]);
-                                }}
-                                dangerouslySetInnerHTML={{
-                                  __html: `$${String(ans)}$`,
-                                }}
-                              />
+                              {item.question_type === "math" ? (
+                                <div
+                                  ref={(el) => {
+                                    if (el && window.MathJax)
+                                      window.MathJax.typesetPromise([el]);
+                                  }}
+                                  dangerouslySetInnerHTML={{
+                                    __html: `$${String(ans)}$`,
+                                  }}
+                                />
+                              ) : (
+                                <span>{String(ans)}</span>
+                              )}
                             </div>
                           ),
                         )
                       ) : (
                         <div className="flex items-start gap-2 mb-1">
                           <span>•</span>
-                          <div
-                            ref={(el) => {
-                              if (el && window.MathJax)
-                                window.MathJax.typesetPromise([el]);
-                            }}
-                            dangerouslySetInnerHTML={{
-                              __html: `$${item.student_answer}$`,
-                            }}
-                          />
+                          {item.question_type === "math" ? (
+                            <div
+                              ref={(el) => {
+                                if (el && window.MathJax)
+                                  window.MathJax.typesetPromise([el]);
+                              }}
+                              dangerouslySetInnerHTML={{
+                                __html: `$${item.student_answer}$`,
+                              }}
+                            />
+                          ) : (
+                            <span>{item.student_answer}</span>
+                          )}
                         </div>
                       )}
                     </div>
