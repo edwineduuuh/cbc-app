@@ -52,39 +52,29 @@ function useTimer(totalSeconds, onExpire) {
 }
 function MathInput({ value, onChange }) {
   const mfRef = useRef(null);
-  const isInternalChange = useRef(false);
 
   useEffect(() => {
     import("mathlive").then(() => {
       const el = mfRef.current;
       if (!el) return;
 
-      const handleChange = () => {
-        const val = el.value;
-        if (val !== undefined) {
-          isInternalChange.current = true;
+      let lastValue = "";
+
+      const interval = setInterval(() => {
+        const val = el.value ?? "";
+        if (val !== lastValue) {
+          lastValue = val;
           onChange(val);
         }
-      };
+      }, 200);
 
-      el.addEventListener("input", handleChange);
-      el.addEventListener("change", handleChange);
-      el.addEventListener("focusout", handleChange);
-
-      return () => {
-        el.removeEventListener("input", handleChange);
-        el.removeEventListener("change", handleChange);
-        el.removeEventListener("focusout", handleChange);
-      };
+      return () => clearInterval(interval);
     });
   }, [onChange]);
 
   useEffect(() => {
     const el = mfRef.current;
-    if (!el || isInternalChange.current) {
-      isInternalChange.current = false;
-      return;
-    }
+    if (!el) return;
     if (el.value !== value) el.value = value ?? "";
   }, [value]);
 
