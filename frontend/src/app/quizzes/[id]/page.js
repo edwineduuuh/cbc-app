@@ -885,7 +885,8 @@ export default function QuizTakePage({ params }) {
  const answeredCount = Object.values(answers).filter((v) => {
    if (v === undefined || v === null) return false;
    if (typeof v === "object") return Object.keys(v).length > 0;
-   return String(v).trim() !== "";
+   const s = String(v).trim();
+   return s !== "" && s !== "\\placeholder{}";
  }).length;
   const unanswered = totalQ - answeredCount;
   const progressPct = totalQ > 0 ? (answeredCount / totalQ) * 100 : 0;
@@ -961,8 +962,12 @@ export default function QuizTakePage({ params }) {
           answer = answer.trim();
         }
 
-        if (typeof answer === "string" && answer.length > 0) {
-          answersDict[q.id] = answer;
+        if (
+          typeof answer === "string" &&
+          answer.trim().length > 0 &&
+          answer.trim() !== "\\placeholder{}"
+        ) {
+          answersDict[q.id] = answer.trim();
         } else if (
           typeof answer === "object" &&
           answer !== null &&
