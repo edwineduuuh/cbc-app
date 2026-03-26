@@ -481,7 +481,7 @@ MAX MARKS: {question.max_marks}
 Return ONLY valid JSON — no text before or after:
 {{
   "marks_awarded": integer between 0 and {question.max_marks},
-  "feedback": "Write 4-6 sentences. (1) Start by acknowledging specifically what the student got right and why. (2) For each wrong or missing point, explicitly state the CORRECT answer — do not just say 'you need to explain more', actually tell them WHAT the correct explanation is. (3) Give the full correct answer so the student walks away knowing exactly what they should have written. Warm teacher tone but be direct and educational.",
+  "feedback": "Write 4-6 sentences. (1) Start by acknowledging specifically what the student got right and why. (2) For each wrong or missing point, explicitly state the CORRECT answer. (3) Give the full correct answer so the student walks away knowing exactly what they should have written. Warm teacher tone but be direct and educational.",
   "personalized_message": "one short encouraging sentence directed at the student",
   "study_tip": "{study_tip_instruction}",
   "points_earned": ["what the student got right — in simple words"],
