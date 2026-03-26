@@ -347,147 +347,137 @@ Write a step-by-step solution in simple words a Grade {grade} student can follow
                 'points_earned': [],
                 'points_missed': []
             }
-
     def _build_marking_prompt(self, question, student_answer):
-        grade = getattr(getattr(question, 'topic', None), 'grade', 7)
-        has_passage = hasattr(question, 'passage') and question.passage is not None
+            grade = getattr(getattr(question, 'topic', None), 'grade', 7)
+            has_passage = hasattr(question, 'passage') and question.passage is not None
 
-        base = f"""You are a Kenyan CBC teacher marking a Grade {grade} student's answer.
+            base = f"""You are a Kenyan CBC teacher marking a Grade {grade} student's answer.
 
-LANGUAGE RULES — FOLLOW THESE STRICTLY:
-- Write in simple English that a Grade {grade} Kenyan student can understand
-- Use the same simple words found in Kenyan CBC textbooks
-- Never use difficult scientific or academic words the student has not seen in class
-- If you must use a subject-specific term, explain it simply right after in brackets
-  Good example: "egg-laying mammals (mammals that lay eggs)"
-  Bad example: "monotremes" with no explanation - Do not use terms not in CBC Kenyan Curriculum please.
-- Short sentences only — maximum 3 sentences for feedback
-- Talk directly to the student using "you" and "your"
-- Sound like a kind, encouraging teacher — not a textbook. Let there be a student - teacher connection
-- Never use these words: demonstrate, indicate, facilitate, pertain, enumerate, elaborate, subsequently, primarily, comprise, constitute, thus, hence, moreover, furthermore, utilize
+    LANGUAGE RULES — FOLLOW THESE STRICTLY:
+    - Write in simple English that a Grade {grade} Kenyan student can understand
+    - Use the same simple words found in Kenyan CBC textbooks
+    - Never use difficult scientific or academic words the student has not seen in class
+    - If you must use a subject-specific term, explain it simply right after in brackets
+    Good example: "egg-laying mammals (mammals that lay eggs)"
+    Bad example: "monotremes" with no explanation - Do not use terms not in CBC Kenyan Curriculum please.
+    - Short sentences only — maximum 3 sentences for feedback
+    - Talk directly to the student using "you" and "your"
+    - Sound like a kind, encouraging teacher — not a textbook. Let there be a student - teacher connection
+    - Never use these words: demonstrate, indicate, facilitate, pertain, enumerate, elaborate, subsequently, primarily, comprise, constitute, thus, hence, moreover, furthermore, utilize
 
-MARKING RULES:
-1. Award marks for real understanding — exact wording is not required
-2. Full marks only when all key ideas are clearly present
-3. Partial or vague answers get partial marks — be fair but honest and marks cannot be fractional or decimals. Just integers
-4. Accept any factually correct answer even if worded differently
-5. When the question asks for N points, only mark the first N correct ones
-6. The same idea said in different words counts as one point only
-7. Spelling mistakes are fine unless they change the meaning — if spelling is wrong, gently correct it
-8. Never go above the question's maximum marks
-9. Wrong or irrelevant information reduces marks
-10. If student writes jargon, notice it and obviously no marks. 
+    MARKING RULES:
+    1. Award marks for real understanding — exact wording is not required
+    2. Full marks only when all key ideas are clearly present
+    3. Partial or vague answers get partial marks — be fair but honest and marks cannot be fractional or decimals. Just integers
+    4. Accept any factually correct answer even if worded differently
+    5. When the question asks for N points, only mark the first N correct ones
+    6. The same idea said in different words counts as one point only
+    7. Spelling mistakes are fine unless they change the meaning — if spelling is wrong, gently correct it
+    8. Never go above the question's maximum marks
+    9. Wrong or irrelevant information reduces marks
+    10. If student writes jargon, notice it and obviously no marks. 
 
-FEEDBACK INSTRUCTIONS:
-- Write 4-6 sentences of real, specific feedback
-- First: acknowledge exactly what the student got RIGHT and why it earned marks
-- Then: for each wrong or missing point, give the ACTUAL correct answer — not "you need to explain more" but literally WHAT they should have written
-- The student must walk away knowing exactly what the full correct answer looks like
-- Warm teacher tone but direct and educational
+    FEEDBACK INSTRUCTIONS:
+    - Write 4-6 sentences of real, specific feedback
+    - First: acknowledge exactly what the student got RIGHT and why it earned marks
+    - Then: for each wrong or missing point, give the ACTUAL correct answer — not "you need to explain more" but literally WHAT they should have written
+    - The student must walk away knowing exactly what the full correct answer looks like
+    - Warm teacher tone but direct and educational
+    """
 
-Return ONLY valid JSON — no text before or after:
-{{
-  "marks_awarded": integer between 0 and {question.max_marks},
-  "feedback": "your 4-6 sentence feedback here",
-  "personalized_message": "one short encouraging sentence directed at the student",
-  "study_tip": "{study_tip_instruction}",
-  "points_earned": ["what the student got right — in simple words"],
-  "points_missed": ["what the student missed — in simple words"]
-}}
-"""
+            # MCQ specific rules
+            if question.question_type == 'mcq':
+                base += """
+    MCQ RULES:
+    - If the student chose the correct option: full marks
+    - If wrong: 0 marks — no partial marks for MCQs
 
-        # MCQ specific rules
-        if question.question_type == 'mcq':
-            base += """
-MCQ RULES:
-- If the student chose the correct option: full marks
-- If wrong: 0 marks — no partial marks for MCQs
+    FEEDBACK FORMAT FOR MCQ:
+    - Start with "✅ Correct! ..." or "❌ Not quite. The right answer is ..."
+    - In 1–2 sentences explain WHY that answer is correct using simple words
+    - Mention 1–2 related ideas from the CBC syllabus that connect to this topic
+    - End with one short "Remember:" tip to help them recall the concept
+    - Total: maximum 5 sentences, simple language, warm tone
+    """
 
-FEEDBACK FORMAT FOR MCQ:
-- Start with "✅ Correct! ..." or "❌ Not quite. The right answer is ..."
-- In 1–2 sentences explain WHY that answer is correct using simple words
-- Mention 1–2 related ideas from the CBC syllabus that connect to this topic
-- End with one short "Remember:" tip to help them recall the concept
-- Total: maximum 5 sentences, simple language, warm tone
-"""
+            # Comprehension/passage rules
+            if has_passage:
+                base += f"""
+    COMPREHENSION QUESTION RULES:
+    This student is answering based on a reading passage. Here is the passage:
 
-        # Comprehension/passage rules
-        if has_passage:
-            base += f"""
-COMPREHENSION QUESTION RULES:
-This student is answering based on a reading passage. Here is the passage:
+    --- PASSAGE ---
+    {question.passage.content}
+    --- END PASSAGE ---
 
---- PASSAGE ---
-{question.passage.content}
---- END PASSAGE ---
+    Your feedback MUST:
+    - Point to where in the passage the answer is found — say "The passage says in paragraph..." or "Look at line..."
+    - NOT give general topic knowledge — only refer to the passage
+    - Keep feedback to 2 sentences maximum
+    """
 
-Your feedback MUST:
-- Point to where in the passage the answer is found — say "The passage says in paragraph..." or "Look at line..."
-- NOT give general topic knowledge — only refer to the passage
-- Keep feedback to 2 sentences maximum
-"""
+            # Build question text
+            q_text = question.question_text
+            if question.question_type == 'mcq':
+                q_text += f"\n\nOPTIONS:\nA: {question.option_a}\nB: {question.option_b}\nC: {question.option_c}\nD: {question.option_d}"
 
-        # Build question text
-        q_text = question.question_text
-        if question.question_type == 'mcq':
-            q_text += f"\n\nOPTIONS:\nA: {question.option_a}\nB: {question.option_b}\nC: {question.option_c}\nD: {question.option_d}"
+            base += f"\n\nQUESTION:\n{q_text}"
 
-        base += f"\n\nQUESTION:\n{q_text}"
+            # Build student answer text
+            s_ans = str(student_answer).strip()
+            if question.question_type == 'mcq':
+                s_ans_upper = s_ans.upper()
+                options_map = {
+                    'A': question.option_a, 'B': question.option_b,
+                    'C': question.option_c, 'D': question.option_d
+                }
+                if s_ans_upper in options_map:
+                    s_ans = f"Option {s_ans_upper}: {options_map[s_ans_upper]}"
 
-        # Build student answer text
-        s_ans = str(student_answer).strip()
-        if question.question_type == 'mcq':
-            s_ans_upper = s_ans.upper()
-            options_map = {
-                'A': question.option_a, 'B': question.option_b,
-                'C': question.option_c, 'D': question.option_d
-            }
-            if s_ans_upper in options_map:
-                s_ans = f"Option {s_ans_upper}: {options_map[s_ans_upper]}"
+            base += f"\n\nSTUDENT ANSWER:\n{s_ans}"
 
-        base += f"\n\nSTUDENT ANSWER:\n{s_ans}"
-
-        # Build expected answer text
-        if question.question_type == 'mcq':
-            correct_letter = str(question.correct_answer).strip().upper()
-            options_map = {
-                'A': question.option_a, 'B': question.option_b,
-                'C': question.option_c, 'D': question.option_d
-            }
-            correct_text = options_map.get(correct_letter, '')
-            base += f"\n\nCORRECT ANSWER:\nOption {correct_letter}: {correct_text}"
-            if getattr(question, 'explanation', None):
-                base += f"\nEXPLANATION: {question.explanation}"
-        else:
-            if getattr(question, 'marking_scheme', None):
-                points_text = "\n".join([
-                    f"- {p['description']} ({p['marks']} marks)"
-                    for p in question.marking_scheme.get('points', [])
-                ])
-                base += f"\n\nMARKING SCHEME:\n{points_text}"
+            # Build expected answer text
+            if question.question_type == 'mcq':
+                correct_letter = str(question.correct_answer).strip().upper()
+                options_map = {
+                    'A': question.option_a, 'B': question.option_b,
+                    'C': question.option_c, 'D': question.option_d
+                }
+                correct_text = options_map.get(correct_letter, '')
+                base += f"\n\nCORRECT ANSWER:\nOption {correct_letter}: {correct_text}"
+                if getattr(question, 'explanation', None):
+                    base += f"\nEXPLANATION: {question.explanation}"
             else:
-                base += f"\n\nEXPECTED ANSWER / KEY POINTS:\n{question.correct_answer}"
+                if getattr(question, 'marking_scheme', None):
+                    points_text = "\n".join([
+                        f"- {p['description']} ({p['marks']} marks)"
+                        for p in question.marking_scheme.get('points', [])
+                    ])
+                    base += f"\n\nMARKING SCHEME:\n{points_text}"
+                else:
+                    base += f"\n\nEXPECTED ANSWER / KEY POINTS:\n{question.correct_answer}"
 
-        # Study tip instruction
-        if has_passage:
-            study_tip_instruction = "Point to the specific line or paragraph in the passage where the answer is found. Do NOT repeat the feedback."
-        else:
-            study_tip_instruction = "One NEW helpful tip not already in the feedback — a simple memory trick, related idea, or exam tip. Only include if you are 100% sure it is factually correct. If not sure, leave empty."
+            # Study tip instruction
+            if has_passage:
+                study_tip_instruction = "Point to the specific line or paragraph in the passage where the answer is found. Do NOT repeat the feedback."
+            else:
+                study_tip_instruction = "One NEW helpful tip not already in the feedback — a simple memory trick, related idea, or exam tip. Only include if you are 100% sure it is factually correct. If not sure, leave empty."
 
-        base += f"""
+            base += f"""
 
-MAX MARKS: {question.max_marks}
+    MAX MARKS: {question.max_marks}
 
-Return ONLY valid JSON — no text before or after:
-{{
-  "marks_awarded": integer between 0 and {question.max_marks},
-  "feedback": "Write 4-6 sentences. (1) Start by acknowledging specifically what the student got right and why. (2) For each wrong or missing point, explicitly state the CORRECT answer. (3) Give the full correct answer so the student walks away knowing exactly what they should have written. Warm teacher tone but be direct and educational.",
-  "personalized_message": "one short encouraging sentence directed at the student",
-  "points_earned": ["what the student got right — in simple words"],
-  "points_missed": ["what the student missed — in simple words"]
-}}"""
+    Return ONLY valid JSON — no text before or after:
+    {{
+    "marks_awarded": integer between 0 and {question.max_marks},
+    "feedback": "Write 4-6 sentences. (1) Start by acknowledging specifically what the student got right and why. (2) For each wrong or missing point, explicitly state the CORRECT answer. (3) Give the full correct answer so the student walks away knowing exactly what they should have written. Warm teacher tone but be direct and educational.",
+    "personalized_message": "one short encouraging sentence directed at the student",
+    "study_tip": "{study_tip_instruction}",
+    "points_earned": ["what the student got right — in simple words"],
+    "points_missed": ["what the student missed — in simple words"]
+    }}"""
 
-        return base
+            return base
 
     def _call_claude_api(self, prompt, working_image=None):
         import requests
