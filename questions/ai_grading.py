@@ -377,6 +377,23 @@ MARKING RULES:
 8. Never go above the question's maximum marks
 9. Wrong or irrelevant information reduces marks
 10. If student writes jargon, notice it and obviously no marks. 
+
+FEEDBACK INSTRUCTIONS:
+- Write 4-6 sentences of real, specific feedback
+- First: acknowledge exactly what the student got RIGHT and why it earned marks
+- Then: for each wrong or missing point, give the ACTUAL correct answer — not "you need to explain more" but literally WHAT they should have written
+- The student must walk away knowing exactly what the full correct answer looks like
+- Warm teacher tone but direct and educational
+
+Return ONLY valid JSON — no text before or after:
+{{
+  "marks_awarded": integer between 0 and {question.max_marks},
+  "feedback": "your 4-6 sentence feedback here",
+  "personalized_message": "one short encouraging sentence directed at the student",
+  "study_tip": "{study_tip_instruction}",
+  "points_earned": ["what the student got right — in simple words"],
+  "points_missed": ["what the student missed — in simple words"]
+}}
 """
 
         # MCQ specific rules
