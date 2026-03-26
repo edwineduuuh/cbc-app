@@ -56,29 +56,21 @@ function MathInput({ value, onChange }) {
   const isInternalChange = useRef(false);
 
   useEffect(() => {
-    // Load MathLive from CDN
-    if (!document.querySelector('script[src*="mathlive"]')) {
-      const script = document.createElement("script");
-      script.src = "https://unpkg.com/mathlive@latest/dist/mathlive.min.js";
-      script.async = true;
-      document.head.appendChild(script);
-    }
-  }, []);
+    // Use npm package instead of CDN
+    import("mathlive").then(() => {
+      const el = mfRef.current;
+      if (!el) return;
 
-  useEffect(() => {
-    const el = mfRef.current;
-    if (!el) return;
+      const handleInput = () => {
+        isInternalChange.current = true;
+        onChange(el.value);
+      };
 
-    const handleInput = () => {
-      isInternalChange.current = true;
-      onChange(el.value); // LaTeX string
-    };
-
-    el.addEventListener("input", handleInput);
-    return () => el.removeEventListener("input", handleInput);
+      el.addEventListener("input", handleInput);
+      return () => el.removeEventListener("input", handleInput);
+    });
   }, [onChange]);
 
-  // Sync external value changes (e.g. navigating between questions)
   useEffect(() => {
     const el = mfRef.current;
     if (!el || isInternalChange.current) {
@@ -89,16 +81,11 @@ function MathInput({ value, onChange }) {
   }, [value]);
 
   return (
-    <div style={{ border: "2px solid #e8eaf0", borderRadius: 16, overflow: "hidden", background: "#fff", boxShadow: "0 2px 8px rgba(0,0,0,0.04)", transition: "border-color 0.15s" }}
-      onFocus={() => mfRef.current?.parentElement && (mfRef.current.parentElement.style.borderColor = "#1a6fc4")}
-      onBlur={() => mfRef.current?.parentElement && (mfRef.current.parentElement.style.borderColor = "#e8eaf0")}
-    >
+    <div style={{ border: "2px solid #e8eaf0", borderRadius: 16, overflow: "hidden", background: "#fff", boxShadow: "0 2px 8px rgba(0,0,0,0.04)" }}>
       <math-field
         ref={mfRef}
-        style={{ width: "100%", padding: "14px 18px", fontSize: 18, fontFamily: "'Lato', sans-serif", display: "block", "--keyboard-zindex": 1000 }}
+        style={{ width: "100%", padding: "14px 18px", fontSize: 18, display: "block" }}
         virtual-keyboard-mode="onfocus"
-        smart-fence="true"
-        placeholder="Type or use keyboard…"
       />
     </div>
   );
