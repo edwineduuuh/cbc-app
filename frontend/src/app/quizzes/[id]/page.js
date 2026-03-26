@@ -67,6 +67,8 @@ function MathInput({ value, onChange }) {
       };
 
       el.addEventListener("input", handleInput);
+      el.addEventListener("change", handleChange);
+      el.addEventListener("focusout", handleChange);
       return () => el.removeEventListener("input", handleInput);
     });
   }, [onChange]);
