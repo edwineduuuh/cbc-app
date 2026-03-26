@@ -52,31 +52,71 @@ function useTimer(totalSeconds, onExpire) {
 }
 function MathInput({ value, onChange }) {
   const mfRef = useRef(null);
-
+  const [isLoaded, setIsLoaded] = useState(false);
+  const valueRef = useRef(value);
   useEffect(() => {
-    import("mathlive").then(() => {
-      const el = mfRef.current;
-      if (!el) return;
+    valueRef.current = value;
+  }, [value]);
 
-      let lastValue = "";
-
-      const interval = setInterval(() => {
-        const val = el.value ?? "";
-        if (val !== lastValue) {
-          lastValue = val;
-          onChange(val);
+  // Load MathLive and set font directory
+  useEffect(() => {
+    import("mathlive").then((ML) => {
+      try {
+        if (ML.default) {
+          ML.default.fontsDirectory =
+            "https://unpkg.com/mathlive@0.109.0/dist/fonts/";
         }
-      }, 200);
-
-      return () => clearInterval(interval);
+        if (window.MathfieldElement) {
+          window.MathfieldElement.fontsDirectory =
+            "https://unpkg.com/mathlive@0.109.0/dist/fonts/";
+        }
+        setIsLoaded(true);
+      } catch (err) {
+        console.error("MathLive init failed:", err);
+      }
     });
+  }, []);
+
+  // Sync value from parent → Mathfield
+  useEffect(() => {
+    const el = mfRef.current;
+    if (!el || value === undefined) return;
+
+    if (el.value !== value) {
+      el.value = value;
+    }
+  }, [value]);
+
+  const readValue = useCallback(() => {
+    const el = mfRef.current;
+    if (!el) return;
+    const currentValue = el.value?.trim() || "";
+    if (currentValue !== (valueRef.current || "")) {
+      onChange(currentValue);
+    }
   }, [onChange]);
 
+  // Attach listeners
   useEffect(() => {
     const el = mfRef.current;
     if (!el) return;
-    if (el.value !== value) el.value = value ?? "";
-  }, [value]);
+
+    const events = ["input", "change", "blur", "keyup", "keydown"];
+
+    events.forEach((event) => {
+      el.addEventListener(event, readValue);
+    });
+
+    // Also read value after a short delay when component mounts
+    const timeout = setTimeout(readValue, 300);
+
+    return () => {
+      events.forEach((event) => {
+        el.removeEventListener(event, readValue);
+      });
+      clearTimeout(timeout);
+    };
+  }, [readValue]);
 
   return (
     <div
@@ -86,17 +126,20 @@ function MathInput({ value, onChange }) {
         overflow: "hidden",
         background: "#fff",
         boxShadow: "0 2px 8px rgba(0,0,0,0.04)",
+        minHeight: "68px",
       }}
     >
       <math-field
         ref={mfRef}
         style={{
           width: "100%",
-          padding: "14px 18px",
-          fontSize: 18,
+          padding: "16px 18px",
+          fontSize: "18px",
           display: "block",
+          minHeight: "68px",
         }}
         virtual-keyboard-mode="onfocus"
+        fonts-directory="https://unpkg.com/mathlive@0.109.0/dist/fonts/"
       />
     </div>
   );
@@ -839,9 +882,11 @@ export default function QuizTakePage({ params }) {
     setTimeout(typesetMath, 100);
   }, [currentIdx, currentQ]);
   const totalQ = questions.length;
-  const answeredCount = Object.values(answers).filter(
-    (v) => v !== undefined && v !== "",
-  ).length;
+ const answeredCount = Object.values(answers).filter((v) => {
+   if (v === undefined || v === null) return false;
+   if (typeof v === "object") return Object.keys(v).length > 0;
+   return String(v).trim() !== "";
+ }).length;
   const unanswered = totalQ - answeredCount;
   const progressPct = totalQ > 0 ? (answeredCount / totalQ) * 100 : 0;
 
@@ -907,14 +952,23 @@ export default function QuizTakePage({ params }) {
       // Build answers dict safely
       const answersDict = {};
       questions.forEach((q, idx) => {
-        const answer = answers[idx];
-        if (answer !== undefined && answer !== null && answer !== "") {
-          if (typeof answer === "object" && !Array.isArray(answer)) {
-            // Multi-part answer — store as JSON string
-            answersDict[q.id] = answer;
-          } else {
-            answersDict[q.id] = answer;
-          }
+        let answer = answers[idx];
+
+        if (answer === undefined || answer === null) return;
+
+        // Force trim for string answers (especially math)
+        if (typeof answer === "string") {
+          answer = answer.trim();
+        }
+
+        if (typeof answer === "string" && answer.length > 0) {
+          answersDict[q.id] = answer;
+        } else if (
+          typeof answer === "object" &&
+          answer !== null &&
+          Object.keys(answer).length > 0
+        ) {
+          answersDict[q.id] = answer;
         }
       });
 

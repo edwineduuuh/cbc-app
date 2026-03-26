@@ -535,30 +535,43 @@ export default function AttemptResultsPage() {
                     <p className="text-sm font-semibold text-blue-900 mb-1">
                       Your Answer:
                     </p>
-                    <div className="text-blue-800 whitespace-pre-line">
-                      {!item.student_answer
-                        ? "(No answer provided)"
-                        : typeof item.student_answer === "object"
-                          ? Object.entries(item.student_answer).map(
-                              ([partId, ans]) => (
-                                <div
-                                  key={partId}
-                                  className="flex items-start gap-2 mb-1"
-                                >
-                                  <span>•</span>
-                                  <span>{String(ans)}</span>
-                                </div>
-                              ),
-                            )
-                          : item.student_answer.split("\n").map((line, i) => (
+                    <div className="text-blue-800">
+                      {!item.student_answer ? (
+                        "(No answer provided)"
+                      ) : typeof item.student_answer === "object" ? (
+                        Object.entries(item.student_answer).map(
+                          ([partId, ans]) => (
+                            <div
+                              key={partId}
+                              className="flex items-start gap-2 mb-1"
+                            >
+                              <span>•</span>
                               <div
-                                key={i}
-                                className="flex items-start gap-2 mb-1"
-                              >
-                                {line.trim() && <span>•</span>}
-                                <span>{line.trim()}</span>
-                              </div>
-                            ))}
+                                ref={(el) => {
+                                  if (el && window.MathJax)
+                                    window.MathJax.typesetPromise([el]);
+                                }}
+                                dangerouslySetInnerHTML={{
+                                  __html: `$${String(ans)}$`,
+                                }}
+                              />
+                            </div>
+                          ),
+                        )
+                      ) : (
+                        <div className="flex items-start gap-2 mb-1">
+                          <span>•</span>
+                          <div
+                            ref={(el) => {
+                              if (el && window.MathJax)
+                                window.MathJax.typesetPromise([el]);
+                            }}
+                            dangerouslySetInnerHTML={{
+                              __html: `$${item.student_answer}$`,
+                            }}
+                          />
+                        </div>
+                      )}
                     </div>
                   </div>
 
@@ -614,19 +627,16 @@ export default function AttemptResultsPage() {
                     )}
                   </div>
 
-                  {/* Points Earned/Missed */}
-                  {item.points_earned && item.points_earned.length > 0 && (
-                    <div className="bg-green-50 p-3 rounded-lg mb-2">
-                      <p className="text-sm font-semibold text-green-900 mb-1">
-                        ✓ Points you got:
-                      </p>
-                      <ul className="text-sm text-green-800 list-disc list-inside">
-                        {item.points_earned.map((point, i) => (
-                          <li key={i}>{point}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
+                  {item.points_missed.map((point, i) => (
+                    <li
+                      key={i}
+                      ref={(el) => {
+                        if (el && window.MathJax)
+                          window.MathJax.typesetPromise([el]);
+                      }}
+                      dangerouslySetInnerHTML={{ __html: point }}
+                    />
+                  ))}
 
                   {item.points_missed && item.points_missed.length > 0 && (
                     <div className="bg-orange-50 p-3 rounded-lg">

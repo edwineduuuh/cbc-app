@@ -174,8 +174,11 @@ Reply with ONLY the word TRUE or FALSE. Nothing else."""
                 'points_missed': []
             }
 
+
         student_answer = str(student_answer).strip()
+        correct_str = str(question.correct_answer).strip()
         if not student_answer:
+            print(f"GRADING: student={repr(student_answer)} correct={repr(correct_str)}")
             return {
                 'marks_awarded': 0,
                 'max_marks': question.max_marks,
@@ -187,7 +190,7 @@ Reply with ONLY the word TRUE or FALSE. Nothing else."""
                 'points_missed': []
             }
 
-        correct_str = str(question.correct_answer).strip()
+        
 
         def clean_num(s):
             return re.sub(r'[^\d.-]', '', s)
