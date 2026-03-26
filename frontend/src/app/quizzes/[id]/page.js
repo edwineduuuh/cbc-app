@@ -50,26 +50,32 @@ function useTimer(totalSeconds, onExpire) {
     remaining,
   };
 }
-// ─── MathLive Input ───────────────────────────────────────────────────────────
 function MathInput({ value, onChange }) {
   const mfRef = useRef(null);
   const isInternalChange = useRef(false);
 
   useEffect(() => {
-    // Use npm package instead of CDN
     import("mathlive").then(() => {
       const el = mfRef.current;
       if (!el) return;
 
-      const handleInput = () => {
-        isInternalChange.current = true;
-        onChange(el.value);
+      const handleChange = () => {
+        const val = el.value;
+        if (val !== undefined) {
+          isInternalChange.current = true;
+          onChange(val);
+        }
       };
 
-      el.addEventListener("input", handleInput);
+      el.addEventListener("input", handleChange);
       el.addEventListener("change", handleChange);
       el.addEventListener("focusout", handleChange);
-      return () => el.removeEventListener("input", handleInput);
+
+      return () => {
+        el.removeEventListener("input", handleChange);
+        el.removeEventListener("change", handleChange);
+        el.removeEventListener("focusout", handleChange);
+      };
     });
   }, [onChange]);
 
@@ -83,10 +89,23 @@ function MathInput({ value, onChange }) {
   }, [value]);
 
   return (
-    <div style={{ border: "2px solid #e8eaf0", borderRadius: 16, overflow: "hidden", background: "#fff", boxShadow: "0 2px 8px rgba(0,0,0,0.04)" }}>
+    <div
+      style={{
+        border: "2px solid #e8eaf0",
+        borderRadius: 16,
+        overflow: "hidden",
+        background: "#fff",
+        boxShadow: "0 2px 8px rgba(0,0,0,0.04)",
+      }}
+    >
       <math-field
         ref={mfRef}
-        style={{ width: "100%", padding: "14px 18px", fontSize: 18, display: "block" }}
+        style={{
+          width: "100%",
+          padding: "14px 18px",
+          fontSize: 18,
+          display: "block",
+        }}
         virtual-keyboard-mode="onfocus"
       />
     </div>
