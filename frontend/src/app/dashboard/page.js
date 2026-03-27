@@ -17,6 +17,50 @@ import {
 } from "lucide-react";
 
 const API = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api";
+const QUOTES = [
+  {
+    text: "Believe you can and you're halfway there.",
+    author: "Theodore Roosevelt",
+  },
+  {
+    text: "Education is the most powerful weapon you can use to change the world.",
+    author: "Nelson Mandela",
+  },
+  {
+    text: "The beautiful thing about learning is that no one can take it away from you.",
+    author: "B.B. King",
+  },
+  {
+    text: "An investment in knowledge pays the best interest.",
+    author: "Benjamin Franklin",
+  },
+  {
+    text: "Success is not final, failure is not fatal — it is the courage to continue.",
+    author: "Winston Churchill",
+  },
+  {
+    text: "The more that you read, the more things you will know.",
+    author: "Dr. Seuss",
+  },
+  {
+    text: "Live as if you were to die tomorrow. Learn as if you were to live forever.",
+    author: "Mahatma Gandhi",
+  },
+  {
+    text: "It always seems impossible until it is done.",
+    author: "Nelson Mandela",
+  },
+  {
+    text: "Don't watch the clock — do what it does. Keep going.",
+    author: "Sam Levenson",
+  },
+  {
+    text: "You don't have to be great to start, but you have to start to be great.",
+    author: "Zig Ziglar",
+  },
+  { text: "Elimu ni ufunguo wa maisha.", author: "Msemo wa Kiswahili" },
+  { text: "Haraka haraka haina baraka.", author: "Msemo wa Kiswahili" },
+];
 
 export default function DashboardPage() {
   const { user, loading: authLoading } = useAuth();
@@ -24,6 +68,9 @@ export default function DashboardPage() {
   const [stats, setStats] = useState(null);
   const [isPremium, setIsPremium] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [quote] = useState(
+    () => QUOTES[Math.floor(Math.random() * QUOTES.length)],
+  );
 
   useEffect(() => {
     if (!authLoading && user) {
@@ -98,17 +145,10 @@ export default function DashboardPage() {
               </h1>
 
               {/* Quote integrated in header */}
-              <div className="flex items-start gap-3 mt-4 bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20">
-                <div className="text-2xl">🚀</div>
-                <div className="flex-1">
-                  <p className="text-white font-semibold italic text-sm leading-relaxed">
-                    "Believe you can and you're halfway there."
-                  </p>
-                  <p className="text-xs text-teal-200 mt-1">
-                    — Theodore Roosevelt
-                  </p>
-                </div>
-              </div>
+              <p className="text-white font-semibold italic text-sm leading-relaxed">
+                &ldquo;{quote.text}&rdquo;
+              </p>
+              <p className="text-xs text-teal-200 mt-1">— {quote.author}</p>
             </div>
           </div>
         </div>
