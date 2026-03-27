@@ -24,18 +24,6 @@ CLAUDE_URL   = "https://api.anthropic.com/v1/messages"
 MAX_TOKENS   = 2000
 MAX_RETRIES  = 4
 
-# Keywords used to detect Kiswahili questions (requires ≥ 2 matches)
-KISWAHILI_KEYWORDS = {
-    "je", "na", "ya", "wa", "la", "kwa", "katika", "yako",
-    "chagua", "andika", "tambua", "kamilisha", "sentensi",
-    "neno", "silabi", "wingi", "kanusha", "aya", "wimbo",
-    "mwalimu", "mwanafunzi", "darasa", "shule", "jibu",
-    "sahihi", "maana", "kitenzi", "nomino", "kielezi",
-    "hii", "hizi", "hilo", "sisi", "wewe", "yeye",
-    "eleza", "fafanua", "bainisha", "taja", "orodhesha",
-    "hadithi", "mhusika", "maudhui", "methali", "lugha",
-}
-
 PRAISE_EN = [
     "Spot on! Well done.",
     "Perfect — great work!",
@@ -89,14 +77,12 @@ NEAR_MISS_SW = [
 #  LANGUAGE DETECTION
 # ─────────────────────────────────────────────────────────────────────────────
 
-def _is_kiswahili(text: str) -> bool:
-    """
-    Detect Kiswahili by counting keyword matches against the question text only.
-    Requires >= 2 matches to avoid false positives from short shared words.
-    Always pass question.question_text here — never the passage content.
-    """
-    words = set(text.lower().split())
-    return sum(1 for w in KISWAHILI_KEYWORDS if w in words) >= 2
+def _is_kiswahili(question) -> bool:
+    """Return True only when the question belongs to the Kiswahili subject."""
+    try:
+        return question.topic.subject.name.lower() == "kiswahili"
+    except AttributeError:
+        return False
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -605,7 +591,7 @@ def _grade_fill_blank(question, student_answer: str) -> dict:
     if not question.correct_answer or not str(question.correct_answer).strip():
         return _grade_with_ai(question, student_answer)
 
-    sw          = _is_kiswahili(question.question_text)
+    sw          = _is_kiswahili(question)
     student_raw = str(student_answer).strip()
 
     if not student_raw:
@@ -683,7 +669,7 @@ def _grade_math(question, student_answer: str) -> dict:
     if not question.correct_answer or not str(question.correct_answer).strip():
         return _grade_with_ai(question, student_answer)
 
-    sw          = _is_kiswahili(question.question_text)
+    sw          = _is_kiswahili(question)
     grade       = getattr(getattr(question, "topic", None), "grade", 7)
     student_str = str(student_answer).strip()
     correct_str = str(question.correct_answer).strip()
@@ -773,7 +759,7 @@ def _grade_with_ai(question, student_answer: str,
             "Please contact your teacher.",
         )
 
-    sw = _is_kiswahili(question.question_text)
+    sw = _is_kiswahili(question)
 
     try:
         prompt   = _build_marking_prompt(question, student_answer, sw)
@@ -818,7 +804,7 @@ def _route(question, student_answer: str,
     elif qt == "math":
         return _grade_math(question, student_answer)
     else:
-        sw = _is_kiswahili(question.question_text)
+        sw = _is_kiswahili(question)
         return _empty_result(
             question.max_marks,
             f"Aina ya swali haijulikani: {qt}" if sw else f"Unsupported question type: {qt}",
@@ -881,7 +867,7 @@ def _grade_multipart(question, student_answer,
         all_earned.extend(result.get("points_earned", []))
         all_missed.extend(result.get("points_missed", []))
 
-    sw = _is_kiswahili(question.question_text)
+    sw = _is_kiswahili(question)
 
     return {
         "marks_awarded":        total_marks,

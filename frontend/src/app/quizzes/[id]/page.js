@@ -16,8 +16,6 @@ import {
   Loader2,
   X,
   Menu,
-  BookOpen,
-  ChevronRight,
 } from "lucide-react";
 
 const API = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api";
@@ -51,6 +49,162 @@ function useTimer(totalSeconds, onExpire) {
   };
 }
 
+// ─── Passage Content Formatter ────────────────────────────────────────────────
+function PassageContent({ type, content }) {
+  const t = (type || "").toLowerCase();
+
+  if (t === "poem") {
+    return (
+      <div style={{ fontStyle: "italic", color: "#374151" }}>
+        {content.split("\n").map((line, i) => (
+          <div
+            key={i}
+            style={{
+              lineHeight: 2.2,
+              paddingLeft: line.startsWith("  ") ? 24 : 0,
+              minHeight: line.trim() === "" ? 20 : "auto",
+              fontSize: 15,
+            }}
+          >
+            {line.trim() === "" ? "\u00A0" : line}
+          </div>
+        ))}
+      </div>
+    );
+  }
+
+  if (t === "dialogue") {
+    // Split on newlines first, then also handle inline "Name: speech" patterns
+    const lines = content.split("\n").filter((l) => l.trim() !== "");
+    const speakerColors = [
+      "#1a6fc4",
+      "#1d8f57",
+      "#c0334a",
+      "#d4900a",
+      "#764ba2",
+      "#0ea5c9",
+      "#e05d20",
+      "#2d6a4f",
+    ];
+    const speakerMap = {};
+    let colorIdx = 0;
+
+    const getColor = (speaker) => {
+      const key = speaker.trim().toLowerCase();
+      if (!speakerMap[key]) {
+        speakerMap[key] = speakerColors[colorIdx % speakerColors.length];
+        colorIdx++;
+      }
+      return speakerMap[key];
+    };
+
+    return (
+      <div style={{ color: "#374151" }}>
+        {lines.map((line, i) => {
+          const match = line.match(/^([^:]{1,40}):\s*(.+)/);
+          if (match) {
+            const speaker = match[1].trim();
+            const speech = match[2].trim();
+            const color = getColor(speaker);
+            return (
+              <div
+                key={i}
+                style={{
+                  display: "flex",
+                  gap: 12,
+                  marginBottom: 12,
+                  alignItems: "flex-start",
+                }}
+              >
+                <span
+                  style={{
+                    fontWeight: 800,
+                    color: color,
+                    fontSize: 12,
+                    minWidth: 90,
+                    maxWidth: 110,
+                    flexShrink: 0,
+                    paddingTop: 3,
+                    fontFamily: "'Syne', sans-serif",
+                    textTransform: "uppercase",
+                    letterSpacing: "0.04em",
+                    lineHeight: 1.3,
+                  }}
+                >
+                  {speaker}
+                </span>
+                <span
+                  style={{
+                    fontSize: 15,
+                    color: "#1a1a2e",
+                    flex: 1,
+                    lineHeight: 1.75,
+                  }}
+                >
+                  {speech}
+                </span>
+              </div>
+            );
+          }
+          // Stage direction / narrator line
+          return (
+            <div
+              key={i}
+              style={{
+                fontSize: 13,
+                color: "#8892a4",
+                fontStyle: "italic",
+                marginBottom: 10,
+                paddingLeft: 8,
+                borderLeft: "3px solid #e8eaf0",
+              }}
+            >
+              {line}
+            </div>
+          );
+        })}
+      </div>
+    );
+  }
+
+  if (t === "narrative" || t === "prose" || t === "story") {
+    const paragraphs = content.split(/\n\n+/).filter((p) => p.trim());
+    return (
+      <div>
+        {paragraphs.map((para, i) => (
+          <p
+            key={i}
+            style={{
+              fontSize: 15,
+              lineHeight: 1.9,
+              color: "#374151",
+              marginBottom: 14,
+              textIndent: "1.4em",
+            }}
+          >
+            {para.trim()}
+          </p>
+        ))}
+      </div>
+    );
+  }
+
+  // Default — preserve line breaks
+  return (
+    <p
+      style={{
+        fontSize: 15,
+        lineHeight: 1.9,
+        color: "#374151",
+        whiteSpace: "pre-line",
+      }}
+    >
+      {content}
+    </p>
+  );
+}
+
+// ─── Math Input ───────────────────────────────────────────────────────────────
 function MathInput({ value, onChange }) {
   const mfRef = useRef(null);
   const valueRef = useRef(value);
@@ -61,14 +215,12 @@ function MathInput({ value, onChange }) {
   useEffect(() => {
     import("mathlive").then((ML) => {
       try {
-        if (ML.default) {
+        if (ML.default)
           ML.default.fontsDirectory =
             "https://unpkg.com/mathlive@0.109.0/dist/fonts/";
-        }
-        if (window.MathfieldElement) {
+        if (window.MathfieldElement)
           window.MathfieldElement.fontsDirectory =
             "https://unpkg.com/mathlive@0.109.0/dist/fonts/";
-        }
       } catch (err) {
         console.error("MathLive init failed:", err);
       }
@@ -78,18 +230,15 @@ function MathInput({ value, onChange }) {
   useEffect(() => {
     const el = mfRef.current;
     if (!el || value === undefined) return;
-    if (el.value !== value) {
-      el.value = value;
-    }
+    if (el.value !== value) el.value = value;
   }, [value]);
 
   const readValue = useCallback(() => {
     const el = mfRef.current;
     if (!el) return;
     const currentValue = el.value?.trim() || "";
-    if (currentValue && currentValue !== "\\placeholder{}") {
+    if (currentValue && currentValue !== "\\placeholder{}")
       onChange(currentValue);
-    }
   }, [onChange]);
 
   useEffect(() => {
@@ -164,16 +313,12 @@ function MCQOption({ letter, text, selected, onClick }) {
     },
   };
   const c = colorMap[letter];
-  const bg = selected ? c.activeBg : c.idle;
-  const border = selected ? c.activeBg : c.idleBorder;
-  const textColor = selected ? c.activeText : "#1a1a2e";
-
   return (
     <button
       onClick={onClick}
       style={{
-        background: bg,
-        border: `2px solid ${border}`,
+        background: selected ? c.activeBg : c.idle,
+        border: `2px solid ${selected ? c.activeBg : c.idleBorder}`,
         borderRadius: 16,
         padding: "14px 18px",
         display: "flex",
@@ -208,7 +353,7 @@ function MCQOption({ letter, text, selected, onClick }) {
         style={{
           fontSize: 15,
           fontWeight: selected ? 600 : 500,
-          color: textColor,
+          color: selected ? c.activeText : "#1a1a2e",
           lineHeight: 1.5,
           textAlign: "left",
           flex: 1,
@@ -221,7 +366,7 @@ function MCQOption({ letter, text, selected, onClick }) {
   );
 }
 
-// ─── Question Nav Panel ───────────────────────────────────────────────────────
+// ─── Question Nav ─────────────────────────────────────────────────────────────
 function QuestionNav({ questions, answers, currentIdx, onJump, show }) {
   return (
     <AnimatePresence>
@@ -451,7 +596,7 @@ function SubmitModal({ open, onConfirm, onCancel, unanswered, submitting }) {
                       size={16}
                       style={{ animation: "spin 1s linear infinite" }}
                     />{" "}
-                    Marking your answers…
+                    Marking…
                   </>
                 ) : (
                   "Submit Now"
@@ -544,7 +689,6 @@ function ResultsScreen({ result, quiz }) {
             </p>
           </div>
         </div>
-
         <div
           style={{
             background: "#fff",
@@ -658,7 +802,6 @@ function ResultsScreen({ result, quiz }) {
             </Link>
           </div>
         </div>
-
         <div
           style={{
             background: "linear-gradient(135deg, #667eea, #764ba2)",
@@ -708,7 +851,6 @@ function ResultsScreen({ result, quiz }) {
             </button>
           </Link>
         </div>
-
         <h2
           style={{
             fontSize: 20,
@@ -720,7 +862,6 @@ function ResultsScreen({ result, quiz }) {
         >
           Question Breakdown
         </h2>
-
         {questionIds.map((qId, index) => {
           const item = feedback[qId];
           return (
@@ -837,8 +978,8 @@ function ResultsScreen({ result, quiz }) {
                     AI FEEDBACK
                   </p>
                   <p style={{ fontSize: 13, color: "#6b7280" }}>
-                    This is detailed AI feedback explaining exactly what you
-                    missed and how to improve your answer next time.
+                    Detailed AI feedback explaining exactly what you missed and
+                    how to improve.
                   </p>
                 </div>
                 <div
@@ -877,7 +1018,7 @@ function ResultsScreen({ result, quiz }) {
   );
 }
 
-// ─── Working Panel ────────────────────────────────────────────
+// ─── Working Panel ────────────────────────────────────────────────────────────
 function WorkingPanel({ questionIdx, onWorkingCapture }) {
   const [open, setOpen] = useState(false);
   const [mode, setMode] = useState(null);
@@ -936,7 +1077,6 @@ function WorkingPanel({ questionIdx, onWorkingCapture }) {
     ctx.moveTo(pos.x, pos.y);
     setIsDrawing(true);
   };
-
   const draw = (e) => {
     e.preventDefault();
     if (!isDrawing) return;
@@ -947,7 +1087,6 @@ function WorkingPanel({ questionIdx, onWorkingCapture }) {
     ctx.stroke();
     setHasWorking(true);
   };
-
   const stopDraw = (e) => {
     e.preventDefault();
     setIsDrawing(false);
@@ -957,7 +1096,6 @@ function WorkingPanel({ questionIdx, onWorkingCapture }) {
       onWorkingCapture(base64);
     }
   };
-
   const clearCanvas = () => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
@@ -966,7 +1104,6 @@ function WorkingPanel({ questionIdx, onWorkingCapture }) {
     setHasWorking(false);
     onWorkingCapture(null);
   };
-
   const handlePhotoUpload = (e) => {
     const file = e.target.files[0];
     if (!file) return;
@@ -1163,7 +1300,6 @@ export default function QuizTakePage({ params }) {
   const { user } = useAuth();
   const router = useRouter();
   const searchParams = useSearchParams();
-
   const guestSessionFromUrl = searchParams.get("guest_session");
 
   const [quiz, setQuiz] = useState(null);
@@ -1241,14 +1377,12 @@ export default function QuizTakePage({ params }) {
     [currentIdx],
   );
 
-  // ── THE KEY FIX: read math field then wait 50ms for state to update before showing modal ──
   const openSubmitModal = useCallback(() => {
     const mathField = document.querySelector("math-field");
     if (mathField) {
       const val = mathField.value?.trim();
-      if (val && val !== "\\placeholder{}") {
+      if (val && val !== "\\placeholder{}")
         setAnswers((prev) => ({ ...prev, [currentIdx]: val }));
-      }
     }
     setTimeout(() => setShowSubmitModal(true), 50);
   }, [currentIdx]);
@@ -1282,10 +1416,9 @@ export default function QuizTakePage({ params }) {
         answers: answersDict,
         working_images: workingImages,
       };
-      if (!token) {
+      if (!token)
         payload.session_id =
           "device_" + (localStorage.getItem("device_quizzes_used") || "0");
-      }
       const headers = { "Content-Type": "application/json" };
       if (token) headers.Authorization = `Bearer ${token}`;
 
@@ -1322,11 +1455,8 @@ export default function QuizTakePage({ params }) {
         localStorage.setItem("device_quizzes_used", String(used + 1));
         setResult(data);
       } else {
-        if (data.id) {
-          router.replace(`/attempts/${data.id}`);
-        } else {
-          setResult(data);
-        }
+        if (data.id) router.replace(`/attempts/${data.id}`);
+        else setResult(data);
       }
     } catch (error) {
       console.error("Submit error:", error);
@@ -1436,20 +1566,45 @@ export default function QuizTakePage({ params }) {
       }}
     >
       <style>{`
-  @import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Lato:wght@400;500;600;700&display=swap');
-  @keyframes spin { to { transform: rotate(360deg); } }
-  @keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:0.7; } }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  textarea:focus, input:focus { outline: none; }
-  button { font-family: inherit; }
-  .question-nav { display: flex; }
-  @media (max-width: 768px) { .question-nav { display: none !important; } }
+        @import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Lato:wght@400;500;600;700&display=swap');
+        @keyframes spin { to { transform: rotate(360deg); } }
+        @keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:0.7; } }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        textarea:focus, input:focus { outline: none; }
+        button { font-family: inherit; }
 
-  @media (max-width: 768px) {
-    .passage-grid { display: block !important; }
-    .passage-panel { position: static !important; max-height: none !important; margin-bottom: 20px; }
-  }
-`}</style>
+        /* Question nav: desktop only */
+        .question-nav { display: flex; }
+        @media (max-width: 768px) { .question-nav { display: none !important; } }
+
+        /* Passage layout:
+           Desktop → side-by-side grid, passage is sticky full height
+           Mobile  → single column, passage on top, questions below        */
+        .passage-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 24px;
+        }
+        .passage-panel {
+          position: sticky;
+          top: 80px;
+          align-self: start;
+          max-height: calc(100vh - 100px);
+          overflow-y: auto;
+        }
+        @media (max-width: 768px) {
+          .passage-grid {
+            display: flex !important;
+            flex-direction: column !important;
+          }
+          .passage-panel {
+            position: static !important;
+            max-height: none !important;
+            overflow-y: visible !important;
+            margin-bottom: 20px;
+          }
+        }
+      `}</style>
 
       <SubmitModal
         open={showSubmitModal}
@@ -1506,7 +1661,6 @@ export default function QuizTakePage({ params }) {
               <X size={16} color="#6b7280" />
             </button>
           </Link>
-
           <div style={{ flex: 1 }}>
             <div
               style={{
@@ -1541,14 +1695,12 @@ export default function QuizTakePage({ params }) {
               />
             </div>
           </div>
-
           {quiz?.duration_minutes && (
             <TimerBadge
               totalSeconds={quiz.duration_minutes * 60}
               onExpire={handleTimerExpire}
             />
           )}
-
           <button
             onClick={() => setShowNav((p) => !p)}
             style={{
@@ -1571,40 +1723,27 @@ export default function QuizTakePage({ params }) {
 
       {/* Content */}
       <div
+        className={currentQ?.passage ? "passage-grid" : ""}
         style={{
           maxWidth: currentQ?.passage ? 1200 : 680,
           margin: "0 auto",
           padding: "32px 16px 120px",
-          display: currentQ?.passage ? "grid" : "block",
-          gridTemplateColumns: currentQ?.passage
-            ? "minmax(0, 1fr) minmax(0, 1fr)" // equal 50/50 columns on desktop
-            : undefined,
-          gap: currentQ?.passage ? 24 : undefined,
+          // non-passage pages remain block layout
+          ...(currentQ?.passage ? {} : { display: "block" }),
         }}
       >
+        {/* ── Passage Panel ── */}
         {currentQ?.passage && (
           <div
+            className="passage-panel"
             style={{
               background: "#fff",
               borderRadius: 20,
               border: "2px solid #e8eaf0",
               padding: 24,
-              overflowY: "auto",
-              // Desktop: sticky, full viewport height minus topbar
-              // Mobile: normal flow, no height cap
-              ...(typeof window !== "undefined" && window.innerWidth >= 768
-                ? {
-                    position: "sticky",
-                    top: 80,
-                    alignSelf: "start",
-                    maxHeight: "calc(100vh - 100px)",
-                  }
-                : {
-                    position: "static",
-                    maxHeight: "none",
-                  }),
             }}
           >
+            {/* Passage header */}
             <div
               style={{
                 display: "flex",
@@ -1633,6 +1772,7 @@ export default function QuizTakePage({ params }) {
                 </span>
               )}
             </div>
+
             <h3
               style={{
                 fontSize: 16,
@@ -1644,22 +1784,16 @@ export default function QuizTakePage({ params }) {
             >
               {currentQ.passage.title}
             </h3>
-            <div
-              style={{
-                fontSize: 15,
-                lineHeight:
-                  currentQ.passage.passage_type === "poem" ? 2.2 : 1.9,
-                color: "#374151",
-                whiteSpace:
-                  currentQ.passage.passage_type === "poem"
-                    ? "pre-line"
-                    : "normal",
-              }}
-            >
-              {currentQ.passage.content}
-            </div>
+
+            {/* ← Formatted passage content */}
+            <PassageContent
+              type={currentQ.passage.passage_type}
+              content={currentQ.passage.content}
+            />
           </div>
         )}
+
+        {/* ── Questions Panel ── */}
         <div>
           <AnimatePresence mode="wait">
             <motion.div
@@ -1669,6 +1803,7 @@ export default function QuizTakePage({ params }) {
               exit={{ opacity: 0, y: -12 }}
               transition={{ duration: 0.2 }}
             >
+              {/* Question header */}
               <div
                 style={{
                   display: "flex",
@@ -1749,6 +1884,7 @@ export default function QuizTakePage({ params }) {
                 </button>
               </div>
 
+              {/* Question text */}
               <div
                 style={{
                   background: "#fff",
@@ -1770,6 +1906,7 @@ export default function QuizTakePage({ params }) {
                 />
               </div>
 
+              {/* Question image */}
               {currentQ.question_image_url && (
                 <div
                   style={{
@@ -1805,6 +1942,7 @@ export default function QuizTakePage({ params }) {
                 </div>
               )}
 
+              {/* MCQ */}
               {isMCQ && !(currentQ.parts && currentQ.parts.length > 0) && (
                 <div
                   style={{ display: "flex", flexDirection: "column", gap: 12 }}
@@ -1825,6 +1963,7 @@ export default function QuizTakePage({ params }) {
                 </div>
               )}
 
+              {/* Fill blank / Math */}
               {(isFillBlank || isMath) &&
                 !(currentQ.parts && currentQ.parts.length > 0) && (
                   <div>
@@ -1873,6 +2012,7 @@ export default function QuizTakePage({ params }) {
                   </div>
                 )}
 
+              {/* Structured / Essay */}
               {isText && !(currentQ.parts && currentQ.parts.length > 0) && (
                 <div>
                   <p
@@ -1938,6 +2078,7 @@ export default function QuizTakePage({ params }) {
                 </div>
               )}
 
+              {/* Working panel */}
               {(isMath || (currentQ.parts && currentQ.parts.length > 0)) && (
                 <WorkingPanel
                   questionIdx={currentIdx}
@@ -1950,6 +2091,7 @@ export default function QuizTakePage({ params }) {
                 />
               )}
 
+              {/* Multi-part questions */}
               {currentQ.parts && currentQ.parts.length > 0 && (
                 <div
                   style={{ display: "flex", flexDirection: "column", gap: 20 }}
@@ -2192,6 +2334,7 @@ export default function QuizTakePage({ params }) {
           {currentIdx < totalQ - 1 && unanswered === 0 && (
             <button
               onClick={openSubmitModal}
+              title="All answered — submit now"
               style={{
                 width: 48,
                 height: 48,
@@ -2204,7 +2347,6 @@ export default function QuizTakePage({ params }) {
                 cursor: "pointer",
                 flexShrink: 0,
               }}
-              title="All answered — submit now"
             >
               <Send size={18} color="#1d8f57" />
             </button>
