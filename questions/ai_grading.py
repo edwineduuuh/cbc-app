@@ -347,10 +347,24 @@ Write a step-by-step solution in simple words a Grade {grade} student can follow
             grade = getattr(getattr(question, 'topic', None), 'grade', 7)
             has_passage = hasattr(question, 'passage') and question.passage is not None
 
+            # Detect question language
+            kiswahili_indicators = ['je', 'na', 'ya', 'wa', 'la', 'kwa', 'katika', 'yako', 'chagua', 'andika', 'tambua', 'kamilisha', 'sentensi', 'neno', 'silabi', 'wingi', 'kanusha']
+            question_lower = question.question_text.lower()
+            is_kiswahili = any(word in question_lower.split() for word in kiswahili_indicators)
+            language = "Kiswahili" if is_kiswahili else "English"
+
             base = f"""You are a Kenyan CBC teacher marking a Grade {grade} student's answer.
 
+        
 
-   
+    LANGUAGE RULE — MOST IMPORTANT:
+    - The question is in {language}
+    - You MUST write ALL your feedback, study tips, and encouraging messages in {language} only
+    - Never mix languages — if the question is in Kiswahili, respond entirely in Kiswahili
+    - If the question is in English, respond entirely in English
+    - "Kiswahili" is the correct name — never call it "Swahili"
+
+    
     - CRITICAL: Before writing feedback, verify your marking is consistent. 
     If you say the student's answer matches the correct answer anywhere in your reasoning, 
     you MUST award full marks. Never award 0 and then say the answer was correct.
