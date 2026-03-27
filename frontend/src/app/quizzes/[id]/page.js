@@ -50,15 +50,14 @@ function useTimer(totalSeconds, onExpire) {
     remaining,
   };
 }
+
 function MathInput({ value, onChange }) {
   const mfRef = useRef(null);
-  const [isLoaded, setIsLoaded] = useState(false);
   const valueRef = useRef(value);
   useEffect(() => {
     valueRef.current = value;
   }, [value]);
 
-  // Load MathLive and set font directory
   useEffect(() => {
     import("mathlive").then((ML) => {
       try {
@@ -70,18 +69,15 @@ function MathInput({ value, onChange }) {
           window.MathfieldElement.fontsDirectory =
             "https://unpkg.com/mathlive@0.109.0/dist/fonts/";
         }
-        setIsLoaded(true);
       } catch (err) {
         console.error("MathLive init failed:", err);
       }
     });
   }, []);
 
-  // Sync value from parent → Mathfield
   useEffect(() => {
     const el = mfRef.current;
     if (!el || value === undefined) return;
-
     if (el.value !== value) {
       el.value = value;
     }
@@ -96,24 +92,14 @@ function MathInput({ value, onChange }) {
     }
   }, [onChange]);
 
-  // Attach listeners
   useEffect(() => {
     const el = mfRef.current;
     if (!el) return;
-
     const events = ["input", "change", "blur", "keyup", "keydown"];
-
-    events.forEach((event) => {
-      el.addEventListener(event, readValue);
-    });
-
-    // Also read value after a short delay when component mounts
+    events.forEach((event) => el.addEventListener(event, readValue));
     const timeout = setTimeout(readValue, 300);
-
     return () => {
-      events.forEach((event) => {
-        el.removeEventListener(event, readValue);
-      });
+      events.forEach((event) => el.removeEventListener(event, readValue));
       clearTimeout(timeout);
     };
   }, [readValue]);
@@ -144,6 +130,7 @@ function MathInput({ value, onChange }) {
     </div>
   );
 }
+
 // ─── MCQ Option ───────────────────────────────────────────────────────────────
 function MCQOption({ letter, text, selected, onClick }) {
   const colorMap = {
@@ -309,6 +296,7 @@ const facts = [
   "🎯 Students who review mistakes improve faster than those who don't.",
 ];
 const fact = facts[Math.floor(Math.random() * facts.length)];
+
 function SubmitModal({ open, onConfirm, onCancel, unanswered, submitting }) {
   return (
     <AnimatePresence>
@@ -413,11 +401,9 @@ function SubmitModal({ open, onConfirm, onCancel, unanswered, submitting }) {
                     marginBottom: 6,
                   }}
                 >
-                 We are marking your answers…
+                  We are marking your answers…
                 </p>
-                <p style={{ fontSize: 12, color: "#8892a4" }}>
-                  {fact}
-                </p>
+                <p style={{ fontSize: 12, color: "#8892a4" }}>{fact}</p>
               </div>
             )}
             <div style={{ display: "flex", gap: 12 }}>
@@ -489,131 +475,395 @@ function ResultsScreen({ result, quiz }) {
   const questionIds = Object.keys(feedback);
 
   return (
-    <div style={{
-      minHeight: "100vh",
-      background: "linear-gradient(160deg, #f0f6ff 0%, #f9fff4 100%)",
-      padding: "24px 16px 80px",
-      fontFamily: "'Lato', sans-serif",
-    }}>
+    <div
+      style={{
+        minHeight: "100vh",
+        background: "linear-gradient(160deg, #f0f6ff 0%, #f9fff4 100%)",
+        padding: "24px 16px 80px",
+        fontFamily: "'Lato', sans-serif",
+      }}
+    >
       <style>{`@import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Lato:wght@400;500;600;700&display=swap');`}</style>
-
       <div style={{ maxWidth: 600, margin: "0 auto" }}>
-
-        {/* Score Ring */}
-        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", marginBottom: 24 }}>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            marginBottom: 24,
+          }}
+        >
           <svg width={160} height={160} style={{ transform: "rotate(-90deg)" }}>
-            <circle cx={80} cy={80} r={68} fill="none" stroke="#e8eaf0" strokeWidth={10} />
+            <circle
+              cx={80}
+              cy={80}
+              r={68}
+              fill="none"
+              stroke="#e8eaf0"
+              strokeWidth={10}
+            />
             <motion.circle
-              cx={80} cy={80} r={68} fill="none" stroke={color}
-              strokeWidth={10} strokeLinecap="round"
+              cx={80}
+              cy={80}
+              r={68}
+              fill="none"
+              stroke={color}
+              strokeWidth={10}
+              strokeLinecap="round"
               strokeDasharray={circumference}
               initial={{ strokeDashoffset: circumference }}
               animate={{ strokeDashoffset: circumference * (1 - score / 100) }}
-              transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1], delay: 0.3 }}
+              transition={{
+                duration: 1.4,
+                ease: [0.22, 1, 0.36, 1],
+                delay: 0.3,
+              }}
             />
           </svg>
-          <div style={{ position: "absolute", marginTop: 0, textAlign: "center" }}>
-            <span style={{ fontSize: 48, fontWeight: 800, color: "#0d0d1a", fontFamily: "'Syne', sans-serif" }}>
+          <div
+            style={{ position: "absolute", marginTop: 0, textAlign: "center" }}
+          >
+            <span
+              style={{
+                fontSize: 48,
+                fontWeight: 800,
+                color: "#0d0d1a",
+                fontFamily: "'Syne', sans-serif",
+              }}
+            >
               {score}%
             </span>
-            <p style={{ fontSize: 12, color: passed ? "#1d8f57" : "#c0334a", fontWeight: 700 }}>
+            <p
+              style={{
+                fontSize: 12,
+                color: passed ? "#1d8f57" : "#c0334a",
+                fontWeight: 700,
+              }}
+            >
               {passed ? "PASSED ✓" : "TRY AGAIN"}
             </p>
           </div>
         </div>
 
-        {/* Score Card */}
-        <div style={{ background: "#fff", borderRadius: 24, padding: 28, marginBottom: 16, boxShadow: "0 8px 40px rgba(0,0,0,0.08)", border: "1px solid #e8eaf0" }}>
-          <h2 style={{ fontSize: 22, fontWeight: 800, textAlign: "center", color: "#0d0d1a", marginBottom: 20, fontFamily: "'Syne', sans-serif" }}>
+        <div
+          style={{
+            background: "#fff",
+            borderRadius: 24,
+            padding: 28,
+            marginBottom: 16,
+            boxShadow: "0 8px 40px rgba(0,0,0,0.08)",
+            border: "1px solid #e8eaf0",
+          }}
+        >
+          <h2
+            style={{
+              fontSize: 22,
+              fontWeight: 800,
+              textAlign: "center",
+              color: "#0d0d1a",
+              marginBottom: 20,
+              fontFamily: "'Syne', sans-serif",
+            }}
+          >
             {passed ? "🎉 Well done!" : "📚 Keep going!"}
           </h2>
-
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 20 }}>
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "1fr 1fr",
+              gap: 12,
+              marginBottom: 20,
+            }}
+          >
             {[
-              { label: "Marks", value: `${result.total_marks_awarded ?? 0} / ${result.total_max_marks ?? 0}` },
-              { label: "Correct", value: `${result.correct_answers ?? "—"} questions` },
+              {
+                label: "Marks",
+                value: `${result.total_marks_awarded ?? 0} / ${result.total_max_marks ?? 0}`,
+              },
+              {
+                label: "Correct",
+                value: `${result.correct_answers ?? "—"} questions`,
+              },
               { label: "Questions", value: result.total_questions ?? "—" },
               { label: "Pass Mark", value: `${quiz?.passing_score ?? 75}%` },
             ].map(({ label, value }) => (
-              <div key={label} style={{ background: "#f7f9fc", borderRadius: 14, padding: "14px 12px", textAlign: "center" }}>
-                <p style={{ fontSize: 11, color: "#8892a4", fontWeight: 600, marginBottom: 4, textTransform: "uppercase", letterSpacing: "0.05em" }}>{label}</p>
-                <p style={{ fontSize: 16, fontWeight: 700, color: "#0d0d1a", fontFamily: "'Syne', sans-serif" }}>{value}</p>
+              <div
+                key={label}
+                style={{
+                  background: "#f7f9fc",
+                  borderRadius: 14,
+                  padding: "14px 12px",
+                  textAlign: "center",
+                }}
+              >
+                <p
+                  style={{
+                    fontSize: 11,
+                    color: "#8892a4",
+                    fontWeight: 600,
+                    marginBottom: 4,
+                    textTransform: "uppercase",
+                    letterSpacing: "0.05em",
+                  }}
+                >
+                  {label}
+                </p>
+                <p
+                  style={{
+                    fontSize: 16,
+                    fontWeight: 700,
+                    color: "#0d0d1a",
+                    fontFamily: "'Syne', sans-serif",
+                  }}
+                >
+                  {value}
+                </p>
               </div>
             ))}
           </div>
-
           <div style={{ display: "flex", gap: 12 }}>
             <Link href="/explore" style={{ flex: 1 }}>
-              <button style={{ width: "100%", padding: "12px 0", borderRadius: 12, border: "2px solid #e8eaf0", background: "#fff", color: "#6b7280", fontSize: 14, fontWeight: 600, cursor: "pointer" }}>
+              <button
+                style={{
+                  width: "100%",
+                  padding: "12px 0",
+                  borderRadius: 12,
+                  border: "2px solid #e8eaf0",
+                  background: "#fff",
+                  color: "#6b7280",
+                  fontSize: 14,
+                  fontWeight: 600,
+                  cursor: "pointer",
+                }}
+              >
                 Browse Quizzes
               </button>
             </Link>
             <Link href="/register?reason=quota" style={{ flex: 1 }}>
-              <button style={{ width: "100%", padding: "12px 0", borderRadius: 12, border: "none", background: "linear-gradient(135deg, #1a6fc4, #0ea5c9)", color: "#fff", fontSize: 14, fontWeight: 700, cursor: "pointer" }}>
+              <button
+                style={{
+                  width: "100%",
+                  padding: "12px 0",
+                  borderRadius: 12,
+                  border: "none",
+                  background: "linear-gradient(135deg, #1a6fc4, #0ea5c9)",
+                  color: "#fff",
+                  fontSize: 14,
+                  fontWeight: 700,
+                  cursor: "pointer",
+                }}
+              >
                 Save My Results
               </button>
             </Link>
           </div>
         </div>
 
-        {/* Register Upsell Banner */}
-        <div style={{ background: "linear-gradient(135deg, #667eea, #764ba2)", borderRadius: 20, padding: 24, marginBottom: 24, color: "#fff", textAlign: "center" }}>
+        <div
+          style={{
+            background: "linear-gradient(135deg, #667eea, #764ba2)",
+            borderRadius: 20,
+            padding: 24,
+            marginBottom: 24,
+            color: "#fff",
+            textAlign: "center",
+          }}
+        >
           <div style={{ fontSize: 32, marginBottom: 8 }}>🔒</div>
-          <h3 style={{ fontSize: 18, fontWeight: 800, marginBottom: 8, fontFamily: "'Syne', sans-serif" }}>
+          <h3
+            style={{
+              fontSize: 18,
+              fontWeight: 800,
+              marginBottom: 8,
+              fontFamily: "'Syne', sans-serif",
+            }}
+          >
             Create a free account to unlock full feedback
           </h3>
-          <p style={{ fontSize: 13, opacity: 0.9, marginBottom: 16, lineHeight: 1.5 }}>
-            See exactly what you got wrong, AI explanations per question, study tips, and save your progress.
+          <p
+            style={{
+              fontSize: 13,
+              opacity: 0.9,
+              marginBottom: 16,
+              lineHeight: 1.5,
+            }}
+          >
+            See exactly what you got wrong, AI explanations per question, study
+            tips, and save your progress.
           </p>
           <Link href="/register?reason=quota">
-            <button style={{ background: "#fff", color: "#764ba2", padding: "12px 28px", borderRadius: 12, border: "none", fontWeight: 800, fontSize: 14, cursor: "pointer" }}>
+            <button
+              style={{
+                background: "#fff",
+                color: "#764ba2",
+                padding: "12px 28px",
+                borderRadius: 12,
+                border: "none",
+                fontWeight: 800,
+                fontSize: 14,
+                cursor: "pointer",
+              }}
+            >
               Create Free Account →
             </button>
           </Link>
         </div>
 
-        {/* Question breakdown — locked for guests */}
-        <h2 style={{ fontSize: 20, fontWeight: 800, color: "#0d0d1a", marginBottom: 16, fontFamily: "'Syne', sans-serif" }}>
+        <h2
+          style={{
+            fontSize: 20,
+            fontWeight: 800,
+            color: "#0d0d1a",
+            marginBottom: 16,
+            fontFamily: "'Syne', sans-serif",
+          }}
+        >
           Question Breakdown
         </h2>
 
         {questionIds.map((qId, index) => {
           const item = feedback[qId];
           return (
-            <div key={qId} style={{ background: "#fff", borderRadius: 16, padding: 20, marginBottom: 12, border: "1px solid #e8eaf0", boxShadow: "0 2px 8px rgba(0,0,0,0.04)" }}>
-              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 12 }}>
+            <div
+              key={qId}
+              style={{
+                background: "#fff",
+                borderRadius: 16,
+                padding: 20,
+                marginBottom: 12,
+                border: "1px solid #e8eaf0",
+                boxShadow: "0 2px 8px rgba(0,0,0,0.04)",
+              }}
+            >
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  marginBottom: 12,
+                }}
+              >
                 <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                  <div style={{ width: 32, height: 32, borderRadius: 8, background: item.is_correct ? "#d4edda" : "#fdeef0", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                    {item.is_correct
-                      ? <CheckCircle size={16} color="#1d8f57" />
-                      : <span style={{ fontSize: 14 }}>✗</span>}
+                  <div
+                    style={{
+                      width: 32,
+                      height: 32,
+                      borderRadius: 8,
+                      background: item.is_correct ? "#d4edda" : "#fdeef0",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    {item.is_correct ? (
+                      <CheckCircle size={16} color="#1d8f57" />
+                    ) : (
+                      <span style={{ fontSize: 14 }}>✗</span>
+                    )}
                   </div>
-                  <span style={{ fontWeight: 700, color: "#0d0d1a", fontSize: 14 }}>Question {index + 1}</span>
+                  <span
+                    style={{ fontWeight: 700, color: "#0d0d1a", fontSize: 14 }}
+                  >
+                    Question {index + 1}
+                  </span>
                 </div>
-                <span style={{ fontSize: 13, fontWeight: 700, color: item.is_correct ? "#1d8f57" : "#c0334a", background: item.is_correct ? "#d4edda" : "#fdeef0", padding: "4px 10px", borderRadius: 8 }}>
+                <span
+                  style={{
+                    fontSize: 13,
+                    fontWeight: 700,
+                    color: item.is_correct ? "#1d8f57" : "#c0334a",
+                    background: item.is_correct ? "#d4edda" : "#fdeef0",
+                    padding: "4px 10px",
+                    borderRadius: 8,
+                  }}
+                >
                   {item.marks_awarded} / {item.max_marks} marks
                 </span>
               </div>
-
-              <p style={{ fontSize: 14, color: "#374151", marginBottom: 12, lineHeight: 1.6 }}
+              <p
+                style={{
+                  fontSize: 14,
+                  color: "#374151",
+                  marginBottom: 12,
+                  lineHeight: 1.6,
+                }}
                 dangerouslySetInnerHTML={{ __html: item.question_text }}
               />
-
-              {/* Your answer */}
-              <div style={{ background: "#f0f6ff", borderRadius: 10, padding: "10px 14px", marginBottom: 10 }}>
-                <p style={{ fontSize: 12, fontWeight: 700, color: "#1a6fc4", marginBottom: 4 }}>YOUR ANSWER</p>
-                <p style={{ fontSize: 14, color: "#1e3a5f" }}>{item.student_answer || "(No answer)"}</p>
+              <div
+                style={{
+                  background: "#f0f6ff",
+                  borderRadius: 10,
+                  padding: "10px 14px",
+                  marginBottom: 10,
+                }}
+              >
+                <p
+                  style={{
+                    fontSize: 12,
+                    fontWeight: 700,
+                    color: "#1a6fc4",
+                    marginBottom: 4,
+                  }}
+                >
+                  YOUR ANSWER
+                </p>
+                <p style={{ fontSize: 14, color: "#1e3a5f" }}>
+                  {item.student_answer || "(No answer)"}
+                </p>
               </div>
-
-              {/* Locked AI feedback */}
-              <div style={{ position: "relative", borderRadius: 10, overflow: "hidden" }}>
-                <div style={{ filter: "blur(4px)", background: "#f9fafb", padding: "10px 14px", userSelect: "none" }}>
-                  <p style={{ fontSize: 12, fontWeight: 700, color: "#6b7280", marginBottom: 4 }}>AI FEEDBACK</p>
-                  <p style={{ fontSize: 13, color: "#6b7280" }}>This is detailed AI feedback explaining exactly what you missed and how to improve your answer next time.</p>
+              <div
+                style={{
+                  position: "relative",
+                  borderRadius: 10,
+                  overflow: "hidden",
+                }}
+              >
+                <div
+                  style={{
+                    filter: "blur(4px)",
+                    background: "#f9fafb",
+                    padding: "10px 14px",
+                    userSelect: "none",
+                  }}
+                >
+                  <p
+                    style={{
+                      fontSize: 12,
+                      fontWeight: 700,
+                      color: "#6b7280",
+                      marginBottom: 4,
+                    }}
+                  >
+                    AI FEEDBACK
+                  </p>
+                  <p style={{ fontSize: 13, color: "#6b7280" }}>
+                    This is detailed AI feedback explaining exactly what you
+                    missed and how to improve your answer next time.
+                  </p>
                 </div>
-                <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", background: "rgba(255,255,255,0.7)" }}>
+                <div
+                  style={{
+                    position: "absolute",
+                    inset: 0,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    background: "rgba(255,255,255,0.7)",
+                  }}
+                >
                   <Link href="/register?reason=quota">
-                    <button style={{ background: "#1a6fc4", color: "#fff", padding: "8px 16px", borderRadius: 8, border: "none", fontSize: 12, fontWeight: 700, cursor: "pointer" }}>
+                    <button
+                      style={{
+                        background: "#1a6fc4",
+                        color: "#fff",
+                        padding: "8px 16px",
+                        borderRadius: 8,
+                        border: "none",
+                        fontSize: 12,
+                        fontWeight: 700,
+                        cursor: "pointer",
+                      }}
+                    >
                       🔒 Unlock Free
                     </button>
                   </Link>
@@ -622,7 +872,6 @@ function ResultsScreen({ result, quiz }) {
             </div>
           );
         })}
-
       </div>
     </div>
   );
@@ -672,7 +921,10 @@ function WorkingPanel({ questionIdx, onWorkingCapture }) {
     const scaleY = canvas.height / rect.height;
     const clientX = e.touches ? e.touches[0].clientX : e.clientX;
     const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-    return { x: (clientX - rect.left) * scaleX, y: (clientY - rect.top) * scaleY };
+    return {
+      x: (clientX - rect.left) * scaleX,
+      y: (clientY - rect.top) * scaleY,
+    };
   };
 
   const startDraw = (e) => {
@@ -730,61 +982,140 @@ function WorkingPanel({ questionIdx, onWorkingCapture }) {
   return (
     <div style={{ marginTop: 16 }}>
       <button
-        onClick={() => { setOpen(!open); if (!mode) setMode(isMobile ? "camera" : "canvas"); }}
+        onClick={() => {
+          setOpen(!open);
+          if (!mode) setMode(isMobile ? "camera" : "canvas");
+        }}
         style={{
-          display: "flex", alignItems: "center", gap: 8,
-          padding: "8px 16px", borderRadius: 10,
+          display: "flex",
+          alignItems: "center",
+          gap: 8,
+          padding: "8px 16px",
+          borderRadius: 10,
           border: "2px dashed #bdd7f5",
           background: hasWorking ? "#e8f4ff" : "#f7f9fc",
           color: hasWorking ? "#1a6fc4" : "#8892a4",
-          fontSize: 13, fontWeight: 600, cursor: "pointer",
+          fontSize: 13,
+          fontWeight: 600,
+          cursor: "pointer",
         }}
       >
         ✏️ {hasWorking ? "Working saved ✓" : "Show your working (optional)"}
       </button>
-
       {open && (
-        <div style={{ marginTop: 12, background: "#fff", borderRadius: 16, border: "2px solid #e8eaf0", padding: 16 }}>
+        <div
+          style={{
+            marginTop: 12,
+            background: "#fff",
+            borderRadius: 16,
+            border: "2px solid #e8eaf0",
+            padding: 16,
+          }}
+        >
           <div style={{ display: "flex", gap: 8, marginBottom: 12 }}>
             {["canvas", "camera"].map((m) => (
-              <button key={m} onClick={() => setMode(m)} style={{
-                padding: "6px 14px", borderRadius: 8, fontSize: 12, fontWeight: 700,
-                border: "2px solid " + (mode === m ? "#1a6fc4" : "#e8eaf0"),
-                background: mode === m ? "#e8f4ff" : "#fff",
-                color: mode === m ? "#1a6fc4" : "#8892a4", cursor: "pointer",
-              }}>
+              <button
+                key={m}
+                onClick={() => setMode(m)}
+                style={{
+                  padding: "6px 14px",
+                  borderRadius: 8,
+                  fontSize: 12,
+                  fontWeight: 700,
+                  border: "2px solid " + (mode === m ? "#1a6fc4" : "#e8eaf0"),
+                  background: mode === m ? "#e8f4ff" : "#fff",
+                  color: mode === m ? "#1a6fc4" : "#8892a4",
+                  cursor: "pointer",
+                }}
+              >
                 {m === "canvas" ? "✏️ Draw" : "📷 Photo"}
               </button>
             ))}
           </div>
-
           {mode === "canvas" && (
             <div>
               <canvas
-                ref={canvasRef} width={600} height={200}
-                onMouseDown={startDraw} onMouseMove={draw} onMouseUp={stopDraw} onMouseLeave={stopDraw}
-                onTouchStart={startDraw} onTouchMove={draw} onTouchEnd={stopDraw}
-                style={{ width: "100%", height: 200, borderRadius: 10, border: "1.5px solid #e8eaf0", cursor: "crosshair", touchAction: "none", background: "#fff", display: "block" }}
+                ref={canvasRef}
+                width={600}
+                height={200}
+                onMouseDown={startDraw}
+                onMouseMove={draw}
+                onMouseUp={stopDraw}
+                onMouseLeave={stopDraw}
+                onTouchStart={startDraw}
+                onTouchMove={draw}
+                onTouchEnd={stopDraw}
+                style={{
+                  width: "100%",
+                  height: 200,
+                  borderRadius: 10,
+                  border: "1.5px solid #e8eaf0",
+                  cursor: "crosshair",
+                  touchAction: "none",
+                  background: "#fff",
+                  display: "block",
+                }}
               />
-              <div style={{ display: "flex", justifyContent: "flex-end", marginTop: 8 }}>
-                <button onClick={clearCanvas} style={{ fontSize: 12, color: "#c0334a", background: "none", border: "none", cursor: "pointer", fontWeight: 600 }}>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "flex-end",
+                  marginTop: 8,
+                }}
+              >
+                <button
+                  onClick={clearCanvas}
+                  style={{
+                    fontSize: 12,
+                    color: "#c0334a",
+                    background: "none",
+                    border: "none",
+                    cursor: "pointer",
+                    fontWeight: 600,
+                  }}
+                >
                   🗑 Clear
                 </button>
               </div>
             </div>
           )}
-
           {mode === "camera" && (
             <div style={{ textAlign: "center", padding: "16px 0" }}>
-              <input ref={fileInputRef} type="file" accept="image/*" capture="environment" onChange={handlePhotoUpload} style={{ display: "none" }} />
-              <button onClick={() => fileInputRef.current.click()} style={{
-                padding: "12px 24px", borderRadius: 12,
-                background: "linear-gradient(135deg, #1a6fc4, #0ea5c9)",
-                color: "#fff", border: "none", fontSize: 14, fontWeight: 700, cursor: "pointer",
-              }}>
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept="image/*"
+                capture="environment"
+                onChange={handlePhotoUpload}
+                style={{ display: "none" }}
+              />
+              <button
+                onClick={() => fileInputRef.current.click()}
+                style={{
+                  padding: "12px 24px",
+                  borderRadius: 12,
+                  background: "linear-gradient(135deg, #1a6fc4, #0ea5c9)",
+                  color: "#fff",
+                  border: "none",
+                  fontSize: 14,
+                  fontWeight: 700,
+                  cursor: "pointer",
+                }}
+              >
                 {hasWorking ? "📷 Retake Photo" : "📷 Take Photo / Upload"}
               </button>
-              {hasWorking && <p style={{ fontSize: 12, color: "#1d8f57", marginTop: 8, fontWeight: 600 }}>✓ Working captured</p>}
+              {hasWorking && (
+                <p
+                  style={{
+                    fontSize: 12,
+                    color: "#1d8f57",
+                    marginTop: 8,
+                    fontWeight: 600,
+                  }}
+                >
+                  ✓ Working captured
+                </p>
+              )}
             </div>
           )}
         </div>
@@ -851,25 +1182,19 @@ export default function QuizTakePage({ params }) {
 
   useEffect(() => {
     if (typeof window === "undefined" || !window.MathJax || !currentQ) return;
-
     const typesetMath = async () => {
       try {
-        if (window.MathJax.typesetClear) {
-          window.MathJax.typesetClear();
-        }
+        if (window.MathJax.typesetClear) window.MathJax.typesetClear();
         await window.MathJax.typesetPromise();
       } catch (err) {
         console.error("MathJax typeset error:", err);
       }
     };
-
     setTimeout(typesetMath, 50);
-  }); 
+  });
 
-  // Typeset whenever question changes
   useEffect(() => {
     if (typeof window === "undefined" || !window.MathJax || !currentQ) return;
-
     const typesetMath = async () => {
       try {
         await window.MathJax.typesetPromise();
@@ -877,63 +1202,33 @@ export default function QuizTakePage({ params }) {
         console.error("MathJax typeset error:", err);
       }
     };
-
-    // Wait a bit for DOM to update
     setTimeout(typesetMath, 100);
   }, [currentIdx, currentQ]);
+
   const totalQ = questions.length;
- const answeredCount = Object.values(answers).filter((v) => {
-   if (v === undefined || v === null) return false;
-   if (typeof v === "object") return Object.keys(v).length > 0;
-   const s = String(v).trim();
-   return s !== "" && s !== "\\placeholder{}";
- }).length;
+  const answeredCount = Object.values(answers).filter((v) => {
+    if (v === undefined || v === null) return false;
+    if (typeof v === "object") return Object.keys(v).length > 0;
+    const s = String(v).trim();
+    return s !== "" && s !== "\\placeholder{}";
+  }).length;
   const unanswered = totalQ - answeredCount;
   const progressPct = totalQ > 0 ? (answeredCount / totalQ) * 100 : 0;
 
   useEffect(() => {
-    console.log("========================================");
-    console.log("🔍 QUIZ LOAD DEBUG");
-    console.log("quizId:", quizId);
-    console.log("user:", user);
-    console.log("guestSessionFromUrl:", guestSessionFromUrl);
-    console.log("========================================");
-
-    if (!quizId) {
-      console.log("❌ No quizId - returning");
-      return;
-    }
-
+    if (!quizId) return;
     const token = localStorage.getItem("accessToken");
-    console.log("🔑 Token exists:", !!token);
-
-    // Guests allowed only if guest_session present
-    if (!user && !guestSessionFromUrl) {
-      console.log("❌ Not logged in and no guest session - redirecting");
-      // router.push("/explore");
-      // return;
-    }
-
     (async () => {
       try {
         const headers = token ? { Authorization: `Bearer ${token}` } : {};
-        const url = `${API}/quizzes/${quizId}/`;
-        console.log("📡 Fetching:", url);
-
-        const res = await fetch(url, { headers });
-        console.log("📥 Response status:", res.status);
-
+        const res = await fetch(`${API}/quizzes/${quizId}/`, { headers });
         if (!res.ok) throw new Error("Quiz load failed");
-
         const data = await res.json();
-        console.log("✅ Quiz loaded:", data);
-
         setQuiz(data);
         setQuestions(data.questions || []);
       } catch (err) {
         console.error("❌ Failed to load quiz:", err);
       } finally {
-        console.log("✅ Setting loading = false");
         setLoading(false);
       }
     })();
@@ -946,28 +1241,32 @@ export default function QuizTakePage({ params }) {
     [currentIdx],
   );
 
+  // ── THE KEY FIX: read math field then wait 50ms for state to update before showing modal ──
+  const openSubmitModal = useCallback(() => {
+    const mathField = document.querySelector("math-field");
+    if (mathField) {
+      const val = mathField.value?.trim();
+      if (val && val !== "\\placeholder{}") {
+        setAnswers((prev) => ({ ...prev, [currentIdx]: val }));
+      }
+    }
+    setTimeout(() => setShowSubmitModal(true), 50);
+  }, [currentIdx]);
+
   const handleQuizSubmit = async () => {
     setSubmitting(true);
-
     try {
-      // Build answers dict safely
       const answersDict = {};
       questions.forEach((q, idx) => {
         let answer = answers[idx];
-
         if (answer === undefined || answer === null) return;
-
-        // Force trim for string answers (especially math)
-        if (typeof answer === "string") {
-          answer = answer.trim();
-        }
-
+        if (typeof answer === "string") answer = answer.trim();
         if (
           typeof answer === "string" &&
-          answer.trim().length > 0 &&
-          answer.trim() !== "\\placeholder{}"
+          answer.length > 0 &&
+          answer !== "\\placeholder{}"
         ) {
-          answersDict[q.id] = answer.trim();
+          answersDict[q.id] = answer;
         } else if (
           typeof answer === "object" &&
           answer !== null &&
@@ -978,28 +1277,17 @@ export default function QuizTakePage({ params }) {
       });
 
       const token = localStorage.getItem("accessToken");
-      const guestSession =
-        searchParams.get("guest_session") ||
-        localStorage.getItem("guest_session_id");
-
       const payload = {
         quiz_id: parseInt(quizId, 10),
         answers: answersDict,
         working_images: workingImages,
       };
-
-      // Send session_id ONLY for guests
       if (!token) {
         payload.session_id =
           "device_" + (localStorage.getItem("device_quizzes_used") || "0");
       }
-
-      const headers = {
-        "Content-Type": "application/json",
-      };
-      if (token) {
-        headers.Authorization = `Bearer ${token}`;
-      }
+      const headers = { "Content-Type": "application/json" };
+      if (token) headers.Authorization = `Bearer ${token}`;
 
       const response = await fetch(`${API}/quizzes/submit/`, {
         method: "POST",
@@ -1011,52 +1299,33 @@ export default function QuizTakePage({ params }) {
       try {
         data = await response.json();
       } catch (jsonErr) {
-        console.error("Invalid JSON from server:", await response.text());
         throw new Error("Server returned invalid response (not JSON)");
       }
 
       if (response.status === 402) {
-        if (data?.quota_exceeded) {
-          router.push("/register?reason=quota");
-        } else if (data?.credits_exhausted) {
-          router.push("/subscribe");
-        }
+        if (data?.quota_exceeded) router.push("/register?reason=quota");
+        else if (data?.credits_exhausted) router.push("/subscribe");
         return;
       }
-      if (data.show_signup_prompt) {
-        router.push("/register?reason=quota");
-      }
-      // Handle non-OK status (400, 404, 500, etc.)
       if (!response.ok) {
         alert(data?.error || "Submission failed. Please try again.");
         return;
       }
-
-      // Success
+      if (data.show_signup_prompt) {
+        router.push("/register?reason=quota");
+        return;
+      }
       if (data.is_guest) {
         const used = parseInt(
           localStorage.getItem("device_quizzes_used") || "0",
         );
         localStorage.setItem("device_quizzes_used", String(used + 1));
         setResult(data);
-
-        if (data.show_signup_prompt) {
-          router.push("/register?reason=quota");
-        }
-
-        // if (data.guest_quizzes_taken !== undefined) {
-        //   setGuestQuota({
-        //     taken: data.guest_quizzes_taken,
-        //     remaining: data.guest_quizzes_remaining,
-        //   });
-        // }
       } else {
-        // Logged in user redirect to saved attempt
         if (data.id) {
           router.replace(`/attempts/${data.id}`);
         } else {
-          console.warn("Authenticated submit but no attempt ID returned");
-          setResult(data); // fallback: show inline
+          setResult(data);
         }
       }
     } catch (error) {
@@ -1076,8 +1345,8 @@ export default function QuizTakePage({ params }) {
   };
 
   const handleTimerExpire = useCallback(() => {
-    if (!result) setShowSubmitModal(true);
-  }, [result]);
+    if (!result) openSubmitModal();
+  }, [result, openSubmitModal]);
 
   if (loading) {
     return (
@@ -1176,6 +1445,7 @@ export default function QuizTakePage({ params }) {
         .question-nav { display: flex; }
         @media (max-width: 768px) { .question-nav { display: none !important; } }
       `}</style>
+
       <SubmitModal
         open={showSubmitModal}
         onConfirm={handleQuizSubmit}
@@ -1190,6 +1460,7 @@ export default function QuizTakePage({ params }) {
         onJump={setCurrentIdx}
         show={showNav}
       />
+
       {/* Top Bar */}
       <div
         style={{
@@ -1231,7 +1502,6 @@ export default function QuizTakePage({ params }) {
             </button>
           </Link>
 
-          {/* Progress */}
           <div style={{ flex: 1 }}>
             <div
               style={{
@@ -1270,7 +1540,7 @@ export default function QuizTakePage({ params }) {
           {quiz?.duration_minutes && (
             <TimerBadge
               totalSeconds={quiz.duration_minutes * 60}
-              onExpire={() => !result && setShowSubmitModal(true)}
+              onExpire={handleTimerExpire}
             />
           )}
 
@@ -1293,7 +1563,7 @@ export default function QuizTakePage({ params }) {
           </button>
         </div>
       </div>
-      {/* Content */}
+
       {/* Content */}
       <div
         style={{
@@ -1307,7 +1577,6 @@ export default function QuizTakePage({ params }) {
           gap: currentQ?.passage ? 24 : undefined,
         }}
       >
-        {/* Passage panel */}
         {currentQ?.passage && (
           <div
             style={{
@@ -1379,7 +1648,6 @@ export default function QuizTakePage({ params }) {
           </div>
         )}
 
-        {/* Questions panel */}
         <div>
           <AnimatePresence mode="wait">
             <motion.div
@@ -1389,7 +1657,6 @@ export default function QuizTakePage({ params }) {
               exit={{ opacity: 0, y: -12 }}
               transition={{ duration: 0.2 }}
             >
-              {/* Question header */}
               <div
                 style={{
                   display: "flex",
@@ -1470,7 +1737,6 @@ export default function QuizTakePage({ params }) {
                 </button>
               </div>
 
-              {/* Question text */}
               <div
                 style={{
                   background: "#fff",
@@ -1492,7 +1758,6 @@ export default function QuizTakePage({ params }) {
                 />
               </div>
 
-              {/* Image */}
               {currentQ.question_image_url && (
                 <div
                   style={{
@@ -1528,7 +1793,6 @@ export default function QuizTakePage({ params }) {
                 </div>
               )}
 
-              {/* Answers */}
               {isMCQ && !(currentQ.parts && currentQ.parts.length > 0) && (
                 <div
                   style={{ display: "flex", flexDirection: "column", gap: 12 }}
@@ -1661,19 +1925,19 @@ export default function QuizTakePage({ params }) {
                   )}
                 </div>
               )}
-              {/* Working panel — math questions only */}
+
               {(isMath || (currentQ.parts && currentQ.parts.length > 0)) && (
                 <WorkingPanel
                   questionIdx={currentIdx}
-                  onWorkingCapture={(base64) => {
+                  onWorkingCapture={(base64) =>
                     setWorkingImages((prev) => ({
                       ...prev,
                       [currentIdx]: base64,
-                    }));
-                  }}
+                    }))
+                  }
                 />
               )}
-              {/* Multi-part questions */}
+
               {currentQ.parts && currentQ.parts.length > 0 && (
                 <div
                   style={{ display: "flex", flexDirection: "column", gap: 20 }}
@@ -1683,7 +1947,6 @@ export default function QuizTakePage({ params }) {
                       typeof answers[currentIdx] === "object"
                         ? (answers[currentIdx]?.[part.id] ?? "")
                         : "";
-
                     const handlePartAnswer = (value) => {
                       setAnswers((prev) => ({
                         ...prev,
@@ -1695,7 +1958,6 @@ export default function QuizTakePage({ params }) {
                         },
                       }));
                     };
-
                     return (
                       <div
                         key={part.id}
@@ -1741,7 +2003,6 @@ export default function QuizTakePage({ params }) {
                             {part.max_marks !== 1 ? "s" : ""}
                           </span>
                         </div>
-
                         <p
                           style={{
                             fontSize: 15,
@@ -1752,7 +2013,6 @@ export default function QuizTakePage({ params }) {
                         >
                           {part.question_text}
                         </p>
-
                         {part.question_type === "mcq" ? (
                           <div
                             style={{
@@ -1894,7 +2154,7 @@ export default function QuizTakePage({ params }) {
             </button>
           ) : (
             <button
-              onClick={() => setShowSubmitModal(true)}
+              onClick={openSubmitModal}
               style={{
                 flex: 1,
                 height: 48,
@@ -1919,7 +2179,7 @@ export default function QuizTakePage({ params }) {
 
           {currentIdx < totalQ - 1 && unanswered === 0 && (
             <button
-              onClick={() => setShowSubmitModal(true)}
+              onClick={openSubmitModal}
               style={{
                 width: 48,
                 height: 48,

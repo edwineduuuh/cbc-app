@@ -41,6 +41,9 @@ class AIGrader:
         Falls back to AI for near-misses.
         """
         if not question.correct_answer or str(question.correct_answer).strip() == '':
+            return self.mark_with_ai(question, student_answer)
+
+        if not question.correct_answer or str(question.correct_answer).strip() == '':
             return {
                 'marks_awarded': 0,
                 'max_marks': question.max_marks,
@@ -162,17 +165,10 @@ Reply with ONLY the word TRUE or FALSE. Nothing else."""
 
     # ====================== MATH ======================
     def mark_math(self, question, student_answer):
+        """Mark math questions with symbolic and numeric comparisons"""
+        # No correct answer set — fall back to AI to grade it
         if not question.correct_answer or str(question.correct_answer).strip() == '':
-            return {
-                'marks_awarded': 0,
-                'max_marks': question.max_marks,
-                'feedback': 'This question has no correct answer set.',
-                'is_correct': False,
-                'personalized_message': 'Please contact your teacher.',
-                'study_tip': '',
-                'points_earned': [],
-                'points_missed': []
-            }
+            return self.mark_with_ai(question, student_answer)
 
 
         student_answer = str(student_answer).strip()
