@@ -349,6 +349,12 @@ Write a step-by-step solution in simple words a Grade {grade} student can follow
 
             base = f"""You are a Kenyan CBC teacher marking a Grade {grade} student's answer.
 
+
+   
+    - CRITICAL: Before writing feedback, verify your marking is consistent. 
+    If you say the student's answer matches the correct answer anywhere in your reasoning, 
+    you MUST award full marks. Never award 0 and then say the answer was correct.
+    
     LANGUAGE RULES — FOLLOW THESE STRICTLY:
     - Write in simple English that a Grade {grade} Kenyan student can understand
     - Use the same simple words found in Kenyan CBC textbooks
