@@ -1,279 +1,432 @@
 """
-AI Grading Engine for CBC Learning Platform
-Uses Claude Haiku API to mark questions
+ai_grader.py
+CBC Kenya Learning Platform — AI Grading Engine
+Uses Claude Haiku to mark student answers across all question types.
 """
 
 import json
-import re
 import random
+import re
+import time
+
+import requests
 from django.conf import settings
-from sympy import sympify, simplify, SympifyError, N
+from sympy import N, simplify, sympify
+from sympy.parsing.latex import parse_latex
+from sympy.core.sympify import SympifyError
 
 
-class AIGrader:
-    """Handles AI-powered grading for different question types"""
+# ─────────────────────────────────────────────────────────────────────────────
+#  CONSTANTS
+# ─────────────────────────────────────────────────────────────────────────────
 
-    def mark_question(self, question, student_answer):
-        """Main grading function — routes to correct grader"""
-        if question.question_type in ['mcq', 'structured', 'essay']:
-            return self.mark_with_ai(question, student_answer)
-        elif question.question_type == 'fill_blank':
-            return self.mark_fill_blank(question, student_answer)
-        elif question.question_type == 'math':
-            return self.mark_math(question, student_answer)
-        else:
-            return {
-                'marks_awarded': 0,
-                'max_marks': question.max_marks,
-                'feedback': 'Unsupported question type.',
-                'is_correct': False,
-                'personalized_message': '',
-                'study_tip': '',
-                'points_earned': [],
-                'points_missed': []
-            }
+CLAUDE_MODEL   = "claude-haiku-4-5-20251001"
+CLAUDE_URL     = "https://api.anthropic.com/v1/messages"
+MAX_TOKENS     = 2000
+MAX_RETRIES    = 4
 
-    # ====================== FILL BLANK ======================
-    def mark_fill_blank(self, question, student_answer):
-        """
-        Fill-in-the-blank grader.
-        Handles case differences, whitespace, punctuation, multiple accepted answers.
-        Falls back to AI for near-misses.
-        """
-        if not question.correct_answer or str(question.correct_answer).strip() == '':
-            return self.mark_with_ai(question, student_answer)
+KISWAHILI_KEYWORDS = {
+    "je", "na", "ya", "wa", "la", "kwa", "katika", "yako",
+    "chagua", "andika", "tambua", "kamilisha", "sentensi",
+    "neno", "silabi", "wingi", "kanusha", "aya", "wimbo",
+    "mwalimu", "mwanafunzi", "darasa", "shule", "jibu",
+    "sahihi", "maana", "kitenzi", "nomino", "kielezi",
+    "hii", "hizi", "hilo", "sisi", "wewe", "yeye",
+}
 
-        if not question.correct_answer or str(question.correct_answer).strip() == '':
-            return {
-                'marks_awarded': 0,
-                'max_marks': question.max_marks,
-                'feedback': 'This question has no correct answer set.',
-                'is_correct': False,
-                'personalized_message': 'Please contact your teacher.',
-                'study_tip': '',
-                'points_earned': [],
-                'points_missed': []
-            }
+PRAISE_EN = [
+    "Spot on! Well done.",
+    "Perfect — great work!",
+    "Correct! You got it.",
+    "Excellent answer!",
+    "Yes! That is exactly right.",
+]
 
-        student_raw = str(student_answer).strip()
-        if not student_raw:
-            return {
-                'marks_awarded': 0,
-                'max_marks': question.max_marks,
-                'feedback': 'You did not write an answer.',
-                'is_correct': False,
-                'personalized_message': 'Try again — you can do it!',
-                'study_tip': 'Always write your answer clearly.',
-                'points_earned': [],
-                'points_missed': []
-            }
+PRAISE_SW = [
+    "Hongera! Umefanya vizuri sana.",
+    "Vizuri kabisa! Jibu sahihi.",
+    "Nzuri sana! Umepata jibu sahihi.",
+    "Umefanya kazi nzuri!",
+    "Sahihi kabisa! Endelea hivyo.",
+]
 
-        def normalise(s):
-            s = s.lower().strip()
-            s = re.sub(r'\s+', ' ', s)
-            s = s.rstrip('.,;:!?')
-            return s
+ENCOURAGE_EN = [
+    "You are really getting the hang of this!",
+    "Keep up the great work!",
+    "Fantastic — keep going!",
+    "Well done — so proud of you!",
+    "Superb! On to the next one.",
+]
 
-        student_norm = normalise(student_raw)
-        raw_correct = str(question.correct_answer).strip()
-        accepted = [normalise(a) for a in re.split(r'[|;]', raw_correct) if a.strip()]
-        is_correct = student_norm in accepted
+ENCOURAGE_SW = [
+    "Unajifunza vizuri sana — endelea!",
+    "Hongera — kazi yako ni nzuri!",
+    "Vizuri sana — jaribu tena!",
+    "Unaendelea vizuri — usikate tamaa!",
+    "Nzuri sana — hii ni maendeleo mazuri!",
+]
 
-        # Numeric equivalence check
-        if not is_correct:
-            try:
-                student_num = float(re.sub(r'[^\d.-]', '', student_norm))
-                for a in accepted:
-                    try:
-                        if abs(student_num - float(re.sub(r'[^\d.-]', '', a))) < 0.01:
-                            is_correct = True
-                            break
-                    except ValueError:
-                        pass
-            except ValueError:
-                pass
+NEAR_MISS_EN = [
+    "Not quite — but you are learning!",
+    "Good try — have another look.",
+    "Almost there — check the correct answer.",
+    "Close! Review the steps and try again.",
+    "Let us work through this together.",
+]
 
-        # AI semantic check as last resort
-        if not is_correct:
-            try:
-                is_correct = self._ai_fill_blank_check(question, student_raw, raw_correct)
-            except Exception as e:
-                print(f"⚠ AI fill-blank fallback failed: {e}")
+NEAR_MISS_SW = [
+    "Karibu sana — angalia jibu sahihi tena.",
+    "Jaribu tena — uko karibu!",
+    "Jibu lako halikuwa sahihi, lakini endelea kujifunza.",
+    "Karibu — soma jibu sahihi kisha jaribu tena.",
+    "Usikate tamaa — tutafanya hii pamoja.",
+]
 
-        if is_correct:
-            return {
-                'marks_awarded': question.max_marks,
-                'max_marks': question.max_marks,
-                'feedback': random.choice([
-                    "Spot on! Well done.",
-                    "That's exactly right!",
-                    "Correct! Great work.",
-                    "Yes — you've got it!",
-                    "Excellent answer!",
-                ]),
-                'is_correct': True,
-                'personalized_message': random.choice([
-                    "You are really getting the hang of this!",
-                    "Keep up the great work!",
-                    "Fantastic!",
-                    "Well done — so proud of you!",
-                    "Superb! On to the next one.",
-                ]),
-                'study_tip': '',
-                'points_earned': [student_raw],
-                'points_missed': [],
-            }
 
-        explanation = getattr(question, 'explanation', None) or f"The correct answer is: {raw_correct}."
-        return {
-            'marks_awarded': 0,
-            'max_marks': question.max_marks,
-            'feedback': f"Not quite. The correct answer is {raw_correct}.",
-            'is_correct': False,
-            'personalized_message': random.choice([
-                "Not quite — but you are learning!",
-                "Good try — have another look.",
-                "Almost there — check the correct answer.",
-                "Close! Try again.",
-                "Let us improve this together.",
-            ]),
-            'study_tip': explanation,
-            'points_earned': [],
-            'points_missed': [raw_correct],
+# ─────────────────────────────────────────────────────────────────────────────
+#  HELPERS
+# ─────────────────────────────────────────────────────────────────────────────
+
+def _is_kiswahili(text: str) -> bool:
+    """Detect Kiswahili by counting keyword matches (requires ≥ 2)."""
+    words = set(text.lower().split())
+    return sum(1 for w in KISWAHILI_KEYWORDS if w in words) >= 2
+
+
+def _praise(sw: bool) -> str:
+    return random.choice(PRAISE_SW if sw else PRAISE_EN)
+
+
+def _encourage(sw: bool) -> str:
+    return random.choice(ENCOURAGE_SW if sw else ENCOURAGE_EN)
+
+
+def _near_miss(sw: bool) -> str:
+    return random.choice(NEAR_MISS_SW if sw else NEAR_MISS_EN)
+
+
+def _empty_result(max_marks: int, feedback: str, message: str) -> dict:
+    return {
+        "marks_awarded":      0,
+        "max_marks":          max_marks,
+        "feedback":           feedback,
+        "is_correct":         False,
+        "personalized_message": message,
+        "study_tip":          "",
+        "points_earned":      [],
+        "points_missed":      [],
+    }
+
+
+def _correct_result(max_marks: int, feedback: str, message: str,
+                    study_tip: str = "", points_earned: list = None) -> dict:
+    return {
+        "marks_awarded":      max_marks,
+        "max_marks":          max_marks,
+        "feedback":           feedback,
+        "is_correct":         True,
+        "personalized_message": message,
+        "study_tip":          study_tip,
+        "points_earned":      points_earned or [],
+        "points_missed":      [],
+    }
+
+
+def _normalise(s: str) -> str:
+    """Lowercase, collapse whitespace, strip trailing punctuation."""
+    s = s.lower().strip()
+    s = re.sub(r"\s+", " ", s)
+    s = s.rstrip(".,;:!?")
+    return s
+
+
+def _clean_num(s: str) -> str:
+    return re.sub(r"[^\d.-]", "", s)
+
+
+def _parse_math_expr(s: str):
+    """Try plain sympy first, fall back to LaTeX parser. Returns None on failure."""
+    s = str(s).strip().strip("$")
+    try:
+        return sympify(s, evaluate=False)
+    except Exception:
+        try:
+            return parse_latex(s)
+        except Exception:
+            return None
+
+
+def _parse_json_response(raw: str) -> dict:
+    cleaned = raw.replace("```json", "").replace("```", "").strip()
+    return json.loads(cleaned)
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+#  CLAUDE API CLIENT
+# ─────────────────────────────────────────────────────────────────────────────
+
+def _call_claude(prompt: str, working_image: str | None = None) -> dict:
+    """
+    POST to Claude API with exponential back-off on 429s.
+    Returns the raw API response dict.
+    Raises Exception on unrecoverable errors.
+    """
+    if working_image:
+        content = [
+            {
+                "type": "image",
+                "source": {
+                    "type": "base64",
+                    "media_type": "image/png",
+                    "data": working_image,
+                },
+            },
+            {
+                "type": "text",
+                "text": prompt + "\n\nThe student has shared a photo of their working above.",
+            },
+        ]
+    else:
+        content = prompt
+
+    payload = {
+        "model":      CLAUDE_MODEL,
+        "max_tokens": MAX_TOKENS,
+        "messages":   [{"role": "user", "content": content}],
+    }
+    headers = {
+        "Content-Type":     "application/json",
+        "x-api-key":        settings.ANTHROPIC_API_KEY,
+        "anthropic-version": "2023-06-01",
+    }
+
+    for attempt in range(MAX_RETRIES):
+        try:
+            resp = requests.post(CLAUDE_URL, headers=headers, json=payload, timeout=30)
+
+            if resp.status_code == 429:
+                wait = 2 ** attempt
+                print(f"⚠ Rate limited — retrying in {wait}s (attempt {attempt + 1}/{MAX_RETRIES})")
+                time.sleep(wait)
+                continue
+
+            resp.raise_for_status()
+            return resp.json()
+
+        except requests.Timeout:
+            if attempt == MAX_RETRIES - 1:
+                raise Exception("Claude API timed out after all retries.")
+            time.sleep(2 ** attempt)
+
+        except requests.HTTPError as e:
+            if e.response.status_code != 429:
+                raise Exception(
+                    f"Claude API HTTP {e.response.status_code}: {e.response.text[:200]}"
+                )
+
+    raise Exception("Claude API failed after all retries — rate limit persists.")
+
+
+def _claude_text(prompt: str, working_image: str | None = None) -> str:
+    """Convenience wrapper — returns the text content from Claude's response."""
+    response = _call_claude(prompt, working_image)
+    return response["content"][0]["text"]
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+#  PROMPT BUILDERS
+# ─────────────────────────────────────────────────────────────────────────────
+
+def _language_rules(language: str, grade: int) -> str:
+    """Strict language enforcement block injected into every marking prompt."""
+    if language == "Kiswahili":
+        return f"""
+⚠️ SHERIA YA LUGHA — MUHIMU SANA:
+Swali hili liko katika Kiswahili. Jibu lako LOTE lazima liwe katika Kiswahili.
+Hii inajumuisha: maoni (feedback), ujumbe wa kuhamasisha, kidokezo cha kusoma, pointi zilizofanikiwa, na pointi zilizokosekana.
+USANDIKE hata sentensi moja kwa Kiingereza.
+
+MANENO YA KISWAHILI YA SIFA:
+- Sema "Hongera!" au "Vizuri sana!" — USISEME "Pole sana!" kwa sifa (pole = sorry/condolences)
+- Tumia lugha rahisi ya Kiswahili inayotumika Kenya mashuleni
+- Jibu lazima lisikike kama mwalimu wa kweli wa Kenya — si tafsiri ya Kiingereza
+
+SHERIA ZA LUGHA:
+- Andika kwa lugha rahisi ambayo mwanafunzi wa Darasa {grade} anaweza kuelewa
+- Sentensi fupi — si zaidi ya sentensi 3 kwa kila sehemu
+- Zungumza moja kwa moja na mwanafunzi ukitumia "wewe" na "yako"
+"""
+    else:
+        return f"""
+⚠️ LANGUAGE RULE — CRITICAL:
+This question is in English. Write your ENTIRE response in English only.
+This includes: feedback, personalized_message, study_tip, points_earned, points_missed.
+Do NOT write even one sentence in another language.
+
+LANGUAGE RULES:
+- Write in simple English that a Grade {grade} Kenyan student can understand
+- Use words found in Kenyan CBC textbooks
+- Short sentences only — maximum 3 sentences per section
+- Talk directly to the student using "you" and "your"
+- Sound like a kind, encouraging Kenyan teacher
+- Never use: demonstrate, indicate, facilitate, enumerate, elaborate,
+  subsequently, primarily, comprise, constitute, moreover, furthermore, utilize
+"""
+
+
+def _build_marking_prompt(question, student_answer: str, language: str) -> str:
+    """
+    Builds the full marking prompt for MCQ, structured, and essay questions.
+    """
+    grade = getattr(getattr(question, "topic", None), "grade", 7)
+    has_passage = hasattr(question, "passage") and question.passage is not None
+
+    prompt = f"""You are a Kenyan CBC teacher marking a Grade {grade} student's answer.
+{_language_rules(language, grade)}
+
+MARKING RULES:
+1. Award marks for real understanding — exact wording is not required
+2. Full marks only when all key ideas are clearly present
+3. Partial marks for partial answers — integers only, no decimals
+4. Accept any factually correct answer even if worded differently
+5. When the question asks for N points, only mark the first N correct ones
+6. The same idea said in different words counts as one point only
+7. Spelling mistakes are fine unless they change the meaning
+8. Never go above the question's maximum marks
+9. Wrong or irrelevant information reduces marks
+10. CRITICAL: If you say the student's answer matches the correct answer,
+    you MUST award full marks — never award 0 and say the answer was correct
+
+FEEDBACK INSTRUCTIONS:
+- Write 4–6 sentences of specific, educational feedback
+- First: acknowledge exactly what the student got RIGHT and why it earned marks
+- Then: for each wrong or missing point, give the ACTUAL correct answer
+- The student must walk away knowing exactly what the full correct answer looks like
+- Warm teacher tone — direct and educational
+"""
+
+    # MCQ-specific rules
+    if question.question_type == "mcq":
+        prompt += """
+MCQ RULES:
+- Correct option chosen → full marks
+- Wrong option → 0 marks (no partial marks for MCQs)
+
+FEEDBACK FORMAT FOR MCQ:
+- Start with "✅ Correct! ..." or "❌ Not quite. The right answer is ..."
+- In 1–2 sentences explain WHY that answer is correct using simple words
+- End with one short "Remember:" tip to help them recall the concept
+- Total: maximum 5 sentences
+"""
+
+    # Passage/comprehension rules
+    if has_passage:
+        prompt += f"""
+COMPREHENSION RULES:
+Answer based ONLY on the reading passage below — not general knowledge.
+Your feedback MUST point to where in the passage the answer is found.
+Keep feedback to 2 sentences maximum.
+
+--- PASSAGE ---
+{question.passage.content}
+--- END PASSAGE ---
+"""
+
+    # Question text
+    q_text = question.question_text
+    if question.question_type == "mcq":
+        q_text += (
+            f"\n\nOPTIONS:\n"
+            f"A: {question.option_a}\n"
+            f"B: {question.option_b}\n"
+            f"C: {question.option_c}\n"
+            f"D: {question.option_d}"
+        )
+    prompt += f"\n\nQUESTION:\n{q_text}"
+
+    # Student answer text
+    s_ans = str(student_answer).strip()
+    if question.question_type == "mcq":
+        options_map = {
+            "A": question.option_a, "B": question.option_b,
+            "C": question.option_c, "D": question.option_d,
         }
+        letter = s_ans.upper()
+        if letter in options_map:
+            s_ans = f"Option {letter}: {options_map[letter]}"
+    prompt += f"\n\nSTUDENT ANSWER:\n{s_ans}"
 
-    def _ai_fill_blank_check(self, question, student_answer, correct_answer):
-        """Ask Claude if the fill-blank answer is correct. Returns True or False only."""
-        prompt = f"""You are a Kenyan CBC teacher checking a fill-in-the-blank answer.
+    # Correct answer / marking scheme
+    if question.question_type == "mcq":
+        correct_letter = str(question.correct_answer).strip().upper()
+        options_map = {
+            "A": question.option_a, "B": question.option_b,
+            "C": question.option_c, "D": question.option_d,
+        }
+        correct_text = options_map.get(correct_letter, "")
+        prompt += f"\n\nCORRECT ANSWER:\nOption {correct_letter}: {correct_text}"
+        if getattr(question, "explanation", None):
+            prompt += f"\nEXPLANATION: {question.explanation}"
+    else:
+        if getattr(question, "marking_scheme", None):
+            points_text = "\n".join(
+                f"- {p['description']} ({p['marks']} marks)"
+                for p in question.marking_scheme.get("points", [])
+            )
+            prompt += f"\n\nMARKING SCHEME:\n{points_text}"
+        else:
+            prompt += f"\n\nEXPECTED ANSWER / KEY POINTS:\n{question.correct_answer}"
+
+    # Study tip instruction
+    if has_passage:
+        study_tip_rule = (
+            "Point to the specific paragraph or line in the passage where the answer is found. "
+            "Do NOT repeat the feedback."
+        )
+    else:
+        study_tip_rule = (
+            "One NEW helpful tip not already in the feedback — "
+            "a simple memory trick, related idea, or exam tip. "
+            "Only include if you are 100% sure it is factually correct. "
+            "If not sure, leave empty string."
+        )
+
+    prompt += f"""
+
+MAX MARKS: {question.max_marks}
+
+Return ONLY valid JSON — no text before or after:
+{{
+  "marks_awarded": integer between 0 and {question.max_marks},
+  "feedback": "4–6 sentences: (1) what student got right and why, (2) for each missing point give the ACTUAL correct answer, (3) full correct answer so student knows what to write. Warm but direct.",
+  "personalized_message": "one short encouraging sentence directed at the student",
+  "study_tip": "{study_tip_rule}",
+  "points_earned": ["what the student got right — in simple words"],
+  "points_missed": ["what the student missed — in simple words"]
+}}"""
+
+    return prompt
+
+
+def _build_fill_blank_ai_prompt(question, student_answer: str, correct_answer: str) -> str:
+    """Prompt asking Claude to semantically verify a fill-blank answer."""
+    return f"""You are a Kenyan CBC teacher checking a fill-in-the-blank answer.
 
 QUESTION: {question.question_text}
 CORRECT ANSWER: {correct_answer}
 STUDENT ANSWER: {student_answer}
 
 Is the student's answer correct?
+Examples:
 - "thousands" vs "Thousands" → TRUE
 - "ten thousand" vs "ten thousands place" → TRUE
 - Clearly wrong answer → FALSE
 
 Reply with ONLY the word TRUE or FALSE. Nothing else."""
-        try:
-            response = self._call_claude_api(prompt)
-            verdict = response['content'][0]['text'].strip().upper()
-            return verdict == 'TRUE'
-        except Exception:
-            return False
-
-    # ====================== MATH ======================
-    def mark_math(self, question, student_answer):
-        """Mark math questions with symbolic and numeric comparisons"""
-        # No correct answer set — fall back to AI to grade it
-        if not question.correct_answer or str(question.correct_answer).strip() == '':
-            return self.mark_with_ai(question, student_answer)
 
 
-        student_answer = str(student_answer).strip()
-        correct_str = str(question.correct_answer).strip()
-        if not student_answer:
-            print(f"GRADING: student={repr(student_answer)} correct={repr(correct_str)}")
-            return {
-                'marks_awarded': 0,
-                'max_marks': question.max_marks,
-                'feedback': 'You did not write an answer.',
-                'is_correct': False,
-                'personalized_message': 'Try again — you can do it!',
-                'study_tip': 'Always write your final answer clearly.',
-                'points_earned': [],
-                'points_missed': []
-            }
-
-        
-
-        def clean_num(s):
-            return re.sub(r'[^\d.-]', '', s)
-
-        # Fast numeric check — only run if correct answer is purely numeric
-        if not re.search(r'[a-zA-Z]', correct_str):
-            try:
-                if abs(float(clean_num(student_answer)) - float(clean_num(correct_str))) < 0.01:
-                    return self._correct_math_response(question, float(clean_num(student_answer)))
-            except ValueError:
-                pass
-
-        # Symbolic comparison — handles plain text AND LaTeX from MathLive
-        try:
-            student_expr = self._parse_answer(student_answer)
-            correct_expr = self._parse_answer(correct_str)
-            if student_expr is not None and correct_expr is not None:
-                if simplify(student_expr - correct_expr) == 0:
-                    return self._correct_math_response(question, str(student_expr))
-                if abs(N(student_expr) - N(correct_expr)) < 0.01:
-                    return self._correct_math_response(question, f"≈ {N(student_expr):g}")
-        except Exception:
-            pass
-
-        # Incorrect — generate step-by-step solution
-        solution_text = self._generate_math_solution(question, student_answer, correct_str)
-        return {
-            'marks_awarded': 0,
-            'max_marks': question.max_marks,
-            'feedback': f'Not quite. The correct answer is {correct_str}.',
-            'is_correct': False,
-            'personalized_message': random.choice([
-                "Close! Let us look at the steps together.",
-                "Not quite — but you are learning fast!",
-                "Almost there — check the working below.",
-                "Good try — review the steps below.",
-                "Let us fix this together — see the steps.",
-            ]),
-            'study_tip': solution_text,
-            'points_earned': [],
-            'points_missed': [correct_str]
-        }
-    
-    def _parse_answer(self, s):
-        """Try plain sympy first, fall back to LaTeX parser"""
-        from sympy.parsing.latex import parse_latex
-        s = str(s).strip().strip('$')
-        try:
-            return sympify(s, evaluate=False)
-        except Exception:
-            try:
-                return parse_latex(s)
-            except Exception:
-                return None
-            
-    def _correct_math_response(self, question, display_value):
-        grade = getattr(getattr(question, 'topic', None), 'grade', 7)
-        try:
-            study_tip = self._generate_math_study_tip(question, display_value, grade)
-        except Exception:
-            study_tip = "Keep practising similar problems to get even faster!"
-        congrats = random.choice([
-            "Spot on! Well done.",
-            "Perfect — great calculation!",
-            "Correct! You got it.",
-            "Great work!",
-            "Yes! That is exactly right.",
-        ])
-        return {
-            'marks_awarded': question.max_marks,
-            'max_marks': question.max_marks,
-            'feedback': f"{congrats} {study_tip}",
-            'is_correct': True,
-            'personalized_message': random.choice([
-                "You are really getting the hang of this!",
-                "Excellent — keep up the great work!",
-                "Fantastic calculation!",
-                "Well done — so proud of you!",
-                "Superb! On to the next one.",
-            ]),
-            'study_tip': study_tip,
-            'points_earned': [str(display_value)],
-            'points_missed': []
-        }
-
-    def _generate_math_study_tip(self, question, correct_answer, grade):
-        prompt = f"""You are a Kenyan CBC Grade {grade} maths teacher.
+def _build_math_study_tip_prompt(question, correct_answer, grade: int) -> str:
+    return f"""You are a Kenyan CBC Grade {grade} maths teacher.
 A student just got this question RIGHT.
 
 QUESTION: {question.question_text}
@@ -282,359 +435,355 @@ CORRECT ANSWER: {correct_answer}
 Write ONE short sentence (max 12 words) as a helpful tip for this type of problem.
 Use simple words a Grade {grade} student understands.
 Write ONLY the tip. No extra text."""
-        try:
-            api_response = self._call_claude_api(prompt)
-            return api_response['content'][0]['text'].strip()
-        except Exception:
-            return "Keep practising similar problems to get even faster!"
 
-    def _generate_math_solution(self, question, student_answer, correct_answer):
-        grade = getattr(getattr(question, 'topic', None), 'grade', 7)
-        prompt = f"""You are a Kenyan CBC Grade {grade} maths teacher helping a student who got a question WRONG.
+
+def _build_math_solution_prompt(question, student_answer: str,
+                                correct_answer: str, grade: int) -> str:
+    return f"""You are a Kenyan CBC Grade {grade} maths teacher helping a student who got a question WRONG.
 
 QUESTION: {question.question_text}
 STUDENT ANSWER: {student_answer}
 CORRECT ANSWER: {correct_answer}
 
 Write a step-by-step solution in simple words a Grade {grade} student can follow.
-- Use short, clear sentences
-- Number each step (Step 1, Step 2, etc.)
-- Show the working clearly. 
-- At the end, say what mistake the student likely made in one short sentence. If working was shown, correct his working.
+- Number each step: Step 1, Step 2, etc.
+- Show the working clearly
+- At the end, in one short sentence say what mistake the student likely made
 - Keep it under 150 words total
 - NO complicated words — write like you are talking to a child
 - NO markdown, NO code blocks, NO # headings, NO asterisks
-- Use LaTeX for ALL numbers and calculations: inline use $...$ and display use $$...$$
-- Example: "Step 1: Subtract $7540 - 2465 = 5075$"
+- Use LaTeX for ALL numbers and calculations:
+  inline → $...$ | display → $$...$$
+  Example: "Step 1: Subtract $7540 - 2465 = 5075$"
 """
-        try:
-            api_response = self._call_claude_api(prompt)
-            return api_response['content'][0]['text'].strip().replace('```', '').replace('**', '')
-        except Exception:
-            return f"The correct answer is {correct_answer}. Check your steps and try again."
 
-    # ====================== MCQ / STRUCTURED / ESSAY ======================
-    def mark_with_ai(self, question, student_answer):
-        if not getattr(settings, 'ANTHROPIC_API_KEY', None):
-            return {
-                'marks_awarded': 0,
-                'max_marks': question.max_marks,
-                'feedback': 'AI grading is not set up.',
-                'is_correct': False,
-                'personalized_message': 'Please contact your teacher.',
-                'study_tip': '',
-                'points_earned': [],
-                'points_missed': []
-            }
+
+# ─────────────────────────────────────────────────────────────────────────────
+#  GRADERS
+# ─────────────────────────────────────────────────────────────────────────────
+
+def _grade_fill_blank(question, student_answer: str) -> dict:
+    """
+    Fill-in-the-blank grader.
+    Order of checks:
+      1. Exact string match (case/punctuation insensitive)
+      2. Numeric equivalence
+      3. AI semantic check (fallback)
+    """
+    # No correct answer set → fall back to AI
+    if not question.correct_answer or not str(question.correct_answer).strip():
+        return _grade_with_ai(question, student_answer)
+
+    sw = _is_kiswahili(question.question_text)
+
+    student_raw = str(student_answer).strip()
+    if not student_raw:
+        msg = "Hujaandika jibu." if sw else "You did not write an answer."
+        tip = "Andika jibu lako wazi." if sw else "Always write your answer clearly."
+        return _empty_result(question.max_marks, msg, _near_miss(sw))
+
+    student_norm = _normalise(student_raw)
+    raw_correct  = str(question.correct_answer).strip()
+    accepted     = [_normalise(a) for a in re.split(r"[|;]", raw_correct) if a.strip()]
+
+    is_correct = student_norm in accepted
+
+    # Numeric equivalence check
+    if not is_correct:
         try:
-            prompt = self._build_marking_prompt(question, student_answer)
-            working_image = getattr(self, 'working_image', None)
-            api_response = self._call_claude_api(prompt, working_image=working_image)
-            return self._parse_ai_response(api_response, question.max_marks)
+            s_num = float(_clean_num(student_norm))
+            for a in accepted:
+                try:
+                    if abs(s_num - float(_clean_num(a))) < 0.01:
+                        is_correct = True
+                        break
+                except ValueError:
+                    pass
+        except ValueError:
+            pass
+
+    # AI semantic fallback
+    if not is_correct:
+        try:
+            prompt   = _build_fill_blank_ai_prompt(question, student_raw, raw_correct)
+            verdict  = _claude_text(prompt).strip().upper()
+            is_correct = verdict == "TRUE"
         except Exception as e:
-            print(f"❌ AI Grading Error (Q{question.id}): {str(e)}")
-            return {
-                'marks_awarded': 0,
-                'max_marks': question.max_marks,
-                'feedback': 'Marking failed. Your answer was saved and a teacher will review it.',
-                'is_correct': False,
-                'personalized_message': 'Do not worry — your answer was recorded.',
-                'study_tip': '',
-                'points_earned': [],
-                'points_missed': []
-            }
-    def _build_marking_prompt(self, question, student_answer):
-            grade = getattr(getattr(question, 'topic', None), 'grade', 7)
-            has_passage = hasattr(question, 'passage') and question.passage is not None
+            print(f"⚠ AI fill-blank fallback failed: {e}")
 
-            # Detect question language
-            kiswahili_indicators = ['je', 'na', 'ya', 'wa', 'la', 'kwa', 'katika', 'yako', 'chagua', 'andika', 'tambua', 'kamilisha', 'sentensi', 'neno', 'silabi', 'wingi', 'kanusha']
-            question_lower = question.question_text.lower()
-            is_kiswahili = any(word in question_lower.split() for word in kiswahili_indicators)
-            language = "Kiswahili" if is_kiswahili else "English"
+    if is_correct:
+        return _correct_result(
+            max_marks     = question.max_marks,
+            feedback      = _praise(sw),
+            message       = _encourage(sw),
+            points_earned = [student_raw],
+        )
 
-            base = f"""You are a Kenyan CBC teacher marking a Grade {grade} student's answer.
-
-        
-
-    LANGUAGE RULE — MOST IMPORTANT:
-    - The question is in {language}
-    - You MUST write ALL your feedback, study tips, and encouraging messages in {language} only
-    - Never mix languages — if the question is in Kiswahili, respond entirely in Kiswahili
-    - If the question is in English, respond entirely in English
-    - "Kiswahili" is the correct name — never call it "Swahili"
-
-    
-    - CRITICAL: Before writing feedback, verify your marking is consistent. 
-    If you say the student's answer matches the correct answer anywhere in your reasoning, 
-    you MUST award full marks. Never award 0 and then say the answer was correct.
-
-    LANGUAGE RULES — FOLLOW THESE STRICTLY:
-    - Write in simple English that a Grade {grade} Kenyan student can understand
-    - Use the same simple words found in Kenyan CBC textbooks
-    - Never use difficult scientific or academic words the student has not seen in class
-    - If you must use a subject-specific term, explain it simply right after in brackets
-    Good example: "egg-laying mammals (mammals that lay eggs)"
-    Bad example: "monotremes" with no explanation - Do not use terms not in CBC Kenyan Curriculum please.
-    - Short sentences only — maximum 3 sentences for feedback
-    - Talk directly to the student using "you" and "your"
-    - Sound like a kind, encouraging teacher — not a textbook. Let there be a student - teacher connection
-    - Never use these words: demonstrate, indicate, facilitate, pertain, enumerate, elaborate, subsequently, primarily, comprise, constitute, thus, hence, moreover, furthermore, utilize
-
-    MARKING RULES:
-    1. Award marks for real understanding — exact wording is not required
-    2. Full marks only when all key ideas are clearly present
-    3. Partial or vague answers get partial marks — be fair but honest and marks cannot be fractional or decimals. Just integers
-    4. Accept any factually correct answer even if worded differently
-    5. When the question asks for N points, only mark the first N correct ones
-    6. The same idea said in different words counts as one point only
-    7. Spelling mistakes are fine unless they change the meaning — if spelling is wrong, gently correct it
-    8. Never go above the question's maximum marks
-    9. Wrong or irrelevant information reduces marks
-    10. If student writes jargon, notice it and obviously no marks. 
-
-    FEEDBACK INSTRUCTIONS:
-    - Write 4-6 sentences of real, specific feedback
-    - First: acknowledge exactly what the student got RIGHT and why it earned marks
-    - Then: for each wrong or missing point, give the ACTUAL correct answer — not "you need to explain more" but literally WHAT they should have written
-    - The student must walk away knowing exactly what the full correct answer looks like
-    - Warm teacher tone but direct and educational
-    """
-
-            # MCQ specific rules
-            if question.question_type == 'mcq':
-                base += """
-    MCQ RULES:
-    - If the student chose the correct option: full marks
-    - If wrong: 0 marks — no partial marks for MCQs
-
-    FEEDBACK FORMAT FOR MCQ:
-    - Start with "✅ Correct! ..." or "❌ Not quite. The right answer is ..."
-    - In 1–2 sentences explain WHY that answer is correct using simple words
-    - Mention 1–2 related ideas from the CBC syllabus that connect to this topic
-    - End with one short "Remember:" tip to help them recall the concept
-    - Total: maximum 5 sentences, simple language, warm tone
-    """
-
-            # Comprehension/passage rules
-            if has_passage:
-                base += f"""
-    COMPREHENSION QUESTION RULES:
-    This student is answering based on a reading passage. Here is the passage:
-
-    --- PASSAGE ---
-    {question.passage.content}
-    --- END PASSAGE ---
-
-    Your feedback MUST:
-    - Point to where in the passage the answer is found — say "The passage says in paragraph..." or "Look at line..."
-    - NOT give general topic knowledge — only refer to the passage
-    - Keep feedback to 2 sentences maximum
-    """
-
-            # Build question text
-            q_text = question.question_text
-            if question.question_type == 'mcq':
-                q_text += f"\n\nOPTIONS:\nA: {question.option_a}\nB: {question.option_b}\nC: {question.option_c}\nD: {question.option_d}"
-
-            base += f"\n\nQUESTION:\n{q_text}"
-
-            # Build student answer text
-            s_ans = str(student_answer).strip()
-            if question.question_type == 'mcq':
-                s_ans_upper = s_ans.upper()
-                options_map = {
-                    'A': question.option_a, 'B': question.option_b,
-                    'C': question.option_c, 'D': question.option_d
-                }
-                if s_ans_upper in options_map:
-                    s_ans = f"Option {s_ans_upper}: {options_map[s_ans_upper]}"
-
-            base += f"\n\nSTUDENT ANSWER:\n{s_ans}"
-
-            # Build expected answer text
-            if question.question_type == 'mcq':
-                correct_letter = str(question.correct_answer).strip().upper()
-                options_map = {
-                    'A': question.option_a, 'B': question.option_b,
-                    'C': question.option_c, 'D': question.option_d
-                }
-                correct_text = options_map.get(correct_letter, '')
-                base += f"\n\nCORRECT ANSWER:\nOption {correct_letter}: {correct_text}"
-                if getattr(question, 'explanation', None):
-                    base += f"\nEXPLANATION: {question.explanation}"
-            else:
-                if getattr(question, 'marking_scheme', None):
-                    points_text = "\n".join([
-                        f"- {p['description']} ({p['marks']} marks)"
-                        for p in question.marking_scheme.get('points', [])
-                    ])
-                    base += f"\n\nMARKING SCHEME:\n{points_text}"
-                else:
-                    base += f"\n\nEXPECTED ANSWER / KEY POINTS:\n{question.correct_answer}"
-
-            # Study tip instruction
-            if has_passage:
-                study_tip_instruction = "Point to the specific line or paragraph in the passage where the answer is found. Do NOT repeat the feedback."
-            else:
-                study_tip_instruction = "One NEW helpful tip not already in the feedback — a simple memory trick, related idea, or exam tip. Only include if you are 100% sure it is factually correct. If not sure, leave empty."
-
-            base += f"""
-
-    MAX MARKS: {question.max_marks}
-
-    Return ONLY valid JSON — no text before or after:
-    {{
-    "marks_awarded": integer between 0 and {question.max_marks},
-    "feedback": "Write 4-6 sentences. (1) Start by acknowledging specifically what the student got right and why. (2) For each wrong or missing point, explicitly state the CORRECT answer. (3) Give the full correct answer so the student walks away knowing exactly what they should have written. Warm teacher tone but be direct and educational.",
-    "personalized_message": "one short encouraging sentence directed at the student",
-    "study_tip": "{study_tip_instruction}",
-    "points_earned": ["what the student got right — in simple words"],
-    "points_missed": ["what the student missed — in simple words"]
-    }}"""
-
-            return base
-
-    def _call_claude_api(self, prompt, working_image=None):
-        import requests
-        import time
-
-        if working_image:
-            content = [
-                {"type": "image", "source": {"type": "base64", "media_type": "image/png", "data": working_image}},
-                {"type": "text", "text": prompt + "\n\nThe student has also shared a photo of their working above."}
-            ]
-        else:
-            content = prompt
-
-        payload = {
-            'model': 'claude-haiku-4-5-20251001',
-            'max_tokens': 2000,
-            'messages': [{'role': 'user', 'content': content}]
-        }
-        headers = {
-            'Content-Type': 'application/json',
-            'x-api-key': settings.ANTHROPIC_API_KEY,
-            'anthropic-version': '2023-06-01'
-        }
-
-        for attempt in range(4):  # try up to 4 times
-            try:
-                response = requests.post(
-                    'https://api.anthropic.com/v1/messages',
-                    headers=headers,
-                    json=payload,
-                    timeout=30
-                )
-                if response.status_code == 429:
-                    wait = 2 ** attempt  # 1s, 2s, 4s, 8s
-                    print(f"⚠ Rate limited — waiting {wait}s before retry {attempt + 1}/4")
-                    time.sleep(wait)
-                    continue
-                response.raise_for_status()
-                return response.json()
-            except requests.Timeout:
-                if attempt == 3:
-                    raise Exception("Claude API timed out after 4 attempts")
-                time.sleep(2 ** attempt)
-            except requests.HTTPError as e:
-                if e.response.status_code != 429:
-                    raise Exception(f"Claude API HTTP error: {e.response.status_code} - {e.response.text[:200]}")
-
-        raise Exception("Claude API failed after 4 retries — rate limit persists")
-
-    def _parse_ai_response(self, api_response, max_marks):
-        try:
-            content = api_response['content'][0]['text']
-            content = content.replace('```json', '').replace('```', '').strip()
-            result = json.loads(content)
-            marks = min(result.get('marks_awarded', 0), max_marks)
-            return {
-                'marks_awarded': marks,
-                'max_marks': max_marks,
-                'feedback': result.get('feedback', ''),
-                'personalized_message': result.get('personalized_message', ''),
-                'study_tip': result.get('study_tip', ''),
-                'is_correct': marks == max_marks,
-                'points_earned': result.get('points_earned', []),
-                'points_missed': result.get('points_missed', [])
-            }
-        except Exception:
-            return {
-                'marks_awarded': 0,
-                'max_marks': max_marks,
-                'feedback': 'Could not read the marking result. Your answer was saved.',
-                'is_correct': False,
-                'personalized_message': '',
-                'study_tip': '',
-                'points_earned': [],
-                'points_missed': []
-            }
-
-
-def grade_answer(question, student_answer, working_image=None):
-    """Grade any question — handles multi-part questions too"""
-    grader = AIGrader()
-    grader.working_image = working_image
-
-    parts = list(question.parts.all())
-    if not parts:
-        return grader.mark_question(question, student_answer)
-
-    # Multi-part grading
-    total_marks = 0
-    total_max = 0
-    all_feedback = []
-    all_points_earned = []
-    all_points_missed = []
-
-    for part in parts:
-        part_answer = ""
-        if isinstance(student_answer, dict):
-            part_answer = student_answer.get(str(part.id), "")
-        else:
-            part_answer = student_answer
-
-        class PartProxy:
-            def __init__(self, part):
-                self.id = part.id
-                self.question_text = f"({part.part_label}) {part.question_text}"
-                self.question_type = part.question_type
-                self.correct_answer = part.correct_answer
-                self.max_marks = part.max_marks
-                self.marking_scheme = part.marking_scheme
-                self.explanation = part.explanation
-                self.option_a = part.option_a
-                self.option_b = part.option_b
-                self.option_c = part.option_c
-                self.option_d = part.option_d
-                self.topic = part.parent_question.topic
-                self.passage = None
-                self.worked_solution = None
-
-        part_result = grader.mark_question(PartProxy(part), part_answer)
-        total_marks += part_result['marks_awarded']
-        total_max += part_result['max_marks']
-
-        part_feedback = part_result['feedback']
-        if part_result.get('study_tip'):
-            part_feedback += f"\n{part_result['study_tip']}"
-
-        all_feedback.append(f"Part ({part.part_label}): {part_feedback}")
-        all_points_earned.extend(part_result.get('points_earned', []))
-        all_points_missed.extend(part_result.get('points_missed', []))
+    explanation = getattr(question, "explanation", None) or (
+        f"Jibu sahihi ni: {raw_correct}." if sw else f"The correct answer is: {raw_correct}."
+    )
+    missed_msg = f"Jibu sahihi: {raw_correct}" if sw else f"Correct answer: {raw_correct}"
 
     return {
-    'marks_awarded': total_marks,
-    'max_marks': total_max,
-    'feedback': '\n\n'.join(all_feedback),  # double newline between parts
-    'is_correct': total_marks == total_max,
-    'personalized_message': random.choice([
-        "Keep going — you are learning with every question!",
-        "Good effort on this one!",
-        "Review the steps above and you will get it next time!",
-    ]),
-    'study_tip': '',
-    'points_earned': all_points_earned,
-    'points_missed': all_points_missed,
-}
+        "marks_awarded":        0,
+        "max_marks":            question.max_marks,
+        "feedback":             (
+            f"Jibu sahihi ni {raw_correct}." if sw
+            else f"Not quite. The correct answer is {raw_correct}."
+        ),
+        "is_correct":           False,
+        "personalized_message": _near_miss(sw),
+        "study_tip":            explanation,
+        "points_earned":        [],
+        "points_missed":        [missed_msg],
+    }
+
+
+def _grade_math(question, student_answer: str) -> dict:
+    """
+    Math grader.
+    Order of checks:
+      1. Fast numeric comparison (if correct answer is purely numeric)
+      2. Symbolic comparison via sympy
+      3. Numeric approximation via sympy
+    Falls back to AI if no correct answer is set.
+    """
+    if not question.correct_answer or not str(question.correct_answer).strip():
+        return _grade_with_ai(question, student_answer)
+
+    sw          = _is_kiswahili(question.question_text)
+    grade       = getattr(getattr(question, "topic", None), "grade", 7)
+    student_str = str(student_answer).strip()
+    correct_str = str(question.correct_answer).strip()
+
+    if not student_str:
+        msg = "Hujaandika jibu." if sw else "You did not write an answer."
+        return _empty_result(question.max_marks, msg, _near_miss(sw))
+
+    def _math_correct(display_value):
+        try:
+            tip = _claude_text(
+                _build_math_study_tip_prompt(question, display_value, grade)
+            )
+        except Exception:
+            tip = (
+                "Endelea kufanya mazoezi ya matatizo kama haya!"
+                if sw else
+                "Keep practising similar problems to get even faster!"
+            )
+        return _correct_result(
+            max_marks     = question.max_marks,
+            feedback      = f"{_praise(sw)} {tip}",
+            message       = _encourage(sw),
+            study_tip     = tip,
+            points_earned = [str(display_value)],
+        )
+
+    # Fast numeric check (only for purely numeric correct answers)
+    if not re.search(r"[a-zA-Z]", correct_str):
+        try:
+            if abs(float(_clean_num(student_str)) - float(_clean_num(correct_str))) < 0.01:
+                return _math_correct(float(_clean_num(student_str)))
+        except ValueError:
+            pass
+
+    # Symbolic / approximate check
+    try:
+        s_expr = _parse_math_expr(student_str)
+        c_expr = _parse_math_expr(correct_str)
+        if s_expr is not None and c_expr is not None:
+            if simplify(s_expr - c_expr) == 0:
+                return _math_correct(str(s_expr))
+            if abs(N(s_expr) - N(c_expr)) < 0.01:
+                return _math_correct(f"≈ {N(s_expr):g}")
+    except Exception:
+        pass
+
+    # Incorrect — generate step-by-step solution via Claude
+    try:
+        solution = _claude_text(
+            _build_math_solution_prompt(question, student_str, correct_str, grade)
+        ).strip().replace("```", "").replace("**", "")
+    except Exception:
+        solution = (
+            f"Jibu sahihi ni {correct_str}. Angalia hatua zako na ujaribu tena."
+            if sw else
+            f"The correct answer is {correct_str}. Check your steps and try again."
+        )
+
+    missed_msg = (
+        f"Jibu sahihi: {correct_str}" if sw else f"Correct answer: {correct_str}"
+    )
+
+    return {
+        "marks_awarded":        0,
+        "max_marks":            question.max_marks,
+        "feedback":             (
+            f"Jibu sahihi ni {correct_str}." if sw
+            else f"Not quite. The correct answer is {correct_str}."
+        ),
+        "is_correct":           False,
+        "personalized_message": _near_miss(sw),
+        "study_tip":            solution,
+        "points_earned":        [],
+        "points_missed":        [missed_msg],
+    }
+
+
+def _grade_with_ai(question, student_answer: str,
+                   working_image: str | None = None) -> dict:
+    """
+    AI grader for MCQ, structured, and essay questions.
+    Also used as fallback for fill_blank and math when no correct answer is set.
+    """
+    if not getattr(settings, "ANTHROPIC_API_KEY", None):
+        return _empty_result(
+            question.max_marks,
+            "AI grading is not set up.",
+            "Please contact your teacher.",
+        )
+
+    sw = _is_kiswahili(question.question_text)
+    language = "Kiswahili" if sw else "English"
+
+    try:
+        prompt      = _build_marking_prompt(question, student_answer, language)
+        raw_text    = _claude_text(prompt, working_image)
+        result      = _parse_json_response(raw_text)
+
+        marks       = min(int(result.get("marks_awarded", 0)), question.max_marks)
+        return {
+            "marks_awarded":        marks,
+            "max_marks":            question.max_marks,
+            "feedback":             result.get("feedback", ""),
+            "is_correct":           marks == question.max_marks,
+            "personalized_message": result.get("personalized_message", ""),
+            "study_tip":            result.get("study_tip", ""),
+            "points_earned":        result.get("points_earned", []),
+            "points_missed":        result.get("points_missed", []),
+        }
+
+    except Exception as e:
+        print(f"❌ AI Grading Error (Q{getattr(question, 'id', '?')}): {e}")
+        msg = (
+            "Alama haikusomwa. Jibu lako limerekodi na mwalimu ataangalia."
+            if sw else
+            "Marking failed. Your answer was saved and a teacher will review it."
+        )
+        return _empty_result(question.max_marks, msg, _near_miss(sw))
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+#  QUESTION ROUTER
+# ─────────────────────────────────────────────────────────────────────────────
+
+def _route(question, student_answer: str,
+           working_image: str | None = None) -> dict:
+    """Route a question to the correct grader based on question_type."""
+    qt = question.question_type
+
+    if qt in ("mcq", "structured", "essay"):
+        return _grade_with_ai(question, student_answer, working_image)
+    elif qt == "fill_blank":
+        return _grade_fill_blank(question, student_answer)
+    elif qt == "math":
+        return _grade_math(question, student_answer)
+    else:
+        sw = _is_kiswahili(question.question_text)
+        return _empty_result(
+            question.max_marks,
+            f"Unsupported question type: {qt}",
+            _near_miss(sw),
+        )
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+#  MULTI-PART HELPER
+# ─────────────────────────────────────────────────────────────────────────────
+
+class _PartProxy:
+    """Wraps a QuestionPart ORM object so graders can treat it like a Question."""
+
+    def __init__(self, part):
+        parent = part.parent_question
+        self.id             = part.id
+        self.question_text  = f"({part.part_label}) {part.question_text}"
+        self.question_type  = part.question_type
+        self.correct_answer = part.correct_answer
+        self.max_marks      = part.max_marks
+        self.marking_scheme = part.marking_scheme
+        self.explanation    = part.explanation
+        self.option_a       = part.option_a
+        self.option_b       = part.option_b
+        self.option_c       = part.option_c
+        self.option_d       = part.option_d
+        self.topic          = parent.topic
+        self.passage        = None
+        self.worked_solution = None
+
+
+def _grade_multipart(question, student_answer, working_image: str | None = None) -> dict:
+    """Grade a question that has sub-parts."""
+    parts = list(question.parts.all())
+    total_marks  = 0
+    total_max    = 0
+    all_feedback = []
+    all_earned   = []
+    all_missed   = []
+
+    for part in parts:
+        part_answer = (
+            student_answer.get(str(part.id), "")
+            if isinstance(student_answer, dict)
+            else student_answer
+        )
+
+        result = _route(_PartProxy(part), str(part_answer), working_image)
+
+        total_marks += result["marks_awarded"]
+        total_max   += result["max_marks"]
+
+        part_fb = result["feedback"]
+        if result.get("study_tip"):
+            part_fb += f"\n{result['study_tip']}"
+
+        all_feedback.append(f"Part ({part.part_label}): {part_fb}")
+        all_earned.extend(result.get("points_earned", []))
+        all_missed.extend(result.get("points_missed", []))
+
+    sw = _is_kiswahili(question.question_text)
+
+    return {
+        "marks_awarded":        total_marks,
+        "max_marks":            total_max,
+        "feedback":             "\n\n".join(all_feedback),
+        "is_correct":           total_marks == total_max,
+        "personalized_message": _encourage(sw) if total_marks == total_max else _near_miss(sw),
+        "study_tip":            "",
+        "points_earned":        all_earned,
+        "points_missed":        all_missed,
+    }
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+#  PUBLIC API
+# ─────────────────────────────────────────────────────────────────────────────
+
+def grade_answer(question, student_answer, working_image: str | None = None) -> dict:
+    """
+    Grade any question — handles single questions and multi-part questions.
+
+    Args:
+        question:       Django ORM Question instance
+        student_answer: str | dict (dict for multi-part: {part_id: answer})
+        working_image:  optional base64-encoded PNG of student's working
+
+    Returns:
+        dict with keys:
+            marks_awarded, max_marks, feedback, is_correct,
+            personalized_message, study_tip, points_earned, points_missed
+    """
+    parts = list(question.parts.all())
+    if parts:
+        return _grade_multipart(question, student_answer, working_image)
+    return _route(question, str(student_answer), working_image)
