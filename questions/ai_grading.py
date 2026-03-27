@@ -354,7 +354,7 @@ Write a step-by-step solution in simple words a Grade {grade} student can follow
     - CRITICAL: Before writing feedback, verify your marking is consistent. 
     If you say the student's answer matches the correct answer anywhere in your reasoning, 
     you MUST award full marks. Never award 0 and then say the answer was correct.
-    
+
     LANGUAGE RULES — FOLLOW THESE STRICTLY:
     - Write in simple English that a Grade {grade} Kenyan student can understand
     - Use the same simple words found in Kenyan CBC textbooks
@@ -601,17 +601,26 @@ def grade_answer(question, student_answer, working_image=None):
         part_result = grader.mark_question(PartProxy(part), part_answer)
         total_marks += part_result['marks_awarded']
         total_max += part_result['max_marks']
-        all_feedback.append(f"({part.part_label}) {part_result['feedback']}")
+
+        part_feedback = part_result['feedback']
+        if part_result.get('study_tip'):
+            part_feedback += f"\n{part_result['study_tip']}"
+
+        all_feedback.append(f"Part ({part.part_label}): {part_feedback}")
         all_points_earned.extend(part_result.get('points_earned', []))
         all_points_missed.extend(part_result.get('points_missed', []))
 
     return {
-        'marks_awarded': total_marks,
-        'max_marks': total_max,
-        'feedback': '\n'.join(all_feedback),
-        'is_correct': total_marks == total_max,
-        'personalized_message': '',
-        'study_tip': '',
-        'points_earned': all_points_earned,
-        'points_missed': all_points_missed,
-    }
+    'marks_awarded': total_marks,
+    'max_marks': total_max,
+    'feedback': '\n\n'.join(all_feedback),  # double newline between parts
+    'is_correct': total_marks == total_max,
+    'personalized_message': random.choice([
+        "Keep going — you are learning with every question!",
+        "Good effort on this one!",
+        "Review the steps above and you will get it next time!",
+    ]),
+    'study_tip': '',
+    'points_earned': all_points_earned,
+    'points_missed': all_points_missed,
+}
