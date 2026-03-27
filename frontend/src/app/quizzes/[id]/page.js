@@ -1436,15 +1436,20 @@ export default function QuizTakePage({ params }) {
       }}
     >
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Lato:wght@400;500;600;700&display=swap');
-        @keyframes spin { to { transform: rotate(360deg); } }
-        @keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:0.7; } }
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        textarea:focus, input:focus { outline: none; }
-        button { font-family: inherit; }
-        .question-nav { display: flex; }
-        @media (max-width: 768px) { .question-nav { display: none !important; } }
-      `}</style>
+  @import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Lato:wght@400;500;600;700&display=swap');
+  @keyframes spin { to { transform: rotate(360deg); } }
+  @keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:0.7; } }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  textarea:focus, input:focus { outline: none; }
+  button { font-family: inherit; }
+  .question-nav { display: flex; }
+  @media (max-width: 768px) { .question-nav { display: none !important; } }
+
+  @media (max-width: 768px) {
+    .passage-grid { display: block !important; }
+    .passage-panel { position: static !important; max-height: none !important; margin-bottom: 20px; }
+  }
+`}</style>
 
       <SubmitModal
         open={showSubmitModal}
@@ -1572,7 +1577,7 @@ export default function QuizTakePage({ params }) {
           padding: "32px 16px 120px",
           display: currentQ?.passage ? "grid" : "block",
           gridTemplateColumns: currentQ?.passage
-            ? "repeat(auto-fit, minmax(300px, 1fr))"
+            ? "minmax(0, 1fr) minmax(0, 1fr)" // equal 50/50 columns on desktop
             : undefined,
           gap: currentQ?.passage ? 24 : undefined,
         }}
@@ -1584,12 +1589,20 @@ export default function QuizTakePage({ params }) {
               borderRadius: 20,
               border: "2px solid #e8eaf0",
               padding: 24,
-              height: "auto",
-              maxHeight: "40vh",
               overflowY: "auto",
-              position: "sticky",
-              top: 80,
-              alignSelf: "start",
+              // Desktop: sticky, full viewport height minus topbar
+              // Mobile: normal flow, no height cap
+              ...(typeof window !== "undefined" && window.innerWidth >= 768
+                ? {
+                    position: "sticky",
+                    top: 80,
+                    alignSelf: "start",
+                    maxHeight: "calc(100vh - 100px)",
+                  }
+                : {
+                    position: "static",
+                    maxHeight: "none",
+                  }),
             }}
           >
             <div
@@ -1647,7 +1660,6 @@ export default function QuizTakePage({ params }) {
             </div>
           </div>
         )}
-
         <div>
           <AnimatePresence mode="wait">
             <motion.div
