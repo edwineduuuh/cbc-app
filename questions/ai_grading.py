@@ -276,79 +276,133 @@ LANGUAGE RULES:
 
 def _build_marking_prompt(question, student_answer: str, language: str) -> str:
     """
-    Builds a high-precision marking prompt for the NurtureUp AI engine.
-    Focuses on CBC 'Explanation' standards and Point-Evidence-Context logic.
+    Builds the full marking prompt for MCQ, structured, and essay questions.
     """
-    grade = getattr(getattr(question, "topic", None), "grade", 9)
+    grade = getattr(getattr(question, "topic", None), "grade", 7)
     has_passage = hasattr(question, "passage") and question.passage is not None
 
-    prompt = f"""You are an expert Kenyan CBC Teacher marking a Grade {grade} assessment.
+    prompt = f"""You are a Kenyan CBC teacher marking a Grade {grade} student's answer.
 {_language_rules(language, grade)}
 
---- CORE MARKING PHILOSOPHY (CBC STANDARDS) ---
-1. STRUCTURE OVER KEYWORDS: Do not just look for keywords. Check if the student EXPLAINS the concept.
-2. THE P-E-C RULE (Point-Evidence-Context):
-   - For 'Explain' (Eleza/Fafanua) questions, a full point (1.0) requires:
-     a) IDENTIFICATION: Naming the trait or theme (e.g., "Msaliti").
-     b) EVIDENCE: Using a connector (e.g., "kwa sababu", "kwani").
-     c) CONTEXT: Specific proof from the story (e.g., "alikataa kurudisha macho").
-   - If a student ONLY identifies (e.g., writes "Msaliti" only), award ONLY 0.5 marks.
-3. CATEGORY CHECK: Ensure 'Sifa za Hadithi' (Genre features) are not confused with 'Mbinu za Lugha' (Literary devices). 
-   - Example: Calling "Personification/Uhuishi" a language technique is a common error. Correct it in feedback.
-4. BE A TEACHER, NOT A BOT: Use "Warm-Strict" feedback. Praise the effort, but be very clear on why a mark was lost.
+MARKING RULES:
+1. Award marks for real understanding — exact wording is not required
+2. Full marks only when all key ideas are clearly present
+3. Partial marks for partial answers — integers only, no decimals
+4. Accept any factually correct answer even if worded differently
+5. When the question asks for N points, only mark the first N correct ones
+6. The same idea said in different words counts as one point only
+7. Spelling mistakes are fine unless they change the meaning
+8. Never go above the question's maximum marks
+9. Wrong or irrelevant information reduces marks
+10. CRITICAL: If you say the student's answer matches the correct answer,
+    you MUST award full marks — never award 0 and say the answer was correct
 
---- FEEDBACK STRUCTURE (MANDATORY) ---
-Your feedback must follow this flow:
-1. Affirmation: Start with what they did well.
-2. Gap Analysis: For every mark lost, explain EXACTLY what was missing (e.g., "Umetaja sifa lakini hukutoa mfano kutoka kwa hadithi").
-3. Model Answer: Provide the perfect version of the answer so the student learns for next time.
+FEEDBACK INSTRUCTIONS:
+- Write 4–6 sentences of specific, educational feedback
+- First: acknowledge exactly what the student got RIGHT and why it earned marks
+- Then: for each wrong or missing point, give the ACTUAL correct answer
+- The student must walk away knowing exactly what the full correct answer looks like
+- Warm teacher tone — direct and educational
 """
 
-    # MCQ Logic
+    # MCQ-specific rules
     if question.question_type == "mcq":
         prompt += """
 MCQ RULES:
-- Correct Option = Full Marks. Wrong Option = 0.
-- Feedback: Explain WHY the chosen option is correct/wrong using facts from the passage.
+- Correct option chosen → full marks
+- Wrong option → 0 marks (no partial marks for MCQs)
+
+FEEDBACK FORMAT FOR MCQ:
+- Start with "✅ Correct! ..." or "❌ Not quite. The right answer is ..."
+- In 1–2 sentences explain WHY that answer is correct using simple words
+- End with one short "Remember:" tip to help them recall the concept
+- Total: maximum 5 sentences
 """
 
-    # Comprehension Logic
+    # Passage/comprehension rules
     if has_passage:
         prompt += f"""
-COMPREHENSION CONTEXT:
-Students MUST answer based on the text below. If they use general knowledge not in the text, award 0 marks.
+COMPREHENSION RULES:
+Answer based ONLY on the reading passage below — not general knowledge.
+Your feedback MUST point to where in the passage the answer is found.
+Keep feedback to 2 sentences maximum.
 
 --- PASSAGE ---
 {question.passage.content}
 --- END PASSAGE ---
 """
 
-    # Question and Answer Injection
+    # Question text
     q_text = question.question_text
     if question.question_type == "mcq":
-        q_text += f"\nOPTIONS: A: {question.option_a}, B: {question.option_b}, C: {question.option_c}, D: {question.option_d}"
-    
-    prompt += f"\n\nQUESTION: {q_text}"
-    prompt += f"\nSTUDENT ANSWER: {student_answer}"
+        q_text += (
+            f"\n\nOPTIONS:\n"
+            f"A: {question.option_a}\n"
+            f"B: {question.option_b}\n"
+            f"C: {question.option_c}\n"
+            f"D: {question.option_d}"
+        )
+    prompt += f"\n\nQUESTION:\n{q_text}"
 
-    # Marking Scheme Injection
-    if getattr(question, "marking_scheme", None):
-        points = "\n".join([f"- {p['description']} ({p['marks']} marks)" for p in question.marking_scheme.get("points", [])])
-        prompt += f"\n\nOFFICIAL MARKING SCHEME:\n{points}"
+    # Student answer text
+    s_ans = str(student_answer).strip()
+    if question.question_type == "mcq":
+        options_map = {
+            "A": question.option_a, "B": question.option_b,
+            "C": question.option_c, "D": question.option_d,
+        }
+        letter = s_ans.upper()
+        if letter in options_map:
+            s_ans = f"Option {letter}: {options_map[letter]}"
+    prompt += f"\n\nSTUDENT ANSWER:\n{s_ans}"
+
+    # Correct answer / marking scheme
+    if question.question_type == "mcq":
+        correct_letter = str(question.correct_answer).strip().upper()
+        options_map = {
+            "A": question.option_a, "B": question.option_b,
+            "C": question.option_c, "D": question.option_d,
+        }
+        correct_text = options_map.get(correct_letter, "")
+        prompt += f"\n\nCORRECT ANSWER:\nOption {correct_letter}: {correct_text}"
+        if getattr(question, "explanation", None):
+            prompt += f"\nEXPLANATION: {question.explanation}"
     else:
-        prompt += f"\n\nEXPECTED ANSWER GUIDELINE:\n{question.correct_answer}"
+        if getattr(question, "marking_scheme", None):
+            points_text = "\n".join(
+                f"- {p['description']} ({p['marks']} marks)"
+                for p in question.marking_scheme.get("points", [])
+            )
+            prompt += f"\n\nMARKING SCHEME:\n{points_text}"
+        else:
+            prompt += f"\n\nEXPECTED ANSWER / KEY POINTS:\n{question.correct_answer}"
+
+    # Study tip instruction
+    if has_passage:
+        study_tip_rule = (
+            "Point to the specific paragraph or line in the passage where the answer is found. "
+            "Do NOT repeat the feedback."
+        )
+    else:
+        study_tip_rule = (
+            "One NEW helpful tip not already in the feedback — "
+            "a simple memory trick, related idea, or exam tip. "
+            "Only include if you are 100% sure it is factually correct. "
+            "If not sure, leave empty string."
+        )
 
     prompt += f"""
+
 MAX MARKS: {question.max_marks}
 
-Return ONLY valid JSON:
+Return ONLY valid JSON — no text before or after:
 {{
-  "marks_awarded": integer,
-  "feedback": "Step-by-step educational feedback (4-6 sentences).",
-  "personalized_message": "One warm, encouraging sentence.",
-  "study_tip": "A specific tip on how to answer this TYPE of question next time (e.g., 'Always use "kwa sababu" to explain your points').",
-  "points_earned": ["List of specific correct elements found"],
-  "points_missed": ["List of specific missing elements or errors"]
+  "marks_awarded": integer between 0 and {question.max_marks},
+  "feedback": "4–6 sentences: (1) what student got right and why, (2) for each missing point give the ACTUAL correct answer, (3) full correct answer so student knows what to write. Warm but direct.",
+  "personalized_message": "one short encouraging sentence directed at the student",
+  "study_tip": "{study_tip_rule}",
+  "points_earned": ["what the student got right — in simple words"],
+  "points_missed": ["what the student missed — in simple words"]
 }}"""
 
     return prompt
