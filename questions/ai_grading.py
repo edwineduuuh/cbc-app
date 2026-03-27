@@ -241,34 +241,42 @@ def _language_rules(language: str, grade: int) -> str:
     """Strict language enforcement block injected into every marking prompt."""
     if language == "Kiswahili":
         return f"""
-⚠️ SHERIA YA LUGHA — MUHIMU SANA:
-Swali hili liko katika Kiswahili. Jibu lako LOTE lazima liwe katika Kiswahili.
-Hii inajumuisha: maoni (feedback), ujumbe wa kuhamasisha, kidokezo cha kusoma, pointi zilizofanikiwa, na pointi zilizokosekana.
-USANDIKE hata sentensi moja kwa Kiingereza.
+========================================================
+⚠️  SHERIA YA LUGHA — SOMA HII KWANZA KABLA YA KUFANYA CHOCHOTE
+========================================================
+Swali hili liko katika KISWAHILI.
 
-MANENO YA KISWAHILI YA SIFA:
-- Sema "Hongera!" au "Vizuri sana!" — USISEME "Pole sana!" kwa sifa (pole = sorry/condolences)
-- Tumia lugha rahisi ya Kiswahili inayotumika Kenya mashuleni
-- Jibu lazima lisikike kama mwalimu wa kweli wa Kenya — si tafsiri ya Kiingereza
+SHERIA KUU: Andika maoni yako YOTE kwa Kiswahili — hata neno moja kwa Kiingereza HAIRUHUSIWI.
+Hii inajumuisha kila sehemu ya JSON:
+  • "feedback"             → Kiswahili
+  • "personalized_message" → Kiswahili
+  • "study_tip"            → Kiswahili
+  • "points_earned"        → Kiswahili
+  • "points_missed"        → Kiswahili
 
-SHERIA ZA LUGHA:
-- Andika kwa lugha rahisi ambayo mwanafunzi wa Darasa {grade} anaweza kuelewa
-- Sentensi fupi — si zaidi ya sentensi 3 kwa kila sehemu
-- Zungumza moja kwa moja na mwanafunzi ukitumia "wewe" na "yako"
+UKIANDIKA KIINGEREZA POPOTE = KOSA KUBWA. Rudia na uandike Kiswahili tu.
+
+MANENO YA SIFA SAHIHI (Kiswahili cha Kenya):
+  ✅ Tumia: "Hongera!", "Vizuri sana!", "Nzuri!", "Umefanya kazi nzuri!", "Sahihi kabisa!"
+  ❌ USITUMIE: "Pole sana!" kwa sifa — "pole" kwa Kiswahili cha Kenya inamaanisha "sorry/condolences"
+
+MTINDO WA MWALIMU WA KENYA:
+  - Lugha rahisi ya shule ya Kenya — si tafsiri kutoka Kiingereza
+  - Sentensi fupi, wazi, za Darasa {grade}
+  - Zungumza na mwanafunzi moja kwa moja: "wewe", "jibu lako", "umefanya"
+========================================================
 """
     else:
         return f"""
 ⚠️ LANGUAGE RULE — CRITICAL:
 This question is in English. Write your ENTIRE response in English only.
-This includes: feedback, personalized_message, study_tip, points_earned, points_missed.
-Do NOT write even one sentence in another language.
+Every JSON field must be in English — feedback, personalized_message, study_tip, points_earned, points_missed.
 
 LANGUAGE RULES:
-- Write in simple English that a Grade {grade} Kenyan student can understand
-- Use words found in Kenyan CBC textbooks
-- Short sentences only — maximum 3 sentences per section
-- Talk directly to the student using "you" and "your"
-- Sound like a kind, encouraging Kenyan teacher
+- Simple English a Grade {grade} Kenyan student can understand
+- Short sentences — maximum 3 per section
+- Talk directly to the student: "you", "your"
+- Kind, encouraging Kenyan teacher tone
 - Never use: demonstrate, indicate, facilitate, enumerate, elaborate,
   subsequently, primarily, comprise, constitute, moreover, furthermore, utilize
 """
@@ -280,22 +288,44 @@ def _build_marking_prompt(question, student_answer: str, language: str) -> str:
     """
     grade = getattr(getattr(question, "topic", None), "grade", 7)
     has_passage = hasattr(question, "passage") and question.passage is not None
+    sw = (language == "Kiswahili")
 
     prompt = f"""You are a Kenyan CBC teacher marking a Grade {grade} student's answer.
 {_language_rules(language, grade)}
+"""
 
+    # Marking rules — written in the target language
+    if sw:
+        prompt += """
+SHERIA ZA KUREKEBISHA:
+1. Toa alama kwa ufahamu wa kweli — maneno sahihi kabisa si lazima
+2. Alama zote tu wakati mawazo yote muhimu yako wazi
+3. Alama za sehemu kwa majibu ya sehemu — nambari kamili tu, si desimali
+4. Kubali jibu lolote sahihi hata kama limeandikwa tofauti
+5. Kosa la tahajia ni sawa isipokuwa libadilishe maana
+6. Usizidi alama za juu za swali
+7. Taarifa zisizo sahihi zinapunguza alama
+8. MUHIMU: Kama unasema jibu la mwanafunzi ni sahihi, LAZIMA utoe alama zote — usitoe 0 na kusema jibu ni sahihi
+
+MAELEKEZO YA MAONI (FEEDBACK):
+- Andika sentensi 4–6 za maoni maalum na ya kielimu
+- Kwanza: taja hasa nini mwanafunzi alipata SAHIHI na kwa nini alipata alama
+- Kisha: kwa kila pointi iliyokosekana au si sahihi, toa JIBU SAHIHI halisi
+- Mwanafunzi lazima aende akijua hasa jibu zima sahihi lilikuwa nini
+- Mtindo wa mwalimu mpole — wa moja kwa moja na wa kielimu
+"""
+    else:
+        prompt += """
 MARKING RULES:
 1. Award marks for real understanding — exact wording is not required
 2. Full marks only when all key ideas are clearly present
 3. Partial marks for partial answers — integers only, no decimals
 4. Accept any factually correct answer even if worded differently
-5. When the question asks for N points, only mark the first N correct ones
-6. The same idea said in different words counts as one point only
-7. Spelling mistakes are fine unless they change the meaning
-8. Never go above the question's maximum marks
-9. Wrong or irrelevant information reduces marks
-10. CRITICAL: If you say the student's answer matches the correct answer,
-    you MUST award full marks — never award 0 and say the answer was correct
+5. Spelling mistakes are fine unless they change the meaning
+6. Never go above the question's maximum marks
+7. Wrong or irrelevant information reduces marks
+8. CRITICAL: If you say the student's answer matches the correct answer,
+   you MUST award full marks — never award 0 and say the answer was correct
 
 FEEDBACK INSTRUCTIONS:
 - Write 4–6 sentences of specific, educational feedback
@@ -307,7 +337,20 @@ FEEDBACK INSTRUCTIONS:
 
     # MCQ-specific rules
     if question.question_type == "mcq":
-        prompt += """
+        if sw:
+            prompt += """
+SHERIA ZA MCQ:
+- Chaguo sahihi → alama zote
+- Chaguo baya → alama 0 (hakuna alama za sehemu kwa MCQ)
+
+MUUNDO WA MAONI KWA MCQ:
+- Anza na "✅ Sawa kabisa! ..." au "❌ Jibu si sahihi. Jibu sahihi ni ..."
+- Kwa sentensi 1–2 eleza KWA NINI jibu hilo ni sahihi kwa maneno rahisi
+- Malizia na kidokezo kimoja kifupi cha "Kumbuka:" kusaidia mwanafunzi kukumbuka dhana
+- Jumla: sentensi 5 za juu
+"""
+        else:
+            prompt += """
 MCQ RULES:
 - Correct option chosen → full marks
 - Wrong option → 0 marks (no partial marks for MCQs)
@@ -321,7 +364,19 @@ FEEDBACK FORMAT FOR MCQ:
 
     # Passage/comprehension rules
     if has_passage:
-        prompt += f"""
+        if sw:
+            prompt += f"""
+SHERIA ZA UFAHAMU:
+Jibu kulingana na kifungu cha kusoma TU — si maarifa ya jumla.
+Maoni yako LAZIMA yaelekeze mahali kifungu kinasema jibu — sema "Kifungu kinasema katika aya..." au "Angalia mstari..."
+Maoni: sentensi 2 za juu.
+
+--- KIFUNGU ---
+{question.passage.content}
+--- MWISHO WA KIFUNGU ---
+"""
+        else:
+            prompt += f"""
 COMPREHENSION RULES:
 Answer based ONLY on the reading passage below — not general knowledge.
 Your feedback MUST point to where in the passage the answer is found.
@@ -377,22 +432,53 @@ Keep feedback to 2 sentences maximum.
         else:
             prompt += f"\n\nEXPECTED ANSWER / KEY POINTS:\n{question.correct_answer}"
 
-    # Study tip instruction
-    if has_passage:
-        study_tip_rule = (
-            "Point to the specific paragraph or line in the passage where the answer is found. "
-            "Do NOT repeat the feedback."
-        )
+    # Study tip instruction — in target language
+    if sw:
+        if has_passage:
+            study_tip_rule = (
+                "Elekeza aya maalum au mstari katika kifungu ambapo jibu linapatikana. "
+                "USIRUDIE maoni."
+            )
+        else:
+            study_tip_rule = (
+                "Kidokezo KIPYA kimoja ambacho hakiko katika maoni — "
+                "mbinu rahisi ya kukumbuka, wazo linalohusiana, au kidokezo cha mtihani. "
+                "Andika kwa Kiswahili tu. "
+                "Ikiwa huna uhakika wa ukweli wake, acha tupu."
+            )
+        json_template = f"""
+ALAMA ZA JUU: {question.max_marks}
+
+Rudisha JSON sahihi TU — hakuna maandishi kabla au baada:
+{{
+  "marks_awarded": nambari kamili kati ya 0 na {question.max_marks},
+  "feedback": "Sentensi 4–6 kwa Kiswahili: (1) nini mwanafunzi alipata sahihi na kwa nini, (2) kwa kila pointi iliyokosekana toa JIBU SAHIHI halisi, (3) jibu zima sahihi ili mwanafunzi ajue anapaswa kuandika nini. Mtindo wa mwalimu mpole lakini wa moja kwa moja.",
+  "personalized_message": "sentensi moja fupi ya kuhamasisha iliyoelekezwa kwa mwanafunzi — KWA KISWAHILI",
+  "study_tip": "{study_tip_rule}",
+  "points_earned": ["nini mwanafunzi alipata sahihi — kwa maneno rahisi ya Kiswahili"],
+  "points_missed": ["nini mwanafunzi alikosa — kwa maneno rahisi ya Kiswahili"]
+}}
+
+⚠️ UKAGUZI WA MWISHO KABLA YA KUTUMA:
+Je, feedback yako iko katika Kiswahili? ✓
+Je, personalized_message iko katika Kiswahili? ✓
+Je, study_tip iko katika Kiswahili? ✓
+Je, points_earned na points_missed viko katika Kiswahili? ✓
+Kama jibu lolote ni HAPANA — rudia na uandike Kiswahili."""
     else:
-        study_tip_rule = (
-            "One NEW helpful tip not already in the feedback — "
-            "a simple memory trick, related idea, or exam tip. "
-            "Only include if you are 100% sure it is factually correct. "
-            "If not sure, leave empty string."
-        )
-
-    prompt += f"""
-
+        if has_passage:
+            study_tip_rule = (
+                "Point to the specific paragraph or line in the passage where the answer is found. "
+                "Do NOT repeat the feedback."
+            )
+        else:
+            study_tip_rule = (
+                "One NEW helpful tip not already in the feedback — "
+                "a simple memory trick, related idea, or exam tip. "
+                "Only include if you are 100% sure it is factually correct. "
+                "If not sure, leave empty string."
+            )
+        json_template = f"""
 MAX MARKS: {question.max_marks}
 
 Return ONLY valid JSON — no text before or after:
@@ -405,6 +491,7 @@ Return ONLY valid JSON — no text before or after:
   "points_missed": ["what the student missed — in simple words"]
 }}"""
 
+    prompt += json_template
     return prompt
 
 
@@ -447,14 +534,14 @@ CORRECT ANSWER: {correct_answer}
 
 Write a step-by-step solution in simple words a Grade {grade} student can follow.
 - Number each step: Step 1, Step 2, etc.
-- Show the working clearly
+- Show the working clearly and step by step.
 - At the end, in one short sentence say what mistake the student likely made
 - Keep it under 150 words total
-- NO complicated words — write like you are talking to a child
+- NO complicated words — write like you are talking to a child who is struggling with Maths
 - NO markdown, NO code blocks, NO # headings, NO asterisks
 - Use LaTeX for ALL numbers and calculations:
   inline → $...$ | display → $$...$$
-  Example: "Step 1: Subtract $7540 - 2465 = 5075$"
+  Example: "Step 1: Subtract $7540 - 2465 = 5075$". Arrange vertically and cleanly
 """
 
 
@@ -479,7 +566,7 @@ def _grade_fill_blank(question, student_answer: str) -> dict:
     student_raw = str(student_answer).strip()
     if not student_raw:
         msg = "Hujaandika jibu." if sw else "You did not write an answer."
-        tip = "Andika jibu lako wazi." if sw else "Always write your answer clearly."
+        tip = "Andika jibu lako kwa uwazi." if sw else "Always write your answer clearly."
         return _empty_result(question.max_marks, msg, _near_miss(sw))
 
     student_norm = _normalise(student_raw)
