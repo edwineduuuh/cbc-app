@@ -87,7 +87,7 @@ function MathInput({ value, onChange }) {
     const el = mfRef.current;
     if (!el) return;
     const currentValue = el.value?.trim() || "";
-    if (currentValue !== (valueRef.current || "")) {
+    if (currentValue && currentValue !== "\\placeholder{}") {
       onChange(currentValue);
     }
   }, [onChange]);
