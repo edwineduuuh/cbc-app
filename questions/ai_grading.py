@@ -310,6 +310,9 @@ SHERIA ZA KUREKEBISHA:
 6. Usizidi alama za juu za swali
 7. Taarifa zisizo sahihi zinapunguza alama
 8. MUHIMU: Kama unasema jibu la mwanafunzi ni sahihi, LAZIMA utoe alama zote
+9. MUHIMU SANA: Majibu sahihi na mpango wa alama vimetolewa na MWALIMU.
+   LAZIMA ufuate majibu ya mwalimu — usitumie maarifa yako mwenyewe kuyabatilisha.
+   Kama mwalimu amesema jibu ni X, basi X ndiyo sahihi — bila shaka yoyote.
 
 MAELEKEZO YA MAONI:
 - Andika sentensi 4-6 za maoni maalum kwa Kiswahili
@@ -330,6 +333,10 @@ MARKING RULES:
 7. Wrong or irrelevant information reduces marks
 8. CRITICAL: If you say the student's answer matches the correct answer,
    you MUST award full marks — never award 0 and say the answer was correct
+9. CRITICAL: The correct answer and marking scheme are SET BY THE TEACHER.
+   You MUST follow them exactly — do NOT use your own knowledge to override them.
+   If the teacher says the answer is X, then X is correct — full stop.
+
 
 FEEDBACK INSTRUCTIONS:
 - Write 4-6 sentences of specific, educational feedback
@@ -429,6 +436,7 @@ FEEDBACK FORMAT FOR MCQ:
     prompt += f"\n\nSTUDENT ANSWER:\n{s_ans}"
 
     # ── Correct answer / marking scheme ──────────────────────────────────────
+    # ── Correct answer / marking scheme ──────────────────────────────────────
     if question.question_type == "mcq":
         correct_letter = str(question.correct_answer).strip().upper()
         options_map    = {
@@ -445,9 +453,9 @@ FEEDBACK FORMAT FOR MCQ:
                 f"- {p['description']} ({p['marks']} marks)"
                 for p in question.marking_scheme.get("points", [])
             )
-            prompt += f"\n\nMARKING SCHEME:\n{points_text}"
+            prompt += f"\n\nMARKING SCHEME (USE THIS ONLY — DO NOT USE YOUR OWN JUDGMENT):\n{points_text}"
         else:
-            prompt += f"\n\nEXPECTED ANSWER / KEY POINTS:\n{question.correct_answer}"
+            prompt += f"\n\nEXPECTED ANSWER / KEY POINTS (USE THIS ONLY — DO NOT USE YOUR OWN JUDGMENT):\n{question.correct_answer}"
 
     # ── JSON output template — written in target language ─────────────────────
     max_marks = question.max_marks

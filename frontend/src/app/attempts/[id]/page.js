@@ -537,47 +537,43 @@ export default function AttemptResultsPage() {
                     </p>
                     <div className="text-blue-800">
                       {!item.student_answer ? (
-                        "(No answer provided)"
+                        <span>(No answer provided)</span>
                       ) : typeof item.student_answer === "object" ? (
                         Object.entries(item.student_answer).map(
-                          ([partId, ans]) => (
-                            <div
-                              key={partId}
-                              className="flex items-start gap-2 mb-1"
-                            >
-                              <span>•</span>
-                              {item.question_type === "math" ? (
-                                <div
-                                  ref={(el) => {
-                                    if (el && window.MathJax)
-                                      window.MathJax.typesetPromise([el]);
-                                  }}
-                                  dangerouslySetInnerHTML={{
-                                    __html: `$${String(ans)}$`,
-                                  }}
-                                />
-                              ) : (
-                                <span>{String(ans)}</span>
-                              )}
-                            </div>
-                          ),
+                          ([partId, ans]) => {
+                            const part = item.parts?.find(
+                              (p) => String(p.id) === String(partId),
+                            );
+                            const displayAns =
+                              part && /^[ABCD]$/i.test(String(ans))
+                                ? part[`option_${String(ans).toLowerCase()}`] ||
+                                  String(ans)
+                                : String(ans);
+                            return (
+                              <div
+                                key={partId}
+                                className="flex items-start gap-2 mb-1"
+                              >
+                                <span>•</span>
+                                <span>{displayAns}</span>
+                              </div>
+                            );
+                          },
                         )
+                      ) : item.question_type === "math" ? (
+                        <div
+                          ref={(el) => {
+                            if (el && window.MathJax)
+                              window.MathJax.typesetPromise([el]);
+                          }}
+                          dangerouslySetInnerHTML={{
+                            __html: `$${item.student_answer}$`,
+                          }}
+                        />
                       ) : (
                         <div className="flex items-start gap-2 mb-1">
                           <span>•</span>
-                          {item.question_type === "math" ? (
-                            <div
-                              ref={(el) => {
-                                if (el && window.MathJax)
-                                  window.MathJax.typesetPromise([el]);
-                              }}
-                              dangerouslySetInnerHTML={{
-                                __html: `$${item.student_answer}$`,
-                              }}
-                            />
-                          ) : (
-                            <span>{item.student_answer}</span>
-                          )}
+                          <span>{item.student_answer}</span>
                         </div>
                       )}
                     </div>
@@ -612,14 +608,15 @@ export default function AttemptResultsPage() {
                     />
 
                     {/* Personalized Message */}
-                    {item.personalized_message && (
-                      <div className="mt-3 p-3 bg-blue-50 rounded-lg border border-blue-200">
-                        <p className="text-sm text-blue-900">
-                          💡 <strong>For you:</strong>{" "}
-                          {item.personalized_message}
-                        </p>
-                      </div>
-                    )}
+                    {item.personalized_message &&
+                      !item.feedback?.includes("Part (") && (
+                        <div className="mt-3 p-3 bg-blue-50 rounded-lg border border-blue-200">
+                          <p className="text-sm text-blue-900">
+                            💡 <strong>For you:</strong>{" "}
+                            {item.personalized_message}
+                          </p>
+                        </div>
+                      )}
 
                     {/* Study Tip */}
                     {item.study_tip && (
