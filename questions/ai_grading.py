@@ -313,6 +313,15 @@ SHERIA ZA KUREKEBISHA:
 9. MUHIMU SANA: Majibu sahihi na mpango wa alama vimetolewa na MWALIMU.
    LAZIMA ufuate majibu ya mwalimu — usitumie maarifa yako mwenyewe kuyabatilisha.
    Kama mwalimu amesema jibu ni X, basi X ndiyo sahihi — bila shaka yoyote.
+10. MARUFUKU: Usitoe maelezo ya ziada ambayo hayapo katika mpango wa alama.
+    Usifafanue maana ya maneno au dhana ambazo mwalimu hakuuliza.
+    Jibu tu swali lililoulizwa — si zaidi ya hapo.
+    Mwanafunzi hajaulizwa kujua maana ya "vibonzo" au maneno mengine —
+    kama mwalimu hakuweka maelezo, wewe pia usiyatoe.
+11. MUHIMU SANA: Maelezo yaliyotolewa na mwalimu ni ya kuthibitisha jibu TU.
+    USIYAPANUE. USIYAFAFANUE. USIYONGEZE CHOCHOTE.
+    Andika tu kile mwalimu alichosema — neno kwa neno ikiwa lazima.
+    Kuongeza maelezo yako mwenyewe ni KOSA KUBWA.
 
 MAELEKEZO YA MAONI:
 - Andika sentensi 4-6 za maoni maalum kwa Kiswahili
@@ -336,6 +345,12 @@ MARKING RULES:
 9. CRITICAL: The correct answer and marking scheme are SET BY THE TEACHER.
    You MUST follow them exactly — do NOT use your own knowledge to override them.
    If the teacher says the answer is X, then X is correct — full stop.
+10. FORBIDDEN: Do not add unsolicited explanations of words or concepts
+    not in the marking scheme. Only address what the question asked.
+    If the teacher did not provide an explanation, do not invent one.
+11. CRITICAL: The explanation provided by the teacher is ONLY to confirm the answer.
+    Do NOT expand it. Do NOT paraphrase it. Do NOT add to it.
+    Use only what the teacher wrote — nothing more.
 
 
 FEEDBACK INSTRUCTIONS:
@@ -446,16 +461,16 @@ FEEDBACK FORMAT FOR MCQ:
         correct_text = options_map.get(correct_letter, "")
         prompt += f"\n\nCORRECT ANSWER:\nOption {correct_letter}: {correct_text}"
         if getattr(question, "explanation", None):
-            prompt += f"\nEXPLANATION: {question.explanation}"
-    else:
-        if getattr(question, "marking_scheme", None):
-            points_text = "\n".join(
-                f"- {p['description']} ({p['marks']} marks)"
-                for p in question.marking_scheme.get("points", [])
-            )
-            prompt += f"\n\nMARKING SCHEME (USE THIS ONLY — DO NOT USE YOUR OWN JUDGMENT):\n{points_text}"
+            prompt += f"\nEXPLANATION (use this ONLY to confirm the correct answer — do NOT expand, paraphrase, or add to it): {question.explanation}"
         else:
-            prompt += f"\n\nEXPECTED ANSWER / KEY POINTS (USE THIS ONLY — DO NOT USE YOUR OWN JUDGMENT):\n{question.correct_answer}"
+            if getattr(question, "marking_scheme", None):
+                points_text = "\n".join(
+                    f"- {p['description']} ({p['marks']} marks)"
+                    for p in question.marking_scheme.get("points", [])
+                )
+                prompt += f"\n\nMARKING SCHEME (USE THIS ONLY — DO NOT USE YOUR OWN JUDGMENT):\n{points_text}"
+            else:
+                prompt += f"\n\nEXPECTED ANSWER / KEY POINTS (USE THIS ONLY — DO NOT USE YOUR OWN JUDGMENT):\n{question.correct_answer}"
 
     # ── JSON output template — written in target language ─────────────────────
     max_marks = question.max_marks
