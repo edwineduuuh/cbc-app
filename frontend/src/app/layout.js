@@ -6,8 +6,8 @@ import WhatsAppButton from "@/components/WhatsAppButton";
 import Navbar from "@/components/NavBar";
 
 export const metadata = {
-  title: "CBC Education Platform",
-  description: "Learn with interactive quizzes",
+  title: "StadiSpace",
+  description: "Make Learning Fun, Make Learning Yours",
 };
 
 // Runs before React hydrates — prevents flash of wrong theme
