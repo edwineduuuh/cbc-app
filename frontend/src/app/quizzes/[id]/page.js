@@ -50,8 +50,51 @@ function useTimer(totalSeconds, onExpire) {
 }
 
 // ─── Passage Content Formatter ────────────────────────────────────────────────
-function PassageContent({ type, content }) {
+function PassageContent({
+  type,
+  content,
+  activeBlank = null,
+  answeredBlanks = {},
+}) {
   const t = (type || "").toLowerCase();
+
+  // Renders text and replaces __N__ with interactive blank spans
+  const renderWithBlanks = (text) => {
+    const parts = text.split(/(__\d+__)/g);
+    return parts.map((part, i) => {
+      const match = part.match(/^__(\d+)__$/);
+      if (!match) return part;
+      const num = parseInt(match[1]);
+      const isActive = activeBlank === num;
+      const answer = answeredBlanks[num];
+      return (
+        <span
+          key={i}
+          id={`blank-${num}`}
+          style={{
+            display: "inline-block",
+            minWidth: 80,
+            borderBottom: `2px solid ${isActive ? "#1a6fc4" : answer ? "#1d8f57" : "#8892a4"}`,
+            background: isActive
+              ? "#e8f4ff"
+              : answer
+                ? "#eafaf3"
+                : "transparent",
+            color: isActive ? "#1a6fc4" : answer ? "#1d8f57" : "#6b7280",
+            fontWeight: answer ? 700 : 400,
+            padding: "0 6px 2px",
+            borderRadius: 4,
+            margin: "0 2px",
+            transition: "all 0.3s ease",
+            boxShadow: isActive ? "0 0 0 3px #bdd7f5" : "none",
+            fontSize: 15,
+          }}
+        >
+          {answer ?? `_${num}_`}
+        </span>
+      );
+    });
+  };
 
   if (t === "poem") {
     return (
@@ -74,7 +117,6 @@ function PassageContent({ type, content }) {
   }
 
   if (t === "dialogue") {
-    // Split on newlines first, then also handle inline "Name: speech" patterns
     const lines = content.split("\n").filter((l) => l.trim() !== "");
     const speakerColors = [
       "#1a6fc4",
@@ -88,7 +130,6 @@ function PassageContent({ type, content }) {
     ];
     const speakerMap = {};
     let colorIdx = 0;
-
     const getColor = (speaker) => {
       const key = speaker.trim().toLowerCase();
       if (!speakerMap[key]) {
@@ -97,7 +138,6 @@ function PassageContent({ type, content }) {
       }
       return speakerMap[key];
     };
-
     return (
       <div style={{ color: "#374151" }}>
         {lines.map((line, i) => {
@@ -119,7 +159,7 @@ function PassageContent({ type, content }) {
                 <span
                   style={{
                     fontWeight: 700,
-                    color: color,
+                    color,
                     fontSize: 11,
                     minWidth: 70,
                     maxWidth: 80,
@@ -147,7 +187,6 @@ function PassageContent({ type, content }) {
               </div>
             );
           }
-          // Stage direction / narrator line
           return (
             <div
               key={i}
@@ -183,14 +222,14 @@ function PassageContent({ type, content }) {
               textIndent: "1.4em",
             }}
           >
-            {para.trim()}
+            {renderWithBlanks(para.trim())}
           </p>
         ))}
       </div>
     );
   }
 
-  // Default — preserve line breaks
+  // Default — handles blanks too
   return (
     <p
       style={{
@@ -200,7 +239,7 @@ function PassageContent({ type, content }) {
         whiteSpace: "pre-line",
       }}
     >
-      {content}
+      {renderWithBlanks(content)}
     </p>
   );
 }
@@ -1314,6 +1353,7 @@ export default function QuizTakePage({ params }) {
   const [showNav, setShowNav] = useState(true);
   const [flagged, setFlagged] = useState(new Set());
   const [workingImages, setWorkingImages] = useState({});
+  const [activeBlank, setActiveBlank] = useState(null); // ← blank highlight state
 
   const currentQ = questions[currentIdx];
 
@@ -1558,6 +1598,22 @@ export default function QuizTakePage({ params }) {
     currentQ.question_type === "structured" ||
     currentQ.question_type === "essay";
 
+  // Build answeredBlanks map: { blankNum: optionText }
+  const answeredBlanks = Object.fromEntries(
+    (currentQ.parts || [])
+      .map((part) => {
+        const letter =
+          typeof answers[currentIdx] === "object"
+            ? answers[currentIdx]?.[part.id]
+            : null;
+        const optionText = letter
+          ? part[`option_${letter.toLowerCase()}`]
+          : null;
+        return [parseInt(part.part_label), optionText];
+      })
+      .filter(([, v]) => v),
+  );
+
   return (
     <div
       style={{
@@ -1573,38 +1629,13 @@ export default function QuizTakePage({ params }) {
         * { box-sizing: border-box; margin: 0; padding: 0; }
         textarea:focus, input:focus { outline: none; }
         button { font-family: inherit; }
-
-        /* Question nav: desktop only */
         .question-nav { display: flex; }
         @media (max-width: 768px) { .question-nav { display: none !important; } }
-
-        /* Passage layout:
-           Desktop → side-by-side grid, passage is sticky full height
-           Mobile  → single column, passage on top, questions below        */
-        .passage-grid {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 24px;
-        }
-        .passage-panel {
-          position: sticky;
-          top: 80px;
-          align-self: start;
-          max-height: calc(100vh - 100px);
-          overflow-y: auto;
-          padding-bottom: 40px;   
-        }
+        .passage-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+        .passage-panel { position: sticky; top: 80px; align-self: start; max-height: calc(100vh - 100px); overflow-y: auto; padding-bottom: 40px; }
         @media (max-width: 768px) {
-          .passage-grid {
-            display: flex !important;
-            flex-direction: column !important;
-          }
-          .passage-panel {
-            position: static !important;
-            max-height: none !important;
-            overflow-y: visible !important;
-            margin-bottom: 20px;
-          }
+          .passage-grid { display: flex !important; flex-direction: column !important; }
+          .passage-panel { position: static !important; max-height: none !important; overflow-y: visible !important; margin-bottom: 20px; }
         }
       `}</style>
 
@@ -1730,11 +1761,10 @@ export default function QuizTakePage({ params }) {
           maxWidth: currentQ?.passage ? 1200 : 680,
           margin: "0 auto",
           padding: "32px 16px 120px",
-          // non-passage pages remain block layout
           ...(currentQ?.passage ? {} : { display: "block" }),
         }}
       >
-        {/* ── Passage Panel ── */}
+        {/* Passage Panel */}
         {currentQ?.passage && (
           <div
             className="passage-panel"
@@ -1745,7 +1775,6 @@ export default function QuizTakePage({ params }) {
               padding: 24,
             }}
           >
-            {/* Passage header */}
             <div
               style={{
                 display: "flex",
@@ -1774,7 +1803,6 @@ export default function QuizTakePage({ params }) {
                 </span>
               )}
             </div>
-
             <h3
               style={{
                 fontSize: 16,
@@ -1786,16 +1814,16 @@ export default function QuizTakePage({ params }) {
             >
               {currentQ.passage.title}
             </h3>
-
-            {/* ← Formatted passage content */}
             <PassageContent
               type={currentQ.passage.passage_type}
               content={currentQ.passage.content}
+              activeBlank={activeBlank}
+              answeredBlanks={answeredBlanks}
             />
           </div>
         )}
 
-        {/* ── Questions Panel ── */}
+        {/* Questions Panel */}
         <div>
           <AnimatePresence mode="wait">
             <motion.div
@@ -2103,6 +2131,8 @@ export default function QuizTakePage({ params }) {
                       typeof answers[currentIdx] === "object"
                         ? (answers[currentIdx]?.[part.id] ?? "")
                         : "";
+                    const blankNum = parseInt(part.part_label);
+
                     const handlePartAnswer = (value) => {
                       setAnswers((prev) => ({
                         ...prev,
@@ -2113,7 +2143,19 @@ export default function QuizTakePage({ params }) {
                           [part.id]: value,
                         },
                       }));
+                      // Highlight and scroll to the matching blank in the passage
+                      setActiveBlank(blankNum);
+                      setTimeout(() => {
+                        document
+                          .getElementById(`blank-${blankNum}`)
+                          ?.scrollIntoView({
+                            behavior: "smooth",
+                            block: "center",
+                          });
+                      }, 50);
+                      setTimeout(() => setActiveBlank(null), 1500);
                     };
+
                     return (
                       <div
                         key={part.id}
