@@ -58,7 +58,10 @@ const QUOTES = [
     text: "You don't have to be great to start, but you have to start to be great.",
     author: "Zig Ziglar",
   },
-  { text: "Elimu ni ufunguo wa maisha.", author: "Msemo wa Kiswahili" },
+  {
+    text: "Discovering the unexpected is more important than confirming the known.",
+    author: "George Box",
+  },
   { text: "Haraka haraka haina baraka.", author: "Msemo wa Kiswahili" },
 ];
 

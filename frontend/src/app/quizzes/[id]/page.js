@@ -118,17 +118,18 @@ function PassageContent({ type, content }) {
               >
                 <span
                   style={{
-                    fontWeight: 800,
+                    fontWeight: 700,
                     color: color,
-                    fontSize: 12,
-                    minWidth: 90,
-                    maxWidth: 110,
+                    fontSize: 11,
+                    minWidth: 70,
+                    maxWidth: 80,
                     flexShrink: 0,
                     paddingTop: 3,
-                    fontFamily: "'Syne', sans-serif",
+                    fontFamily: "'Lato', sans-serif",
                     textTransform: "uppercase",
-                    letterSpacing: "0.04em",
+                    letterSpacing: "0.03em",
                     lineHeight: 1.3,
+                    opacity: 0.85,
                   }}
                 >
                   {speaker}
@@ -1591,6 +1592,7 @@ export default function QuizTakePage({ params }) {
           align-self: start;
           max-height: calc(100vh - 100px);
           overflow-y: auto;
+          padding-bottom: 40px;   
         }
         @media (max-width: 768px) {
           .passage-grid {

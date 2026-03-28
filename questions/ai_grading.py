@@ -367,30 +367,42 @@ FEEDBACK FORMAT FOR MCQ:
 """
 
     # ── Passage / comprehension rules ────────────────────────────────────────
+    # ── Passage / comprehension rules ────────────────────────────────────────
     if has_passage:
         if sw:
             prompt += f"""
-SHERIA ZA UFAHAMU:
-Jibu kulingana na kifungu cha kusoma TU — si maarifa ya nje.
-Maoni yako LAZIMA yaelekeze mahali kifungu kinasema jibu.
-Sema: "Kifungu kinasema katika aya..." au "Angalia mstari..."
-Maoni: sentensi 2 za juu.
+    SHERIA ZA UFAHAMU — MUHIMU SANA:
+    Maswali haya yanatoka kwenye KIFUNGU kilichotolewa hapa chini.
+    JIBU KUTOKA KWENYE KIFUNGU TU — usitumie maarifa yako ya nje kabisa.
+    Hata kama unajua jibu kutoka elimu yako, USILITUMIE — jibu lazima litoke kwenye kifungu.
 
---- KIFUNGU ---
-{question.passage.content}
---- MWISHO WA KIFUNGU ---
-"""
+    Katika maoni yako:
+    - Sema wapi kifungu kinasema jibu: "Kifungu kinasema..." au "Katika aya ya..."
+    - USIANDIKE maarifa ya jumla ambayo hayamo kwenye kifungu
+    - Maoni: sentensi 2 TU
+
+    --- KIFUNGU ---
+    {question.passage.content}
+    --- MWISHO WA KIFUNGU ---
+    """
         else:
             prompt += f"""
-COMPREHENSION RULES:
-Answer based ONLY on the reading passage below — not general knowledge.
-Your feedback MUST reference where in the passage the answer is found.
-Keep feedback to 2 sentences maximum.
+    COMPREHENSION RULES — CRITICAL:
+    These questions are based on the passage provided below.
+    You MUST answer using ONLY what is written in the passage.
+    Do NOT use outside knowledge — even if you know the answer from general knowledge,
+    your feedback must cite the passage, not your own knowledge.
 
---- PASSAGE ---
-{question.passage.content}
---- END PASSAGE ---
-"""
+    In your feedback:
+    - Quote or reference the exact part of the passage that contains the answer
+    - Say "The passage states..." or "According to the passage in paragraph..."  
+    - Do NOT give general explanations about the topic
+    - Feedback: maximum 2 sentences, both referencing the passage
+
+    --- PASSAGE ---
+    {question.passage.content}
+    --- END PASSAGE ---
+    """
 
     # ── Question text ─────────────────────────────────────────────────────────
     q_text = question.question_text
@@ -819,22 +831,23 @@ def _route(question, student_answer: str,
 class _PartProxy:
     """Wraps a QuestionPart ORM object so graders can treat it like a Question."""
 
-    def __init__(self, part):
-        parent = part.parent_question
-        self.id              = part.id
-        self.question_text   = f"({part.part_label}) {part.question_text}"
-        self.question_type   = part.question_type
-        self.correct_answer  = part.correct_answer
-        self.max_marks       = part.max_marks
-        self.marking_scheme  = part.marking_scheme
-        self.explanation     = part.explanation
-        self.option_a        = part.option_a
-        self.option_b        = part.option_b
-        self.option_c        = part.option_c
-        self.option_d        = part.option_d
-        self.topic           = parent.topic
-        self.passage         = None
-        self.worked_solution = None
+    class _PartProxy:
+        def __init__(self, part):
+            parent = part.parent_question
+            self.id              = part.id
+            self.question_text   = f"({part.part_label}) {part.question_text}"
+            self.question_type   = part.question_type
+            self.correct_answer  = part.correct_answer
+            self.max_marks       = part.max_marks
+            self.marking_scheme  = part.marking_scheme
+            self.explanation     = part.explanation
+            self.option_a        = part.option_a
+            self.option_b        = part.option_b
+            self.option_c        = part.option_c
+            self.option_d        = part.option_d
+            self.topic           = parent.topic   # ← already there, subject comes through here
+            self.passage         = parent.passage  # ← FIX: inherit passage from parent question
+            self.worked_solution = None
 
 
 def _grade_multipart(question, student_answer,
