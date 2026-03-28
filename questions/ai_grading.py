@@ -831,23 +831,22 @@ def _route(question, student_answer: str,
 class _PartProxy:
     """Wraps a QuestionPart ORM object so graders can treat it like a Question."""
 
-    class _PartProxy:
-        def __init__(self, part):
-            parent = part.parent_question
-            self.id              = part.id
-            self.question_text   = f"({part.part_label}) {part.question_text}"
-            self.question_type   = part.question_type
-            self.correct_answer  = part.correct_answer
-            self.max_marks       = part.max_marks
-            self.marking_scheme  = part.marking_scheme
-            self.explanation     = part.explanation
-            self.option_a        = part.option_a
-            self.option_b        = part.option_b
-            self.option_c        = part.option_c
-            self.option_d        = part.option_d
-            self.topic           = parent.topic   # ← already there, subject comes through here
-            self.passage         = parent.passage  # ← FIX: inherit passage from parent question
-            self.worked_solution = None
+    def __init__(self, part):
+        parent = part.parent_question
+        self.id              = part.id
+        self.question_text   = f"({part.part_label}) {part.question_text}"
+        self.question_type   = part.question_type
+        self.correct_answer  = part.correct_answer
+        self.max_marks       = part.max_marks
+        self.marking_scheme  = part.marking_scheme
+        self.explanation     = part.explanation
+        self.option_a        = part.option_a
+        self.option_b        = part.option_b
+        self.option_c        = part.option_c
+        self.option_d        = part.option_d
+        self.topic           = parent.topic   # ← already there, subject comes through here
+        self.passage         = parent.passage  # ← FIX: inherit passage from parent question
+        self.worked_solution = None
 
 
 def _grade_multipart(question, student_answer,
