@@ -62,7 +62,254 @@ const QUOTES = [
     text: "Discovering the unexpected is more important than confirming the known.",
     author: "George Box",
   },
-  { text: "Haraka haraka haina baraka.", author: "Msemo wa Kiswahili" },
+  {
+    text: "There is no elevator to success, you have to take the stairs.",
+    author: "Zig Ziglar",
+  },
+  {
+    text: "May you live every day of your life.",
+    author: "Jonathan Swift",
+  },
+  {
+    text: "You can't cross the sea merely by standing and staring at the water.",
+    author: "Rabindranath Tagore",
+  },
+  {
+    text: "What matters most is how well you walk through the fire.",
+    author: "Charles Bukowski",
+  },
+  {
+    text: "Nothing will work unless you do",
+    author: "Maya Angelou",
+  },
+  {
+    text: "Failure is the condiment that gives success its flavor.",
+    author: "Truman Capote",
+  },
+  {
+    text: "The work of today is the history of tomorrow, and we are its makers.",
+    author: "Juliette Gordon Low",
+  },
+  {
+    text: "Knowing is not enough; we must apply. Wishing is not enough; we must do",
+    author: "Johann Wolfgang von Goeth",
+  },
+  {
+    text: "Once we accept our limits, we go beyond them",
+    author: "Albert Einstein",
+  },
+  {
+    text: "Our greatest weakness lies in giving up. The most certain way to succeed is always to try just one more time",
+    author: "Thomas A. Edison",
+  },
+  {
+    text: "Today's accomplishments were yesterday's impossibilities",
+    author: "Robert H. Schuller",
+  },
+  {
+    text: "Everybody has talent, but ability takes hard work",
+    author: "Michael Jordan",
+  },
+  {
+    text: "We first make our habits, then our habits make us.",
+    author: "John Dryden",
+  },
+  {
+    text: "Failure will never overtake me if my determination to succeed is strong enough",
+    author: "Og Mandino",
+  },
+  {
+    text: "The power of imagination makes us infinite",
+    author: "John Muir",
+  },
+  {
+    text: "We cannot solve our problems with the same thinking we used when we created them",
+    author: "Albert Einstein",
+  },
+  {
+    text: "Don't let yesterday take up too much of today.",
+    author: "Will Rogers",
+  },
+  {
+    text: "It is not the strongest of the species that survive, nor the most intelligent, but the one most responsive to change",
+    author: "Charles Darwin",
+  },
+  {
+    text: "Life is 10% what happens to you and 90% how you react to it",
+    author: "Charles R. Swindoll",
+  },
+  {
+    text: "The most common way people give up their power is by thinking they don't have any",
+    author: "Alice Walker",
+  },
+  {
+    text: "Nothing is impossible, the word itself says 'I'm possible'!",
+    author: "Audrey Hepburn",
+  },
+  {
+    text: "You can, you should, and if you're brave enough to start, you will",
+    author: "Stephen King",
+  },
+  {
+    text: "Those who say it can't be done should not interrupt the ones doing it",
+    author: "",
+  },
+  {
+    text: "If people never did silly things, nothing intelligent would ever get done.",
+    author: "Ludwig Wittgenstein",
+  },
+  {
+    text: "Be not afraid of greatness. Some are born great, some achieve greatness, and others have greatness thrust upon them",
+    author: "William Shakespeare",
+  },
+  {
+    text: "The future is not laid out on a track. It is something that we can decide, and to the extent that we do not violate any known laws of the universe, we can probably make it work the way that we want to",
+    author: "Allan Kay",
+  },
+  {
+    text: "The greatest enemy of knowledge is not ignorance, it is the illusion of knowledge",
+    author: "Stephen Hawking",
+  },
+  {
+    text: "You can't wait for inspiration. You have to go after it with a club",
+    author: "Jack London",
+  },
+  {
+    text: "The two most important days in your life are the day you are born and the day you find out why",
+    author: "Mark Twain",
+  },
+  {
+    text: "Sell your cleverness and buy bewilderment",
+    author: "Rumi",
+  },
+  {
+    text: "We are all failures. At least the best of us are.",
+    author: "J M Barrie",
+  },
+  {
+    text: "The harder I work, the luckier I get.",
+    author: "Gary Player",
+  },
+  {
+    text: "I attribute my success to this - I never gave or took any excuse",
+    author: "Florence Nightingale",
+  },
+  {
+    text: "If you have everything under control, you're not moving fast enough.",
+    author: "Mario Andretti",
+  },
+  {
+    text: "Make everything as simple as possible, but not simpler.",
+    author: "Albert Einstein",
+  },
+  {
+    text: "Life is like riding a bicycle. To keep your balance, you must keep moving",
+    author: "Albert Einstein",
+  },
+  {
+    text: "Whatever you are, be a good one",
+    author: "Abraham Lincoln",
+  },
+  {
+    text: "It does not matter how slowly you go as long as you do not stop",
+    author: "Confucius",
+  },
+  {
+    text: "The more you know, the more you realize you know nothing",
+    author: "Socrates",
+  },
+  {
+    text: "Well done is better than well said",
+    author: "Benjamin Franklin",
+  },
+  {
+    text: "The world breaks everyone, and afterward, many are strong at the broken places",
+    author: "Ernest Hemingway",
+  },
+  {
+    text: "Forever is composed of nows",
+    author: "Emily Dickinson",
+  },
+  {
+    text: "Impossible is just a big word thrown around by small men who find it easier to live in the world they've been given than to explore the power they have to change it. Impossible is not a fact. It's an opinion. Impossible is not a declaration. It's a dare. Impossible is potential. Impossible is temporary. Impossible is nothing.",
+    author: "Mohammed Ali",
+  },
+  {
+    text: "If you're any good at all, you know you can be better.",
+    author: "Lindsay Buckingham",
+  },
+  {
+    text: "What you do speaks so loudly that I cannot hear what you say.",
+    author: "Ralph Waldo Emerson",
+  },
+  {
+    text: "Ever Tried. Ever failed. No matter. Try again. Fail again. Fail better",
+    author: "Samuel Beckett",
+  },
+  {
+    text: "Never confuse a single defeat with a final defeat.",
+    author: "F. Scott Fitzgerald",
+  },
+  {
+    text: "If you reveal your secrets to the wind, you should not blame the wind for revealing them to the trees.",
+    author: "Kahlil Gibram",
+  },
+  {
+    text: "There are far, far better things ahead than any we leave behind.",
+    author: "C. S Lewis",
+  },
+  {
+    text: "The best way out is always through.",
+    author: "Robert Frost",
+  },
+  {
+    text: "Strength does not come from physical capacity. It comes from an indomitable will.",
+    author: "Mahatma Gandhi",
+  },
+  {
+    text: "Do not wait to strike till the iron is hot; but make it hot by striking.",
+    author: "William Buttler Yeats",
+  },
+  {
+    text: "Creativity is a wild mind and a disciplined eye.",
+    author: "Dorothy Parker",
+  },
+  {
+    text: "Creativity is more than just being different. Anybody can plan weird. That's easy. What's hard is to be as simple as Bach. Making the simple, awesomely simple, that's creativity.",
+    author: "Charles Mingus",
+  },
+  {
+    text: "An ant on the move does more than a dozing ox.",
+    author: "Lao Tzu",
+  },
+  {
+    text: "With the possible exception of the equator, everything begins somewhere.",
+    author: "C.S Lewis",
+  },
+  {
+    text: "What you do makes a difference. And you have to decide what kind of difference you want to make.",
+    author: "Jane Goodall",
+  },
+  {
+    text: "With the new day comes new strength and new thoughts.",
+    author: "Eleanor Roosevelt",
+  },
+  {
+    text: "The price of anything is the amount of life you exchange for it.",
+    author: "Henry David Thoreau",
+  },
+  {
+    text: "A life spent making mistakes is not only more honorable, but more useful than a life spent doing nothing.",
+    author: "George Bernard Shaw",
+  },
+  {
+    text: "The most exciting phrase to hear in science, the one that heralds discoveries, is not 'Eureka!' but 'Now that's funny…'",
+    author: "Isaac Asimov",
+  },
+  {
+    text: "Opportunity does not knock, it presents itself when you beat down the door.",
+    author: "Kyle Chandler",
+  },
 ];
 
 export default function DashboardPage() {
