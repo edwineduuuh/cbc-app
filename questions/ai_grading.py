@@ -166,7 +166,7 @@ MAX_TOKENS_MCQ        = 400
 MAX_TOKENS_STRUCTURED = 800
 MAX_TOKENS_ESSAY      = 1000
 MAX_TOKENS_DEFAULT    = 600
-def _call_claude(prompt: str, working_image: str | None = None) -> dict:
+def _call_claude(prompt: str, working_image: str | None = None, max_tokens: int = 600) -> dict:
     """
     POST to Claude API with exponential back-off on 429s.
     Returns the raw API response dict.
@@ -799,10 +799,12 @@ def _grade_with_ai(question, student_answer: str,
         )
 
     sw = _is_kiswahili(question)
+    qt = question.question_type
+    max_tokens = {"mcq": 400, "structured": 800, "essay": 1000}.get(qt, 600)
 
     try:
         prompt   = _build_marking_prompt(question, student_answer, sw)
-        raw_text = _claude_text(prompt, working_image)
+        raw_text = _claude_text(prompt, working_image, max_tokens)
         result   = _parse_json_response(raw_text)
         marks    = min(int(result.get("marks_awarded", 0)), question.max_marks)
 
