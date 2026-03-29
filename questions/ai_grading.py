@@ -294,6 +294,7 @@ def _build_marking_prompt(question, student_answer: str, sw: bool) -> str:
     """
     grade       = getattr(getattr(question, "topic", None), "grade", 7)
     has_passage = hasattr(question, "passage") and question.passage is not None
+    is_cloze = has_passage and getattr(question.passage, "passage_type", "") == "cloze"
 
     prompt = (
         f"Wewe ni mwalimu wa CBC Kenya anayerekebisha jibu la mwanafunzi wa Darasa {grade}.\n"
@@ -394,41 +395,56 @@ FEEDBACK FORMAT FOR MCQ:
 
     # ── Passage / comprehension rules ────────────────────────────────────────
     # ── Passage / comprehension rules ────────────────────────────────────────
-    if has_passage:
+    if has_passage and is_cloze:
         if sw:
             prompt += f"""
-    SHERIA ZA UFAHAMU — MUHIMU SANA:
-    Maswali haya yanatoka kwenye KIFUNGU kilichotolewa hapa chini.
-    JIBU KUTOKA KWENYE KIFUNGU TU — usitumie maarifa yako ya nje kabisa.
-    Hata kama unajua jibu kutoka elimu yako, USILITUMIE — jibu lazima litoke kwenye kifungu.
+SHERIA ZA KIFUNGU CHENYE MAPENGO (CLOZE):
+Hii ni zoezi la kujaza mapengo. Kifungu kina nafasi tupu ambazo mwanafunzi lazima azijaze.
+Jibu sahihi linatoka MOJA KWA MOJA kwenye muktadha wa kifungu karibu na pengo.
+USIFAFANUE maana ya maneno. USITAJE aya au mistari.
+Thibitisha tu kama neno linafaa kwenye pengo kulingana na muktadha.
 
-    Katika maoni yako:
-    - Sema wapi kifungu kinasema jibu: "Kifungu kinasema..." au "Katika aya ya..."
-    - USIANDIKE maarifa ya jumla ambayo hayamo kwenye kifungu
-    - Maoni: sentensi 2 TU
-
-    --- KIFUNGU ---
-    {question.passage.content}
-    --- MWISHO WA KIFUNGU ---
-    """
+--- KIFUNGU CHENYE MAPENGO ---
+{question.passage.content}
+--- MWISHO ---
+"""
         else:
             prompt += f"""
-    COMPREHENSION RULES — CRITICAL:
-    These questions are based on the passage provided below.
-    You MUST answer using ONLY what is written in the passage.
-    Do NOT use outside knowledge — even if you know the answer from general knowledge,
-    your feedback must cite the passage, not your own knowledge.
+CLOZE/BROKEN PASSAGE RULES:
+This is a gap-fill exercise. The passage has blanks the student must fill.
+The correct word comes DIRECTLY from the context around the gap.
+Do NOT explain word meanings. Do NOT cite paragraph numbers.
+Only confirm if the word fits the gap based on context.
 
-    In your feedback:
-    - Quote or reference the exact part of the passage that contains the answer
-    - Say "The passage states..." or "According to the passage in paragraph..."  
-    - Do NOT give general explanations about the topic
-    - Feedback: maximum 2 sentences, both referencing the passage
+--- BROKEN PASSAGE ---
+{question.passage.content}
+--- END ---
+"""
 
-    --- PASSAGE ---
-    {question.passage.content}
-    --- END PASSAGE ---
-    """
+    elif has_passage and not is_cloze:
+        if sw:
+            prompt += f"""
+SHERIA ZA UFAHAMU — MUHIMU SANA:
+Maswali haya yanatoka kwenye KIFUNGU kilichotolewa hapa chini.
+JIBU KUTOKA KWENYE KIFUNGU TU — usitumie maarifa yako ya nje kabisa.
+Katika maoni yako sema wapi kifungu kinasema jibu: "Kifungu kinasema..." au "Katika aya ya..."
+Maoni: sentensi 2 TU.
+
+--- KIFUNGU ---
+{question.passage.content}
+--- MWISHO WA KIFUNGU ---
+"""
+        else:
+            prompt += f"""
+COMPREHENSION RULES — CRITICAL:
+Answer using ONLY what is written in the passage below.
+In your feedback cite exactly where the answer appears: "The passage states..." or "In paragraph..."
+Feedback: maximum 2 sentences only.
+
+--- PASSAGE ---
+{question.passage.content}
+--- END PASSAGE ---
+"""
 
     # ── Question text ─────────────────────────────────────────────────────────
     q_text = question.question_text
@@ -481,7 +497,7 @@ FEEDBACK FORMAT FOR MCQ:
     max_marks = question.max_marks
 
     if sw:
-        if has_passage:
+        if has_passage and not is_cloze:
             study_tip_instruction = (
                 "Elekeza aya maalum au mstari katika kifungu ambapo jibu linapatikana. "
                 "USIRUDIE maoni."
@@ -515,7 +531,7 @@ UKAGUZI WA MWISHO — kabla ya kutuma, jibu maswali haya:
 Kama jibu lolote ni HAPANA — rejesha na uandike Kiswahili."""
 
     else:
-        if has_passage:
+        if has_passage and not is_cloze:
             study_tip_instruction = (
                 "Point to the specific paragraph or line in the passage where the answer is found. "
                 "Do NOT repeat the feedback."
@@ -526,7 +542,6 @@ Kama jibu lolote ni HAPANA — rejesha na uandike Kiswahili."""
                 "a memory trick, related idea, or exam tip. "
                 "Only include if you are 100% sure it is factually correct. "
                 "If not sure, leave as empty string."
-
             )
 
         prompt += f"""

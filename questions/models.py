@@ -50,6 +50,7 @@ class Passage(models.Model):
         ('dialogue', 'Dialogue'),
         ('excerpt', 'Excerpt'),
         ('article', 'Article'),
+        ('cloze', 'Broken Passage / Cloze'),
     ]
     
     title = models.CharField(max_length=200)
