@@ -911,17 +911,14 @@ def _grade_multipart(question, student_answer, working_image=None):
             if isinstance(student_answer, dict)
             else student_answer
         )
-        return part.order, part.part_label, _route(_PartProxy(part), str(part_answer), working_image)
+        return part.id, part.part_label, _route(_PartProxy(part), str(part_answer), working_image)
 
     results = {}
     with ThreadPoolExecutor(max_workers=len(parts)) as executor:
         futures = {executor.submit(grade_part, part): part for part in parts}
         for future in as_completed(futures):
-            order, label, result = future.result()
-            results[order] = (label, result)
-    # Sort by part_id to maintain order
-    for part_id in sorted(results.keys()):
-        label, result = results[part_id]
+            part_id, label, result = future.result()
+            results[part_id] = (label, result)
 
     total_marks = 0
     total_max = 0
@@ -929,8 +926,8 @@ def _grade_multipart(question, student_answer, working_image=None):
     all_earned = []
     all_missed = []
 
-    for order in sorted(results.keys()):
-        label, result = results[order]
+    for part_id in sorted(results.keys()):
+        label, result = results[part_id]
         total_marks += result["marks_awarded"]
         total_max += result["max_marks"]
         part_fb = result["feedback"]
