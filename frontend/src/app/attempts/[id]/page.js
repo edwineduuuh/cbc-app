@@ -675,7 +675,8 @@ export default function AttemptResultsPage() {
                             window.MathJax.typesetPromise([el]);
                         }}
                         dangerouslySetInnerHTML={{
-                          __html: item.correct_answer.replace(/\n/g, "<br/>"),
+                          __html: item.correct_answer.replace(/\n/g, "<br/>")
+                          .replace(/\.\s+([A-Z])/g, ".<br/>$1"),
                         }}
                       />
                       {item.explanation && (
