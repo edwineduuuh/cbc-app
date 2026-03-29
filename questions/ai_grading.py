@@ -525,6 +525,7 @@ Kama jibu lolote ni HAPANA — rejesha na uandike Kiswahili."""
                 "a memory trick, related idea, or exam tip. "
                 "Only include if you are 100% sure it is factually correct. "
                 "If not sure, leave as empty string."
+
             )
 
         prompt += f"""
@@ -755,7 +756,13 @@ def _grade_math(question, student_answer: str) -> dict:
                 return _on_correct(f"approx {N(s_expr):g}")
     except Exception:
         pass
-
+    try:
+        sem_prompt = _build_fill_blank_ai_prompt(question, student_str, correct_str, sw)
+        verdict = _claude_text(sem_prompt).strip().upper()
+        if verdict in ("TRUE", "KWELI"):
+            return _on_correct(student_str)
+    except Exception:
+        pass
     # Incorrect — generate step-by-step solution via Claude
     try:
         solution = _claude_text(
