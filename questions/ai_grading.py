@@ -535,8 +535,7 @@ MAX MARKS: {max_marks}
 Return ONLY valid JSON — no text before or after:
 {{
   "marks_awarded": <integer between 0 and {max_marks}>,
-  "feedback": "<4-6 sentences: (1) what student got right and why, (2) for each missing point give the ACTUAL correct answer, (3) full correct answer so student knows what to write. Warm but direct.>",
-  "personalized_message": "<one short encouraging sentence directed at the student>",
+  "feedback": "<4-6 sentences. Put each sentence on its own line using \\n. Format: \\n1. What student got right\\n2. What was wrong\\n3. Full correct answer>"
   "study_tip": "<{study_tip_instruction}>",
   "points_earned": ["<what student got right in simple words>"],
   "points_missed": ["<what student missed in simple words>"]
