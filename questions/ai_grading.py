@@ -899,37 +899,43 @@ class _PartProxy:
         self.worked_solution = None
 
 
-def _grade_multipart(question, student_answer,
-                     working_image: str | None = None) -> dict:
-    """Grade a question that has sub-parts, aggregating all results."""
-    parts        = list(question.parts.all())
-    total_marks  = 0
-    total_max    = 0
-    all_feedback = []
-    all_earned   = []
-    all_missed   = []
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
-    for part in parts:
+def _grade_multipart(question, student_answer, working_image=None):
+    parts = list(question.parts.all())
+    sw = _is_kiswahili(question)
+
+    def grade_part(part):
         part_answer = (
             student_answer.get(str(part.id), "")
             if isinstance(student_answer, dict)
             else student_answer
         )
+        return part.order, part.part_label, _route(_PartProxy(part), str(part_answer), working_image)
 
-        result = _route(_PartProxy(part), str(part_answer), working_image)
+    results = {}
+    with ThreadPoolExecutor(max_workers=len(parts)) as executor:
+        futures = {executor.submit(grade_part, part): part for part in parts}
+        for future in as_completed(futures):
+            order, label, result = future.result()
+            results[order] = (label, result)
 
+    total_marks = 0
+    total_max = 0
+    all_feedback = []
+    all_earned = []
+    all_missed = []
+
+    for order in sorted(results.keys()):
+        label, result = results[order]
         total_marks += result["marks_awarded"]
-        total_max   += result["max_marks"]
-
+        total_max += result["max_marks"]
         part_fb = result["feedback"]
         if result.get("study_tip"):
             part_fb += f"\n{result['study_tip']}"
-
-        all_feedback.append(f"Part ({part.part_label}): {part_fb}")
+        all_feedback.append(f"Part ({label}): {part_fb}")
         all_earned.extend(result.get("points_earned", []))
         all_missed.extend(result.get("points_missed", []))
-
-    sw = _is_kiswahili(question)
 
     return {
         "marks_awarded":        total_marks,
