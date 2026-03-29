@@ -919,6 +919,9 @@ def _grade_multipart(question, student_answer, working_image=None):
         for future in as_completed(futures):
             order, label, result = future.result()
             results[order] = (label, result)
+    # Sort by part_id to maintain order
+    for part_id in sorted(results.keys()):
+        label, result = results[part_id]
 
     total_marks = 0
     total_max = 0
