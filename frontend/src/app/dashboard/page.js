@@ -310,6 +310,22 @@ const QUOTES = [
     text: "Opportunity does not knock, it presents itself when you beat down the door.",
     author: "Kyle Chandler",
   },
+  {
+    text: "",
+    author: "",
+  },
+  {
+    text: "There is no glory in practice but without practice, there is no glory",
+    author: " Oleg Vishnepolsky",
+  },
+  {
+    text: "Depression hates a moving target",
+    author: "Nita Sweeney",
+  },
+  {
+    text: "",
+    author: "",
+  },
 ];
 
 export default function DashboardPage() {

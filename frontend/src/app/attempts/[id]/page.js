@@ -1,46 +1,257 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { useAuth } from "@/contexts/AuthContext";
-import Card from "@/components/ui/Card";
-import Button from "@/components/ui/Button";
-import WorkedSolution from "@/components/WorkedSolution";
+import Link from "next/link";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   CheckCircle,
   XCircle,
   Award,
   ArrowLeft,
-  Download,
   Trophy,
   Star,
   Sparkles,
+  Share2,
+  Download,
+  ChevronDown,
+  ChevronUp,
 } from "lucide-react";
 
 const API = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api";
+
+function getGradeBand(score, grade) {
+  if (!grade) return null;
+  if (grade >= 4 && grade <= 6) {
+    if (score >= 75)
+      return {
+        grade: "EE",
+        label: "Exceeds Expectations",
+        color: "#059669",
+        bg: "#d1fae5",
+      };
+    if (score >= 50)
+      return {
+        grade: "ME",
+        label: "Meets Expectations",
+        color: "#2563eb",
+        bg: "#dbeafe",
+      };
+    if (score >= 25)
+      return {
+        grade: "AE",
+        label: "Approaches Expectations",
+        color: "#d97706",
+        bg: "#fef3c7",
+      };
+    return {
+      grade: "BE",
+      label: "Below Expectations",
+      color: "#dc2626",
+      bg: "#fee2e2",
+    };
+  }
+  if (score >= 90)
+    return {
+      grade: "EE1",
+      label: "Exceeds Expectations",
+      color: "#059669",
+      bg: "#d1fae5",
+    };
+  if (score >= 75)
+    return {
+      grade: "EE2",
+      label: "Exceeds Expectations",
+      color: "#059669",
+      bg: "#d1fae5",
+    };
+  if (score >= 58)
+    return {
+      grade: "ME1",
+      label: "Meets Expectations",
+      color: "#2563eb",
+      bg: "#dbeafe",
+    };
+  if (score >= 41)
+    return {
+      grade: "ME2",
+      label: "Meets Expectations",
+      color: "#2563eb",
+      bg: "#dbeafe",
+    };
+  if (score >= 31)
+    return {
+      grade: "AE1",
+      label: "Approaches Expectations",
+      color: "#d97706",
+      bg: "#fef3c7",
+    };
+  if (score >= 21)
+    return {
+      grade: "AE2",
+      label: "Approaches Expectations",
+      color: "#d97706",
+      bg: "#fef3c7",
+    };
+  if (score >= 11)
+    return {
+      grade: "BE1",
+      label: "Below Expectations",
+      color: "#dc2626",
+      bg: "#fee2e2",
+    };
+  return {
+    grade: "BE2",
+    label: "Below Expectations",
+    color: "#dc2626",
+    bg: "#fee2e2",
+  };
+}
+
+function getMessage(score) {
+  if (score >= 90)
+    return {
+      emoji: "🏆",
+      title: "Outstanding!",
+      body: "You absolutely crushed this. Your understanding is exceptional — keep pushing these boundaries!",
+    };
+  if (score >= 75)
+    return {
+      emoji: "⭐",
+      title: "Excellent Work!",
+      body: "You are performing at a really high level. A bit more focus on the tricky areas and you will be hitting perfect scores!",
+    };
+  if (score >= 50)
+    return {
+      emoji: "💪",
+      title: "Good Progress!",
+      body: "You are building solid foundations. Review the questions you found tricky and you will see real improvement.",
+    };
+  if (score >= 30)
+    return {
+      emoji: "🌱",
+      title: "Keep Building!",
+      body: "You are making progress and that counts. Go back through the material and try again — each attempt makes you stronger.",
+    };
+  return {
+    emoji: "💡",
+    title: "Every Journey Starts Somewhere",
+    body: "This shows you exactly what to work on. Start with one concept at a time, ask for help, and keep going.",
+  };
+}
+
+// ─── Shareable Card (rendered off-screen for download) ───────
+function ShareCard({ score, gradeBand, quizTitle, marks, total, forwardRef }) {
+  const scoreColor =
+    score >= 75
+      ? "#059669"
+      : score >= 50
+        ? "#2563eb"
+        : score >= 30
+          ? "#d97706"
+          : "#dc2626";
+  return (
+    <div
+      ref={forwardRef}
+      style={{
+        position: "fixed",
+        left: -9999,
+        top: 0,
+        width: 600,
+        padding: 48,
+        background: "linear-gradient(135deg, #f0fdf4 0%, #eff6ff 100%)",
+        fontFamily: "sans-serif",
+      }}
+    >
+      <div style={{ textAlign: "center", marginBottom: 32 }}>
+        <div style={{ fontSize: 48, marginBottom: 8 }}>📚</div>
+        <div
+          style={{
+            fontSize: 14,
+            fontWeight: 700,
+            letterSpacing: "0.12em",
+            color: "#6b7280",
+            textTransform: "uppercase",
+            marginBottom: 4,
+          }}
+        >
+          StadiSpace
+        </div>
+        <div style={{ fontSize: 16, color: "#374151", fontWeight: 500 }}>
+          {quizTitle}
+        </div>
+      </div>
+      <div style={{ textAlign: "center", marginBottom: 32 }}>
+        <div
+          style={{
+            fontSize: 96,
+            fontWeight: 900,
+            color: scoreColor,
+            lineHeight: 1,
+          }}
+        >
+          {score}%
+        </div>
+        {gradeBand && (
+          <div
+            style={{
+              display: "inline-block",
+              marginTop: 12,
+              padding: "6px 20px",
+              borderRadius: 40,
+              background: gradeBand.bg,
+              color: gradeBand.color,
+              fontWeight: 700,
+              fontSize: 16,
+            }}
+          >
+            {gradeBand.grade} — {gradeBand.label}
+          </div>
+        )}
+      </div>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          gap: 48,
+          marginBottom: 32,
+        }}
+      >
+        <div style={{ textAlign: "center" }}>
+          <div style={{ fontSize: 32, fontWeight: 800, color: "#111827" }}>
+            {marks}/{total}
+          </div>
+          <div style={{ fontSize: 13, color: "#6b7280" }}>Marks</div>
+        </div>
+      </div>
+      <div style={{ textAlign: "center", fontSize: 13, color: "#9ca3af" }}>
+        stadispace.co.ke
+      </div>
+    </div>
+  );
+}
+
 export default function AttemptResultsPage() {
   const params = useParams();
   const router = useRouter();
   const { user } = useAuth();
+  const shareCardRef = useRef(null);
 
   const [results, setResults] = useState(null);
   const [quizGrade, setQuizGrade] = useState(null);
   const [credits, setCredits] = useState(0);
   const [isPremium, setIsPremium] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [expanded, setExpanded] = useState({});
+  const [downloading, setDownloading] = useState(false);
 
-  // MathJax setup
   useEffect(() => {
     if (typeof window === "undefined") return;
-
     if (!window.MathJax) {
       window.MathJax = {
-        tex: {
-          inlineMath: [["$", "$"]],
-          displayMath: [["$$", "$$"]],
-        },
+        tex: { inlineMath: [["$", "$"]], displayMath: [["$$", "$$"]] },
       };
-
       const script = document.createElement("script");
       script.src =
         "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js";
@@ -49,15 +260,12 @@ export default function AttemptResultsPage() {
     }
   }, []);
 
-  // Typeset when results load
   useEffect(() => {
     if (typeof window === "undefined" || !window.MathJax || !results) return;
-
-    setTimeout(() => {
-      window.MathJax.typesetPromise?.().catch((err) =>
-        console.error("MathJax error:", err),
-      );
-    }, 200);
+    setTimeout(
+      () => window.MathJax.typesetPromise?.().catch(console.error),
+      200,
+    );
   }, [results]);
 
   useEffect(() => {
@@ -70,20 +278,13 @@ export default function AttemptResultsPage() {
   }, [params.id, user]);
 
   useEffect(() => {
-    // Replace the history entry of the questions page with current URL
-    // → back button skips the attempt/questions page entirely
     const currentPath = window.location.pathname;
     window.history.replaceState(null, "", currentPath);
-
-    // Then still protect against popstate
-    const handler = () => {
-      window.history.pushState(null, "", currentPath);
-      // Optional toast / modal: "You cannot go back after submission"
-    };
-
+    const handler = () => window.history.pushState(null, "", currentPath);
     window.addEventListener("popstate", handler);
     return () => window.removeEventListener("popstate", handler);
   }, []);
+
   const fetchCreditsStatus = async () => {
     const token = localStorage.getItem("accessToken");
     try {
@@ -99,8 +300,8 @@ export default function AttemptResultsPage() {
           data.has_subscription === true || data.quiz_credits === "unlimited",
         );
       }
-    } catch (error) {
-      console.error("Error fetching credits:", error);
+    } catch (e) {
+      console.error(e);
     }
   };
 
@@ -113,701 +314,1002 @@ export default function AttemptResultsPage() {
       if (res.ok) {
         const data = await res.json();
         setResults(data);
-
-        // Fetch quiz details to get grade
         const quizRes = await fetch(
           `${API}/quizzes/${data.quiz?.id || data.quiz_id}/`,
-          {
-            headers: { Authorization: `Bearer ${token}` },
-          },
+          { headers: { Authorization: `Bearer ${token}` } },
         );
         if (quizRes.ok) {
-          const quizData = await quizRes.json();
-          setQuizGrade(quizData.grade);
+          const qd = await quizRes.json();
+          setQuizGrade(qd.grade);
         }
       }
-    } catch (error) {
-      console.error("Error loading results:", error);
+    } catch (e) {
+      console.error(e);
     } finally {
       setLoading(false);
     }
   };
 
-  // Calculate grade band
-  const getGradeBand = (score, grade) => {
-    if (!grade) return null;
-
-    // Primary (Grades 4-6)
-    if (grade >= 4 && grade <= 6) {
-      if (score >= 75)
-        return {
-          grade: "EE",
-          label: "Exceeds Expectations",
-          color: "from-green-500 to-emerald-600",
-        };
-      if (score >= 50)
-        return {
-          grade: "ME",
-          label: "Meets Expectations",
-          color: "from-blue-500 to-indigo-600",
-        };
-      if (score >= 25)
-        return {
-          grade: "AE",
-          label: "Approaches Expectations",
-          color: "from-yellow-500 to-orange-500",
-        };
-      return {
-        grade: "BE",
-        label: "Below Expectations",
-        color: "from-red-500 to-pink-600",
-      };
+  const handleDownload = async () => {
+    setDownloading(true);
+    try {
+      const html2canvas = (await import("html2canvas")).default;
+      const canvas = await html2canvas(shareCardRef.current, {
+        scale: 2,
+        backgroundColor: null,
+      });
+      const link = document.createElement("a");
+      link.download = `stadispace-result-${score}pct.png`;
+      link.href = canvas.toDataURL("image/png");
+      link.click();
+    } catch (e) {
+      console.error(e);
+      alert("Download failed. Please try again.");
     }
-
-    // Junior/Senior (Grades 7-12)
-    if (score >= 90)
-      return {
-        grade: "EE1",
-        label: "Exceeds Expectations",
-        color: "from-green-500 to-emerald-600",
-      };
-    if (score >= 75)
-      return {
-        grade: "EE2",
-        label: "Exceeds Expectations",
-        color: "from-green-400 to-emerald-500",
-      };
-    if (score >= 58)
-      return {
-        grade: "ME1",
-        label: "Meets Expectations",
-        color: "from-blue-500 to-indigo-600",
-      };
-    if (score >= 41)
-      return {
-        grade: "ME2",
-        label: "Meets Expectations",
-        color: "from-blue-400 to-indigo-500",
-      };
-    if (score >= 31)
-      return {
-        grade: "AE1",
-        label: "Approaches Expectations",
-        color: "from-yellow-500 to-orange-500",
-      };
-    if (score >= 21)
-      return {
-        grade: "AE2",
-        label: "Approaches Expectations",
-        color: "from-yellow-400 to-orange-400",
-      };
-    if (score >= 11)
-      return {
-        grade: "BE1",
-        label: "Below Expectations",
-        color: "from-red-500 to-pink-600",
-      };
-    return {
-      grade: "BE2",
-      label: "Below Expectations",
-      color: "from-red-400 to-pink-500",
-    };
+    setDownloading(false);
   };
 
-  // Get encouraging message based on performance
-  // Get dynamic encouraging message based on performance
-  const getEncouragingMessage = (score, gradeBand) => {
-    const messages = {
-      excellent: [
-        {
-          emoji: "🎉",
-          title: "Outstanding Performance!",
-          message:
-            "You've absolutely crushed this! Your understanding is crystal clear. You're not just learning—you're mastering. This is the kind of performance that opens doors. Keep this momentum going!",
-        },
-        {
-          emoji: "🏆",
-          title: "Phenomenal Work!",
-          message:
-            "Wow! You didn't just pass—you dominated this quiz. Your grasp of the concepts is exceptional. You're setting the standard here. This level of excellence will take you far!",
-        },
-        {
-          emoji: "⚡",
-          title: "Absolutely Brilliant!",
-          message:
-            "You're on fire! This performance shows true mastery. You're not just answering questions—you're demonstrating real understanding. Keep pushing these boundaries!",
-        },
-      ],
-      great: [
-        {
-          emoji: "⭐",
-          title: "Excellent Work!",
-          message:
-            "You're performing at a really high level! Your hard work is clearly paying off. With just a bit more focus on the tricky areas, you'll be hitting perfect scores regularly. You're so close to excellence!",
-        },
-        {
-          emoji: "🌟",
-          title: "Really Strong Performance!",
-          message:
-            "This is impressive! You've got a solid grasp on the material. A few small improvements and you'll be unstoppable. Your dedication is showing—keep it up!",
-        },
-        {
-          emoji: "💫",
-          title: "Great Job!",
-          message:
-            "You're doing really well! Your understanding is strong and you're making great progress. Focus on those few areas you missed and you'll reach the top tier. You've got this!",
-        },
-      ],
-      good: [
-        {
-          emoji: "👏",
-          title: "Good Progress!",
-          message:
-            "You're building solid foundations here! You understand the core concepts. Now it's about refining and practicing the parts that challenged you. Every question you missed is a learning opportunity. Stay focused!",
-        },
-        {
-          emoji: "💪",
-          title: "You're On Track!",
-          message:
-            "Nice work! You're meeting the standards and showing understanding. Review the questions you found tricky, practice a bit more, and you'll see real improvement. You're heading in the right direction!",
-        },
-        {
-          emoji: "🎯",
-          title: "Solid Effort!",
-          message:
-            "You're doing well! The fundamentals are there. Spend some extra time on the concepts that were challenging and you'll level up quickly. Consistency is key—keep practicing!",
-        },
-      ],
-      developing: [
-        {
-          emoji: "🌱",
-          title: "Keep Building!",
-          message:
-            "You're making progress, and that's what counts! Learning takes time. Go back through the material, take notes on what you missed, and try again. Each attempt makes you stronger. Don't give up—you're getting there!",
-        },
-        {
-          emoji: "📚",
-          title: "Time to Strengthen Your Foundation",
-          message:
-            "This is your signal to slow down and really understand the basics. There's no rush! Review the concepts, ask questions, and practice more. Every expert started exactly where you are now. Keep going!",
-        },
-        {
-          emoji: "💡",
-          title: "Learning Opportunity Ahead!",
-          message:
-            "This quiz showed you exactly what to work on—that's valuable! Take it as a roadmap. Focus on understanding, not just memorizing. Break it down, study bit by bit, and come back stronger. You've got potential!",
-        },
-      ],
-      struggling: [
-        {
-          emoji: "🌟",
-          title: "Every Journey Starts Somewhere",
-          message:
-            "Right now might feel tough, but here's the truth: struggle means you're learning. Take this as a clear guide on what needs attention. Start with one concept at a time. Ask for help. Practice daily. Small steps lead to big wins. Don't quit!",
-        },
-        {
-          emoji: "🎯",
-          title: "Let's Build From Here",
-          message:
-            "This score isn't where you want to be, and that's okay—it's where you START. Review the basics carefully. Find someone to explain what's confusing. Practice every single day, even just 15 minutes. Growth happens when you refuse to give up. Start today!",
-        },
-        {
-          emoji: "💪",
-          title: "Time For A Fresh Start",
-          message:
-            "This is tough, but you can turn it around! Go back to the fundamentals. Watch videos, read notes, ask teachers for help. Then practice, practice, practice. Everyone learns at their own pace. What matters is that you keep trying. You CAN do this!",
-        },
-      ],
-    };
-
-    let category;
-    if (score >= 90) category = "excellent";
-    else if (score >= 75) category = "great";
-    else if (score >= 50) category = "good";
-    else if (score >= 30) category = "developing";
-    else category = "struggling";
-
-    const options = messages[category];
-    const randomIndex = Math.floor(Math.random() * options.length);
-    return options[randomIndex];
+  const handleShare = async () => {
+    const text = `I scored ${score}% on ${results?.quiz?.title || "a quiz"} on StadiSpace! 📚\nJoin me at stadispace.co.ke`;
+    if (navigator.share) {
+      try {
+        await navigator.share({ title: "StadiSpace Results", text });
+      } catch (e) {
+        console.error(e);
+      }
+    } else {
+      await navigator.clipboard.writeText(text);
+      alert("Result copied to clipboard!");
+    }
   };
 
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600" />
-      </div>
-    );
-  }
+  const toggleExpand = (id) =>
+    setExpanded((prev) => ({ ...prev, [id]: !prev[id] }));
 
-  if (!results) {
+  if (loading)
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <Card className="p-8 text-center">
-          <h2 className="text-xl font-bold mb-4">Results not found</h2>
-          <button
-            onClick={() => router.push("/explore")}
-            className="flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-4"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            Back to Explore
-          </button>
-        </Card>
+      <div
+        style={{
+          minHeight: "100vh",
+          background: "#f8fafc",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <div
+          style={{
+            width: 40,
+            height: 40,
+            borderRadius: "50%",
+            border: "3px solid #e2e8f0",
+            borderTopColor: "#1a6fc4",
+            animation: "spin 0.8s linear infinite",
+          }}
+        />
+        <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
       </div>
     );
-  }
+
+  if (!results)
+    return (
+      <div
+        style={{
+          minHeight: "100vh",
+          background: "#f8fafc",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <div style={{ textAlign: "center" }}>
+          <p style={{ color: "#64748b", marginBottom: 16 }}>
+            Results not found.
+          </p>
+          <Link href="/explore">
+            <button
+              style={{
+                color: "#1a6fc4",
+                background: "none",
+                border: "none",
+                cursor: "pointer",
+                fontSize: 14,
+              }}
+            >
+              ← Back to Explore
+            </button>
+          </Link>
+        </div>
+      </div>
+    );
 
   const feedback = results.detailed_feedback || {};
   const questionIds = Object.keys(feedback);
   const score = Math.round(results.score);
   const gradeBand = getGradeBand(score, quizGrade);
-  const encouragement = getEncouragingMessage(score, gradeBand);
+  const message = getMessage(score);
+  const scoreColor =
+    score >= 75
+      ? "#059669"
+      : score >= 50
+        ? "#2563eb"
+        : score >= 30
+          ? "#d97706"
+          : "#dc2626";
+  const scoreBg =
+    score >= 75
+      ? "#d1fae5"
+      : score >= 50
+        ? "#dbeafe"
+        : score >= 30
+          ? "#fef3c7"
+          : "#fee2e2";
+  const timeTaken =
+    results.completed_at && results.started_at
+      ? Math.round(
+          (new Date(results.completed_at) - new Date(results.started_at)) /
+            60000,
+        )
+      : null;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50 p-4 md:p-8">
-      {/* Header */}
-      <div className="max-w-4xl mx-auto mb-8">
+    <div
+      style={{
+        minHeight: "100vh",
+        background: "#f8fafc",
+        fontFamily: "'Inter', system-ui, sans-serif",
+      }}
+    >
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Instrument+Serif:ital@0;1&display=swap');
+        * { box-sizing: border-box; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+        .fade-up { animation: fadeUp 0.4s ease forwards; }
+      `}</style>
+
+      {/* Hidden share card */}
+      <ShareCard
+        forwardRef={shareCardRef}
+        score={score}
+        gradeBand={gradeBand}
+        quizTitle={results.quiz?.title || "Quiz"}
+        marks={results.total_marks_awarded || 0}
+        total={results.total_max_marks || 0}
+      />
+
+      <div
+        style={{ maxWidth: 760, margin: "0 auto", padding: "24px 16px 80px" }}
+      >
+        {/* Back */}
         <button
-          onClick={() => router.push("/quizzes")}
-          className="flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-4"
+          onClick={() => router.push("/explore")}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: 6,
+            color: "#64748b",
+            background: "none",
+            border: "none",
+            cursor: "pointer",
+            fontSize: 14,
+            fontWeight: 500,
+            marginBottom: 24,
+          }}
         >
-          <ArrowLeft className="w-4 h-4" />
-          Back to Quizzes
+          <ArrowLeft size={16} /> Back to Explore
         </button>
 
-        {/* Score Card */}
-        <Card
-          className={`p-8 text-center bg-gradient-to-br ${gradeBand?.color || "from-blue-500 to-indigo-600"} text-white relative overflow-hidden`}
+        {/* Hero Score Card */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          style={{
+            background: "#fff",
+            borderRadius: 24,
+            padding: "40px 32px",
+            marginBottom: 16,
+            boxShadow: "0 4px 24px rgba(0,0,0,0.08)",
+            border: "1px solid #f1f5f9",
+            textAlign: "center",
+            position: "relative",
+            overflow: "hidden",
+          }}
         >
-          {/* Decorative elements */}
-          {score >= 75 && (
-            <>
-              <Sparkles className="absolute top-4 left-4 w-8 h-8 opacity-30 animate-pulse" />
-              <Sparkles className="absolute bottom-4 right-4 w-8 h-8 opacity-30 animate-pulse" />
-              <Star className="absolute top-4 right-4 w-6 h-6 opacity-20" />
-              <Star className="absolute bottom-4 left-4 w-6 h-6 opacity-20" />
-            </>
-          )}
-
-          {score >= 90 ? (
-            <Trophy className="w-16 h-16 mx-auto mb-4 animate-bounce" />
-          ) : (
-            <Award className="w-16 h-16 mx-auto mb-4" />
-          )}
-
-          <h1 className="text-2xl md:text-3xl font-bold mb-2">
-            {results.quiz_title}
-          </h1>
-
-          {/* Grade Band */}
-          {gradeBand && (
-            <div className="mb-4">
-              <div className="inline-block bg-white/20 backdrop-blur-sm px-6 py-3 rounded-2xl">
-                <div className="text-5xl md:text-6xl font-black mb-1">
-                  {gradeBand.grade}
-                </div>
-                <div className="text-sm md:text-base font-semibold opacity-90">
-                  {gradeBand.label}
-                </div>
-              </div>
-            </div>
-          )}
-
-          {/* Score */}
-          <div className="text-5xl md:text-6xl font-bold my-6">{score}%</div>
-
-          {/* Raw Marks */}
-          <div className="text-xl md:text-2xl font-semibold text-white/90 mb-6">
-            <span className="text-3xl md:text-4xl font-bold">
-              {results.total_marks_awarded || 0}
-            </span>
-            <span className="text-2xl mx-2">/</span>
-            <span className="text-3xl md:text-4xl font-bold">
-              {results.total_max_marks || 0}
-            </span>
-            <div className="text-base mt-1 opacity-75">marks</div>
-          </div>
-
-          {/* Stats */}
-          {/* Stats */}
-          <div className="flex items-center justify-center gap-8 text-base md:text-lg mb-6">
-            <div>
-              <span className="font-semibold">
-                {results.correct_answers ?? 0}
-              </span>
-              <span className="opacity-80">
-                {" "}
-                / {results.total_questions ?? 0}
-              </span>
-              <p className="text-xs md:text-sm opacity-75">Questions Correct</p>
-            </div>
-            {results.completed_at && (
-              <div>
-                <span className="font-semibold">
-                  {Math.round(
-                    (new Date(results.completed_at) -
-                      new Date(results.started_at || results.completed_at)) /
-                      60000,
-                  ) || "—"}
-                  m
-                </span>
-                <p className="text-xs md:text-sm opacity-75">Time Taken</p>
-              </div>
-            )}
-          </div>
+          {/* Decorative top bar */}
           <div
-            className={`inline-block px-6 py-3 rounded-full text-base md:text-lg font-bold ${
-              results.passed
-                ? "bg-white/30 backdrop-blur-sm text-white border-2 border-white/50"
-                : "bg-white/20 backdrop-blur-sm text-white"
-            }`}
+            style={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              right: 0,
+              height: 4,
+              background: `linear-gradient(90deg, ${scoreColor}, ${scoreColor}88)`,
+            }}
+          />
+
+          {score >= 90 && (
+            <Trophy
+              size={48}
+              color={scoreColor}
+              style={{ margin: "0 auto 16px" }}
+            />
+          )}
+          {score >= 75 && score < 90 && (
+            <Award
+              size={48}
+              color={scoreColor}
+              style={{ margin: "0 auto 16px" }}
+            />
+          )}
+
+          <p
+            style={{
+              fontSize: 13,
+              fontWeight: 600,
+              color: "#94a3b8",
+              letterSpacing: "0.08em",
+              textTransform: "uppercase",
+              marginBottom: 8,
+            }}
           >
-            {results.passed ? "✓ PASSED" : "Keep Practicing!"}
-          </div>
-        </Card>
+            {results.quiz?.title || "Quiz Results"}
+          </p>
 
-        {/* Encouraging Message */}
-        <Card className="mt-6 p-6 bg-gradient-to-r from-purple-50 to-pink-50 border-2 border-purple-200">
-          <div className="flex items-start gap-4">
-            <div className="text-4xl">{encouragement.emoji}</div>
-            <div className="flex-1">
-              <h3 className="text-xl font-bold text-purple-900 mb-2">
-                {encouragement.title}
-              </h3>
-              <p className="text-purple-800 leading-relaxed">
-                {encouragement.message}
-              </p>
+          {/* Big score */}
+          <div
+            style={{
+              fontSize: 88,
+              fontWeight: 900,
+              color: scoreColor,
+              lineHeight: 1,
+              marginBottom: 8,
+              fontFamily: "Instrument Serif, serif",
+            }}
+          >
+            {score}%
+          </div>
+
+          {/* Grade band */}
+          {gradeBand && (
+            <div
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 8,
+                padding: "6px 18px",
+                borderRadius: 40,
+                background: gradeBand.bg,
+                marginBottom: 24,
+              }}
+            >
+              <span
+                style={{
+                  fontSize: 18,
+                  fontWeight: 900,
+                  color: gradeBand.color,
+                }}
+              >
+                {gradeBand.grade}
+              </span>
+              <span
+                style={{
+                  fontSize: 13,
+                  fontWeight: 600,
+                  color: gradeBand.color,
+                }}
+              >
+                {gradeBand.label}
+              </span>
             </div>
-          </div>
-        </Card>
-      </div>
+          )}
 
-      {/* Question by Question Feedback */}
-      <div className="max-w-4xl mx-auto space-y-6">
-        <h2 className="text-2xl font-bold text-gray-900 mb-4">
-          Detailed Feedback
+          {/* Stats row */}
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              gap: 32,
+              marginBottom: 28,
+              flexWrap: "wrap",
+            }}
+          >
+            {[
+              {
+                label: "Marks",
+                value: `${results.total_marks_awarded ?? 0} / ${results.total_max_marks ?? 0}`,
+              },
+              {
+                label: "Correct",
+                value: `${results.correct_answers ?? 0} / ${results.total_questions ?? 0}`,
+              },
+              timeTaken ? { label: "Time", value: `${timeTaken} min` } : null,
+            ]
+              .filter(Boolean)
+              .map(({ label, value }) => (
+                <div key={label} style={{ textAlign: "center" }}>
+                  <div
+                    style={{ fontSize: 22, fontWeight: 800, color: "#0f172a" }}
+                  >
+                    {value}
+                  </div>
+                  <div
+                    style={{
+                      fontSize: 12,
+                      color: "#94a3b8",
+                      fontWeight: 500,
+                      marginTop: 2,
+                    }}
+                  >
+                    {label}
+                  </div>
+                </div>
+              ))}
+          </div>
+
+          {/* Share + Download */}
+          <div style={{ display: "flex", gap: 10, justifyContent: "center" }}>
+            <button
+              onClick={handleShare}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: 6,
+                padding: "10px 20px",
+                borderRadius: 12,
+                background: "#f1f5f9",
+                border: "none",
+                color: "#475569",
+                fontSize: 13,
+                fontWeight: 600,
+                cursor: "pointer",
+              }}
+            >
+              <Share2 size={15} /> Share Result
+            </button>
+            <button
+              onClick={handleDownload}
+              disabled={downloading}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: 6,
+                padding: "10px 20px",
+                borderRadius: 12,
+                background: scoreColor,
+                border: "none",
+                color: "#fff",
+                fontSize: 13,
+                fontWeight: 600,
+                cursor: "pointer",
+                opacity: downloading ? 0.7 : 1,
+              }}
+            >
+              <Download size={15} /> {downloading ? "Saving…" : "Download Card"}
+            </button>
+          </div>
+        </motion.div>
+
+        {/* Encouraging message */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.1 }}
+          style={{
+            background: "#fff",
+            borderRadius: 20,
+            padding: "20px 24px",
+            marginBottom: 32,
+            border: "1px solid #f1f5f9",
+            boxShadow: "0 2px 12px rgba(0,0,0,0.04)",
+            display: "flex",
+            alignItems: "flex-start",
+            gap: 16,
+          }}
+        >
+          <span style={{ fontSize: 32, flexShrink: 0 }}>{message.emoji}</span>
+          <div>
+            <p
+              style={{
+                fontSize: 15,
+                fontWeight: 700,
+                color: "#0f172a",
+                marginBottom: 4,
+              }}
+            >
+              {message.title}
+            </p>
+            <p style={{ fontSize: 14, color: "#475569", lineHeight: 1.6 }}>
+              {message.body}
+            </p>
+          </div>
+        </motion.div>
+
+        {/* Detailed Feedback */}
+        <h2
+          style={{
+            fontSize: 20,
+            fontWeight: 800,
+            color: "#0f172a",
+            marginBottom: 16,
+          }}
+        >
+          Question Feedback
         </h2>
 
-        {questionIds.map((qId, index) => {
-          const item = feedback[qId];
-          return (
-            <Card key={qId} className="p-4 md:p-6">
-              <div className="flex items-start gap-4 mb-4">
-                <div
-                  className={`w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0 ${
-                    item.is_correct ? "bg-green-100" : "bg-red-100"
-                  }`}
+        <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+          {questionIds.map((qId, index) => {
+            const item = feedback[qId];
+            const isOpen = expanded[qId] !== false; // default open
+            const correct = item.is_correct;
+
+            return (
+              <motion.div
+                key={qId}
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.04 }}
+                style={{
+                  background: "#fff",
+                  borderRadius: 18,
+                  border: `1px solid ${correct ? "#d1fae5" : "#fee2e2"}`,
+                  overflow: "hidden",
+                  boxShadow: "0 2px 8px rgba(0,0,0,0.04)",
+                }}
+              >
+                {/* Question header — always visible */}
+                <button
+                  onClick={() => toggleExpand(qId)}
+                  style={{
+                    width: "100%",
+                    padding: "16px 20px",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    gap: 12,
+                    background: correct ? "#f0fdf4" : "#fff5f5",
+                    border: "none",
+                    cursor: "pointer",
+                    textAlign: "left",
+                  }}
                 >
-                  {item.is_correct ? (
-                    <CheckCircle className="w-6 h-6 text-green-600" />
-                  ) : (
-                    <XCircle className="w-6 h-6 text-red-600" />
-                  )}
-                </div>
-
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center justify-between mb-2 flex-wrap gap-2">
-                    <h3 className="font-semibold text-gray-900">
-                      Question {index + 1}
-                    </h3>
-                    <span
-                      className={`px-3 py-1 rounded-full text-sm font-bold whitespace-nowrap ${
-                        item.is_correct
-                          ? "bg-green-100 text-green-700"
-                          : "bg-red-100 text-red-700"
-                      }`}
-                    >
-                      {item.marks_awarded} / {item.max_marks} marks
-                    </span>
-                  </div>
-
                   <div
-                    className="text-gray-700 mb-4"
-                    ref={(el) => {
-                      if (el && window.MathJax)
-                        window.MathJax.typesetPromise([el]);
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 12,
+                      flex: 1,
                     }}
-                    dangerouslySetInnerHTML={{ __html: item.question_text }}
-                  />
-
-                  {/* Student Answer */}
-                  <div className="bg-blue-50 p-4 rounded-lg mb-4">
-                    <p className="text-sm font-semibold text-blue-900 mb-1">
-                      Your Answer:
-                    </p>
-                    <div className="text-blue-800">
-                      {!item.student_answer ? (
-                        <span>(No answer provided)</span>
-                      ) : typeof item.student_answer === "object" ? (
-                        Object.entries(item.student_answer).map(
-                          ([partId, ans]) => {
-                            const part = item.parts?.find(
-                              (p) => String(p.id) === String(partId),
-                            );
-                            const displayAns =
-                              part && /^[ABCD]$/i.test(String(ans))
-                                ? part[`option_${String(ans).toLowerCase()}`] ||
-                                  String(ans)
-                                : String(ans);
-                            return (
-                              <div
-                                key={partId}
-                                className="flex items-start gap-2 mb-1"
-                              >
-                                <span>•</span>
-                                <span>{displayAns}</span>
-                              </div>
-                            );
-                          },
-                        )
-                      ) : item.question_type === "math" ? (
-                        <div
-                          ref={(el) => {
-                            if (el && window.MathJax)
-                              window.MathJax.typesetPromise([el]);
-                          }}
-                          dangerouslySetInnerHTML={{
-                            __html: `$${item.student_answer}$`,
-                          }}
-                        />
-                      ) : (
-                        <div className="flex items-start gap-2 mb-1">
-                          <span>•</span>
-                          <span>{item.student_answer}</span>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-
-                  {/* AI Feedback */}
-                  <div
-                    className={`p-4 rounded-lg mb-4 ${
-                      item.is_correct
-                        ? "bg-green-50 border border-green-200"
-                        : "bg-yellow-50 border border-yellow-200"
-                    }`}
                   >
-                    <p className="text-sm font-semibold mb-1">
-                      {item.is_correct ? "✓ Correct!" : "Feedback:"}
-                    </p>
                     <div
-                      className="text-sm"
-                      ref={(el) => {
-                        if (el && window.MathJax)
-                          window.MathJax.typesetPromise([el]);
+                      style={{
+                        width: 36,
+                        height: 36,
+                        borderRadius: 10,
+                        flexShrink: 0,
+                        background: correct ? "#d1fae5" : "#fee2e2",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
                       }}
-                      dangerouslySetInnerHTML={{
-                        __html: item.feedback
-                          .replace(
-                            /\(([a-z])\)\s*/g,
-                            "<br/><strong>Part ($1):</strong> ",
-                          )
-                          .replace(/^<br\/>/, "")
-                          .replace(/\n/g, "<br/>"),
-                      }}
-                    />
-
-                    {/* Personalized Message */}
-                    {item.personalized_message &&
-                      !item.feedback?.includes("Part (") && (
-                        <div className="mt-3 p-3 bg-blue-50 rounded-lg border border-blue-200">
-                          <p className="text-sm text-blue-900">
-                            💡 <strong>For you:</strong>{" "}
-                            {item.personalized_message}
-                          </p>
-                        </div>
+                    >
+                      {correct ? (
+                        <CheckCircle size={18} color="#059669" />
+                      ) : (
+                        <XCircle size={18} color="#dc2626" />
                       )}
-
-                    {/* Study Tip */}
-                    {item.study_tip && (
-                      <div className="mt-2 p-3 bg-purple-50 rounded-lg border border-purple-200">
-                        <p className="text-sm text-purple-900 font-semibold mb-1">
-                          📚 Study tip:
-                        </p>
-                        <div
-                          className="text-sm text-purple-900 whitespace-pre-line"
-                          ref={(el) => {
-                            if (el && window.MathJax)
-                              window.MathJax.typesetPromise([el]);
-                          }}
-                          dangerouslySetInnerHTML={{
-                            __html: item.study_tip.replace(/\n/g, "<br/>"),
-                          }}
-                        />
-                      </div>
-                    )}
-                  </div>
-
-                  {/* {item.points_missed.map((point, i) => (
-                    <li
-                      key={i}
-                      ref={(el) => {
-                        if (el && window.MathJax)
-                          window.MathJax.typesetPromise([el]);
-                      }}
-                      dangerouslySetInnerHTML={{ __html: point }}
-                    />
-                  ))} */}
-
-                  {item.points_missed && item.points_missed.length > 0 && (
-                    <div className="bg-orange-50 p-3 rounded-lg">
-                      <p className="text-sm font-semibold text-orange-900 mb-1">
-                        ⚠ Points you missed:
-                      </p>
-                      <ul className="text-sm text-orange-800 list-disc list-inside">
-                        {item.points_missed.map((point, i) => (
-                          <li key={i}>{point}</li>
-                        ))}
-                      </ul>
                     </div>
-                  )}
-
-                  {/* Correct Answer */}
-                  {!item.is_correct && item.correct_answer && (
-                    <div className="bg-gray-50 p-4 rounded-lg mt-4">
-                      <p className="text-sm font-semibold text-gray-900 mb-1">
-                        Correct Answer:
-                      </p>
+                    <div style={{ flex: 1 }}>
                       <div
-                        className="text-gray-700"
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "space-between",
+                          gap: 8,
+                        }}
+                      >
+                        <span
+                          style={{
+                            fontSize: 14,
+                            fontWeight: 700,
+                            color: "#0f172a",
+                          }}
+                        >
+                          Question {index + 1}
+                        </span>
+                        <span
+                          style={{
+                            fontSize: 13,
+                            fontWeight: 700,
+                            padding: "3px 10px",
+                            borderRadius: 20,
+                            background: correct ? "#d1fae5" : "#fee2e2",
+                            color: correct ? "#059669" : "#dc2626",
+                            flexShrink: 0,
+                          }}
+                        >
+                          {item.marks_awarded} / {item.max_marks} marks
+                        </span>
+                      </div>
+                      <p
+                        style={{
+                          fontSize: 13,
+                          color: "#64748b",
+                          marginTop: 2,
+                          lineHeight: 1.4,
+                        }}
+                        dangerouslySetInnerHTML={{
+                          __html:
+                            item.question_text?.length > 100
+                              ? item.question_text.slice(0, 100) + "…"
+                              : item.question_text,
+                        }}
+                      />
+                    </div>
+                  </div>
+                  {isOpen ? (
+                    <ChevronUp size={16} color="#94a3b8" />
+                  ) : (
+                    <ChevronDown size={16} color="#94a3b8" />
+                  )}
+                </button>
+
+                {/* Expanded content */}
+                {isOpen && (
+                  <div style={{ padding: "0 20px 20px" }}>
+                    {/* Full question text */}
+                    <div
+                      style={{
+                        paddingTop: 16,
+                        paddingBottom: 12,
+                        borderBottom: "1px solid #f1f5f9",
+                        marginBottom: 16,
+                      }}
+                    >
+                      <p
+                        style={{
+                          fontSize: 15,
+                          fontWeight: 600,
+                          color: "#0f172a",
+                          lineHeight: 1.65,
+                        }}
                         ref={(el) => {
                           if (el && window.MathJax)
                             window.MathJax.typesetPromise([el]);
                         }}
-                        dangerouslySetInnerHTML={{
-                          __html: item.correct_answer.replace(/\n/g, "<br/>")
-                          .replace(/\.\s+([A-Z])/g, ".<br/>$1"),
-                        }}
+                        dangerouslySetInnerHTML={{ __html: item.question_text }}
                       />
-                      {item.explanation && (
-                        <div className="mt-2 pt-2 border-t border-gray-200">
-                          <div
-                            className="text-sm text-gray-600"
+                    </div>
+
+                    {/* Your answer */}
+                    <div
+                      style={{
+                        background: "#eff6ff",
+                        borderRadius: 12,
+                        padding: "12px 16px",
+                        marginBottom: 12,
+                      }}
+                    >
+                      <p
+                        style={{
+                          fontSize: 11,
+                          fontWeight: 700,
+                          color: "#1d4ed8",
+                          letterSpacing: "0.06em",
+                          textTransform: "uppercase",
+                          marginBottom: 6,
+                        }}
+                      >
+                        Your Answer
+                      </p>
+                      <div
+                        style={{
+                          fontSize: 14,
+                          color: "#1e3a5f",
+                          lineHeight: 1.6,
+                        }}
+                      >
+                        {!item.student_answer ? (
+                          <span
+                            style={{ color: "#94a3b8", fontStyle: "italic" }}
+                          >
+                            (No answer provided)
+                          </span>
+                        ) : typeof item.student_answer === "object" ? (
+                          Object.entries(item.student_answer).map(
+                            ([partId, ans]) => (
+                              <div
+                                key={partId}
+                                style={{
+                                  display: "flex",
+                                  gap: 6,
+                                  marginBottom: 4,
+                                }}
+                              >
+                                <span style={{ color: "#3b82f6" }}>•</span>
+                                <span>{String(ans)}</span>
+                              </div>
+                            ),
+                          )
+                        ) : (
+                          <span
                             ref={(el) => {
                               if (el && window.MathJax)
                                 window.MathJax.typesetPromise([el]);
                             }}
                             dangerouslySetInnerHTML={{
-                              __html: item.explanation.replace(/\n/g, "<br/>"),
+                              __html:
+                                item.question_type === "math"
+                                  ? `$${item.student_answer}$`
+                                  : item.student_answer,
                             }}
                           />
+                        )}
+                      </div>
+                    </div>
+
+                    {/* AI Feedback */}
+                    <div
+                      style={{
+                        background: correct ? "#f0fdf4" : "#fffbeb",
+                        border: `1px solid ${correct ? "#bbf7d0" : "#fde68a"}`,
+                        borderRadius: 12,
+                        padding: "14px 16px",
+                        marginBottom: 12,
+                      }}
+                    >
+                      <p
+                        style={{
+                          fontSize: 11,
+                          fontWeight: 700,
+                          color: correct ? "#059669" : "#92400e",
+                          letterSpacing: "0.06em",
+                          textTransform: "uppercase",
+                          marginBottom: 8,
+                        }}
+                      >
+                        {correct ? "✓ Correct!" : "Feedback"}
+                      </p>
+                      <div
+                        style={{
+                          fontSize: 14,
+                          color: correct ? "#065f46" : "#78350f",
+                          lineHeight: 1.7,
+                        }}
+                        ref={(el) => {
+                          if (el && window.MathJax)
+                            window.MathJax.typesetPromise([el]);
+                        }}
+                        dangerouslySetInnerHTML={{
+                          __html:
+                            item.feedback
+                              ?.replace(
+                                /\(([a-z])\)\s*/g,
+                                "<br/><strong>Part ($1):</strong> ",
+                              )
+                              ?.replace(/^<br\/>/, "")
+                              ?.replace(/\n/g, "<br/>") || "",
+                        }}
+                      />
+
+                      {/* Personalized message */}
+                      {item.personalized_message && (
+                        <div
+                          style={{
+                            marginTop: 10,
+                            paddingTop: 10,
+                            borderTop: `1px solid ${correct ? "#bbf7d0" : "#fde68a"}`,
+                          }}
+                        >
+                          <p
+                            style={{
+                              fontSize: 13,
+                              color: correct ? "#065f46" : "#78350f",
+                            }}
+                          >
+                            💡 {item.personalized_message}
+                          </p>
                         </div>
                       )}
                     </div>
-                  )}
-                  {!item.is_correct && item.worked_solution?.steps && (
-                    <WorkedSolution
-                      steps={item.worked_solution.steps}
-                      answer={item.worked_solution.answer}
-                    />
-                  )}
-                </div>
-              </div>
-            </Card>
-          );
-        })}
-      </div>
 
-      {/* Action Buttons - CONDITIONAL BASED ON QUOTA */}
-      <div className="max-w-4xl mx-auto mt-8">
-        {(() => {
-          // SCENARIO 1: Premium/Subscribed user
-          if (isPremium) {
-            return (
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Button
-                  variant="primary"
-                  onClick={() => router.push("/explore")}
-                  className="flex-1"
-                >
-                  Continue Learning
-                </Button>
-                <Button
-                  variant="outline"
-                  onClick={() => router.push("/dashboard")}
-                  className="flex-1"
-                >
-                  View Dashboard
-                </Button>
-              </div>
+                    {/* Study tip */}
+                    {item.study_tip && (
+                      <div
+                        style={{
+                          background: "#faf5ff",
+                          border: "1px solid #e9d5ff",
+                          borderRadius: 12,
+                          padding: "12px 16px",
+                          marginBottom: 12,
+                        }}
+                      >
+                        <p
+                          style={{
+                            fontSize: 11,
+                            fontWeight: 700,
+                            color: "#7c3aed",
+                            letterSpacing: "0.06em",
+                            textTransform: "uppercase",
+                            marginBottom: 6,
+                          }}
+                        >
+                          📚 Study Tip
+                        </p>
+                        <div
+                          style={{
+                            fontSize: 13,
+                            color: "#581c87",
+                            lineHeight: 1.6,
+                          }}
+                          ref={(el) => {
+                            if (el && window.MathJax)
+                              window.MathJax.typesetPromise([el]);
+                          }}
+                          dangerouslySetInnerHTML={{
+                            __html:
+                              item.study_tip?.replace(/\n/g, "<br/>") || "",
+                          }}
+                        />
+                      </div>
+                    )}
+
+                    {/* Points missed */}
+                    {item.points_missed && item.points_missed.length > 0 && (
+                      <div
+                        style={{
+                          background: "#fff7ed",
+                          border: "1px solid #fed7aa",
+                          borderRadius: 12,
+                          padding: "12px 16px",
+                          marginBottom: 12,
+                        }}
+                      >
+                        <p
+                          style={{
+                            fontSize: 11,
+                            fontWeight: 700,
+                            color: "#c2410c",
+                            letterSpacing: "0.06em",
+                            textTransform: "uppercase",
+                            marginBottom: 6,
+                          }}
+                        >
+                          ⚠ Points Missed
+                        </p>
+                        <ul style={{ margin: 0, paddingLeft: 16 }}>
+                          {item.points_missed.map((point, i) => (
+                            <li
+                              key={i}
+                              style={{
+                                fontSize: 13,
+                                color: "#9a3412",
+                                lineHeight: 1.6,
+                                marginBottom: 2,
+                              }}
+                            >
+                              {point}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+
+                    {/* Correct answer */}
+                    {!correct && item.correct_answer && (
+                      <div
+                        style={{
+                          background: "#f8fafc",
+                          border: "1px solid #e2e8f0",
+                          borderRadius: 12,
+                          padding: "12px 16px",
+                        }}
+                      >
+                        <p
+                          style={{
+                            fontSize: 11,
+                            fontWeight: 700,
+                            color: "#475569",
+                            letterSpacing: "0.06em",
+                            textTransform: "uppercase",
+                            marginBottom: 6,
+                          }}
+                        >
+                          Correct Answer
+                        </p>
+                        <div
+                          style={{
+                            fontSize: 14,
+                            color: "#0f172a",
+                            lineHeight: 1.6,
+                          }}
+                          ref={(el) => {
+                            if (el && window.MathJax)
+                              window.MathJax.typesetPromise([el]);
+                          }}
+                          dangerouslySetInnerHTML={{
+                            __html:
+                              item.correct_answer?.replace(/\n/g, "<br/>") ||
+                              "",
+                          }}
+                        />
+                        {item.explanation && (
+                          <div
+                            style={{
+                              marginTop: 8,
+                              paddingTop: 8,
+                              borderTop: "1px solid #e2e8f0",
+                            }}
+                          >
+                            <div
+                              style={{
+                                fontSize: 13,
+                                color: "#64748b",
+                                lineHeight: 1.6,
+                              }}
+                              dangerouslySetInnerHTML={{
+                                __html:
+                                  item.explanation?.replace(/\n/g, "<br/>") ||
+                                  "",
+                              }}
+                            />
+                          </div>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                )}
+              </motion.div>
             );
-          }
+          })}
+        </div>
 
-          // SCENARIO 2: Free user with credits left
-          if (credits > 0) {
-            return (
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Button
-                  variant="primary"
-                  onClick={() => router.push("/explore")}
-                  className="flex-1"
-                >
-                  Take Another Quiz ({credits} free left)
-                </Button>
-                <Button
-                  variant="outline"
-                  onClick={() => router.push("/dashboard")}
-                  className="flex-1"
-                >
-                  View Dashboard
-                </Button>
-              </div>
-            );
-          }
-
-          // SCENARIO 3: Free user - all credits used
-          return (
+        {/* Action buttons */}
+        <div
+          style={{ marginTop: 32, display: "flex", gap: 12, flexWrap: "wrap" }}
+        >
+          {isPremium ? (
             <>
-              <div className="flex flex-col sm:flex-row gap-4 mb-4">
-                <Button
-                  variant="primary"
-                  onClick={() => router.push("/subscribe")}
-                  className="flex-1 bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600"
-                >
-                  🎓 Subscribe to Continue
-                </Button>
-                <Button
-                  variant="outline"
-                  onClick={() => router.push(`/quizzes/${results.quiz_id}`)}
-                  className="flex-1"
-                >
-                  🔄 Try Again
-                </Button>
-                <Button
-                  variant="outline"
-                  onClick={() => router.push("/progress")}
-                  className="flex-1"
-                >
-                  View Progress
-                </Button>
-              </div>
-
-              {/* Paywall Banner */}
-              <div className="bg-gradient-to-r from-yellow-50 to-orange-50 border-2 border-yellow-300 rounded-xl p-4 text-center">
-                <p className="text-lg font-bold text-yellow-900 mb-2">
-                You have used all your free quizzes!
-                </p>
-                <p className="text-sm text-yellow-800">
-                  Subscribe now to unlock unlimited access and continue your
-                  learning journey.
-                </p>
-              </div>
+              <button
+                onClick={() => router.push("/explore")}
+                style={{
+                  flex: 1,
+                  minWidth: 140,
+                  padding: "14px 0",
+                  borderRadius: 14,
+                  background: "linear-gradient(135deg, #1a6fc4, #0ea5c9)",
+                  color: "#fff",
+                  fontSize: 14,
+                  fontWeight: 700,
+                  border: "none",
+                  cursor: "pointer",
+                }}
+              >
+                Continue Learning
+              </button>
+              <button
+                onClick={() => router.push("/dashboard")}
+                style={{
+                  flex: 1,
+                  minWidth: 140,
+                  padding: "14px 0",
+                  borderRadius: 14,
+                  background: "#fff",
+                  color: "#475569",
+                  fontSize: 14,
+                  fontWeight: 600,
+                  border: "2px solid #e2e8f0",
+                  cursor: "pointer",
+                }}
+              >
+                Dashboard
+              </button>
             </>
-          );
-        })()}
-      </div>
+          ) : credits > 0 ? (
+            <>
+              <button
+                onClick={() => router.push("/explore")}
+                style={{
+                  flex: 1,
+                  minWidth: 140,
+                  padding: "14px 0",
+                  borderRadius: 14,
+                  background: "linear-gradient(135deg, #1a6fc4, #0ea5c9)",
+                  color: "#fff",
+                  fontSize: 14,
+                  fontWeight: 700,
+                  border: "none",
+                  cursor: "pointer",
+                }}
+              >
+                Take Another Quiz ({credits} free left)
+              </button>
+              <button
+                onClick={() => router.push("/dashboard")}
+                style={{
+                  flex: 1,
+                  minWidth: 140,
+                  padding: "14px 0",
+                  borderRadius: 14,
+                  background: "#fff",
+                  color: "#475569",
+                  fontSize: 14,
+                  fontWeight: 600,
+                  border: "2px solid #e2e8f0",
+                  cursor: "pointer",
+                }}
+              >
+                Dashboard
+              </button>
+            </>
+          ) : (
+            <>
+              <button
+                onClick={() => router.push("/subscribe")}
+                style={{
+                  flex: 1,
+                  minWidth: 140,
+                  padding: "14px 0",
+                  borderRadius: 14,
+                  background: "linear-gradient(135deg, #f59e0b, #ef4444)",
+                  color: "#fff",
+                  fontSize: 14,
+                  fontWeight: 700,
+                  border: "none",
+                  cursor: "pointer",
+                }}
+              >
+                🎓 Subscribe to Continue
+              </button>
+              <button
+                onClick={() => router.push(`/quizzes/${results.quiz?.id}`)}
+                style={{
+                  flex: 1,
+                  minWidth: 140,
+                  padding: "14px 0",
+                  borderRadius: 14,
+                  background: "#fff",
+                  color: "#475569",
+                  fontSize: 14,
+                  fontWeight: 600,
+                  border: "2px solid #e2e8f0",
+                  cursor: "pointer",
+                }}
+              >
+                🔄 Try Again
+              </button>
+            </>
+          )}
+        </div>
 
-      {/* Print Styles */}
-      <style jsx global>{`
-        @media print {
-          body {
-            background: white !important;
-          }
-          .no-print {
-            display: none !important;
-          }
-        }
-      `}</style>
+        {!isPremium && credits === 0 && (
+          <div
+            style={{
+              marginTop: 16,
+              padding: "16px 20px",
+              borderRadius: 16,
+              background: "#fffbeb",
+              border: "2px solid #fde68a",
+              textAlign: "center",
+            }}
+          >
+            <p
+              style={{
+                fontSize: 14,
+                fontWeight: 700,
+                color: "#92400e",
+                marginBottom: 4,
+              }}
+            >
+              You have used all your free quizzes!
+            </p>
+            <p style={{ fontSize: 13, color: "#b45309" }}>
+              Subscribe now to unlock unlimited access and continue your
+              learning journey.
+            </p>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
