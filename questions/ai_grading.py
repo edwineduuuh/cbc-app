@@ -19,8 +19,8 @@ from sympy.parsing.latex import parse_latex
 #  CONSTANTS
 # ─────────────────────────────────────────────────────────────────────────────
 
-# CLAUDE_MODEL = "claude-haiku-4-5-20251001"
-CLAUDE_MODEL = "claude-sonnet-4-6"
+CLAUDE_MODEL = "claude-haiku-4-5-20251001"
+# CLAUDE_MODEL = "claude-sonnet-4-6"
 CLAUDE_URL   = "https://api.anthropic.com/v1/messages"
 MAX_TOKENS   = 2000
 MAX_RETRIES  = 4
