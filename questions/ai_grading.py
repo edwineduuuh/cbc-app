@@ -161,7 +161,11 @@ def _parse_json_response(raw: str) -> dict:
 # ─────────────────────────────────────────────────────────────────────────────
 #  CLAUDE API CLIENT
 # ─────────────────────────────────────────────────────────────────────────────
-
+# Per question type token limits
+MAX_TOKENS_MCQ        = 400
+MAX_TOKENS_STRUCTURED = 800
+MAX_TOKENS_ESSAY      = 1000
+MAX_TOKENS_DEFAULT    = 600
 def _call_claude(prompt: str, working_image: str | None = None) -> dict:
     """
     POST to Claude API with exponential back-off on 429s.
@@ -188,7 +192,7 @@ def _call_claude(prompt: str, working_image: str | None = None) -> dict:
 
     payload = {
         "model":      CLAUDE_MODEL,
-        "max_tokens": MAX_TOKENS,
+        "max_tokens": max_tokens,
         "messages":   [{"role": "user", "content": content}],
     }
     headers = {
@@ -224,9 +228,8 @@ def _call_claude(prompt: str, working_image: str | None = None) -> dict:
     raise Exception("Claude API failed after all retries — rate limit persists.")
 
 
-def _claude_text(prompt: str, working_image: str | None = None) -> str:
-    """Convenience wrapper — returns the text content from Claude's response."""
-    return _call_claude(prompt, working_image)["content"][0]["text"]
+def _claude_text(prompt: str, working_image: str | None = None, max_tokens: int = 600) -> str:
+    return _call_claude(prompt, working_image, max_tokens)["content"][0]["text"]
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -451,27 +454,28 @@ FEEDBACK FORMAT FOR MCQ:
     prompt += f"\n\nSTUDENT ANSWER:\n{s_ans}"
 
     # ── Correct answer / marking scheme ──────────────────────────────────────
-    # ── Correct answer / marking scheme ──────────────────────────────────────
     if question.question_type == "mcq":
         correct_letter = str(question.correct_answer).strip().upper()
-        options_map    = {
+        options_map = {
             "A": question.option_a, "B": question.option_b,
             "C": question.option_c, "D": question.option_d,
         }
         correct_text = options_map.get(correct_letter, "")
         prompt += f"\n\nCORRECT ANSWER:\nOption {correct_letter}: {correct_text}"
         if getattr(question, "explanation", None):
-            prompt += f"\nEXPLANATION (use this ONLY to confirm the correct answer — do NOT expand, paraphrase, or add to it): {question.explanation}"
+            prompt += f"\nEXPLANATION (use this ONLY to confirm — do NOT expand or add to it): {question.explanation}"
+    else:
+        # Non-MCQ: always include marking scheme or expected answer
+        if getattr(question, "marking_scheme", None):
+            points_text = "\n".join(
+                f"- {p['description']} ({p['marks']} marks)"
+                for p in question.marking_scheme.get("points", [])
+            )
+            prompt += f"\n\nMARKING SCHEME (USE THIS ONLY — DO NOT USE YOUR OWN JUDGMENT):\n{points_text}"
         else:
-            if getattr(question, "marking_scheme", None):
-                points_text = "\n".join(
-                    f"- {p['description']} ({p['marks']} marks)"
-                    for p in question.marking_scheme.get("points", [])
-                )
-                prompt += f"\n\nMARKING SCHEME (USE THIS ONLY — DO NOT USE YOUR OWN JUDGMENT):\n{points_text}"
-            else:
-                prompt += f"\n\nEXPECTED ANSWER / KEY POINTS (USE THIS ONLY — DO NOT USE YOUR OWN JUDGMENT):\n{question.correct_answer}"
-
+            prompt += f"\n\nEXPECTED ANSWER / KEY POINTS (USE THIS ONLY — DO NOT USE YOUR OWN JUDGMENT):\n{question.correct_answer}"
+        if getattr(question, "explanation", None):
+            prompt += f"\nEXPLANATION (use this ONLY to confirm — do NOT expand or add to it): {question.explanation}"
     # ── JSON output template — written in target language ─────────────────────
     max_marks = question.max_marks
 
@@ -831,7 +835,6 @@ def _route(question, student_answer: str,
            working_image: str | None = None) -> dict:
     """Route a question to the correct grader based on question_type."""
     qt = question.question_type
-
     if qt in ("mcq", "structured", "essay"):
         return _grade_with_ai(question, student_answer, working_image)
     elif qt == "fill_blank":
