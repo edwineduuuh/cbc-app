@@ -386,11 +386,23 @@ MCQ RULES:
 - Correct option chosen -> full marks
 - Wrong option -> 0 marks (no partial marks for MCQs)
 
-FEEDBACK FORMAT FOR MCQ:
-- Start with "Correct! ..." or "Not quite. The right answer is ..."
-- In 1-2 sentences explain WHY that answer is correct using simple words
-- End with one short "Remember:" tip to help them recall the concept
-- Total: maximum 5 sentences
+FEEDBACK FORMAT FOR CORRECT MCQ:
+- Start with "Correct! ..."
+- 1-2 sentences explaining why using simple words
+- One short "Remember:" tip
+- Maximum 4 sentences total
+
+FEEDBACK FORMAT FOR WRONG MCQ:
+- Start with "Not quite. The right answer is: ..."
+- If the question involves numbers or calculation, show working step by step:
+  Step 1: [first step]
+  $$calculation$$
+  Step 2: [next step]
+  $$calculation$$
+  Each calculation MUST be on its own line using display math $$...$$
+- If no calculation involved, explain in 2-3 sentences why the correct answer is right
+- End with one "Remember:" tip
+- Maximum 6 sentences or steps total
 """
 
     # ── Passage / comprehension rules ────────────────────────────────────────
