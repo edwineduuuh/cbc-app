@@ -19,7 +19,8 @@ from sympy.parsing.latex import parse_latex
 #  CONSTANTS
 # ─────────────────────────────────────────────────────────────────────────────
 
-CLAUDE_MODEL = "claude-haiku-4-5-20251001"
+# CLAUDE_MODEL = "claude-haiku-4-5-20251001"
+CLAUDE_MODEL = "claude-sonnet-4-6"
 CLAUDE_URL   = "https://api.anthropic.com/v1/messages"
 MAX_TOKENS   = 2000
 MAX_RETRIES  = 4
@@ -873,7 +874,7 @@ class _PartProxy:
         self.correct_answer  = part.correct_answer
         self.max_marks       = part.max_marks
         self.marking_scheme  = part.marking_scheme
-        self.explanation     = part.explanation
+        self.explanation     = self.explanation = part.explanation or parent.explanation
         self.option_a        = part.option_a
         self.option_b        = part.option_b
         self.option_c        = part.option_c
