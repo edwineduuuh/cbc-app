@@ -71,3 +71,41 @@ export async function refreshAccessToken(refreshToken) {
   }
   return data;
 }
+// ─── Central authenticated fetch with auto token refresh ──────────────────────
+export async function fetchWithAuth(url, options = {}) {
+  const makeRequest = (token) => {
+    const headers = {
+      "Content-Type": "application/json",
+      ...(options.headers || {}),
+      ...(token ? { Authorization: `Bearer ${token}` } : {}),
+    };
+    return fetch(url, { ...options, headers });
+  };
+
+  let token = localStorage.getItem("accessToken");
+  let response = await makeRequest(token);
+
+  // Token expired — try to refresh once and retry
+  if (response.status === 401) {
+    const refreshToken = localStorage.getItem("refreshToken");
+    if (!refreshToken) {
+      window.location.href = "/login";
+      throw new Error("Session expired. Please log in again.");
+    }
+
+    try {
+      const refreshed = await refreshAccessToken(refreshToken);
+      localStorage.setItem("accessToken", refreshed.access);
+      token = refreshed.access;
+      response = await makeRequest(token); // retry with new token
+    } catch {
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("refreshToken");
+      localStorage.removeItem("user");
+      window.location.href = "/login";
+      throw new Error("Session expired. Please log in again.");
+    }
+  }
+
+  return response;
+}

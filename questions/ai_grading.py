@@ -406,7 +406,6 @@ FEEDBACK FORMAT FOR WRONG MCQ:
 """
 
     # ── Passage / comprehension rules ────────────────────────────────────────
-    # ── Passage / comprehension rules ────────────────────────────────────────
     if has_passage and is_cloze:
         if sw:
             prompt += f"""

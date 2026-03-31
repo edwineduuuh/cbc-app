@@ -288,9 +288,7 @@ export default function AttemptResultsPage() {
   const fetchCreditsStatus = async () => {
     const token = localStorage.getItem("accessToken");
     try {
-      const res = await fetch(`${API}/credits/status/`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const res = await fetchWithAuth(`${API}/credits/status/`);
       if (res.ok) {
         const data = await res.json();
         setCredits(
@@ -308,9 +306,7 @@ export default function AttemptResultsPage() {
   const fetchResults = async () => {
     const token = localStorage.getItem("accessToken");
     try {
-      const res = await fetch(`${API}/attempts/${params.id}/`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const res = await fetchWithAuth(`${API}/attempts/${params.id}/`);
       if (res.ok) {
         const data = await res.json();
         setResults(data);

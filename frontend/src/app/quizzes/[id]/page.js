@@ -1,4 +1,5 @@
 "use client";
+import { fetchWithAuth } from "@/lib/api";
 import { use } from "react";
 import Image from "next/image";
 import { useState, useEffect, useRef, useCallback } from "react";
@@ -1397,8 +1398,9 @@ export default function QuizTakePage({ params }) {
     const token = localStorage.getItem("accessToken");
     (async () => {
       try {
-        const headers = token ? { Authorization: `Bearer ${token}` } : {};
-        const res = await fetch(`${API}/quizzes/${quizId}/`, { headers });
+        const res = token
+          ? await fetchWithAuth(`${API}/quizzes/${quizId}/`)
+          : await fetch(`${API}/quizzes/${quizId}/`);
         if (!res.ok) throw new Error("Quiz load failed");
         const data = await res.json();
         setQuiz(data);
@@ -1460,14 +1462,15 @@ export default function QuizTakePage({ params }) {
       if (!token)
         payload.session_id =
           "device_" + (localStorage.getItem("device_quizzes_used") || "0");
-      const headers = { "Content-Type": "application/json" };
-      if (token) headers.Authorization = `Bearer ${token}`;
 
-      const response = await fetch(`${API}/quizzes/submit/`, {
-        method: "POST",
-        headers,
-        body: JSON.stringify(payload),
-      });
+      const response = await (token ? fetchWithAuth : fetch)(
+        `${API}/quizzes/submit/`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        },
+      );
 
       let data;
       try {
