@@ -1,5 +1,5 @@
 "use client";
-
+import { fetchWithAuth } from "@/lib/api";
 import { useState, useEffect, useRef } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { useAuth } from "@/contexts/AuthContext";
