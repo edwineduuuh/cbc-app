@@ -311,8 +311,28 @@ const QUOTES = [
     author: "Kyle Chandler",
   },
   {
-    text: "",
-    author: "",
+    text: "You miss 100% of the shots you don't take.",
+    author: "Wayne Gretzky",
+  },
+  {
+    text: "Light tomorrow with today.",
+    author: "Elizabeth Barret Browning",
+  },
+  {
+    text: "The best revenge is massive success.",
+    author: "Frank Sinatra",
+  },
+  {
+    text: "Without hard work, nothing grows but weeds.",
+    author: "Gordon B. Hinckley",
+  },
+  {
+    text: "Don't wish it were easier, wish you were better.",
+    author: "Jim Rohn",
+  },
+  {
+    text: "The scariest moment is always just before you start.",
+    author: "Stephen King",
   },
   {
     text: "There is no glory in practice but without practice, there is no glory",
@@ -323,8 +343,8 @@ const QUOTES = [
     author: "Nita Sweeney",
   },
   {
-    text: "",
-    author: "",
+    text: "If you don't risk anything, you risk even more.",
+    author: "Erica Jong",
   },
 ];
 

@@ -154,9 +154,30 @@ def _parse_math_expr(s: str):
 
 
 def _parse_json_response(raw: str) -> dict:
-    """Strip markdown fences and parse JSON."""
+    """
+    Strip markdown fences and parse JSON.
+    Falls back to regex extraction to handle Kiswahili preamble text
+    that Claude sometimes adds before the JSON block.
+    """
     cleaned = raw.replace("```json", "").replace("```", "").strip()
-    return json.loads(cleaned)
+
+    # Try direct parse first
+    try:
+        return json.loads(cleaned)
+    except json.JSONDecodeError:
+        pass
+
+    # Extract the first {...} block — handles preamble text in Kiswahili responses
+    match = re.search(r'\{[\s\S]*\}', cleaned)
+    if match:
+        try:
+            return json.loads(match.group())
+        except json.JSONDecodeError:
+            pass
+
+    # Last resort: fix trailing comma issues and try again
+    fixed = re.sub(r',\s*}', '}', re.sub(r',\s*]', ']', cleaned))
+    return json.loads(fixed)
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -504,6 +525,7 @@ Feedback: maximum 2 sentences only.
             prompt += f"\n\nEXPECTED ANSWER / KEY POINTS (USE THIS ONLY — DO NOT USE YOUR OWN JUDGMENT):\n{question.correct_answer}"
         if getattr(question, "explanation", None):
             prompt += f"\nEXPLANATION (use this ONLY to confirm — do NOT expand or add to it): {question.explanation}"
+
     # ── JSON output template — written in target language ─────────────────────
     max_marks = question.max_marks
 
@@ -524,7 +546,9 @@ Feedback: maximum 2 sentences only.
 
 ALAMA ZA JUU: {max_marks}
 
-Rudisha JSON sahihi TU — hakuna maandishi kabla au baada yake:
+MUHIMU SANA: Rudisha JSON tu — USIANDIKE CHOCHOTE KABLA YA {{ au BAADA YA }}
+Anza moja kwa moja na {{ na malizia na }}
+
 {{
   "marks_awarded": <nambari kamili kati ya 0 na {max_marks}>,
   "feedback": "<Sentensi 4-6 KWA KISWAHILI: kwanza nini mwanafunzi alipata sahihi, kisha kwa kila pointi iliyokosekana toa jibu sahihi halisi, hatimaye jibu zima sahihi. Mtindo wa mwalimu mpole.>",
@@ -559,10 +583,11 @@ Kama jibu lolote ni HAPANA — rejesha na uandike Kiswahili."""
 
 MAX MARKS: {max_marks}
 
-Return ONLY valid JSON — no text before or after:
+IMPORTANT: Return ONLY valid JSON — no text before or after. Start with {{ end with }}
+
 {{
   "marks_awarded": <integer between 0 and {max_marks}>,
-  "feedback": "<4-6 sentences. Put each sentence on its own line using \\n. Format: \\n1. What student got right\\n2. What was wrong\\n3. Full correct answer>"
+  "feedback": "<4-6 sentences. Put each sentence on its own line using \\n. Format: \\n1. What student got right\\n2. What was wrong\\n3. Full correct answer>",
   "study_tip": "<{study_tip_instruction}>",
   "points_earned": ["<what student got right in simple words>"],
   "points_missed": ["<what student missed in simple words>"]
@@ -853,7 +878,40 @@ def _grade_with_ai(question, student_answer: str,
         }
 
     except Exception as e:
+        # ── IMPROVED FALLBACK: use teacher's explanation/answer instead of
+        #    generic "teacher will mark manually" message ────────────────────
         print(f"AI Grading Error (Q{getattr(question, 'id', '?')}): {e}")
+
+        # Try to build a helpful fallback using the teacher's data
+        correct_answer = getattr(question, "correct_answer", None)
+        explanation    = getattr(question, "explanation", None)
+
+        if correct_answer or explanation:
+            if sw:
+                if explanation:
+                    fallback_feedback = f"Jibu sahihi: {correct_answer}. {explanation}" if correct_answer else explanation
+                else:
+                    fallback_feedback = f"Jibu sahihi ni: {correct_answer}."
+            else:
+                if explanation:
+                    fallback_feedback = f"The correct answer is: {correct_answer}. {explanation}" if correct_answer else explanation
+                else:
+                    fallback_feedback = f"The correct answer is: {correct_answer}."
+
+            return {
+                "marks_awarded":        0,
+                "max_marks":            question.max_marks,
+                "feedback":             fallback_feedback,
+                "is_correct":           False,
+                "personalized_message": _near_miss(sw),
+                "study_tip":            explanation or "",
+                "points_earned":        [],
+                "points_missed":        [
+                    f"Jibu sahihi: {correct_answer}" if sw else f"Correct answer: {correct_answer}"
+                ] if correct_answer else [],
+            }
+
+        # Only use the generic message if there is truly nothing to show
         msg = (
             "Alama haikusomwa. Jibu lako limerekodi na mwalimu ataangalia."
             if sw else
@@ -905,8 +963,8 @@ class _PartProxy:
         self.option_b        = part.option_b
         self.option_c        = part.option_c
         self.option_d        = part.option_d
-        self.topic           = parent.topic   # ← already there, subject comes through here
-        self.passage         = parent.passage  # ← FIX: inherit passage from parent question
+        self.topic           = parent.topic
+        self.passage         = parent.passage
         self.worked_solution = None
 
 
