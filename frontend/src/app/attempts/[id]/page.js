@@ -18,9 +18,33 @@ import {
   ChevronDown,
   ChevronUp,
 } from "lucide-react";
-
+import katex from "katex";
+import "katex/dist/katex.min.css";
 const API = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api";
-
+function renderMath(text) {
+  if (!text) return "";
+  return text
+    .replace(/\$\$([\s\S]+?)\$\$/g, (_, expr) => {
+      try {
+        return katex.renderToString(expr.trim(), {
+          displayMode: true,
+          throwOnError: false,
+        });
+      } catch {
+        return expr;
+      }
+    })
+    .replace(/\$([\s\S]+?)\$/g, (_, expr) => {
+      try {
+        return katex.renderToString(expr.trim(), {
+          displayMode: false,
+          throwOnError: false,
+        });
+      } catch {
+        return expr;
+      }
+    });
+}
 function getGradeBand(score, grade) {
   if (!grade) return null;
   if (grade >= 4 && grade <= 6) {
@@ -246,27 +270,7 @@ export default function AttemptResultsPage() {
   const [expanded, setExpanded] = useState({});
   const [downloading, setDownloading] = useState(false);
 
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-    if (!window.MathJax) {
-      window.MathJax = {
-        tex: { inlineMath: [["$", "$"]], displayMath: [["$$", "$$"]] },
-      };
-      const script = document.createElement("script");
-      script.src =
-        "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js";
-      script.async = true;
-      document.head.appendChild(script);
-    }
-  }, []);
-
-  useEffect(() => {
-    if (typeof window === "undefined" || !window.MathJax || !results) return;
-    setTimeout(
-      () => window.MathJax.typesetPromise?.().catch(console.error),
-      200,
-    );
-  }, [results]);
+  
 
   useEffect(() => {
     if (!user) {
@@ -835,10 +839,11 @@ export default function AttemptResultsPage() {
                           lineHeight: 1.4,
                         }}
                         dangerouslySetInnerHTML={{
-                          __html:
+                          __html: renderMath(
                             item.question_text?.length > 100
                               ? item.question_text.slice(0, 100) + "…"
                               : item.question_text,
+                          ),
                         }}
                       />
                     </div>
@@ -869,11 +874,9 @@ export default function AttemptResultsPage() {
                           color: "#0f172a",
                           lineHeight: 1.65,
                         }}
-                        ref={(el) => {
-                          if (el && window.MathJax)
-                            window.MathJax.typesetPromise([el]);
+                        dangerouslySetInnerHTML={{
+                          __html: renderMath(item.question_text),
                         }}
-                        dangerouslySetInnerHTML={{ __html: item.question_text }}
                       />
                     </div>
 
@@ -929,15 +932,12 @@ export default function AttemptResultsPage() {
                           )
                         ) : (
                           <span
-                            ref={(el) => {
-                              if (el && window.MathJax)
-                                window.MathJax.typesetPromise([el]);
-                            }}
                             dangerouslySetInnerHTML={{
-                              __html:
+                              __html: renderMath(
                                 item.question_type === "math"
                                   ? `$${item.student_answer}$`
                                   : item.student_answer,
+                              ),
                             }}
                           />
                         )}
@@ -972,12 +972,8 @@ export default function AttemptResultsPage() {
                           color: correct ? "#065f46" : "#78350f",
                           lineHeight: 1.7,
                         }}
-                        ref={(el) => {
-                          if (el && window.MathJax)
-                            window.MathJax.typesetPromise([el]);
-                        }}
                         dangerouslySetInnerHTML={{
-                          __html:
+                          __html: renderMath(
                             item.feedback
                               ?.replace(
                                 /\(([a-z])\)\s*/g,
@@ -985,6 +981,7 @@ export default function AttemptResultsPage() {
                               )
                               ?.replace(/^<br\/>/, "")
                               ?.replace(/\n/g, "<br/>") || "",
+                          ),
                         }}
                       />
 
@@ -1038,13 +1035,10 @@ export default function AttemptResultsPage() {
                             color: "#581c87",
                             lineHeight: 1.6,
                           }}
-                          ref={(el) => {
-                            if (el && window.MathJax)
-                              window.MathJax.typesetPromise([el]);
-                          }}
                           dangerouslySetInnerHTML={{
-                            __html:
+                            __html: renderMath(
                               item.study_tip?.replace(/\n/g, "<br/>") || "",
+                            ),
                           }}
                         />
                       </div>
@@ -1119,14 +1113,11 @@ export default function AttemptResultsPage() {
                             color: "#0f172a",
                             lineHeight: 1.6,
                           }}
-                          ref={(el) => {
-                            if (el && window.MathJax)
-                              window.MathJax.typesetPromise([el]);
-                          }}
                           dangerouslySetInnerHTML={{
-                            __html:
+                            __html: renderMath(
                               item.correct_answer?.replace(/\n/g, "<br/>") ||
-                              "",
+                                "",
+                            ),
                           }}
                         />
                         {item.explanation && (
@@ -1144,9 +1135,10 @@ export default function AttemptResultsPage() {
                                 lineHeight: 1.6,
                               }}
                               dangerouslySetInnerHTML={{
-                                __html:
+                                __html: renderMath(
                                   item.explanation?.replace(/\n/g, "<br/>") ||
-                                  "",
+                                    "",
+                                ),
                               }}
                             />
                           </div>
