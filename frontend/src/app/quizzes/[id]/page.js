@@ -18,9 +18,34 @@ import {
   X,
   Menu,
 } from "lucide-react";
+import katex from "katex";
+import "katex/dist/katex.min.css";
 
 const API = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api";
-
+function renderMath(text) {
+  if (!text) return "";
+  return text
+    .replace(/\$\$([\s\S]+?)\$\$/g, (_, expr) => {
+      try {
+        return katex.renderToString(expr.trim(), {
+          displayMode: true,
+          throwOnError: false,
+        });
+      } catch {
+        return expr;
+      }
+    })
+    .replace(/\$([\s\S]+?)\$/g, (_, expr) => {
+      try {
+        return katex.renderToString(expr.trim(), {
+          displayMode: false,
+          throwOnError: false,
+        });
+      } catch {
+        return expr;
+      }
+    });
+}
 // ─── Timer Hook ───────────────────────────────────────────────────────────────
 function useTimer(totalSeconds, onExpire) {
   const [remaining, setRemaining] = useState(totalSeconds);
@@ -399,9 +424,8 @@ function MCQOption({ letter, text, selected, onClick }) {
           textAlign: "left",
           flex: 1,
         }}
-      >
-        {text}
-      </span>
+        dangerouslySetInnerHTML={{ __html: renderMath(text) }}
+      />
       {selected && <CheckCircle size={20} color={c.activeText} />}
     </button>
   );
@@ -905,6 +929,7 @@ function ResultsScreen({ result, quiz }) {
         </h2>
         {questionIds.map((qId, index) => {
           const item = feedback[qId];
+          const question = quiz.questions.find((q) => q.id === qId);
           return (
             <div
               key={qId}
@@ -944,7 +969,11 @@ function ResultsScreen({ result, quiz }) {
                     )}
                   </div>
                   <span
-                    style={{ fontWeight: 700, color: "#0d0d1a", fontSize: 14 }}
+                    style={{
+                      fontWeight: 700,
+                      color: "#0d0d1a",
+                      fontSize: 14,
+                    }}
                   >
                     Question {index + 1}
                   </span>
@@ -969,7 +998,9 @@ function ResultsScreen({ result, quiz }) {
                   marginBottom: 12,
                   lineHeight: 1.6,
                 }}
-                dangerouslySetInnerHTML={{ __html: item.question_text }}
+                dangerouslySetInnerHTML={{
+                  __html: renderMath(item.question_text),
+                }}
               />
               <div
                 style={{
@@ -1358,42 +1389,6 @@ export default function QuizTakePage({ params }) {
 
   const currentQ = questions[currentIdx];
 
-  useEffect(() => {
-    if (typeof window === "undefined" || !window.MathJax || !currentQ) return;
-    const typesetMath = async () => {
-      try {
-        if (window.MathJax.typesetClear) window.MathJax.typesetClear();
-        await window.MathJax.typesetPromise();
-      } catch (err) {
-        console.error("MathJax typeset error:", err);
-      }
-    };
-    setTimeout(typesetMath, 50);
-  });
-
-  useEffect(() => {
-    if (typeof window === "undefined" || !window.MathJax || !currentQ) return;
-    const typesetMath = async () => {
-      try {
-        await window.MathJax.typesetPromise();
-      } catch (err) {
-        console.error("MathJax typeset error:", err);
-      }
-    };
-    setTimeout(typesetMath, 100);
-  }, [currentIdx, currentQ]);
-useEffect(() => {
-  if (typeof window === "undefined" || !window.MathJax || !currentQ) return;
-  const typesetMath = async () => {
-    try {
-      await window.MathJax.typesetPromise();
-    } catch (err) {
-      console.error("MathJax typeset error:", err);
-    }
-  };
-  const timer = setTimeout(typesetMath, 300);
-  return () => clearTimeout(timer);
-}, [currentIdx, currentQ]);
   const totalQ = questions.length;
   const answeredCount = Object.values(answers).filter((v) => {
     if (v === undefined || v === null) return false;
@@ -1423,18 +1418,7 @@ useEffect(() => {
       }
     })();
   }, [quizId, user, guestSessionFromUrl, router]);
-useEffect(() => {
-  if (typeof window === "undefined") return;
-  if (!window.MathJax) {
-    window.MathJax = {
-      tex: { inlineMath: [["$", "$"]], displayMath: [["$$", "$$"]] },
-    };
-    const script = document.createElement("script");
-    script.src = "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js";
-    script.async = true;
-    document.head.appendChild(script);
-  }
-}, []);
+
   const handleAnswer = useCallback(
     (value) => {
       setAnswers((prev) => ({ ...prev, [currentIdx]: value }));
@@ -1957,7 +1941,9 @@ useEffect(() => {
                     color: "#0d0d1a",
                     lineHeight: 1.65,
                   }}
-                  dangerouslySetInnerHTML={{ __html: currentQ.question_text }}
+                  dangerouslySetInnerHTML={{
+                    __html: renderMath(currentQ.question_text),
+                  }}
                 />
               </div>
 
@@ -2000,7 +1986,11 @@ useEffect(() => {
               {/* MCQ */}
               {isMCQ && !(currentQ.parts && currentQ.parts.length > 0) && (
                 <div
-                  style={{ display: "flex", flexDirection: "column", gap: 12 }}
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: 12,
+                  }}
                 >
                   {["A", "B", "C", "D"].map((letter) => {
                     const text = currentQ[`option_${letter.toLowerCase()}`];
@@ -2114,8 +2104,8 @@ useEffect(() => {
                     <span
                       style={{
                         position: "absolute",
-                        bottom: 12,
-                        right: 14,
+                        bottom: 10,
+                        right: 12,
                         fontSize: 11,
                         color: "#bcc3d0",
                         fontWeight: 600,
@@ -2149,7 +2139,11 @@ useEffect(() => {
               {/* Multi-part questions */}
               {currentQ.parts && currentQ.parts.length > 0 && (
                 <div
-                  style={{ display: "flex", flexDirection: "column", gap: 20 }}
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: 20,
+                  }}
                 >
                   {currentQ.parts.map((part) => {
                     const partAnswer =
