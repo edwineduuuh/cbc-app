@@ -1359,26 +1359,41 @@ export default function QuizTakePage({ params }) {
   const currentQ = questions[currentIdx];
 
   useEffect(() => {
-    if (typeof window === "undefined") return;
-
-    const typeset = () => {
-      window.MathJax?.typesetPromise?.().catch(console.error);
+    if (typeof window === "undefined" || !window.MathJax || !currentQ) return;
+    const typesetMath = async () => {
+      try {
+        if (window.MathJax.typesetClear) window.MathJax.typesetClear();
+        await window.MathJax.typesetPromise();
+      } catch (err) {
+        console.error("MathJax typeset error:", err);
+      }
     };
+    setTimeout(typesetMath, 50);
+  });
 
-    // If MathJax already loaded, run immediately
-    if (window.MathJax?.typesetPromise) {
-      typeset();
-      return;
+  useEffect(() => {
+    if (typeof window === "undefined" || !window.MathJax || !currentQ) return;
+    const typesetMath = async () => {
+      try {
+        await window.MathJax.typesetPromise();
+      } catch (err) {
+        console.error("MathJax typeset error:", err);
+      }
+    };
+    setTimeout(typesetMath, 100);
+  }, [currentIdx, currentQ]);
+useEffect(() => {
+  if (typeof window === "undefined" || !window.MathJax || !currentQ) return;
+  const typesetMath = async () => {
+    try {
+      await window.MathJax.typesetPromise();
+    } catch (err) {
+      console.error("MathJax typeset error:", err);
     }
-
-    // Otherwise wait for it to load then run
-    const script = document.querySelector('script[src*="mathjax"]');
-    if (script) {
-      script.addEventListener("load", typeset);
-      return () => script.removeEventListener("load", typeset);
-    }
-  }, [currentIdx]); // only re-run when question changes
-
+  };
+  const timer = setTimeout(typesetMath, 300);
+  return () => clearTimeout(timer);
+}, [currentIdx, currentQ]);
   const totalQ = questions.length;
   const answeredCount = Object.values(answers).filter((v) => {
     if (v === undefined || v === null) return false;
@@ -1408,19 +1423,18 @@ export default function QuizTakePage({ params }) {
       }
     })();
   }, [quizId, user, guestSessionFromUrl, router]);
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-    if (!window.MathJax) {
-      window.MathJax = {
-        tex: { inlineMath: [["$", "$"]], displayMath: [["$$", "$$"]] },
-      };
-      const script = document.createElement("script");
-      script.src =
-        "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js";
-      script.async = true;
-      document.head.appendChild(script);
-    }
-  }, []);
+useEffect(() => {
+  if (typeof window === "undefined") return;
+  if (!window.MathJax) {
+    window.MathJax = {
+      tex: { inlineMath: [["$", "$"]], displayMath: [["$$", "$$"]] },
+    };
+    const script = document.createElement("script");
+    script.src = "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js";
+    script.async = true;
+    document.head.appendChild(script);
+  }
+}, []);
   const handleAnswer = useCallback(
     (value) => {
       setAnswers((prev) => ({ ...prev, [currentIdx]: value }));
