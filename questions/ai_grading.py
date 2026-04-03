@@ -285,6 +285,7 @@ MANENO YA SIFA SAHIHI:
   USITUMIE: "Pole sana!" kwa sifa — kwa Kiswahili cha Kenya "pole" inamaanisha "sorry"
 
 MTINDO WA MWALIMU WA KENYA:
+  - MARUFUKU: Usiandike 'Ngoja', 'Acha niangalie', au maneno yoyote ya kujisahihisha. Onyesha jibu la mwisho tu.
   - Lugha rahisi ya Darasa {grade} — si tafsiri kutoka Kiingereza
   - Sentensi fupi na wazi
   - Zungumza moja kwa moja na mwanafunzi: "wewe", "jibu lako", "umefanya"
@@ -298,6 +299,7 @@ This question is in English. Every JSON field must be in English only.
 Do NOT write even one word in another language.
 
 LANGUAGE RULES:
+- FORBIDDEN: Never write 'Wait', 'Let me check', 'Let me recalculate' or any self-correction language. Only show the final answer.
 - Simple English that a Grade {grade} Kenyan student understands
 - Use words found in Kenyan CBC textbooks
 - Short sentences — maximum 3 per section
@@ -849,6 +851,14 @@ def _grade_with_ai(question, student_answer: str,
     AI grader for MCQ, structured, and essay questions.
     Also used as fallback for fill_blank and math when no correct answer is set.
     """
+    # ── EMPTY ANSWER CHECK ────────────────────────────────────────
+    sw = _is_kiswahili(question)
+    student_raw = str(student_answer).strip()
+    if not student_raw or student_raw in ("none", "\\placeholder{}"):
+        msg = "Hujaandika jibu." if sw else "You did not write an answer."
+        return _empty_result(question.max_marks, msg, _near_miss(sw))
+    # ─────────────────────────────────────────────────────────────
+
     if not getattr(settings, "ANTHROPIC_API_KEY", None):
         return _empty_result(
             question.max_marks,
