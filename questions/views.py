@@ -32,6 +32,19 @@ from questions.decorators import requires_subscription
 User = get_user_model()
 
 from datetime import timedelta
+
+import re
+
+def clean_correct_answer(text):
+    if not text:
+        return ""
+    text = re.sub(r'\*\*(.*?)\*\*', r'\1', text)
+    text = re.sub(r'^#{1,6}\s+', '', text, flags=re.MULTILINE)
+    text = re.sub(r'^-{3,}$', '', text, flags=re.MULTILINE)
+    text = re.sub(r'^\*?Answer:?\*?\s*', '', text, flags=re.MULTILINE)
+    text = re.sub(r'^Step\s+\d+:.*$', '', text, flags=re.MULTILINE)
+    text = re.sub(r'\n{3,}', '\n\n', text)
+    return text.strip()
 class AdminQuestionListCreateView(generics.ListCreateAPIView):
     permission_classes = [IsAdminUser]
     parser_classes = [MultiPartParser, FormParser, JSONParser]  # ADD THIS
@@ -742,7 +755,7 @@ def submit_quiz(request):
                 'max_marks': result['max_marks'],
                 'feedback': result['feedback'],
                 'is_correct': result['is_correct'],
-                'correct_answer': display_correct if not result['is_correct'] else None,
+                'correct_answer': clean_correct_answer(display_correct) if not result['is_correct'] else None,
                 'explanation': question.explanation if not result['is_correct'] else None,
                 'points_earned': result.get('points_earned', []),
                 'points_missed': result.get('points_missed', []),
@@ -846,7 +859,7 @@ def submit_quiz(request):
                 'max_marks': result['max_marks'],
                 'feedback': result['feedback'],
                 'is_correct': result['is_correct'],
-                'correct_answer': display_correct if not result['is_correct'] else None,
+                'correct_answer': clean_correct_answer(display_correct) if not result['is_correct'] else None,
                 'explanation': question.explanation if not result['is_correct'] else None,
                 'worked_solution': question.worked_solution,
                 'points_earned': result.get('points_earned', []),
