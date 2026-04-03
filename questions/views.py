@@ -820,7 +820,8 @@ def submit_quiz(request):
         
         # Grade quiz
         questions = list(quiz.questions.all())
-        results = grade_quiz_fast(questions, answers)
+        working_images = data.get('working_images', {})
+        results = grade_quiz_fast(questions, answers, working_images=working_images)
         
         total_marks_awarded = sum(r['marks_awarded'] for r in results)
         total_max_marks = sum(r['max_marks'] for r in results)

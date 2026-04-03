@@ -2228,7 +2228,17 @@ export default function QuizTakePage({ params }) {
                             marginBottom: 14,
                           }}
                         >
-                          {part.question_text}
+                          <p
+                            style={{
+                              fontSize: 15,
+                              color: "#0d0d1a",
+                              lineHeight: 1.65,
+                              marginBottom: 14,
+                            }}
+                            dangerouslySetInnerHTML={{
+                              __html: renderMath(part.question_text),
+                            }}
+                          />
                         </p>
                         {part.question_type === "mcq" ? (
                           <div
