@@ -270,8 +270,6 @@ export default function AttemptResultsPage() {
   const [expanded, setExpanded] = useState({});
   const [downloading, setDownloading] = useState(false);
 
-  
-
   useEffect(() => {
     if (!user) {
       router.push("/login");
@@ -739,13 +737,9 @@ export default function AttemptResultsPage() {
 
         <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
           {questionIds.map((qId, index) => {
-            const item = feedback[qId] || {};
-            const isOpen = expanded[qId] !== false;
-            const isCorrect = item.is_correct || false;
-            const isMultipart =
-              item.parts &&
-              typeof item.parts === "object" &&
-              Object.keys(item.parts).length > 0;
+            const item = feedback[qId];
+            const isOpen = expanded[qId] !== false; // default open
+            const correct = item.is_correct;
 
             return (
               <motion.div
@@ -756,12 +750,12 @@ export default function AttemptResultsPage() {
                 style={{
                   background: "#fff",
                   borderRadius: 18,
-                  border: `1px solid ${isCorrect ? "#d1fae5" : "#fee2e2"}`,
+                  border: `1px solid ${correct ? "#d1fae5" : "#fee2e2"}`,
                   overflow: "hidden",
                   boxShadow: "0 2px 8px rgba(0,0,0,0.04)",
                 }}
               >
-                {/* Header */}
+                {/* Question header — always visible */}
                 <button
                   onClick={() => toggleExpand(qId)}
                   style={{
@@ -770,7 +764,8 @@ export default function AttemptResultsPage() {
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "space-between",
-                    background: isCorrect ? "#f0fdf4" : "#fff5f5",
+                    gap: 12,
+                    background: correct ? "#f0fdf4" : "#fff5f5",
                     border: "none",
                     cursor: "pointer",
                     textAlign: "left",
@@ -789,13 +784,14 @@ export default function AttemptResultsPage() {
                         width: 36,
                         height: 36,
                         borderRadius: 10,
-                        background: isCorrect ? "#d1fae5" : "#fee2e2",
+                        flexShrink: 0,
+                        background: correct ? "#d1fae5" : "#fee2e2",
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
                       }}
                     >
-                      {isCorrect ? (
+                      {correct ? (
                         <CheckCircle size={18} color="#059669" />
                       ) : (
                         <XCircle size={18} color="#dc2626" />
@@ -805,65 +801,90 @@ export default function AttemptResultsPage() {
                       <div
                         style={{
                           display: "flex",
+                          alignItems: "center",
                           justifyContent: "space-between",
+                          gap: 8,
                         }}
                       >
-                        <span style={{ fontSize: 14, fontWeight: 700 }}>
+                        <span
+                          style={{
+                            fontSize: 14,
+                            fontWeight: 700,
+                            color: "#0f172a",
+                          }}
+                        >
                           Question {index + 1}
                         </span>
                         <span
                           style={{
                             fontSize: 13,
                             fontWeight: 700,
-                            padding: "3px 12px",
+                            padding: "3px 10px",
                             borderRadius: 20,
-                            background: isCorrect ? "#d1fae5" : "#fee2e2",
-                            color: isCorrect ? "#059669" : "#dc2626",
+                            background: correct ? "#d1fae5" : "#fee2e2",
+                            color: correct ? "#059669" : "#dc2626",
+                            flexShrink: 0,
                           }}
                         >
-                          {item.marks_awarded ?? 0} / {item.max_marks ?? 1}
+                          {item.marks_awarded} / {item.max_marks} marks
                         </span>
                       </div>
                       <p
-                        style={{ fontSize: 13, color: "#64748b", marginTop: 2 }}
+                        style={{
+                          fontSize: 13,
+                          color: "#64748b",
+                          marginTop: 2,
+                          lineHeight: 1.4,
+                        }}
                         dangerouslySetInnerHTML={{
                           __html: renderMath(
-                            item.question_text?.slice(0, 90) + "…",
+                            item.question_text?.length > 100
+                              ? item.question_text.slice(0, 100) + "…"
+                              : item.question_text,
                           ),
                         }}
                       />
                     </div>
                   </div>
                   {isOpen ? (
-                    <ChevronUp size={18} color="#94a3b8" />
+                    <ChevronUp size={16} color="#94a3b8" />
                   ) : (
-                    <ChevronDown size={18} color="#94a3b8" />
+                    <ChevronDown size={16} color="#94a3b8" />
                   )}
                 </button>
 
+                {/* Expanded content */}
                 {isOpen && (
-                  <div style={{ padding: "20px" }}>
-                    {/* Full Question */}
-                    <div style={{ marginBottom: 20 }}>
+                  <div style={{ padding: "0 20px 20px" }}>
+                    {/* Full question text */}
+                    <div
+                      style={{
+                        paddingTop: 16,
+                        paddingBottom: 12,
+                        borderBottom: "1px solid #f1f5f9",
+                        marginBottom: 16,
+                      }}
+                    >
                       <p
                         style={{
                           fontSize: 15,
                           fontWeight: 600,
-                          lineHeight: 1.7,
+                          color: "#0f172a",
+                          lineHeight: 1.65,
                         }}
                         dangerouslySetInnerHTML={{
-                          __html: renderMath(item.question_text || ""),
+                          __html: renderMath(item.question_text),
                         }}
                       />
                     </div>
 
-                    {/* Student Answer - Safe for multipart */}
+                    {/* Your answer */}
                     <div
                       style={{
                         background: "#eff6ff",
                         borderRadius: 12,
-                        padding: "14px 16px",
-                        marginBottom: 16,
+                        padding: "12px 16px",
+                        marginBottom: 12,
                       }}
                     >
                       <p
@@ -871,84 +892,127 @@ export default function AttemptResultsPage() {
                           fontSize: 11,
                           fontWeight: 700,
                           color: "#1d4ed8",
-                          marginBottom: 8,
+                          letterSpacing: "0.06em",
+                          textTransform: "uppercase",
+                          marginBottom: 6,
                         }}
                       >
-                        YOUR ANSWER
+                        Your Answer
                       </p>
-                      {isMultipart ? (
-                        <div
-                          style={{
-                            display: "flex",
-                            flexDirection: "column",
-                            gap: 10,
-                          }}
-                        >
-                          {Object.entries(item.parts || {}).map(
-                            ([partLabel, part]) => (
-                              <div key={partLabel} style={{ fontSize: 14 }}>
-                                <strong>Part {partLabel}:</strong>{" "}
-                                {part.student_answer || "(No answer)"}
+                      <div
+                        style={{
+                          fontSize: 14,
+                          color: "#1e3a5f",
+                          lineHeight: 1.6,
+                        }}
+                      >
+                        {!item.student_answer ? (
+                          <span
+                            style={{ color: "#94a3b8", fontStyle: "italic" }}
+                          >
+                            (No answer provided)
+                          </span>
+                        ) : typeof item.student_answer === "object" ? (
+                          Object.entries(item.student_answer).map(
+                            ([partId, ans]) => (
+                              <div
+                                key={partId}
+                                style={{
+                                  display: "flex",
+                                  gap: 6,
+                                  marginBottom: 4,
+                                }}
+                              >
+                                <span style={{ color: "#3b82f6" }}>•</span>
+                                <span>{String(ans)}</span>
                               </div>
                             ),
-                          )}
-                        </div>
-                      ) : (
-                        <div
-                          style={{ fontSize: 14 }}
-                          dangerouslySetInnerHTML={{
-                            __html: renderMath(
-                              item.student_answer || "(No answer provided)",
-                            ),
-                          }}
-                        />
-                      )}
+                          )
+                        ) : (
+                          <span
+                            dangerouslySetInnerHTML={{
+                              __html: renderMath(
+                                item.question_type === "math"
+                                  ? `$${item.student_answer}$`
+                                  : item.student_answer,
+                              ),
+                            }}
+                          />
+                        )}
+                      </div>
                     </div>
 
-                    {/* Feedback */}
+                    {/* AI Feedback */}
                     <div
                       style={{
-                        background: isCorrect ? "#f0fdf4" : "#fffbeb",
-                        border: `1px solid ${isCorrect ? "#bbf7d0" : "#fde68a"}`,
+                        background: correct ? "#f0fdf4" : "#fffbeb",
+                        border: `1px solid ${correct ? "#bbf7d0" : "#fde68a"}`,
                         borderRadius: 12,
-                        padding: "16px",
-                        marginBottom: 16,
+                        padding: "14px 16px",
+                        marginBottom: 12,
                       }}
                     >
                       <p
                         style={{
                           fontSize: 11,
                           fontWeight: 700,
-                          color: isCorrect ? "#059669" : "#92400e",
-                          marginBottom: 10,
+                          color: correct ? "#059669" : "#92400e",
+                          letterSpacing: "0.06em",
+                          textTransform: "uppercase",
+                          marginBottom: 8,
                         }}
                       >
-                        {isCorrect ? "✓ WELL DONE" : "FEEDBACK"}
+                        {correct ? "✓ Correct!" : "Feedback"}
                       </p>
                       <div
-                        style={{ fontSize: 14.5, lineHeight: 1.75 }}
+                        style={{
+                          fontSize: 14,
+                          color: correct ? "#065f46" : "#78350f",
+                          lineHeight: 1.7,
+                        }}
                         dangerouslySetInnerHTML={{
                           __html: renderMath(
-                            item.feedback?.replace(/\n/g, "<br/>") ||
-                              "No feedback available.",
+                            item.feedback
+                              ?.replace(
+                                /\(([a-z])\)\s*/g,
+                                "<br/><strong>Part ($1):</strong> ",
+                              )
+                              ?.replace(/^<br\/>/, "")
+                              ?.replace(/\n/g, "<br/>") || "",
                           ),
                         }}
                       />
+
+                      {/* Personalized message */}
                       {item.personalized_message && (
-                        <div style={{ marginTop: 12, fontStyle: "italic" }}>
-                          💡 {item.personalized_message}
+                        <div
+                          style={{
+                            marginTop: 10,
+                            paddingTop: 10,
+                            borderTop: `1px solid ${correct ? "#bbf7d0" : "#fde68a"}`,
+                          }}
+                        >
+                          <p
+                            style={{
+                              fontSize: 13,
+                              color: correct ? "#065f46" : "#78350f",
+                            }}
+                          >
+                            💡 {item.personalized_message}
+                          </p>
                         </div>
                       )}
                     </div>
 
-                    {/* Study Tip */}
+                    {/* Study tip */}
                     {item.study_tip && (
                       <div
                         style={{
                           background: "#faf5ff",
+                          border: "1px solid #e9d5ff",
                           borderRadius: 12,
-                          padding: "14px 16px",
-                          marginBottom: 16,
+                          padding: "12px 16px",
+                          marginBottom: 12,
                         }}
                       >
                         <p
@@ -956,17 +1020,127 @@ export default function AttemptResultsPage() {
                             fontSize: 11,
                             fontWeight: 700,
                             color: "#7c3aed",
+                            letterSpacing: "0.06em",
+                            textTransform: "uppercase",
                             marginBottom: 6,
                           }}
                         >
-                          📚 STUDY TIP
+                          📚 Study Tip
                         </p>
                         <div
-                          style={{ fontSize: 14 }}
+                          style={{
+                            fontSize: 13,
+                            color: "#581c87",
+                            lineHeight: 1.6,
+                          }}
                           dangerouslySetInnerHTML={{
-                            __html: renderMath(item.study_tip),
+                            __html: renderMath(
+                              item.study_tip?.replace(/\n/g, "<br/>") || "",
+                            ),
                           }}
                         />
+                      </div>
+                    )}
+
+                    {/* Points missed */}
+                    {item.points_missed && item.points_missed.length > 0 && (
+                      <div
+                        style={{
+                          background: "#fff7ed",
+                          border: "1px solid #fed7aa",
+                          borderRadius: 12,
+                          padding: "12px 16px",
+                          marginBottom: 12,
+                        }}
+                      >
+                        <p
+                          style={{
+                            fontSize: 11,
+                            fontWeight: 700,
+                            color: "#c2410c",
+                            letterSpacing: "0.06em",
+                            textTransform: "uppercase",
+                            marginBottom: 6,
+                          }}
+                        >
+                          ⚠ Points Missed
+                        </p>
+                        <ul style={{ margin: 0, paddingLeft: 16 }}>
+                          {item.points_missed.map((point, i) => (
+                            <li
+                              key={i}
+                              style={{
+                                fontSize: 13,
+                                color: "#9a3412",
+                                lineHeight: 1.6,
+                                marginBottom: 2,
+                              }}
+                            >
+                              {point}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+
+                    {/* Correct answer */}
+                    {!correct && item.correct_answer && (
+                      <div
+                        style={{
+                          background: "#f8fafc",
+                          border: "1px solid #e2e8f0",
+                          borderRadius: 12,
+                          padding: "12px 16px",
+                        }}
+                      >
+                        <p
+                          style={{
+                            fontSize: 11,
+                            fontWeight: 700,
+                            color: "#475569",
+                            letterSpacing: "0.06em",
+                            textTransform: "uppercase",
+                            marginBottom: 6,
+                          }}
+                        >
+                          Correct Answer
+                        </p>
+                        <div
+                          style={{
+                            fontSize: 14,
+                            color: "#0f172a",
+                            lineHeight: 1.6,
+                          }}
+                          dangerouslySetInnerHTML={{
+                            __html: renderMath(
+                              item.correct_answer?.replace(/\n/g, "<br/>") ||
+                                "",
+                            ),
+                          }}
+                        />
+                        {item.explanation && (
+                          <div
+                            style={{
+                              marginTop: 8,
+                              paddingTop: 8,
+                              borderTop: "1px solid #e2e8f0",
+                            }}
+                          >
+                            <div
+                              style={{
+                                fontSize: 13,
+                                color: "#64748b",
+                                lineHeight: 1.6,
+                              }}
+                              dangerouslySetInnerHTML={{
+                                __html: renderMath(
+                                  item.explanation?.replace(/\n/g, "<br/>") ||
+                                    "",
+                                ),
+                              }}
+                            />
+                          </div>
+                        )}
                       </div>
                     )}
                   </div>
