@@ -739,13 +739,13 @@ export default function AttemptResultsPage() {
 
         <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
           {questionIds.map((qId, index) => {
-            const item = feedback[qId];
+            const item = feedback[qId] || {};
             const isOpen = expanded[qId] !== false;
-            const correct = item.is_correct || false;
-
-            // Handle multipart gracefully
+            const isCorrect = item.is_correct || false;
             const isMultipart =
-              item.parts && Object.keys(item.parts || {}).length > 0;
+              item.parts &&
+              typeof item.parts === "object" &&
+              Object.keys(item.parts).length > 0;
 
             return (
               <motion.div
@@ -756,12 +756,12 @@ export default function AttemptResultsPage() {
                 style={{
                   background: "#fff",
                   borderRadius: 18,
-                  border: `1px solid ${correct ? "#d1fae5" : "#fee2e2"}`,
+                  border: `1px solid ${isCorrect ? "#d1fae5" : "#fee2e2"}`,
                   overflow: "hidden",
                   boxShadow: "0 2px 8px rgba(0,0,0,0.04)",
                 }}
               >
-                {/* Question Header */}
+                {/* Header */}
                 <button
                   onClick={() => toggleExpand(qId)}
                   style={{
@@ -770,8 +770,7 @@ export default function AttemptResultsPage() {
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "space-between",
-                    gap: 12,
-                    background: correct ? "#f0fdf4" : "#fff5f5",
+                    background: isCorrect ? "#f0fdf4" : "#fff5f5",
                     border: "none",
                     cursor: "pointer",
                     textAlign: "left",
@@ -790,34 +789,26 @@ export default function AttemptResultsPage() {
                         width: 36,
                         height: 36,
                         borderRadius: 10,
-                        background: correct ? "#d1fae5" : "#fee2e2",
+                        background: isCorrect ? "#d1fae5" : "#fee2e2",
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
                       }}
                     >
-                      {correct ? (
+                      {isCorrect ? (
                         <CheckCircle size={18} color="#059669" />
                       ) : (
                         <XCircle size={18} color="#dc2626" />
                       )}
                     </div>
-
                     <div style={{ flex: 1 }}>
                       <div
                         style={{
                           display: "flex",
                           justifyContent: "space-between",
-                          alignItems: "center",
                         }}
                       >
-                        <span
-                          style={{
-                            fontSize: 14,
-                            fontWeight: 700,
-                            color: "#0f172a",
-                          }}
-                        >
+                        <span style={{ fontSize: 14, fontWeight: 700 }}>
                           Question {index + 1}
                         </span>
                         <span
@@ -826,33 +817,23 @@ export default function AttemptResultsPage() {
                             fontWeight: 700,
                             padding: "3px 12px",
                             borderRadius: 20,
-                            background: correct ? "#d1fae5" : "#fee2e2",
-                            color: correct ? "#059669" : "#dc2626",
+                            background: isCorrect ? "#d1fae5" : "#fee2e2",
+                            color: isCorrect ? "#059669" : "#dc2626",
                           }}
                         >
-                          {item.marks_awarded} / {item.max_marks} marks
+                          {item.marks_awarded ?? 0} / {item.max_marks ?? 1}
                         </span>
                       </div>
-
-                      {/* Short preview */}
                       <p
-                        style={{
-                          fontSize: 13,
-                          color: "#64748b",
-                          marginTop: 2,
-                          lineHeight: 1.4,
-                        }}
+                        style={{ fontSize: 13, color: "#64748b", marginTop: 2 }}
                         dangerouslySetInnerHTML={{
                           __html: renderMath(
-                            item.question_text?.length > 90
-                              ? item.question_text.slice(0, 90) + "…"
-                              : item.question_text || "",
+                            item.question_text?.slice(0, 90) + "…",
                           ),
                         }}
                       />
                     </div>
                   </div>
-
                   {isOpen ? (
                     <ChevronUp size={18} color="#94a3b8" />
                   ) : (
@@ -860,7 +841,6 @@ export default function AttemptResultsPage() {
                   )}
                 </button>
 
-                {/* Expanded Content */}
                 {isOpen && (
                   <div style={{ padding: "20px" }}>
                     {/* Full Question */}
@@ -877,7 +857,7 @@ export default function AttemptResultsPage() {
                       />
                     </div>
 
-                    {/* Student Answer */}
+                    {/* Student Answer - Safe for multipart */}
                     <div
                       style={{
                         background: "#eff6ff",
@@ -905,22 +885,17 @@ export default function AttemptResultsPage() {
                           }}
                         >
                           {Object.entries(item.parts || {}).map(
-                            ([partId, partResult]) => (
-                              <div
-                                key={partId}
-                                style={{ fontSize: 14, lineHeight: 1.5 }}
-                              >
-                                <strong style={{ color: "#1e40af" }}>
-                                  Part {partId}:
-                                </strong>{" "}
-                                {partResult.student_answer || "(No answer)"}
+                            ([partLabel, part]) => (
+                              <div key={partLabel} style={{ fontSize: 14 }}>
+                                <strong>Part {partLabel}:</strong>{" "}
+                                {part.student_answer || "(No answer)"}
                               </div>
                             ),
                           )}
                         </div>
                       ) : (
                         <div
-                          style={{ fontSize: 14, color: "#1e3a5f" }}
+                          style={{ fontSize: 14 }}
                           dangerouslySetInnerHTML={{
                             __html: renderMath(
                               item.student_answer || "(No answer provided)",
@@ -933,8 +908,8 @@ export default function AttemptResultsPage() {
                     {/* Feedback */}
                     <div
                       style={{
-                        background: correct ? "#f0fdf4" : "#fffbeb",
-                        border: `1px solid ${correct ? "#bbf7d0" : "#fde68a"}`,
+                        background: isCorrect ? "#f0fdf4" : "#fffbeb",
+                        border: `1px solid ${isCorrect ? "#bbf7d0" : "#fde68a"}`,
                         borderRadius: 12,
                         padding: "16px",
                         marginBottom: 16,
@@ -944,34 +919,23 @@ export default function AttemptResultsPage() {
                         style={{
                           fontSize: 11,
                           fontWeight: 700,
-                          color: correct ? "#059669" : "#92400e",
+                          color: isCorrect ? "#059669" : "#92400e",
                           marginBottom: 10,
                         }}
                       >
-                        {correct ? "✓ WELL DONE" : "FEEDBACK"}
+                        {isCorrect ? "✓ WELL DONE" : "FEEDBACK"}
                       </p>
                       <div
-                        style={{
-                          fontSize: 14.5,
-                          lineHeight: 1.75,
-                          color: correct ? "#065f46" : "#78350f",
-                        }}
+                        style={{ fontSize: 14.5, lineHeight: 1.75 }}
                         dangerouslySetInnerHTML={{
                           __html: renderMath(
                             item.feedback?.replace(/\n/g, "<br/>") ||
-                              "No detailed feedback available.",
+                              "No feedback available.",
                           ),
                         }}
                       />
-
                       {item.personalized_message && (
-                        <div
-                          style={{
-                            marginTop: 12,
-                            fontStyle: "italic",
-                            color: "#334155",
-                          }}
-                        >
+                        <div style={{ marginTop: 12, fontStyle: "italic" }}>
                           💡 {item.personalized_message}
                         </div>
                       )}
@@ -995,54 +959,14 @@ export default function AttemptResultsPage() {
                             marginBottom: 6,
                           }}
                         >
-                           STUDY TIP
+                          📚 STUDY TIP
                         </p>
                         <div
-                          style={{
-                            fontSize: 14,
-                            color: "#581c87",
-                            lineHeight: 1.6,
-                          }}
+                          style={{ fontSize: 14 }}
                           dangerouslySetInnerHTML={{
                             __html: renderMath(item.study_tip),
                           }}
                         />
-                      </div>
-                    )}
-
-                    {/* Points Missed / Correct Answer */}
-                    {!correct && item.points_missed?.length > 0 && (
-                      <div
-                        style={{
-                          background: "#fff7ed",
-                          borderRadius: 12,
-                          padding: "14px 16px",
-                        }}
-                      >
-                        <p
-                          style={{
-                            fontSize: 11,
-                            fontWeight: 700,
-                            color: "#c2410c",
-                            marginBottom: 8,
-                          }}
-                        >
-                          POINTS MISSED
-                        </p>
-                        <ul style={{ paddingLeft: 18, margin: 0 }}>
-                          {item.points_missed.map((point, i) => (
-                            <li
-                              key={i}
-                              style={{
-                                fontSize: 14,
-                                color: "#9a3412",
-                                marginBottom: 4,
-                              }}
-                            >
-                              {point}
-                            </li>
-                          ))}
-                        </ul>
                       </div>
                     )}
                   </div>
