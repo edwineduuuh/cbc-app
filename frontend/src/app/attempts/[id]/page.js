@@ -1076,7 +1076,8 @@ export default function AttemptResultsPage() {
                                 marginBottom: 2,
                               }}
                             >
-                              {point}
+                              dangerouslySetInnerHTML=
+                              {{ __html: renderMath(point) }}
                             </li>
                           ))}
                         </ul>

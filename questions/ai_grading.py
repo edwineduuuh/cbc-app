@@ -579,6 +579,8 @@ MAX MARKS: {max_marks}
 
 {{
   "marks_awarded": <integer between 0 and {max_marks}>,
+  "is_correct": <true if marks_awarded == {max_marks}, else false>,
+  "feedback": "<Start with 'Correct!' if is_correct is true, or 'Not quite.' if false. Then 4-6 sentences...>",
   "feedback": "<4-6 sentences separated by \\n. What student got right, what was wrong, full correct answer.>",
   "study_tip": "<{study_tip_instruction}>",
   "points_earned": ["<what student got right in simple words>"],
@@ -897,11 +899,21 @@ def _grade_with_ai(
         raw_text = _claude_text(prompt, working_image, max_tokens, model)
         result   = _parse_json_response(raw_text)
         marks    = _safe_int_marks(result.get("marks_awarded", 0), question.max_marks)
+        # 🔒 Consistency guard
+        claimed_correct = result.get("is_correct", None)
+        if claimed_correct is True and marks < question.max_marks:
+            marks = question.max_marks
+        elif claimed_correct is False and marks == question.max_marks:
+            pass  # marks win — student got it right, don't penalise
+
+        feedback = result.get("feedback", "")
+        if marks == question.max_marks and "not" in feedback[:40].lower():
+            feedback = "Correct! " + feedback
 
         return {
             "marks_awarded":        marks,
             "max_marks":            question.max_marks,
-            "feedback":             result.get("feedback", ""),
+            "feedback":             feedback,
             "is_correct":           marks == question.max_marks,
             "personalized_message": result.get("personalized_message", ""),
             "study_tip":            result.get("study_tip", ""),
