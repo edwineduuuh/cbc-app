@@ -856,27 +856,7 @@ export default function AttemptResultsPage() {
                 {/* Expanded content */}
                 {isOpen && (
                   <div style={{ padding: "0 20px 20px" }}>
-                    {/* Full question text */}
-                    <div
-                      style={{
-                        paddingTop: 16,
-                        paddingBottom: 12,
-                        borderBottom: "1px solid #f1f5f9",
-                        marginBottom: 16,
-                      }}
-                    >
-                      <p
-                        style={{
-                          fontSize: 15,
-                          fontWeight: 600,
-                          color: "#0f172a",
-                          lineHeight: 1.65,
-                        }}
-                        dangerouslySetInnerHTML={{
-                          __html: renderMath(item.question_text),
-                        }}
-                      />
-                    </div>
+                    
 
                     {/* Your answer */}
                     <div

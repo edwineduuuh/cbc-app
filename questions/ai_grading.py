@@ -398,6 +398,13 @@ RULES:
   - Correct point not in marking scheme — AWARD THE MARKS
   - Follow the teacher's answer exactly — do not override with your own knowledge
   - Return JSON only — no text before or after
+
+  MATH FORMATTING RULES:
+  - ALWAYS wrap every number, expression, and calculation in LaTeX
+  - Inline: $2^3$, $\\frac{1}{8}$, $(-2)^{-1}$
+  - Display (own line): $$2^{4+3} = 2^7$$
+  - NEVER write bare maths like 2^3 or (-2)^1 or 1/8 outside of $ signs
+  - This applies to feedback, study_tip, points_missed — every field
 """
 
     # ── Marking rules ─────────────────────────────────────────────────────────
@@ -658,6 +665,10 @@ Write a step-by-step solution in simple words a Grade {grade} student can follow
 - Use LaTeX for ALL numbers and calculations:
   inline -> $...$ | display -> $$...$$
   Example: "Step 1: Subtract $7540 - 2465 = 5075$"
+
+  - Use $$...$$ for every calculation step so it appears on its own line
+- Example: $$6^2 + (6)(8) + 8^2 = 36 + 48 + 64 = 148$$
+- Never put a calculation inline in a sentence
 """
 
 
