@@ -1,13 +1,15 @@
 """
 ai_grader.py
 CBC Kenya Learning Platform — AI Grading Engine
-Uses Claude Haiku to mark student answers across all question types.
+Uses Claude Haiku (with Sonnet fallback for Kiswahili structured/essay)
+to mark student answers across all question types.
 """
 
 import json
 import random
 import re
 import time
+from concurrent.futures import ThreadPoolExecutor, TimeoutError as FuturesTimeoutError, as_completed
 
 import requests
 from django.conf import settings
@@ -19,11 +21,22 @@ from sympy.parsing.latex import parse_latex
 #  CONSTANTS
 # ─────────────────────────────────────────────────────────────────────────────
 
-CLAUDE_MODEL = "claude-haiku-4-5-20251001"
-# CLAUDE_MODEL = "claude-sonnet-4-6"
+MODEL_HAIKU  = "claude-haiku-4-5-20251001"
+MODEL_SONNET = "claude-sonnet-4-6"
 CLAUDE_URL   = "https://api.anthropic.com/v1/messages"
-MAX_TOKENS   = 2000
 MAX_RETRIES  = 4
+
+MAX_TOKENS_MCQ        = 400
+MAX_TOKENS_STRUCTURED = 800
+MAX_TOKENS_ESSAY      = 1000
+MAX_TOKENS_DEFAULT    = 600
+
+SYMPY_TIMEOUT_SECONDS = 3
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+#  RESPONSE STRINGS
+# ─────────────────────────────────────────────────────────────────────────────
 
 PRAISE_EN = [
     "Spot on! Well done.",
@@ -129,6 +142,29 @@ def _correct_result(max_marks: int, feedback: str, message: str,
     }
 
 
+def _to_list(val) -> list:
+    """Normalise Claude's points_earned / points_missed to a list always."""
+    if isinstance(val, list):
+        return val
+    if isinstance(val, str) and val.strip():
+        return [val.strip()]
+    return []
+
+
+def _safe_int_marks(raw, max_marks: int) -> int:
+    """
+    Convert Claude's marks_awarded to a safe integer.
+    Handles strings like "2", "2 marks", floats like 2.5, and None.
+    Always clamps to [0, max_marks].
+    """
+    try:
+        numeric_str = re.search(r"-?\d+\.?\d*", str(raw))
+        val = int(float(numeric_str.group())) if numeric_str else 0
+    except (TypeError, ValueError):
+        val = 0
+    return max(0, min(val, max_marks))
+
+
 def _normalise(s: str) -> str:
     """Lowercase, collapse whitespace, strip trailing punctuation."""
     s = s.lower().strip()
@@ -138,44 +174,84 @@ def _normalise(s: str) -> str:
 
 
 def _clean_num(s: str) -> str:
-    return re.sub(r"[^\d.-]", "", s)
+    """Extract the first numeric token from a string."""
+    match = re.search(r"-?\d+\.?\d*", str(s))
+    return match.group() if match else ""
 
+
+def _safe_opt(val) -> str:
+    """Return option text or a placeholder — prevents None leaking into prompts."""
+    return str(val).strip() if val and str(val).strip() else "(not provided)"
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+#  MATHS HELPERS
+# ─────────────────────────────────────────────────────────────────────────────
 
 def _parse_math_expr(s: str):
-    """Try plain sympy first, fall back to LaTeX parser. Returns None on failure."""
+    """
+    Parse a mathematical expression string.
+    Tries plain sympy first, falls back to LaTeX parser.
+    Returns None on failure — never raises.
+    """
     s = str(s).strip().strip("$")
     try:
         return sympify(s, evaluate=False)
     except Exception:
+        pass
+    try:
+        return parse_latex(s)
+    except Exception:
+        return None
+
+
+def _safe_simplify(expr):
+    """
+    Run sympy simplify with a hard timeout using a thread-based future.
+    Returns the simplified expression or None if it times out or errors.
+    Thread-safe — unlike signal.SIGALRM, this works inside ThreadPoolExecutor.
+    """
+    with ThreadPoolExecutor(max_workers=1) as ex:
+        future = ex.submit(simplify, expr)
         try:
-            return parse_latex(s)
-        except Exception:
+            return future.result(timeout=SYMPY_TIMEOUT_SECONDS)
+        except (FuturesTimeoutError, Exception):
             return None
 
 
+# ─────────────────────────────────────────────────────────────────────────────
+#  JSON PARSING
+# ─────────────────────────────────────────────────────────────────────────────
+
 def _parse_json_response(raw: str) -> dict:
     """
-    Strip markdown fences and parse JSON.
-    Falls back to regex extraction to handle Kiswahili preamble text
-    that Claude sometimes adds before the JSON block.
+    Parse Claude's JSON response robustly.
+
+    Strategy:
+      1. Strip markdown fences and try direct parse.
+      2. Find the first JSON object that starts with "marks_awarded" —
+         this avoids false matches on braces inside feedback text.
+      3. Fix trailing comma issues and retry.
+
+    Raises json.JSONDecodeError if all strategies fail.
     """
     cleaned = raw.replace("```json", "").replace("```", "").strip()
 
-    # Try direct parse first
     try:
         return json.loads(cleaned)
     except json.JSONDecodeError:
         pass
 
-    # Extract the first {...} block — handles preamble text in Kiswahili responses
-    match = re.search(r'\{[\s\S]*\}', cleaned)
+    # Targeted extraction — anchors to "marks_awarded" so inner braces
+    # in feedback text (e.g. {umuhimu wa elimu}) don't cause false matches.
+    match = re.search(r'\{\s*"marks_awarded"[\s\S]*\}', cleaned)
     if match:
         try:
             return json.loads(match.group())
         except json.JSONDecodeError:
             pass
 
-    # Last resort: fix trailing comma issues and try again
+    # Fix trailing commas and retry
     fixed = re.sub(r',\s*}', '}', re.sub(r',\s*]', ']', cleaned))
     return json.loads(fixed)
 
@@ -183,12 +259,13 @@ def _parse_json_response(raw: str) -> dict:
 # ─────────────────────────────────────────────────────────────────────────────
 #  CLAUDE API CLIENT
 # ─────────────────────────────────────────────────────────────────────────────
-# Per question type token limits
-MAX_TOKENS_MCQ        = 400
-MAX_TOKENS_STRUCTURED = 800
-MAX_TOKENS_ESSAY      = 1000
-MAX_TOKENS_DEFAULT    = 600
-def _call_claude(prompt: str, working_image: str | None = None, max_tokens: int = 600) -> dict:
+
+def _call_claude(
+    prompt: str,
+    working_image: str | None = None,
+    max_tokens: int = MAX_TOKENS_DEFAULT,
+    model: str = MODEL_HAIKU,
+) -> dict:
     """
     POST to Claude API with exponential back-off on 429s.
     Returns the raw API response dict.
@@ -199,9 +276,9 @@ def _call_claude(prompt: str, working_image: str | None = None, max_tokens: int 
             {
                 "type": "image",
                 "source": {
-                    "type": "base64",
+                    "type":       "base64",
                     "media_type": "image/png",
-                    "data": working_image,
+                    "data":       working_image,
                 },
             },
             {
@@ -213,7 +290,7 @@ def _call_claude(prompt: str, working_image: str | None = None, max_tokens: int 
         content = prompt
 
     payload = {
-        "model":      CLAUDE_MODEL,
+        "model":      model,
         "max_tokens": max_tokens,
         "messages":   [{"role": "user", "content": content}],
     }
@@ -229,7 +306,8 @@ def _call_claude(prompt: str, working_image: str | None = None, max_tokens: int 
 
             if resp.status_code == 429:
                 wait = 2 ** attempt
-                print(f"⚠ Rate limited — retrying in {wait}s (attempt {attempt + 1}/{MAX_RETRIES})")
+                print(f"⚠ Rate limited — retrying in {wait}s "
+                      f"(attempt {attempt + 1}/{MAX_RETRIES})")
                 time.sleep(wait)
                 continue
 
@@ -244,217 +322,157 @@ def _call_claude(prompt: str, working_image: str | None = None, max_tokens: int 
         except requests.HTTPError as e:
             if e.response.status_code != 429:
                 raise Exception(
-                    f"Claude API HTTP {e.response.status_code}: {e.response.text[:200]}"
+                    f"Claude API HTTP {e.response.status_code}: "
+                    f"{e.response.text[:200]}"
                 )
 
     raise Exception("Claude API failed after all retries — rate limit persists.")
 
 
-def _claude_text(prompt: str, working_image: str | None = None, max_tokens: int = 600) -> str:
-    return _call_claude(prompt, working_image, max_tokens)["content"][0]["text"]
+def _claude_text(
+    prompt: str,
+    working_image: str | None = None,
+    max_tokens: int = MAX_TOKENS_DEFAULT,
+    model: str = MODEL_HAIKU,
+) -> str:
+    return _call_claude(prompt, working_image, max_tokens, model)["content"][0]["text"]
 
 
 # ─────────────────────────────────────────────────────────────────────────────
 #  PROMPT BUILDERS
 # ─────────────────────────────────────────────────────────────────────────────
 
-def _language_rules(sw: bool, grade: int) -> str:
-    """
-    Strict language enforcement block injected into every marking prompt.
-    Written in the target language so the model internalises it naturally.
-    """
-    if sw:
-        return f"""
-========================================================
-SHERIA YA LUGHA — SOMA HII KWANZA KABLA YA KUFANYA CHOCHOTE
-========================================================
-Swali hili liko katika KISWAHILI.
-
-SHERIA KUU: Andika maoni yako YOTE kwa Kiswahili.
-Hata neno moja kwa Kiingereza HAIRUHUSIWI — katika sehemu yoyote ya JSON.
-
-Sehemu zote lazima ziwe Kiswahili:
-  feedback              -> Kiswahili
-  personalized_message  -> Kiswahili
-  study_tip             -> Kiswahili
-  points_earned         -> Kiswahili
-  points_missed         -> Kiswahili
-
-MANENO YA SIFA SAHIHI:
-  Tumia: "Hongera!", "Vizuri sana!", "Nzuri!", "Sahihi kabisa!", "Umefanya kazi nzuri!"
-  USITUMIE: "Pole sana!" kwa sifa — kwa Kiswahili cha Kenya "pole" inamaanisha "sorry"
-
-MTINDO WA MWALIMU WA KENYA:
-  - Kama mwanafunzi ameandika neno vibaya lakini maana ni WAZI — toa alama. Usiadhibu tahajia peke yake.
-  - Kama mwanafunzi ametumia lugha ya mtaani, sheng, au mazungumzo ya kawaida — jibu ni KOSA. CBC inahitaji lugha rasmi ya kitaaluma.
-  - Pointi sahihi ambayo haipo kwenye mpango wa alama — TOA ALAMA. Mpango wa alama ni mwongozo tu, si kifungo.
-  - MARUFUKU: Usiandike 'Ngoja', 'Acha niangalie' — onyesha jibu la mwisho tu.
-  - MARUFUKU: Usiandike 'Ngoja', 'Acha niangalie', au maneno yoyote ya kujisahihisha. Onyesha jibu la mwisho tu.
-  - Lugha rahisi ya Darasa {grade} — si tafsiri kutoka Kiingereza
-  - Sentensi fupi na wazi
-  - Zungumza moja kwa moja na mwanafunzi: "wewe", "jibu lako", "umefanya"
-  - Tumia Kiswahili sanifu — si utohozi wa maneno ya Kiingereza
-========================================================
-"""
-    else:
-        return f"""
-LANGUAGE RULE — CRITICAL:
-This question is in English. Every JSON field must be in English only.
-Do NOT write even one word in another language.
-
-LANGUAGE RULES:
-- FORBIDDEN: Never write 'Wait', 'Let me check', 'Let me recalculate' or any self-correction language. Only show the final answer.
-- If a student spells a word incorrectly but the meaning is CLEAR — award the mark. Never penalize spelling alone.
-- If a student uses sheng, slang, or informal street language — mark it WRONG regardless of meaning. CBC requires formal academic language only.
-- If a student writes a factually correct point not in the marking scheme — AWARD THE MARKS. The marking scheme is a guide not a prison.
-- NEVER write 'Wait', 'Let me check', 'Let me recalculate' — show final answer only.
-- Simple English that a Grade {grade} Kenyan student understands. Don't use vocabulary and words not in the Kenyan Syllabus
-- Use words found in Kenyan CBC textbooks
-- Short sentences — maximum 3 per section
-- Talk directly to the student: "you", "your"
-- Kind, encouraging Kenyan teacher tone
-- Never use: demonstrate, indicate, facilitate, enumerate, elaborate,
-  subsequently, primarily, comprise, constitute, moreover, furthermore, utilize
-"""
-
-
 def _build_marking_prompt(question, student_answer: str, sw: bool) -> str:
     """
-    Builds the full marking prompt.
-    Only strengthened the Kiswahili Sanifu rules and teacher grounding.
-    All your original logic (passage, MCQ, cloze, JSON template, etc.) is preserved.
+    Build the full marking prompt for MCQ, structured, and essay questions.
+    Single source of truth — no duplicated content blocks.
     """
     grade       = getattr(getattr(question, "topic", None), "grade", 7)
     has_passage = hasattr(question, "passage") and question.passage is not None
-    is_cloze = has_passage and getattr(question.passage, "passage_type", "") == "cloze"
+    is_cloze    = has_passage and getattr(question.passage, "passage_type", "") == "cloze"
+    max_marks   = question.max_marks
 
-    prompt = (
-        f"Wewe ni mwalimu wa CBC Kenya anayerekebisha jibu la mwanafunzi wa Darasa {grade}.\n"
-        if sw else
-        f"You are a Kenyan CBC teacher marking a Grade {grade} student's answer.\n"
-    )
-
-    # ── STRONG KISWAHILI SANIFU + TEACHER GROUNDING (this is the only changed part) ──
+    # ── Role + language rules ─────────────────────────────────────────────────
     if sw:
+        prompt = f"Wewe ni mwalimu wa CBC Kenya anayerekebisha jibu la mwanafunzi wa Darasa {grade}.\n"
         prompt += """
 ========================================================
-SHERIA KUU — KISWAHILI SANIFU CHA CBC KENYA (SOMA NA FUATA KABISA)
+SHERIA KUU — KISWAHILI SANIFU CHA CBC KENYA
 ========================================================
-Tumia **Kiswahili Sanifu** tu kama kinavyotumika katika vitabu vya shule vya Kenya (CBC).
-- Maneno sahihi: Hongera! Umefanya vizuri sana. / Umeonyesha ufahamu mzuri wa... / Jibu kamili linapaswa kuwa... / Katika ubeti wa kwanza mshairi anasema...
-- MARUFUKU KABISA: Usitumie sheng, lugha ya mtaani, maneno yaliyovunjika kama "Umeansweza", "uko karibu", "umeanza", au mchanganyiko wa Kiingereza.
-- Sarufi sahihi: umefanya, umepata, ulichosema, inaonyesha, n.k.
-- Kila neno katika JSON lazima liwe Kiswahili Sanifu safi pekee.
+Andika maoni yako YOTE kwa Kiswahili Sanifu safi.
+Hata neno moja kwa Kiingereza HAIRUHUSIWI katika sehemu yoyote ya JSON.
 
-MUHIMU ZAIDI:
-Fuata mpango wa alama na maelezo ya MWALIMU kabisa. Usiongeze maarifa yako mwenyewe.
+MTINDO SAHIHI — sentensi fupi, za moja kwa moja:
+  "Umepata jibu sahihi — [sehemu sahihi]. Jibu kamili lilikuwa: [jibu kamili]."
+  "Ulikosea hapa: [kosa]. Jibu sahihi ni: [jibu sahihi]."
+  "Soma [aya/ubeti/mstari] tena kwa makini."
+
+MANENO YALIYOKATAZWA — USITUMIE KAMWE:
+  - "ambayo ni zaidi ya..." / "inayoonesha umuhimu wa..." / "kama chombo cha..."
+  - "Jibu sahihi linapaswa kuwa:" / "kwa muhtasari" / "Kwa hiyo"
+  - Maneno yoyote ya Kiingereza — hata "answer", "correct", "marks"
+  - Sentensi ndefu za zaidi ya maneno 20
+
+MANENO SAHIHI YA SIFA:
+  Tumia: "Hongera!", "Vizuri sana!", "Nzuri!", "Sahihi kabisa!", "Umefanya kazi nzuri!"
+  USITUMIE: "Pole sana!" — inamaanisha "sorry" kwa Kiswahili cha Kenya
+
+SHERIA ZA MWALIMU:
+  - Kosa la tahajia ni sawa isipokuwa libadilishe maana
+  - Sheng au lugha ya mtaani = KOSA, hata kama maana ni wazi
+  - Pointi sahihi ambayo haipo kwenye mpango wa alama — TOA ALAMA
+  - LAZIMA ufuate majibu ya mwalimu — usitumie maarifa yako mwenyewe
+  - Rudisha JSON tu — USIANDIKE CHOCHOTE KABLA YA { au BAADA YA }
+========================================================
 """
     else:
+        prompt = f"You are a Kenyan CBC teacher marking a Grade {grade} student's answer.\n"
         prompt += """
-LANGUAGE RULE — CRITICAL:
-This question is in English. Every JSON field must be in English only.
-Do NOT write even one word in another language.
+LANGUAGE: English only in every JSON field. Zero words in any other language.
+TONE: Kind, direct, like a Kenyan primary school teacher.
+FORBIDDEN WORDS: demonstrate, indicate, facilitate, enumerate, elaborate,
+  subsequently, primarily, comprise, constitute, moreover, furthermore, utilize.
+RULES:
+  - Spelling mistakes are fine unless they change the meaning
+  - Sheng or slang = WRONG, even if meaning is clear
+  - Correct point not in marking scheme — AWARD THE MARKS
+  - Follow the teacher's answer exactly — do not override with your own knowledge
+  - Return JSON only — no text before or after
 """
 
-    # ── TEACHER CONTENT AS GROUND TRUTH (helps prevent broken output) ──
-    prompt += "\n\nMAAGIZO YA MWALIMU (FUATA HAYA KABISA):\n"
-    if getattr(question, 'marking_scheme', None):
-        points_text = "\n".join(
-            f"- {p.get('description', '')} ({p.get('marks', 1)} alama)"
-            for p in question.marking_scheme.get("points", [])
-        )
-        prompt += points_text
-    if getattr(question, 'correct_answer', None):
-        prompt += f"\nJIBU SAHIHI: {question.correct_answer}"
-    if getattr(question, 'explanation', None):
-        prompt += f"\nMAELEZO YA MWALIMU: {question.explanation}"
-
-    # ── EVERYTHING BELOW THIS LINE IS YOUR ORIGINAL CODE UNCHANGED ──
-    # (I kept all your original logic for MCQ, passage, cloze, student answer, etc.)
-
-    # ── Marking rules ────────────────────────────────────────────────────────
+    # ── Marking rules ─────────────────────────────────────────────────────────
     if sw:
         prompt += """
 SHERIA ZA KUREKEBISHA:
 1. Toa alama kwa ufahamu wa kweli — maneno sahihi kabisa si lazima
 2. Alama zote tu wakati mawazo yote muhimu yako wazi
-3. Alama za sehemu kwa majibu ya sehemu — nambari kamili tu, si desimali
-4. Kubali jibu lolote sahihi hata kama limeandikwa tofauti
-5. Kosa la tahajia ni sawa isipokuwa libadilishe maana
-6. Usizidi alama za juu za swali
-7. Taarifa zisizo sahihi zinapunguza alama
-8. MUHIMU: Kama unasema jibu la mwanafunzi ni sahihi, LAZIMA utoe alama zote
-9. MUHIMU SANA: Majibu sahihi na mpango wa alama vimetolewa na MWALIMU.
-   LAZIMA ufuate majibu ya mwalimu — usitumie maarifa yako mwenyewe kuyabatilisha.
-10. MARUFUKU: Usitoe maelezo ya ziada ambayo hayapo katika mpango wa alama.
+3. Alama za sehemu — nambari kamili tu, si desimali
+4. Usizidi alama za juu za swali
+5. Taarifa zisizo sahihi zinapunguza alama
+6. Kama unasema jibu ni sahihi, LAZIMA utoe alama zote — si 0
 """
     else:
         prompt += """
 MARKING RULES:
-1. Award marks for real understanding — exact wording is not required
+1. Award marks for real understanding — exact wording not required
 2. Full marks only when all key ideas are clearly present
 3. Partial marks for partial answers — integers only, no decimals
-4. Accept any factually correct answer even if worded differently
-5. Spelling mistakes are fine unless they change the meaning
-6. Never go above the question's maximum marks
-7. Wrong or irrelevant information reduces marks
-8. CRITICAL: If you say the student's answer matches the correct answer,
-   you MUST award full marks — never award 0 and say the answer was correct
-9. CRITICAL: The correct answer and marking scheme are SET BY THE TEACHER.
-   You MUST follow them exactly — do NOT use your own knowledge to override them.
+4. Never exceed the question's maximum marks
+5. Wrong or irrelevant information reduces marks
+6. CRITICAL: If you say the answer is correct you MUST award full marks — never 0
 """
 
-    # ── MCQ-specific rules ───────────────────────────────────────────────────
+    # ── MCQ-specific rules ────────────────────────────────────────────────────
     if question.question_type == "mcq":
         if sw:
             prompt += """
 SHERIA ZA MCQ:
 - Chaguo sahihi -> alama zote
-- Chaguo baya -> alama 0 (hakuna alama za sehemu kwa MCQ)
-
-MUUNDO WA MAONI KWA MCQ:
-- Anza na "Hongera! ..." au "Jibu si sahihi. Jibu sahihi ni ..."
-- Eleza KWA NINI jibu hilo ni sahihi kwa maneno rahisi
-- Malizia na kidokezo kimoja kifupi cha "Kumbuka:"
+- Chaguo baya -> alama 0 — hakuna alama za sehemu
+MAONI: Anza na "Hongera!" au "Jibu si sahihi. Jibu sahihi ni ..."
+Eleza kwa nini kwa sentensi 1-2. Malizia na "Kumbuka:".
 """
         else:
             prompt += """
 MCQ RULES:
-- Correct option chosen -> full marks
-- Wrong option -> 0 marks (no partial marks for MCQs)
+- Correct option -> full marks. Wrong option -> 0. No partial marks.
+FEEDBACK FORMAT:
+  Correct: "Correct! ..." then 1-2 sentences why. End with one "Remember:" tip.
+  Wrong: "Not quite. The right answer is: ..." For calculation questions show
+  step-by-step working with $$...$$ on its own line. End with "Remember:" tip.
+  Maximum 6 sentences total.
 """
 
-    # ── Passage / comprehension rules ────────────────────────────────────────
+    # ── Passage rules ─────────────────────────────────────────────────────────
     if has_passage and is_cloze:
         if sw:
             prompt += f"""
-SHERIA ZA KIFUNGU CHENYE MAPENGO (CLOZE):
-Hii ni zoezi la kujaza mapengo...
---- KIFUNGU CHENYE MAPENGO ---
+CLOZE — jaza nafasi kutoka muktadha wa kifungu tu. Usifafanue maneno.
+--- KIFUNGU ---
 {question.passage.content}
 --- MWISHO ---
 """
         else:
             prompt += f"""
-CLOZE/BROKEN PASSAGE RULES:
-...
---- BROKEN PASSAGE ---
+CLOZE — fill blank from passage context only. Do NOT explain word meanings.
+--- PASSAGE ---
 {question.passage.content}
 --- END ---
 """
     elif has_passage and not is_cloze:
         if sw:
             prompt += f"""
-SHERIA ZA UFAHAMU — MUHIMU SANA:
-...
+UFAHAMU — jibu kutoka kifungu tu. Sema wapi kifungu kinasema jibu: "Kifungu kinasema..."
+Maoni: sentensi 2 TU — si zaidi.
 --- KIFUNGU ---
 {question.passage.content}
---- MWISHO WA KIFUNGU ---
+--- MWISHO ---
 """
         else:
             prompt += f"""
-COMPREHENSION RULES — CRITICAL:
-...
+COMPREHENSION — answer from passage only.
+Cite exactly where: "The passage states..." or "In paragraph..."
+Feedback: maximum 2 sentences only.
 --- PASSAGE ---
 {question.passage.content}
 --- END PASSAGE ---
@@ -465,10 +483,10 @@ COMPREHENSION RULES — CRITICAL:
     if question.question_type == "mcq":
         q_text += (
             f"\n\nOPTIONS:\n"
-            f"A: {question.option_a}\n"
-            f"B: {question.option_b}\n"
-            f"C: {question.option_c}\n"
-            f"D: {question.option_d}"
+            f"A: {_safe_opt(question.option_a)}\n"
+            f"B: {_safe_opt(question.option_b)}\n"
+            f"C: {_safe_opt(question.option_c)}\n"
+            f"D: {_safe_opt(question.option_d)}"
         )
     prompt += f"\n\nQUESTION:\n{q_text}"
 
@@ -476,91 +494,92 @@ COMPREHENSION RULES — CRITICAL:
     s_ans = str(student_answer).strip()
     if question.question_type == "mcq":
         options_map = {
-            "A": question.option_a, "B": question.option_b,
-            "C": question.option_c, "D": question.option_d,
+            "A": _safe_opt(question.option_a),
+            "B": _safe_opt(question.option_b),
+            "C": _safe_opt(question.option_c),
+            "D": _safe_opt(question.option_d),
         }
         letter = s_ans.upper()
         if letter in options_map:
             s_ans = f"Option {letter}: {options_map[letter]}"
     prompt += f"\n\nSTUDENT ANSWER:\n{s_ans}"
 
-    # ── Correct answer / marking scheme ──────────────────────────────────────
+    # ── Correct answer / marking scheme (single block — no duplicates) ────────
     if question.question_type == "mcq":
         correct_letter = str(question.correct_answer).strip().upper()
+        if correct_letter not in ("A", "B", "C", "D"):
+            print(f"⚠ Q{getattr(question, 'id', '?')}: "
+                  f"correct_answer '{question.correct_answer}' is not A/B/C/D — defaulting to A")
+            correct_letter = "A"
         options_map = {
-            "A": question.option_a, "B": question.option_b,
-            "C": question.option_c, "D": question.option_d,
+            "A": _safe_opt(question.option_a),
+            "B": _safe_opt(question.option_b),
+            "C": _safe_opt(question.option_c),
+            "D": _safe_opt(question.option_d),
         }
-        correct_text = options_map.get(correct_letter, "")
-        prompt += f"\n\nCORRECT ANSWER:\nOption {correct_letter}: {correct_text}"
+        prompt += f"\n\nCORRECT ANSWER:\nOption {correct_letter}: {options_map[correct_letter]}"
         if getattr(question, "explanation", None):
-            prompt += f"\nEXPLANATION (use this ONLY to confirm — do NOT expand or add to it): {question.explanation}"
+            prompt += (
+                f"\nEXPLANATION (use to confirm only — do NOT expand or add to it): "
+                f"{question.explanation}"
+            )
     else:
         if getattr(question, "marking_scheme", None):
             points_text = "\n".join(
                 f"- {p['description']} ({p['marks']} marks)"
                 for p in question.marking_scheme.get("points", [])
             )
-            prompt += f"\n\nMARKING SCHEME (USE THIS ONLY — DO NOT USE YOUR OWN JUDGMENT):\n{points_text}"
+            prompt += (
+                f"\n\nMARKING SCHEME (follow exactly — do NOT use your own judgment):\n"
+                f"{points_text}"
+            )
         else:
-            prompt += f"\n\nEXPECTED ANSWER / KEY POINTS (USE THIS ONLY — DO NOT USE YOUR OWN JUDGMENT):\n{question.correct_answer}"
+            prompt += (
+                f"\n\nEXPECTED ANSWER (follow exactly — do NOT use your own judgment):\n"
+                f"{question.correct_answer}"
+            )
         if getattr(question, "explanation", None):
-            prompt += f"\nEXPLANATION (use this ONLY to confirm — do NOT expand or add to it): {question.explanation}"
+            prompt += (
+                f"\nEXPLANATION (use to confirm only — do NOT expand or add to it): "
+                f"{question.explanation}"
+            )
 
-    # ── JSON output template ─────────────────────────────────────────────────
-    max_marks = question.max_marks
-
+    # ── JSON output template ──────────────────────────────────────────────────
     if sw:
         study_tip_instruction = (
-            "Elekeza aya maalum au mstari katika kifungu ambapo jibu linapatikana. "
-            "USIRUDIE maoni." if has_passage and not is_cloze else
-            "Andika kidokezo kimoja kipya ambacho hakiko katika maoni — "
-            "mbinu rahisi ya kukumbuka au kidokezo cha mtihani kwa Kiswahili. "
+            "Taja aya au mstari maalum wa kifungu ambapo jibu linapatikana. USIRUDIE maoni."
+            if (has_passage and not is_cloze) else
+            "Kidokezo kimoja kipya cha kukumbuka — mbinu rahisi au kidokezo cha mtihani. "
             "Ikiwa huna uhakika, acha tupu."
         )
-
         prompt += f"""
 
 ALAMA ZA JUU: {max_marks}
 
-MUHIMU SANA: Rudisha JSON tu — USIANDIKE CHOCHOTE KABLA YA {{ au BAADA YA }}
-Anza moja kwa moja na {{ na malizia na }}
-
 {{
   "marks_awarded": <nambari kamili kati ya 0 na {max_marks}>,
-  "feedback": "<Sentensi 4-6 KWA KISWAHILI SANIFU: kwanza nini mwanafunzi alipata sahihi, kisha kwa kila pointi iliyokosekana toa jibu sahihi halisi, hatimaye jibu zima sahihi. Mtindo wa mwalimu mpole.>",
+  "feedback": "<Sentensi 4-6 KWA KISWAHILI SANIFU: nini kilisahihika, nini kilikosekana, jibu kamili sahihi. Sentensi fupi. Moja kwa moja.>",
   "personalized_message": "<sentensi moja fupi ya kuhamasisha KWA KISWAHILI SANIFU>",
   "study_tip": "<{study_tip_instruction}>",
   "points_earned": ["<pointi sahihi kwa Kiswahili Sanifu>"],
   "points_missed": ["<pointi zilizokosekana kwa Kiswahili Sanifu>"]
-}}
+}}"""
 
-UKAGUZI WA MWISHO: Hakikisha feedback, personalized_message, study_tip, points_earned na points_missed zote ziko katika Kiswahili Sanifu safi.
-"""
     else:
-        # Your original English JSON template (unchanged)
-        if has_passage and not is_cloze:
-            study_tip_instruction = (
-                "Point to the specific paragraph or line in the passage where the answer is found. "
-                "Do NOT repeat the feedback."
-            )
-        else:
-            study_tip_instruction = (
-                "One NEW helpful tip not already in the feedback — "
-                "a memory trick, related idea, or exam tip. "
-                "Only include if you are 100% sure it is factually correct. "
-                "If not sure, leave as empty string."
-            )
-
+        study_tip_instruction = (
+            "Point to the specific paragraph or line where the answer is found. "
+            "Do NOT repeat the feedback."
+            if (has_passage and not is_cloze) else
+            "One NEW helpful tip not already in the feedback — a memory trick or exam tip. "
+            "Leave empty string if not sure."
+        )
         prompt += f"""
 
 MAX MARKS: {max_marks}
 
-IMPORTANT: Return ONLY valid JSON — no text before or after. Start with {{ end with }}
-
 {{
   "marks_awarded": <integer between 0 and {max_marks}>,
-  "feedback": "<4-6 sentences. Put each sentence on its own line using \\n. Format: \\n1. What student got right\\n2. What was wrong\\n3. Full correct answer>",
+  "feedback": "<4-6 sentences separated by \\n. What student got right, what was wrong, full correct answer.>",
   "study_tip": "<{study_tip_instruction}>",
   "points_earned": ["<what student got right in simple words>"],
   "points_missed": ["<what student missed in simple words>"]
@@ -569,12 +588,12 @@ IMPORTANT: Return ONLY valid JSON — no text before or after. Start with {{ end
     return prompt
 
 
-def _build_fill_blank_ai_prompt(question, student_answer: str,
-                                correct_answer: str, sw: bool) -> str:
+def _build_fill_blank_ai_prompt(
+    question, student_answer: str, correct_answer: str, sw: bool
+) -> str:
     """
-    Prompt asking Claude to semantically verify a fill-blank answer.
-    Language-aware so the model is not confused by Kiswahili content.
-    Returns TRUE/FALSE (English) or KWELI/UONGO (Kiswahili).
+    Ask Claude to semantically verify a fill-blank answer.
+    Returns KWELI/UONGO (Kiswahili) or TRUE/FALSE (English).
     """
     if sw:
         return f"""Wewe ni mwalimu wa CBC Kenya ukiangalia jibu la kujaza nafasi.
@@ -590,8 +609,8 @@ Mifano:
 - Jibu tofauti kabisa -> UONGO
 
 Jibu kwa neno KWELI au UONGO peke yake. Hakuna kingine."""
-    else:
-        return f"""You are a Kenyan CBC teacher checking a fill-in-the-blank answer.
+
+    return f"""You are a Kenyan CBC teacher checking a fill-in-the-blank answer.
 
 QUESTION: {question.question_text}
 CORRECT ANSWER: {correct_answer}
@@ -618,8 +637,9 @@ Use simple words a Grade {grade} student understands.
 Write ONLY the tip. No extra text."""
 
 
-def _build_math_solution_prompt(question, student_answer: str,
-                                correct_answer: str, grade: int) -> str:
+def _build_math_solution_prompt(
+    question, student_answer: str, correct_answer: str, grade: int
+) -> str:
     return f"""You are a Kenyan CBC Grade {grade} maths teacher helping a student who got a question WRONG.
 
 QUESTION: {question.question_text}
@@ -646,11 +666,13 @@ Write a step-by-step solution in simple words a Grade {grade} student can follow
 def _grade_fill_blank(question, student_answer: str) -> dict:
     """
     Fill-in-the-blank grader.
-    Order of checks:
-      1. Exact string match (case/punctuation insensitive)
+
+    Check order:
+      1. Exact normalised string match (case / punctuation insensitive)
       2. Numeric equivalence
-      3. AI semantic check (fallback)
-    Falls back to full AI grader if no correct answer is set.
+      3. AI semantic verification (fallback)
+
+    Falls back to full AI grader if the question has no correct answer set.
     """
     if not question.correct_answer or not str(question.correct_answer).strip():
         return _grade_with_ai(question, student_answer)
@@ -667,26 +689,30 @@ def _grade_fill_blank(question, student_answer: str) -> dict:
     accepted     = [_normalise(a) for a in re.split(r"[|;]", raw_correct) if a.strip()]
     is_correct   = student_norm in accepted
 
-    # Numeric equivalence check
+    # Numeric equivalence
     if not is_correct:
-        try:
-            s_num = float(_clean_num(student_norm))
-            for a in accepted:
-                try:
-                    if abs(s_num - float(_clean_num(a))) < 0.01:
-                        is_correct = True
-                        break
-                except ValueError:
-                    pass
-        except ValueError:
-            pass
+        s_clean = _clean_num(student_norm)
+        if s_clean:
+            try:
+                s_num = float(s_clean)
+                for a in accepted:
+                    a_clean = _clean_num(a)
+                    if a_clean:
+                        try:
+                            if abs(s_num - float(a_clean)) < 0.01:
+                                is_correct = True
+                                break
+                        except ValueError:
+                            pass
+            except ValueError:
+                pass
 
     # AI semantic fallback
     if not is_correct:
         try:
-            prompt     = _build_fill_blank_ai_prompt(question, student_raw, raw_correct, sw)
-            verdict    = _claude_text(prompt).strip().upper()
-            # Accept both English (TRUE) and Kiswahili (KWELI) verdicts
+            verdict   = _claude_text(
+                _build_fill_blank_ai_prompt(question, student_raw, raw_correct, sw)
+            ).strip().upper()
             is_correct = verdict in ("TRUE", "KWELI")
         except Exception as e:
             print(f"⚠ AI fill-blank fallback failed: {e}")
@@ -724,11 +750,15 @@ def _grade_fill_blank(question, student_answer: str) -> dict:
 def _grade_math(question, student_answer: str) -> dict:
     """
     Math grader.
-    Order of checks:
-      1. Fast numeric comparison (if correct answer is purely numeric)
-      2. Symbolic comparison via sympy
+
+    Check order:
+      1. Fast numeric comparison (when correct answer is purely numeric)
+      2. Symbolic equality via sympy (with thread-based timeout)
       3. Numeric approximation via sympy
-    Falls back to AI if no correct answer is set.
+      4. AI semantic verification
+      5. Generate step-by-step solution for incorrect answers
+
+    Falls back to full AI grader if the question has no correct answer set.
     """
     if not question.correct_answer or not str(question.correct_answer).strip():
         return _grade_with_ai(question, student_answer)
@@ -761,33 +791,44 @@ def _grade_math(question, student_answer: str) -> dict:
             points_earned = [str(display_value)],
         )
 
-    # Fast numeric check (only when correct answer is purely numeric)
+    # Fast numeric check (only when correct answer contains no letters)
     if not re.search(r"[a-zA-Z]", correct_str):
-        try:
-            if abs(float(_clean_num(student_str)) - float(_clean_num(correct_str))) < 0.01:
-                return _on_correct(float(_clean_num(student_str)))
-        except ValueError:
-            pass
+        s_clean = _clean_num(student_str)
+        c_clean = _clean_num(correct_str)
+        if s_clean and c_clean:
+            try:
+                if abs(float(s_clean) - float(c_clean)) < 0.01:
+                    return _on_correct(float(s_clean))
+            except ValueError:
+                pass
 
-    # Symbolic / approximate check
+    # Symbolic / approximate check with timeout
     try:
         s_expr = _parse_math_expr(student_str)
         c_expr = _parse_math_expr(correct_str)
         if s_expr is not None and c_expr is not None:
-            if simplify(s_expr - c_expr) == 0:
+            diff   = _safe_simplify(s_expr - c_expr)
+            if diff is not None and diff == 0:
                 return _on_correct(str(s_expr))
-            if abs(N(s_expr) - N(c_expr)) < 0.01:
-                return _on_correct(f"approx {N(s_expr):g}")
+            try:
+                if abs(N(s_expr) - N(c_expr)) < 0.01:
+                    return _on_correct(f"approx {N(s_expr):g}")
+            except Exception:
+                pass
     except Exception:
         pass
+
+    # AI semantic check
     try:
-        sem_prompt = _build_fill_blank_ai_prompt(question, student_str, correct_str, sw)
-        verdict = _claude_text(sem_prompt).strip().upper()
+        verdict = _claude_text(
+            _build_fill_blank_ai_prompt(question, student_str, correct_str, sw)
+        ).strip().upper()
         if verdict in ("TRUE", "KWELI"):
             return _on_correct(student_str)
     except Exception:
         pass
-    # Incorrect — generate step-by-step solution via Claude
+
+    # Incorrect — generate step-by-step solution
     try:
         solution = _claude_text(
             _build_math_solution_prompt(question, student_str, correct_str, grade)
@@ -816,19 +857,25 @@ def _grade_math(question, student_answer: str) -> dict:
     }
 
 
-def _grade_with_ai(question, student_answer: str,
-                   working_image: str | None = None) -> dict:
+def _grade_with_ai(
+    question,
+    student_answer: str,
+    working_image: str | None = None,
+) -> dict:
     """
     AI grader for MCQ, structured, and essay questions.
     Also used as fallback for fill_blank and math when no correct answer is set.
+
+    Model selection:
+      - Kiswahili structured/essay -> Sonnet (better non-English language quality)
+      - Everything else            -> Haiku (faster, cheaper)
     """
-    # ── EMPTY ANSWER CHECK ────────────────────────────────────────
-    sw = _is_kiswahili(question)
+    sw          = _is_kiswahili(question)
     student_raw = str(student_answer).strip()
+
     if not student_raw or student_raw in ("none", "\\placeholder{}"):
         msg = "Hujaandika jibu." if sw else "You did not write an answer."
         return _empty_result(question.max_marks, msg, _near_miss(sw))
-    # ─────────────────────────────────────────────────────────────
 
     if not getattr(settings, "ANTHROPIC_API_KEY", None):
         return _empty_result(
@@ -837,15 +884,19 @@ def _grade_with_ai(question, student_answer: str,
             "Please contact your teacher.",
         )
 
-    sw = _is_kiswahili(question)
-    qt = question.question_type
-    max_tokens = {"mcq": 400, "structured": 800, "essay": 1000}.get(qt, 600)
+    qt         = question.question_type
+    max_tokens = {"mcq": MAX_TOKENS_MCQ,
+                  "structured": MAX_TOKENS_STRUCTURED,
+                  "essay": MAX_TOKENS_ESSAY}.get(qt, MAX_TOKENS_DEFAULT)
+
+    # Sonnet for Kiswahili structured/essay — Haiku struggles with Kiswahili Sanifu
+    model = MODEL_SONNET if (sw and qt in ("structured", "essay")) else MODEL_HAIKU
 
     try:
         prompt   = _build_marking_prompt(question, student_answer, sw)
-        raw_text = _claude_text(prompt, working_image, max_tokens)
+        raw_text = _claude_text(prompt, working_image, max_tokens, model)
         result   = _parse_json_response(raw_text)
-        marks    = min(int(result.get("marks_awarded", 0)), question.max_marks)
+        marks    = _safe_int_marks(result.get("marks_awarded", 0), question.max_marks)
 
         return {
             "marks_awarded":        marks,
@@ -854,31 +905,33 @@ def _grade_with_ai(question, student_answer: str,
             "is_correct":           marks == question.max_marks,
             "personalized_message": result.get("personalized_message", ""),
             "study_tip":            result.get("study_tip", ""),
-            "points_earned":        result.get("points_earned", []),
-            "points_missed":        result.get("points_missed", []),
+            "points_earned":        _to_list(result.get("points_earned", [])),
+            "points_missed":        _to_list(result.get("points_missed", [])),
         }
 
     except Exception as e:
-        # ── IMPROVED FALLBACK: use teacher's explanation/answer instead of
-        #    generic "teacher will mark manually" message ────────────────────
         print(f"AI Grading Error (Q{getattr(question, 'id', '?')}): {e}")
 
-        # Try to build a helpful fallback using the teacher's data
         correct_answer = getattr(question, "correct_answer", None)
         explanation    = getattr(question, "explanation", None)
 
         if correct_answer or explanation:
             if sw:
-                if explanation:
-                    fallback_feedback = f"Jibu sahihi: {correct_answer}. {explanation}" if correct_answer else explanation
-                else:
-                    fallback_feedback = f"Jibu sahihi ni: {correct_answer}."
+                fallback_feedback = (
+                    f"Jibu sahihi: {correct_answer}. {explanation}"
+                    if correct_answer and explanation
+                    else f"Jibu sahihi ni: {correct_answer}."
+                    if correct_answer
+                    else str(explanation)
+                )
             else:
-                if explanation:
-                    fallback_feedback = f"The correct answer is: {correct_answer}. {explanation}" if correct_answer else explanation
-                else:
-                    fallback_feedback = f"The correct answer is: {correct_answer}."
-
+                fallback_feedback = (
+                    f"The correct answer is: {correct_answer}. {explanation}"
+                    if correct_answer and explanation
+                    else f"The correct answer is: {correct_answer}."
+                    if correct_answer
+                    else str(explanation)
+                )
             return {
                 "marks_awarded":        0,
                 "max_marks":            question.max_marks,
@@ -887,12 +940,13 @@ def _grade_with_ai(question, student_answer: str,
                 "personalized_message": _near_miss(sw),
                 "study_tip":            explanation or "",
                 "points_earned":        [],
-                "points_missed":        [
-                    f"Jibu sahihi: {correct_answer}" if sw else f"Correct answer: {correct_answer}"
-                ] if correct_answer else [],
+                "points_missed":        (
+                    [f"Jibu sahihi: {correct_answer}" if sw
+                     else f"Correct answer: {correct_answer}"]
+                    if correct_answer else []
+                ),
             }
 
-        # Only use the generic message if there is truly nothing to show
         msg = (
             "Alama haikusomwa. Jibu lako limerekodi na mwalimu ataangalia."
             if sw else
@@ -905,93 +959,133 @@ def _grade_with_ai(question, student_answer: str,
 #  QUESTION ROUTER
 # ─────────────────────────────────────────────────────────────────────────────
 
-def _route(question, student_answer: str,
-           working_image: str | None = None) -> dict:
+def _route(
+    question,
+    student_answer: str,
+    working_image: str | None = None,
+) -> dict:
     """Route a question to the correct grader based on question_type."""
     qt = question.question_type
     if qt in ("mcq", "structured", "essay"):
         return _grade_with_ai(question, student_answer, working_image)
-    elif qt == "fill_blank":
+    if qt == "fill_blank":
         return _grade_fill_blank(question, student_answer)
-    elif qt == "math":
+    if qt == "math":
         return _grade_math(question, student_answer)
-    else:
-        sw = _is_kiswahili(question)
-        return _empty_result(
-            question.max_marks,
-            f"Aina ya swali haijulikani: {qt}" if sw else f"Unsupported question type: {qt}",
-            _near_miss(sw),
-        )
+
+    sw = _is_kiswahili(question)
+    return _empty_result(
+        question.max_marks,
+        f"Aina ya swali haijulikani: {qt}" if sw else f"Unsupported question type: {qt}",
+        _near_miss(sw),
+    )
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-#  MULTI-PART HELPER
+#  MULTI-PART PROXY
 # ─────────────────────────────────────────────────────────────────────────────
 
 class _PartProxy:
-    """Wraps a QuestionPart so graders treat it like a full Question."""
+    """
+    Wraps a QuestionPart ORM object so all graders can treat it as a
+    full Question. The part label is NOT prepended to question_text here —
+    _grade_multipart adds the label when assembling the combined feedback.
+    """
     def __init__(self, part):
-        parent = part.parent_question
-        self.id = part.id
-        self.question_text = f"({part.part_label}) {part.question_text}"
-        self.question_type = part.question_type
-        self.correct_answer = part.correct_answer
-        self.max_marks = part.max_marks
-        self.marking_scheme = part.marking_scheme or parent.marking_scheme
-        self.explanation = part.explanation or parent.explanation
-        self.option_a = part.option_a
-        self.option_b = part.option_b
-        self.option_c = part.option_c
-        self.option_d = part.option_d
-        self.topic = parent.topic
-        self.passage = parent.passage          
+        parent               = part.parent_question
+        self.id              = part.id
+        self.question_text   = part.question_text
+        self.question_type   = part.question_type
+        self.correct_answer  = part.correct_answer
+        self.max_marks       = part.max_marks
+        self.marking_scheme  = part.marking_scheme or parent.marking_scheme
+        self.explanation     = part.explanation or parent.explanation
+        self.option_a        = part.option_a
+        self.option_b        = part.option_b
+        self.option_c        = part.option_c
+        self.option_d        = part.option_d
+        self.topic           = parent.topic
+        self.passage         = parent.passage
         self.worked_solution = None
 
 
-from concurrent.futures import ThreadPoolExecutor, as_completed
+# ─────────────────────────────────────────────────────────────────────────────
+#  MULTI-PART GRADER
+# ─────────────────────────────────────────────────────────────────────────────
 
-def _grade_multipart(question, student_answer, working_image=None):
+def _grade_multipart(question, student_answer, working_image=None) -> dict:
+    """
+    Grade a multi-part question concurrently.
+
+    Each part is graded independently in a thread. Failures in individual
+    parts are caught and replaced with a safe empty result — the rest of
+    the question continues grading normally.
+
+    student_answer can be:
+      - dict with string keys   {"part_id": "answer"}
+      - dict with integer keys  {part_id: "answer"}  (normalised internally)
+      - plain string            (applied to every part — unusual but handled)
+    """
     parts = list(question.parts.all())
-    sw = _is_kiswahili(question)
+    sw    = _is_kiswahili(question)
+
+    # Normalise dict keys to strings so lookups are always consistent
+    if isinstance(student_answer, dict):
+        normalised_answers = {str(k): v for k, v in student_answer.items()}
+    else:
+        normalised_answers = {}
 
     def grade_part(part):
-        part_answer = (
-            student_answer.get(str(part.id), "")
-            if isinstance(student_answer, dict)
-            else student_answer
+        if isinstance(student_answer, dict):
+            part_answer = normalised_answers.get(str(part.id), "")
+        else:
+            part_answer = student_answer
+        return (
+            part.id,
+            part.part_label,
+            _route(_PartProxy(part), str(part_answer), working_image),
         )
-        return part.id, part.part_label, _route(_PartProxy(part), str(part_answer), working_image)
 
     results = {}
     with ThreadPoolExecutor(max_workers=len(parts)) as executor:
         futures = {executor.submit(grade_part, part): part for part in parts}
         for future in as_completed(futures):
-            part_id, label, result = future.result()
-            results[part_id] = (label, result)
+            part = futures[future]
+            try:
+                part_id, label, result = future.result()
+                results[part_id] = (label, result)
+            except Exception as e:
+                print(f"⚠ Part ({part.part_label}) grading failed: {e}")
+                results[part.id] = (
+                    part.part_label,
+                    _empty_result(part.max_marks, _near_miss(sw), _near_miss(sw)),
+                )
 
-    total_marks = 0
-    total_max = 0
+    total_marks  = 0
+    total_max    = 0
     all_feedback = []
-    all_earned = []
-    all_missed = []
+    all_earned   = []
+    all_missed   = []
 
     for part_id in sorted(results.keys()):
         label, result = results[part_id]
         total_marks += result["marks_awarded"]
-        total_max += result["max_marks"]
-        part_fb = result["feedback"]
-        if result.get("study_tip"):
-            part_fb += f"\n{result['study_tip']}"
-        all_feedback.append(f"Part ({label}): {part_fb}")
-        all_earned.extend(result.get("points_earned", []))
-        all_missed.extend(result.get("points_missed", []))
+        total_max   += result["max_marks"]
+
+        # Label prefixed here — NOT inside _PartProxy — so the label appears
+        # exactly once in the combined feedback string.
+        all_feedback.append(f"({label}) {result['feedback']}")
+        all_earned.extend(_to_list(result.get("points_earned", [])))
+        all_missed.extend(_to_list(result.get("points_missed", [])))
 
     return {
         "marks_awarded":        total_marks,
         "max_marks":            total_max,
         "feedback":             "\n\n".join(all_feedback),
         "is_correct":           total_marks == total_max,
-        "personalized_message": _encourage(sw) if total_marks == total_max else _near_miss(sw),
+        "personalized_message": (
+            _encourage(sw) if total_marks == total_max else _near_miss(sw)
+        ),
         "study_tip":            "",
         "points_earned":        all_earned,
         "points_missed":        all_missed,
@@ -1002,13 +1096,17 @@ def _grade_multipart(question, student_answer, working_image=None):
 #  PUBLIC API
 # ─────────────────────────────────────────────────────────────────────────────
 
-def grade_answer(question, student_answer, working_image: str | None = None) -> dict:
+def grade_answer(
+    question,
+    student_answer,
+    working_image: str | None = None,
+) -> dict:
     """
     Grade any question — handles both single and multi-part questions.
 
     Args:
         question:       Django ORM Question instance
-        student_answer: str | dict (dict for multi-part: {part_id: answer})
+        student_answer: str | dict  (dict for multi-part: {part_id: answer})
         working_image:  optional base64-encoded PNG of student's working
 
     Returns:

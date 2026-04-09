@@ -1,5 +1,5 @@
 "use client";
-
+import { fetchWithAuth } from "@/lib/api";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -408,12 +408,10 @@ function PaymentModal({ plan, onClose, onSuccess }) {
 
     try {
       const token = localStorage.getItem("accessToken");
-      const res = await fetch(`${API}/payments/stk-push/`, {
+      
+      const res = await fetchWithAuth(`${API}/payments/stk-push/`, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           plan_id: plan.id,
           phone_number: phone.trim(),
@@ -489,7 +487,10 @@ function PaymentModal({ plan, onClose, onSuccess }) {
                 />
               ))}
             </div>
-            <button onClick={onClose} className="text-white/80 hover:text-white">
+            <button
+              onClick={onClose}
+              className="text-white/80 hover:text-white"
+            >
               <X className="w-5 h-5" />
             </button>
           </div>
@@ -512,7 +513,8 @@ function PaymentModal({ plan, onClose, onSuccess }) {
                   Enter Your M-Pesa Number
                 </h3>
                 <p className="text-gray-600">
-                  We'll send an STK Push to your phone. Just enter your PIN to pay.
+                  We'll send an STK Push to your phone. Just enter your PIN to
+                  pay.
                 </p>
               </div>
 
@@ -573,8 +575,8 @@ function PaymentModal({ plan, onClose, onSuccess }) {
                   Check Your Phone
                 </h3>
                 <p className="text-gray-600">
-                  An M-Pesa prompt has been sent to <strong>+254{phone}</strong>.
-                  Enter your PIN to complete payment.
+                  An M-Pesa prompt has been sent to <strong>+254{phone}</strong>
+                  . Enter your PIN to complete payment.
                 </p>
               </div>
               <div className="bg-amber-50 border-2 border-amber-200 rounded-xl p-4 text-amber-800 text-sm">

@@ -1152,122 +1152,120 @@ export default function AttemptResultsPage() {
 
         {/* Action buttons */}
         <div
-          style={{ marginTop: 32, display: "flex", gap: 12, flexWrap: "wrap" }}
+          style={{
+            marginTop: 32,
+            display: "flex",
+            flexDirection: "column",
+            gap: 12,
+          }}
         >
-          {isPremium ? (
-            <>
-              <button
-                onClick={() => router.push("/explore")}
+          {/* Upgrade banner — only shown when no credits left */}
+          {!isPremium && credits === 0 && (
+            <div
+              style={{
+                padding: "16px 20px",
+                borderRadius: 16,
+                background: "#eff6ff",
+                border: "1px solid #bfdbfe",
+              }}
+            >
+              <p
                 style={{
-                  flex: 1,
-                  minWidth: 140,
-                  padding: "14px 0",
-                  borderRadius: 14,
-                  background: "linear-gradient(135deg, #1a6fc4, #0ea5c9)",
-                  color: "#fff",
                   fontSize: 14,
                   fontWeight: 700,
-                  border: "none",
-                  cursor: "pointer",
+                  color: "#1d4ed8",
+                  marginBottom: 4,
                 }}
               >
-                Continue Learning
-              </button>
-              <button
-                onClick={() => router.push("/dashboard")}
-                style={{
-                  flex: 1,
-                  minWidth: 140,
-                  padding: "14px 0",
-                  borderRadius: 14,
-                  background: "#fff",
-                  color: "#475569",
-                  fontSize: 14,
-                  fontWeight: 600,
-                  border: "2px solid #e2e8f0",
-                  cursor: "pointer",
-                }}
-              >
-                Dashboard
-              </button>
-            </>
-          ) : credits > 0 ? (
-            <>
-              <button
-                onClick={() => router.push("/explore")}
-                style={{
-                  flex: 1,
-                  minWidth: 140,
-                  padding: "14px 0",
-                  borderRadius: 14,
-                  background: "linear-gradient(135deg, #1a6fc4, #0ea5c9)",
-                  color: "#fff",
-                  fontSize: 14,
-                  fontWeight: 700,
-                  border: "none",
-                  cursor: "pointer",
-                }}
-              >
-                Take Another Quiz ({credits} free left)
-              </button>
-              <button
-                onClick={() => router.push("/dashboard")}
-                style={{
-                  flex: 1,
-                  minWidth: 140,
-                  padding: "14px 0",
-                  borderRadius: 14,
-                  background: "#fff",
-                  color: "#475569",
-                  fontSize: 14,
-                  fontWeight: 600,
-                  border: "2px solid #e2e8f0",
-                  cursor: "pointer",
-                }}
-              >
-                Dashboard
-              </button>
-            </>
-          ) : (
-            <>
-              <button
-                onClick={() => router.push("/subscribe")}
-                style={{
-                  flex: 1,
-                  minWidth: 140,
-                  padding: "14px 0",
-                  borderRadius: 14,
-                  background: "linear-gradient(135deg, #f59e0b, #ef4444)",
-                  color: "#fff",
-                  fontSize: 14,
-                  fontWeight: 700,
-                  border: "none",
-                  cursor: "pointer",
-                }}
-              >
-                🎓 Subscribe to Continue
-              </button>
-              <button
-                onClick={() => router.push(`/quizzes/${results.quiz?.id}`)}
-                style={{
-                  flex: 1,
-                  minWidth: 140,
-                  padding: "14px 0",
-                  borderRadius: 14,
-                  background: "#fff",
-                  color: "#475569",
-                  fontSize: 14,
-                  fontWeight: 600,
-                  border: "2px solid #e2e8f0",
-                  cursor: "pointer",
-                }}
-              >
-                🔄 Try Again
-              </button>
-            </>
+                You have used your 2 free quizzes
+              </p>
+              <p style={{ fontSize: 13, color: "#1e40af", lineHeight: 1.5 }}>
+                Subscribe for KES 500/month to keep going — unlimited quizzes,
+                all subjects, Grades 4–10.
+              </p>
+            </div>
           )}
-        </div>
 
+          <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
+            {isPremium || credits > 0 ? (
+              <>
+                <button
+                  onClick={() => router.push("/explore")}
+                  style={{
+                    flex: 1,
+                    minWidth: 140,
+                    padding: "14px 0",
+                    borderRadius: 14,
+                    background: "linear-gradient(135deg, #1a6fc4, #0ea5c9)",
+                    color: "#fff",
+                    fontSize: 14,
+                    fontWeight: 700,
+                    border: "none",
+                    cursor: "pointer",
+                  }}
+                >
+                  {credits > 0 && !isPremium
+                    ? `Continue learning (${credits} free left)`
+                    : "Continue learning"}
+                </button>
+                <button
+                  onClick={() => router.push("/dashboard")}
+                  style={{
+                    flex: 1,
+                    minWidth: 140,
+                    padding: "14px 0",
+                    borderRadius: 14,
+                    background: "#fff",
+                    color: "#475569",
+                    fontSize: 14,
+                    fontWeight: 600,
+                    border: "2px solid #e2e8f0",
+                    cursor: "pointer",
+                  }}
+                >
+                  Dashboard
+                </button>
+              </>
+            ) : (
+              <>
+                <button
+                  onClick={() => router.push("/subscribe")}
+                  style={{
+                    flex: 2,
+                    minWidth: 180,
+                    padding: "14px 0",
+                    borderRadius: 14,
+                    background: "linear-gradient(135deg, #f59e0b, #d97706)",
+                    color: "#fff",
+                    fontSize: 14,
+                    fontWeight: 700,
+                    border: "none",
+                    cursor: "pointer",
+                  }}
+                >
+                  Unlock unlimited access — KES 500/mo
+                </button>
+                <button
+                  onClick={() => router.push(`/quizzes/${results.quiz?.id}`)}
+                  style={{
+                    flex: 1,
+                    minWidth: 120,
+                    padding: "14px 0",
+                    borderRadius: 14,
+                    background: "#fff",
+                    color: "#475569",
+                    fontSize: 14,
+                    fontWeight: 600,
+                    border: "2px solid #e2e8f0",
+                    cursor: "pointer",
+                  }}
+                >
+                  Try again
+                </button>
+              </>
+            )}
+          </div>
+        </div>
         {!isPremium && credits === 0 && (
           <div
             style={{
