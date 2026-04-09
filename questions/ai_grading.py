@@ -401,10 +401,13 @@ RULES:
 
 MATH FORMATTING — NON-NEGOTIABLE:
   - Every number, variable, exponent, fraction MUST use LaTeX syntax
-  - Inline: $2^3$, $\\frac{1}{8}$, $(-2)^{-1}$, $x = 4$
-  - Display (own line): $$2^{4+3} = 2^7$$
-  - NEVER write bare maths outside $ signs — not in feedback, study_tip, or points_missed
-  - WRONG: "divide by 3^4 to get -1" | RIGHT: "divide by $3^4$ to get $-1$"
+  - Inline math: $2^3$, $\\frac{1}{8}$, $(-2)^{-1}$, $x = 4$, $\\times$
+  - Display math (own line): $$2^{x-3} \\times 8^{x+2} = 128$$
+  - NEVER write bare maths outside dollar signs in any field
+  - WRONG: "divide by 3^4 to get -1"
+  - RIGHT: "divide by $3^4$ to get $-1$"
+  - WRONG: "2 times 8 = 16"
+  - RIGHT: "$2 \\times 8 = 16$"
 """
 
     # ── Marking rules ─────────────────────────────────────────────────────────
@@ -587,7 +590,7 @@ MAX MARKS: {max_marks}
 {{
   "marks_awarded": <integer between 0 and {max_marks}>,
   "is_correct": <true if marks_awarded == {max_marks}, else false>,
-  "feedback": "<Start with 'Correct!' if is_correct is true, or 'Not quite.' if false. Then 4-6 sentences separated by \\n covering what was right, what was wrong, and the full correct answer.>",
+  "feedback": "<Start with 'Correct!' if is_correct is true, or 'Not quite.' if false. Then 4-6 sentences separated by \\n covering what was right, what was wrong, and the full correct answer. Use LaTeX for ALL maths.>",
   "study_tip": "<{study_tip_instruction}>",
   "points_earned": ["<what student got right in simple words>"],
   "points_missed": ["<what student missed in simple words>"]
@@ -656,18 +659,14 @@ CORRECT ANSWER: {correct_answer}
 
 Write a step-by-step solution in simple words a Grade {grade} student can follow.
 - Number each step: Step 1, Step 2, etc.
-- Show the working clearly and arrange calculations vertically
+- Show ALL calculations using LaTeX display math on their own line: $$...$$
+- Example: $$6^2 + (6)(8) + 8^2 = 36 + 48 + 64 = 148$$
+- Use inline LaTeX for numbers and variables in sentences: $x = 4$, $\\frac{{1}}{{8}}$, $\\times$
+- NEVER write bare maths outside dollar signs
 - At the end, in one short sentence say what mistake the student likely made
 - Keep it under 150 words total
 - Write like you are talking to a child who is struggling with Maths
 - NO markdown, NO code blocks, NO headings, NO asterisks
-- Use LaTeX for ALL numbers and calculations:
-  inline -> $...$ | display -> $$...$$
-  Example: "Step 1: Subtract $7540 - 2465 = 5075$"
-
-  - Use $$...$$ for every calculation step so it appears on its own line
-- Example: $$6^2 + (6)(8) + 8^2 = 36 + 48 + 64 = 148$$
-- Never put a calculation inline in a sentence
 """
 
 
@@ -771,6 +770,7 @@ def _grade_math(question, student_answer: str) -> dict:
       5. Generate step-by-step solution for incorrect answers
 
     Falls back to full AI grader if the question has no correct answer set.
+    Uses Sonnet for all AI calls — Haiku cannot reliably format LaTeX.
     """
     if not question.correct_answer or not str(question.correct_answer).strip():
         return _grade_with_ai(question, student_answer)
@@ -787,7 +787,8 @@ def _grade_math(question, student_answer: str) -> dict:
     def _on_correct(display_value):
         try:
             tip = _claude_text(
-                _build_math_study_tip_prompt(question, display_value, grade)
+                _build_math_study_tip_prompt(question, display_value, grade),
+                model=MODEL_SONNET,
             )
         except Exception:
             tip = (
@@ -833,17 +834,20 @@ def _grade_math(question, student_answer: str) -> dict:
     # AI semantic check
     try:
         verdict = _claude_text(
-            _build_fill_blank_ai_prompt(question, student_str, correct_str, sw)
+            _build_fill_blank_ai_prompt(question, student_str, correct_str, sw),
+            model=MODEL_SONNET,
         ).strip().upper()
         if verdict in ("TRUE", "KWELI"):
             return _on_correct(student_str)
     except Exception:
         pass
 
-    # Incorrect — generate step-by-step solution
+    # Incorrect — generate step-by-step solution using Sonnet
     try:
         solution = _claude_text(
-            _build_math_solution_prompt(question, student_str, correct_str, grade)
+            _build_math_solution_prompt(question, student_str, correct_str, grade),
+            model=MODEL_SONNET,
+            max_tokens=MAX_TOKENS_STRUCTURED,
         ).strip().replace("```", "").replace("**", "")
     except Exception:
         solution = (
@@ -857,14 +861,14 @@ def _grade_math(question, student_answer: str) -> dict:
         "max_marks":            question.max_marks,
         "feedback":             (
             f"Jibu sahihi ni {correct_str}." if sw
-            else f"Not quite. The correct answer is {correct_str}."
+            else f"Not quite. The correct answer is ${correct_str}$."
         ),
         "is_correct":           False,
         "personalized_message": _near_miss(sw),
         "study_tip":            solution,
         "points_earned":        [],
         "points_missed":        [
-            f"Jibu sahihi: {correct_str}" if sw else f"Correct answer: {correct_str}"
+            f"Jibu sahihi: {correct_str}" if sw else f"Correct answer: ${correct_str}$"
         ],
     }
 
@@ -880,6 +884,7 @@ def _grade_with_ai(
 
     Model selection:
       - Kiswahili structured/essay -> Sonnet (better non-English language quality)
+      - Math (any type)            -> Sonnet (reliable LaTeX formatting)
       - Everything else            -> Haiku (faster, cheaper)
     """
     sw          = _is_kiswahili(question)
@@ -901,15 +906,17 @@ def _grade_with_ai(
                   "structured": MAX_TOKENS_STRUCTURED,
                   "essay": MAX_TOKENS_ESSAY}.get(qt, MAX_TOKENS_DEFAULT)
 
-    # Sonnet for Kiswahili structured/essay — Haiku struggles with Kiswahili Sanifu
-    model = MODEL_SONNET if (sw and qt in ("structured", "essay")) else MODEL_HAIKU
+    # Sonnet for: Kiswahili structured/essay, and any maths question
+    is_math = qt == "math" or getattr(question, "subject_name", "").lower() == "mathematics"
+    model = MODEL_SONNET if (sw and qt in ("structured", "essay")) or is_math else MODEL_HAIKU
 
     try:
         prompt   = _build_marking_prompt(question, student_answer, sw)
         raw_text = _claude_text(prompt, working_image, max_tokens, model)
         result   = _parse_json_response(raw_text)
         marks    = _safe_int_marks(result.get("marks_awarded", 0), question.max_marks)
-        # 🔒 Consistency guard
+
+        # 🔒 Consistency guard — prevents verdict/marks drift
         claimed_correct = result.get("is_correct", None)
         if claimed_correct is True and marks < question.max_marks:
             marks = question.max_marks
@@ -917,8 +924,10 @@ def _grade_with_ai(
             pass  # marks win — student got it right, don't penalise
 
         feedback = result.get("feedback", "")
-        if marks == question.max_marks and "not" in feedback[:40].lower():
+        if marks == question.max_marks and feedback.strip().lower().startswith("not"):
             feedback = "Correct! " + feedback
+        elif marks < question.max_marks and feedback.strip().lower().startswith("correct"):
+            feedback = "Not quite. " + feedback[8:]
 
         return {
             "marks_awarded":        marks,
