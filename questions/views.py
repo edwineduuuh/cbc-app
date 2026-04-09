@@ -818,9 +818,14 @@ def submit_quiz(request):
                 'redirect': '/student/payments'
             }, status=402)
         
-        # Grade quiz
+# Grade quiz
         questions = list(quiz.questions.all())
-        working_images = data.get('working_images', {})
+        working_images_by_idx = data.get('working_images', {})
+        working_images = {
+            str(q.id): working_images_by_idx[str(idx)]
+            for idx, q in enumerate(questions)
+            if str(idx) in working_images_by_idx
+        }
         results = grade_quiz_fast(questions, answers, working_images=working_images)
         
         total_marks_awarded = sum(r['marks_awarded'] for r in results)

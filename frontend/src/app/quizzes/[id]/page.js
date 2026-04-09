@@ -2008,28 +2008,18 @@ export default function QuizTakePage({ params }) {
                 </div>
               )}
 
-              {/* Fill blank / Math */}
-              {(isFillBlank || isMath) &&
-                !(currentQ.parts && currentQ.parts.length > 0) && (
-                  <div>
-                    <p
-                      style={{
-                        fontSize: 12,
-                        fontWeight: 700,
-                        color: "#8892a4",
-                        textTransform: "uppercase",
-                        letterSpacing: "0.06em",
-                        marginBottom: 10,
-                      }}
-                    >
-                      {isMath ? "Enter your answer" : "Type your answer"}
-                    </p>
-                    {isMath ? (
-                      <MathInput
-                        value={answers[currentIdx] ?? ""}
-                        onChange={(val) => handleAnswer(val)}
-                      />
-                    ) : (
+              {isMath ? (
+  workingImages[currentIdx] ? (
+    <p style={{ fontSize: 13, color: "#1d8f57", fontWeight: 600, padding: "12px 0" }}>
+      ✓ Working photo captured — no need to type your answer.
+    </p>
+  ) : (
+    <MathInput
+      value={answers[currentIdx] ?? ""}
+      onChange={(val) => handleAnswer(val)}
+    />
+  )
+) : (
                       <input
                         type="text"
                         value={answers[currentIdx] ?? ""}

@@ -398,7 +398,7 @@ RULES:
   - Correct point not in marking scheme — AWARD THE MARKS
   - Follow the teacher's answer exactly — do not override with your own knowledge
   - Return JSON only — no text before or after
-
+  - {"No working image provided — do NOT penalise for missing working and do NOT add it to points_missed." if not has_image else "Student has provided a photo of their working — use it when marking."}
 MATH FORMATTING — NON-NEGOTIABLE:
   - Every number, variable, exponent, fraction MUST use LaTeX syntax
   - Inline math: $2^3$, $\\frac{1}{8}$, $(-2)^{-1}$, $x = 4$, $\\times$
