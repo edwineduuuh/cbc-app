@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
-import Image from "next/image";
 import {
   BookOpen,
   Trophy,
@@ -23,14 +22,9 @@ import {
   Brain,
   BarChart3,
   Clock,
+  ShieldCheck,
+  Users,
 } from "lucide-react";
-
-// ─── Brand tokens ────────────────────────────────────────────────────────────
-// Navy:   #0f1f3d  (darkest)  #1a2f55 (mid)  #1e3a6e (logo-match)
-// Orange: #c85a2a  (primary)  #e0683a (hover) #f5ede8 (tint)
-// Teal:   #0e7490  (support)  #06b6d4 (bright)
-// Slate:  #f0f4f8  (bg-light) #e2e8f0 (border) #64748b (muted text)
-// ─────────────────────────────────────────────────────────────────────────────
 
 function FadeIn({ children, delay = 0, direction = "up", className = "" }) {
   const dirs = {
@@ -70,13 +64,13 @@ function FAQItem({ q, a }) {
             fontWeight: 600,
             color: "#0f1f3d",
           }}
-          className="group-hover:text-orange-600 transition-colors"
+          className="group-hover:text-teal-600 transition-colors"
         >
           {q}
         </span>
         <ChevronDown
           className={`w-5 h-5 flex-shrink-0 transition-transform duration-300 ${open ? "rotate-180" : ""}`}
-          style={{ color: "#c85a2a" }}
+          style={{ color: "#0e7490" }}
         />
       </button>
       <AnimatePresence>
@@ -112,32 +106,32 @@ export default function LandingPage() {
 
   const features = [
     {
-      icon: Target,
-      title: "Built for CBE",
-      desc: "Every question crafted around Kenya's Competency Based Education framework. Not imported. Not generic. Made here, for here.",
-      accent: "#c85a2a",
-      bg: "#fef3ee",
-    },
-    {
-      icon: Brain,
-      title: "Feedback That Teaches",
-      desc: "Not just right or wrong. Every answer comes with a clear explanation of why — so the next attempt is always smarter.",
+      icon: ShieldCheck,
+      title: "Expert-Crafted Questions",
+      desc: "Every question is designed by qualified educators who understand Kenya's CBE framework. Not imported. Not generic. Built here, for here, by people who know what Kenyan students need.",
       accent: "#0e7490",
       bg: "#f0fafb",
     },
     {
+      icon: Brain,
+      title: "Feedback That Teaches",
+      desc: "Not just right or wrong. Every answer comes with a clear explanation of why - so the next attempt is always smarter than the last.",
+      accent: "#1e3a6e",
+      bg: "#f0f4ff",
+    },
+    {
       icon: BarChart3,
       title: "Track What Matters",
-      desc: "See exactly where your child is strong and where they need more work — by learning area, by topic, by strand.",
+      desc: "See exactly where your child is strong and where they need more work - by learning area, by strand. Real data. Real insight.",
       accent: "#16a34a",
       bg: "#f0fdf4",
     },
     {
       icon: Clock,
       title: "Practice on Their Time",
-      desc: "Morning, evening, weekends. StadiSpace is always there whenever the student is ready to put in the work.",
-      accent: "#1e3a6e",
-      bg: "#f0f4ff",
+      desc: "Morning, evening, weekends. StadiSpace is always there whenever your child is ready to put in the work. No scheduling. No waiting.",
+      accent: "#0f1f3d",
+      bg: "#f8fafc",
     },
   ];
 
@@ -145,7 +139,7 @@ export default function LandingPage() {
     {
       n: "01",
       title: "Explore. No commitment.",
-      desc: "Browse quizzes across all learning areas. Try 2 completely free — no signup, no card, no pressure.",
+      desc: "Browse quizzes across all learning areas. Try 2 completely free - no signup, no card, no pressure.",
     },
     {
       n: "02",
@@ -162,7 +156,11 @@ export default function LandingPage() {
   const faqs = [
     {
       q: "Can I try before subscribing?",
-      a: "Yes. Browse all quizzes and try 2 completely free — no account needed, no card required. When you're ready for more, subscribe.",
+      a: "Yes. Browse all quizzes and try 2 completely free - no account needed, no card required. When you're ready for more, subscribe.",
+    },
+    {
+      q: "Who creates the questions?",
+      a: "Every question on StadiSpace is crafted by qualified Kenyan educators with deep knowledge of the CBE curriculum. These are not AI-generated or imported questions - they are purpose-built for Kenyan learners.",
     },
     {
       q: "Which grades are covered?",
@@ -170,7 +168,7 @@ export default function LandingPage() {
     },
     {
       q: "How does payment work?",
-      a: "M-Pesa. Simple as that. No international cards, no hidden fees. Subscribe monthly and cancel anytime.",
+      a: "M-Pesa. Simple as that. No international cards, no hidden fees. Subscribe monthly or termly and cancel anytime.",
     },
     {
       q: "Is this aligned to the current curriculum?",
@@ -194,7 +192,7 @@ export default function LandingPage() {
       name: "Brian O.",
       role: "Student · Mombasa",
       quote:
-        "The explanations actually make sense. Not just the answer — why the answer is what it is. That's the difference.",
+        "The explanations actually make sense. Not just the answer - why the answer is what it is. That's the difference.",
       grade: "Grade 9",
     },
     {
@@ -214,7 +212,7 @@ export default function LandingPage() {
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=DM+Sans:wght@300;400;500;600;700&display=swap');
         .font-display { font-family: 'Cormorant Garamond', serif; }
-        .orange-text { background: linear-gradient(135deg, #c85a2a, #a03e18); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .teal-text { background: linear-gradient(135deg, #0e7490, #0f1f3d); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
         .card-lift { transition: all 0.3s ease; }
         .card-lift:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(0,0,0,0.1); }
         .float { animation: float 5s ease-in-out infinite; }
@@ -232,18 +230,12 @@ export default function LandingPage() {
         }}
         className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md"
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6">
           <div className="flex items-center justify-between h-16">
-            {/* Logo — use the actual image */}
-            <Link href="/" className="flex items-center">
-              <Image
-                src="/logo.png"
-                alt="StadiSpace"
-                width={140}
-                height={40}
-                style={{ objectFit: "contain" }}
-                priority
-              />
+            <Link href="/">
+              <div className="font-bold text-white text-xl px-3 py-2 rounded-xl bg-gradient-to-br from-slate-800 to-teal-700">
+                StadiSpace
+              </div>
             </Link>
 
             <div className="hidden md:flex items-center gap-8">
@@ -257,7 +249,7 @@ export default function LandingPage() {
                   key={href}
                   href={href}
                   style={{ color: "#475569", fontSize: 14, fontWeight: 500 }}
-                  className="hover:text-orange-600 transition-colors"
+                  className="hover:text-teal-600 transition-colors"
                 >
                   {label}
                 </a>
@@ -268,7 +260,7 @@ export default function LandingPage() {
               <Link href="/login">
                 <button
                   style={{ color: "#475569", fontSize: 14, fontWeight: 600 }}
-                  className="hover:text-orange-600 transition-colors px-4 py-2"
+                  className="hover:text-teal-600 transition-colors px-4 py-2"
                 >
                   Sign In
                 </button>
@@ -276,13 +268,13 @@ export default function LandingPage() {
               <Link href="/explore">
                 <button
                   style={{
-                    background: "linear-gradient(135deg, #c85a2a, #a03e18)",
+                    background: "linear-gradient(135deg, #0e7490, #0f1f3d)",
                     color: "white",
                     fontSize: 14,
                     fontWeight: 700,
                     padding: "10px 22px",
                     borderRadius: 12,
-                    boxShadow: "0 4px 18px rgba(200,90,42,0.3)",
+                    boxShadow: "0 4px 18px rgba(14,116,144,0.3)",
                     border: "none",
                   }}
                   className="hover:opacity-90 transition-all hover:scale-[1.02]"
@@ -327,7 +319,7 @@ export default function LandingPage() {
                     href={href}
                     onClick={() => setMenuOpen(false)}
                     style={{ color: "#475569", fontSize: 14 }}
-                    className="block py-3 px-3 rounded-lg hover:text-orange-600 transition-colors font-medium"
+                    className="block py-3 px-3 rounded-lg hover:text-teal-600 transition-colors font-medium"
                   >
                     {label}
                   </a>
@@ -355,7 +347,7 @@ export default function LandingPage() {
                   <Link href="/explore">
                     <button
                       style={{
-                        background: "linear-gradient(135deg, #c85a2a, #a03e18)",
+                        background: "linear-gradient(135deg, #0e7490, #0f1f3d)",
                         color: "white",
                         borderRadius: 12,
                         padding: "11px 0",
@@ -383,35 +375,33 @@ export default function LandingPage() {
             "linear-gradient(160deg, #ffffff 0%, #f0f4f8 60%, #e8f4f8 100%)",
         }}
       >
-        {/* Decorative glow blobs */}
         <div
-          className="absolute top-0 right-0 w-[600px] h-[600px] rounded-full opacity-20"
+          className="absolute top-0 right-0 w-[600px] h-[600px] rounded-full opacity-10"
           style={{
-            background: "radial-gradient(circle, #c85a2a, transparent)",
+            background: "radial-gradient(circle, #0e7490, transparent)",
             filter: "blur(130px)",
             transform: "translate(30%, -30%)",
           }}
         />
         <div
-          className="absolute bottom-0 left-0 w-[400px] h-[400px] rounded-full opacity-15"
+          className="absolute bottom-0 left-0 w-[400px] h-[400px] rounded-full opacity-10"
           style={{
-            background: "radial-gradient(circle, #0e7490, transparent)",
+            background: "radial-gradient(circle, #0f1f3d, transparent)",
             filter: "blur(100px)",
             transform: "translate(-30%, 30%)",
           }}
         />
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 relative">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center pb-24">
-            {/* Left */}
             <div>
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
                 style={{
-                  border: "1px solid rgba(200,90,42,0.3)",
-                  background: "rgba(200,90,42,0.06)",
+                  border: "1px solid rgba(14,116,144,0.3)",
+                  background: "rgba(14,116,144,0.06)",
                   borderRadius: 100,
                   display: "inline-flex",
                   alignItems: "center",
@@ -420,20 +410,20 @@ export default function LandingPage() {
                   marginBottom: 28,
                 }}
               >
-                <Sparkles
+                <ShieldCheck
                   className="w-3.5 h-3.5"
-                  style={{ color: "#c85a2a" }}
+                  style={{ color: "#0e7490" }}
                 />
                 <span
                   style={{
-                    color: "#a03e18",
+                    color: "#0e7490",
                     fontSize: 12,
                     fontWeight: 600,
                     letterSpacing: "0.08em",
                     textTransform: "uppercase",
                   }}
                 >
-                  Grade 4 — Grade 10 · CBE Aligned
+                  Grade 4 - Grade 10 · Expert-Made Questions
                 </span>
               </motion.div>
 
@@ -443,20 +433,21 @@ export default function LandingPage() {
                 transition={{ duration: 0.7, delay: 0.1 }}
                 style={{
                   fontFamily: "'Cormorant Garamond', serif",
-                  fontSize: "clamp(46px, 6vw, 78px)",
+                  fontSize: "clamp(46px, 6vw, 72px)",
                   lineHeight: 1.05,
                   color: "#0f1f3d",
                   marginBottom: 24,
                   fontWeight: 700,
                 }}
               >
-                Where every question
+                A space where
                 <br />
-                becomes <span className="orange-text">a quest.</span>
-                <br />
-                Every mistake,
-                <br />
-                <em style={{ color: "#0e7490" }}>a stepping stone.</em>
+                <span className="teal-text"> learning and </span>
+                {/* <br />
+                and 
+                <br /> */}
+                <em style={{ color: "#0e7490" }}>fun </em>
+                thrive together.
               </motion.h1>
 
               <motion.p
@@ -471,11 +462,10 @@ export default function LandingPage() {
                   maxWidth: 460,
                 }}
               >
-                This isn't just a platform — it's your child's personal mentor.
-                Where Kenya's CBE curriculum stops being a document and starts
-                being something they truly own.{" "}
+                Where every question becomes a quest, every answer sparks
+                momentum, and every mistake becomes a step toward mastery.{" "}
                 <strong style={{ color: "#0f1f3d" }}>
-                  Practice. Understand. Excel.
+                  Don't take our word for it. Try us.
                 </strong>
               </motion.p>
 
@@ -488,21 +478,21 @@ export default function LandingPage() {
                 <Link href="/explore">
                   <button
                     style={{
-                      background: "linear-gradient(135deg, #c85a2a, #a03e18)",
+                      background: "linear-gradient(135deg, #0e7490, #0f1f3d)",
                       color: "white",
                       fontWeight: 700,
                       fontSize: 15,
                       padding: "15px 30px",
                       borderRadius: 14,
                       border: "none",
-                      boxShadow: "0 8px 28px rgba(200,90,42,0.35)",
+                      boxShadow: "0 8px 28px rgba(14,116,144,0.3)",
                       display: "flex",
                       alignItems: "center",
                       gap: 8,
                     }}
                     className="hover:scale-[1.02] transition-all duration-200 group"
                   >
-                    Start Free — No Signup
+                    Try 2 Free Quizzes - No Signup
                     <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                   </button>
                 </Link>
@@ -517,7 +507,7 @@ export default function LandingPage() {
                       border: "1px solid #e2e8f0",
                       background: "white",
                     }}
-                    className="hover:border-orange-300 hover:text-orange-700 transition-all"
+                    className="hover:border-teal-300 hover:text-teal-700 transition-all"
                   >
                     See how it works
                   </button>
@@ -531,7 +521,7 @@ export default function LandingPage() {
                 className="flex items-center gap-4"
               >
                 <div style={{ display: "flex" }}>
-                  {["#c85a2a", "#0e7490", "#1e3a6e", "#16a34a"].map((c, i) => (
+                  {["#0e7490", "#1e3a6e", "#16a34a", "#0f1f3d"].map((c, i) => (
                     <div
                       key={i}
                       style={{
@@ -562,7 +552,7 @@ export default function LandingPage() {
               </motion.div>
             </div>
 
-            {/* Right — Mock UI */}
+            {/* Right — Structured Question Demo */}
             <motion.div
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
@@ -574,163 +564,234 @@ export default function LandingPage() {
                   background: "white",
                   border: "1px solid #e2e8f0",
                   borderRadius: 24,
-                  padding: 28,
+                  overflow: "hidden",
                   boxShadow: "0 40px 80px rgba(15,31,61,0.12)",
                 }}
               >
+                {/* Header */}
                 <div
                   style={{
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "space-between",
-                    marginBottom: 20,
-                  }}
-                >
-                  <div>
-                    <p
-                      style={{
-                        color: "#94a3b8",
-                        fontSize: 11,
-                        fontWeight: 600,
-                        textTransform: "uppercase",
-                        letterSpacing: "0.1em",
-                      }}
-                    >
-                      Mathematics · Grade 8
-                    </p>
-                    <h3
-                      style={{
-                        fontFamily: "'Cormorant Garamond', serif",
-                        color: "#0f1f3d",
-                        fontSize: 17,
-                        fontWeight: 700,
-                        marginTop: 2,
-                      }}
-                    >
-                      Linear Equations
-                    </h3>
-                  </div>
-                  <div
-                    style={{
-                      background: "#fef3ee",
-                      borderRadius: 12,
-                      padding: 10,
-                    }}
-                  >
-                    <Target className="w-5 h-5" style={{ color: "#c85a2a" }} />
-                  </div>
-                </div>
-
-                <div
-                  style={{
+                    padding: "14px 20px",
+                    borderBottom: "1px solid #f1f5f9",
                     background: "#f8fafc",
-                    border: "1px solid #e2e8f0",
-                    borderRadius: 14,
-                    padding: 16,
-                    marginBottom: 14,
                   }}
                 >
-                  <p
-                    style={{ color: "#334155", fontSize: 14, lineHeight: 1.6 }}
+                  <div
+                    style={{ display: "flex", alignItems: "center", gap: 10 }}
                   >
-                    Solve for <em>x</em>:{" "}
-                    <strong style={{ color: "#0f1f3d" }}>3x + 7 = 22</strong>
-                  </p>
-                </div>
-
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: 8,
-                    marginBottom: 14,
-                  }}
-                >
-                  {[
-                    ["A", "x = 4", false],
-                    ["B", "x = 5", true],
-                    ["C", "x = 6", false],
-                    ["D", "x = 7", false],
-                  ].map(([letter, ans, correct]) => (
                     <div
-                      key={letter}
                       style={{
+                        width: 30,
+                        height: 30,
+                        borderRadius: "50%",
+                        background: "#f0fdf4",
+                        border: "1.5px solid #bbf7d0",
                         display: "flex",
                         alignItems: "center",
-                        gap: 12,
-                        padding: "10px 14px",
-                        borderRadius: 12,
-                        border: `1.5px solid ${correct ? "#0e7490" : "#e2e8f0"}`,
-                        background: correct ? "#f0fafb" : "transparent",
+                        justifyContent: "center",
                       }}
                     >
-                      <span
-                        style={{
-                          width: 26,
-                          height: 26,
-                          borderRadius: "50%",
-                          background: correct ? "#0e7490" : "#f1f5f9",
-                          color: correct ? "white" : "#94a3b8",
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          fontSize: 11,
-                          fontWeight: 700,
-                          flexShrink: 0,
-                        }}
-                      >
-                        {letter}
-                      </span>
-                      <span
-                        style={{
-                          fontSize: 13,
-                          fontWeight: 500,
-                          color: correct ? "#0e7490" : "#475569",
-                          flex: 1,
-                        }}
-                      >
-                        {ans}
-                      </span>
-                      {correct && (
-                        <CheckCircle
-                          className="w-4 h-4"
-                          style={{ color: "#0e7490" }}
-                        />
-                      )}
+                      <CheckCircle size={14} color="#16a34a" />
                     </div>
-                  ))}
-                </div>
-
-                <div
-                  style={{
-                    background: "#f0fdf4",
-                    border: "1px solid #bbf7d0",
-                    borderRadius: 12,
-                    padding: "12px 14px",
-                  }}
-                >
-                  <p
+                    <div>
+                      <p
+                        style={{
+                          color: "#94a3b8",
+                          fontSize: 10,
+                          fontWeight: 600,
+                          textTransform: "uppercase",
+                          letterSpacing: "0.08em",
+                          margin: 0,
+                        }}
+                      >
+                        Science · Grade 6
+                      </p>
+                      <p
+                        style={{
+                          color: "#0f1f3d",
+                          fontSize: 13,
+                          fontWeight: 700,
+                          margin: 0,
+                        }}
+                      >
+                        Question 3
+                      </p>
+                    </div>
+                  </div>
+                  <span
                     style={{
+                      background: "#f0fdf4",
                       color: "#16a34a",
-                      fontSize: 11,
+                      fontSize: 12,
                       fontWeight: 700,
-                      textTransform: "uppercase",
-                      letterSpacing: "0.08em",
-                      marginBottom: 4,
+                      padding: "4px 12px",
+                      borderRadius: 20,
+                      border: "1px solid #bbf7d0",
                     }}
                   >
-                    ✓ Correct — Here's why
-                  </p>
+                    2 / 2 marks
+                  </span>
+                </div>
+
+                <div style={{ padding: "16px 20px" }}>
+                  {/* Question */}
                   <p
-                    style={{ color: "#475569", fontSize: 12, lineHeight: 1.6 }}
+                    style={{
+                      color: "#334155",
+                      fontSize: 13,
+                      lineHeight: 1.65,
+                      marginBottom: 12,
+                    }}
                   >
-                    Subtract 7 from both sides: 3x = 15, then divide by 3. x =
-                    5.
+                    Explain{" "}
+                    <strong style={{ color: "#0f1f3d" }}>two ways</strong> in
+                    which the human circulatory system benefits the body.
                   </p>
+
+                  {/* Student answer */}
+                  <div
+                    style={{
+                      background: "#eff6ff",
+                      borderRadius: 12,
+                      padding: "10px 14px",
+                      marginBottom: 12,
+                    }}
+                  >
+                    <p
+                      style={{
+                        fontSize: 10,
+                        fontWeight: 700,
+                        color: "#1d4ed8",
+                        textTransform: "uppercase",
+                        letterSpacing: "0.06em",
+                        marginBottom: 5,
+                      }}
+                    >
+                      Your answer
+                    </p>
+                    <p
+                      style={{
+                        fontSize: 12,
+                        color: "#334155",
+                        lineHeight: 1.6,
+                        margin: 0,
+                      }}
+                    >
+                      It carries oxygen to all body cells. It also removes waste
+                      like carbon dioxide from the body.
+                    </p>
+                  </div>
+
+                  {/* AI Feedback */}
+                  <div
+                    style={{
+                      background: "#f0fdf4",
+                      border: "1px solid #bbf7d0",
+                      borderRadius: 12,
+                      padding: "12px 14px",
+                      marginBottom: 10,
+                    }}
+                  >
+                    <p
+                      style={{
+                        fontSize: 10,
+                        fontWeight: 700,
+                        color: "#16a34a",
+                        textTransform: "uppercase",
+                        letterSpacing: "0.06em",
+                        marginBottom: 6,
+                      }}
+                    >
+                      ✓ Correct — full marks
+                    </p>
+                    <p
+                      style={{
+                        fontSize: 12,
+                        color: "#475569",
+                        lineHeight: 1.65,
+                        margin: 0,
+                      }}
+                    >
+                      Both points are exactly right. Delivering oxygen to cells
+                      and removing waste (CO₂) — that is precisely what the
+                      marking scheme required. Well done.
+                    </p>
+                  </div>
+
+                  {/* Study tip */}
+                  <div
+                    style={{
+                      background: "#faf5ff",
+                      border: "1px solid #e9d5ff",
+                      borderRadius: 12,
+                      padding: "10px 14px",
+                    }}
+                  >
+                    <p
+                      style={{
+                        fontSize: 10,
+                        fontWeight: 700,
+                        color: "#7c3aed",
+                        textTransform: "uppercase",
+                        letterSpacing: "0.06em",
+                        marginBottom: 5,
+                      }}
+                    >
+                      Study tip
+                    </p>
+                    <p
+                      style={{
+                        fontSize: 12,
+                        color: "#581c87",
+                        lineHeight: 1.6,
+                        margin: 0,
+                      }}
+                    >
+                      Remember three jobs — deliver oxygen, deliver nutrients,
+                      remove waste. Pick any two when a question asks for two.
+                    </p>
+                  </div>
+                </div>
+
+                {/* Footer */}
+                <div
+                  style={{
+                    padding: "10px 20px",
+                    borderTop: "1px solid #f1f5f9",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  
+                  <div
+                    style={{ display: "flex", alignItems: "center", gap: 5 }}
+                  >
+                    <div
+                      style={{
+                        width: 6,
+                        height: 6,
+                        borderRadius: "50%",
+                        background: "#16a34a",
+                      }}
+                    />
+                    <span
+                      style={{
+                        fontSize: 11,
+                        color: "#64748b",
+                        fontWeight: 500,
+                      }}
+                    >
+                      Works for essays, structured, MCQ
+                    </span>
+                  </div>
                 </div>
               </div>
 
-              {/* Floating badge — top right */}
+              {/* Floating badge */}
               <motion.div
                 initial={{ opacity: 0, x: 30 }}
                 animate={{ opacity: 1, x: 0 }}
@@ -749,12 +810,12 @@ export default function LandingPage() {
                 <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
                   <div
                     style={{
-                      background: "#fef3ee",
+                      background: "#f0fafb",
                       borderRadius: 10,
                       padding: 8,
                     }}
                   >
-                    <Trophy className="w-4 h-4" style={{ color: "#c85a2a" }} />
+                    <Trophy className="w-4 h-4" style={{ color: "#0e7490" }} />
                   </div>
                   <div>
                     <p
@@ -762,27 +823,29 @@ export default function LandingPage() {
                         color: "#94a3b8",
                         fontSize: 10,
                         fontWeight: 600,
+                        margin: 0,
                       }}
                     >
-                      This week
+                      Points earned
                     </p>
                     <p
                       style={{
                         color: "#0f1f3d",
-                        fontSize: 15,
+                        fontSize: 13,
                         fontWeight: 800,
+                        margin: 0,
                       }}
                     >
-                      8{" "}
-                      <span style={{ color: "#0e7490", fontSize: 11 }}>
-                        quizzes done
+                      Both{" "}
+                      <span style={{ color: "#16a34a", fontSize: 11 }}>
+                        correct
                       </span>
                     </p>
                   </div>
                 </div>
               </motion.div>
 
-              {/* Floating badge — bottom left */}
+              {/* Bottom badge */}
               <motion.div
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
@@ -798,9 +861,16 @@ export default function LandingPage() {
                 }}
               >
                 <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                  <Flame className="w-4 h-4" style={{ color: "#fb923c" }} />
-                  <p style={{ color: "white", fontSize: 12, fontWeight: 700 }}>
-                    Feedback. Right now.
+                  <Flame className="w-4 h-4" style={{ color: "#06b6d4" }} />
+                  <p
+                    style={{
+                      color: "white",
+                      fontSize: 12,
+                      fontWeight: 700,
+                      margin: 0,
+                    }}
+                  >
+                    
                   </p>
                 </div>
               </motion.div>
@@ -814,10 +884,10 @@ export default function LandingPage() {
         style={{ background: "#0f1f3d", borderTop: "1px solid #1e3a6e" }}
         className="py-12"
       >
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+        <div className="max-w-5xl mx-auto px-6 sm:px-6 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
           {[
             { value: "Grade 4–10", label: "Fully Covered" },
-            { value: "500+", label: "Practice Questions" },
+            { value: "500+", label: "Expert Questions" },
             { value: "Instant", label: "Feedback, Every Time" },
             { value: "24/7", label: "Always Available" },
           ].map((s, i) => (
@@ -827,7 +897,7 @@ export default function LandingPage() {
                   fontFamily: "'Cormorant Garamond', serif",
                   fontSize: 30,
                   fontWeight: 700,
-                  color: "#c85a2a",
+                  color: "#06b6d4",
                   marginBottom: 4,
                 }}
               >
@@ -853,7 +923,7 @@ export default function LandingPage() {
           <FadeIn>
             <p
               style={{
-                color: "#c85a2a",
+                color: "#0e7490",
                 fontSize: 12,
                 fontWeight: 700,
                 textTransform: "uppercase",
@@ -872,21 +942,19 @@ export default function LandingPage() {
                 fontWeight: 400,
               }}
             >
-              "It's every parent's dream
+              "Every parent wants one thing -
               <br />
               to see their child thrive.
               <br />
-              <span style={{ color: "#0e7490" }}>
-                We exist to make that dream
-              </span>
+              <span style={{ color: "#0e7490" }}>We exist to make that</span>
               <br />
-              <em style={{ color: "#c85a2a" }}>a little more reachable."</em>
+              <em style={{ color: "#0f1f3d" }}>a little more reachable."</em>
             </blockquote>
             <div
               style={{
                 width: 48,
                 height: 2,
-                background: "linear-gradient(90deg, #c85a2a, transparent)",
+                background: "linear-gradient(90deg, #0e7490, transparent)",
                 margin: "32px auto",
               }}
             />
@@ -900,24 +968,79 @@ export default function LandingPage() {
               }}
             >
               Learning should never feel like punishment. Every question here is
-              a chance. Every answer — right or wrong — ignites a spark and
-              moves a student forward. This isn't just marking; it's mentoring.
-              It doesn't just assess — it{" "}
+              crafted with intention - not to trick, but to build. Every answer
+              - right or wrong - moves a student forward. This isn't just
+              marking.{" "}
               <strong style={{ color: "#0f1f3d" }}>
-                understands, grows, and elevates.
+                It understands. It grows. It elevates.
               </strong>
             </p>
           </FadeIn>
         </div>
       </section>
 
+      {/* ── TRUST BANNER ── */}
+      <section style={{ background: "#0e7490", padding: "48px 0" }}>
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 text-center">
+          <FadeIn>
+            <p
+              style={{
+                color: "rgba(255,255,255,0.7)",
+                fontSize: 12,
+                fontWeight: 700,
+                textTransform: "uppercase",
+                letterSpacing: "0.2em",
+                marginBottom: 16,
+              }}
+            >
+              Don't take our word for it
+            </p>
+            <h2
+              style={{
+                fontFamily: "'Cormorant Garamond', serif",
+                fontSize: "clamp(28px, 4vw, 48px)",
+                color: "white",
+                lineHeight: 1.2,
+                marginBottom: 24,
+              }}
+            >
+              Two free quizzes. No account. No card.
+              <br />
+              <em style={{ color: "rgba(255,255,255,0.75)" }}>
+                Just your child and a question.
+              </em>
+            </h2>
+            <Link href="/explore">
+              <button
+                style={{
+                  background: "white",
+                  color: "#0e7490",
+                  fontWeight: 700,
+                  fontSize: 15,
+                  padding: "14px 32px",
+                  borderRadius: 14,
+                  border: "none",
+                  boxShadow: "0 8px 24px rgba(0,0,0,0.15)",
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 8,
+                }}
+                className="hover:scale-[1.02] transition-all"
+              >
+                Try It Now - It's Free <ArrowRight className="w-4 h-4" />
+              </button>
+            </Link>
+          </FadeIn>
+        </div>
+      </section>
+
       {/* ── FEATURES ── */}
       <section id="features" className="py-24" style={{ background: "white" }}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6">
           <FadeIn className="text-center max-w-2xl mx-auto mb-16">
             <p
               style={{
-                color: "#c85a2a",
+                color: "#0e7490",
                 fontSize: 12,
                 fontWeight: 700,
                 textTransform: "uppercase",
@@ -936,13 +1059,13 @@ export default function LandingPage() {
                 marginBottom: 16,
               }}
             >
-              Where the curriculum
+              Built for Kenyan students.
               <br />
-              <em style={{ color: "#0e7490" }}>stops being intimidating.</em>
+              <em style={{ color: "#0e7490" }}>Trusted by Kenyan parents.</em>
             </h2>
             <p style={{ color: "#64748b", fontSize: 16, lineHeight: 1.7 }}>
-              Designed around how Kenyan students actually learn. Not imported
-              and rebranded — built here, for here.
+              Every question is expert-crafted around CBE. Not imported. Not
+              generic. Made here, for here.
             </p>
           </FadeIn>
 
@@ -1000,11 +1123,11 @@ export default function LandingPage() {
         className="py-24"
         style={{ background: "#f0f4f8" }}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6">
           <FadeIn className="text-center max-w-xl mx-auto mb-16">
             <p
               style={{
-                color: "#c85a2a",
+                color: "#0e7490",
                 fontSize: 12,
                 fontWeight: 700,
                 textTransform: "uppercase",
@@ -1037,12 +1160,12 @@ export default function LandingPage() {
                       width: 56,
                       height: 56,
                       borderRadius: 16,
-                      background: "linear-gradient(135deg, #c85a2a, #a03e18)",
+                      background: "linear-gradient(135deg, #0e7490, #0f1f3d)",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
                       marginBottom: 20,
-                      boxShadow: "0 8px 24px rgba(200,90,42,0.25)",
+                      boxShadow: "0 8px 24px rgba(14,116,144,0.25)",
                     }}
                   >
                     <span
@@ -1080,7 +1203,7 @@ export default function LandingPage() {
             <Link href="/explore">
               <button
                 style={{
-                  background: "linear-gradient(135deg, #0e7490, #06b6d4)",
+                  background: "linear-gradient(135deg, #0e7490, #0f1f3d)",
                   color: "white",
                   fontWeight: 700,
                   fontSize: 15,
@@ -1106,11 +1229,11 @@ export default function LandingPage() {
 
       {/* ── TESTIMONIALS ── */}
       <section className="py-24" style={{ background: "white" }}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6">
           <FadeIn className="text-center max-w-xl mx-auto mb-16">
             <p
               style={{
-                color: "#c85a2a",
+                color: "#0e7490",
                 fontSize: 12,
                 fontWeight: 700,
                 textTransform: "uppercase",
@@ -1151,7 +1274,7 @@ export default function LandingPage() {
                       <Star
                         key={i}
                         className="w-4 h-4"
-                        style={{ fill: "#c85a2a", color: "#c85a2a" }}
+                        style={{ fill: "#0e7490", color: "#0e7490" }}
                       />
                     ))}
                   </div>
@@ -1233,11 +1356,11 @@ export default function LandingPage() {
 
       {/* ── PRICING ── */}
       <section id="pricing" className="py-24" style={{ background: "#f0f4f8" }}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6">
           <FadeIn className="text-center max-w-xl mx-auto mb-16">
             <p
               style={{
-                color: "#c85a2a",
+                color: "#0e7490",
                 fontSize: 12,
                 fontWeight: 700,
                 textTransform: "uppercase",
@@ -1266,7 +1389,6 @@ export default function LandingPage() {
           </FadeIn>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
-            {/* Monthly */}
             <FadeIn delay={0.1}>
               <div
                 className="card-lift h-full flex flex-col"
@@ -1307,7 +1429,7 @@ export default function LandingPage() {
                         lineHeight: 1,
                       }}
                     >
-                      500
+                      499
                     </span>
                     <span
                       style={{
@@ -1364,13 +1486,13 @@ export default function LandingPage() {
                       width: "100%",
                       padding: "13px 0",
                       borderRadius: 12,
-                      border: "1.5px solid #c85a2a",
-                      color: "#c85a2a",
+                      border: "1.5px solid #0e7490",
+                      color: "#0e7490",
                       background: "transparent",
                       fontWeight: 700,
                       fontSize: 14,
                     }}
-                    className="hover:bg-orange-50 transition-all"
+                    className="hover:bg-teal-50 transition-all"
                   >
                     Try 2 Free First
                   </button>
@@ -1378,7 +1500,6 @@ export default function LandingPage() {
               </div>
             </FadeIn>
 
-            {/* Yearly */}
             <FadeIn delay={0.2}>
               <div
                 className="card-lift relative h-full flex flex-col"
@@ -1400,14 +1521,14 @@ export default function LandingPage() {
                 >
                   <div
                     style={{
-                      background: "linear-gradient(135deg, #c85a2a, #a03e18)",
+                      background: "linear-gradient(135deg, #0e7490, #06b6d4)",
                       color: "white",
                       padding: "6px 18px",
                       borderRadius: 100,
                       fontSize: 11,
                       fontWeight: 700,
                       whiteSpace: "nowrap",
-                      boxShadow: "0 4px 16px rgba(200,90,42,0.4)",
+                      boxShadow: "0 4px 16px rgba(14,116,144,0.4)",
                     }}
                   >
                     ✦ BEST VALUE · SAVE 17%
@@ -1416,7 +1537,7 @@ export default function LandingPage() {
                 <div style={{ marginBottom: 24 }}>
                   <h3
                     style={{
-                      color: "#c85a2a",
+                      color: "#06b6d4",
                       fontSize: 11,
                       fontWeight: 700,
                       textTransform: "uppercase",
@@ -1424,7 +1545,7 @@ export default function LandingPage() {
                       marginBottom: 12,
                     }}
                   >
-                    Yearly
+                    Termly
                   </h3>
                   <div
                     style={{
@@ -1443,21 +1564,21 @@ export default function LandingPage() {
                         lineHeight: 1,
                       }}
                     >
-                      5,000
+                      999
                     </span>
                     <span
                       style={{
-                        color: "#c85a2a",
+                        color: "#06b6d4",
                         fontSize: 14,
                         fontWeight: 500,
                         marginBottom: 8,
                       }}
                     >
-                      KES / yr
+                      KES / term
                     </span>
                   </div>
                   <p style={{ color: "#64748b", fontSize: 12 }}>
-                    That's KES 417 per month
+                    That's KES 24/day for 3 months
                   </p>
                 </div>
                 <ul
@@ -1475,7 +1596,7 @@ export default function LandingPage() {
                     "Unlimited practice",
                     "Detailed feedback",
                     "Priority support",
-                    "2 months free",
+                    "Covers entire school term",
                   ].map((item) => (
                     <li
                       key={item}
@@ -1489,7 +1610,7 @@ export default function LandingPage() {
                     >
                       <CheckCircle
                         className="w-4 h-4 flex-shrink-0"
-                        style={{ color: "#c85a2a" }}
+                        style={{ color: "#06b6d4" }}
                       />
                       {item}
                     </li>
@@ -1501,12 +1622,12 @@ export default function LandingPage() {
                       width: "100%",
                       padding: "13px 0",
                       borderRadius: 12,
-                      background: "linear-gradient(135deg, #c85a2a, #a03e18)",
+                      background: "linear-gradient(135deg, #0e7490, #06b6d4)",
                       color: "white",
                       fontWeight: 700,
                       fontSize: 14,
                       border: "none",
-                      boxShadow: "0 8px 24px rgba(200,90,42,0.3)",
+                      boxShadow: "0 8px 24px rgba(14,116,144,0.3)",
                     }}
                     className="hover:opacity-90 transition-all"
                   >
@@ -1532,7 +1653,7 @@ export default function LandingPage() {
             >
               <Phone className="w-4 h-4" style={{ color: "#0e7490" }} />
               <span style={{ color: "#475569", fontSize: 13, fontWeight: 500 }}>
-                Pay with <strong style={{ color: "#0f1f3d" }}>M-Pesa</strong> —
+                Pay with <strong style={{ color: "#0f1f3d" }}>M-Pesa</strong> -
                 no card ever needed
               </span>
             </div>
@@ -1546,7 +1667,7 @@ export default function LandingPage() {
           <FadeIn className="text-center mb-14">
             <p
               style={{
-                color: "#c85a2a",
+                color: "#0e7490",
                 fontSize: 12,
                 fontWeight: 700,
                 textTransform: "uppercase",
@@ -1594,20 +1715,14 @@ export default function LandingPage() {
           className="absolute inset-0"
           style={{
             background:
-              "radial-gradient(ellipse 70% 60% at 50% 100%, rgba(200,90,42,0.15) 0%, transparent 70%)",
-          }}
-        />
-        <div
-          className="absolute top-0 left-1/2 w-px h-24 opacity-20"
-          style={{
-            background: "linear-gradient(to bottom, transparent, #c85a2a)",
+              "radial-gradient(ellipse 70% 60% at 50% 100%, rgba(14,116,144,0.2) 0%, transparent 70%)",
           }}
         />
         <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center relative">
           <FadeIn>
             <p
               style={{
-                color: "#c85a2a",
+                color: "#06b6d4",
                 fontSize: 12,
                 fontWeight: 700,
                 textTransform: "uppercase",
@@ -1630,7 +1745,7 @@ export default function LandingPage() {
               <br />
               <em style={{ color: "#64748b" }}>is not the question.</em>
               <br />
-              <span className="orange-text">The practice is.</span>
+              <span className="teal-text">The practice is.</span>
             </h2>
             <p
               style={{
@@ -1642,29 +1757,28 @@ export default function LandingPage() {
                 margin: "0 auto 40px",
               }}
             >
-              Learning shouldn't be ordinary — it should be{" "}
-              <em>extraordinary, exciting, unforgettable.</em> Two free quizzes.
-              No account. No commitment. Just a student and a question — and
-              everything that follows when they get it right.
+              Two free quizzes. No account. No commitment. Just a student, a
+              question, and everything that follows when they finally understand{" "}
+              <em>why.</em>
             </p>
             <Link href="/explore">
               <button
                 style={{
-                  background: "linear-gradient(135deg, #c85a2a, #a03e18)",
+                  background: "linear-gradient(135deg, #0e7490, #06b6d4)",
                   color: "white",
                   fontWeight: 700,
                   fontSize: 16,
                   padding: "16px 40px",
                   borderRadius: 16,
                   border: "none",
-                  boxShadow: "0 12px 40px rgba(200,90,42,0.4)",
+                  boxShadow: "0 12px 40px rgba(14,116,144,0.4)",
                   display: "inline-flex",
                   alignItems: "center",
                   gap: 10,
                 }}
                 className="hover:scale-[1.03] transition-all duration-200 group"
               >
-                Explore Quizzes — Free
+                Explore Quizzes - Free
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </button>
             </Link>
@@ -1680,24 +1794,16 @@ export default function LandingPage() {
         style={{ background: "#080f1e", borderTop: "1px solid #1e3a6e" }}
         className="py-16"
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6">
           <div
             className="grid grid-cols-2 md:grid-cols-5 gap-8 pb-12"
             style={{ borderBottom: "1px solid #1e3a6e" }}
           >
             <div className="col-span-2">
-              {/* Logo in footer */}
               <div style={{ marginBottom: 16 }}>
-                <Image
-                  src="/logo.png"
-                  alt="StadiSpace"
-                  width={120}
-                  height={35}
-                  style={{
-                    objectFit: "contain",
-                    filter: "brightness(0) invert(1)",
-                  }}
-                />
+                <div className="font-bold text-white text-xl px-3 py-2 rounded-xl bg-gradient-to-br from-slate-800 to-teal-700 inline-block">
+                  StadiSpace
+                </div>
               </div>
               <p
                 style={{
@@ -1707,7 +1813,7 @@ export default function LandingPage() {
                   maxWidth: 260,
                 }}
               >
-                Empowering Kenyan students to own their learning — one question
+                Empowering Kenyan students to own their learning - one question
                 at a time.
               </p>
             </div>
@@ -1759,7 +1865,7 @@ export default function LandingPage() {
                       <a
                         href={href}
                         style={{ color: "#334155", fontSize: 13 }}
-                        className="hover:text-orange-500 transition-colors"
+                        className="hover:text-teal-400 transition-colors"
                       >
                         {label}
                       </a>

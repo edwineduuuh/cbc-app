@@ -61,12 +61,12 @@ export default function GuestProgress() {
 
   return (
     <div className="min-h-screen bg-gray-950 text-white">
-      <style>{`
+      {/* <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=DM+Sans:wght@400;500;600;700&display=swap');
         .font-display { font-family: 'Playfair Display', serif; }
         * { font-family: 'DM Sans', sans-serif; }
         .glass { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); }
-      `}</style>
+      `}</style> */}
 
       {/* Header */}
       <div className="sticky top-0 z-20 border-b border-white/5 bg-gray-950/90 backdrop-blur-xl">
