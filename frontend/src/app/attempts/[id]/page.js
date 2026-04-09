@@ -1065,22 +1065,20 @@ export default function AttemptResultsPage() {
                         >
                           ⚠ Points Missed
                         </p>
-                        <ul style={{ margin: 0, paddingLeft: 16 }}>
-                          {item.points_missed.map((point, i) => (
-                            <li
-                              key={i}
-                              style={{
-                                fontSize: 13,
-                                color: "#9a3412",
-                                lineHeight: 1.6,
-                                marginBottom: 2,
-                              }}
-                            >
-                              dangerouslySetInnerHTML=
-                              {{ __html: renderMath(point) }}
-                            </li>
-                          ))}
-                        </ul>
+<ul style={{ margin: 0, paddingLeft: 16 }}>
+  {item.points_missed.map((point, i) => (
+    <li
+      key={i}
+      style={{
+        fontSize: 13,
+        color: "#9a3412",
+        lineHeight: 1.6,
+        marginBottom: 2,
+      }}
+      dangerouslySetInnerHTML={{ __html: renderMath(point) }}
+    />
+  ))}
+</ul>
                       </div>
                     )}
 
