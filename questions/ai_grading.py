@@ -847,7 +847,7 @@ def _grade_math(question, student_answer: str) -> dict:
         solution = _claude_text(
             _build_math_solution_prompt(question, student_str, correct_str, grade),
             model=MODEL_SONNET,
-            max_tokens=MAX_TOKENS_STRUCTURED,
+            max_tokens=1200,
         ).strip().replace("```", "").replace("**", "")
     except Exception:
         solution = (
