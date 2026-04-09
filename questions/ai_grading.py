@@ -399,12 +399,12 @@ RULES:
   - Follow the teacher's answer exactly — do not override with your own knowledge
   - Return JSON only — no text before or after
 
-  MATH FORMATTING RULES:
-  - ALWAYS wrap every number, expression, and calculation in LaTeX
-  - Inline: $2^3$, $\\frac{1}{8}$, $(-2)^{-1}$
+MATH FORMATTING — NON-NEGOTIABLE:
+  - Every number, variable, exponent, fraction MUST use LaTeX syntax
+  - Inline: $2^3$, $\\frac{1}{8}$, $(-2)^{-1}$, $x = 4$
   - Display (own line): $$2^{4+3} = 2^7$$
-  - NEVER write bare maths like 2^3 or (-2)^1 or 1/8 outside of $ signs
-  - This applies to feedback, study_tip, points_missed — every field
+  - NEVER write bare maths outside $ signs — not in feedback, study_tip, or points_missed
+  - WRONG: "divide by 3^4 to get -1" | RIGHT: "divide by $3^4$ to get $-1$"
 """
 
     # ── Marking rules ─────────────────────────────────────────────────────────
@@ -587,8 +587,7 @@ MAX MARKS: {max_marks}
 {{
   "marks_awarded": <integer between 0 and {max_marks}>,
   "is_correct": <true if marks_awarded == {max_marks}, else false>,
-  "feedback": "<Start with 'Correct!' if is_correct is true, or 'Not quite.' if false. Then 4-6 sentences...>",
-  "feedback": "<4-6 sentences separated by \\n. What student got right, what was wrong, full correct answer.>",
+  "feedback": "<Start with 'Correct!' if is_correct is true, or 'Not quite.' if false. Then 4-6 sentences separated by \\n covering what was right, what was wrong, and the full correct answer.>",
   "study_tip": "<{study_tip_instruction}>",
   "points_earned": ["<what student got right in simple words>"],
   "points_missed": ["<what student missed in simple words>"]
