@@ -5,6 +5,7 @@ Uses Claude Haiku (with Sonnet fallback for Kiswahili structured/essay)
 to mark student answers across all question types.
 """
 
+import base64
 import json
 import random
 import re
@@ -272,6 +273,35 @@ def _parse_json_response(raw: str) -> dict:
 #  CLAUDE API CLIENT
 # ─────────────────────────────────────────────────────────────────────────────
 
+def _extract_base64_payload(value: str) -> str:
+    if value.startswith("data:"):
+        try:
+            return value.split(",", 1)[1]
+        except ValueError:
+            return value
+    return value
+
+
+def _detect_image_media_type(base64_data: str) -> str:
+    try:
+        raw = base64.b64decode(_extract_base64_payload(base64_data), validate=False)
+    except Exception:
+        return "image/png"
+
+    if raw.startswith(b"\x89PNG\r\n\x1a\n"):
+        return "image/png"
+    if raw.startswith(b"\xff\xd8\xff"):
+        return "image/jpeg"
+    if raw[:6] in (b"GIF87a", b"GIF89a"):
+        return "image/gif"
+    if raw[:4] == b"RIFF" and raw[8:12] == b"WEBP":
+        return "image/webp"
+    if raw.startswith(b"BM"):
+        return "image/bmp"
+
+    return "image/png"
+
+
 def _call_claude(
     prompt: str,
     working_image: str | None = None,
@@ -284,12 +314,14 @@ def _call_claude(
     Raises Exception on unrecoverable errors.
     """
     if working_image:
+        working_image = _extract_base64_payload(working_image)
+        media_type = _detect_image_media_type(working_image)
         content = [
             {
                 "type": "image",
                 "source": {
                     "type":       "base64",
-                    "media_type": "image/png",
+                    "media_type": media_type,
                     "data":       working_image,
                 },
             },
