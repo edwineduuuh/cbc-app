@@ -860,7 +860,7 @@ def _grade_math(question, student_answer: str, working_image: str | None = None)
     Uses Sonnet for all AI calls — Haiku cannot reliably format LaTeX.
     """
     if not question.correct_answer or not str(question.correct_answer).strip():
-        return _grade_with_ai(question, student_answer)
+        return _grade_with_ai(question, student_answer, working_image)
 
     sw          = _is_kiswahili(question)
     grade       = getattr(getattr(question, "topic", None), "grade", 7)
