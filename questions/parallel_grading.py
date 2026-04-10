@@ -11,6 +11,7 @@ import time
 
 def grade_quiz_parallel(questions, answers, max_workers=3, working_images=None):
     working_images = working_images or {}
+    print(f"🖼 Working images received: {list(working_images.keys())}")
     """
     Grade all questions in PARALLEL instead of one-by-one
     
