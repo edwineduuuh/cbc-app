@@ -1084,9 +1084,7 @@ def _route(
 ) -> dict:
     """Route a question to the correct grader based on question_type."""
     qt = question.question_type
-    if qt == "mcq":
-        return _grade_mcq(question, student_answer)
-    if qt in ("structured", "essay"):
+    if qt in ("mcq", "structured", "essay"):
         return _grade_with_ai(question, student_answer, working_image)
     if qt == "fill_blank":
         return _grade_fill_blank(question, student_answer)
