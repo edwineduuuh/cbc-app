@@ -528,10 +528,10 @@ Feedback: maximum 2 sentences only.
 
     # ── Correct answer / marking scheme (single block — no duplicates) ────────
     if question.question_type == "mcq":
-        correct_letter = str(question.correct_answer).strip().upper()
+        correct_letter = _extract_mcq_letter(str(question.correct_answer))
         if correct_letter not in ("A", "B", "C", "D"):
             print(f"⚠ Q{getattr(question, 'id', '?')}: "
-                  f"correct_answer '{question.correct_answer}' is not A/B/C/D — defaulting to A")
+                 f"correct_answer '{question.correct_answer}' could not be parsed — defaulting to A")
             correct_letter = "A"
         options_map = {
             "A": _safe_opt(question.option_a),
