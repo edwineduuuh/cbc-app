@@ -995,7 +995,7 @@ def _grade_with_ai(
 
     # Sonnet for: Kiswahili structured/essay, and any maths question
     is_math = qt == "math" or getattr(question, "subject_name", "").lower() == "mathematics"
-    model = MODEL_SONNET if (sw and qt in ("structured", "essay")) or is_math else MODEL_HAIKU
+    model = MODEL_SONNET if sw or is_math else MODEL_HAIKU
 
     try:
         prompt   = _build_marking_prompt(question, student_answer, sw)
