@@ -866,6 +866,7 @@ def _grade_math(question, student_answer: str, working_image: str | None = None)
     grade       = getattr(getattr(question, "topic", None), "grade", 7)
     student_str = str(student_answer).strip()
     correct_str = str(question.correct_answer).strip()
+    print(f"🔍 _grade_math — student='{student_str}' image={'YES' if working_image else 'NO'}")
 
     if not student_str:
         if working_image:
