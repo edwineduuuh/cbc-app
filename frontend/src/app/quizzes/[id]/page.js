@@ -1390,7 +1390,9 @@ export default function QuizTakePage({ params }) {
   const currentQ = questions[currentIdx];
 
   const totalQ = questions.length;
-  const answeredCount = Object.values(answers).filter((v) => {
+  const answeredCount = questions.filter((q, idx) => {
+    if (workingImages[idx]) return true; // working image counts as answered
+    const v = answers[idx];
     if (v === undefined || v === null) return false;
     if (typeof v === "object") return Object.keys(v).length > 0;
     const s = String(v).trim();
