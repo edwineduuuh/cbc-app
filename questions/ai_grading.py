@@ -179,6 +179,18 @@ def _clean_num(s: str) -> str:
     return match.group() if match else ""
 
 
+def _extract_mcq_letter(text: str) -> str:
+    """Extract the MCQ letter from a correct answer string like 'A - foo'."""
+    if not text:
+        return ""
+    candidate = str(text).strip().upper()
+    match = re.match(r"^([ABCD])\b", candidate)
+    if match:
+        return match.group(1)
+    match = re.search(r"\b([ABCD])\b", candidate)
+    return match.group(1) if match else ""
+
+
 def _safe_opt(val) -> str:
     """Return option text or a placeholder — prevents None leaking into prompts."""
     return str(val).strip() if val and str(val).strip() else "(not provided)"
@@ -772,7 +784,7 @@ def _grade_mcq(question, student_answer: str) -> dict:
         msg = "Hujajibu swali la MCQ." if sw else "You did not answer the MCQ question."
         return _empty_result(question.max_marks, msg, _near_miss(sw))
 
-    correct_letter = str(question.correct_answer or "").strip().upper()
+    correct_letter = _extract_mcq_letter(question.correct_answer)
     if correct_letter not in ("A", "B", "C", "D"):
         return _grade_with_ai(question, student_answer)
 
