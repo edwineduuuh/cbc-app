@@ -714,8 +714,14 @@ def submit_quiz(request):
             }, status=402)  # Payment Required
         
         # Grade quiz for guest
-        working_images = data.get('working_images', {})
+        working_images_raw = data.get('working_images', {})
         questions = list(quiz.questions.all())
+        # Map working images by question ID (support both ID and index lookups)
+        working_images = {}
+        for idx, q in enumerate(questions):
+            img = working_images_raw.get(str(q.id)) or working_images_raw.get(str(idx))
+            if img:
+                working_images[str(q.id)] = img
         results = grade_quiz_fast(questions, answers, working_images=working_images)
         
         total_marks_awarded = sum(r['marks_awarded'] for r in results)
@@ -824,7 +830,13 @@ def submit_quiz(request):
         
 # Grade quiz
         questions = list(quiz.questions.all())
-        working_images = data.get('working_images', {})
+        working_images_raw = data.get('working_images', {})
+        # Map working images by question ID (support both ID and index lookups)
+        working_images = {}
+        for idx, q in enumerate(questions):
+            img = working_images_raw.get(str(q.id)) or working_images_raw.get(str(idx))
+            if img:
+                working_images[str(q.id)] = img
         results = grade_quiz_fast(questions, answers, working_images=working_images)
         
         total_marks_awarded = sum(r['marks_awarded'] for r in results)
