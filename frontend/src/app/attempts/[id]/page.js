@@ -1,6 +1,6 @@
 "use client";
 import { fetchWithAuth } from "@/lib/api";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { useAuth } from "@/contexts/AuthContext";
 import Link from "next/link";
@@ -261,6 +261,7 @@ export default function AttemptResultsPage() {
   const router = useRouter();
   const { user } = useAuth();
   const shareCardRef = useRef(null);
+  const downloadRef = useRef(null);
 
   const [results, setResults] = useState(null);
   const [quizGrade, setQuizGrade] = useState(null);
@@ -270,24 +271,7 @@ export default function AttemptResultsPage() {
   const [expanded, setExpanded] = useState({});
   const [downloading, setDownloading] = useState(false);
 
-  useEffect(() => {
-    if (!user) {
-      router.push("/login");
-      return;
-    }
-    fetchResults();
-    fetchCreditsStatus();
-  }, [params.id, user]);
-
-  useEffect(() => {
-    const currentPath = window.location.pathname;
-    window.history.replaceState(null, "", currentPath);
-    const handler = () => window.history.pushState(null, "", currentPath);
-    window.addEventListener("popstate", handler);
-    return () => window.removeEventListener("popstate", handler);
-  }, []);
-
-  const fetchCreditsStatus = async () => {
+  const fetchCreditsStatus = useCallback(async () => {
     const token = localStorage.getItem("accessToken");
     try {
       const res = await fetchWithAuth(`${API}/credits/status/`);
@@ -303,9 +287,9 @@ export default function AttemptResultsPage() {
     } catch (e) {
       console.error(e);
     }
-  };
+  }, []);
 
-  const fetchResults = async () => {
+  const fetchResults = useCallback(async () => {
     const token = localStorage.getItem("accessToken");
     try {
       const res = await fetchWithAuth(`${API}/attempts/${params.id}/`);
@@ -326,38 +310,82 @@ export default function AttemptResultsPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [params.id]);
+
+  useEffect(() => {
+    if (!user) {
+      router.push("/login");
+      return;
+    }
+    fetchResults();
+    fetchCreditsStatus();
+  }, [params.id, user, router, fetchResults, fetchCreditsStatus]);
+
+  useEffect(() => {
+    const currentPath = window.location.pathname;
+    window.history.replaceState(null, "", currentPath);
+    const handler = () => window.history.pushState(null, "", currentPath);
+    window.addEventListener("popstate", handler);
+    return () => window.removeEventListener("popstate", handler);
+  }, []);
 
   const handleDownload = async () => {
     setDownloading(true);
     try {
       const html2canvas = (await import("html2canvas")).default;
-      const canvas = await html2canvas(shareCardRef.current, {
+      const { jsPDF } = await import("jspdf");
+      const pageElement = downloadRef.current;
+      if (!pageElement) throw new Error("Download element not available");
+
+      const canvas = await html2canvas(pageElement, {
         scale: 2,
-        backgroundColor: null,
+        backgroundColor: "#ffffff",
+        useCORS: true,
       });
-      const link = document.createElement("a");
-      link.download = `stadispace-result-${score}pct.png`;
-      link.href = canvas.toDataURL("image/png");
-      link.click();
+
+      const imgData = canvas.toDataURL("image/png");
+      const pdf = new jsPDF({
+        unit: "mm",
+        format: "a4",
+        orientation: "portrait",
+      });
+      const pageWidth = pdf.internal.pageSize.getWidth() - 20;
+      const pageHeight = pdf.internal.pageSize.getHeight() - 20;
+      const imgHeight = (canvas.height * pageWidth) / canvas.width;
+      let position = 10;
+      let remainingHeight = imgHeight;
+
+      pdf.addImage(imgData, "PNG", 10, position, pageWidth, imgHeight);
+      remainingHeight -= pageHeight;
+
+      while (remainingHeight > 0) {
+        pdf.addPage();
+        position -= pageHeight;
+        pdf.addImage(imgData, "PNG", 10, position, pageWidth, imgHeight);
+        remainingHeight -= pageHeight;
+      }
+
+      pdf.save(`stadispace-result-${Math.round(results?.score ?? 0)}pct.pdf`);
     } catch (e) {
       console.error(e);
-      alert("Download failed. Please try again.");
+      alert("Unable to generate the PDF. Please try again.");
     }
     setDownloading(false);
   };
 
   const handleShare = async () => {
-    const text = `I scored ${score}% on ${results?.quiz?.title || "a quiz"} on StadiSpace! 📚\nJoin me at stadispace.co.ke`;
+    const score = Math.round(results?.score ?? 0);
+    const url = window.location.href;
+    const text = `I scored ${score}% on ${results?.quiz?.title || "a quiz"} on StadiSpace! 📚\nSee my results and improve at ${url}`;
     if (navigator.share) {
       try {
-        await navigator.share({ title: "StadiSpace Results", text });
+        await navigator.share({ title: "StadiSpace Results", text, url });
       } catch (e) {
         console.error(e);
       }
     } else {
-      await navigator.clipboard.writeText(text);
-      alert("Result copied to clipboard!");
+      await navigator.clipboard.writeText(`${text}\n${url}`);
+      alert("Result link copied to clipboard!");
     }
   };
 
@@ -452,6 +480,7 @@ export default function AttemptResultsPage() {
 
   return (
     <div
+      ref={downloadRef}
       style={{
         minHeight: "100vh",
         background: "#f8fafc",
@@ -683,7 +712,8 @@ export default function AttemptResultsPage() {
                 opacity: downloading ? 0.7 : 1,
               }}
             >
-              <Download size={15} /> {downloading ? "Saving…" : "Download Card"}
+              <Download size={15} />{" "}
+              {downloading ? "Generating…" : "Download PDF Report"}
             </button>
           </div>
         </motion.div>
@@ -856,8 +886,6 @@ export default function AttemptResultsPage() {
                 {/* Expanded content */}
                 {isOpen && (
                   <div style={{ padding: "0 20px 20px" }}>
-                    
-
                     {/* Your answer */}
                     <div
                       style={{
@@ -1045,20 +1073,22 @@ export default function AttemptResultsPage() {
                         >
                           ⚠ Points Missed
                         </p>
-<ul style={{ margin: 0, paddingLeft: 16 }}>
-  {item.points_missed.map((point, i) => (
-    <li
-      key={i}
-      style={{
-        fontSize: 13,
-        color: "#9a3412",
-        lineHeight: 1.6,
-        marginBottom: 2,
-      }}
-      dangerouslySetInnerHTML={{ __html: renderMath(point) }}
-    />
-  ))}
-</ul>
+                        <ul style={{ margin: 0, paddingLeft: 16 }}>
+                          {item.points_missed.map((point, i) => (
+                            <li
+                              key={i}
+                              style={{
+                                fontSize: 13,
+                                color: "#9a3412",
+                                lineHeight: 1.6,
+                                marginBottom: 2,
+                              }}
+                              dangerouslySetInnerHTML={{
+                                __html: renderMath(point),
+                              }}
+                            />
+                          ))}
+                        </ul>
                       </div>
                     )}
 
