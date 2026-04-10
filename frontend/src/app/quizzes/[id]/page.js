@@ -2008,30 +2008,6 @@ export default function QuizTakePage({ params }) {
                 </div>
               )}
 
-              {isMCQ && !(currentQ.parts && currentQ.parts.length > 0) && (
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: 12,
-                  }}
-                >
-                  {["A", "B", "C", "D"].map((letter) => {
-                    const text = currentQ[`option_${letter.toLowerCase()}`];
-                    if (!text) return null;
-                    return (
-                      <MCQOption
-                        key={letter}
-                        letter={letter}
-                        text={text}
-                        selected={answers[currentIdx] === letter}
-                        onClick={() => handleAnswer(letter)}
-                      />
-                    );
-                  })}
-                </div>
-              )}
-
               {isMath ? (
                 workingImages[currentIdx] ? (
                   <p
@@ -2050,7 +2026,7 @@ export default function QuizTakePage({ params }) {
                     onChange={(val) => handleAnswer(val)}
                   />
                 )
-              ) : (
+              ) : isFillBlank && !(currentQ.parts && currentQ.parts.length > 0) ? (
                 <input
                   type="text"
                   value={answers[currentIdx] ?? ""}
@@ -2072,7 +2048,7 @@ export default function QuizTakePage({ params }) {
                   onFocus={(e) => (e.target.style.borderColor = "#1a6fc4")}
                   onBlur={(e) => (e.target.style.borderColor = "#e8eaf0")}
                 />
-              )}
+              ) : null}
 
               {/* Structured / Essay */}
               {isText && !(currentQ.parts && currentQ.parts.length > 0) && (
