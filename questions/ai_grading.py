@@ -758,6 +758,81 @@ def _grade_fill_blank(question, student_answer: str) -> dict:
     }
 
 
+def _grade_mcq(question, student_answer: str) -> dict:
+    """
+    Deterministic MCQ grader using the stored A/B/C/D correct answer.
+
+    This avoids unreliable AI grading for multiple choice questions,
+    especially Kiswahili MCQs where the option letters are the only truth.
+    """
+    sw = _is_kiswahili(question)
+    student_raw = str(student_answer or "").strip()
+
+    if not student_raw:
+        msg = "Hujajibu swali la MCQ." if sw else "You did not answer the MCQ question."
+        return _empty_result(question.max_marks, msg, _near_miss(sw))
+
+    correct_letter = str(question.correct_answer or "").strip().upper()
+    if correct_letter not in ("A", "B", "C", "D"):
+        return _grade_with_ai(question, student_answer)
+
+    options_map = {
+        "A": _safe_opt(question.option_a),
+        "B": _safe_opt(question.option_b),
+        "C": _safe_opt(question.option_c),
+        "D": _safe_opt(question.option_d),
+    }
+
+    selected_letter = None
+    normalized = _normalise(student_raw)
+
+    # Common letter-based responses
+    match = re.search(r"\b([ABCD])\b", student_raw.upper())
+    if match:
+        selected_letter = match.group(1)
+    else:
+        # Try full option text matches
+        for letter, option_text in options_map.items():
+            if normalized == _normalise(option_text):
+                selected_letter = letter
+                break
+
+    if selected_letter == correct_letter:
+        feedback = (
+            f"Hongera! Chaguo {correct_letter} ni sahihi." if sw
+            else f"Correct! Option {correct_letter} is right."
+        )
+        return {
+            "marks_awarded":        question.max_marks,
+            "max_marks":            question.max_marks,
+            "feedback":             feedback,
+            "is_correct":           True,
+            "personalized_message": _encourage(sw),
+            "study_tip":            "",
+            "points_earned":        [f"Option {correct_letter}: {options_map[correct_letter]}"],
+            "points_missed":        [],
+        }
+
+    correct_text = options_map.get(correct_letter, "(unknown)")
+    feedback = (
+        f"Jibu si sahihi. Jibu sahihi ni {correct_letter}: {correct_text}." if sw
+        else f"Not quite. The correct answer is Option {correct_letter}: {correct_text}."
+    )
+    return {
+        "marks_awarded":        0,
+        "max_marks":            question.max_marks,
+        "feedback":             feedback,
+        "is_correct":           False,
+        "personalized_message": _near_miss(sw),
+        "study_tip":            "",
+        "points_earned":        [],
+        "points_missed":        [
+            f"Jibu sahihi: {correct_letter}: {correct_text}" if sw
+            else f"Correct answer: Option {correct_letter}: {correct_text}"
+        ],
+    }
+
+
 def _grade_math(question, student_answer: str) -> dict:
     """
     Math grader.
@@ -997,7 +1072,9 @@ def _route(
 ) -> dict:
     """Route a question to the correct grader based on question_type."""
     qt = question.question_type
-    if qt in ("mcq", "structured", "essay"):
+    if qt == "mcq":
+        return _grade_mcq(question, student_answer)
+    if qt in ("structured", "essay"):
         return _grade_with_ai(question, student_answer, working_image)
     if qt == "fill_blank":
         return _grade_fill_blank(question, student_answer)
