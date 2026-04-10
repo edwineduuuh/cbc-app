@@ -2008,66 +2008,71 @@ export default function QuizTakePage({ params }) {
                 </div>
               )}
 
-{isMCQ && !(currentQ.parts && currentQ.parts.length > 0) && (
-  <div
-    style={{
-      display: "flex",
-      flexDirection: "column",
-      gap: 12,
-    }}
-  >
-    {["A", "B", "C", "D"].map((letter) => {
-      const text = currentQ[`option_${letter.toLowerCase()}`];
-      if (!text) return null;
-      return (
-        <MCQOption
-          key={letter}
-          letter={letter}
-          text={text}
-          selected={answers[currentIdx] === letter}
-          onClick={() => handleAnswer(letter)}
-        />
-      );
-    })}
-  </div>
-)}
+              {isMCQ && !(currentQ.parts && currentQ.parts.length > 0) && (
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: 12,
+                  }}
+                >
+                  {["A", "B", "C", "D"].map((letter) => {
+                    const text = currentQ[`option_${letter.toLowerCase()}`];
+                    if (!text) return null;
+                    return (
+                      <MCQOption
+                        key={letter}
+                        letter={letter}
+                        text={text}
+                        selected={answers[currentIdx] === letter}
+                        onClick={() => handleAnswer(letter)}
+                      />
+                    );
+                  })}
+                </div>
+              )}
 
-{isMath ? (
-  workingImages[currentIdx] ? (
-    <p style={{ fontSize: 13, color: "#1d8f57", fontWeight: 600, padding: "12px 0" }}>
-      ✓ Working photo captured — no need to type your answer.
-    </p>
-  ) : (
-    <MathInput
-      value={answers[currentIdx] ?? ""}
-      onChange={(val) => handleAnswer(val)}
-    />
-  )
-) : (
-  <input
-    type="text"
-    value={answers[currentIdx] ?? ""}
-    onChange={(e) => handleAnswer(e.target.value)}
-    placeholder="Type your answer here…"
-    style={{
-      width: "100%",
-      border: "2px solid #e8eaf0",
-      borderRadius: 16,
-      padding: "14px 18px",
-      fontSize: 16,
-      fontWeight: 500,
-      color: "#0d0d1a",
-      background: "#fff",
-      fontFamily: "'Lato', sans-serif",
-      transition: "border-color 0.15s",
-      boxShadow: "0 2px 8px rgba(0,0,0,0.04)",
-    }}
-    onFocus={(e) =>
-      (e.target.style.borderColor = "#1a6fc4")
-    }
-    onBlur={(e) => (e.target.style.borderColor = "#e8eaf0")}
-  />
-)}
+              {isMath ? (
+                workingImages[currentIdx] ? (
+                  <p
+                    style={{
+                      fontSize: 13,
+                      color: "#1d8f57",
+                      fontWeight: 600,
+                      padding: "12px 0",
+                    }}
+                  >
+                    ✓ Working photo captured — no need to type your answer.
+                  </p>
+                ) : isMCQ ? null : (
+                  <MathInput
+                    value={answers[currentIdx] ?? ""}
+                    onChange={(val) => handleAnswer(val)}
+                  />
+                )
+              ) : (
+                <input
+                  type="text"
+                  value={answers[currentIdx] ?? ""}
+                  onChange={(e) => handleAnswer(e.target.value)}
+                  placeholder="Type your answer here…"
+                  style={{
+                    width: "100%",
+                    border: "2px solid #e8eaf0",
+                    borderRadius: 16,
+                    padding: "14px 18px",
+                    fontSize: 16,
+                    fontWeight: 500,
+                    color: "#0d0d1a",
+                    background: "#fff",
+                    fontFamily: "'Lato', sans-serif",
+                    transition: "border-color 0.15s",
+                    boxShadow: "0 2px 8px rgba(0,0,0,0.04)",
+                  }}
+                  onFocus={(e) => (e.target.style.borderColor = "#1a6fc4")}
+                  onBlur={(e) => (e.target.style.borderColor = "#e8eaf0")}
+                />
+              )}
 
               {/* Structured / Essay */}
               {isText && !(currentQ.parts && currentQ.parts.length > 0) && (
