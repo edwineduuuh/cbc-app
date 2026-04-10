@@ -40,20 +40,17 @@ def grade_quiz_parallel(questions, answers, max_workers=3, working_images=None):
     results = [None] * len(questions)  # Preserve order
     
     with ThreadPoolExecutor(max_workers=max_workers) as executor:
-        # Submit all grading jobs
-       future_to_index = {
-            executor.submit(grade_answer, q, ans, working_image): i 
+        future_to_index = {
+            executor.submit(grade_answer, q, ans, working_image): i
             for i, (q, ans, working_image) in enumerate(grading_tasks)
         }
-        
-        # Collect results as they complete
-    for future in as_completed(future_to_index):
+
+        for future in as_completed(future_to_index):
             index = future_to_index[future]
             try:
-                result = future.result(timeout=15)  # 15 sec timeout per question
+                result = future.result(timeout=15)
                 results[index] = result
             except Exception as e:
-                # If one question fails, don't crash entire quiz
                 question = grading_tasks[index][0]
                 print(f"❌ Grading failed for Q{question.id}: {e}")
                 results[index] = {
