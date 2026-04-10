@@ -2120,7 +2120,7 @@ export default function QuizTakePage({ params }) {
               )}
 
               {/* Working panel */}
-              {/* {(isMath || (currentQ.parts && currentQ.parts.length > 0)) && (
+              {(isMath || (currentQ.parts && currentQ.parts.length > 0)) && (
                 <WorkingPanel
                   questionIdx={currentIdx}
                   onWorkingCapture={(base64) =>
@@ -2130,13 +2130,13 @@ export default function QuizTakePage({ params }) {
                     }))
                   }
                 />
-              )} */}
-              {isMath && !(currentQ.parts && currentQ.parts.length > 0) && (
+              )}
+              {/* {isMath && !(currentQ.parts && currentQ.parts.length > 0) && (
                 <MathInput
                   value={answers[currentIdx] ?? ""}
                   onChange={(val) => handleAnswer(val)}
                 />
-              )}
+              )} */}
 
               {/* Multi-part questions */}
               {currentQ.parts && currentQ.parts.length > 0 && (

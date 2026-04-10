@@ -925,6 +925,7 @@ def _grade_math(question, student_answer: str, working_image: str | None = None)
     try:
         verdict = _claude_text(
             _build_fill_blank_ai_prompt(question, student_str, correct_str, sw),
+            working_image=working_image,
             model=MODEL_SONNET,
         ).strip().upper()
         if verdict in ("TRUE", "KWELI"):
@@ -936,6 +937,7 @@ def _grade_math(question, student_answer: str, working_image: str | None = None)
     try:
         solution = _claude_text(
             _build_math_solution_prompt(question, student_str, correct_str, grade),
+            working_image=working_image,
             model=MODEL_SONNET,
             max_tokens=1200,
         ).strip().replace("```", "").replace("**", "")
