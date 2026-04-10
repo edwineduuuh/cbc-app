@@ -354,7 +354,7 @@ def _claude_text(
 #  PROMPT BUILDERS
 # ─────────────────────────────────────────────────────────────────────────────
 
-def _build_marking_prompt(question, student_answer: str, sw: bool) -> str:
+def _build_marking_prompt(question, student_answer: str, sw: bool, has_image: bool = False) -> str:
     """
     Build the full marking prompt for MCQ, structured, and essay questions.
     Single source of truth — no duplicated content blocks.
@@ -410,7 +410,7 @@ RULES:
   - Correct point not in marking scheme — AWARD THE MARKS
   - Follow the teacher's answer exactly — do not override with your own knowledge
   - Return JSON only — no text before or after
-  - {"No working image provided — do NOT penalise for missing working and do NOT add it to points_missed." if not has_image else "Student has provided a photo of their working — use it when marking."}
+  - {"No working image provided — do NOT penalise for missing working and do NOT add it to points_missed." if not has_image else "Student has provided a photo of their working — use it when marking. If the image contains the working, use it to verify the answer and award full marks when the working shows the correct final answer."}
 MATH FORMATTING — NON-NEGOTIABLE:
   - Every number, variable, exponent, fraction MUST use LaTeX syntax
   - Inline math: $2^3$, $\\frac{1}{8}$, $(-2)^{-1}$, $x = 4$, $\\times$
@@ -995,7 +995,7 @@ def _grade_with_ai(
             msg = "Hujaandika jibu." if sw else "You did not write an answer."
             return _empty_result(question.max_marks, msg, _near_miss(sw))
     try:
-        prompt   = _build_marking_prompt(question, student_answer, sw)
+        prompt   = _build_marking_prompt(question, student_answer, sw, bool(working_image))
         raw_text = _claude_text(prompt, working_image, max_tokens, model)
         result   = _parse_json_response(raw_text)
         marks    = _safe_int_marks(result.get("marks_awarded", 0), question.max_marks)
