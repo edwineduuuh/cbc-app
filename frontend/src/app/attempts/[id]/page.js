@@ -272,7 +272,7 @@ function ReportCard({
               {date}
             </p>
             <p style={{ margin: "8px 0 0", fontSize: 13, color: "#475569" }}>
-              {quizInfo.quizType || "Quiz"}
+              {quizType || "Quiz"}
             </p>
           </div>
         </div>
