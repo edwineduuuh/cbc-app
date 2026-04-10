@@ -980,28 +980,20 @@ def _grade_with_ai(
       - Everything else            -> Haiku (faster, cheaper)
     """
     sw          = _is_kiswahili(question)
+    qt          = question.question_type
+    max_tokens  = {"mcq": MAX_TOKENS_MCQ,
+                  "structured": MAX_TOKENS_STRUCTURED,
+                  "essay": MAX_TOKENS_ESSAY}.get(qt, MAX_TOKENS_DEFAULT)
+    is_math     = qt == "math" or getattr(question, "subject_name", "").lower() == "mathematics"
+    model       = MODEL_SONNET if sw or is_math else MODEL_HAIKU
     student_raw = str(student_answer).strip()
 
     if not student_raw or student_raw in ("none", "\\placeholder{}"):
-        msg = "Hujaandika jibu." if sw else "You did not write an answer."
-        return _empty_result(question.max_marks, msg, _near_miss(sw))
-
-    if not getattr(settings, "ANTHROPIC_API_KEY", None):
-        return _empty_result(
-            question.max_marks,
-            "AI grading is not set up.",
-            "Please contact your teacher.",
-        )
-
-    qt         = question.question_type
-    max_tokens = {"mcq": MAX_TOKENS_MCQ,
-                  "structured": MAX_TOKENS_STRUCTURED,
-                  "essay": MAX_TOKENS_ESSAY}.get(qt, MAX_TOKENS_DEFAULT)
-
-    # Sonnet for: Kiswahili structured/essay, and any maths question
-    is_math = qt == "math" or getattr(question, "subject_name", "").lower() == "mathematics"
-    model = MODEL_SONNET if sw or is_math or working_image else MODEL_HAIKU
-
+        if working_image and is_math:
+            student_raw = "See student's working in the image above."
+        else:
+            msg = "Hujaandika jibu." if sw else "You did not write an answer."
+            return _empty_result(question.max_marks, msg, _near_miss(sw))
     try:
         prompt   = _build_marking_prompt(question, student_answer, sw)
         raw_text = _claude_text(prompt, working_image, max_tokens, model)
