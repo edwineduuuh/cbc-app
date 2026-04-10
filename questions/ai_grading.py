@@ -845,7 +845,7 @@ def _grade_mcq(question, student_answer: str) -> dict:
     }
 
 
-def _grade_math(question, student_answer: str) -> dict:
+def _grade_math(question, student_answer: str, working_image: str | None = None) -> dict:
     """
     Math grader.
 
@@ -868,6 +868,8 @@ def _grade_math(question, student_answer: str) -> dict:
     correct_str = str(question.correct_answer).strip()
 
     if not student_str:
+        if working_image:
+            return _grade_with_ai(question, "See student's working in the image above.", working_image)
         msg = "Hujaandika jibu." if sw else "You did not write an answer."
         return _empty_result(question.max_marks, msg, _near_miss(sw))
 
@@ -995,7 +997,7 @@ def _grade_with_ai(
 
     # Sonnet for: Kiswahili structured/essay, and any maths question
     is_math = qt == "math" or getattr(question, "subject_name", "").lower() == "mathematics"
-    model = MODEL_SONNET if sw or is_math else MODEL_HAIKU
+    model = MODEL_SONNET if sw or is_math or working_image else MODEL_HAIKU
 
     try:
         prompt   = _build_marking_prompt(question, student_answer, sw)
@@ -1089,7 +1091,7 @@ def _route(
     if qt == "fill_blank":
         return _grade_fill_blank(question, student_answer)
     if qt == "math":
-        return _grade_math(question, student_answer)
+        return _grade_math(question, student_answer, working_image)
 
     sw = _is_kiswahili(question)
     return _empty_result(
