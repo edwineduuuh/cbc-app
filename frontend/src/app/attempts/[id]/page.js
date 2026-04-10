@@ -165,92 +165,532 @@ function getMessage(score) {
   };
 }
 
-// ─── Shareable Card (rendered off-screen for download) ───────
-function ShareCard({ score, gradeBand, quizTitle, marks, total, forwardRef }) {
+// ─── Professional Report Card (rendered off-screen for PDF export) ───────
+function ReportCard({
+  studentName,
+  studentGrade,
+  studentId,
+  quizTitle,
+  score,
+  gradeBand,
+  marks,
+  total,
+  correctAnswers,
+  timeTaken,
+  message,
+  date,
+  feedbackItems,
+  quizType,
+  totalQuestions,
+  reportRef,
+}) {
   const scoreColor =
     score >= 75
-      ? "#059669"
+      ? "#0f766e"
       : score >= 50
-        ? "#2563eb"
+        ? "#1d4ed8"
         : score >= 30
-          ? "#d97706"
-          : "#dc2626";
+          ? "#b45309"
+          : "#991b1b";
+
   return (
     <div
-      ref={forwardRef}
+      ref={reportRef}
       style={{
         position: "fixed",
         left: -9999,
         top: 0,
-        width: 600,
+        width: 940,
         padding: 48,
-        background: "linear-gradient(135deg, #f0fdf4 0%, #eff6ff 100%)",
-        fontFamily: "sans-serif",
+        background: "#f8fafc",
+        color: "#0f172a",
+        fontFamily: "'Inter', system-ui, sans-serif",
       }}
     >
-      <div style={{ textAlign: "center", marginBottom: 32 }}>
-        <div style={{ fontSize: 48, marginBottom: 8 }}>📚</div>
-        <div
-          style={{
-            fontSize: 14,
-            fontWeight: 700,
-            letterSpacing: "0.12em",
-            color: "#6b7280",
-            textTransform: "uppercase",
-            marginBottom: 4,
-          }}
-        >
-          StadiSpace
-        </div>
-        <div style={{ fontSize: 16, color: "#374151", fontWeight: 500 }}>
-          {quizTitle}
-        </div>
-      </div>
-      <div style={{ textAlign: "center", marginBottom: 32 }}>
-        <div
-          style={{
-            fontSize: 96,
-            fontWeight: 900,
-            color: scoreColor,
-            lineHeight: 1,
-          }}
-        >
-          {score}%
-        </div>
-        {gradeBand && (
-          <div
-            style={{
-              display: "inline-block",
-              marginTop: 12,
-              padding: "6px 20px",
-              borderRadius: 40,
-              background: gradeBand.bg,
-              color: gradeBand.color,
-              fontWeight: 700,
-              fontSize: 16,
-            }}
-          >
-            {gradeBand.grade} — {gradeBand.label}
-          </div>
-        )}
-      </div>
       <div
         style={{
-          display: "flex",
-          justifyContent: "center",
-          gap: 48,
-          marginBottom: 32,
+          background: "#ffffff",
+          padding: 40,
+          borderRadius: 28,
+          border: "1px solid #e2e8f0",
+          boxShadow: "0 20px 80px rgba(15,23,42,0.08)",
         }}
       >
-        <div style={{ textAlign: "center" }}>
-          <div style={{ fontSize: 32, fontWeight: 800, color: "#111827" }}>
-            {marks}/{total}
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "flex-start",
+            gap: 24,
+            marginBottom: 32,
+          }}
+        >
+          <div>
+            <p
+              style={{
+                margin: 0,
+                fontSize: 12,
+                letterSpacing: "0.22em",
+                textTransform: "uppercase",
+                color: "#475569",
+                fontWeight: 700,
+              }}
+            >
+              Academic Performance Report
+            </p>
+            <h1
+              style={{
+                margin: "16px 0 0",
+                fontSize: 38,
+                lineHeight: 1.05,
+                fontWeight: 900,
+              }}
+            >
+              StadiSpace Report Card
+            </h1>
           </div>
-          <div style={{ fontSize: 13, color: "#6b7280" }}>Marks</div>
+          <div style={{ textAlign: "right" }}>
+            <p
+              style={{
+                margin: 0,
+                fontSize: 12,
+                color: "#6b7280",
+                textTransform: "uppercase",
+                letterSpacing: "0.18em",
+              }}
+            >
+              Report date
+            </p>
+            <p
+              style={{
+                margin: "10px 0 0",
+                fontSize: 16,
+                fontWeight: 700,
+                color: "#0f172a",
+              }}
+            >
+              {date}
+            </p>
+            <p style={{ margin: "8px 0 0", fontSize: 13, color: "#475569" }}>
+              {quizInfo.quizType || "Quiz"}
+            </p>
+          </div>
         </div>
-      </div>
-      <div style={{ textAlign: "center", fontSize: 13, color: "#9ca3af" }}>
-        stadispace.co.ke
+
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr",
+            gap: 24,
+            marginBottom: 32,
+          }}
+        >
+          <div
+            style={{
+              padding: 26,
+              borderRadius: 20,
+              border: "1px solid #e2e8f0",
+              background: "#f8fafc",
+            }}
+          >
+            <p
+              style={{
+                margin: 0,
+                fontSize: 11,
+                textTransform: "uppercase",
+                letterSpacing: "0.18em",
+                color: "#6b7280",
+                fontWeight: 700,
+              }}
+            >
+              Student
+            </p>
+            <p
+              style={{
+                margin: "12px 0 0",
+                fontSize: 22,
+                fontWeight: 800,
+                color: "#111827",
+              }}
+            >
+              {studentName || "Student Name"}
+            </p>
+            <p style={{ margin: "6px 0 0", fontSize: 13, color: "#475569" }}>
+              {studentGrade || "Grade N/A"}
+            </p>
+            {studentId && (
+              <p style={{ margin: "10px 0 0", fontSize: 12, color: "#64748b" }}>
+                Student ID: {studentId}
+              </p>
+            )}
+          </div>
+
+          <div
+            style={{
+              padding: 26,
+              borderRadius: 20,
+              border: "1px solid #e2e8f0",
+              background: "#f8fafc",
+            }}
+          >
+            <p
+              style={{
+                margin: 0,
+                fontSize: 11,
+                textTransform: "uppercase",
+                letterSpacing: "0.18em",
+                color: "#6b7280",
+                fontWeight: 700,
+              }}
+            >
+              Performance Summary
+            </p>
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
+                gap: 14,
+                marginTop: 18,
+              }}
+            >
+              {[
+                { label: "Score", value: `${score}%`, color: scoreColor },
+                {
+                  label: "Grade Band",
+                  value: gradeBand
+                    ? `${gradeBand.grade} — ${gradeBand.label}`
+                    : "N/A",
+                  color: gradeBand ? gradeBand.color : "#475569",
+                },
+                {
+                  label: "Marks",
+                  value: `${marks} / ${total}`,
+                  color: "#111827",
+                },
+                {
+                  label: "Correct",
+                  value: `${correctAnswers} / ${quizInfo.totalQuestions || "N/A"}`,
+                  color: "#111827",
+                },
+              ].map((item) => (
+                <div
+                  key={item.label}
+                  style={{
+                    padding: 18,
+                    borderRadius: 16,
+                    background: "#ffffff",
+                    border: "1px solid #e5e7eb",
+                  }}
+                >
+                  <p
+                    style={{
+                      margin: 0,
+                      fontSize: 11,
+                      textTransform: "uppercase",
+                      letterSpacing: "0.16em",
+                      color: "#6b7280",
+                      fontWeight: 700,
+                    }}
+                  >
+                    {item.label}
+                  </p>
+                  <p
+                    style={{
+                      margin: "10px 0 0",
+                      fontSize: 19,
+                      fontWeight: 800,
+                      color: item.color,
+                    }}
+                  >
+                    {item.value}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr",
+            gap: 24,
+            marginBottom: 32,
+          }}
+        >
+          <div
+            style={{
+              borderRadius: 20,
+              border: "1px solid #e2e8f0",
+              background: "#ffffff",
+              padding: 24,
+            }}
+          >
+            <p
+              style={{
+                margin: 0,
+                fontSize: 11,
+                textTransform: "uppercase",
+                letterSpacing: "0.18em",
+                color: "#6b7280",
+                fontWeight: 700,
+              }}
+            >
+              Highlights
+            </p>
+            <p
+              style={{
+                margin: "14px 0 0",
+                fontSize: 15,
+                lineHeight: 1.75,
+                color: "#334155",
+              }}
+            >
+              {message.body}
+            </p>
+          </div>
+          <div
+            style={{
+              borderRadius: 20,
+              border: "1px solid #e2e8f0",
+              background: "#ffffff",
+              padding: 24,
+            }}
+          >
+            <p
+              style={{
+                margin: 0,
+                fontSize: 11,
+                textTransform: "uppercase",
+                letterSpacing: "0.18em",
+                color: "#6b7280",
+                fontWeight: 700,
+              }}
+            >
+              Teacher note
+            </p>
+            <p
+              style={{
+                margin: "14px 0 0",
+                fontSize: 19,
+                fontWeight: 800,
+                color: scoreColor,
+              }}
+            >
+              {message.emoji} {message.title}
+            </p>
+            <p
+              style={{
+                margin: "12px 0 0",
+                fontSize: 14,
+                lineHeight: 1.75,
+                color: "#334155",
+              }}
+            >
+              {message.body}
+            </p>
+          </div>
+        </div>
+
+        <div>
+          <h2
+            style={{
+              margin: 0,
+              fontSize: 22,
+              fontWeight: 800,
+              color: "#0f172a",
+              marginBottom: 18,
+            }}
+          >
+            Detailed Question Feedback
+          </h2>
+          <div style={{ display: "grid", gap: 18 }}>
+            {feedbackItems.map((item) => (
+              <div
+                key={item.index}
+                style={{
+                  borderRadius: 20,
+                  border: "1px solid #e5e7eb",
+                  background: "#f8fafc",
+                  padding: 22,
+                }}
+              >
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    gap: 12,
+                    alignItems: "flex-start",
+                  }}
+                >
+                  <div>
+                    <p
+                      style={{
+                        margin: 0,
+                        fontSize: 13,
+                        fontWeight: 700,
+                        color: "#0f172a",
+                      }}
+                    >
+                      Question {item.index}
+                    </p>
+                    <p
+                      style={{
+                        margin: "8px 0 0",
+                        fontSize: 13,
+                        color: "#475569",
+                        lineHeight: 1.65,
+                      }}
+                      dangerouslySetInnerHTML={{ __html: item.question_text }}
+                    />
+                  </div>
+                  <div
+                    style={{
+                      padding: "8px 14px",
+                      borderRadius: 999,
+                      background: item.correct ? "#d1fae5" : "#fee2e2",
+                      color: item.correct ? "#0f766e" : "#b91c1c",
+                      fontWeight: 700,
+                      fontSize: 12,
+                    }}
+                  >
+                    {item.correct ? "Correct" : "Needs review"}
+                  </div>
+                </div>
+
+                <div
+                  style={{
+                    marginTop: 16,
+                    display: "grid",
+                    gridTemplateColumns: "1fr 1fr",
+                    gap: 16,
+                  }}
+                >
+                  <div>
+                    <p
+                      style={{
+                        margin: 0,
+                        fontSize: 11,
+                        fontWeight: 700,
+                        textTransform: "uppercase",
+                        letterSpacing: "0.16em",
+                        color: "#475569",
+                      }}
+                    >
+                      Student answer
+                    </p>
+                    <p
+                      style={{
+                        margin: "10px 0 0",
+                        fontSize: 14,
+                        color: "#0f172a",
+                        lineHeight: 1.7,
+                      }}
+                      dangerouslySetInnerHTML={{ __html: item.student_answer }}
+                    />
+                  </div>
+                  {!item.correct && (
+                    <div>
+                      <p
+                        style={{
+                          margin: 0,
+                          fontSize: 11,
+                          fontWeight: 700,
+                          textTransform: "uppercase",
+                          letterSpacing: "0.16em",
+                          color: "#475569",
+                        }}
+                      >
+                        Correct answer
+                      </p>
+                      <p
+                        style={{
+                          margin: "10px 0 0",
+                          fontSize: 14,
+                          color: "#0f172a",
+                          lineHeight: 1.7,
+                        }}
+                        dangerouslySetInnerHTML={{
+                          __html: item.correct_answer || "",
+                        }}
+                      />
+                    </div>
+                  )}
+                </div>
+
+                {item.feedback && (
+                  <div
+                    style={{
+                      marginTop: 16,
+                      borderTop: "1px solid #e2e8f0",
+                      paddingTop: 16,
+                    }}
+                  >
+                    <p
+                      style={{
+                        margin: 0,
+                        fontSize: 11,
+                        fontWeight: 700,
+                        textTransform: "uppercase",
+                        letterSpacing: "0.16em",
+                        color: "#475569",
+                      }}
+                    >
+                      Feedback
+                    </p>
+                    <p
+                      style={{
+                        margin: "10px 0 0",
+                        fontSize: 14,
+                        color: "#0f172a",
+                        lineHeight: 1.8,
+                      }}
+                      dangerouslySetInnerHTML={{ __html: item.feedback }}
+                    />
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div
+          style={{
+            marginTop: 40,
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <div>
+            <p
+              style={{
+                margin: 0,
+                fontSize: 11,
+                color: "#6b7280",
+                letterSpacing: "0.18em",
+                textTransform: "uppercase",
+                fontWeight: 700,
+              }}
+            >
+              Prepared by
+            </p>
+            <p
+              style={{
+                margin: "10px 0 0",
+                fontSize: 16,
+                fontWeight: 700,
+                color: "#0f172a",
+              }}
+            >
+              StadiSpace Academic Team
+            </p>
+          </div>
+          <div style={{ textAlign: "right", color: "#94a3b8", fontSize: 12 }}>
+            <p style={{ margin: 0 }}>www.stadispace.co.ke</p>
+            <p style={{ margin: "8px 0 0" }}>Official student report</p>
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -260,8 +700,7 @@ export default function AttemptResultsPage() {
   const params = useParams();
   const router = useRouter();
   const { user } = useAuth();
-  const shareCardRef = useRef(null);
-  const downloadRef = useRef(null);
+  const reportCardRef = useRef(null);
 
   const [results, setResults] = useState(null);
   const [quizGrade, setQuizGrade] = useState(null);
@@ -334,7 +773,7 @@ export default function AttemptResultsPage() {
     try {
       const html2canvas = (await import("html2canvas")).default;
       const { jsPDF } = await import("jspdf");
-      const pageElement = downloadRef.current;
+      const pageElement = reportCardRef.current;
       if (!pageElement) throw new Error("Download element not available");
 
       const canvas = await html2canvas(pageElement, {
@@ -363,6 +802,18 @@ export default function AttemptResultsPage() {
         position -= pageHeight;
         pdf.addImage(imgData, "PNG", 10, position, pageWidth, imgHeight);
         remainingHeight -= pageHeight;
+      }
+
+      const pageCount = pdf.getNumberOfPages();
+      const pdfWidth = pdf.internal.pageSize.getWidth();
+      const pdfHeight = pdf.internal.pageSize.getHeight();
+      pdf.setFontSize(10);
+      pdf.setTextColor("#64748b");
+      for (let page = 1; page <= pageCount; page += 1) {
+        pdf.setPage(page);
+        pdf.text(`Page ${page} of ${pageCount}`, pdfWidth / 2, pdfHeight - 10, {
+          align: "center",
+        });
       }
 
       pdf.save(`stadispace-result-${Math.round(results?.score ?? 0)}pct.pdf`);
@@ -480,7 +931,6 @@ export default function AttemptResultsPage() {
 
   return (
     <div
-      ref={downloadRef}
       style={{
         minHeight: "100vh",
         background: "#f8fafc",
@@ -495,14 +945,64 @@ export default function AttemptResultsPage() {
         .fade-up { animation: fadeUp 0.4s ease forwards; }
       `}</style>
 
-      {/* Hidden share card */}
-      <ShareCard
-        forwardRef={shareCardRef}
+      {/* Hidden report card used only for PDF generation */}
+      <ReportCard
+        studentName={`${user?.first_name || user?.username || "Student"} ${user?.last_name || ""}`.trim()}
+        studentGrade={`Grade ${user?.grade || "N/A"}`}
+        studentId={user?.id}
+        quizTitle={results.quiz?.title || "Quiz"}
         score={score}
         gradeBand={gradeBand}
-        quizTitle={results.quiz?.title || "Quiz"}
         marks={results.total_marks_awarded || 0}
         total={results.total_max_marks || 0}
+        correctAnswers={results.correct_answers ?? 0}
+        timeTaken={timeTaken}
+        message={message}
+        date={new Date(results.completed_at || Date.now()).toLocaleDateString(
+          "en-GB",
+          {
+            day: "2-digit",
+            month: "short",
+            year: "numeric",
+          },
+        )}
+        feedbackItems={questionIds.map((qId, index) => {
+          const item = feedback[qId];
+          return {
+            index: index + 1,
+            correct: item.is_correct,
+            question_text: renderMath(item.question_text || ""),
+            student_answer: item.student_answer
+              ? typeof item.student_answer === "object"
+                ? Object.entries(item.student_answer)
+                    .map(
+                      ([partId, ans]) =>
+                        `<strong>${partId}:</strong> ${String(ans)}`,
+                    )
+                    .join("<br/>")
+                : renderMath(
+                    item.question_type === "math"
+                      ? `$${item.student_answer}$`
+                      : item.student_answer,
+                  )
+              : "<em>No answer provided</em>",
+            correct_answer: item.correct_answer
+              ? renderMath(item.correct_answer.replace(/\n/g, "<br/>") || "")
+              : "",
+            feedback: renderMath(
+              item.feedback
+                ?.replace(
+                  /\(([a-z])\)\s*/g,
+                  "<br/><strong>Part ($1):</strong> ",
+                )
+                ?.replace(/^<br\/>/, "")
+                ?.replace(/\n/g, "<br/>") || "",
+            ),
+          };
+        })}
+        quizType={results.quiz?.subject || "Quiz"}
+        totalQuestions={results.total_questions}
+        reportRef={reportCardRef}
       />
 
       <div
@@ -713,7 +1213,7 @@ export default function AttemptResultsPage() {
               }}
             >
               <Download size={15} />{" "}
-              {downloading ? "Generating…" : "Download PDF Report"}
+              {downloading ? "Generating…" : "Download Report"}
             </button>
           </div>
         </motion.div>
