@@ -369,7 +369,7 @@ function ReportCard({
                 },
                 {
                   label: "Correct",
-                  value: `${correctAnswers} / ${quizInfo.totalQuestions || "N/A"}`,
+                  value: `${correctAnswers} / ${totalQuestions || "N/A"}`,
                   color: "#111827",
                 },
               ].map((item) => (
