@@ -728,6 +728,10 @@ def submit_quiz(request):
             display_correct = question.correct_answer
             display_student = answers.get(str(question.id), "")
             
+            # If no text answer but working image provided, show that
+            if not display_student and str(question.id) in working_images:
+                display_student = "📸 Working image provided"
+            
             if question.question_type == 'mcq':
                 options_map = {
                     'A': question.option_a,
@@ -820,12 +824,7 @@ def submit_quiz(request):
         
 # Grade quiz
         questions = list(quiz.questions.all())
-        working_images_by_idx = data.get('working_images', {})
-        working_images = {
-            str(q.id): working_images_by_idx[str(idx)]
-            for idx, q in enumerate(questions)
-            if str(idx) in working_images_by_idx
-        }
+        working_images = data.get('working_images', {})
         results = grade_quiz_fast(questions, answers, working_images=working_images)
         
         total_marks_awarded = sum(r['marks_awarded'] for r in results)
@@ -837,6 +836,10 @@ def submit_quiz(request):
         for question, result in zip(questions, results):
             display_correct = question.correct_answer
             display_student = answers.get(str(question.id), "")
+            
+            # If no text answer but working image provided, show that
+            if not display_student and str(question.id) in working_images:
+                display_student = "📸 Working image provided"
             
             if question.question_type == 'mcq':
                 options_map = {
