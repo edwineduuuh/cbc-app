@@ -33,7 +33,7 @@ def grade_quiz_parallel(questions, answers, max_workers=3, working_images=None):
     grading_tasks = []
     for i, question in enumerate(questions):
         student_answer = answers.get(str(question.id), "")
-        working_image = working_images.get(str(i))
+        working_image = working_images.get(str(question.id)) or working_images.get(str(i))
         grading_tasks.append((question, student_answer, working_image))
     
     # Grade all questions in parallel
@@ -76,7 +76,7 @@ def grade_quiz_sequential(questions, answers, working_images=None):
     results = []
     for i, question in enumerate(questions):
         student_answer = answers.get(str(question.id), "")
-        working_image = working_images.get(str(i))
+        working_image = working_images.get(str(question.id)) or working_images.get(str(i))
         result = grade_answer(question, student_answer, working_image)
         results.append(result)
     
