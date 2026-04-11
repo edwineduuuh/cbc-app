@@ -442,7 +442,7 @@ RULES:
   - Correct point not in marking scheme — AWARD THE MARKS
   - Follow the teacher's answer exactly — do not override with your own knowledge
   - Return JSON only — no text before or after
-  - {"No working image provided — do NOT penalise for missing working and do NOT add it to points_missed." if not has_image else "Student has provided a photo of their working — use it when marking. If the image contains the working, use it to verify the answer and award full marks when the working shows the correct final answer."}
+""" + ("  - No working image provided — do NOT penalise for missing working." if not has_image else "  - 🖼 Student has provided a working image — AWARD METHOD MARKS for each correct step, even if final answer differs slightly. Full marks if working shows they arrived at their submitted answer.") + """
 MATH FORMATTING — NON-NEGOTIABLE:
   - Every number, variable, exponent, fraction MUST use LaTeX syntax
   - Inline math: $2^3$, $\\frac{1}{8}$, $(-2)^{-1}$, $x = 4$, $\\times$
@@ -597,6 +597,31 @@ Feedback: maximum 2 sentences only.
                 f"\nEXPLANATION (use to confirm only — do NOT expand or add to it): "
                 f"{question.explanation}"
             )
+
+    # ── METHOD MARKS for questions with working images ────────────────────────
+    if has_image and question.question_type in ("math", "structured"):
+        if sw:
+            prompt += """
+
+🖼 MBINU ZA ALAMA (PHOTO YABORESHED):
+Ikiwa picha ya kazi inaboreshed:
+  1. ANGALIA picha kwa kila hatua ya mahesabu.
+  2. TUPA alama kwa kila hatua iliyosahihika — hata kama jibu kamili litofauti.
+  3. ALAMA ZOTE kama kazi kumalizia kwa jibu la mwanafunzi (hata kama tofauti kidogo).
+  4. TUPA sehemu ya alama TU kwa kosa lisilo na msingi au hesabu potofu.
+  5. MSOMEKE jibu kamili — kama inafanana, TUPA ALAMA ZOTE.
+"""
+        else:
+            prompt += f"""
+
+🖼 METHOD MARKS (Student provided working image):
+To earn method marks from the photo:
+  1. EXAMINE each step and calculation in the photo carefully.
+  2. AWARD marks for each correct step — even if final answer differs slightly.
+  3. AWARD FULL MARKS if the working shows they arrived at their submitted answer correctly.
+  4. ONLY deduct if the method itself is fundamentally wrong or a calculation is false.
+  5. Prioritize CORRECT METHOD over strict final answer matching.
+"""
 
     # ── JSON output template ──────────────────────────────────────────────────
     if sw:
@@ -881,11 +906,15 @@ def _grade_math(question, student_answer: str, working_image: str | None = None)
     """
     Math grader.
 
+    ⭐ CRITICAL: If working_image is provided, METHOD MARKS are prioritized.
+    The student has shown their working — they deserve marks for correct method
+    even if the final answer differs due to arithmetic errors.
+
     Check order:
       1. Fast numeric comparison (when correct answer is purely numeric)
       2. Symbolic equality via sympy (with thread-based timeout)
       3. Numeric approximation via sympy
-      4. AI semantic verification
+      4. AI semantic verification (if image: gives METHOD marks, not just final answer)
       5. Generate step-by-step solution for incorrect answers
 
     Falls back to full AI grader if the question has no correct answer set.

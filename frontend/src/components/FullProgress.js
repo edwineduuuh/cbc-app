@@ -31,11 +31,44 @@ import {
   BarChart3,
   Star,
   Minus,
+  Brain,
+  Lightbulb,
+  Focus,
+  AlertCircle,
+  Download,
+  Share2,
 } from "lucide-react";
 
 const API =
   process.env.NEXT_PUBLIC_API_URL ||
   "https://cbc-backend-76im.onrender.com/api";
+
+// ─── Color Palette ─────────────────────────────────────────────
+const PALETTE = [
+  "#3b82f6",
+  "#8b5cf6",
+  "#ec4899",
+  "#f59e0b",
+  "#10b981",
+  "#14b8a6",
+  "#06b6d4",
+  "#f97316",
+  "#6366f1",
+  "#d946ef",
+];
+
+// ─── Grade Letter Function ─────────────────────────────────────
+function getGradeLetter(percentage) {
+  if (percentage >= 90)
+    return { letter: "A", color: "#10b981", label: "Excellent" };
+  if (percentage >= 80)
+    return { letter: "B", color: "#3b82f6", label: "Very Good" };
+  if (percentage >= 70) return { letter: "C", color: "#f59e0b", label: "Good" };
+  if (percentage >= 60)
+    return { letter: "D", color: "#f97316", label: "Satisfactory" };
+  if (percentage >= 50) return { letter: "E", color: "#f87171", label: "Pass" };
+  return { letter: "F", color: "#dc2626", label: "Needs Work" };
+}
 
 // ─── Animated Counter ─────────────────────────────────────────
 function Counter({ to, suffix = "", decimals = 0, duration = 1400 }) {
@@ -113,88 +146,83 @@ function getLevel(n) {
   };
 }
 
-const PALETTE = [
-  "#10b981",
-  "#3b82f6",
-  "#f59e0b",
-  "#ef4444",
-  "#8b5cf6",
-  "#06b6d4",
-  "#f97316",
-  "#84cc16",
-];
-
-// ─── Radial Score ─────────────────────────────────────────────
+// ─── Radial Score Component ───────────────────────────────────
 function RadialScore({
   pct,
   size = 100,
-  stroke = 8,
-  color = "#10b981",
+  stroke = 6,
+  color = "#3b82f6",
   children,
 }) {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true });
-  const r = (size - stroke) / 2;
-  const circ = 2 * Math.PI * r;
+  const radius = (size - stroke) / 2;
+  const circumference = radius * 2 * Math.PI;
+  const offset = circumference - (pct / 100) * circumference;
+
   return (
-    <div
-      ref={ref}
-      className="relative flex items-center justify-center"
-      style={{ width: size, height: size }}
-    >
-      <svg width={size} height={size} className="-rotate-90 absolute inset-0">
+    <div style={{ position: "relative", width: size, height: size }}>
+      <svg width={size} height={size} style={{ transform: "rotate(-90deg)" }}>
         <circle
           cx={size / 2}
           cy={size / 2}
-          r={r}
+          r={radius}
           fill="none"
           stroke="rgba(255,255,255,0.06)"
           strokeWidth={stroke}
         />
-        <motion.circle
+        <circle
           cx={size / 2}
           cy={size / 2}
-          r={r}
+          r={radius}
           fill="none"
           stroke={color}
           strokeWidth={stroke}
+          strokeDasharray={circumference}
+          strokeDashoffset={offset}
           strokeLinecap="round"
-          strokeDasharray={circ}
-          initial={{ strokeDashoffset: circ }}
-          animate={
-            inView
-              ? { strokeDashoffset: circ - (circ * Math.min(pct, 100)) / 100 }
-              : {}
-          }
-          transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
+          style={{
+            transition: "stroke-dashoffset 0.6s ease",
+          }}
         />
       </svg>
-      <div className="relative z-10 flex flex-col items-center justify-center">
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
         {children}
       </div>
     </div>
   );
 }
 
-// ─── Sparkline ────────────────────────────────────────────────
-function Sparkline({ data }) {
-  if (!data || data.length < 2) return null;
-  const W = 120,
-    H = 40;
-  const min = Math.min(...data),
-    max = Math.max(...data);
-  const range = max - min || 1;
+// ─── Sparkline Component ──────────────────────────────────────
+function Sparkline({ data = [] }) {
+  if (data.length < 2) return null;
+  const width = 80;
+  const height = 24;
+  const max = Math.max(...data);
+  const min = Math.min(...data);
+  const range = max - min || max;
+
   const pts = data
-    .map(
-      (v, i) =>
-        `${(i / (data.length - 1)) * W},${H - ((v - min) / range) * (H - 6) - 3}`,
-    )
+    .map((v, i) => {
+      const x = (i / (data.length - 1)) * width;
+      const y = height - ((v - min) / range) * height;
+      return `${x},${y}`;
+    })
     .join(" ");
+
   const up = data[data.length - 1] >= data[0];
+
   return (
-    <svg width={W} height={H} className="overflow-visible">
+    <svg width={width} height={height} style={{ overflow: "visible" }}>
       <defs>
-        <linearGradient id="sg" x1="0" y1="0" x2="0" y2="1">
+        <linearGradient id="sparkGrad" x1="0%" y1="0%" x2="0%" y2="100%">
           <stop
             offset="0%"
             stopColor={up ? "#10b981" : "#f87171"}
@@ -219,7 +247,7 @@ function Sparkline({ data }) {
   );
 }
 
-// ─── Main ─────────────────────────────────────────────────────
+// ─── Main Component ───────────────────────────────────────────
 export default function FullProgress() {
   const { user } = useAuth();
   const router = useRouter();
@@ -790,6 +818,287 @@ export default function FullProgress() {
             </div>
           </motion.div>
 
+          {/* ── Study Insights & Recommendations ── */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.18 }}
+            style={{
+              display: "grid",
+              gridTemplateColumns: "1fr 1fr",
+              gap: 16,
+              marginBottom: 24,
+            }}
+          >
+            {/* Performance Badge */}
+            <div className="card" style={{ padding: 24 }}>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 12,
+                  marginBottom: 20,
+                }}
+              >
+                <div
+                  style={{
+                    width: 40,
+                    height: 40,
+                    borderRadius: 12,
+                    background: "rgba(139,92,246,0.15)",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <Sparkles size={16} color="#8b5cf6" />
+                </div>
+                <div>
+                  <h3 style={{ fontSize: 14, fontWeight: 700, color: "#fff" }}>
+                    Performance Status
+                  </h3>
+                  <p style={{ fontSize: 11, color: "rgba(255,255,255,0.3)" }}>
+                    Based on your last 10 attempts
+                  </p>
+                </div>
+              </div>
+
+              {(() => {
+                const grade = getGradeLetter(avgScore);
+                const consistency =
+                  scores.length >= 3
+                    ? Math.abs(Math.max(...scores.slice(0, 3)) - Math.min(...scores.slice(0, 3))) <= 15
+                      ? "Consistent"
+                      : "Variable"
+                    : "New";
+                return (
+                  <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+                    <div
+                      style={{
+                        padding: 16,
+                        borderRadius: 12,
+                        background: `${grade.color}12`,
+                        border: `1px solid ${grade.color}25`,
+                      }}
+                    >
+                      <p
+                        style={{
+                          fontSize: 11,
+                          color: "rgba(255,255,255,0.4)",
+                          marginBottom: 6,
+                        }}
+                      >
+                        Grade
+                      </p>
+                      <p
+                        style={{
+                          fontSize: 18,
+                          fontWeight: 800,
+                          color: grade.color,
+                        }}
+                      >
+                        {grade.letter}
+                      </p>
+                    </div>
+
+                    <div
+                      style={{
+                        padding: 16,
+                        borderRadius: 12,
+                        background: "rgba(59,130,246,0.08)",
+                        border: "1px solid rgba(59,130,246,0.2)",
+                      }}
+                    >
+                      <p
+                        style={{
+                          fontSize: 11,
+                          color: "rgba(255,255,255,0.4)",
+                          marginBottom: 6,
+                        }}
+                      >
+                        Consistency
+                      </p>
+                      <p
+                        style={{
+                          fontSize: 16,
+                          fontWeight: 700,
+                          color: "#3b82f6",
+                        }}
+                      >
+                        {consistency}
+                      </p>
+                    </div>
+                  </div>
+                );
+              })()}
+            </div>
+
+            {/* AI Recommendations */}
+            <div className="card" style={{ padding: 24 }}>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 12,
+                  marginBottom: 20,
+                }}
+              >
+                <div
+                  style={{
+                    width: 40,
+                    height: 40,
+                    borderRadius: 12,
+                    background: "rgba(34,197,94,0.15)",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <Lightbulb size={16} color="#22c55e" />
+                </div>
+                <div>
+                  <h3 style={{ fontSize: 14, fontWeight: 700, color: "#fff" }}>
+                    Next Steps
+                  </h3>
+                  <p style={{ fontSize: 11, color: "rgba(255,255,255,0.3)" }}>
+                    Personalized suggestions
+                  </p>
+                </div>
+              </div>
+
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: 10,
+                }}
+              >
+                {avgScore >= 80 ? (
+                  <>
+                    <div
+                      style={{
+                        padding: 12,
+                        borderRadius: 10,
+                        background: "rgba(16,185,129,0.1)",
+                        borderLeft: "3px solid #10b981",
+                    }}
+                    >
+                      <p
+                        style={{
+                          fontSize: 12,
+                          color: "#fff",
+                          fontWeight: 500,
+                      }}
+                      >
+                        🎯 Try harder quizzes
+                      </p>
+                      <p
+                        style={{
+                          fontSize: 11,
+                          color: "rgba(255,255,255,0.4)",
+                          marginTop: 4,
+                      }}
+                      >
+                        You're doing well! Challenge yourself with advanced topics.
+                      </p>
+                    </div>
+                  </>
+                ) : avgScore >= 60 ? (
+                  <>
+                    <div
+                      style={{
+                        padding: 12,
+                        borderRadius: 10,
+                        background: "rgba(251,191,36,0.1)",
+                        borderLeft: "3px solid #f59e0b",
+                    }}
+                    >
+                      <p
+                        style={{
+                          fontSize: 12,
+                          color: "#fff",
+                          fontWeight: 500,
+                      }}
+                      >
+                        📚 Focus on weak areas
+                      </p>
+                      <p
+                        style={{
+                          fontSize: 11,
+                          color: "rgba(255,255,255,0.4)",
+                          marginTop: 4,
+                      }}
+                      >
+                        Review subjects where you scored below 65%.
+                      </p>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div
+                      style={{
+                        padding: 12,
+                        borderRadius: 10,
+                        background: "rgba(248,113,113,0.1)",
+                        borderLeft: "3px solid #f87171",
+                    }}
+                    >
+                      <p
+                        style={{
+                          fontSize: 12,
+                          color: "#fff",
+                          fontWeight: 500,
+                      }}
+                      >
+                        💪 Practice fundamentals
+                      </p>
+                      <p
+                        style={{
+                          fontSize: 11,
+                          color: "rgba(255,255,255,0.4)",
+                          marginTop: 4,
+                      }}
+                      >
+                        Go back to basics and practice more quizzes.
+                      </p>
+                    </div>
+                  </>
+                )}
+
+                <div
+                  style={{
+                    marginTop: 6,
+                    padding: 12,
+                    borderRadius: 10,
+                    background: "rgba(139,92,246,0.1)",
+                    borderLeft: "3px solid #8b5cf6",
+                }}
+                >
+                  <p
+                    style={{
+                      fontSize: 12,
+                      color: "#fff",
+                      fontWeight: 500,
+                  }}
+                  >
+                    ⏱️ Consistency matters
+                  </p>
+                  <p
+                    style={{
+                      fontSize: 11,
+                      color: "rgba(255,255,255,0.4)",
+                      marginTop: 4,
+                  }}
+                  >
+                    {completed.length < 5
+                      ? "Take more quizzes to build momentum."
+                      : "Keep your streak going!"}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+
           {/* ── Subject performance ── */}
           <motion.div
             initial={{ opacity: 0, y: 16 }}
@@ -1148,6 +1457,124 @@ export default function FullProgress() {
                     Practice these →
                   </button>
                 </Link>
+              </div>
+            </motion.div>
+          )}
+
+          {/* ── Consistency & Motivation ── */}
+          {completed.length > 0 && (
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.22 }}
+              className="card"
+              style={{
+                padding: 24,
+                marginBottom: 24,
+                background: "linear-gradient(135deg, rgba(249,115,22,0.08), rgba(249,115,22,0.04))",
+                border: "1px solid rgba(249,115,22,0.2)",
+              }}
+            >
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 12,
+                  marginBottom: 16,
+                }}
+              >
+                <div
+                  style={{
+                    width: 40,
+                    height: 40,
+                    borderRadius: 12,
+                    background: "rgba(249,115,22,0.15)",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <Flame size={18} color="#f97316" />
+                </div>
+                <div>
+                  <h3 style={{ fontSize: 14, fontWeight: 700, color: "#fff" }}>
+                    Your Commitment
+                  </h3>
+                  <p style={{ fontSize: 11, color: "rgba(255,255,255,0.3)" }}>
+                    Stay consistent, improve systematically
+                  </p>
+                </div>
+              </div>
+
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+                <div>
+                  <p
+                    style={{
+                      fontSize: 11,
+                      color: "rgba(255,255,255,0.4)",
+                      marginBottom: 8,
+                      textTransform: "uppercase",
+                      fontWeight: 600,
+                    }}
+                  >
+                    Total Attempts
+                  </p>
+                  <p
+                    style={{
+                      fontSize: 32,
+                      fontWeight: 800,
+                      color: "#f97316",
+                    }}
+                  >
+                    <Counter to={completed.length} />
+                  </p>
+                </div>
+
+                <div>
+                  <p
+                    style={{
+                      fontSize: 11,
+                      color: "rgba(255,255,255,0.4)",
+                      marginBottom: 8,
+                      textTransform: "uppercase",
+                      fontWeight: 600,
+                    }}
+                  >
+                    Success Rate
+                  </p>
+                  <p
+                    style={{
+                      fontSize: 32,
+                      fontWeight: 800,
+                      color: "#10b981",
+                    }}
+                  >
+                    <Counter
+                      to={completed.length > 0 ? Math.round(((stats?.quizzes_passed || 0) / completed.length) * 100) : 0}
+                      suffix="%"
+                    />
+                  </p>
+                </div>
+              </div>
+
+              <div
+                style={{
+                  marginTop: 16,
+                  padding: "12px 16px",
+                  borderRadius: 10,
+                  background: "rgba(255,255,255,0.04)",
+                  border: "1px solid rgba(255,255,255,0.06)",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 8,
+                }}
+              >
+                <Zap size={13} color="#f59e0b" />
+                <p style={{ fontSize: 12, color: "rgba(255,255,255,0.6)" }}>
+                  {scores.length >= 5
+                    ? "You're on a roll! Keep the momentum going 🚀"
+                    : "Take more quizzes to build confidence and skills"}
+                </p>
               </div>
             </motion.div>
           )}

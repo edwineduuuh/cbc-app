@@ -541,7 +541,9 @@ function ReportCard({
                         color: "#475569",
                         lineHeight: 1.65,
                       }}
-                      dangerouslySetInnerHTML={{ __html: item.question_text }}
+                      dangerouslySetInnerHTML={{
+                        __html: renderMath(item.question_text),
+                      }}
                     />
                   </div>
                   <div
@@ -586,7 +588,9 @@ function ReportCard({
                         color: "#0f172a",
                         lineHeight: 1.7,
                       }}
-                      dangerouslySetInnerHTML={{ __html: item.student_answer }}
+                      dangerouslySetInnerHTML={{
+                        __html: renderMath(item.student_answer),
+                      }}
                     />
                   </div>
                   {!item.correct && (
@@ -611,7 +615,7 @@ function ReportCard({
                           lineHeight: 1.7,
                         }}
                         dangerouslySetInnerHTML={{
-                          __html: item.correct_answer || "",
+                          __html: renderMath(item.correct_answer || ""),
                         }}
                       />
                     </div>
@@ -645,7 +649,9 @@ function ReportCard({
                         color: "#0f172a",
                         lineHeight: 1.8,
                       }}
-                      dangerouslySetInnerHTML={{ __html: item.feedback }}
+                      dangerouslySetInnerHTML={{
+                        __html: renderMath(item.feedback),
+                      }}
                     />
                   </div>
                 )}
