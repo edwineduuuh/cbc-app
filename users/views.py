@@ -31,9 +31,6 @@ class RegisterView(generics.CreateAPIView):
         serializer.is_valid(raise_exception = True)
         user = serializer.save()
 
-        # Activate 7-day free trial automatically
-        user.activate_free_trial()
-
         # Send welcome SMS to parent (best-effort)
         if user.parent_phone:
             try:
@@ -42,11 +39,18 @@ class RegisterView(generics.CreateAPIView):
                 send_sms(
                     user.parent_phone,
                     f"Hi {user.parent_name or 'there'}! {child_name} just joined StadiSpace. "
-                    f"They have a 7-day free trial with unlimited access. "
-                    f"Track their progress at stadispace.co.ke"
+                    f"They have 4 free quizzes to try — full feedback included. "
+                    f"See their progress at stadispace.co.ke"
                 )
             except Exception:
                 pass  # Don't block registration if SMS fails
+
+        # Send welcome email (best-effort)
+        try:
+            from questions.emails import send_welcome_email
+            send_welcome_email(user)
+        except Exception:
+            pass
 
         refresh = RefreshToken.for_user(user)
 

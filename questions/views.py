@@ -715,7 +715,7 @@ def start_guest_session(request):
     
     return Response({
         'session_id': session_id,
-        'quizzes_remaining': 2
+        'quizzes_remaining': 4
     })
 
 
@@ -732,7 +732,7 @@ def check_guest_quota(request):
         return Response({'error': 'session_id required'}, status=400)
     
     taken = GUEST_SESSIONS.get(session_id, 0)
-    remaining = max(0, 2 - taken)
+    remaining = max(0, 4 - taken)
     
     return Response({
         'quizzes_taken': taken,
@@ -780,10 +780,10 @@ def submit_quiz(request):
         
         # Check guest quota
         taken = GUEST_SESSIONS.get(session_id, 0)
-        if taken >= 2:
+        if taken >= 4:
             return Response({
                 'error': 'Guest quota exceeded',
-                'message': 'Sign up to get 2 more free quizzes!',
+                'message': 'Sign up to unlock 4 more free quizzes!',
                 'quota_exceeded': True,
                 'quizzes_taken': taken
             }, status=402)  # Payment Required
@@ -850,7 +850,7 @@ def submit_quiz(request):
         
         # Increment guest counter
         GUEST_SESSIONS[session_id] = taken + 1
-        remaining = 2 - (taken + 1)
+        remaining = 4 - (taken + 1)
         
         return Response({
             'id': None,  # No saved attempt for guests
@@ -990,8 +990,7 @@ def submit_quiz(request):
             
             # Deduct credit (if not subscribed)
             if not has_subscription:
-                    profile, _ = UserProfile.objects.get_or_create(user=user)
-                    profile.use_free_quiz()  # decrements free_quizzes_remaining
+                    user.use_quiz_credit()
                         
         # Get updated credits
         new_credits = user.quiz_credits if not has_subscription else 'unlimited'
@@ -1044,9 +1043,8 @@ def credits_status(request):
     except Subscription.DoesNotExist:
         pass
 
-    # Free trial — read from UserProfile (single source of truth)
-    profile, _ = UserProfile.objects.get_or_create(user=user)
-    credits = profile.free_quizzes_remaining
+    # Free quiz credits — from User model (single source of truth)
+    credits = user.quiz_credits
 
     return Response({
         'has_access': credits > 0,
@@ -1146,7 +1144,6 @@ class SubscriptionStatusView(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
-        from django.utils import timezone
         user = request.user
 
         # Check active subscription first
@@ -1164,25 +1161,23 @@ class SubscriptionStatusView(APIView):
         except Exception:
             pass
 
-        # Check trial
-        if user.trial_end and user.trial_end > timezone.now():
-            days_left = (user.trial_end - timezone.now()).days
+        # Check free quiz credits
+        credits = user.quiz_credits
+        if credits > 0:
             return Response({
-                'status': 'trial',
+                'status': 'free_trial',
                 'has_access': True,
                 'plan': 'Free Trial',
-                'end_date': user.trial_end,
-                'days_remaining': days_left,
+                'quiz_credits': credits,
                 'trial': True,
             })
 
-        # Expired
+        # No credits, no subscription
         return Response({
             'status': 'expired',
             'has_access': False,
             'plan': None,
-            'end_date': None,
-            'days_remaining': 0,
+            'quiz_credits': 0,
             'trial': False,
         })
 
@@ -1959,15 +1954,38 @@ def mpesa_callback(request):
             
             # Send SMS confirmation (best effort)
             try:
-                from .sms import send_payment_confirmation
+                from .sms import send_payment_confirmation, send_payment_confirmation_to_parent
                 send_payment_confirmation(
                     phone_number=payment_request.phone_number,
                     username=user.username,
                     plan_name=plan.name,
                     days=plan.duration_days,
                 )
+                # Also notify parent if phone available
+                if getattr(user, 'parent_phone', None):
+                    send_payment_confirmation_to_parent(
+                        parent_phone=user.parent_phone,
+                        parent_name=getattr(user, 'parent_name', ''),
+                        child_name=user.first_name or user.username,
+                        plan_name=plan.name,
+                        amount=amount_paid,
+                        mpesa_code=mpesa_receipt or 'N/A',
+                    )
             except Exception as e:
                 mpesa_logger.warning("SMS send failed: %s", e)
+
+            # Send payment receipt email (best effort)
+            try:
+                from .emails import send_payment_receipt_email
+                send_payment_receipt_email(
+                    user=user,
+                    plan_name=plan.name,
+                    amount=amount_paid,
+                    mpesa_code=mpesa_receipt or 'N/A',
+                    days=plan.duration_days,
+                )
+            except Exception as e:
+                mpesa_logger.warning("Email send failed: %s", e)
         else:
             payment_request.status = 'rejected'
             payment_request.rejection_reason = f'M-Pesa ResultCode={result_code}: {result_desc}'
@@ -2002,11 +2020,8 @@ def check_payment_status(request, payment_request_id):
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def check_quiz_access(request):
-    """Check if user can start a quiz (free trial + subscription)"""
-    from .models import UserProfile
-    
+    """Check if user can start a quiz (credits + subscription)"""
     user = request.user
-    profile, created = UserProfile.objects.get_or_create(user=user)
     
     has_subscription = False
     subscription_details = None
@@ -2022,34 +2037,29 @@ def check_quiz_access(request):
     except Subscription.DoesNotExist:
         pass
     
-    can_access, message = profile.can_start_quiz()
+    credits = user.quiz_credits
+    can_access = has_subscription or credits > 0
+    if has_subscription:
+        message = 'Unlimited access (Subscribed)'
+    elif credits > 0:
+        message = f'{credits} free quiz{"zes" if credits != 1 else ""} remaining'
+    else:
+        message = 'You have used all 4 free quizzes. Subscribe to continue!'
     
     return Response({
         'can_access': can_access,
         'message': message,
         'has_subscription': has_subscription,
         'subscription': subscription_details,
-        'free_quizzes_remaining': profile.free_quizzes_remaining,
+        'free_quizzes_remaining': credits,
     })
 
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def start_quiz_with_check(request, quiz_id):
-    """Start quiz - checks access and decrements counter"""
-    from .models import UserProfile
-    
+    """Start quiz - checks access and decrements credit"""
     user = request.user
-    profile, created = UserProfile.objects.get_or_create(user=user)
-    
-    can_access, message = profile.can_start_quiz()
-    
-    if not can_access:
-        return Response({
-            'error': 'Payment required',
-            'message': message,
-            'redirect': '/subscribe',
-        }, status=402)
     
     has_subscription = False
     try:
@@ -2059,11 +2069,16 @@ def start_quiz_with_check(request, quiz_id):
     except Subscription.DoesNotExist:
         pass
     
-    if not has_subscription:
-        profile.use_free_quiz()
+    credits = user.quiz_credits
+    if not has_subscription and credits <= 0:
+        return Response({
+            'error': 'Payment required',
+            'message': 'You have used all 4 free quizzes. Subscribe to continue!',
+            'redirect': '/subscribe',
+        }, status=402)
     
-    profile.total_quizzes_attempted += 1
-    profile.save()
+    if not has_subscription:
+        user.use_quiz_credit()
     
     try:
         quiz = Quiz.objects.get(id=quiz_id)
@@ -2079,5 +2094,5 @@ def start_quiz_with_check(request, quiz_id):
     return Response({
         'success': True,
         'attempt_id': attempt.id,
-        'free_quizzes_remaining': profile.free_quizzes_remaining,
+        'free_quizzes_remaining': user.quiz_credits,
     })

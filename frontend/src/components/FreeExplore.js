@@ -234,7 +234,7 @@ export default function ExplorePage() {
               </h1>
               <p className="text-cyan-100 text-lg mb-6 max-w-2xl">
                 Experience AI-powered feedback on any quiz below. No signup
-                required to start. Sign up after to get 2 MORE free quizzes!
+                required to start. Sign up after to get 4 MORE free quizzes!
               </p>
               <div className="flex items-center gap-4 text-sm">
                 <div className="flex items-center gap-2">
@@ -464,10 +464,10 @@ export default function ExplorePage() {
           >
             <Star className="w-12 h-12 text-amber-500 mx-auto mb-4" />
             <h3 className="text-2xl font-bold text-gray-900 mb-2">
-              Love it? Sign up for 2 MORE free quizzes!
+              Love it? Sign up for 4 MORE free quizzes!
             </h3>
             <p className="text-gray-600 mb-6">
-              Create an account to save your progress and get 2 additional free
+              Create an account to save your progress and get 4 additional free
               attempts
             </p>
             <Link href="/register">
@@ -508,17 +508,17 @@ export default function ExplorePage() {
                   <Sparkles className="w-8 h-8 text-white" />
                 </div>
                 <h2 className="text-2xl font-bold text-gray-900 mb-2">
-                  You've used your 2 free quizzes!
+                  You've used your 4 free quizzes!
                 </h2>
                 <p className="text-gray-600">
-                  Sign up now to get <strong>2 MORE free quizzes</strong> + save
+                  Sign up now to get <strong>4 MORE free quizzes</strong> + save
                   your progress
                 </p>
               </div>
 
               <div className="space-y-3 mb-6">
                 {[
-                  "2 more free quiz attempts",
+                  "4 more free quiz attempts",
                   "Save all your results",
                   "Track your improvement",
                   "No credit card required",
@@ -535,7 +535,7 @@ export default function ExplorePage() {
 
               <Link href="/register">
                 <button className="w-full py-3.5 rounded-xl bg-gradient-to-r from-cyan-600 to-blue-600 text-white font-bold hover:from-cyan-700 hover:to-blue-700 shadow-lg mb-3">
-                  Sign Up for 2 More Free Quizzes
+                  Sign Up for 4 More Free Quizzes
                 </button>
               </Link>
 

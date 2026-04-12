@@ -267,7 +267,7 @@ export default function GuestProgress() {
                 },
                 {
                   icon: BookOpen,
-                  text: "2 MORE free quizzes",
+                  text: "4 MORE free quizzes",
                   color: "text-yellow-400",
                 },
               ].map((feature, i) => (

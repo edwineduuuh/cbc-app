@@ -52,7 +52,7 @@ class User(AbstractUser):
         help_text=_("Student's current grade level (only for students)."),
     )
 
-    # FREE TRIAL FIELDS
+    # FREE TRIAL FIELDS (kept for migration compatibility — not used for access control)
     trial_start = models.DateTimeField(null=True, blank=True)
     trial_end = models.DateTimeField(null=True, blank=True)
     has_used_trial = models.BooleanField(default=False)
@@ -64,7 +64,7 @@ class User(AbstractUser):
     parent_email = models.EmailField(blank=True, default='',
         help_text='Parent email for receipts & progress reports')
 
-    # FREE TRIAL CREDITS (4 total: 2 as guest + 2 after signup)
+    # FREE TRIAL CREDITS — 4 free quizzes for every new user
     quiz_credits = models.IntegerField(
         default=4,
         help_text='Free quiz attempts remaining'
@@ -103,43 +103,36 @@ class User(AbstractUser):
     def is_teacher_or_above(self):
         return self.role in [self.ROLE_TEACHER, self.ROLE_SCHOOL_ADMIN] or self.is_admin
 
-    def activate_free_trial(self):
-        """Give user a 7-day free trial"""
-        if self.has_used_trial:
-            return False
-        
-        self.trial_start = timezone.now()
-        self.trial_end = timezone.now() + timedelta(days=7)
-        self.has_used_trial = True
-        self.save()
-        return True
-    
     @property
     def has_active_trial(self):
-        """Check if trial is currently active"""
-        if not self.trial_end:
-            return False
-        return timezone.now() < self.trial_end
+        """Check if user still has free quiz credits"""
+        return self.quiz_credits > 0
     
     @property
     def has_access(self):
-        # Checking if user has access
-        if self.has_active_trial:
+        """Check if user can take a quiz (has credits OR active subscription)"""
+        if self.quiz_credits > 0:
             return True
-        # Will add real subscription later....
+        try:
+            return self.subscription.is_valid
+        except Exception:
+            return False
+
+    def use_quiz_credit(self):
+        """Decrement one free quiz credit. Returns True if credit was available."""
+        if self.quiz_credits > 0:
+            self.quiz_credits -= 1
+            self.free_quizzes_used += 1
+            self.total_quizzes_taken += 1
+            self.save(update_fields=['quiz_credits', 'free_quizzes_used', 'total_quizzes_taken'])
+            return True
         return False
 
     def save(self, *args, **kwargs):
-        """Auto-set role and staff status for superusers + activate trial for new students"""
+        """Auto-set role and staff status for superusers"""
         if self.is_superuser:
             self.role = self.ROLE_SUPERADMIN
             self.is_staff = True
-        
-        # Auto-activate trial for new students
-        if not self.pk and self.role == self.ROLE_STUDENT and not self.has_used_trial:
-            self.trial_start = timezone.now()
-            self.trial_end = timezone.now() + timedelta(days=7)
-            self.has_used_trial = True
         
         super().save(*args, **kwargs)
 

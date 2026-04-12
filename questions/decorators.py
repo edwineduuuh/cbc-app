@@ -23,12 +23,13 @@ def requires_subscription(view_func):
         if user.role in ['admin', 'superadmin', 'teacher', 'school_admin'] or user.is_staff:
             return view_func(request, *args, **kwargs)
         
-        # Check if student has access
+        # Check if student has access (credits or subscription)
         if not user.has_access:
             return Response({
-                'error': 'Subscription required',
+                'error': 'No free quizzes remaining',
                 'paywall': True,
-                'message': 'Your trial has expired. Please subscribe to continue.',
+                'quiz_credits': 0,
+                'message': 'You have used all 4 free quizzes. Subscribe to unlock unlimited access!',
                 'redirect': '/subscribe'
             }, status=status.HTTP_402_PAYMENT_REQUIRED)
         

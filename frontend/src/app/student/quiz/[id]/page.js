@@ -754,7 +754,7 @@ function ResultsScreen({ result, quiz }) {
                   color: "#075985",
                 }}
               >
-                Sign up to save your progress, track improvement, and unlock 2
+                Sign up to save your progress, track improvement, and unlock 4
                 more free quizzes!
               </p>
             </div>
@@ -981,7 +981,7 @@ export default function QuizTakePage({ params }) {
           // Guest ran out → show signup modal
           const shouldSignup = confirm(
             data.message +
-              "\n\nWould you like to sign up for 2 more free quizzes?",
+              "\n\nWould you like to sign up for 4 more free quizzes?",
           );
           if (shouldSignup) {
             router.push("/register");
@@ -1026,8 +1026,8 @@ export default function QuizTakePage({ params }) {
             setTimeout(() => {
               const shouldSignup = confirm(
                 `🎉 Quiz complete! You scored ${data.score}%\n\n` +
-                  `You've used your 2 free quizzes!\n\n` +
-                  `Sign up now to get 2 MORE free quizzes + save your progress.`,
+                  `You've used your 4 free quizzes!\n\n` +
+                  `Sign up now to get 4 MORE free quizzes + save your progress.`,
               );
               if (shouldSignup) {
                 router.push("/register");
