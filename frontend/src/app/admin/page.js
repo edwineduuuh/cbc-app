@@ -1158,13 +1158,15 @@ export default function AdminPage() {
             gradient="blue"
             delay={0.08}
           />
-          <StatCard
-            label="Subscribers"
-            value={stats?.subscribed_students}
-            icon={TrendingUp}
-            gradient="amber"
-            delay={0.16}
-          />
+          {(user?.role === "superadmin" || user?.is_superuser) && (
+            <StatCard
+              label="Subscribers"
+              value={stats?.subscribed_students}
+              icon={TrendingUp}
+              gradient="amber"
+              delay={0.16}
+            />
+          )}
           <StatCard
             label="Average Score"
             value={
@@ -1246,8 +1248,10 @@ export default function AdminPage() {
           </div>
         </div>
 
-        {/* ── Payments ── */}
-        <AdminPaymentsPanel />
+        {/* ── Payments (superadmin only) ── */}
+        {(user?.role === "superadmin" || user?.is_superuser) && (
+          <AdminPaymentsPanel />
+        )}
 
         {/* ── Library Stats ── */}
         <GroupedStatsPanel
