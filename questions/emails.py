@@ -7,6 +7,10 @@ logger = logging.getLogger('emails')
 
 def send_payment_receipt_email(user, plan_name, amount, mpesa_code, days):
     """Send payment receipt email to user (and parent if available)."""
+    if not settings.EMAIL_HOST_USER:
+        logger.info("Email not configured (EMAIL_HOST_USER empty), skipping")
+        return False
+
     recipients = []
     if user.email:
         recipients.append(user.email)
@@ -51,6 +55,10 @@ def send_payment_receipt_email(user, plan_name, amount, mpesa_code, days):
 
 def send_welcome_email(user):
     """Send welcome email after registration."""
+    if not settings.EMAIL_HOST_USER:
+        logger.info("Email not configured (EMAIL_HOST_USER empty), skipping")
+        return False
+
     recipient = user.parent_email or user.email
     if not recipient:
         return False
