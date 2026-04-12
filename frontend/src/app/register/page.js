@@ -85,11 +85,16 @@ function RegisterPage() {
     if (!result.success) {
       try {
         const parsedError = JSON.parse(result.error);
-        setErrors(parsedError);
+        // DRF returns arrays: {"field": ["error msg"]} — flatten to strings
+        const flatErrors = {};
+        for (const [key, value] of Object.entries(parsedError)) {
+          flatErrors[key] = Array.isArray(value) ? value.join(". ") : value;
+        }
+        setErrors(flatErrors);
       } catch {
         setToastMessage(result.error);
         setShowToast(true);
-        setTimeout(() => setShowToast(false), 3000);
+        setTimeout(() => setShowToast(false), 5000);
       }
       setLoading(false);
     }

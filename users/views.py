@@ -31,7 +31,7 @@ class RegisterView(generics.CreateAPIView):
         serializer.is_valid(raise_exception = True)
         user = serializer.save()
 
-        # Send welcome SMS to parent (best-effort)
+        # Send welcome SMS to parent (best-effort, never block registration)
         if user.parent_phone:
             try:
                 from questions.sms import send_sms
@@ -42,14 +42,14 @@ class RegisterView(generics.CreateAPIView):
                     f"They have 4 free quizzes to try — full feedback included. "
                     f"See their progress at stadispace.co.ke"
                 )
-            except Exception:
-                pass  # Don't block registration if SMS fails
+            except BaseException:
+                pass
 
-        # Send welcome email (best-effort)
+        # Send welcome email (best-effort, never block registration)
         try:
             from questions.emails import send_welcome_email
             send_welcome_email(user)
-        except Exception:
+        except BaseException:
             pass
 
         refresh = RefreshToken.for_user(user)

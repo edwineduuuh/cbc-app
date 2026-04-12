@@ -15,7 +15,12 @@ export async function register(userData) {
   const data = await response.json();
 
   if (!response.ok) {
-    throw new Error(data.error || "Registration failed");
+    // DRF returns field-level errors like {"username": ["Already exists"]}
+    // Pass them through as a JSON string so the register page can parse them
+    if (typeof data === "object" && !data.error) {
+      throw new Error(JSON.stringify(data));
+    }
+    throw new Error(data.error || data.detail || "Registration failed");
   }
   return data;
 }
