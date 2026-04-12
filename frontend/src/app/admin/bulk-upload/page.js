@@ -1,33 +1,50 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import { useAuth } from "@/contexts/AuthContext";
+import { useRouter } from "next/navigation";
+import { fetchWithAuth } from "@/lib/api";
+import { motion, AnimatePresence } from "framer-motion";
+import Toast from "@/components/ui/Toast";
 import {
-  Upload,
-  CheckCircle,
-  XCircle,
-  FileText,
-  AlertCircle,
+  Upload, FileText, CheckCircle, XCircle, AlertCircle, Loader2,
+  ArrowLeft, Trash2, Image as ImageIcon, BookOpen, GraduationCap,
+  ChevronDown, ChevronRight, Eye, Download, RefreshCw, X, Zap,
+  FileImage, File, Hash,
 } from "lucide-react";
 
-const API = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api";
+const API = process.env.NEXT_PUBLIC_API_URL || "https://cbc-backend-76im.onrender.com/api";
+const ALLOWED_ROLES = ["teacher", "admin", "superadmin", "school_admin"];
+const GRADES = [4, 5, 6, 7, 8, 9, 10, 11, 12];
+const ACCEPTED_TYPES = ".pdf,.doc,.docx,.png,.jpg,.jpeg,.txt";
 
 export default function BulkUploadPage() {
+  const { user, loading: authLoading } = useAuth();
+  const router = useRouter();
+  const fileInputRef = useRef(null);
+
   const [file, setFile] = useState(null);
   const [subject, setSubject] = useState("");
   const [grade, setGrade] = useState("");
   const [subjects, setSubjects] = useState([]);
   const [uploading, setUploading] = useState(false);
   const [result, setResult] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [preview, setPreview] = useState(null);
-  // MathJax 
+  const [dragActive, setDragActive] = useState(false);
+  const [toast, setToast] = useState({ show: false, message: "", type: "success" });
+
+  // Auth guard
+  useEffect(() => {
+    if (authLoading) return;
+    if (!user || !ALLOWED_ROLES.includes(user.role)) {
+      router.push("/dashboard");
+    }
+  }, [user, authLoading, router]);
+
+  // MathJax
   useEffect(() => {
     if (typeof window === "undefined") return;
-
     if (!window.MathJax) {
-      window.MathJax = {
-        tex: { inlineMath: [["$", "$"]], displayMath: [["$$", "$$"]] },
-      };
+      window.MathJax = { tex: { inlineMath: [["$", "$"]], displayMath: [["$$", "$$"]] } };
       const script = document.createElement("script");
       script.src = "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js";
       script.async = true;
@@ -35,51 +52,63 @@ export default function BulkUploadPage() {
     }
   }, []);
 
-  // Trigger MathJax when results appear
   useEffect(() => {
     if (result?.questions && window.MathJax) {
       window.MathJax.typesetPromise?.();
     }
   }, [result]);
 
+  // Load subjects
   useEffect(() => {
-    loadSubjects();
-  }, []);
+    if (authLoading || !user) return;
+    const load = async () => {
+      try {
+        const res = await fetchWithAuth(`${API}/subjects/`);
+        if (res.ok) {
+          const data = await res.json();
+          setSubjects(Array.isArray(data) ? data : data.results || []);
+        }
+      } catch (err) { console.error("Failed to load subjects:", err); }
+    };
+    load();
+  }, [authLoading, user]);
 
-  const loadSubjects = async () => {
-    try {
-      setLoading(true);
-
-      // NO AUTH - subjects is public
-      const res = await fetch(`${API}/subjects/`);
-
-      if (!res.ok) {
-        throw new Error(`HTTP ${res.status}`);
-      }
-
-      const data = await res.json();
-
-      if (Array.isArray(data)) {
-        setSubjects(data);
-      } else {
-        setSubjects([]);
-      }
-    } catch (error) {
-      console.error("Failed to load subjects:", error);
-      setSubjects([]);
-    } finally {
-      setLoading(false);
-    }
+  const showToast = (message, type = "success") => {
+    setToast({ show: true, message, type });
+    setTimeout(() => setToast((t) => ({ ...t, show: false })), 4000);
   };
 
   const handleFileChange = (e) => {
-    setFile(e.target.files[0]);
-    setResult(null);
+    const f = e.target.files?.[0];
+    if (f) { setFile(f); setResult(null); }
+  };
+
+  const handleDrag = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (e.type === "dragenter" || e.type === "dragover") setDragActive(true);
+    else if (e.type === "dragleave") setDragActive(false);
+  };
+
+  const handleDrop = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setDragActive(false);
+    const f = e.dataTransfer.files?.[0];
+    if (f) {
+      const ext = f.name.toLowerCase().split(".").pop();
+      if (["pdf", "doc", "docx", "png", "jpg", "jpeg", "txt"].includes(ext)) {
+        setFile(f);
+        setResult(null);
+      } else {
+        showToast("Unsupported file type", "error");
+      }
+    }
   };
 
   const handleUpload = async () => {
     if (!file || !subject || !grade) {
-      alert("Please select file, subject, and grade");
+      showToast("Please select a file, learning area, and grade", "error");
       return;
     }
 
@@ -90,202 +119,150 @@ export default function BulkUploadPage() {
     formData.append("file", file);
     formData.append("subject", subject);
     formData.append("grade", grade);
-    formData.append("action", "preview"); // ADD THIS
 
     try {
-      const token = localStorage.getItem("accessToken");
-
-      if (!token) {
-        alert("You must be logged in as admin to upload");
-        setUploading(false);
-        return;
-      }
-
-      const res = await fetch(`${API}/admin/bulk-upload/`, {
+      const res = await fetchWithAuth(`${API}/admin/bulk-upload/`, {
         method: "POST",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
         body: formData,
       });
 
       const data = await res.json();
 
       if (res.ok) {
-        setPreview(data.questions || []); // CHANGED - show preview instead of result
+        setResult({
+          success: true,
+          questionsCreated: data.questions_created || 0,
+          imagesExtracted: data.images_extracted || 0,
+          questions: data.questions || [],
+          errors: data.errors || [],
+        });
+        showToast(`Successfully created ${data.questions_created} questions!`);
+        setFile(null);
+        if (fileInputRef.current) fileInputRef.current.value = "";
       } else {
         setResult({
           success: false,
-          message: `❌ Upload failed: ${data.error || "Check if you're logged in as admin"}`,
+          error: data.error || "Upload failed. Check if you have admin permissions.",
+          rawPreview: data.raw_text_preview || null,
         });
+        showToast(data.error || "Upload failed", "error");
       }
     } catch (error) {
       setResult({
         success: false,
-        message: `❌ Upload failed: ${error.message}`,
+        error: `Network error: ${error.message}`,
       });
+      showToast("Upload failed: " + error.message, "error");
     } finally {
       setUploading(false);
     }
   };
-const handleConfirm = async () => {
-  setUploading(true);
 
-  const token = localStorage.getItem("accessToken");
-
-  try {
-    const res = await fetch(`${API}/admin/bulk-upload/`, {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        action: "confirm",
-        subject,
-        grade,
-        questions: preview,
-      }),
-    });
-
-    const data = await res.json();
-
-    if (res.ok) {
-      setResult({
-        success: true,
-        message: `✅ Successfully created ${data.questions_created} questions!`,
-        questions: data.questions,
-      });
-      setPreview(null);
-      setFile(null);
-      document.getElementById("file-upload").value = "";
-    }
-  } catch (error) {
-    setResult({
-      success: false,
-      message: `❌ Save failed: ${error.message}`,
-    });
-  } finally {
-    setUploading(false);
-  }
-};
-
-const deleteImage = (index) => {
-  setPreview((prev) =>
-    prev.map((q, i) => (i === index ? { ...q, image_base64: null } : q)),
-  );
-};
-
-const uploadImage = (index, file) => {
-  const reader = new FileReader();
-  reader.onload = (e) => {
-    const base64 = e.target.result.split(",")[1];
-    setPreview((prev) =>
-      prev.map((q, i) =>
-        i === index
-          ? {
-              ...q,
-              image_base64: base64,
-              image_ext: file.name.split(".").pop(),
-            }
-          : q,
-      ),
-    );
+  const resetAll = () => {
+    setFile(null);
+    setResult(null);
+    setSubject("");
+    setGrade("");
+    if (fileInputRef.current) fileInputRef.current.value = "";
   };
-  reader.readAsDataURL(file);
-};
+
+  const getFileIcon = () => {
+    if (!file) return <Upload className="w-10 h-10 text-gray-400" />;
+    const ext = file.name.toLowerCase().split(".").pop();
+    if (["pdf"].includes(ext)) return <File className="w-10 h-10 text-red-500" />;
+    if (["doc", "docx"].includes(ext)) return <FileText className="w-10 h-10 text-blue-500" />;
+    if (["png", "jpg", "jpeg"].includes(ext)) return <FileImage className="w-10 h-10 text-purple-500" />;
+    return <FileText className="w-10 h-10 text-gray-500" />;
+  };
+
+  if (authLoading) {
+    return <div className="min-h-screen bg-gray-50 flex items-center justify-center"><Loader2 className="w-8 h-8 animate-spin text-emerald-600" /></div>;
+  }
+  if (!user || !ALLOWED_ROLES.includes(user.role)) return null;
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-white to-amber-50 p-6">
-      <div className="max-w-3xl mx-auto">
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold text-emerald-900 mb-2">
-            📤 Bulk Upload Exams
-          </h1>
-          <p className="text-emerald-700">
-            Upload PDF, Word, or Image files - AI will extract questions
-            automatically
-          </p>
+    <>
+      <Toast message={toast.message} type={toast.type} visible={toast.show} onClose={() => setToast((t) => ({ ...t, show: false }))} />
+      <div className="min-h-screen bg-gray-50">
+        {/* Header */}
+        <div className="bg-white border-b sticky top-0 z-30">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <div className="flex items-center gap-4">
+              <button onClick={() => router.push("/admin")} className="p-2 text-gray-400 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-colors">
+                <ArrowLeft className="w-5 h-5" />
+              </button>
+              <div>
+                <h1 className="text-xl font-bold text-gray-900">Bulk Upload</h1>
+                <p className="text-sm text-gray-500">Upload exams &mdash; AI extracts questions automatically</p>
+              </div>
+            </div>
+          </div>
         </div>
 
-        {/* Upload Form */}
-        <div className="bg-white rounded-2xl shadow-xl border-2 border-emerald-100 p-8">
-          <div className="space-y-6">
-            {/* File Upload */}
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
+
+          {/* How it works */}
+          <div className="bg-linear-to-r from-emerald-50 to-blue-50 rounded-xl border border-emerald-100 p-5">
+            <div className="flex items-start gap-4">
+              <div className="w-10 h-10 rounded-xl bg-emerald-100 flex items-center justify-center shrink-0">
+                <Zap className="w-5 h-5 text-emerald-600" />
+              </div>
+              <div>
+                <h3 className="font-semibold text-gray-900">How It Works</h3>
+                <p className="text-sm text-gray-600 mt-1">
+                  Upload a PDF, Word document, or image of an exam paper. Our AI will automatically extract each question,
+                  detect question types (MCQ, structured, math), extract embedded images, and create them in your question bank.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Upload Card */}
+          <div className="bg-white rounded-xl border p-6 space-y-5">
+            {/* File Drop Zone */}
             <div>
-              <label className="block text-sm font-bold text-emerald-900 mb-2">
-                Upload Exam File *
-              </label>
-              <div className="border-2 border-dashed border-emerald-300 rounded-xl p-8 text-center hover:border-emerald-500 transition-colors cursor-pointer bg-emerald-50">
-                <input
-                  type="file"
-                  onChange={handleFileChange}
-                  accept=".pdf,.doc,.docx,.png,.jpg,.jpeg,.txt"
-                  className="hidden"
-                  id="file-upload"
-                />
-                <label htmlFor="file-upload" className="cursor-pointer">
-                  <Upload className="w-12 h-12 text-emerald-600 mx-auto mb-3" />
-                  <p className="text-emerald-900 font-semibold mb-1">
-                    Click to upload or drag and drop
-                  </p>
-                  <p className="text-sm text-emerald-600">
-                    PDF, Word, Images accepted
-                  </p>
-                  {file && (
-                    <div className="mt-4 inline-flex items-center gap-2 px-4 py-2 bg-emerald-100 rounded-lg">
-                      <FileText className="w-4 h-4 text-emerald-700" />
-                      <span className="text-sm font-medium text-emerald-900">
-                        {file.name}
-                      </span>
-                    </div>
-                  )}
-                </label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Exam File *</label>
+              <div
+                onDragEnter={handleDrag}
+                onDragLeave={handleDrag}
+                onDragOver={handleDrag}
+                onDrop={handleDrop}
+                onClick={() => fileInputRef.current?.click()}
+                className={`relative flex flex-col items-center justify-center w-full h-44 border-2 border-dashed rounded-xl cursor-pointer transition-all ${
+                  dragActive ? "border-emerald-500 bg-emerald-50" : file ? "border-emerald-300 bg-emerald-50/50" : "border-gray-300 hover:border-emerald-400 hover:bg-gray-50"
+                }`}
+              >
+                <input ref={fileInputRef} type="file" accept={ACCEPTED_TYPES} onChange={handleFileChange} className="hidden" />
+                {getFileIcon()}
+                {file ? (
+                  <div className="mt-3 text-center">
+                    <p className="text-sm font-semibold text-gray-900">{file.name}</p>
+                    <p className="text-xs text-gray-500 mt-0.5">{(file.size / 1024 / 1024).toFixed(2)} MB</p>
+                    <button onClick={(e) => { e.stopPropagation(); setFile(null); setResult(null); if(fileInputRef.current) fileInputRef.current.value=""; }} className="mt-2 text-xs text-red-600 hover:text-red-700 font-medium">Remove file</button>
+                  </div>
+                ) : (
+                  <div className="mt-3 text-center">
+                    <p className="text-sm font-medium text-gray-700">Click to upload or drag and drop</p>
+                    <p className="text-xs text-gray-400 mt-1">PDF, Word, Images, or Text files</p>
+                  </div>
+                )}
               </div>
             </div>
 
             {/* Subject & Grade */}
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-bold text-emerald-900 mb-2">
-                  Subject *
-                </label>
-                <select
-                  value={subject}
-                  onChange={(e) => setSubject(e.target.value)}
-                  disabled={loading}
-                  className="w-full px-4 py-3 border-2 border-emerald-200 rounded-lg focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 disabled:opacity-50"
-                >
-                  <option value="">
-                    {loading ? "Loading..." : "Select Subject"}
-                  </option>
-                  {subjects.map((s) => (
-                    <option key={s.id} value={s.id}>
-                      {s.name}
-                    </option>
-                  ))}
+                <label className="block text-sm font-medium text-gray-700 mb-1">Learning Area *</label>
+                <select value={subject} onChange={(e) => setSubject(e.target.value)} className="w-full px-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent">
+                  <option value="">Select Learning Area</option>
+                  {subjects.map((s) => <option key={s.id} value={s.id}>{s.name}</option>)}
                 </select>
-                {!loading && subjects.length === 0 && (
-                  <p className="text-xs text-red-600 mt-1">
-                    No subjects found. Add subjects first.
-                  </p>
-                )}
               </div>
-
               <div>
-                <label className="block text-sm font-bold text-emerald-900 mb-2">
-                  Grade *
-                </label>
-                <select
-                  value={grade}
-                  onChange={(e) => setGrade(e.target.value)}
-                  className="w-full px-4 py-3 border-2 border-emerald-200 rounded-lg focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200"
-                >
+                <label className="block text-sm font-medium text-gray-700 mb-1">Grade *</label>
+                <select value={grade} onChange={(e) => setGrade(e.target.value)} className="w-full px-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent">
                   <option value="">Select Grade</option>
-                  {[4, 5, 6, 7, 8, 9, 10].map((g) => (
-                    <option key={g} value={g}>
-                      Grade {g}
-                    </option>
-                  ))}
+                  {GRADES.map((g) => <option key={g} value={g}>Grade {g}</option>)}
                 </select>
               </div>
             </div>
@@ -294,172 +271,194 @@ const uploadImage = (index, file) => {
             <button
               onClick={handleUpload}
               disabled={!file || !subject || !grade || uploading}
-              className="w-full py-4 bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 text-white rounded-xl font-bold text-lg shadow-lg disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+              className="w-full inline-flex items-center justify-center gap-2 px-4 py-3.5 text-sm font-medium rounded-lg bg-emerald-600 text-white hover:bg-emerald-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors shadow-sm"
             >
               {uploading ? (
-                <span className="flex items-center justify-center gap-2">
-                  <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                  Extracting questions...
-                </span>
+                <><Loader2 className="w-5 h-5 animate-spin" />Extracting questions with AI...</>
               ) : (
-                "🚀 Upload & Extract Questions"
+                <><Upload className="w-5 h-5" />Upload &amp; Extract Questions</>
               )}
             </button>
           </div>
-        </div>
-        {/* PREVIEW & IMAGE MANAGEMENT */}
-        {preview && (
-          <div className="mt-6 bg-white rounded-2xl shadow-xl border-2 border-blue-100 p-8">
-            <h2 className="text-2xl font-bold text-blue-900 mb-4">
-              Preview & Manage Images ({preview.length} questions)
-            </h2>
 
-            <div className="space-y-4 max-h-96 overflow-y-auto mb-6">
-              {preview.map((q, idx) => (
-                <div
-                  key={idx}
-                  className="border-2 border-gray-200 rounded-xl p-4 flex gap-4"
-                >
-                  {/* Question */}
-                  <div className="flex-1">
-                    <p className="text-xs font-bold text-gray-500 mb-1">
-                      Q{idx + 1} • {q.question_type?.toUpperCase()}
-                    </p>
-                    <p className="text-sm text-gray-900">{q.question_text}</p>
-                  </div>
-
-                  {/* Image Management */}
-                  <div className="w-40 flex-shrink-0">
-                    {q.image_base64 ? (
-                      <div className="relative group">
-                        <img
-                          src={`data:image/${q.image_ext || "png"};base64,${q.image_base64}`}
-                          className="w-full h-32 object-cover rounded-lg border-2 border-green-200"
-                        />
-                        <button
-                          onClick={() => deleteImage(idx)}
-                          className="absolute top-1 right-1 bg-red-500 text-white p-1 rounded opacity-0 group-hover:opacity-100 transition"
-                        >
-                          <XCircle className="w-4 h-4" />
-                        </button>
-                      </div>
-                    ) : (
-                      <label className="border-2 border-dashed border-gray-300 rounded-lg h-32 flex flex-col items-center justify-center cursor-pointer hover:border-blue-400 transition">
-                        <Upload className="w-6 h-6 text-gray-400 mb-1" />
-                        <span className="text-xs text-gray-500">
-                          Upload Image
-                        </span>
-                        <input
-                          type="file"
-                          accept="image/*"
-                          className="hidden"
-                          onChange={(e) => uploadImage(idx, e.target.files[0])}
-                        />
-                      </label>
-                    )}
-                  </div>
+          {/* Progress indicator during upload */}
+          {uploading && (
+            <div className="bg-white rounded-xl border p-6">
+              <div className="flex items-center gap-4 mb-4">
+                <div className="w-10 h-10 rounded-xl bg-blue-100 flex items-center justify-center">
+                  <Loader2 className="w-5 h-5 animate-spin text-blue-600" />
                 </div>
-              ))}
-            </div>
-
-            {/* Actions */}
-            <div className="flex gap-4">
-              <button
-                onClick={() => setPreview(null)}
-                className="flex-1 py-3 border-2 border-gray-300 text-gray-700 rounded-xl font-bold hover:bg-gray-50 transition"
-              >
-                Cancel
-              </button>
-              <button
-                onClick={handleConfirm}
-                disabled={uploading}
-                className="flex-1 py-3 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-xl font-bold shadow-lg disabled:opacity-50 transition"
-              >
-                {uploading ? "Saving..." : `✓ Save ${preview.length} Questions`}
-              </button>
-            </div>
-          </div>
-        )}
-        {/* Result */}
-        {result && (
-          <div
-            className={`mt-6 rounded-2xl border-2 p-6 ${
-              result.success
-                ? "bg-green-50 border-green-300"
-                : "bg-red-50 border-red-300"
-            }`}
-          >
-            <div className="flex items-start gap-3">
-              {result.success ? (
-                <CheckCircle className="w-6 h-6 text-green-600 flex-shrink-0" />
-              ) : (
-                <XCircle className="w-6 h-6 text-red-600 flex-shrink-0" />
-              )}
-              <div className="flex-1">
-                <p
-                  className={`font-bold text-lg mb-2 ${
-                    result.success ? "text-green-900" : "text-red-900"
-                  }`}
-                >
-                  {result.message}
-                </p>
-
-                {result.success && result.questions && (
-                  <div className="mt-4 space-y-2 max-h-96 overflow-y-auto">
-                    <p className="text-sm font-semibold text-green-800">
-                      Questions Created ({result.questions.length}):
-                    </p>
-                    {result.questions.map((q, idx) => (
-                      <div
-                        key={idx}
-                        className="bg-white rounded-lg p-3 border border-green-200"
-                      >
-                        <div className="flex items-start gap-2">
-                          <span className="text-xs font-bold text-green-700 bg-green-100 px-2 py-1 rounded">
-                            {q.type?.toUpperCase() || "Q"}
-                          </span>
-                          {q.has_image && (
-                            <span className="text-xs font-bold text-blue-700 bg-blue-100 px-2 py-1 rounded">
-                              📷 IMAGE
-                            </span>
-                          )}
-                          <p className="text-sm text-gray-900 flex-1">
-                            <div
-                              className="text-sm text-gray-900 flex-1"
-                              dangerouslySetInnerHTML={{
-                                __html: q.question_text,
-                              }}
-                            />
-                          </p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                )}
+                <div>
+                  <h3 className="font-semibold text-gray-900">Processing your file...</h3>
+                  <p className="text-sm text-gray-500">This may take 15-60 seconds depending on file size</p>
+                </div>
+              </div>
+              <div className="space-y-2">
+                <StepIndicator step="Extracting text &amp; images from file" status="active" />
+                <StepIndicator step="AI analyzing and parsing questions" status="pending" />
+                <StepIndicator step="Creating questions in database" status="pending" />
               </div>
             </div>
-          </div>
-        )}
+          )}
 
-        {/* Info */}
-        <div className="mt-6 bg-blue-50 border-2 border-blue-200 rounded-xl p-6">
-          <div className="flex items-start gap-3">
-            <AlertCircle className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
-            <div className="text-sm text-blue-900">
-              <p className="font-bold mb-2">Supported Formats:</p>
-              <ul className="list-disc list-inside space-y-1">
-                <li>PDF files (regular or scanned)</li>
-                <li>Word documents (.doc, .docx)</li>
-                <li>Images (.png, .jpg, .jpeg)</li>
-                <li>Text files (.txt)</li>
-              </ul>
-              <p className="mt-3">
-                The AI will automatically detect question types, extract options
-                for MCQs, and create marking schemes for structured questions.
+          {/* Results */}
+          <AnimatePresence>
+            {result && (
+              <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
+                {result.success ? (
+                  <div className="space-y-4">
+                    {/* Success Banner */}
+                    <div className="bg-green-50 rounded-xl border border-green-200 p-6">
+                      <div className="flex items-start gap-4">
+                        <div className="w-12 h-12 rounded-xl bg-green-100 flex items-center justify-center shrink-0">
+                          <CheckCircle className="w-6 h-6 text-green-600" />
+                        </div>
+                        <div className="flex-1">
+                          <h3 className="text-lg font-bold text-green-900">Upload Successful!</h3>
+                          <div className="flex flex-wrap gap-4 mt-2">
+                            <Stat label="Questions Created" value={result.questionsCreated} color="text-green-700" />
+                            <Stat label="Images Extracted" value={result.imagesExtracted} color="text-blue-700" />
+                            {result.errors?.length > 0 && <Stat label="Errors" value={result.errors.length} color="text-red-600" />}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Created Questions List */}
+                    {result.questions?.length > 0 && (
+                      <div className="bg-white rounded-xl border p-6">
+                        <h3 className="font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                          <FileText className="w-5 h-5 text-emerald-500" />
+                          Created Questions ({result.questions.length})
+                        </h3>
+                        <div className="space-y-2 max-h-96 overflow-y-auto">
+                          {result.questions.map((q, idx) => (
+                            <div key={idx} className="flex items-start gap-3 p-3 bg-gray-50 rounded-lg">
+                              <span className="text-xs font-bold text-emerald-700 bg-emerald-100 px-2 py-1 rounded shrink-0">
+                                {q.type?.toUpperCase() || "Q"}
+                              </span>
+                              {q.has_image && (
+                                <span className="text-xs font-bold text-blue-700 bg-blue-100 px-2 py-1 rounded shrink-0 flex items-center gap-1">
+                                  <ImageIcon className="w-3 h-3" />IMG
+                                </span>
+                              )}
+                              <p className="text-sm text-gray-900 flex-1 line-clamp-2">{q.question_text}</p>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Errors */}
+                    {result.errors?.length > 0 && (
+                      <div className="bg-red-50 rounded-xl border border-red-200 p-6">
+                        <h3 className="font-semibold text-red-900 mb-3 flex items-center gap-2">
+                          <AlertCircle className="w-5 h-5" />
+                          Some questions had errors ({result.errors.length})
+                        </h3>
+                        <div className="space-y-2 max-h-48 overflow-y-auto">
+                          {result.errors.map((err, idx) => (
+                            <div key={idx} className="text-sm text-red-700 bg-red-100/50 rounded-lg p-3">
+                              <span className="font-medium">Q{err.question_number}:</span> {err.error}
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Actions */}
+                    <div className="flex gap-3">
+                      <button onClick={resetAll} className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 text-sm font-medium bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors">
+                        <Upload className="w-4 h-4" />Upload Another
+                      </button>
+                      <button onClick={() => router.push("/admin/questions")} className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 text-sm font-medium border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">
+                        <Eye className="w-4 h-4" />View Questions
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  /* Error Result */
+                  <div className="bg-red-50 rounded-xl border border-red-200 p-6">
+                    <div className="flex items-start gap-4">
+                      <div className="w-12 h-12 rounded-xl bg-red-100 flex items-center justify-center shrink-0">
+                        <XCircle className="w-6 h-6 text-red-600" />
+                      </div>
+                      <div className="flex-1">
+                        <h3 className="text-lg font-bold text-red-900">Upload Failed</h3>
+                        <p className="text-sm text-red-700 mt-1">{result.error}</p>
+                        {result.rawPreview && (
+                          <details className="mt-3">
+                            <summary className="text-xs text-red-600 cursor-pointer font-medium">Show extracted text preview</summary>
+                            <pre className="mt-2 text-xs text-red-800 bg-red-100/50 rounded-lg p-3 overflow-x-auto whitespace-pre-wrap max-h-48">{result.rawPreview}</pre>
+                          </details>
+                        )}
+                        <button onClick={resetAll} className="mt-4 inline-flex items-center gap-2 text-sm font-medium text-red-700 hover:text-red-800">
+                          <RefreshCw className="w-4 h-4" />Try again
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          {/* Supported Formats */}
+          <div className="bg-white rounded-xl border p-6">
+            <h3 className="font-semibold text-gray-900 mb-4 flex items-center gap-2">
+              <AlertCircle className="w-5 h-5 text-blue-500" />Supported Formats &amp; Tips
+            </h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <FormatCard icon={<File className="w-5 h-5 text-red-500" />} title="PDF Files" desc="Regular or scanned PDFs. Scanned docs use AI vision for text extraction." />
+              <FormatCard icon={<FileText className="w-5 h-5 text-blue-500" />} title="Word Documents" desc=".doc and .docx files. Images embedded in the document are auto-extracted." />
+              <FormatCard icon={<FileImage className="w-5 h-5 text-purple-500" />} title="Images" desc="PNG, JPG, JPEG photos of exam papers. AI reads text directly from image." />
+              <FormatCard icon={<FileText className="w-5 h-5 text-gray-500" />} title="Text Files" desc="Plain .txt files with questions. Best for already-typed content." />
+            </div>
+            <div className="mt-4 p-3 bg-amber-50 rounded-lg border border-amber-200">
+              <p className="text-sm text-amber-800">
+                <span className="font-semibold">Pro tip:</span> For best results, use clear, well-formatted exam papers. 
+                The AI auto-detects MCQs (A/B/C/D), structured questions, math equations (LaTeX), and embedded diagrams.
               </p>
             </div>
           </div>
         </div>
+      </div>
+    </>
+  );
+}
+
+// Sub-components
+function StepIndicator({ step, status }) {
+  return (
+    <div className="flex items-center gap-3">
+      {status === "active" ? (
+        <Loader2 className="w-4 h-4 animate-spin text-blue-600 shrink-0" />
+      ) : status === "done" ? (
+        <CheckCircle className="w-4 h-4 text-green-500 shrink-0" />
+      ) : (
+        <div className="w-4 h-4 rounded-full border-2 border-gray-300 shrink-0" />
+      )}
+      <span className={`text-sm ${status === "active" ? "text-blue-700 font-medium" : status === "done" ? "text-green-700" : "text-gray-400"}`}>{step}</span>
+    </div>
+  );
+}
+
+function Stat({ label, value, color }) {
+  return (
+    <div>
+      <span className={`text-2xl font-bold ${color}`}>{value}</span>
+      <span className="text-sm text-gray-600 ml-1.5">{label}</span>
+    </div>
+  );
+}
+
+function FormatCard({ icon, title, desc }) {
+  return (
+    <div className="flex items-start gap-3 p-3 bg-gray-50 rounded-lg">
+      <div className="mt-0.5 shrink-0">{icon}</div>
+      <div>
+        <p className="text-sm font-medium text-gray-900">{title}</p>
+        <p className="text-xs text-gray-500 mt-0.5">{desc}</p>
       </div>
     </div>
   );

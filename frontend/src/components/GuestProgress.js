@@ -242,12 +242,12 @@ export default function GuestProgress() {
               {[
                 {
                   icon: BarChart3,
-                  text: "Subject performance breakdown",
+                  text: "Learning area performance breakdown",
                   color: "text-blue-400",
                 },
                 {
                   icon: Target,
-                  text: "Identify your weak topics",
+                  text: "Identify your weak strands",
                   color: "text-orange-400",
                 },
                 {

@@ -77,7 +77,7 @@ export default function LoginPage() {
             </div>
             <div className="leading-none">
               <span className="font-display text-lg font-bold text-white block">
-                CBC Kenya
+                CBE Kenya
               </span>
               <span className="text-[10px] font-semibold text-cyan-300 tracking-widest uppercase block">
                 Learning Platform
@@ -160,7 +160,7 @@ export default function LoginPage() {
                 <BookOpen className="w-4 h-4 text-white" />
               </div>
               <span className="font-display text-lg font-bold text-cyan-900">
-                CBC Kenya
+                CBE Kenya
               </span>
             </div>
 

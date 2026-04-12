@@ -342,14 +342,14 @@ export default function ImprovedFeedbackDisplay({ attempt, quiz }) {
             <>
               <p className="text-lg text-gray-800 leading-relaxed">
                 🎉 <strong>Excellent work!</strong> You have a strong
-                understanding of this topic.
+                understanding of this strand.
               </p>
               <p className="text-base text-gray-700 leading-relaxed">
                 To maintain your performance:
               </p>
               <ul className="list-disc list-inside space-y-2 text-base text-gray-700 ml-4">
                 <li>Review the questions you missed to achieve perfection</li>
-                <li>Try more challenging topics to expand your knowledge</li>
+                <li>Try more challenging strands to expand your knowledge</li>
                 <li>Help others by explaining concepts you understand well</li>
               </ul>
             </>
@@ -363,7 +363,7 @@ export default function ImprovedFeedbackDisplay({ attempt, quiz }) {
               </p>
               <ul className="list-disc list-inside space-y-2 text-base text-gray-700 ml-4">
                 <li>Review the feedback on questions you missed</li>
-                <li>Practice similar questions on these topics</li>
+                <li>Practice similar questions on these strands</li>
                 <li>Ask your teacher about concepts you find challenging</li>
               </ul>
             </>
@@ -381,7 +381,7 @@ export default function ImprovedFeedbackDisplay({ attempt, quiz }) {
                   Carefully review all the feedback and model answers above
                 </li>
                 <li>
-                  Re-read your notes on {quiz.subject?.name || "this topic"}
+                  Re-read your notes on {quiz.subject?.name || "this strand"}
                 </li>
                 <li>Practice with easier questions first, then progress</li>
                 <li>Don't hesitate to ask your teacher for help</li>

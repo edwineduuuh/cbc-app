@@ -417,6 +417,7 @@ class SubscriptionPlan(models.Model):
     The Darja tiers — configurable subscription plans
     """
     BILLING_CHOICES = [
+        ('weekly', 'Weekly'),
         ('monthly', 'Monthly'),
         ('termly', 'Termly (3 months)'),
         ('annual', 'Annual'),

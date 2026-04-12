@@ -131,7 +131,7 @@ export default function QuizzesPage() {
                 onChange={(e) => setSelectedSubject(e.target.value)}
                 className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent appearance-none bg-white"
               >
-                <option value="">All Subjects</option>
+                <option value="">All Learning Areas</option>
                 {subjects.map((subject) => (
                   <option key={subject.id} value={subject.id}>
                     {subject.icon} {subject.name}

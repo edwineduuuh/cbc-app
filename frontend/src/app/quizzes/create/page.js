@@ -152,7 +152,7 @@ export default function CreateQuizPage() {
             </div>
 
             <div>
-              <label className="block mb-1">Subject</label>
+              <label className="block mb-1">Learning Area</label>
               <select
                 value={formData.subject}
                 onChange={(e) =>
@@ -239,7 +239,7 @@ export default function CreateQuizPage() {
             <div className="text-center py-8 text-gray-500">
               {formData.subject && formData.grade
                 ? "No questions found"
-                : "Select subject and grade first"}
+                : "Select learning area and grade first"}
             </div>
           ) : (
             <div className="space-y-2 max-h-96 overflow-y-auto">

@@ -178,7 +178,7 @@ export default function ExplorePage() {
                 <BookOpen className="w-4 h-4 text-white" />
               </div>
               <div className="leading-none">
-                <span className="font-bold text-lg text-sky-900">CBC</span>
+                <span className="font-bold text-lg text-sky-900">CBE</span>
                 <span className="text-[10px] font-semibold text-cyan-600 tracking-widest uppercase block">
                   Kenya
                 </span>
@@ -226,7 +226,7 @@ export default function ExplorePage() {
               <div className="flex items-center gap-2 mb-4">
                 <Sparkles className="w-5 h-5 text-amber-300" />
                 <span className="text-amber-200 text-sm font-semibold uppercase tracking-wide">
-                  Welcome to CBC Kenya
+                  Welcome to CBE Kenya
                 </span>
               </div>
               <h1 className="text-4xl md:text-5xl font-bold mb-4">
@@ -247,7 +247,7 @@ export default function ExplorePage() {
                 </div>
                 <div className="flex items-center gap-2">
                   <CheckCircle className="w-5 h-5 text-amber-300" />
-                  <span>CBC-aligned questions</span>
+                  <span>CBE-aligned questions</span>
                 </div>
               </div>
             </div>
@@ -362,7 +362,7 @@ export default function ExplorePage() {
                             {grade}
                           </h3>
                           <p className="text-sm text-gray-500">
-                            {Object.keys(subjects).length} subjects ·{" "}
+                            {Object.keys(subjects).length} learning areas ·{" "}
                             {totalQuizzes} quizzes
                           </p>
                         </div>
@@ -596,7 +596,7 @@ export default function ExplorePage() {
                 <div className="space-y-2">
                   {[
                     "Unlimited quizzes",
-                    "All subjects & grades",
+                    "All learning areas & grades",
                     "AI-powered marking",
                     "Progress tracking",
                     "M-Pesa payment",

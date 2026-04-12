@@ -178,7 +178,7 @@ export default function PremiumExplore() {
               <h1 className="font-display text-lg font-bold text-gray-900">
                 {view === "levels" && "Choose Education Level"}
                 {view === "grades" && `${selectedLevel?.name}`}
-                {view === "subjects" && `Grade ${selectedGrade} Subjects`}
+                {view === "subjects" && `Grade ${selectedGrade} Learning Areas`}
                 {view === "quizzes" && selectedSubject?.name}
               </h1>
               {view === "quizzes" && (
@@ -228,7 +228,7 @@ export default function PremiumExplore() {
                       {level.grades[level.grades.length - 1]}
                     </p>
                     <div className="flex items-center justify-center gap-2 text-sm text-gray-400">
-                      <span>Explore subjects</span>
+                      <span>Explore learning areas</span>
                       <ChevronRight className="w-4 h-4" />
                     </div>
                   </div>
@@ -288,13 +288,15 @@ export default function PremiumExplore() {
               {loading ? (
                 <div className="text-center py-12">
                   <div className="w-12 h-12 border-4 border-green-500/30 border-t-green-500 rounded-full animate-spin mx-auto" />
-                  <p className="text-gray-500 mt-4">Loading subjects...</p>
+                  <p className="text-gray-500 mt-4">
+                    Loading learning areas...
+                  </p>
                 </div>
               ) : subjects.length === 0 ? (
                 <div className="text-center py-12">
                   <BookOpen className="w-16 h-16 text-gray-300 mx-auto mb-4" />
                   <p className="text-gray-500">
-                    No subjects available for Grade {selectedGrade} yet.
+                    No learning areas available for Grade {selectedGrade} yet.
                   </p>
                 </div>
               ) : (

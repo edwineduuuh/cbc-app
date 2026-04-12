@@ -371,7 +371,11 @@ class AttemptListView(generics.ListAPIView):
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        return Attempt.objects.filter(student=self.request.user)
+        qs = Attempt.objects.filter(student=self.request.user).select_related('quiz', 'student')
+        status_filter = self.request.query_params.get('status')
+        if status_filter:
+            qs = qs.filter(status=status_filter)
+        return qs.order_by('-completed_at')
 
 
 class AttemptDetailView(generics.RetrieveAPIView):
@@ -517,6 +521,13 @@ class SubmitQuizView(APIView):
             status='completed',
             completed_at=timezone.now()
         )
+        # Update started_at if frontend provided it
+        raw_started_at = request.data.get('started_at')
+        if raw_started_at:
+            from django.utils.dateparse import parse_datetime
+            parsed = parse_datetime(raw_started_at)
+            if parsed:
+                Attempt.objects.filter(pk=attempt.pk).update(started_at=parsed)
         
         # Mark each question based on type
         total_score = 0
@@ -561,47 +572,110 @@ class StudentAnalyticsView(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
-        from django.db.models import Avg, Max
+        from django.db.models import Avg, Max, Sum, F, ExpressionWrapper, DurationField
+        from django.db.models.functions import TruncDate
+        from datetime import timedelta
+        from django.utils import timezone
+        import datetime
+
         user = request.user
         attempts = Attempt.objects.filter(student=user, status='completed')
 
-        # Unique quizzes attempted (distinct quiz_ids) — the honest headline number
+        # Unique quizzes attempted (distinct quiz_ids)
         unique_quizzes = attempts.values('quiz').distinct().count()
 
-        # Total sessions including retakes — shown as sub-label
+        # Total sessions including retakes
         total_sessions = attempts.count()
 
         avg_score = attempts.aggregate(avg=Avg('score'))['avg'] or 0
         best_score = attempts.aggregate(best=Max('score'))['best'] or 0
 
-        # Best score per unique quiz (first attempt wins for "completed" count)
-        # Group by quiz and take the best score for each
+        # Total questions answered across all sessions
+        total_questions_answered = attempts.aggregate(
+            total=Sum('total_questions')
+        )['total'] or 0
+
+        # Best score per unique quiz
         from django.db.models import Max as DMax
         quiz_best_scores = (
             attempts
             .values('quiz')
             .annotate(best=DMax('score'))
         )
-        # Count quizzes where best score >= passing threshold (75 by default)
+
+        # Perfect scores: quizzes where best score is 100%
+        perfect_scores = sum(1 for q in quiz_best_scores if q['best'] >= 99.9)
+
+        # Quizzes passed: best score >= 75%
         quizzes_passed = sum(1 for q in quiz_best_scores if q['best'] >= 75)
 
+        # Study time: use DB aggregation for tracked durations, estimate for old data
+        timed_attempts = attempts.filter(
+            completed_at__isnull=False, started_at__isnull=False
+        ).annotate(
+            duration=ExpressionWrapper(
+                F('completed_at') - F('started_at'), output_field=DurationField()
+            )
+        )
+        # Sum real tracked durations (between 10s and 2h)
+        tracked = timed_attempts.filter(
+            duration__gt=timedelta(seconds=10),
+            duration__lt=timedelta(hours=2)
+        ).aggregate(total=Sum('duration'))['total'] or timedelta()
+        # Estimate untracked: ~1.5 min per question
+        untracked_questions = timed_attempts.exclude(
+            duration__gt=timedelta(seconds=10),
+            duration__lt=timedelta(hours=2)
+        ).aggregate(total=Sum('total_questions'))['total'] or 0
+        # Also count attempts with no timestamps
+        no_time_questions = attempts.filter(
+            completed_at__isnull=True
+        ).aggregate(total=Sum('total_questions'))['total'] or 0
+        estimated = timedelta(minutes=1.5 * (untracked_questions + no_time_questions))
+        total_duration = tracked + estimated
+        time_studied_hours = total_duration.total_seconds() / 3600
+
+        # Current streak: consecutive days (up to today) with at least 1 completed attempt
+        current_streak = 0
+        attempt_dates = (
+            attempts
+            .filter(completed_at__isnull=False)
+            .annotate(day=TruncDate('completed_at'))
+            .values_list('day', flat=True)
+            .distinct()
+            .order_by('-day')
+        )
+        unique_days = sorted(set(d for d in attempt_dates if d), reverse=True)
+        today = timezone.now().date()
+        if unique_days:
+            # Allow streak to start from today or yesterday
+            expected = today
+            if unique_days[0] == today or unique_days[0] == today - datetime.timedelta(days=1):
+                expected = unique_days[0]
+                for day in unique_days:
+                    if day == expected:
+                        current_streak += 1
+                        expected -= datetime.timedelta(days=1)
+                    elif day < expected:
+                        break
+
+        # Last active date
+        last_active = None
+        if unique_days:
+            last_active = unique_days[0].isoformat()
+
         return Response({
-            # Headline: unique quizzes (not inflated by retakes)
-            'quizzes_completed':  unique_quizzes,
-
-            # Sub-label: total attempts including retakes
-            'total_sessions':     total_sessions,
-
-            # Retakes = difference between sessions and unique quizzes
-            'total_retakes':      max(0, total_sessions - unique_quizzes),
-
-            # Quizzes where student has ever scored >= 75%
-            'quizzes_passed':     quizzes_passed,
-
-            'average_score':      round(avg_score, 1),
-            'best_score':         round(best_score, 1),
-            'time_studied_hours': 0,
-            'current_streak':     0,
+            'quizzes_completed':       unique_quizzes,
+            'total_sessions':          total_sessions,
+            'total_retakes':           max(0, total_sessions - unique_quizzes),
+            'total_questions_answered': total_questions_answered,
+            'quizzes_passed':          quizzes_passed,
+            'perfect_scores':          perfect_scores,
+            'average_score':           round(avg_score, 1),
+            'best_score':              round(best_score, 1),
+            'time_studied_hours':      round(time_studied_hours, 2),
+            'current_streak':          current_streak,
+            'last_active':             last_active,
         })
     
 from rest_framework.decorators import api_view, permission_classes
@@ -689,6 +763,7 @@ def submit_quiz(request):
     quiz_id = data.get('quiz_id')
     answers = data.get('answers', {})
     session_id = data.get('session_id')  # For guests
+    raw_started_at = data.get('started_at')  # ISO timestamp from frontend
     
     if not quiz_id:
         return Response({'error': 'quiz_id required'}, status=400)
@@ -890,6 +965,12 @@ def submit_quiz(request):
             }
         
         # Save attempt
+        # Parse the frontend-provided start time
+        parsed_started_at = None
+        if raw_started_at:
+            from django.utils.dateparse import parse_datetime
+            parsed_started_at = parse_datetime(raw_started_at)
+
         with transaction.atomic():
             attempt = Attempt.objects.create(
                 student=user,
@@ -904,6 +985,8 @@ def submit_quiz(request):
                 detailed_feedback=detailed_feedback,
                 answers=answers
             )
+            if parsed_started_at:
+                Attempt.objects.filter(pk=attempt.pk).update(started_at=parsed_started_at)
             
             # Deduct credit (if not subscribed)
             if not has_subscription:

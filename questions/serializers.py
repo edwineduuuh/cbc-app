@@ -101,6 +101,7 @@ class QuestionDetailSerializer(serializers.ModelSerializer):
     grade        = serializers.IntegerField(source='topic.grade', read_only=True)
     subject      = serializers.IntegerField(source='topic.subject.id', read_only=True)
     question_image_url = serializers.SerializerMethodField()
+    question_image = serializers.ImageField(required=False, allow_null=True, write_only=True)
 
     class Meta:
         model  = Question
@@ -112,7 +113,7 @@ class QuestionDetailSerializer(serializers.ModelSerializer):
             'correct_answer', 'correct_answers',
             'explanation', 'difficulty',
             'created_at', 'created_by',
-            'question_image_url'
+            'question_image_url', 'question_image'
         ]
         read_only_fields = [
             'id', 'subject', 'subject_name', 'topic_name', 'grade',

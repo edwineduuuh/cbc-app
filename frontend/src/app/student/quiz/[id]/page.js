@@ -167,7 +167,6 @@ function QuestionNav({ questions, answers, currentIdx, onJump, show }) {
             borderRight: "none",
           }}
         >
-          
           {questions.map((_, i) => {
             const answered = answers[i] !== undefined && answers[i] !== "";
             const current = i === currentIdx;
@@ -874,7 +873,6 @@ export default function QuizTakePage({ params }) {
     }
   }, [user]);
 
-  
   const router = useRouter();
   const { id: quizId } = use(params);
 
@@ -892,6 +890,7 @@ export default function QuizTakePage({ params }) {
   const [result, setResult] = useState(null);
   const [showNav, setShowNav] = useState(true);
   const [flagged, setFlagged] = useState(new Set());
+  const quizStartedAt = useRef(new Date().toISOString());
 
   const currentQ = questions[currentIdx];
   const totalQ = questions.length;
@@ -951,6 +950,7 @@ export default function QuizTakePage({ params }) {
       const payload = {
         quiz_id: parseInt(quizId),
         answers: answersDict,
+        started_at: quizStartedAt.current,
       };
 
       // Add session_id for guests

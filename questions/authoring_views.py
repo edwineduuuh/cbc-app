@@ -17,6 +17,7 @@ class QuestionCreateView(generics.CreateAPIView):
     """
     serializer_class = QuestionDetailSerializer
     permission_classes = [IsAuthenticated]
+    parser_classes = [MultiPartParser, FormParser]
     
     def perform_create(self, serializer):
         serializer.save(created_by=self.request.user)
@@ -59,6 +60,7 @@ class QuestionUpdateView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Question.objects.all()
     serializer_class = QuestionDetailSerializer
     permission_classes = [IsAuthenticated]
+    parser_classes = [MultiPartParser, FormParser]
 
 
 class BulkQuestionImportView(generics.CreateAPIView):

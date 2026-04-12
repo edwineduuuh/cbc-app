@@ -1696,7 +1696,7 @@ export default function AttemptResultsPage() {
               </p>
               <p style={{ fontSize: 13, color: "#1e40af", lineHeight: 1.5 }}>
                 Subscribe for KES 500/month to keep going — unlimited quizzes,
-                all subjects, Grades 4–10.
+                all learning areas, Grades 4–10.
               </p>
             </div>
           )}

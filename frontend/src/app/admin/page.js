@@ -1,11 +1,11 @@
 "use client";
-import { useRoleGuard } from "@/hooks/useRoleGuard";
 import { useState, useEffect, useCallback } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { useTheme } from "@/hooks/useTheme";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import { fetchWithAuth } from "@/lib/api";
 import {
   BarChart2,
   BookOpen,
@@ -41,11 +41,6 @@ function StatCard({ label, value, icon: Icon, gradient, delay = 0 }) {
     amber: "from-amber-400 to-orange-500",
     rose: "from-rose-500 to-pink-600",
   };
-  const { user, loading } = useRoleGuard([
-    "admin",
-    "superadmin",
-    "school_admin",
-  ]);
   return (
     <motion.div
       initial={{ opacity: 0, y: 24 }}
@@ -191,7 +186,6 @@ function QuestionModal({ open, onClose, onSave, subjects, topics, editData }) {
     }
 
     setSaving(true);
-    const token = localStorage.getItem("accessToken");
     const url = editData
       ? `${API}/admin/questions/${editData.id}/`
       : `${API}/admin/questions/create/`;
@@ -272,14 +266,12 @@ function QuestionModal({ open, onClose, onSave, subjects, topics, editData }) {
         }
       }
 
-      const res = await fetch(url, {
+      const fetchOptions = {
         method,
-        headers: {
-          Authorization: `Bearer ${token}`,
-          ...(hasImage ? {} : { "Content-Type": "application/json" }),
-        },
         body: hasImage ? payload : JSON.stringify(payload),
-      });
+        headers: hasImage ? {} : undefined,
+      };
+      const res = await fetchWithAuth(url, fetchOptions);
 
       if (res.ok) {
         setToast({
@@ -341,7 +333,7 @@ function QuestionModal({ open, onClose, onSave, subjects, topics, editData }) {
                 {editData ? "Edit Question" : "New Question"}
               </h2>
               <p className="text-xs text-gray-400 mt-0.5">
-                B2C curriculum library
+                CBE curriculum library
               </p>
             </div>
             <button
@@ -356,7 +348,7 @@ function QuestionModal({ open, onClose, onSave, subjects, topics, editData }) {
             {/* Form fields */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               <div>
-                <label className={labelCls}>Subject *</label>
+                <label className={labelCls}>Learning Area *</label>
                 <select
                   value={form.subject}
                   onChange={(e) => {
@@ -365,7 +357,7 @@ function QuestionModal({ open, onClose, onSave, subjects, topics, editData }) {
                   }}
                   className={inputCls}
                 >
-                  <option value="">Select subject</option>
+                  <option value="">Select learning area</option>
                   {subjects.map((s) => (
                     <option key={s.id} value={s.id}>
                       {s.name}
@@ -374,14 +366,14 @@ function QuestionModal({ open, onClose, onSave, subjects, topics, editData }) {
                 </select>
               </div>
               <div>
-                <label className={labelCls}>Topic *</label>
+                <label className={labelCls}>Strand *</label>
                 <select
                   value={form.topic}
                   onChange={(e) => update("topic", e.target.value)}
                   disabled={!form.subject}
                   className={`${inputCls} disabled:opacity-40 disabled:cursor-not-allowed disabled:bg-gray-50`}
                 >
-                  <option value="">Select topic</option>
+                  <option value="">Select strand</option>
                   {filteredTopics.map((t) => (
                     <option key={t.id} value={t.id}>
                       Grade {t.grade} – {t.name}
@@ -643,13 +635,11 @@ function BulkImportModal({ open, onClose, onDone }) {
   const handleImport = async () => {
     if (!file) return;
     setLoading(true);
-    const token = localStorage.getItem("accessToken");
     const fd = new FormData();
     fd.append("file", file);
     try {
-      const res = await fetch(`${API}/admin/questions/bulk-import/`, {
+      const res = await fetchWithAuth(`${API}/admin/questions/bulk-import/`, {
         method: "POST",
-        headers: { Authorization: `Bearer ${token}` },
         body: fd,
       });
       const data = await res.json();
@@ -825,10 +815,7 @@ function GroupedStatsPanel({ onFilter }) {
   const [view, setView] = useState("subjects");
 
   useEffect(() => {
-    const token = localStorage.getItem("accessToken");
-    fetch(`${API}/admin/questions/stats/`, {
-      headers: { Authorization: `Bearer ${token}` },
-    })
+    fetchWithAuth(`${API}/admin/questions/stats/`)
       .then((r) => r.json())
       .then((d) => {
         setData(d);
@@ -882,7 +869,7 @@ function GroupedStatsPanel({ onFilter }) {
         </div>
         <div className="flex gap-1 bg-gray-100 p-1 rounded-lg">
           {[
-            ["subjects", "By Subject"],
+            ["subjects", "By Learning Area"],
             ["recent", "Recent Activity"],
           ].map(([v, label]) => (
             <button
@@ -1000,29 +987,21 @@ export default function AdminPage() {
     }
   }, [user, authLoading, router]);
 
-  const getToken = () => localStorage.getItem("accessToken");
-
   const fetchAll = useCallback(async () => {
-    if (!getToken()) return;
+    if (authLoading || !user) return;
     setLoading(true);
     try {
-      const url = `${API}/admin/questions/?${new URLSearchParams({
+      const params = new URLSearchParams({
         ...(filterSubject && { subject: filterSubject }),
         ...(filterGrade && { grade: filterGrade }),
         ...(search && { search }),
-      }).toString()}`;
+      }).toString();
 
       const [qRes, sRes, tRes, stRes] = await Promise.all([
-        fetch(url, { headers: { Authorization: `Bearer ${getToken()}` } }),
-        fetch(`${API}/subjects/`, {
-          headers: { Authorization: `Bearer ${getToken()}` },
-        }),
-        fetch(`${API}/topics/`, {
-          headers: { Authorization: `Bearer ${getToken()}` },
-        }),
-        fetch(`${API}/admin/stats/`, {
-          headers: { Authorization: `Bearer ${getToken()}` },
-        }),
+        fetchWithAuth(`${API}/admin/questions/?${params}`),
+        fetchWithAuth(`${API}/subjects/`),
+        fetchWithAuth(`${API}/topics/`),
+        fetchWithAuth(`${API}/admin/stats/`),
       ]);
 
       const [qData, sData, tData, stData] = await Promise.all([
@@ -1046,7 +1025,7 @@ export default function AdminPage() {
     } finally {
       setLoading(false);
     }
-  }, [filterSubject, filterGrade, search]);
+  }, [authLoading, user, filterSubject, filterGrade, search]);
 
   useEffect(() => {
     fetchAll();
@@ -1064,9 +1043,8 @@ export default function AdminPage() {
   const handleDelete = async (id) => {
     if (!confirm("Delete this question permanently?")) return;
     try {
-      const res = await fetch(`${API}/admin/questions/${id}/`, {
+      const res = await fetchWithAuth(`${API}/admin/questions/${id}/`, {
         method: "DELETE",
-        headers: { Authorization: `Bearer ${getToken()}` },
       });
       if (res.ok) {
         setToast({
@@ -1136,7 +1114,7 @@ export default function AdminPage() {
             </div>
             <div>
               <span className="text-white font-bold text-lg tracking-tight">
-                CBC Kenya
+                CBE Kenya
               </span>
               <span className="text-emerald-300 text-xs ml-2 font-medium hidden sm:inline">
                 Admin Panel
@@ -1164,27 +1142,6 @@ export default function AdminPage() {
       </header>
       <AdminNavigation />
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
-        {/* ── Quick Action Buttons ── */}
-        {/* <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <Link href="/admin/bulk-upload">
-            <button className="w-full px-6 py-4 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white rounded-xl font-bold transition-all shadow-lg transform hover:scale-105">
-              📤 Bulk Upload Exams
-            </button>
-          </Link>
-
-          <Link href="/admin/exams/create">
-            <button className="w-full px-6 py-4 bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 text-white rounded-xl font-bold transition-all shadow-lg transform hover:scale-105">
-              📝 Create Exam
-            </button>
-          </Link>
-
-          <Link href="/admin/questions/create">
-            <button className="w-full px-6 py-4 bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white rounded-xl font-bold transition-all shadow-lg transform hover:scale-105">
-              ➕ Add Question
-            </button>
-          </Link>
-        </div> */}
-
         {/* ── Stats ── */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
           <StatCard
@@ -1218,15 +1175,16 @@ export default function AdminPage() {
             delay={0.24}
           />
         </div>
-        {/* Quick Actions / Navigation */}
-        <div className="mt-8">
-          <h2 className="text-xl font-bold text-gray-900 mb-4">
+
+        {/* ── Quick Actions ── */}
+        <div>
+          <h2 className="text-lg font-bold text-gray-900 mb-4">
             Quick Actions
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             <Link href="/admin/questions">
-              <div className="bg-white p-6 rounded-xl border border-gray-200 hover:shadow-lg transition-all cursor-pointer">
-                <FileQuestion className="w-8 h-8 text-emerald-600 mb-3" />
+              <div className="bg-white p-5 rounded-xl border border-gray-200 hover:shadow-lg hover:border-emerald-200 transition-all cursor-pointer group">
+                <FileQuestion className="w-7 h-7 text-emerald-600 mb-3" />
                 <h3 className="font-bold text-gray-900 mb-1">
                   Manage Questions
                 </h3>
@@ -1237,8 +1195,8 @@ export default function AdminPage() {
             </Link>
 
             <Link href="/admin/bulk-upload">
-              <div className="bg-white p-6 rounded-xl border border-gray-200 hover:shadow-lg transition-all cursor-pointer">
-                <Upload className="w-8 h-8 text-blue-600 mb-3" />
+              <div className="bg-white p-5 rounded-xl border border-gray-200 hover:shadow-lg hover:border-blue-200 transition-all cursor-pointer group">
+                <Upload className="w-7 h-7 text-blue-600 mb-3" />
                 <h3 className="font-bold text-gray-900 mb-1">Bulk Upload</h3>
                 <p className="text-sm text-gray-500">
                   Upload PDFs with questions
@@ -1247,8 +1205,8 @@ export default function AdminPage() {
             </Link>
 
             <Link href="/admin/quizzes">
-              <div className="bg-white p-6 rounded-xl border border-gray-200 hover:shadow-lg transition-all cursor-pointer">
-                <ClipboardList className="w-8 h-8 text-purple-600 mb-3" />
+              <div className="bg-white p-5 rounded-xl border border-gray-200 hover:shadow-lg hover:border-purple-200 transition-all cursor-pointer group">
+                <ClipboardList className="w-7 h-7 text-purple-600 mb-3" />
                 <h3 className="font-bold text-gray-900 mb-1">Manage Quizzes</h3>
                 <p className="text-sm text-gray-500">
                   Create and organize quiz sets
@@ -1257,8 +1215,8 @@ export default function AdminPage() {
             </Link>
 
             <Link href="/admin/analytics">
-              <div className="bg-white p-6 rounded-xl border border-gray-200 hover:shadow-lg transition-all cursor-pointer">
-                <BarChart3 className="w-8 h-8 text-orange-600 mb-3" />
+              <div className="bg-white p-5 rounded-xl border border-gray-200 hover:shadow-lg hover:border-orange-200 transition-all cursor-pointer group">
+                <BarChart3 className="w-7 h-7 text-orange-600 mb-3" />
                 <h3 className="font-bold text-gray-900 mb-1">Analytics</h3>
                 <p className="text-sm text-gray-500">
                   View performance reports
@@ -1267,8 +1225,8 @@ export default function AdminPage() {
             </Link>
 
             <Link href="/teacher/classrooms">
-              <div className="bg-white p-6 rounded-xl border border-gray-200 hover:shadow-lg transition-all cursor-pointer">
-                <Users className="w-8 h-8 text-pink-600 mb-3" />
+              <div className="bg-white p-5 rounded-xl border border-gray-200 hover:shadow-lg hover:border-pink-200 transition-all cursor-pointer group">
+                <Users className="w-7 h-7 text-pink-600 mb-3" />
                 <h3 className="font-bold text-gray-900 mb-1">Classrooms</h3>
                 <p className="text-sm text-gray-500">
                   Manage classes and students
@@ -1277,8 +1235,8 @@ export default function AdminPage() {
             </Link>
 
             <Link href="/admin/settings">
-              <div className="bg-white p-6 rounded-xl border border-gray-200 hover:shadow-lg transition-all cursor-pointer">
-                <Settings className="w-8 h-8 text-gray-600 mb-3" />
+              <div className="bg-white p-5 rounded-xl border border-gray-200 hover:shadow-lg hover:border-gray-300 transition-all cursor-pointer group">
+                <Settings className="w-7 h-7 text-gray-600 mb-3" />
                 <h3 className="font-bold text-gray-900 mb-1">Settings</h3>
                 <p className="text-sm text-gray-500">
                   Configure platform settings
@@ -1287,57 +1245,9 @@ export default function AdminPage() {
             </Link>
           </div>
         </div>
+
+        {/* ── Payments ── */}
         <AdminPaymentsPanel />
-
-        {/* ── Quick Actions ── */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <Link href="/admin/quizzes/create" className="group">
-            <div className="bg-gradient-to-br from-emerald-500 to-teal-600 rounded-2xl p-5 text-white hover:shadow-xl hover:-translate-y-0.5 transition-all duration-200 cursor-pointer flex items-center gap-4">
-              <div className="w-11 h-11 rounded-xl bg-white/20 flex items-center justify-center flex-shrink-0">
-                <Plus className="w-6 h-6" />
-              </div>
-              <div>
-                <h3 className="font-bold text-base">Create Quiz</h3>
-                <p className="text-emerald-100 text-xs mt-0.5">
-                  Build a new quiz for students
-                </p>
-              </div>
-              <ChevronRight className="w-5 h-5 ml-auto opacity-60 group-hover:translate-x-1 transition-transform" />
-            </div>
-          </Link>
-
-          <button
-            onClick={() => setShowCreate(true)}
-            className="group bg-white rounded-2xl p-5 border border-gray-100 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 flex items-center gap-4 text-left"
-          >
-            <div className="w-11 h-11 rounded-xl bg-blue-50 flex items-center justify-center flex-shrink-0">
-              <BookOpen className="w-5 h-5 text-blue-600" />
-            </div>
-            <div>
-              <h3 className="font-bold text-base text-gray-900">
-                New Question
-              </h3>
-              <p className="text-gray-400 text-xs mt-0.5">Add to B2C library</p>
-            </div>
-            <ChevronRight className="w-5 h-5 ml-auto text-gray-300 group-hover:translate-x-1 transition-transform" />
-          </button>
-
-          <button
-            onClick={() => setShowImport(true)}
-            className="group bg-white rounded-2xl p-5 border border-gray-100 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 flex items-center gap-4 text-left"
-          >
-            <div className="w-11 h-11 rounded-xl bg-amber-50 flex items-center justify-center flex-shrink-0">
-              <Upload className="w-5 h-5 text-amber-600" />
-            </div>
-            <div>
-              <h3 className="font-bold text-base text-gray-900">Import CSV</h3>
-              <p className="text-gray-400 text-xs mt-0.5">
-                Bulk upload questions
-              </p>
-            </div>
-            <ChevronRight className="w-5 h-5 ml-auto text-gray-300 group-hover:translate-x-1 transition-transform" />
-          </button>
-        </div>
 
         {/* ── Library Stats ── */}
         <GroupedStatsPanel
@@ -1370,7 +1280,7 @@ export default function AdminPage() {
                 onChange={(e) => setFilterSubject(e.target.value)}
                 className={`${selectCls} min-w-[140px]`}
               >
-                <option value="">All Subjects</option>
+                <option value="">All Learning Areas</option>
                 {subjects.map((s) => (
                   <option key={s.id} value={s.id}>
                     {s.name}
@@ -1405,7 +1315,7 @@ export default function AdminPage() {
                 No questions yet
               </h3>
               <p className="text-gray-400 text-sm mb-7 max-w-xs mx-auto">
-                Start building your B2C question library — create questions or
+                Start building your question library — create questions or
                 import from CSV
               </p>
               <div className="flex flex-col sm:flex-row gap-3 justify-center">
@@ -1428,13 +1338,15 @@ export default function AdminPage() {
               <table className="w-full">
                 <thead>
                   <tr className="bg-gray-50">
+                    <th className="text-left px-6 py-3.5 text-xs font-semibold text-gray-500 uppercase tracking-wide w-16">
+                      Image
+                    </th>
                     <th className="text-left px-6 py-3.5 text-xs font-semibold text-gray-500 uppercase tracking-wide">
                       Question
                     </th>
                     <th className="text-left px-6 py-3.5 text-xs font-semibold text-gray-500 uppercase tracking-wide">
-                      Subject / Topic
+                      Learning Area / Strand
                     </th>
-
                     <th className="text-left px-6 py-3.5 text-xs font-semibold text-gray-500 uppercase tracking-wide">
                       Grade
                     </th>
@@ -1446,16 +1358,6 @@ export default function AdminPage() {
                     </th>
                     <th className="text-right px-6 py-3.5 text-xs font-semibold text-gray-500 uppercase tracking-wide">
                       Actions
-                    </th>
-                  </tr>
-                </thead>
-                <thead>
-                  <tr className="bg-gray-50">
-                    <th className="text-left px-6 py-3.5 text-xs font-semibold text-gray-500 uppercase tracking-wide">
-                      Image
-                    </th>
-                    <th className="text-left px-6 py-3.5 text-xs font-semibold text-gray-500 uppercase tracking-wide">
-                      Question
                     </th>
                   </tr>
                 </thead>
@@ -1492,9 +1394,11 @@ export default function AdminPage() {
                           <span className="text-sm font-semibold text-gray-800">
                             {q.subject_name}
                           </span>
-                          <p className="text-xs text-gray-400 mt-0.5">
-                            {/* {q.topic_name} */}
-                          </p>
+                          {q.topic_name && (
+                            <p className="text-xs text-gray-400 mt-0.5">
+                              {q.topic_name}
+                            </p>
+                          )}
                         </div>
                       </td>
                       <td className="px-6 py-4">

@@ -25,7 +25,7 @@ const QUICK_MESSAGES = [
   {
     emoji: "💬",
     label: "General Enquiry",
-    msg: "Hi! I have a question about CBC Kenya Learning Platform.",
+    msg: "Hi! I have a question about CBE Kenya Learning Platform.",
   },
 ];
 
@@ -63,10 +63,14 @@ export default function WhatsAppButton() {
                   📞
                 </div>
                 <div>
-                  <p className="font-bold text-white text-sm">CBC Kenya Support</p>
+                  <p className="font-bold text-white text-sm">
+                    CBE Kenya Support
+                  </p>
                   <div className="flex items-center gap-1.5 mt-0.5">
                     <div className="w-2 h-2 rounded-full bg-green-300 animate-pulse" />
-                    <p className="text-green-200 text-xs">Usually replies in minutes</p>
+                    <p className="text-green-200 text-xs">
+                      Usually replies in minutes
+                    </p>
                   </div>
                 </div>
               </div>
@@ -87,7 +91,8 @@ export default function WhatsAppButton() {
                   border: "1px solid rgba(255,255,255,0.08)",
                 }}
               >
-                👋 Hi! How can we help you today? Pick a topic below or send us a message directly.
+                👋 Hi! How can we help you today? Pick a topic below or send us
+                a message directly.
               </div>
 
               <div className="space-y-2 mb-4">
@@ -113,7 +118,9 @@ export default function WhatsAppButton() {
               </div>
 
               <button
-                onClick={() => openChat("Hi! I need help with CBC Kenya Learning Platform.")}
+                onClick={() =>
+                  openChat("Hi! I need help with CBE Kenya Learning Platform.")
+                }
                 className="w-full py-3 rounded-xl font-bold text-sm text-white flex items-center justify-center gap-2 transition-all hover:opacity-90"
                 style={{
                   background: "linear-gradient(135deg, #128C7E, #25D366)",
@@ -125,7 +132,9 @@ export default function WhatsAppButton() {
 
               <div className="flex items-center justify-center gap-1.5 mt-3">
                 <Clock className="w-3 h-3 text-white/20" />
-                <p className="text-xs text-white/25 text-center">Mon – Sat, 8am – 8pm EAT</p>
+                <p className="text-xs text-white/25 text-center">
+                  Mon – Sat, 8am – 8pm EAT
+                </p>
               </div>
             </div>
           </motion.div>
@@ -139,7 +148,9 @@ export default function WhatsAppButton() {
         onClick={() => setOpen(!open)}
         className="relative w-14 h-14 rounded-full shadow-2xl flex items-center justify-center transition-all"
         style={{
-          background: open ? "#ef4444" : "linear-gradient(135deg, #128C7E, #25D366)",
+          background: open
+            ? "#ef4444"
+            : "linear-gradient(135deg, #128C7E, #25D366)",
         }}
       >
         <AnimatePresence mode="wait">

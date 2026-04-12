@@ -1386,7 +1386,8 @@ export default function LandingPage() {
             </p>
           </FadeIn>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+            {/* Weekly */}
             <FadeIn delay={0.1}>
               <div
                 className="card-lift h-full flex flex-col"
@@ -1394,13 +1395,149 @@ export default function LandingPage() {
                   background: "white",
                   border: "1.5px solid #e2e8f0",
                   borderRadius: 20,
-                  padding: 32,
+                  padding: 28,
                 }}
               >
-                <div style={{ marginBottom: 24 }}>
+                <div style={{ marginBottom: 20 }}>
                   <h3
                     style={{
                       color: "#64748b",
+                      fontSize: 11,
+                      fontWeight: 700,
+                      textTransform: "uppercase",
+                      letterSpacing: "0.12em",
+                      marginBottom: 12,
+                    }}
+                  >
+                    Weekly
+                  </h3>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "flex-end",
+                      gap: 6,
+                      marginBottom: 6,
+                    }}
+                  >
+                    <span
+                      style={{
+                        fontFamily: "'Cormorant Garamond', serif",
+                        fontSize: 52,
+                        fontWeight: 700,
+                        color: "#0f1f3d",
+                        lineHeight: 1,
+                      }}
+                    >
+                      149
+                    </span>
+                    <span
+                      style={{
+                        color: "#94a3b8",
+                        fontSize: 14,
+                        fontWeight: 500,
+                        marginBottom: 8,
+                      }}
+                    >
+                      KES / wk
+                    </span>
+                  </div>
+                  <p style={{ color: "#94a3b8", fontSize: 12 }}>
+                    Just KES 21/day · 7 days
+                  </p>
+                </div>
+                <ul
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: 10,
+                    flex: 1,
+                    marginBottom: 24,
+                  }}
+                >
+                  {[
+                    "All learning areas",
+                    "Grades 4 to 10",
+                    "Unlimited practice",
+                    "AI-powered feedback",
+                  ].map((item) => (
+                    <li
+                      key={item}
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: 10,
+                        color: "#475569",
+                        fontSize: 14,
+                      }}
+                    >
+                      <CheckCircle
+                        className="w-4 h-4 flex-shrink-0"
+                        style={{ color: "#0e7490" }}
+                      />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+                <Link href="/subscribe">
+                  <button
+                    style={{
+                      width: "100%",
+                      padding: "13px 0",
+                      borderRadius: 12,
+                      border: "1.5px solid #e2e8f0",
+                      color: "#475569",
+                      background: "transparent",
+                      fontWeight: 700,
+                      fontSize: 14,
+                    }}
+                    className="hover:bg-gray-50 transition-all"
+                  >
+                    Get Started
+                  </button>
+                </Link>
+              </div>
+            </FadeIn>
+
+            {/* Monthly — Popular */}
+            <FadeIn delay={0.15}>
+              <div
+                className="card-lift relative h-full flex flex-col"
+                style={{
+                  background: "white",
+                  border: "2px solid #0e7490",
+                  borderRadius: 20,
+                  padding: 28,
+                  boxShadow: "0 24px 60px rgba(14,116,144,0.12)",
+                }}
+              >
+                <div
+                  style={{
+                    position: "absolute",
+                    top: -14,
+                    left: "50%",
+                    transform: "translateX(-50%)",
+                  }}
+                >
+                  <div
+                    style={{
+                      background: "linear-gradient(135deg, #0e7490, #06b6d4)",
+                      color: "white",
+                      padding: "5px 16px",
+                      borderRadius: 100,
+                      fontSize: 10,
+                      fontWeight: 700,
+                      whiteSpace: "nowrap",
+                      boxShadow: "0 4px 16px rgba(14,116,144,0.4)",
+                      letterSpacing: "0.08em",
+                    }}
+                  >
+                    ★ MOST POPULAR
+                  </div>
+                </div>
+                <div style={{ marginBottom: 20 }}>
+                  <h3
+                    style={{
+                      color: "#0e7490",
                       fontSize: 11,
                       fontWeight: 700,
                       textTransform: "uppercase",
@@ -1421,7 +1558,7 @@ export default function LandingPage() {
                     <span
                       style={{
                         fontFamily: "'Cormorant Garamond', serif",
-                        fontSize: 56,
+                        fontSize: 52,
                         fontWeight: 700,
                         color: "#0f1f3d",
                         lineHeight: 1,
@@ -1440,17 +1577,19 @@ export default function LandingPage() {
                       KES / mo
                     </span>
                   </div>
-                  <p style={{ color: "#94a3b8", fontSize: 12 }}>
-                    Billed monthly via M-Pesa
+                  <p
+                    style={{ color: "#0e7490", fontSize: 12, fontWeight: 600 }}
+                  >
+                    Save 16% vs weekly · KES 17/day
                   </p>
                 </div>
                 <ul
                   style={{
                     display: "flex",
                     flexDirection: "column",
-                    gap: 12,
+                    gap: 10,
                     flex: 1,
-                    marginBottom: 28,
+                    marginBottom: 24,
                   }}
                 >
                   {[
@@ -1458,7 +1597,7 @@ export default function LandingPage() {
                     "Grades 4 to 10",
                     "Unlimited practice",
                     "Detailed feedback",
-                    "Cancel anytime",
+                    "PDF report downloads",
                   ].map((item) => (
                     <li
                       key={item}
@@ -1478,26 +1617,28 @@ export default function LandingPage() {
                     </li>
                   ))}
                 </ul>
-                <Link href="/explore">
+                <Link href="/subscribe">
                   <button
                     style={{
                       width: "100%",
                       padding: "13px 0",
                       borderRadius: 12,
-                      border: "1.5px solid #0e7490",
-                      color: "#0e7490",
-                      background: "transparent",
+                      background: "linear-gradient(135deg, #0e7490, #06b6d4)",
+                      color: "white",
                       fontWeight: 700,
                       fontSize: 14,
+                      border: "none",
+                      boxShadow: "0 8px 24px rgba(14,116,144,0.3)",
                     }}
-                    className="hover:bg-teal-50 transition-all"
+                    className="hover:opacity-90 transition-all"
                   >
-                    Try 2 Free First
+                    Get Started
                   </button>
                 </Link>
               </div>
             </FadeIn>
 
+            {/* Termly — Best Value */}
             <FadeIn delay={0.2}>
               <div
                 className="card-lift relative h-full flex flex-col"
@@ -1505,34 +1646,35 @@ export default function LandingPage() {
                   background: "#0f1f3d",
                   border: "1.5px solid #1e3a6e",
                   borderRadius: 20,
-                  padding: 32,
+                  padding: 28,
                   boxShadow: "0 24px 60px rgba(15,31,61,0.25)",
                 }}
               >
                 <div
                   style={{
                     position: "absolute",
-                    top: -16,
+                    top: -14,
                     left: "50%",
                     transform: "translateX(-50%)",
                   }}
                 >
                   <div
                     style={{
-                      background: "linear-gradient(135deg, #0e7490, #06b6d4)",
-                      color: "white",
-                      padding: "6px 18px",
+                      background: "linear-gradient(135deg, #0f1f3d, #1e3a6e)",
+                      color: "#06b6d4",
+                      padding: "5px 16px",
                       borderRadius: 100,
-                      fontSize: 11,
+                      fontSize: 10,
                       fontWeight: 700,
                       whiteSpace: "nowrap",
-                      boxShadow: "0 4px 16px rgba(14,116,144,0.4)",
+                      border: "1px solid #1e3a6e",
+                      letterSpacing: "0.08em",
                     }}
                   >
-                    ✦ BEST VALUE · SAVE 17%
+                    ✦ BEST VALUE · SAVE 33%
                   </div>
                 </div>
-                <div style={{ marginBottom: 24 }}>
+                <div style={{ marginBottom: 20 }}>
                   <h3
                     style={{
                       color: "#06b6d4",
@@ -1556,7 +1698,7 @@ export default function LandingPage() {
                     <span
                       style={{
                         fontFamily: "'Cormorant Garamond', serif",
-                        fontSize: 56,
+                        fontSize: 52,
                         fontWeight: 700,
                         color: "white",
                         lineHeight: 1,
@@ -1576,16 +1718,16 @@ export default function LandingPage() {
                     </span>
                   </div>
                   <p style={{ color: "#64748b", fontSize: 12 }}>
-                    That's KES 24/day for 3 months
+                    Just KES 11/day for 3 months
                   </p>
                 </div>
                 <ul
                   style={{
                     display: "flex",
                     flexDirection: "column",
-                    gap: 12,
+                    gap: 10,
                     flex: 1,
-                    marginBottom: 28,
+                    marginBottom: 24,
                   }}
                 >
                   {[
@@ -1594,7 +1736,7 @@ export default function LandingPage() {
                     "Unlimited practice",
                     "Detailed feedback",
                     "Priority support",
-                    "Covers entire school term",
+                    "Covers entire term",
                   ].map((item) => (
                     <li
                       key={item}
@@ -1614,7 +1756,7 @@ export default function LandingPage() {
                     </li>
                   ))}
                 </ul>
-                <Link href="/explore">
+                <Link href="/subscribe">
                   <button
                     style={{
                       width: "100%",
@@ -1629,7 +1771,7 @@ export default function LandingPage() {
                     }}
                     className="hover:opacity-90 transition-all"
                   >
-                    Try 2 Free First
+                    Get Started
                   </button>
                 </Link>
               </div>

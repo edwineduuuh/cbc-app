@@ -118,7 +118,7 @@ function RegisterPage() {\n  useTheme(); // Force re-render when theme changes
 
   const perks = [
     "7-day free trial, no card needed",
-    "All CBC subjects, Grades 4–10",
+    "All CBE learning areas, Grades 4–10",
     "AI-powered instant marking",
     "Pay via M-Pesa after trial",
   ];
@@ -155,7 +155,7 @@ function RegisterPage() {\n  useTheme(); // Force re-render when theme changes
             </div>
             <div className="leading-none">
               <span className="font-display text-lg font-bold text-white block">
-                CBC Kenya
+                CBE Kenya
               </span>
               <span className="text-[10px] font-semibold text-green-400 tracking-widest uppercase block">
                 Learning Platform
@@ -172,7 +172,7 @@ function RegisterPage() {\n  useTheme(); // Force re-render when theme changes
               <span className="text-amber-400">the top.</span>
             </h2>
             <p className="text-green-200 text-base leading-relaxed mb-10 max-w-xs">
-              Join 12,000+ Kenyan students already mastering the CBC curriculum.
+              Join 12,000+ Kenyan students already mastering the CBE curriculum.
             </p>
             <div className="space-y-3">
               {perks.map((p) => (
@@ -216,7 +216,7 @@ function RegisterPage() {\n  useTheme(); // Force re-render when theme changes
                   <BookOpen className="w-4 h-4 text-white" />
                 </div>
                 <span className="font-display text-lg font-bold text-green-900">
-                  CBC Kenya
+                  CBE Kenya
                 </span>
               </div>
               {reason === "quota" && (

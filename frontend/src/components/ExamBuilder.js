@@ -226,7 +226,7 @@ export default function ExamBuilder({ onSave, initialQuestions = [] }) {
                 }
                 className="px-3 py-2 border rounded-lg text-sm"
               >
-                <option value="">All Subjects</option>
+                <option value="">All Learning Areas</option>
                 {subjects.map((s) => (
                   <option key={s.id} value={s.id}>
                     {s.name}
@@ -284,7 +284,7 @@ export default function ExamBuilder({ onSave, initialQuestions = [] }) {
                   }
                   className="px-3 py-2 border rounded-lg text-sm col-span-2"
                 >
-                  <option value="">All Topics</option>
+                  <option value="">All Strands</option>
                   {topics.map((t) => (
                     <option key={t.id} value={t.id}>
                       {t.name}
@@ -446,7 +446,7 @@ export default function ExamBuilder({ onSave, initialQuestions = [] }) {
                 }
                 className="px-3 py-2 border rounded-lg text-sm"
               >
-                <option value="">Subject *</option>
+                <option value="">Learning Area *</option>
                 {subjects.map((s) => (
                   <option key={s.id} value={s.id}>
                     {s.name}

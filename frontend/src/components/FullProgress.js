@@ -11,6 +11,7 @@ import {
   useTransform,
 } from "framer-motion";
 import Link from "next/link";
+import { fetchWithAuth } from "@/lib/api";
 import {
   ArrowLeft,
   TrendingUp,
@@ -309,14 +310,9 @@ export default function FullProgress() {
       router.push("/login");
       return;
     }
-    const token = localStorage.getItem("accessToken");
     Promise.all([
-      fetch(`${API}/attempts/`, {
-        headers: { Authorization: `Bearer ${token}` },
-      }).then((r) => r.json()),
-      fetch(`${API}/analytics/student/`, {
-        headers: { Authorization: `Bearer ${token}` },
-      }).then((r) => r.json()),
+      fetchWithAuth(`${API}/attempts/?status=completed`).then((r) => r.json()),
+      fetchWithAuth(`${API}/analytics/student/`).then((r) => r.json()),
     ])
       .then(([a, s]) => {
         setAttempts(Array.isArray(a) ? a : []);
@@ -332,7 +328,6 @@ export default function FullProgress() {
         className="min-h-screen flex items-center justify-center"
         style={{ background: "#ffffff" }}
       >
-        <style>{`@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700;800&display=swap');`}</style>
         <div className="flex flex-col items-center gap-4">
           <div className="relative w-16 h-16">
             <div className="absolute inset-0 rounded-full border-2 border-blue-200 border-t-blue-500 animate-spin" />
@@ -1077,7 +1072,7 @@ export default function FullProgress() {
                         }}
                       >
                         You're doing well! Challenge yourself with advanced
-                        topics.
+                        strands.
                       </p>
                     </div>
                   </>
@@ -1107,7 +1102,7 @@ export default function FullProgress() {
                           marginTop: 4,
                         }}
                       >
-                        Review subjects where you scored below 65%.
+                        Review learning areas where you scored below 65%.
                       </p>
                     </div>
                   </>
@@ -1201,10 +1196,10 @@ export default function FullProgress() {
                   fontWeight: 400,
                 }}
               >
-                Subject Performance
+                Learning Area Performance
               </h2>
               <span style={{ fontSize: 12, color: "#999" }}>
-                {subjects.length} subjects
+                {subjects.length} learning areas
               </span>
             </div>
 
@@ -1216,7 +1211,7 @@ export default function FullProgress() {
                   style={{ margin: "0 auto 12px" }}
                 />
                 <p style={{ fontSize: 13, color: "#999" }}>
-                  Take quizzes to see subject breakdown
+                  Take quizzes to see learning area breakdown
                 </p>
               </div>
             ) : (
@@ -1401,7 +1396,7 @@ export default function FullProgress() {
                   <h3
                     style={{ fontSize: 14, fontWeight: 700, color: "#1a1a1a" }}
                   >
-                    Strongest Subjects
+                    Strongest Learning Areas
                   </h3>
                 </div>
                 {subjects.slice(0, 3).map((s, i) => (

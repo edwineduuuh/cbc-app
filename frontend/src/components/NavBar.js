@@ -12,6 +12,7 @@ import {
   LogOut,
   ChevronDown,
   Crown,
+  Sparkles,
 } from "lucide-react";
 
 export default function Navbar() {
@@ -20,13 +21,12 @@ export default function Navbar() {
   const pathname = usePathname();
   const [showDropdown, setShowDropdown] = useState(false);
 
-    
-    const navLinks = [
+  const navLinks = [
     { href: "/dashboard", label: "Dashboard", icon: Home },
     { href: "/explore", label: "Browse", icon: BookOpen },
     { href: "/progress", label: "Progress", icon: BarChart3 },
-    ];
-    
+  ];
+
   if (
     !user ||
     pathname === "/login" ||
@@ -37,7 +37,7 @@ export default function Navbar() {
     return null;
   }
 
-//   
+  //
 
   const handleLogout = () => {
     logout();
@@ -51,9 +51,8 @@ export default function Navbar() {
           {/* Logo */}
           <Link href="/dashboard" className="flex items-center gap-2">
             <div className="font-bold text-white text-xl px-3 py-2 rounded-xl bg-gradient-to-br from-slate-800 to-teal-700">
-  StadiSpace
-</div>
-            
+              StadiSpace
+            </div>
           </Link>
 
           {/* Nav Links */}
@@ -76,6 +75,14 @@ export default function Navbar() {
                 </Link>
               );
             })}
+            {!user.has_subscription && (
+              <Link href="/subscribe">
+                <button className="flex items-center gap-2 px-4 py-2 ml-1 rounded-lg text-sm font-bold bg-linear-to-r from-amber-500 to-orange-500 text-white hover:from-amber-600 hover:to-orange-600 transition-all shadow-sm hover:shadow-md">
+                  <Sparkles className="w-4 h-4" />
+                  Upgrade
+                </button>
+              </Link>
+            )}
           </div>
 
           {/* User Menu */}
@@ -172,6 +179,14 @@ export default function Navbar() {
               </Link>
             );
           })}
+          {!user.has_subscription && (
+            <Link href="/subscribe" className="flex-1">
+              <button className="w-full flex flex-col items-center gap-1 py-2 text-xs font-bold text-amber-600">
+                <Sparkles className="w-5 h-5" />
+                Upgrade
+              </button>
+            </Link>
+          )}
         </div>
       </div>
     </nav>

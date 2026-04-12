@@ -49,15 +49,11 @@ function Toast({ message, onClose }) {
           exit={{ opacity: 0, y: -16 }}
           className={`fixed top-20 left-1/2 -translate-x-1/2 z-50 flex items-center gap-3 px-5 py-3 rounded-2xl shadow-2xl text-sm font-semibold ${
             message.type === "success"
-              ? "bg-emerald-500/20 border border-emerald-500/40 text-emerald-300"
-              : "bg-rose-500/20 border border-rose-500/40 text-rose-300"
+              ? "bg-emerald-50 border border-emerald-200 text-emerald-700"
+              : "bg-rose-50 border border-rose-200 text-rose-700"
           }`}
           style={{
             backdropFilter: "blur(16px)",
-            background:
-              message.type === "success"
-                ? "rgba(16,185,129,0.15)"
-                : "rgba(239,68,68,0.15)",
           }}
         >
           {message.type === "success" ? (
@@ -77,9 +73,9 @@ function Section({ title, description, children }) {
   return (
     <div className="space-y-5">
       <div>
-        <h2 className="text-base font-bold text-white">{title}</h2>
+        <h2 className="text-base font-bold text-gray-900">{title}</h2>
         {description && (
-          <p className="text-sm text-white/40 mt-0.5">{description}</p>
+          <p className="text-sm text-gray-500 mt-0.5">{description}</p>
         )}
       </div>
       {children}
@@ -90,13 +86,7 @@ function Section({ title, description, children }) {
 // ─── Info row ─────────────────────────────────────────────────────────────────
 function InfoRow({ icon: Icon, iconColor, label, value }) {
   return (
-    <div
-      className="flex items-center gap-4 p-4 rounded-xl"
-      style={{
-        background: "rgba(255,255,255,0.04)",
-        border: "1px solid rgba(255,255,255,0.08)",
-      }}
-    >
+    <div className="flex items-center gap-4 p-4 rounded-xl bg-gray-50 border border-gray-200">
       <div
         className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0"
         style={{ background: `${iconColor}20` }}
@@ -104,10 +94,10 @@ function InfoRow({ icon: Icon, iconColor, label, value }) {
         <Icon className="w-4 h-4" style={{ color: iconColor }} />
       </div>
       <div className="flex-1 min-w-0">
-        <p className="text-xs text-white/30 uppercase tracking-wide font-semibold">
+        <p className="text-xs text-gray-400 uppercase tracking-wide font-semibold">
           {label}
         </p>
-        <p className="text-sm font-semibold text-white mt-0.5 truncate">
+        <p className="text-sm font-semibold text-gray-900 mt-0.5 truncate">
           {value}
         </p>
       </div>
@@ -124,12 +114,9 @@ function ThemeOption({ label, desc, icon: Icon, gradient, active, onClick }) {
       onClick={onClick}
       className={`w-full flex items-center gap-4 p-4 rounded-2xl border-2 transition-all text-left ${
         active
-          ? "border-emerald-500/60"
-          : "border-white/10 hover:border-white/20"
+          ? "border-emerald-500 bg-emerald-50"
+          : "border-gray-200 hover:border-gray-300 bg-white"
       }`}
-      style={{
-        background: active ? "rgba(16,185,129,0.10)" : "rgba(255,255,255,0.04)",
-      }}
     >
       <div
         className={`w-11 h-11 rounded-xl bg-gradient-to-br ${gradient} flex items-center justify-center flex-shrink-0 shadow-sm`}
@@ -137,12 +124,12 @@ function ThemeOption({ label, desc, icon: Icon, gradient, active, onClick }) {
         <Icon className="w-5 h-5 text-white" />
       </div>
       <div className="flex-1">
-        <p className="font-semibold text-white text-sm">{label}</p>
-        <p className="text-xs text-white/40 mt-0.5">{desc}</p>
+        <p className="font-semibold text-gray-900 text-sm">{label}</p>
+        <p className="text-xs text-gray-500 mt-0.5">{desc}</p>
       </div>
       <div
         className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 transition-all ${
-          active ? "border-emerald-500 bg-emerald-500" : "border-white/20"
+          active ? "border-emerald-500 bg-emerald-500" : "border-gray-300"
         }`}
       >
         {active && <CheckCircle className="w-3 h-3 text-white" />}
@@ -157,24 +144,22 @@ function NavTab({ tab, active, onClick }) {
     <button
       onClick={onClick}
       className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all text-left w-full ${
-        active ? "text-white" : "text-white/40 hover:text-white/70"
+        active
+          ? "text-gray-900 bg-gray-100"
+          : "text-gray-500 hover:text-gray-700 hover:bg-gray-50"
       }`}
-      style={{ background: active ? "rgba(255,255,255,0.10)" : "transparent" }}
     >
       <div
-        className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0"
-        style={{
-          background: active
-            ? "rgba(16,185,129,0.20)"
-            : "rgba(255,255,255,0.05)",
-        }}
+        className={`w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 ${
+          active ? "bg-emerald-100" : "bg-gray-100"
+        }`}
       >
         <tab.icon
-          className={`w-4 h-4 ${active ? "text-emerald-400" : "text-white/30"}`}
+          className={`w-4 h-4 ${active ? "text-emerald-600" : "text-gray-400"}`}
         />
       </div>
       <span className="text-sm font-semibold">{tab.label}</span>
-      {active && <ChevronRight className="w-4 h-4 ml-auto text-white/30" />}
+      {active && <ChevronRight className="w-4 h-4 ml-auto text-gray-400" />}
     </button>
   );
 }
@@ -229,9 +214,9 @@ export default function SettingsPage() {
 
   return (
     <div
-      className="min-h-screen text-white"
+      className="min-h-screen text-gray-900"
       style={{
-        backgroundColor: "#030712",
+        backgroundColor: "#f9fafb",
         fontFamily: "'DM Sans', sans-serif",
       }}
     >
@@ -241,26 +226,19 @@ export default function SettingsPage() {
 
       {/* Header */}
       <div
-        className="sticky top-0 z-20 border-b border-white/5"
+        className="sticky top-0 z-20 border-b border-gray-200 bg-white"
         style={{
-          background: "rgba(9,9,15,0.92)",
           backdropFilter: "blur(16px)",
         }}
       >
         <div className="max-w-5xl mx-auto px-4 sm:px-6 h-16 flex items-center gap-3">
           <Link href="/dashboard">
-            <button
-              className="w-9 h-9 rounded-xl flex items-center justify-center hover:bg-white/10 transition-colors"
-              style={{
-                background: "rgba(255,255,255,0.04)",
-                border: "1px solid rgba(255,255,255,0.08)",
-              }}
-            >
-              <ArrowLeft className="w-4 h-4 text-white/60" />
+            <button className="w-9 h-9 rounded-xl flex items-center justify-center hover:bg-gray-100 transition-colors border border-gray-200 bg-white">
+              <ArrowLeft className="w-4 h-4 text-gray-500" />
             </button>
           </Link>
           <h1
-            className="text-lg font-bold text-white"
+            className="text-lg font-bold text-gray-900"
             style={{ fontFamily: "'Playfair Display', serif" }}
           >
             Settings
@@ -272,20 +250,14 @@ export default function SettingsPage() {
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
           {/* Sidebar */}
           <div className="lg:col-span-1">
-            <div
-              className="rounded-2xl p-4 sticky top-24"
-              style={{
-                background: "rgba(255,255,255,0.04)",
-                border: "1px solid rgba(255,255,255,0.08)",
-              }}
-            >
+            <div className="rounded-2xl p-4 sticky top-24 bg-white border border-gray-200 shadow-sm">
               {/* Avatar */}
-              <div className="flex flex-col items-center text-center pb-5 mb-3 border-b border-white/5">
+              <div className="flex flex-col items-center text-center pb-5 mb-3 border-b border-gray-100">
                 <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center text-white text-2xl font-bold mb-3 shadow-lg">
                   {initials}
                 </div>
-                <p className="font-bold text-white text-sm">{displayName}</p>
-                <p className="text-xs text-white/30 mt-0.5 truncate max-w-full">
+                <p className="font-bold text-gray-900 text-sm">{displayName}</p>
+                <p className="text-xs text-gray-400 mt-0.5 truncate max-w-full">
                   {user.email}
                 </p>
                 {isSubscribed ? (
@@ -302,14 +274,8 @@ export default function SettingsPage() {
                     </span>
                   </div>
                 ) : (
-                  <div
-                    className="mt-2 px-2.5 py-1 rounded-full"
-                    style={{
-                      background: "rgba(255,255,255,0.05)",
-                      border: "1px solid rgba(255,255,255,0.10)",
-                    }}
-                  >
-                    <span className="text-xs text-white/30">Free Trial</span>
+                  <div className="mt-2 px-2.5 py-1 rounded-full bg-gray-100 border border-gray-200">
+                    <span className="text-xs text-gray-500">Free Trial</span>
                   </div>
                 )}
               </div>
@@ -323,15 +289,12 @@ export default function SettingsPage() {
                     onClick={() => setActiveTab(tab.id)}
                   />
                 ))}
-                <div className="pt-3 mt-3 border-t border-white/5">
+                <div className="pt-3 mt-3 border-t border-gray-100">
                   <button
                     onClick={handleLogout}
-                    className="flex items-center gap-3 px-4 py-3 rounded-xl w-full text-rose-400 hover:bg-rose-500/10 transition-all"
+                    className="flex items-center gap-3 px-4 py-3 rounded-xl w-full text-rose-500 hover:bg-rose-50 transition-all"
                   >
-                    <div
-                      className="w-8 h-8 rounded-lg flex items-center justify-center"
-                      style={{ background: "rgba(239,68,68,0.10)" }}
-                    >
+                    <div className="w-8 h-8 rounded-lg flex items-center justify-center bg-rose-50">
                       <LogOut className="w-4 h-4" />
                     </div>
                     <span className="text-sm font-semibold">Sign Out</span>
@@ -357,32 +320,20 @@ export default function SettingsPage() {
                     title="Profile Information"
                     description="Your personal details on this account"
                   >
-                    <div
-                      className="rounded-2xl p-6"
-                      style={{
-                        background: "rgba(255,255,255,0.04)",
-                        border: "1px solid rgba(255,255,255,0.08)",
-                      }}
-                    >
+                    <div className="rounded-2xl p-6 bg-white border border-gray-200 shadow-sm">
                       <div className="flex items-center gap-5 mb-6">
                         <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center text-white text-3xl font-bold shadow-xl flex-shrink-0">
                           {initials}
                         </div>
                         <div>
-                          <h3 className="text-xl font-bold text-white">
+                          <h3 className="text-xl font-bold text-gray-900">
                             {displayName}
                           </h3>
-                          <p className="text-sm text-white/40 mt-0.5">
+                          <p className="text-sm text-gray-500 mt-0.5">
                             {user.email}
                           </p>
                           <div className="flex items-center gap-2 mt-2 flex-wrap">
-                            <span
-                              className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold capitalize"
-                              style={{
-                                background: "rgba(255,255,255,0.10)",
-                                color: "rgba(255,255,255,0.60)",
-                              }}
-                            >
+                            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold capitalize bg-gray-100 text-gray-600">
                               <Shield className="w-3 h-3" />
                               {user.role || "Student"}
                             </span>
@@ -447,15 +398,9 @@ export default function SettingsPage() {
                         />
                       </div>
                     </div>
-                    <div
-                      className="rounded-2xl p-4 flex items-start gap-3"
-                      style={{
-                        background: "rgba(59,130,246,0.08)",
-                        border: "1px solid rgba(59,130,246,0.20)",
-                      }}
-                    >
-                      <AlertCircle className="w-4 h-4 text-blue-400 flex-shrink-0 mt-0.5" />
-                      <p className="text-sm text-white/50 leading-relaxed">
+                    <div className="rounded-2xl p-4 flex items-start gap-3 bg-blue-50 border border-blue-200">
+                      <AlertCircle className="w-4 h-4 text-blue-500 flex-shrink-0 mt-0.5" />
+                      <p className="text-sm text-gray-600 leading-relaxed">
                         To update your name, email or grade, contact our support
                         team. Profile editing is coming soon.
                       </p>
@@ -475,92 +420,17 @@ export default function SettingsPage() {
                 >
                   <Section
                     title="Appearance"
-                    description="Choose how CBC Kenya looks on your device"
+                    description="We are using a clean, light theme for a consistent experience."
                   >
-                    <div
-                      className="rounded-2xl p-6 space-y-3"
-                      style={{
-                        background: "rgba(255,255,255,0.04)",
-                        border: "1px solid rgba(255,255,255,0.08)",
-                      }}
-                    >
-                      <ThemeOption
-                        label="Light Mode"
-                        desc="Clean bright interface — great for daytime studying"
-                        icon={Sun}
-                        gradient="from-amber-400 to-orange-500"
-                        active={theme === "light"}
-                        onClick={() => handleThemeChange("light")}
-                      />
-                      <ThemeOption
-                        label="Dark Mode"
-                        desc="Easy on the eyes — perfect for night sessions"
-                        icon={Moon}
-                        gradient="from-indigo-600 to-violet-700"
-                        active={theme === "dark"}
-                        onClick={() => handleThemeChange("dark")}
-                      />
-                      <ThemeOption
-                        label="System Default"
-                        desc="Automatically matches your device settings"
-                        icon={Monitor}
-                        gradient="from-gray-500 to-gray-700"
-                        active={theme === "system"}
-                        onClick={() => handleThemeChange("system")}
-                      />
-                    </div>
-
-                    {/* Live preview */}
                     <div
                       className="rounded-2xl p-5"
                       style={{
-                        background: "rgba(255,255,255,0.04)",
-                        border: "1px solid rgba(255,255,255,0.08)",
+                        background: "#fffde7",
+                        border: "1px solid #fff59d",
                       }}
                     >
-                      <p className="text-xs text-white/30 uppercase tracking-wide font-semibold mb-3">
-                        Preview
-                      </p>
-                      <div
-                        className="rounded-xl overflow-hidden"
-                        style={{ border: "1px solid rgba(255,255,255,0.10)" }}
-                      >
-                        {theme === "light" ? (
-                          <div className="bg-white p-4">
-                            <div className="flex items-center gap-2 mb-3">
-                              <div className="w-6 h-6 rounded-md bg-emerald-600" />
-                              <span className="text-gray-900 text-xs font-bold">
-                                CBC Kenya
-                              </span>
-                            </div>
-                            <div className="h-2 bg-gray-200 rounded-full mb-2 w-3/4" />
-                            <div className="h-2 bg-gray-100 rounded-full w-1/2" />
-                          </div>
-                        ) : (
-                          <div
-                            className="p-4"
-                            style={{ background: "#030712" }}
-                          >
-                            <div className="flex items-center gap-2 mb-3">
-                              <div className="w-6 h-6 rounded-md bg-emerald-600" />
-                              <span className="text-white text-xs font-bold">
-                                CBC Kenya
-                              </span>
-                            </div>
-                            <div
-                              className="h-2 rounded-full mb-2 w-3/4"
-                              style={{ background: "rgba(255,255,255,0.10)" }}
-                            />
-                            <div
-                              className="h-2 rounded-full w-1/2"
-                              style={{ background: "rgba(255,255,255,0.06)" }}
-                            />
-                          </div>
-                        )}
-                      </div>
-                      <p className="text-xs text-white/25 mt-3">
-                        Changes apply instantly and are saved for your next
-                        visit.
+                      <p style={{ color: "#b8860b", fontSize: 14 }}>
+                        Theme customization is not available at this time.
                       </p>
                     </div>
                   </Section>
@@ -578,7 +448,7 @@ export default function SettingsPage() {
                 >
                   <Section
                     title="Subscription"
-                    description="Manage your CBC Kenya plan"
+                    description="Manage your CBE Kenya plan"
                   >
                     {isSubscribed ? (
                       <>
@@ -598,7 +468,7 @@ export default function SettingsPage() {
                                   Active Plan
                                 </span>
                               </div>
-                              <h3 className="text-2xl font-bold text-white mb-1">
+                              <h3 className="text-2xl font-bold text-gray-900 mb-1">
                                 {user.subscription_plan === "yearly"
                                   ? "Yearly Plan"
                                   : "Monthly Plan"}
@@ -623,7 +493,7 @@ export default function SettingsPage() {
                             </div>
                           </div>
                           {subExpiry && (
-                            <div className="relative mt-4 pt-4 border-t border-white/10 flex items-center gap-2">
+                            <div className="relative mt-4 pt-4 border-t border-emerald-200 flex items-center gap-2">
                               <Calendar className="w-4 h-4 text-emerald-300" />
                               <span className="text-sm text-emerald-200">
                                 Renews on{" "}
@@ -640,14 +510,8 @@ export default function SettingsPage() {
                           )}
                         </div>
 
-                        <div
-                          className="rounded-2xl p-5"
-                          style={{
-                            background: "rgba(255,255,255,0.04)",
-                            border: "1px solid rgba(255,255,255,0.08)",
-                          }}
-                        >
-                          <p className="text-xs text-white/30 uppercase tracking-wide font-semibold mb-4">
+                        <div className="rounded-2xl p-5 bg-white border border-gray-200">
+                          <p className="text-xs text-gray-400 uppercase tracking-wide font-semibold mb-4">
                             What's included
                           </p>
                           <div className="space-y-3">
@@ -655,20 +519,15 @@ export default function SettingsPage() {
                               "Unlimited practice questions",
                               "AI-powered marking & feedback",
                               "Full progress analytics",
-                              "All subjects — Grades 4–10",
+                              "All learning areas — Grades 4–10",
                               "Exam simulation sets",
                               "Priority support",
                             ].map((f) => (
                               <div key={f} className="flex items-center gap-3">
-                                <div
-                                  className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0"
-                                  style={{
-                                    background: "rgba(16,185,129,0.20)",
-                                  }}
-                                >
-                                  <CheckCircle className="w-3 h-3 text-emerald-400" />
+                                <div className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 bg-emerald-100">
+                                  <CheckCircle className="w-3 h-3 text-emerald-500" />
                                 </div>
-                                <span className="text-sm text-white/70">
+                                <span className="text-sm text-gray-600">
                                   {f}
                                 </span>
                               </div>
@@ -678,30 +537,21 @@ export default function SettingsPage() {
                       </>
                     ) : (
                       <>
-                        <div
-                          className="rounded-2xl p-6"
-                          style={{
-                            background: "rgba(255,255,255,0.04)",
-                            border: "1px solid rgba(245,158,11,0.20)",
-                          }}
-                        >
+                        <div className="rounded-2xl p-6 bg-white border border-amber-200">
                           <div className="flex items-center gap-3 mb-4">
-                            <div
-                              className="w-10 h-10 rounded-xl flex items-center justify-center"
-                              style={{ background: "rgba(245,158,11,0.20)" }}
-                            >
-                              <Star className="w-5 h-5 text-amber-400" />
+                            <div className="w-10 h-10 rounded-xl flex items-center justify-center bg-amber-100">
+                              <Star className="w-5 h-5 text-amber-500" />
                             </div>
                             <div>
-                              <h3 className="font-bold text-white">
+                              <h3 className="font-bold text-gray-900">
                                 Free Trial
                               </h3>
-                              <p className="text-xs text-white/40 mt-0.5">
+                              <p className="text-xs text-gray-500 mt-0.5">
                                 Limited access to quizzes
                               </p>
                             </div>
                           </div>
-                          <p className="text-sm text-white/50 mb-5 leading-relaxed">
+                          <p className="text-sm text-gray-500 mb-5 leading-relaxed">
                             Subscribe to unlock unlimited quizzes, AI marking,
                             and full analytics.
                           </p>
@@ -718,14 +568,8 @@ export default function SettingsPage() {
                           </Link>
                         </div>
 
-                        <div
-                          className="rounded-2xl p-5"
-                          style={{
-                            background: "rgba(255,255,255,0.04)",
-                            border: "1px solid rgba(255,255,255,0.08)",
-                          }}
-                        >
-                          <p className="text-xs text-white/30 uppercase tracking-wide font-semibold mb-4">
+                        <div className="rounded-2xl p-5 bg-white border border-gray-200">
+                          <p className="text-xs text-gray-400 uppercase tracking-wide font-semibold mb-4">
                             Plans
                           </p>
                           <div className="grid grid-cols-2 gap-3">
@@ -750,24 +594,22 @@ export default function SettingsPage() {
                                 style={
                                   plan.highlight
                                     ? {
-                                        background: "rgba(245,158,11,0.08)",
-                                        border:
-                                          "1px solid rgba(245,158,11,0.40)",
+                                        background: "#fffbeb",
+                                        border: "1px solid #fbbf24",
                                       }
                                     : {
-                                        background: "rgba(255,255,255,0.03)",
-                                        border:
-                                          "1px solid rgba(255,255,255,0.10)",
+                                        background: "#f9fafb",
+                                        border: "1px solid #e5e7eb",
                                       }
                                 }
                               >
-                                <p className="text-xs text-white/40 font-semibold mb-1">
+                                <p className="text-xs text-gray-400 font-semibold mb-1">
                                   {plan.name}
                                 </p>
-                                <p className="text-xl font-bold text-white">
+                                <p className="text-xl font-bold text-gray-900">
                                   {plan.price}
                                 </p>
-                                <p className="text-xs text-white/30">
+                                <p className="text-xs text-gray-400">
                                   {plan.period}
                                 </p>
                                 {plan.note && (
@@ -778,7 +620,7 @@ export default function SettingsPage() {
                               </div>
                             ))}
                           </div>
-                          <p className="text-xs text-white/20 mt-4 text-center">
+                          <p className="text-xs text-gray-400 mt-4 text-center">
                             M-Pesa accepted • No credit card needed • Cancel
                             anytime
                           </p>
@@ -802,24 +644,15 @@ export default function SettingsPage() {
                     title="Account"
                     description="Manage your account security and data"
                   >
-                    <div
-                      className="rounded-2xl p-5 flex items-center gap-4"
-                      style={{
-                        background: "rgba(16,185,129,0.06)",
-                        border: "1px solid rgba(16,185,129,0.20)",
-                      }}
-                    >
-                      <div
-                        className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
-                        style={{ background: "rgba(16,185,129,0.15)" }}
-                      >
-                        <CheckCircle className="w-5 h-5 text-emerald-400" />
+                    <div className="rounded-2xl p-5 flex items-center gap-4 bg-emerald-50 border border-emerald-200">
+                      <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 bg-emerald-100">
+                        <CheckCircle className="w-5 h-5 text-emerald-500" />
                       </div>
                       <div>
-                        <p className="font-bold text-white text-sm">
+                        <p className="font-bold text-gray-900 text-sm">
                           Account Active
                         </p>
-                        <p className="text-xs text-white/40 mt-0.5">
+                        <p className="text-xs text-gray-500 mt-0.5">
                           Your account is in good standing
                         </p>
                       </div>
@@ -831,14 +664,8 @@ export default function SettingsPage() {
                       </div>
                     </div>
 
-                    <div
-                      className="rounded-2xl p-5"
-                      style={{
-                        background: "rgba(255,255,255,0.04)",
-                        border: "1px solid rgba(255,255,255,0.08)",
-                      }}
-                    >
-                      <p className="text-xs text-white/30 uppercase tracking-wide font-semibold mb-4">
+                    <div className="rounded-2xl p-5 bg-white border border-gray-200">
+                      <p className="text-xs text-gray-400 uppercase tracking-wide font-semibold mb-4">
                         Details
                       </p>
                       <div className="space-y-3">
@@ -867,12 +694,12 @@ export default function SettingsPage() {
                         ].map(([label, value]) => (
                           <div
                             key={label}
-                            className="flex items-center justify-between py-2 border-b border-white/5 last:border-0"
+                            className="flex items-center justify-between py-2 border-b border-gray-100 last:border-0"
                           >
-                            <span className="text-sm text-white/40">
+                            <span className="text-sm text-gray-500">
                               {label}
                             </span>
-                            <span className="text-sm font-semibold text-white">
+                            <span className="text-sm font-semibold text-gray-900">
                               {value}
                             </span>
                           </div>
@@ -880,57 +707,42 @@ export default function SettingsPage() {
                       </div>
                     </div>
 
-                    <div
-                      className="rounded-2xl p-5"
-                      style={{
-                        background: "rgba(255,255,255,0.04)",
-                        border: "1px solid rgba(239,68,68,0.20)",
-                      }}
-                    >
-                      <p
-                        className="text-xs uppercase tracking-wide font-semibold mb-4"
-                        style={{ color: "rgba(248,113,113,0.60)" }}
-                      >
+                    <div className="rounded-2xl p-5 bg-white border border-rose-200">
+                      <p className="text-xs uppercase tracking-wide font-semibold mb-4 text-rose-400">
                         Account Actions
                       </p>
                       <div className="space-y-3">
                         <motion.button
                           whileHover={{ x: 4 }}
                           onClick={handleLogout}
-                          className="w-full flex items-center gap-4 p-4 rounded-xl hover:bg-rose-500/10 transition-all group"
+                          className="w-full flex items-center gap-4 p-4 rounded-xl hover:bg-rose-50 transition-all group"
                         >
-                          <div
-                            className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
-                            style={{ background: "rgba(239,68,68,0.15)" }}
-                          >
-                            <LogOut className="w-4 h-4 text-rose-400" />
+                          <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 bg-rose-50">
+                            <LogOut className="w-4 h-4 text-rose-500" />
                           </div>
                           <div className="flex-1 text-left">
-                            <p className="font-semibold text-white text-sm">
+                            <p className="font-semibold text-gray-900 text-sm">
                               Sign Out
                             </p>
-                            <p className="text-xs text-white/30">
+                            <p className="text-xs text-gray-400">
                               Log out of this device
                             </p>
                           </div>
-                          <ChevronRight className="w-4 h-4 text-white/20 group-hover:text-rose-400 transition-colors" />
+                          <ChevronRight className="w-4 h-4 text-gray-300 group-hover:text-rose-400 transition-colors" />
                         </motion.button>
 
                         <button
                           disabled
                           className="w-full flex items-center gap-4 p-4 rounded-xl opacity-40 cursor-not-allowed"
                         >
-                          <div
-                            className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
-                            style={{ background: "rgba(239,68,68,0.10)" }}
-                          >
-                            <Lock className="w-4 h-4 text-rose-400/50" />
+                          <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 bg-rose-50">
+                            <Lock className="w-4 h-4 text-rose-300" />
                           </div>
                           <div className="flex-1 text-left">
-                            <p className="font-semibold text-white/50 text-sm">
+                            <p className="font-semibold text-gray-400 text-sm">
                               Delete Account
                             </p>
-                            <p className="text-xs text-white/20">
+                            <p className="text-xs text-gray-300">
                               Contact support to delete your account
                             </p>
                           </div>
@@ -939,26 +751,20 @@ export default function SettingsPage() {
                     </div>
 
                     {/* Support — WhatsApp */}
-                    <div
-                      className="rounded-2xl p-4 flex items-center justify-between"
-                      style={{
-                        background: "rgba(255,255,255,0.04)",
-                        border: "1px solid rgba(255,255,255,0.08)",
-                      }}
-                    >
+                    <div className="rounded-2xl p-4 flex items-center justify-between bg-white border border-gray-200">
                       <div className="flex items-center gap-3">
-                        <Sparkles className="w-4 h-4 text-amber-400" />
+                        <Sparkles className="w-4 h-4 text-amber-500" />
                         <div>
-                          <p className="text-sm font-semibold text-white">
+                          <p className="text-sm font-semibold text-gray-900">
                             Need help?
                           </p>
-                          <p className="text-xs text-white/30">
+                          <p className="text-xs text-gray-400">
                             Our support team is here for you
                           </p>
                         </div>
                       </div>
                       <a
-                        href={`https://wa.me/254717946924?text=${encodeURIComponent("Hi! I need help with my CBC Kenya account.")}`}
+                        href={`https://wa.me/254717946924?text=${encodeURIComponent("Hi! I need help with my CBE Kenya account.")}`}
                         target="_blank"
                         rel="noopener noreferrer"
                       >

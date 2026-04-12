@@ -18,6 +18,7 @@ import {
   X,
   Menu,
 } from "lucide-react";
+import SimpleMathInput from "@/components/SimpleMathInput";
 import katex from "katex";
 import "katex/dist/katex.min.css";
 
@@ -499,7 +500,7 @@ function QuestionNav({ questions, answers, currentIdx, onJump, show }) {
 
 // ─── Submit Modal ─────────────────────────────────────────────────────────────
 const facts = [
-  "💡 CBC focuses on skills and competency, not just memorization.",
+  "💡 CBE focuses on skills and competency, not just memorization.",
   "📚 Regular practice improves retention by up to 80%.",
   "🧠 Taking quizzes is more effective than re-reading notes.",
   "⏱️ Short daily practice sessions beat long weekly cramming.",
@@ -1386,6 +1387,7 @@ export default function QuizTakePage({ params }) {
   const [flagged, setFlagged] = useState(new Set());
   const [workingImages, setWorkingImages] = useState({});
   const [activeBlank, setActiveBlank] = useState(null); // ← blank highlight state
+  const quizStartedAt = useRef(new Date().toISOString());
 
   const currentQ = questions[currentIdx];
 
@@ -1466,6 +1468,7 @@ export default function QuizTakePage({ params }) {
         quiz_id: parseInt(quizId, 10),
         answers: answersDict,
         working_images: workingImages,
+        started_at: quizStartedAt.current,
       };
       if (!token)
         payload.session_id =
@@ -2023,12 +2026,13 @@ export default function QuizTakePage({ params }) {
                     ✓ Working photo captured — no need to type your answer.
                   </p>
                 ) : isMCQ ? null : (
-                  <MathInput
+                  <SimpleMathInput
                     value={answers[currentIdx] ?? ""}
                     onChange={(val) => handleAnswer(val)}
                   />
                 )
-              ) : isFillBlank && !(currentQ.parts && currentQ.parts.length > 0) ? (
+              ) : isFillBlank &&
+                !(currentQ.parts && currentQ.parts.length > 0) ? (
                 <input
                   type="text"
                   value={answers[currentIdx] ?? ""}

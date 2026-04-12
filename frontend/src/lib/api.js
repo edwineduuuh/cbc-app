@@ -73,9 +73,10 @@ export async function refreshAccessToken(refreshToken) {
 }
 // ─── Central authenticated fetch with auto token refresh ──────────────────────
 export async function fetchWithAuth(url, options = {}) {
+  const isFormData = options.body instanceof FormData;
   const makeRequest = (token) => {
     const headers = {
-      "Content-Type": "application/json",
+      ...(isFormData ? {} : { "Content-Type": "application/json" }),
       ...(options.headers || {}),
       ...(token ? { Authorization: `Bearer ${token}` } : {}),
     };

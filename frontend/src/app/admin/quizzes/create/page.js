@@ -195,14 +195,14 @@ export default function CreateQuizPage() {
                 </div>
                 <div>
                   <label className="block text-sm font-semibold text-gray-700 mb-2">
-                    Subject <span className="text-red-500">*</span>
+                    Learning Area <span className="text-red-500">*</span>
                   </label>
                   <select
                     value={subject}
                     onChange={(e) => setSubject(e.target.value)}
                     className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 transition-all outline-none"
                   >
-                    <option value="">Select Subject</option>
+                    <option value="">Select Learning Area</option>
                     {subjects.map((s) => (
                       <option key={s.id} value={s.id}>
                         {s.icon} {s.name}
