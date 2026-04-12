@@ -1151,21 +1151,23 @@ export default function AdminPage() {
             gradient="emerald"
             delay={0}
           />
-          <StatCard
-            label="Total Students"
-            value={stats?.total_students}
-            icon={Users}
-            gradient="blue"
-            delay={0.08}
-          />
           {(user?.role === "superadmin" || user?.is_superuser) && (
-            <StatCard
-              label="Subscribers"
-              value={stats?.subscribed_students}
-              icon={TrendingUp}
-              gradient="amber"
-              delay={0.16}
-            />
+            <>
+              <StatCard
+                label="Total Students"
+                value={stats?.total_students}
+                icon={Users}
+                gradient="blue"
+                delay={0.08}
+              />
+              <StatCard
+                label="Subscribers"
+                value={stats?.subscribed_students}
+                icon={TrendingUp}
+                gradient="amber"
+                delay={0.16}
+              />
+            </>
           )}
           <StatCard
             label="Average Score"
