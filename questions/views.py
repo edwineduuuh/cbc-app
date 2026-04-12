@@ -1782,31 +1782,50 @@ Make questions appropriate for {grade} level."""
 
 
 # ═══════════════════════════════════════════════════════════════
-# M-PESA STK PUSH & FREE TRIAL - ADD THESE 5 FUNCTIONS
+# M-PESA STK PUSH & FREE TRIAL
 # ═══════════════════════════════════════════════════════════════
 
+import logging
+from django.views.decorators.csrf import csrf_exempt
 from .mpesa_api import MpesaAPI
+
+mpesa_logger = logging.getLogger('mpesa')
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def initiate_stk_push(request):
     """Initiate M-Pesa STK Push payment"""
     plan_id = request.data.get('plan_id')
-    phone_number = request.data.get('phone_number', '').strip()
+    raw_phone = request.data.get('phone_number', '').strip()
     
-    if not plan_id or not phone_number:
+    if not plan_id or not raw_phone:
         return Response({'error': 'plan_id and phone_number required'}, status=400)
     
-    if not phone_number.startswith('254'):
-        phone_number = '254' + phone_number.lstrip('0')
-    
-    if len(phone_number) != 12:
-        return Response({'error': 'Invalid phone number'}, status=400)
+    # Validate & normalize phone via MpesaAPI helper
+    phone_number, phone_err = MpesaAPI.normalize_phone(raw_phone)
+    if phone_err:
+        return Response({'error': phone_err}, status=400)
     
     try:
-        plan = SubscriptionPlan.objects.get(id=plan_id)
+        plan = SubscriptionPlan.objects.get(id=plan_id, is_active=True)
     except SubscriptionPlan.DoesNotExist:
         return Response({'error': 'Plan not found'}, status=404)
+    
+    # Idempotency: block duplicate STK pushes for same user+plan within 3 minutes
+    recent_cutoff = timezone.now() - timedelta(minutes=3)
+    existing = PaymentRequest.objects.filter(
+        user=request.user,
+        plan=plan,
+        status='pending',
+        submitted_at__gte=recent_cutoff,
+    ).first()
+    if existing:
+        return Response({
+            'success': True,
+            'message': 'Payment already initiated. Check your phone for the M-Pesa prompt.',
+            'checkout_request_id': existing.checkout_request_id,
+            'payment_request_id': existing.id,
+        })
     
     mpesa = MpesaAPI()
     response = mpesa.stk_push(
@@ -1827,6 +1846,11 @@ def initiate_stk_push(request):
             merchant_request_id=response.get('MerchantRequestID'),
             status='pending',
         )
+        mpesa_logger.info(
+            "STK push initiated: user=%s plan=%s amount=%s checkout=%s",
+            request.user.username, plan.name, plan.price_kes,
+            response.get('CheckoutRequestID'),
+        )
         
         return Response({
             'success': True,
@@ -1835,45 +1859,76 @@ def initiate_stk_push(request):
             'payment_request_id': payment_request.id,
         })
     else:
-        return Response({'error': response.get('errorMessage', 'Failed')}, status=400)
+        mpesa_logger.warning("STK push failed: %s", response)
+        return Response({'error': response.get('errorMessage', 'Failed to initiate payment')}, status=400)
 
 
+@csrf_exempt
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def mpesa_callback(request):
-    """M-Pesa callback endpoint"""
-    print("=" * 50)
-    print("M-PESA CALLBACK RECEIVED")
-    print(json.dumps(request.data, indent=2))
-    print("=" * 50)
+    """M-Pesa callback endpoint — called by Safaricom servers.
+    Validates payment, activates subscription automatically.
+    """
+    mpesa_logger.info("M-Pesa callback received: %s", json.dumps(request.data, default=str))
     
     try:
-        callback_data = request.data
-        result_code = callback_data.get('Body', {}).get('stkCallback', {}).get('ResultCode')
-        checkout_request_id = callback_data.get('Body', {}).get('stkCallback', {}).get('CheckoutRequestID')
+        stk_callback = request.data.get('Body', {}).get('stkCallback', {})
+        result_code = stk_callback.get('ResultCode')
+        result_desc = stk_callback.get('ResultDesc', '')
+        checkout_request_id = stk_callback.get('CheckoutRequestID')
+        
+        if not checkout_request_id:
+            mpesa_logger.warning("Callback missing CheckoutRequestID")
+            return Response({'message': 'Invalid callback data'}, status=400)
         
         try:
-            payment_request = PaymentRequest.objects.get(checkout_request_id=checkout_request_id)
+            payment_request = PaymentRequest.objects.select_related('plan', 'user').get(
+                checkout_request_id=checkout_request_id
+            )
         except PaymentRequest.DoesNotExist:
+            mpesa_logger.warning("No PaymentRequest for checkout_request_id=%s", checkout_request_id)
             return Response({'message': 'Payment request not found'}, status=404)
         
+        # Guard: don't process already-handled callbacks
+        if payment_request.status != 'pending':
+            mpesa_logger.info("Duplicate callback for payment %s (status=%s)", payment_request.id, payment_request.status)
+            return Response({'message': 'Already processed'})
+        
         if result_code == 0:
-            callback_metadata = callback_data.get('Body', {}).get('stkCallback', {}).get('CallbackMetadata', {}).get('Item', [])
+            # ── Extract metadata from callback ──
+            callback_items = stk_callback.get('CallbackMetadata', {}).get('Item', [])
+            meta = {}
+            for item in callback_items:
+                meta[item.get('Name')] = item.get('Value')
             
-            mpesa_receipt = None
-            for item in callback_metadata:
-                if item.get('Name') == 'MpesaReceiptNumber':
-                    mpesa_receipt = item.get('Value')
-                    break
+            mpesa_receipt = meta.get('MpesaReceiptNumber')
+            amount_paid = meta.get('Amount')
             
+            # ── Validate amount matches plan price ──
+            plan = payment_request.plan
+            if amount_paid is not None and int(amount_paid) < int(plan.price_kes):
+                mpesa_logger.error(
+                    "Amount mismatch: paid=%s expected=%s checkout=%s user=%s",
+                    amount_paid, plan.price_kes, checkout_request_id,
+                    payment_request.user.username,
+                )
+                payment_request.status = 'rejected'
+                payment_request.rejection_reason = (
+                    f'Amount paid ({amount_paid}) is less than plan price ({plan.price_kes})'
+                )
+                payment_request.save()
+                return Response({'message': 'Amount mismatch — payment rejected'})
+            
+            # ── Mark payment verified ──
             payment_request.mpesa_code = mpesa_receipt or 'AUTO_CONFIRMED'
             payment_request.status = 'verified'
             payment_request.verified_at = timezone.now()
+            payment_request.admin_notes = 'Auto-verified via STK callback'
             payment_request.save()
             
+            # ── Activate / extend subscription ──
             user = payment_request.user
-            plan = payment_request.plan
-            
             start_date = timezone.now()
             end_date = start_date + timedelta(days=plan.duration_days)
             
@@ -1881,6 +1936,7 @@ def mpesa_callback(request):
                 user=user,
                 defaults={
                     'plan': plan,
+                    'payment': payment_request,
                     'start_date': start_date,
                     'end_date': end_date,
                     'is_active': True,
@@ -1889,11 +1945,19 @@ def mpesa_callback(request):
             
             if not created:
                 subscription.plan = plan
-                subscription.end_date = max(subscription.end_date, timezone.now()) + timedelta(days=plan.duration_days)
+                subscription.payment = payment_request
+                # Extend from whichever is later: current end_date or now
+                base_date = max(subscription.end_date, timezone.now())
+                subscription.end_date = base_date + timedelta(days=plan.duration_days)
                 subscription.is_active = True
                 subscription.save()
             
-            print(f"✓ Subscription activated for {user.username}")
+            mpesa_logger.info(
+                "Subscription activated: user=%s plan=%s until=%s receipt=%s",
+                user.username, plan.name, subscription.end_date, mpesa_receipt,
+            )
+            
+            # Send SMS confirmation (best effort)
             try:
                 from .sms import send_payment_confirmation
                 send_payment_confirmation(
@@ -1903,16 +1967,20 @@ def mpesa_callback(request):
                     days=plan.duration_days,
                 )
             except Exception as e:
-                print(f"SMS error: {e}")
+                mpesa_logger.warning("SMS send failed: %s", e)
         else:
             payment_request.status = 'rejected'
-            payment_request.rejection_reason = f'M-Pesa error code: {result_code}'
+            payment_request.rejection_reason = f'M-Pesa ResultCode={result_code}: {result_desc}'
             payment_request.save()
+            mpesa_logger.info(
+                "Payment rejected: user=%s code=%s desc=%s",
+                payment_request.user.username, result_code, result_desc,
+            )
         
         return Response({'message': 'Callback processed'})
     except Exception as e:
-        print(f"ERROR: {e}")
-        return Response({'error': str(e)}, status=500)
+        mpesa_logger.exception("Unhandled error in mpesa_callback: %s", e)
+        return Response({'error': 'Internal error'}, status=500)
 
 
 @api_view(['GET'])
