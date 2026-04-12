@@ -415,9 +415,19 @@ function PaymentModal({ plan, onClose, onSuccess }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
+  // Only allow digits, strip leading 0, max 9 digits (after 254)
+  const handlePhoneChange = (e) => {
+    let val = e.target.value.replace(/\D/g, ""); // digits only
+    if (val.startsWith("254")) val = val.slice(3); // strip 254 prefix if pasted
+    if (val.startsWith("0")) val = val.slice(1); // strip leading 0
+    setPhone(val.slice(0, 9));
+  };
+
+  const fullPhone = `254${phone}`; // 2547XXXXXXXX
+
   const handleSTKPush = async () => {
-    if (!phone.trim()) {
-      setError("Please enter your phone number");
+    if (phone.length !== 9) {
+      setError("Enter 9 digits after +254 (e.g. 712345678)");
       return;
     }
 
@@ -430,7 +440,7 @@ function PaymentModal({ plan, onClose, onSuccess }) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           plan_id: plan.id,
-          phone_number: phone.trim(),
+          phone_number: fullPhone,
         }),
       });
 
@@ -537,10 +547,12 @@ function PaymentModal({ plan, onClose, onSuccess }) {
                   </span>
                   <input
                     type="tel"
+                    inputMode="numeric"
                     value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
+                    onChange={handlePhoneChange}
                     placeholder="712345678"
-                    className="flex-1 px-4 py-3 border border-gray-200 rounded-lg focus:border-teal-500 focus:ring-2 focus:ring-teal-100 outline-none transition-all text-base"
+                    maxLength={9}
+                    className="flex-1 px-4 py-3 border border-gray-200 rounded-lg focus:border-teal-500 focus:ring-2 focus:ring-teal-100 outline-none transition-all text-base tracking-wide"
                     autoFocus
                   />
                 </div>
@@ -590,7 +602,7 @@ function PaymentModal({ plan, onClose, onSuccess }) {
                 </h3>
                 <p className="text-sm text-gray-500">
                   M-Pesa prompt sent to{" "}
-                  <strong className="text-gray-900">+254{phone}</strong>. Enter
+                  <strong className="text-gray-900">+{fullPhone}</strong>. Enter
                   your PIN.
                 </p>
               </div>
