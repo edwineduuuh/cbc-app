@@ -32,7 +32,9 @@ export default function Navbar() {
     pathname === "/login" ||
     pathname === "/register" ||
     pathname.startsWith("/admin") ||
-    pathname.startsWith("/teacher")
+    pathname.startsWith("/teacher") ||
+    pathname.startsWith("/quizzes/") ||
+    pathname.startsWith("/student/quiz/")
   ) {
     return null;
   }

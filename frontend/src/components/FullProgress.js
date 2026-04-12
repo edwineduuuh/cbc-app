@@ -13,7 +13,6 @@ import {
 import Link from "next/link";
 import { fetchWithAuth } from "@/lib/api";
 import {
-  ArrowLeft,
   TrendingUp,
   TrendingDown,
   Award,
@@ -473,62 +472,32 @@ export default function FullProgress() {
       </div>
 
       <div style={{ position: "relative", zIndex: 1 }}>
-        {/* ── Header ── */}
         <div
           style={{
-            position: "sticky",
-            top: 0,
-            zIndex: 50,
-            background: "rgba(255,255,255,0.92)",
-            backdropFilter: "blur(20px)",
-            borderBottom: "1px solid #e0e0e0",
+            maxWidth: 1100,
+            margin: "0 auto",
+            padding: "16px 12px 80px",
           }}
         >
+          {/* Page title + Level pill */}
           <div
             style={{
-              maxWidth: 1100,
-              margin: "0 auto",
-              padding: "0 16px",
-              height: 64,
               display: "flex",
               alignItems: "center",
               justifyContent: "space-between",
-              gap: 8,
+              marginBottom: 20,
             }}
           >
-            <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-              <Link href="/dashboard">
-                <button
-                  style={{
-                    width: 36,
-                    height: 36,
-                    borderRadius: 10,
-                    background: "#f0f1f3",
-                    border: "1px solid #e0e0e0",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    cursor: "pointer",
-                  }}
-                >
-                  <ArrowLeft size={15} color="#666" />
-                </button>
-              </Link>
-              <div>
-                <h1
-                  style={{
-                    fontFamily: "Instrument Serif",
-                    fontSize: 18,
-                    color: "#1a1a1a",
-                    fontWeight: 400,
-                  }}
-                >
-                  My Progress
-                </h1>
-              </div>
-            </div>
-
-            {/* Level pill */}
+            <h1
+              style={{
+                fontFamily: "Instrument Serif",
+                fontSize: 24,
+                color: "#1a1a1a",
+                fontWeight: 400,
+              }}
+            >
+              My Progress
+            </h1>
             <div
               style={{
                 display: "flex",
@@ -555,15 +524,6 @@ export default function FullProgress() {
               </span>
             </div>
           </div>
-        </div>
-
-        <div
-          style={{
-            maxWidth: 1100,
-            margin: "0 auto",
-            padding: "16px 12px 80px",
-          }}
-        >
           {/* ── Hero section — big score + summary ── */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
