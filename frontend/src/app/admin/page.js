@@ -32,7 +32,7 @@ import Button from "@/components/ui/Button";
 import Toast from "@/components/ui/Toast";
 import AdminPaymentsPanel from "@/components/AdminPaymentsPanel";
 import AdminNavigation from "@/components/AdminNavigation";
-const API = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api";
+const API = process.env.NEXT_PUBLIC_API_URL || "https://cbc-backend-76im.onrender.com/api";
 // ─── Stat Card ────────────────────────────────────────────────────────────────
 function StatCard({ label, value, icon: Icon, gradient, delay = 0 }) {
   const gradients = {
@@ -1224,26 +1224,6 @@ export default function AdminPage() {
                 <h3 className="font-bold text-gray-900 mb-1">Analytics</h3>
                 <p className="text-sm text-gray-500">
                   View performance reports
-                </p>
-              </div>
-            </Link>
-
-            <Link href="/teacher/classrooms">
-              <div className="bg-white p-5 rounded-xl border border-gray-200 hover:shadow-lg hover:border-pink-200 transition-all cursor-pointer group">
-                <Users className="w-7 h-7 text-pink-600 mb-3" />
-                <h3 className="font-bold text-gray-900 mb-1">Classrooms</h3>
-                <p className="text-sm text-gray-500">
-                  Manage classes and students
-                </p>
-              </div>
-            </Link>
-
-            <Link href="/admin/settings">
-              <div className="bg-white p-5 rounded-xl border border-gray-200 hover:shadow-lg hover:border-gray-300 transition-all cursor-pointer group">
-                <Settings className="w-7 h-7 text-gray-600 mb-3" />
-                <h3 className="font-bold text-gray-900 mb-1">Settings</h3>
-                <p className="text-sm text-gray-500">
-                  Configure platform settings
                 </p>
               </div>
             </Link>

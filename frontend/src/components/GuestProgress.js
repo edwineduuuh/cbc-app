@@ -31,17 +31,19 @@ export default function GuestProgress() {
 
   if (guestQuizzes.length === 0) {
     return (
-      <div className="min-h-screen bg-gray-950 text-white flex items-center justify-center p-4">
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
         <div className="text-center max-w-md">
-          <div className="w-16 h-16 rounded-2xl bg-white/5 flex items-center justify-center mx-auto mb-4">
-            <BookOpen className="w-8 h-8 text-white/20" />
+          <div className="w-16 h-16 rounded-2xl bg-emerald-100 flex items-center justify-center mx-auto mb-4">
+            <BookOpen className="w-8 h-8 text-emerald-600" />
           </div>
-          <h2 className="text-xl font-bold mb-2">No Progress Yet</h2>
-          <p className="text-white/40 mb-6">
+          <h2 className="text-xl font-bold text-gray-900 mb-2">
+            No Progress Yet
+          </h2>
+          <p className="text-gray-500 mb-6">
             Take your first quiz to see your progress!
           </p>
           <Link href="/explore">
-            <button className="px-6 py-3 rounded-xl bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-semibold transition-all">
+            <button className="px-6 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold transition-all">
               Browse Quizzes
             </button>
           </Link>
@@ -187,7 +189,7 @@ export default function GuestProgress() {
                   </span>
                 </div>
                 <p className="text-2xl font-bold text-white">
-                  {guestQuizzes.length}/2
+                  {guestQuizzes.length}/4
                 </p>
               </div>
             </div>

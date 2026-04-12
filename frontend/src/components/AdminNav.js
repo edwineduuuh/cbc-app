@@ -49,24 +49,6 @@ const navItems = [
     icon: BarChart3,
     roles: ["admin", "superadmin", "school_admin"],
   },
-  {
-    name: "Classrooms",
-    href: "/teacher/classrooms",
-    icon: Users,
-    roles: ["teacher", "school_admin"],
-  },
-  {
-    name: "Quiz Library",
-    href: "/admin/quiz-library",
-    icon: BookOpen,
-    roles: ["admin", "superadmin", "school_admin", "teacher"],
-  },
-  {
-    name: "Settings",
-    href: "/admin/settings",
-    icon: Settings,
-    roles: ["admin", "superadmin", "school_admin"],
-  },
 ];
 
 export default function AdminNav() {

@@ -97,21 +97,11 @@ function RegisterPage() {
         setTimeout(() => setShowToast(false), 5000);
       }
       setLoading(false);
-    }
-    // ========== ADD THIS BLOCK - Registration Success Logic ==========
-    else {
-      // Check if user was previously a guest
-      const wasGuest = localStorage.getItem("guest_session_id");
-      const guestQuizzesTaken = parseInt(
-        localStorage.getItem("guest_quizzes_taken") || "0",
-      );
-
-      // Clear guest session data
-      if (wasGuest) {
-        localStorage.removeItem("guest_session_id");
-        localStorage.removeItem("guest_quizzes_taken");
-      }
-      window.location.href = "/dashboard?welcome=true";
+    } else {
+      // Clear guest session data on successful registration
+      localStorage.removeItem("guest_session_id");
+      localStorage.removeItem("guest_quizzes_taken");
+      // AuthContext.register() handles the redirect
     }
   };
 
@@ -163,7 +153,7 @@ function RegisterPage() {
             </div>
             <div className="leading-none">
               <span className="font-display text-lg font-bold text-white block">
-                CBE Kenya
+                StadiSpace
               </span>
               <span className="text-[10px] font-semibold text-green-400 tracking-widest uppercase block">
                 Learning Platform

@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 import { fetchWithAuth } from "@/lib/api";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
@@ -24,7 +24,7 @@ import {
   ArrowRight,
 } from "lucide-react";
 
-const API = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api";
+const API = process.env.NEXT_PUBLIC_API_URL || "https://cbc-backend-76im.onrender.com/api";
 
 const PLANS = [
   {
@@ -633,7 +633,7 @@ function PaymentModal({ plan, onClose, onSuccess }) {
                 onClick={onSuccess}
                 className="w-full bg-linear-to-r from-teal-600 to-cyan-600 text-white font-bold py-3.5 rounded-xl transition-all text-sm"
               >
-                Start Learning →
+                Start Learning ?
               </button>
             </motion.div>
           )}

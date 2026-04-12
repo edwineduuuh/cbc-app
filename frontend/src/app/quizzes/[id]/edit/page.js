@@ -15,6 +15,10 @@ import {
   Filter,
 } from "lucide-react";
 
+const API =
+  process.env.NEXT_PUBLIC_API_URL ||
+  "https://cbc-backend-76im.onrender.com/api";
+
 export default function QuizzesPage() {
   const [subjects, setSubjects] = useState([]);
   const [quizzes, setQuizzes] = useState([]);
@@ -26,7 +30,7 @@ export default function QuizzesPage() {
 
   // Fetch subjects
   useEffect(() => {
-    fetch("https://cbc-backend-76im.onrender.com/api/subjects/")
+    fetch(`${API}/subjects/`)
       .then((res) => res.json())
       .then((data) => setSubjects(data))
       .catch((err) => console.error(err));
@@ -35,7 +39,7 @@ export default function QuizzesPage() {
   // Fetch quizzes with filters - UPDATED
   useEffect(() => {
     setLoading(true);
-    let url = "https://cbc-backend-76im.onrender.com/api/quizzes/?";
+    let url = `${API}/quizzes/?`;
 
     if (selectedSubject) url += `subject=${selectedSubject}&`;
     if (selectedGrade) url += `grade=${selectedGrade}&`;

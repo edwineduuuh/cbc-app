@@ -1,7 +1,6 @@
 const API_URL =
   process.env.NEXT_PUBLIC_API_URL ||
   "https://cbc-backend-76im.onrender.com/api";
-console.log("🔥 API_URL:", API_URL);
 
 export async function register(userData) {
   const response = await fetch(`${API_URL}/auth/register/`, {

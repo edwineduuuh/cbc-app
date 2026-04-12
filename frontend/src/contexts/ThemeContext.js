@@ -21,19 +21,12 @@ export function ThemeProvider({ children }) {
   }, []);
 
   const setTheme = (newTheme) => {
-    console.log("[ThemeContext] setTheme called with:", newTheme);
     try {
       setThemeState(newTheme);
-      console.log("[ThemeContext] State updated to:", newTheme);
       localStorage.setItem("theme", newTheme);
-      console.log(
-        "[ThemeContext] localStorage updated:",
-        localStorage.getItem("theme"),
-      );
       applyToDOM(newTheme);
-      console.log("[ThemeContext] applyToDOM complete");
     } catch (e) {
-      console.error("[ThemeContext] Error in setTheme:", e);
+      // silently ignore
     }
   };
 

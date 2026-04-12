@@ -10,7 +10,9 @@ import Card from "@/components/ui/Card";
 import Button from "@/components/ui/Button";
 import { BookOpen, Clock, Calendar, Award } from "lucide-react";
 
-const API = "https://cbc-backend-76im.onrender.com/api";
+const API =
+  process.env.NEXT_PUBLIC_API_URL ||
+  "https://cbc-backend-76im.onrender.com/api";
 
 export default function StudentQuizzesPage() {
   useTheme(); // Force re-render when theme changes

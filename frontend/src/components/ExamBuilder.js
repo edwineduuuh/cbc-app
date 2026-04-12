@@ -10,7 +10,7 @@ import {
   Trash2,
 } from "lucide-react";
 
-const API = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api";
+const API = process.env.NEXT_PUBLIC_API_URL || "https://cbc-backend-76im.onrender.com/api";
 
 /**
  * EXAM BUILDER - Select questions from question bank to create exams

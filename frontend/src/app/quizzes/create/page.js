@@ -7,7 +7,9 @@ import Card from "@/components/ui/Card";
 import Button from "@/components/ui/Button";
 import Toast from "@/components/ui/Toast";
 
-const API = "https://cbc-backend-76im.onrender.com/api";
+const API =
+  process.env.NEXT_PUBLIC_API_URL ||
+  "https://cbc-backend-76im.onrender.com/api";
 
 export default function CreateQuizPage() {
   const { user } = useAuth();

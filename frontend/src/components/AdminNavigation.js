@@ -20,7 +20,6 @@ export default function AdminNavigation() {
     { name: "Quizzes", href: "/admin/quizzes", icon: ClipboardList },
     { name: "Bulk Upload", href: "/admin/bulk-upload", icon: Upload },
     { name: "Analytics", href: "/admin/analytics", icon: BarChart3 },
-    { name: "Classrooms", href: "/teacher/classrooms", icon: Users },
   ];
 
   return (

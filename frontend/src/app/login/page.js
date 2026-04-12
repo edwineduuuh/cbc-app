@@ -77,7 +77,7 @@ export default function LoginPage() {
             </div>
             <div className="leading-none">
               <span className="font-display text-lg font-bold text-white block">
-                CBE Kenya
+                StadiSpace
               </span>
               <span className="text-[10px] font-semibold text-cyan-300 tracking-widest uppercase block">
                 Learning Platform

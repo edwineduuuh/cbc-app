@@ -32,7 +32,7 @@ export default function ExplorePage() {
   const [expandedGrades, setExpandedGrades] = useState(new Set(["Grade 7"])); // Default open Grade 7
 
   const API_URL =
-    process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api";
+    process.env.NEXT_PUBLIC_API_URL || "https://cbc-backend-76im.onrender.com/api";
 
   useEffect(() => {
     fetchQuizzes();
@@ -178,9 +178,8 @@ export default function ExplorePage() {
                 <BookOpen className="w-4 h-4 text-white" />
               </div>
               <div className="leading-none">
-                <span className="font-bold text-lg text-sky-900">CBE</span>
-                <span className="text-[10px] font-semibold text-cyan-600 tracking-widest uppercase block">
-                  Kenya
+                <span className="font-bold text-lg text-sky-900">
+                  StadiSpace
                 </span>
               </div>
             </Link>

@@ -20,7 +20,9 @@ import {
   ChevronRight,
 } from "lucide-react";
 
-const API = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api";
+const API =
+  process.env.NEXT_PUBLIC_API_URL ||
+  "https://cbc-backend-76im.onrender.com/api";
 
 // ─── Timer Hook ───────────────────────────────────────────────────────────────
 function useTimer(totalSeconds, onExpire) {

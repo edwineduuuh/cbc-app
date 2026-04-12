@@ -19,7 +19,9 @@ import {
   BookOpen,
 } from "lucide-react";
 
-const API = "https://cbc-backend-76im.onrender.com/api";
+const API =
+  process.env.NEXT_PUBLIC_API_URL ||
+  "https://cbc-backend-76im.onrender.com/api";
 
 export default function JoinClassroomPage() {
   const { user } = useAuth();

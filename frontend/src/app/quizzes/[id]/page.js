@@ -22,7 +22,9 @@ import SimpleMathInput from "@/components/SimpleMathInput";
 import katex from "katex";
 import "katex/dist/katex.min.css";
 
-const API = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api";
+const API =
+  process.env.NEXT_PUBLIC_API_URL ||
+  "https://cbc-backend-76im.onrender.com/api";
 function renderMath(text) {
   if (!text) return "";
   return text

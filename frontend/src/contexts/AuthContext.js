@@ -88,16 +88,13 @@ export function AuthProvider({ children }) {
       userData.is_staff ||
       userData.role === "admin" ||
       userData.role === "super_admin" ||
-      userData.role === "superadmin"
-    ) {
-      return "/admin"; // Admin dashboard
-    } else if (
+      userData.role === "superadmin" ||
       userData.role === "teacher" ||
       userData.role === "school_admin"
     ) {
-      return "/teacher/dashboard"; // Teacher dashboard
+      return "/admin";
     } else {
-      return "/dashboard"; // Student/default dashboard
+      return "/dashboard";
     }
   };
 
@@ -113,11 +110,6 @@ export function AuthProvider({ children }) {
       const userData = await getCurrentUser(data.tokens.access);
       const quotaInfo = await fetchQuotaInfo(data.tokens.access);
 
-      // DEBUG - See what we got
-      console.log("🔍 USER DATA:", userData);
-      console.log("🔍 ROLE:", userData.role);
-      console.log("🔍 IS_STAFF:", userData.is_staff);
-
       const fullUser = { ...userData, ...quotaInfo };
       setUser(fullUser);
       localStorage.setItem("user", JSON.stringify(fullUser)); // SAVE TO LOCALSTORAGE
@@ -126,12 +118,11 @@ export function AuthProvider({ children }) {
       const adminRoles = ["admin", "super_admin", "superadmin", "school_admin"];
       if (
         adminRoles.includes(userData.role) ||
+        userData.role === "teacher" ||
         userData.is_staff ||
         userData.is_superuser
       ) {
         router.push("/admin");
-      } else if (userData.role === "teacher") {
-        router.push("/teacher/dashboard");
       } else {
         router.push("/dashboard");
       }

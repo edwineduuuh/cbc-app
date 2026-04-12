@@ -1,10 +1,12 @@
 /**
- * api.js — CBC Kenya Teacher Portal
+ * api.js — StadiSpace Teacher Portal
  * All fetch calls to the Django backend, centralized here.
  * Import in your components:  import api from "@/services/api";
  */
 
-const BASE = process.env.NEXT_PUBLIC_API_URL || "https://cbc-backend-76im.onrender.com/api";
+const BASE =
+  process.env.NEXT_PUBLIC_API_URL ||
+  "https://cbc-backend-76im.onrender.com/api";
 
 function token() {
   return typeof window !== "undefined"
