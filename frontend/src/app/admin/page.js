@@ -2,6 +2,7 @@
 import { useRoleGuard } from "@/hooks/useRoleGuard";
 import { useState, useEffect, useCallback } from "react";
 import { useAuth } from "@/contexts/AuthContext";
+import { useTheme } from "@/hooks/useTheme";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
@@ -127,8 +128,8 @@ function QuestionModal({ open, onClose, onSave, subjects, topics, editData }) {
     correct_answer: "A",
     explanation: "",
     marking_scheme: "",
-    image_preview: null, 
-    image_file: null, 
+    image_preview: null,
+    image_file: null,
     delete_image: false,
   };
 
@@ -144,26 +145,26 @@ function QuestionModal({ open, onClose, onSave, subjects, topics, editData }) {
     (t) => String(t.subject) === String(form.subject),
   );
 
- useEffect(() => {
-   if (editData) {
-     setForm({
-       ...editData,
-       subject: String(editData.topic?.subject?.id ?? editData.subject ?? ""),
-       topic: String(editData.topic?.id ?? ""),
-       grade: String(editData.grade ?? ""),
-       question_type: editData.question_type || "mcq",
-       max_marks: editData.max_marks || 1,
-       marking_scheme: editData.marking_scheme
-         ? JSON.stringify(editData.marking_scheme, null, 2)
-         : "",
-       image_preview: null, // Clear preview when opening
-       image_file: null,
-       delete_image: false,
-     });
-   } else {
-     setForm(blank);
-   }
- }, [editData]);
+  useEffect(() => {
+    if (editData) {
+      setForm({
+        ...editData,
+        subject: String(editData.topic?.subject?.id ?? editData.subject ?? ""),
+        topic: String(editData.topic?.id ?? ""),
+        grade: String(editData.grade ?? ""),
+        question_type: editData.question_type || "mcq",
+        max_marks: editData.max_marks || 1,
+        marking_scheme: editData.marking_scheme
+          ? JSON.stringify(editData.marking_scheme, null, 2)
+          : "",
+        image_preview: null, // Clear preview when opening
+        image_file: null,
+        delete_image: false,
+      });
+    } else {
+      setForm(blank);
+    }
+  }, [editData]);
   const update = (key, value) => setForm((prev) => ({ ...prev, [key]: value }));
 
   const handleSave = async () => {
@@ -964,6 +965,7 @@ function GroupedStatsPanel({ onFilter }) {
 
 // ─── Main Admin Page ──────────────────────────────────────────────────────────
 export default function AdminPage() {
+  useTheme(); // Force re-render when theme changes
   const { user, loading: authLoading } = useAuth();
   const router = useRouter();
 

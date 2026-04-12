@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useAuth } from "@/contexts/AuthContext";
+import { useTheme } from "@/hooks/useTheme";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import Link from "next/link";
@@ -12,6 +13,7 @@ import { BookOpen, Clock, Calendar, Award } from "lucide-react";
 const API = "https://cbc-backend-76im.onrender.com/api";
 
 export default function StudentQuizzesPage() {
+  useTheme(); // Force re-render when theme changes
   const { user, loading: authLoading } = useAuth();
   const router = useRouter();
 
@@ -29,31 +31,31 @@ export default function StudentQuizzesPage() {
     }
   }, [user]);
 
- const fetchQuizzes = async () => {
-   const token = localStorage.getItem("accessToken");
-   try {
-     const res = await fetch(`${API}/student/quizzes/`, {
-       headers: { Authorization: `Bearer ${token}` },
-     });
-     const data = await res.json();
+  const fetchQuizzes = async () => {
+    const token = localStorage.getItem("accessToken");
+    try {
+      const res = await fetch(`${API}/student/quizzes/`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const data = await res.json();
 
-     // Split into B2C and classroom quizzes
-     const b2cQuizzes = data.filter((q) => q.type === "b2c" || !q.assigned_to);
-     const classroomQuizzes = data.filter(
-       (q) => q.type === "classroom" || q.assigned_to,
-     );
+      // Split into B2C and classroom quizzes
+      const b2cQuizzes = data.filter((q) => q.type === "b2c" || !q.assigned_to);
+      const classroomQuizzes = data.filter(
+        (q) => q.type === "classroom" || q.assigned_to,
+      );
 
-     setQuizzes(data);
+      setQuizzes(data);
 
-     // You can add tabs to separate them:
-     // - "My Quizzes" (classroom assigned)
-     // - "Library" (B2C - all admin quizzes)
-   } catch (error) {
-     console.error("Failed to fetch quizzes:", error);
-   } finally {
-     setLoading(false);
-   }
- };
+      // You can add tabs to separate them:
+      // - "My Quizzes" (classroom assigned)
+      // - "Library" (B2C - all admin quizzes)
+    } catch (error) {
+      console.error("Failed to fetch quizzes:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50">

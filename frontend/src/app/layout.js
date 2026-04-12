@@ -2,6 +2,7 @@ import "./globals.css";
 import Script from "next/script";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { ThemeProvider } from "@/contexts/ThemeContext";
+import ThemeWrapper from "@/components/ThemeWrapper";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import Navbar from "@/components/NavBar";
 
@@ -76,10 +77,12 @@ export default function RootLayout({ children }) {
         />
 
         <ThemeProvider>
-          <AuthProvider>
-            <Navbar />
-            {children}
-          </AuthProvider>
+          <ThemeWrapper>
+            <AuthProvider>
+              <Navbar />
+              {children}
+            </AuthProvider>
+          </ThemeWrapper>
         </ThemeProvider>
         <WhatsAppButton />
       </body>

@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
+import { useTheme } from "@/hooks/useTheme";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
@@ -766,7 +767,6 @@ export default function LandingPage() {
                     justifyContent: "space-between",
                   }}
                 >
-                  
                   <div
                     style={{ display: "flex", alignItems: "center", gap: 5 }}
                   >
@@ -869,9 +869,7 @@ export default function LandingPage() {
                       fontWeight: 700,
                       margin: 0,
                     }}
-                  >
-                    
-                  </p>
+                  ></p>
                 </div>
               </motion.div>
             </motion.div>

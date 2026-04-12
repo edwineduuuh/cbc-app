@@ -183,8 +183,6 @@ export default function LoginPage() {
               {/* Social login */}
               {/* <SocialLoginButtons /> */}
 
-              
-
               <form onSubmit={handleSubmit} className="space-y-5">
                 <div>
                   <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1.5">

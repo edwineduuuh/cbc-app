@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from "react";
 import { useAuth } from "@/contexts/AuthContext";
-import { useTheme } from "@/contexts/ThemeContext"; // ← THE FIX
+import { useTheme as useThemeContext } from "@/contexts/ThemeContext";
+import { useTheme } from "@/hooks/useTheme";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
@@ -180,8 +181,9 @@ function NavTab({ tab, active, onClick }) {
 
 // ─── Main ─────────────────────────────────────────────────────────────────────
 export default function SettingsPage() {
+  useTheme(); // Force re-render when theme changes
   const { user, logout } = useAuth();
-  const { theme, setTheme } = useTheme(); // ← uses ThemeContext
+  const { theme, setTheme } = useThemeContext(); // uses ThemeContext
   const router = useRouter();
   const [activeTab, setActiveTab] = useState("profile");
   const [toast, setToast] = useState(null);

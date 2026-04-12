@@ -17,7 +17,7 @@ import {
 
 import { Suspense } from "react";
 
-function RegisterPage() {
+function RegisterPage() {\n  useTheme(); // Force re-render when theme changes
   const [formData, setFormData] = useState({
     username: "",
     email: "",

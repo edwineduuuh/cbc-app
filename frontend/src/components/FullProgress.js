@@ -57,17 +57,64 @@ const PALETTE = [
   "#d946ef",
 ];
 
-// ─── Grade Letter Function ─────────────────────────────────────
-function getGradeLetter(percentage) {
+// ─── CBC Kenya Grade Function ─────────────────────────────────
+function getCBCGrade(percentage) {
+  // CBC Kenya Grading Parameter
   if (percentage >= 90)
-    return { letter: "A", color: "#10b981", label: "Excellent" };
-  if (percentage >= 80)
-    return { letter: "B", color: "#3b82f6", label: "Very Good" };
-  if (percentage >= 70) return { letter: "C", color: "#f59e0b", label: "Good" };
-  if (percentage >= 60)
-    return { letter: "D", color: "#f97316", label: "Satisfactory" };
-  if (percentage >= 50) return { letter: "E", color: "#f87171", label: "Pass" };
-  return { letter: "F", color: "#dc2626", label: "Needs Work" };
+    return {
+      grade: "EE1",
+      level: "Exceeding Expectations",
+      color: "#22c55e",
+      points: 8,
+    };
+  if (percentage >= 75)
+    return {
+      grade: "EE2",
+      level: "Exceeding Expectations",
+      color: "#10b981",
+      points: 7,
+    };
+  if (percentage >= 58)
+    return {
+      grade: "ME1",
+      level: "Meeting Expectations",
+      color: "#3b82f6",
+      points: 6,
+    };
+  if (percentage >= 41)
+    return {
+      grade: "ME2",
+      level: "Meeting Expectations",
+      color: "#06b6d4",
+      points: 5,
+    };
+  if (percentage >= 31)
+    return {
+      grade: "AE1",
+      level: "Approaching Expectations",
+      color: "#f59e0b",
+      points: 4,
+    };
+  if (percentage >= 21)
+    return {
+      grade: "AE2",
+      level: "Approaching Expectations",
+      color: "#f97316",
+      points: 3,
+    };
+  if (percentage >= 11)
+    return {
+      grade: "BE1",
+      level: "Below Expectations",
+      color: "#ef4444",
+      points: 2,
+    };
+  return {
+    grade: "BE2",
+    level: "Below Expectations",
+    color: "#dc2626",
+    points: 1,
+  };
 }
 
 // ─── Animated Counter ─────────────────────────────────────────
@@ -283,14 +330,14 @@ export default function FullProgress() {
     return (
       <div
         className="min-h-screen flex items-center justify-center"
-        style={{ background: "#080c12" }}
+        style={{ background: "#ffffff" }}
       >
         <style>{`@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700;800&display=swap');`}</style>
         <div className="flex flex-col items-center gap-4">
           <div className="relative w-16 h-16">
-            <div className="absolute inset-0 rounded-full border-2 border-emerald-500/20 border-t-emerald-400 animate-spin" />
+            <div className="absolute inset-0 rounded-full border-2 border-blue-200 border-t-blue-500 animate-spin" />
             <div
-              className="absolute inset-2 rounded-full border-2 border-blue-500/20 border-b-blue-400 animate-spin"
+              className="absolute inset-2 rounded-full border-2 border-green-200 border-b-green-500 animate-spin"
               style={{
                 animationDirection: "reverse",
                 animationDuration: "0.8s",
@@ -300,11 +347,11 @@ export default function FullProgress() {
           <p
             style={{
               fontFamily: "Outfit",
-              color: "rgba(255,255,255,0.3)",
+              color: "#999",
               fontSize: 13,
             }}
           >
-            Loading your journey…
+            Loading your progress…
           </p>
         </div>
       </div>
@@ -352,7 +399,7 @@ export default function FullProgress() {
   return (
     <div
       style={{
-        background: "#080c12",
+        background: "#ffffff",
         minHeight: "100vh",
         fontFamily: "Outfit, sans-serif",
       }}
@@ -360,14 +407,29 @@ export default function FullProgress() {
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700;800&display=swap');
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        ::-webkit-scrollbar { width: 4px; } ::-webkit-scrollbar-track { background: transparent; } ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 4px; }
-        .card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-radius: 20px; }
-        .card-hover:hover { background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.12); transition: all 0.2s; }
-        .glow-green { box-shadow: 0 0 40px rgba(16,185,129,0.12); }
-        .glow-blue { box-shadow: 0 0 40px rgba(59,130,246,0.12); }
+        ::-webkit-scrollbar { width: 4px; } ::-webkit-scrollbar-track { background: transparent; } ::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.1); border-radius: 4px; }
+        .card { background: #f8f9fa; border: 1px solid #e0e0e0; border-radius: 20px; }
+        .card-hover:hover { background: #f0f1f3; border-color: #d0d0d0; transition: all 0.2s; }
+        .glow-green { box-shadow: 0 0 40px rgba(34,197,94,0.08); }
+        .glow-blue { box-shadow: 0 0 40px rgba(59,130,246,0.08); }
+        @media (max-width: 1024px) {
+          .grid-3 { grid-template-columns: 1fr 1fr !important; }
+        }
+        @media (max-width: 768px) {
+          .header { flex-direction: column; gap: 12px !important; }
+          .grid-2 { grid-template-columns: 1fr !important; }
+          .grid-3 { grid-template-columns: 1fr !important; }
+          .table-responsive { overflow-x: auto; }
+          .pad-responsive { padding: 8px 12px !important; }
+          body { font-size: 14px; }
+        }
+        @media (max-width: 480px) {
+          h1, h2, h3 { font-size: 16px !important; }
+          .grid-2, .grid-3 { gap: 8px !important; }
+        }
       `}</style>
 
-      {/* Ambient background orbs */}
+      {/* Ambient background orbs - Light version */}
       <div
         style={{
           position: "fixed",
@@ -422,20 +484,21 @@ export default function FullProgress() {
             position: "sticky",
             top: 0,
             zIndex: 50,
-            background: "rgba(8,12,18,0.85)",
+            background: "rgba(255,255,255,0.92)",
             backdropFilter: "blur(20px)",
-            borderBottom: "1px solid rgba(255,255,255,0.06)",
+            borderBottom: "1px solid #e0e0e0",
           }}
         >
           <div
             style={{
               maxWidth: 1100,
               margin: "0 auto",
-              padding: "0 24px",
+              padding: "0 16px",
               height: 64,
               display: "flex",
               alignItems: "center",
               justifyContent: "space-between",
+              gap: 8,
             }}
           >
             <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
@@ -445,23 +508,23 @@ export default function FullProgress() {
                     width: 36,
                     height: 36,
                     borderRadius: 10,
-                    background: "rgba(255,255,255,0.05)",
-                    border: "1px solid rgba(255,255,255,0.08)",
+                    background: "#f0f1f3",
+                    border: "1px solid #e0e0e0",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
                     cursor: "pointer",
                   }}
                 >
-                  <ArrowLeft size={15} color="rgba(255,255,255,0.5)" />
+                  <ArrowLeft size={15} color="#666" />
                 </button>
               </Link>
               <div>
                 <h1
                   style={{
                     fontFamily: "Instrument Serif",
-                    fontSize: 20,
-                    color: "#fff",
+                    fontSize: 18,
+                    color: "#1a1a1a",
                     fontWeight: 400,
                   }}
                 >
@@ -492,7 +555,7 @@ export default function FullProgress() {
               >
                 {levelData.title}
               </span>
-              <span style={{ fontSize: 11, color: "rgba(255,255,255,0.3)" }}>
+              <span style={{ fontSize: 11, color: "#999" }}>
                 Lv.{levelData.level}
               </span>
             </div>
@@ -503,13 +566,14 @@ export default function FullProgress() {
           style={{
             maxWidth: 1100,
             margin: "0 auto",
-            padding: "32px 24px 80px",
+            padding: "16px 12px 80px",
           }}
         >
           {/* ── Hero section — big score + summary ── */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
+            className="grid-3"
             style={{
               display: "grid",
               gridTemplateColumns: "1fr 1fr 1fr",
@@ -546,7 +610,7 @@ export default function FullProgress() {
                   style={{
                     fontFamily: "Instrument Serif",
                     fontSize: 28,
-                    color: "#fff",
+                    color: "#1a1a1a",
                     lineHeight: 1,
                   }}
                 >
@@ -555,7 +619,7 @@ export default function FullProgress() {
                 <span
                   style={{
                     fontSize: 11,
-                    color: "rgba(255,255,255,0.3)",
+                    color: "#999",
                     fontWeight: 500,
                   }}
                 >
@@ -565,7 +629,7 @@ export default function FullProgress() {
               <p
                 style={{
                   fontSize: 12,
-                  color: "rgba(255,255,255,0.35)",
+                  color: "#666",
                   fontWeight: 500,
                   letterSpacing: "0.06em",
                   textTransform: "uppercase",
@@ -627,7 +691,7 @@ export default function FullProgress() {
                       style={{
                         fontSize: 20,
                         fontWeight: 700,
-                        color: "#fff",
+                        color: "#1a1a1a",
                         lineHeight: 1,
                       }}
                     >
@@ -636,7 +700,7 @@ export default function FullProgress() {
                     <p
                       style={{
                         fontSize: 11,
-                        color: "rgba(255,255,255,0.3)",
+                        color: "#999",
                         marginTop: 2,
                       }}
                     >
@@ -668,7 +732,7 @@ export default function FullProgress() {
                   style={{
                     fontSize: 11,
                     fontWeight: 600,
-                    color: "rgba(255,255,255,0.4)",
+                    color: "#888",
                     letterSpacing: "0.06em",
                     textTransform: "uppercase",
                   }}
@@ -713,7 +777,7 @@ export default function FullProgress() {
                     );
                   })}
               </div>
-              <p style={{ fontSize: 11, color: "rgba(255,255,255,0.25)" }}>
+              <p style={{ fontSize: 11, color: "#999" }}>
                 Last {Math.min(scores.length, 7)} quizzes
               </p>
             </div>
@@ -752,9 +816,7 @@ export default function FullProgress() {
                   {levelData.title}
                 </span>
                 {levelData.next && (
-                  <span
-                    style={{ fontSize: 12, color: "rgba(255,255,255,0.3)" }}
-                  >
+                  <span style={{ fontSize: 12, color: "#999" }}>
                     {stats?.quizzes_completed || 0} / {levelData.next} quizzes
                   </span>
                 )}
@@ -823,12 +885,14 @@ export default function FullProgress() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.18 }}
+            className="grid-2"
             style={{
               display: "grid",
               gridTemplateColumns: "1fr 1fr",
               gap: 16,
               marginBottom: 24,
             }}
+            className="grid-2"
           >
             {/* Performance Badge */}
             <div className="card" style={{ padding: 24 }}>
@@ -854,37 +918,48 @@ export default function FullProgress() {
                   <Sparkles size={16} color="#8b5cf6" />
                 </div>
                 <div>
-                  <h3 style={{ fontSize: 14, fontWeight: 700, color: "#fff" }}>
+                  <h3
+                    style={{ fontSize: 14, fontWeight: 700, color: "#1a1a1a" }}
+                  >
                     Performance Status
                   </h3>
-                  <p style={{ fontSize: 11, color: "rgba(255,255,255,0.3)" }}>
+                  <p style={{ fontSize: 11, color: "#888" }}>
                     Based on your last 10 attempts
                   </p>
                 </div>
               </div>
 
               {(() => {
-                const grade = getGradeLetter(avgScore);
+                const grade = getCBCGrade(avgScore);
                 const consistency =
                   scores.length >= 3
-                    ? Math.abs(Math.max(...scores.slice(0, 3)) - Math.min(...scores.slice(0, 3))) <= 15
+                    ? Math.abs(
+                        Math.max(...scores.slice(0, 3)) -
+                          Math.min(...scores.slice(0, 3)),
+                      ) <= 15
                       ? "Consistent"
                       : "Variable"
                     : "New";
                 return (
-                  <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: 14,
+                    }}
+                  >
                     <div
                       style={{
                         padding: 16,
                         borderRadius: 12,
-                        background: `${grade.color}12`,
-                        border: `1px solid ${grade.color}25`,
+                        background: `${grade.color}15`,
+                        border: `1px solid ${grade.color}40`,
                       }}
                     >
                       <p
                         style={{
                           fontSize: 11,
-                          color: "rgba(255,255,255,0.4)",
+                          color: "#666",
                           marginBottom: 6,
                         }}
                       >
@@ -897,7 +972,7 @@ export default function FullProgress() {
                           color: grade.color,
                         }}
                       >
-                        {grade.letter}
+                        {grade.grade}
                       </p>
                     </div>
 
@@ -906,13 +981,13 @@ export default function FullProgress() {
                         padding: 16,
                         borderRadius: 12,
                         background: "rgba(59,130,246,0.08)",
-                        border: "1px solid rgba(59,130,246,0.2)",
+                        border: "1px solid rgba(59,130,246,0.15)",
                       }}
                     >
                       <p
                         style={{
                           fontSize: 11,
-                          color: "rgba(255,255,255,0.4)",
+                          color: "#666",
                           marginBottom: 6,
                         }}
                       >
@@ -957,10 +1032,12 @@ export default function FullProgress() {
                   <Lightbulb size={16} color="#22c55e" />
                 </div>
                 <div>
-                  <h3 style={{ fontSize: 14, fontWeight: 700, color: "#fff" }}>
+                  <h3
+                    style={{ fontSize: 14, fontWeight: 700, color: "#1a1a1a" }}
+                  >
                     Next Steps
                   </h3>
-                  <p style={{ fontSize: 11, color: "rgba(255,255,255,0.3)" }}>
+                  <p style={{ fontSize: 11, color: "#999" }}>
                     Personalized suggestions
                   </p>
                 </div>
@@ -981,25 +1058,26 @@ export default function FullProgress() {
                         borderRadius: 10,
                         background: "rgba(16,185,129,0.1)",
                         borderLeft: "3px solid #10b981",
-                    }}
+                      }}
                     >
                       <p
                         style={{
                           fontSize: 12,
-                          color: "#fff",
+                          color: "#1a1a1a",
                           fontWeight: 500,
-                      }}
+                        }}
                       >
                         🎯 Try harder quizzes
                       </p>
                       <p
                         style={{
                           fontSize: 11,
-                          color: "rgba(255,255,255,0.4)",
+                          color: "#666",
                           marginTop: 4,
-                      }}
+                        }}
                       >
-                        You're doing well! Challenge yourself with advanced topics.
+                        You're doing well! Challenge yourself with advanced
+                        topics.
                       </p>
                     </div>
                   </>
@@ -1011,23 +1089,23 @@ export default function FullProgress() {
                         borderRadius: 10,
                         background: "rgba(251,191,36,0.1)",
                         borderLeft: "3px solid #f59e0b",
-                    }}
+                      }}
                     >
                       <p
                         style={{
                           fontSize: 12,
-                          color: "#fff",
+                          color: "#1a1a1a",
                           fontWeight: 500,
-                      }}
+                        }}
                       >
                         📚 Focus on weak areas
                       </p>
                       <p
                         style={{
                           fontSize: 11,
-                          color: "rgba(255,255,255,0.4)",
+                          color: "#666",
                           marginTop: 4,
-                      }}
+                        }}
                       >
                         Review subjects where you scored below 65%.
                       </p>
@@ -1041,23 +1119,23 @@ export default function FullProgress() {
                         borderRadius: 10,
                         background: "rgba(248,113,113,0.1)",
                         borderLeft: "3px solid #f87171",
-                    }}
+                      }}
                     >
                       <p
                         style={{
                           fontSize: 12,
-                          color: "#fff",
+                          color: "#1a1a1a",
                           fontWeight: 500,
-                      }}
+                        }}
                       >
                         💪 Practice fundamentals
                       </p>
                       <p
                         style={{
                           fontSize: 11,
-                          color: "rgba(255,255,255,0.4)",
+                          color: "#666",
                           marginTop: 4,
-                      }}
+                        }}
                       >
                         Go back to basics and practice more quizzes.
                       </p>
@@ -1072,23 +1150,23 @@ export default function FullProgress() {
                     borderRadius: 10,
                     background: "rgba(139,92,246,0.1)",
                     borderLeft: "3px solid #8b5cf6",
-                }}
+                  }}
                 >
                   <p
                     style={{
                       fontSize: 12,
-                      color: "#fff",
+                      color: "#1a1a1a",
                       fontWeight: 500,
-                  }}
+                    }}
                   >
                     ⏱️ Consistency matters
                   </p>
                   <p
                     style={{
                       fontSize: 11,
-                      color: "rgba(255,255,255,0.4)",
+                      color: "#666",
                       marginTop: 4,
-                  }}
+                    }}
                   >
                     {completed.length < 5
                       ? "Take more quizzes to build momentum."
@@ -1119,13 +1197,13 @@ export default function FullProgress() {
                 style={{
                   fontFamily: "Instrument Serif",
                   fontSize: 20,
-                  color: "#fff",
+                  color: "#1a1a1a",
                   fontWeight: 400,
                 }}
               >
                 Subject Performance
               </h2>
-              <span style={{ fontSize: 12, color: "rgba(255,255,255,0.25)" }}>
+              <span style={{ fontSize: 12, color: "#999" }}>
                 {subjects.length} subjects
               </span>
             </div>
@@ -1134,10 +1212,10 @@ export default function FullProgress() {
               <div style={{ textAlign: "center", padding: "48px 0" }}>
                 <BarChart3
                   size={32}
-                  color="rgba(255,255,255,0.1)"
+                  color="rgba(200,200,200,0.4)"
                   style={{ margin: "0 auto 12px" }}
                 />
-                <p style={{ fontSize: 13, color: "rgba(255,255,255,0.25)" }}>
+                <p style={{ fontSize: 13, color: "#999" }}>
                   Take quizzes to see subject breakdown
                 </p>
               </div>
@@ -1162,7 +1240,7 @@ export default function FullProgress() {
                       ? "#10b981"
                       : s.trend === "down"
                         ? "#f87171"
-                        : "rgba(255,255,255,0.2)";
+                        : "#999";
                   return (
                     <motion.div
                       key={s.name}
@@ -1223,7 +1301,7 @@ export default function FullProgress() {
                               style={{
                                 fontSize: 13,
                                 fontWeight: 600,
-                                color: "#fff",
+                                color: "#1a1a1a",
                               }}
                             >
                               {s.name}
@@ -1231,7 +1309,7 @@ export default function FullProgress() {
                             <p
                               style={{
                                 fontSize: 11,
-                                color: "rgba(255,255,255,0.3)",
+                                color: "#999",
                               }}
                             >
                               {s.count} quiz{s.count !== 1 ? "zes" : ""}
@@ -1289,6 +1367,7 @@ export default function FullProgress() {
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
+              className="grid-2"
               style={{
                 display: "grid",
                 gridTemplateColumns: "1fr 1fr",
@@ -1319,7 +1398,9 @@ export default function FullProgress() {
                   >
                     <Star size={14} color="#10b981" />
                   </div>
-                  <h3 style={{ fontSize: 14, fontWeight: 700, color: "#fff" }}>
+                  <h3
+                    style={{ fontSize: 14, fontWeight: 700, color: "#1a1a1a" }}
+                  >
                     Strongest Subjects
                   </h3>
                 </div>
@@ -1331,8 +1412,7 @@ export default function FullProgress() {
                       alignItems: "center",
                       justifyContent: "space-between",
                       padding: "10px 0",
-                      borderBottom:
-                        i < 2 ? "1px solid rgba(255,255,255,0.05)" : "none",
+                      borderBottom: i < 2 ? "1px solid #e0e0e0" : "none",
                     }}
                   >
                     <div
@@ -1341,15 +1421,13 @@ export default function FullProgress() {
                       <span
                         style={{
                           fontSize: 11,
-                          color: "rgba(255,255,255,0.2)",
+                          color: "#999",
                           width: 16,
                         }}
                       >
                         #{i + 1}
                       </span>
-                      <span
-                        style={{ fontSize: 13, color: "rgba(255,255,255,0.8)" }}
-                      >
+                      <span style={{ fontSize: 13, color: "#1a1a1a" }}>
                         {s.name}
                       </span>
                     </div>
@@ -1389,7 +1467,9 @@ export default function FullProgress() {
                   >
                     <Target size={14} color="#f97316" />
                   </div>
-                  <h3 style={{ fontSize: 14, fontWeight: 700, color: "#fff" }}>
+                  <h3
+                    style={{ fontSize: 14, fontWeight: 700, color: "#1a1a1a" }}
+                  >
                     Needs Practice
                   </h3>
                 </div>
@@ -1404,13 +1484,10 @@ export default function FullProgress() {
                         alignItems: "center",
                         justifyContent: "space-between",
                         padding: "10px 0",
-                        borderBottom:
-                          i < 2 ? "1px solid rgba(255,255,255,0.05)" : "none",
+                        borderBottom: i < 2 ? "1px solid #e0e0e0" : "none",
                       }}
                     >
-                      <span
-                        style={{ fontSize: 13, color: "rgba(255,255,255,0.8)" }}
-                      >
+                      <span style={{ fontSize: 13, color: "#1a1a1a" }}>
                         {s.name}
                       </span>
                       <div
@@ -1424,7 +1501,7 @@ export default function FullProgress() {
                           style={{
                             fontSize: 14,
                             fontWeight: 700,
-                            color: "#f97316",
+                            color: "#f59e0b",
                           }}
                         >
                           {s.avg.toFixed(0)}%
@@ -1471,7 +1548,8 @@ export default function FullProgress() {
               style={{
                 padding: 24,
                 marginBottom: 24,
-                background: "linear-gradient(135deg, rgba(249,115,22,0.08), rgba(249,115,22,0.04))",
+                background:
+                  "linear-gradient(135deg, rgba(249,115,22,0.08), rgba(249,115,22,0.04))",
                 border: "1px solid rgba(249,115,22,0.2)",
               }}
             >
@@ -1497,21 +1575,29 @@ export default function FullProgress() {
                   <Flame size={18} color="#f97316" />
                 </div>
                 <div>
-                  <h3 style={{ fontSize: 14, fontWeight: 700, color: "#fff" }}>
+                  <h3
+                    style={{ fontSize: 14, fontWeight: 700, color: "#1a1a1a" }}
+                  >
                     Your Commitment
                   </h3>
-                  <p style={{ fontSize: 11, color: "rgba(255,255,255,0.3)" }}>
+                  <p style={{ fontSize: 11, color: "#999" }}>
                     Stay consistent, improve systematically
                   </p>
                 </div>
               </div>
 
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+              <div
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "1fr 1fr",
+                  gap: 16,
+                }}
+              >
                 <div>
                   <p
                     style={{
                       fontSize: 11,
-                      color: "rgba(255,255,255,0.4)",
+                      color: "#666",
                       marginBottom: 8,
                       textTransform: "uppercase",
                       fontWeight: 600,
@@ -1534,7 +1620,7 @@ export default function FullProgress() {
                   <p
                     style={{
                       fontSize: 11,
-                      color: "rgba(255,255,255,0.4)",
+                      color: "#666",
                       marginBottom: 8,
                       textTransform: "uppercase",
                       fontWeight: 600,
@@ -1550,7 +1636,15 @@ export default function FullProgress() {
                     }}
                   >
                     <Counter
-                      to={completed.length > 0 ? Math.round(((stats?.quizzes_passed || 0) / completed.length) * 100) : 0}
+                      to={
+                        completed.length > 0
+                          ? Math.round(
+                              ((stats?.quizzes_passed || 0) /
+                                completed.length) *
+                                100,
+                            )
+                          : 0
+                      }
                       suffix="%"
                     />
                   </p>
@@ -1570,7 +1664,7 @@ export default function FullProgress() {
                 }}
               >
                 <Zap size={13} color="#f59e0b" />
-                <p style={{ fontSize: 12, color: "rgba(255,255,255,0.6)" }}>
+                <p style={{ fontSize: 12, color: "#666" }}>
                   {scores.length >= 5
                     ? "You're on a roll! Keep the momentum going 🚀"
                     : "Take more quizzes to build confidence and skills"}
@@ -1604,7 +1698,7 @@ export default function FullProgress() {
                   style={{
                     fontFamily: "Instrument Serif",
                     fontSize: 20,
-                    color: "#fff",
+                    color: "#1a1a1a",
                     fontWeight: 400,
                   }}
                 >
@@ -1613,7 +1707,7 @@ export default function FullProgress() {
                 <p
                   style={{
                     fontSize: 12,
-                    color: "rgba(255,255,255,0.25)",
+                    color: "#999",
                     marginTop: 2,
                   }}
                 >
@@ -1644,9 +1738,8 @@ export default function FullProgress() {
                       fontWeight: 600,
                       cursor: "pointer",
                       transition: "all 0.15s",
-                      background:
-                        tab === t ? "rgba(255,255,255,0.08)" : "transparent",
-                      color: tab === t ? "#fff" : "rgba(255,255,255,0.3)",
+                      background: tab === t ? "#f0f1f3" : "transparent",
+                      color: tab === t ? "#1a1a1a" : "#999",
                       border: "none",
                     }}
                   >
@@ -1660,17 +1753,15 @@ export default function FullProgress() {
               <div style={{ textAlign: "center", padding: "64px 0" }}>
                 <Calendar
                   size={32}
-                  color="rgba(255,255,255,0.1)"
+                  color="rgba(200,200,200,0.4)"
                   style={{ margin: "0 auto 12px" }}
                 />
-                <p style={{ fontSize: 13, color: "rgba(255,255,255,0.25)" }}>
-                  No attempts found
-                </p>
+                <p style={{ fontSize: 13, color: "#999" }}>No attempts found</p>
               </div>
             ) : (
               <>
                 {/* Desktop table */}
-                <div style={{ overflowX: "auto" }}>
+                <div style={{ overflowX: "auto" }} className="table-responsive">
                   <table style={{ width: "100%", borderCollapse: "collapse" }}>
                     <thead>
                       <tr>
@@ -1683,11 +1774,10 @@ export default function FullProgress() {
                                 textAlign: h === "" ? "right" : "left",
                                 fontSize: 11,
                                 fontWeight: 600,
-                                color: "rgba(255,255,255,0.25)",
+                                color: "#999",
                                 letterSpacing: "0.06em",
                                 textTransform: "uppercase",
-                                borderBottom:
-                                  "1px solid rgba(255,255,255,0.05)",
+                                borderBottom: "1px solid #e0e0e0",
                               }}
                             >
                               {h}
@@ -1732,7 +1822,7 @@ export default function FullProgress() {
                                   style={{
                                     fontSize: 13,
                                     fontWeight: 600,
-                                    color: "#fff",
+                                    color: "#1a1a1a",
                                   }}
                                 >
                                   {a.quiz_title}
@@ -1741,7 +1831,7 @@ export default function FullProgress() {
                                   <p
                                     style={{
                                       fontSize: 11,
-                                      color: "rgba(255,255,255,0.3)",
+                                      color: "#999",
                                       marginTop: 2,
                                     }}
                                   >
@@ -1753,7 +1843,7 @@ export default function FullProgress() {
                                 <span
                                   style={{
                                     fontSize: 12,
-                                    color: "rgba(255,255,255,0.35)",
+                                    color: "#999",
                                   }}
                                 >
                                   {new Date(a.completed_at).toLocaleDateString(
@@ -1781,7 +1871,7 @@ export default function FullProgress() {
                                   style={{
                                     fontSize: 13,
                                     fontWeight: 600,
-                                    color: "rgba(255,255,255,0.5)",
+                                    color: "#666",
                                   }}
                                 >
                                   {a.total_marks_awarded ?? 0} /{" "}
@@ -1821,18 +1911,17 @@ export default function FullProgress() {
                                       gap: 4,
                                       fontSize: 12,
                                       fontWeight: 600,
-                                      color: "rgba(255,255,255,0.3)",
+                                      color: "#999",
                                       background: "none",
                                       border: "none",
                                       cursor: "pointer",
                                       transition: "color 0.15s",
                                     }}
                                     onMouseEnter={(e) =>
-                                      (e.currentTarget.style.color = "#fff")
+                                      (e.currentTarget.style.color = "#1a1a1a")
                                     }
                                     onMouseLeave={(e) =>
-                                      (e.currentTarget.style.color =
-                                        "rgba(255,255,255,0.3)")
+                                      (e.currentTarget.style.color = "#999")
                                     }
                                   >
                                     Review <ChevronRight size={13} />
@@ -1896,14 +1985,14 @@ export default function FullProgress() {
                   style={{
                     fontFamily: "Instrument Serif",
                     fontSize: 20,
-                    color: "#fff",
+                    color: "#1a1a1a",
                     fontWeight: 400,
                     marginBottom: 4,
                   }}
                 >
                   Take more quizzes to unlock insights
                 </h3>
-                <p style={{ fontSize: 13, color: "rgba(255,255,255,0.4)" }}>
+                <p style={{ fontSize: 13, color: "#666" }}>
                   Trends, strengths and AI analysis appear after a few attempts
                 </p>
               </div>

@@ -2,26 +2,55 @@
 
 import { createContext, useContext, useEffect, useState } from "react";
 
-const ThemeContext = createContext({ theme: "light", setTheme: () => {} });
+const ThemeContext = createContext({
+  theme: "light",
+  setTheme: () => {},
+  isDark: false,
+});
 
 export function ThemeProvider({ children }) {
-  const [theme, setThemeState] = useState("light");
+  const [theme, setThemeState] = useState(null);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    // Initialize theme from localStorage
     const saved = localStorage.getItem("theme") || "light";
     setThemeState(saved);
     applyToDOM(saved);
+    setMounted(true);
   }, []);
 
   const setTheme = (newTheme) => {
-    setThemeState(newTheme);
-    localStorage.setItem("theme", newTheme);
-    applyToDOM(newTheme);
+    console.log("[ThemeContext] setTheme called with:", newTheme);
+    try {
+      setThemeState(newTheme);
+      console.log("[ThemeContext] State updated to:", newTheme);
+      localStorage.setItem("theme", newTheme);
+      console.log(
+        "[ThemeContext] localStorage updated:",
+        localStorage.getItem("theme"),
+      );
+      applyToDOM(newTheme);
+      console.log("[ThemeContext] applyToDOM complete");
+    } catch (e) {
+      console.error("[ThemeContext] Error in setTheme:", e);
+    }
   };
 
-  // NO mounted guard — the old "if (!mounted) return null" was blocking the entire app
+  // Determine if dark mode is active
+  const isDark =
+    theme === "dark" ||
+    (theme === "system" &&
+      typeof window !== "undefined" &&
+      window.matchMedia("(prefers-color-scheme: dark)").matches);
+
+  // Don't render until mounted to prevent hydration mismatch
+  if (!mounted) {
+    return <>{children}</>;
+  }
+
   return (
-    <ThemeContext.Provider value={{ theme, setTheme }}>
+    <ThemeContext.Provider value={{ theme, setTheme, isDark }}>
       {children}
     </ThemeContext.Provider>
   );

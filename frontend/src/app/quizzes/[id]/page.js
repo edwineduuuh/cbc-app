@@ -2028,8 +2028,7 @@ export default function QuizTakePage({ params }) {
                     onChange={(val) => handleAnswer(val)}
                   />
                 )
-              ) : isFillBlank &&
-                !(currentQ.parts && currentQ.parts.length > 0) ? (
+              ) : isFillBlank && !(currentQ.parts && currentQ.parts.length > 0) ? (
                 <input
                   type="text"
                   value={answers[currentIdx] ?? ""}
@@ -2131,12 +2130,6 @@ export default function QuizTakePage({ params }) {
                   }
                 />
               )}
-              {/* {isMath && !(currentQ.parts && currentQ.parts.length > 0) && (
-                <MathInput
-                  value={answers[currentIdx] ?? ""}
-                  onChange={(val) => handleAnswer(val)}
-                />
-              )} */}
 
               {/* Multi-part questions */}
               {currentQ.parts && currentQ.parts.length > 0 && (

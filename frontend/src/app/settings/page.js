@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useAuth } from "@/contexts/AuthContext";
+import { useTheme as useThemeContext } from "@/contexts/ThemeContext";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -21,12 +22,14 @@ import {
   Trash2,
   Save,
   Camera,
+  Palette,
 } from "lucide-react";
 
 const API = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api";
 
 const SECTIONS = [
   { id: "profile", label: "Profile", icon: User },
+  { id: "appearance", label: "Appearance", icon: Palette },
   { id: "password", label: "Password", icon: Lock },
   { id: "notifications", label: "Notifications", icon: Bell },
   { id: "security", label: "Security", icon: Shield },
@@ -150,6 +153,9 @@ export default function SettingsPage() {
                 {activeSection === "profile" && (
                   <ProfileSection user={user} showToast={showToast} />
                 )}
+                {activeSection === "appearance" && (
+                  <AppearanceSection showToast={showToast} />
+                )}
                 {activeSection === "password" && (
                   <PasswordSection showToast={showToast} />
                 )}
@@ -210,63 +216,65 @@ function ProfileSection({ user, showToast }) {
   };
 
   return (
-    <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
-      <h2 className="font-bold text-gray-900 text-lg mb-1">
+    <div className="bg-white dark:bg-slate-800 rounded-2xl border border-gray-100 dark:border-slate-700 shadow-sm p-6">
+      <h2 className="font-bold text-gray-900 dark:text-white text-lg mb-1">
         Profile Information
       </h2>
-      <p className="text-gray-500 text-sm mb-6">Update your personal details</p>
+      <p className="text-gray-500 dark:text-gray-400 text-sm mb-6">
+        Update your personal details
+      </p>
 
       <div className="space-y-4">
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1.5">
+            <label className="block text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-1.5">
               First Name
             </label>
             <input
               value={form.first_name}
               onChange={(e) => setForm({ ...form, first_name: e.target.value })}
               placeholder="Grace"
-              className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl text-sm focus:border-teal-500 focus:outline-none bg-gray-50 focus:bg-white transition-all"
+              className="w-full px-4 py-3 border-2 border-gray-200 dark:border-slate-700 rounded-xl text-sm focus:border-teal-500 dark:focus:border-teal-400 focus:outline-none bg-gray-50 dark:bg-slate-700 dark:text-white focus:bg-white dark:focus:bg-slate-600 transition-all"
             />
           </div>
           <div>
-            <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1.5">
+            <label className="block text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-1.5">
               Last Name
             </label>
             <input
               value={form.last_name}
               onChange={(e) => setForm({ ...form, last_name: e.target.value })}
               placeholder="Wanjiru"
-              className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl text-sm focus:border-teal-500 focus:outline-none bg-gray-50 focus:bg-white transition-all"
+              className="w-full px-4 py-3 border-2 border-gray-200 dark:border-slate-700 rounded-xl text-sm focus:border-teal-500 dark:focus:border-teal-400 focus:outline-none bg-gray-50 dark:bg-slate-700 dark:text-white focus:bg-white dark:focus:bg-slate-600 transition-all"
             />
           </div>
         </div>
 
         <div>
-          <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1.5">
+          <label className="block text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-1.5">
             Email Address
           </label>
           <div className="relative">
-            <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+            <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 dark:text-gray-500" />
             <input
               type="email"
               value={form.email}
               onChange={(e) => setForm({ ...form, email: e.target.value })}
-              className="w-full pl-10 pr-4 py-3 border-2 border-gray-200 rounded-xl text-sm focus:border-teal-500 focus:outline-none bg-gray-50 focus:bg-white transition-all"
+              className="w-full pl-10 pr-4 py-3 border-2 border-gray-200 dark:border-slate-700 rounded-xl text-sm focus:border-teal-500 dark:focus:border-teal-400 focus:outline-none bg-gray-50 dark:bg-slate-700 dark:text-white focus:bg-white dark:focus:bg-slate-600 transition-all"
             />
           </div>
         </div>
 
         <div>
-          <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1.5">
+          <label className="block text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-1.5">
             Username
           </label>
           <input
             value={user.username}
             disabled
-            className="w-full px-4 py-3 border-2 border-gray-100 rounded-xl text-sm bg-gray-50 text-gray-400 cursor-not-allowed"
+            className="w-full px-4 py-3 border-2 border-gray-100 dark:border-slate-700 rounded-xl text-sm bg-gray-50 dark:bg-slate-700 text-gray-400 dark:text-gray-500 cursor-not-allowed"
           />
-          <p className="text-xs text-gray-400 mt-1">
+          <p className="text-xs text-gray-400 dark:text-gray-500 mt-1">
             Username cannot be changed
           </p>
         </div>
@@ -376,12 +384,12 @@ function PasswordSection({ showToast }) {
           value={form[field]}
           onChange={(e) => setForm({ ...form, [field]: e.target.value })}
           placeholder={placeholder}
-          className="w-full px-4 py-3 pr-10 border-2 border-gray-200 rounded-xl text-sm focus:border-teal-500 focus:outline-none bg-gray-50 focus:bg-white transition-all"
+          className="w-full px-4 py-3 pr-10 border-2 border-gray-200 dark:border-slate-700 rounded-xl text-sm focus:border-teal-500 dark:focus:border-teal-400 focus:outline-none bg-gray-50 dark:bg-slate-700 dark:text-white focus:bg-white dark:focus:bg-slate-600 transition-all"
         />
         <button
           type="button"
           onClick={() => setShow({ ...show, [field]: !show[field] })}
-          className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+          className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-400"
         >
           {show[field] ? (
             <EyeOff className="w-4 h-4" />
@@ -394,9 +402,11 @@ function PasswordSection({ showToast }) {
   );
 
   return (
-    <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
-      <h2 className="font-bold text-gray-900 text-lg mb-1">Change Password</h2>
-      <p className="text-gray-500 text-sm mb-6">
+    <div className="bg-white dark:bg-slate-800 rounded-2xl border border-gray-100 dark:border-slate-700 shadow-sm p-6">
+      <h2 className="font-bold text-gray-900 dark:text-white text-lg mb-1">
+        Change Password
+      </h2>
+      <p className="text-gray-500 dark:text-gray-400 text-sm mb-6">
         Choose a strong password to keep your account secure
       </p>
 
@@ -499,9 +509,11 @@ function NotificationsSection({ showToast }) {
   ];
 
   return (
-    <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
-      <h2 className="font-bold text-gray-900 text-lg mb-1">Notifications</h2>
-      <p className="text-gray-500 text-sm mb-6">
+    <div className="bg-white dark:bg-slate-800 rounded-2xl border border-gray-100 dark:border-slate-700 shadow-sm p-6">
+      <h2 className="font-bold text-gray-900 dark:text-white text-lg mb-1">
+        Notifications
+      </h2>
+      <p className="text-gray-500 dark:text-gray-400 text-sm mb-6">
         Choose how you want to be notified
       </p>
 
@@ -705,6 +717,23 @@ function DangerSection({ logout, router, showToast }) {
             </div>
           )}
         </div>
+      </div>
+    </div>
+  );
+}
+
+// ─── Appearance Section ────────────────────────────────────
+function AppearanceSection({ showToast }) {
+  return (
+    <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
+      <h2 className="font-bold text-gray-900 text-lg mb-1">Appearance</h2>
+      <p className="text-gray-500 text-sm mb-6">
+        We are using a clean, light theme for a consistent experience.
+      </p>
+      <div className="p-4 bg-amber-50 rounded-lg border border-amber-200">
+        <p className="text-sm text-amber-900">
+          Theme customization is not available at this time.
+        </p>
       </div>
     </div>
   );

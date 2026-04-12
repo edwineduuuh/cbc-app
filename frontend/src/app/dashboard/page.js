@@ -398,7 +398,7 @@ export default function DashboardPage() {
 
   if (authLoading || loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gray-50 dark:bg-slate-900 flex items-center justify-center">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-teal-500" />
       </div>
     );
@@ -413,7 +413,7 @@ export default function DashboardPage() {
         : "evening";
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-slate-900">
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=DM+Sans:wght@400;500;600;700&display=swap');
         .font-display { font-family: 'Playfair Display', serif; }
@@ -421,20 +421,24 @@ export default function DashboardPage() {
       `}</style>
 
       {/* Header with Quote */}
-      <div className="bg-gradient-to-r from-slate-800 via-slate-700 to-teal-700">
+      <div className="bg-gradient-to-r from-slate-800 via-slate-700 to-teal-700 dark:from-slate-950 dark:via-slate-900 dark:to-teal-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="flex items-start justify-between gap-6">
             <div className="flex-1">
-              <p className="text-teal-200 text-sm mb-1">Good {timeOfDay} 👋</p>
-              <h1 className="font-display text-4xl font-bold text-white mb-3">
+              <p className="text-teal-200 dark:text-teal-300 text-sm mb-1">
+                Good {timeOfDay} 👋
+              </p>
+              <h1 className="font-display text-4xl font-bold text-white dark:text-white mb-3">
                 {user?.username}
               </h1>
 
               {/* Quote integrated in header */}
-              <p className="text-white font-semibold italic text-sm leading-relaxed">
+              <p className="text-white dark:text-white font-semibold italic text-sm leading-relaxed">
                 &ldquo;{quote.text}&rdquo;
               </p>
-              <p className="text-xs text-teal-200 mt-1">— {quote.author}</p>
+              <p className="text-xs text-teal-200 dark:text-teal-300 mt-1">
+                — {quote.author}
+              </p>
             </div>
           </div>
         </div>
@@ -477,20 +481,20 @@ export default function DashboardPage() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="bg-white rounded-2xl border border-gray-200 shadow-sm p-8 text-center mb-8"
+            className="bg-white dark:bg-slate-800 rounded-2xl border border-gray-200 dark:border-gray-700 shadow-sm p-8 text-center mb-8"
           >
-            <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-slate-700 to-teal-600 flex items-center justify-center mx-auto mb-4">
+            <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-slate-700 to-teal-600 dark:from-slate-600 dark:to-teal-500 flex items-center justify-center mx-auto mb-4">
               <BookOpen className="w-8 h-8 text-white" />
             </div>
-            <h3 className="font-display text-2xl font-bold text-gray-900 mb-2">
+            <h3 className="font-display text-2xl font-bold text-gray-900 dark:text-white mb-2">
               Ready to start learning? 📚
             </h3>
-            <p className="text-gray-600 mb-6 max-w-md mx-auto">
+            <p className="text-gray-600 dark:text-gray-300 mb-6 max-w-md mx-auto">
               Take your first quiz to start tracking your progress and see
               detailed analytics.
             </p>
             <Link href="/explore">
-              <button className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-slate-700 to-teal-600 hover:from-slate-800 hover:to-teal-700 text-white font-semibold transition-all shadow-lg">
+              <button className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-slate-700 to-teal-600 dark:from-slate-600 dark:to-teal-500 hover:from-slate-800 hover:to-teal-700 dark:hover:from-slate-700 dark:hover:to-teal-600 text-white font-semibold transition-all shadow-lg">
                 <BookOpen className="w-5 h-5" />
                 Browse Quizzes
                 <ChevronRight className="w-4 h-4" />
@@ -505,7 +509,7 @@ export default function DashboardPage() {
           <Link href="/explore">
             <motion.div
               whileHover={{ scale: 1.02 }}
-              className="bg-gradient-to-br from-slate-700 to-teal-600 rounded-2xl p-6 text-white cursor-pointer shadow-lg hover:shadow-xl transition-all relative overflow-hidden group"
+              className="bg-gradient-to-br from-slate-700 to-teal-600 dark:from-slate-600 dark:to-teal-500 rounded-2xl p-6 text-white cursor-pointer shadow-lg hover:shadow-xl transition-all relative overflow-hidden group"
             >
               <div className="absolute inset-0 bg-white/0 group-hover:bg-white/5 transition-all" />
               <div className="relative">
@@ -528,7 +532,7 @@ export default function DashboardPage() {
           <Link href="/progress">
             <motion.div
               whileHover={{ scale: 1.02 }}
-              className="bg-gradient-to-br from-blue-600 to-indigo-600 rounded-2xl p-6 text-white cursor-pointer shadow-lg hover:shadow-xl transition-all relative overflow-hidden group"
+              className="bg-gradient-to-br from-blue-600 to-indigo-600 dark:from-blue-700 dark:to-indigo-700 rounded-2xl p-6 text-white cursor-pointer shadow-lg hover:shadow-xl transition-all relative overflow-hidden group"
             >
               <div className="absolute inset-0 bg-white/0 group-hover:bg-white/5 transition-all" />
               <div className="relative">
@@ -554,15 +558,19 @@ export default function DashboardPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="mt-6 bg-white rounded-2xl border border-gray-200 shadow-sm p-6"
+            className="mt-6 bg-white dark:bg-slate-800 rounded-2xl border border-gray-200 dark:border-gray-700 shadow-sm p-6"
           >
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 rounded-xl bg-teal-100 flex items-center justify-center">
-                <TrendingUp className="w-5 h-5 text-teal-600" />
+              <div className="w-10 h-10 rounded-xl bg-teal-100 dark:bg-teal-900/30 flex items-center justify-center">
+                <TrendingUp className="w-5 h-5 text-teal-600 dark:text-teal-400" />
               </div>
               <div>
-                <h3 className="font-bold text-gray-900">Quick Insights</h3>
-                <p className="text-xs text-gray-500">Your learning overview</p>
+                <h3 className="font-bold text-gray-900 dark:text-white">
+                  Quick Insights
+                </h3>
+                <p className="text-xs text-gray-500 dark:text-gray-400">
+                  Your learning overview
+                </p>
               </div>
             </div>
 
@@ -606,7 +614,7 @@ function StatCard({ label, value, suffix = "", icon: Icon, color = "teal" }) {
     <motion.div
       initial={{ opacity: 0, scale: 0.95 }}
       animate={{ opacity: 1, scale: 1 }}
-      className="bg-white rounded-2xl border border-gray-200 shadow-sm p-5 hover:shadow-md transition-all"
+      className="bg-white dark:bg-slate-800 rounded-2xl border border-gray-200 dark:border-gray-700 shadow-sm p-5 hover:shadow-md transition-all"
     >
       <div className="flex items-start justify-between mb-3">
         <div
@@ -615,10 +623,14 @@ function StatCard({ label, value, suffix = "", icon: Icon, color = "teal" }) {
           <Icon className="w-5 h-5 text-white" />
         </div>
       </div>
-      <p className="text-gray-500 text-xs font-medium mb-1">{label}</p>
-      <p className="text-3xl font-bold text-gray-900">
+      <p className="text-gray-500 dark:text-gray-400 text-xs font-medium mb-1">
+        {label}
+      </p>
+      <p className="text-3xl font-bold text-gray-900 dark:text-white">
         {value}
-        <span className="text-lg text-gray-500">{suffix}</span>
+        <span className="text-lg text-gray-500 dark:text-gray-400">
+          {suffix}
+        </span>
       </p>
     </motion.div>
   );
@@ -639,15 +651,17 @@ function InsightCard({
   };
 
   return (
-    <div className="flex items-center gap-3 p-3 rounded-xl bg-gray-50">
+    <div className="flex items-center gap-3 p-3 rounded-xl bg-gray-50 dark:bg-slate-700">
       <div
-        className={`w-10 h-10 rounded-lg ${colors[color]} flex items-center justify-center flex-shrink-0`}
+        className={`w-10 h-10 rounded-lg ${colors[color]} dark:opacity-80 flex items-center justify-center flex-shrink-0`}
       >
         <Icon className="w-5 h-5" />
       </div>
       <div>
-        <p className="text-xs text-gray-500 mb-0.5">{label}</p>
-        <p className="text-lg font-bold text-gray-900">
+        <p className="text-xs text-gray-500 dark:text-gray-400 mb-0.5">
+          {label}
+        </p>
+        <p className="text-lg font-bold text-gray-900 dark:text-white">
           {value}
           {suffix}
         </p>
