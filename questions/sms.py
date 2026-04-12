@@ -28,8 +28,8 @@ def send_sms(phone_number, message):
 def send_payment_confirmation(phone_number, username, plan_name, days):
     """Send payment confirmation SMS"""
     message = (
-        f"Hi {username}! Your NurtureUp {plan_name} plan is now active. "
+        f"Hi {username}! Your StadiSpace {plan_name} plan is now active. "
         f"You have {days} days of unlimited access. "
-        f"Start learning at nurturekup.com. Good luck! 🎓"
+        f"Start learning at stadispace.co.ke. Good luck! 🎓"
     )
     return send_sms(phone_number, message)

@@ -65,13 +65,17 @@ function ResetPasswordForm() {
           <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-cyan-700 to-teal-600 flex items-center justify-center">
             <BookOpen className="w-4 h-4 text-white" />
           </div>
-          <span className="font-bold text-gray-900 text-lg">NurtureUp</span>
+          <span className="font-bold text-gray-900 text-lg">StadiSpace</span>
         </div>
 
         {!success ? (
           <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-8">
-            <h1 className="text-2xl font-bold text-gray-900 mb-2">Set New Password</h1>
-            <p className="text-gray-500 text-sm mb-6">Choose a strong password for your account.</p>
+            <h1 className="text-2xl font-bold text-gray-900 mb-2">
+              Set New Password
+            </h1>
+            <p className="text-gray-500 text-sm mb-6">
+              Choose a strong password for your account.
+            </p>
 
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
@@ -87,8 +91,16 @@ function ResetPasswordForm() {
                     required
                     className="w-full px-4 py-3 pr-10 border-2 border-gray-200 rounded-xl text-sm focus:border-cyan-500 focus:outline-none bg-gray-50 focus:bg-white"
                   />
-                  <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400">
-                    {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400"
+                  >
+                    {showPassword ? (
+                      <EyeOff className="w-4 h-4" />
+                    ) : (
+                      <Eye className="w-4 h-4" />
+                    )}
                   </button>
                 </div>
               </div>
@@ -108,19 +120,25 @@ function ResetPasswordForm() {
               </div>
 
               {error && (
-                <p className="text-sm text-red-600 bg-red-50 px-4 py-2 rounded-lg">{error}</p>
+                <p className="text-sm text-red-600 bg-red-50 px-4 py-2 rounded-lg">
+                  {error}
+                </p>
               )}
 
               <button
                 type="submit"
                 disabled={loading}
                 className="w-full flex items-center justify-center gap-2 py-3 rounded-xl font-bold text-sm text-white disabled:opacity-60"
-                style={{ background: "linear-gradient(135deg, #0e7490, #06b6d4)" }}
+                style={{
+                  background: "linear-gradient(135deg, #0e7490, #06b6d4)",
+                }}
               >
                 {loading ? (
                   <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
                 ) : (
-                  <>Reset Password <ArrowRight className="w-4 h-4" /></>
+                  <>
+                    Reset Password <ArrowRight className="w-4 h-4" />
+                  </>
                 )}
               </button>
             </form>
@@ -130,10 +148,19 @@ function ResetPasswordForm() {
             <div className="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-4">
               <CheckCircle className="w-8 h-8 text-emerald-600" />
             </div>
-            <h2 className="text-xl font-bold text-gray-900 mb-2">Password Reset!</h2>
-            <p className="text-gray-500 text-sm mb-6">Redirecting you to login...</p>
+            <h2 className="text-xl font-bold text-gray-900 mb-2">
+              Password Reset!
+            </h2>
+            <p className="text-gray-500 text-sm mb-6">
+              Redirecting you to login...
+            </p>
             <Link href="/login">
-              <button className="w-full py-3 rounded-xl font-bold text-sm text-white" style={{ background: "linear-gradient(135deg, #0e7490, #06b6d4)" }}>
+              <button
+                className="w-full py-3 rounded-xl font-bold text-sm text-white"
+                style={{
+                  background: "linear-gradient(135deg, #0e7490, #06b6d4)",
+                }}
+              >
                 Go to Login
               </button>
             </Link>
@@ -146,7 +173,13 @@ function ResetPasswordForm() {
 
 export default function ResetPasswordPage() {
   return (
-    <Suspense fallback={<div className="min-h-screen flex items-center justify-center"><div className="animate-spin rounded-full h-12 w-12 border-b-2 border-cyan-600" /></div>}>
+    <Suspense
+      fallback={
+        <div className="min-h-screen flex items-center justify-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-cyan-600" />
+        </div>
+      }
+    >
       <ResetPasswordForm />
     </Suspense>
   );

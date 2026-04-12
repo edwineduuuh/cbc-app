@@ -2,18 +2,10 @@
 import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { useAuth } from "@/contexts/AuthContext";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import Link from "next/link";
 import Toast from "@/components/ui/Toast";
-import {
-  BookOpen,
-  ArrowRight,
-  Eye,
-  EyeOff,
-  CheckCircle,
-  GraduationCap,
-  UserCheck,
-} from "lucide-react";
+import { BookOpen, ArrowRight, Eye, EyeOff, CheckCircle } from "lucide-react";
 
 import { Suspense } from "react";
 
@@ -27,6 +19,9 @@ function RegisterPage() {
     last_name: "",
     role: "student",
     grade: "",
+    parent_name: "",
+    parent_phone: "",
+    parent_email: "",
   });
   const [showPassword, setShowPassword] = useState(false);
   const [showPassword2, setShowPassword2] = useState(false);
@@ -52,8 +47,12 @@ function RegisterPage() {
       newErrors.password = "Minimum 8 characters";
     if (formData.password !== formData.password2)
       newErrors.password2 = "Passwords don't match";
-    if (formData.role === "student" && !formData.grade)
-      newErrors.grade = "Please select your grade";
+    if (!formData.grade) newErrors.grade = "Please select your grade";
+    // Parent phone is required
+    const rawPhone = formData.parent_phone.replace(/\D/g, "").replace(/^0/, "");
+    if (!rawPhone) newErrors.parent_phone = "Parent phone is required";
+    else if (rawPhone.length !== 9)
+      newErrors.parent_phone = "Enter 9 digits (e.g. 712345678)";
     return newErrors;
   };
 
@@ -73,9 +72,13 @@ function RegisterPage() {
       password2: formData.password2,
       first_name: formData.first_name,
       last_name: formData.last_name,
-      role: formData.role,
+      role: "student",
+      grade: parseInt(formData.grade),
+      parent_name: formData.parent_name,
+      parent_phone:
+        "254" + formData.parent_phone.replace(/\D/g, "").replace(/^0/, ""),
+      parent_email: formData.parent_email,
     };
-    if (formData.role === "student") userData.grade = parseInt(formData.grade);
 
     const result = await register(userData);
 
@@ -224,7 +227,7 @@ function RegisterPage() {
                   <span className="text-2xl">🎉</span>
                   <div>
                     <p className="font-bold text-emerald-800 text-sm">
-                      You are enjoying NurtureUp!
+                      You are enjoying StadiSpace!
                     </p>
                     <p className="text-emerald-700 text-xs mt-0.5">
                       Create a free account to unlock 3 more quizzes — no
@@ -311,37 +314,97 @@ function RegisterPage() {
                     </div>
                   </div>
 
-                  {/* Grade (students only) */}
-                  <AnimatePresence>
-                    {formData.role === "student" && (
-                      <motion.div
-                        initial={{ opacity: 0, height: 0 }}
-                        animate={{ opacity: 1, height: "auto" }}
-                        exit={{ opacity: 0, height: 0 }}
-                        transition={{ duration: 0.2 }}
-                      >
-                        <label className={labelCls}>Grade *</label>
-                        <select
-                          name="grade"
-                          value={formData.grade}
+                  {/* Grade */}
+                  <div>
+                    <label className={labelCls}>Grade *</label>
+                    <select
+                      name="grade"
+                      value={formData.grade}
+                      onChange={handleChange}
+                      className={inputCls("grade")}
+                    >
+                      <option value="">Select your grade</option>
+                      {[4, 5, 6, 7, 8, 9, 10, 11, 12].map((g) => (
+                        <option key={g} value={g}>
+                          Grade {g}
+                        </option>
+                      ))}
+                    </select>
+                    {errors.grade && (
+                      <p className="mt-1 text-xs text-red-500">
+                        {errors.grade}
+                      </p>
+                    )}
+                  </div>
+
+                  {/* Parent / Guardian section */}
+                  <div className="pt-2 border-t border-gray-100">
+                    <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-3">
+                      Parent / Guardian Details
+                    </p>
+                    <div className="space-y-4">
+                      <div>
+                        <label className={labelCls}>Parent Name</label>
+                        <input
+                          name="parent_name"
+                          value={formData.parent_name}
                           onChange={handleChange}
-                          className={inputCls("grade")}
-                        >
-                          <option value="">Select your grade</option>
-                          {[4, 5, 6, 7, 8, 9, 10, 11, 12].map((g) => (
-                            <option key={g} value={g}>
-                              Grade {g}
-                            </option>
-                          ))}
-                        </select>
-                        {errors.grade && (
+                          placeholder="e.g. Mary Wanjiru"
+                          className={inputCls("parent_name")}
+                        />
+                      </div>
+                      <div>
+                        <label className={labelCls}>Parent Phone *</label>
+                        <div className="flex gap-2">
+                          <span className="px-3 py-3 bg-gray-100 border-2 border-gray-200 rounded-xl text-gray-600 font-bold text-sm">
+                            +254
+                          </span>
+                          <input
+                            type="tel"
+                            inputMode="numeric"
+                            name="parent_phone"
+                            value={formData.parent_phone}
+                            onChange={(e) => {
+                              let val = e.target.value.replace(/\D/g, "");
+                              if (val.startsWith("254")) val = val.slice(3);
+                              if (val.startsWith("0")) val = val.slice(1);
+                              setFormData({
+                                ...formData,
+                                parent_phone: val.slice(0, 9),
+                              });
+                            }}
+                            placeholder="712345678"
+                            maxLength={9}
+                            className={`flex-1 ${inputCls("parent_phone")}`}
+                          />
+                        </div>
+                        {errors.parent_phone && (
                           <p className="mt-1 text-xs text-red-500">
-                            {errors.grade}
+                            {errors.parent_phone}
                           </p>
                         )}
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
+                        <p className="mt-1 text-[11px] text-gray-400">
+                          For progress updates & payment receipts via SMS
+                        </p>
+                      </div>
+                      <div>
+                        <label className={labelCls}>
+                          Parent Email{" "}
+                          <span className="normal-case text-gray-300">
+                            (optional)
+                          </span>
+                        </label>
+                        <input
+                          name="parent_email"
+                          type="email"
+                          value={formData.parent_email}
+                          onChange={handleChange}
+                          placeholder="parent@email.com"
+                          className={inputCls("parent_email")}
+                        />
+                      </div>
+                    </div>
+                  </div>
 
                   {/* Passwords */}
                   <div className="grid grid-cols-2 gap-4">
@@ -434,7 +497,8 @@ function RegisterPage() {
               <div className="mt-5 flex items-center justify-center gap-2 bg-amber-50 border border-amber-200 rounded-xl px-5 py-3">
                 <span className="text-amber-500">✦</span>
                 <p className="text-xs font-medium text-amber-800">
-                  5 quizzes on free trial · No credit card · M-Pesa accepted
+                  7-day free trial · Unlimited quizzes · No credit card · M-Pesa
+                  accepted
                 </p>
               </div>
 

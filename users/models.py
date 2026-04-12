@@ -57,6 +57,13 @@ class User(AbstractUser):
     trial_end = models.DateTimeField(null=True, blank=True)
     has_used_trial = models.BooleanField(default=False)
 
+    # Parent/Guardian info (for comms, receipts, progress reports)
+    parent_name = models.CharField(max_length=150, blank=True, default='')
+    parent_phone = models.CharField(max_length=15, blank=True, default='',
+        help_text='Parent phone in 2547XXXXXXXX format')
+    parent_email = models.EmailField(blank=True, default='',
+        help_text='Parent email for receipts & progress reports')
+
     # FREE TRIAL CREDITS (4 total: 2 as guest + 2 after signup)
     quiz_credits = models.IntegerField(
         default=4,

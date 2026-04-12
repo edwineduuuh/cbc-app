@@ -1831,8 +1831,8 @@ def initiate_stk_push(request):
     response = mpesa.stk_push(
         phone_number=phone_number,
         amount=plan.price_kes,
-        account_reference=f'{plan.name} Subscription',
-        transaction_desc=f'CBC Kenya {plan.name} Plan'
+        account_reference=f'StadiSpace {plan.name}',
+        transaction_desc=f'StadiSpace {plan.name} Plan'
     )
     
     if response.get('ResponseCode') == '0':

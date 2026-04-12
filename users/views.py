@@ -31,6 +31,23 @@ class RegisterView(generics.CreateAPIView):
         serializer.is_valid(raise_exception = True)
         user = serializer.save()
 
+        # Activate 7-day free trial automatically
+        user.activate_free_trial()
+
+        # Send welcome SMS to parent (best-effort)
+        if user.parent_phone:
+            try:
+                from questions.sms import send_sms
+                child_name = user.first_name or user.username
+                send_sms(
+                    user.parent_phone,
+                    f"Hi {user.parent_name or 'there'}! {child_name} just joined StadiSpace. "
+                    f"They have a 7-day free trial with unlimited access. "
+                    f"Track their progress at stadispace.co.ke"
+                )
+            except Exception:
+                pass  # Don't block registration if SMS fails
+
         refresh = RefreshToken.for_user(user)
 
         return Response({
@@ -456,7 +473,7 @@ def forgot_password(request):
         reset_url = f"{os.getenv('FRONTEND_URL', 'http://localhost:3000')}/reset-password?uid={uid}&token={token}"
         
         send_mail(
-            subject='Reset your NurtureUp password',
+            subject='Reset your StadiSpace password',
             message=f'Hi {user.username},\n\nClick this link to reset your password:\n{reset_url}\n\nThis link expires in 24 hours.\n\nIf you did not request this, ignore this email.',
             from_email=os.getenv('EMAIL_HOST_USER'),
             recipient_list=[email],

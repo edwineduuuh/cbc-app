@@ -37,7 +37,8 @@ class RegisterSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['username', 'email','password', 'password2', 'role','grade', 'first_name','last_name']
+        fields = ['username', 'email','password', 'password2', 'role','grade', 'first_name','last_name',
+                  'parent_name', 'parent_phone', 'parent_email']
 
     def validate(self, attrs):
          """
@@ -55,6 +56,22 @@ class RegisterSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError("Grade must be between 4 and 12")
         return value
     
+    def validate_parent_phone(self, value):
+        """Normalize parent phone to 254 format"""
+        if not value:
+            return value
+        import re
+        phone = value.strip().replace(' ', '').replace('-', '')
+        if phone.startswith('+'):
+            phone = phone[1:]
+        if phone.startswith('0'):
+            phone = '254' + phone[1:]
+        if not phone.startswith('254'):
+            raise serializers.ValidationError("Phone must start with 07, 01, +254, or 254")
+        if len(phone) != 12 or not re.match(r'^254[17]\d{8}$', phone):
+            raise serializers.ValidationError("Invalid Kenyan phone number")
+        return phone
+
     def create(self, validated_data):
         """
         Create new user with hashed password.
@@ -69,7 +86,10 @@ class RegisterSerializer(serializers.ModelSerializer):
             role=validated_data.get('role', 'student'),
             grade=validated_data.get('grade'),
             first_name=validated_data.get('first_name', ''),
-            last_name=validated_data.get('last_name', '')
+            last_name=validated_data.get('last_name', ''),
+            parent_name=validated_data.get('parent_name', ''),
+            parent_phone=validated_data.get('parent_phone', ''),
+            parent_email=validated_data.get('parent_email', ''),
         )
 
         return user
