@@ -111,7 +111,7 @@ function RegisterPage() {
         localStorage.removeItem("guest_session_id");
         localStorage.removeItem("guest_quizzes_taken");
       }
-      window.location.href = "/explore?welcome=true";
+      window.location.href = "/dashboard?welcome=true";
     }
   };
 
