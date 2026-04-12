@@ -400,7 +400,7 @@ export default function FullProgress() {
     >
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700;800&display=swap');
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+        * { box-sizing: border-box; }
         ::-webkit-scrollbar { width: 4px; } ::-webkit-scrollbar-track { background: transparent; } ::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.1); border-radius: 4px; }
         .card { background: #f8f9fa; border: 1px solid #e0e0e0; border-radius: 20px; }
         .card-hover:hover { background: #f0f1f3; border-color: #d0d0d0; transition: all 0.2s; }
