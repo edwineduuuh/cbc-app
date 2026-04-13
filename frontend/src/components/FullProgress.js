@@ -12,7 +12,6 @@ import {
   Award,
   BookOpen,
   Target,
-  CheckCircle,
   ChevronDown,
   ChevronRight,
   Sparkles,
@@ -31,7 +30,7 @@ const API =
   process.env.NEXT_PUBLIC_API_URL ||
   "https://cbc-backend-76im.onrender.com/api";
 
-// CBE Kenya Grade Scale
+/* ── CBE Kenya Grade Scale ────────────────────────────── */
 function getCBEGrade(pct) {
   if (pct >= 90)
     return {
@@ -90,13 +89,13 @@ function getCBEGrade(pct) {
   };
 }
 
-// Level System
+/* ── Level System ─────────────────────────────────────── */
 function getLevel(n) {
   if (n >= 100)
     return {
       level: 5,
       title: "Scholar",
-      emoji: "🎓",
+      emoji: "\u{1F393}",
       color: "#f59e0b",
       next: null,
       pct: 100,
@@ -105,7 +104,7 @@ function getLevel(n) {
     return {
       level: 4,
       title: "Expert",
-      emoji: "⚡",
+      emoji: "\u26A1",
       color: "#8b5cf6",
       next: 100,
       pct: ((n - 50) / 50) * 100,
@@ -114,7 +113,7 @@ function getLevel(n) {
     return {
       level: 3,
       title: "Achiever",
-      emoji: "🏆",
+      emoji: "\u{1F3C6}",
       color: "#3b82f6",
       next: 50,
       pct: ((n - 20) / 30) * 100,
@@ -123,7 +122,7 @@ function getLevel(n) {
     return {
       level: 2,
       title: "Learner",
-      emoji: "📚",
+      emoji: "\u{1F4DA}",
       color: "#10b981",
       next: 20,
       pct: ((n - 5) / 15) * 100,
@@ -131,54 +130,52 @@ function getLevel(n) {
   return {
     level: 1,
     title: "Beginner",
-    emoji: "🌱",
+    emoji: "\u{1F331}",
     color: "#6ee7b7",
     next: 5,
     pct: (n / 5) * 100,
   };
 }
 
-// Subject Emoji fallback (matches actual DB subject names)
+/* ── Subject → Emoji (matches actual DB subjects) ─────── */
 const SUBJECT_EMOJI = {
-  "Mathematics Activities": "📐",
-  "Core Mathematics": "📐",
-  Mathematics: "📐",
-  "Integrated Science": "🔬",
-  "Science and Technology": "🧪",
-  English: "📖",
-  Kiswahili: "🗣️",
-  "Social Studies": "🌍",
-  "Christian Religious Education": "🕊️",
-  "Islamic Religious Education": "🕌",
-  "Religious Education": "🕊️",
-  "Business Studies": "💼",
-  "Creative Arts and Sports": "🎨",
-  "Creative Arts": "🎨",
-  "Agriculture & Nutrition": "🌾",
-  Agriculture: "🌾",
-  "Pre-Technical Studies": "⚙️",
-  "Home Science": "🏠",
-  "Computer Science": "💻",
-  "Health Education": "❤️",
-  "Physical Education": "⚽",
-  Music: "🎵",
-  Art: "🖌️",
-  "Life Skills": "🧠",
-  French: "🇫🇷",
-  German: "🇩🇪",
-  Arabic: "🇸🇦",
-  Languages: "📝",
+  "Mathematics Activities": "\u{1F4D0}",
+  "Core Mathematics": "\u{1F4D0}",
+  Mathematics: "\u{1F4D0}",
+  "Integrated Science": "\u{1F52C}",
+  "Science and Technology": "\u{1F9EA}",
+  English: "\u{1F4D6}",
+  Kiswahili: "\u{1F5E3}\uFE0F",
+  "Social Studies": "\u{1F30D}",
+  "Christian Religious Education": "\u{1F54A}\uFE0F",
+  "Islamic Religious Education": "\u{1F54C}",
+  "Religious Education": "\u{1F54A}\uFE0F",
+  "Business Studies": "\u{1F4BC}",
+  "Creative Arts and Sports": "\u{1F3A8}",
+  "Creative Arts": "\u{1F3A8}",
+  "Agriculture & Nutrition": "\u{1F33E}",
+  Agriculture: "\u{1F33E}",
+  "Pre-Technical Studies": "\u2699\uFE0F",
+  "Home Science": "\u{1F3E0}",
+  "Computer Science": "\u{1F4BB}",
+  "Health Education": "\u2764\uFE0F",
+  "Physical Education": "\u26BD",
+  Music: "\u{1F3B5}",
+  Art: "\u{1F58C}\uFE0F",
+  "Life Skills": "\u{1F9E0}",
+  French: "\u{1F1EB}\u{1F1F7}",
+  German: "\u{1F1E9}\u{1F1EA}",
+  Arabic: "\u{1F1F8}\u{1F1E6}",
 };
 function getSubjectEmoji(name) {
-  if (!name) return "📚";
+  if (!name) return "\u{1F4DA}";
   for (const [key, emoji] of Object.entries(SUBJECT_EMOJI)) {
     if (name.toLowerCase().includes(key.toLowerCase())) return emoji;
   }
-  return "📚";
+  return "\u{1F4DA}";
 }
 
-// Pathway Mapping (Grades 7-9 CBE indicator subjects)
-// Uses .includes() matching so "Mathematics" matches "Mathematics Activities", "Core Mathematics" etc.
+/* ── Pathway Mapping (CBE indicator subjects) ─────────── */
 const PATHWAYS = {
   STEM: {
     name: "STEM",
@@ -227,48 +224,33 @@ const PATHWAYS = {
   },
 };
 
-// Radar Chart (SVG)
+/* ── Radar Chart (SVG) ────────────────────────────────── */
 function RadarChart({ dataPoints, size = 260 }) {
   const cx = size / 2,
     cy = size / 2,
     r = size * 0.38;
   const n = dataPoints.length;
   if (n < 3) return null;
-
-  const angleStep = (2 * Math.PI) / n;
-  const getPoint = (i, pct) => ({
-    x: cx + r * (pct / 100) * Math.sin(i * angleStep),
-    y: cy - r * (pct / 100) * Math.cos(i * angleStep),
+  const step = (2 * Math.PI) / n;
+  const pt = (i, pct) => ({
+    x: cx + r * (pct / 100) * Math.sin(i * step),
+    y: cy - r * (pct / 100) * Math.cos(i * step),
   });
-
   const rings = [25, 50, 75, 100];
-  const gridLines = rings.map((ring) => {
-    const pts = Array.from({ length: n }, (_, i) => getPoint(i, ring));
-    return pts.map((p) => `${p.x},${p.y}`).join(" ");
-  });
-
-  const axes = Array.from({ length: n }, (_, i) => getPoint(i, 100));
-
-  const dataPts = dataPoints.map((d, i) => getPoint(i, d.value));
-  const dataPath = dataPts.map((p) => `${p.x},${p.y}`).join(" ");
-
-  const labels = dataPoints.map((d, i) => {
-    const p = getPoint(i, 118);
-    return { ...d, x: p.x, y: p.y };
-  });
-
   return (
     <svg viewBox={`0 0 ${size} ${size}`} className="w-full max-w-70 mx-auto">
-      {gridLines.map((pts, i) => (
+      {rings.map((ring, ri) => (
         <polygon
-          key={i}
-          points={pts}
+          key={ri}
+          points={Array.from({ length: n }, (_, i) => pt(i, ring))
+            .map((p) => `${p.x},${p.y}`)
+            .join(" ")}
           fill="none"
           stroke="#e5e7eb"
           strokeWidth="0.5"
         />
       ))}
-      {axes.map((p, i) => (
+      {Array.from({ length: n }, (_, i) => pt(i, 100)).map((p, i) => (
         <line
           key={i}
           x1={cx}
@@ -280,46 +262,41 @@ function RadarChart({ dataPoints, size = 260 }) {
         />
       ))}
       <polygon
-        points={dataPath}
+        points={dataPoints
+          .map((d, i) => pt(i, d.value))
+          .map((p) => `${p.x},${p.y}`)
+          .join(" ")}
         fill="rgba(16,185,129,0.15)"
         stroke="#10b981"
         strokeWidth="2"
       />
-      {dataPts.map((p, i) => (
-        <circle
-          key={i}
-          cx={p.x}
-          cy={p.y}
-          r="4"
-          fill="#10b981"
-          stroke="#fff"
-          strokeWidth="2"
-        />
-      ))}
-      {labels.map((l, i) => (
-        <text
-          key={i}
-          x={l.x}
-          y={l.y}
-          textAnchor="middle"
-          dominantBaseline="middle"
-          className="fill-gray-600 text-[9px] font-medium"
-          style={{ fontSize: 9 }}
-        >
-          {l.label.length > 14 ? l.label.slice(0, 12) + "…" : l.label}
-        </text>
-      ))}
-      {rings.map((ring) => {
-        const p = getPoint(0, ring);
+      {dataPoints.map((d, i) => {
+        const p = pt(i, d.value);
+        return (
+          <circle
+            key={i}
+            cx={p.x}
+            cy={p.y}
+            r="4"
+            fill="#10b981"
+            stroke="#fff"
+            strokeWidth="2"
+          />
+        );
+      })}
+      {dataPoints.map((d, i) => {
+        const p = pt(i, 118);
         return (
           <text
-            key={ring}
-            x={p.x + 8}
-            y={p.y - 2}
-            className="fill-gray-300 text-[7px]"
-            style={{ fontSize: 7 }}
+            key={i}
+            x={p.x}
+            y={p.y}
+            textAnchor="middle"
+            dominantBaseline="middle"
+            className="fill-gray-600"
+            style={{ fontSize: 9, fontWeight: 500 }}
           >
-            {ring}%
+            {d.label.length > 14 ? d.label.slice(0, 12) + "\u2026" : d.label}
           </text>
         );
       })}
@@ -327,7 +304,7 @@ function RadarChart({ dataPoints, size = 260 }) {
   );
 }
 
-// Progress Bar
+/* ── Progress Bar ─────────────────────────────────────── */
 function ProgressBar({ pct, color, height = 8 }) {
   const fill =
     color || (pct >= 70 ? "#10b981" : pct >= 50 ? "#f59e0b" : "#ef4444");
@@ -348,16 +325,16 @@ function ProgressBar({ pct, color, height = 8 }) {
   );
 }
 
-// Trend Arrow
+/* ── Trend Badge ──────────────────────────────────────── */
 function TrendBadge({ scores }) {
   if (!scores || scores.length < 2)
     return <Minus className="w-4 h-4 text-gray-300" />;
   const recent = scores.slice(-3);
   const older = scores.slice(-6, -3);
   if (older.length === 0) {
-    const diff = recent[recent.length - 1] - recent[0];
-    if (diff > 0) return <TrendingUp className="w-4 h-4 text-emerald-500" />;
-    if (diff < 0) return <TrendingDown className="w-4 h-4 text-rose-500" />;
+    const d = recent[recent.length - 1] - recent[0];
+    if (d > 0) return <TrendingUp className="w-4 h-4 text-emerald-500" />;
+    if (d < 0) return <TrendingDown className="w-4 h-4 text-rose-500" />;
     return <Minus className="w-4 h-4 text-gray-300" />;
   }
   const avgR = recent.reduce((a, b) => a + b, 0) / recent.length;
@@ -367,13 +344,14 @@ function TrendBadge({ scores }) {
   return <Minus className="w-4 h-4 text-gray-300" />;
 }
 
-// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// MAIN COMPONENT
-// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/*  MAIN COMPONENT                                         */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 export default function FullProgress() {
   const { user } = useAuth();
   const router = useRouter();
   const [attempts, setAttempts] = useState([]);
+  const [quizSubjectMap, setQuizSubjectMap] = useState({});
   const [loading, setLoading] = useState(true);
   const [expandedSubject, setExpandedSubject] = useState(null);
   const printRef = useRef(null);
@@ -383,42 +361,61 @@ export default function FullProgress() {
       router.push("/login");
       return;
     }
-    fetchWithAuth(`${API}/attempts/?status=completed`)
-      .then((r) => r.json())
-      .then((data) => setAttempts(Array.isArray(data) ? data : []))
+
+    // Fetch BOTH attempts AND quizzes so we always have quiz→subject mapping
+    Promise.all([
+      fetchWithAuth(`${API}/attempts/?status=completed`).then((r) => r.json()),
+      fetchWithAuth(`${API}/quizzes/`).then((r) => r.json()),
+    ])
+      .then(([attemptsData, quizzesData]) => {
+        setAttempts(Array.isArray(attemptsData) ? attemptsData : []);
+        // Build quiz_id → subject_name map from quizzes endpoint
+        const qMap = {};
+        const quizArr = Array.isArray(quizzesData)
+          ? quizzesData
+          : quizzesData.results || [];
+        quizArr.forEach((q) => {
+          if (q.id && q.subject_name) qMap[q.id] = q.subject_name;
+        });
+        setQuizSubjectMap(qMap);
+      })
       .catch(console.error)
       .finally(() => setLoading(false));
   }, [user, router]);
 
+  /* ── Helpers ────────────────────────────────────────── */
   const handlePrint = () => window.print();
 
-  const handleShare = async () => {
-    const text = `📊 My StadiSpace Progress\n${cbeGrade.grade} — ${cbeGrade.label}\n${subjects.length} learning areas • ${completed.length} quizzes completed\nAverage: ${Math.round(avgScore)}%\n\nTrack your CBE progress at stadispace.com`;
-    if (navigator.share) {
-      try {
-        await navigator.share({ title: "My StadiSpace Progress", text });
-      } catch {
-        /* cancelled */
-      }
-    } else {
-      await navigator.clipboard.writeText(text);
-      alert("Progress summary copied to clipboard!");
-    }
+  const studentName =
+    [user?.first_name, user?.last_name].filter(Boolean).join(" ") ||
+    user?.username ||
+    "Student";
+  const gradeLabel = user?.grade ? `Grade ${user.grade}` : "";
+
+  /* ── Get subject for an attempt (triple fallback) ──── */
+  const getSubjectForAttempt = (a) => {
+    // 1. From AttemptSerializer (if backend deployed)
+    if (a.subject_name) return a.subject_name;
+    // 2. From quizzes endpoint map
+    if (quizSubjectMap[a.quiz]) return quizSubjectMap[a.quiz];
+    // 3. Last resort
+    return "Other";
   };
 
+  /* ── Loading ────────────────────────────────────────── */
   if (loading)
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="flex flex-col items-center gap-4">
           <div className="w-12 h-12 border-[3px] border-emerald-200 border-t-emerald-600 rounded-full animate-spin" />
           <p className="text-sm text-gray-400 font-medium">
-            Loading your progress…
+            Loading your progress\u2026
           </p>
         </div>
       </div>
     );
 
-  // Derived Data
+  /* ── Derived Data ───────────────────────────────────── */
   const completed = attempts.filter((a) => a.status === "completed");
   const avgScore = completed.length
     ? completed.reduce((s, a) => s + a.score, 0) / completed.length
@@ -427,13 +424,10 @@ export default function FullProgress() {
   const levelData = getLevel(completed.length);
   const userGrade = user?.grade || null;
 
-  // Group by subject
+  // Group by SUBJECT (not quiz title!)
   const subjectMap = {};
   completed.forEach((a) => {
-    const key =
-      a.subject_name ||
-      a.quiz_title?.split("—")[0]?.split("-")[0]?.trim() ||
-      "Other";
+    const key = getSubjectForAttempt(a);
     if (!subjectMap[key]) subjectMap[key] = { quizzes: [], scores: [] };
     subjectMap[key].quizzes.push(a);
     subjectMap[key].scores.push(a.score);
@@ -449,16 +443,15 @@ export default function FullProgress() {
         (a, b) => new Date(b.completed_at) - new Date(a.completed_at),
       ),
     }))
-    .sort((a, b) => b.count - a.count);
+    .sort((a, b) => b.avg - a.avg);
 
-  const sorted = [...subjects].sort((a, b) => b.avg - a.avg);
-  const strengths = sorted.slice(0, 3).filter((s) => s.avg >= 40);
-  const weaknesses = sorted
-    .slice(-3)
-    .reverse()
-    .filter((s) => s.avg < sorted[0]?.avg);
+  const strengths = subjects.slice(0, 3).filter((s) => s.avg >= 40);
+  const weaknesses = [...subjects]
+    .sort((a, b) => a.avg - b.avg)
+    .slice(0, 3)
+    .filter((s) => s.avg < subjects[0]?.avg);
 
-  // Pathway scores (for grades 7-9)
+  // Pathway scores
   const pathwayScores = {};
   for (const [key, pw] of Object.entries(PATHWAYS)) {
     const matching = subjects.filter((s) =>
@@ -478,13 +471,26 @@ export default function FullProgress() {
     (a, b) => b[1].avg - a[1].avg,
   )[0];
 
-  // Radar data
-  const radarData = subjects.slice(0, 8).map((s) => ({
-    label: s.name,
-    value: Math.round(s.avg),
-  }));
+  const radarData = subjects
+    .slice(0, 8)
+    .map((s) => ({ label: s.name, value: Math.round(s.avg) }));
 
-  // Empty State
+  const handleShare = async () => {
+    const text = `\u{1F4CA} ${studentName}'s StadiSpace Progress Report\n${gradeLabel ? gradeLabel + " \u2022 " : ""}${cbeGrade.grade} \u2014 ${cbeGrade.label}\n${subjects.length} learning areas \u2022 ${completed.length} quizzes\nOverall Average: ${Math.round(avgScore)}%\n\nTrack CBE progress at stadispace.com`;
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: `${studentName}'s Progress Report`,
+          text,
+        });
+      } catch {}
+    } else {
+      await navigator.clipboard.writeText(text);
+      alert("Progress report copied to clipboard!");
+    }
+  };
+
+  /* ── Empty ──────────────────────────────────────────── */
   if (completed.length === 0)
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
@@ -512,27 +518,238 @@ export default function FullProgress() {
       </div>
     );
 
+  /* ── Main Render ────────────────────────────────────── */
   return (
     <>
       <style>{`
         @media print {
-          nav, .no-print, button { display: none !important; }
+          nav, .no-print, .no-print *, button:not(.print-keep) { display: none !important; }
           body { background: white !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
           .print-break { page-break-inside: avoid; }
+          .print-only { display: block !important; }
           * { box-shadow: none !important; }
+          .print-page { padding: 0 !important; }
         }
+        @media screen { .print-only { display: none !important; } }
       `}</style>
 
       <div ref={printRef} className="min-h-screen bg-gray-50">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 py-6 pb-20 space-y-6">
-          {/* HEADER */}
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 py-6 pb-20 space-y-6 print-page">
+          {/* ══════ PRINT HEADER (only visible when printing) ══════ */}
+          <div className="print-only print-break">
+            <div
+              style={{
+                borderBottom: "3px solid #059669",
+                paddingBottom: 16,
+                marginBottom: 24,
+              }}
+            >
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "flex-start",
+                }}
+              >
+                <div>
+                  <h1
+                    style={{
+                      fontSize: 28,
+                      fontWeight: 800,
+                      color: "#059669",
+                      margin: 0,
+                      letterSpacing: "-0.5px",
+                    }}
+                  >
+                    StadiSpace
+                  </h1>
+                  <p
+                    style={{
+                      fontSize: 11,
+                      color: "#6b7280",
+                      margin: "2px 0 0 0",
+                    }}
+                  >
+                    Competency-Based Education Progress Platform
+                  </p>
+                </div>
+                <div style={{ textAlign: "right" }}>
+                  <p style={{ fontSize: 11, color: "#6b7280", margin: 0 }}>
+                    Report Generated:{" "}
+                    {new Date().toLocaleDateString("en-KE", {
+                      day: "numeric",
+                      month: "long",
+                      year: "numeric",
+                    })}
+                  </p>
+                  <p
+                    style={{
+                      fontSize: 11,
+                      color: "#6b7280",
+                      margin: "2px 0 0 0",
+                    }}
+                  >
+                    stadispace.com
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div
+              style={{
+                background: "#f9fafb",
+                border: "1px solid #e5e7eb",
+                borderRadius: 12,
+                padding: "16px 20px",
+                marginBottom: 20,
+              }}
+            >
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  flexWrap: "wrap",
+                  gap: 12,
+                }}
+              >
+                <div>
+                  <p
+                    style={{
+                      fontSize: 10,
+                      textTransform: "uppercase",
+                      letterSpacing: 1,
+                      color: "#9ca3af",
+                      margin: "0 0 4px 0",
+                      fontWeight: 600,
+                    }}
+                  >
+                    Student Name
+                  </p>
+                  <p
+                    style={{
+                      fontSize: 20,
+                      fontWeight: 700,
+                      color: "#111827",
+                      margin: 0,
+                    }}
+                  >
+                    {studentName}
+                  </p>
+                </div>
+                {gradeLabel && (
+                  <div>
+                    <p
+                      style={{
+                        fontSize: 10,
+                        textTransform: "uppercase",
+                        letterSpacing: 1,
+                        color: "#9ca3af",
+                        margin: "0 0 4px 0",
+                        fontWeight: 600,
+                      }}
+                    >
+                      Grade
+                    </p>
+                    <p
+                      style={{
+                        fontSize: 20,
+                        fontWeight: 700,
+                        color: "#111827",
+                        margin: 0,
+                      }}
+                    >
+                      {gradeLabel}
+                    </p>
+                  </div>
+                )}
+                <div>
+                  <p
+                    style={{
+                      fontSize: 10,
+                      textTransform: "uppercase",
+                      letterSpacing: 1,
+                      color: "#9ca3af",
+                      margin: "0 0 4px 0",
+                      fontWeight: 600,
+                    }}
+                  >
+                    Overall Grade
+                  </p>
+                  <p
+                    style={{
+                      fontSize: 20,
+                      fontWeight: 700,
+                      color: cbeGrade.color,
+                      margin: 0,
+                    }}
+                  >
+                    {cbeGrade.grade}
+                  </p>
+                </div>
+                <div>
+                  <p
+                    style={{
+                      fontSize: 10,
+                      textTransform: "uppercase",
+                      letterSpacing: 1,
+                      color: "#9ca3af",
+                      margin: "0 0 4px 0",
+                      fontWeight: 600,
+                    }}
+                  >
+                    Average Score
+                  </p>
+                  <p
+                    style={{
+                      fontSize: 20,
+                      fontWeight: 700,
+                      color: "#111827",
+                      margin: 0,
+                    }}
+                  >
+                    {Math.round(avgScore)}%
+                  </p>
+                </div>
+                <div>
+                  <p
+                    style={{
+                      fontSize: 10,
+                      textTransform: "uppercase",
+                      letterSpacing: 1,
+                      color: "#9ca3af",
+                      margin: "0 0 4px 0",
+                      fontWeight: 600,
+                    }}
+                  >
+                    Quizzes Done
+                  </p>
+                  <p
+                    style={{
+                      fontSize: 20,
+                      fontWeight: 700,
+                      color: "#111827",
+                      margin: 0,
+                    }}
+                  >
+                    {completed.length}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* ══════ SCREEN HEADER ══════ */}
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            className="flex flex-col sm:flex-row sm:items-center justify-between gap-4"
+            className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 no-print"
           >
             <div>
               <h1 className="text-2xl font-bold text-gray-900">My Progress</h1>
+              <p className="text-sm text-gray-500 mt-0.5">
+                {studentName}
+                {gradeLabel ? ` \u2022 ${gradeLabel}` : ""}
+              </p>
               <div className="flex items-center gap-3 mt-2 flex-wrap">
                 <span
                   className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold"
@@ -543,19 +760,19 @@ export default function FullProgress() {
                   }}
                 >
                   <Award className="w-3.5 h-3.5" />
-                  {cbeGrade.grade} — {cbeGrade.label}
+                  {cbeGrade.grade} \u2014 {cbeGrade.label}
                 </span>
                 <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold bg-gray-100 text-gray-600">
                   {levelData.emoji} {levelData.title} Lv.{levelData.level}
                 </span>
               </div>
             </div>
-            <div className="flex items-center gap-2 no-print">
+            <div className="flex items-center gap-2">
               <button
                 onClick={handlePrint}
                 className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-white border border-gray-200 text-xs font-medium text-gray-600 hover:bg-gray-50 transition-all"
               >
-                <Printer className="w-3.5 h-3.5" /> Print
+                <Printer className="w-3.5 h-3.5" /> Print Report
               </button>
               <button
                 onClick={handleShare}
@@ -566,17 +783,17 @@ export default function FullProgress() {
             </div>
           </motion.div>
 
-          {/* Level Progress Bar */}
+          {/* ══════ LEVEL BAR (screen only) ══════ */}
           {levelData.next && (
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.1 }}
-              className="bg-white rounded-xl border border-gray-100 px-4 py-3 shadow-sm"
+              className="bg-white rounded-xl border border-gray-100 px-4 py-3 shadow-sm no-print"
             >
               <div className="flex items-center justify-between mb-1.5">
                 <span className="text-xs font-medium text-gray-500">
-                  {levelData.emoji} Level {levelData.level} → Level{" "}
+                  {levelData.emoji} Level {levelData.level} \u2192 Level{" "}
                   {levelData.level + 1}
                 </span>
                 <span className="text-xs text-gray-400">
@@ -595,7 +812,7 @@ export default function FullProgress() {
             </motion.div>
           )}
 
-          {/* LEARNING AREA PERFORMANCE */}
+          {/* ══════ LEARNING AREA PERFORMANCE ══════ */}
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
@@ -658,6 +875,7 @@ export default function FullProgress() {
                           <motion.div
                             animate={{ rotate: isExpanded ? 180 : 0 }}
                             transition={{ duration: 0.2 }}
+                            className="no-print"
                           >
                             <ChevronDown className="w-4 h-4 text-gray-400" />
                           </motion.div>
@@ -696,7 +914,7 @@ export default function FullProgress() {
                                       year: "numeric",
                                     })}
                                     {q.total_marks_awarded != null &&
-                                      ` • ${q.total_marks_awarded}/${q.total_max_marks} marks`}
+                                      ` \u2022 ${q.total_marks_awarded}/${q.total_max_marks} marks`}
                                   </p>
                                 </div>
                                 <div className="flex items-center gap-3 shrink-0">
@@ -722,14 +940,14 @@ export default function FullProgress() {
                 );
               })}
 
-              {completed.length > 0 && completed.length < 5 && (
-                <div className="bg-white/60 rounded-xl border border-dashed border-gray-200 p-4 text-center">
+              {completed.length > 0 && subjects.length < 3 && (
+                <div className="bg-white/60 rounded-xl border border-dashed border-gray-200 p-4 text-center no-print">
                   <p className="text-sm text-gray-400">
                     Try more learning areas to unlock deeper insights
                   </p>
                   <Link
                     href="/explore"
-                    className="no-print inline-flex items-center gap-1 text-xs font-semibold text-emerald-600 mt-2 hover:text-emerald-700"
+                    className="inline-flex items-center gap-1 text-xs font-semibold text-emerald-600 mt-2 hover:text-emerald-700"
                   >
                     Browse Quizzes <ArrowRight className="w-3 h-3" />
                   </Link>
@@ -738,7 +956,7 @@ export default function FullProgress() {
             </div>
           </motion.div>
 
-          {/* STRENGTHS & WEAKNESSES */}
+          {/* ══════ STRENGTHS & WEAKNESSES ══════ */}
           {subjects.length >= 2 && (
             <motion.div
               initial={{ opacity: 0, y: 12 }}
@@ -754,32 +972,32 @@ export default function FullProgress() {
                   Strongest Areas
                 </h3>
                 <div className="space-y-2.5">
-                  {strengths.map((s) => (
-                    <div
-                      key={s.name}
-                      className="flex items-center justify-between"
-                    >
-                      <div className="flex items-center gap-2">
-                        <span className="text-sm">
-                          {getSubjectEmoji(s.name)}
-                        </span>
-                        <span className="text-sm font-medium text-gray-700">
-                          {s.name}
+                  {strengths.length > 0 ? (
+                    strengths.map((s) => (
+                      <div
+                        key={s.name}
+                        className="flex items-center justify-between"
+                      >
+                        <div className="flex items-center gap-2">
+                          <span className="text-sm">
+                            {getSubjectEmoji(s.name)}
+                          </span>
+                          <span className="text-sm font-medium text-gray-700">
+                            {s.name}
+                          </span>
+                        </div>
+                        <span className="text-sm font-bold text-emerald-600">
+                          {Math.round(s.avg)}%
                         </span>
                       </div>
-                      <span className="text-sm font-bold text-emerald-600">
-                        {Math.round(s.avg)}%
-                      </span>
-                    </div>
-                  ))}
-                  {strengths.length === 0 && (
+                    ))
+                  ) : (
                     <p className="text-xs text-gray-400">
-                      Take more quizzes to see your strengths
+                      Take more quizzes to reveal your strengths
                     </p>
                   )}
                 </div>
               </div>
-
               <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-5">
                 <h3 className="text-sm font-bold text-gray-900 mb-3 flex items-center gap-2">
                   <div className="w-6 h-6 rounded-lg bg-amber-50 flex items-center justify-center">
@@ -788,35 +1006,36 @@ export default function FullProgress() {
                   Areas to Improve
                 </h3>
                 <div className="space-y-2.5">
-                  {weaknesses.map((s) => (
-                    <div
-                      key={s.name}
-                      className="flex items-center justify-between"
-                    >
-                      <div className="flex items-center gap-2">
-                        <span className="text-sm">
-                          {getSubjectEmoji(s.name)}
-                        </span>
-                        <span className="text-sm font-medium text-gray-700">
-                          {s.name}
-                        </span>
+                  {weaknesses.length > 0 ? (
+                    weaknesses.map((s) => (
+                      <div
+                        key={s.name}
+                        className="flex items-center justify-between"
+                      >
+                        <div className="flex items-center gap-2">
+                          <span className="text-sm">
+                            {getSubjectEmoji(s.name)}
+                          </span>
+                          <span className="text-sm font-medium text-gray-700">
+                            {s.name}
+                          </span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <span className="text-sm font-bold text-amber-600">
+                            {Math.round(s.avg)}%
+                          </span>
+                          <Link
+                            href="/explore"
+                            className="no-print text-[10px] font-semibold text-emerald-600 hover:text-emerald-700"
+                          >
+                            Practice \u2192
+                          </Link>
+                        </div>
                       </div>
-                      <div className="flex items-center gap-2">
-                        <span className="text-sm font-bold text-amber-600">
-                          {Math.round(s.avg)}%
-                        </span>
-                        <Link
-                          href="/explore"
-                          className="no-print text-[10px] font-semibold text-emerald-600 hover:text-emerald-700"
-                        >
-                          Practice →
-                        </Link>
-                      </div>
-                    </div>
-                  ))}
-                  {weaknesses.length === 0 && (
+                    ))
+                  ) : (
                     <p className="text-xs text-gray-400">
-                      Try different learning areas to see gaps
+                      Try different learning areas to find gaps
                     </p>
                   )}
                 </div>
@@ -824,7 +1043,7 @@ export default function FullProgress() {
             </motion.div>
           )}
 
-          {/* PATHWAY TRACKER / LEARNING PROFILE */}
+          {/* ══════ PATHWAY TRACKER / LEARNING PROFILE ══════ */}
           {subjects.length >= 2 && (
             <motion.div
               initial={{ opacity: 0, y: 12 }}
@@ -840,8 +1059,8 @@ export default function FullProgress() {
                       Pathway Predictor
                     </h2>
                     <p className="text-xs text-gray-500 mt-1">
-                      Based on your performance in CBE indicator subjects for
-                      Grade {userGrade}
+                      Based on performance in CBE indicator subjects for Grade{" "}
+                      {userGrade}
                     </p>
                   </div>
                   <div className="px-5 pb-5 space-y-4">
@@ -921,7 +1140,7 @@ export default function FullProgress() {
                                   href="/explore"
                                   className="no-print text-[11px] font-semibold text-emerald-600 hover:text-emerald-700"
                                 >
-                                  Try a quiz →
+                                  Try a quiz \u2192
                                 </Link>
                               </div>
                             )}
@@ -932,7 +1151,6 @@ export default function FullProgress() {
                         );
                       })}
                     </div>
-
                     {bestPathway && (
                       <div className="bg-gray-50 rounded-xl p-4 border border-gray-100">
                         <div className="flex items-start gap-3">
@@ -941,16 +1159,15 @@ export default function FullProgress() {
                           </div>
                           <div>
                             <p className="text-sm font-semibold text-gray-900">
-                              You show strong aptitude for{" "}
+                              Strong aptitude for{" "}
                               {PATHWAYS[bestPathway[0]].name}
                             </p>
                             <p className="text-xs text-gray-500 mt-1 leading-relaxed">
                               With an average of{" "}
                               {Math.round(bestPathway[1].avg)}% across{" "}
                               {bestPathway[1].count} quizzes in indicator
-                              subjects, this pathway aligns with your current
-                              strengths. Keep practicing to strengthen your
-                              profile!
+                              subjects, this pathway aligns with current
+                              strengths.
                             </p>
                           </div>
                         </div>
@@ -965,7 +1182,7 @@ export default function FullProgress() {
                     Your Learning Profile
                   </h2>
                   <p className="text-xs text-gray-500 mb-4">
-                    Performance across all your learning areas
+                    Performance across all learning areas
                   </p>
                   {radarData.length >= 3 ? (
                     <div className="flex flex-col items-center">
@@ -997,12 +1214,11 @@ export default function FullProgress() {
                       </Link>
                     </div>
                   )}
-
                   {!userGrade && subjects.length >= 3 && (
-                    <div className="mt-4 bg-indigo-50 rounded-xl p-3 border border-indigo-100">
+                    <div className="mt-4 bg-indigo-50 rounded-xl p-3 border border-indigo-100 no-print">
                       <p className="text-xs text-indigo-700 font-medium">
-                        💡 Set your grade in Settings to unlock the CBE Pathway
-                        Predictor
+                        {"\u{1F4A1}"} Set your grade in Settings to unlock the
+                        CBE Pathway Predictor
                       </p>
                     </div>
                   )}
@@ -1011,12 +1227,56 @@ export default function FullProgress() {
             </motion.div>
           )}
 
-          {/* Print Footer */}
-          <div className="hidden print:block text-center pt-8 border-t border-gray-200">
-            <p className="text-xs text-gray-400">
-              Generated by StadiSpace • stadispace.com •{" "}
-              {new Date().toLocaleDateString("en-KE")}
-            </p>
+          {/* ══════ PRINT FOOTER ══════ */}
+          <div
+            className="print-only"
+            style={{
+              borderTop: "2px solid #059669",
+              paddingTop: 16,
+              marginTop: 32,
+            }}
+          >
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <div>
+                <p
+                  style={{
+                    fontSize: 12,
+                    fontWeight: 700,
+                    color: "#059669",
+                    margin: 0,
+                  }}
+                >
+                  StadiSpace
+                </p>
+                <p
+                  style={{ fontSize: 9, color: "#9ca3af", margin: "2px 0 0 0" }}
+                >
+                  Competency-Based Education Progress Platform \u2022
+                  stadispace.com
+                </p>
+              </div>
+              <div style={{ textAlign: "right" }}>
+                <p style={{ fontSize: 9, color: "#9ca3af", margin: 0 }}>
+                  This report is auto-generated and reflects cumulative quiz
+                  performance.
+                </p>
+                <p
+                  style={{ fontSize: 9, color: "#9ca3af", margin: "2px 0 0 0" }}
+                >
+                  {new Date().toLocaleDateString("en-KE", {
+                    day: "numeric",
+                    month: "long",
+                    year: "numeric",
+                  })}
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
