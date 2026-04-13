@@ -22,6 +22,15 @@ export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true);
   const router = useRouter();
 
+  // Wrap a promise with a timeout so the app never hangs on a sleeping backend
+  const withTimeout = (promise, ms = 10000) =>
+    Promise.race([
+      promise,
+      new Promise((_, reject) =>
+        setTimeout(() => reject(new Error("Request timed out")), ms),
+      ),
+    ]);
+
   // Check and load user on mount
   const initializeAuth = useCallback(async () => {
     setLoading(true);
@@ -32,24 +41,43 @@ export function AuthProvider({ children }) {
       return;
     }
 
+    // Immediately show cached user so the app isn't stuck on a spinner
+    const cachedUser = localStorage.getItem("user");
+    if (cachedUser) {
+      try {
+        setUser(JSON.parse(cachedUser));
+      } catch (_) {
+        /* corrupt cache — ignore */
+      }
+    }
+
     try {
-      const userData = await getCurrentUser(accessToken);
-      const quotaInfo = await fetchQuotaInfo(accessToken); // ADDED
-      setUser({ ...userData, ...quotaInfo }); // CHANGED
+      const userData = await withTimeout(getCurrentUser(accessToken));
+      const quotaInfo = await withTimeout(fetchQuotaInfo(accessToken));
+      const fullUser = { ...userData, ...quotaInfo };
+      setUser(fullUser);
+      localStorage.setItem("user", JSON.stringify(fullUser));
     } catch (error) {
+      // If we already set a cached user above, don't blow it away —
+      // just try a token refresh in case the access token expired.
       const refreshToken = localStorage.getItem("refreshToken");
       if (refreshToken) {
         try {
-          const { access } = await refreshAccessToken(refreshToken);
+          const { access } = await withTimeout(
+            refreshAccessToken(refreshToken),
+          );
           localStorage.setItem("accessToken", access);
-          const refreshedUser = await getCurrentUser(access);
-          const quotaInfo = await fetchQuotaInfo(access); // ADDED
-          setUser({ ...refreshedUser, ...quotaInfo }); // CHANGED
+          const refreshedUser = await withTimeout(getCurrentUser(access));
+          const quotaInfo = await withTimeout(fetchQuotaInfo(access));
+          const fullUser = { ...refreshedUser, ...quotaInfo };
+          setUser(fullUser);
+          localStorage.setItem("user", JSON.stringify(fullUser));
         } catch (refreshError) {
           console.error("Token refresh failed:", refreshError);
-          logout();
+          // Only log out if we have NO cached user to fall back on
+          if (!cachedUser) logout();
         }
-      } else {
+      } else if (!cachedUser) {
         logout();
       }
     } finally {
