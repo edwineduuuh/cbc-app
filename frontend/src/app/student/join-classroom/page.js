@@ -45,7 +45,7 @@ export default function JoinClassroomPage() {
     if (code.length < 8) return;
 
     try {
-      const res = await fetch(`${API}/classrooms/search/?q=${code}`);
+      const res = await fetch(`${API}/auth/classrooms/search/?q=${code}`);
       const data = await res.json();
       if (data.length > 0) {
         setPreview(data[0]);
@@ -70,7 +70,7 @@ export default function JoinClassroomPage() {
     const token = localStorage.getItem("accessToken");
 
     try {
-      const res = await fetch(`${API}/classrooms/join/`, {
+      const res = await fetch(`${API}/auth/classrooms/join/`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,

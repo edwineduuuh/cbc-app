@@ -2,7 +2,9 @@
 
 import { useState, useEffect } from "react";
 
-const BASE = process.env.NEXT_PUBLIC_API_URL || "https://cbc-backend-76im.onrender.com/api";
+const BASE =
+  process.env.NEXT_PUBLIC_API_URL ||
+  "https://cbc-backend-76im.onrender.com/api";
 
 function api(method, path, body = null) {
   return fetch(`${BASE}${path}`, {
@@ -43,6 +45,8 @@ export default function JoinPage() {
   const [score, setScore] = useState(0);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
+  const [timeLeft, setTimeLeft] = useState(0);
+  const [lastQIndex, setLastQIndex] = useState(-1);
 
   // Poll for classroom status (both lobby AND live)
   useEffect(() => {
@@ -56,6 +60,8 @@ export default function JoinPage() {
           if (step === "lobby" && data.status === "live") {
             setStep("live");
             setCurrentQ(data.current_question_index || 0);
+            setTimeLeft(data.time_per_question || 30);
+            setLastQIndex(data.current_question_index || 0);
           }
 
           // Live: sync question index with teacher
@@ -63,7 +69,12 @@ export default function JoinPage() {
             if (data.status === "ended") {
               setStep("results");
             } else {
-              setCurrentQ(data.current_question_index || 0);
+              const newIdx = data.current_question_index || 0;
+              if (newIdx !== currentQ) {
+                setCurrentQ(newIdx);
+                setTimeLeft(data.time_per_question || 30);
+                setLastQIndex(newIdx);
+              }
             }
           }
         } catch (e) {
@@ -72,7 +83,22 @@ export default function JoinPage() {
       }, 1000); // Poll every second for responsiveness
       return () => clearInterval(interval);
     }
-  }, [step, code]);
+  }, [step, code, currentQ]);
+
+  // Countdown timer
+  useEffect(() => {
+    if (step !== "live" || timeLeft <= 0) return;
+    const timer = setInterval(() => {
+      setTimeLeft((prev) => {
+        if (prev <= 1) {
+          clearInterval(timer);
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+    return () => clearInterval(timer);
+  }, [step, lastQIndex]);
 
   async function joinWithCode() {
     setError("");
@@ -463,6 +489,10 @@ export default function JoinPage() {
     const COLORS = ["#e74c3c", "#3498db", "#f39c12", "#27ae60"];
     const SHAPES = ["▲", "◆", "●", "■"];
     const hasAnswered = answers[q.id] !== undefined;
+    const maxTime = classroom?.time_per_question || 30;
+    const timerPct = maxTime > 0 ? (timeLeft / maxTime) * 100 : 0;
+    const timerColor =
+      timeLeft <= 5 ? "#ef4444" : timeLeft <= 10 ? "#f59e0b" : "#16a34a";
 
     return (
       <div
@@ -509,6 +539,38 @@ export default function JoinPage() {
               Points
             </div>
           </div>
+        </div>
+
+        {/* Countdown Timer Bar */}
+        <div
+          style={{
+            background: "#e5e7eb",
+            borderRadius: 8,
+            height: 8,
+            marginBottom: 14,
+            overflow: "hidden",
+          }}
+        >
+          <div
+            style={{
+              width: `${timerPct}%`,
+              height: "100%",
+              background: timerColor,
+              borderRadius: 8,
+              transition: "width 1s linear, background 0.3s",
+            }}
+          />
+        </div>
+        <div
+          style={{
+            textAlign: "center",
+            marginBottom: 10,
+            fontSize: 14,
+            fontWeight: 700,
+            color: timerColor,
+          }}
+        >
+          ⏱ {timeLeft}s
         </div>
 
         <div
@@ -573,8 +635,10 @@ export default function JoinPage() {
             {q.options?.filter(Boolean).map((opt, i) => (
               <button
                 key={i}
-                onClick={() => !hasAnswered && submitAnswer(q.id, i)}
-                disabled={hasAnswered}
+                onClick={() =>
+                  !hasAnswered && timeLeft > 0 && submitAnswer(q.id, i)
+                }
+                disabled={hasAnswered || timeLeft === 0}
                 style={{
                   background: hasAnswered
                     ? i === answers[q.id]
@@ -615,6 +679,22 @@ export default function JoinPage() {
               }}
             >
               ✓ Answer submitted! Waiting for teacher to continue...
+            </div>
+          )}
+
+          {!hasAnswered && timeLeft === 0 && (
+            <div
+              style={{
+                background: "#fee2e2",
+                color: "#dc2626",
+                padding: "12px 16px",
+                borderRadius: 10,
+                textAlign: "center",
+                fontSize: 14,
+                fontWeight: 600,
+              }}
+            >
+              ⏱ Time&apos;s up! Waiting for next question...
             </div>
           )}
         </div>

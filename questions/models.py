@@ -1017,6 +1017,7 @@ class StudentSession(models.Model):
     joined_at   = models.DateTimeField(auto_now_add=True)
     total_score = models.IntegerField(default=0)
     is_active   = models.BooleanField(default=True)
+    ai_report   = models.JSONField(null=True, blank=True)
 
     class Meta:
         unique_together = [("classroom","student_name")]

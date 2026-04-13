@@ -56,7 +56,7 @@ export default function MyClassroomsPage() {
     setLoading(true);
     const token = localStorage.getItem("accessToken");
     try {
-      const res = await fetch(`${API}/my-classrooms/`, {
+      const res = await fetch(`${API}/auth/my-classrooms/`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data = await res.json();
@@ -73,7 +73,7 @@ export default function MyClassroomsPage() {
 
     const token = localStorage.getItem("accessToken");
     try {
-      const res = await fetch(`${API}/classrooms/leave/${classroomId}/`, {
+      const res = await fetch(`${API}/auth/classrooms/leave/${classroomId}/`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },
       });

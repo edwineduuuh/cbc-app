@@ -172,6 +172,10 @@ const api = {
 
   /** Assign quiz to classrooms */
   assignQuiz: (data) => request("POST", "/classrooms/assign-quiz/", data),
+
+  /** Generate quiz questions with AI */
+  generateQuizQuestions: (data) =>
+    request("POST", "/lessons/generate-questions/", data),
 };
 
 export default api;

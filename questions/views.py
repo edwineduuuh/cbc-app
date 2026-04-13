@@ -1683,7 +1683,7 @@ def submit_answer(request, session_id):
     Body: { "question_id": int, "answer_text": "...", "selected_index": int|null }
 
     For MCQ/TF: marks instantly.
-    For open-ended: calls Claude AI to mark and give feedback.
+    For open-ended: calls Gemini AI to mark and give feedback.
     Updates session total_score.
     """
     session = get_object_or_404(StudentSession, pk=session_id)
@@ -1944,7 +1944,7 @@ def generate_quiz_questions(request):
     Generate quiz questions with AI for Kahoot-style classrooms
     Body: { grade, subject, topic, count }
     """
-    from .ai_service import client, MODEL, parse_ai_json
+    from .ai_service import _get_gemini, GEMINI_MODEL, parse_ai_json
     
     grade = request.data.get('grade', 'Grade 7')
     subject = request.data.get('subject', 'Mathematics')
@@ -1972,13 +1972,12 @@ Return ONLY valid JSON:
 Make questions appropriate for {grade} level."""
 
     try:
-        message = client.messages.create(
-            model=MODEL,
-            max_tokens=2048,
-            messages=[{"role": "user", "content": prompt}],
+        response = _get_gemini().models.generate_content(
+            model=GEMINI_MODEL,
+            contents=prompt,
         )
         
-        result = parse_ai_json(message.content[0].text)
+        result = parse_ai_json(response.text)
         return Response(result)
         
     except Exception as e:
