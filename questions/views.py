@@ -2096,3 +2096,58 @@ def start_quiz_with_check(request, quiz_id):
         'attempt_id': attempt.id,
         'free_quizzes_remaining': user.quiz_credits,
     })
+
+
+# ── Motivational Content ──────────────────────────────────────
+from .models import MotivationalContent
+from .serializers import MotivationalContentSerializer
+
+class MotivationalContentListView(generics.ListAPIView):
+    """Public endpoint — returns active motivational content, optionally filtered."""
+    serializer_class = MotivationalContentSerializer
+    permission_classes = [AllowAny]
+
+    def get_queryset(self):
+        qs = MotivationalContent.objects.filter(is_active=True)
+        content_type = self.request.query_params.get('type')
+        category = self.request.query_params.get('category')
+        grade = self.request.query_params.get('grade')
+
+        if content_type:
+            qs = qs.filter(content_type=content_type)
+        if category:
+            qs = qs.filter(category=category)
+        if grade:
+            try:
+                g = int(grade)
+                qs = qs.filter(grade_min__lte=g, grade_max__gte=g)
+            except ValueError:
+                pass
+        return qs
+
+
+from .serializers import MotivationalContentAdminSerializer
+
+class MotivationalContentAdminListCreateView(generics.ListCreateAPIView):
+    """Admin endpoint — list all (incl. inactive) & create motivational content."""
+    serializer_class = MotivationalContentAdminSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        if not (self.request.user.is_staff or getattr(self.request.user, 'role', '') in ('admin', 'superadmin', 'school_admin')):
+            return MotivationalContent.objects.none()
+        return MotivationalContent.objects.all()
+
+    def perform_create(self, serializer):
+        serializer.save()
+
+
+class MotivationalContentAdminDetailView(generics.RetrieveUpdateDestroyAPIView):
+    """Admin endpoint — retrieve / update / delete a single motivational item."""
+    serializer_class = MotivationalContentAdminSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        if not (self.request.user.is_staff or getattr(self.request.user, 'role', '') in ('admin', 'superadmin', 'school_admin')):
+            return MotivationalContent.objects.none()
+        return MotivationalContent.objects.all()

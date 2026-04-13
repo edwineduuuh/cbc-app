@@ -2,7 +2,8 @@ from rest_framework import serializers
 from .models import (
     Subject, Topic, Question, Quiz, Attempt, QuestionSet, 
     SubscriptionPlan, PaymentRequest, LessonPlan, Classroom, 
-    LiveQuestion, StudentSession, StudentAnswer, Passage, QuestionPart
+    LiveQuestion, StudentSession, StudentAnswer, Passage, QuestionPart,
+    MotivationalContent,
 )
 
 
@@ -435,3 +436,17 @@ class UserQuotaSerializer(serializers.Serializer):
     has_subscription = serializers.BooleanField()
     subscription_plan = serializers.CharField(allow_null=True)
     subscription_expires = serializers.DateTimeField(allow_null=True)
+
+
+class MotivationalContentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = MotivationalContent
+        fields = ['id', 'content_type', 'category', 'text', 'author']
+
+
+class MotivationalContentAdminSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = MotivationalContent
+        fields = ['id', 'content_type', 'category', 'text', 'author',
+                  'is_active', 'grade_min', 'grade_max', 'created_at', 'updated_at']
+        read_only_fields = ['id', 'created_at', 'updated_at']

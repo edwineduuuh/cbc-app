@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useEffect } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
@@ -19,7 +19,6 @@ import {
   Lightbulb,
   BookOpen,
   ArrowLeft,
-  Sparkles,
   Users,
   Brain,
   Globe,
@@ -851,6 +850,7 @@ export default function LifeSkills() {
   const { user } = useAuth();
   const router = useRouter();
   const [selectedTopic, setSelectedTopic] = useState(null);
+  const [motivational, setMotivational] = useState([]);
   const [completedTopics, setCompletedTopics] = useState(() => {
     if (typeof window !== "undefined") {
       const saved = localStorage.getItem("stadispace_lifeskills_read");
@@ -858,6 +858,17 @@ export default function LifeSkills() {
     }
     return [];
   });
+
+  useEffect(() => {
+    const API =
+      process.env.NEXT_PUBLIC_API_URL ||
+      "https://cbc-backend-76im.onrender.com/api";
+    const grade = user?.grade || "";
+    fetch(`${API}/motivational/${grade ? `?grade=${grade}` : ""}`)
+      .then((r) => (r.ok ? r.json() : []))
+      .then((data) => setMotivational(Array.isArray(data) ? data : []))
+      .catch(() => {});
+  }, [user?.grade]);
 
   const userGrade = user?.grade || 7;
   const tier = userGrade <= 6 ? "junior" : "senior";
@@ -1022,6 +1033,59 @@ export default function LifeSkills() {
             );
           })}
         </div>
+
+        {/* ── Inspiration Board — admin-managed motivational content ── */}
+        {motivational.length > 0 && (
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+            className="space-y-3"
+          >
+            <h2 className="text-base font-bold text-gray-900 flex items-center gap-2">
+              <Star className="w-4 h-4 text-amber-500" />
+              Words of Inspiration
+            </h2>
+            <div className="grid gap-3 sm:grid-cols-2">
+              {motivational.map((item) => (
+                <div
+                  key={item.id}
+                  className={`rounded-2xl border p-4 ${
+                    item.content_type === "story"
+                      ? "bg-linear-to-br from-indigo-50 to-purple-50 border-indigo-100 sm:col-span-2"
+                      : item.content_type === "tip"
+                        ? "bg-emerald-50 border-emerald-100"
+                        : "bg-white border-gray-100 shadow-sm"
+                  }`}
+                >
+                  <div className="flex items-start gap-3">
+                    <div className="w-9 h-9 rounded-lg flex items-center justify-center shrink-0 text-base bg-white/60">
+                      {item.content_type === "story"
+                        ? "\ud83d\udcd6"
+                        : item.content_type === "tip"
+                          ? "\ud83d\udca1"
+                          : "\u2728"}
+                    </div>
+                    <div>
+                      <p
+                        className={`text-sm text-gray-700 leading-relaxed ${item.content_type === "quote" ? "italic" : ""}`}
+                      >
+                        {item.content_type === "quote" && "\u201C"}
+                        {item.text}
+                        {item.content_type === "quote" && "\u201D"}
+                      </p>
+                      {item.author && (
+                        <p className="text-xs text-gray-400 mt-1.5 font-medium">
+                          \u2014 {item.author}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+        )}
 
         {/* Parents Note */}
         <motion.div

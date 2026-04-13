@@ -167,3 +167,22 @@ class SubscriptionAdmin(admin.ModelAdmin):
     list_display = ['user', 'plan', 'start_date', 'end_date', 'is_active']
 
 
+from .models import MotivationalContent
+
+@admin.register(MotivationalContent)
+class MotivationalContentAdmin(admin.ModelAdmin):
+    list_display = ['text_preview', 'content_type', 'category', 'author', 'is_active', 'grade_range', 'created_at']
+    list_filter = ['content_type', 'category', 'is_active']
+    search_fields = ['text', 'author']
+    list_editable = ['is_active']
+    ordering = ['-created_at']
+
+    def text_preview(self, obj):
+        return obj.text[:80] + '...' if len(obj.text) > 80 else obj.text
+    text_preview.short_description = 'Content'
+
+    def grade_range(self, obj):
+        return f"G{obj.grade_min}–G{obj.grade_max}"
+    grade_range.short_description = 'Grades'
+
+

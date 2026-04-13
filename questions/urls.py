@@ -153,6 +153,11 @@ path('payments/status/<int:payment_request_id>/', views.check_payment_status, na
 # Free Trial (NEW)
 path('quiz-access/', views.check_quiz_access, name='quiz-access'),
 path('quiz/<int:quiz_id>/start/', views.start_quiz_with_check, name='start-quiz-check'),
+
+# ── Motivational Content ──────────────────────────────────────
+path('motivational/', views.MotivationalContentListView.as_view(), name='motivational-content'),
+path('admin/motivational/', views.MotivationalContentAdminListCreateView.as_view(), name='motivational-admin-list'),
+path('admin/motivational/<int:pk>/', views.MotivationalContentAdminDetailView.as_view(), name='motivational-admin-detail'),
 ]
 
 # Serve media files in development

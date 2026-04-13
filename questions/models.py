@@ -1049,3 +1049,38 @@ class GuestUsage(models.Model):
 
     def __str__(self):
         return f"{self.fingerprint} - {self.quizzes_taken}"
+
+
+class MotivationalContent(models.Model):
+    CONTENT_TYPES = [
+        ('quote', 'Quote'),
+        ('story', 'Story'),
+        ('tip', 'Tip'),
+    ]
+    CATEGORIES = [
+        ('general', 'General'),
+        ('exam', 'Exam Motivation'),
+        ('study', 'Study Tips'),
+        ('life', 'Life Skills'),
+        ('success', 'Success Stories'),
+    ]
+
+    content_type = models.CharField(max_length=10, choices=CONTENT_TYPES, default='quote')
+    category = models.CharField(max_length=20, choices=CATEGORIES, default='general')
+    text = models.TextField(help_text="The quote, story, or tip text")
+    author = models.CharField(max_length=150, blank=True, help_text="Who said/wrote it (optional)")
+    is_active = models.BooleanField(default=True)
+    grade_min = models.IntegerField(default=4, help_text="Minimum grade to show this to")
+    grade_max = models.IntegerField(default=12, help_text="Maximum grade to show this to")
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        db_table = 'motivational_content'
+        ordering = ['-created_at']
+        verbose_name = 'Motivational Content'
+        verbose_name_plural = 'Motivational Content'
+
+    def __str__(self):
+        preview = self.text[:60] + '...' if len(self.text) > 60 else self.text
+        return f"[{self.get_content_type_display()}] {preview}"

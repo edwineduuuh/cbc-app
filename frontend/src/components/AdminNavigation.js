@@ -9,6 +9,7 @@ import {
   ClipboardList,
   BarChart3,
   Users,
+  Sparkles,
 } from "lucide-react";
 
 export default function AdminNavigation() {
@@ -18,6 +19,7 @@ export default function AdminNavigation() {
     { name: "Dashboard", href: "/admin", icon: Home },
     { name: "Questions", href: "/admin/questions", icon: FileQuestion },
     { name: "Quizzes", href: "/admin/quizzes", icon: ClipboardList },
+    { name: "Motivational", href: "/admin/motivational", icon: Sparkles },
     { name: "Bulk Upload", href: "/admin/bulk-upload", icon: Upload },
     { name: "Analytics", href: "/admin/analytics", icon: BarChart3 },
   ];
