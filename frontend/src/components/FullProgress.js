@@ -24,6 +24,7 @@ import {
   Users,
   Palette,
   ArrowRight,
+  Calendar,
 } from "lucide-react";
 
 const API =
@@ -325,6 +326,249 @@ function ProgressBar({ pct, color, height = 8 }) {
   );
 }
 
+/* ── CBE Grade Bands (for timeline chart) ─────────────── */
+const GRADE_BANDS = [
+  { grade: "BE2", min: 0, max: 11, color: "#fecaca", border: "#fca5a5" },
+  { grade: "BE1", min: 11, max: 21, color: "#fed7aa", border: "#fdba74" },
+  { grade: "AE2", min: 21, max: 31, color: "#fef08a", border: "#fde047" },
+  { grade: "AE1", min: 31, max: 41, color: "#fef9c3", border: "#fde68a" },
+  { grade: "ME2", min: 41, max: 58, color: "#bfdbfe", border: "#93c5fd" },
+  { grade: "ME1", min: 58, max: 75, color: "#dbeafe", border: "#93c5fd" },
+  { grade: "EE2", min: 75, max: 90, color: "#bbf7d0", border: "#86efac" },
+  { grade: "EE1", min: 90, max: 100, color: "#dcfce7", border: "#86efac" },
+];
+
+/* ── Build Timeline Data from Attempts ────────────────── */
+function buildTimelineData(completed) {
+  if (!completed.length)
+    return { points: [], transitions: [], currentStreak: null };
+
+  const sorted = [...completed].sort(
+    (a, b) => new Date(a.completed_at) - new Date(b.completed_at),
+  );
+
+  let runningSum = 0;
+  const points = [];
+  const transitions = [];
+  let prevGrade = null;
+
+  sorted.forEach((a, i) => {
+    runningSum += a.score;
+    const avg = runningSum / (i + 1);
+    const grade = getCBEGrade(avg);
+    const date = new Date(a.completed_at);
+    points.push({
+      date,
+      avg,
+      grade: grade.grade,
+      label: grade.label,
+      color: grade.color,
+      index: i,
+    });
+
+    if (prevGrade && prevGrade !== grade.grade) {
+      transitions.push({
+        from: prevGrade,
+        to: grade.grade,
+        date,
+        index: i,
+        improved: avg > (runningSum - a.score) / i,
+      });
+    }
+    prevGrade = grade.grade;
+  });
+
+  // Current streak: how long at current grade
+  let currentStreak = null;
+  if (points.length > 0) {
+    const currentGrade = points[points.length - 1].grade;
+    let streakStart = points[points.length - 1].date;
+    for (let i = points.length - 2; i >= 0; i--) {
+      if (points[i].grade === currentGrade) {
+        streakStart = points[i].date;
+      } else break;
+    }
+    const days = Math.floor((new Date() - streakStart) / (1000 * 60 * 60 * 24));
+    const prevTrans =
+      transitions.length > 0 ? transitions[transitions.length - 1] : null;
+    currentStreak = {
+      grade: currentGrade,
+      since: streakStart,
+      days,
+      fromGrade: prevTrans ? prevTrans.from : null,
+      improved: prevTrans ? prevTrans.improved : null,
+    };
+  }
+
+  return { points, transitions, currentStreak };
+}
+
+/* ── Grade Progression Timeline (SVG) ─────────────────── */
+function GradeTimeline({ points }) {
+  if (points.length < 2) return null;
+
+  const W = 600,
+    H = 220;
+  const pad = { top: 20, right: 24, bottom: 40, left: 44 };
+  const chartW = W - pad.left - pad.right;
+  const chartH = H - pad.top - pad.bottom;
+
+  const yScale = (pct) => pad.top + chartH * (1 - pct / 100);
+  const xScale = (i) => pad.left + (i / (points.length - 1)) * chartW;
+
+  // Build path
+  const linePath = points
+    .map(
+      (p, i) =>
+        `${i === 0 ? "M" : "L"}${xScale(i).toFixed(1)},${yScale(p.avg).toFixed(1)}`,
+    )
+    .join(" ");
+
+  // Area path (fill under line)
+  const areaPath = `${linePath} L${xScale(points.length - 1).toFixed(1)},${yScale(0).toFixed(1)} L${xScale(0).toFixed(1)},${yScale(0).toFixed(1)} Z`;
+
+  // Date labels (show ~5-6 labels max)
+  const labelStep = Math.max(1, Math.floor(points.length / 5));
+  const dateLabels = points.filter(
+    (_, i) => i === 0 || i === points.length - 1 || i % labelStep === 0,
+  );
+
+  return (
+    <svg
+      viewBox={`0 0 ${W} ${H}`}
+      className="w-full"
+      preserveAspectRatio="xMidYMid meet"
+    >
+      <defs>
+        <linearGradient id="timelineGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#10b981" stopOpacity="0.25" />
+          <stop offset="100%" stopColor="#10b981" stopOpacity="0.02" />
+        </linearGradient>
+        <clipPath id="chartClip">
+          <rect x={pad.left} y={pad.top} width={chartW} height={chartH} />
+        </clipPath>
+      </defs>
+
+      {/* Grade bands */}
+      {GRADE_BANDS.map((band) => {
+        const y1 = yScale(band.max);
+        const y2 = yScale(band.min);
+        return (
+          <g key={band.grade} clipPath="url(#chartClip)">
+            <rect
+              x={pad.left}
+              y={y1}
+              width={chartW}
+              height={y2 - y1}
+              fill={band.color}
+              opacity={0.35}
+            />
+            <text
+              x={pad.left + 4}
+              y={y1 + (y2 - y1) / 2 + 3}
+              className="fill-gray-400"
+              style={{ fontSize: 8, fontWeight: 500 }}
+            >
+              {band.grade}
+            </text>
+          </g>
+        );
+      })}
+
+      {/* Grid lines */}
+      {[0, 25, 50, 75, 100].map((v) => (
+        <g key={v}>
+          <line
+            x1={pad.left}
+            y1={yScale(v)}
+            x2={W - pad.right}
+            y2={yScale(v)}
+            stroke="#e5e7eb"
+            strokeWidth="0.5"
+            strokeDasharray={v === 0 || v === 100 ? "none" : "3,3"}
+          />
+          <text
+            x={pad.left - 6}
+            y={yScale(v) + 3}
+            textAnchor="end"
+            className="fill-gray-400"
+            style={{ fontSize: 9 }}
+          >
+            {v}%
+          </text>
+        </g>
+      ))}
+
+      {/* Area fill */}
+      <path d={areaPath} fill="url(#timelineGrad)" clipPath="url(#chartClip)" />
+
+      {/* Line */}
+      <path
+        d={linePath}
+        fill="none"
+        stroke="#10b981"
+        strokeWidth="2.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        clipPath="url(#chartClip)"
+      />
+
+      {/* Data points */}
+      {points.map((p, i) => (
+        <g key={i}>
+          <circle
+            cx={xScale(i)}
+            cy={yScale(p.avg)}
+            r={points.length > 20 ? 2.5 : 4}
+            fill={p.color}
+            stroke="#fff"
+            strokeWidth="2"
+          />
+          {/* Tooltip-style label for last point */}
+          {i === points.length - 1 && (
+            <g>
+              <rect
+                x={xScale(i) - 28}
+                y={yScale(p.avg) - 22}
+                width={56}
+                height={18}
+                rx={4}
+                fill={p.color}
+              />
+              <text
+                x={xScale(i)}
+                y={yScale(p.avg) - 10}
+                textAnchor="middle"
+                fill="#fff"
+                style={{ fontSize: 10, fontWeight: 700 }}
+              >
+                {p.grade} · {Math.round(p.avg)}%
+              </text>
+            </g>
+          )}
+        </g>
+      ))}
+
+      {/* Date labels along x-axis */}
+      {dateLabels.map((p) => (
+        <text
+          key={p.index}
+          x={xScale(p.index)}
+          y={H - 8}
+          textAnchor="middle"
+          className="fill-gray-400"
+          style={{ fontSize: 9 }}
+        >
+          {p.date.toLocaleDateString("en-KE", {
+            day: "numeric",
+            month: "short",
+          })}
+        </text>
+      ))}
+    </svg>
+  );
+}
+
 /* ── Trend Badge ──────────────────────────────────────── */
 function TrendBadge({ scores }) {
   if (!scores || scores.length < 2)
@@ -423,6 +667,13 @@ export default function FullProgress() {
   const cbeGrade = getCBEGrade(avgScore);
   const levelData = getLevel(completed.length);
   const userGrade = user?.grade || null;
+
+  // Grade timeline
+  const {
+    points: timelinePoints,
+    transitions: gradeTransitions,
+    currentStreak,
+  } = buildTimelineData(completed);
 
   // Group by SUBJECT (not quiz title!)
   const subjectMap = {};
@@ -765,6 +1016,30 @@ export default function FullProgress() {
                 <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold bg-gray-100 text-gray-600">
                   {levelData.emoji} {levelData.title} Lv.{levelData.level}
                 </span>
+                {currentStreak && (
+                  <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium bg-white border border-gray-200 text-gray-500">
+                    <Calendar className="w-3 h-3" />
+                    {currentStreak.grade} for{" "}
+                    {currentStreak.days < 1
+                      ? "today"
+                      : currentStreak.days === 1
+                        ? "1 day"
+                        : `${currentStreak.days} days`}
+                    {currentStreak.fromGrade && (
+                      <span
+                        className={
+                          currentStreak.improved
+                            ? "text-emerald-600"
+                            : "text-rose-500"
+                        }
+                      >
+                        {" "}
+                        · {currentStreak.improved ? "↑" : "↓"} from{" "}
+                        {currentStreak.fromGrade}
+                      </span>
+                    )}
+                  </span>
+                )}
               </div>
             </div>
             <div className="flex items-center gap-2">
@@ -808,6 +1083,93 @@ export default function FullProgress() {
                   className="h-full rounded-full"
                   style={{ background: levelData.color }}
                 />
+              </div>
+            </motion.div>
+          )}
+
+          {/* ══════ GRADE PROGRESSION TIMELINE ══════ */}
+          {timelinePoints.length >= 2 && (
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.12 }}
+              className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden print-break"
+            >
+              <div className="px-5 pt-5 pb-2">
+                <div className="flex items-center justify-between flex-wrap gap-2">
+                  <div>
+                    <h2 className="text-lg font-bold text-gray-900 flex items-center gap-2">
+                      <TrendingUp className="w-5 h-5 text-emerald-600" />
+                      Grade Journey
+                    </h2>
+                    <p className="text-xs text-gray-500 mt-0.5">
+                      Your CBE grade progression over {timelinePoints.length}{" "}
+                      quizzes
+                    </p>
+                  </div>
+                  {currentStreak && (
+                    <div className="flex items-center gap-2">
+                      <span
+                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold"
+                        style={{
+                          background: cbeGrade.bg,
+                          color: cbeGrade.color,
+                          border: `1.5px solid ${cbeGrade.color}30`,
+                        }}
+                      >
+                        {cbeGrade.grade}
+                        <span className="font-normal text-gray-500 ml-0.5">
+                          for{" "}
+                          {currentStreak.days < 1
+                            ? "today"
+                            : currentStreak.days < 7
+                              ? `${currentStreak.days}d`
+                              : currentStreak.days < 30
+                                ? `${Math.floor(currentStreak.days / 7)}w`
+                                : `${Math.floor(currentStreak.days / 30)}mo`}
+                        </span>
+                        {currentStreak.fromGrade && (
+                          <span
+                            className={
+                              currentStreak.improved
+                                ? "text-emerald-600"
+                                : "text-rose-500"
+                            }
+                          >
+                            {currentStreak.improved ? "↑" : "↓"}{" "}
+                            {currentStreak.fromGrade}
+                          </span>
+                        )}
+                      </span>
+                    </div>
+                  )}
+                </div>
+                {/* Milestone badges */}
+                {gradeTransitions.length > 0 && (
+                  <div className="flex flex-wrap gap-1.5 mt-3">
+                    {gradeTransitions.slice(-4).map((t, i) => (
+                      <span
+                        key={i}
+                        className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold ${
+                          t.improved
+                            ? "bg-emerald-50 text-emerald-700 border border-emerald-100"
+                            : "bg-rose-50 text-rose-600 border border-rose-100"
+                        }`}
+                      >
+                        {t.improved ? "↑" : "↓"} {t.from} → {t.to}
+                        <span className="text-gray-400 font-normal ml-0.5">
+                          {t.date.toLocaleDateString("en-KE", {
+                            day: "numeric",
+                            month: "short",
+                          })}
+                        </span>
+                      </span>
+                    ))}
+                  </div>
+                )}
+              </div>
+              <div className="px-2 pb-3">
+                <GradeTimeline points={timelinePoints} />
               </div>
             </motion.div>
           )}
@@ -1217,8 +1579,8 @@ export default function FullProgress() {
                   {!userGrade && subjects.length >= 3 && (
                     <div className="mt-4 bg-indigo-50 rounded-xl p-3 border border-indigo-100 no-print">
                       <p className="text-xs text-indigo-700 font-medium">
-                        "💡" Set your grade in Settings to unlock the
-                        CBE Pathway Predictor
+                        💡 Set your grade in Settings to unlock the CBE Pathway
+                        Predictor
                       </p>
                     </div>
                   )}
@@ -1257,8 +1619,7 @@ export default function FullProgress() {
                 <p
                   style={{ fontSize: 9, color: "#9ca3af", margin: "2px 0 0 0" }}
                 >
-                  Competency-Based Education Progress Platform •
-                  stadispace.com
+                  Competency-Based Education Progress Platform • stadispace.com
                 </p>
               </div>
               <div style={{ textAlign: "right" }}>
