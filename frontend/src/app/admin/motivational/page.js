@@ -32,7 +32,7 @@ const API =
   process.env.NEXT_PUBLIC_API_URL ||
   "https://cbc-backend-76im.onrender.com/api";
 
-const ALLOWED_ROLES = ["admin", "superadmin", "school_admin"];
+const ALLOWED_ROLES = ["teacher", "admin", "superadmin", "school_admin"];
 
 const CONTENT_TYPES = [
   {
@@ -157,9 +157,15 @@ export default function MotivationalAdminPage() {
       if (res.ok) {
         const data = await res.json();
         setItems(Array.isArray(data) ? data : data.results || []);
+      } else {
+        console.error(
+          "Motivational fetch failed:",
+          res.status,
+          await res.text().catch(() => ""),
+        );
       }
-    } catch {
-      // silently fail
+    } catch (err) {
+      console.error("Motivational fetch error:", err);
     } finally {
       setLoading(false);
     }

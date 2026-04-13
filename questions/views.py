@@ -2134,7 +2134,7 @@ class MotivationalContentAdminListCreateView(generics.ListCreateAPIView):
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        if not (self.request.user.is_staff or getattr(self.request.user, 'role', '') in ('admin', 'superadmin', 'school_admin')):
+        if not (self.request.user.is_staff or getattr(self.request.user, 'role', '') in ('teacher', 'admin', 'superadmin', 'school_admin')):
             return MotivationalContent.objects.none()
         return MotivationalContent.objects.all()
 
@@ -2148,6 +2148,6 @@ class MotivationalContentAdminDetailView(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        if not (self.request.user.is_staff or getattr(self.request.user, 'role', '') in ('admin', 'superadmin', 'school_admin')):
+        if not (self.request.user.is_staff or getattr(self.request.user, 'role', '') in ('teacher', 'admin', 'superadmin', 'school_admin')):
             return MotivationalContent.objects.none()
         return MotivationalContent.objects.all()
