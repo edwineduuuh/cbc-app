@@ -15,10 +15,31 @@ import {
   Sparkles,
 } from "lucide-react";
 
-const API = process.env.NEXT_PUBLIC_API_URL || "https://cbc-backend-76im.onrender.com/api";
+const API =
+  process.env.NEXT_PUBLIC_API_URL ||
+  "https://cbc-backend-76im.onrender.com/api";
+
+const ALLOWED_ROLES = ["teacher", "admin", "superadmin", "school_admin"];
+
 export default function CreateQuizPage() {
-  const { user } = useAuth();
+  const { user, loading: authLoading } = useAuth();
   const router = useRouter();
+
+  useEffect(() => {
+    if (!authLoading && !user) {
+      router.replace("/login");
+      return;
+    }
+    if (
+      !authLoading &&
+      user &&
+      !ALLOWED_ROLES.includes(user.role) &&
+      !user.is_staff &&
+      !user.is_superuser
+    ) {
+      router.replace("/dashboard");
+    }
+  }, [user, authLoading, router]);
 
   const [subjects, setSubjects] = useState([]);
   const [questions, setQuestions] = useState([]);

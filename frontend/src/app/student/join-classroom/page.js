@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
@@ -24,8 +24,13 @@ const API =
   "https://cbc-backend-76im.onrender.com/api";
 
 export default function JoinClassroomPage() {
-  const { user } = useAuth();
+  const { user, loading: authLoading } = useAuth();
   const router = useRouter();
+
+  useEffect(() => {
+    if (!authLoading && !user) router.push("/login");
+    if (!authLoading && user?.role === "teacher") router.replace("/teacher");
+  }, [user, authLoading, router]);
 
   const [joinCode, setJoinCode] = useState("");
   const [loading, setLoading] = useState(false);

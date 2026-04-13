@@ -466,25 +466,143 @@ class TeacherAnalyticsView(APIView):
             'students_in_quizzes':  StudentSession.objects.filter(classroom__teacher=user).count(),
         }
         return Response(stats)
-    
-class StudentQuizListView(generics.ListAPIView):
+
+
+class TeacherClassroomAnalyticsView(APIView):
     """
-    GET /api/student/quizzes/ - Student sees ONLY quizzes assigned to their classes
+    GET /api/teacher/classrooms/<id>/analytics/
+    Detailed analytics for a specific classroom
     """
-    serializer_class = QuizDetailSerializer
     permission_classes = [IsAuthenticated]
-    
-    def get_queryset(self):
-        user = self.request.user
-        
-        # Get student's enrolled classrooms
-        my_classrooms = user.classrooms_enrolled.filter(is_active=True)
-        
-        # Get all assignments for those classrooms
+
+    def get(self, request, pk):
+        from django.db.models import Avg, Count, Max, Min
+        try:
+            classroom = UsersClassroom.objects.get(pk=pk, teacher=request.user)
+        except UsersClassroom.DoesNotExist:
+            return Response({'error': 'Classroom not found'}, status=404)
+
+        students = classroom.students.all()
+        student_ids = students.values_list('id', flat=True)
+
+        # All attempts by students in this class
+        attempts = Attempt.objects.filter(
+            student_id__in=student_ids, status='completed'
+        )
+
+        # Assigned quizzes
         assignments = ClassQuizAssignment.objects.filter(
-            classroom__in=my_classrooms,
-            is_active=True
-        ).select_related('quiz', 'classroom')
+            classroom=classroom, is_active=True
+        ).select_related('quiz')
+
+        # Per-quiz breakdown
+        quiz_stats = []
+        for assignment in assignments:
+            quiz = assignment.quiz
+            quiz_attempts = attempts.filter(quiz=quiz)
+            completed_count = quiz_attempts.values('student').distinct().count()
+            agg = quiz_attempts.aggregate(
+                avg_score=Avg('score'),
+                best_score=Max('score'),
+                lowest_score=Min('score'),
+            )
+            quiz_stats.append({
+                'quiz_id': quiz.id,
+                'quiz_title': quiz.title,
+                'deadline': assignment.deadline,
+                'assigned_at': assignment.assigned_at,
+                'total_students': students.count(),
+                'completed_count': completed_count,
+                'completion_rate': round(completed_count / max(students.count(), 1) * 100, 1),
+                'avg_score': round(agg['avg_score'] or 0, 1),
+                'best_score': round(agg['best_score'] or 0, 1),
+                'lowest_score': round(agg['lowest_score'] or 0, 1),
+            })
+
+        # Per-student performance
+        student_stats = []
+        for student in students:
+            s_attempts = attempts.filter(student=student)
+            agg = s_attempts.aggregate(
+                avg_score=Avg('score'),
+                total_quizzes=Count('quiz', distinct=True),
+            )
+            student_stats.append({
+                'id': student.id,
+                'username': student.username,
+                'email': student.email,
+                'quizzes_completed': agg['total_quizzes'] or 0,
+                'avg_score': round(agg['avg_score'] or 0, 1),
+                'current_streak': getattr(student, 'current_streak', 0),
+            })
+
+        # Sort students by avg score descending (leaderboard)
+        student_stats.sort(key=lambda s: s['avg_score'], reverse=True)
+
+        return Response({
+            'classroom': {
+                'id': classroom.id,
+                'name': classroom.name,
+                'join_code': classroom.join_code,
+                'grade': classroom.grade,
+                'total_students': students.count(),
+            },
+            'quiz_stats': quiz_stats,
+            'leaderboard': student_stats,
+            'overall': {
+                'avg_score': round(attempts.aggregate(avg=Avg('score'))['avg'] or 0, 1),
+                'total_attempts': attempts.count(),
+                'quizzes_assigned': assignments.count(),
+            }
+        })
+
+
+class TeacherQuizResultsView(APIView):
+    """
+    GET /api/teacher/classrooms/<classroom_id>/quizzes/<quiz_id>/results/
+    Detailed per-student results for a specific quiz in a classroom
+    """
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, classroom_id, quiz_id):
+        try:
+            classroom = UsersClassroom.objects.get(pk=classroom_id, teacher=request.user)
+        except UsersClassroom.DoesNotExist:
+            return Response({'error': 'Classroom not found'}, status=404)
+
+        try:
+            quiz = Quiz.objects.get(pk=quiz_id)
+        except Quiz.DoesNotExist:
+            return Response({'error': 'Quiz not found'}, status=404)
+
+        students = classroom.students.all()
+        results = []
+        for student in students:
+            attempt = Attempt.objects.filter(
+                student=student, quiz=quiz, status='completed'
+            ).order_by('-completed_at').first()
+
+            results.append({
+                'student_id': student.id,
+                'username': student.username,
+                'attempted': attempt is not None,
+                'score': round(attempt.score, 1) if attempt else None,
+                'total_marks': attempt.total_marks_awarded if attempt else None,
+                'max_marks': attempt.total_max_marks if attempt else None,
+                'completed_at': attempt.completed_at if attempt else None,
+                'correct_answers': attempt.correct_answers if attempt else None,
+                'total_questions': attempt.total_questions if attempt else None,
+            })
+
+        results.sort(key=lambda r: r['score'] or 0, reverse=True)
+
+        return Response({
+            'quiz': {'id': quiz.id, 'title': quiz.title},
+            'classroom': {'id': classroom.id, 'name': classroom.name},
+            'total_students': students.count(),
+            'completed_count': sum(1 for r in results if r['attempted']),
+            'results': results,
+        })
         
         # Build response with deadline info
         result = []
@@ -558,6 +676,9 @@ class SubmitQuizView(APIView):
         attempt.correct_answers = total_score
         attempt.total_questions = total_possible
         attempt.save()
+
+        # Update streak
+        request.user.update_streak()
         
         return Response({
             'id': attempt.id,
@@ -675,6 +796,7 @@ class StudentAnalyticsView(APIView):
             'best_score':              round(best_score, 1),
             'time_studied_hours':      round(time_studied_hours, 2),
             'current_streak':          current_streak,
+            'longest_streak':          getattr(user, 'longest_streak', current_streak),
             'last_active':             last_active,
         })
     
@@ -690,7 +812,7 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 from rest_framework import status
 from django.utils import timezone
-from .models import Quiz, Question, Attempt
+from .models import Quiz, Question, Attempt, GuestUsage
 from .ai_grading import grade_answer
 from .parallel_grading import grade_quiz_fast
 from django.db import transaction
@@ -698,9 +820,6 @@ import uuid
 
 
 # ============== GUEST SESSION TRACKING ==============
-
-GUEST_SESSIONS = {}  # In-memory store: {session_id: quiz_count}
-# For production, use Redis or database table
 
 
 @api_view(['POST'])
@@ -711,11 +830,11 @@ def start_guest_session(request):
     Creates guest session ID for tracking free quizzes
     """
     session_id = str(uuid.uuid4())
-    GUEST_SESSIONS[session_id] = 0
+    GuestUsage.objects.create(session_id=session_id, quizzes_taken=0)
     
     return Response({
         'session_id': session_id,
-        'quizzes_remaining': 4
+        'quizzes_remaining': GuestUsage.GUEST_LIMIT
     })
 
 
@@ -731,8 +850,13 @@ def check_guest_quota(request):
     if not session_id:
         return Response({'error': 'session_id required'}, status=400)
     
-    taken = GUEST_SESSIONS.get(session_id, 0)
-    remaining = max(0, 4 - taken)
+    try:
+        guest = GuestUsage.objects.get(session_id=session_id)
+        taken = guest.quizzes_taken
+    except GuestUsage.DoesNotExist:
+        taken = 0
+    
+    remaining = max(0, GuestUsage.GUEST_LIMIT - taken)
     
     return Response({
         'quizzes_taken': taken,
@@ -778,14 +902,14 @@ def submit_quiz(request):
         if not session_id:
             return Response({'error': 'session_id required for guests'}, status=400)
         
-        # Check guest quota
-        taken = GUEST_SESSIONS.get(session_id, 0)
-        if taken >= 4:
+        # Check guest quota (persistent DB)
+        guest, _ = GuestUsage.objects.get_or_create(session_id=session_id)
+        if guest.quizzes_taken >= GuestUsage.GUEST_LIMIT:
             return Response({
                 'error': 'Guest quota exceeded',
                 'message': 'Sign up to unlock 4 more free quizzes!',
                 'quota_exceeded': True,
-                'quizzes_taken': taken
+                'quizzes_taken': guest.quizzes_taken
             }, status=402)  # Payment Required
         
         # Grade quiz for guest
@@ -848,9 +972,10 @@ def submit_quiz(request):
                 'study_tip': result.get('study_tip', ''),
             }
         
-        # Increment guest counter
-        GUEST_SESSIONS[session_id] = taken + 1
-        remaining = 4 - (taken + 1)
+        # Increment guest counter (persistent)
+        guest.quizzes_taken += 1
+        guest.save(update_fields=['quizzes_taken', 'updated_at'])
+        remaining = guest.remaining()
         
         return Response({
             'id': None,  # No saved attempt for guests
@@ -874,7 +999,7 @@ def submit_quiz(request):
             
             # Guest quota info
             'is_guest': True,
-            'guest_quizzes_taken': taken + 1,
+            'guest_quizzes_taken': guest.quizzes_taken,
             'guest_quizzes_remaining': remaining,
             'show_signup_prompt': remaining == 0,
             
@@ -991,6 +1116,9 @@ def submit_quiz(request):
             # Deduct credit (if not subscribed)
             if not has_subscription:
                     user.use_quiz_credit()
+
+            # Update streak
+            user.update_streak()
                         
         # Get updated credits
         new_credits = user.quiz_credits if not has_subscription else 'unlimited'
@@ -1267,7 +1395,7 @@ def make_join_code(length=6):
 @permission_classes([IsAuthenticated])
 def list_lesson_plans(request):
     """GET /api/lessons/ — list teacher's lesson plans"""
-    plans = LessonPlan.objects.filter(teacher=request.user)
+    plans = LessonPlan.objects.filter(teacher=request.user).order_by("-created_at")
     # optional filters
     grade   = request.query_params.get("grade")
     subject = request.query_params.get("subject")
@@ -1275,11 +1403,18 @@ def list_lesson_plans(request):
     if grade:   plans = plans.filter(grade=grade)
     if subject: plans = plans.filter(subject=subject)
     if term:    plans = plans.filter(term=term)
-    return Response(LessonPlanSerializer(plans, many=True).data)
+    results = []
+    for p in plans:
+        results.append({
+            "id": p.id,
+            "plan": p.generated_plan,
+            "meta": LessonPlanSerializer(p).data,
+        })
+    return Response(results)
 
 
 @api_view(["POST"])
-@permission_classes([AllowAny])
+@permission_classes([IsAuthenticated])
 def generate_lesson(request):
     required = ["grade", "subject", "term", "week", "lesson_number", "strand", "duration"]  # ← CHANGED topic to strand
     for field in required:
@@ -1717,14 +1852,88 @@ def classroom_report(request, pk):
 @api_view(["GET"])
 @permission_classes([IsAuthenticated])
 def teacher_analytics(request):
-    """GET /api/analytics/teacher/ — dashboard stats"""
+    """GET /api/analytics/teacher/ — comprehensive dashboard stats"""
     teacher = request.user
+
+    # Basic counts
+    lesson_count = LessonPlan.objects.filter(teacher=teacher).count()
+    classrooms = Classroom.objects.filter(teacher=teacher)
+    classroom_count = classrooms.count()
+    live_count = classrooms.filter(status="live").count()
+    ended_count = classrooms.filter(status="ended").count()
+
+    # Student sessions across all teacher's classrooms
+    sessions = StudentSession.objects.filter(classroom__teacher=teacher)
+    total_students = sessions.values("student_name").distinct().count()
+
+    # Overall quiz performance
+    answers = StudentAnswer.objects.filter(session__classroom__teacher=teacher)
+    total_attempts = sessions.count()
+    avg_score_data = sessions.aggregate(avg=Avg("total_score"))
+    average_score = round(avg_score_data["avg"] or 0, 1)
+
+    # Subject performance — average score per subject across classrooms
+    subject_performance = []
+    subject_classrooms = classrooms.filter(status="ended").values("subject").annotate(
+        count=Count("id"),
+    )
+    for sc in subject_classrooms:
+        subj = sc["subject"]
+        subj_sessions = sessions.filter(classroom__subject=subj, classroom__status="ended")
+        subj_avg = subj_sessions.aggregate(avg=Avg("total_score"))["avg"] or 0
+        subject_performance.append({
+            "subject": subj,
+            "average_score": round(subj_avg, 1),
+            "total_quizzes": sc["count"],
+            "total_students": subj_sessions.values("student_name").distinct().count(),
+        })
+
+    # Top students — by total_score across all the teacher's ended classrooms
+    top_students = list(
+        sessions.filter(classroom__status="ended")
+        .values("student_name")
+        .annotate(
+            avg_score=Avg("total_score"),
+            quizzes_taken=Count("id"),
+        )
+        .order_by("-avg_score")[:10]
+    )
+    for s in top_students:
+        s["avg_score"] = round(s["avg_score"], 1)
+
+    # Struggling students — below average or bottom performers
+    struggling_students = list(
+        sessions.filter(classroom__status="ended")
+        .values("student_name")
+        .annotate(
+            avg_score=Avg("total_score"),
+            quizzes_taken=Count("id"),
+        )
+        .filter(avg_score__lt=average_score * 0.7 if average_score else 50)
+        .order_by("avg_score")[:10]
+    )
+    for s in struggling_students:
+        s["avg_score"] = round(s["avg_score"], 1)
+
+    # Recent classrooms
+    recent_classrooms = list(
+        classrooms.order_by("-created_at")[:5].values(
+            "id", "name", "subject", "grade", "status", "created_at"
+        )
+    )
+
     return Response({
-        "lesson_plans_created": LessonPlan.objects.filter(teacher=teacher).count(),
-        "classrooms_created":   Classroom.objects.filter(teacher=teacher).count(),
-        "classrooms_live":      Classroom.objects.filter(teacher=teacher, status="live").count(),
-        "students_managed":     StudentSession.objects.filter(classroom__teacher=teacher).count(),
-        "quizzes_ended":        Classroom.objects.filter(teacher=teacher, status="ended").count(),
+        "lesson_plans_created": lesson_count,
+        "classrooms_created": classroom_count,
+        "classrooms_live": live_count,
+        "quizzes_ended": ended_count,
+        "total_students": total_students,
+        "total_attempts": total_attempts,
+        "average_score": average_score,
+        "subject_performance": subject_performance,
+        "top_students": top_students,
+        "struggling_students": struggling_students,
+        "recent_classrooms": recent_classrooms,
     })
 
 @api_view(['POST'])

@@ -2,20 +2,38 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useAuth } from "@/contexts/AuthContext";
 import Link from "next/link";
 
 const API =
   process.env.NEXT_PUBLIC_API_URL ||
   "https://cbc-backend-76im.onrender.com/api";
 
+const ALLOWED_ROLES = ["teacher", "admin", "superadmin", "school_admin"];
+
 export default function AdminExamsPage() {
   const router = useRouter();
+  const { user, loading: authLoading } = useAuth();
   const [exams, setExams] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    loadExams();
-  }, []);
+    if (!authLoading && !user) {
+      router.replace("/login");
+      return;
+    }
+    if (
+      !authLoading &&
+      user &&
+      !ALLOWED_ROLES.includes(user.role) &&
+      !user.is_staff &&
+      !user.is_superuser
+    ) {
+      router.replace("/dashboard");
+      return;
+    }
+    if (!authLoading && user) loadExams();
+  }, [user, authLoading]);
 
   const loadExams = async () => {
     try {

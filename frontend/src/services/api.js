@@ -141,6 +141,37 @@ const api = {
 
   /** Teacher dashboard stats */
   getTeacherAnalytics: () => request("GET", "/analytics/teacher/"),
+
+  // ── TEACHER DASHBOARD ─────────────────────────────────────
+
+  /** List teacher's classrooms (for teacher dashboard) */
+  getTeacherClassrooms: () => request("GET", "/classrooms/"),
+
+  /** Create a new classroom */
+  createTeacherClassroom: (data) => request("POST", "/classrooms/", data),
+
+  /** Get single classroom */
+  getTeacherClassroom: (id) => request("GET", `/classrooms/${id}/`),
+
+  /** Delete a classroom */
+  deleteTeacherClassroom: (id) => request("DELETE", `/classrooms/${id}/`),
+
+  /** Get classroom analytics (quiz stats + leaderboard) */
+  getClassroomAnalytics: (id) =>
+    request("GET", `/teacher/classrooms/${id}/analytics/`),
+
+  /** Get per-student quiz results */
+  getQuizResults: (classroomId, quizId) =>
+    request(
+      "GET",
+      `/teacher/classrooms/${classroomId}/quizzes/${quizId}/results/`,
+    ),
+
+  /** Get available quizzes for assignment */
+  getQuizLibrary: () => request("GET", "/quizzes/"),
+
+  /** Assign quiz to classrooms */
+  assignQuiz: (data) => request("POST", "/classrooms/assign-quiz/", data),
 };
 
 export default api;

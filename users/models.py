@@ -32,8 +32,9 @@ class User(AbstractUser):
     email = models.EmailField(
         _('email address'),
         unique=True,
-        blank=False,
-        null=False,
+        blank=True,
+        null=True,
+        default=None,
         error_messages={'unique': _("A user with that email already exists.")},
     )
 
@@ -77,6 +78,12 @@ class User(AbstractUser):
         default=0,
         help_text='Total quizzes taken (analytics)'
     )
+
+    # STREAK TRACKING
+    current_streak = models.IntegerField(default=0, help_text='Current daily streak')
+    longest_streak = models.IntegerField(default=0, help_text='All-time longest streak')
+    last_activity_date = models.DateField(null=True, blank=True, help_text='Last quiz activity date')
+
     # Authentication settings
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['email']
@@ -128,11 +135,30 @@ class User(AbstractUser):
             return True
         return False
 
+    def update_streak(self):
+        """Update daily streak. Call after quiz completion."""
+        today = timezone.now().date()
+        if self.last_activity_date == today:
+            return  # Already counted today
+
+        if self.last_activity_date == today - timedelta(days=1):
+            self.current_streak += 1
+        elif self.last_activity_date != today:
+            self.current_streak = 1
+
+        self.last_activity_date = today
+        if self.current_streak > self.longest_streak:
+            self.longest_streak = self.current_streak
+        self.save(update_fields=['current_streak', 'longest_streak', 'last_activity_date'])
+
     def save(self, *args, **kwargs):
         """Auto-set role and staff status for superusers"""
         if self.is_superuser:
             self.role = self.ROLE_SUPERADMIN
             self.is_staff = True
+        # Normalize blank email to None so unique constraint allows multiple blanks
+        if not self.email:
+            self.email = None
         
         super().save(*args, **kwargs)
 

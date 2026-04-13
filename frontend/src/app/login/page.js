@@ -9,6 +9,8 @@ import Input from "@/components/ui/Input";
 import Toast from "@/components/ui/Toast";
 import SocialLoginButtons from "@/components/SocialLoginButtons";
 import { BookOpen, ArrowRight, Eye, EyeOff, Sparkles } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 export default function LoginPage() {
   const [username, setUsername] = useState("");
@@ -18,7 +20,22 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false);
   const [showToast, setShowToast] = useState(false);
 
-  const { login } = useAuth();
+  const { login, user, loading: authLoading } = useAuth();
+  const router = useRouter();
+
+  // If already logged in, redirect to the right place
+  useEffect(() => {
+    if (!authLoading && user) {
+      if (user.role === "teacher") router.replace("/teacher");
+      else if (
+        user.is_staff ||
+        user.is_superuser ||
+        ["admin", "superadmin", "school_admin"].includes(user.role)
+      )
+        router.replace("/admin");
+      else router.replace("/dashboard");
+    }
+  }, [user, authLoading, router]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

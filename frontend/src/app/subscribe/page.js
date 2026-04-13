@@ -24,7 +24,9 @@ import {
   ArrowRight,
 } from "lucide-react";
 
-const API = process.env.NEXT_PUBLIC_API_URL || "https://cbc-backend-76im.onrender.com/api";
+const API =
+  process.env.NEXT_PUBLIC_API_URL ||
+  "https://cbc-backend-76im.onrender.com/api";
 
 const PLANS = [
   {
@@ -100,8 +102,12 @@ export default function SubscribePage() {
   const [loadingStatus, setLoadingStatus] = useState(true);
 
   useEffect(() => {
+    if (!authLoading && user?.role === "teacher") {
+      router.replace("/teacher");
+      return;
+    }
     fetchSubscriptionStatus();
-  }, []);
+  }, [authLoading, user]);
 
   const fetchSubscriptionStatus = async () => {
     try {

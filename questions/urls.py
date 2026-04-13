@@ -29,10 +29,11 @@ from .views import (
     AdminStatsView,
     QuestionGroupStatsView,
     TeacherAnalyticsView,
-    StudentQuizListView,
     submit_quiz,
     get_attempt_results,
     StudentAnalyticsView,
+    TeacherClassroomAnalyticsView,
+    TeacherQuizResultsView,
     SubscriptionPlanListView,
     SubscriptionStatusView,
     SubmitPaymentView,
@@ -56,7 +57,6 @@ urlpatterns = [
     path('attempts/', AttemptListView.as_view(), name='attempt-list'),
     path('attempts/<int:pk>/', AttemptDetailView.as_view(), name='attempt-detail'),
     path('attempts/<int:attempt_id>/', get_attempt_results, name='attempt_results'),
-    path('student/quizzes/', StudentQuizListView.as_view(), name='student-quizzes'),
 
     # ── Guest Session ────────────────────────────────────────────
     path('guest/session/', start_guest_session, name='guest-session'),
@@ -107,6 +107,8 @@ urlpatterns = [
     # ── Teacher ───────────────────────────────────────────────────
     path('teacher/quiz-library/', TeacherQuizLibraryView.as_view(), name='teacher-quiz-library'),
     path('teacher/assign-quiz/', AssignQuizToClassroomView.as_view(), name='assign-quiz'),
+    path('teacher/classrooms/<int:pk>/analytics/', TeacherClassroomAnalyticsView.as_view(), name='teacher-classroom-analytics'),
+    path('teacher/classrooms/<int:classroom_id>/quizzes/<int:quiz_id>/results/', TeacherQuizResultsView.as_view(), name='teacher-quiz-results'),
 
     # ── LESSON PLANS ──────────────────────────────────────────────
     path("lessons/", views.list_lesson_plans, name="lesson-list"),

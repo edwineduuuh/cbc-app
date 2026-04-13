@@ -2,22 +2,40 @@
 
 import { useState, useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
+import { useAuth } from "@/contexts/AuthContext";
 import ImprovedFeedbackDisplay from "@/components/ImprovedFeedbackDisplay";
 
 const API =
   process.env.NEXT_PUBLIC_API_URL ||
   "https://cbc-backend-76im.onrender.com/api";
 
+const ALLOWED_ROLES = ["teacher", "admin", "superadmin", "school_admin"];
+
 export default function QuizResultsPage() {
   const params = useParams();
   const router = useRouter();
+  const { user, loading: authLoading } = useAuth();
   const [attempt, setAttempt] = useState(null);
   const [quiz, setQuiz] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    loadResults();
-  }, []);
+    if (!authLoading && !user) {
+      router.replace("/login");
+      return;
+    }
+    if (
+      !authLoading &&
+      user &&
+      !ALLOWED_ROLES.includes(user.role) &&
+      !user.is_staff &&
+      !user.is_superuser
+    ) {
+      router.replace("/dashboard");
+      return;
+    }
+    if (!authLoading && user) loadResults();
+  }, [user, authLoading]);
 
   const loadResults = async () => {
     try {

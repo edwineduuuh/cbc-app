@@ -11,10 +11,13 @@ import { ArrowLeft, Plus, X, Save, Search } from "lucide-react";
 const API =
   process.env.NEXT_PUBLIC_API_URL ||
   "https://cbc-backend-76im.onrender.com/api";
+
+const ALLOWED_ROLES = ["teacher", "admin", "superadmin", "school_admin"];
+
 export default function EditQuizPage() {
   const params = useParams();
   const router = useRouter();
-  const { user } = useAuth();
+  const { user, loading: authLoading } = useAuth();
 
   const [quiz, setQuiz] = useState(null);
   const [availableQuestions, setAvailableQuestions] = useState([]);
@@ -29,12 +32,22 @@ export default function EditQuizPage() {
   });
 
   useEffect(() => {
-    if (!user) {
-      router.push("/login");
+    if (!authLoading && !user) {
+      router.replace("/login");
       return;
     }
-    fetchQuiz();
-  }, [user, params.id]);
+    if (
+      !authLoading &&
+      user &&
+      !ALLOWED_ROLES.includes(user.role) &&
+      !user.is_staff &&
+      !user.is_superuser
+    ) {
+      router.replace("/dashboard");
+      return;
+    }
+    if (!authLoading && user) fetchQuiz();
+  }, [user, authLoading, params.id]);
 
   useEffect(() => {
     if (quiz) {

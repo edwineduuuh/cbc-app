@@ -6,7 +6,9 @@ import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronRight, BookOpen } from "lucide-react";
 
-const API = process.env.NEXT_PUBLIC_API_URL || "https://cbc-backend-76im.onrender.com/api";
+const API =
+  process.env.NEXT_PUBLIC_API_URL ||
+  "https://cbc-backend-76im.onrender.com/api";
 
 const GRADES = [4, 5, 6, 7, 8, 9, 10, 11, 12];
 
@@ -19,6 +21,13 @@ const QUIZ_TYPE_TABS = [
 export default function ExplorePage() {
   const { user, loading: authLoading } = useAuth();
   const router = useRouter();
+
+  // Teachers should never see student browse page
+  useEffect(() => {
+    if (!authLoading && user?.role === "teacher") {
+      router.replace("/teacher");
+    }
+  }, [user, authLoading, router]);
 
   const [selectedGrade, setSelectedGrade] = useState(null);
   const [selectedSubject, setSelectedSubject] = useState(null);

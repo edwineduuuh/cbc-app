@@ -457,6 +457,17 @@ def credits_status(request):
     })
 
 import os
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def streak_status(request):
+    user = request.user
+    return Response({
+        'current_streak': user.current_streak,
+        'longest_streak': user.longest_streak,
+        'last_activity_date': user.last_activity_date,
+    })
+
+
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_str
@@ -512,3 +523,85 @@ def reset_password(request):
     user.save()
     
     return Response({'message': 'Password reset successful. You can now log in.'})
+
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def send_parent_report(request):
+    """
+    POST /api/auth/parent-report/
+    Send a progress report to the student's parent via email and/or SMS.
+    """
+    from django.core.mail import send_mail
+    from questions.models import Attempt
+    from questions.sms import send_sms
+    from django.db.models import Avg, Count, Max
+    from datetime import timedelta
+    from django.utils import timezone
+    import os
+
+    user = request.user
+    if not user.parent_email and not user.parent_phone:
+        return Response({
+            'error': 'No parent contact info. Update your profile with parent email or phone.'
+        }, status=400)
+
+    # Get last 7 days of attempts
+    week_ago = timezone.now() - timedelta(days=7)
+    attempts = Attempt.objects.filter(
+        student=user, status='completed', completed_at__gte=week_ago
+    )
+    agg = attempts.aggregate(
+        avg_score=Avg('score'),
+        total=Count('id'),
+        best=Max('score'),
+    )
+
+    quizzes_taken = agg['total'] or 0
+    avg_score = round(agg['avg_score'] or 0, 1)
+    best_score = round(agg['best'] or 0, 1)
+    streak = getattr(user, 'current_streak', 0)
+
+    report_text = (
+        f"Weekly Progress Report for {user.username}\n\n"
+        f"Quizzes taken this week: {quizzes_taken}\n"
+        f"Average score: {avg_score}%\n"
+        f"Best score: {best_score}%\n"
+        f"Current streak: {streak} days\n\n"
+        f"Keep encouraging them to study daily on StadiSpace!"
+    )
+
+    sent_email = False
+    sent_sms = False
+
+    if user.parent_email:
+        try:
+            send_mail(
+                subject=f"StadiSpace Weekly Report - {user.username}",
+                message=report_text,
+                from_email=os.getenv('EMAIL_HOST_USER'),
+                recipient_list=[user.parent_email],
+                fail_silently=False,
+            )
+            sent_email = True
+        except Exception as e:
+            print(f"Email failed: {e}")
+
+    if user.parent_phone:
+        sms_text = (
+            f"StadiSpace Report: {user.username} took {quizzes_taken} quizzes "
+            f"this week (avg {avg_score}%). Streak: {streak} days. "
+            f"Great progress!"
+        )
+        sent_sms = send_sms(user.parent_phone, sms_text)
+
+    return Response({
+        'sent_email': sent_email,
+        'sent_sms': sent_sms,
+        'report': {
+            'quizzes_taken': quizzes_taken,
+            'avg_score': avg_score,
+            'best_score': best_score,
+            'streak': streak,
+        }
+    })

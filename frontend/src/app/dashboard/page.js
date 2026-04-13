@@ -365,6 +365,11 @@ export default function DashboardPage() {
 
   useEffect(() => {
     if (!authLoading && user) {
+      // Teachers should never see the student dashboard
+      if (user.role === "teacher") {
+        router.replace("/teacher");
+        return;
+      }
       fetchData();
     } else if (!authLoading && !user) {
       router.push("/login");
@@ -461,12 +466,9 @@ export default function DashboardPage() {
               icon={Trophy}
               color="amber"
             />
-            <StatCard
-              label="Current Streak"
-              value={stats.current_streak || 0}
-              suffix=" days"
-              icon={Flame}
-              color="rose"
+            <StreakCard
+              current={stats.current_streak || 0}
+              longest={stats.longest_streak || 0}
             />
             <StatCard
               label="Average Score"
@@ -654,6 +656,53 @@ export default function DashboardPage() {
 }
 
 // Stat Card Component (clean version)
+function StreakCard({ current, longest }) {
+  const streakMsg =
+    current === 0
+      ? "Take a quiz to start your streak!"
+      : current >= 30
+        ? "Legendary! 🏆"
+        : current >= 14
+          ? "On fire! Keep going!"
+          : current >= 7
+            ? "One week strong! 💪"
+            : current >= 3
+              ? "Building momentum!"
+              : "Keep it up!";
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, scale: 0.95 }}
+      animate={{ opacity: 1, scale: 1 }}
+      className="bg-gradient-to-br from-orange-50 to-rose-50 rounded-2xl border border-orange-200 shadow-sm p-5 hover:shadow-md transition-all relative overflow-hidden"
+    >
+      <div className="flex items-start justify-between mb-2">
+        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-rose-500 to-orange-500 flex items-center justify-center">
+          <Flame className="w-5 h-5 text-white" />
+        </div>
+        {current > 0 && (
+          <motion.div
+            animate={{ scale: [1, 1.2, 1] }}
+            transition={{ repeat: Infinity, duration: 2 }}
+            className="text-2xl"
+          >
+            🔥
+          </motion.div>
+        )}
+      </div>
+      <p className="text-gray-500 text-xs font-medium mb-1">Current Streak</p>
+      <p className="text-3xl font-bold text-gray-900">
+        {current}
+        <span className="text-lg text-gray-500"> days</span>
+      </p>
+      <p className="text-xs text-orange-600 font-medium mt-1">{streakMsg}</p>
+      {longest > 0 && (
+        <p className="text-xs text-gray-400 mt-0.5">Best: {longest} days</p>
+      )}
+    </motion.div>
+  );
+}
+
 function StatCard({ label, value, suffix = "", icon: Icon, color = "teal" }) {
   const colors = {
     teal: "from-teal-500 to-cyan-600",

@@ -22,19 +22,26 @@ export default function Navbar() {
   const pathname = usePathname();
   const [showDropdown, setShowDropdown] = useState(false);
 
-  const navLinks = [
-    { href: "/dashboard", label: "Dashboard", icon: Home },
-    { href: "/explore", label: "Browse", icon: BookOpen },
-    { href: "/progress", label: "Progress", icon: BarChart3 },
-    { href: "/life-skills", label: "Life Skills", icon: Heart },
-  ];
+  const isTeacher = user?.role === "teacher" || user?.role === "admin";
+
+  const navLinks = isTeacher
+    ? [
+        { href: "/teacher", label: "My Classes", icon: Home },
+        { href: "/teacher?tab=lessons", label: "Lesson Plans", icon: BookOpen },
+        { href: "/teacher?tab=analytics", label: "Analytics", icon: BarChart3 },
+      ]
+    : [
+        { href: "/dashboard", label: "Dashboard", icon: Home },
+        { href: "/explore", label: "Browse", icon: BookOpen },
+        { href: "/progress", label: "Progress", icon: BarChart3 },
+        { href: "/life-skills", label: "Life Skills", icon: Heart },
+      ];
 
   if (
     !user ||
     pathname === "/login" ||
     pathname === "/register" ||
     pathname.startsWith("/admin") ||
-    pathname.startsWith("/teacher") ||
     pathname.startsWith("/quizzes/") ||
     pathname.startsWith("/student/quiz/")
   ) {
@@ -53,7 +60,10 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link href="/dashboard" className="flex items-center gap-2">
+          <Link
+            href={isTeacher ? "/teacher" : "/dashboard"}
+            className="flex items-center gap-2"
+          >
             <div className="font-bold text-white text-xl px-3 py-2 rounded-xl bg-gradient-to-br from-slate-800 to-teal-700">
               StadiSpace
             </div>
@@ -103,7 +113,7 @@ export default function Navbar() {
                   {user.username}
                 </div>
                 <div className="text-xs text-gray-500">
-                  Grade {user.grade || 9}
+                  {isTeacher ? "Teacher" : `Grade ${user.grade || 9}`}
                 </div>
               </div>
               <ChevronDown

@@ -1040,15 +1040,18 @@ class StudentAnswer(models.Model):
 
 class GuestUsage(models.Model):
     fingerprint = models.CharField(max_length=64, unique=True)
+    session_id = models.CharField(max_length=64, unique=True, null=True, blank=True)
     quizzes_taken = models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    GUEST_LIMIT = 4
+
     def remaining(self):
-        return max(0, 2 - self.quizzes_taken)
+        return max(0, self.GUEST_LIMIT - self.quizzes_taken)
 
     def __str__(self):
-        return f"{self.fingerprint} - {self.quizzes_taken}"
+        return f"{self.fingerprint or self.session_id} - {self.quizzes_taken}"
 
 
 class MotivationalContent(models.Model):

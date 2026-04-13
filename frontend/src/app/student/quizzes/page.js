@@ -24,7 +24,9 @@ export default function StudentQuizzesPage() {
 
   useEffect(() => {
     if (!authLoading && !user) router.push("/login");
-    if (user?.role !== "student") router.push("/dashboard");
+    if (!authLoading && user?.role === "teacher") router.replace("/teacher");
+    else if (!authLoading && user?.role !== "student")
+      router.replace("/dashboard");
   }, [user, authLoading]);
 
   useEffect(() => {

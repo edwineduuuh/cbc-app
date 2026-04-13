@@ -1,15 +1,23 @@
 """
 ai_service.py
-All Anthropic API calls go through this file.
-Set ANTHROPIC_API_KEY in your .env / Django settings.
+All Gemini API calls for non-grading tasks go through this file.
+Set GEMINI_API_KEY in your .env / Django settings.
 """
 import json
 import re
-import anthropic
+from google import genai
+from google.genai import types
 from django.conf import settings
 
-client = anthropic.Anthropic(api_key=settings.ANTHROPIC_API_KEY)
-MODEL  = "claude-sonnet-4-20250514"   # Use Sonnet 4 for best results
+_gemini = None
+
+def _get_gemini():
+    global _gemini
+    if _gemini is None:
+        _gemini = genai.Client(api_key=settings.GEMINI_API_KEY)
+    return _gemini
+
+GEMINI_MODEL = "gemini-2.5-pro"
 
 
 def parse_ai_json(raw_text: str) -> dict:
@@ -149,14 +157,13 @@ Return ONLY a JSON object with EXACTLY these keys:
   }}
 }}"""
 
-    message = client.messages.create(
-        model=MODEL,
-        max_tokens=4096,
-        system=LESSON_SYSTEM,
-        messages=[{"role": "user", "content": prompt}],
+    message = _get_gemini().models.generate_content(
+        model=GEMINI_MODEL,
+        contents=LESSON_SYSTEM + "\n\n" + prompt,
+        config=types.GenerateContentConfig(temperature=0, max_output_tokens=4096),
     )
 
-    raw = message.content[0].text
+    raw = message.text
     return parse_ai_json(raw)
 
 
@@ -188,14 +195,13 @@ Evaluate the answer and return JSON:
   "model_answer": "<ideal answer a top student would give>"
 }}"""
 
-    message = client.messages.create(
-        model=MODEL,
-        max_tokens=512,
-        system=MARKING_SYSTEM,
-        messages=[{"role": "user", "content": prompt}],
+    message = _get_gemini().models.generate_content(
+        model=GEMINI_MODEL,
+        contents=MARKING_SYSTEM + "\n\n" + prompt,
+        config=types.GenerateContentConfig(temperature=0, max_output_tokens=512),
     )
 
-    raw = message.content[0].text
+    raw = message.text
     return parse_ai_json(raw)
 
 
@@ -229,12 +235,11 @@ Return JSON:
   "recommendation": "<one specific, actionable recommendation for the teacher or parent>"
 }}"""
 
-    message = client.messages.create(
-        model=MODEL,
-        max_tokens=512,
-        system=REPORT_SYSTEM,
-        messages=[{"role": "user", "content": prompt}],
+    message = _get_gemini().models.generate_content(
+        model=GEMINI_MODEL,
+        contents=REPORT_SYSTEM + "\n\n" + prompt,
+        config=types.GenerateContentConfig(temperature=0, max_output_tokens=512),
     )
 
-    raw = message.content[0].text
+    raw = message.text
     return parse_ai_json(raw)

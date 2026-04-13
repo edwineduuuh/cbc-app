@@ -111,13 +111,16 @@ export function AuthProvider({ children }) {
   const redirectByRole = (userData) => {
     if (!userData) return "/login";
 
+    if (userData.role === "teacher") {
+      return "/teacher";
+    }
+
     if (
       userData.is_superuser ||
       userData.is_staff ||
       userData.role === "admin" ||
       userData.role === "super_admin" ||
       userData.role === "superadmin" ||
-      userData.role === "teacher" ||
       userData.role === "school_admin"
     ) {
       return "/admin";
@@ -142,18 +145,9 @@ export function AuthProvider({ children }) {
       setUser(fullUser);
       localStorage.setItem("user", JSON.stringify(fullUser)); // SAVE TO LOCALSTORAGE
 
-      // Route based on role - covers all admin variants
-      const adminRoles = ["admin", "super_admin", "superadmin", "school_admin"];
-      if (
-        adminRoles.includes(userData.role) ||
-        userData.role === "teacher" ||
-        userData.is_staff ||
-        userData.is_superuser
-      ) {
-        router.push("/admin");
-      } else {
-        router.push("/dashboard");
-      }
+      // Route based on role — replace so back button doesn't return to login
+      const redirectPath = redirectByRole(fullUser);
+      router.replace(redirectPath);
 
       return { success: true };
     } catch (error) {
@@ -173,7 +167,7 @@ export function AuthProvider({ children }) {
       setUser(fullUser);
 
       const redirectPath = redirectByRole(fullUser);
-      router.push(redirectPath);
+      router.replace(redirectPath);
 
       return { success: true };
     } catch (error) {

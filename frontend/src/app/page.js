@@ -243,6 +243,7 @@ export default function LandingPage() {
               {[
                 ["#features", "Why StadiSpace"],
                 ["#how-it-works", "How It Works"],
+                ["#teachers", "For Teachers"],
                 ["#pricing", "Pricing"],
                 ["#faq", "FAQ"],
               ].map(([href, label]) => (
@@ -312,6 +313,7 @@ export default function LandingPage() {
                 {[
                   ["#features", "Why StadiSpace"],
                   ["#how-it-works", "How It Works"],
+                  ["#teachers", "For Teachers"],
                   ["#pricing", "Pricing"],
                   ["#faq", "FAQ"],
                 ].map(([href, label]) => (
@@ -1349,6 +1351,130 @@ export default function LandingPage() {
               </FadeIn>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* ── FOR TEACHERS ── */}
+      <section id="teachers" className="py-24" style={{ background: "#fff" }}>
+        <div className="max-w-5xl mx-auto px-4 sm:px-6">
+          <FadeIn className="text-center max-w-xl mx-auto mb-12">
+            <p
+              style={{
+                color: "#0e7490",
+                fontSize: 13,
+                fontWeight: 700,
+                letterSpacing: "0.1em",
+                textTransform: "uppercase",
+                marginBottom: 12,
+              }}
+            >
+              For Teachers
+            </p>
+            <h2
+              style={{
+                fontFamily: "'Cormorant Garamond', serif",
+                fontSize: 38,
+                fontWeight: 700,
+                color: "#0f1f3d",
+                lineHeight: 1.15,
+              }}
+            >
+              Your classroom, supercharged
+            </h2>
+            <p
+              style={{
+                color: "#475569",
+                fontSize: 16,
+                marginTop: 16,
+                lineHeight: 1.7,
+              }}
+            >
+              Create classes, assign quizzes, see every student&apos;s score in
+              real time. Free for teachers, forever.
+            </p>
+          </FadeIn>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+            {[
+              {
+                icon: Users,
+                title: "Manage Classes",
+                desc: "Create classrooms, share join codes via WhatsApp. Students join in seconds.",
+              },
+              {
+                icon: BookOpen,
+                title: "Assign Quizzes",
+                desc: "Pick from 1000+ CBC quizzes or create your own. Set deadlines and track completion.",
+              },
+              {
+                icon: BarChart3,
+                title: "Track Performance",
+                desc: "See class averages, individual results, and a live leaderboard. Know who needs help.",
+              },
+            ].map((f, i) => (
+              <FadeIn key={i} delay={i * 0.1}>
+                <div
+                  style={{
+                    background: "#f8fafc",
+                    border: "1px solid #e2e8f0",
+                    borderRadius: 16,
+                    padding: 28,
+                  }}
+                >
+                  <div
+                    style={{
+                      width: 44,
+                      height: 44,
+                      borderRadius: 12,
+                      background: "linear-gradient(135deg, #0f1f3d, #0e7490)",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      marginBottom: 16,
+                    }}
+                  >
+                    <f.icon style={{ color: "#fff", width: 22, height: 22 }} />
+                  </div>
+                  <h3
+                    style={{
+                      fontFamily: "'Cormorant Garamond', serif",
+                      fontSize: 20,
+                      fontWeight: 700,
+                      color: "#0f1f3d",
+                      marginBottom: 8,
+                    }}
+                  >
+                    {f.title}
+                  </h3>
+                  <p
+                    style={{ color: "#475569", fontSize: 14, lineHeight: 1.7 }}
+                  >
+                    {f.desc}
+                  </p>
+                </div>
+              </FadeIn>
+            ))}
+          </div>
+
+          <FadeIn className="text-center">
+            <Link href="/register?role=teacher">
+              <button
+                style={{
+                  background: "linear-gradient(135deg, #0e7490, #0f1f3d)",
+                  color: "white",
+                  fontSize: 16,
+                  fontWeight: 700,
+                  padding: "14px 36px",
+                  borderRadius: 14,
+                  boxShadow: "0 4px 18px rgba(14,116,144,0.3)",
+                  border: "none",
+                }}
+                className="hover:opacity-90 transition-all hover:scale-[1.02]"
+              >
+                Sign Up as a Teacher — It&apos;s Free →
+              </button>
+            </Link>
+          </FadeIn>
         </div>
       </section>
 
