@@ -95,7 +95,7 @@ function getLevel(n) {
     return {
       level: 5,
       title: "Scholar",
-      emoji: "\u{1F393}",
+      emoji: "🎓",
       color: "#f59e0b",
       next: null,
       pct: 100,
@@ -104,7 +104,7 @@ function getLevel(n) {
     return {
       level: 4,
       title: "Expert",
-      emoji: "\u26A1",
+      emoji: "⚡",
       color: "#8b5cf6",
       next: 100,
       pct: ((n - 50) / 50) * 100,
@@ -113,7 +113,7 @@ function getLevel(n) {
     return {
       level: 3,
       title: "Achiever",
-      emoji: "\u{1F3C6}",
+      emoji: "🏆",
       color: "#3b82f6",
       next: 50,
       pct: ((n - 20) / 30) * 100,
@@ -122,7 +122,7 @@ function getLevel(n) {
     return {
       level: 2,
       title: "Learner",
-      emoji: "\u{1F4DA}",
+      emoji: "📚",
       color: "#10b981",
       next: 20,
       pct: ((n - 5) / 15) * 100,
@@ -130,7 +130,7 @@ function getLevel(n) {
   return {
     level: 1,
     title: "Beginner",
-    emoji: "\u{1F331}",
+    emoji: "🌱",
     color: "#6ee7b7",
     next: 5,
     pct: (n / 5) * 100,
@@ -139,40 +139,40 @@ function getLevel(n) {
 
 /* ── Subject → Emoji (matches actual DB subjects) ─────── */
 const SUBJECT_EMOJI = {
-  "Mathematics Activities": "\u{1F4D0}",
-  "Core Mathematics": "\u{1F4D0}",
-  Mathematics: "\u{1F4D0}",
-  "Integrated Science": "\u{1F52C}",
-  "Science and Technology": "\u{1F9EA}",
-  English: "\u{1F4D6}",
-  Kiswahili: "\u{1F5E3}\uFE0F",
-  "Social Studies": "\u{1F30D}",
-  "Christian Religious Education": "\u{1F54A}\uFE0F",
-  "Islamic Religious Education": "\u{1F54C}",
-  "Religious Education": "\u{1F54A}\uFE0F",
-  "Business Studies": "\u{1F4BC}",
-  "Creative Arts and Sports": "\u{1F3A8}",
-  "Creative Arts": "\u{1F3A8}",
-  "Agriculture & Nutrition": "\u{1F33E}",
-  Agriculture: "\u{1F33E}",
-  "Pre-Technical Studies": "\u2699\uFE0F",
-  "Home Science": "\u{1F3E0}",
-  "Computer Science": "\u{1F4BB}",
-  "Health Education": "\u2764\uFE0F",
-  "Physical Education": "\u26BD",
-  Music: "\u{1F3B5}",
-  Art: "\u{1F58C}\uFE0F",
-  "Life Skills": "\u{1F9E0}",
-  French: "\u{1F1EB}\u{1F1F7}",
-  German: "\u{1F1E9}\u{1F1EA}",
-  Arabic: "\u{1F1F8}\u{1F1E6}",
+  "Mathematics Activities": "📐",
+  "Core Mathematics": "📐",
+  Mathematics: "📐",
+  "Integrated Science": "🔬",
+  "Science and Technology": "🧪",
+  English: "📖",
+  Kiswahili: "🗣️",
+  "Social Studies": "🌍",
+  "Christian Religious Education": "🕊️",
+  "Islamic Religious Education": "🕌",
+  "Religious Education": "🕊️",
+  "Business Studies": "💼",
+  "Creative Arts and Sports": "🎨",
+  "Creative Arts": "🎨",
+  "Agriculture & Nutrition": "🌾",
+  Agriculture: "🌾",
+  "Pre-Technical Studies": "⚙️",
+  "Home Science": "🏠",
+  "Computer Science": "💻",
+  "Health Education": "❤️",
+  "Physical Education": "⚽",
+  Music: "🎵",
+  Art: "🖌️",
+  "Life Skills": "🧠",
+  French: "🇫🇷",
+  German: "🇩🇪",
+  Arabic: "🇸🇦",
 };
 function getSubjectEmoji(name) {
-  if (!name) return "\u{1F4DA}";
+  if (!name) return "📚";
   for (const [key, emoji] of Object.entries(SUBJECT_EMOJI)) {
     if (name.toLowerCase().includes(key.toLowerCase())) return emoji;
   }
-  return "\u{1F4DA}";
+  return "📚";
 }
 
 /* ── Pathway Mapping (CBE indicator subjects) ─────────── */
@@ -296,7 +296,7 @@ function RadarChart({ dataPoints, size = 260 }) {
             className="fill-gray-600"
             style={{ fontSize: 9, fontWeight: 500 }}
           >
-            {d.label.length > 14 ? d.label.slice(0, 12) + "\u2026" : d.label}
+            {d.label.length > 14 ? d.label.slice(0, 12) + "…" : d.label}
           </text>
         );
       })}
@@ -409,7 +409,7 @@ export default function FullProgress() {
         <div className="flex flex-col items-center gap-4">
           <div className="w-12 h-12 border-[3px] border-emerald-200 border-t-emerald-600 rounded-full animate-spin" />
           <p className="text-sm text-gray-400 font-medium">
-            Loading your progress\u2026
+            Loading your progress…
           </p>
         </div>
       </div>
@@ -476,7 +476,7 @@ export default function FullProgress() {
     .map((s) => ({ label: s.name, value: Math.round(s.avg) }));
 
   const handleShare = async () => {
-    const text = `\u{1F4CA} ${studentName}'s StadiSpace Progress Report\n${gradeLabel ? gradeLabel + " \u2022 " : ""}${cbeGrade.grade} \u2014 ${cbeGrade.label}\n${subjects.length} learning areas \u2022 ${completed.length} quizzes\nOverall Average: ${Math.round(avgScore)}%\n\nTrack CBE progress at stadispace.com`;
+    const text = `📊 ${studentName}'s StadiSpace Progress Report\n${gradeLabel ? gradeLabel + " • " : ""}${cbeGrade.grade} — ${cbeGrade.label}\n${subjects.length} learning areas • ${completed.length} quizzes\nOverall Average: ${Math.round(avgScore)}%\n\nTrack CBE progress at stadispace.com`;
     if (navigator.share) {
       try {
         await navigator.share({
@@ -748,7 +748,7 @@ export default function FullProgress() {
               <h1 className="text-2xl font-bold text-gray-900">My Progress</h1>
               <p className="text-sm text-gray-500 mt-0.5">
                 {studentName}
-                {gradeLabel ? ` \u2022 ${gradeLabel}` : ""}
+                {gradeLabel ? ` • ${gradeLabel}` : ""}
               </p>
               <div className="flex items-center gap-3 mt-2 flex-wrap">
                 <span
@@ -760,7 +760,7 @@ export default function FullProgress() {
                   }}
                 >
                   <Award className="w-3.5 h-3.5" />
-                  {cbeGrade.grade} \u2014 {cbeGrade.label}
+                  {cbeGrade.grade} — {cbeGrade.label}
                 </span>
                 <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold bg-gray-100 text-gray-600">
                   {levelData.emoji} {levelData.title} Lv.{levelData.level}
@@ -793,7 +793,7 @@ export default function FullProgress() {
             >
               <div className="flex items-center justify-between mb-1.5">
                 <span className="text-xs font-medium text-gray-500">
-                  {levelData.emoji} Level {levelData.level} \u2192 Level{" "}
+                  {levelData.emoji} Level {levelData.level} → Level{" "}
                   {levelData.level + 1}
                 </span>
                 <span className="text-xs text-gray-400">
@@ -914,7 +914,7 @@ export default function FullProgress() {
                                       year: "numeric",
                                     })}
                                     {q.total_marks_awarded != null &&
-                                      ` \u2022 ${q.total_marks_awarded}/${q.total_max_marks} marks`}
+                                      ` • ${q.total_marks_awarded}/${q.total_max_marks} marks`}
                                   </p>
                                 </div>
                                 <div className="flex items-center gap-3 shrink-0">
@@ -1028,7 +1028,7 @@ export default function FullProgress() {
                             href="/explore"
                             className="no-print text-[10px] font-semibold text-emerald-600 hover:text-emerald-700"
                           >
-                            Practice \u2192
+                            Practice →
                           </Link>
                         </div>
                       </div>
@@ -1140,7 +1140,7 @@ export default function FullProgress() {
                                   href="/explore"
                                   className="no-print text-[11px] font-semibold text-emerald-600 hover:text-emerald-700"
                                 >
-                                  Try a quiz \u2192
+                                  Try a quiz →
                                 </Link>
                               </div>
                             )}
@@ -1217,7 +1217,7 @@ export default function FullProgress() {
                   {!userGrade && subjects.length >= 3 && (
                     <div className="mt-4 bg-indigo-50 rounded-xl p-3 border border-indigo-100 no-print">
                       <p className="text-xs text-indigo-700 font-medium">
-                        {"\u{1F4A1}"} Set your grade in Settings to unlock the
+                        "💡" Set your grade in Settings to unlock the
                         CBE Pathway Predictor
                       </p>
                     </div>
@@ -1257,7 +1257,7 @@ export default function FullProgress() {
                 <p
                   style={{ fontSize: 9, color: "#9ca3af", margin: "2px 0 0 0" }}
                 >
-                  Competency-Based Education Progress Platform \u2022
+                  Competency-Based Education Progress Platform •
                   stadispace.com
                 </p>
               </div>
