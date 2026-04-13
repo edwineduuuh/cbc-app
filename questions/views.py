@@ -371,7 +371,7 @@ class AttemptListView(generics.ListAPIView):
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        qs = Attempt.objects.filter(student=self.request.user).select_related('quiz', 'student')
+        qs = Attempt.objects.filter(student=self.request.user).select_related('quiz', 'quiz__subject', 'student')
         status_filter = self.request.query_params.get('status')
         if status_filter:
             qs = qs.filter(status=status_filter)

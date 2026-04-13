@@ -257,12 +257,15 @@ class SubmitQuizSerializer(serializers.Serializer):
 
 class AttemptSerializer(serializers.ModelSerializer):
     quiz_title   = serializers.CharField(source='quiz.title', read_only=True)
+    subject_name = serializers.CharField(source='quiz.subject.name', read_only=True, default='')
+    quiz_grade   = serializers.IntegerField(source='quiz.grade', read_only=True, default=None)
     student_name = serializers.CharField(source='student.username', read_only=True)
 
     class Meta:
         model  = Attempt
         fields = [
-            'id', 'quiz', 'quiz_title', 'student', 'student_name',
+            'id', 'quiz', 'quiz_title', 'subject_name', 'quiz_grade',
+            'student', 'student_name',
             'status', 'started_at', 'completed_at',
             'score', 'total_questions', 'correct_answers',
             'total_marks_awarded', 'total_max_marks'
