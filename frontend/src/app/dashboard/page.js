@@ -16,9 +16,12 @@ import {
   BarChart3,
   Sparkles,
   Crown,
+  Heart,
 } from "lucide-react";
 
-const API = process.env.NEXT_PUBLIC_API_URL || "https://cbc-backend-76im.onrender.com/api";
+const API =
+  process.env.NEXT_PUBLIC_API_URL ||
+  "https://cbc-backend-76im.onrender.com/api";
 const QUOTES = [
   {
     text: "Believe you can and you're halfway there.",
@@ -502,7 +505,7 @@ export default function DashboardPage() {
 
         {/* Action Cards Grid */}
         <div
-          className={`grid grid-cols-1 ${!isPremium ? "md:grid-cols-3" : "md:grid-cols-2"} gap-6`}
+          className={`grid grid-cols-1 ${!isPremium ? "md:grid-cols-2 lg:grid-cols-4" : "md:grid-cols-3"} gap-6`}
         >
           {/* Browse Quizzes Card */}
           <Link href="/explore">
@@ -545,6 +548,28 @@ export default function DashboardPage() {
                 <p className="text-blue-100 text-sm">
                   Track your performance, identify strengths and areas for
                   improvement
+                </p>
+              </div>
+            </motion.div>
+          </Link>
+
+          {/* Life Skills Card */}
+          <Link href="/life-skills">
+            <motion.div
+              whileHover={{ scale: 1.02 }}
+              className="bg-linear-to-br from-rose-500 to-pink-600 rounded-2xl p-6 text-white cursor-pointer shadow-lg hover:shadow-xl transition-all relative overflow-hidden group"
+            >
+              <div className="absolute inset-0 bg-white/0 group-hover:bg-white/5 transition-all" />
+              <div className="relative">
+                <div className="flex items-center justify-between mb-4">
+                  <div className="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center">
+                    <Heart className="w-6 h-6" />
+                  </div>
+                  <ChevronRight className="w-5 h-5 opacity-50 group-hover:opacity-100 transition-opacity" />
+                </div>
+                <h3 className="text-xl font-bold mb-2">Life Skills</h3>
+                <p className="text-rose-100 text-sm">
+                  Money, relationships, digital safety, health & citizenship
                 </p>
               </div>
             </motion.div>
