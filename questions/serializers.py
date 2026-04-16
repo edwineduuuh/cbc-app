@@ -81,6 +81,7 @@ class QuestionSerializer(serializers.ModelSerializer):
             'question_image_url',
             'passage',
             'parts',
+            'worked_solution',
         ]
 
     def get_question_image_url(self, obj):

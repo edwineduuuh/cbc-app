@@ -19,10 +19,39 @@ import {
   BookOpen,
   ChevronRight,
 } from "lucide-react";
+import katex from "katex";
+import "katex/dist/katex.min.css";
+import SimpleMathInput from "@/components/SimpleMathInput";
 
 const API =
   process.env.NEXT_PUBLIC_API_URL ||
   "https://cbc-backend-76im.onrender.com/api";
+
+// ─── Math Rendering ───────────────────────────────────────────────────────────
+function renderMath(text) {
+  if (!text) return "";
+  return text
+    .replace(/\$\$([\s\S]+?)\$\$/g, (_, expr) => {
+      try {
+        return katex.renderToString(expr.trim(), {
+          displayMode: true,
+          throwOnError: false,
+        });
+      } catch {
+        return expr;
+      }
+    })
+    .replace(/\$([\s\S]+?)\$/g, (_, expr) => {
+      try {
+        return katex.renderToString(expr.trim(), {
+          displayMode: false,
+          throwOnError: false,
+        });
+      } catch {
+        return expr;
+      }
+    });
+}
 
 // ─── Timer Hook ───────────────────────────────────────────────────────────────
 function useTimer(totalSeconds, onExpire) {
@@ -135,9 +164,8 @@ function MCQOption({ letter, text, selected, onClick }) {
           textAlign: "left",
           flex: 1,
         }}
-      >
-        {text}
-      </span>
+        dangerouslySetInnerHTML={{ __html: renderMath(text) }}
+      />
       {selected && <CheckCircle size={20} color={c.activeText} />}
     </button>
   );
@@ -1416,9 +1444,10 @@ export default function QuizTakePage({ params }) {
                   color: "#0d0d1a",
                   lineHeight: 1.65,
                 }}
-              >
-                {currentQ.question_text}
-              </p>
+                dangerouslySetInnerHTML={{
+                  __html: renderMath(currentQ.question_text),
+                }}
+              />
             </div>
 
             {/* Question image */}
@@ -1482,13 +1511,17 @@ export default function QuizTakePage({ params }) {
                 >
                   {isMath ? "Enter your answer" : "Type your answer"}
                 </p>
+                {isMath ? (
+                  <SimpleMathInput
+                    value={answers[currentIdx] ?? ""}
+                    onChange={(val) => handleAnswer(val)}
+                  />
+                ) : (
                 <input
                   type="text"
                   value={answers[currentIdx] ?? ""}
                   onChange={(e) => handleAnswer(e.target.value)}
-                  placeholder={
-                    isMath ? "e.g. 42 or x = 5" : "Type your answer here…"
-                  }
+                  placeholder="Type your answer here…"
                   style={{
                     width: "100%",
                     border: "2px solid #e8eaf0",
@@ -1505,6 +1538,7 @@ export default function QuizTakePage({ params }) {
                   onFocus={(e) => (e.target.style.borderColor = "#1a6fc4")}
                   onBlur={(e) => (e.target.style.borderColor = "#e8eaf0")}
                 />
+                )}
               </div>
             )}
 

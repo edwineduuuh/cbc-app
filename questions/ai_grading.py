@@ -890,6 +890,14 @@ def _grade_fill_blank(question, student_answer: str) -> dict:
     student_norm = _normalise(student_raw)
     raw_correct  = str(question.correct_answer).strip()
     accepted     = [_normalise(a) for a in re.split(r"[|;]", raw_correct) if a.strip()]
+
+    # Also include correct_answers JSONField (list of accepted variants)
+    extra = getattr(question, "correct_answers", None)
+    if extra and isinstance(extra, list):
+        for ans in extra:
+            if ans and str(ans).strip():
+                accepted.append(_normalise(str(ans)))
+
     is_correct   = student_norm in accepted
 
     # Numeric equivalence
@@ -1074,6 +1082,15 @@ def _grade_math(question, student_answer: str, working_image: str | None = None)
     grade       = getattr(getattr(question, "topic", None), "grade", 7)
     student_str = str(student_answer).strip()
     correct_str = str(question.correct_answer).strip()
+
+    # Build list of all accepted correct answers
+    all_correct = [correct_str]
+    extra = getattr(question, "correct_answers", None)
+    if extra and isinstance(extra, list):
+        for ans in extra:
+            if ans and str(ans).strip():
+                all_correct.append(str(ans).strip())
+
     print(f"🔍 _grade_math — student='{student_str}' image={'YES' if working_image else 'NO'}")
 
     if not student_str:
@@ -1101,32 +1118,36 @@ def _grade_math(question, student_answer: str, working_image: str | None = None)
             points_earned = [str(display_value)],
         )
 
-    # Fast numeric check (only when correct answer contains no letters)
-    if not re.search(r"[a-zA-Z]", correct_str):
-        s_clean = _clean_num(student_str)
-        c_clean = _clean_num(correct_str)
-        if s_clean and c_clean:
-            try:
-                if abs(float(s_clean) - float(c_clean)) < 0.01:
-                    return _on_correct(float(s_clean))
-            except ValueError:
-                pass
+    # Fast numeric check against all accepted answers
+    s_clean = _clean_num(student_str)
+    if s_clean:
+        try:
+            s_num = float(s_clean)
+            for ca in all_correct:
+                if not re.search(r"[a-zA-Z]", ca):
+                    c_clean = _clean_num(ca)
+                    if c_clean and abs(s_num - float(c_clean)) < 0.01:
+                        return _on_correct(s_num)
+        except ValueError:
+            pass
 
-    # Symbolic / approximate check with timeout
-    try:
-        s_expr = _parse_math_expr(student_str)
-        c_expr = _parse_math_expr(correct_str)
-        if s_expr is not None and c_expr is not None:
-            diff   = _safe_simplify(s_expr - c_expr)
-            if diff is not None and diff == 0:
-                return _on_correct(str(s_expr))
+    # Symbolic / approximate check with timeout (try all accepted answers)
+    s_expr = _parse_math_expr(student_str)
+    if s_expr is not None:
+        for ca in all_correct:
             try:
-                if abs(N(s_expr) - N(c_expr)) < 0.01:
-                    return _on_correct(f"approx {N(s_expr):g}")
+                c_expr = _parse_math_expr(ca)
+                if c_expr is not None:
+                    diff = _safe_simplify(s_expr - c_expr)
+                    if diff is not None and diff == 0:
+                        return _on_correct(str(s_expr))
+                    try:
+                        if abs(N(s_expr) - N(c_expr)) < 0.01:
+                            return _on_correct(f"approx {N(s_expr):g}")
+                    except Exception:
+                        pass
             except Exception:
                 pass
-    except Exception:
-        pass
 
     # AI semantic check
     try:

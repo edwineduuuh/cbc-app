@@ -8,6 +8,33 @@ import {
   Book,
   Lightbulb,
 } from "lucide-react";
+import katex from "katex";
+import "katex/dist/katex.min.css";
+
+function renderMath(text) {
+  if (!text) return "";
+  return String(text)
+    .replace(/\$\$([\s\S]+?)\$\$/g, (_, expr) => {
+      try {
+        return katex.renderToString(expr.trim(), {
+          displayMode: true,
+          throwOnError: false,
+        });
+      } catch {
+        return expr;
+      }
+    })
+    .replace(/\$([\s\S]+?)\$/g, (_, expr) => {
+      try {
+        return katex.renderToString(expr.trim(), {
+          displayMode: false,
+          throwOnError: false,
+        });
+      } catch {
+        return expr;
+      }
+    });
+}
 
 /**
  * IMPROVED FEEDBACK DISPLAY
@@ -206,9 +233,9 @@ export default function ImprovedFeedbackDisplay({ attempt, quiz }) {
                     </span>
                   </div>
 
-                  <p className="text-lg font-medium text-gray-900 leading-relaxed">
-                    {question.question_text}
-                  </p>
+                  <p className="text-lg font-medium text-gray-900 leading-relaxed"
+                    dangerouslySetInnerHTML={{ __html: renderMath(question.question_text) }}
+                  />
                 </div>
 
                 <div className="flex-shrink-0">
@@ -227,13 +254,17 @@ export default function ImprovedFeedbackDisplay({ attempt, quiz }) {
                 <p className="text-sm font-semibold text-gray-600 mb-2">
                   Your Answer:
                 </p>
-                <p className="text-base text-gray-900 leading-relaxed">
-                  {studentAnswer || (
-                    <span className="italic text-gray-400">
-                      No answer provided
-                    </span>
-                  )}
-                </p>
+                <p className="text-base text-gray-900 leading-relaxed"
+                  dangerouslySetInnerHTML={{
+                    __html: studentAnswer
+                      ? renderMath(
+                          question.question_type === "math"
+                            ? `$${studentAnswer}$`
+                            : String(studentAnswer)
+                        )
+                      : "<span class='italic text-gray-400'>No answer provided</span>"
+                  }}
+                />
               </div>
 
               {/* AI Feedback */}
@@ -242,9 +273,9 @@ export default function ImprovedFeedbackDisplay({ attempt, quiz }) {
                   <p className="text-sm font-semibold text-gray-600 mb-2">
                     Feedback:
                   </p>
-                  <p className="text-base text-gray-700 leading-relaxed">
-                    {questionFeedback.feedback}
-                  </p>
+                  <p className="text-base text-gray-700 leading-relaxed"
+                    dangerouslySetInnerHTML={{ __html: renderMath(questionFeedback.feedback) }}
+                  />
                 </div>
               )}
 
@@ -275,9 +306,9 @@ export default function ImprovedFeedbackDisplay({ attempt, quiz }) {
                       </p>
                       <ul className="list-disc list-inside space-y-1">
                         {questionFeedback.points_earned.map((point, i) => (
-                          <li key={i} className="text-sm text-green-800">
-                            {point}
-                          </li>
+                          <li key={i} className="text-sm text-green-800"
+                            dangerouslySetInnerHTML={{ __html: renderMath(point) }}
+                          />
                         ))}
                       </ul>
                     </div>
@@ -291,9 +322,9 @@ export default function ImprovedFeedbackDisplay({ attempt, quiz }) {
                       </p>
                       <ul className="list-disc list-inside space-y-1">
                         {questionFeedback.points_missed.map((point, i) => (
-                          <li key={i} className="text-sm text-red-800">
-                            {point}
-                          </li>
+                          <li key={i} className="text-sm text-red-800"
+                            dangerouslySetInnerHTML={{ __html: renderMath(point) }}
+                          />
                         ))}
                       </ul>
                     </div>
@@ -308,9 +339,9 @@ export default function ImprovedFeedbackDisplay({ attempt, quiz }) {
                     <Lightbulb className="w-4 h-4" />
                     Study Tip:
                   </p>
-                  <p className="text-sm text-blue-800 leading-relaxed">
-                    {questionFeedback.study_tip}
-                  </p>
+                  <p className="text-sm text-blue-800 leading-relaxed"
+                    dangerouslySetInnerHTML={{ __html: renderMath(questionFeedback.study_tip) }}
+                  />
                 </div>
               )}
 
@@ -320,9 +351,9 @@ export default function ImprovedFeedbackDisplay({ attempt, quiz }) {
                   <p className="text-sm font-semibold text-gray-600 mb-2">
                     Model Answer:
                   </p>
-                  <p className="text-base text-gray-900 leading-relaxed">
-                    {question.correct_answer}
-                  </p>
+                  <p className="text-base text-gray-900 leading-relaxed"
+                    dangerouslySetInnerHTML={{ __html: renderMath(question.correct_answer) }}
+                  />
                 </div>
               )}
             </div>

@@ -1433,12 +1433,14 @@ export default function QuizTakePage({ params }) {
   );
 
   const openSubmitModal = useCallback(() => {
-    const mathField = document.querySelector("math-field");
-    if (mathField) {
-      const val = mathField.value?.trim();
-      if (val && val !== "\\placeholder{}")
+    // Capture ALL math-field values before showing modal
+    const allMathFields = document.querySelectorAll("math-field");
+    allMathFields.forEach((mf) => {
+      const val = mf.value?.trim();
+      if (val && val !== "\\placeholder{}") {
         setAnswers((prev) => ({ ...prev, [currentIdx]: val }));
-    }
+      }
+    });
     setTimeout(() => setShowSubmitModal(true), 50);
   }, [currentIdx]);
 
@@ -1447,6 +1449,15 @@ export default function QuizTakePage({ params }) {
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 120000); // 2 min timeout
     try {
+      // Final capture of any visible math field
+      const mf = document.querySelector("math-field");
+      if (mf) {
+        const val = mf.value?.trim();
+        if (val && val !== "\\placeholder{}") {
+          answers[currentIdx] = val;
+        }
+      }
+
       const answersDict = {};
       questions.forEach((q, idx) => {
         let answer = answers[idx];
