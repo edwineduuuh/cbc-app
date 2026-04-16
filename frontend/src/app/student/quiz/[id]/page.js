@@ -984,10 +984,18 @@ export default function QuizTakePage({ params }) {
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 120000); // 2 min timeout
     try {
-      captureMathField();
+      // Snapshot answers + capture any visible math field directly
+      const finalAnswers = { ...answers };
+      const mf = document.querySelector("math-field");
+      if (mf) {
+        const val = mf.value?.trim();
+        if (val && val !== "\\placeholder{}") {
+          finalAnswers[currentIdx] = val;
+        }
+      }
       const answersDict = {};
       questions.forEach((q, idx) => {
-        if (answers[idx]) answersDict[q.id] = answers[idx];
+        if (finalAnswers[idx]) answersDict[q.id] = finalAnswers[idx];
       });
 
       // Get token and guest session

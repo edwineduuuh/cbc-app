@@ -1458,12 +1458,19 @@ export default function QuizTakePage({ params }) {
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 120000); // 2 min timeout
     try {
-      // Final capture of any visible math field
-      captureMathField();
+      // Snapshot answers + capture any visible math field directly
+      const finalAnswers = { ...answers };
+      const mf = document.querySelector("math-field");
+      if (mf) {
+        const val = mf.value?.trim();
+        if (val && val !== "\\placeholder{}") {
+          finalAnswers[currentIdx] = val;
+        }
+      }
 
       const answersDict = {};
       questions.forEach((q, idx) => {
-        let answer = answers[idx];
+        let answer = finalAnswers[idx];
         if (answer === undefined || answer === null) return;
         if (typeof answer === "string") answer = answer.trim();
         if (
