@@ -27,6 +27,7 @@ from sympy.parsing.latex import parse_latex
 # ─────────────────────────────────────────────────────────────────────────────
 
 _gemini = None
+_claude = None
 
 def _get_gemini():
     global _gemini
@@ -34,9 +35,16 @@ def _get_gemini():
         _gemini = genai_client.Client(api_key=settings.GEMINI_API_KEY)
     return _gemini
 
+def _get_claude():
+    global _claude
+    if _claude is None:
+        _claude = anthropic.Anthropic(api_key=settings.ANTHROPIC_API_KEY)
+    return _claude
+
+CLAUDE_MODEL          = "claude-sonnet-4-20250514"
 GEMINI_MODEL          = "gemini-2.5-flash"
 GEMINI_FALLBACK_MODEL = "gemini-2.5-pro"
-MAX_RETRIES  = 1
+MAX_RETRIES  = 2
 
 MAX_TOKENS_MCQ        = 400
 MAX_TOKENS_STRUCTURED = 800
