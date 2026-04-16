@@ -33,7 +33,8 @@ def _get_gemini():
         _gemini = genai_client.Client(api_key=settings.GEMINI_API_KEY)
     return _gemini
 
-GEMINI_MODEL = "gemini-2.5-pro"
+GEMINI_MODEL          = "gemini-2.5-pro"
+GEMINI_FALLBACK_MODEL = "gemini-2.0-flash"
 MAX_RETRIES  = 4
 
 MAX_TOKENS_MCQ        = 400
@@ -376,40 +377,53 @@ def _call_gemini(
         max_output_tokens=max_tokens,
     )
 
-    for attempt in range(MAX_RETRIES):
-        try:
-            response = _get_gemini().models.generate_content(
-                model=GEMINI_MODEL,
-                contents=parts,
-                config=config,
-            )
-            if response.text is None:
-                raise Exception("Gemini returned empty response (safety filter or no candidates)")
-            return response.text
+    for model in (GEMINI_MODEL, GEMINI_FALLBACK_MODEL):
+        for attempt in range(MAX_RETRIES):
+            try:
+                response = _get_gemini().models.generate_content(
+                    model=model,
+                    contents=parts,
+                    config=config,
+                )
+                if response.text is None:
+                    # Diagnose exactly WHY the response is empty
+                    candidates = getattr(response, 'candidates', None)
+                    if candidates:
+                        for i, c in enumerate(candidates):
+                            finish_reason = getattr(c, 'finish_reason', 'UNKNOWN')
+                            safety_ratings = getattr(c, 'safety_ratings', [])
+                            print(f"🔍 Candidate {i}: finish_reason={finish_reason}")
+                            for sr in safety_ratings:
+                                print(f"   Safety: {sr.category} = {sr.probability}")
+                    else:
+                        print(f"🔍 response.candidates = {candidates}")
+                        print(f"🔍 prompt_feedback = {getattr(response, 'prompt_feedback', 'N/A')}")
+                    raise Exception("Gemini returned empty response (safety filter or no candidates)")
+                if model != GEMINI_MODEL:
+                    print(f"✅ Fallback to {model} succeeded on attempt {attempt + 1}")
+                return response.text
 
-        except Exception as e:
-            # DETAILED ERROR LOGGING FOR DEBUGGING
-            print(f"\n{'='*80}")
-            print(f"🔴 GEMINI API ERROR (Attempt {attempt + 1}/{MAX_RETRIES})")
-            print(f"Error Type: {type(e).__name__}")
-            print(f"Error Message: {str(e)}")
-            print(f"API Key (first 20 chars): {settings.GEMINI_API_KEY[:20] if settings.GEMINI_API_KEY else 'NOT SET'}")
-            print(f"Model: {GEMINI_MODEL}")
-            print(f"{'='*80}\n")
-            
-            error_str = str(e).lower()
-            if "429" in error_str or "resource" in error_str or "quota" in error_str or "503" in error_str:
-                wait = 2 ** attempt
-                print(f"⚠ Rate limited — retrying in {wait}s "
-                      f"(attempt {attempt + 1}/{MAX_RETRIES})")
-                time.sleep(wait)
-                continue
+            except Exception as e:
+                print(f"\n{'='*80}")
+                print(f"🔴 GEMINI API ERROR (Model: {model}, Attempt {attempt + 1}/{MAX_RETRIES})")
+                print(f"Error Type: {type(e).__name__}")
+                print(f"Error Message: {str(e)}")
+                print(f"API Key (first 20 chars): {settings.GEMINI_API_KEY[:20] if settings.GEMINI_API_KEY else 'NOT SET'}")
+                print(f"{'='*80}\n")
 
-            if attempt == MAX_RETRIES - 1:
-                raise Exception(f"Gemini API failed: {e}")
-            time.sleep(2 ** attempt)
+                error_str = str(e).lower()
+                if "429" in error_str or "resource" in error_str or "quota" in error_str or "503" in error_str:
+                    wait = 2 ** attempt
+                    print(f"⚠ Rate limited — retrying in {wait}s (attempt {attempt + 1}/{MAX_RETRIES})")
+                    time.sleep(wait)
+                    continue
 
-    raise Exception("Gemini API failed after all retries — rate limit persists.")
+                if attempt == MAX_RETRIES - 1:
+                    break  # try fallback model
+                time.sleep(2 ** attempt)
+        print(f"⚠ {model} exhausted all retries — trying fallback...")
+
+    raise Exception("Gemini API failed on both primary and fallback models.")
 
 
 # ─────────────────────────────────────────────────────────────────────────────
