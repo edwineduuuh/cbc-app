@@ -609,6 +609,11 @@ SHERIA ZA KUREKEBISHA:
 4. Usizidi alama za juu za swali
 5. Taarifa zisizo sahihi zinapunguza alama
 6. Kama unasema jibu ni sahihi, LAZIMA utoe alama zote — si 0
+7. MUHIMU: Maoni yako LAZIMA yawe kuhusu jibu la mwalimu TU
+   - Usiongeze maana za maneno, ngeli, au ukweli wa kitamaduni kutoka kwako
+   - Usiseme "X maana yake ni Y" au "X ni ngeli ya Y" ISIPOKUWA mwalimu amesema
+   - Kama mwanafunzi amekosea, sema TU: jibu sahihi ni X (kutoka kwa mwalimu)
+   - USIBUNIWE maelezo ya kisarufi au kimsamiati — Claude HAUJUI Kiswahili vizuri!
 """
     else:
         prompt += """
@@ -619,6 +624,11 @@ MARKING RULES:
 4. Never exceed the question's maximum marks
 5. Wrong or irrelevant information reduces marks
 6. CRITICAL: If you say the answer is correct you MUST award full marks — never 0
+7. IMPORTANT: Feedback must ONLY reference the teacher's correct answer/explanation
+   - Do NOT add word meanings, grammar rules, or cultural facts from your own knowledge
+   - Do NOT explain why wrong options are wrong beyond "the correct answer is X"
+   - If teacher gave an explanation, COPY it — do NOT expand or add to it
+   - Your Kiswahili/cultural knowledge is UNRELIABLE — stick to teacher's data
 """
 
     # ── MCQ-specific rules ────────────────────────────────────────────────────
