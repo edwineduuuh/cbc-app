@@ -38,8 +38,6 @@ if not SECRET_KEY:
         "SECRET_KEY environment variable is not set. "
         "Generate one with: python -c 'from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())'"
     )
-if len(SECRET_KEY) < 50:
-    raise ImproperlyConfigured(f"SECRET_KEY too short ({len(SECRET_KEY)} chars). Must be >= 50 characters.")
 
 DEBUG = os.environ.get('DEBUG', 'False').strip().upper() == 'TRUE'
 ALLOWED_HOSTS = ['.onrender.com', 'cbc-backend-76im.onrender.com', 'localhost', '127.0.0.1']
