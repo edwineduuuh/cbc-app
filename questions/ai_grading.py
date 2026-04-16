@@ -547,6 +547,19 @@ SHERIA ZA MWALIMU:
   - Pointi sahihi ambayo haipo kwenye mpango wa alama — TOA ALAMA
   - LAZIMA ufuate majibu ya mwalimu — usitumie maarifa yako mwenyewe
   - Rudisha JSON tu — USIANDIKE CHOCHOTE KABLA YA { au BAADA YA }
+
+⚠⚠⚠ ONYO MUHIMU SANA ⚠⚠⚠
+Maarifa yako ya Kiswahili cha Kenya SI SAHIHI — hutajua vizuri!
+USIFANYE hivi:
+  ✗ Usiseme "X ni mahali pa kuishi kwa Y" (k.m. kizimba, banda, kichuguu)
+  ✗ Usiseme "X maana yake ni Y" isipokuwa mwalimu amesema
+  ✗ Usieleze maana za maneno, makao ya wanyama, au ukweli wa kitamaduni
+  ✗ Usiseme wingi wa neno isipokuwa mwalimu ametoa wingi huo
+  ✗ Usiongeze habari yoyote ambayo HAIPO katika maelezo ya mwalimu
+FANYA hivi TU:
+  ✓ Sema jibu sahihi ni nini (kutoka kwa mwalimu)
+  ✓ Sema kwa nini chaguo la mwanafunzi si sawa (kwa sentensi fupi)
+  ✓ Ikiwa mwalimu ametoa maelezo, NAKILI maelezo hayo — usiongeze
 ========================================================
 """
     else:
@@ -562,6 +575,18 @@ RULES:
   - Correct point not in marking scheme — AWARD THE MARKS
   - Follow the teacher's answer exactly — do not override with your own knowledge
   - Return JSON only — no text before or after
+
+⚠⚠⚠ CRITICAL WARNING ⚠⚠⚠
+Your knowledge of Kenyan culture, Kiswahili vocabulary, and local facts MAY BE WRONG.
+DO NOT:
+  ✗ Explain word meanings or definitions unless the teacher's explanation says so
+  ✗ Add cultural facts (e.g. "X lives in Y", "X means Y")
+  ✗ Invent plural forms, grammatical rules, or animal habitats
+  ✗ Add ANY information not in the teacher's correct answer or explanation
+DO:
+  ✓ State what the correct answer is (from teacher)
+  ✓ Say briefly why the student's choice is wrong
+  ✓ If teacher provided an explanation, COPY it — do not add to it
 """ + ("  - No working image provided — do NOT penalise for missing working." if not has_image else "  - 🖼 Student has provided a working image — AWARD METHOD MARKS for each correct step, even if final answer differs slightly. Full marks if working shows they arrived at their submitted answer.") + """
 MATH FORMATTING — NON-NEGOTIABLE:
   - Every number, variable, exponent, fraction MUST use LaTeX syntax
@@ -604,7 +629,9 @@ SHERIA ZA MCQ:
 - Chaguo sahihi -> alama zote
 - Chaguo baya -> alama 0 — hakuna alama za sehemu
 MAONI: Anza na "Hongera!" au "Jibu si sahihi. Jibu sahihi ni ..."
-Eleza kwa nini kwa sentensi 1-2. Malizia na "Kumbuka:".
+Eleza kwa nini kwa sentensi 1-2 FUPI. Malizia na "Kumbuka:".
+USIONGEZE maelezo ya ziada ya msamiati, makao, au utamaduni!
+Tumia TU habari kutoka jibu sahihi na maelezo ya mwalimu.
 """
         else:
             prompt += """
@@ -752,7 +779,7 @@ To earn method marks from the photo:
             "Taja aya au mstari maalum wa kifungu ambapo jibu linapatikana. USIRUDIE maoni."
             if (has_passage and not is_cloze) else
             "Kidokezo kimoja kipya cha kukumbuka — mbinu rahisi au kidokezo cha mtihani. "
-            "Ikiwa huna uhakika, acha tupu."
+            "Ikiwa huna uhakika wa 100%, acha tupu ''. USIBUNIWE ukweli wako mwenyewe."
         )
         prompt += f"""
 
@@ -773,7 +800,8 @@ ALAMA ZA JUU: {max_marks}
             "Do NOT repeat the feedback."
             if (has_passage and not is_cloze) else
             "One NEW helpful tip not already in the feedback — a memory trick or exam tip. "
-            "Leave empty string if not sure."
+            "If not 100% sure the tip is factually correct, leave empty string ''. "
+            "Do NOT invent cultural facts or word definitions."
         )
         prompt += f"""
 
