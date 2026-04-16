@@ -371,13 +371,17 @@ def _call_ai(
     """
     # ── Try Claude first ──────────────────────────────────────────────────
     try:
-        return _call_claude(prompt, working_image, max_tokens)
+        result = _call_claude(prompt, working_image, max_tokens)
+        print(f"🤖 API used: Claude ({CLAUDE_MODEL})")
+        return result
     except Exception as e:
         print(f"⚠ Claude failed: {type(e).__name__}: {e}")
         print("↩ Falling back to Gemini...")
 
     # ── Gemini fallback ───────────────────────────────────────────────────
-    return _call_gemini_inner(prompt, working_image, max_tokens)
+    result = _call_gemini_inner(prompt, working_image, max_tokens)
+    print(f"🤖 API used: Gemini (fallback)")
+    return result
 
 
 def _call_claude(
