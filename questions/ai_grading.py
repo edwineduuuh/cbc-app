@@ -33,9 +33,9 @@ def _get_gemini():
         _gemini = genai_client.Client(api_key=settings.GEMINI_API_KEY)
     return _gemini
 
-GEMINI_MODEL          = "gemini-2.5-pro"
-GEMINI_FALLBACK_MODEL = "gemini-2.5-flash"
-MAX_RETRIES  = 4
+GEMINI_MODEL          = "gemini-2.5-flash"
+GEMINI_FALLBACK_MODEL = "gemini-2.5-pro"
+MAX_RETRIES  = 1
 
 MAX_TOKENS_MCQ        = 400
 MAX_TOKENS_STRUCTURED = 800
@@ -930,27 +930,44 @@ def _grade_mcq(question, student_answer: str) -> dict:
 
     # ── Bare fallback if AI completely dies ───────────────────────────────
     correct_text = options_map.get(correct_letter, "(unknown)")
+    explanation  = getattr(question, "explanation", None) or ""
     if is_correct:
+        if sw:
+            feedback = f"Hongera! Chaguo {correct_letter}: {correct_text} ni sahihi."
+            if explanation:
+                feedback += f" {explanation}"
+            feedback += f"\nKumbuka: {explanation}" if explanation else ""
+        else:
+            feedback = f"Correct! You have chosen the right answer. Option {correct_letter}: {correct_text} is correct."
+            if explanation:
+                feedback += f" {explanation}"
+                feedback += f"\nRemember: {explanation}"
         return {
             "marks_awarded":        question.max_marks,
             "max_marks":            question.max_marks,
-            "feedback":             f"Correct! Option {correct_letter}: {correct_text} is right.",
+            "feedback":             feedback,
             "is_correct":           True,
             "personalized_message": _encourage(sw),
-            "study_tip":            "",
+            "study_tip":            explanation,
             "points_earned":        [f"Option {correct_letter}: {correct_text}"],
             "points_missed":        [],
         }
+
+    if sw:
+        feedback = f"Jibu si sahihi. Jibu sahihi ni {correct_letter}: {correct_text}."
+        if explanation:
+            feedback += f" {explanation}"
+    else:
+        feedback = f"Not quite. The correct answer is Option {correct_letter}: {correct_text}."
+        if explanation:
+            feedback += f" {explanation}"
     return {
         "marks_awarded":        0,
         "max_marks":            question.max_marks,
-        "feedback":             (
-            f"Jibu si sahihi. Jibu sahihi ni {correct_letter}: {correct_text}." if sw
-            else f"Not quite. The correct answer is Option {correct_letter}: {correct_text}."
-        ),
+        "feedback":             feedback,
         "is_correct":           False,
         "personalized_message": _near_miss(sw),
-        "study_tip":            "",
+        "study_tip":            explanation,
         "points_earned":        [],
         "points_missed":        [f"Correct answer: Option {correct_letter}: {correct_text}"],
     }
@@ -1096,7 +1113,7 @@ def _grade_with_ai(
     student_raw = _sanitize_answer(str(student_answer).strip())
 
     if not student_raw or student_raw in ("none", "\\placeholder{}"):
-        if working_image and is_math:
+        if working_image and qt in ("math", "structured"):
             student_raw = "See student's working in the image above."
         else:
             msg = "Hujaandika jibu." if sw else "You did not write an answer."
