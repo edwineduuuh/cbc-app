@@ -123,9 +123,8 @@ DATABASES = {
 
 CACHES = {
     'default': {
-        'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
-        'LOCATION': 'django_cache_table',
-        'TIMEOUT': 86400 * 30,  # 30 days
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        'TIMEOUT': 86400,  # 24 hours
     }
 }
 # Password validation
