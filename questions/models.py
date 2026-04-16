@@ -159,6 +159,13 @@ class Question(models.Model):
     class Meta:
         db_table = 'questions'
         ordering = ['-created_at']
+        indexes = [
+            models.Index(fields=['topic', '-created_at'], name='q_topic_created_idx'),
+            models.Index(fields=['created_by', '-created_at'], name='q_author_created_idx'),
+            models.Index(fields=['question_type'], name='q_type_idx'),
+            models.Index(fields=['difficulty'], name='q_difficulty_idx'),
+            models.Index(fields=['-created_at'], name='q_created_idx'),
+        ]
 
     def __str__(self):
         return f"Q{self.id}: {self.question_text[:50]}..."
@@ -291,6 +298,13 @@ class Quiz(models.Model):
         db_table = 'quizzes'
         verbose_name_plural = 'Quizzes'
         ordering = ['-created_at']
+        indexes = [
+            models.Index(fields=['subject', 'is_active'], name='quiz_subj_active_idx'),
+            models.Index(fields=['created_by', '-created_at'], name='quiz_author_date_idx'),
+            models.Index(fields=['grade', 'is_active'], name='quiz_grade_active_idx'),
+            models.Index(fields=['is_active', '-created_at'], name='quiz_active_date_idx'),
+            models.Index(fields=['quiz_type'], name='quiz_type_idx'),
+        ]
     
     def __str__(self):
         return f"{self.title} (Grade {self.grade})"
@@ -336,6 +350,13 @@ class Attempt(models.Model):
     class Meta:
         db_table = 'attempts'
         ordering = ['-started_at']
+        indexes = [
+            models.Index(fields=['quiz', 'student'], name='attempt_quiz_student_idx'),
+            models.Index(fields=['student', '-started_at'], name='attempt_student_date_idx'),
+            models.Index(fields=['status', '-started_at'], name='attempt_status_date_idx'),
+            models.Index(fields=['quiz', 'status'], name='attempt_quiz_status_idx'),
+            models.Index(fields=['-started_at'], name='attempt_started_idx'),
+        ]
     
     def __str__(self):
         return f"{self.student.username} - {self.quiz.title} ({self.score}%)"
@@ -898,38 +919,6 @@ Respond with JSON:
 # from django.contrib import admin
 
 
-class AIGradingSettings(models.Model):
-    """Controls for AI grading behavior"""
-    
-    subject = models.ForeignKey(
-        Subject, 
-        on_delete=models.CASCADE, 
-        null=True, 
-        blank=True
-    )
-    grade = models.IntegerField(null=True, blank=True)
-    
-    strictness_level = models.IntegerField(default=5)
-    allow_spelling_errors = models.BooleanField(default=True)
-    award_partial_marks = models.BooleanField(default=True)
-    
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    
-    # class Meta:
-    #     db_table = 'ai_grading_settings'
-    
-    def __str__(self):
-        if self.subject and self.grade:
-            return f"{self.subject.name} Grade {self.grade}"
-        return "Global Settings"
-    
-from django.db import models
-from django.contrib.auth import get_user_model
-
-User = get_user_model()
-
-
 # ─────────────────────────────────────────────
 #  LESSON PLANS
 # ─────────────────────────────────────────────
@@ -967,10 +956,14 @@ class LessonPlan(models.Model):
 #  CLASSROOMS (Kahoot-style)
 # ─────────────────────────────────────────────
 
-class Classroom(models.Model):
+class LiveSession(models.Model):
+    """
+    Renamed from Classroom to avoid conflict with users.Classroom
+    Represents a live quiz session for real-time gameplay
+    """
     STATUS_CHOICES = [("waiting","Waiting"),("live","Live"),("ended","Ended")]
 
-    teacher       = models.ForeignKey(User, on_delete=models.CASCADE, related_name="classrooms")
+    teacher       = models.ForeignKey(User, on_delete=models.CASCADE, related_name="live_sessions")
     name          = models.CharField(max_length=200)
     subject       = models.CharField(max_length=80)
     grade         = models.CharField(max_length=20)
@@ -984,6 +977,7 @@ class Classroom(models.Model):
 
     class Meta:
         ordering = ["-created_at"]
+        db_table = "live_sessions"
 
     def __str__(self):
         return f"{self.name} [{self.join_code}]"
@@ -992,7 +986,7 @@ class Classroom(models.Model):
 class LiveQuestion(models.Model):
     TYPE_CHOICES = [("mcq","MCQ"),("truefalse","True/False"),("open","Open-Ended")]
 
-    classroom   = models.ForeignKey(Classroom, on_delete=models.CASCADE, related_name="questions")
+    classroom   = models.ForeignKey(LiveSession, on_delete=models.CASCADE, related_name="questions")
     order       = models.PositiveSmallIntegerField(default=0)
     text        = models.TextField()
     question_type = models.CharField(max_length=12, choices=TYPE_CHOICES, default="mcq")
@@ -1012,7 +1006,7 @@ class LiveQuestion(models.Model):
 # ─────────────────────────────────────────────
 
 class StudentSession(models.Model):
-    classroom   = models.ForeignKey(Classroom, on_delete=models.CASCADE, related_name="sessions")
+    classroom   = models.ForeignKey(LiveSession, on_delete=models.CASCADE, related_name="sessions")
     student_name = models.CharField(max_length=100)
     joined_at   = models.DateTimeField(auto_now_add=True)
     total_score = models.IntegerField(default=0)

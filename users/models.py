@@ -126,12 +126,23 @@ class User(AbstractUser):
             return False
 
     def use_quiz_credit(self):
-        """Decrement one free quiz credit. Returns True if credit was available."""
-        if self.quiz_credits > 0:
-            self.quiz_credits -= 1
-            self.free_quizzes_used += 1
-            self.total_quizzes_taken += 1
-            self.save(update_fields=['quiz_credits', 'free_quizzes_used', 'total_quizzes_taken'])
+        """Decrement one free quiz credit. Returns True if credit was available.
+        Uses F() expressions to prevent race conditions."""
+        from django.db.models import F
+        
+        # Atomic decrement - prevents race conditions
+        rows_updated = User.objects.filter(
+            pk=self.pk,
+            quiz_credits__gt=0
+        ).update(
+            quiz_credits=F('quiz_credits') - 1,
+            free_quizzes_used=F('free_quizzes_used') + 1,
+            total_quizzes_taken=F('total_quizzes_taken') + 1
+        )
+        
+        if rows_updated > 0:
+            # Refresh from DB to get updated values
+            self.refresh_from_db(fields=['quiz_credits', 'free_quizzes_used', 'total_quizzes_taken'])
             return True
         return False
 

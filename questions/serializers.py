@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from .models import (
     Subject, Topic, Question, Quiz, Attempt, QuestionSet, 
-    SubscriptionPlan, PaymentRequest, LessonPlan, Classroom, 
+    SubscriptionPlan, PaymentRequest, LessonPlan, LiveSession, 
     LiveQuestion, StudentSession, StudentAnswer, Passage, QuestionPart,
     MotivationalContent,
 )
@@ -394,7 +394,7 @@ class ClassroomSerializer(serializers.ModelSerializer):
     student_count  = serializers.SerializerMethodField()
 
     class Meta:
-        model  = Classroom
+        model  = LiveSession
         fields = "__all__"
         read_only_fields = ["teacher", "join_code", "status", "created_at"]
 

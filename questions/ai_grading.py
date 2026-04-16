@@ -384,6 +384,15 @@ def _call_gemini(
             return response.text
 
         except Exception as e:
+            # DETAILED ERROR LOGGING FOR DEBUGGING
+            print(f"\n{'='*80}")
+            print(f"🔴 GEMINI API ERROR (Attempt {attempt + 1}/{MAX_RETRIES})")
+            print(f"Error Type: {type(e).__name__}")
+            print(f"Error Message: {str(e)}")
+            print(f"API Key (first 20 chars): {settings.GEMINI_API_KEY[:20] if settings.GEMINI_API_KEY else 'NOT SET'}")
+            print(f"Model: {GEMINI_MODEL}")
+            print(f"{'='*80}\n")
+            
             error_str = str(e).lower()
             if "429" in error_str or "resource" in error_str or "quota" in error_str or "503" in error_str:
                 wait = 2 ** attempt

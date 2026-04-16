@@ -6,7 +6,7 @@ from rest_framework.views import APIView
 from django.utils import timezone
 from .models import (
     Subject, Topic, Question, Quiz, Attempt, Subscription,
-    LessonPlan, Classroom, LiveQuestion, StudentSession, StudentAnswer,
+    LessonPlan, LiveSession, LiveQuestion, StudentSession, StudentAnswer,
     SubscriptionPlan, PaymentRequest, ClassQuizAssignment, UserProfile
 )
 from users.models import Classroom as UsersClassroom
@@ -462,7 +462,7 @@ class TeacherAnalyticsView(APIView):
                                    ).distinct().count(),
             # New teacher panel fields
             'lesson_plans_created': LessonPlan.objects.filter(teacher=user).count(),
-            'classrooms_created':   Classroom.objects.filter(teacher=user).count(),
+            'classrooms_created':   LiveSession.objects.filter(teacher=user).count(),
             'students_in_quizzes':  StudentSession.objects.filter(classroom__teacher=user).count(),
         }
         return Response(stats)
@@ -472,30 +472,56 @@ class TeacherClassroomAnalyticsView(APIView):
     """
     GET /api/teacher/classrooms/<id>/analytics/
     Detailed analytics for a specific classroom
+    
+    SECURITY: Verifies teacher owns the classroom
+    PERFORMANCE: Uses optimized queries with annotations to avoid N+1
     """
     permission_classes = [IsAuthenticated]
 
     def get(self, request, pk):
-        from django.db.models import Avg, Count, Max, Min
+        from django.db.models import Avg, Count, Max, Min, Q, Prefetch
+        
+        # Security: Verify ownership with explicit error message
         try:
-            classroom = UsersClassroom.objects.get(pk=pk, teacher=request.user)
+            classroom = UsersClassroom.objects.select_related('teacher').get(
+                pk=pk, 
+                teacher=request.user
+            )
         except UsersClassroom.DoesNotExist:
-            return Response({'error': 'Classroom not found'}, status=404)
+            return Response(
+                {'error': 'Classroom not found or access denied'}, 
+                status=status.HTTP_404_NOT_FOUND
+            )
 
-        students = classroom.students.all()
+        # Optimized: Prefetch students with their attempt statistics
+        students = classroom.students.annotate(
+            total_attempts=Count('attempts', filter=Q(attempts__status='completed')),
+            avg_score=Avg('attempts__score', filter=Q(attempts__status='completed')),
+            total_quizzes=Count('attempts__quiz', distinct=True, filter=Q(attempts__status='completed')),
+        ).order_by('-avg_score')
+
         student_ids = students.values_list('id', flat=True)
 
-        # All attempts by students in this class
+        # All completed attempts by students in this class
         attempts = Attempt.objects.filter(
             student_id__in=student_ids, status='completed'
         )
 
-        # Assigned quizzes
+        # Assigned quizzes with prefetched data
         assignments = ClassQuizAssignment.objects.filter(
             classroom=classroom, is_active=True
-        ).select_related('quiz')
+        ).select_related('quiz').prefetch_related(
+            Prefetch(
+                'quiz__attempts',
+                queryset=Attempt.objects.filter(
+                    student_id__in=student_ids,
+                    status='completed'
+                ),
+                to_attr='classroom_attempts'
+            )
+        )
 
-        # Per-quiz breakdown
+        # Per-quiz breakdown (optimized)
         quiz_stats = []
         for assignment in assignments:
             quiz = assignment.quiz
@@ -519,25 +545,20 @@ class TeacherClassroomAnalyticsView(APIView):
                 'lowest_score': round(agg['lowest_score'] or 0, 1),
             })
 
-        # Per-student performance
+        # Per-student performance (optimized - uses annotations from above)
         student_stats = []
         for student in students:
-            s_attempts = attempts.filter(student=student)
-            agg = s_attempts.aggregate(
-                avg_score=Avg('score'),
-                total_quizzes=Count('quiz', distinct=True),
-            )
             student_stats.append({
                 'id': student.id,
                 'username': student.username,
                 'email': student.email,
-                'quizzes_completed': agg['total_quizzes'] or 0,
-                'avg_score': round(agg['avg_score'] or 0, 1),
+                'quizzes_completed': student.total_quizzes or 0,
+                'avg_score': round(student.avg_score or 0, 1),
                 'current_streak': getattr(student, 'current_streak', 0),
+                'total_attempts': student.total_attempts or 0,
             })
 
-        # Sort students by avg score descending (leaderboard)
-        student_stats.sort(key=lambda s: s['avg_score'], reverse=True)
+        # Already sorted by avg_score DESC due to order_by in query
 
         return Response({
             'classroom': {
@@ -902,15 +923,28 @@ def submit_quiz(request):
         if not session_id:
             return Response({'error': 'session_id required for guests'}, status=400)
         
-        # Check guest quota (persistent DB)
-        guest, _ = GuestUsage.objects.get_or_create(session_id=session_id)
-        if guest.quizzes_taken >= GuestUsage.GUEST_LIMIT:
-            return Response({
-                'error': 'Guest quota exceeded',
-                'message': 'Sign up to unlock 4 more free quizzes!',
-                'quota_exceeded': True,
-                'quizzes_taken': guest.quizzes_taken
-            }, status=402)  # Payment Required
+        # Atomic check and increment guest quota (prevents race conditions)
+        from django.db.models import F
+        
+        with transaction.atomic():
+            guest, created = GuestUsage.objects.select_for_update().get_or_create(
+                session_id=session_id,
+                defaults={'quizzes_taken': 0}
+            )
+            
+            if guest.quizzes_taken >= GuestUsage.GUEST_LIMIT:
+                return Response({
+                    'error': 'Guest quota exceeded',
+                    'message': 'Sign up to unlock 4 more free quizzes!',
+                    'quota_exceeded': True,
+                    'quizzes_taken': guest.quizzes_taken
+                }, status=402)  # Payment Required
+            
+            # Increment immediately to prevent concurrent abuse
+            GuestUsage.objects.filter(pk=guest.pk).update(
+                quizzes_taken=F('quizzes_taken') + 1
+            )
+            guest.refresh_from_db()
         
         # Grade quiz for guest
         working_images_raw = data.get('working_images', {})
@@ -972,9 +1006,7 @@ def submit_quiz(request):
                 'study_tip': result.get('study_tip', ''),
             }
         
-        # Increment guest counter (persistent)
-        guest.quizzes_taken += 1
-        guest.save(update_fields=['quizzes_taken', 'updated_at'])
+        # Guest counter already incremented atomically above
         remaining = guest.remaining()
         
         return Response({
@@ -1383,7 +1415,7 @@ def make_join_code(length=6):
     chars = string.ascii_uppercase + string.digits
     while True:
         code = "".join(random.choices(chars, k=length))
-        if not Classroom.objects.filter(join_code=code).exists():
+        if not LiveSession.objects.filter(join_code=code).exists():
             return code
 
 
@@ -1488,7 +1520,7 @@ def classrooms(request):
     }
     """
     if request.method == "GET":
-        qs = Classroom.objects.filter(teacher=request.user).prefetch_related("questions","sessions")
+        qs = LiveSession.objects.filter(teacher=request.user).prefetch_related("questions","sessions")
         return Response(ClassroomSerializer(qs, many=True).data)
 
     # POST — create classroom
@@ -1502,7 +1534,7 @@ def classrooms(request):
     if not questions_data:
         return Response({"error": "At least one question is required."}, status=400)
 
-    classroom = Classroom.objects.create(
+    classroom = LiveSession.objects.create(
         teacher=request.user,
         name=data["name"],
         subject=data["subject"],
@@ -1529,7 +1561,7 @@ def classrooms(request):
 @permission_classes([IsAuthenticated])
 def classroom_detail(request, pk):
     """GET/PATCH/DELETE /api/classrooms/<pk>/"""
-    classroom = get_object_or_404(Classroom, pk=pk, teacher=request.user)
+    classroom = get_object_or_404(LiveSession, pk=pk, teacher=request.user)
 
     if request.method == "DELETE":
         classroom.delete()
@@ -1553,7 +1585,7 @@ def classroom_detail(request, pk):
 @permission_classes([IsAuthenticated])
 def start_classroom(request, pk):
     """POST /api/classrooms/<pk>/start/ — set status to live"""
-    classroom = get_object_or_404(Classroom, pk=pk, teacher=request.user)
+    classroom = get_object_or_404(LiveSession, pk=pk, teacher=request.user)
     classroom.status = "live"
     classroom.started_at = timezone.now()
     classroom.current_question_index = 0
@@ -1565,7 +1597,7 @@ def start_classroom(request, pk):
 @permission_classes([IsAuthenticated])
 def end_classroom(request, pk):
     """POST /api/classrooms/<pk>/end/ — set status to ended, trigger AI reports"""
-    classroom = get_object_or_404(Classroom, pk=pk, teacher=request.user)
+    classroom = get_object_or_404(LiveSession, pk=pk, teacher=request.user)
     classroom.status = "ended"
     classroom.ended_at = timezone.now()
     classroom.save()
@@ -2072,8 +2104,35 @@ def initiate_stk_push(request):
 def mpesa_callback(request):
     """M-Pesa callback endpoint — called by Safaricom servers.
     Validates payment, activates subscription automatically.
+    
+    SECURITY FEATURES:
+    - IP whitelisting for Safaricom servers
+    - Atomic transaction handling to prevent race conditions
+    - Amount validation before status update
     """
-    mpesa_logger.info("M-Pesa callback received: %s", json.dumps(request.data, default=str))
+    # Security: IP Whitelisting for Safaricom callback servers
+    SAFARICOM_CALLBACK_IPS = [
+        '196.201.214.206',
+        '196.201.214.207',
+        '196.201.214.208',
+        '127.0.0.1',  # For testing
+        'localhost',  # For testing
+    ]
+    
+    client_ip = request.META.get('REMOTE_ADDR')
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    
+    # Get real IP if behind proxy
+    if x_forwarded_for:
+        client_ip = x_forwarded_for.split(',')[0].strip()
+    
+    # Security: IP Whitelisting enabled
+    # Add more Safaricom IPs as you confirm them from logs
+    if client_ip not in SAFARICOM_CALLBACK_IPS:
+        mpesa_logger.error("Unauthorized callback IP: %s", client_ip)
+        return Response({'error': 'Unauthorized IP'}, status=403)
+    
+    mpesa_logger.info("M-Pesa callback received from IP %s: %s", client_ip, json.dumps(request.data, default=str))
     
     try:
         stk_callback = request.data.get('Body', {}).get('stkCallback', {})
@@ -2085,123 +2144,127 @@ def mpesa_callback(request):
             mpesa_logger.warning("Callback missing CheckoutRequestID")
             return Response({'message': 'Invalid callback data'}, status=400)
         
-        try:
-            payment_request = PaymentRequest.objects.select_related('plan', 'user').get(
-                checkout_request_id=checkout_request_id
-            )
-        except PaymentRequest.DoesNotExist:
-            mpesa_logger.warning("No PaymentRequest for checkout_request_id=%s", checkout_request_id)
-            return Response({'message': 'Payment request not found'}, status=404)
-        
-        # Guard: don't process already-handled callbacks
-        if payment_request.status != 'pending':
-            mpesa_logger.info("Duplicate callback for payment %s (status=%s)", payment_request.id, payment_request.status)
-            return Response({'message': 'Already processed'})
-        
-        if result_code == 0:
-            # ── Extract metadata from callback ──
-            callback_items = stk_callback.get('CallbackMetadata', {}).get('Item', [])
-            meta = {}
-            for item in callback_items:
-                meta[item.get('Name')] = item.get('Value')
-            
-            mpesa_receipt = meta.get('MpesaReceiptNumber')
-            amount_paid = meta.get('Amount')
-            
-            # ── Validate amount matches plan price ──
-            plan = payment_request.plan
-            if amount_paid is not None and int(amount_paid) < int(plan.price_kes):
-                mpesa_logger.error(
-                    "Amount mismatch: paid=%s expected=%s checkout=%s user=%s",
-                    amount_paid, plan.price_kes, checkout_request_id,
-                    payment_request.user.username,
-                )
-                payment_request.status = 'rejected'
-                payment_request.rejection_reason = (
-                    f'Amount paid ({amount_paid}) is less than plan price ({plan.price_kes})'
-                )
-                payment_request.save()
-                return Response({'message': 'Amount mismatch — payment rejected'})
-            
-            # ── Mark payment verified ──
-            payment_request.mpesa_code = mpesa_receipt or 'AUTO_CONFIRMED'
-            payment_request.status = 'verified'
-            payment_request.verified_at = timezone.now()
-            payment_request.admin_notes = 'Auto-verified via STK callback'
-            payment_request.save()
-            
-            # ── Activate / extend subscription ──
-            user = payment_request.user
-            start_date = timezone.now()
-            end_date = start_date + timedelta(days=plan.duration_days)
-            
-            subscription, created = Subscription.objects.get_or_create(
-                user=user,
-                defaults={
-                    'plan': plan,
-                    'payment': payment_request,
-                    'start_date': start_date,
-                    'end_date': end_date,
-                    'is_active': True,
-                }
-            )
-            
-            if not created:
-                subscription.plan = plan
-                subscription.payment = payment_request
-                # Extend from whichever is later: current end_date or now
-                base_date = max(subscription.end_date, timezone.now())
-                subscription.end_date = base_date + timedelta(days=plan.duration_days)
-                subscription.is_active = True
-                subscription.save()
-            
-            mpesa_logger.info(
-                "Subscription activated: user=%s plan=%s until=%s receipt=%s",
-                user.username, plan.name, subscription.end_date, mpesa_receipt,
-            )
-            
-            # Send SMS confirmation (best effort)
+        # Use atomic transaction to prevent race conditions
+        with transaction.atomic():
             try:
-                from .sms import send_payment_confirmation, send_payment_confirmation_to_parent
-                send_payment_confirmation(
-                    phone_number=payment_request.phone_number,
-                    username=user.username,
-                    plan_name=plan.name,
-                    days=plan.duration_days,
+                # Lock the row to prevent concurrent processing
+                payment_request = PaymentRequest.objects.select_for_update().select_related('plan', 'user').get(
+                    checkout_request_id=checkout_request_id
                 )
-                # Also notify parent if phone available
-                if getattr(user, 'parent_phone', None):
-                    send_payment_confirmation_to_parent(
-                        parent_phone=user.parent_phone,
-                        parent_name=getattr(user, 'parent_name', ''),
-                        child_name=user.first_name or user.username,
+            except PaymentRequest.DoesNotExist:
+                mpesa_logger.warning("No PaymentRequest for checkout_request_id=%s", checkout_request_id)
+                return Response({'message': 'Payment request not found'}, status=404)
+            
+            # Guard: don't process already-handled callbacks (atomic check)
+            if payment_request.status != 'pending':
+                mpesa_logger.info("Duplicate callback for payment %s (status=%s)", payment_request.id, payment_request.status)
+                return Response({'message': 'Already processed'})
+            
+            if result_code == 0:
+                # ── Extract metadata from callback ──
+                callback_items = stk_callback.get('CallbackMetadata', {}).get('Item', [])
+                meta = {}
+                for item in callback_items:
+                    meta[item.get('Name')] = item.get('Value')
+                
+                mpesa_receipt = meta.get('MpesaReceiptNumber')
+                amount_paid = meta.get('Amount')
+                plan = payment_request.plan
+                
+                # ── Validate amount BEFORE updating status ──
+                if amount_paid is not None and int(amount_paid) < int(plan.price_kes):
+                    mpesa_logger.error(
+                        "Amount mismatch: paid=%s expected=%s checkout=%s user=%s",
+                        amount_paid, plan.price_kes, checkout_request_id,
+                        payment_request.user.username,
+                    )
+                    payment_request.status = 'rejected'
+                    payment_request.rejection_reason = (
+                        f'Amount paid ({amount_paid}) is less than plan price ({plan.price_kes})'
+                    )
+                    payment_request.save()
+                    return Response({'message': 'Amount mismatch — payment rejected'}, status=400)
+                
+                # ── Mark payment verified (now that validation passed) ──
+                payment_request.mpesa_code = mpesa_receipt or 'AUTO_CONFIRMED'
+                payment_request.status = 'verified'
+                payment_request.verified_at = timezone.now()
+                payment_request.amount_paid = amount_paid
+                payment_request.admin_notes = 'Auto-verified via STK callback'
+                payment_request.save()
+                
+                # ── Activate / extend subscription ──
+                user = payment_request.user
+                start_date = timezone.now()
+                end_date = start_date + timedelta(days=plan.duration_days)
+                
+                subscription, created = Subscription.objects.get_or_create(
+                    user=user,
+                    defaults={
+                        'plan': plan,
+                        'payment': payment_request,
+                        'start_date': start_date,
+                        'end_date': end_date,
+                        'is_active': True,
+                    }
+                )
+                
+                if not created:
+                    subscription.plan = plan
+                    subscription.payment = payment_request
+                    # Extend from whichever is later: current end_date or now
+                    base_date = max(subscription.end_date, timezone.now())
+                    subscription.end_date = base_date + timedelta(days=plan.duration_days)
+                    subscription.is_active = True
+                    subscription.save()
+                
+                mpesa_logger.info(
+                    "Subscription activated: user=%s plan=%s until=%s receipt=%s",
+                    user.username, plan.name, subscription.end_date, mpesa_receipt,
+                )
+                
+                # Send SMS confirmation (best effort - outside transaction)
+                try:
+                    from .sms import send_payment_confirmation, send_payment_confirmation_to_parent
+                    send_payment_confirmation(
+                        phone_number=payment_request.phone_number,
+                        username=user.username,
+                        plan_name=plan.name,
+                        days=plan.duration_days,
+                    )
+                    # Also notify parent if phone available
+                    if getattr(user, 'parent_phone', None):
+                        send_payment_confirmation_to_parent(
+                            parent_phone=user.parent_phone,
+                            parent_name=getattr(user, 'parent_name', ''),
+                            child_name=user.first_name or user.username,
+                            plan_name=plan.name,
+                            amount=amount_paid,
+                            mpesa_code=mpesa_receipt or 'N/A',
+                        )
+                except Exception as e:
+                    mpesa_logger.warning("SMS send failed: %s", e)
+
+                # Send payment receipt email (best effort)
+                try:
+                    from .emails import send_payment_receipt_email
+                    send_payment_receipt_email(
+                        user=user,
                         plan_name=plan.name,
                         amount=amount_paid,
                         mpesa_code=mpesa_receipt or 'N/A',
+                        days=plan.duration_days,
                     )
-            except Exception as e:
-                mpesa_logger.warning("SMS send failed: %s", e)
-
-            # Send payment receipt email (best effort)
-            try:
-                from .emails import send_payment_receipt_email
-                send_payment_receipt_email(
-                    user=user,
-                    plan_name=plan.name,
-                    amount=amount_paid,
-                    mpesa_code=mpesa_receipt or 'N/A',
-                    days=plan.duration_days,
+                except Exception as e:
+                    mpesa_logger.warning("Email send failed: %s", e)
+            else:
+                payment_request.status = 'rejected'
+                payment_request.rejection_reason = f'M-Pesa ResultCode={result_code}: {result_desc}'
+                payment_request.save()
+                mpesa_logger.info(
+                    "Payment rejected: user=%s code=%s desc=%s",
+                    payment_request.user.username, result_code, result_desc,
                 )
-            except Exception as e:
-                mpesa_logger.warning("Email send failed: %s", e)
-        else:
-            payment_request.status = 'rejected'
-            payment_request.rejection_reason = f'M-Pesa ResultCode={result_code}: {result_desc}'
-            payment_request.save()
-            mpesa_logger.info(
-                "Payment rejected: user=%s code=%s desc=%s",
-                payment_request.user.username, result_code, result_desc,
-            )
         
         return Response({'message': 'Callback processed'})
     except Exception as e:

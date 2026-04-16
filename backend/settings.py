@@ -18,10 +18,8 @@ import dj_database_url
 
 # Load environment variables from .env file
 load_dotenv()
-print("=" * 50)
-print("CLOUDINARY_CLOUD_NAME:", os.environ.get('CLOUDINARY_CLOUD_NAME'))
-print("CLOUDINARY_API_KEY:", os.environ.get('CLOUDINARY_API_KEY'))
-print("=" * 50)
+
+# Security: Never log credentials
 CLOUDINARY_STORAGE = {
     'CLOUD_NAME': os.environ.get('CLOUDINARY_CLOUD_NAME'),
     'API_KEY': os.environ.get('CLOUDINARY_API_KEY'),
@@ -31,7 +29,18 @@ CLOUDINARY_STORAGE = {
 # Now use environment variables
 ANTHROPIC_API_KEY = os.environ.get('ANTHROPIC_API_KEY')
 GEMINI_API_KEY = os.environ.get('GEMINI_API_KEY')
+
+# Validate SECRET_KEY
+from django.core.exceptions import ImproperlyConfigured
 SECRET_KEY = os.environ.get('SECRET_KEY')
+if not SECRET_KEY:
+    raise ImproperlyConfigured(
+        "SECRET_KEY environment variable is not set. "
+        "Generate one with: python -c 'from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())'"
+    )
+if len(SECRET_KEY) < 50:
+    raise ImproperlyConfigured(f"SECRET_KEY too short ({len(SECRET_KEY)} chars). Must be >= 50 characters.")
+
 DEBUG = os.environ.get('DEBUG', 'False').strip().upper() == 'TRUE'
 ALLOWED_HOSTS = ['.onrender.com', 'cbc-backend-76im.onrender.com', 'localhost', '127.0.0.1']
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -163,6 +172,8 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework_simplejwt.authentication.JWTAuthentication'
     ],
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 50,
 }
 
 # JWT Configuration
@@ -176,25 +187,40 @@ SIMPLE_JWT = {
     'AUTH_HEADER_TYPES': ('Bearer',),
 }
 
-# CORS Configuration - FIXED
+# CORS Configuration - Security: Use environment variables
 CORS_ALLOW_ALL_ORIGINS = False
+
+# Load allowed origins from environment variable (comma-separated)
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://localhost:3001",
-    "https://cbc-app-9nlr.vercel.app",
 ]
 
-CORS_ALLOWED_ORIGIN_REGEXES = [
-    r"^https://cbc-app-9nlr-.*\.vercel\.app$",  # This allows ALL preview deployments
-]
+# Add production origins from environment
+if os.environ.get('CORS_ALLOWED_ORIGINS'):
+    production_origins = [
+        origin.strip() 
+        for origin in os.environ.get('CORS_ALLOWED_ORIGINS', '').split(',')
+        if origin.strip()
+    ]
+    CORS_ALLOWED_ORIGINS.extend(production_origins)
+
+# Security: Removed wildcard regex - only allow specific domains
+# CORS_ALLOWED_ORIGIN_REGEXES = []  # Don't use wildcards in production
 
 CORS_ALLOW_CREDENTIALS = True
 
+# Load CSRF trusted origins from environment
 CSRF_TRUSTED_ORIGINS = [
-    "https://cbc-app-9nlr.vercel.app",
-    "https://cbc-app-9nlr-6jpwumcbt-edwineduuuhs-projects.vercel.app",
-    "https://cbc-backend-76im.onrender.com",
+    "http://localhost:3000",
 ]
+if os.environ.get('CSRF_TRUSTED_ORIGINS'):
+    csrf_origins = [
+        origin.strip()
+        for origin in os.environ.get('CSRF_TRUSTED_ORIGINS', '').split(',')
+        if origin.strip()
+    ]
+    CSRF_TRUSTED_ORIGINS.extend(csrf_origins)
 # OAuth Configuration
 INSTALLED_APPS += [
     'allauth',

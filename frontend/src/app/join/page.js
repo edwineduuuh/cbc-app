@@ -178,6 +178,31 @@ export default function JoinPage() {
             textAlign: "center",
           }}
         >
+          {/* Subscription encouragement card */}
+          <div
+            style={{
+              background: "linear-gradient(90deg, #fbbf24 0%, #f59e42 100%)",
+              borderRadius: 14,
+              padding: "18px 18px 18px 18px",
+              marginBottom: 24,
+              color: "#7c4700",
+              fontWeight: 700,
+              fontSize: 15,
+              boxShadow: "0 2px 8px 0 rgba(251,191,36,0.08)",
+              display: "flex",
+              alignItems: "center",
+              gap: 14,
+            }}
+          >
+            <span style={{ fontSize: 24, marginRight: 10 }}>⭐</span>
+            <span>
+              Want unlimited quizzes at home? <br />
+              <span style={{ color: "#b45309", fontWeight: 900 }}>
+                Subscribe to StadiSpace
+              </span>{" "}
+              for full access!
+            </span>
+          </div>
           <div
             style={{
               width: 70,

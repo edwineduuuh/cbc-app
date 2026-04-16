@@ -14,6 +14,7 @@ import {
   getCurrentUser,
   refreshAccessToken,
 } from "@/lib/api";
+import logger from "@/lib/logger";
 
 const AuthContext = createContext();
 
@@ -73,7 +74,7 @@ export function AuthProvider({ children }) {
           setUser(fullUser);
           localStorage.setItem("user", JSON.stringify(fullUser));
         } catch (refreshError) {
-          console.error("Token refresh failed:", refreshError);
+          logger.error("Token refresh failed:", refreshError);
           // Only log out if we have NO cached user to fall back on
           if (!cachedUser) logout();
         }
@@ -103,7 +104,7 @@ export function AuthProvider({ children }) {
         return quotaData;
       }
     } catch (error) {
-      console.error("Failed to fetch quota:", error);
+      logger.error("Failed to fetch quota:", error);
     }
     return null;
   };
@@ -151,7 +152,7 @@ export function AuthProvider({ children }) {
 
       return { success: true };
     } catch (error) {
-      console.error("Login error:", error);
+      logger.error("Login error:", error);
       return { success: false, error: error.message || "Login failed" };
     }
   };
@@ -171,7 +172,7 @@ export function AuthProvider({ children }) {
 
       return { success: true };
     } catch (error) {
-      console.error("Register error:", error);
+      logger.error("Register error:", error);
       return { success: false, error: error.message || "Registration failed" };
     }
   };
