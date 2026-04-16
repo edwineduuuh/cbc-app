@@ -293,6 +293,8 @@ def _parse_json_response(raw: str) -> dict:
 
     Raises json.JSONDecodeError if all strategies fail.
     """
+    if raw is None:
+        raise ValueError("Gemini returned None — no text in response")
     cleaned = raw.replace("```json", "").replace("```", "").strip()
 
     try:
@@ -381,6 +383,8 @@ def _call_gemini(
                 contents=parts,
                 config=config,
             )
+            if response.text is None:
+                raise Exception("Gemini returned empty response (safety filter or no candidates)")
             return response.text
 
         except Exception as e:
