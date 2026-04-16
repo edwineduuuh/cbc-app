@@ -360,7 +360,10 @@ class QuizListView(generics.ListAPIView):
 
 
 class QuizDetailView(generics.RetrieveAPIView):
-    queryset = Quiz.objects.filter(is_active=True)
+    queryset = Quiz.objects.filter(is_active=True).prefetch_related(
+        'questions', 'questions__topic', 'questions__topic__subject',
+        'questions__passage', 'questions__parts',
+    ).select_related('subject')
     serializer_class = QuizDetailSerializer
     permission_classes = [AllowAny]
     # @requires_subscription
@@ -383,7 +386,15 @@ class AttemptDetailView(generics.RetrieveAPIView):
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        return Attempt.objects.filter(student=self.request.user)
+        return Attempt.objects.filter(
+            student=self.request.user
+        ).select_related(
+            'quiz', 'quiz__subject', 'student'
+        ).prefetch_related(
+            'quiz__questions', 'quiz__questions__topic',
+            'quiz__questions__topic__subject', 'quiz__questions__passage',
+            'quiz__questions__parts',
+        )
 
 
 class QuestionUpdateView(generics.RetrieveUpdateDestroyAPIView):

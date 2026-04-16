@@ -9,7 +9,7 @@ from .ai_grading import grade_answer
 import time
 
 
-def grade_quiz_parallel(questions, answers, max_workers=3, working_images=None):
+def grade_quiz_parallel(questions, answers, max_workers=5, working_images=None):
     working_images = working_images or {}
     print(f"🖼 Working images received: {list(working_images.keys())}")
     """

@@ -350,16 +350,81 @@ def _detect_image_media_type(base64_data: str) -> str:
     return "image/png"
 
 
-def _call_gemini(
+def _call_ai(
     prompt: str,
     working_image: str | None = None,
     max_tokens: int = MAX_TOKENS_DEFAULT,
 ) -> str:
     """
-    Call Gemini 2.5 Pro with exponential back-off on rate limits.
+    Call Claude (primary) with Gemini fallback.
     temperature=0 for deterministic grading.
     Returns the raw text response.
     """
+    # ── Try Claude first ──────────────────────────────────────────────────
+    try:
+        return _call_claude(prompt, working_image, max_tokens)
+    except Exception as e:
+        print(f"⚠ Claude failed: {type(e).__name__}: {e}")
+        print("↩ Falling back to Gemini...")
+
+    # ── Gemini fallback ───────────────────────────────────────────────────
+    return _call_gemini_inner(prompt, working_image, max_tokens)
+
+
+def _call_claude(
+    prompt: str,
+    working_image: str | None = None,
+    max_tokens: int = MAX_TOKENS_DEFAULT,
+) -> str:
+    """Call Anthropic Claude. Returns raw text response."""
+    content = []
+    if working_image:
+        img_data = _extract_base64_payload(working_image)
+        media_type = _detect_image_media_type(working_image)
+        content.append({
+            "type": "image",
+            "source": {
+                "type": "base64",
+                "media_type": media_type,
+                "data": img_data,
+            },
+        })
+        content.append({
+            "type": "text",
+            "text": prompt + "\n\nThe student has shared a photo of their working above.",
+        })
+    else:
+        content.append({"type": "text", "text": prompt})
+
+    for attempt in range(MAX_RETRIES):
+        try:
+            response = _get_claude().messages.create(
+                model=CLAUDE_MODEL,
+                max_tokens=max_tokens,
+                temperature=0,
+                messages=[{"role": "user", "content": content}],
+            )
+            text = response.content[0].text
+            if not text:
+                raise Exception("Claude returned empty response")
+            return text
+        except anthropic.RateLimitError:
+            wait = 2 ** attempt
+            print(f"⚠ Claude rate limited — retrying in {wait}s (attempt {attempt + 1}/{MAX_RETRIES})")
+            time.sleep(wait)
+        except Exception as e:
+            if attempt == MAX_RETRIES - 1:
+                raise
+            time.sleep(2 ** attempt)
+    raise Exception("Claude API exhausted all retries.")
+
+
+def _call_gemini_inner(
+    prompt: str,
+    working_image: str | None = None,
+    max_tokens: int = MAX_TOKENS_DEFAULT,
+) -> str:
+    """Gemini fallback. Called only when Claude fails."""
     parts = []
     if working_image:
         img_data = _extract_base64_payload(working_image)
@@ -386,7 +451,6 @@ def _call_gemini(
                     config=config,
                 )
                 if response.text is None:
-                    # Diagnose exactly WHY the response is empty
                     candidates = getattr(response, 'candidates', None)
                     if candidates:
                         for i, c in enumerate(candidates):
@@ -408,7 +472,6 @@ def _call_gemini(
                 print(f"🔴 GEMINI API ERROR (Model: {model}, Attempt {attempt + 1}/{MAX_RETRIES})")
                 print(f"Error Type: {type(e).__name__}")
                 print(f"Error Message: {str(e)}")
-                print(f"API Key (first 20 chars): {settings.GEMINI_API_KEY[:20] if settings.GEMINI_API_KEY else 'NOT SET'}")
                 print(f"{'='*80}\n")
 
                 error_str = str(e).lower()
@@ -837,7 +900,7 @@ def _grade_fill_blank(question, student_answer: str) -> dict:
     # AI semantic fallback
     if not is_correct:
         try:
-            verdict   = _call_gemini(
+            verdict   = _call_ai(
                 _build_fill_blank_ai_prompt(question, student_raw, raw_correct, sw)
             ).strip().upper()
             is_correct = verdict in ("TRUE", "KWELI")
@@ -1008,7 +1071,7 @@ def _grade_math(question, student_answer: str, working_image: str | None = None)
 
     def _on_correct(display_value):
         try:
-            tip = _call_gemini(
+            tip = _call_ai(
                 _build_math_study_tip_prompt(question, display_value, grade),
             )
         except Exception:
@@ -1054,7 +1117,7 @@ def _grade_math(question, student_answer: str, working_image: str | None = None)
 
     # AI semantic check
     try:
-        verdict = _call_gemini(
+        verdict = _call_ai(
             _build_fill_blank_ai_prompt(question, student_str, correct_str, sw),
             working_image=working_image,
         ).strip().upper()
@@ -1065,7 +1128,7 @@ def _grade_math(question, student_answer: str, working_image: str | None = None)
 
     # Incorrect — generate step-by-step solution
     try:
-        solution = _call_gemini(
+        solution = _call_ai(
             _build_math_solution_prompt(question, student_str, correct_str, grade),
             working_image=working_image,
             max_tokens=1200,
@@ -1120,7 +1183,7 @@ def _grade_with_ai(
             return _empty_result(question.max_marks, msg, _near_miss(sw))
     try:
         prompt   = _build_marking_prompt(question, student_answer, sw, bool(working_image))
-        raw_text = _call_gemini(prompt, working_image, max_tokens)
+        raw_text = _call_ai(prompt, working_image, max_tokens)
         result   = _parse_json_response(raw_text)
         marks    = _safe_int_marks(result.get("marks_awarded", 0), question.max_marks)
 

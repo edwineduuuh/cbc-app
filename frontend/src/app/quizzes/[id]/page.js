@@ -1444,6 +1444,8 @@ export default function QuizTakePage({ params }) {
 
   const handleQuizSubmit = async () => {
     setSubmitting(true);
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 120000); // 2 min timeout
     try {
       const answersDict = {};
       questions.forEach((q, idx) => {
@@ -1476,14 +1478,19 @@ export default function QuizTakePage({ params }) {
         payload.session_id =
           "device_" + (localStorage.getItem("device_quizzes_used") || "0");
 
+      const fetchOpts = {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+        signal: controller.signal,
+      };
+
       const response = await (token ? fetchWithAuth : fetch)(
         `${API}/quizzes/submit/`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload),
-        },
+        fetchOpts,
       );
+
+      clearTimeout(timeout);
 
       let data;
       try {
@@ -1516,8 +1523,13 @@ export default function QuizTakePage({ params }) {
         else setResult(data);
       }
     } catch (error) {
+      clearTimeout(timeout);
       console.error("Submit error:", error);
-      alert(error.message || "Failed to submit quiz. Check your connection.");
+      if (error.name === 'AbortError') {
+        alert("Marking is taking longer than expected. Please try submitting again.");
+      } else {
+        alert(error.message || "Failed to submit quiz. Check your connection.");
+      }
     } finally {
       setSubmitting(false);
     }

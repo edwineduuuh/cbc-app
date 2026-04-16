@@ -340,7 +340,7 @@ function SubmitModal({ open, onConfirm, onCancel, unanswered, submitting }) {
                       size={16}
                       style={{ animation: "spin 1s linear infinite" }}
                     />{" "}
-                    Submitting…
+                    Marking your answers…
                   </>
                 ) : (
                   "Submit Now"
@@ -937,6 +937,8 @@ export default function QuizTakePage({ params }) {
 
   const handleQuizSubmit = async () => {
     setSubmitting(true);
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 120000); // 2 min timeout
     try {
       const answersDict = {};
       questions.forEach((q, idx) => {
@@ -973,8 +975,10 @@ export default function QuizTakePage({ params }) {
         method: "POST",
         headers: headers,
         body: JSON.stringify(payload),
+        signal: controller.signal,
       });
 
+      clearTimeout(timeout);
       const data = await response.json();
 
       // Handle quota/credits exhausted (402)
@@ -1048,7 +1052,12 @@ export default function QuizTakePage({ params }) {
         alert(`Error: ${data.error || "Submission failed"}`);
       }
     } catch (error) {
-      alert("Submission failed: " + error.message);
+      clearTimeout(timeout);
+      if (error.name === 'AbortError') {
+        alert("Marking is taking longer than expected. Please try submitting again.");
+      } else {
+        alert("Submission failed: " + error.message);
+      }
     } finally {
       setSubmitting(false);
     }
