@@ -13,6 +13,7 @@ import re
 import time
 from concurrent.futures import ThreadPoolExecutor, TimeoutError as FuturesTimeoutError, as_completed
 
+import anthropic
 from django.conf import settings
 from django.core.cache import cache
 from google import genai as genai_client
