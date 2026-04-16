@@ -875,12 +875,6 @@ def _grade_fill_blank(question, student_answer: str) -> dict:
 
 
 def _grade_mcq(question, student_answer: str) -> dict:
-    """
-    Deterministic MCQ grader using the stored A/B/C/D correct answer.
-
-    This avoids unreliable AI grading for multiple choice questions,
-    especially Kiswahili MCQs where the option letters are the only truth.
-    """
     sw = _is_kiswahili(question)
     student_raw = str(student_answer or "").strip()
 
@@ -902,50 +896,63 @@ def _grade_mcq(question, student_answer: str) -> dict:
     selected_letter = None
     normalized = _normalise(student_raw)
 
-    # Common letter-based responses
     match = re.search(r"\b([ABCD])\b", student_raw.upper())
     if match:
         selected_letter = match.group(1)
     else:
-        # Try full option text matches
         for letter, option_text in options_map.items():
             if normalized == _normalise(option_text):
                 selected_letter = letter
                 break
 
-    if selected_letter == correct_letter:
-        feedback = (
-            f"Hongera! Chaguo {correct_letter} ni sahihi." if sw
-            else f"Correct! Option {correct_letter} is right."
-        )
+    is_correct = selected_letter == correct_letter
+
+    # ── Get full rich AI feedback ─────────────────────────────────────────
+    try:
+        ai_result = _grade_with_ai(question, student_answer)
+        return {
+            **ai_result,
+            # 🔒 Verdict is OURS — AI cannot touch these two
+            "marks_awarded": question.max_marks if is_correct else 0,
+            "is_correct":    is_correct,
+            # Fix feedback prefix if AI got confused about correctness
+            "feedback": (
+                ("Correct! " + ai_result["feedback"].lstrip("Not quite. ").lstrip("Correct! "))
+                if is_correct
+                else ("Not quite. " + ai_result["feedback"].lstrip("Correct! ").lstrip("Not quite. "))
+            ),
+            "points_earned": ai_result.get("points_earned", []) if is_correct else [],
+            "points_missed": ai_result.get("points_missed", []) if not is_correct else [],
+            "personalized_message": _encourage(sw) if is_correct else _near_miss(sw),
+        }
+    except Exception as e:
+        print(f"⚠ AI feedback failed for MCQ Q{getattr(question, 'id', '?')}: {e}")
+
+    # ── Bare fallback if AI completely dies ───────────────────────────────
+    correct_text = options_map.get(correct_letter, "(unknown)")
+    if is_correct:
         return {
             "marks_awarded":        question.max_marks,
             "max_marks":            question.max_marks,
-            "feedback":             feedback,
+            "feedback":             f"Correct! Option {correct_letter}: {correct_text} is right.",
             "is_correct":           True,
             "personalized_message": _encourage(sw),
             "study_tip":            "",
-            "points_earned":        [f"Option {correct_letter}: {options_map[correct_letter]}"],
+            "points_earned":        [f"Option {correct_letter}: {correct_text}"],
             "points_missed":        [],
         }
-
-    correct_text = options_map.get(correct_letter, "(unknown)")
-    feedback = (
-        f"Jibu si sahihi. Jibu sahihi ni {correct_letter}: {correct_text}." if sw
-        else f"Not quite. The correct answer is Option {correct_letter}: {correct_text}."
-    )
     return {
         "marks_awarded":        0,
         "max_marks":            question.max_marks,
-        "feedback":             feedback,
+        "feedback":             (
+            f"Jibu si sahihi. Jibu sahihi ni {correct_letter}: {correct_text}." if sw
+            else f"Not quite. The correct answer is Option {correct_letter}: {correct_text}."
+        ),
         "is_correct":           False,
         "personalized_message": _near_miss(sw),
         "study_tip":            "",
         "points_earned":        [],
-        "points_missed":        [
-            f"Jibu sahihi: {correct_letter}: {correct_text}" if sw
-            else f"Correct answer: Option {correct_letter}: {correct_text}"
-        ],
+        "points_missed":        [f"Correct answer: Option {correct_letter}: {correct_text}"],
     }
 
 
@@ -1126,6 +1133,10 @@ def _grade_with_ai(
 
     except Exception as e:
         print(f"AI Grading Error (Q{getattr(question, 'id', '?')}): {e}")
+
+        # For MCQs, fall back to deterministic grading — never give 0 just because AI failed
+        if qt == "mcq":
+            return _grade_mcq(question, student_answer)
 
         correct_answer = getattr(question, "correct_answer", None)
         explanation    = getattr(question, "explanation", None)
