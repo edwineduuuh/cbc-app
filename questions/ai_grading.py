@@ -363,12 +363,21 @@ def _call_ai(
     prompt: str,
     working_image: str | None = None,
     max_tokens: int = MAX_TOKENS_DEFAULT,
+    use_gemini: bool = False,
 ) -> str:
     """
     Call Claude (primary) with Gemini fallback.
+    If use_gemini=True, skip Claude and go straight to Gemini
+    (used for Kiswahili questions where Gemini is more reliable).
     temperature=0 for deterministic grading.
     Returns the raw text response.
     """
+    if use_gemini:
+        print(f"🤖 Kiswahili detected — routing directly to Gemini")
+        result = _call_gemini_inner(prompt, working_image, max_tokens)
+        print(f"🤖 API used: Gemini (Kiswahili direct)")
+        return result
+
     # ── Try Claude first ──────────────────────────────────────────────────
     try:
         result = _call_claude(prompt, working_image, max_tokens)
@@ -968,7 +977,8 @@ def _grade_fill_blank(question, student_answer: str) -> dict:
     if not is_correct:
         try:
             verdict   = _call_ai(
-                _build_fill_blank_ai_prompt(question, student_raw, raw_correct, sw)
+                _build_fill_blank_ai_prompt(question, student_raw, raw_correct, sw),
+                use_gemini=sw,
             ).strip().upper()
             is_correct = verdict in ("TRUE", "KWELI")
         except Exception as e:
@@ -1149,6 +1159,7 @@ def _grade_math(question, student_answer: str, working_image: str | None = None)
         try:
             tip = _call_ai(
                 _build_math_study_tip_prompt(question, display_value, grade),
+                use_gemini=sw,
             )
         except Exception:
             tip = (
@@ -1200,6 +1211,7 @@ def _grade_math(question, student_answer: str, working_image: str | None = None)
         verdict = _call_ai(
             _build_fill_blank_ai_prompt(question, student_str, correct_str, sw),
             working_image=working_image,
+            use_gemini=sw,
         ).strip().upper()
         if verdict in ("TRUE", "KWELI"):
             return _on_correct(student_str)
@@ -1212,6 +1224,7 @@ def _grade_math(question, student_answer: str, working_image: str | None = None)
             _build_math_solution_prompt(question, student_str, correct_str, grade),
             working_image=working_image,
             max_tokens=1200,
+            use_gemini=sw,
         ).strip().replace("```", "").replace("**", "")
     except Exception:
         solution = (
@@ -1263,7 +1276,7 @@ def _grade_with_ai(
             return _empty_result(question.max_marks, msg, _near_miss(sw))
     try:
         prompt   = _build_marking_prompt(question, student_answer, sw, bool(working_image))
-        raw_text = _call_ai(prompt, working_image, max_tokens)
+        raw_text = _call_ai(prompt, working_image, max_tokens, use_gemini=sw)
         result   = _parse_json_response(raw_text)
         marks    = _safe_int_marks(result.get("marks_awarded", 0), question.max_marks)
 
