@@ -963,11 +963,28 @@ export default function QuizTakePage({ params }) {
     [currentIdx],
   );
 
+  // Capture current math-field value before navigating away
+  const captureMathField = useCallback(() => {
+    const mf = document.querySelector("math-field");
+    if (mf) {
+      const val = mf.value?.trim();
+      if (val && val !== "\\placeholder{}") {
+        setAnswers((prev) => ({ ...prev, [currentIdx]: val }));
+      }
+    }
+  }, [currentIdx]);
+
+  const goToQuestion = useCallback((idx) => {
+    captureMathField();
+    setCurrentIdx(idx);
+  }, [captureMathField]);
+
   const handleQuizSubmit = async () => {
     setSubmitting(true);
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 120000); // 2 min timeout
     try {
+      captureMathField();
       const answersDict = {};
       questions.forEach((q, idx) => {
         if (answers[idx]) answersDict[q.id] = answers[idx];
@@ -1209,7 +1226,7 @@ export default function QuizTakePage({ params }) {
         questions={questions}
         answers={answers}
         currentIdx={currentIdx}
-        onJump={setCurrentIdx}
+        onJump={goToQuestion}
         show={showNav}
       />
 
@@ -1635,7 +1652,7 @@ export default function QuizTakePage({ params }) {
           }}
         >
           <button
-            onClick={() => setCurrentIdx((p) => Math.max(0, p - 1))}
+            onClick={() => goToQuestion(Math.max(0, currentIdx - 1))}
             disabled={currentIdx === 0}
             style={{
               width: 48,
@@ -1656,7 +1673,7 @@ export default function QuizTakePage({ params }) {
 
           {currentIdx < totalQ - 1 ? (
             <button
-              onClick={() => setCurrentIdx((p) => p + 1)}
+              onClick={() => goToQuestion(currentIdx + 1)}
               style={{
                 flex: 1,
                 height: 48,
@@ -1679,7 +1696,7 @@ export default function QuizTakePage({ params }) {
             </button>
           ) : (
             <button
-              onClick={() => setShowSubmitModal(true)}
+              onClick={() => { captureMathField(); setShowSubmitModal(true); }}
               style={{
                 flex: 1,
                 height: 48,
@@ -1704,7 +1721,7 @@ export default function QuizTakePage({ params }) {
 
           {currentIdx < totalQ - 1 && unanswered === 0 && (
             <button
-              onClick={() => setShowSubmitModal(true)}
+              onClick={() => { captureMathField(); setShowSubmitModal(true); }}
               style={{
                 width: 48,
                 height: 48,
