@@ -293,13 +293,14 @@ def _safe_simplify(expr):
 
 def _parse_json_response(raw: str) -> dict:
     """
-    Parse Gemini's JSON response robustly.
+    Parse AI JSON response robustly.
 
     Strategy:
       1. Strip markdown fences (```json ... ```) and try direct parse.
-      2. Find the first JSON object that starts with "marks_awarded" —
+      2. Replace single quotes with double quotes and retry.
+      3. Find the first JSON object that starts with "marks_awarded" —
          this avoids false matches on braces inside feedback text.
-      3. Fix trailing comma issues and retry.
+      4. Fix trailing comma issues and retry.
 
     Raises json.JSONDecodeError if all strategies fail.
     """
@@ -312,18 +313,51 @@ def _parse_json_response(raw: str) -> dict:
     except json.JSONDecodeError:
         pass
 
+    # Gemini often returns single-quoted JSON — fix it
+    single_to_double = cleaned.replace("\u2018", "'").replace("\u2019", "'")
+    # Replace single quotes used as JSON delimiters (not inside strings)
+    single_to_double = re.sub(r"(?<![a-zA-Z])'([^']*?)'\s*:", r'"\1":', single_to_double)
+    single_to_double = re.sub(r":\s*'([^']*?)'", r': "\1"', single_to_double)
+    try:
+        return json.loads(single_to_double)
+    except json.JSONDecodeError:
+        pass
+
     # Targeted extraction — anchors to "marks_awarded" so inner braces
     # in feedback text (e.g. {umuhimu wa elimu}) don't cause false matches.
-    match = re.search(r'\{\s*"marks_awarded"[\s\S]*\}', cleaned)
+    match = re.search(r'\{\s*["\']marks_awarded["\'][\s\S]*\}', cleaned)
     if match:
+        candidate = match.group()
+        # Try direct parse
         try:
-            return json.loads(match.group())
+            return json.loads(candidate)
+        except json.JSONDecodeError:
+            pass
+        # Try with single-quote fix on extracted block
+        candidate_fixed = re.sub(r"(?<![a-zA-Z])'([^']*?)'\s*:", r'"\1":', candidate)
+        candidate_fixed = re.sub(r":\s*'([^']*?)'", r': "\1"', candidate_fixed)
+        try:
+            return json.loads(candidate_fixed)
         except json.JSONDecodeError:
             pass
 
     # Fix trailing commas and retry
     fixed = re.sub(r',\s*}', '}', re.sub(r',\s*]', ']', cleaned))
-    return json.loads(fixed)
+    try:
+        return json.loads(fixed)
+    except json.JSONDecodeError:
+        pass
+
+    # Last resort: try ast.literal_eval (handles single quotes natively)
+    import ast
+    try:
+        result = ast.literal_eval(cleaned)
+        if isinstance(result, dict):
+            return result
+    except (ValueError, SyntaxError):
+        pass
+
+    raise json.JSONDecodeError("All JSON parse strategies failed", cleaned, 0)
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -374,9 +408,16 @@ def _call_ai(
     """
     if use_gemini:
         print(f"🤖 Kiswahili detected — routing directly to Gemini")
-        result = _call_gemini_inner(prompt, working_image, max_tokens)
-        print(f"🤖 API used: Gemini (Kiswahili direct)")
-        return result
+        try:
+            result = _call_gemini_inner(prompt, working_image, max_tokens)
+            print(f"🤖 API used: Gemini (Kiswahili direct)")
+            return result
+        except Exception as e:
+            print(f"⚠ Gemini failed for Kiswahili: {type(e).__name__}: {e}")
+            print("↩ Falling back to Claude for Kiswahili...")
+            result = _call_claude(prompt, working_image, max_tokens)
+            print(f"🤖 API used: Claude (Kiswahili fallback)")
+            return result
 
     # ── Try Claude first ──────────────────────────────────────────────────
     try:
