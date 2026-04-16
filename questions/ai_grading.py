@@ -34,7 +34,7 @@ def _get_gemini():
     return _gemini
 
 GEMINI_MODEL          = "gemini-2.5-pro"
-GEMINI_FALLBACK_MODEL = "gemini-2.0-flash"
+GEMINI_FALLBACK_MODEL = "gemini-2.5-flash"
 MAX_RETRIES  = 4
 
 MAX_TOKENS_MCQ        = 400
@@ -391,7 +391,7 @@ def _call_gemini(
                     if candidates:
                         for i, c in enumerate(candidates):
                             finish_reason = getattr(c, 'finish_reason', 'UNKNOWN')
-                            safety_ratings = getattr(c, 'safety_ratings', [])
+                            safety_ratings = getattr(c, 'safety_ratings', None) or []
                             print(f"🔍 Candidate {i}: finish_reason={finish_reason}")
                             for sr in safety_ratings:
                                 print(f"   Safety: {sr.category} = {sr.probability}")
@@ -1134,10 +1134,6 @@ def _grade_with_ai(
     except Exception as e:
         print(f"AI Grading Error (Q{getattr(question, 'id', '?')}): {e}")
 
-        # For MCQs, fall back to deterministic grading — never give 0 just because AI failed
-        if qt == "mcq":
-            return _grade_mcq(question, student_answer)
-
         correct_answer = getattr(question, "correct_answer", None)
         explanation    = getattr(question, "explanation", None)
 
@@ -1192,7 +1188,9 @@ def _route(
 ) -> dict:
     """Route a question to the correct grader based on question_type."""
     qt = question.question_type
-    if qt in ("mcq", "structured", "essay"):
+    if qt == "mcq":
+        return _grade_mcq(question, student_answer)
+    if qt in ("structured", "essay"):
         return _grade_with_ai(question, student_answer, working_image)
     if qt == "fill_blank":
         return _grade_fill_blank(question, student_answer)
