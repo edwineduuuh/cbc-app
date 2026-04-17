@@ -991,7 +991,7 @@ export default function QuizTakePage({ params }) {
   const handleQuizSubmit = async () => {
     setSubmitting(true);
     const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 120000); // 2 min timeout
+    const timeout = setTimeout(() => controller.abort(), 180000); // 3 min timeout
     try {
       // Snapshot answers + capture any visible math field directly
       const finalAnswers = { ...answers };

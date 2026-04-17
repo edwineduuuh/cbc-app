@@ -231,7 +231,7 @@ export default function LandingPage() {
         }}
         className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md"
       >
-        <div className="max-w-5xl mx-auto px-4 sm:px-6">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <Link href="/">
               <div className="font-bold text-white text-xl px-3 py-2 rounded-xl bg-gradient-to-br from-slate-800 to-teal-700">
@@ -372,14 +372,14 @@ export default function LandingPage() {
 
       {/* ── HERO ── */}
       <section
-        className="pt-32 pb-0 relative overflow-hidden"
+        className="pt-28 pb-20 relative overflow-hidden"
         style={{
           background:
             "linear-gradient(160deg, #ffffff 0%, #f0f4f8 60%, #e8f4f8 100%)",
         }}
       >
         <div
-          className="absolute top-0 right-0 w-[600px] h-[600px] rounded-full opacity-10"
+          className="absolute top-0 right-0 w-[400px] h-[400px] rounded-full opacity-8"
           style={{
             background: "radial-gradient(circle, #0e7490, transparent)",
             filter: "blur(130px)",
@@ -387,7 +387,7 @@ export default function LandingPage() {
           }}
         />
         <div
-          className="absolute bottom-0 left-0 w-[400px] h-[400px] rounded-full opacity-10"
+          className="absolute bottom-0 left-0 w-[300px] h-[300px] rounded-full opacity-8"
           style={{
             background: "radial-gradient(circle, #0f1f3d, transparent)",
             filter: "blur(100px)",
@@ -395,8 +395,8 @@ export default function LandingPage() {
           }}
         />
 
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 relative">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center pb-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
             <div>
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -436,8 +436,8 @@ export default function LandingPage() {
                 transition={{ duration: 0.7, delay: 0.1 }}
                 style={{
                   fontFamily: "'Cormorant Garamond', serif",
-                  fontSize: "clamp(46px, 6vw, 72px)",
-                  lineHeight: 1.05,
+                  fontSize: "clamp(34px, 5vw, 58px)",
+                  lineHeight: 1.12,
                   color: "#0f1f3d",
                   marginBottom: 24,
                   fontWeight: 700,
@@ -462,7 +462,7 @@ export default function LandingPage() {
                   fontSize: 17,
                   lineHeight: 1.8,
                   marginBottom: 36,
-                  maxWidth: 460,
+                  maxWidth: 520,
                 }}
               >
                 Where every question becomes a quest, every answer sparks
@@ -800,7 +800,7 @@ export default function LandingPage() {
                 transition={{ delay: 1.1 }}
                 style={{
                   position: "absolute",
-                  right: -20,
+                  right: -10,
                   top: 20,
                   background: "white",
                   border: "1px solid #e2e8f0",
@@ -854,7 +854,7 @@ export default function LandingPage() {
                 transition={{ delay: 1.3 }}
                 style={{
                   position: "absolute",
-                  left: -20,
+                  left: -10,
                   bottom: 40,
                   background: "linear-gradient(135deg, #0f1f3d, #1e3a6e)",
                   borderRadius: 14,
@@ -882,9 +882,9 @@ export default function LandingPage() {
       {/* ── STATS BAR ── */}
       <section
         style={{ background: "#0f1f3d", borderTop: "1px solid #1e3a6e" }}
-        className="py-12"
+        className="py-14"
       >
-        <div className="max-w-5xl mx-auto px-6 sm:px-6 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
           {[
             { value: "Grade 4–10", label: "Fully Covered" },
             { value: "500+", label: "Expert Questions" },
@@ -913,13 +913,13 @@ export default function LandingPage() {
 
       {/* ── MANIFESTO ── */}
       <section
+        className="py-20 lg:py-28"
         style={{
           background: "#f0f4f8",
           borderBottom: "1px solid #e2e8f0",
-          padding: "80px 0",
         }}
       >
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <FadeIn>
             <p
               style={{
@@ -980,8 +980,8 @@ export default function LandingPage() {
       </section>
 
       {/* ── TRUST BANNER ── */}
-      <section style={{ background: "#0e7490", padding: "48px 0" }}>
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 text-center">
+      <section style={{ background: "#0e7490", padding: "56px 0" }}>
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <FadeIn>
             <p
               style={{
@@ -1035,8 +1035,8 @@ export default function LandingPage() {
       </section>
 
       {/* ── FEATURES ── */}
-      <section id="features" className="py-24" style={{ background: "white" }}>
-        <div className="max-w-5xl mx-auto px-4 sm:px-6">
+      <section id="features" className="py-20 lg:py-28" style={{ background: "white" }}>
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <FadeIn className="text-center max-w-2xl mx-auto mb-16">
             <p
               style={{
@@ -1069,7 +1069,7 @@ export default function LandingPage() {
             </p>
           </FadeIn>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {features.map((f, i) => (
               <FadeIn key={f.title} delay={i * 0.1}>
                 <div
@@ -1120,10 +1120,10 @@ export default function LandingPage() {
       {/* ── HOW IT WORKS ── */}
       <section
         id="how-it-works"
-        className="py-24"
+        className="py-20 lg:py-28"
         style={{ background: "#f0f4f8" }}
       >
-        <div className="max-w-5xl mx-auto px-4 sm:px-6">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <FadeIn className="text-center max-w-xl mx-auto mb-16">
             <p
               style={{
@@ -1228,8 +1228,8 @@ export default function LandingPage() {
       </section>
 
       {/* ── TESTIMONIALS ── */}
-      <section className="py-24" style={{ background: "white" }}>
-        <div className="max-w-5xl mx-auto px-4 sm:px-6">
+      <section className="py-20 lg:py-28" style={{ background: "white" }}>
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <FadeIn className="text-center max-w-xl mx-auto mb-16">
             <p
               style={{
@@ -1355,8 +1355,8 @@ export default function LandingPage() {
       </section>
 
       {/* ── FOR TEACHERS ── */}
-      <section id="teachers" className="py-24" style={{ background: "#fff" }}>
-        <div className="max-w-5xl mx-auto px-4 sm:px-6">
+      <section id="teachers" className="py-20 lg:py-28" style={{ background: "#fff" }}>
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <FadeIn className="text-center max-w-xl mx-auto mb-12">
             <p
               style={{
@@ -1479,8 +1479,8 @@ export default function LandingPage() {
       </section>
 
       {/* ── PRICING ── */}
-      <section id="pricing" className="py-24" style={{ background: "#f0f4f8" }}>
-        <div className="max-w-5xl mx-auto px-4 sm:px-6">
+      <section id="pricing" className="py-20 lg:py-28" style={{ background: "#f0f4f8" }}>
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <FadeIn className="text-center max-w-xl mx-auto mb-16">
             <p
               style={{
@@ -1512,7 +1512,7 @@ export default function LandingPage() {
             </p>
           </FadeIn>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
             {/* Weekly */}
             <FadeIn delay={0.1}>
               <div
@@ -1928,8 +1928,8 @@ export default function LandingPage() {
       </section>
 
       {/* ── FAQ ── */}
-      <section id="faq" className="py-24" style={{ background: "white" }}>
-        <div className="max-w-3xl mx-auto px-4 sm:px-6">
+      <section id="faq" className="py-20 lg:py-28" style={{ background: "white" }}>
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           <FadeIn className="text-center mb-14">
             <p
               style={{
@@ -1974,7 +1974,7 @@ export default function LandingPage() {
 
       {/* ── FINAL CTA ── */}
       <section
-        className="py-24 relative overflow-hidden"
+        className="py-20 lg:py-28 relative overflow-hidden"
         style={{ background: "#0f1f3d" }}
       >
         <div
@@ -1984,7 +1984,7 @@ export default function LandingPage() {
               "radial-gradient(ellipse 70% 60% at 50% 100%, rgba(14,116,144,0.2) 0%, transparent 70%)",
           }}
         />
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center relative">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative">
           <FadeIn>
             <p
               style={{
@@ -2060,7 +2060,7 @@ export default function LandingPage() {
         style={{ background: "#080f1e", borderTop: "1px solid #1e3a6e" }}
         className="py-16"
       >
-        <div className="max-w-5xl mx-auto px-4 sm:px-6">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div
             className="grid grid-cols-2 md:grid-cols-5 gap-8 pb-12"
             style={{ borderBottom: "1px solid #1e3a6e" }}

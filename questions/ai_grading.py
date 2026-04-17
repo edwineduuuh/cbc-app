@@ -36,10 +36,9 @@ def _get_gemini():
     return _gemini
 
 def _get_claude():
-    global _claude
-    if _claude is None:
-        _claude = anthropic.Anthropic(api_key=settings.ANTHROPIC_API_KEY)
-    return _claude
+    """Return a fresh Claude client each time to avoid 'client has been closed'
+    errors in threaded parallel grading (ThreadPoolExecutor)."""
+    return anthropic.Anthropic(api_key=settings.ANTHROPIC_API_KEY)
 
 CLAUDE_MODEL          = "claude-sonnet-4-20250514"
 GEMINI_MODEL          = "gemini-2.5-flash"
