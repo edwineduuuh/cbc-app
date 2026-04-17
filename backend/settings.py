@@ -189,6 +189,7 @@ CORS_ALLOW_ALL_ORIGINS = False
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://localhost:3001",
+    "https://cbc-app-9nlr.vercel.app",
 ]
 
 # Add production origins from environment
@@ -208,6 +209,7 @@ CORS_ALLOW_CREDENTIALS = True
 # Load CSRF trusted origins from environment
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost:3000",
+    "https://cbc-app-9nlr.vercel.app",
 ]
 if os.environ.get('CSRF_TRUSTED_ORIGINS'):
     csrf_origins = [

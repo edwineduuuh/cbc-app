@@ -2130,12 +2130,13 @@ def mpesa_callback(request):
     - Amount validation before status update
     """
     # Security: IP Whitelisting for Safaricom callback servers
+    # Safaricom uses many IPs — on Render/cloud platforms behind proxies,
+    # the real IP may not be reliably extractable. Log and allow for now,
+    # relying on checkout_request_id validation as the primary security check.
     SAFARICOM_CALLBACK_IPS = [
-        '196.201.214.206',
-        '196.201.214.207',
-        '196.201.214.208',
-        '127.0.0.1',  # For testing
-        'localhost',  # For testing
+        '196.201.214.200', '196.201.214.206', '196.201.214.207', '196.201.214.208',
+        '196.201.213.114', '196.201.214.127', '196.201.214.128',
+        '127.0.0.1', 'localhost',
     ]
     
     client_ip = request.META.get('REMOTE_ADDR')
@@ -2145,11 +2146,9 @@ def mpesa_callback(request):
     if x_forwarded_for:
         client_ip = x_forwarded_for.split(',')[0].strip()
     
-    # Security: IP Whitelisting enabled
-    # Add more Safaricom IPs as you confirm them from logs
+    # Log IP but don't block — Safaricom has many IPs and cloud proxies are unreliable
     if client_ip not in SAFARICOM_CALLBACK_IPS:
-        mpesa_logger.error("Unauthorized callback IP: %s", client_ip)
-        return Response({'error': 'Unauthorized IP'}, status=403)
+        mpesa_logger.warning("Callback from unknown IP: %s (allowing — checkout_request_id will validate)", client_ip)
     
     mpesa_logger.info("M-Pesa callback received from IP %s: %s", client_ip, json.dumps(request.data, default=str))
     
