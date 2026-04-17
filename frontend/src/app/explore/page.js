@@ -42,7 +42,7 @@ export default function ExplorePage() {
   const [loadingSubjects, setLoadingSubjects] = useState(false);
   const [loadingQuizzes, setLoadingQuizzes] = useState(false);
 
-  const [freeAttemptsLeft, setFreeAttemptsLeft] = useState(2);
+  const [freeAttemptsLeft, setFreeAttemptsLeft] = useState(4);
   const [isSubscribed, setIsSubscribed] = useState(false);
 
   // Credits
@@ -51,7 +51,7 @@ export default function ExplorePage() {
       const deviceUsed = parseInt(
         localStorage.getItem("device_quizzes_used") || "0",
       );
-      setFreeAttemptsLeft(Math.max(0, 2 - deviceUsed));
+      setFreeAttemptsLeft(Math.max(0, 4 - deviceUsed));
       return;
     }
     const token = localStorage.getItem("accessToken");
@@ -147,7 +147,7 @@ export default function ExplorePage() {
       const deviceUsed = parseInt(
         localStorage.getItem("device_quizzes_used") || "0",
       );
-      if (deviceUsed >= 2) {
+      if (deviceUsed >= 4) {
         router.push("/register?reason=quota");
         return;
       }

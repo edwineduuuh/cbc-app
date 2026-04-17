@@ -7,7 +7,7 @@ from django.utils import timezone
 from .models import (
     Subject, Topic, Question, Quiz, Attempt, Subscription,
     LessonPlan, LiveSession, LiveQuestion, StudentSession, StudentAnswer,
-    SubscriptionPlan, PaymentRequest, ClassQuizAssignment, UserProfile
+    SubscriptionPlan, PaymentRequest, ClassQuizAssignment
 )
 from users.models import Classroom as UsersClassroom
 from django.contrib.auth import get_user_model
