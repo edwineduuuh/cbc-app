@@ -420,6 +420,7 @@ function PaymentModal({ plan, onClose, onSuccess }) {
   const [phone, setPhone] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [pollingTimedOut, setPollingTimedOut] = useState(false);
 
   // Only allow digits, strip leading 0, max 9 digits (after 254)
   const handlePhoneChange = (e) => {
@@ -484,7 +485,10 @@ function PaymentModal({ plan, onClose, onSuccess }) {
       }
     }, 5000);
 
-    setTimeout(() => clearInterval(interval), 120000);
+    setTimeout(() => {
+      clearInterval(interval);
+      setPollingTimedOut(true);
+    }, 120000);
   };
 
   return (
@@ -599,22 +603,58 @@ function PaymentModal({ plan, onClose, onSuccess }) {
               animate={{ opacity: 1 }}
               className="text-center space-y-5 py-4"
             >
-              <div className="w-20 h-20 bg-teal-50 rounded-full flex items-center justify-center mx-auto">
-                <div className="w-10 h-10 border-3 border-teal-600 border-t-transparent rounded-full animate-spin" />
-              </div>
-              <div>
-                <h3 className="text-xl font-bold text-gray-900 mb-1">
-                  Check Your Phone
-                </h3>
-                <p className="text-sm text-gray-500">
-                  M-Pesa prompt sent to{" "}
-                  <strong className="text-gray-900">+{fullPhone}</strong>. Enter
-                  your PIN.
-                </p>
-              </div>
-              <div className="bg-amber-50 border border-amber-200 rounded-lg p-3 text-amber-700 text-xs font-medium">
-                Waiting for confirmation... Do not close this window.
-              </div>
+              {pollingTimedOut ? (
+                <>
+                  <div className="w-20 h-20 bg-amber-50 rounded-full flex items-center justify-center mx-auto">
+                    <Clock className="w-10 h-10 text-amber-600" />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-bold text-gray-900 mb-1">
+                      Not Confirmed Yet
+                    </h3>
+                    <p className="text-sm text-gray-500">
+                      We haven&apos;t received M-Pesa confirmation. Check your phone for an M-Pesa message. If you paid, your subscription will activate automatically.
+                    </p>
+                  </div>
+                  <div className="flex gap-3">
+                    <button
+                      onClick={() => {
+                        setPollingTimedOut(false);
+                        setStep(1);
+                        setError("");
+                      }}
+                      className="flex-1 bg-teal-600 text-white font-bold py-3 rounded-xl hover:bg-teal-700 transition-all text-sm"
+                    >
+                      Try Again
+                    </button>
+                    <button
+                      onClick={onClose}
+                      className="flex-1 bg-gray-100 text-gray-700 font-bold py-3 rounded-xl hover:bg-gray-200 transition-all text-sm"
+                    >
+                      Close
+                    </button>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className="w-20 h-20 bg-teal-50 rounded-full flex items-center justify-center mx-auto">
+                    <div className="w-10 h-10 border-3 border-teal-600 border-t-transparent rounded-full animate-spin" />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-bold text-gray-900 mb-1">
+                      Check Your Phone
+                    </h3>
+                    <p className="text-sm text-gray-500">
+                      M-Pesa prompt sent to{" "}
+                      <strong className="text-gray-900">+{fullPhone}</strong>. Enter
+                      your PIN.
+                    </p>
+                  </div>
+                  <div className="bg-amber-50 border border-amber-200 rounded-lg p-3 text-amber-700 text-xs font-medium">
+                    Waiting for confirmation... Do not close this window.
+                  </div>
+                </>
+              )}
             </motion.div>
           )}
 

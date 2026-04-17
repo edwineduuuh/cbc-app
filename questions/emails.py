@@ -69,9 +69,9 @@ def send_welcome_email(user):
     message = (
         f"Hi {parent_name},\n\n"
         f"Welcome to StadiSpace! {child_name}'s account is ready with "
-        f"4 free quizzes to explore.\n\n"
+        f"2 free quizzes to explore.\n\n"
         f"What {child_name} gets:\n"
-        f"  - 4 free quizzes with full AI-powered feedback\n"
+        f"  - 2 free quizzes with full AI-powered feedback\n"
         f"  - All CBE learning areas, Grades 4–10\n"
         f"  - Instant marking with detailed explanations\n"
         f"  - Progress tracking and performance analytics\n\n"

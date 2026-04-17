@@ -140,7 +140,7 @@ export default function LandingPage() {
     {
       n: "01",
       title: "Explore. No commitment.",
-      desc: "Browse quizzes across all learning areas. Try 4 completely free - no signup, no card, no pressure.",
+      desc: "Browse quizzes across all learning areas. Try 2 completely free - no signup, no card, no pressure.",
     },
     {
       n: "02",
@@ -157,7 +157,7 @@ export default function LandingPage() {
   const faqs = [
     {
       q: "Can I try before subscribing?",
-      a: "Yes. Browse all quizzes and try 4 completely free - no account needed, no card required. When you're ready for more, subscribe.",
+      a: "Yes. Browse all quizzes and try 2 completely free - no account needed, no card required. When you're ready for more, subscribe.",
     },
     {
       q: "Who creates the questions?",
@@ -495,7 +495,7 @@ export default function LandingPage() {
                     }}
                     className="hover:scale-[1.02] transition-all duration-200 group"
                   >
-                    Try 4 Free Quizzes - No Signup
+                    Try 2 Free Quizzes - No Signup
                     <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                   </button>
                 </Link>
@@ -548,7 +548,7 @@ export default function LandingPage() {
                 </div>
                 <p style={{ color: "#94a3b8", fontSize: 13 }}>
                   <span style={{ color: "#0f1f3d", fontWeight: 600 }}>
-                    4 free quizzes
+                    2 free quizzes
                   </span>{" "}
                   to start. No card. No pressure.
                 </p>
@@ -1004,7 +1004,7 @@ export default function LandingPage() {
                 marginBottom: 24,
               }}
             >
-              Four free quizzes. No account. No card.
+              Two free quizzes. No account. No card.
               <br />
               <em style={{ color: "rgba(255,255,255,0.75)" }}>
                 Just your child and a question.
@@ -2023,7 +2023,7 @@ export default function LandingPage() {
                 margin: "0 auto 40px",
               }}
             >
-              Four free quizzes. No account. No commitment. Just a student, a
+              Two free quizzes. No account. No commitment. Just a student, a
               question, and everything that follows when they finally understand{" "}
               <em>why.</em>
             </p>
@@ -2049,7 +2049,7 @@ export default function LandingPage() {
               </button>
             </Link>
             <p style={{ color: "#475569", fontSize: 13, marginTop: 16 }}>
-              4 free quizzes · M-Pesa accepted · Cancel anytime
+              2 free quizzes · M-Pesa accepted · Cancel anytime
             </p>
           </FadeIn>
         </div>

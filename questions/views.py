@@ -1202,6 +1202,12 @@ def credits_status(request):
     try:
         subscription = Subscription.objects.get(user=user)
         if subscription.is_valid:
+            days_left = subscription.days_remaining
+            expiry_warning = None
+            if days_left <= 3:
+                expiry_warning = f'⚠️ Your {subscription.plan.name} plan expires in {days_left} day{"s" if days_left != 1 else ""}! Renew now to keep learning.'
+            elif days_left <= 7:
+                expiry_warning = f'Your {subscription.plan.name} plan expires in {days_left} days.'
             return Response({
                 'has_access': True,
                 'quiz_credits': 'unlimited',
@@ -1209,6 +1215,8 @@ def credits_status(request):
                 'subscription_status': 'active',
                 'subscription_plan': subscription.plan.name,
                 'subscription_expires': subscription.end_date,
+                'days_remaining': days_left,
+                'expiry_warning': expiry_warning,
                 'message': f'✨ {subscription.plan.name} - Unlimited access'
             })
     except Subscription.DoesNotExist:
@@ -2326,7 +2334,7 @@ def check_quiz_access(request):
     elif credits > 0:
         message = f'{credits} free quiz{"zes" if credits != 1 else ""} remaining'
     else:
-        message = 'You have used all 4 free quizzes. Subscribe to continue!'
+        message = 'You have used all your free quizzes. Subscribe to continue!'
     
     return Response({
         'can_access': can_access,
@@ -2355,7 +2363,7 @@ def start_quiz_with_check(request, quiz_id):
     if not has_subscription and credits <= 0:
         return Response({
             'error': 'Payment required',
-            'message': 'You have used all 4 free quizzes. Subscribe to continue!',
+            'message': 'You have used all your free quizzes. Subscribe to continue!',
             'redirect': '/subscribe',
         }, status=402)
     

@@ -1694,7 +1694,7 @@ export default function AttemptResultsPage() {
                   marginBottom: 4,
                 }}
               >
-                You have used your 4 free quizzes
+                You have used your 2 free quizzes
               </p>
               <p style={{ fontSize: 13, color: "#1e40af", lineHeight: 1.5 }}>
                 Subscribe for KES 500/month to keep going — unlimited quizzes,

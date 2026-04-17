@@ -39,7 +39,7 @@ class RegisterView(generics.CreateAPIView):
                 send_sms(
                     user.parent_phone,
                     f"Hi {user.parent_name or 'there'}! {child_name} just joined StadiSpace. "
-                    f"They have 4 free quizzes to try — full feedback included. "
+                    f"They have 2 free quizzes to try — full feedback included. "
                     f"See their progress at stadispace.co.ke"
                 )
             except BaseException:

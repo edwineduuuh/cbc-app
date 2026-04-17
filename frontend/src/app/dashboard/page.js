@@ -358,6 +358,7 @@ export default function DashboardPage() {
   const router = useRouter();
   const [stats, setStats] = useState(null);
   const [isPremium, setIsPremium] = useState(false);
+  const [expiryWarning, setExpiryWarning] = useState(null);
   const [loading, setLoading] = useState(true);
   const [quote] = useState(
     () => QUOTES[Math.floor(Math.random() * QUOTES.length)],
@@ -399,6 +400,9 @@ export default function DashboardPage() {
         creditsData.has_subscription === true ||
           creditsData.quiz_credits === "unlimited",
       );
+      if (creditsData.expiry_warning) {
+        setExpiryWarning(creditsData.expiry_warning);
+      }
     } catch (error) {
       console.error("Failed to fetch data:", error);
     } finally {
@@ -429,6 +433,19 @@ export default function DashboardPage() {
         .font-display { font-family: 'Playfair Display', serif; }
         * { font-family: 'DM Sans', sans-serif; }
       `}</style>
+
+      {/* Subscription expiry warning */}
+      {expiryWarning && (
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+          <div className="flex items-center gap-3 bg-amber-50 border border-amber-200 text-amber-800 px-5 py-3 rounded-xl">
+            <span className="text-lg">⚠️</span>
+            <span className="text-sm font-semibold flex-1">{expiryWarning}</span>
+            <a href="/subscribe" className="text-xs font-bold text-amber-900 bg-amber-200 px-3 py-1.5 rounded-lg hover:bg-amber-300 transition-colors whitespace-nowrap">
+              Renew Now
+            </a>
+          </div>
+        </div>
+      )}
 
       {/* Header with Quote */}
       <div className="bg-gradient-to-r from-slate-800 via-slate-700 to-teal-700">

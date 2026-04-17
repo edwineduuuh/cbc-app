@@ -507,17 +507,17 @@ export default function ExplorePage() {
                   <Sparkles className="w-8 h-8 text-white" />
                 </div>
                 <h2 className="text-2xl font-bold text-gray-900 mb-2">
-                  You've used your 4 free quizzes!
+                  You've used your 2 free quizzes!
                 </h2>
                 <p className="text-gray-600">
-                  Sign up now to get <strong>4 MORE free quizzes</strong> + save
+                  Sign up now to get <strong>2 MORE free quizzes</strong> + save
                   your progress
                 </p>
               </div>
 
               <div className="space-y-3 mb-6">
                 {[
-                  "4 more free quiz attempts",
+                  "2 more free quiz attempts",
                   "Save all your results",
                   "Track your improvement",
                   "No credit card required",
@@ -577,7 +577,7 @@ export default function ExplorePage() {
                   <Trophy className="w-8 h-8 text-white" />
                 </div>
                 <h2 className="text-2xl font-bold text-gray-900 mb-2">
-                  You've completed 4 free quizzes!
+                  You've completed 2 free quizzes!
                 </h2>
                 <p className="text-gray-600">
                   Subscribe for <strong>unlimited quizzes</strong>

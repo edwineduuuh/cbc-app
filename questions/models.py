@@ -1040,7 +1040,7 @@ class GuestUsage(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-    GUEST_LIMIT = 4
+    GUEST_LIMIT = 2
 
     def remaining(self):
         return max(0, self.GUEST_LIMIT - self.quizzes_taken)

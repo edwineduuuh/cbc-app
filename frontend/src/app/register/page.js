@@ -122,7 +122,7 @@ function RegisterPage() {
     "block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1.5";
 
   const perks = [
-    "4 free quizzes, no card needed",
+    "2 free quizzes, no card needed",
     "All CBE learning areas, Grades 4–10",
     "AI-powered instant marking",
     "Pay via M-Pesa when ready",
@@ -232,7 +232,7 @@ function RegisterPage() {
                       You are enjoying StadiSpace!
                     </p>
                     <p className="text-emerald-700 text-xs mt-0.5">
-                      Create a free account to unlock 4 free quizzes — no
+                      Create a free account to unlock 2 free quizzes — no
                       payment needed.
                     </p>
                   </div>
@@ -544,7 +544,7 @@ function RegisterPage() {
               <div className="mt-5 flex items-center justify-center gap-2 bg-amber-50 border border-amber-200 rounded-xl px-5 py-3">
                 <span className="text-amber-500">✦</span>
                 <p className="text-xs font-medium text-amber-800">
-                  4 free quizzes · Full AI feedback · No credit card · M-Pesa
+                  2 free quizzes · Full AI feedback · No credit card · M-Pesa
                   accepted
                 </p>
               </div>

@@ -29,7 +29,7 @@ def requires_subscription(view_func):
                 'error': 'No free quizzes remaining',
                 'paywall': True,
                 'quiz_credits': 0,
-                'message': 'You have used all 4 free quizzes. Subscribe to unlock unlimited access!',
+                'message': 'You have used all your free quizzes. Subscribe to unlock unlimited access!',
                 'redirect': '/subscribe'
             }, status=status.HTTP_402_PAYMENT_REQUIRED)
         
