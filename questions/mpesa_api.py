@@ -26,6 +26,7 @@ class MpesaAPI:
         self.shortcode = os.getenv('MPESA_SHORTCODE')
         self.passkey = os.getenv('MPESA_PASSKEY')
         self.callback_url = os.getenv('MPESA_CALLBACK_URL')
+        self.transaction_type = os.getenv('MPESA_TRANSACTION_TYPE', 'CustomerPayBillOnline')
         
         if self.environment == 'sandbox':
             self.base_url = 'https://sandbox.safaricom.co.ke'
@@ -99,7 +100,7 @@ class MpesaAPI:
             'BusinessShortCode': self.shortcode,
             'Password': password,
             'Timestamp': timestamp,
-            'TransactionType': 'CustomerPayBillOnline',
+            'TransactionType': self.transaction_type,
             'Amount': int(amount),
             'PartyA': phone_number,
             'PartyB': self.shortcode,
