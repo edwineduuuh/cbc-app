@@ -139,6 +139,7 @@ class Question(models.Model):
     # COMMON FIELDS
     explanation = models.TextField(blank=True, help_text="Optional explanation of answers")
     worked_solution = models.JSONField(null=True, blank=True, default=None, help_text="Step-by-step solution with LaTeX")   
+    cached_ai_explanation = models.JSONField(null=True, blank=True, default=None, help_text="Cached AI explanation for MCQ — avoids repeat API calls")
     difficulty = models.CharField(max_length=10, choices=DIFFICULTY_CHOICES, default='medium')
 
     # METADATA

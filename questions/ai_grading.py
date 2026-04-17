@@ -1087,9 +1087,55 @@ def _grade_mcq(question, student_answer: str) -> dict:
 
     is_correct = selected_letter == correct_letter
 
-    # ── Get full rich AI feedback ─────────────────────────────────────────
+    # ── Use cached explanation if available (saves API calls) ─────────────
+    cached = getattr(question, 'cached_ai_explanation', None)
+    if cached and isinstance(cached, dict) and cached.get('feedback'):
+        correct_text = options_map.get(correct_letter, "(unknown)")
+        if is_correct:
+            feedback = cached.get('feedback_correct', cached['feedback'])
+            return {
+                "marks_awarded":        question.max_marks,
+                "max_marks":            question.max_marks,
+                "feedback":             feedback,
+                "is_correct":           True,
+                "personalized_message": _encourage(sw),
+                "study_tip":            cached.get('study_tip', ''),
+                "explanation":          cached.get('explanation', ''),
+                "points_earned":        [f"Option {correct_letter}: {correct_text}"],
+                "points_missed":        [],
+            }
+        else:
+            feedback = cached.get('feedback_wrong', cached['feedback'])
+            return {
+                "marks_awarded":        0,
+                "max_marks":            question.max_marks,
+                "feedback":             feedback,
+                "is_correct":           False,
+                "personalized_message": _near_miss(sw),
+                "study_tip":            cached.get('study_tip', ''),
+                "explanation":          cached.get('explanation', ''),
+                "points_earned":        [],
+                "points_missed":        [f"Correct answer: Option {correct_letter}: {correct_text}"],
+            }
+
+    # ── No cache — call AI once, then cache the explanation ───────────────
     try:
         ai_result = _grade_with_ai(question, student_answer)
+
+        # Cache the explanation on the question for future students
+        try:
+            from questions.models import Question
+            cache_data = {
+                'feedback': ai_result.get('feedback', ''),
+                'feedback_correct': "Correct! " + ai_result.get('feedback', '').lstrip("Not quite. ").lstrip("Correct! "),
+                'feedback_wrong': "Not quite. " + ai_result.get('feedback', '').lstrip("Correct! ").lstrip("Not quite. "),
+                'study_tip': ai_result.get('study_tip', ''),
+                'explanation': ai_result.get('explanation', ''),
+            }
+            Question.objects.filter(pk=question.pk).update(cached_ai_explanation=cache_data)
+        except Exception as cache_err:
+            print(f"⚠ Cache save failed for Q{getattr(question, 'id', '?')}: {cache_err}")
+
         return {
             **ai_result,
             # 🔒 Verdict is OURS — AI cannot touch these two
