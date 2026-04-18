@@ -27,6 +27,7 @@ export default function BulkUploadPage() {
   const [subject, setSubject] = useState("");
   const [grade, setGrade] = useState("");
   const [subjects, setSubjects] = useState([]);
+  const [subjectsLoading, setSubjectsLoading] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [result, setResult] = useState(null);
   const [dragActive, setDragActive] = useState(false);
@@ -58,17 +59,25 @@ export default function BulkUploadPage() {
     }
   }, [result]);
 
-  // Load subjects
+  // Load subjects — public endpoint, plain fetch avoids auth-redirect on token issues
   useEffect(() => {
     if (authLoading || !user) return;
     const load = async () => {
+      setSubjectsLoading(true);
       try {
-        const res = await fetchWithAuth(`${API}/subjects/`);
+        const res = await fetch(`${API}/subjects/`);
         if (res.ok) {
           const data = await res.json();
           setSubjects(Array.isArray(data) ? data : data.results || []);
+        } else {
+          showToast("Failed to load learning areas. Please refresh.", "error");
         }
-      } catch (err) { console.error("Failed to load subjects:", err); }
+      } catch (err) {
+        console.error("Failed to load subjects:", err);
+        showToast("Could not reach server. Please refresh.", "error");
+      } finally {
+        setSubjectsLoading(false);
+      }
     };
     load();
   }, [authLoading, user]);
@@ -253,8 +262,8 @@ export default function BulkUploadPage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Learning Area *</label>
-                <select value={subject} onChange={(e) => setSubject(e.target.value)} className="w-full px-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent">
-                  <option value="">Select Learning Area</option>
+                <select value={subject} onChange={(e) => setSubject(e.target.value)} disabled={subjectsLoading} className="w-full px-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent disabled:opacity-60">
+                  <option value="">{subjectsLoading ? "Loading..." : "Select Learning Area"}</option>
                   {subjects.map((s) => <option key={s.id} value={s.id}>{s.name}</option>)}
                 </select>
               </div>
