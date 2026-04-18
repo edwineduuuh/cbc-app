@@ -259,10 +259,32 @@ export default function QuestionManagementPage() {
     });
   };
 
-  const handleChange = (e) =>
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  const handleEditChange = (e) =>
-    setEditingQuestion({ ...editingQuestion, [e.target.name]: e.target.value });
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    if (name === "question_type" && value !== "mcq" && value !== "math") {
+      setFormData((prev) => ({
+        ...prev,
+        question_type: value,
+        option_a: "", option_b: "", option_c: "", option_d: "",
+        correct_answer: "",
+      }));
+    } else {
+      setFormData({ ...formData, [name]: value });
+    }
+  };
+  const handleEditChange = (e) => {
+    const { name, value } = e.target;
+    if (name === "question_type" && value !== "mcq" && value !== "math") {
+      setEditingQuestion((prev) => ({
+        ...prev,
+        question_type: value,
+        option_a: "", option_b: "", option_c: "", option_d: "",
+        correct_answer: "",
+      }));
+    } else {
+      setEditingQuestion({ ...editingQuestion, [name]: value });
+    }
+  };
 
   const handleCreateQuestion = async (e) => {
     e.preventDefault();
@@ -984,55 +1006,50 @@ export default function QuestionManagementPage() {
                   rows={3}
                   placeholder="Enter the question..."
                 />
-                <div className="grid grid-cols-2 gap-4">
+                {(formData.question_type === "mcq" || formData.question_type === "math") && (
+                  <>
+                    <div className="grid grid-cols-2 gap-4">
+                      <InputField label="Option A" name="option_a" value={formData.option_a} onChange={handleChange} required />
+                      <InputField label="Option B" name="option_b" value={formData.option_b} onChange={handleChange} required />
+                      <InputField label="Option C" name="option_c" value={formData.option_c} onChange={handleChange} required />
+                      <InputField label="Option D" name="option_d" value={formData.option_d} onChange={handleChange} required />
+                    </div>
+                    <SelectField
+                      label="Correct Answer"
+                      name="correct_answer"
+                      value={formData.correct_answer}
+                      onChange={handleChange}
+                      required
+                      options={["A", "B", "C", "D"].map((v) => ({ value: v, label: v }))}
+                      placeholder="Select"
+                    />
+                  </>
+                )}
+                {formData.question_type === "fill_blank" && (
                   <InputField
-                    label="Option A"
-                    name="option_a"
-                    value={formData.option_a}
+                    label="Correct Answer"
+                    name="correct_answer"
+                    value={formData.correct_answer}
                     onChange={handleChange}
                     required
+                    placeholder="Enter the correct answer"
                   />
-                  <InputField
-                    label="Option B"
-                    name="option_b"
-                    value={formData.option_b}
-                    onChange={handleChange}
-                    required
-                  />
-                  <InputField
-                    label="Option C"
-                    name="option_c"
-                    value={formData.option_c}
-                    onChange={handleChange}
-                    required
-                  />
-                  <InputField
-                    label="Option D"
-                    name="option_d"
-                    value={formData.option_d}
-                    onChange={handleChange}
-                    required
-                  />
-                </div>
-                <SelectField
-                  label="Correct Answer"
-                  name="correct_answer"
-                  value={formData.correct_answer}
-                  onChange={handleChange}
-                  required
-                  options={["A", "B", "C", "D"].map((v) => ({
-                    value: v,
-                    label: v,
-                  }))}
-                  placeholder="Select"
-                />
+                )}
                 <TextField
-                  label="Explanation (Optional)"
+                  label={
+                    formData.question_type === "structured" || formData.question_type === "essay"
+                      ? "Model Answer / Marking Scheme"
+                      : "Explanation (Optional)"
+                  }
                   name="explanation"
                   value={formData.explanation}
                   onChange={handleChange}
-                  rows={2}
-                  placeholder="Why is this the correct answer?"
+                  rows={formData.question_type === "structured" || formData.question_type === "essay" ? 4 : 2}
+                  placeholder={
+                    formData.question_type === "structured" || formData.question_type === "essay"
+                      ? "Write the expected answer or marking scheme..."
+                      : "Why is this the correct answer?"
+                  }
                 />
                 {/* Image Upload */}
                 <div>
@@ -1196,53 +1213,50 @@ export default function QuestionManagementPage() {
                   required
                   rows={3}
                 />
-                <div className="grid grid-cols-2 gap-4">
+                {(editingQuestion.question_type === "mcq" || editingQuestion.question_type === "math") && (
+                  <>
+                    <div className="grid grid-cols-2 gap-4">
+                      <InputField label="Option A" name="option_a" value={editingQuestion.option_a || ""} onChange={handleEditChange} required />
+                      <InputField label="Option B" name="option_b" value={editingQuestion.option_b || ""} onChange={handleEditChange} required />
+                      <InputField label="Option C" name="option_c" value={editingQuestion.option_c || ""} onChange={handleEditChange} required />
+                      <InputField label="Option D" name="option_d" value={editingQuestion.option_d || ""} onChange={handleEditChange} required />
+                    </div>
+                    <SelectField
+                      label="Correct Answer"
+                      name="correct_answer"
+                      value={editingQuestion.correct_answer || ""}
+                      onChange={handleEditChange}
+                      required
+                      options={["A", "B", "C", "D"].map((v) => ({ value: v, label: v }))}
+                      placeholder="Select"
+                    />
+                  </>
+                )}
+                {editingQuestion.question_type === "fill_blank" && (
                   <InputField
-                    label="Option A"
-                    name="option_a"
-                    value={editingQuestion.option_a}
+                    label="Correct Answer"
+                    name="correct_answer"
+                    value={editingQuestion.correct_answer || ""}
                     onChange={handleEditChange}
                     required
+                    placeholder="Enter the correct answer"
                   />
-                  <InputField
-                    label="Option B"
-                    name="option_b"
-                    value={editingQuestion.option_b}
-                    onChange={handleEditChange}
-                    required
-                  />
-                  <InputField
-                    label="Option C"
-                    name="option_c"
-                    value={editingQuestion.option_c}
-                    onChange={handleEditChange}
-                    required
-                  />
-                  <InputField
-                    label="Option D"
-                    name="option_d"
-                    value={editingQuestion.option_d}
-                    onChange={handleEditChange}
-                    required
-                  />
-                </div>
-                <SelectField
-                  label="Correct Answer"
-                  name="correct_answer"
-                  value={editingQuestion.correct_answer}
-                  onChange={handleEditChange}
-                  required
-                  options={["A", "B", "C", "D"].map((v) => ({
-                    value: v,
-                    label: v,
-                  }))}
-                />
+                )}
                 <TextField
-                  label="Explanation"
+                  label={
+                    editingQuestion.question_type === "structured" || editingQuestion.question_type === "essay"
+                      ? "Model Answer / Marking Scheme"
+                      : "Explanation"
+                  }
                   name="explanation"
                   value={editingQuestion.explanation || ""}
                   onChange={handleEditChange}
-                  rows={2}
+                  rows={editingQuestion.question_type === "structured" || editingQuestion.question_type === "essay" ? 4 : 2}
+                  placeholder={
+                    editingQuestion.question_type === "structured" || editingQuestion.question_type === "essay"
+                      ? "Write the expected answer or marking scheme..."
+                      : "Why is this the correct answer?"
+                  }
                 />
                 {/* Image Upload */}
                 <div>
