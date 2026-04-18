@@ -194,7 +194,7 @@ export default function EditQuizPage() {
       const res = await fetch(`${API}/admin/quizzes/${params.id}/`, {
         method: "PUT",
         headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
-        body: JSON.stringify({ ...quiz, question_ids: selectedQuestions.map((q) => q.id) }),
+        body: JSON.stringify({ ...quiz, questions: undefined, question_ids: selectedQuestions.map((q) => q.id) }),
       });
       if (res.ok) {
         setToast({ show: true, message: "Quiz updated successfully!", type: "success" });

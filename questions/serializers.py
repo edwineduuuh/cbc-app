@@ -221,10 +221,12 @@ class QuizCreateUpdateSerializer(serializers.ModelSerializer):
     def validate(self, data):
         if 'subject' not in data and not self.instance:
             raise serializers.ValidationError({"subject": "This field is required."})
-        
-        if 'question_ids' in data and not data.get('questions'):
-            data['questions'] = Question.objects.filter(id__in=data['question_ids'])
-        
+
+        # question_ids always takes priority — the spread quiz object may include
+        # a stale `questions` list from the GET response which would otherwise win
+        if 'question_ids' in data:
+            data['questions'] = list(Question.objects.filter(id__in=data['question_ids']))
+
         return data
 
     def create(self, validated_data):
