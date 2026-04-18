@@ -472,6 +472,7 @@ from django.contrib.auth.tokens import default_token_generator
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_str
 from django.core.mail import send_mail
+from django.conf import settings
 
 @api_view(['POST'])
 @permission_classes([AllowAny])
@@ -479,24 +480,30 @@ def forgot_password(request):
     email = request.data.get('email')
     if not email:
         return Response({'error': 'Email required'}, status=400)
-    
+
     try:
         user = User.objects.get(email=email)
         token = default_token_generator.make_token(user)
         uid = urlsafe_base64_encode(force_bytes(user.pk))
-        
-        reset_url = f"{os.getenv('FRONTEND_URL', 'http://localhost:3000')}/reset-password?uid={uid}&token={token}"
-        
-        send_mail(
-            subject='Reset your StadiSpace password',
-            message=f'Hi {user.username},\n\nClick this link to reset your password:\n{reset_url}\n\nThis link expires in 24 hours.\n\nIf you did not request this, ignore this email.',
-            from_email=os.getenv('EMAIL_HOST_USER'),
-            recipient_list=[email],
-            fail_silently=False,
-        )
+
+        frontend_url = os.getenv('FRONTEND_URL', 'http://localhost:3000')
+        reset_url = f"{frontend_url}/reset-password?uid={uid}&token={token}"
+
+        try:
+            send_mail(
+                subject='Reset your StadiSpace password',
+                message=f'Hi {user.username},\n\nClick this link to reset your password:\n{reset_url}\n\nThis link expires in 24 hours.\n\nIf you did not request this, ignore this email.',
+                from_email=settings.EMAIL_HOST_USER or settings.DEFAULT_FROM_EMAIL,
+                recipient_list=[email],
+                fail_silently=False,
+            )
+        except Exception as mail_err:
+            import logging
+            logging.getLogger(__name__).error(f"Password reset email failed for {email}: {mail_err}")
+            # Still return success — don't expose server config errors to the user
     except User.DoesNotExist:
         pass  # Don't reveal if email exists
-    
+
     return Response({'message': 'If this email exists, a reset link has been sent.'})
 
 
