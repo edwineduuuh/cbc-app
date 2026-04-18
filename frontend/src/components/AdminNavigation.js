@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { useAuth } from "@/contexts/AuthContext";
 import {
   Home,
@@ -17,12 +17,6 @@ import {
 export default function AdminNavigation() {
   const pathname = usePathname();
   const { logout } = useAuth();
-  const router = useRouter();
-
-  const handleLogout = () => {
-    logout();
-    router.push("/login");
-  };
 
   const navItems = [
     { name: "Dashboard", href: "/admin", icon: Home },
@@ -62,7 +56,7 @@ export default function AdminNavigation() {
             })}
           </div>
           <button
-            onClick={handleLogout}
+            onClick={logout}
             className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-red-600 hover:bg-red-50 rounded-lg transition-colors shrink-0 ml-2"
           >
             <LogOut className="w-4 h-4" />
