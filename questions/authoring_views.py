@@ -55,12 +55,23 @@ class QuestionListManageView(generics.ListAPIView):
 
 class QuestionUpdateView(generics.RetrieveUpdateDestroyAPIView):
     """
-    GET/PUT/DELETE /api/admin/questions/<id>/
+    GET/PUT/PATCH/DELETE /api/admin/questions/<id>/
     """
     queryset = Question.objects.all()
     serializer_class = QuestionDetailSerializer
     permission_classes = [IsAuthenticated]
     parser_classes = [MultiPartParser, FormParser, JSONParser]
+
+    def perform_update(self, serializer):
+        if self.request.data.get('delete_image') in ('true', True, '1'):
+            instance = self.get_object()
+            if instance.question_image:
+                instance.question_image.delete(save=False)
+            serializer.save(question_image=None)
+        elif 'question_image' in self.request.FILES:
+            serializer.save(question_image=self.request.FILES['question_image'])
+        else:
+            serializer.save()
 
 
 class BulkQuestionImportView(generics.CreateAPIView):

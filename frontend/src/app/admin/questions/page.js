@@ -114,6 +114,7 @@ export default function QuestionManagementPage() {
   const [createImagePreview, setCreateImagePreview] = useState(null);
   const [editImageFile, setEditImageFile] = useState(null);
   const [editImagePreview, setEditImagePreview] = useState(null);
+  const [editImageDeleted, setEditImageDeleted] = useState(false);
   const [toast, setToast] = useState({
     show: false,
     message: "",
@@ -344,7 +345,11 @@ export default function QuestionManagementPage() {
       fd.append("correct_answer", editingQuestion.correct_answer || "");
       fd.append("explanation", editingQuestion.explanation || "");
       fd.append("difficulty", editingQuestion.difficulty || "medium");
-      if (editImageFile) fd.append("question_image", editImageFile);
+      if (editImageFile) {
+        fd.append("question_image", editImageFile);
+      } else if (editImageDeleted) {
+        fd.append("delete_image", "true");
+      }
       const res = await fetchWithAuth(
         `${API}/admin/questions/${editingQuestion.id}/`,
         {
@@ -358,6 +363,7 @@ export default function QuestionManagementPage() {
         setEditingQuestion(null);
         setEditImageFile(null);
         setEditImagePreview(null);
+        setEditImageDeleted(false);
         loadQuestions();
       } else {
         const data = await res.json();
@@ -397,6 +403,9 @@ export default function QuestionManagementPage() {
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const fullQ = await res.json();
       setEditingQuestion(fullQ);
+      setEditImageFile(null);
+      setEditImagePreview(null);
+      setEditImageDeleted(false);
       setShowEditModal(true);
     } catch (err) {
       showToast("Could not load question details", "error");
@@ -1277,6 +1286,7 @@ export default function QuestionManagementPage() {
                         onClick={() => {
                           setEditImageFile(null);
                           setEditImagePreview(null);
+                          setEditImageDeleted(true);
                           setEditingQuestion({
                             ...editingQuestion,
                             question_image_url: null,

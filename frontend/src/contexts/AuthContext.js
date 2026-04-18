@@ -182,7 +182,7 @@ export function AuthProvider({ children }) {
     localStorage.removeItem("refreshToken");
     localStorage.removeItem("user");
     setUser(null);
-    router.push("/login"); // ← CORRECT
+    window.location.href = "/login"; // hard redirect — bypasses competing router calls
   };
 
   const value = {

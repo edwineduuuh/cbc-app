@@ -140,6 +140,7 @@ export default function EditQuizPage() {
       });
       const data = res.ok ? await res.json() : question;
       setEditForm({
+        topic: data.topic || "",
         question_text: data.question_text || "",
         question_type: data.question_type || "mcq",
         difficulty: data.difficulty || "easy",
@@ -168,15 +169,13 @@ export default function EditQuizPage() {
       });
       if (res.ok) {
         const updated = await res.json();
-        // Reflect changes in both lists
         setSelectedQuestions((prev) =>
-          prev.map((q) => (q.id === updated.id ? { ...q, ...updated } : q))
-        );
-        setAvailableQuestions((prev) =>
           prev.map((q) => (q.id === updated.id ? { ...q, ...updated } : q))
         );
         setEditingQuestion(null);
         setToast({ show: true, message: "Question updated!", type: "success" });
+        // Reload available questions so the list reflects the edit immediately
+        fetchAvailableQuestions(searchTerm, filterSubject, filterGrade);
       } else {
         setToast({ show: true, message: "Failed to save question", type: "error" });
       }
