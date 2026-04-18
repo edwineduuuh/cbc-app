@@ -68,8 +68,10 @@ class QuizDetailView(generics.RetrieveUpdateDestroyAPIView):
     """
     permission_classes = [IsAdminOrTeacher]
     queryset = Quiz.objects.all()
-    
+
     def get_serializer_class(self):
+        if self.request.method in ('PUT', 'PATCH'):
+            return QuizCreateUpdateSerializer
         return QuizDetailSerializer
 
 
