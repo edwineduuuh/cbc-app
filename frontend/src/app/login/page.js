@@ -23,9 +23,12 @@ export default function LoginPage() {
   const { login, user, loading: authLoading } = useAuth();
   const router = useRouter();
 
-  // If already logged in, redirect to the right place
+  // If already logged in, redirect to the right place.
+  // Guard with localStorage check: logout() clears tokens synchronously but
+  // setUser(null) is async — without this, the stale user state triggers a
+  // false redirect to /dashboard immediately after logout.
   useEffect(() => {
-    if (!authLoading && user) {
+    if (!authLoading && user && localStorage.getItem("accessToken")) {
       if (user.role === "teacher") router.replace("/teacher");
       else if (
         user.is_staff ||
