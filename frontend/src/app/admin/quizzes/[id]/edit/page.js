@@ -48,6 +48,13 @@ export default function EditQuizPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [toast, setToast] = useState({ show: false, message: "", type: "success" });
 
+  // Filters
+  const [subjects, setSubjects] = useState([]);
+  const [filterSubject, setFilterSubject] = useState("");
+  const [filterGrade, setFilterGrade] = useState("");
+  const [filterDifficulty, setFilterDifficulty] = useState("");
+  const [filterType, setFilterType] = useState("");
+
   // Edit modal state
   const [editingQuestion, setEditingQuestion] = useState(null);
   const [editForm, setEditForm] = useState(BLANK_EDIT);
@@ -62,15 +69,19 @@ export default function EditQuizPage() {
   }, [user, authLoading, params.id]);
 
   useEffect(() => {
+    fetch(`${API}/subjects/`).then(r => r.json()).then(d => setSubjects(Array.isArray(d) ? d : d.results || [])).catch(() => {});
+  }, []);
+
+  useEffect(() => {
     if (quiz) fetchAvailableQuestions();
   }, [quiz]);
 
-  // Re-fetch when search term changes (debounced)
+  // Re-fetch when server-side filters or search change (debounced)
   useEffect(() => {
     if (!quiz) return;
-    const timer = setTimeout(() => fetchAvailableQuestions(searchTerm), 300);
+    const timer = setTimeout(() => fetchAvailableQuestions(searchTerm, filterSubject, filterGrade), 300);
     return () => clearTimeout(timer);
-  }, [searchTerm, quiz]);
+  }, [searchTerm, filterSubject, filterGrade, quiz]);
 
   const fetchQuiz = async () => {
     const token = localStorage.getItem("accessToken");
@@ -92,15 +103,16 @@ export default function EditQuizPage() {
     }
   };
 
-  const fetchAvailableQuestions = async (search = "") => {
+  const fetchAvailableQuestions = async (search = "", subject = "", grade = "") => {
     const token = localStorage.getItem("accessToken");
     try {
-      const params = new URLSearchParams();
-      if (search) params.set("search", search);
-      const res = await fetch(
-        `${API}/admin/questions/manage/?${params.toString()}`,
-        { headers: { Authorization: `Bearer ${token}` } },
-      );
+      const p = new URLSearchParams();
+      if (search) p.set("search", search);
+      if (subject) p.set("subject", subject);
+      if (grade) p.set("grade", grade);
+      const res = await fetch(`${API}/admin/questions/manage/?${p.toString()}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
       if (res.ok) {
         const data = await res.json();
         setAvailableQuestions(Array.isArray(data) ? data : []);
@@ -198,6 +210,12 @@ export default function EditQuizPage() {
   };
 
   const isMcq = editForm.question_type === "mcq" || editForm.question_type === "math";
+
+  const displayedQuestions = availableQuestions.filter((q) => {
+    if (filterDifficulty && q.difficulty !== filterDifficulty) return false;
+    if (filterType && q.question_type !== filterType) return false;
+    return true;
+  });
 
   if (loading) {
     return (
@@ -406,22 +424,69 @@ export default function EditQuizPage() {
           <Card className="p-6">
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-xl font-bold">Available Questions</h2>
-              <span className="text-sm text-gray-600">{availableQuestions.length} questions</span>
+              <span className="text-sm text-gray-600">{displayedQuestions.length} questions</span>
             </div>
 
-            <div className="relative mb-4">
+            {/* Search */}
+            <div className="relative mb-3">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4" />
               <input
                 type="text"
                 placeholder="Search questions..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
               />
             </div>
 
-            <div className="space-y-2 max-h-[600px] overflow-y-auto">
-              {availableQuestions.map((q) => {
+            {/* Filters */}
+            <div className="grid grid-cols-2 gap-2 mb-4">
+              <select
+                value={filterSubject}
+                onChange={(e) => setFilterSubject(e.target.value)}
+                className="border rounded-lg px-2 py-1.5 text-xs focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700"
+              >
+                <option value="">All Subjects</option>
+                {subjects.map((s) => (
+                  <option key={s.id} value={s.id}>{s.name}</option>
+                ))}
+              </select>
+              <select
+                value={filterGrade}
+                onChange={(e) => setFilterGrade(e.target.value)}
+                className="border rounded-lg px-2 py-1.5 text-xs focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700"
+              >
+                <option value="">All Grades</option>
+                {[4,5,6,7,8,9,10,11,12].map((g) => (
+                  <option key={g} value={g}>Grade {g}</option>
+                ))}
+              </select>
+              <select
+                value={filterDifficulty}
+                onChange={(e) => setFilterDifficulty(e.target.value)}
+                className="border rounded-lg px-2 py-1.5 text-xs focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700"
+              >
+                <option value="">All Difficulties</option>
+                <option value="easy">Easy</option>
+                <option value="medium">Medium</option>
+                <option value="hard">Hard</option>
+              </select>
+              <select
+                value={filterType}
+                onChange={(e) => setFilterType(e.target.value)}
+                className="border rounded-lg px-2 py-1.5 text-xs focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700"
+              >
+                <option value="">All Types</option>
+                <option value="mcq">MCQ</option>
+                <option value="math">Math</option>
+                <option value="fill_blank">Fill in the Blank</option>
+                <option value="structured">Structured</option>
+                <option value="essay">Essay</option>
+              </select>
+            </div>
+
+            <div className="space-y-2 max-h-125 overflow-y-auto">
+              {displayedQuestions.map((q) => {
                 const isSelected = selectedQuestions.find((sq) => sq.id === q.id);
                 return (
                   <div
