@@ -3,6 +3,13 @@ from django.conf import settings
 from django.conf.urls.static import static
 from . import views
 from .authoring_analytics_views import QuestionAnalyticsView, AISuggestionsView
+from .admin_analytics_extended_views import (
+    AdminUserStatsView,
+    AdminUserListView,
+    AdminRevenueStatsView,
+    AdminQuizPerformanceView,
+    AdminEngagementView,
+)
 from .authoring_quiz_views import (
     QuizListCreateView,
     QuizDetailView as AdminQuizDetailView,
@@ -91,6 +98,11 @@ urlpatterns = [
     path('admin/stats/', AdminStatsView.as_view(), name='admin-stats'),
     path('admin/analytics/questions/', QuestionAnalyticsView.as_view(), name='question-analytics'),
     path('admin/analytics/suggestions/', AISuggestionsView.as_view(), name='ai-suggestions'),
+    path('admin/analytics/quizzes/', AdminQuizPerformanceView.as_view(), name='admin-quiz-performance'),
+    path('admin/analytics/engagement/', AdminEngagementView.as_view(), name='admin-engagement'),
+    path('admin/users/stats/', AdminUserStatsView.as_view(), name='admin-user-stats'),
+    path('admin/users/', AdminUserListView.as_view(), name='admin-user-list'),
+    path('admin/revenue/stats/', AdminRevenueStatsView.as_view(), name='admin-revenue-stats'),
 
     # ── Admin — Question Sets ─────────────────────────────────────
     path('admin/question-sets/', QuestionSetListCreateView.as_view(), name='question-set-list'),
