@@ -4,24 +4,27 @@ Automatically extracts images from PDFs/Word docs and links them to questions
 
 SETUP:
 pip install PyPDF2 python-docx Pillow PyMuPDF --break-system-packages
-(No tesseract needed - Gemini Vision is used as fallback)
+(No tesseract needed - Claude Vision is used as fallback)
 """
 
 import re
 import json
 import io
 import base64
+import anthropic
+from django.conf import settings
 from django.core.files.base import ContentFile
 from django.db import transaction
 from .models import Question, Topic, Subject
 from .ai_service import _get_gemini, GEMINI_MODEL, parse_ai_json
-from google.genai import types
+
+CLAUDE_MODEL = "claude-sonnet-4-20250514"
 
 
 class BulkExamUploader:
     """
     Extracts questions AND images from uploaded files.
-    Uses Gemini Vision as fallback when PDF/image extraction fails.
+    Uses Claude Vision as fallback when PDF/image extraction fails.
     """
     
     def __init__(self):
@@ -84,7 +87,7 @@ class BulkExamUploader:
             return None
     
     def _extract_from_pdf(self, file):
-        """Extract text AND images from PDF using PyMuPDF, fallback to Gemini Vision"""
+        """Extract text AND images from PDF using PyMuPDF, fallback to Claude Vision"""
         try:
             import fitz  # PyMuPDF
             
@@ -122,7 +125,7 @@ class BulkExamUploader:
             clean_text = text.replace('CamScanner', '').replace('[PAGE', '').replace('[IMAGE_', '').strip()
             
             if len(clean_text) < 50:
-                print("PDF has no text, trying Gemini Vision...")
+                print("PDF has no text, trying Claude Vision...")
                 file.seek(0)
                 return self._extract_with_gemini_vision(file)
             
@@ -167,14 +170,14 @@ class BulkExamUploader:
             return None
     
     def _extract_from_image(self, file):
-        """Extract text from image - uses Gemini Vision directly (no tesseract needed)"""
+        """Extract text from image - uses Claude Vision directly (no tesseract needed)"""
         try:
             from PIL import Image
             
             image_bytes = file.read()
             
-            # Use Gemini Vision to extract text
-            print("Using Gemini Vision to extract text from image...")
+            # Use Claude Vision to extract text
+            print("Using Claude Vision to extract text from image...")
             file.seek(0)
             text = self._extract_with_gemini_vision(file)
             if text:
@@ -188,13 +191,14 @@ class BulkExamUploader:
     
     def _extract_with_gemini_vision(self, file):
         """
-        Use Gemini Vision to extract text from any image or PDF.
-        This is the main fallback when fitz/tesseract are unavailable.
+        Use Claude Vision to extract text from any image or PDF.
+        (Switched from Gemini Vision due to google-genai API breakage.)
         """
         try:
-            print("Extracting text via Gemini Vision...")
+            print("Extracting text via Claude Vision...")
             
             file_bytes = file.read()
+            b64_data = base64.standard_b64encode(file_bytes).decode("utf-8")
             
             ext = file.name.split('.')[-1].lower()
             media_type_map = {
@@ -205,28 +209,62 @@ class BulkExamUploader:
                 'bmp':  'image/png',
                 'tiff': 'image/png',
             }
-            mime_type = media_type_map.get(ext, 'image/png')
+            media_type = media_type_map.get(ext, 'image/png')
 
-            response = _get_gemini().models.generate_content(
-                model=GEMINI_MODEL,
-                contents=[
-                    types.Content(role="user", parts=[
-                        types.Part.from_bytes(data=file_bytes, mime_type=mime_type),
-                        types.Part.from_text(
+            client = anthropic.Anthropic(api_key=settings.ANTHROPIC_API_KEY)
+
+            # Build content parts
+            if ext == 'pdf':
+                content = [
+                    {
+                        "type": "document",
+                        "source": {
+                            "type": "base64",
+                            "media_type": "application/pdf",
+                            "data": b64_data,
+                        },
+                    },
+                    {
+                        "type": "text",
+                        "text": (
                             "Extract ALL text from this exam paper exactly as it appears. "
                             "Preserve question numbers, options (A, B, C, D), and all content. "
                             "If there are diagrams or images, write [IMAGE] where they appear."
                         ),
-                    ]),
-                ],
+                    },
+                ]
+            else:
+                content = [
+                    {
+                        "type": "image",
+                        "source": {
+                            "type": "base64",
+                            "media_type": media_type,
+                            "data": b64_data,
+                        },
+                    },
+                    {
+                        "type": "text",
+                        "text": (
+                            "Extract ALL text from this exam paper exactly as it appears. "
+                            "Preserve question numbers, options (A, B, C, D), and all content. "
+                            "If there are diagrams or images, write [IMAGE] where they appear."
+                        ),
+                    },
+                ]
+
+            response = client.messages.create(
+                model=CLAUDE_MODEL,
+                max_tokens=4096,
+                messages=[{"role": "user", "content": content}],
             )
             
-            extracted = response.text
-            print(f"Gemini Vision extracted {len(extracted)} characters")
+            extracted = response.content[0].text
+            print(f"Claude Vision extracted {len(extracted)} characters")
             return extracted
         
         except Exception as e:
-            print(f"Gemini Vision extraction error: {e}")
+            print(f"Claude Vision extraction error: {e}")
             return None
     
     def _parse_questions_with_ai(self, text, subject_id, grade):
