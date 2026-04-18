@@ -66,7 +66,7 @@ export default function EditQuizPage() {
       router.replace("/dashboard"); return;
     }
     if (!authLoading && user) fetchQuiz();
-  }, [user, authLoading, params.id]);
+  }, [user, authLoading, params.id, router]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     fetch(`${API}/subjects/`).then(r => r.json()).then(d => setSubjects(Array.isArray(d) ? d : d.results || [])).catch(() => {});
