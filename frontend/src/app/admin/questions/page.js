@@ -1020,19 +1020,90 @@ export default function QuestionManagementPage() {
                     label="Type"
                     name="question_type"
                     value={formData.question_type}
-                    onChange={handleChange}
+                    onChange={(e) => {
+                      handleChange(e);
+                      if (e.target.value === "multipart") {
+                        setFormData((fd) => ({
+                          ...fd,
+                          parts: [{ text: "", answer: "" }],
+                        }));
+                      }
+                    }}
                     options={QUESTION_TYPES}
                   />
                 </div>
-                <TextField
-                  label="Question"
-                  name="question_text"
-                  value={formData.question_text}
-                  onChange={handleChange}
-                  required
-                  rows={3}
-                  placeholder="Enter the question..."
-                />
+                {formData.question_type === "multipart" ? (
+                  <div className="space-y-3">
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Multipart Question
+                    </label>
+                    {formData.parts?.map((part, idx) => (
+                      <div key={idx} className="flex gap-2 items-center">
+                        <span className="font-bold">
+                          ({String.fromCharCode(97 + idx)})
+                        </span>
+                        <input
+                          className="flex-1 px-3 py-2 border rounded"
+                          value={part.text}
+                          onChange={(e) => {
+                            const parts = [...formData.parts];
+                            parts[idx].text = e.target.value;
+                            setFormData((fd) => ({ ...fd, parts }));
+                          }}
+                          placeholder={`Part ${String.fromCharCode(97 + idx)} text`}
+                          required
+                        />
+                        <input
+                          className="flex-1 px-3 py-2 border rounded"
+                          value={part.answer}
+                          onChange={(e) => {
+                            const parts = [...formData.parts];
+                            parts[idx].answer = e.target.value;
+                            setFormData((fd) => ({ ...fd, parts }));
+                          }}
+                          placeholder={`Part ${String.fromCharCode(97 + idx)} answer`}
+                        />
+                        <button
+                          type="button"
+                          onClick={() => {
+                            const parts = formData.parts.filter(
+                              (_, i) => i !== idx,
+                            );
+                            setFormData((fd) => ({ ...fd, parts }));
+                          }}
+                          className="text-red-500 font-bold"
+                        >
+                          X
+                        </button>
+                      </div>
+                    ))}
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setFormData((fd) => ({
+                          ...fd,
+                          parts: [
+                            ...(fd.parts || []),
+                            { text: "", answer: "" },
+                          ],
+                        }));
+                      }}
+                      className="text-emerald-600 font-semibold"
+                    >
+                      + Add Part
+                    </button>
+                  </div>
+                ) : (
+                  <TextField
+                    label="Question"
+                    name="question_text"
+                    value={formData.question_text}
+                    onChange={handleChange}
+                    required
+                    rows={3}
+                    placeholder="Enter the question..."
+                  />
+                )}
                 {(formData.question_type === "mcq" ||
                   formData.question_type === "math") && (
                   <>
@@ -1263,18 +1334,89 @@ export default function QuestionManagementPage() {
                     label="Type"
                     name="question_type"
                     value={editingQuestion.question_type || "mcq"}
-                    onChange={handleEditChange}
+                    onChange={(e) => {
+                      handleEditChange(e);
+                      if (e.target.value === "multipart") {
+                        setEditingQuestion((eq) => ({
+                          ...eq,
+                          parts: [{ text: "", answer: "" }],
+                        }));
+                      }
+                    }}
                     options={QUESTION_TYPES}
                   />
                 </div>
-                <TextField
-                  label="Question"
-                  name="question_text"
-                  value={editingQuestion.question_text}
-                  onChange={handleEditChange}
-                  required
-                  rows={3}
-                />
+                {editingQuestion.question_type === "multipart" ? (
+                  <div className="space-y-3">
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Multipart Question
+                    </label>
+                    {editingQuestion.parts?.map((part, idx) => (
+                      <div key={idx} className="flex gap-2 items-center">
+                        <span className="font-bold">
+                          ({String.fromCharCode(97 + idx)})
+                        </span>
+                        <input
+                          className="flex-1 px-3 py-2 border rounded"
+                          value={part.text}
+                          onChange={(e) => {
+                            const parts = [...editingQuestion.parts];
+                            parts[idx].text = e.target.value;
+                            setEditingQuestion((eq) => ({ ...eq, parts }));
+                          }}
+                          placeholder={`Part ${String.fromCharCode(97 + idx)} text`}
+                          required
+                        />
+                        <input
+                          className="flex-1 px-3 py-2 border rounded"
+                          value={part.answer}
+                          onChange={(e) => {
+                            const parts = [...editingQuestion.parts];
+                            parts[idx].answer = e.target.value;
+                            setEditingQuestion((eq) => ({ ...eq, parts }));
+                          }}
+                          placeholder={`Part ${String.fromCharCode(97 + idx)} answer`}
+                        />
+                        <button
+                          type="button"
+                          onClick={() => {
+                            const parts = editingQuestion.parts.filter(
+                              (_, i) => i !== idx,
+                            );
+                            setEditingQuestion((eq) => ({ ...eq, parts }));
+                          }}
+                          className="text-red-500 font-bold"
+                        >
+                          X
+                        </button>
+                      </div>
+                    ))}
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setEditingQuestion((eq) => ({
+                          ...eq,
+                          parts: [
+                            ...(eq.parts || []),
+                            { text: "", answer: "" },
+                          ],
+                        }));
+                      }}
+                      className="text-emerald-600 font-semibold"
+                    >
+                      + Add Part
+                    </button>
+                  </div>
+                ) : (
+                  <TextField
+                    label="Question"
+                    name="question_text"
+                    value={editingQuestion.question_text}
+                    onChange={handleEditChange}
+                    required
+                    rows={3}
+                  />
+                )}
                 {(editingQuestion.question_type === "mcq" ||
                   editingQuestion.question_type === "math") && (
                   <>
