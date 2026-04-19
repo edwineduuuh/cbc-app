@@ -266,7 +266,10 @@ export default function QuestionManagementPage() {
       setFormData((prev) => ({
         ...prev,
         question_type: value,
-        option_a: "", option_b: "", option_c: "", option_d: "",
+        option_a: "",
+        option_b: "",
+        option_c: "",
+        option_d: "",
         correct_answer: "",
       }));
     } else {
@@ -279,7 +282,10 @@ export default function QuestionManagementPage() {
       setEditingQuestion((prev) => ({
         ...prev,
         question_type: value,
-        option_a: "", option_b: "", option_c: "", option_d: "",
+        option_a: "",
+        option_b: "",
+        option_c: "",
+        option_d: "",
         correct_answer: "",
       }));
     } else {
@@ -998,6 +1004,39 @@ export default function QuestionManagementPage() {
                       label: d.charAt(0).toUpperCase() + d.slice(1),
                     }))}
                   />
+                  <InputField
+                    label="Max Marks"
+                    name="max_marks"
+                    type="number"
+                    min={1}
+                    value={formData.max_marks}
+                    onChange={handleChange}
+                    required
+                    placeholder="Set max marks"
+                  />
+                </div>
+                <div className="grid grid-cols-3 gap-4">
+                  <SelectField
+                    label="Grade"
+                    name="grade"
+                    value={formData.grade}
+                    onChange={handleChange}
+                    options={GRADES.map((g) => ({
+                      value: g,
+                      label: `Grade ${g}`,
+                    }))}
+                    placeholder="Select Grade"
+                  />
+                  <SelectField
+                    label="Difficulty"
+                    name="difficulty"
+                    value={formData.difficulty}
+                    onChange={handleChange}
+                    options={DIFFICULTIES.map((d) => ({
+                      value: d,
+                      label: d.charAt(0).toUpperCase() + d.slice(1),
+                    }))}
+                  />
                   <SelectField
                     label="Type"
                     name="question_type"
@@ -1015,13 +1054,38 @@ export default function QuestionManagementPage() {
                   rows={3}
                   placeholder="Enter the question..."
                 />
-                {(formData.question_type === "mcq" || formData.question_type === "math") && (
+                {(formData.question_type === "mcq" ||
+                  formData.question_type === "math") && (
                   <>
                     <div className="grid grid-cols-2 gap-4">
-                      <InputField label="Option A" name="option_a" value={formData.option_a} onChange={handleChange} required />
-                      <InputField label="Option B" name="option_b" value={formData.option_b} onChange={handleChange} required />
-                      <InputField label="Option C" name="option_c" value={formData.option_c} onChange={handleChange} required />
-                      <InputField label="Option D" name="option_d" value={formData.option_d} onChange={handleChange} required />
+                      <InputField
+                        label="Option A"
+                        name="option_a"
+                        value={formData.option_a}
+                        onChange={handleChange}
+                        required
+                      />
+                      <InputField
+                        label="Option B"
+                        name="option_b"
+                        value={formData.option_b}
+                        onChange={handleChange}
+                        required
+                      />
+                      <InputField
+                        label="Option C"
+                        name="option_c"
+                        value={formData.option_c}
+                        onChange={handleChange}
+                        required
+                      />
+                      <InputField
+                        label="Option D"
+                        name="option_d"
+                        value={formData.option_d}
+                        onChange={handleChange}
+                        required
+                      />
                     </div>
                     <SelectField
                       label="Correct Answer"
@@ -1029,7 +1093,10 @@ export default function QuestionManagementPage() {
                       value={formData.correct_answer}
                       onChange={handleChange}
                       required
-                      options={["A", "B", "C", "D"].map((v) => ({ value: v, label: v }))}
+                      options={["A", "B", "C", "D"].map((v) => ({
+                        value: v,
+                        label: v,
+                      }))}
                       placeholder="Select"
                     />
                   </>
@@ -1046,16 +1113,23 @@ export default function QuestionManagementPage() {
                 )}
                 <TextField
                   label={
-                    formData.question_type === "structured" || formData.question_type === "essay"
+                    formData.question_type === "structured" ||
+                    formData.question_type === "essay"
                       ? "Model Answer / Marking Scheme"
                       : "Explanation (Optional)"
                   }
                   name="explanation"
                   value={formData.explanation}
                   onChange={handleChange}
-                  rows={formData.question_type === "structured" || formData.question_type === "essay" ? 4 : 2}
+                  rows={
+                    formData.question_type === "structured" ||
+                    formData.question_type === "essay"
+                      ? 4
+                      : 2
+                  }
                   placeholder={
-                    formData.question_type === "structured" || formData.question_type === "essay"
+                    formData.question_type === "structured" ||
+                    formData.question_type === "essay"
                       ? "Write the expected answer or marking scheme..."
                       : "Why is this the correct answer?"
                   }
@@ -1222,13 +1296,38 @@ export default function QuestionManagementPage() {
                   required
                   rows={3}
                 />
-                {(editingQuestion.question_type === "mcq" || editingQuestion.question_type === "math") && (
+                {(editingQuestion.question_type === "mcq" ||
+                  editingQuestion.question_type === "math") && (
                   <>
                     <div className="grid grid-cols-2 gap-4">
-                      <InputField label="Option A" name="option_a" value={editingQuestion.option_a || ""} onChange={handleEditChange} required />
-                      <InputField label="Option B" name="option_b" value={editingQuestion.option_b || ""} onChange={handleEditChange} required />
-                      <InputField label="Option C" name="option_c" value={editingQuestion.option_c || ""} onChange={handleEditChange} required />
-                      <InputField label="Option D" name="option_d" value={editingQuestion.option_d || ""} onChange={handleEditChange} required />
+                      <InputField
+                        label="Option A"
+                        name="option_a"
+                        value={editingQuestion.option_a || ""}
+                        onChange={handleEditChange}
+                        required
+                      />
+                      <InputField
+                        label="Option B"
+                        name="option_b"
+                        value={editingQuestion.option_b || ""}
+                        onChange={handleEditChange}
+                        required
+                      />
+                      <InputField
+                        label="Option C"
+                        name="option_c"
+                        value={editingQuestion.option_c || ""}
+                        onChange={handleEditChange}
+                        required
+                      />
+                      <InputField
+                        label="Option D"
+                        name="option_d"
+                        value={editingQuestion.option_d || ""}
+                        onChange={handleEditChange}
+                        required
+                      />
                     </div>
                     <SelectField
                       label="Correct Answer"
@@ -1236,7 +1335,10 @@ export default function QuestionManagementPage() {
                       value={editingQuestion.correct_answer || ""}
                       onChange={handleEditChange}
                       required
-                      options={["A", "B", "C", "D"].map((v) => ({ value: v, label: v }))}
+                      options={["A", "B", "C", "D"].map((v) => ({
+                        value: v,
+                        label: v,
+                      }))}
                       placeholder="Select"
                     />
                   </>
@@ -1253,16 +1355,23 @@ export default function QuestionManagementPage() {
                 )}
                 <TextField
                   label={
-                    editingQuestion.question_type === "structured" || editingQuestion.question_type === "essay"
+                    editingQuestion.question_type === "structured" ||
+                    editingQuestion.question_type === "essay"
                       ? "Model Answer / Marking Scheme"
                       : "Explanation"
                   }
                   name="explanation"
                   value={editingQuestion.explanation || ""}
                   onChange={handleEditChange}
-                  rows={editingQuestion.question_type === "structured" || editingQuestion.question_type === "essay" ? 4 : 2}
+                  rows={
+                    editingQuestion.question_type === "structured" ||
+                    editingQuestion.question_type === "essay"
+                      ? 4
+                      : 2
+                  }
                   placeholder={
-                    editingQuestion.question_type === "structured" || editingQuestion.question_type === "essay"
+                    editingQuestion.question_type === "structured" ||
+                    editingQuestion.question_type === "essay"
                       ? "Write the expected answer or marking scheme..."
                       : "Why is this the correct answer?"
                   }
