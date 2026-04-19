@@ -1017,27 +1017,6 @@ export default function QuestionManagementPage() {
                 </div>
                 <div className="grid grid-cols-3 gap-4">
                   <SelectField
-                    label="Grade"
-                    name="grade"
-                    value={formData.grade}
-                    onChange={handleChange}
-                    options={GRADES.map((g) => ({
-                      value: g,
-                      label: `Grade ${g}`,
-                    }))}
-                    placeholder="Select Grade"
-                  />
-                  <SelectField
-                    label="Difficulty"
-                    name="difficulty"
-                    value={formData.difficulty}
-                    onChange={handleChange}
-                    options={DIFFICULTIES.map((d) => ({
-                      value: d,
-                      label: d.charAt(0).toUpperCase() + d.slice(1),
-                    }))}
-                  />
-                  <SelectField
                     label="Type"
                     name="question_type"
                     value={formData.question_type}
