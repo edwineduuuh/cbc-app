@@ -285,7 +285,7 @@ export default function AddQuestionPage() {
               </div>
             </div>
 
-            {/* Type / Difficulty / Marks */}
+            {/* Type / Difficulty / Max Marks */}
             <div>
               <h3 className="text-sm font-semibold text-gray-900 mb-3 flex items-center gap-2">
                 <Hash className="w-4 h-4 text-blue-600" />
@@ -328,7 +328,7 @@ export default function AddQuestionPage() {
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Max Marks
+                    Max Marks *
                   </label>
                   <input
                     type="number"
@@ -336,10 +336,11 @@ export default function AddQuestionPage() {
                     onChange={(e) =>
                       setForm({
                         ...form,
-                        max_marks: parseInt(e.target.value) || 1,
+                        max_marks: Math.max(1, parseInt(e.target.value) || 1),
                       })
                     }
                     min="1"
+                    placeholder="Set max marks for this question"
                     className="w-full px-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
                   />
                 </div>
