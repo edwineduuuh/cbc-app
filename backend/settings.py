@@ -216,7 +216,10 @@ CORS_ALLOW_CREDENTIALS = True
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost:3000",
     "https://cbc-app-9nlr.vercel.app",
+    "https://cbc-backend-production-0fd4.up.railway.app",
 ]
+
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 if os.environ.get('CSRF_TRUSTED_ORIGINS'):
     csrf_origins = [
         origin.strip()
