@@ -40,7 +40,13 @@ if not SECRET_KEY:
     )
 
 DEBUG = os.environ.get('DEBUG', 'False').strip().upper() == 'TRUE'
-ALLOWED_HOSTS = ['.onrender.com', 'cbc-backend-76im.onrender.com', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = [
+    '.onrender.com',
+    'cbc-backend-76im.onrender.com',
+    '.railway.app',
+    'localhost',
+    '127.0.0.1',
+]
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
