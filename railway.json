@@ -1,5 +1,8 @@
 {
+  "build": {
+    "buildCommand": "pip install -r requirements.txt && python manage.py collectstatic --no-input"
+  },
   "deploy": {
-    "startCommand": "gunicorn backend.wsgi:application --bind 0.0.0.0:$PORT --timeout 120 --workers 2"
+    "startCommand": "python manage.py migrate && gunicorn backend.wsgi:application --bind 0.0.0.0:$PORT --timeout 120 --workers 2"
   }
 }
