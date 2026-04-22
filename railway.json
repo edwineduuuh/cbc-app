@@ -1,5 +1,5 @@
 {
   "deploy": {
-    "startCommand": "python manage.py flush --no-input && python manage.py loaddata data.json && python manage.py setup_plans && python manage.py shell -c \"from django.contrib.auth import get_user_model; U=get_user_model(); U.objects.filter(username='superadmin').delete(); U.objects.create_superuser(username='superadmin', email='admin@stadispace.co.ke', password='Admin@StadiSpace2026!'); print('Superuser ready')\" && gunicorn backend.wsgi:application --bind 0.0.0.0:$PORT --timeout 120"
+    "startCommand": "python manage.py migrate --no-input && python manage.py load_initial_data && python manage.py setup_plans && python manage.py shell -c \"from django.contrib.auth import get_user_model; U=get_user_model(); U.objects.filter(username='superadmin').exists() or U.objects.create_superuser(username='superadmin', email='admin@stadispace.co.ke', password='Admin@StadiSpace2026!')\" && gunicorn backend.wsgi:application --bind 0.0.0.0:$PORT --timeout 120"
   }
 }
