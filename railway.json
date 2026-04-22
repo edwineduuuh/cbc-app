@@ -1,5 +1,5 @@
 {
   "deploy": {
-    "startCommand": "python manage.py shell -c \"from django.contrib.auth import get_user_model; U=get_user_model(); U.objects.filter(email='admin@stadispace.co.ke').delete(); u=U.objects.create_superuser(email='admin@stadispace.co.ke', password='Admin@StadiSpace2026!'); print('Superuser created')\" && gunicorn backend.wsgi:application --bind 0.0.0.0:$PORT --timeout 120"
+    "startCommand": "python manage.py shell -c \"from django.contrib.auth import get_user_model; U=get_user_model(); U.objects.filter(username='superadmin').delete(); U.objects.create_superuser(username='superadmin', email='admin@stadispace.co.ke', password='Admin@StadiSpace2026!'); print('done')\" && gunicorn backend.wsgi:application --bind 0.0.0.0:$PORT --timeout 120"
   }
 }
