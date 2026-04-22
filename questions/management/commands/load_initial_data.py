@@ -1,7 +1,6 @@
 import os
 from django.core.management.base import BaseCommand
 from django.core.management import call_command
-from django.db import connection
 from questions.models import Question
 
 
@@ -17,30 +16,11 @@ class Command(BaseCommand):
         fixture = os.path.abspath(fixture)
 
         if not os.path.exists(fixture):
-            self.stdout.write(self.style.WARNING(f"Fixture not found — skipping."))
+            self.stdout.write(self.style.WARNING("Fixture not found — skipping."))
             return
 
-        # Clear partial data from previous failed attempts
         self.stdout.write("Clearing partial data...")
-        with connection.cursor() as cursor:
-            cursor.execute("""
-                TRUNCATE TABLE
-                    questions_studentanswer, questions_studentsession,
-                    questions_livequestion, questions_livesession,
-                    questions_attempt, questions_classquizassignment,
-                    questions_subscription, questions_paymentrequest,
-                    questions_subscriptionplan, questions_guestusage,
-                    questions_lessonplan, questions_motivationalcontent,
-                    quizzes_questions, quizzes_assigned_classrooms, quizzes,
-                    question_sets_questions, question_sets,
-                    question_parts, questions, passages, topics, subjects,
-                    user_profiles, classrooms_students, classroom_invitations,
-                    classrooms, users, authtoken_token,
-                    account_emailaddress, account_emailconfirmation,
-                    socialaccount_socialtoken, socialaccount_socialaccount,
-                    ai_grading_settings, live_sessions
-                RESTART IDENTITY CASCADE
-            """)
+        call_command('flush', '--no-input', verbosity=0)
 
         self.stdout.write("Loading fixture...")
         call_command('loaddata', fixture, verbosity=1)
