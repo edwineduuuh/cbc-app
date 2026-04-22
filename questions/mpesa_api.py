@@ -24,6 +24,8 @@ class MpesaAPI:
         self.consumer_key = os.getenv('MPESA_CONSUMER_KEY')
         self.consumer_secret = os.getenv('MPESA_CONSUMER_SECRET')
         self.shortcode = os.getenv('MPESA_SHORTCODE')
+        # For Buy Goods: MPESA_TILL_NUMBER is PartyB; falls back to shortcode for PayBill
+        self.till_number = os.getenv('MPESA_TILL_NUMBER', self.shortcode)
         self.passkey = os.getenv('MPESA_PASSKEY')
         self.callback_url = os.getenv('MPESA_CALLBACK_URL')
         self.transaction_type = os.getenv('MPESA_TRANSACTION_TYPE', 'CustomerPayBillOnline')
@@ -103,7 +105,7 @@ class MpesaAPI:
             'TransactionType': self.transaction_type,
             'Amount': int(amount),
             'PartyA': phone_number,
-            'PartyB': self.shortcode,
+            'PartyB': self.till_number,
             'PhoneNumber': phone_number,
             'CallBackURL': self.callback_url,
             'AccountReference': account_reference,
