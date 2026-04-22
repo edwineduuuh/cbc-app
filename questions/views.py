@@ -24,6 +24,7 @@ from .ai_service import generate_lesson_plan, mark_open_answer, generate_student
 import csv
 import io
 import json
+import os
 import string
 import random
 from django.db import transaction
@@ -2041,30 +2042,29 @@ Make questions appropriate for {grade} level."""
 
 import logging
 from django.views.decorators.csrf import csrf_exempt
-from .mpesa_api import MpesaAPI
+from .intasend_api import IntaSendAPI
 
 mpesa_logger = logging.getLogger('mpesa')
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def initiate_stk_push(request):
-    """Initiate M-Pesa STK Push payment"""
+    """Initiate M-Pesa STK Push payment via IntaSend"""
     plan_id = request.data.get('plan_id')
     raw_phone = request.data.get('phone_number', '').strip()
-    
+
     if not plan_id or not raw_phone:
         return Response({'error': 'plan_id and phone_number required'}, status=400)
-    
-    # Validate & normalize phone via MpesaAPI helper
-    phone_number, phone_err = MpesaAPI.normalize_phone(raw_phone)
+
+    phone_number, phone_err = IntaSendAPI.normalize_phone(raw_phone)
     if phone_err:
         return Response({'error': phone_err}, status=400)
-    
+
     try:
         plan = SubscriptionPlan.objects.get(id=plan_id, is_active=True)
     except SubscriptionPlan.DoesNotExist:
         return Response({'error': 'Plan not found'}, status=404)
-    
+
     # Idempotency: block duplicate STK pushes for same user+plan within 3 minutes
     recent_cutoff = timezone.now() - timedelta(minutes=3)
     existing = PaymentRequest.objects.filter(
@@ -2080,142 +2080,124 @@ def initiate_stk_push(request):
             'checkout_request_id': existing.checkout_request_id,
             'payment_request_id': existing.id,
         })
-    
-    mpesa = MpesaAPI()
-    response = mpesa.stk_push(
+
+    api_ref = f'StadiSpace-{plan.slug}-{request.user.id}-{int(timezone.now().timestamp())}'
+
+    intasend = IntaSendAPI()
+    result = intasend.stk_push(
         phone_number=phone_number,
         amount=plan.price_kes,
-        account_reference=f'StadiSpace {plan.name}',
-        transaction_desc=f'StadiSpace {plan.name} Plan'
+        api_ref=api_ref,
+        name=request.user.get_full_name() or request.user.username,
+        email=request.user.email or '',
     )
-    
-    if response.get('ResponseCode') == '0':
+
+    if result.get('success'):
         payment_request = PaymentRequest.objects.create(
             user=request.user,
             plan=plan,
             phone_number=phone_number,
             amount_paid=plan.price_kes,
             mpesa_code='',
-            checkout_request_id=response.get('CheckoutRequestID'),
-            merchant_request_id=response.get('MerchantRequestID'),
+            checkout_request_id=result['invoice_id'],
+            merchant_request_id='',
             status='pending',
         )
         mpesa_logger.info(
-            "STK push initiated: user=%s plan=%s amount=%s checkout=%s",
-            request.user.username, plan.name, plan.price_kes,
-            response.get('CheckoutRequestID'),
+            "IntaSend STK push initiated: user=%s plan=%s amount=%s invoice_id=%s",
+            request.user.username, plan.name, plan.price_kes, result['invoice_id'],
         )
-        
         return Response({
             'success': True,
             'message': 'STK Push sent. Enter your M-Pesa PIN.',
-            'checkout_request_id': response.get('CheckoutRequestID'),
+            'checkout_request_id': result['invoice_id'],
             'payment_request_id': payment_request.id,
         })
     else:
-        mpesa_logger.warning("STK push failed: %s", response)
-        return Response({'error': response.get('errorMessage', 'Failed to initiate payment')}, status=400)
+        mpesa_logger.warning("IntaSend STK push failed: %s", result)
+        return Response({'error': result.get('error', 'Failed to initiate payment')}, status=400)
 
 
 @csrf_exempt
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def mpesa_callback(request):
-    """M-Pesa callback endpoint — called by Safaricom servers.
-    Validates payment, activates subscription automatically.
-    
-    SECURITY FEATURES:
-    - IP whitelisting for Safaricom servers
-    - Atomic transaction handling to prevent race conditions
-    - Amount validation before status update
-    """
-    # Security: IP Whitelisting for Safaricom callback servers
-    # Safaricom uses many IPs — on Render/cloud platforms behind proxies,
-    # the real IP may not be reliably extractable. Log and allow for now,
-    # relying on checkout_request_id validation as the primary security check.
-    SAFARICOM_CALLBACK_IPS = [
-        '196.201.214.200', '196.201.214.206', '196.201.214.207', '196.201.214.208',
-        '196.201.213.114', '196.201.214.127', '196.201.214.128',
-        '127.0.0.1', 'localhost',
-    ]
-    
-    client_ip = request.META.get('REMOTE_ADDR')
-    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
-    
-    # Get real IP if behind proxy
-    if x_forwarded_for:
-        client_ip = x_forwarded_for.split(',')[0].strip()
-    
-    # Log IP but don't block — Safaricom has many IPs and cloud proxies are unreliable
-    if client_ip not in SAFARICOM_CALLBACK_IPS:
-        mpesa_logger.warning("Callback from unknown IP: %s (allowing — checkout_request_id will validate)", client_ip)
-    
-    mpesa_logger.info("M-Pesa callback received from IP %s: %s", client_ip, json.dumps(request.data, default=str))
-    
+    """IntaSend M-Pesa webhook — called by IntaSend after STK Push completes."""
+    mpesa_logger.info("IntaSend callback received: %s", json.dumps(request.data, default=str))
+
+    # Validate challenge secret so only IntaSend can trigger this endpoint
+    challenge = os.getenv('INTASEND_CHALLENGE', '')
+    if challenge and request.data.get('challenge') != challenge:
+        mpesa_logger.warning("IntaSend callback: invalid challenge — rejected")
+        return Response({'error': 'Invalid challenge'}, status=403)
+
     try:
-        stk_callback = request.data.get('Body', {}).get('stkCallback', {})
-        result_code = stk_callback.get('ResultCode')
-        result_desc = stk_callback.get('ResultDesc', '')
-        checkout_request_id = stk_callback.get('CheckoutRequestID')
-        
-        if not checkout_request_id:
-            mpesa_logger.warning("Callback missing CheckoutRequestID")
+        invoice_id = request.data.get('invoice_id')
+        state = request.data.get('state', '')
+        payment_reference = (
+            request.data.get('payment_reference')
+            or request.data.get('mpesa_reference', '')
+        )
+        amount_paid = request.data.get('value') or request.data.get('amount')
+        failed_reason = request.data.get('failed_reason') or request.data.get('failed_code') or ''
+
+        if not invoice_id:
+            mpesa_logger.warning("IntaSend callback missing invoice_id")
             return Response({'message': 'Invalid callback data'}, status=400)
-        
-        # Use atomic transaction to prevent race conditions
+
         with transaction.atomic():
             try:
-                # Lock the row to prevent concurrent processing
-                payment_request = PaymentRequest.objects.select_for_update().select_related('plan', 'user').get(
-                    checkout_request_id=checkout_request_id
+                payment_request = (
+                    PaymentRequest.objects
+                    .select_for_update()
+                    .select_related('plan', 'user')
+                    .get(checkout_request_id=invoice_id)
                 )
             except PaymentRequest.DoesNotExist:
-                mpesa_logger.warning("No PaymentRequest for checkout_request_id=%s", checkout_request_id)
+                mpesa_logger.warning("No PaymentRequest for invoice_id=%s", invoice_id)
                 return Response({'message': 'Payment request not found'}, status=404)
-            
-            # Guard: don't process already-handled callbacks (atomic check)
+
             if payment_request.status != 'pending':
-                mpesa_logger.info("Duplicate callback for payment %s (status=%s)", payment_request.id, payment_request.status)
+                mpesa_logger.info(
+                    "Duplicate callback for payment %s (status=%s)",
+                    payment_request.id, payment_request.status,
+                )
                 return Response({'message': 'Already processed'})
-            
-            if result_code == 0:
-                # ── Extract metadata from callback ──
-                callback_items = stk_callback.get('CallbackMetadata', {}).get('Item', [])
-                meta = {}
-                for item in callback_items:
-                    meta[item.get('Name')] = item.get('Value')
-                
-                mpesa_receipt = meta.get('MpesaReceiptNumber')
-                amount_paid = meta.get('Amount')
+
+            if state == 'COMPLETE':
                 plan = payment_request.plan
-                
-                # ── Validate amount BEFORE updating status ──
-                if amount_paid is not None and int(amount_paid) < int(plan.price_kes):
-                    mpesa_logger.error(
-                        "Amount mismatch: paid=%s expected=%s checkout=%s user=%s",
-                        amount_paid, plan.price_kes, checkout_request_id,
-                        payment_request.user.username,
-                    )
-                    payment_request.status = 'rejected'
-                    payment_request.rejection_reason = (
-                        f'Amount paid ({amount_paid}) is less than plan price ({plan.price_kes})'
-                    )
-                    payment_request.save()
-                    return Response({'message': 'Amount mismatch — payment rejected'}, status=400)
-                
-                # ── Mark payment verified (now that validation passed) ──
-                payment_request.mpesa_code = mpesa_receipt or 'AUTO_CONFIRMED'
+
+                # Validate amount
+                if amount_paid is not None:
+                    try:
+                        paid_int = int(float(amount_paid))
+                    except (ValueError, TypeError):
+                        paid_int = None
+                    if paid_int is not None and paid_int < int(plan.price_kes):
+                        mpesa_logger.error(
+                            "Amount mismatch: paid=%s expected=%s invoice=%s user=%s",
+                            amount_paid, plan.price_kes, invoice_id,
+                            payment_request.user.username,
+                        )
+                        payment_request.status = 'rejected'
+                        payment_request.rejection_reason = (
+                            f'Amount paid ({amount_paid}) is less than plan price ({plan.price_kes})'
+                        )
+                        payment_request.save()
+                        return Response({'message': 'Amount mismatch — payment rejected'}, status=400)
+
+                payment_request.mpesa_code = payment_reference or 'INTASEND_CONFIRMED'
                 payment_request.status = 'verified'
                 payment_request.verified_at = timezone.now()
-                payment_request.amount_paid = amount_paid
-                payment_request.admin_notes = 'Auto-verified via STK callback'
+                if amount_paid:
+                    payment_request.amount_paid = amount_paid
+                payment_request.admin_notes = 'Auto-verified via IntaSend callback'
                 payment_request.save()
-                
-                # ── Activate / extend subscription ──
+
                 user = payment_request.user
                 start_date = timezone.now()
                 end_date = start_date + timedelta(days=plan.duration_days)
-                
+
                 subscription, created = Subscription.objects.get_or_create(
                     user=user,
                     defaults={
@@ -2226,22 +2208,21 @@ def mpesa_callback(request):
                         'is_active': True,
                     }
                 )
-                
+
                 if not created:
                     subscription.plan = plan
                     subscription.payment = payment_request
-                    # Extend from whichever is later: current end_date or now
                     base_date = max(subscription.end_date, timezone.now())
                     subscription.end_date = base_date + timedelta(days=plan.duration_days)
                     subscription.is_active = True
                     subscription.save()
-                
+
                 mpesa_logger.info(
                     "Subscription activated: user=%s plan=%s until=%s receipt=%s",
-                    user.username, plan.name, subscription.end_date, mpesa_receipt,
+                    user.username, plan.name, subscription.end_date, payment_reference,
                 )
-                
-                # Send SMS confirmation (best effort - outside transaction)
+
+                # Send SMS confirmation (best effort)
                 try:
                     from .sms import send_payment_confirmation, send_payment_confirmation_to_parent
                     send_payment_confirmation(
@@ -2250,7 +2231,6 @@ def mpesa_callback(request):
                         plan_name=plan.name,
                         days=plan.duration_days,
                     )
-                    # Also notify parent if phone available
                     if getattr(user, 'parent_phone', None):
                         send_payment_confirmation_to_parent(
                             parent_phone=user.parent_phone,
@@ -2258,7 +2238,7 @@ def mpesa_callback(request):
                             child_name=user.first_name or user.username,
                             plan_name=plan.name,
                             amount=amount_paid,
-                            mpesa_code=mpesa_receipt or 'N/A',
+                            mpesa_code=payment_reference or 'N/A',
                         )
                 except Exception as e:
                     mpesa_logger.warning("SMS send failed: %s", e)
@@ -2270,23 +2250,24 @@ def mpesa_callback(request):
                         user=user,
                         plan_name=plan.name,
                         amount=amount_paid,
-                        mpesa_code=mpesa_receipt or 'N/A',
+                        mpesa_code=payment_reference or 'N/A',
                         days=plan.duration_days,
                     )
                 except Exception as e:
                     mpesa_logger.warning("Email send failed: %s", e)
+
             else:
                 payment_request.status = 'rejected'
-                payment_request.rejection_reason = f'M-Pesa ResultCode={result_code}: {result_desc}'
+                payment_request.rejection_reason = f'IntaSend state={state}: {failed_reason}'
                 payment_request.save()
                 mpesa_logger.info(
-                    "Payment rejected: user=%s code=%s desc=%s",
-                    payment_request.user.username, result_code, result_desc,
+                    "Payment rejected: user=%s state=%s reason=%s",
+                    payment_request.user.username, state, failed_reason,
                 )
-        
+
         return Response({'message': 'Callback processed'})
     except Exception as e:
-        mpesa_logger.exception("Unhandled error in mpesa_callback: %s", e)
+        mpesa_logger.exception("Unhandled error in intasend_callback: %s", e)
         return Response({'error': 'Internal error'}, status=500)
 
 
