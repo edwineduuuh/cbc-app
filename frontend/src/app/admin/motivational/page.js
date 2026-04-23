@@ -102,6 +102,8 @@ const CATEGORY_BADGES = {
 const BLANK = {
   content_type: "quote",
   category: "general",
+  title: "",
+  preview: "",
   text: "",
   author: "",
   is_active: true,
@@ -266,6 +268,8 @@ export default function MotivationalAdminPage() {
     setForm({
       content_type: item.content_type,
       category: item.category,
+      title: item.title || "",
+      preview: item.preview || "",
       text: item.text,
       author: item.author || "",
       is_active: item.is_active,
@@ -277,12 +281,14 @@ export default function MotivationalAdminPage() {
 
   /* ── Filtered items ── */
   const filtered = items.filter((item) => {
-    if (
-      search &&
-      !item.text.toLowerCase().includes(search.toLowerCase()) &&
-      !(item.author || "").toLowerCase().includes(search.toLowerCase())
-    )
-      return false;
+    if (search) {
+      const q = search.toLowerCase();
+      const hit =
+        item.text.toLowerCase().includes(q) ||
+        (item.title || "").toLowerCase().includes(q) ||
+        (item.author || "").toLowerCase().includes(q);
+      if (!hit) return false;
+    }
     if (filterType && item.content_type !== filterType) return false;
     if (filterCategory && item.category !== filterCategory) return false;
     if (!showInactive && !item.is_active) return false;
@@ -653,10 +659,40 @@ export default function MotivationalAdminPage() {
                   </div>
                 </div>
 
+                {/* Title */}
+                <div>
+                  <label className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2 block">
+                    Title{" "}
+                    <span className="text-gray-300 normal-case">(shown on the card)</span>
+                  </label>
+                  <input
+                    type="text"
+                    value={form.title}
+                    onChange={(e) => setForm({ ...form, title: e.target.value })}
+                    placeholder="e.g. Anger Management, Saving Money..."
+                    className="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-200 focus:border-emerald-400"
+                  />
+                </div>
+
+                {/* Preview */}
+                <div>
+                  <label className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2 block">
+                    Preview{" "}
+                    <span className="text-gray-300 normal-case">(short teaser on the card)</span>
+                  </label>
+                  <textarea
+                    value={form.preview}
+                    onChange={(e) => setForm({ ...form, preview: e.target.value })}
+                    rows={2}
+                    placeholder="A short sentence or two that draws the reader in..."
+                    className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-200 focus:border-emerald-400 resize-none"
+                  />
+                </div>
+
                 {/* Text */}
                 <div>
                   <label className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2 block">
-                    Content{" "}
+                    Full Content{" "}
                     {form.content_type === "quote"
                       ? "(the quote)"
                       : form.content_type === "story"

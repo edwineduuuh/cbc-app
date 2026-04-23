@@ -352,6 +352,8 @@ export default function LifeSkills() {
                   >
                     {f === "all"
                       ? "All"
+                      : f === "story"
+                      ? "Stories"
                       : f.charAt(0).toUpperCase() + f.slice(1) + "s"}
                   </button>
                 ))}
