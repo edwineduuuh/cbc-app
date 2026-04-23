@@ -2327,6 +2327,45 @@ def check_quiz_access(request):
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
+def test_email_sms(request):
+    """Admin-only: test email and SMS sending, returns exact errors."""
+    if not request.user.is_staff:
+        return Response({'error': 'Admin only'}, status=403)
+
+    results = {}
+
+    # Test email
+    try:
+        from django.core.mail import send_mail
+        from django.conf import settings
+        send_mail(
+            subject='StadiSpace Email Test',
+            message='This is a test email from StadiSpace.',
+            from_email=settings.DEFAULT_FROM_EMAIL,
+            recipient_list=[request.user.email],
+            fail_silently=False,
+        )
+        results['email'] = 'OK — sent to ' + request.user.email
+    except Exception as e:
+        results['email'] = f'FAILED: {e}'
+
+    # Test SMS
+    phone = request.data.get('phone') or getattr(request.user, 'parent_phone', None)
+    if phone:
+        try:
+            from .sms import send_sms
+            ok = send_sms(phone, 'StadiSpace SMS test message.')
+            results['sms'] = 'OK' if ok else 'FAILED (check AT balance/credentials)'
+        except Exception as e:
+            results['sms'] = f'FAILED: {e}'
+    else:
+        results['sms'] = 'SKIPPED — pass phone in request body'
+
+    return Response(results)
+
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
 def start_quiz_with_check(request, quiz_id):
     """Start quiz - checks access and decrements credit"""
     user = request.user

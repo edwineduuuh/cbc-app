@@ -279,3 +279,23 @@ EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER', '')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD', '')
 DEFAULT_FROM_EMAIL = os.getenv('EMAIL_HOST_USER', '')
 EMAIL_TIMEOUT = 10  # seconds — prevent SMTP hangs from blocking requests
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'simple': {'format': '[%(levelname)s] %(name)s: %(message)s'},
+    },
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple',
+        },
+    },
+    'root': {'handlers': ['console'], 'level': 'INFO'},
+    'loggers': {
+        'emails': {'handlers': ['console'], 'level': 'DEBUG', 'propagate': False},
+        'sms':    {'handlers': ['console'], 'level': 'DEBUG', 'propagate': False},
+        'mpesa':  {'handlers': ['console'], 'level': 'DEBUG', 'propagate': False},
+    },
+}

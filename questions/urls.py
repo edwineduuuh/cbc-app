@@ -150,6 +150,9 @@ urlpatterns = [
     path('payments/callback/', views.mpesa_callback, name='mpesa-callback'),
     path('payments/status/<int:payment_request_id>/', views.check_payment_status, name='check-payment-status'),
 
+    # ── Admin Test ───────────────────────────────────────────────
+    path('admin/test-notifications/', views.test_email_sms, name='test-notifications'),
+
     # ── Free Trial Access Check ──────────────────────────────────
     path('quiz-access/', views.check_quiz_access, name='quiz-access'),
     path('quiz/<int:quiz_id>/start/', views.start_quiz_with_check, name='start-quiz-check'),
