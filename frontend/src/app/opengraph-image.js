@@ -91,14 +91,14 @@ export default async function Image() {
             marginBottom: 48,
           }}
         >
-          CBC Quizzes & Learning for Kenyan Students
+          CBE Quizzes & Learning for Kenyan Students
           <br />
-          Grades 4–9 · Instant Marking · Progress Analytics
+          Grades 4–10 · MCQ & Structured Marking · Progress Tracking
         </div>
 
         {/* Stats row */}
         <div style={{ display: "flex", gap: 24 }}>
-          {["2 Free Quizzes", "All CBC Subjects", "From KES 149/week"].map((label) => (
+          {["2 Free Quizzes", "All CBE Subjects", "From KES 149/week"].map((label) => (
             <div
               key={label}
               style={{

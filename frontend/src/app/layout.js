@@ -15,15 +15,14 @@ export const metadata = {
     template: "%s | StadiSpace",
   },
   description:
-    "StadiSpace helps Kenyan students in Grades 4–9 excel in CBC with interactive quizzes, instant feedback, AI-powered marking, and detailed progress tracking. Start free today.",
+    "StadiSpace helps Kenyan students in Grades 4–10 excel in CBE with interactive quizzes, instant marking of MCQ and structured questions, and detailed progress tracking. Start free today.",
   keywords: [
-    "CBC Kenya",
     "CBE Kenya",
     "Kenya online learning",
-    "Grade 4 5 6 7 8 9 quizzes",
+    "Grade 4 5 6 7 8 9 10 quizzes",
     "Kenya primary school quizzes",
     "junior secondary quizzes Kenya",
-    "CBC revision Kenya",
+    "CBE revision Kenya",
     "Kenya curriculum quizzes",
     "StadiSpace",
     "online learning Kenya",
@@ -42,7 +41,7 @@ export const metadata = {
     siteName: "StadiSpace",
     title: "StadiSpace — CBE Quizzes & Learning for Kenyan Students",
     description:
-      "Interactive quizzes, instant marking, and progress analytics for CBC students in Grades 4–9. Start with 2 free quizzes — no card required.",
+      "Interactive quizzes, instant marking of MCQ and structured questions, and progress tracking for CBE students in Grades 4–10. Start with 2 free quizzes — no card required.",
     images: [
       {
         url: "/og-image.png",
@@ -57,7 +56,7 @@ export const metadata = {
     card: "summary_large_image",
     title: "StadiSpace — CBE Quizzes for Kenyan Students",
     description:
-      "Interactive quizzes, instant marking, and progress analytics for CBC students in Grades 4–9.",
+      "Interactive quizzes, instant marking of MCQ and structured questions, and progress tracking for CBE students in Grades 4–10.",
     images: ["/og-image.png"],
   },
 
@@ -88,14 +87,14 @@ const structuredData = {
   name: "StadiSpace",
   url: BASE_URL,
   description:
-    "Online CBC learning platform for Kenyan students in Grades 4–9. Interactive quizzes, instant AI-powered marking, and detailed progress analytics.",
+    "Online CBE learning platform for Kenyan students in Grades 4–10. Interactive quizzes, instant marking of MCQ and structured questions, and detailed progress tracking.",
   address: {
     "@type": "PostalAddress",
     addressCountry: "KE",
   },
   areaServed: "KE",
-  educationalLevel: ["Grade 4", "Grade 5", "Grade 6", "Grade 7", "Grade 8", "Grade 9"],
-  teaches: "Competency Based Curriculum (CBC), Kenya",
+  educationalLevel: ["Grade 4", "Grade 5", "Grade 6", "Grade 7", "Grade 8", "Grade 9", "Grade 10"],
+  teaches: "Competency Based Education (CBE), Kenya",
   inLanguage: "en",
 };
 
