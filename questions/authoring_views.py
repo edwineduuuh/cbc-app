@@ -2,6 +2,13 @@ from rest_framework import generics, status
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
+from rest_framework.pagination import PageNumberPagination
+
+
+class QuestionPagination(PageNumberPagination):
+    page_size = 100
+    page_size_query_param = 'page_size'
+    max_page_size = 500
 from django.db import transaction
 from .models import Subject, Topic, Question
 from .serializers import QuestionDetailSerializer, QuizDetailSerializer, QuizListSerializer
@@ -26,30 +33,41 @@ class QuestionCreateView(generics.CreateAPIView):
 class QuestionListManageView(generics.ListAPIView):
     """
     GET /api/admin/questions/manage/
-    List all questions with filters
+    List all questions with filters — paginated (100 per page)
     """
     serializer_class = QuestionDetailSerializer
     permission_classes = [IsAuthenticated]
-    
+    pagination_class = QuestionPagination
+
     def get_queryset(self):
-        queryset = Question.objects.all()
-        
+        queryset = Question.objects.select_related(
+            'topic', 'topic__subject', 'created_by'
+        ).prefetch_related('parts')
+
         subject_id = self.request.query_params.get('subject')
         if subject_id:
             queryset = queryset.filter(topic__subject_id=subject_id)
-        
+
         topic_id = self.request.query_params.get('topic')
         if topic_id:
             queryset = queryset.filter(topic_id=topic_id)
-        
+
         grade = self.request.query_params.get('grade')
         if grade:
             queryset = queryset.filter(topic__grade=grade)
-        
+
+        difficulty = self.request.query_params.get('difficulty')
+        if difficulty:
+            queryset = queryset.filter(difficulty=difficulty)
+
+        q_type = self.request.query_params.get('type')
+        if q_type:
+            queryset = queryset.filter(question_type=q_type)
+
         search = self.request.query_params.get('search')
         if search:
             queryset = queryset.filter(question_text__icontains=search)
-        
+
         return queryset.order_by('topic__grade', 'topic__subject__name', 'topic__order', 'topic__name', '-created_at')
 
 

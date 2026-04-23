@@ -115,7 +115,7 @@ export default function EditQuizPage() {
       });
       if (res.ok) {
         const data = await res.json();
-        setAvailableQuestions(Array.isArray(data) ? data : []);
+        setAvailableQuestions(Array.isArray(data) ? data : data.results || []);
       }
     } catch (e) {
       console.error("Error loading questions:", e);

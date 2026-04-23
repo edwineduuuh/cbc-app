@@ -74,6 +74,13 @@ class QuizDetailView(generics.RetrieveUpdateDestroyAPIView):
             return QuizCreateUpdateSerializer
         return QuizDetailSerializer
 
+    def perform_update(self, serializer):
+        question_ids = self.request.data.get('question_ids')
+        quiz = serializer.save()
+        if question_ids is not None:
+            quiz.questions.set(question_ids)
+            quiz.save()
+
 
 class QuizPublishView(generics.GenericAPIView):
     """

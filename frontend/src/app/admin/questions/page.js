@@ -184,17 +184,23 @@ export default function QuestionManagementPage() {
 
   useEffect(() => {
     if (formData.subject) {
-      setFilteredTopics(topics.filter((t) => t.subject == formData.subject));
+      let filtered = topics.filter((t) => t.subject == formData.subject);
+      if (formData.grade) filtered = filtered.filter((t) => t.grade == formData.grade);
+      setFilteredTopics(filtered);
+      // clear topic if it no longer belongs to the new grade/subject
+      if (formData.topic && !filtered.find((t) => t.id == formData.topic)) {
+        setFormData((prev) => ({ ...prev, topic: "" }));
+      }
     } else {
       setFilteredTopics([]);
     }
-  }, [formData.subject, topics]);
+  }, [formData.subject, formData.grade, topics]);
 
   useEffect(() => {
     if (editingQuestion && editingQuestion.subject) {
-      setEditFilteredTopics(
-        topics.filter((t) => t.subject == editingQuestion.subject),
-      );
+      let filtered = topics.filter((t) => t.subject == editingQuestion.subject);
+      if (editingQuestion.grade) filtered = filtered.filter((t) => t.grade == editingQuestion.grade);
+      setEditFilteredTopics(filtered);
     }
   }, [editingQuestion, topics]);
 
@@ -977,7 +983,7 @@ export default function QuestionManagementPage() {
                     disabled={!formData.subject}
                     options={filteredTopics.map((t) => ({
                       value: t.id,
-                      label: t.name,
+                      label: `${t.name} — Grade ${t.grade}`,
                     }))}
                     placeholder="Select Strand"
                   />
@@ -1304,7 +1310,7 @@ export default function QuestionManagementPage() {
                     required
                     options={editFilteredTopics.map((t) => ({
                       value: t.id,
-                      label: t.name,
+                      label: `${t.name} — Grade ${t.grade}`,
                     }))}
                     placeholder="Select Strand"
                   />
