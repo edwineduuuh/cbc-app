@@ -273,9 +273,10 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 EMAIL_BACKEND = 'anymail.backends.resend.EmailBackend'
 DEFAULT_FROM_EMAIL = 'StadiSpace <onboarding@resend.dev>'
-EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER', '')  # kept for EMAIL_HOST_USER checks in emails.py
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER', '')
+_resend_key = os.getenv('RESEND_KEY', '')
 ANYMAIL = {
-    'RESEND_API_KEY': os.getenv('RESEND_API_KEY', ''),
+    'RESEND_API_KEY': _resend_key,
 }
 
 LOGGING = {
