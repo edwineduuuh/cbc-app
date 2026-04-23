@@ -119,7 +119,7 @@ export default function CreateQuizPage() {
 
     if (res.ok) {
       alert("✅ Quiz created successfully!");
-      router.push("/admin/quizzes");
+      router.replace("/admin/quizzes");
     } else {
       const data = await res.json();
       alert(`❌ Failed: ${data.error || "Unknown error"}`);

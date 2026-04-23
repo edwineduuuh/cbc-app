@@ -229,7 +229,7 @@ export default function EditQuizPage() {
       <div className="min-h-screen flex items-center justify-center">
         <Card className="p-8 text-center">
           <h2 className="text-xl font-bold mb-4">Quiz not found</h2>
-          <Button onClick={() => router.push("/admin/quizzes")}>Back to Quizzes</Button>
+          <Button onClick={() => router.replace("/admin/quizzes")}>Back to Quizzes</Button>
         </Card>
       </div>
     );
@@ -394,7 +394,7 @@ export default function EditQuizPage() {
         <div className="flex items-center justify-between mb-8">
           <div className="flex items-center gap-4">
             <button
-              onClick={() => router.push("/admin/quizzes")}
+              onClick={() => router.replace("/admin/quizzes")}
               className="flex items-center gap-2 text-gray-600 hover:text-gray-900"
             >
               <ArrowLeft className="w-5 h-5" />

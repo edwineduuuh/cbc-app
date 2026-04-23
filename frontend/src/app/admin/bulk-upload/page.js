@@ -197,7 +197,7 @@ export default function BulkUploadPage() {
         <div className="bg-white border-b sticky top-0 z-30">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
             <div className="flex items-center gap-4">
-              <button onClick={() => router.push("/admin")} className="p-2 text-gray-400 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-colors">
+              <button onClick={() => router.replace("/admin")} className="p-2 text-gray-400 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-colors">
                 <ArrowLeft className="w-5 h-5" />
               </button>
               <div>

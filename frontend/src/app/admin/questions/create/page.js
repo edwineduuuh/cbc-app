@@ -161,7 +161,7 @@ export default function AddQuestionPage() {
 
       if (res.ok) {
         showToast("Question created successfully!");
-        setTimeout(() => router.push("/admin/questions"), 1000);
+        setTimeout(() => router.replace("/admin/questions"), 1000);
       } else {
         const data = await res.json().catch(() => ({}));
         const errMsg =
@@ -198,7 +198,7 @@ export default function AddQuestionPage() {
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
             <div className="flex items-center gap-4">
               <button
-                onClick={() => router.push("/admin/questions")}
+                onClick={() => router.replace("/admin/questions")}
                 className="p-2 text-gray-400 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
               >
                 <ArrowLeft className="w-5 h-5" />
@@ -537,7 +537,7 @@ export default function AddQuestionPage() {
                 )}
               </button>
               <button
-                onClick={() => router.push("/admin/questions")}
+                onClick={() => router.replace("/admin/questions")}
                 className="px-6 py-3 text-sm font-medium text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors"
               >
                 Cancel
