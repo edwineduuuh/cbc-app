@@ -46,7 +46,7 @@ export default function EditQuizPage() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
-  const [toast, setToast] = useState({ show: false, message: "", type: "success" });
+  const [toast, setToast] = useState({ visible: false, message: "", type: "success" });
 
   // Filters
   const [subjects, setSubjects] = useState([]);
@@ -94,10 +94,10 @@ export default function EditQuizPage() {
         setQuiz(data);
         setSelectedQuestions(data.questions || []);
       } else {
-        setToast({ show: true, message: "Quiz not found", type: "error" });
+        setToast({ visible: true, message: "Quiz not found", type: "error" });
       }
     } catch {
-      setToast({ show: true, message: "Error loading quiz", type: "error" });
+      setToast({ visible: true, message: "Error loading quiz", type: "error" });
     } finally {
       setLoading(false);
     }
@@ -173,14 +173,14 @@ export default function EditQuizPage() {
           prev.map((q) => (q.id === updated.id ? { ...q, ...updated } : q))
         );
         setEditingQuestion(null);
-        setToast({ show: true, message: "Question updated!", type: "success" });
+        setToast({ visible: true, message: "Question updated!", type: "success" });
         // Reload available questions so the list reflects the edit immediately
         fetchAvailableQuestions(searchTerm, filterSubject, filterGrade);
       } else {
-        setToast({ show: true, message: "Failed to save question", type: "error" });
+        setToast({ visible: true, message: "Failed to save question", type: "error" });
       }
     } catch {
-      setToast({ show: true, message: "Network error", type: "error" });
+      setToast({ visible: true, message: "Network error", type: "error" });
     } finally {
       setEditSaving(false);
     }
@@ -191,18 +191,18 @@ export default function EditQuizPage() {
     const token = localStorage.getItem("accessToken");
     try {
       const res = await fetch(`${API}/admin/quizzes/${params.id}/`, {
-        method: "PUT",
+        method: "PATCH",
         headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
-        body: JSON.stringify({ ...quiz, questions: undefined, question_ids: selectedQuestions.map((q) => q.id) }),
+        body: JSON.stringify({ question_ids: selectedQuestions.map((q) => q.id) }),
       });
       if (res.ok) {
-        setToast({ show: true, message: "Quiz updated successfully!", type: "success" });
-        setTimeout(() => router.push("/admin/quizzes"), 2000);
+        setToast({ visible: true, message: `Quiz saved — ${selectedQuestions.length} question${selectedQuestions.length !== 1 ? "s" : ""}`, type: "success" });
       } else {
-        setToast({ show: true, message: "Failed to update quiz", type: "error" });
+        const err = await res.json().catch(() => ({}));
+        setToast({ visible: true, message: err.detail || "Failed to save quiz", type: "error" });
       }
     } catch {
-      setToast({ show: true, message: "Network error", type: "error" });
+      setToast({ visible: true, message: "Network error", type: "error" });
     } finally {
       setSaving(false);
     }
@@ -237,7 +237,7 @@ export default function EditQuizPage() {
 
   return (
     <>
-      <Toast {...toast} onClose={() => setToast({ ...toast, show: false })} />
+      <Toast {...toast} onClose={() => setToast({ ...toast, visible: false })} />
 
       {/* Edit Question Modal */}
       {editingQuestion && (
