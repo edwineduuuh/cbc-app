@@ -272,7 +272,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 EMAIL_BACKEND = 'anymail.backends.resend.EmailBackend'
-DEFAULT_FROM_EMAIL = 'StadiSpace <onboarding@resend.dev>'
+DEFAULT_FROM_EMAIL = 'StadiSpace <noreply@stadispace.co.ke>'
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER', '')
 _resend_key = os.getenv('RESEND_KEY', '')
 ANYMAIL = {
