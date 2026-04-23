@@ -1066,7 +1066,9 @@ class MotivationalContent(models.Model):
 
     content_type = models.CharField(max_length=10, choices=CONTENT_TYPES, default='quote')
     category = models.CharField(max_length=20, choices=CATEGORIES, default='general')
-    text = models.TextField(help_text="The quote, story, or tip text")
+    title = models.CharField(max_length=200, blank=True, help_text="Card title, e.g. 'Anger Management'")
+    preview = models.CharField(max_length=300, blank=True, help_text="Short teaser shown on the card")
+    text = models.TextField(help_text="The full content shown when user clicks the card")
     author = models.CharField(max_length=150, blank=True, help_text="Who said/wrote it (optional)")
     is_active = models.BooleanField(default=True)
     grade_min = models.IntegerField(default=4, help_text="Minimum grade to show this to")

@@ -444,12 +444,12 @@ class UserQuotaSerializer(serializers.Serializer):
 class MotivationalContentSerializer(serializers.ModelSerializer):
     class Meta:
         model = MotivationalContent
-        fields = ['id', 'content_type', 'category', 'text', 'author']
+        fields = ['id', 'content_type', 'category', 'title', 'preview', 'text', 'author']
 
 
 class MotivationalContentAdminSerializer(serializers.ModelSerializer):
     class Meta:
         model = MotivationalContent
-        fields = ['id', 'content_type', 'category', 'text', 'author',
+        fields = ['id', 'content_type', 'category', 'title', 'preview', 'text', 'author',
                   'is_active', 'grade_min', 'grade_max', 'created_at', 'updated_at']
         read_only_fields = ['id', 'created_at', 'updated_at']
