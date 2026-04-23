@@ -59,6 +59,7 @@ python-decouple==3.8
 python-docx==1.2.0
 python-dotenv==1.2.1
 PyYAML==6.0.3
+django-sendgrid-v5==1.2.3
 requests==2.32.5
 responses==0.26.0
 schema==0.7.8
