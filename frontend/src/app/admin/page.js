@@ -32,7 +32,7 @@ import Button from "@/components/ui/Button";
 import Toast from "@/components/ui/Toast";
 import AdminPaymentsPanel from "@/components/AdminPaymentsPanel";
 import AdminNavigation from "@/components/AdminNavigation";
-const API = process.env.NEXT_PUBLIC_API_URL || "https://cbc-backend-76im.onrender.com/api";
+const API = process.env.NEXT_PUBLIC_API_URL || "https://cbc-backend-production-8bc4.up.railway.app/api";
 // ─── Stat Card ────────────────────────────────────────────────────────────────
 function StatCard({ label, value, icon: Icon, gradient, delay = 0 }) {
   const gradients = {

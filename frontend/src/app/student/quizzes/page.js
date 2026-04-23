@@ -12,7 +12,7 @@ import { BookOpen, Clock, Calendar, Award } from "lucide-react";
 
 const API =
   process.env.NEXT_PUBLIC_API_URL ||
-  "https://cbc-backend-76im.onrender.com/api";
+  "https://cbc-backend-production-8bc4.up.railway.app/api";
 
 export default function StudentQuizzesPage() {
   useTheme(); // Force re-render when theme changes

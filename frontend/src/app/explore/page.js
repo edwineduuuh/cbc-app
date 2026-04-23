@@ -8,7 +8,7 @@ import { ChevronRight, BookOpen } from "lucide-react";
 
 const API =
   process.env.NEXT_PUBLIC_API_URL ||
-  "https://cbc-backend-76im.onrender.com/api";
+  "https://cbc-backend-production-8bc4.up.railway.app/api";
 
 const GRADES = [4, 5, 6, 7, 8, 9, 10, 11, 12];
 
@@ -183,7 +183,7 @@ export default function ExplorePage() {
             borderRadius: "50%",
           }} />
           <p style={{ fontSize: 13, fontWeight: 600, color: "rgba(255,255,255,0.65)", marginBottom: 6, letterSpacing: "0.04em", textTransform: "uppercase" }}>
-            {userGrade ? `Grade ${userGrade} · CBC` : "CBC Learning"}
+            {userGrade ? `Grade ${userGrade} · CBE` : "CBE Learning"}
           </p>
           <h1 style={{ fontSize: 22, fontWeight: 800, margin: "0 0 8px", lineHeight: 1.2 }}>
             Welcome back, {firstName}.
@@ -194,7 +194,7 @@ export default function ExplorePage() {
           {userGrade && (
             <div style={{ marginTop: 16, display: "inline-flex", alignItems: "center", gap: 8, background: "rgba(255,255,255,0.12)", borderRadius: 30, padding: "6px 14px" }}>
               <span style={{ fontSize: 12, fontWeight: 700, color: "#fff" }}>
-                Your grade is pre-selected below — or explore any grade
+                Your grade is pre-selected below - or explore any grade you'd like to review
               </span>
             </div>
           )}

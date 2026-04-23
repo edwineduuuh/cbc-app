@@ -4,7 +4,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { BookOpen, ArrowLeft, Mail, ArrowRight } from "lucide-react";
 
-const API = process.env.NEXT_PUBLIC_API_URL || "https://cbc-backend-76im.onrender.com/api";
+const API = process.env.NEXT_PUBLIC_API_URL || "https://cbc-backend-production-8bc4.up.railway.app/api";
 
 export default function ForgotPasswordPage() {
   const [email, setEmail] = useState("");

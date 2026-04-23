@@ -11,7 +11,7 @@ import Link from "next/link";
 
 const API =
   process.env.NEXT_PUBLIC_API_URL ||
-  "https://cbc-backend-76im.onrender.com/api";
+  "https://cbc-backend-production-8bc4.up.railway.app/api";
 
 const ALLOWED_ROLES = ["teacher", "admin", "superadmin", "school_admin"];
 
