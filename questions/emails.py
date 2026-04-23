@@ -59,18 +59,31 @@ def send_welcome_email(user):
         logger.info("Resend API key not configured, skipping email")
         return False
 
-    recipient = user.parent_email or user.email
-    if not recipient:
+    parent_email = getattr(user, 'parent_email', None)
+    parent_name = getattr(user, 'parent_name', '') or ''
+    child_name = user.first_name or user.username
+
+    if parent_email:
+        # Email goes to parent — greet parent
+        recipient = parent_email
+        greeting = f"Hi {parent_name or 'there'},"
+        subject = f"Welcome to StadiSpace — {child_name}'s learning journey starts now!"
+        intro = f"Welcome to StadiSpace! {child_name}'s account is ready with 2 free quizzes to explore."
+        body_name = child_name
+    elif user.email:
+        # No parent email — email goes to student, greet student
+        recipient = user.email
+        greeting = f"Hi {child_name},"
+        subject = "Welcome to StadiSpace — your learning journey starts now!"
+        intro = "Your StadiSpace account is ready with 2 free quizzes to explore."
+        body_name = "You"
+    else:
         return False
 
-    parent_name = getattr(user, 'parent_name', '') or 'there'
-    child_name = user.first_name or user.username
-    subject = f"Welcome to StadiSpace — {child_name}'s learning journey starts now!"
     message = (
-        f"Hi {parent_name},\n\n"
-        f"Welcome to StadiSpace! {child_name}'s account is ready with "
-        f"2 free quizzes to explore.\n\n"
-        f"What {child_name} gets:\n"
+        f"{greeting}\n\n"
+        f"{intro}\n\n"
+        f"What {body_name} get{'s' if body_name != 'You' else ''}:\n"
         f"  - 2 free quizzes with full AI-powered feedback\n"
         f"  - All CBE learning areas, Grades 4–10\n"
         f"  - Instant marking with detailed explanations\n"
