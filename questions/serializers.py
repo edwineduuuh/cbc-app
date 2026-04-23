@@ -82,6 +82,7 @@ class QuestionSerializer(serializers.ModelSerializer):
             'passage',
             'parts',
             'worked_solution',
+            'table_data',
         ]
 
     def get_question_image_url(self, obj):
@@ -115,7 +116,8 @@ class QuestionDetailSerializer(serializers.ModelSerializer):
             'correct_answer', 'correct_answers',
             'explanation', 'difficulty',
             'created_at', 'created_by',
-            'question_image_url', 'question_image'
+            'question_image_url', 'question_image',
+            'table_data', 'max_marks',
         ]
         read_only_fields = [
             'id', 'subject', 'subject_name', 'topic_name', 'grade',

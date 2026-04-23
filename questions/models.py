@@ -88,6 +88,7 @@ class Question(models.Model):
         ('math', 'Mathematical Expression'),
         ('structured', 'Structured Answer'),
         ('essay', 'Essay'),
+        ('table', 'Table'),
     ]
 
     # RELATIONSHIPS
@@ -149,6 +150,7 @@ class Question(models.Model):
 
     marking_scheme = models.JSONField(null=True, blank=True)
     max_marks = models.IntegerField(default=1)
+    table_data = models.JSONField(null=True, blank=True, help_text="Table structure for table question type")
 
     question_image = models.ImageField(
     upload_to='question_images/',

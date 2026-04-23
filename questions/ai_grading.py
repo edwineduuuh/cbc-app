@@ -1440,6 +1440,126 @@ def _grade_with_ai(
 #  QUESTION ROUTER
 # ─────────────────────────────────────────────────────────────────────────────
 
+def _grade_table(question, student_answer) -> dict:
+    """
+    Grade a table question cell-by-cell.
+
+    student_answer: dict of {"row_col": value} e.g. {"1_1": "-6", "1_2": "-1"}
+    table_data format:
+      {
+        "rows": [[{"v": "x", "e": false}, {"v": "", "e": true, "a": "-6"}]],
+        "marking": "exact" | "case_insensitive" | "ai"
+      }
+    """
+    sw = _is_kiswahili(question)
+    max_marks = question.max_marks
+    table_data = getattr(question, "table_data", None) or {}
+    rows = table_data.get("rows", [])
+    marking = table_data.get("marking", "case_insensitive")
+
+    # Collect all editable cells with their correct answers
+    editable_cells = []
+    for r_idx, row in enumerate(rows):
+        for c_idx, cell in enumerate(row):
+            if cell.get("e"):
+                editable_cells.append((r_idx, c_idx, str(cell.get("a", "")).strip()))
+
+    if not editable_cells:
+        return _empty_result(max_marks, "No editable cells found in table.", _near_miss(sw))
+
+    # Normalise student_answer to dict
+    if isinstance(student_answer, dict):
+        cell_answers = {str(k): str(v).strip() for k, v in student_answer.items()}
+    elif isinstance(student_answer, str):
+        try:
+            cell_answers = json.loads(student_answer)
+            cell_answers = {str(k): str(v).strip() for k, v in cell_answers.items()}
+        except Exception:
+            cell_answers = {}
+    else:
+        cell_answers = {}
+
+    marks_per_cell = max_marks / len(editable_cells)
+    marks_awarded = 0
+    points_earned = []
+    points_missed = []
+
+    for r_idx, c_idx, correct_answer in editable_cells:
+        key = f"{r_idx}_{c_idx}"
+        student_val = cell_answers.get(key, "").strip()
+        cell_label = f"Row {r_idx + 1}, Column {c_idx + 1}"
+
+        if not student_val:
+            points_missed.append(f"{cell_label}: (no answer) → correct: {correct_answer}")
+            continue
+
+        is_correct = False
+
+        if marking == "exact":
+            is_correct = student_val == correct_answer
+        elif marking == "case_insensitive":
+            is_correct = _normalise(student_val) == _normalise(correct_answer)
+            if not is_correct:
+                # Numeric equivalence
+                s_n = _clean_num(student_val)
+                c_n = _clean_num(correct_answer)
+                if s_n and c_n:
+                    try:
+                        is_correct = abs(float(s_n) - float(c_n)) < 0.01
+                    except ValueError:
+                        pass
+        elif marking == "ai":
+            try:
+                prompt = (
+                    f"Question: {question.question_text}\n"
+                    f"Cell position: {cell_label}\n"
+                    f"Correct answer: {correct_answer}\n"
+                    f"Student answer: {student_val}\n\n"
+                    "Is the student's answer correct? Reply ONLY with TRUE or FALSE."
+                )
+                verdict = _call_ai(prompt, use_gemini=sw).strip().upper()
+                is_correct = verdict in ("TRUE", "KWELI")
+            except Exception as e:
+                print(f"⚠ AI table cell grading failed ({key}): {e}")
+                is_correct = _normalise(student_val) == _normalise(correct_answer)
+
+        if is_correct:
+            marks_awarded += marks_per_cell
+            points_earned.append(f"{cell_label}: {student_val} ✓")
+        else:
+            points_missed.append(f"{cell_label}: got '{student_val}', correct: {correct_answer}")
+
+    marks_awarded = round(marks_awarded)
+    marks_awarded = max(0, min(marks_awarded, max_marks))
+    is_correct = marks_awarded == max_marks
+
+    if is_correct:
+        feedback = _praise(sw) + (" Jedwali lako lote ni sahihi!" if sw else " All table cells are correct!")
+    elif marks_awarded > 0:
+        feedback = (
+            f"Umepata {marks_awarded} kati ya {max_marks} alama. Angalia seli zilizokosea."
+            if sw else
+            f"You got {marks_awarded} out of {max_marks} marks. Check the cells you missed."
+        )
+    else:
+        feedback = (
+            "Hakuna seli iliyokuwa sahihi. Jaribu tena kwa makini."
+            if sw else
+            "No cells were correct. Review the question carefully and try again."
+        )
+
+    return {
+        "marks_awarded": marks_awarded,
+        "max_marks": max_marks,
+        "feedback": feedback,
+        "is_correct": is_correct,
+        "personalized_message": _encourage(sw) if is_correct else _near_miss(sw),
+        "study_tip": "",
+        "points_earned": points_earned,
+        "points_missed": points_missed,
+    }
+
+
 def _route(
     question,
     student_answer: str,
@@ -1455,6 +1575,8 @@ def _route(
         return _grade_fill_blank(question, student_answer)
     if qt == "math":
         return _grade_math(question, student_answer, working_image)
+    if qt == "table":
+        return _grade_table(question, student_answer)
 
     sw = _is_kiswahili(question)
     return _empty_result(
@@ -1611,6 +1733,8 @@ def grade_answer(
 
     if parts:
         result = _grade_multipart(question, student_answer, working_image)
+    elif question.question_type == "table":
+        result = _grade_table(question, student_answer)
     else:
         result = _route(question, str(student_answer), working_image)
 

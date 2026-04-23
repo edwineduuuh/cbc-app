@@ -171,6 +171,81 @@ function MCQOption({ letter, text, selected, onClick }) {
   );
 }
 
+// ─── Table Input ──────────────────────────────────────────────────────────────
+function TableInput({ tableData, value, onChange }) {
+  const rows = tableData?.rows || [];
+  const cellAnswers = (typeof value === "object" && value !== null) ? value : {};
+
+  const handleCell = (r, c, val) => {
+    const key = `${r}_${c}`;
+    const next = { ...cellAnswers, [key]: val };
+    onChange(next);
+  };
+
+  if (!rows.length) return null;
+
+  return (
+    <div style={{ overflowX: "auto" }}>
+      <table style={{ borderCollapse: "collapse", width: "100%", minWidth: 280 }}>
+        <tbody>
+          {rows.map((row, r) => (
+            <tr key={r}>
+              {row.map((cell, c) => {
+                const key = `${r}_${c}`;
+                return (
+                  <td
+                    key={c}
+                    style={{
+                      border: "2px solid #d1d5db",
+                      padding: cell.e ? "6px" : "10px 14px",
+                      background: cell.e ? "#eff6ff" : "#f9fafb",
+                      fontWeight: cell.e ? 500 : 600,
+                      fontSize: 15,
+                      color: "#0d0d1a",
+                      minWidth: 80,
+                      textAlign: "center",
+                    }}
+                  >
+                    {cell.e ? (
+                      <input
+                        type="text"
+                        value={cellAnswers[key] ?? ""}
+                        onChange={(e) => handleCell(r, c, e.target.value)}
+                        placeholder="?"
+                        style={{
+                          width: "100%",
+                          border: "2px solid",
+                          borderColor: cellAnswers[key] ? "#1a6fc4" : "#bdd7f5",
+                          borderRadius: 8,
+                          padding: "6px 10px",
+                          fontSize: 15,
+                          fontWeight: 600,
+                          color: "#0d0d1a",
+                          background: "#fff",
+                          textAlign: "center",
+                          fontFamily: "inherit",
+                          outline: "none",
+                          transition: "border-color 0.15s",
+                        }}
+                        onFocus={(e) => (e.target.style.borderColor = "#1a6fc4")}
+                        onBlur={(e) =>
+                          (e.target.style.borderColor = cellAnswers[key] ? "#1a6fc4" : "#bdd7f5")
+                        }
+                      />
+                    ) : (
+                      <span dangerouslySetInnerHTML={{ __html: renderMath(cell.v || "") }} />
+                    )}
+                  </td>
+                );
+              })}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
 // ─── Question Nav Panel ───────────────────────────────────────────────────────
 function QuestionNav({ questions, answers, currentIdx, onJump, show }) {
   return (
@@ -205,7 +280,9 @@ function QuestionNav({ questions, answers, currentIdx, onJump, show }) {
             }}
           >
             {questions.map((_, i) => {
-              const answered = answers[i] !== undefined && answers[i] !== "";
+              const a = answers[i];
+              const answered = a !== undefined && a !== "" &&
+                (typeof a !== "object" || Object.values(a).some((c) => c !== ""));
               const current = i === currentIdx;
               return (
                 <button
@@ -933,9 +1010,11 @@ export default function QuizTakePage({ params }) {
 
   const currentQ = questions[currentIdx];
   const totalQ = questions.length;
-  const answeredCount = Object.values(answers).filter(
-    (v) => v !== undefined && v !== "",
-  ).length;
+  const answeredCount = Object.values(answers).filter((v) => {
+    if (v === undefined || v === "") return false;
+    if (typeof v === "object" && v !== null) return Object.values(v).some((c) => c !== "");
+    return true;
+  }).length;
   const unanswered = totalQ - answeredCount;
   const progressPct = totalQ > 0 ? (answeredCount / totalQ) * 100 : 0;
 
@@ -1211,6 +1290,7 @@ export default function QuizTakePage({ params }) {
   const isMCQ = currentQ.question_type === "mcq";
   const isFillBlank = currentQ.question_type === "fill_blank";
   const isMath = currentQ.question_type === "math";
+  const isTable = currentQ.question_type === "table";
   const isText =
     currentQ.question_type === "structured" ||
     currentQ.question_type === "essay";
@@ -1637,6 +1717,34 @@ export default function QuizTakePage({ params }) {
                   <p style={{ fontSize: 12, color: "#8892a4", marginTop: 8 }}>
                     Worth {currentQ.max_marks} marks — provide a detailed
                     answer.
+                  </p>
+                )}
+              </div>
+            )}
+
+            {/* Table */}
+            {isTable && (
+              <div>
+                <p
+                  style={{
+                    fontSize: 12,
+                    fontWeight: 700,
+                    color: "#8892a4",
+                    textTransform: "uppercase",
+                    letterSpacing: "0.06em",
+                    marginBottom: 10,
+                  }}
+                >
+                  Fill in the table
+                </p>
+                <TableInput
+                  tableData={currentQ.table_data}
+                  value={answers[currentIdx]}
+                  onChange={(val) => handleAnswer(val)}
+                />
+                {currentQ.max_marks > 1 && (
+                  <p style={{ fontSize: 12, color: "#8892a4", marginTop: 8 }}>
+                    Worth {currentQ.max_marks} marks — fill all cells.
                   </p>
                 )}
               </div>

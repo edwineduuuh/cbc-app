@@ -39,6 +39,7 @@ const QUESTION_TYPES = [
   { value: "math", label: "Math" },
   { value: "structured", label: "Structured" },
   { value: "essay", label: "Essay" },
+  { value: "table", label: "Table" },
 ];
 const DIFFICULTY_COLORS = {
   easy: "bg-green-100 text-green-700 border-green-200",
@@ -51,6 +52,7 @@ const TYPE_COLORS = {
   math: "bg-indigo-100 text-indigo-700",
   structured: "bg-teal-100 text-teal-700",
   essay: "bg-pink-100 text-pink-700",
+  table: "bg-orange-100 text-orange-700",
 };
 const GRADE_COLORS = [
   "from-blue-500 to-blue-600",
@@ -63,6 +65,117 @@ const GRADE_COLORS = [
   "from-lime-500 to-lime-600",
   "from-orange-500 to-orange-600",
 ];
+
+function makeDefaultTable(rows = 2, cols = 5) {
+  return {
+    rows: Array.from({ length: rows }, () =>
+      Array.from({ length: cols }, () => ({ v: "", e: false, a: "" }))
+    ),
+    marking: "case_insensitive",
+  };
+}
+
+function TableBuilder({ value, onChange }) {
+  const rows = value?.rows || makeDefaultTable().rows;
+  const marking = value?.marking || "case_insensitive";
+  const numRows = rows.length;
+  const numCols = rows[0]?.length || 5;
+
+  const updateCell = (r, c, field, val) => {
+    const next = rows.map((row, ri) =>
+      row.map((cell, ci) =>
+        ri === r && ci === c ? { ...cell, [field]: val } : cell
+      )
+    );
+    onChange({ rows: next, marking });
+  };
+
+  const resize = (newR, newC) => {
+    const next = Array.from({ length: newR }, (_, r) =>
+      Array.from({ length: newC }, (_, c) => rows[r]?.[c] || { v: "", e: false, a: "" })
+    );
+    onChange({ rows: next, marking });
+  };
+
+  return (
+    <div className="space-y-3">
+      <div className="flex flex-wrap gap-4 items-center">
+        <div className="flex items-center gap-2">
+          <label className="text-xs font-medium text-gray-600">Rows</label>
+          <input
+            type="number" min={1} max={10} value={numRows}
+            onChange={(e) => resize(Math.max(1, +e.target.value), numCols)}
+            className="w-16 px-2 py-1 border border-gray-300 rounded text-sm"
+          />
+        </div>
+        <div className="flex items-center gap-2">
+          <label className="text-xs font-medium text-gray-600">Columns</label>
+          <input
+            type="number" min={1} max={10} value={numCols}
+            onChange={(e) => resize(numRows, Math.max(1, +e.target.value))}
+            className="w-16 px-2 py-1 border border-gray-300 rounded text-sm"
+          />
+        </div>
+        <div className="flex items-center gap-2">
+          <label className="text-xs font-medium text-gray-600">Marking</label>
+          <select
+            value={marking}
+            onChange={(e) => onChange({ rows, marking: e.target.value })}
+            className="px-2 py-1 border border-gray-300 rounded text-sm"
+          >
+            <option value="case_insensitive">Case Insensitive</option>
+            <option value="exact">Exact</option>
+            <option value="ai">AI</option>
+          </select>
+        </div>
+      </div>
+
+      <div className="overflow-x-auto border border-gray-200 rounded-lg">
+        <table className="border-collapse w-full text-sm">
+          <tbody>
+            {rows.map((row, r) => (
+              <tr key={r}>
+                {row.map((cell, c) => (
+                  <td
+                    key={c}
+                    className={`border border-gray-200 p-2 align-top min-w-[100px] ${cell.e ? "bg-blue-50" : "bg-gray-50"}`}
+                  >
+                    <input
+                      className="w-full text-sm bg-transparent border-0 focus:outline-none font-medium"
+                      placeholder="Value"
+                      value={cell.v}
+                      onChange={(e) => updateCell(r, c, "v", e.target.value)}
+                    />
+                    <div className="flex items-center gap-1 mt-1">
+                      <input
+                        type="checkbox"
+                        checked={cell.e}
+                        onChange={(e) => updateCell(r, c, "e", e.target.checked)}
+                        className="w-3 h-3 accent-blue-600"
+                      />
+                      <span className="text-xs text-gray-500">Student fills</span>
+                    </div>
+                    {cell.e && (
+                      <input
+                        className="mt-1 w-full text-xs border border-blue-300 rounded px-1.5 py-1 bg-white placeholder:text-blue-300"
+                        placeholder="Correct answer"
+                        value={cell.a}
+                        onChange={(e) => updateCell(r, c, "a", e.target.value)}
+                      />
+                    )}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p className="text-xs text-gray-400">
+        Check &quot;Student fills&quot; on cells where students enter answers. Blue cells are editable. Set the correct answer for each editable cell.
+      </p>
+    </div>
+  );
+}
 
 export default function QuestionManagementPage() {
   const { user, loading: authLoading } = useAuth();
@@ -104,6 +217,7 @@ export default function QuestionManagementPage() {
     correct_answer: "",
     explanation: "",
     difficulty: "medium",
+    table_data: null,
   });
 
   const [filteredTopics, setFilteredTopics] = useState([]);
@@ -263,6 +377,7 @@ export default function QuestionManagementPage() {
       correct_answer: "",
       explanation: "",
       difficulty: "medium",
+      table_data: null,
     });
   };
 
@@ -277,6 +392,7 @@ export default function QuestionManagementPage() {
         option_c: "",
         option_d: "",
         correct_answer: "",
+        table_data: value === "table" ? makeDefaultTable() : null,
       }));
     } else {
       setFormData({ ...formData, [name]: value });
@@ -293,6 +409,7 @@ export default function QuestionManagementPage() {
         option_c: "",
         option_d: "",
         correct_answer: "",
+        table_data: value === "table" ? (prev.table_data || makeDefaultTable()) : prev.table_data,
       }));
     } else {
       setEditingQuestion({ ...editingQuestion, [name]: value });
@@ -306,11 +423,16 @@ export default function QuestionManagementPage() {
     if (formData.topic) fd.append("topic", parseInt(formData.topic));
     fd.append("question_text", formData.question_text.trim());
     fd.append("question_type", formData.question_type || "mcq");
-    fd.append("option_a", formData.option_a.trim());
-    fd.append("option_b", formData.option_b.trim());
-    fd.append("option_c", formData.option_c.trim());
-    fd.append("option_d", formData.option_d.trim());
-    fd.append("correct_answer", formData.correct_answer.toUpperCase());
+    if (formData.question_type !== "table") {
+      fd.append("option_a", formData.option_a.trim());
+      fd.append("option_b", formData.option_b.trim());
+      fd.append("option_c", formData.option_c.trim());
+      fd.append("option_d", formData.option_d.trim());
+      fd.append("correct_answer", formData.correct_answer ? formData.correct_answer.toUpperCase() : "");
+    }
+    if (formData.question_type === "table" && formData.table_data) {
+      fd.append("table_data", JSON.stringify(formData.table_data));
+    }
     fd.append(
       "explanation",
       formData.explanation ? formData.explanation.trim() : "",
@@ -350,11 +472,16 @@ export default function QuestionManagementPage() {
       fd.append("topic", editingQuestion.topic);
       fd.append("question_text", editingQuestion.question_text);
       fd.append("question_type", editingQuestion.question_type || "mcq");
-      fd.append("option_a", editingQuestion.option_a || "");
-      fd.append("option_b", editingQuestion.option_b || "");
-      fd.append("option_c", editingQuestion.option_c || "");
-      fd.append("option_d", editingQuestion.option_d || "");
-      fd.append("correct_answer", editingQuestion.correct_answer || "");
+      if (editingQuestion.question_type !== "table") {
+        fd.append("option_a", editingQuestion.option_a || "");
+        fd.append("option_b", editingQuestion.option_b || "");
+        fd.append("option_c", editingQuestion.option_c || "");
+        fd.append("option_d", editingQuestion.option_d || "");
+        fd.append("correct_answer", editingQuestion.correct_answer || "");
+      }
+      if (editingQuestion.question_type === "table" && editingQuestion.table_data) {
+        fd.append("table_data", JSON.stringify(editingQuestion.table_data));
+      }
       fd.append("explanation", editingQuestion.explanation || "");
       fd.append("difficulty", editingQuestion.difficulty || "medium");
       if (editImageFile) {
@@ -1167,6 +1294,17 @@ export default function QuestionManagementPage() {
                     placeholder="Enter the correct answer"
                   />
                 )}
+                {formData.question_type === "table" && (
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Table Builder
+                    </label>
+                    <TableBuilder
+                      value={formData.table_data || makeDefaultTable()}
+                      onChange={(td) => setFormData((prev) => ({ ...prev, table_data: td }))}
+                    />
+                  </div>
+                )}
                 <TextField
                   label={
                     formData.question_type === "structured" ||
@@ -1479,6 +1617,17 @@ export default function QuestionManagementPage() {
                     required
                     placeholder="Enter the correct answer"
                   />
+                )}
+                {editingQuestion.question_type === "table" && (
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Table Builder
+                    </label>
+                    <TableBuilder
+                      value={editingQuestion.table_data || makeDefaultTable()}
+                      onChange={(td) => setEditingQuestion((prev) => ({ ...prev, table_data: td }))}
+                    />
+                  </div>
                 )}
                 <TextField
                   label={

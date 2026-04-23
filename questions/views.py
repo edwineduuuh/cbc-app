@@ -978,11 +978,11 @@ def submit_quiz(request):
         for question, result in zip(questions, results):
             display_correct = question.correct_answer
             display_student = answers.get(str(question.id), "")
-            
+
             # If no text answer but working image provided, show that
             if not display_student and str(question.id) in working_images:
                 display_student = "📸 Working image provided"
-            
+
             if question.question_type == 'mcq':
                 options_map = {
                     'A': question.option_a,
@@ -992,12 +992,28 @@ def submit_quiz(request):
                 }
                 correct_text = options_map.get(str(question.correct_answer).upper(), '')
                 student_text = options_map.get(str(display_student).upper(), '')
-                
                 if correct_text:
                     display_correct = f"{question.correct_answer}: {correct_text}"
                 if student_text:
                     display_student = f"{display_student.upper()}: {student_text}"
-            
+            elif question.question_type == 'table' and question.table_data:
+                rows = question.table_data.get('rows', [])
+                cell_answers = display_student if isinstance(display_student, dict) else {}
+                lines = []
+                for r_idx, row in enumerate(rows):
+                    for c_idx, cell in enumerate(row):
+                        if cell.get('e'):
+                            key = f"{r_idx}_{c_idx}"
+                            given = cell_answers.get(key, '(blank)')
+                            lines.append(f"Cell ({r_idx+1},{c_idx+1}): {given}")
+                display_student = ' | '.join(lines) if lines else '(no answers)'
+                correct_lines = []
+                for r_idx, row in enumerate(rows):
+                    for c_idx, cell in enumerate(row):
+                        if cell.get('e'):
+                            correct_lines.append(f"Cell ({r_idx+1},{c_idx+1}): {cell.get('a','')}")
+                display_correct = ' | '.join(correct_lines) if correct_lines else ''
+
             detailed_feedback[str(question.id)] = {
                 'question_text': question.question_text,
                 'question_type': question.question_type,
@@ -1005,6 +1021,7 @@ def submit_quiz(request):
                 'option_b': question.option_b,
                 'option_c': question.option_c,
                 'option_d': question.option_d,
+                'table_data': question.table_data if question.question_type == 'table' else None,
                 'student_answer': display_student,
                 'marks_awarded': result['marks_awarded'],
                 'max_marks': result['max_marks'],
@@ -1092,11 +1109,11 @@ def submit_quiz(request):
         for question, result in zip(questions, results):
             display_correct = question.correct_answer
             display_student = answers.get(str(question.id), "")
-            
+
             # If no text answer but working image provided, show that
             if not display_student and str(question.id) in working_images:
                 display_student = "📸 Working image provided"
-            
+
             if question.question_type == 'mcq':
                 options_map = {
                     'A': question.option_a,
@@ -1106,12 +1123,28 @@ def submit_quiz(request):
                 }
                 correct_text = options_map.get(str(question.correct_answer).upper(), '')
                 student_text = options_map.get(str(display_student).upper(), '')
-                
                 if correct_text:
                     display_correct = f"{question.correct_answer}: {correct_text}"
                 if student_text:
                     display_student = f"{display_student.upper()}: {student_text}"
-            
+            elif question.question_type == 'table' and question.table_data:
+                rows = question.table_data.get('rows', [])
+                cell_answers = display_student if isinstance(display_student, dict) else {}
+                lines = []
+                for r_idx, row in enumerate(rows):
+                    for c_idx, cell in enumerate(row):
+                        if cell.get('e'):
+                            key = f"{r_idx}_{c_idx}"
+                            given = cell_answers.get(key, '(blank)')
+                            lines.append(f"Cell ({r_idx+1},{c_idx+1}): {given}")
+                display_student = ' | '.join(lines) if lines else '(no answers)'
+                correct_lines = []
+                for r_idx, row in enumerate(rows):
+                    for c_idx, cell in enumerate(row):
+                        if cell.get('e'):
+                            correct_lines.append(f"Cell ({r_idx+1},{c_idx+1}): {cell.get('a','')}")
+                display_correct = ' | '.join(correct_lines) if correct_lines else ''
+
             detailed_feedback[str(question.id)] = {
                 'question_text': question.question_text,
                 'question_type': question.question_type,
@@ -1119,6 +1152,7 @@ def submit_quiz(request):
                 'option_b': question.option_b,
                 'option_c': question.option_c,
                 'option_d': question.option_d,
+                'table_data': question.table_data if question.question_type == 'table' else None,
                 'student_answer': display_student,
                 'marks_awarded': result['marks_awarded'],
                 'max_marks': result['max_marks'],
@@ -1132,7 +1166,7 @@ def submit_quiz(request):
                 'personalized_message': result.get('personalized_message', ''),
                 'study_tip': result.get('study_tip', ''),
             }
-        
+
         # Save attempt
         # Parse the frontend-provided start time
         parsed_started_at = None
