@@ -81,7 +81,7 @@ INSTALLED_APPS = [
     'questions',
 
     'cloudinary_storage',
-    
+    'anymail',
 ]
 
 
@@ -271,14 +271,12 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-EMAIL_BACKEND = os.getenv('EMAIL_BACKEND', 'django.core.mail.backends.smtp.EmailBackend')
-EMAIL_HOST = os.getenv('EMAIL_HOST', 'smtp.gmail.com')
-EMAIL_PORT = int(os.getenv('EMAIL_PORT', 587))
-EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS', 'True') == 'True'
-EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER', '')
-EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD', '')
-DEFAULT_FROM_EMAIL = os.getenv('EMAIL_HOST_USER', '')
-EMAIL_TIMEOUT = 10  # seconds — prevent SMTP hangs from blocking requests
+EMAIL_BACKEND = 'anymail.backends.resend.EmailBackend'
+DEFAULT_FROM_EMAIL = 'StadiSpace <onboarding@resend.dev>'
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER', '')  # kept for EMAIL_HOST_USER checks in emails.py
+ANYMAIL = {
+    'RESEND_API_KEY': os.getenv('RESEND_API_KEY', ''),
+}
 
 LOGGING = {
     'version': 1,
