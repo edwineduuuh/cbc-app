@@ -177,6 +177,80 @@ function TableBuilder({ value, onChange }) {
   );
 }
 
+function makeDefaultPart(index) {
+  return {
+    part_label: String.fromCharCode(97 + index),
+    question_text: "",
+    question_type: "structured",
+    correct_answer: "",
+    max_marks: 1,
+    explanation: "",
+  };
+}
+
+function PartsBuilder({ parts, onChange }) {
+  const addPart = () => onChange([...parts, makeDefaultPart(parts.length)]);
+  const removePart = (i) => onChange(parts.filter((_, idx) => idx !== i));
+  const updatePart = (i, field, val) =>
+    onChange(parts.map((p, idx) => (idx === i ? { ...p, [field]: val } : p)));
+
+  return (
+    <div className="space-y-3">
+      <div className="flex items-center justify-between">
+        <p className="text-xs font-semibold text-gray-600 uppercase tracking-wide">
+          Sub-questions ({parts.length} parts · {parts.reduce((s, p) => s + Number(p.max_marks || 1), 0)} marks total)
+        </p>
+        <button
+          type="button"
+          onClick={addPart}
+          className="text-xs bg-indigo-50 text-indigo-700 border border-indigo-200 px-3 py-1.5 rounded-lg hover:bg-indigo-100 font-medium"
+        >
+          + Add Part
+        </button>
+      </div>
+      {parts.map((part, i) => (
+        <div key={i} className="border border-gray-200 rounded-xl p-3 bg-gray-50 space-y-2">
+          <div className="flex items-center gap-2">
+            <span className="text-sm font-bold text-indigo-700 w-6">({part.part_label})</span>
+            <input
+              className="flex-1 text-sm border border-gray-200 rounded-lg px-2 py-1.5"
+              placeholder="Part question text"
+              value={part.question_text}
+              onChange={(e) => updatePart(i, "question_text", e.target.value)}
+            />
+            <input
+              type="number"
+              min={1}
+              className="w-16 text-sm border border-gray-200 rounded-lg px-2 py-1.5 text-center"
+              title="Marks"
+              value={part.max_marks}
+              onChange={(e) => updatePart(i, "max_marks", e.target.value)}
+            />
+            <span className="text-xs text-gray-400">mk</span>
+            <button type="button" onClick={() => removePart(i)} className="text-red-400 hover:text-red-600 text-lg leading-none">×</button>
+          </div>
+          <textarea
+            rows={2}
+            className="w-full text-sm border border-gray-200 rounded-lg px-2 py-1.5"
+            placeholder="Correct answer for this part"
+            value={part.correct_answer}
+            onChange={(e) => updatePart(i, "correct_answer", e.target.value)}
+          />
+          <input
+            className="w-full text-xs border border-gray-200 rounded-lg px-2 py-1.5 text-gray-500"
+            placeholder="Explanation (optional)"
+            value={part.explanation}
+            onChange={(e) => updatePart(i, "explanation", e.target.value)}
+          />
+        </div>
+      ))}
+      {parts.length === 0 && (
+        <p className="text-xs text-gray-400 text-center py-3">No parts yet. Click &quot;Add Part&quot; to begin.</p>
+      )}
+    </div>
+  );
+}
+
 export default function QuestionManagementPage() {
   const { user, loading: authLoading } = useAuth();
   const router = useRouter();
@@ -218,6 +292,7 @@ export default function QuestionManagementPage() {
     explanation: "",
     difficulty: "medium",
     table_data: null,
+    parts: [],
   });
 
   const [filteredTopics, setFilteredTopics] = useState([]);
@@ -379,6 +454,7 @@ export default function QuestionManagementPage() {
       explanation: "",
       difficulty: "medium",
       table_data: null,
+      parts: [],
     });
   };
 
@@ -440,6 +516,9 @@ export default function QuestionManagementPage() {
     );
     fd.append("difficulty", formData.difficulty || "medium");
     if (createImageFile) fd.append("question_image", createImageFile);
+    if (formData.question_type === "multipart" && formData.parts?.length > 0) {
+      fd.append("parts", JSON.stringify(formData.parts));
+    }
     try {
       const res = await fetchWithAuth(`${API}/admin/questions/create/`, {
         method: "POST",
@@ -489,6 +568,9 @@ export default function QuestionManagementPage() {
         fd.append("question_image", editImageFile);
       } else if (editImageDeleted) {
         fd.append("delete_image", "true");
+      }
+      if (editingQuestion.question_type === "multipart" && editingQuestion.parts?.length > 0) {
+        fd.append("parts", JSON.stringify(editingQuestion.parts));
       }
       const res = await fetchWithAuth(
         `${API}/admin/questions/${editingQuestion.id}/`,
@@ -1159,7 +1241,7 @@ export default function QuestionManagementPage() {
                       if (e.target.value === "multipart") {
                         setFormData((fd) => ({
                           ...fd,
-                          parts: [{ text: "", answer: "" }],
+                          parts: fd.parts?.length > 0 ? fd.parts : [makeDefaultPart(0)],
                         }));
                       }
                     }}
@@ -1167,65 +1249,19 @@ export default function QuestionManagementPage() {
                   />
                 </div>
                 {formData.question_type === "multipart" ? (
-                  <div className="space-y-3">
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
-                      Multipart Question
-                    </label>
-                    {formData.parts?.map((part, idx) => (
-                      <div key={idx} className="flex gap-2 items-center">
-                        <span className="font-bold">
-                          ({String.fromCharCode(97 + idx)})
-                        </span>
-                        <input
-                          className="flex-1 px-3 py-2 border rounded"
-                          value={part.text}
-                          onChange={(e) => {
-                            const parts = [...formData.parts];
-                            parts[idx].text = e.target.value;
-                            setFormData((fd) => ({ ...fd, parts }));
-                          }}
-                          placeholder={`Part ${String.fromCharCode(97 + idx)} text`}
-                          required
-                        />
-                        <input
-                          className="flex-1 px-3 py-2 border rounded"
-                          value={part.answer}
-                          onChange={(e) => {
-                            const parts = [...formData.parts];
-                            parts[idx].answer = e.target.value;
-                            setFormData((fd) => ({ ...fd, parts }));
-                          }}
-                          placeholder={`Part ${String.fromCharCode(97 + idx)} answer`}
-                        />
-                        <button
-                          type="button"
-                          onClick={() => {
-                            const parts = formData.parts.filter(
-                              (_, i) => i !== idx,
-                            );
-                            setFormData((fd) => ({ ...fd, parts }));
-                          }}
-                          className="text-red-500 font-bold"
-                        >
-                          X
-                        </button>
-                      </div>
-                    ))}
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setFormData((fd) => ({
-                          ...fd,
-                          parts: [
-                            ...(fd.parts || []),
-                            { text: "", answer: "" },
-                          ],
-                        }));
-                      }}
-                      className="text-emerald-600 font-semibold"
-                    >
-                      + Add Part
-                    </button>
+                  <div className="space-y-4">
+                    <TextField
+                      label="Question Stem (intro text / reading passage)"
+                      name="question_text"
+                      value={formData.question_text}
+                      onChange={handleChange}
+                      rows={3}
+                      placeholder="e.g. Read the poem below then answer the questions that follow..."
+                    />
+                    <PartsBuilder
+                      parts={formData.parts || []}
+                      onChange={(p) => setFormData((prev) => ({ ...prev, parts: p }))}
+                    />
                   </div>
                 ) : (
                   <TextField
@@ -1481,10 +1517,10 @@ export default function QuestionManagementPage() {
                     value={editingQuestion.question_type || "mcq"}
                     onChange={(e) => {
                       handleEditChange(e);
-                      if (e.target.value === "multipart") {
+                      if (e.target.value === "multipart" && !editingQuestion.parts?.length) {
                         setEditingQuestion((eq) => ({
                           ...eq,
-                          parts: [{ text: "", answer: "" }],
+                          parts: [makeDefaultPart(0)],
                         }));
                       }
                     }}
@@ -1492,65 +1528,18 @@ export default function QuestionManagementPage() {
                   />
                 </div>
                 {editingQuestion.question_type === "multipart" ? (
-                  <div className="space-y-3">
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
-                      Multipart Question
-                    </label>
-                    {editingQuestion.parts?.map((part, idx) => (
-                      <div key={idx} className="flex gap-2 items-center">
-                        <span className="font-bold">
-                          ({String.fromCharCode(97 + idx)})
-                        </span>
-                        <input
-                          className="flex-1 px-3 py-2 border rounded"
-                          value={part.text}
-                          onChange={(e) => {
-                            const parts = [...editingQuestion.parts];
-                            parts[idx].text = e.target.value;
-                            setEditingQuestion((eq) => ({ ...eq, parts }));
-                          }}
-                          placeholder={`Part ${String.fromCharCode(97 + idx)} text`}
-                          required
-                        />
-                        <input
-                          className="flex-1 px-3 py-2 border rounded"
-                          value={part.answer}
-                          onChange={(e) => {
-                            const parts = [...editingQuestion.parts];
-                            parts[idx].answer = e.target.value;
-                            setEditingQuestion((eq) => ({ ...eq, parts }));
-                          }}
-                          placeholder={`Part ${String.fromCharCode(97 + idx)} answer`}
-                        />
-                        <button
-                          type="button"
-                          onClick={() => {
-                            const parts = editingQuestion.parts.filter(
-                              (_, i) => i !== idx,
-                            );
-                            setEditingQuestion((eq) => ({ ...eq, parts }));
-                          }}
-                          className="text-red-500 font-bold"
-                        >
-                          X
-                        </button>
-                      </div>
-                    ))}
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setEditingQuestion((eq) => ({
-                          ...eq,
-                          parts: [
-                            ...(eq.parts || []),
-                            { text: "", answer: "" },
-                          ],
-                        }));
-                      }}
-                      className="text-emerald-600 font-semibold"
-                    >
-                      + Add Part
-                    </button>
+                  <div className="space-y-4">
+                    <TextField
+                      label="Question Stem (intro text / reading passage)"
+                      name="question_text"
+                      value={editingQuestion.question_text}
+                      onChange={handleEditChange}
+                      rows={3}
+                    />
+                    <PartsBuilder
+                      parts={editingQuestion.parts || []}
+                      onChange={(p) => setEditingQuestion((prev) => ({ ...prev, parts: p }))}
+                    />
                   </div>
                 ) : (
                   <TextField
