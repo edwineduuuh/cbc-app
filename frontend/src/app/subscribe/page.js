@@ -421,6 +421,8 @@ function PaymentModal({ plan, onClose, onSuccess }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [pollingTimedOut, setPollingTimedOut] = useState(false);
+  const [paymentRequestId, setPaymentRequestId] = useState(null);
+  const [checkingAgain, setCheckingAgain] = useState(false);
 
   // Only allow digits, strip leading 0, max 9 digits (after 254)
   const handlePhoneChange = (e) => {
@@ -455,6 +457,7 @@ function PaymentModal({ plan, onClose, onSuccess }) {
 
       if (res.ok) {
         setStep(2);
+        setPaymentRequestId(data.payment_request_id);
         pollPaymentStatus(data.payment_request_id);
       } else {
         setError(data.error || "Failed to initiate payment. Try again.");
@@ -466,7 +469,8 @@ function PaymentModal({ plan, onClose, onSuccess }) {
     }
   };
 
-  const pollPaymentStatus = (id) => {
+  const pollPaymentStatus = (id, durationMs = 180000) => {
+    setPollingTimedOut(false);
     const interval = setInterval(async () => {
       try {
         const res = await fetchWithAuth(`${API}/payments/status/${id}/`);
@@ -475,10 +479,12 @@ function PaymentModal({ plan, onClose, onSuccess }) {
         if (data.status === "verified") {
           clearInterval(interval);
           setStep(3);
+          setCheckingAgain(false);
         } else if (data.status === "rejected") {
           clearInterval(interval);
-          setError("Payment failed. Please try again.");
+          setError("Payment failed or was cancelled. Please try again.");
           setStep(1);
+          setCheckingAgain(false);
         }
       } catch (e) {
         // keep polling
@@ -488,7 +494,14 @@ function PaymentModal({ plan, onClose, onSuccess }) {
     setTimeout(() => {
       clearInterval(interval);
       setPollingTimedOut(true);
-    }, 120000);
+      setCheckingAgain(false);
+    }, durationMs);
+  };
+
+  const handleCheckAgain = () => {
+    if (!paymentRequestId) return;
+    setCheckingAgain(true);
+    pollPaymentStatus(paymentRequestId, 60000);
   };
 
   return (
@@ -613,25 +626,26 @@ function PaymentModal({ plan, onClose, onSuccess }) {
                       Not Confirmed Yet
                     </h3>
                     <p className="text-sm text-gray-500">
-                      We haven&apos;t received M-Pesa confirmation. Check your phone for an M-Pesa message. If you paid, your subscription will activate automatically.
+                      If you entered your M-Pesa PIN, tap <strong>Check Status</strong> to see if it came through. Otherwise tap <strong>Try Again</strong> to resend the prompt.
                     </p>
                   </div>
                   <div className="flex gap-3">
+                    <button
+                      onClick={handleCheckAgain}
+                      disabled={checkingAgain}
+                      className="flex-1 bg-teal-600 text-white font-bold py-3 rounded-xl hover:bg-teal-700 transition-all text-sm disabled:opacity-60"
+                    >
+                      {checkingAgain ? "Checking…" : "Check Status"}
+                    </button>
                     <button
                       onClick={() => {
                         setPollingTimedOut(false);
                         setStep(1);
                         setError("");
                       }}
-                      className="flex-1 bg-teal-600 text-white font-bold py-3 rounded-xl hover:bg-teal-700 transition-all text-sm"
-                    >
-                      Try Again
-                    </button>
-                    <button
-                      onClick={onClose}
                       className="flex-1 bg-gray-100 text-gray-700 font-bold py-3 rounded-xl hover:bg-gray-200 transition-all text-sm"
                     >
-                      Close
+                      Try Again
                     </button>
                   </div>
                 </>

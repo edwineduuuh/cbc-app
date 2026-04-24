@@ -2166,18 +2166,57 @@ def mpesa_callback(request):
         return Response({'error': 'Invalid challenge'}, status=403)
 
     try:
-        invoice_id = request.data.get('invoice_id')
-        state = request.data.get('state', '')
-        payment_reference = (
-            request.data.get('payment_reference')
-            or request.data.get('mpesa_reference', '')
+        data = request.data
+
+        # IntaSend may send a flat payload or nest fields under 'invoice'
+        invoice_obj = data.get('invoice') or {}
+        invoice_id = (
+            data.get('invoice_id')
+            or invoice_obj.get('invoice_id')
+            or data.get('id')
+            or invoice_obj.get('id')
         )
-        amount_paid = request.data.get('value') or request.data.get('amount')
-        failed_reason = request.data.get('failed_reason') or request.data.get('failed_code') or ''
+        state = (
+            data.get('state')
+            or invoice_obj.get('state')
+            or ''
+        ).upper().strip()
+
+        payment_reference = (
+            data.get('payment_reference')
+            or data.get('mpesa_reference')
+            or invoice_obj.get('mpesa_reference')
+            or invoice_obj.get('payment_reference')
+            or ''
+        )
+        amount_paid = (
+            data.get('value')
+            or data.get('amount')
+            or invoice_obj.get('value')
+            or invoice_obj.get('amount')
+        )
+        failed_reason = (
+            data.get('failed_reason')
+            or data.get('failed_code')
+            or invoice_obj.get('failed_reason')
+            or invoice_obj.get('failed_code')
+            or ''
+        )
+
+        mpesa_logger.info(
+            "IntaSend parsed: invoice_id=%s state=%s amount=%s ref=%s",
+            invoice_id, state, amount_paid, payment_reference,
+        )
 
         if not invoice_id:
-            mpesa_logger.warning("IntaSend callback missing invoice_id")
-            return Response({'message': 'Invalid callback data'}, status=400)
+            mpesa_logger.warning("IntaSend callback missing invoice_id in payload: %s", data)
+            return Response({'message': 'ok'})
+
+        # PENDING/PROCESSING are intermediate states — log and wait for final state
+        intermediate_states = {'PENDING', 'PROCESSING', 'INITIATED', 'RETRY'}
+        if state in intermediate_states:
+            mpesa_logger.info("IntaSend intermediate state=%s for invoice=%s — waiting", state, invoice_id)
+            return Response({'message': 'ok'})
 
         with transaction.atomic():
             try:
@@ -2189,14 +2228,15 @@ def mpesa_callback(request):
                 )
             except PaymentRequest.DoesNotExist:
                 mpesa_logger.warning("No PaymentRequest for invoice_id=%s", invoice_id)
-                return Response({'message': 'Payment request not found'}, status=404)
+                return Response({'message': 'ok'})
 
-            if payment_request.status != 'pending':
+            # Allow reprocessing if a previous intermediate/rejected callback arrived first
+            if payment_request.status == 'verified':
                 mpesa_logger.info(
-                    "Duplicate callback for payment %s (status=%s)",
-                    payment_request.id, payment_request.status,
+                    "Already verified payment %s — skipping duplicate callback",
+                    payment_request.id,
                 )
-                return Response({'message': 'Already processed'})
+                return Response({'message': 'ok'})
 
             if state == 'COMPLETE':
                 plan = payment_request.plan
@@ -2218,7 +2258,7 @@ def mpesa_callback(request):
                             f'Amount paid ({amount_paid}) is less than plan price ({plan.price_kes})'
                         )
                         payment_request.save()
-                        return Response({'message': 'Amount mismatch — payment rejected'}, status=400)
+                        return Response({'message': 'ok'})
 
                 payment_request.mpesa_code = payment_reference or 'INTASEND_CONFIRMED'
                 payment_request.status = 'verified'
@@ -2291,6 +2331,7 @@ def mpesa_callback(request):
                     mpesa_logger.warning("Email send failed: %s", e)
 
             else:
+                # Terminal failure states: FAILED, CANCELLED, TIMEOUT, etc.
                 payment_request.status = 'rejected'
                 payment_request.rejection_reason = f'IntaSend state={state}: {failed_reason}'
                 payment_request.save()
@@ -2299,10 +2340,10 @@ def mpesa_callback(request):
                     payment_request.user.username, state, failed_reason,
                 )
 
-        return Response({'message': 'Callback processed'})
+        return Response({'message': 'ok'})
     except Exception as e:
         mpesa_logger.exception("Unhandled error in intasend_callback: %s", e)
-        return Response({'error': 'Internal error'}, status=500)
+        return Response({'message': 'ok'})
 
 
 @api_view(['GET'])
