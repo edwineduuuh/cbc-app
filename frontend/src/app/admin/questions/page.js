@@ -274,6 +274,7 @@ export default function QuestionManagementPage() {
     if (filters.type) params.append("type", filters.type);
     if (filters.search) params.append("search", filters.search);
     try {
+      params.append("page_size", "9999");
       const res = await fetchWithAuth(
         `${API}/admin/questions/manage/?${params.toString()}`,
       );
