@@ -2402,11 +2402,20 @@ def check_payment_status(request, payment_request_id):
         try:
             import requests as req_lib
             api_token = os.getenv('INTASEND_API_TOKEN', '')
+            mpesa_logger.info(
+                "IntaSend poll attempt: invoice=%s token_set=%s",
+                payment_request.checkout_request_id, bool(api_token),
+            )
             if api_token:
+                poll_url = f'https://api.intasend.com/api/v1/payment/collection/{payment_request.checkout_request_id}/'
                 resp = req_lib.get(
-                    f'https://api.intasend.com/api/v1/payment/collection/{payment_request.checkout_request_id}/',
+                    poll_url,
                     headers={'Authorization': f'Token {api_token}'},
                     timeout=10,
+                )
+                mpesa_logger.info(
+                    "IntaSend poll response: invoice=%s http=%s body=%s",
+                    payment_request.checkout_request_id, resp.status_code, resp.text[:300],
                 )
                 if resp.status_code == 200:
                     data = resp.json()
@@ -2414,7 +2423,7 @@ def check_payment_status(request, payment_request_id):
                     invoice = data.get('invoice') or data
                     state = (invoice.get('state') or data.get('state') or '').upper().strip()
                     mpesa_logger.info(
-                        "IntaSend poll for invoice=%s → state=%s",
+                        "IntaSend poll parsed: invoice=%s state=%s",
                         payment_request.checkout_request_id, state,
                     )
                     if state in ('COMPLETE', 'CLEARING'):
