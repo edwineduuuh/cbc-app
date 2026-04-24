@@ -2264,7 +2264,10 @@ def mpesa_callback(request):
                 payment_request.status = 'verified'
                 payment_request.verified_at = timezone.now()
                 if amount_paid:
-                    payment_request.amount_paid = amount_paid
+                    try:
+                        payment_request.amount_paid = float(amount_paid)
+                    except (ValueError, TypeError):
+                        pass
                 payment_request.admin_notes = 'Auto-verified via IntaSend callback'
                 payment_request.save()
 
