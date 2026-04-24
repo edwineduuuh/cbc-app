@@ -1520,8 +1520,8 @@ export default function AttemptResultsPage() {
                       )}
                     </div>
 
-                    {/* Study tip */}
-                    {item.study_tip && (
+                    {/* Study tip — hide if it's a duplicate of the feedback (>300 chars is a red flag) */}
+                    {item.study_tip && item.study_tip.length <= 300 && !item.feedback?.includes(item.study_tip?.slice(0, 80)) && (
                       <div
                         style={{
                           background: "#faf5ff",
