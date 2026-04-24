@@ -49,6 +49,12 @@ function renderMath(text) {
       }
     });
 }
+
+// Renders text preserving newlines as <br/> and processing math
+function renderText(text) {
+  if (!text) return "";
+  return renderMath(text).replace(/\n/g, "<br/>");
+}
 // ─── Timer Hook ───────────────────────────────────────────────────────────────
 function useTimer(totalSeconds, onExpire) {
   const [remaining, setRemaining] = useState(totalSeconds);
@@ -1116,9 +1122,12 @@ function WorkingPanel({ questionIdx, onWorkingCapture }) {
   }, []);
 
   useEffect(() => {
-    setOpen(false);
-    setMode(null);
-    setHasWorking(false);
+    const t = setTimeout(() => {
+      setOpen(false);
+      setMode(null);
+      setHasWorking(false);
+    }, 0);
+    return () => clearTimeout(t);
   }, [questionIdx]);
 
   const initCanvas = () => {
@@ -1997,7 +2006,7 @@ export default function QuizTakePage({ params }) {
                     lineHeight: 1.65,
                   }}
                   dangerouslySetInnerHTML={{
-                    __html: renderMath(currentQ.question_text),
+                    __html: renderText(currentQ.question_text),
                   }}
                 />
               </div>
@@ -2277,7 +2286,7 @@ export default function QuizTakePage({ params }) {
                             marginBottom: 14,
                           }}
                           dangerouslySetInnerHTML={{
-                            __html: renderMath(part.question_text),
+                            __html: renderText(part.question_text),
                           }}
                         />
                         {part.question_type === "mcq" ? (
