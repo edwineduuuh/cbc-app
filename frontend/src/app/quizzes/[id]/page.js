@@ -441,68 +441,64 @@ function QuestionNav({ questions, answers, currentIdx, onJump, show }) {
       {show && (
         <motion.div
           className="question-nav"
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -10 }}
+          initial={{ opacity: 0, x: 16 }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: 16 }}
           style={{
             position: "fixed",
-            top: 65,
-            left: 0,
-            right: 0,
+            top: 80,
+            right: 12,
             zIndex: 25,
-            background: "#fff",
-            borderBottom: "1px solid #e8eaf0",
-            boxShadow: "0 2px 12px rgba(0,0,0,0.06)",
-            padding: "8px 16px",
+            display: "flex",
+            flexDirection: "column",
+            gap: 5,
+            maxHeight: "calc(100vh - 100px)",
+            overflowY: "auto",
+            overflowX: "visible",
+            scrollbarWidth: "none",
+            msOverflowStyle: "none",
+            padding: "6px 4px",
+            background: "rgba(255,255,255,0.85)",
+            backdropFilter: "blur(6px)",
+            borderRadius: 14,
+            boxShadow: "0 2px 16px rgba(0,0,0,0.08)",
+            border: "1px solid #e8eaf0",
           }}
         >
-          <div
-            style={{
-              maxWidth: 680,
-              margin: "0 auto",
-              display: "flex",
-              gap: 6,
-              overflowX: "auto",
-              WebkitOverflowScrolling: "touch",
-              scrollbarWidth: "none",
-              msOverflowStyle: "none",
-            }}
-          >
-            {questions.map((_, i) => {
-              const answered = answers[i] !== undefined && answers[i] !== "";
-              const current = i === currentIdx;
-              return (
-                <button
-                  key={i}
-                  onClick={() => onJump(i)}
-                  title={`Q${i + 1}`}
-                  style={{
-                    minWidth: 36,
-                    height: 36,
-                    borderRadius: 10,
-                    border: current ? "2px solid #1a6fc4" : "2px solid transparent",
-                    cursor: "pointer",
-                    fontWeight: 700,
-                    fontSize: 13,
-                    background: current
-                      ? "#1a6fc4"
-                      : answered
-                        ? "#d4edda"
-                        : "#f0f2f7",
-                    color: current ? "#fff" : answered ? "#1a7a4a" : "#8892a4",
-                    transition: "all 0.15s",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    fontFamily: "'Syne', sans-serif",
-                    flexShrink: 0,
-                  }}
-                >
-                  {i + 1}
-                </button>
-              );
-            })}
-          </div>
+          {questions.map((_, i) => {
+            const answered = answers[i] !== undefined && answers[i] !== "";
+            const current = i === currentIdx;
+            return (
+              <button
+                key={i}
+                onClick={() => onJump(i)}
+                title={`Q${i + 1}`}
+                style={{
+                  width: 34,
+                  height: 34,
+                  borderRadius: 9,
+                  border: current ? "2px solid #1a6fc4" : "2px solid transparent",
+                  cursor: "pointer",
+                  fontWeight: 700,
+                  fontSize: 12,
+                  background: current
+                    ? "#1a6fc4"
+                    : answered
+                      ? "#d4edda"
+                      : "#f0f2f7",
+                  color: current ? "#fff" : answered ? "#1a7a4a" : "#8892a4",
+                  transition: "all 0.15s",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  fontFamily: "'Syne', sans-serif",
+                  flexShrink: 0,
+                }}
+              >
+                {i + 1}
+              </button>
+            );
+          })}
         </motion.div>
       )}
     </AnimatePresence>
@@ -1688,7 +1684,7 @@ export default function QuizTakePage({ params }) {
         textarea:focus, input:focus { outline: none; }
         button { font-family: inherit; }
         .question-nav { display: flex; }
-        @media (max-width: 768px) { .question-nav { display: none !important; } }
+        @media (max-width: 900px) { .question-nav { display: none !important; } }
         .passage-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
         .passage-panel { position: sticky; top: 80px; align-self: start; max-height: calc(100vh - 100px); overflow-y: auto; padding-bottom: 40px; }
         @media (max-width: 768px) {
