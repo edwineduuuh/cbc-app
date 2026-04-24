@@ -229,7 +229,7 @@ def _sanitize_answer(text: str) -> str:
     return text
 
 
-GRADER_VERSION = "v6"  # bump to bust stale cached results
+GRADER_VERSION = "v7"  # bump to bust stale cached results
 
 def _grade_cache_key(question_id, answer_text: str) -> str:
     """Generate a cache key for a graded answer."""
@@ -246,7 +246,7 @@ def _sanitize_answer(text: str) -> str:
     return text
 
 
-GRADER_VERSION = "v6"  # bump to bust stale cached results
+GRADER_VERSION = "v7"  # bump to bust stale cached results
 
 def _grade_cache_key(question_id, answer_text: str) -> str:
     """Generate a cache key for a graded answer."""
@@ -662,7 +662,11 @@ SHERIA ZA KUREKEBISHA:
 4. Usizidi alama za juu za swali
 5. Taarifa zisizo sahihi zinapunguza alama — lakini USIKATAE jibu zima kwa kosa moja dogo
 6. Kama unasema jibu ni sahihi, LAZIMA utoe alama zote — si 0
-7. MUHIMU SANA — Jibu la mwanafunzi LINAWEZA kutofautiana na la mwalimu — hii ni SAWA KABISA:
+7. SWALI LA ALAMA 1 — SHERIA MAALUM:
+   - Jibu lolote linaloonyesha UFAHAMU WOWOTE sahihi = alama 1 (kamili)
+   - Alama 0 tu kama jibu ni KOSA KABISA au halihusu swali kabisa
+   - USIWE mkali — kwa alama 1, jibu "karibu sahihi" = alama 1
+8. MUHIMU SANA — Jibu la mwanafunzi LINAWEZA kutofautiana na la mwalimu — hii ni SAWA KABISA:
    - Kubali jibu lolote ambalo linaonyesha UFAHAMU sawa na jibu la mwalimu
    - Maneno tofauti, mpangilio tofauti = SAWA ikiwa maana ni ile ile
    - Mwanafunzi akifasiri kwa maneno yake mwenyewe = SAWA ikiwa dhana ni sahihi
