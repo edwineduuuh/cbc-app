@@ -229,11 +229,13 @@ def _sanitize_answer(text: str) -> str:
     return text
 
 
+GRADER_VERSION = "v5"  # bump to bust stale cached results
+
 def _grade_cache_key(question_id, answer_text: str) -> str:
     """Generate a cache key for a graded answer."""
     norm = _normalise(str(answer_text))
     h = hashlib.sha256(f"{question_id}:{norm}".encode()).hexdigest()[:16]
-    return f"grade:{question_id}:{h}"
+    return f"grade:{GRADER_VERSION}:{question_id}:{h}"
 
 
 def _sanitize_answer(text: str) -> str:
@@ -244,11 +246,13 @@ def _sanitize_answer(text: str) -> str:
     return text
 
 
+GRADER_VERSION = "v5"  # bump to bust stale cached results
+
 def _grade_cache_key(question_id, answer_text: str) -> str:
     """Generate a cache key for a graded answer."""
     norm = _normalise(str(answer_text))
     h = hashlib.sha256(f"{question_id}:{norm}".encode()).hexdigest()[:16]
-    return f"grade:{question_id}:{h}"
+    return f"grade:{GRADER_VERSION}:{question_id}:{h}"
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -686,6 +690,20 @@ MARKING RULES:
    - Do NOT explain why wrong options are wrong beyond "the correct answer is X"
    - If teacher gave an explanation, COPY it — do NOT expand or add to it
    - Your Kiswahili/cultural knowledge is UNRELIABLE — stick to teacher's data
+
+SEQUENCE / ORDERING QUESTIONS (food chains, timelines, steps):
+- Mark based on whether the student has the RIGHT ITEMS in the RIGHT ORDER
+- Ignore separator characters: "→", "-", ",", "/" are all equivalent
+- Ignore singular/plural: "lion" = "lions", "giraffe" = "giraffes"
+- Ignore minor spelling errors that don't change what organism/item is meant:
+  "accacia" = "acacia", "aacacia" = "acacia", "girrafe" = "giraffe"
+- Ignore extra words like "tree", "plant", "animal" added or missing
+- AWARD FULL MARKS if the correct items appear in the correct sequence
+
+EXAMPLE:
+  Correct: "Acacia trees → Giraffe → Lion"
+  Student: "accacia - giraffes - lions"  →  FULL MARKS (same items, same order)
+  Student: "Lion → Giraffe → Acacia"     →  0 MARKS (wrong order)
 """
 
     # ── MCQ-specific rules ────────────────────────────────────────────────────
@@ -864,10 +882,11 @@ ALAMA ZA JUU: {max_marks}
     else:
         study_tip_instruction = (
             "Point to the specific paragraph or line where the answer is found. "
-            "Do NOT repeat the feedback."
+            "Do NOT repeat or paraphrase the feedback or explanation."
             if (has_passage and not is_cloze) else
-            "One NEW helpful tip not already in the feedback — a memory trick or exam tip. "
-            "If not 100% sure the tip is factually correct, leave empty string ''. "
+            "One NEW memory trick or exam tip the student can use next time. "
+            "CRITICAL: Do NOT copy, repeat, or paraphrase the explanation or feedback text — "
+            "the student already sees that. If you cannot think of a genuinely new tip, use ''. "
             "Do NOT invent cultural facts or word definitions."
         )
         prompt += f"""
