@@ -2238,7 +2238,7 @@ def mpesa_callback(request):
                 )
                 return Response({'message': 'ok'})
 
-            if state == 'COMPLETE':
+            if state in ('COMPLETE', 'CLEARING'):
                 plan = payment_request.plan
 
                 # Validate amount
@@ -2417,7 +2417,7 @@ def check_payment_status(request, payment_request_id):
                         "IntaSend poll for invoice=%s → state=%s",
                         payment_request.checkout_request_id, state,
                     )
-                    if state == 'COMPLETE':
+                    if state in ('COMPLETE', 'CLEARING'):
                         amount = invoice.get('value') or data.get('value')
                         ref = (
                             invoice.get('mpesa_reference')
