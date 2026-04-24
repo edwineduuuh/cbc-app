@@ -44,7 +44,7 @@ const PLANS = [
     color: "slate",
     features: [
       "Unlimited quiz attempts",
-      "AI-graded answers with feedback",
+      "Instant marking with detailed feedback",
       "All learning areas & grades",
       "Performance tracking",
     ],
@@ -191,7 +191,7 @@ export default function SubscribePage() {
           </h1>
 
           <p className="text-lg text-gray-500 max-w-lg mx-auto mb-2">
-            AI-powered CBE practice for Grades 4-10. Pick a plan. Start now.
+            CBE quizzes for Grades 4–10. Instant marking. Pick a plan and start now.
           </p>
         </motion.div>
       </div>
