@@ -1675,6 +1675,14 @@ export default function QuizTakePage({ params }) {
         background: "#f7f9fc",
         fontFamily: "'Lato', sans-serif",
       }}
+      onCopy={(e) => { if (!["TEXTAREA","INPUT"].includes(e.target.tagName)) e.preventDefault(); }}
+      onCut={(e)  => { if (!["TEXTAREA","INPUT"].includes(e.target.tagName)) e.preventDefault(); }}
+      onContextMenu={(e) => { if (!["TEXTAREA","INPUT"].includes(e.target.tagName)) e.preventDefault(); }}
+      onKeyDown={(e) => {
+        const tag = e.target.tagName;
+        if (["TEXTAREA","INPUT"].includes(tag)) return;
+        if ((e.ctrlKey || e.metaKey) && ["c","a","u","s","p"].includes(e.key.toLowerCase())) e.preventDefault();
+      }}
     >
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Lato:wght@400;500;600;700&display=swap');
@@ -1691,6 +1699,8 @@ export default function QuizTakePage({ params }) {
           .passage-grid { display: flex !important; flex-direction: column !important; }
           .passage-panel { position: static !important; max-height: none !important; overflow-y: visible !important; margin-bottom: 20px; }
         }
+        /* Prevent text selection on question content */
+        *:not(textarea):not(input) { user-select: none; -webkit-user-select: none; }
       `}</style>
 
       <SubmitModal
