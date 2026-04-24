@@ -2346,20 +2346,106 @@ def mpesa_callback(request):
         return Response({'message': 'ok'})
 
 
+def _activate_payment(payment_request, amount_paid=None, payment_reference='INTASEND_POLLED'):
+    """Activate subscription for a verified payment. Idempotent."""
+    from datetime import timedelta
+    plan = payment_request.plan
+    payment_request.mpesa_code = payment_reference or 'INTASEND_POLLED'
+    payment_request.status = 'verified'
+    payment_request.verified_at = timezone.now()
+    if amount_paid:
+        payment_request.amount_paid = amount_paid
+    payment_request.admin_notes = 'Auto-verified via IntaSend status poll'
+    payment_request.save()
+
+    user = payment_request.user
+    start_date = timezone.now()
+    end_date = start_date + timedelta(days=plan.duration_days)
+
+    subscription, created = Subscription.objects.get_or_create(
+        user=user,
+        defaults={
+            'plan': plan,
+            'payment': payment_request,
+            'start_date': start_date,
+            'end_date': end_date,
+            'is_active': True,
+        }
+    )
+    if not created:
+        subscription.plan = plan
+        subscription.payment = payment_request
+        base_date = max(subscription.end_date, timezone.now())
+        subscription.end_date = base_date + timedelta(days=plan.duration_days)
+        subscription.is_active = True
+        subscription.save()
+
+    mpesa_logger.info(
+        "Subscription activated via poll: user=%s plan=%s until=%s",
+        user.username, plan.name, subscription.end_date,
+    )
+
+
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def check_payment_status(request, payment_request_id):
-    """Check payment status for polling"""
+    """Check payment status — also polls IntaSend directly so webhook is not required."""
     try:
-        payment_request = PaymentRequest.objects.get(id=payment_request_id, user=request.user)
-        return Response({
-            'status': payment_request.status,
-            'plan': payment_request.plan.name,
-            'amount': payment_request.amount_paid,
-            'created_at': payment_request.submitted_at,
-        })
+        payment_request = PaymentRequest.objects.select_related('plan', 'user').get(
+            id=payment_request_id, user=request.user
+        )
     except PaymentRequest.DoesNotExist:
         return Response({'error': 'Payment not found'}, status=404)
+
+    # If still pending, ask IntaSend directly for the current invoice state
+    if payment_request.status == 'pending' and payment_request.checkout_request_id:
+        try:
+            import requests as req_lib
+            api_token = os.getenv('INTASEND_API_TOKEN', '')
+            if api_token:
+                resp = req_lib.get(
+                    f'https://api.intasend.com/api/v1/payment/collection/{payment_request.checkout_request_id}/',
+                    headers={'Authorization': f'Token {api_token}'},
+                    timeout=10,
+                )
+                if resp.status_code == 200:
+                    data = resp.json()
+                    # IntaSend may return flat or nested
+                    invoice = data.get('invoice') or data
+                    state = (invoice.get('state') or data.get('state') or '').upper().strip()
+                    mpesa_logger.info(
+                        "IntaSend poll for invoice=%s → state=%s",
+                        payment_request.checkout_request_id, state,
+                    )
+                    if state == 'COMPLETE':
+                        amount = invoice.get('value') or data.get('value')
+                        ref = (
+                            invoice.get('mpesa_reference')
+                            or invoice.get('payment_reference')
+                            or data.get('mpesa_reference')
+                            or ''
+                        )
+                        with transaction.atomic():
+                            payment_request = PaymentRequest.objects.select_for_update().get(
+                                id=payment_request_id
+                            )
+                            if payment_request.status == 'pending':
+                                _activate_payment(payment_request, amount_paid=amount, payment_reference=ref)
+                    elif state in ('FAILED', 'CANCELLED', 'TIMEOUT'):
+                        payment_request.status = 'rejected'
+                        payment_request.rejection_reason = f'IntaSend poll state={state}'
+                        payment_request.save()
+        except Exception as e:
+            mpesa_logger.warning("IntaSend poll error for invoice=%s: %s", payment_request.checkout_request_id, e)
+
+    # Re-fetch after possible update
+    payment_request.refresh_from_db()
+    return Response({
+        'status': payment_request.status,
+        'plan': payment_request.plan.name,
+        'amount': str(payment_request.amount_paid),
+        'created_at': payment_request.submitted_at,
+    })
 
 
 @api_view(['GET'])
