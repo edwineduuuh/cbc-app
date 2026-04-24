@@ -1394,6 +1394,112 @@ export default function AttemptResultsPage() {
                 {/* Expanded content */}
                 {isOpen && (
                   <div style={{ padding: "0 20px 20px" }}>
+
+                    {/* ── MULTIPART: per-part breakdown ── */}
+                    {item.question_type === "multipart" && item.part_results?.length > 0 && (
+                      <div style={{ display: "flex", flexDirection: "column", gap: 10, marginBottom: 4 }}>
+                        {item.part_results.map((part) => {
+                          const partOk = part.is_correct;
+                          return (
+                            <div
+                              key={part.part_id}
+                              style={{
+                                border: `1px solid ${partOk ? "#bbf7d0" : "#fecaca"}`,
+                                borderRadius: 12,
+                                overflow: "hidden",
+                              }}
+                            >
+                              {/* Part header */}
+                              <div
+                                style={{
+                                  background: partOk ? "#f0fdf4" : "#fff5f5",
+                                  padding: "10px 14px",
+                                  display: "flex",
+                                  alignItems: "center",
+                                  gap: 10,
+                                }}
+                              >
+                                <div
+                                  style={{
+                                    width: 28,
+                                    height: 28,
+                                    borderRadius: 7,
+                                    background: partOk ? "#059669" : "#dc2626",
+                                    color: "#fff",
+                                    display: "flex",
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                    fontWeight: 800,
+                                    fontSize: 12,
+                                    flexShrink: 0,
+                                  }}
+                                >
+                                  {part.part_label?.toUpperCase()}
+                                </div>
+                                <div style={{ flex: 1 }}>
+                                  <p style={{ fontSize: 13, color: "#0f172a", lineHeight: 1.4 }}
+                                    dangerouslySetInnerHTML={{ __html: renderMath(part.question_text) }}
+                                  />
+                                </div>
+                                <span style={{
+                                  fontSize: 12,
+                                  fontWeight: 700,
+                                  padding: "2px 8px",
+                                  borderRadius: 20,
+                                  background: partOk ? "#d1fae5" : "#fee2e2",
+                                  color: partOk ? "#059669" : "#dc2626",
+                                  flexShrink: 0,
+                                }}>
+                                  {part.marks_awarded}/{part.max_marks}
+                                </span>
+                              </div>
+
+                              {/* Part body */}
+                              <div style={{ padding: "10px 14px", background: "#fff" }}>
+                                {/* Student answer */}
+                                <p style={{ fontSize: 11, fontWeight: 700, color: "#1d4ed8", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: 4 }}>
+                                  Your answer
+                                </p>
+                                <p style={{ fontSize: 13, color: "#1e3a5f", marginBottom: part.feedback ? 8 : 0 }}>
+                                  {part.student_answer
+                                    ? <span dangerouslySetInnerHTML={{ __html: renderMath(part.student_answer) }} />
+                                    : <span style={{ color: "#94a3b8", fontStyle: "italic" }}>(No answer)</span>
+                                  }
+                                </p>
+
+                                {/* Feedback */}
+                                {part.feedback && (
+                                  <>
+                                    <p style={{ fontSize: 11, fontWeight: 700, color: partOk ? "#059669" : "#92400e", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: 4 }}>
+                                      {partOk ? "✓ Correct" : "Feedback"}
+                                    </p>
+                                    <p style={{ fontSize: 13, color: partOk ? "#065f46" : "#78350f", lineHeight: 1.6, marginBottom: !partOk && part.correct_answer ? 8 : 0 }}
+                                      dangerouslySetInnerHTML={{ __html: renderMath(part.feedback?.replace(/\n/g, "<br/>") || "") }}
+                                    />
+                                  </>
+                                )}
+
+                                {/* Correct answer (only when wrong) */}
+                                {!partOk && part.correct_answer && (
+                                  <>
+                                    <p style={{ fontSize: 11, fontWeight: 700, color: "#475569", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: 4 }}>
+                                      Correct answer
+                                    </p>
+                                    <p style={{ fontSize: 13, color: "#0f172a", lineHeight: 1.5 }}
+                                      dangerouslySetInnerHTML={{ __html: renderMath(part.correct_answer?.replace(/\n/g, "<br/>") || "") }}
+                                    />
+                                  </>
+                                )}
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    )}
+
+                    {/* ── REGULAR (non-multipart) blocks below ── */}
+                    {item.question_type !== "multipart" && <>
+
                     {/* Your answer */}
                     <div
                       style={{
@@ -1660,6 +1766,8 @@ export default function AttemptResultsPage() {
                         )}
                       </div>
                     )}
+
+                    </>}
                   </div>
                 )}
               </motion.div>

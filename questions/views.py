@@ -7,7 +7,7 @@ from django.utils import timezone
 from .models import (
     Subject, Topic, Question, Quiz, Attempt, Subscription,
     LessonPlan, LiveSession, LiveQuestion, StudentSession, StudentAnswer,
-    SubscriptionPlan, PaymentRequest, ClassQuizAssignment
+    SubscriptionPlan, PaymentRequest, ClassQuizAssignment, QuestionPart
 )
 from users.models import Classroom as UsersClassroom
 from django.contrib.auth import get_user_model
@@ -77,9 +77,36 @@ class AdminQuestionListCreateView(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         # Handle image upload on creation
         if 'question_image' in self.request.FILES:
-            serializer.save(created_by=self.request.user, question_image=self.request.FILES['question_image'])
+            instance = serializer.save(created_by=self.request.user, question_image=self.request.FILES['question_image'])
         else:
-            serializer.save(created_by=self.request.user)
+            instance = serializer.save(created_by=self.request.user)
+        _save_parts(instance, self.request.data.get('parts'))
+
+
+def _save_parts(instance, parts_raw):
+    """Delete existing parts and recreate from parts_raw list."""
+    if parts_raw is None:
+        return
+    if isinstance(parts_raw, str):
+        import json as _json
+        try:
+            parts_raw = _json.loads(parts_raw)
+        except Exception:
+            return
+    if not isinstance(parts_raw, list):
+        return
+    instance.parts.all().delete()
+    for i, part in enumerate(parts_raw):
+        QuestionPart.objects.create(
+            parent_question=instance,
+            part_label=part.get('part_label', chr(97 + i)),
+            question_text=part.get('question_text', ''),
+            question_type=part.get('question_type', 'structured'),
+            correct_answer=part.get('correct_answer', ''),
+            max_marks=int(part.get('max_marks', 1)),
+            explanation=part.get('explanation', ''),
+            order=i,
+        )
 
 
 class AdminQuestionDetailView(generics.RetrieveUpdateDestroyAPIView):
@@ -87,19 +114,20 @@ class AdminQuestionDetailView(generics.RetrieveUpdateDestroyAPIView):
     parser_classes = [MultiPartParser, FormParser, JSONParser]  # ADD THIS
     serializer_class = QuestionDetailSerializer
     queryset = Question.objects.all()
-    
+
     def perform_update(self, serializer):
         # Handle image deletion
         if self.request.data.get('delete_image') == 'true':
             instance = self.get_object()
             if instance.question_image:
                 instance.question_image.delete(save=False)
-            serializer.save(question_image=None)
+            instance = serializer.save(question_image=None)
         # Handle image upload
         elif 'question_image' in self.request.FILES:
-            serializer.save(question_image=self.request.FILES['question_image'])
+            instance = serializer.save(question_image=self.request.FILES['question_image'])
         else:
-            serializer.save()
+            instance = serializer.save()
+        _save_parts(instance, self.request.data.get('parts'))
 
 
 class AdminBulkImportView(APIView):
@@ -976,6 +1004,17 @@ def submit_quiz(request):
         # Build feedback
         detailed_feedback = {}
         for question, result in zip(questions, results):
+            if question.question_type == 'multipart':
+                detailed_feedback[str(question.id)] = {
+                    'question_text': question.question_text,
+                    'question_type': 'multipart',
+                    'marks_awarded': result['marks_awarded'],
+                    'max_marks':     result['max_marks'],
+                    'is_correct':    result['is_correct'],
+                    'part_results':  result.get('part_results', []),
+                }
+                continue
+
             display_correct = question.correct_answer
             display_student = answers.get(str(question.id), "")
 
@@ -1034,7 +1073,7 @@ def submit_quiz(request):
                 'personalized_message': result.get('personalized_message', ''),
                 'study_tip': result.get('study_tip', ''),
             }
-        
+
         # Guest counter already incremented atomically above
         remaining = guest.remaining()
         
@@ -1107,6 +1146,17 @@ def submit_quiz(request):
         # Build feedback
         detailed_feedback = {}
         for question, result in zip(questions, results):
+            if question.question_type == 'multipart':
+                detailed_feedback[str(question.id)] = {
+                    'question_text': question.question_text,
+                    'question_type': 'multipart',
+                    'marks_awarded': result['marks_awarded'],
+                    'max_marks':     result['max_marks'],
+                    'is_correct':    result['is_correct'],
+                    'part_results':  result.get('part_results', []),
+                }
+                continue
+
             display_correct = question.correct_answer
             display_student = answers.get(str(question.id), "")
 
