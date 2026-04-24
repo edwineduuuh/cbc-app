@@ -229,7 +229,7 @@ def _sanitize_answer(text: str) -> str:
     return text
 
 
-GRADER_VERSION = "v5"  # bump to bust stale cached results
+GRADER_VERSION = "v6"  # bump to bust stale cached results
 
 def _grade_cache_key(question_id, answer_text: str) -> str:
     """Generate a cache key for a graded answer."""
@@ -246,7 +246,7 @@ def _sanitize_answer(text: str) -> str:
     return text
 
 
-GRADER_VERSION = "v5"  # bump to bust stale cached results
+GRADER_VERSION = "v6"  # bump to bust stale cached results
 
 def _grade_cache_key(question_id, answer_text: str) -> str:
     """Generate a cache key for a graded answer."""
@@ -660,12 +660,16 @@ SHERIA ZA KUREKEBISHA:
 2. Alama zote tu wakati mawazo yote muhimu yako wazi
 3. Alama za sehemu — nambari kamili tu, si desimali
 4. Usizidi alama za juu za swali
-5. Taarifa zisizo sahihi zinapunguza alama
+5. Taarifa zisizo sahihi zinapunguza alama — lakini USIKATAE jibu zima kwa kosa moja dogo
 6. Kama unasema jibu ni sahihi, LAZIMA utoe alama zote — si 0
-7. Jibu la mwanafunzi LINAWEZA kutofautiana na la mwalimu — hii ni SAWA
+7. MUHIMU SANA — Jibu la mwanafunzi LINAWEZA kutofautiana na la mwalimu — hii ni SAWA KABISA:
    - Kubali jibu lolote ambalo linaonyesha UFAHAMU sawa na jibu la mwalimu
    - Maneno tofauti, mpangilio tofauti = SAWA ikiwa maana ni ile ile
+   - Mwanafunzi akifasiri kwa maneno yake mwenyewe = SAWA ikiwa dhana ni sahihi
    - TOA alama kwa mawazo sahihi hata kama hayajaandikwa kama mwalimu
+   - USIKATAE jibu kwa sababu tu maneno hayafanani — angalia MAANA, si maneno
+   - HARAMU KABISA: Kutoa alama 0 kwa jibu ambalo linaonyesha ufahamu wowote sahihi
+   - Kama jibu ni sahihi kwa sehemu — toa alama za sehemu, KAMWE si 0
 8. LAKINI: USIBUNIWE ukweli wa Kiswahili kutoka kwako!
    - Usiseme "X maana yake ni Y" au "X ni ngeli ya Y" ISIPOKUWA mwalimu amesema
    - Usiongeze makao ya wanyama, maana za maneno, au sheria za kisarufi
