@@ -2354,7 +2354,10 @@ def _activate_payment(payment_request, amount_paid=None, payment_reference='INTA
     payment_request.status = 'verified'
     payment_request.verified_at = timezone.now()
     if amount_paid:
-        payment_request.amount_paid = amount_paid
+        try:
+            payment_request.amount_paid = float(amount_paid)
+        except (ValueError, TypeError):
+            pass
     payment_request.admin_notes = 'Auto-verified via IntaSend status poll'
     payment_request.save()
 
@@ -2407,7 +2410,10 @@ def check_payment_status(request, payment_request_id):
                 payment_request.checkout_request_id, bool(api_token),
             )
             if api_token:
-                poll_url = f'https://api.intasend.com/api/v1/payment/collection/{payment_request.checkout_request_id}/'
+                inv_id = payment_request.checkout_request_id
+                if not inv_id.startswith('INV_'):
+                    inv_id = f'INV_{inv_id}'
+                poll_url = f'https://api.intasend.com/api/v1/payment/collection/{inv_id}/'
                 resp = req_lib.get(
                     poll_url,
                     headers={'Authorization': f'Token {api_token}'},
