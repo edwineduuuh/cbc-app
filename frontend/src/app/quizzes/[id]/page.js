@@ -1714,7 +1714,7 @@ export default function QuizTakePage({ params }) {
   const handleQuizSubmit = async () => {
     setSubmitting(true);
     const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 180000); // 3 min timeout
+    const timeout = setTimeout(() => controller.abort(), 20000); // 20s — submit is now instant
     try {
       // Snapshot answers + capture any visible math field directly
       const finalAnswers = { ...answers };
@@ -1798,6 +1798,7 @@ export default function QuizTakePage({ params }) {
         localStorage.setItem("device_quizzes_used", String(used + 1));
         setResult(data);
       } else {
+        // 201 (sync legacy) or 202 (async grading) — both include id
         if (data.id) router.replace(`/attempts/${data.id}`);
         else setResult(data);
       }

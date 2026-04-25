@@ -928,6 +928,185 @@ def check_guest_quota(request):
 
 # ============== QUIZ SUBMISSION (Guest + Authenticated) ==============
 
+import atexit
+import logging
+from concurrent.futures import ThreadPoolExecutor
+from django.db import close_old_connections
+from django.db.models import F as _F
+
+_grading_logger = logging.getLogger('grading')
+
+# Shared pool — 20 concurrent grading jobs across all workers on this process.
+# Each job internally uses up to 5 AI threads, so max ~100 parallel AI calls.
+_GRADING_EXECUTOR = ThreadPoolExecutor(max_workers=20, thread_name_prefix='grader')
+atexit.register(_GRADING_EXECUTOR.shutdown, wait=False)
+
+
+def _build_detailed_feedback(questions, results, answers, working_images):
+    """Build the detailed_feedback dict from grading results. Pure function, no DB."""
+    detailed_feedback = {}
+    for question, result in zip(questions, results):
+        if question.question_type == 'multipart':
+            detailed_feedback[str(question.id)] = {
+                'question_text': question.question_text,
+                'question_type': 'multipart',
+                'marks_awarded': result['marks_awarded'],
+                'max_marks':     result['max_marks'],
+                'is_correct':    result['is_correct'],
+                'part_results':  result.get('part_results', []),
+            }
+            continue
+
+        display_correct = question.correct_answer
+        display_student = answers.get(str(question.id), "")
+
+        if not display_student and str(question.id) in working_images:
+            display_student = "📸 Working image provided"
+
+        if question.question_type == 'mcq':
+            options_map = {
+                'A': question.option_a, 'B': question.option_b,
+                'C': question.option_c, 'D': question.option_d,
+            }
+            correct_text = options_map.get(str(question.correct_answer).upper(), '')
+            student_text = options_map.get(str(display_student).upper(), '')
+            if correct_text:
+                display_correct = f"{question.correct_answer}: {correct_text}"
+            if student_text:
+                display_student = f"{display_student.upper()}: {student_text}"
+        elif question.question_type == 'table' and question.table_data:
+            rows = question.table_data.get('rows', [])
+            cell_answers = display_student if isinstance(display_student, dict) else {}
+            lines = []
+            for r_idx, row in enumerate(rows):
+                for c_idx, cell in enumerate(row):
+                    if cell.get('e'):
+                        key = f"{r_idx}_{c_idx}"
+                        given = cell_answers.get(key, '(blank)')
+                        lines.append(f"Cell ({r_idx+1},{c_idx+1}): {given}")
+            display_student = ' | '.join(lines) if lines else '(no answers)'
+            correct_lines, has_cell_answers = [], False
+            for r_idx, row in enumerate(rows):
+                for c_idx, cell in enumerate(row):
+                    if cell.get('e'):
+                        cell_a = cell.get('a', '')
+                        if cell_a:
+                            has_cell_answers = True
+                        correct_lines.append(f"Cell ({r_idx+1},{c_idx+1}): {cell_a}")
+            if has_cell_answers:
+                display_correct = ' | '.join(correct_lines)
+            else:
+                display_correct = question.correct_answer or (' | '.join(correct_lines) if correct_lines else '')
+
+        detailed_feedback[str(question.id)] = {
+            'question_text':        question.question_text,
+            'question_type':        question.question_type,
+            'option_a':             question.option_a,
+            'option_b':             question.option_b,
+            'option_c':             question.option_c,
+            'option_d':             question.option_d,
+            'table_data':           question.table_data if question.question_type == 'table' else None,
+            'student_answer':       display_student,
+            'marks_awarded':        result['marks_awarded'],
+            'max_marks':            result['max_marks'],
+            'feedback':             result['feedback'],
+            'is_correct':           result['is_correct'],
+            'correct_answer': (
+                None if question.question_type == 'table'
+                else clean_correct_answer(display_correct) if not result['is_correct'] else None
+            ),
+            'worked_solution':      question.worked_solution,
+            'points_earned':        result.get('points_earned', []),
+            'points_missed':        result.get('points_missed', []),
+            'personalized_message': result.get('personalized_message', ''),
+            'study_tip':            result.get('study_tip', ''),
+        }
+    return detailed_feedback
+
+
+def _run_grading_task(attempt_id, quiz_id, questions, answers, working_images,
+                      user_id, has_subscription, parsed_started_at):
+    """
+    Background grading task — runs in _GRADING_EXECUTOR thread pool.
+    Grades the quiz then writes results back to the Attempt row.
+    """
+    close_old_connections()
+    try:
+        results = grade_quiz_fast(questions, answers, working_images=working_images)
+
+        total_marks_awarded = sum(r['marks_awarded'] for r in results)
+        total_max_marks     = sum(r['max_marks']     for r in results)
+        score_pct = (total_marks_awarded / total_max_marks * 100) if total_max_marks > 0 else 0
+        correct   = sum(1 for r in results if r['is_correct'])
+
+        detailed_feedback = _build_detailed_feedback(questions, results, answers, working_images)
+
+        with transaction.atomic():
+            Attempt.objects.filter(pk=attempt_id).update(
+                status              = 'completed',
+                score               = score_pct,
+                total_questions     = len(questions),
+                correct_answers     = correct,
+                total_marks_awarded = total_marks_awarded,
+                total_max_marks     = total_max_marks,
+                completed_at        = timezone.now(),
+                detailed_feedback   = detailed_feedback,
+            )
+            if parsed_started_at:
+                Attempt.objects.filter(pk=attempt_id).update(started_at=parsed_started_at)
+
+            if not has_subscription:
+                User.objects.filter(pk=user_id).update(
+                    quiz_credits=_F('quiz_credits') - 1
+                )
+
+        # Streak update — fetch fresh user object in this thread
+        try:
+            user_obj = User.objects.get(pk=user_id)
+            user_obj.update_streak()
+        except Exception:
+            pass
+
+        _grading_logger.info("Grading completed: attempt=%s score=%.1f%%", attempt_id, score_pct)
+
+    except Exception as exc:
+        _grading_logger.exception("Grading failed for attempt %s: %s", attempt_id, exc)
+        Attempt.objects.filter(pk=attempt_id).update(status='grading_failed')
+    finally:
+        close_old_connections()
+
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def get_attempt_grading_status(request, attempt_id):
+    """
+    GET /api/attempts/<attempt_id>/grading-status/
+    Lightweight polling endpoint — returns status + score when done.
+    """
+    try:
+        attempt = Attempt.objects.only(
+            'status', 'score', 'total_marks_awarded', 'total_max_marks',
+            'total_questions', 'correct_answers',
+        ).get(pk=attempt_id)
+    except Attempt.DoesNotExist:
+        return Response({'error': 'Not found'}, status=404)
+
+    if attempt.status == 'completed':
+        return Response({
+            'status': 'completed',
+            'attempt_id': attempt_id,
+            'score': round(attempt.score, 1),
+            'total_marks_awarded': attempt.total_marks_awarded,
+            'total_max_marks': attempt.total_max_marks,
+            'total_questions': attempt.total_questions,
+            'correct_answers': attempt.correct_answers,
+        })
+    if attempt.status == 'grading_failed':
+        return Response({'status': 'grading_failed', 'attempt_id': attempt_id})
+
+    return Response({'status': 'grading', 'attempt_id': attempt_id})
+
+
 @api_view(['POST'])
 @permission_classes([AllowAny])  # Allow both guest and authenticated
 def submit_quiz(request):
@@ -1118,19 +1297,16 @@ def submit_quiz(request):
     
     # ========== AUTHENTICATED USER FLOW ==========
     else:
-        # Check credits
         user = request.user
         credits = getattr(user, 'quiz_credits', 0)
-        
-        # Check subscription
+
         has_subscription = False
         try:
-            from .models import Subscription
             subscription = Subscription.objects.get(user=user)
             has_subscription = subscription.is_valid
-        except:
+        except Subscription.DoesNotExist:
             pass
-        
+
         if not has_subscription and credits <= 0:
             return Response({
                 'error': 'No quiz credits remaining',
@@ -1138,166 +1314,44 @@ def submit_quiz(request):
                 'credits_exhausted': True,
                 'redirect': '/student/payments'
             }, status=402)
-        
-# Grade quiz
+
         questions = list(quiz.questions.all())
         working_images_raw = data.get('working_images', {})
-        # Map working images by question ID (support both ID and index lookups)
         working_images = {}
         for idx, q in enumerate(questions):
             img = working_images_raw.get(str(q.id)) or working_images_raw.get(str(idx))
             if img:
                 working_images[str(q.id)] = img
-        results = grade_quiz_fast(questions, answers, working_images=working_images)
-        
-        total_marks_awarded = sum(r['marks_awarded'] for r in results)
-        total_max_marks = sum(r['max_marks'] for r in results)
-        score_percentage = (total_marks_awarded / total_max_marks * 100) if total_max_marks > 0 else 0
-        
-        # Build feedback
-        detailed_feedback = {}
-        for question, result in zip(questions, results):
-            if question.question_type == 'multipart':
-                detailed_feedback[str(question.id)] = {
-                    'question_text': question.question_text,
-                    'question_type': 'multipart',
-                    'marks_awarded': result['marks_awarded'],
-                    'max_marks':     result['max_marks'],
-                    'is_correct':    result['is_correct'],
-                    'part_results':  result.get('part_results', []),
-                }
-                continue
 
-            display_correct = question.correct_answer
-            display_student = answers.get(str(question.id), "")
-
-            # If no text answer but working image provided, show that
-            if not display_student and str(question.id) in working_images:
-                display_student = "📸 Working image provided"
-
-            if question.question_type == 'mcq':
-                options_map = {
-                    'A': question.option_a,
-                    'B': question.option_b,
-                    'C': question.option_c,
-                    'D': question.option_d
-                }
-                correct_text = options_map.get(str(question.correct_answer).upper(), '')
-                student_text = options_map.get(str(display_student).upper(), '')
-                if correct_text:
-                    display_correct = f"{question.correct_answer}: {correct_text}"
-                if student_text:
-                    display_student = f"{display_student.upper()}: {student_text}"
-            elif question.question_type == 'table' and question.table_data:
-                rows = question.table_data.get('rows', [])
-                cell_answers = display_student if isinstance(display_student, dict) else {}
-                lines = []
-                for r_idx, row in enumerate(rows):
-                    for c_idx, cell in enumerate(row):
-                        if cell.get('e'):
-                            key = f"{r_idx}_{c_idx}"
-                            given = cell_answers.get(key, '(blank)')
-                            lines.append(f"Cell ({r_idx+1},{c_idx+1}): {given}")
-                display_student = ' | '.join(lines) if lines else '(no answers)'
-                correct_lines = []
-                has_cell_answers = False
-                for r_idx, row in enumerate(rows):
-                    for c_idx, cell in enumerate(row):
-                        if cell.get('e'):
-                            cell_a = cell.get('a', '')
-                            if cell_a:
-                                has_cell_answers = True
-                            correct_lines.append(f"Cell ({r_idx+1},{c_idx+1}): {cell_a}")
-                if has_cell_answers:
-                    display_correct = ' | '.join(correct_lines)
-                else:
-                    # Cells have no stored answers — fall back to question's correct_answer field
-                    display_correct = question.correct_answer or (' | '.join(correct_lines) if correct_lines else '')
-
-            detailed_feedback[str(question.id)] = {
-                'question_text': question.question_text,
-                'question_type': question.question_type,
-                'option_a': question.option_a,
-                'option_b': question.option_b,
-                'option_c': question.option_c,
-                'option_d': question.option_d,
-                'table_data': question.table_data if question.question_type == 'table' else None,
-                'student_answer': display_student,
-                'marks_awarded': result['marks_awarded'],
-                'max_marks': result['max_marks'],
-                'feedback': result['feedback'],
-                'is_correct': result['is_correct'],
-                'correct_answer': (
-                    None  # points_missed already explains this in plain English
-                    if question.question_type == 'table'
-                    else clean_correct_answer(display_correct) if not result['is_correct'] else None
-                ),
-                'worked_solution': question.worked_solution,
-                'points_earned': result.get('points_earned', []),
-                'points_missed': result.get('points_missed', []),
-                'personalized_message': result.get('personalized_message', ''),
-                'study_tip': result.get('study_tip', ''),
-            }
-
-        # Save attempt
-        # Parse the frontend-provided start time
         parsed_started_at = None
         if raw_started_at:
             from django.utils.dateparse import parse_datetime
             parsed_started_at = parse_datetime(raw_started_at)
 
-        with transaction.atomic():
-            attempt = Attempt.objects.create(
-                student=user,
-                quiz=quiz,
-                score=score_percentage,
-                total_questions=len(questions),
-                correct_answers=sum(1 for r in results if r['is_correct']),
-                total_marks_awarded=total_marks_awarded,
-                total_max_marks=total_max_marks,
-                status='completed',
-                completed_at=timezone.now(),
-                detailed_feedback=detailed_feedback,
-                answers=answers
-            )
-            if parsed_started_at:
-                Attempt.objects.filter(pk=attempt.pk).update(started_at=parsed_started_at)
-            
-            # Deduct credit (if not subscribed)
-            if not has_subscription:
-                    user.use_quiz_credit()
+        # Create the attempt immediately so the student gets a fast response.
+        # Grading happens in a background thread — status starts as 'grading'.
+        attempt = Attempt.objects.create(
+            student=user,
+            quiz=quiz,
+            status='grading',
+            total_questions=len(questions),
+            answers=answers,
+        )
+        if parsed_started_at:
+            Attempt.objects.filter(pk=attempt.pk).update(started_at=parsed_started_at)
 
-            # Update streak
-            user.update_streak()
-                        
-        # Get updated credits
-        new_credits = user.quiz_credits if not has_subscription else 'unlimited'
-        
+        _GRADING_EXECUTOR.submit(
+            _run_grading_task,
+            attempt.pk, quiz.id, questions, answers, working_images,
+            user.pk, has_subscription, parsed_started_at,
+        )
+
         return Response({
             'id': attempt.id,
-            'score': round(score_percentage, 1),
-            'total_marks_awarded': total_marks_awarded,
-            'total_max_marks': total_max_marks,
-            'total_questions': len(questions),
-            'correct_answers': sum(1 for r in results if r['is_correct']),
-            'passed': score_percentage >= quiz.passing_score,
-            'results': [
-                {
-                    'question_id': q.id,
-                    'marks_awarded': r['marks_awarded'],
-                    'max_marks': r['max_marks'],
-                    'is_correct': r['is_correct']
-                }
-                for q, r in zip(questions, results)
-            ],
-            'message': 'Quiz submitted successfully! ✅',
-            
-            # Credits info
+            'status': 'grading',
+            'message': 'Quiz submitted! Grading in progress…',
             'is_guest': False,
-            'quiz_credits': new_credits,
-            'show_payment_prompt': new_credits == 0,
-            
-        }, status=201)
+        }, status=202)
 
 
 @api_view(['GET'])

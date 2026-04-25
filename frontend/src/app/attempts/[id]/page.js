@@ -715,25 +715,20 @@ export default function AttemptResultsPage() {
   const [credits, setCredits] = useState(0);
   const [isPremium, setIsPremium] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [grading, setGrading] = useState(false);
   const [expanded, setExpanded] = useState({});
   const [downloading, setDownloading] = useState(false);
+  const pollRef = useRef(null);
 
   const fetchCreditsStatus = useCallback(async () => {
-    const token = localStorage.getItem("accessToken");
     try {
       const res = await fetchWithAuth(`${API}/credits/status/`);
       if (res.ok) {
         const data = await res.json();
-        setCredits(
-          data.quiz_credits === "unlimited" ? 999 : data.quiz_credits || 0,
-        );
-        setIsPremium(
-          data.has_subscription === true || data.quiz_credits === "unlimited",
-        );
+        setCredits(data.quiz_credits === "unlimited" ? 999 : data.quiz_credits || 0);
+        setIsPremium(data.has_subscription === true || data.quiz_credits === "unlimited");
       }
-    } catch (e) {
-      console.error(e);
-    }
+    } catch (e) { console.error(e); }
   }, []);
 
   const fetchResults = useCallback(async () => {
@@ -752,21 +747,53 @@ export default function AttemptResultsPage() {
           setQuizGrade(qd.grade);
         }
       }
-    } catch (e) {
-      console.error(e);
-    } finally {
-      setLoading(false);
-    }
+    } catch (e) { console.error(e); }
+    finally { setLoading(false); }
   }, [params.id]);
 
+  // Poll the lightweight status endpoint until grading completes.
+  const startPolling = useCallback(() => {
+    setGrading(true);
+    setLoading(false);
+    let attempts = 0;
+    const MAX_POLLS = 60; // 2 min max
+    pollRef.current = setInterval(async () => {
+      attempts++;
+      try {
+        const res = await fetchWithAuth(`${API}/attempts/${params.id}/grading-status/`);
+        if (!res.ok) return;
+        const data = await res.json();
+        if (data.status === "completed") {
+          clearInterval(pollRef.current);
+          setGrading(false);
+          fetchResults();
+          fetchCreditsStatus();
+        } else if (data.status === "grading_failed" || attempts >= MAX_POLLS) {
+          clearInterval(pollRef.current);
+          setGrading(false);
+          setLoading(false);
+        }
+      } catch { /* network blip — keep polling */ }
+    }, 2000);
+  }, [params.id, fetchResults, fetchCreditsStatus]);
+
   useEffect(() => {
-    if (!user) {
-      router.push("/login");
-      return;
-    }
-    fetchResults();
-    fetchCreditsStatus();
-  }, [params.id, user, router, fetchResults, fetchCreditsStatus]);
+    if (!user) { router.push("/login"); return; }
+    // Check status first — if the attempt is still grading, start polling.
+    (async () => {
+      try {
+        const res = await fetchWithAuth(`${API}/attempts/${params.id}/grading-status/`);
+        if (res.ok) {
+          const data = await res.json();
+          if (data.status === "grading") { startPolling(); return; }
+          if (data.status === "grading_failed") { setLoading(false); return; }
+        }
+      } catch { /* fall through to full fetch */ }
+      fetchResults();
+      fetchCreditsStatus();
+    })();
+    return () => clearInterval(pollRef.current);
+  }, [params.id, user, router, fetchResults, fetchCreditsStatus, startPolling]);
 
   useEffect(() => {
     const currentPath = window.location.pathname;
@@ -851,27 +878,22 @@ export default function AttemptResultsPage() {
   const toggleExpand = (id) =>
     setExpanded((prev) => ({ ...prev, [id]: !prev[id] }));
 
+  if (grading)
+    return (
+      <div style={{ minHeight: "100vh", background: "#f8fafc", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 20, fontFamily: "'Lato', sans-serif" }}>
+        <div style={{ width: 56, height: 56, borderRadius: "50%", border: "4px solid #e2e8f0", borderTopColor: "#1a6fc4", animation: "spin 0.9s linear infinite" }} />
+        <div style={{ textAlign: "center" }}>
+          <p style={{ fontSize: 18, fontWeight: 700, color: "#1e293b", margin: 0 }}>Marking your answers…</p>
+          <p style={{ fontSize: 14, color: "#64748b", marginTop: 6 }}>AI is reviewing each question. This usually takes 15–30 seconds.</p>
+        </div>
+        <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
+      </div>
+    );
+
   if (loading)
     return (
-      <div
-        style={{
-          minHeight: "100vh",
-          background: "#f8fafc",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <div
-          style={{
-            width: 40,
-            height: 40,
-            borderRadius: "50%",
-            border: "3px solid #e2e8f0",
-            borderTopColor: "#1a6fc4",
-            animation: "spin 0.8s linear infinite",
-          }}
-        />
+      <div style={{ minHeight: "100vh", background: "#f8fafc", display: "flex", alignItems: "center", justifyContent: "center" }}>
+        <div style={{ width: 40, height: 40, borderRadius: "50%", border: "3px solid #e2e8f0", borderTopColor: "#1a6fc4", animation: "spin 0.8s linear infinite" }} />
         <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
       </div>
     );

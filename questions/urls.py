@@ -38,6 +38,7 @@ from .views import (
     TeacherAnalyticsView,
     submit_quiz,
     get_attempt_results,
+    get_attempt_grading_status,
     StudentAnalyticsView,
     TeacherClassroomAnalyticsView,
     TeacherQuizResultsView,
@@ -64,6 +65,7 @@ urlpatterns = [
     path('attempts/', AttemptListView.as_view(), name='attempt-list'),
     path('attempts/<int:pk>/', AttemptDetailView.as_view(), name='attempt-detail'),
     path('attempts/<int:attempt_id>/', get_attempt_results, name='attempt_results'),
+    path('attempts/<int:attempt_id>/grading-status/', get_attempt_grading_status, name='attempt_grading_status'),
 
     # ── Guest Session ────────────────────────────────────────────
     path('guest/session/', start_guest_session, name='guest-session'),

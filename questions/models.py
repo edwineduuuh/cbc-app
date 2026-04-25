@@ -323,7 +323,9 @@ class Attempt(models.Model):
     """
     STATUS_CHOICES = [
         ('in_progress', 'In Progress'),
+        ('grading', 'Grading'),
         ('completed', 'Completed'),
+        ('grading_failed', 'Grading Failed'),
         ('abandoned', 'Abandoned'),
     ]
     
