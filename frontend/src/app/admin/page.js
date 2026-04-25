@@ -106,6 +106,55 @@ function DifficultyBadge({ difficulty }) {
   );
 }
 
+// ─── Multipart helpers ────────────────────────────────────────────────────────
+function makeDefaultPart(index) {
+  const labels = ["a", "b", "c", "d", "e", "f", "g", "h"];
+  return {
+    part_label: labels[index] || String(index + 1),
+    question_text: "",
+    question_type: "structured",
+    correct_answer: "",
+    max_marks: 1,
+    explanation: "",
+  };
+}
+
+function PartsBuilder({ parts, onChange }) {
+  const addPart = () => onChange([...parts, makeDefaultPart(parts.length)]);
+  const removePart = (i) => onChange(parts.filter((_, idx) => idx !== i));
+  const updatePart = (i, field, val) =>
+    onChange(parts.map((p, idx) => (idx === i ? { ...p, [field]: val } : p)));
+
+  return (
+    <div className="space-y-3">
+      <div className="flex items-center justify-between">
+        <p className="text-xs font-semibold text-gray-600 uppercase tracking-wide">
+          Sub-questions ({parts.length} parts · {parts.reduce((s, p) => s + Number(p.max_marks || 1), 0)} marks total)
+        </p>
+        <button type="button" onClick={addPart} className="text-xs bg-indigo-50 text-indigo-700 border border-indigo-200 px-3 py-1.5 rounded-lg hover:bg-indigo-100 font-medium">
+          + Add Part
+        </button>
+      </div>
+      {parts.map((part, i) => (
+        <div key={i} className="border border-gray-200 rounded-xl p-3 bg-gray-50 space-y-2">
+          <div className="flex items-center gap-2">
+            <span className="text-sm font-bold text-indigo-700 w-6">({part.part_label})</span>
+            <input className="flex-1 text-sm border border-gray-200 rounded-lg px-2 py-1.5" placeholder="Part question text" value={part.question_text} onChange={(e) => updatePart(i, "question_text", e.target.value)} />
+            <input type="number" min={1} className="w-16 text-sm border border-gray-200 rounded-lg px-2 py-1.5 text-center" title="Marks" value={part.max_marks} onChange={(e) => updatePart(i, "max_marks", e.target.value)} />
+            <span className="text-xs text-gray-400">mk</span>
+            <button type="button" onClick={() => removePart(i)} className="text-red-400 hover:text-red-600 text-lg leading-none">×</button>
+          </div>
+          <textarea rows={2} className="w-full text-sm border border-gray-200 rounded-lg px-2 py-1.5" placeholder="Correct answer for this part" value={part.correct_answer} onChange={(e) => updatePart(i, "correct_answer", e.target.value)} />
+          <input className="w-full text-xs border border-gray-200 rounded-lg px-2 py-1.5 text-gray-500" placeholder="Explanation (optional)" value={part.explanation} onChange={(e) => updatePart(i, "explanation", e.target.value)} />
+        </div>
+      ))}
+      {parts.length === 0 && (
+        <p className="text-xs text-gray-400 text-center py-3">No parts yet. Click &quot;Add Part&quot; to begin.</p>
+      )}
+    </div>
+  );
+}
+
 // ─── Question Modal ───────────────────────────────────────────────────────────
 function QuestionModal({ open, onClose, onSave, subjects, topics, editData }) {
   const blank = {
@@ -126,6 +175,7 @@ function QuestionModal({ open, onClose, onSave, subjects, topics, editData }) {
     image_preview: null,
     image_file: null,
     delete_image: false,
+    parts: [],
   };
 
   const [form, setForm] = useState(blank);
@@ -155,6 +205,7 @@ function QuestionModal({ open, onClose, onSave, subjects, topics, editData }) {
         image_preview: null, // Clear preview when opening
         image_file: null,
         delete_image: false,
+        parts: editData.parts || [],
       });
     } else {
       setForm(blank);
@@ -237,6 +288,11 @@ function QuestionModal({ open, onClose, onSave, subjects, topics, editData }) {
           }
         }
 
+        // Handle multipart parts
+        if (form.question_type === "multipart" && form.parts?.length) {
+          payload.append("parts", JSON.stringify(form.parts));
+        }
+
         // Handle image
         if (form.image_file) {
           payload.append("question_image", form.image_file);
@@ -260,6 +316,8 @@ function QuestionModal({ open, onClose, onSave, subjects, topics, editData }) {
           payload.option_c = form.option_c.trim();
           payload.option_d = form.option_d.trim();
           payload.correct_answer = form.correct_answer;
+        } else if (form.question_type === "multipart") {
+          payload.parts = form.parts || [];
         } else {
           payload.correct_answer = form.correct_answer || "";
           payload.marking_scheme = marking_scheme_obj;
@@ -415,7 +473,13 @@ function QuestionModal({ open, onClose, onSave, subjects, topics, editData }) {
                 <label className={labelCls}>Type *</label>
                 <select
                   value={form.question_type}
-                  onChange={(e) => update("question_type", e.target.value)}
+                  onChange={(e) => {
+                    const t = e.target.value;
+                    update("question_type", t);
+                    if (t === "multipart" && !form.parts?.length) {
+                      update("parts", [makeDefaultPart(0)]);
+                    }
+                  }}
                   className={inputCls}
                 >
                   <option value="mcq">MCQ</option>
@@ -423,6 +487,8 @@ function QuestionModal({ open, onClose, onSave, subjects, topics, editData }) {
                   <option value="fill_blank">Fill Blank</option>
                   <option value="math">Math</option>
                   <option value="essay">Essay</option>
+                  <option value="table">Table</option>
+                  <option value="multipart">Multipart</option>
                 </select>
               </div>
               <div>
@@ -438,15 +504,27 @@ function QuestionModal({ open, onClose, onSave, subjects, topics, editData }) {
             </div>
 
             <div>
-              <label className={labelCls}>Question Text *</label>
+              <label className={labelCls}>
+                {form.question_type === "multipart" ? "Question Stem / Intro Text *" : "Question Text *"}
+              </label>
               <textarea
                 value={form.question_text}
                 onChange={(e) => update("question_text", e.target.value)}
                 rows={4}
                 className={`${inputCls} resize-none`}
-                placeholder="Write the full question here..."
+                placeholder={form.question_type === "multipart" ? "Enter the reading passage or intro text..." : "Write the full question here..."}
               />
             </div>
+
+            {form.question_type === "multipart" && (
+              <div>
+                <label className={labelCls}>Sub-questions (Parts)</label>
+                <PartsBuilder
+                  parts={form.parts || []}
+                  onChange={(p) => update("parts", p)}
+                />
+              </div>
+            )}
 
             {form.question_type === "mcq" && (
               <div>

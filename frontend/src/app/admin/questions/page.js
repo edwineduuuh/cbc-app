@@ -40,6 +40,7 @@ const QUESTION_TYPES = [
   { value: "structured", label: "Structured" },
   { value: "essay", label: "Essay" },
   { value: "table", label: "Table" },
+  { value: "multipart", label: "Multipart" },
 ];
 const DIFFICULTY_COLORS = {
   easy: "bg-green-100 text-green-700 border-green-200",
@@ -1490,7 +1491,7 @@ export default function QuestionManagementPage() {
                     placeholder="Select Strand"
                   />
                 </div>
-                <div className="grid grid-cols-3 gap-4">
+                <div className="grid grid-cols-4 gap-4">
                   <SelectField
                     label="Grade"
                     name="grade"
@@ -1525,6 +1526,16 @@ export default function QuestionManagementPage() {
                       }
                     }}
                     options={QUESTION_TYPES}
+                  />
+                  <InputField
+                    label="Max Marks"
+                    name="max_marks"
+                    type="number"
+                    min={1}
+                    value={editingQuestion.max_marks || 1}
+                    onChange={handleEditChange}
+                    required
+                    placeholder="Set max marks"
                   />
                 </div>
                 {editingQuestion.question_type === "multipart" ? (
