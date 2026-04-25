@@ -72,13 +72,13 @@ function makeDefaultTable(rows = 2, cols = 5) {
     rows: Array.from({ length: rows }, () =>
       Array.from({ length: cols }, () => ({ v: "", e: false, a: "" }))
     ),
-    marking: "case_insensitive",
+    marking: "ai",
   };
 }
 
 function TableBuilder({ value, onChange }) {
   const rows = value?.rows || makeDefaultTable().rows;
-  const marking = value?.marking || "case_insensitive";
+  const marking = value?.marking || "ai";
   const numRows = rows.length;
   const numCols = rows[0]?.length || 5;
 
@@ -124,9 +124,9 @@ function TableBuilder({ value, onChange }) {
             onChange={(e) => onChange({ rows, marking: e.target.value })}
             className="px-2 py-1 border border-gray-300 rounded text-sm"
           >
+            <option value="ai">AI (Recommended)</option>
             <option value="case_insensitive">Case Insensitive</option>
-            <option value="exact">Exact</option>
-            <option value="ai">AI</option>
+            <option value="exact">Exact Match</option>
           </select>
         </div>
       </div>

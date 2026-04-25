@@ -1482,7 +1482,7 @@ def _grade_table(question, student_answer) -> dict:
     max_marks = question.max_marks
     table_data = getattr(question, "table_data", None) or {}
     rows = table_data.get("rows", [])
-    marking = table_data.get("marking", "case_insensitive")
+    marking = table_data.get("marking", "ai")
 
     # Collect all editable cells with their correct answers
     editable_cells = []
