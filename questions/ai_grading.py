@@ -1775,21 +1775,25 @@ class _PartProxy:
     _grade_multipart adds the label when assembling the combined feedback.
     """
     def __init__(self, part):
-        parent               = part.parent_question
-        self.id              = part.id
-        self.question_text   = part.question_text
-        self.question_type   = part.question_type
-        self.correct_answer  = part.correct_answer
-        self.max_marks       = part.max_marks
-        self.marking_scheme  = part.marking_scheme or parent.marking_scheme
-        self.explanation     = part.explanation or parent.explanation
-        self.option_a        = part.option_a
-        self.option_b        = part.option_b
-        self.option_c        = part.option_c
-        self.option_d        = part.option_d
-        self.topic           = parent.topic
-        self.passage         = parent.passage
-        self.worked_solution = None
+        parent                    = part.parent_question
+        self.id                   = part.id
+        self.question_text        = part.question_text
+        self.question_type        = part.question_type
+        self.correct_answer       = part.correct_answer
+        self.correct_answers      = []   # _grade_math / _grade_fill_blank need this
+        self.max_marks            = part.max_marks
+        self.marking_scheme       = part.marking_scheme or parent.marking_scheme
+        self.explanation          = part.explanation or parent.explanation
+        self.option_a             = part.option_a
+        self.option_b             = part.option_b
+        self.option_c             = part.option_c
+        self.option_d             = part.option_d
+        self.topic                = parent.topic
+        self.passage              = parent.passage
+        self.table_data           = getattr(part, "table_data", None)
+        self.math_options         = getattr(part, "math_options", {}) or {}
+        self.cached_ai_explanation = None  # MCQ cache — parts are never shared
+        self.worked_solution      = None
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -1823,35 +1827,44 @@ def _grade_multipart(question, student_answer, working_image=None) -> dict:
             part_answer = normalised_answers.get(str(part.id), "")
         else:
             part_answer = student_answer
+        # Don't send working image to MCQ parts — they can't use it
+        part_image = None if part.question_type == "mcq" else working_image
         return (
             part.id,
             part.part_label,
-            _route(_PartProxy(part), str(part_answer), working_image),
+            _route(_PartProxy(part), str(part_answer), part_image),
+            part_answer,
         )
 
     results = {}
-    with ThreadPoolExecutor(max_workers=len(parts)) as executor:
+    with ThreadPoolExecutor(max_workers=max(len(parts), 1)) as executor:
         futures = {executor.submit(grade_part, part): part for part in parts}
         for future in as_completed(futures):
             part = futures[future]
             try:
-                part_id, label, result = future.result()
-                results[part_id] = (label, result)
+                part_id, label, result, raw_answer = future.result()
+                results[part_id] = (label, result, raw_answer)
             except Exception as e:
                 print(f"⚠ Part ({part.part_label}) grading failed: {e}")
                 results[part.id] = (
                     part.part_label,
                     _empty_result(part.max_marks, _near_miss(sw), _near_miss(sw)),
+                    "",
                 )
+
+    # Build per-part lookup for question texts and correct answers
+    parts_by_id = {p.id: p for p in parts}
 
     total_marks  = 0
     total_max    = 0
     all_feedback = []
     all_earned   = []
     all_missed   = []
+    part_results_list = []
 
     for part_id in sorted(results.keys()):
-        label, result = results[part_id]
+        label, result, raw_answer = results[part_id]
+        part_obj = parts_by_id.get(part_id)
         total_marks += result["marks_awarded"]
         total_max   += result["max_marks"]
 
@@ -1860,6 +1873,21 @@ def _grade_multipart(question, student_answer, working_image=None) -> dict:
         all_feedback.append(f"({label}) {result['feedback']}")
         all_earned.extend(_to_list(result.get("points_earned", [])))
         all_missed.extend(_to_list(result.get("points_missed", [])))
+
+        part_results_list.append({
+            "part_id":        part_id,
+            "part_label":     label,
+            "question_text":  part_obj.question_text if part_obj else "",
+            "student_answer": str(raw_answer) if raw_answer is not None else "",
+            "marks_awarded":  result["marks_awarded"],
+            "max_marks":      result["max_marks"],
+            "feedback":       result["feedback"],
+            "is_correct":     result["is_correct"],
+            "correct_answer": part_obj.correct_answer if part_obj else "",
+            "points_earned":  _to_list(result.get("points_earned", [])),
+            "points_missed":  _to_list(result.get("points_missed", [])),
+            "study_tip":      result.get("study_tip", ""),
+        })
 
     return {
         "marks_awarded":        total_marks,
@@ -1872,6 +1900,7 @@ def _grade_multipart(question, student_answer, working_image=None) -> dict:
         "study_tip":            "",
         "points_earned":        all_earned,
         "points_missed":        all_missed,
+        "part_results":         part_results_list,
     }
 
 
