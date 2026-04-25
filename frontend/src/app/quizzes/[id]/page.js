@@ -440,6 +440,225 @@ function MCQOption({ letter, text, selected, onClick }) {
   );
 }
 
+// ─── Table Questions ──────────────────────────────────────────────────────────
+
+function isMatchingTable(tableData) {
+  const rows = tableData?.rows || [];
+  if (rows.length < 2 || rows[0]?.length !== 2) return false;
+  const dataRows = rows.slice(1);
+  const editableCols = new Set();
+  dataRows.forEach((row) => row.forEach((cell, c) => { if (cell.e) editableCols.add(c); }));
+  if (editableCols.size !== 1) return false;
+  const ec = [...editableCols][0];
+  const ic = ec === 0 ? 1 : 0;
+  return (
+    dataRows.every((row) => row[ec]?.a?.trim()) &&
+    dataRows.every((row) => row[ic]?.v?.trim())
+  );
+}
+
+function MatchingTable({ tableData, answer, onAnswer }) {
+  const rows = tableData.rows;
+  const headers = rows[0];
+  const dataRows = rows.slice(1);
+  const ec = dataRows[0]?.findIndex((c) => c.e) ?? 1;
+  const ic = ec === 0 ? 1 : 0;
+
+  // Shuffle pool once on mount
+  const [pool] = useState(() =>
+    dataRows
+      .map((row, ri) => ({ key: `${ri + 1}_${ec}`, text: row[ec].a }))
+      .sort(() => Math.random() - 0.5)
+  );
+  const [selected, setSelected] = useState(null);
+
+  const ans = (typeof answer === "object" && answer) ? answer : {};
+  const placedTexts = new Set(Object.values(ans));
+  const available = pool.filter((p) => !placedTexts.has(p.text));
+
+  const handleZone = (ri) => {
+    const key = `${ri + 1}_${ec}`;
+    if (selected) {
+      const item = pool.find((p) => p.key === selected);
+      if (item) {
+        // If zone already had something, return it to pool first (implicit — it's excluded from placed)
+        onAnswer({ ...ans, [key]: item.text });
+        setSelected(null);
+      }
+    } else if (ans[key]) {
+      const next = { ...ans };
+      delete next[key];
+      onAnswer(next);
+    }
+  };
+
+  const removeFromZone = (key, e) => {
+    e.stopPropagation();
+    const next = { ...ans };
+    delete next[key];
+    onAnswer(next);
+  };
+
+  return (
+    <div style={{ fontFamily: "'Lato', sans-serif" }}>
+      {/* Instructions */}
+      <p style={{ fontSize: 12, color: "#1a6fc4", fontWeight: 700, marginBottom: 12, letterSpacing: "0.04em", textTransform: "uppercase" }}>
+        {selected ? "▶ Now tap the row to place it" : "Step 1 — tap an answer below · Step 2 — tap its match in the table"}
+      </p>
+
+      {/* Table */}
+      <div style={{ overflowX: "auto", marginBottom: 18, borderRadius: 14, border: "1.5px solid #e2e8f0", boxShadow: "0 2px 12px rgba(0,0,0,0.05)" }}>
+        <table style={{ width: "100%", borderCollapse: "collapse", minWidth: 340 }}>
+          <thead>
+            <tr>
+              {headers.map((cell, c) => (
+                <th key={c} style={{
+                  padding: "12px 16px", textAlign: "left", fontSize: 13, fontWeight: 700,
+                  color: "#1e293b", background: "#f1f5f9", borderBottom: "2px solid #e2e8f0",
+                  borderRight: c < headers.length - 1 ? "1.5px solid #e2e8f0" : "none",
+                }}>
+                  {cell.v}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {dataRows.map((row, ri) => {
+              const key = `${ri + 1}_${ec}`;
+              const placed = ans[key];
+              const isTarget = selected && !placed;
+              return (
+                <tr key={ri} style={{ background: ri % 2 === 0 ? "#fff" : "#f8fafc" }}>
+                  {/* Column A item */}
+                  <td style={{
+                    padding: "12px 16px", fontSize: 14, fontWeight: 600, color: "#0f172a",
+                    borderBottom: ri < dataRows.length - 1 ? "1px solid #f1f5f9" : "none",
+                    borderRight: "1.5px solid #e2e8f0",
+                  }}>
+                    {row[ic].v}
+                  </td>
+                  {/* Drop zone */}
+                  <td
+                    onClick={() => handleZone(ri)}
+                    style={{
+                      padding: "10px 14px", cursor: isTarget || placed ? "pointer" : "default",
+                      borderBottom: ri < dataRows.length - 1 ? "1px solid #f1f5f9" : "none",
+                      background: isTarget ? "#eff6ff" : placed ? "#f0fdf4" : "transparent",
+                      transition: "background 0.15s",
+                    }}
+                  >
+                    {placed ? (
+                      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8 }}>
+                        <span style={{ fontSize: 13, fontWeight: 600, color: "#065f46" }}>{placed}</span>
+                        <button onClick={(e) => removeFromZone(key, e)} style={{
+                          background: "#fee2e2", border: "none", borderRadius: 6, padding: "2px 7px",
+                          fontSize: 12, color: "#dc2626", cursor: "pointer", fontWeight: 700, flexShrink: 0,
+                        }}>✕</button>
+                      </div>
+                    ) : (
+                      <span style={{
+                        fontSize: 13, color: isTarget ? "#1a6fc4" : "#94a3b8",
+                        fontWeight: isTarget ? 700 : 400,
+                        border: `2px dashed ${isTarget ? "#1a6fc4" : "#e2e8f0"}`,
+                        borderRadius: 8, padding: "6px 12px", display: "block",
+                        transition: "all 0.15s",
+                      }}>
+                        {isTarget ? "Tap to place here →" : "— empty —"}
+                      </span>
+                    )}
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+
+      {/* Answer pool */}
+      {available.length > 0 && (
+        <div>
+          <p style={{ fontSize: 11, fontWeight: 700, color: "#64748b", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: 8 }}>
+            Answer choices
+          </p>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+            {available.map((item) => {
+              const isSel = selected === item.key;
+              return (
+                <button
+                  key={item.key}
+                  type="button"
+                  onClick={() => setSelected(isSel ? null : item.key)}
+                  style={{
+                    padding: "9px 16px", fontSize: 13, fontWeight: 600, borderRadius: 10,
+                    border: `2px solid ${isSel ? "#1a6fc4" : "#e2e8f0"}`,
+                    background: isSel ? "#1a6fc4" : "#fff",
+                    color: isSel ? "#fff" : "#1e293b",
+                    cursor: "pointer", transition: "all 0.15s",
+                    boxShadow: isSel ? "0 2px 8px rgba(26,111,196,0.25)" : "0 1px 4px rgba(0,0,0,0.06)",
+                  }}
+                >
+                  {item.text}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      )}
+      {available.length === 0 && (
+        <p style={{ fontSize: 13, color: "#059669", fontWeight: 700, textAlign: "center", padding: "8px 0" }}>
+          ✓ All answers placed — review and submit
+        </p>
+      )}
+    </div>
+  );
+}
+
+function FillInTable({ tableData, answer, onAnswer }) {
+  const rows = tableData.rows;
+  const ans = (typeof answer === "object" && answer) ? answer : {};
+
+  const update = (r, c, val) => onAnswer({ ...ans, [`${r}_${c}`]: val });
+
+  return (
+    <div style={{ overflowX: "auto", borderRadius: 14, border: "1.5px solid #e2e8f0", boxShadow: "0 2px 12px rgba(0,0,0,0.05)" }}>
+      <table style={{ width: "100%", borderCollapse: "collapse", minWidth: 300 }}>
+        <tbody>
+          {rows.map((row, r) => (
+            <tr key={r} style={{ background: r === 0 ? "#f1f5f9" : r % 2 === 1 ? "#fff" : "#f8fafc" }}>
+              {row.map((cell, c) => (
+                <td key={c} style={{
+                  padding: cell.e ? "8px 10px" : "12px 16px",
+                  borderBottom: r < rows.length - 1 ? "1px solid #f1f5f9" : "none",
+                  borderRight: c < row.length - 1 ? "1.5px solid #e2e8f0" : "none",
+                  fontSize: 14, fontWeight: r === 0 ? 700 : 400, color: "#0f172a",
+                  background: cell.e ? "#eff6ff" : "inherit",
+                  minWidth: 100,
+                }}>
+                  {cell.e ? (
+                    <input
+                      type="text"
+                      value={ans[`${r}_${c}`] || ""}
+                      onChange={(e) => update(r, c, e.target.value)}
+                      placeholder="Your answer…"
+                      style={{
+                        width: "100%", border: "none", background: "transparent",
+                        fontSize: 14, fontWeight: 500, color: "#1e3a5f",
+                        outline: "none", fontFamily: "'Lato', sans-serif",
+                      }}
+                    />
+                  ) : (
+                    cell.v
+                  )}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
 // ─── Question Nav ─────────────────────────────────────────────────────────────
 function QuestionNav({ questions, answers, currentIdx, onJump, show }) {
   return (
@@ -1660,6 +1879,7 @@ export default function QuizTakePage({ params }) {
   const isText =
     currentQ.question_type === "structured" ||
     currentQ.question_type === "essay";
+  const isTable = currentQ.question_type === "table";
 
   // Build answeredBlanks map: { blankNum: optionText }
   const answeredBlanks = Object.fromEntries(
@@ -2177,6 +2397,25 @@ export default function QuizTakePage({ params }) {
                       Worth {currentQ.max_marks} marks — provide a detailed
                       answer.
                     </p>
+                  )}
+                </div>
+              )}
+
+              {/* Table question */}
+              {isTable && currentQ.table_data && (
+                <div style={{ marginTop: 4 }}>
+                  {isMatchingTable(currentQ.table_data) ? (
+                    <MatchingTable
+                      tableData={currentQ.table_data}
+                      answer={answers[currentIdx]}
+                      onAnswer={(val) => handleAnswer(val)}
+                    />
+                  ) : (
+                    <FillInTable
+                      tableData={currentQ.table_data}
+                      answer={answers[currentIdx]}
+                      onAnswer={(val) => handleAnswer(val)}
+                    />
                   )}
                 </div>
               )}
