@@ -515,6 +515,7 @@ export default function QuestionManagementPage() {
       "explanation",
       formData.explanation ? formData.explanation.trim() : "",
     );
+    fd.append("max_marks", parseInt(formData.max_marks) || 1);
     fd.append("difficulty", formData.difficulty || "medium");
     if (createImageFile) fd.append("question_image", createImageFile);
     if (formData.question_type === "multipart" && formData.parts?.length > 0) {
@@ -563,6 +564,7 @@ export default function QuestionManagementPage() {
       if (editingQuestion.question_type === "table" && editingQuestion.table_data) {
         fd.append("table_data", JSON.stringify(editingQuestion.table_data));
       }
+      fd.append("max_marks", parseInt(editingQuestion.max_marks) || 1);
       fd.append("explanation", editingQuestion.explanation || "");
       fd.append("difficulty", editingQuestion.difficulty || "medium");
       if (editImageFile) {
