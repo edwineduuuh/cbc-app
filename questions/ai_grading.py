@@ -204,6 +204,12 @@ def _clean_num(s: str) -> str:
     return match.group() if match else ""
 
 
+def _strip_assignment(s: str) -> str:
+    """Strip variable assignment prefix so 'x = 3' compares equal to '3'."""
+    m = re.match(r'^[a-zA-Z_]\w*\s*=\s*(.+)$', str(s).strip())
+    return m.group(1).strip() if m else s
+
+
 def _extract_mcq_letter(text: str) -> str:
     """Extract the MCQ letter from a correct answer string like 'A - foo'."""
     if not text:
@@ -310,6 +316,11 @@ def _parse_json_response(raw: str) -> dict:
     if raw is None:
         raise ValueError("Gemini returned None — no text in response")
     cleaned = raw.replace("```json", "").replace("```", "").strip()
+
+    # LaTeX commands like \frac, \times, \sqrt contain backslashes that JSON
+    # interprets as escape sequences (\f → formfeed, \t → tab, \n → newline).
+    # Double any single backslash before a letter so they survive json.loads().
+    cleaned = re.sub(r'(?<!\\)\\([a-zA-Z])', r'\\\\\1', cleaned)
 
     try:
         return json.loads(cleaned)
@@ -640,7 +651,17 @@ DO:
   ✓ State what the correct answer is (from teacher)
   ✓ Say briefly why the student's choice is wrong
   ✓ If teacher provided an explanation, COPY it — do not add to it
-""" + ("  - No working image provided — do NOT penalise for missing working." if not has_image else "  - 🖼 Student has provided a working image — AWARD METHOD MARKS for each correct step, even if final answer differs slightly. Full marks if working shows they arrived at their submitted answer.") + """
+""" + ("""
+⛔⛔⛔ WORKING STEPS — ABSOLUTE RULE ⛔⛔⛔
+No working image was provided. This is NORMAL — the working photo is OPTIONAL.
+YOU MUST NOT deduct marks because there are no steps shown.
+IF the final answer is mathematically correct → award FULL marks, period.
+NEVER write phrases like "no working shown", "steps are missing", or "you need to show your method".
+""" if not has_image else """
+🖼 Student has provided a working image.
+AWARD METHOD MARKS for each correct step visible, even if the final answer has a small arithmetic error.
+Award full marks if the working clearly shows they arrived at the correct answer.
+""") + """
 MATH FORMATTING — NON-NEGOTIABLE:
   - Every number, variable, exponent, fraction MUST use LaTeX syntax
   - Inline math: $2^3$, $\\frac{1}{8}$, $(-2)^{-1}$, $x = 4$, $\\times$
@@ -1288,25 +1309,29 @@ def _grade_math(question, student_answer: str, working_image: str | None = None)
             points_earned = [str(display_value)],
         )
 
+    # Strip 'x = ' prefix from both sides so "1" matches "x = 1" and vice versa.
+    student_bare = _strip_assignment(student_str)
+    all_correct_bare = [_strip_assignment(ca) for ca in all_correct]
+
     # Fast numeric check against all accepted answers
-    s_clean = _clean_num(student_str)
+    s_clean = _clean_num(student_bare)
     if s_clean:
         try:
             s_num = float(s_clean)
-            for ca in all_correct:
-                if not re.search(r"[a-zA-Z]", ca):
-                    c_clean = _clean_num(ca)
+            for ca_bare in all_correct_bare:
+                if not re.search(r"[a-zA-Z]", ca_bare):
+                    c_clean = _clean_num(ca_bare)
                     if c_clean and abs(s_num - float(c_clean)) < 0.01:
                         return _on_correct(s_num)
         except ValueError:
             pass
 
     # Symbolic / approximate check with timeout (try all accepted answers)
-    s_expr = _parse_math_expr(student_str)
+    s_expr = _parse_math_expr(student_bare)
     if s_expr is not None:
-        for ca in all_correct:
+        for ca_bare in all_correct_bare:
             try:
-                c_expr = _parse_math_expr(ca)
+                c_expr = _parse_math_expr(ca_bare)
                 if c_expr is not None:
                     diff = _safe_simplify(s_expr - c_expr)
                     if diff is not None and diff == 0:
