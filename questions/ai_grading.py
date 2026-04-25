@@ -1469,14 +1469,10 @@ def _grade_with_ai(
 
 def _grade_table(question, student_answer) -> dict:
     """
-    Grade a table question cell-by-cell.
+    Grade a table question.
 
-    student_answer: dict of {"row_col": value} e.g. {"1_1": "-6", "1_2": "-1"}
-    table_data format:
-      {
-        "rows": [[{"v": "x", "e": false}, {"v": "", "e": true, "a": "-6"}]],
-        "marking": "exact" | "case_insensitive" | "ai"
-      }
+    AI mode  → single holistic call, order-agnostic, concept-aware.
+    exact / case_insensitive → strict per-cell positional matching.
     """
     sw = _is_kiswahili(question)
     max_marks = question.max_marks
@@ -1506,14 +1502,15 @@ def _grade_table(question, student_answer) -> dict:
     else:
         cell_answers = {}
 
+    # ── AI MODE: one holistic call, order-agnostic ──────────────────────────
+    if marking == "ai":
+        return _grade_table_holistic(question, cell_answers, editable_cells, rows, max_marks, sw)
+
+    # ── STRICT MODES: per-cell positional matching ───────────────────────────
     marks_per_cell = max_marks / len(editable_cells)
     marks_awarded = 0
     points_earned = []
     points_missed = []
-
-    # Build a reference string for fallback AI grading when cells have no stored answers
-    question_correct_answer = getattr(question, 'correct_answer', '') or ''
-    all_cell_answers_missing = all(not ca for _, _, ca in editable_cells)
 
     for r_idx, c_idx, correct_answer in editable_cells:
         key = f"{r_idx}_{c_idx}"
@@ -1525,70 +1522,36 @@ def _grade_table(question, student_answer) -> dict:
             continue
 
         is_correct = False
-
-        # If this cell has no stored correct answer, always use AI with question context
-        effective_marking = "ai" if not correct_answer else marking
-
-        if effective_marking == "exact":
+        if marking == "exact":
             is_correct = student_val == correct_answer
-        elif effective_marking == "case_insensitive":
+        else:  # case_insensitive
             is_correct = _normalise(student_val) == _normalise(correct_answer)
             if not is_correct:
-                # Numeric equivalence
-                s_n = _clean_num(student_val)
-                c_n = _clean_num(correct_answer)
+                s_n, c_n = _clean_num(student_val), _clean_num(correct_answer)
                 if s_n and c_n:
                     try:
                         is_correct = abs(float(s_n) - float(c_n)) < 0.01
                     except ValueError:
                         pass
-        elif effective_marking == "ai":
-            try:
-                if correct_answer:
-                    context = f"Correct answer for this cell: {correct_answer}"
-                elif question_correct_answer:
-                    context = f"Full question correct answers: {question_correct_answer}"
-                else:
-                    context = "No answer key provided — use your knowledge."
-                prompt = (
-                    f"Question: {question.question_text}\n"
-                    f"{context}\n"
-                    f"Cell position: {cell_label}\n"
-                    f"Student answer: {student_val}\n\n"
-                    "Is the student's answer correct or acceptably close (allow minor spelling variations)? "
-                    "Reply ONLY with TRUE or FALSE."
-                )
-                verdict = _call_ai(prompt, use_gemini=sw).strip().upper()
-                is_correct = verdict in ("TRUE", "KWELI")
-            except Exception as e:
-                print(f"⚠ AI table cell grading failed ({key}): {e}")
-                is_correct = _normalise(student_val) == _normalise(correct_answer) if correct_answer else False
 
         if is_correct:
             marks_awarded += marks_per_cell
             points_earned.append(f"{cell_label}: {student_val} ✓")
         else:
-            hint = correct_answer or "(see question model answer)"
+            hint = correct_answer or "(see model answer)"
             points_missed.append(f"{cell_label}: got '{student_val}', correct: {hint}")
 
-    marks_awarded = round(marks_awarded)
-    marks_awarded = max(0, min(marks_awarded, max_marks))
+    marks_awarded = round(max(0, min(marks_awarded, max_marks)))
     is_correct = marks_awarded == max_marks
 
     if is_correct:
-        feedback = _praise(sw) + (" Jedwali lako lote ni sahihi!" if sw else " All table cells are correct!")
+        feedback = _praise(sw) + (" Jedwali lako lote ni sahihi!" if sw else " All cells correct!")
     elif marks_awarded > 0:
-        feedback = (
-            f"Umepata {marks_awarded} kati ya {max_marks} alama. Angalia seli zilizokosea."
-            if sw else
-            f"You got {marks_awarded} out of {max_marks} marks. Check the cells you missed."
-        )
+        feedback = (f"Umepata {marks_awarded} kati ya {max_marks} alama." if sw
+                    else f"You got {marks_awarded} out of {max_marks} marks. Check the cells you missed.")
     else:
-        feedback = (
-            "Hakuna seli iliyokuwa sahihi. Jaribu tena kwa makini."
-            if sw else
-            "No cells were correct. Review the question carefully and try again."
-        )
+        feedback = ("Hakuna seli iliyokuwa sahihi." if sw
+                    else "No cells were correct. Review the question carefully and try again.")
 
     return {
         "marks_awarded": marks_awarded,
@@ -1600,6 +1563,154 @@ def _grade_table(question, student_answer) -> dict:
         "points_earned": points_earned,
         "points_missed": points_missed,
     }
+
+
+def _grade_table_holistic(question, cell_answers, editable_cells, all_rows, max_marks, sw):
+    """
+    Single AI call that grades the whole table at once.
+    Order-agnostic: awards marks for correct concept pairs regardless of which
+    row the student put them in. Handles semantic equivalence, casing, abbreviations.
+    Falls back to per-cell normalised matching on AI failure.
+    """
+    question_text = question.question_text or ""
+    question_model_answer = getattr(question, "correct_answer", "") or ""
+    question_explanation = getattr(question, "explanation", "") or ""
+
+    # Build a human-readable view of the table structure (static cells as headers)
+    # Group editable cells by row so AI sees each row as a unit
+    row_data = {}
+    for r_idx, c_idx, correct_answer in editable_cells:
+        if r_idx not in row_data:
+            row_data[r_idx] = {"correct": {}, "student": {}}
+        row_data[r_idx]["correct"][c_idx] = correct_answer
+        key = f"{r_idx}_{c_idx}"
+        row_data[r_idx]["student"][c_idx] = cell_answers.get(key, "").strip()
+
+    # Also include static (non-editable) cells as context labels
+    static_by_row = {}
+    for r_idx, row in enumerate(all_rows):
+        for c_idx, cell in enumerate(row):
+            if not cell.get("e") and cell.get("v", "").strip():
+                static_by_row.setdefault(r_idx, {})[c_idx] = cell["v"].strip()
+
+    def _fmt_row(r_idx, col_dict):
+        parts = []
+        # Prepend static label if present
+        static = static_by_row.get(r_idx, {})
+        for c_idx in sorted(static.keys()):
+            parts.append(f"[{static[c_idx]}]")
+        for c_idx in sorted(col_dict.keys()):
+            parts.append(col_dict[c_idx] or "(blank)")
+        return " | ".join(parts)
+
+    correct_lines = [f"  Row {r+1}: {_fmt_row(r, d['correct'])}" for r, d in sorted(row_data.items())]
+    student_lines = [f"  Row {r+1}: {_fmt_row(r, d['student'])}" for r, d in sorted(row_data.items())]
+
+    has_correct_answers = any(
+        any(v for v in d["correct"].values()) for d in row_data.values()
+    )
+    correct_section = "\n".join(correct_lines) if has_correct_answers else "(use model answer below)"
+    extra_context = ""
+    if question_model_answer and len(question_model_answer) > 2:
+        extra_context += f"\nModel answer: {question_model_answer}"
+    if question_explanation:
+        extra_context += f"\nExpected answers: {question_explanation}"
+
+    n_items = len(row_data)
+    marks_each = round(max_marks / n_items, 2) if n_items else max_marks
+
+    prompt = f"""You are a CBC teacher grading a table/matching question.
+
+Question: {question_text}{extra_context}
+
+CORRECT ANSWERS (one item per row):
+{correct_section}
+
+STUDENT'S ANSWERS (one item per row):
+{chr(10).join(student_lines)}
+
+GRADING RULES — follow exactly:
+1. Grade by CONCEPT, not by row position. If the student wrote the right pair in the wrong row, still award the mark.
+2. Accept minor spelling errors, abbreviations, and different but correct phrasings.
+3. Do NOT penalise capitalisation differences.
+4. Each correct item (row) is worth {marks_each} mark(s). Total available: {max_marks} marks.
+5. For partial row credit: if a row has two editable cells and only one is correct, award half the row's marks.
+
+Reply in EXACTLY this format with no extra text:
+MARKS: [integer 0 to {max_marks}]
+FEEDBACK: [1-2 sentences for the student]
+EARNED: [comma-separated list of what the student got right, e.g. "Input role, Processing name"]
+MISSED: [comma-separated list of what was wrong/missing with the correct answer, e.g. "Output role: should be 'presents results to user'"]"""
+
+    try:
+        response = _call_ai(prompt, use_gemini=sw).strip()
+        marks_awarded = 0
+        feedback = ""
+        earned = []
+        missed = []
+
+        for line in response.splitlines():
+            line = line.strip()
+            if line.upper().startswith("MARKS:"):
+                try:
+                    marks_awarded = int(float(line.split(":", 1)[1].strip()))
+                except (ValueError, IndexError):
+                    pass
+            elif line.upper().startswith("FEEDBACK:"):
+                feedback = line.split(":", 1)[1].strip()
+            elif line.upper().startswith("EARNED:"):
+                raw = line.split(":", 1)[1].strip()
+                earned = [e.strip() for e in raw.split(",") if e.strip().lower() not in ("", "none", "-")]
+            elif line.upper().startswith("MISSED:"):
+                raw = line.split(":", 1)[1].strip()
+                missed = [m.strip() for m in raw.split(",") if m.strip().lower() not in ("", "none", "-")]
+
+        marks_awarded = max(0, min(marks_awarded, max_marks))
+        is_correct = marks_awarded == max_marks
+        print(f"✅ Holistic table grade: {marks_awarded}/{max_marks}")
+        return {
+            "marks_awarded": marks_awarded,
+            "max_marks": max_marks,
+            "feedback": feedback or (
+                _praise(sw) + " All correct!" if is_correct
+                else f"You got {marks_awarded} out of {max_marks} marks."
+            ),
+            "is_correct": is_correct,
+            "personalized_message": _encourage(sw) if is_correct else _near_miss(sw),
+            "study_tip": "",
+            "points_earned": earned,
+            "points_missed": missed,
+        }
+
+    except Exception as e:
+        print(f"⚠ Holistic table grading failed: {e} — falling back to normalised match")
+        # Fallback: normalised string match per cell
+        marks_per_cell = max_marks / len(editable_cells) if editable_cells else max_marks
+        marks_awarded = 0
+        earned, missed = [], []
+        for r_idx, c_idx, correct_answer in editable_cells:
+            key = f"{r_idx}_{c_idx}"
+            student_val = cell_answers.get(key, "").strip()
+            label = f"Row {r_idx+1}, Col {c_idx+1}"
+            if not student_val:
+                missed.append(f"{label}: (no answer)")
+            elif _normalise(student_val) == _normalise(correct_answer):
+                marks_awarded += marks_per_cell
+                earned.append(f"{label}: {student_val} ✓")
+            else:
+                missed.append(f"{label}: got '{student_val}', correct: {correct_answer or '?'}")
+        marks_awarded = max(0, min(round(marks_awarded), max_marks))
+        is_correct = marks_awarded == max_marks
+        return {
+            "marks_awarded": marks_awarded,
+            "max_marks": max_marks,
+            "feedback": f"You got {marks_awarded} out of {max_marks} marks.",
+            "is_correct": is_correct,
+            "personalized_message": _encourage(sw) if is_correct else _near_miss(sw),
+            "study_tip": "",
+            "points_earned": earned,
+            "points_missed": missed,
+        }
 
 
 def _route(
