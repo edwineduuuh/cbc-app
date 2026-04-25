@@ -1,340 +1,400 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef, useEffect, useState, useCallback } from "react";
 
-// Unicode symbols — insert directly into textarea at cursor
 const SYMBOL_LIBRARY = {
   Math: [
-    // Powers & roots
-    { label: "x²",   insert: "²" },
-    { label: "x³",   insert: "³" },
-    { label: "xⁿ",   insert: "ⁿ" },
-    { label: "x⁻¹",  insert: "⁻¹" },
-    { label: "x⁴",   insert: "⁴" },
-    { label: "x⁵",   insert: "⁵" },
-    { label: "¹⁰",   insert: "¹⁰" },
-    { label: "√",    insert: "√" },
-    { label: "∛",    insert: "∛" },
-    { label: "∜",    insert: "∜" },
-    // Fractions / division
-    { label: "½",    insert: "½" },
-    { label: "⅓",    insert: "⅓" },
-    { label: "¼",    insert: "¼" },
-    { label: "¾",    insert: "¾" },
-    { label: "⅔",    insert: "⅔" },
-    { label: "÷",    insert: "÷" },
-    { label: "×",    insert: "×" },
-    // Superscripts
-    { label: "⁰",    insert: "⁰" },
-    { label: "¹",    insert: "¹" },
-    { label: "²",    insert: "²" },
-    { label: "³",    insert: "³" },
-    { label: "⁴",    insert: "⁴" },
-    { label: "⁵",    insert: "⁵" },
-    { label: "⁶",    insert: "⁶" },
-    { label: "⁷",    insert: "⁷" },
-    { label: "⁸",    insert: "⁸" },
-    { label: "⁹",    insert: "⁹" },
-    { label: "⁺",    insert: "⁺" },
-    { label: "⁻",    insert: "⁻" },
-    // Subscripts
-    { label: "₀",    insert: "₀" },
-    { label: "₁",    insert: "₁" },
-    { label: "₂",    insert: "₂" },
-    { label: "₃",    insert: "₃" },
-    { label: "₄",    insert: "₄" },
-    { label: "₅",    insert: "₅" },
-    { label: "₆",    insert: "₆" },
-    { label: "₇",    insert: "₇" },
-    { label: "₈",    insert: "₈" },
-    { label: "₉",    insert: "₉" },
-    { label: "₊",    insert: "₊" },
-    { label: "₋",    insert: "₋" },
-    // Trig & logs
-    { label: "sin",  insert: "sin " },
-    { label: "cos",  insert: "cos " },
-    { label: "tan",  insert: "tan " },
-    { label: "sin⁻¹", insert: "sin⁻¹" },
-    { label: "cos⁻¹", insert: "cos⁻¹" },
-    { label: "tan⁻¹", insert: "tan⁻¹" },
-    { label: "log",  insert: "log " },
-    { label: "ln",   insert: "ln " },
-    // Calculus
-    { label: "∫",    insert: "∫" },
-    { label: "∂",    insert: "∂" },
-    { label: "∑",    insert: "∑" },
-    { label: "∏",    insert: "∏" },
-    { label: "lim",  insert: "lim " },
-    { label: "Δ",    insert: "Δ" },
-    { label: "δ",    insert: "δ" },
-    { label: "d/dx", insert: "d/dx" },
-    // Geometry
-    { label: "π",    insert: "π" },
-    { label: "°",    insert: "°" },
-    { label: "∠",    insert: "∠" },
-    { label: "△",    insert: "△" },
-    { label: "⊥",    insert: "⊥" },
-    { label: "∥",    insert: "∥" },
-    { label: "≅",    insert: "≅" },
-    { label: "∼",    insert: "∼" },
+    { label: "a/b",            value: "\\frac{a}{b}" },
+    { label: "x²",             value: "x^{2}" },
+    { label: "x³",             value: "x^{3}" },
+    { label: "xⁿ",             value: "x^{n}" },
+    { label: "x⁻¹",            value: "x^{-1}" },
+    { label: "√x",             value: "\\sqrt{x}" },
+    { label: "∛x",             value: "\\sqrt[3]{x}" },
+    { label: "ⁿ√x",            value: "\\sqrt[n]{x}" },
+    { label: "|x|",            value: "\\left|x\\right|" },
+    { label: "(a+b)²",         value: "(a+b)^{2}" },
+    { label: "Quadratic",      value: "x=\\frac{-b\\pm\\sqrt{b^{2}-4ac}}{2a}" },
+    { label: "log(x)",         value: "\\log(x)" },
+    { label: "logₐx",         value: "\\log_{a}(x)" },
+    { label: "ln(x)",          value: "\\ln(x)" },
+    { label: "sin θ",          value: "\\sin\\theta" },
+    { label: "cos θ",          value: "\\cos\\theta" },
+    { label: "tan θ",          value: "\\tan\\theta" },
+    { label: "sin⁻¹",         value: "\\sin^{-1}" },
+    { label: "cos⁻¹",         value: "\\cos^{-1}" },
+    { label: "tan⁻¹",         value: "\\tan^{-1}" },
+    { label: "sin²+cos²=1",    value: "\\sin^{2}\\theta+\\cos^{2}\\theta=1" },
+    { label: "dy/dx",          value: "\\frac{dy}{dx}" },
+    { label: "d²y/dx²",        value: "\\frac{d^{2}y}{dx^{2}}" },
+    { label: "∂f/∂x",          value: "\\frac{\\partial f}{\\partial x}" },
+    { label: "∫ dx",           value: "\\int f(x)\\,dx" },
+    { label: "∫ₐᵇ dx",         value: "\\int_{a}^{b} f(x)\\,dx" },
+    { label: "∑",              value: "\\sum_{i=1}^{n}" },
+    { label: "∏",              value: "\\prod_{i=1}^{n}" },
+    { label: "lim",            value: "\\lim_{x\\to\\infty}" },
+    { label: "v⃗",             value: "\\vec{v}" },
+    { label: "a⃗·b⃗",           value: "\\vec{a}\\cdot\\vec{b}" },
+    { label: "a⃗×b⃗",           value: "\\vec{a}\\times\\vec{b}" },
+    { label: "2×2 matrix",     value: "\\begin{pmatrix}a&b\\\\c&d\\end{pmatrix}" },
+    { label: "x̄ mean",         value: "\\bar{x}" },
+    { label: "σ",              value: "\\sigma" },
+    { label: "P(A|B)",         value: "P(A|B)" },
+    { label: "nCr",            value: "\\binom{n}{r}" },
+    { label: "A=πr²",          value: "A=\\pi r^{2}" },
+    { label: "C=2πr",          value: "C=2\\pi r" },
+    { label: "a²+b²=c²",       value: "a^{2}+b^{2}=c^{2}" },
+    { label: "V=πr²h",         value: "V=\\pi r^{2}h" },
+    { label: "V sphere",       value: "V=\\frac{4}{3}\\pi r^{3}" },
+    { label: "a≡b (mod n)",    value: "a\\equiv b\\pmod{n}" },
+    { label: "a+bi",           value: "a+bi" },
+    { label: "e^(iπ)+1=0",     value: "e^{i\\pi}+1=0" },
   ],
-
   Chemistry: [
-    // Subscripts for formulas
-    { label: "₂",    insert: "₂" },
-    { label: "₃",    insert: "₃" },
-    { label: "₄",    insert: "₄" },
-    { label: "₅",    insert: "₅" },
-    { label: "₆",    insert: "₆" },
-    { label: "₁₂",   insert: "₁₂" },
-    // Superscripts for charges
-    { label: "⁺",    insert: "⁺" },
-    { label: "⁻",    insert: "⁻" },
-    { label: "²⁺",   insert: "²⁺" },
-    { label: "³⁺",   insert: "³⁺" },
-    { label: "²⁻",   insert: "²⁻" },
-    // Common compounds (click to insert full formula)
-    { label: "H₂O",       insert: "H₂O" },
-    { label: "CO₂",       insert: "CO₂" },
-    { label: "O₂",        insert: "O₂" },
-    { label: "H₂",        insert: "H₂" },
-    { label: "N₂",        insert: "N₂" },
-    { label: "Cl₂",       insert: "Cl₂" },
-    { label: "NH₃",       insert: "NH₃" },
-    { label: "CH₄",       insert: "CH₄" },
-    { label: "C₂H₆",      insert: "C₂H₆" },
-    { label: "C₂H₄",      insert: "C₂H₄" },
-    { label: "C₂H₂",      insert: "C₂H₂" },
-    { label: "C₆H₆",      insert: "C₆H₆" },
-    { label: "C₆H₁₂O₆",  insert: "C₆H₁₂O₆" },
-    { label: "HCl",       insert: "HCl" },
-    { label: "H₂SO₄",     insert: "H₂SO₄" },
-    { label: "HNO₃",      insert: "HNO₃" },
-    { label: "H₃PO₄",     insert: "H₃PO₄" },
-    { label: "NaOH",      insert: "NaOH" },
-    { label: "KOH",       insert: "KOH" },
-    { label: "Ca(OH)₂",   insert: "Ca(OH)₂" },
-    { label: "CaCO₃",     insert: "CaCO₃" },
-    { label: "Na₂CO₃",    insert: "Na₂CO₃" },
-    { label: "NaHCO₃",    insert: "NaHCO₃" },
-    { label: "CuSO₄",     insert: "CuSO₄" },
-    { label: "FeSO₄",     insert: "FeSO₄" },
-    { label: "Fe₂O₃",     insert: "Fe₂O₃" },
-    { label: "Al₂O₃",     insert: "Al₂O₃" },
-    { label: "SO₂",       insert: "SO₂" },
-    { label: "SO₃",       insert: "SO₃" },
-    { label: "NO₂",       insert: "NO₂" },
-    // Ions
-    { label: "H⁺",    insert: "H⁺" },
-    { label: "OH⁻",   insert: "OH⁻" },
-    { label: "Na⁺",   insert: "Na⁺" },
-    { label: "Ca²⁺",  insert: "Ca²⁺" },
-    { label: "Fe²⁺",  insert: "Fe²⁺" },
-    { label: "Fe³⁺",  insert: "Fe³⁺" },
-    { label: "Cu²⁺",  insert: "Cu²⁺" },
-    { label: "SO₄²⁻", insert: "SO₄²⁻" },
-    { label: "NO₃⁻",  insert: "NO₃⁻" },
-    { label: "CO₃²⁻", insert: "CO₃²⁻" },
-    { label: "NH₄⁺",  insert: "NH₄⁺" },
-    { label: "e⁻",    insert: "e⁻" },
-    // Reaction symbols
-    { label: "→",     insert: " → " },
-    { label: "⇌",     insert: " ⇌ " },
-    { label: "↑ gas", insert: "↑" },
-    { label: "↓ ppt", insert: "↓" },
-    { label: "(aq)",  insert: "(aq)" },
-    { label: "(l)",   insert: "(l)" },
-    { label: "(g)",   insert: "(g)" },
-    { label: "(s)",   insert: "(s)" },
-    { label: "Δ heat", insert: "Δ" },
-    // Organic groups
-    { label: "-CH₃",  insert: "-CH₃" },
-    { label: "-COOH", insert: "-COOH" },
-    { label: "-OH",   insert: "-OH" },
-    { label: "-NH₂",  insert: "-NH₂" },
-    { label: "-CHO",  insert: "-CHO" },
-    { label: "C=O",   insert: "C=O" },
-    { label: "C≡C",   insert: "C≡C" },
-    { label: "C=C",   insert: "C=C" },
+    { label: "H₂O",        value: "H_2O" },
+    { label: "CO₂",        value: "CO_2" },
+    { label: "O₂",         value: "O_2" },
+    { label: "H₂",         value: "H_2" },
+    { label: "N₂",         value: "N_2" },
+    { label: "Cl₂",        value: "Cl_2" },
+    { label: "NH₃",        value: "NH_3" },
+    { label: "CH₄",        value: "CH_4" },
+    { label: "C₂H₆",       value: "C_2H_6" },
+    { label: "C₂H₄",       value: "C_2H_4" },
+    { label: "C₂H₂",       value: "C_2H_2" },
+    { label: "C₆H₆",       value: "C_6H_6" },
+    { label: "C₆H₁₂O₆",   value: "C_6H_{12}O_6" },
+    { label: "HCl",        value: "HCl" },
+    { label: "H₂SO₄",      value: "H_2SO_4" },
+    { label: "HNO₃",       value: "HNO_3" },
+    { label: "H₃PO₄",      value: "H_3PO_4" },
+    { label: "NaOH",       value: "NaOH" },
+    { label: "KOH",        value: "KOH" },
+    { label: "Ca(OH)₂",    value: "Ca(OH)_2" },
+    { label: "CaCO₃",      value: "CaCO_3" },
+    { label: "Na₂CO₃",     value: "Na_2CO_3" },
+    { label: "NaHCO₃",     value: "NaHCO_3" },
+    { label: "CuSO₄",      value: "CuSO_4" },
+    { label: "FeSO₄",      value: "FeSO_4" },
+    { label: "Fe₂O₃",      value: "Fe_2O_3" },
+    { label: "Al₂O₃",      value: "Al_2O_3" },
+    { label: "SO₂",        value: "SO_2" },
+    { label: "NO₂",        value: "NO_2" },
+    { label: "H⁺",         value: "H^+" },
+    { label: "OH⁻",        value: "OH^-" },
+    { label: "Na⁺",        value: "Na^+" },
+    { label: "Ca²⁺",       value: "Ca^{2+}" },
+    { label: "Fe²⁺",       value: "Fe^{2+}" },
+    { label: "Fe³⁺",       value: "Fe^{3+}" },
+    { label: "Cu²⁺",       value: "Cu^{2+}" },
+    { label: "SO₄²⁻",      value: "SO_4^{2-}" },
+    { label: "NO₃⁻",       value: "NO_3^-" },
+    { label: "CO₃²⁻",      value: "CO_3^{2-}" },
+    { label: "NH₄⁺",       value: "NH_4^+" },
+    { label: "e⁻",         value: "e^-" },
+    { label: "→",           value: "\\rightarrow" },
+    { label: "⇌",           value: "\\rightleftharpoons" },
+    { label: "↑ gas",       value: "\\uparrow" },
+    { label: "↓ ppt",       value: "\\downarrow" },
+    { label: "(aq)",        value: "_{(aq)}" },
+    { label: "(l)",         value: "_{(l)}" },
+    { label: "(g)",         value: "_{(g)}" },
+    { label: "(s)",         value: "_{(s)}" },
+    { label: "Δ heat",      value: "\\Delta" },
+    { label: "Kₑq",         value: "K_{eq}" },
+    { label: "Ka",          value: "K_a" },
+    { label: "Kb",          value: "K_b" },
+    { label: "Ksp",         value: "K_{sp}" },
+    { label: "pH=-log[H⁺]", value: "pH=-\\log[H^+]" },
+    { label: "-CH₃",        value: "-CH_3" },
+    { label: "-COOH",       value: "-COOH" },
+    { label: "-OH",         value: "-OH" },
+    { label: "-NH₂",        value: "-NH_2" },
+    { label: "C=O",         value: "C=O" },
+    { label: "C≡C",         value: "C\\equiv C" },
   ],
-
   Symbols: [
-    // Greek (lower)
-    { label: "α",  insert: "α" },
-    { label: "β",  insert: "β" },
-    { label: "γ",  insert: "γ" },
-    { label: "δ",  insert: "δ" },
-    { label: "ε",  insert: "ε" },
-    { label: "ζ",  insert: "ζ" },
-    { label: "η",  insert: "η" },
-    { label: "θ",  insert: "θ" },
-    { label: "ι",  insert: "ι" },
-    { label: "κ",  insert: "κ" },
-    { label: "λ",  insert: "λ" },
-    { label: "μ",  insert: "μ" },
-    { label: "ν",  insert: "ν" },
-    { label: "ξ",  insert: "ξ" },
-    { label: "π",  insert: "π" },
-    { label: "ρ",  insert: "ρ" },
-    { label: "σ",  insert: "σ" },
-    { label: "τ",  insert: "τ" },
-    { label: "φ",  insert: "φ" },
-    { label: "χ",  insert: "χ" },
-    { label: "ψ",  insert: "ψ" },
-    { label: "ω",  insert: "ω" },
-    // Greek (upper)
-    { label: "Γ",  insert: "Γ" },
-    { label: "Δ",  insert: "Δ" },
-    { label: "Θ",  insert: "Θ" },
-    { label: "Λ",  insert: "Λ" },
-    { label: "Π",  insert: "Π" },
-    { label: "Σ",  insert: "Σ" },
-    { label: "Φ",  insert: "Φ" },
-    { label: "Ψ",  insert: "Ψ" },
-    { label: "Ω",  insert: "Ω" },
-    // Comparison
-    { label: "≠",  insert: "≠" },
-    { label: "≈",  insert: "≈" },
-    { label: "≡",  insert: "≡" },
-    { label: "≤",  insert: "≤" },
-    { label: "≥",  insert: "≥" },
-    { label: "≪",  insert: "≪" },
-    { label: "≫",  insert: "≫" },
-    { label: "∝",  insert: "∝" },
-    // Logic & sets
-    { label: "∧",  insert: "∧" },
-    { label: "∨",  insert: "∨" },
-    { label: "¬",  insert: "¬" },
-    { label: "⟹",  insert: "⟹" },
-    { label: "⟺",  insert: "⟺" },
-    { label: "∴",  insert: "∴" },
-    { label: "∵",  insert: "∵" },
-    { label: "∀",  insert: "∀" },
-    { label: "∃",  insert: "∃" },
-    { label: "∈",  insert: "∈" },
-    { label: "∉",  insert: "∉" },
-    { label: "⊂",  insert: "⊂" },
-    { label: "⊆",  insert: "⊆" },
-    { label: "∪",  insert: "∪" },
-    { label: "∩",  insert: "∩" },
-    { label: "∅",  insert: "∅" },
-    { label: "ℕ",  insert: "ℕ" },
-    { label: "ℤ",  insert: "ℤ" },
-    { label: "ℚ",  insert: "ℚ" },
-    { label: "ℝ",  insert: "ℝ" },
-    { label: "ℂ",  insert: "ℂ" },
-    // Arithmetic
-    { label: "±",  insert: "±" },
-    { label: "∓",  insert: "∓" },
-    { label: "·",  insert: "·" },
-    { label: "∞",  insert: "∞" },
-    { label: "‰",  insert: "‰" },
-    // Arrows
-    { label: "→",  insert: "→" },
-    { label: "←",  insert: "←" },
-    { label: "↔",  insert: "↔" },
-    { label: "⇒",  insert: "⇒" },
-    { label: "⇐",  insert: "⇐" },
-    { label: "⇔",  insert: "⇔" },
-    { label: "↑",  insert: "↑" },
-    { label: "↓",  insert: "↓" },
-    // Physics
-    { label: "ℏ",  insert: "ℏ" },
-    { label: "∇",  insert: "∇" },
-    { label: "⊗",  insert: "⊗" },
-    { label: "⊕",  insert: "⊕" },
-    { label: "⊥",  insert: "⊥" },
-    { label: "∥",  insert: "∥" },
-    { label: "∘",  insert: "∘" },
-    { label: "★",  insert: "★" },
+    { label: "α",  value: "\\alpha" },
+    { label: "β",  value: "\\beta" },
+    { label: "γ",  value: "\\gamma" },
+    { label: "Γ",  value: "\\Gamma" },
+    { label: "δ",  value: "\\delta" },
+    { label: "Δ",  value: "\\Delta" },
+    { label: "ε",  value: "\\epsilon" },
+    { label: "θ",  value: "\\theta" },
+    { label: "Θ",  value: "\\Theta" },
+    { label: "λ",  value: "\\lambda" },
+    { label: "Λ",  value: "\\Lambda" },
+    { label: "μ",  value: "\\mu" },
+    { label: "ν",  value: "\\nu" },
+    { label: "π",  value: "\\pi" },
+    { label: "Π",  value: "\\Pi" },
+    { label: "ρ",  value: "\\rho" },
+    { label: "σ",  value: "\\sigma" },
+    { label: "Σ",  value: "\\Sigma" },
+    { label: "τ",  value: "\\tau" },
+    { label: "φ",  value: "\\phi" },
+    { label: "Φ",  value: "\\Phi" },
+    { label: "ω",  value: "\\omega" },
+    { label: "Ω",  value: "\\Omega" },
+    { label: "ψ",  value: "\\psi" },
+    { label: "≠",  value: "\\neq" },
+    { label: "≈",  value: "\\approx" },
+    { label: "≡",  value: "\\equiv" },
+    { label: "≤",  value: "\\leq" },
+    { label: "≥",  value: "\\geq" },
+    { label: "∝",  value: "\\propto" },
+    { label: "±",  value: "\\pm" },
+    { label: "∓",  value: "\\mp" },
+    { label: "×",  value: "\\times" },
+    { label: "÷",  value: "\\div" },
+    { label: "·",  value: "\\cdot" },
+    { label: "∞",  value: "\\infty" },
+    { label: "°",  value: "^{\\circ}" },
+    { label: "∧",  value: "\\wedge" },
+    { label: "∨",  value: "\\vee" },
+    { label: "¬",  value: "\\neg" },
+    { label: "⟹",  value: "\\Rightarrow" },
+    { label: "⟺",  value: "\\Leftrightarrow" },
+    { label: "∴",  value: "\\therefore" },
+    { label: "∵",  value: "\\because" },
+    { label: "∀",  value: "\\forall" },
+    { label: "∃",  value: "\\exists" },
+    { label: "∈",  value: "\\in" },
+    { label: "∉",  value: "\\notin" },
+    { label: "⊂",  value: "\\subset" },
+    { label: "∪",  value: "\\cup" },
+    { label: "∩",  value: "\\cap" },
+    { label: "∅",  value: "\\emptyset" },
+    { label: "ℕ",  value: "\\mathbb{N}" },
+    { label: "ℤ",  value: "\\mathbb{Z}" },
+    { label: "ℝ",  value: "\\mathbb{R}" },
+    { label: "ℂ",  value: "\\mathbb{C}" },
+    { label: "→",  value: "\\rightarrow" },
+    { label: "←",  value: "\\leftarrow" },
+    { label: "↔",  value: "\\leftrightarrow" },
+    { label: "⇒",  value: "\\Rightarrow" },
+    { label: "⇐",  value: "\\Leftarrow" },
+    { label: "↑",  value: "\\uparrow" },
+    { label: "↓",  value: "\\downarrow" },
+    { label: "ℏ",  value: "\\hbar" },
+    { label: "∇",  value: "\\nabla" },
+    { label: "∂",  value: "\\partial" },
+    { label: "⊥",  value: "\\perp" },
+    { label: "∥",  value: "\\parallel" },
+    { label: "∠",  value: "\\angle" },
+    { label: "△",  value: "\\triangle" },
+    { label: "≅",  value: "\\cong" },
+    { label: "∼",  value: "\\sim" },
+    { label: "∘",  value: "\\circ" },
   ],
 };
 
 export default function SimpleMathInput({ value, onChange }) {
-  const taRef = useRef(null);
+  const mfRef = useRef(null);
+  const [isReady, setIsReady] = useState(false);
   const [activeTab, setActiveTab] = useState("Math");
+  const [open, setOpen] = useState(false);
 
-  // Insert symbol at cursor position
-  const insertSymbol = (sym) => {
-    const ta = taRef.current;
-    if (!ta) return;
-    const start = ta.selectionStart;
-    const end = ta.selectionEnd;
-    const next = (value || "").slice(0, start) + sym + (value || "").slice(end);
-    onChange(next);
-    // Restore cursor after React re-render
-    requestAnimationFrame(() => {
-      ta.focus();
-      ta.setSelectionRange(start + sym.length, start + sym.length);
+  // Init MathLive and enable space key
+  useEffect(() => {
+    import("mathlive").then((ML) => {
+      try {
+        if (ML.default)
+          ML.default.fontsDirectory = "https://unpkg.com/mathlive@0.109.0/dist/fonts/";
+        if (window.MathfieldElement)
+          window.MathfieldElement.fontsDirectory = "https://unpkg.com/mathlive@0.109.0/dist/fonts/";
+        setIsReady(true);
+      } catch (err) {
+        console.error("MathLive init failed:", err);
+      }
     });
-  };
+  }, []);
+
+  // Enable space key + set value once ready
+  useEffect(() => {
+    const el = mfRef.current;
+    if (!el || !isReady) return;
+    try {
+      // Space inserts a LaTeX thin space so students can separate terms
+      el.mathModeSpace = "\\,";
+      if (value !== undefined && el.value !== value) el.value = value;
+    } catch (e) {
+      console.warn("MathLive config failed:", e);
+    }
+  }, [isReady]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // Sync external value changes
+  useEffect(() => {
+    const el = mfRef.current;
+    if (!el || !isReady || value === undefined) return;
+    try {
+      if (el.value !== value) el.value = value;
+    } catch (e) {}
+  }, [value, isReady]);
+
+  const handleFieldChange = useCallback(() => {
+    const el = mfRef.current;
+    if (!el) return;
+    try {
+      const v = el.value?.trim() || "";
+      if (v && v !== "\\placeholder{}") onChange(v);
+    } catch (e) {}
+  }, [onChange]);
+
+  useEffect(() => {
+    const el = mfRef.current;
+    if (!el) return;
+    const events = ["input", "change", "blur"];
+    events.forEach((ev) => el.addEventListener(ev, handleFieldChange));
+    return () => events.forEach((ev) => el.removeEventListener(ev, handleFieldChange));
+  }, [handleFieldChange]);
+
+  const insertTemplate = useCallback((template) => {
+    const el = mfRef.current;
+    if (!el || !isReady) return;
+    try {
+      el.value = (el.value || "") + template;
+      setTimeout(() => { handleFieldChange(); el.focus(); }, 0);
+    } catch (e) {}
+  }, [isReady, handleFieldChange]);
 
   return (
     <div className="w-full">
-      {/* Plain textarea — type freely */}
-      <textarea
-        ref={taRef}
-        value={value ?? ""}
-        onChange={(e) => onChange(e.target.value)}
-        rows={3}
-        placeholder="Type your answer here… use buttons below for symbols"
-        style={{
-          width: "100%",
-          border: "2px solid #e8eaf0",
-          borderRadius: 16,
-          padding: "14px 18px",
-          fontSize: 16,
-          fontWeight: 500,
-          color: "#0d0d1a",
-          background: "#fff",
-          fontFamily: "'Lato', sans-serif",
-          lineHeight: 1.7,
-          resize: "none",
-          boxShadow: "0 2px 8px rgba(0,0,0,0.04)",
-          marginBottom: 10,
-          display: "block",
-        }}
-        onFocus={(e) => (e.target.style.borderColor = "#1a6fc4")}
-        onBlur={(e) => (e.target.style.borderColor = "#e8eaf0")}
-      />
-
-      {/* Symbol tabs */}
-      <div>
-        <div className="flex gap-2 mb-2 border-b border-gray-200">
-          {Object.keys(SYMBOL_LIBRARY).map((tab) => (
-            <button
-              key={tab}
-              type="button"
-              onClick={() => setActiveTab(tab)}
-              className={`px-4 py-1.5 text-sm font-medium transition-all border-b-2 ${
-                activeTab === tab
-                  ? "border-blue-500 text-blue-600"
-                  : "border-transparent text-gray-500 hover:text-gray-800"
-              }`}
-            >
-              {tab}
-            </button>
-          ))}
-        </div>
-
-        <div className="grid grid-cols-5 gap-1 sm:grid-cols-7 md:grid-cols-9 lg:grid-cols-11 max-h-44 overflow-y-auto pr-0.5">
-          {SYMBOL_LIBRARY[activeTab].map((sym) => (
-            <button
-              key={sym.insert}
-              type="button"
-              onClick={() => insertSymbol(sym.insert)}
-              title={sym.label}
-              className="py-1.5 px-1 text-center bg-white border border-gray-200 rounded-md hover:bg-blue-50 hover:border-blue-400 active:bg-blue-100 transition-all text-sm font-medium text-gray-700 leading-tight"
-            >
-              {sym.label}
-            </button>
-          ))}
-        </div>
-
-        <p className="mt-2 text-xs text-gray-400">
-          ✓ Type freely · click a symbol to insert it at your cursor position
-        </p>
+      {/* MathLive field */}
+      <div className="mb-2 border border-gray-300 rounded-lg overflow-hidden bg-white shadow-sm">
+        <math-field
+          ref={mfRef}
+          style={{
+            width: "100%",
+            padding: "14px 16px",
+            fontSize: "16px",
+            display: "block",
+            minHeight: "60px",
+            fontFamily: "'Lato', sans-serif",
+            boxSizing: "border-box",
+            background: "#ffffff",
+            color: "#111827",
+            "--selection-background-color": "#dbeafe",
+            "--contains-highlight-background-color": "transparent",
+          }}
+          virtual-keyboard-mode="onfocus"
+          fonts-directory="https://unpkg.com/mathlive@0.109.0/dist/fonts/"
+        />
       </div>
+
+      {isReady && (
+        <>
+          {/* Toggle */}
+          <button
+            type="button"
+            onClick={() => setOpen((v) => !v)}
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 6,
+              fontSize: 12,
+              fontWeight: 600,
+              color: open ? "#1a6fc4" : "#6b7280",
+              background: open ? "#eff6ff" : "#f3f4f6",
+              border: `1px solid ${open ? "#bfdbfe" : "#e5e7eb"}`,
+              borderRadius: 8,
+              padding: "5px 12px",
+              cursor: "pointer",
+              marginBottom: open ? 8 : 0,
+              transition: "all 0.15s",
+            }}
+          >
+            <span>{open ? "▲" : "▼"}</span>
+            {open ? "Hide symbols" : "± Symbols / Chemistry"}
+          </button>
+
+          {/* Collapsible panel */}
+          {open && (
+            <div
+              style={{
+                border: "1px solid #e5e7eb",
+                borderRadius: 12,
+                padding: "10px 12px",
+                background: "#fafafa",
+              }}
+            >
+              {/* Tabs */}
+              <div style={{ display: "flex", gap: 4, marginBottom: 10, borderBottom: "1px solid #e5e7eb", paddingBottom: 6 }}>
+                {Object.keys(SYMBOL_LIBRARY).map((tab) => (
+                  <button
+                    key={tab}
+                    type="button"
+                    onClick={() => setActiveTab(tab)}
+                    style={{
+                      padding: "4px 14px",
+                      fontSize: 13,
+                      fontWeight: 600,
+                      borderRadius: 6,
+                      border: "none",
+                      cursor: "pointer",
+                      background: activeTab === tab ? "#1a6fc4" : "transparent",
+                      color: activeTab === tab ? "#fff" : "#6b7280",
+                      transition: "all 0.15s",
+                    }}
+                  >
+                    {tab}
+                  </button>
+                ))}
+              </div>
+
+              {/* Symbol grid */}
+              <div
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "repeat(auto-fill, minmax(52px, 1fr))",
+                  gap: 5,
+                  maxHeight: 200,
+                  overflowY: "auto",
+                }}
+              >
+                {SYMBOL_LIBRARY[activeTab].map((sym) => (
+                  <button
+                    key={sym.value}
+                    type="button"
+                    onClick={() => insertTemplate(sym.value)}
+                    title={sym.label}
+                    style={{
+                      padding: "5px 4px",
+                      fontSize: 12,
+                      fontWeight: 500,
+                      color: "#1e293b",
+                      background: "#fff",
+                      border: "1px solid #e2e8f0",
+                      borderRadius: 7,
+                      cursor: "pointer",
+                      textAlign: "center",
+                      whiteSpace: "nowrap",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                      transition: "background 0.1s, border-color 0.1s",
+                    }}
+                    onMouseEnter={(e) => { e.currentTarget.style.background = "#eff6ff"; e.currentTarget.style.borderColor = "#93c5fd"; }}
+                    onMouseLeave={(e) => { e.currentTarget.style.background = "#fff"; e.currentTarget.style.borderColor = "#e2e8f0"; }}
+                  >
+                    {sym.label}
+                  </button>
+                ))}
+              </div>
+
+              <p style={{ fontSize: 11, color: "#9ca3af", marginTop: 8 }}>
+                ✓ Click to insert at cursor · or type directly in the field above
+              </p>
+            </div>
+          )}
+        </>
+      )}
+
+      {!isReady && (
+        <div className="p-3 bg-gray-50 border border-gray-200 rounded-lg text-center">
+          <p className="text-sm text-gray-500">Loading math editor…</p>
+        </div>
+      )}
     </div>
   );
 }
