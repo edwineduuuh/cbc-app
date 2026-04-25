@@ -2427,23 +2427,53 @@ export default function QuizTakePage({ params }) {
               )}
 
               {/* Table question */}
-              {isTable && currentQ.table_data && (
-                <div style={{ marginTop: 4 }}>
-                  {isMatchingTable(currentQ.table_data) ? (
+              {isTable && currentQ.table_data && (() => {
+                const td = currentQ.table_data;
+                const tt = td.table_type;
+                // Static: display only, nothing to interact with
+                if (tt === "static") {
+                  return (
+                    <div style={{ marginTop: 4, overflowX: "auto", borderRadius: 14, border: "1.5px solid #e2e8f0", boxShadow: "0 2px 12px rgba(0,0,0,0.05)" }}>
+                      <table style={{ width: "100%", borderCollapse: "collapse", minWidth: 300 }}>
+                        <tbody>
+                          {td.rows.map((row, r) => (
+                            <tr key={r} style={{ background: r === 0 ? "#f1f5f9" : r % 2 === 1 ? "#fff" : "#f8fafc" }}>
+                              {row.map((cell, c) => (
+                                <td key={c} style={{
+                                  padding: "12px 16px", fontSize: 14,
+                                  fontWeight: r === 0 ? 700 : 400, color: "#0f172a",
+                                  borderBottom: r < td.rows.length - 1 ? "1px solid #f1f5f9" : "none",
+                                  borderRight: c < row.length - 1 ? "1.5px solid #e2e8f0" : "none",
+                                }}>
+                                  {cell.v}
+                                </td>
+                              ))}
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  );
+                }
+                // Matching: explicit drag-and-drop (or heuristic detection for old data)
+                if (tt === "matching" || isMatchingTable(td)) {
+                  return (
                     <MatchingTable
-                      tableData={currentQ.table_data}
+                      tableData={td}
                       answer={answers[currentIdx]}
                       onAnswer={(val) => handleAnswer(val)}
                     />
-                  ) : (
-                    <FillInTable
-                      tableData={currentQ.table_data}
-                      answer={answers[currentIdx]}
-                      onAnswer={(val) => handleAnswer(val)}
-                    />
-                  )}
-                </div>
-              )}
+                  );
+                }
+                // Fill-in (default)
+                return (
+                  <FillInTable
+                    tableData={td}
+                    answer={answers[currentIdx]}
+                    onAnswer={(val) => handleAnswer(val)}
+                  />
+                );
+              })()}
 
               {/* Working panel */}
               {(isMath || (currentQ.parts && currentQ.parts.length > 0)) && (

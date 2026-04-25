@@ -69,6 +69,7 @@ const GRADE_COLORS = [
 
 function makeDefaultTable(rows = 2, cols = 5) {
   return {
+    table_type: "fill_in",
     rows: Array.from({ length: rows }, () =>
       Array.from({ length: cols }, () => ({ v: "", e: false, a: "" }))
     ),
@@ -76,104 +77,210 @@ function makeDefaultTable(rows = 2, cols = 5) {
   };
 }
 
+function pairsToRows(headers, pairs) {
+  return [
+    [{ v: headers[0], e: false, a: "" }, { v: headers[1], e: false, a: "" }],
+    ...pairs.map((p) => [
+      { v: p.key, e: false, a: "" },
+      { v: "", e: true, a: p.value },
+    ]),
+  ];
+}
+
 function TableBuilder({ value, onChange }) {
-  const rows = value?.rows || makeDefaultTable().rows;
-  const marking = value?.marking || "ai";
+  const tableType = value?.table_type || "fill_in";
+  const marking   = value?.marking || "ai";
+
+  // ── Fill-in / Static grid state ──
+  const rows    = value?.rows || makeDefaultTable().rows;
   const numRows = rows.length;
   const numCols = rows[0]?.length || 5;
 
+  // ── Matching state ──
+  const matchHeaders = value?.match_headers || ["Column A", "Column B"];
+  const matchPairs   = value?.match_pairs   || [{ key: "", value: "" }];
+
+  const emit = (updates) => {
+    const next = { ...value, ...updates };
+    if (next.table_type === "matching") {
+      next.rows = pairsToRows(
+        next.match_headers || matchHeaders,
+        next.match_pairs   || matchPairs
+      );
+    }
+    onChange(next);
+  };
+
   const updateCell = (r, c, field, val) => {
     const next = rows.map((row, ri) =>
-      row.map((cell, ci) =>
-        ri === r && ci === c ? { ...cell, [field]: val } : cell
-      )
+      row.map((cell, ci) => ri === r && ci === c ? { ...cell, [field]: val } : cell)
     );
-    onChange({ rows: next, marking });
+    emit({ rows: next });
   };
 
   const resize = (newR, newC) => {
     const next = Array.from({ length: newR }, (_, r) =>
       Array.from({ length: newC }, (_, c) => rows[r]?.[c] || { v: "", e: false, a: "" })
     );
-    onChange({ rows: next, marking });
+    emit({ rows: next });
   };
+
+  const updatePair = (i, field, val) =>
+    emit({ match_pairs: matchPairs.map((p, pi) => pi === i ? { ...p, [field]: val } : p) });
 
   return (
     <div className="space-y-3">
-      <div className="flex flex-wrap gap-4 items-center">
+
+      {/* ── Type + Marking controls ── */}
+      <div className="flex flex-wrap gap-3 items-center">
         <div className="flex items-center gap-2">
-          <label className="text-xs font-medium text-gray-600">Rows</label>
-          <input
-            type="number" min={1} max={10} value={numRows}
-            onChange={(e) => resize(Math.max(1, +e.target.value), numCols)}
-            className="w-16 px-2 py-1 border border-gray-300 rounded text-sm"
-          />
-        </div>
-        <div className="flex items-center gap-2">
-          <label className="text-xs font-medium text-gray-600">Columns</label>
-          <input
-            type="number" min={1} max={10} value={numCols}
-            onChange={(e) => resize(numRows, Math.max(1, +e.target.value))}
-            className="w-16 px-2 py-1 border border-gray-300 rounded text-sm"
-          />
-        </div>
-        <div className="flex items-center gap-2">
-          <label className="text-xs font-medium text-gray-600">Marking</label>
+          <label className="text-xs font-semibold text-gray-600">Mode</label>
           <select
-            value={marking}
-            onChange={(e) => onChange({ rows, marking: e.target.value })}
-            className="px-2 py-1 border border-gray-300 rounded text-sm"
+            value={tableType}
+            onChange={(e) => emit({ table_type: e.target.value })}
+            className="px-2 py-1 border border-gray-300 rounded text-sm font-medium"
           >
-            <option value="ai">AI (Recommended)</option>
-            <option value="case_insensitive">Case Insensitive</option>
-            <option value="exact">Exact Match</option>
+            <option value="static">Static (display only)</option>
+            <option value="fill_in">Fill-in (students type)</option>
+            <option value="matching">Matching (drag &amp; drop)</option>
           </select>
         </div>
+        {tableType !== "static" && (
+          <div className="flex items-center gap-2">
+            <label className="text-xs font-semibold text-gray-600">Marking</label>
+            <select
+              value={marking}
+              onChange={(e) => emit({ marking: e.target.value })}
+              className="px-2 py-1 border border-gray-300 rounded text-sm"
+            >
+              <option value="ai">AI (Recommended)</option>
+              <option value="case_insensitive">Case Insensitive</option>
+              <option value="exact">Exact Match</option>
+            </select>
+          </div>
+        )}
+        {tableType !== "matching" && (
+          <>
+            <div className="flex items-center gap-2">
+              <label className="text-xs font-medium text-gray-600">Rows</label>
+              <input type="number" min={1} max={20} value={numRows}
+                onChange={(e) => resize(Math.max(1, +e.target.value), numCols)}
+                className="w-16 px-2 py-1 border border-gray-300 rounded text-sm" />
+            </div>
+            <div className="flex items-center gap-2">
+              <label className="text-xs font-medium text-gray-600">Columns</label>
+              <input type="number" min={1} max={10} value={numCols}
+                onChange={(e) => resize(numRows, Math.max(1, +e.target.value))}
+                className="w-16 px-2 py-1 border border-gray-300 rounded text-sm" />
+            </div>
+          </>
+        )}
       </div>
 
-      <div className="overflow-x-auto border border-gray-200 rounded-lg">
-        <table className="border-collapse w-full text-sm">
-          <tbody>
-            {rows.map((row, r) => (
-              <tr key={r}>
-                {row.map((cell, c) => (
-                  <td
-                    key={c}
-                    className={`border border-gray-200 p-2 align-top min-w-[100px] ${cell.e ? "bg-blue-50" : "bg-gray-50"}`}
-                  >
-                    <input
-                      className="w-full text-sm bg-transparent border-0 focus:outline-none font-medium"
-                      placeholder="Value"
-                      value={cell.v}
-                      onChange={(e) => updateCell(r, c, "v", e.target.value)}
-                    />
-                    <div className="flex items-center gap-1 mt-1">
-                      <input
-                        type="checkbox"
-                        checked={cell.e}
-                        onChange={(e) => updateCell(r, c, "e", e.target.checked)}
-                        className="w-3 h-3 accent-blue-600"
-                      />
-                      <span className="text-xs text-gray-500">Student fills</span>
-                    </div>
-                    {cell.e && (
-                      <input
-                        className={`mt-1 w-full text-xs rounded px-1.5 py-1 bg-white ${cell.a ? "border border-blue-300 placeholder:text-blue-300" : "border-2 border-red-400 placeholder:text-red-400 bg-red-50"}`}
-                        placeholder={cell.a ? "Correct answer" : "⚠ Required!"}
-                        value={cell.a}
-                        onChange={(e) => updateCell(r, c, "a", e.target.value)}
-                      />
-                    )}
-                  </td>
+      {/* ── Matching pairs editor ── */}
+      {tableType === "matching" && (
+        <div className="space-y-2">
+          {/* Column headers */}
+          <div className="flex gap-2 items-center">
+            <input
+              className="flex-1 text-sm px-2 py-1.5 border border-gray-300 rounded font-semibold"
+              placeholder="Column A header (e.g. Device)"
+              value={matchHeaders[0]}
+              onChange={(e) => emit({ match_headers: [e.target.value, matchHeaders[1]] })}
+            />
+            <span className="text-gray-400 font-bold">→</span>
+            <input
+              className="flex-1 text-sm px-2 py-1.5 border border-gray-300 rounded font-semibold"
+              placeholder="Column B header (e.g. Use)"
+              value={matchHeaders[1]}
+              onChange={(e) => emit({ match_headers: [matchHeaders[0], e.target.value] })}
+            />
+            <div className="w-7" />
+          </div>
+          {/* Pairs */}
+          {matchPairs.map((pair, i) => (
+            <div key={i} className="flex gap-2 items-center">
+              <input
+                className="flex-1 text-sm px-2 py-1.5 border border-gray-300 rounded"
+                placeholder={`Item ${i + 1} (Column A)`}
+                value={pair.key}
+                onChange={(e) => updatePair(i, "key", e.target.value)}
+              />
+              <span className="text-gray-400">→</span>
+              <input
+                className={`flex-1 text-sm px-2 py-1.5 rounded border ${pair.value ? "border-blue-300" : "border-red-400 bg-red-50 placeholder:text-red-400"}`}
+                placeholder={pair.value ? "Correct match" : "⚠ Required!"}
+                value={pair.value}
+                onChange={(e) => updatePair(i, "value", e.target.value)}
+              />
+              <button
+                type="button"
+                onClick={() => emit({ match_pairs: matchPairs.filter((_, pi) => pi !== i) })}
+                className="w-7 h-7 flex items-center justify-center rounded text-red-400 hover:bg-red-50 text-sm font-bold"
+              >✕</button>
+            </div>
+          ))}
+          <button
+            type="button"
+            onClick={() => emit({ match_pairs: [...matchPairs, { key: "", value: "" }] })}
+            className="text-xs text-blue-600 hover:underline font-semibold"
+          >+ Add pair</button>
+          <p className="text-xs text-gray-400">Left column = items shown to student. Right column = correct match (shuffled into pool).</p>
+        </div>
+      )}
+
+      {/* ── Grid editor (static / fill_in) ── */}
+      {tableType !== "matching" && (
+        <>
+          <div className="overflow-x-auto border border-gray-200 rounded-lg">
+            <table className="border-collapse w-full text-sm">
+              <tbody>
+                {rows.map((row, r) => (
+                  <tr key={r}>
+                    {row.map((cell, c) => (
+                      <td key={c}
+                        className={`border border-gray-200 p-2 align-top min-w-[100px] ${cell.e ? "bg-blue-50" : "bg-gray-50"}`}
+                      >
+                        <input
+                          className="w-full text-sm bg-transparent border-0 focus:outline-none font-medium"
+                          placeholder="Value"
+                          value={cell.v}
+                          onChange={(e) => updateCell(r, c, "v", e.target.value)}
+                        />
+                        {tableType === "fill_in" && (
+                          <>
+                            <div className="flex items-center gap-1 mt-1">
+                              <input
+                                type="checkbox" checked={cell.e}
+                                onChange={(e) => updateCell(r, c, "e", e.target.checked)}
+                                className="w-3 h-3 accent-blue-600"
+                              />
+                              <span className="text-xs text-gray-500">Student fills</span>
+                            </div>
+                            {cell.e && (
+                              <input
+                                className={`mt-1 w-full text-xs rounded px-1.5 py-1 bg-white ${cell.a ? "border border-blue-300 placeholder:text-blue-300" : "border-2 border-red-400 placeholder:text-red-400 bg-red-50"}`}
+                                placeholder={cell.a ? "Correct answer" : "⚠ Required!"}
+                                value={cell.a}
+                                onChange={(e) => updateCell(r, c, "a", e.target.value)}
+                              />
+                            )}
+                          </>
+                        )}
+                      </td>
+                    ))}
+                  </tr>
                 ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      <p className="text-xs text-gray-400">
-        Check &quot;Student fills&quot; on cells where students enter answers. Blue cells are editable. Set the correct answer for each editable cell.
-      </p>
+              </tbody>
+            </table>
+          </div>
+          <p className="text-xs text-gray-400">
+            {tableType === "fill_in"
+              ? 'Check "Student fills" on cells where students enter answers. Set the correct answer for each editable cell.'
+              : "Static table — students cannot edit any cell. Use this for reference tables."}
+          </p>
+        </>
+      )}
     </div>
   );
 }
