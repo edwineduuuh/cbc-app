@@ -1681,8 +1681,8 @@ export default function AttemptResultsPage() {
                       </div>
                     )}
 
-                    {/* Correct answer */}
-                    {!correct && item.correct_answer && (
+                    {/* Correct answer — not shown for tables (points_missed covers it in plain English) */}
+                    {!correct && item.correct_answer && item.question_type !== "table" && (
                       <div
                         style={{
                           background: "#f8fafc",
@@ -1711,34 +1711,10 @@ export default function AttemptResultsPage() {
                           }}
                           dangerouslySetInnerHTML={{
                             __html: renderMath(
-                              item.correct_answer?.replace(/\n/g, "<br/>") ||
-                                "",
+                              item.correct_answer?.replace(/\n/g, "<br/>") || "",
                             ),
                           }}
                         />
-                        {item.explanation && (
-                          <div
-                            style={{
-                              marginTop: 8,
-                              paddingTop: 8,
-                              borderTop: "1px solid #e2e8f0",
-                            }}
-                          >
-                            <div
-                              style={{
-                                fontSize: 13,
-                                color: "#64748b",
-                                lineHeight: 1.6,
-                              }}
-                              dangerouslySetInnerHTML={{
-                                __html: renderMath(
-                                  item.explanation?.replace(/\n/g, "<br/>") ||
-                                    "",
-                                ),
-                              }}
-                            />
-                          </div>
-                        )}
                       </div>
                     )}
 

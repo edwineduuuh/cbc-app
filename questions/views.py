@@ -1074,8 +1074,11 @@ def submit_quiz(request):
                 'max_marks': result['max_marks'],
                 'feedback': result['feedback'],
                 'is_correct': result['is_correct'],
-                'correct_answer': clean_correct_answer(display_correct) if not result['is_correct'] else None,
-                'explanation': question.explanation if not result['is_correct'] else None,
+                'correct_answer': (
+                    None  # points_missed already explains this in plain English
+                    if question.question_type == 'table'
+                    else clean_correct_answer(display_correct) if not result['is_correct'] else None
+                ),
                 'points_earned': result.get('points_earned', []),
                 'points_missed': result.get('points_missed', []),
                 'personalized_message': result.get('personalized_message', ''),
@@ -1224,8 +1227,11 @@ def submit_quiz(request):
                 'max_marks': result['max_marks'],
                 'feedback': result['feedback'],
                 'is_correct': result['is_correct'],
-                'correct_answer': clean_correct_answer(display_correct) if not result['is_correct'] else None,
-                'explanation': question.explanation if not result['is_correct'] else None,
+                'correct_answer': (
+                    None  # points_missed already explains this in plain English
+                    if question.question_type == 'table'
+                    else clean_correct_answer(display_correct) if not result['is_correct'] else None
+                ),
                 'worked_solution': question.worked_solution,
                 'points_earned': result.get('points_earned', []),
                 'points_missed': result.get('points_missed', []),
