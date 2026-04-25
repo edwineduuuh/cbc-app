@@ -442,32 +442,57 @@ function MCQOption({ letter, text, selected, onClick }) {
 
 // ─── Table Questions ──────────────────────────────────────────────────────────
 
-function isMatchingTable(tableData) {
+function getMatchingConfig(tableData) {
+  // Returns { ec, ic, getAnswer } if this is a matching table, else null.
   const rows = tableData?.rows || [];
-  if (rows.length < 2 || rows[0]?.length !== 2) return false;
+  if (rows.length < 2 || rows[0]?.length !== 2) return null;
   const dataRows = rows.slice(1);
+
   const editableCols = new Set();
   dataRows.forEach((row) => row.forEach((cell, c) => { if (cell.e) editableCols.add(c); }));
-  if (editableCols.size !== 1) return false;
-  const ec = [...editableCols][0];
-  const ic = ec === 0 ? 1 : 0;
-  return (
-    dataRows.every((row) => row[ec]?.a?.trim()) &&
-    dataRows.every((row) => row[ic]?.v?.trim())
-  );
+
+  if (editableCols.size === 1) {
+    const ec = [...editableCols][0];
+    const ic = ec === 0 ? 1 : 0;
+    // Accept cells where .a is set; also fall back to .v so teachers don't
+    // have to separately fill the "Correct answer" field.
+    if (
+      dataRows.every((row) => row[ec]?.a?.trim() || row[ec]?.v?.trim()) &&
+      dataRows.every((row) => row[ic]?.v?.trim())
+    ) {
+      return { ec, ic, getAnswer: (row) => row[ec].a?.trim() || row[ec].v?.trim() };
+    }
+  }
+
+  // Fallback: both columns fully static (.e false) but both have .v values —
+  // teacher filled the table as a reference and expects matching behaviour.
+  // Treat column index 1 as the answer pool.
+  if (editableCols.size === 0) {
+    if (
+      dataRows.every((row) => row[0]?.v?.trim()) &&
+      dataRows.every((row) => row[1]?.v?.trim())
+    ) {
+      return { ec: 1, ic: 0, getAnswer: (row) => row[1].v?.trim() };
+    }
+  }
+
+  return null;
+}
+
+function isMatchingTable(tableData) {
+  return getMatchingConfig(tableData) !== null;
 }
 
 function MatchingTable({ tableData, answer, onAnswer }) {
   const rows = tableData.rows;
   const headers = rows[0];
   const dataRows = rows.slice(1);
-  const ec = dataRows[0]?.findIndex((c) => c.e) ?? 1;
-  const ic = ec === 0 ? 1 : 0;
+  const { ec, ic, getAnswer } = getMatchingConfig(tableData);
 
   // Shuffle pool once on mount
   const [pool] = useState(() =>
     dataRows
-      .map((row, ri) => ({ key: `${ri + 1}_${ec}`, text: row[ec].a }))
+      .map((row, ri) => ({ key: `${ri + 1}_${ec}`, text: getAnswer(row) }))
       .sort(() => Math.random() - 0.5)
   );
   const [selected, setSelected] = useState(null);
