@@ -501,12 +501,14 @@ export default function QuestionManagementPage() {
     if (formData.topic) fd.append("topic", parseInt(formData.topic));
     fd.append("question_text", formData.question_text.trim());
     fd.append("question_type", formData.question_type || "mcq");
-    if (formData.question_type !== "table") {
+    if (formData.question_type === "mcq") {
       fd.append("option_a", formData.option_a.trim());
       fd.append("option_b", formData.option_b.trim());
       fd.append("option_c", formData.option_c.trim());
       fd.append("option_d", formData.option_d.trim());
       fd.append("correct_answer", formData.correct_answer ? formData.correct_answer.toUpperCase() : "");
+    } else if (formData.question_type !== "table" && formData.question_type !== "multipart") {
+      fd.append("correct_answer", formData.correct_answer || "");
     }
     if (formData.question_type === "table" && formData.table_data) {
       fd.append("table_data", JSON.stringify(formData.table_data));
@@ -554,11 +556,13 @@ export default function QuestionManagementPage() {
       fd.append("topic", editingQuestion.topic);
       fd.append("question_text", editingQuestion.question_text);
       fd.append("question_type", editingQuestion.question_type || "mcq");
-      if (editingQuestion.question_type !== "table") {
+      if (editingQuestion.question_type === "mcq") {
         fd.append("option_a", editingQuestion.option_a || "");
         fd.append("option_b", editingQuestion.option_b || "");
         fd.append("option_c", editingQuestion.option_c || "");
         fd.append("option_d", editingQuestion.option_d || "");
+        fd.append("correct_answer", editingQuestion.correct_answer || "");
+      } else if (editingQuestion.question_type !== "table" && editingQuestion.question_type !== "multipart") {
         fd.append("correct_answer", editingQuestion.correct_answer || "");
       }
       if (editingQuestion.question_type === "table" && editingQuestion.table_data) {

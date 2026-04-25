@@ -89,6 +89,7 @@ class Question(models.Model):
         ('structured', 'Structured Answer'),
         ('essay', 'Essay'),
         ('table', 'Table'),
+        ('multipart', 'Multipart'),
     ]
 
     # RELATIONSHIPS
