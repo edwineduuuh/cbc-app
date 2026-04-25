@@ -158,8 +158,8 @@ function TableBuilder({ value, onChange }) {
                     </div>
                     {cell.e && (
                       <input
-                        className="mt-1 w-full text-xs border border-blue-300 rounded px-1.5 py-1 bg-white placeholder:text-blue-300"
-                        placeholder="Correct answer"
+                        className={`mt-1 w-full text-xs rounded px-1.5 py-1 bg-white ${cell.a ? "border border-blue-300 placeholder:text-blue-300" : "border-2 border-red-400 placeholder:text-red-400 bg-red-50"}`}
+                        placeholder={cell.a ? "Correct answer" : "⚠ Required!"}
                         value={cell.a}
                         onChange={(e) => updateCell(r, c, "a", e.target.value)}
                       />

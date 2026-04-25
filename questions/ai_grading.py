@@ -1511,20 +1511,27 @@ def _grade_table(question, student_answer) -> dict:
     points_earned = []
     points_missed = []
 
+    # Build a reference string for fallback AI grading when cells have no stored answers
+    question_correct_answer = getattr(question, 'correct_answer', '') or ''
+    all_cell_answers_missing = all(not ca for _, _, ca in editable_cells)
+
     for r_idx, c_idx, correct_answer in editable_cells:
         key = f"{r_idx}_{c_idx}"
         student_val = cell_answers.get(key, "").strip()
         cell_label = f"Row {r_idx + 1}, Column {c_idx + 1}"
 
         if not student_val:
-            points_missed.append(f"{cell_label}: (no answer) → correct: {correct_answer}")
+            points_missed.append(f"{cell_label}: (no answer){' → correct: ' + correct_answer if correct_answer else ''}")
             continue
 
         is_correct = False
 
-        if marking == "exact":
+        # If this cell has no stored correct answer, always use AI with question context
+        effective_marking = "ai" if not correct_answer else marking
+
+        if effective_marking == "exact":
             is_correct = student_val == correct_answer
-        elif marking == "case_insensitive":
+        elif effective_marking == "case_insensitive":
             is_correct = _normalise(student_val) == _normalise(correct_answer)
             if not is_correct:
                 # Numeric equivalence
@@ -1535,26 +1542,34 @@ def _grade_table(question, student_answer) -> dict:
                         is_correct = abs(float(s_n) - float(c_n)) < 0.01
                     except ValueError:
                         pass
-        elif marking == "ai":
+        elif effective_marking == "ai":
             try:
+                if correct_answer:
+                    context = f"Correct answer for this cell: {correct_answer}"
+                elif question_correct_answer:
+                    context = f"Full question correct answers: {question_correct_answer}"
+                else:
+                    context = "No answer key provided — use your knowledge."
                 prompt = (
                     f"Question: {question.question_text}\n"
+                    f"{context}\n"
                     f"Cell position: {cell_label}\n"
-                    f"Correct answer: {correct_answer}\n"
                     f"Student answer: {student_val}\n\n"
-                    "Is the student's answer correct? Reply ONLY with TRUE or FALSE."
+                    "Is the student's answer correct or acceptably close (allow minor spelling variations)? "
+                    "Reply ONLY with TRUE or FALSE."
                 )
                 verdict = _call_ai(prompt, use_gemini=sw).strip().upper()
                 is_correct = verdict in ("TRUE", "KWELI")
             except Exception as e:
                 print(f"⚠ AI table cell grading failed ({key}): {e}")
-                is_correct = _normalise(student_val) == _normalise(correct_answer)
+                is_correct = _normalise(student_val) == _normalise(correct_answer) if correct_answer else False
 
         if is_correct:
             marks_awarded += marks_per_cell
             points_earned.append(f"{cell_label}: {student_val} ✓")
         else:
-            points_missed.append(f"{cell_label}: got '{student_val}', correct: {correct_answer}")
+            hint = correct_answer or "(see question model answer)"
+            points_missed.append(f"{cell_label}: got '{student_val}', correct: {hint}")
 
     marks_awarded = round(marks_awarded)
     marks_awarded = max(0, min(marks_awarded, max_marks))

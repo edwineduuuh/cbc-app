@@ -1047,11 +1047,19 @@ def submit_quiz(request):
                             lines.append(f"Cell ({r_idx+1},{c_idx+1}): {given}")
                 display_student = ' | '.join(lines) if lines else '(no answers)'
                 correct_lines = []
+                has_cell_answers = False
                 for r_idx, row in enumerate(rows):
                     for c_idx, cell in enumerate(row):
                         if cell.get('e'):
-                            correct_lines.append(f"Cell ({r_idx+1},{c_idx+1}): {cell.get('a','')}")
-                display_correct = ' | '.join(correct_lines) if correct_lines else ''
+                            cell_a = cell.get('a', '')
+                            if cell_a:
+                                has_cell_answers = True
+                            correct_lines.append(f"Cell ({r_idx+1},{c_idx+1}): {cell_a}")
+                if has_cell_answers:
+                    display_correct = ' | '.join(correct_lines)
+                else:
+                    # Cells have no stored answers — fall back to question's correct_answer field
+                    display_correct = question.correct_answer or (' | '.join(correct_lines) if correct_lines else '')
 
             detailed_feedback[str(question.id)] = {
                 'question_text': question.question_text,
@@ -1189,11 +1197,19 @@ def submit_quiz(request):
                             lines.append(f"Cell ({r_idx+1},{c_idx+1}): {given}")
                 display_student = ' | '.join(lines) if lines else '(no answers)'
                 correct_lines = []
+                has_cell_answers = False
                 for r_idx, row in enumerate(rows):
                     for c_idx, cell in enumerate(row):
                         if cell.get('e'):
-                            correct_lines.append(f"Cell ({r_idx+1},{c_idx+1}): {cell.get('a','')}")
-                display_correct = ' | '.join(correct_lines) if correct_lines else ''
+                            cell_a = cell.get('a', '')
+                            if cell_a:
+                                has_cell_answers = True
+                            correct_lines.append(f"Cell ({r_idx+1},{c_idx+1}): {cell_a}")
+                if has_cell_answers:
+                    display_correct = ' | '.join(correct_lines)
+                else:
+                    # Cells have no stored answers — fall back to question's correct_answer field
+                    display_correct = question.correct_answer or (' | '.join(correct_lines) if correct_lines else '')
 
             detailed_feedback[str(question.id)] = {
                 'question_text': question.question_text,
