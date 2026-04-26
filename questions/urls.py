@@ -29,6 +29,7 @@ from .bulk_upload import BulkUploadView
 from .views import (
     SubjectListView,
     TopicListView,
+    SubstrandListView,
     QuizListView,
     QuizDetailView,
     AttemptListView,
@@ -59,6 +60,7 @@ urlpatterns = [
     # ── Public / Student ─────────────────────────────────────────
     path('subjects/', SubjectListView.as_view(), name='subject-list'),
     path('topics/', TopicListView.as_view(), name='topic-list'),
+    path('substrands/', SubstrandListView.as_view(), name='substrand-list'),
     path('quizzes/', QuizListView.as_view(), name='quiz-list'),
     path('quizzes/<int:pk>/', QuizDetailView.as_view(), name='quiz-detail'),
     path('quizzes/submit/', submit_quiz, name='submit_quiz'),

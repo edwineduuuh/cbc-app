@@ -180,6 +180,33 @@ export default function ImprovedFeedbackDisplay({ attempt, quiz }) {
           Question-by-Question Breakdown
         </h2>
 
+        {/* Group questions by substrand when substrands exist */}
+        {(() => {
+          const hasSubstrands = questions.some((q) => q.substrand_name);
+          if (!hasSubstrands) return null;
+
+          // Build ordered list of unique substrand names, preserving question order
+          const seen = new Set();
+          const strandOrder = [];
+          questions.forEach((q) => {
+            const key = q.substrand_name || "General";
+            if (!seen.has(key)) { seen.add(key); strandOrder.push(key); }
+          });
+
+          return (
+            <div className="flex flex-wrap gap-2 mb-2">
+              {strandOrder.map((name) => (
+                <span
+                  key={name}
+                  className="px-3 py-1 rounded-full text-sm font-medium bg-indigo-100 text-indigo-800 border border-indigo-200"
+                >
+                  {name}
+                </span>
+              ))}
+            </div>
+          );
+        })()}
+
         {questions.map((question, idx) => {
           const questionFeedback = feedback[question.id] || {};
           const studentAnswer = answers[question.id];
@@ -214,7 +241,7 @@ export default function ImprovedFeedbackDisplay({ attempt, quiz }) {
                 </div>
 
                 <div className="flex-1">
-                  <div className="flex items-center gap-2 mb-2">
+                  <div className="flex items-center gap-2 mb-2 flex-wrap">
                     <span
                       className={`px-3 py-1 rounded-full text-sm font-semibold ${
                         isCorrect
@@ -230,6 +257,12 @@ export default function ImprovedFeedbackDisplay({ attempt, quiz }) {
                     <span className="px-3 py-1 bg-white rounded-full text-sm font-medium text-gray-700 border">
                       {question.question_type.toUpperCase()}
                     </span>
+
+                    {question.substrand_name && (
+                      <span className="px-3 py-1 bg-indigo-100 rounded-full text-xs font-semibold text-indigo-800 border border-indigo-200">
+                        {question.substrand_name}
+                      </span>
+                    )}
                   </div>
 
                   <p className="text-lg font-medium text-gray-900 leading-relaxed"

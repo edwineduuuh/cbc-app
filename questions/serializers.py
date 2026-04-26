@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from .models import (
-    Subject, Topic, Question, Quiz, Attempt, QuestionSet, 
-    SubscriptionPlan, PaymentRequest, LessonPlan, LiveSession, 
+    Subject, Topic, Substrand, Question, Quiz, Attempt, QuestionSet,
+    SubscriptionPlan, PaymentRequest, LessonPlan, LiveSession,
     LiveQuestion, StudentSession, StudentAnswer, Passage, QuestionPart,
     MotivationalContent,
 )
@@ -19,6 +19,14 @@ class QuestionPartSerializer(serializers.ModelSerializer):
             'correct_answer', 'max_marks', 'marking_scheme',
             'explanation', 'order'
         ]
+class SubstrandSerializer(serializers.ModelSerializer):
+    topic_name = serializers.CharField(source='topic.name', read_only=True)
+
+    class Meta:
+        model = Substrand
+        fields = ['id', 'name', 'slug', 'order', 'topic', 'topic_name']
+
+
 class PassageSerializer(serializers.ModelSerializer):
     class Meta:
         model = Passage
@@ -63,17 +71,19 @@ class TopicSerializer(serializers.ModelSerializer):
             is_active=True
         ).count()
 class QuestionSerializer(serializers.ModelSerializer):
-    subject_name = serializers.CharField(source='topic.subject.name', read_only=True)
-    topic_name   = serializers.CharField(source='topic.name', read_only=True)
-    grade        = serializers.IntegerField(source='topic.grade', read_only=True)
+    subject_name   = serializers.CharField(source='topic.subject.name', read_only=True)
+    topic_name     = serializers.CharField(source='topic.name', read_only=True)
+    grade          = serializers.IntegerField(source='topic.grade', read_only=True)
+    substrand_name = serializers.CharField(source='substrand.name', read_only=True, default=None)
     question_image_url = serializers.SerializerMethodField()
     passage = PassageSerializer(read_only=True)
-    parts = QuestionPartSerializer(many=True, read_only=True)
+    parts   = QuestionPartSerializer(many=True, read_only=True)
 
     class Meta:
         model  = Question
         fields = [
             'id', 'subject_name', 'topic_name', 'grade',
+            'substrand', 'substrand_name',
             'question_text',
             'option_a', 'option_b', 'option_c', 'option_d',
             'correct_answer',
@@ -99,10 +109,11 @@ class QuestionSerializer(serializers.ModelSerializer):
 
 class QuestionDetailSerializer(serializers.ModelSerializer):
     """Full detail - for admin/authoring and attempt review"""
-    subject_name = serializers.CharField(source='topic.subject.name', read_only=True)
-    topic_name   = serializers.CharField(source='topic.name', read_only=True)
-    grade        = serializers.IntegerField(source='topic.grade', read_only=True)
-    subject      = serializers.IntegerField(source='topic.subject.id', read_only=True)
+    subject_name   = serializers.CharField(source='topic.subject.name', read_only=True)
+    topic_name     = serializers.CharField(source='topic.name', read_only=True)
+    grade          = serializers.IntegerField(source='topic.grade', read_only=True)
+    subject        = serializers.IntegerField(source='topic.subject.id', read_only=True)
+    substrand_name = serializers.CharField(source='substrand.name', read_only=True, default=None)
     question_image_url = serializers.SerializerMethodField()
     question_image = serializers.ImageField(required=False, allow_null=True, write_only=True)
 
@@ -110,6 +121,7 @@ class QuestionDetailSerializer(serializers.ModelSerializer):
         model  = Question
         fields = [
             'id', 'topic', 'subject', 'subject_name', 'topic_name', 'grade',
+            'substrand', 'substrand_name',
             'question_type',
             'question_text',
             'option_a', 'option_b', 'option_c', 'option_d',
@@ -121,10 +133,11 @@ class QuestionDetailSerializer(serializers.ModelSerializer):
         ]
         read_only_fields = [
             'id', 'subject', 'subject_name', 'topic_name', 'grade',
-            'created_at', 'created_by'
+            'substrand_name', 'created_at', 'created_by'
         ]
         extra_kwargs = {
             'topic': {'required': True},
+            'substrand': {'required': False, 'allow_null': True},
         }
     
     def get_question_image_url(self, obj):

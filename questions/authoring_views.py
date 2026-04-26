@@ -52,6 +52,10 @@ class QuestionListManageView(generics.ListAPIView):
         if topic_id:
             queryset = queryset.filter(topic_id=topic_id)
 
+        substrand_id = self.request.query_params.get('substrand')
+        if substrand_id:
+            queryset = queryset.filter(substrand_id=substrand_id)
+
         grade = self.request.query_params.get('grade')
         if grade:
             queryset = queryset.filter(topic__grade=grade)
@@ -81,15 +85,22 @@ class QuestionUpdateView(generics.RetrieveUpdateDestroyAPIView):
     parser_classes = [MultiPartParser, FormParser, JSONParser]
 
     def perform_update(self, serializer):
+        kwargs = {}
+        # Normalize empty-string substrand (FormData can't send null) to None
+        substrand_raw = self.request.data.get('substrand', None)
+        if substrand_raw == '' or substrand_raw == 'null':
+            kwargs['substrand'] = None
         if self.request.data.get('delete_image') in ('true', True, '1'):
             instance = self.get_object()
             if instance.question_image:
                 instance.question_image.delete(save=False)
-            serializer.save(question_image=None)
+            kwargs['question_image'] = None
+            serializer.save(**kwargs)
         elif 'question_image' in self.request.FILES:
-            serializer.save(question_image=self.request.FILES['question_image'])
+            kwargs['question_image'] = self.request.FILES['question_image']
+            serializer.save(**kwargs)
         else:
-            serializer.save()
+            serializer.save(**kwargs)
 
 
 class BulkQuestionImportView(generics.CreateAPIView):

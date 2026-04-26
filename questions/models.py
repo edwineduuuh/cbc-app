@@ -43,6 +43,22 @@ class Topic(models.Model):
     def __str__(self):
         return f"{self.subject.name} - Grade {self.grade} - {self.name} "
 
+class Substrand(models.Model):
+    topic = models.ForeignKey(Topic, on_delete=models.CASCADE, related_name='substrands')
+    name = models.CharField(max_length=150)
+    slug = models.SlugField(max_length=150, blank=True)
+    order = models.IntegerField(default=0)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        db_table = 'substrands'
+        ordering = ['topic', 'order', 'name']
+        unique_together = [['topic', 'name']]
+
+    def __str__(self):
+        return f"{self.topic.name} → {self.name}"
+
+
 class Passage(models.Model):
     PASSAGE_TYPES = [
         ('prose', 'Prose'),
@@ -94,6 +110,14 @@ class Question(models.Model):
 
     # RELATIONSHIPS
     topic = models.ForeignKey(Topic, on_delete=models.CASCADE, related_name='questions')
+    substrand = models.ForeignKey(
+        'Substrand',
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='questions',
+        help_text="Optional substrand grouping within the topic",
+    )
     passage = models.ForeignKey(
     Passage,
     on_delete=models.SET_NULL,

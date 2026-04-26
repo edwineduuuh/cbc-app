@@ -5,14 +5,14 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.views import APIView
 from django.utils import timezone
 from .models import (
-    Subject, Topic, Question, Quiz, Attempt, Subscription,
+    Subject, Topic, Substrand, Question, Quiz, Attempt, Subscription,
     LessonPlan, LiveSession, LiveQuestion, StudentSession, StudentAnswer,
     SubscriptionPlan, PaymentRequest, ClassQuizAssignment, QuestionPart
 )
 from users.models import Classroom as UsersClassroom
 from django.contrib.auth import get_user_model
 from .serializers import (
-    SubjectSerializer, TopicSerializer, QuestionSerializer,
+    SubjectSerializer, TopicSerializer, SubstrandSerializer, QuestionSerializer,
     QuestionDetailSerializer,
     QuizListSerializer, QuizDetailSerializer, SubmitQuizSerializer,
     AttemptSerializer, AttemptDetailSerializer, SubscriptionPlanSerializer, PaymentRequestSerializer,
@@ -353,6 +353,24 @@ class TopicListView(generics.ListAPIView):
         if grade:
             queryset = queryset.filter(grade=grade)
         
+        return queryset
+
+
+class SubstrandListView(generics.ListAPIView):
+    serializer_class = SubstrandSerializer
+    permission_classes = [AllowAny]
+
+    def get_queryset(self):
+        queryset = Substrand.objects.select_related('topic')
+        topic_id = self.request.query_params.get('topic')
+        if topic_id:
+            queryset = queryset.filter(topic_id=topic_id)
+        subject_id = self.request.query_params.get('subject')
+        if subject_id:
+            queryset = queryset.filter(topic__subject_id=subject_id)
+        grade = self.request.query_params.get('grade')
+        if grade:
+            queryset = queryset.filter(topic__grade=grade)
         return queryset
 
 

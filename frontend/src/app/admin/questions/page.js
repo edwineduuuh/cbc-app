@@ -389,6 +389,7 @@ export default function QuestionManagementPage() {
   const [formData, setFormData] = useState({
     subject: "",
     topic: "",
+    substrand: "",
     grade: "",
     question_text: "",
     question_type: "mcq",
@@ -406,6 +407,8 @@ export default function QuestionManagementPage() {
 
   const [filteredTopics, setFilteredTopics] = useState([]);
   const [editFilteredTopics, setEditFilteredTopics] = useState([]);
+  const [filteredSubstrands, setFilteredSubstrands] = useState([]);
+  const [editFilteredSubstrands, setEditFilteredSubstrands] = useState([]);
   const [csvFile, setCsvFile] = useState(null);
   const [actionLoading, setActionLoading] = useState(false);
   const [createImageFile, setCreateImageFile] = useState(null);
@@ -503,6 +506,27 @@ export default function QuestionManagementPage() {
     }
   }, [editingQuestion, topics]);
 
+  // Load substrands for create form when topic changes
+  useEffect(() => {
+    if (!formData.topic) { setFilteredSubstrands([]); return; }
+    fetchWithAuth(`${API}/substrands/?topic=${formData.topic}`)
+      .then((r) => r.json())
+      .then((d) => setFilteredSubstrands(Array.isArray(d) ? d : d.results || []))
+      .catch(() => setFilteredSubstrands([]));
+    // Clear substrand when topic changes
+    setFormData((prev) => ({ ...prev, substrand: "" }));
+  }, [formData.topic]);
+
+  // Load substrands for edit form when topic changes
+  useEffect(() => {
+    const topicId = editingQuestion?.topic;
+    if (!topicId) { setEditFilteredSubstrands([]); return; }
+    fetchWithAuth(`${API}/substrands/?topic=${topicId}`)
+      .then((r) => r.json())
+      .then((d) => setEditFilteredSubstrands(Array.isArray(d) ? d : d.results || []))
+      .catch(() => setEditFilteredSubstrands([]));
+  }, [editingQuestion?.topic]);
+
   const groupedQuestions = useMemo(() => {
     const grouped = {};
     questions.forEach((q) => {
@@ -552,6 +576,7 @@ export default function QuestionManagementPage() {
     setFormData({
       subject: "",
       topic: "",
+      substrand: "",
       grade: "",
       question_text: "",
       question_type: "mcq",
@@ -565,6 +590,7 @@ export default function QuestionManagementPage() {
       table_data: null,
       parts: [],
     });
+    setFilteredSubstrands([]);
   };
 
   const handleChange = (e) => {
@@ -637,6 +663,7 @@ export default function QuestionManagementPage() {
     setActionLoading(true);
     const fd = new FormData();
     if (formData.topic) fd.append("topic", parseInt(formData.topic));
+    if (formData.substrand) fd.append("substrand", parseInt(formData.substrand));
     fd.append("question_text", formData.question_text.trim());
     fd.append("question_type", formData.question_type || "mcq");
     const isMcqStyle = formData.question_type === "mcq" ||
@@ -698,6 +725,8 @@ export default function QuestionManagementPage() {
     try {
       const fd = new FormData();
       fd.append("topic", editingQuestion.topic);
+      if (editingQuestion.substrand) fd.append("substrand", editingQuestion.substrand);
+      else fd.append("substrand", "");
       fd.append("question_text", editingQuestion.question_text);
       fd.append("question_type", editingQuestion.question_type || "mcq");
       const isMcqStyleEdit = editingQuestion.question_type === "mcq" ||
@@ -1363,6 +1392,20 @@ export default function QuestionManagementPage() {
                     placeholder="Select Strand"
                   />
                 </div>
+                {/* Substrand — optional, loads after strand is picked */}
+                {filteredSubstrands.length > 0 && (
+                  <SelectField
+                    label="Substrand (optional)"
+                    name="substrand"
+                    value={formData.substrand}
+                    onChange={handleChange}
+                    options={filteredSubstrands.map((s) => ({
+                      value: s.id,
+                      label: s.name,
+                    }))}
+                    placeholder="— Select substrand —"
+                  />
+                )}
                 <div className="grid grid-cols-3 gap-4">
                   <SelectField
                     label="Grade"
@@ -1662,6 +1705,20 @@ export default function QuestionManagementPage() {
                     placeholder="Select Strand"
                   />
                 </div>
+                {/* Substrand — optional, loads after strand is picked */}
+                {editFilteredSubstrands.length > 0 && (
+                  <SelectField
+                    label="Substrand (optional)"
+                    name="substrand"
+                    value={editingQuestion.substrand || ""}
+                    onChange={handleEditChange}
+                    options={editFilteredSubstrands.map((s) => ({
+                      value: s.id,
+                      label: s.name,
+                    }))}
+                    placeholder="— Select substrand —"
+                  />
+                )}
                 <div className="grid grid-cols-4 gap-4">
                   <SelectField
                     label="Grade"

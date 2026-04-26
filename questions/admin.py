@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Subject, Topic, Question, Quiz, Attempt, AIGradingSettings
+from .models import Subject, Topic, Substrand, Question, Quiz, Attempt, AIGradingSettings
 
 
 
@@ -18,6 +18,24 @@ class QuestionPartInline(admin.TabularInline):
     fields = ['part_label', 'question_text', 'question_type', 'max_marks', 'correct_answer', 'option_a', 'option_b', 'option_c', 'option_d', 'order']
 
 
+class SubstrandInline(admin.TabularInline):
+    model = Substrand
+    extra = 1
+    fields = ['name', 'slug', 'order']
+
+
+@admin.register(Substrand)
+class SubstrandAdmin(admin.ModelAdmin):
+    list_display = ['name', 'topic', 'order', 'question_count']
+    list_filter = ['topic__subject', 'topic__grade']
+    search_fields = ['name', 'topic__name']
+    ordering = ['topic__grade', 'topic__subject__name', 'topic__order', 'order', 'name']
+
+    def question_count(self, obj):
+        return obj.questions.count()
+    question_count.short_description = 'Questions'
+
+
 from .models import Passage
 @admin.register(Passage)
 class PassageAdmin(admin.ModelAdmin):
@@ -28,14 +46,14 @@ class PassageAdmin(admin.ModelAdmin):
 @admin.register(Question)
 class QuestionAdmin(admin.ModelAdmin):
     inlines = [QuestionPartInline]
-    list_display = ['id', 'question_text_short', 'topic', 'question_type', 'difficulty', 'max_marks', 'has_image']
-    list_filter = ['question_type', 'difficulty', 'topic__subject', 'topic__grade']
+    list_display = ['id', 'question_text_short', 'topic', 'substrand', 'question_type', 'difficulty', 'max_marks', 'has_image']
+    list_filter = ['question_type', 'difficulty', 'topic__subject', 'topic__grade', 'substrand']
     search_fields = ['question_text', 'id']
     ordering = ['-created_at']
     
     fieldsets = (
         ('Basic Info', {
-            'fields': ('topic', 'passage','question_type', 'difficulty', 'max_marks', 'question_text', 'question_image')  # ADD question_image HERE
+            'fields': ('topic', 'substrand', 'passage', 'question_type', 'difficulty', 'max_marks', 'question_text', 'question_image')
         }),
         ('MCQ Options', {
             'fields': ('option_a', 'option_b', 'option_c', 'option_d'),
@@ -60,12 +78,17 @@ class QuestionAdmin(admin.ModelAdmin):
 
 @admin.register(Topic)
 class TopicAdmin(admin.ModelAdmin):
-    list_display = ['name', 'subject', 'grade', 'order', 'question_count']
+    inlines = [SubstrandInline]
+    list_display = ['name', 'subject', 'grade', 'order', 'substrand_count', 'question_count']
     list_filter = ['subject', 'grade']
     search_fields = ['name', 'subject__name']
     prepopulated_fields = {'slug': ('name',)}
-    ordering = ['grade', 'subject__name', 'order', 'name']  # ← Grade first, then subject
-    
+    ordering = ['grade', 'subject__name', 'order', 'name']
+
+    def substrand_count(self, obj):
+        return obj.substrands.count()
+    substrand_count.short_description = 'Substrands'
+
     def question_count(self, obj):
         return obj.questions.count()
     question_count.short_description = 'Questions'
