@@ -1388,8 +1388,7 @@ export default function QuestionManagementPage() {
                     placeholder="Enter the question..."
                   />
                 )}
-                {(formData.question_type === "mcq" ||
-                  formData.question_type === "math") && (
+                {formData.question_type === "mcq" && (
                   <>
                     <div className="grid grid-cols-2 gap-4">
                       <InputField
@@ -1434,6 +1433,16 @@ export default function QuestionManagementPage() {
                       placeholder="Select"
                     />
                   </>
+                )}
+                {formData.question_type === "math" && (
+                  <InputField
+                    label="Correct Answer"
+                    name="correct_answer"
+                    value={formData.correct_answer}
+                    onChange={handleChange}
+                    required
+                    placeholder="e.g. \frac{1}{4} or 0.25"
+                  />
                 )}
                 {formData.question_type === "fill_blank" && (
                   <InputField
@@ -1675,8 +1684,7 @@ export default function QuestionManagementPage() {
                     rows={3}
                   />
                 )}
-                {(editingQuestion.question_type === "mcq" ||
-                  editingQuestion.question_type === "math") && (
+                {editingQuestion.question_type === "mcq" && (
                   <>
                     <div className="grid grid-cols-2 gap-4">
                       <InputField
@@ -1721,6 +1729,16 @@ export default function QuestionManagementPage() {
                       placeholder="Select"
                     />
                   </>
+                )}
+                {editingQuestion.question_type === "math" && (
+                  <InputField
+                    label="Correct Answer"
+                    name="correct_answer"
+                    value={editingQuestion.correct_answer || ""}
+                    onChange={handleEditChange}
+                    required
+                    placeholder="e.g. \frac{1}{4} or 0.25"
+                  />
                 )}
                 {editingQuestion.question_type === "fill_blank" && (
                   <InputField
