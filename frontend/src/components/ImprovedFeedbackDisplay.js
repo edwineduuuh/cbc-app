@@ -180,10 +180,11 @@ export default function ImprovedFeedbackDisplay({ attempt, quiz }) {
           Question-by-Question Breakdown
         </h2>
 
-        {/* Group questions by substrand when substrands exist */}
+        {/* Substrand coverage summary — topical quizzes only (exams are intentionally assorted) */}
         {(() => {
           const hasSubstrands = questions.some((q) => q.substrand_name);
-          if (!hasSubstrands) return null;
+          const isTopical = !quiz.quiz_type || quiz.quiz_type === "topical";
+          if (!hasSubstrands || !isTopical) return null;
 
           // Build ordered list of unique substrand names, preserving question order
           const seen = new Set();
