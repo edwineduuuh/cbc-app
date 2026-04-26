@@ -105,3 +105,11 @@ body {
   background-color: #030712;
   color: #f9fafb;
 }
+
+/* Tailwind v4 preflight sets svg { display: block } globally, which breaks
+   KaTeX's \sqrt radical sign (rendered as an inline SVG in KaTeX 0.16+).
+   Restore inline behaviour for all KaTeX SVGs. */
+.katex svg {
+  display: inline;
+  vertical-align: unset;
+}
