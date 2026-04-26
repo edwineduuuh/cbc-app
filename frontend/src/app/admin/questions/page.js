@@ -590,6 +590,10 @@ export default function QuestionManagementPage() {
         option_c: "",
         option_d: "",
         correct_answer: "",
+        table_data: value === "table" ? makeDefaultTable() : null,
+        parts: value === "multipart"
+          ? (prev.parts?.length > 0 ? prev.parts : [makeDefaultPart(0)])
+          : [],
       }));
     } else {
       setFormData({ ...formData, [name]: value });
@@ -618,6 +622,10 @@ export default function QuestionManagementPage() {
         option_c: "",
         option_d: "",
         correct_answer: "",
+        table_data: value === "table" ? (prev.table_data || makeDefaultTable()) : null,
+        parts: value === "multipart"
+          ? (prev.parts?.length > 0 ? prev.parts : [makeDefaultPart(0)])
+          : [],
       }));
     } else {
       setEditingQuestion({ ...editingQuestion, [name]: value });
@@ -633,16 +641,20 @@ export default function QuestionManagementPage() {
     fd.append("question_type", formData.question_type || "mcq");
     const isMcqStyle = formData.question_type === "mcq" ||
       (formData.question_type === "math" && formData.math_format === "mcq");
+    const isTableStyle = formData.question_type === "table" ||
+      (formData.question_type === "math" && formData.math_format === "table");
+    const isMultipartStyle = formData.question_type === "multipart" ||
+      (formData.question_type === "math" && formData.math_format === "multipart");
     if (isMcqStyle) {
       fd.append("option_a", formData.option_a.trim());
       fd.append("option_b", formData.option_b.trim());
       fd.append("option_c", formData.option_c.trim());
       fd.append("option_d", formData.option_d.trim());
       fd.append("correct_answer", formData.correct_answer ? formData.correct_answer.toUpperCase() : "");
-    } else if (formData.question_type !== "table" && formData.question_type !== "multipart") {
+    } else if (!isTableStyle && !isMultipartStyle) {
       fd.append("correct_answer", formData.correct_answer || "");
     }
-    if (formData.question_type === "table" && formData.table_data) {
+    if (isTableStyle && formData.table_data) {
       fd.append("table_data", JSON.stringify(formData.table_data));
     }
     fd.append(
@@ -652,7 +664,7 @@ export default function QuestionManagementPage() {
     fd.append("max_marks", parseInt(formData.max_marks) || 1);
     fd.append("difficulty", formData.difficulty || "medium");
     if (createImageFile) fd.append("question_image", createImageFile);
-    if (formData.question_type === "multipart" && formData.parts?.length > 0) {
+    if (isMultipartStyle && formData.parts?.length > 0) {
       fd.append("parts", JSON.stringify(formData.parts));
     }
     try {
@@ -690,16 +702,20 @@ export default function QuestionManagementPage() {
       fd.append("question_type", editingQuestion.question_type || "mcq");
       const isMcqStyleEdit = editingQuestion.question_type === "mcq" ||
         (editingQuestion.question_type === "math" && editingQuestion.math_format === "mcq");
+      const isTableStyleEdit = editingQuestion.question_type === "table" ||
+        (editingQuestion.question_type === "math" && editingQuestion.math_format === "table");
+      const isMultipartStyleEdit = editingQuestion.question_type === "multipart" ||
+        (editingQuestion.question_type === "math" && editingQuestion.math_format === "multipart");
       if (isMcqStyleEdit) {
         fd.append("option_a", editingQuestion.option_a || "");
         fd.append("option_b", editingQuestion.option_b || "");
         fd.append("option_c", editingQuestion.option_c || "");
         fd.append("option_d", editingQuestion.option_d || "");
         fd.append("correct_answer", editingQuestion.correct_answer || "");
-      } else if (editingQuestion.question_type !== "table" && editingQuestion.question_type !== "multipart") {
+      } else if (!isTableStyleEdit && !isMultipartStyleEdit) {
         fd.append("correct_answer", editingQuestion.correct_answer || "");
       }
-      if (editingQuestion.question_type === "table" && editingQuestion.table_data) {
+      if (isTableStyleEdit && editingQuestion.table_data) {
         fd.append("table_data", JSON.stringify(editingQuestion.table_data));
       }
       fd.append("max_marks", parseInt(editingQuestion.max_marks) || 1);
@@ -710,7 +726,7 @@ export default function QuestionManagementPage() {
       } else if (editImageDeleted) {
         fd.append("delete_image", "true");
       }
-      if (editingQuestion.question_type === "multipart" && editingQuestion.parts?.length > 0) {
+      if (isMultipartStyleEdit && editingQuestion.parts?.length > 0) {
         fd.append("parts", JSON.stringify(editingQuestion.parts));
       }
       const res = await fetchWithAuth(
@@ -767,7 +783,12 @@ export default function QuestionManagementPage() {
       const fullQ = await res.json();
       setEditingQuestion({
         ...fullQ,
-        math_format: fullQ.question_type === "math" && fullQ.option_a ? "mcq" : "open",
+        math_format: fullQ.question_type === "math"
+          ? (fullQ.option_a ? "mcq"
+            : fullQ.table_data ? "table"
+            : fullQ.parts?.length > 0 ? "multipart"
+            : "open")
+          : "open",
       });
       setEditImageFile(null);
       setEditImagePreview(null);
@@ -1392,7 +1413,35 @@ export default function QuestionManagementPage() {
                     options={QUESTION_TYPES}
                   />
                 </div>
-                {formData.question_type === "multipart" ? (
+                {/* Math answer-format picker — shown before question text so teacher picks format first */}
+                {formData.question_type === "math" && (
+                  <div className="bg-indigo-50 border border-indigo-200 rounded-lg p-3">
+                    <label className="block text-xs font-semibold text-indigo-700 mb-2 uppercase tracking-wide">Answer Format</label>
+                    <div className="flex flex-wrap gap-4">
+                      {[
+                        ["open",      "Open Answer"],
+                        ["mcq",       "Multiple Choice"],
+                        ["table",     "Table"],
+                        ["multipart", "Multipart"],
+                      ].map(([val, lbl]) => (
+                        <label key={val} className="flex items-center gap-2 cursor-pointer text-sm font-medium text-indigo-800">
+                          <input
+                            type="radio"
+                            name="math_format"
+                            value={val}
+                            checked={formData.math_format === val}
+                            onChange={handleChange}
+                          />
+                          {lbl}
+                        </label>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Question text — stem + parts for multipart, plain for everything else */}
+                {(formData.question_type === "multipart" ||
+                  (formData.question_type === "math" && formData.math_format === "multipart")) ? (
                   <div className="space-y-4">
                     <TextField
                       label="Question Stem (intro text / reading passage)"
@@ -1418,57 +1467,16 @@ export default function QuestionManagementPage() {
                     placeholder="Enter the question..."
                   />
                 )}
-                {formData.question_type === "math" && (
-                  <div>
-                    <label className="block text-xs font-medium text-gray-600 mb-1">Answer Format</label>
-                    <div className="flex gap-3 mb-3">
-                      {[["open", "Open Answer"], ["mcq", "Multiple Choice"]].map(([val, lbl]) => (
-                        <label key={val} className="flex items-center gap-2 cursor-pointer text-sm">
-                          <input
-                            type="radio"
-                            name="math_format"
-                            value={val}
-                            checked={formData.math_format === val}
-                            onChange={handleChange}
-                          />
-                          {lbl}
-                        </label>
-                      ))}
-                    </div>
-                  </div>
-                )}
+
+                {/* MCQ options */}
                 {(formData.question_type === "mcq" ||
                   (formData.question_type === "math" && formData.math_format === "mcq")) && (
                   <>
                     <div className="grid grid-cols-2 gap-4">
-                      <InputField
-                        label="Option A"
-                        name="option_a"
-                        value={formData.option_a}
-                        onChange={handleChange}
-                        required
-                      />
-                      <InputField
-                        label="Option B"
-                        name="option_b"
-                        value={formData.option_b}
-                        onChange={handleChange}
-                        required
-                      />
-                      <InputField
-                        label="Option C"
-                        name="option_c"
-                        value={formData.option_c}
-                        onChange={handleChange}
-                        required
-                      />
-                      <InputField
-                        label="Option D"
-                        name="option_d"
-                        value={formData.option_d}
-                        onChange={handleChange}
-                        required
-                      />
+                      <InputField label="Option A" name="option_a" value={formData.option_a} onChange={handleChange} required />
+                      <InputField label="Option B" name="option_b" value={formData.option_b} onChange={handleChange} required />
+                      <InputField label="Option C" name="option_c" value={formData.option_c} onChange={handleChange} required />
+                      <InputField label="Option D" name="option_d" value={formData.option_d} onChange={handleChange} required />
                     </div>
                     <SelectField
                       label="Correct Answer"
@@ -1476,39 +1484,30 @@ export default function QuestionManagementPage() {
                       value={formData.correct_answer}
                       onChange={handleChange}
                       required
-                      options={["A", "B", "C", "D"].map((v) => ({
-                        value: v,
-                        label: v,
-                      }))}
+                      options={["A", "B", "C", "D"].map((v) => ({ value: v, label: v }))}
                       placeholder="Select"
                     />
                   </>
                 )}
-                {(formData.question_type === "math" && formData.math_format === "open") && (
+
+                {/* Open math / fill_blank correct answer */}
+                {(formData.question_type === "fill_blank" ||
+                  (formData.question_type === "math" && formData.math_format === "open")) && (
                   <InputField
                     label="Correct Answer"
                     name="correct_answer"
                     value={formData.correct_answer}
                     onChange={handleChange}
                     required
-                    placeholder="e.g. \frac{1}{4} or 0.25"
+                    placeholder={formData.question_type === "math" ? "e.g. \\frac{1}{4} or 0.25" : "Enter the correct answer"}
                   />
                 )}
-                {formData.question_type === "fill_blank" && (
-                  <InputField
-                    label="Correct Answer"
-                    name="correct_answer"
-                    value={formData.correct_answer}
-                    onChange={handleChange}
-                    required
-                    placeholder="Enter the correct answer"
-                  />
-                )}
-                {formData.question_type === "table" && (
+
+                {/* Table builder */}
+                {(formData.question_type === "table" ||
+                  (formData.question_type === "math" && formData.math_format === "table")) && (
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Table Builder
-                    </label>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Table Builder</label>
                     <TableBuilder
                       value={formData.table_data || makeDefaultTable()}
                       onChange={(td) => setFormData((prev) => ({ ...prev, table_data: td }))}
@@ -1710,7 +1709,35 @@ export default function QuestionManagementPage() {
                     placeholder="Set max marks"
                   />
                 </div>
-                {editingQuestion.question_type === "multipart" ? (
+                {/* Math answer-format picker */}
+                {editingQuestion.question_type === "math" && (
+                  <div className="bg-indigo-50 border border-indigo-200 rounded-lg p-3">
+                    <label className="block text-xs font-semibold text-indigo-700 mb-2 uppercase tracking-wide">Answer Format</label>
+                    <div className="flex flex-wrap gap-4">
+                      {[
+                        ["open",      "Open Answer"],
+                        ["mcq",       "Multiple Choice"],
+                        ["table",     "Table"],
+                        ["multipart", "Multipart"],
+                      ].map(([val, lbl]) => (
+                        <label key={val} className="flex items-center gap-2 cursor-pointer text-sm font-medium text-indigo-800">
+                          <input
+                            type="radio"
+                            name="math_format"
+                            value={val}
+                            checked={(editingQuestion.math_format || "open") === val}
+                            onChange={handleEditChange}
+                          />
+                          {lbl}
+                        </label>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Question text */}
+                {(editingQuestion.question_type === "multipart" ||
+                  (editingQuestion.question_type === "math" && (editingQuestion.math_format || "open") === "multipart")) ? (
                   <div className="space-y-4">
                     <TextField
                       label="Question Stem (intro text / reading passage)"
@@ -1734,57 +1761,16 @@ export default function QuestionManagementPage() {
                     rows={3}
                   />
                 )}
-                {editingQuestion.question_type === "math" && (
-                  <div>
-                    <label className="block text-xs font-medium text-gray-600 mb-1">Answer Format</label>
-                    <div className="flex gap-3 mb-3">
-                      {[["open", "Open Answer"], ["mcq", "Multiple Choice"]].map(([val, lbl]) => (
-                        <label key={val} className="flex items-center gap-2 cursor-pointer text-sm">
-                          <input
-                            type="radio"
-                            name="math_format"
-                            value={val}
-                            checked={(editingQuestion.math_format || "open") === val}
-                            onChange={handleEditChange}
-                          />
-                          {lbl}
-                        </label>
-                      ))}
-                    </div>
-                  </div>
-                )}
+
+                {/* MCQ options */}
                 {(editingQuestion.question_type === "mcq" ||
                   (editingQuestion.question_type === "math" && (editingQuestion.math_format || "open") === "mcq")) && (
                   <>
                     <div className="grid grid-cols-2 gap-4">
-                      <InputField
-                        label="Option A"
-                        name="option_a"
-                        value={editingQuestion.option_a || ""}
-                        onChange={handleEditChange}
-                        required
-                      />
-                      <InputField
-                        label="Option B"
-                        name="option_b"
-                        value={editingQuestion.option_b || ""}
-                        onChange={handleEditChange}
-                        required
-                      />
-                      <InputField
-                        label="Option C"
-                        name="option_c"
-                        value={editingQuestion.option_c || ""}
-                        onChange={handleEditChange}
-                        required
-                      />
-                      <InputField
-                        label="Option D"
-                        name="option_d"
-                        value={editingQuestion.option_d || ""}
-                        onChange={handleEditChange}
-                        required
-                      />
+                      <InputField label="Option A" name="option_a" value={editingQuestion.option_a || ""} onChange={handleEditChange} required />
+                      <InputField label="Option B" name="option_b" value={editingQuestion.option_b || ""} onChange={handleEditChange} required />
+                      <InputField label="Option C" name="option_c" value={editingQuestion.option_c || ""} onChange={handleEditChange} required />
+                      <InputField label="Option D" name="option_d" value={editingQuestion.option_d || ""} onChange={handleEditChange} required />
                     </div>
                     <SelectField
                       label="Correct Answer"
@@ -1792,39 +1778,30 @@ export default function QuestionManagementPage() {
                       value={editingQuestion.correct_answer || ""}
                       onChange={handleEditChange}
                       required
-                      options={["A", "B", "C", "D"].map((v) => ({
-                        value: v,
-                        label: v,
-                      }))}
+                      options={["A", "B", "C", "D"].map((v) => ({ value: v, label: v }))}
                       placeholder="Select"
                     />
                   </>
                 )}
-                {(editingQuestion.question_type === "math" && (editingQuestion.math_format || "open") === "open") && (
+
+                {/* Open math / fill_blank correct answer */}
+                {(editingQuestion.question_type === "fill_blank" ||
+                  (editingQuestion.question_type === "math" && (editingQuestion.math_format || "open") === "open")) && (
                   <InputField
                     label="Correct Answer"
                     name="correct_answer"
                     value={editingQuestion.correct_answer || ""}
                     onChange={handleEditChange}
                     required
-                    placeholder="e.g. \frac{1}{4} or 0.25"
+                    placeholder={editingQuestion.question_type === "math" ? "e.g. \\frac{1}{4} or 0.25" : "Enter the correct answer"}
                   />
                 )}
-                {editingQuestion.question_type === "fill_blank" && (
-                  <InputField
-                    label="Correct Answer"
-                    name="correct_answer"
-                    value={editingQuestion.correct_answer || ""}
-                    onChange={handleEditChange}
-                    required
-                    placeholder="Enter the correct answer"
-                  />
-                )}
-                {editingQuestion.question_type === "table" && (
+
+                {/* Table builder */}
+                {(editingQuestion.question_type === "table" ||
+                  (editingQuestion.question_type === "math" && (editingQuestion.math_format || "open") === "table")) && (
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Table Builder
-                    </label>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Table Builder</label>
                     <TableBuilder
                       value={editingQuestion.table_data || makeDefaultTable()}
                       onChange={(td) => setEditingQuestion((prev) => ({ ...prev, table_data: td }))}
