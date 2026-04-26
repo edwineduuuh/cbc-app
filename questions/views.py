@@ -374,6 +374,26 @@ class SubstrandListView(generics.ListAPIView):
         return queryset
 
 
+class SubstrandManageView(generics.ListCreateAPIView):
+    """GET /api/admin/substrands/?topic=   POST /api/admin/substrands/"""
+    serializer_class = SubstrandSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        queryset = Substrand.objects.select_related('topic')
+        topic_id = self.request.query_params.get('topic')
+        if topic_id:
+            queryset = queryset.filter(topic_id=topic_id)
+        return queryset
+
+
+class SubstrandDetailView(generics.RetrieveUpdateDestroyAPIView):
+    """GET/PATCH/DELETE /api/admin/substrands/<id>/"""
+    queryset = Substrand.objects.select_related('topic')
+    serializer_class = SubstrandSerializer
+    permission_classes = [IsAuthenticated]
+
+
 class QuizListView(generics.ListAPIView):
     serializer_class = QuizListSerializer
     permission_classes = [AllowAny]

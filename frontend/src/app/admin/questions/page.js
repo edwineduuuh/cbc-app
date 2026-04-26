@@ -409,6 +409,16 @@ export default function QuestionManagementPage() {
   const [editFilteredTopics, setEditFilteredTopics] = useState([]);
   const [filteredSubstrands, setFilteredSubstrands] = useState([]);
   const [editFilteredSubstrands, setEditFilteredSubstrands] = useState([]);
+
+  // ── Substrand manager modal state ──────────────────────────────
+  const [showSubstrandModal, setShowSubstrandModal] = useState(false);
+  const [sm, setSm] = useState({
+    subject: "", grade: "", topic: "",
+    substrands: [], loading: false, saving: false,
+    newName: "", newOrder: "",
+    editId: null, editName: "",
+  });
+  const smSet = (patch) => setSm((prev) => ({ ...prev, ...patch }));
   const [csvFile, setCsvFile] = useState(null);
   const [actionLoading, setActionLoading] = useState(false);
   const [createImageFile, setCreateImageFile] = useState(null);
@@ -570,6 +580,66 @@ export default function QuestionManagementPage() {
   const showToast = (message, type = "success") => {
     setToast({ show: true, message, type });
     setTimeout(() => setToast((t) => ({ ...t, show: false })), 4000);
+  };
+
+  // ── Substrand manager helpers ───────────────────────────────────
+  const loadSmSubstrands = async (topicId) => {
+    if (!topicId) { smSet({ substrands: [] }); return; }
+    smSet({ loading: true });
+    try {
+      const r = await fetchWithAuth(`${API}/admin/substrands/?topic=${topicId}`);
+      const d = await r.json();
+      smSet({ substrands: Array.isArray(d) ? d : d.results || [], loading: false });
+    } catch { smSet({ loading: false }); }
+  };
+
+  const handleSmCreate = async () => {
+    if (!sm.newName.trim() || !sm.topic) return;
+    smSet({ saving: true });
+    try {
+      const r = await fetchWithAuth(`${API}/admin/substrands/`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          topic: parseInt(sm.topic),
+          name: sm.newName.trim(),
+          order: sm.newOrder !== "" ? parseInt(sm.newOrder) : sm.substrands.length,
+        }),
+      });
+      if (r.ok) {
+        smSet({ newName: "", newOrder: "", saving: false });
+        loadSmSubstrands(sm.topic);
+      } else {
+        const err = await r.json();
+        showToast(err.name?.[0] || err.detail || "Could not create substrand", "error");
+        smSet({ saving: false });
+      }
+    } catch { smSet({ saving: false }); }
+  };
+
+  const handleSmUpdate = async () => {
+    if (!sm.editName.trim()) return;
+    smSet({ saving: true });
+    try {
+      const r = await fetchWithAuth(`${API}/admin/substrands/${sm.editId}/`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: sm.editName.trim() }),
+      });
+      if (r.ok) {
+        smSet({ editId: null, editName: "", saving: false });
+        loadSmSubstrands(sm.topic);
+      } else {
+        showToast("Could not update substrand", "error");
+        smSet({ saving: false });
+      }
+    } catch { smSet({ saving: false }); }
+  };
+
+  const handleSmDelete = async (id) => {
+    if (!window.confirm("Delete this substrand? Questions tagged to it will be untagged.")) return;
+    await fetchWithAuth(`${API}/admin/substrands/${id}/`, { method: "DELETE" });
+    loadSmSubstrands(sm.topic);
   };
 
   const resetForm = () => {
@@ -920,6 +990,12 @@ export default function QuestionManagementPage() {
                   Import CSV
                 </button>
                 <button
+                  onClick={() => setShowSubstrandModal(true)}
+                  className="inline-flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-lg border border-indigo-300 bg-indigo-50 text-indigo-700 hover:bg-indigo-100 transition-colors"
+                >
+                  Substrands
+                </button>
+                <button
                   onClick={() => setShowCreateModal(true)}
                   className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg bg-emerald-600 text-white hover:bg-emerald-700 transition-colors shadow-sm"
                 >
@@ -1178,6 +1254,12 @@ export default function QuestionManagementPage() {
                 >
                   <Upload className="w-4 h-4" />
                   Import CSV
+                </button>
+                <button
+                  onClick={() => setShowSubstrandModal(true)}
+                  className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium border border-indigo-300 bg-indigo-50 text-indigo-700 rounded-lg hover:bg-indigo-100"
+                >
+                  Substrands
                 </button>
               </div>
             </div>
@@ -2041,6 +2123,177 @@ export default function QuestionManagementPage() {
                   </button>
                 </div>
               </form>
+            </ModalOverlay>
+          )}
+        </AnimatePresence>
+
+        {/* Manage Substrands Modal */}
+        <AnimatePresence>
+          {showSubstrandModal && (
+            <ModalOverlay onClose={() => setShowSubstrandModal(false)}>
+              <div className="flex justify-between items-center mb-6">
+                <div>
+                  <h2 className="text-xl font-bold text-gray-900">Manage Substrands</h2>
+                  <p className="text-sm text-gray-500 mt-0.5">Pick a strand to add, edit or delete its substrands</p>
+                </div>
+                <button onClick={() => setShowSubstrandModal(false)} className="text-gray-400 hover:text-gray-600">
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+
+              {/* Filters: Subject → Grade → Strand */}
+              <div className="grid grid-cols-3 gap-3 mb-6">
+                <SelectField
+                  label="Learning Area"
+                  name="sm_subject"
+                  value={sm.subject}
+                  onChange={(e) => {
+                    smSet({ subject: e.target.value, grade: "", topic: "", substrands: [], newName: "", editId: null });
+                  }}
+                  options={subjects.map((s) => ({ value: s.id, label: s.name }))}
+                  placeholder="Select area"
+                />
+                <SelectField
+                  label="Grade"
+                  name="sm_grade"
+                  value={sm.grade}
+                  onChange={(e) => {
+                    smSet({ grade: e.target.value, topic: "", substrands: [], newName: "", editId: null });
+                  }}
+                  options={GRADES.map((g) => ({ value: g, label: `Grade ${g}` }))}
+                  placeholder="Select grade"
+                />
+                <SelectField
+                  label="Strand"
+                  name="sm_topic"
+                  value={sm.topic}
+                  onChange={(e) => {
+                    smSet({ topic: e.target.value, substrands: [], newName: "", editId: null });
+                    loadSmSubstrands(e.target.value);
+                  }}
+                  disabled={!sm.subject && !sm.grade}
+                  options={topics
+                    .filter((t) => (!sm.subject || t.subject == sm.subject) && (!sm.grade || t.grade == sm.grade))
+                    .map((t) => ({ value: t.id, label: t.name }))}
+                  placeholder="Select strand"
+                />
+              </div>
+
+              {/* Substrand list */}
+              {sm.topic ? (
+                <div className="border border-gray-200 rounded-xl overflow-hidden mb-4">
+                  {sm.loading ? (
+                    <div className="p-6 text-center text-sm text-gray-500">Loading…</div>
+                  ) : sm.substrands.length === 0 ? (
+                    <div className="p-6 text-center text-sm text-gray-400">No substrands yet — add one below</div>
+                  ) : (
+                    <table className="w-full text-sm">
+                      <thead className="bg-gray-50 border-b border-gray-200">
+                        <tr>
+                          <th className="text-left px-4 py-2.5 font-semibold text-gray-600">Substrand</th>
+                          <th className="text-center px-4 py-2.5 font-semibold text-gray-600 w-20">Order</th>
+                          <th className="w-28" />
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-gray-100">
+                        {sm.substrands.map((s) => (
+                          <tr key={s.id} className="hover:bg-gray-50">
+                            <td className="px-4 py-2.5">
+                              {sm.editId === s.id ? (
+                                <input
+                                  autoFocus
+                                  value={sm.editName}
+                                  onChange={(e) => smSet({ editName: e.target.value })}
+                                  onKeyDown={(e) => { if (e.key === "Enter") handleSmUpdate(); if (e.key === "Escape") smSet({ editId: null, editName: "" }); }}
+                                  className="w-full px-2 py-1 text-sm border border-indigo-400 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                                />
+                              ) : (
+                                <span className="font-medium text-gray-800">{s.name}</span>
+                              )}
+                            </td>
+                            <td className="px-4 py-2.5 text-center text-gray-500">{s.order}</td>
+                            <td className="px-4 py-2.5">
+                              {sm.editId === s.id ? (
+                                <div className="flex gap-1 justify-end">
+                                  <button
+                                    onClick={handleSmUpdate}
+                                    disabled={sm.saving}
+                                    className="px-3 py-1 text-xs font-semibold bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 disabled:opacity-50"
+                                  >
+                                    Save
+                                  </button>
+                                  <button
+                                    onClick={() => smSet({ editId: null, editName: "" })}
+                                    className="px-3 py-1 text-xs font-semibold border border-gray-300 rounded-lg hover:bg-gray-50"
+                                  >
+                                    Cancel
+                                  </button>
+                                </div>
+                              ) : (
+                                <div className="flex gap-1 justify-end">
+                                  <button
+                                    onClick={() => smSet({ editId: s.id, editName: s.name })}
+                                    className="px-3 py-1 text-xs font-medium border border-gray-300 rounded-lg hover:bg-gray-50"
+                                  >
+                                    Edit
+                                  </button>
+                                  <button
+                                    onClick={() => handleSmDelete(s.id)}
+                                    className="px-3 py-1 text-xs font-medium border border-red-200 text-red-600 rounded-lg hover:bg-red-50"
+                                  >
+                                    Delete
+                                  </button>
+                                </div>
+                              )}
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  )}
+                </div>
+              ) : (
+                <div className="border-2 border-dashed border-gray-200 rounded-xl p-8 text-center text-sm text-gray-400 mb-4">
+                  Select a strand above to manage its substrands
+                </div>
+              )}
+
+              {/* Add new substrand */}
+              {sm.topic && (
+                <div className="bg-indigo-50 border border-indigo-200 rounded-xl p-4">
+                  <p className="text-xs font-semibold text-indigo-700 uppercase tracking-wide mb-3">Add Substrand</p>
+                  <div className="flex gap-3 items-end">
+                    <div className="flex-1">
+                      <label className="block text-xs font-medium text-gray-700 mb-1">Name</label>
+                      <input
+                        value={sm.newName}
+                        onChange={(e) => smSet({ newName: e.target.value })}
+                        onKeyDown={(e) => { if (e.key === "Enter") handleSmCreate(); }}
+                        placeholder="e.g. Fractions"
+                        className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                      />
+                    </div>
+                    <div className="w-24">
+                      <label className="block text-xs font-medium text-gray-700 mb-1">Order</label>
+                      <input
+                        type="number"
+                        min={0}
+                        value={sm.newOrder}
+                        onChange={(e) => smSet({ newOrder: e.target.value })}
+                        placeholder="auto"
+                        className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                      />
+                    </div>
+                    <button
+                      onClick={handleSmCreate}
+                      disabled={sm.saving || !sm.newName.trim()}
+                      className="px-5 py-2 text-sm font-semibold bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 disabled:opacity-50 transition-colors"
+                    >
+                      {sm.saving ? "Adding…" : "Add"}
+                    </button>
+                  </div>
+                </div>
+              )}
             </ModalOverlay>
           )}
         </AnimatePresence>
