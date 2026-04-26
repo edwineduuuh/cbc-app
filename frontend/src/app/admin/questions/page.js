@@ -392,6 +392,7 @@ export default function QuestionManagementPage() {
     grade: "",
     question_text: "",
     question_type: "mcq",
+    math_format: "open",  // "open" | "mcq" — only used when question_type === "math"
     option_a: "",
     option_b: "",
     option_c: "",
@@ -568,10 +569,11 @@ export default function QuestionManagementPage() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    if (name === "question_type" && value !== "mcq" && value !== "math") {
+    if (name === "question_type") {
       setFormData((prev) => ({
         ...prev,
         question_type: value,
+        math_format: "open",
         option_a: "",
         option_b: "",
         option_c: "",
@@ -579,22 +581,43 @@ export default function QuestionManagementPage() {
         correct_answer: "",
         table_data: value === "table" ? makeDefaultTable() : null,
       }));
+    } else if (name === "math_format") {
+      setFormData((prev) => ({
+        ...prev,
+        math_format: value,
+        option_a: "",
+        option_b: "",
+        option_c: "",
+        option_d: "",
+        correct_answer: "",
+      }));
     } else {
       setFormData({ ...formData, [name]: value });
     }
   };
   const handleEditChange = (e) => {
     const { name, value } = e.target;
-    if (name === "question_type" && value !== "mcq" && value !== "math") {
+    if (name === "question_type") {
       setEditingQuestion((prev) => ({
         ...prev,
         question_type: value,
+        math_format: "open",
         option_a: "",
         option_b: "",
         option_c: "",
         option_d: "",
         correct_answer: "",
         table_data: value === "table" ? (prev.table_data || makeDefaultTable()) : prev.table_data,
+      }));
+    } else if (name === "math_format") {
+      setEditingQuestion((prev) => ({
+        ...prev,
+        math_format: value,
+        option_a: "",
+        option_b: "",
+        option_c: "",
+        option_d: "",
+        correct_answer: "",
       }));
     } else {
       setEditingQuestion({ ...editingQuestion, [name]: value });
@@ -608,7 +631,9 @@ export default function QuestionManagementPage() {
     if (formData.topic) fd.append("topic", parseInt(formData.topic));
     fd.append("question_text", formData.question_text.trim());
     fd.append("question_type", formData.question_type || "mcq");
-    if (formData.question_type === "mcq") {
+    const isMcqStyle = formData.question_type === "mcq" ||
+      (formData.question_type === "math" && formData.math_format === "mcq");
+    if (isMcqStyle) {
       fd.append("option_a", formData.option_a.trim());
       fd.append("option_b", formData.option_b.trim());
       fd.append("option_c", formData.option_c.trim());
@@ -663,7 +688,9 @@ export default function QuestionManagementPage() {
       fd.append("topic", editingQuestion.topic);
       fd.append("question_text", editingQuestion.question_text);
       fd.append("question_type", editingQuestion.question_type || "mcq");
-      if (editingQuestion.question_type === "mcq") {
+      const isMcqStyleEdit = editingQuestion.question_type === "mcq" ||
+        (editingQuestion.question_type === "math" && editingQuestion.math_format === "mcq");
+      if (isMcqStyleEdit) {
         fd.append("option_a", editingQuestion.option_a || "");
         fd.append("option_b", editingQuestion.option_b || "");
         fd.append("option_c", editingQuestion.option_c || "");
@@ -738,7 +765,10 @@ export default function QuestionManagementPage() {
       const res = await fetchWithAuth(`${API}/admin/questions/${q.id}/`);
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const fullQ = await res.json();
-      setEditingQuestion(fullQ);
+      setEditingQuestion({
+        ...fullQ,
+        math_format: fullQ.question_type === "math" && fullQ.option_a ? "mcq" : "open",
+      });
       setEditImageFile(null);
       setEditImagePreview(null);
       setEditImageDeleted(false);
@@ -1388,7 +1418,27 @@ export default function QuestionManagementPage() {
                     placeholder="Enter the question..."
                   />
                 )}
-                {formData.question_type === "mcq" && (
+                {formData.question_type === "math" && (
+                  <div>
+                    <label className="block text-xs font-medium text-gray-600 mb-1">Answer Format</label>
+                    <div className="flex gap-3 mb-3">
+                      {[["open", "Open Answer"], ["mcq", "Multiple Choice"]].map(([val, lbl]) => (
+                        <label key={val} className="flex items-center gap-2 cursor-pointer text-sm">
+                          <input
+                            type="radio"
+                            name="math_format"
+                            value={val}
+                            checked={formData.math_format === val}
+                            onChange={handleChange}
+                          />
+                          {lbl}
+                        </label>
+                      ))}
+                    </div>
+                  </div>
+                )}
+                {(formData.question_type === "mcq" ||
+                  (formData.question_type === "math" && formData.math_format === "mcq")) && (
                   <>
                     <div className="grid grid-cols-2 gap-4">
                       <InputField
@@ -1434,7 +1484,7 @@ export default function QuestionManagementPage() {
                     />
                   </>
                 )}
-                {formData.question_type === "math" && (
+                {(formData.question_type === "math" && formData.math_format === "open") && (
                   <InputField
                     label="Correct Answer"
                     name="correct_answer"
@@ -1684,7 +1734,27 @@ export default function QuestionManagementPage() {
                     rows={3}
                   />
                 )}
-                {editingQuestion.question_type === "mcq" && (
+                {editingQuestion.question_type === "math" && (
+                  <div>
+                    <label className="block text-xs font-medium text-gray-600 mb-1">Answer Format</label>
+                    <div className="flex gap-3 mb-3">
+                      {[["open", "Open Answer"], ["mcq", "Multiple Choice"]].map(([val, lbl]) => (
+                        <label key={val} className="flex items-center gap-2 cursor-pointer text-sm">
+                          <input
+                            type="radio"
+                            name="math_format"
+                            value={val}
+                            checked={(editingQuestion.math_format || "open") === val}
+                            onChange={handleEditChange}
+                          />
+                          {lbl}
+                        </label>
+                      ))}
+                    </div>
+                  </div>
+                )}
+                {(editingQuestion.question_type === "mcq" ||
+                  (editingQuestion.question_type === "math" && (editingQuestion.math_format || "open") === "mcq")) && (
                   <>
                     <div className="grid grid-cols-2 gap-4">
                       <InputField
@@ -1730,7 +1800,7 @@ export default function QuestionManagementPage() {
                     />
                   </>
                 )}
-                {editingQuestion.question_type === "math" && (
+                {(editingQuestion.question_type === "math" && (editingQuestion.math_format || "open") === "open") && (
                   <InputField
                     label="Correct Answer"
                     name="correct_answer"
