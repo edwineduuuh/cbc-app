@@ -23,29 +23,20 @@ import "katex/dist/katex.min.css";
 const API =
   process.env.NEXT_PUBLIC_API_URL ||
   "https://cbc-backend-production-8bc4.up.railway.app/api";
+function _katex(expr, display) {
+  try {
+    return katex
+      .renderToString(expr.trim(), { displayMode: display, throwOnError: false })
+      .replace(/<svg /g, '<svg style="display:inline;overflow:visible;" ');
+  } catch {
+    return expr;
+  }
+}
 function renderMath(text) {
   if (!text) return "";
   return text
-    .replace(/\$\$([\s\S]+?)\$\$/g, (_, expr) => {
-      try {
-        return katex.renderToString(expr.trim(), {
-          displayMode: true,
-          throwOnError: false,
-        });
-      } catch {
-        return expr;
-      }
-    })
-    .replace(/\$([\s\S]+?)\$/g, (_, expr) => {
-      try {
-        return katex.renderToString(expr.trim(), {
-          displayMode: false,
-          throwOnError: false,
-        });
-      } catch {
-        return expr;
-      }
-    });
+    .replace(/\$\$([\s\S]+?)\$\$/g, (_, expr) => _katex(expr, true))
+    .replace(/\$([\s\S]+?)\$/g,     (_, expr) => _katex(expr, false));
 }
 function getGradeBand(score, grade) {
   if (!grade) return null;
