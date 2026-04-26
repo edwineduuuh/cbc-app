@@ -25,13 +25,23 @@ import "katex/dist/katex.min.css";
 const API =
   process.env.NEXT_PUBLIC_API_URL ||
   "https://cbc-backend-production-8bc4.up.railway.app/api";
+function _patchKatexSvg(html) {
+  // KaTeX 0.16+ draws \sqrt with SVGs. Tailwind v4 sets svg{display:block}
+  // globally which hides them. We must inject display:inline INTO the existing
+  // style attribute — adding a second style attribute is invalid and browsers
+  // ignore it, so we merge instead.
+  return html.replace(/<svg([^>]*)>/g, (_, attrs) => {
+    if (attrs.includes('style="')) {
+      return '<svg' + attrs.replace('style="', 'style="display:inline;') + '>';
+    }
+    return '<svg style="display:inline;"' + attrs + '>';
+  });
+}
 function _katex(expr, display) {
   try {
-    // Inline style on every SVG beats Tailwind's global svg { display: block }
-    // which hides KaTeX's \sqrt radical sign in KaTeX 0.16+
-    return katex
-      .renderToString(expr.trim(), { displayMode: display, throwOnError: false })
-      .replace(/<svg /g, '<svg style="display:inline;overflow:visible;" ');
+    return _patchKatexSvg(
+      katex.renderToString(expr.trim(), { displayMode: display, throwOnError: false })
+    );
   } catch {
     return expr;
   }

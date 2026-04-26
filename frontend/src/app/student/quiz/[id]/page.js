@@ -28,11 +28,19 @@ const API =
   "https://cbc-backend-production-8bc4.up.railway.app/api";
 
 // ─── Math Rendering ───────────────────────────────────────────────────────────
+function _patchKatexSvg(html) {
+  return html.replace(/<svg([^>]*)>/g, (_, attrs) => {
+    if (attrs.includes('style="')) {
+      return '<svg' + attrs.replace('style="', 'style="display:inline;') + '>';
+    }
+    return '<svg style="display:inline;"' + attrs + '>';
+  });
+}
 function _katex(expr, display) {
   try {
-    return katex
-      .renderToString(expr.trim(), { displayMode: display, throwOnError: false })
-      .replace(/<svg /g, '<svg style="display:inline;overflow:visible;" ');
+    return _patchKatexSvg(
+      katex.renderToString(expr.trim(), { displayMode: display, throwOnError: false })
+    );
   } catch {
     return expr;
   }
