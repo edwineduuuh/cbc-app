@@ -116,6 +116,20 @@ export default function RootLayout({ children }) {
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
         />
+        {/* KaTeX sqrt fix: Tailwind v4 resets svg{display:block} which hides
+            KaTeX's SVG-based radical sign. This inline style tag loads with
+            the HTML document, overriding the Tailwind CSS bundle. */}
+        <style dangerouslySetInnerHTML={{ __html: `
+          .katex svg, .katex-display svg {
+            display: inline !important;
+            vertical-align: middle !important;
+            overflow: visible !important;
+          }
+          .katex .sqrt-sign svg {
+            display: inline !important;
+            overflow: visible !important;
+          }
+        `}} />
       </head>
       <body suppressHydrationWarning>
         <Script
