@@ -22,6 +22,7 @@ import {
 import katex from "katex";
 import "katex/dist/katex.min.css";
 import SimpleMathInput from "@/components/SimpleMathInput";
+import ChemTextBar from "@/components/ChemTextBar";
 
 const API =
   process.env.NEXT_PUBLIC_API_URL ||
@@ -1006,6 +1007,7 @@ export default function QuizTakePage({ params }) {
   const [showNav, setShowNav] = useState(true);
   const [flagged, setFlagged] = useState(new Set());
   const quizStartedAt = useRef(new Date().toISOString());
+  const structuredTextareaRef = useRef(null);
 
   const currentQ = questions[currentIdx];
   const totalQ = questions.length;
@@ -1672,8 +1674,14 @@ export default function QuizTakePage({ params }) {
                     ? "Write your essay"
                     : "Write your answer"}
                 </p>
+                <ChemTextBar
+                  textareaRef={structuredTextareaRef}
+                  value={answers[currentIdx] ?? ""}
+                  onChange={(val) => handleAnswer(val)}
+                />
                 <div style={{ position: "relative" }}>
                   <textarea
+                    ref={structuredTextareaRef}
                     value={answers[currentIdx] ?? ""}
                     onChange={(e) => handleAnswer(e.target.value)}
                     rows={currentQ.question_type === "essay" ? 8 : 5}

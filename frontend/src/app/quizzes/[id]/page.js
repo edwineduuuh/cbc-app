@@ -19,6 +19,7 @@ import {
   Menu,
 } from "lucide-react";
 import SimpleMathInput from "@/components/SimpleMathInput";
+import ChemTextBar from "@/components/ChemTextBar";
 import katex from "katex";
 import "katex/dist/katex.min.css";
 
@@ -1651,6 +1652,7 @@ export default function QuizTakePage({ params }) {
   const [workingImages, setWorkingImages] = useState({});
   const [activeBlank, setActiveBlank] = useState(null); // ← blank highlight state
   const quizStartedAt = useRef(new Date().toISOString());
+  const structuredTextareaRef = useRef(null);
 
   const currentQ = questions[currentIdx];
 
@@ -2381,8 +2383,14 @@ export default function QuizTakePage({ params }) {
                       ? "Write your essay"
                       : "Write your answer"}
                   </p>
+                  <ChemTextBar
+                    textareaRef={structuredTextareaRef}
+                    value={answers[currentIdx] ?? ""}
+                    onChange={(val) => handleAnswer(val)}
+                  />
                   <div style={{ position: "relative" }}>
                     <textarea
+                      ref={structuredTextareaRef}
                       value={answers[currentIdx] ?? ""}
                       onChange={(e) => handleAnswer(e.target.value)}
                       rows={currentQ.question_type === "essay" ? 8 : 5}
