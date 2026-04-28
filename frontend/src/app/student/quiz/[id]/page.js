@@ -645,7 +645,31 @@ function ResultsScreen({ result, quiz }) {
               </div>
             ))}
           </div>
-          {/* ========== ADD THIS CODE HERE ========== */}
+          {quiz?.questions?.some(q => q.question_type === "structured" || q.question_type === "essay") && (
+            <div
+              style={{
+                display: "flex",
+                alignItems: "flex-start",
+                gap: 10,
+                background: "#f0f6ff",
+                border: "1px solid #bfdbfe",
+                borderRadius: 12,
+                padding: "10px 14px",
+                marginBottom: 20,
+                fontSize: 13,
+                color: "#374151",
+                lineHeight: 1.5,
+              }}
+            >
+              <span style={{ fontSize: 16, flexShrink: 0 }}>ℹ️</span>
+              <span>
+                Your written answers were graded by an AI marking assistant using
+                model answers written by our educators — not by AI judgment alone.
+                If you believe a grade is incorrect, contact us to request a human review.
+              </span>
+            </div>
+          )}
+
           {result.detailed_feedback &&
             Object.keys(result.detailed_feedback).length > 0 && (
               <div style={{ marginBottom: 24 }}>
@@ -1436,6 +1460,31 @@ export default function QuizTakePage({ params }) {
       <div
         style={{ maxWidth: 680, margin: "0 auto", padding: "32px 16px 120px" }}
       >
+        {questions.some(q => q.question_type === "structured" || q.question_type === "essay") && (
+          <div
+            style={{
+              display: "flex",
+              alignItems: "flex-start",
+              gap: 10,
+              background: "#f0f6ff",
+              border: "1px solid #bfdbfe",
+              borderRadius: 12,
+              padding: "10px 14px",
+              marginBottom: 20,
+              fontSize: 13,
+              color: "#374151",
+              lineHeight: 1.5,
+            }}
+          >
+            <span style={{ fontSize: 16, flexShrink: 0 }}>ℹ️</span>
+            <span>
+              This quiz includes written questions graded by an AI marking assistant using
+              educator-written model answers. You may request a human review of any grade
+              by contacting support.
+            </span>
+          </div>
+        )}
+
         <AnimatePresence mode="wait">
           <motion.div
             key={currentIdx}
