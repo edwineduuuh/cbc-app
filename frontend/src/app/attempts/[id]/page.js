@@ -1541,23 +1541,24 @@ export default function AttemptResultsPage() {
                           >
                             (No answer provided)
                           </span>
-                        ) : typeof item.student_answer === "object" ? (
-                          Object.entries(item.student_answer).map(
-                            ([partId, ans]) => (
-                              <div
-                                key={partId}
-                                style={{
-                                  display: "flex",
-                                  gap: 6,
-                                  marginBottom: 4,
-                                }}
-                              >
-                                <span style={{ color: "#3b82f6" }}>•</span>
-                                <span>{String(ans)}</span>
-                              </div>
-                            ),
-                          )
-                        ) : (
+                        ) : typeof item.student_answer === "object" ? (() => {
+                          const quizQ = results.quiz?.questions?.find(q => String(q.id) === String(qId));
+                          return Object.entries(item.student_answer).map(
+                            ([partId, ans]) => {
+                              const answerPart = quizQ?.parts?.find(p => String(p.id) === String(partId));
+                              const letter = String(ans || "").toUpperCase();
+                              const fullText = (answerPart && letter)
+                                ? (answerPart[`option_${letter.toLowerCase()}`] || String(ans))
+                                : String(ans);
+                              return (
+                                <div key={partId} style={{ display: "flex", gap: 6, marginBottom: 4 }}>
+                                  <span style={{ color: "#3b82f6" }}>•</span>
+                                  <span>{fullText || "(No answer)"}</span>
+                                </div>
+                              );
+                            }
+                          );
+                        })() : (
                           <span
                             dangerouslySetInnerHTML={{
                               __html: renderMath(
