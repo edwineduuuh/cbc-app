@@ -1937,20 +1937,20 @@ export default function QuizTakePage({ params }) {
     currentQ.question_type === "essay";
   const isTable = currentQ.question_type === "table";
 
-  // Build answeredBlanks map: { blankNum: optionText }
+  // Build answeredBlanks map: { blankNum: optionText } — across ALL questions
   const answeredBlanks = Object.fromEntries(
-    (currentQ.parts || [])
-      .map((part) => {
+    questions.flatMap((q, qIdx) =>
+      (q.parts || []).map((part) => {
         const letter =
-          typeof answers[currentIdx] === "object"
-            ? answers[currentIdx]?.[part.id]
+          typeof answers[qIdx] === "object"
+            ? answers[qIdx]?.[part.id]
             : null;
         const optionText = letter
           ? part[`option_${letter.toLowerCase()}`]
           : null;
         return [parseInt(part.part_label), optionText];
       })
-      .filter(([, v]) => v),
+    ).filter(([, v]) => v),
   );
 
   return (
