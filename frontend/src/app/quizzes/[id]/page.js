@@ -1951,20 +1951,23 @@ export default function QuizTakePage({ params }) {
   const isTable = currentQ.question_type === "table";
 
   // Build answeredBlanks map: { blankNum: optionText } — across ALL questions
-  const answeredBlanks = Object.fromEntries(
-    questions.flatMap((q, qIdx) =>
-      (q.parts || []).map((part) => {
-        const letter =
-          typeof answers[qIdx] === "object"
-            ? answers[qIdx]?.[part.id]
-            : null;
-        const optionText = letter
-          ? part[`option_${letter.toLowerCase()}`]
-          : null;
-        return [parseInt(part.part_label), optionText];
-      })
-    ).filter(([, v]) => v),
-  );
+  const answeredBlanks = {};
+  questions.forEach((q, qIdx) => {
+    if (q.parts && q.parts.length > 0) {
+      // Parts-based cloze: each part has part_label = blank number
+      q.parts.forEach((part) => {
+        const letter = typeof answers[qIdx] === "object"
+          ? answers[qIdx]?.[part.id] : null;
+        const optionText = letter ? part[`option_${letter.toLowerCase()}`] : null;
+        if (optionText) answeredBlanks[parseInt(part.part_label)] = optionText;
+      });
+    } else {
+      // Standalone MCQ question in a cloze passage: question position = blank number
+      const letter = typeof answers[qIdx] === "string" ? answers[qIdx] : null;
+      const optionText = letter ? q[`option_${letter.toLowerCase()}`] : null;
+      if (optionText) answeredBlanks[qIdx + 1] = optionText;
+    }
+  });
 
   return (
     <div
