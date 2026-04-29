@@ -1504,8 +1504,62 @@ export default function AttemptResultsPage() {
                       </div>
                     )}
 
+                    {/* ── OLD MULTIPART FORMAT: student_answer is object, no part_results stored ── */}
+                    {item.question_type !== "multipart" && typeof item.student_answer === "object" && item.student_answer !== null && (() => {
+                      const quizQ = results.quiz?.questions?.find(q => String(q.id) === String(qId));
+                      const parts = quizQ?.parts || [];
+                      const feedbackSegments = (item.feedback || "").split(/\n\n+/).filter(s => s.trim());
+                      return (
+                        <div style={{ display: "flex", flexDirection: "column", gap: 14, paddingTop: 16 }}>
+                          {parts.map((part, pi) => {
+                            const letter = String(item.student_answer[part.id] || "").toUpperCase();
+                            const fullText = letter ? (part[`option_${letter.toLowerCase()}`] || letter) : "";
+                            const cLetter = String(part.correct_answer || "").toUpperCase();
+                            const correctText = cLetter ? (part[`option_${cLetter.toLowerCase()}`] || part.correct_answer) : "";
+                            const isCorrect = letter === cLetter;
+                            const pColor = isCorrect ? "#059669" : "#dc2626";
+                            const pBg = isCorrect ? "#f0fdf4" : "#fff5f5";
+                            const pBorder = isCorrect ? "#bbf7d0" : "#fecaca";
+                            const segFeedback = feedbackSegments[pi] || "";
+                            return (
+                              <div key={part.id} style={{ borderRadius: 14, border: `2px solid ${pBorder}`, overflow: "hidden", boxShadow: "0 1px 4px rgba(0,0,0,0.06)" }}>
+                                <div style={{ background: pBg, padding: "12px 16px", display: "flex", alignItems: "flex-start", gap: 12, borderBottom: `1px solid ${pBorder}` }}>
+                                  <div style={{ width: 34, height: 34, borderRadius: 9, flexShrink: 0, background: pColor, color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 800, fontSize: 14 }}>
+                                    {pi + 1}
+                                  </div>
+                                  <p style={{ fontSize: 14, fontWeight: 600, color: "#0f172a", lineHeight: 1.5, margin: 0, flex: 1 }}
+                                    dangerouslySetInnerHTML={{ __html: renderMath(part.question_text || "") }}
+                                  />
+                                </div>
+                                <div style={{ background: "#fff", padding: "14px 16px", display: "flex", flexDirection: "column", gap: 10 }}>
+                                  <div style={{ background: "#eff6ff", borderRadius: 10, padding: "10px 14px" }}>
+                                    <p style={{ fontSize: 11, fontWeight: 700, color: "#1d4ed8", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: 4 }}>Your Answer</p>
+                                    <p style={{ fontSize: 13, color: "#1e3a5f", margin: 0 }}>{fullText || <span style={{ color: "#94a3b8", fontStyle: "italic" }}>(No answer)</span>}</p>
+                                  </div>
+                                  {!isCorrect && correctText && (
+                                    <div style={{ background: "#f8fafc", borderRadius: 10, padding: "10px 14px", border: "1px dashed #cbd5e1" }}>
+                                      <p style={{ fontSize: 11, fontWeight: 700, color: "#475569", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: 4 }}>Correct Answer</p>
+                                      <p style={{ fontSize: 13, color: "#0f172a", margin: 0 }}>{correctText}</p>
+                                    </div>
+                                  )}
+                                  {segFeedback && (
+                                    <div style={{ background: isCorrect ? "#f0fdf4" : "#fff7ed", borderRadius: 10, padding: "10px 14px", borderLeft: `3px solid ${pColor}` }}>
+                                      <p style={{ fontSize: 11, fontWeight: 700, color: pColor, textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: 4 }}>Feedback</p>
+                                      <p style={{ fontSize: 13, color: "#374151", lineHeight: 1.7, margin: 0 }}
+                                        dangerouslySetInnerHTML={{ __html: renderMath(segFeedback.replace(/\n/g, "<br/>")) }}
+                                      />
+                                    </div>
+                                  )}
+                                </div>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      );
+                    })()}
+
                     {/* ── REGULAR (non-multipart) blocks below ── */}
-                    {item.question_type !== "multipart" && <>
+                    {item.question_type !== "multipart" && typeof item.student_answer !== "object" && <>
 
                     {/* Your answer */}
                     <div
