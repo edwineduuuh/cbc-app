@@ -1396,6 +1396,17 @@ export default function AttemptResultsPage() {
                           const pBg    = pCorrect ? "#f0fdf4"  : pPartial ? "#fffbeb"  : "#fff5f5";
                           const pBorder = pCorrect ? "#bbf7d0" : pPartial ? "#fde68a"  : "#fecaca";
                           const pChipBg = pCorrect ? "#d1fae5" : pPartial ? "#fde68a"  : "#fee2e2";
+                          // Resolve letter → full option text using quiz question parts
+                          const quizQ = results.quiz?.questions?.find(q => String(q.id) === String(qId));
+                          const quizPart = quizQ?.parts?.find(p => p.id === part.part_id);
+                          const sLetter = String(part.student_answer || "").toUpperCase();
+                          const studentAnswerText = (quizPart && sLetter)
+                            ? (quizPart[`option_${sLetter.toLowerCase()}`] || part.student_answer || "No answer")
+                            : (part.student_answer || "No answer");
+                          const cLetter = String(part.correct_answer || "").toUpperCase();
+                          const correctAnswerText = (quizPart && cLetter)
+                            ? (quizPart[`option_${cLetter.toLowerCase()}`] || part.correct_answer || "")
+                            : (part.correct_answer || "");
                           return (
                             <div
                               key={part.part_id ?? pi}
@@ -1452,8 +1463,8 @@ export default function AttemptResultsPage() {
                                     Your Answer
                                   </p>
                                   <div style={{ fontSize: 13, color: "#1e3a5f", lineHeight: 1.6 }}>
-                                    {part.student_answer
-                                      ? <span dangerouslySetInnerHTML={{ __html: renderMath(String(part.student_answer)) }} />
+                                    {studentAnswerText && studentAnswerText !== "No answer"
+                                      ? <span dangerouslySetInnerHTML={{ __html: renderMath(studentAnswerText) }} />
                                       : <span style={{ color: "#94a3b8", fontStyle: "italic" }}>(No answer provided)</span>
                                     }
                                   </div>
@@ -1476,13 +1487,13 @@ export default function AttemptResultsPage() {
                                 )}
 
                                 {/* Correct answer — only when not full marks */}
-                                {!pCorrect && part.correct_answer && (
+                                {!pCorrect && correctAnswerText && (
                                   <div style={{ background: "#f8fafc", borderRadius: 10, padding: "10px 14px", border: "1px dashed #cbd5e1" }}>
                                     <p style={{ fontSize: 11, fontWeight: 700, color: "#475569", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: 5 }}>
                                       Correct Answer
                                     </p>
                                     <p style={{ fontSize: 13, color: "#0f172a", lineHeight: 1.6, margin: 0 }}
-                                      dangerouslySetInnerHTML={{ __html: renderMath((part.correct_answer || "").replace(/\n/g, "<br/>")) }}
+                                      dangerouslySetInnerHTML={{ __html: renderMath(correctAnswerText.replace(/\n/g, "<br/>")) }}
                                     />
                                   </div>
                                 )}
