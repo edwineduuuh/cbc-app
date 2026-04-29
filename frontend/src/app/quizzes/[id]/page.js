@@ -59,6 +59,19 @@ function renderText(text) {
   if (!text) return "";
   return renderMath(text).replace(/\n/g, "<br/>");
 }
+
+function renderTextWithBlanks(text, answeredBlanks = {}) {
+  if (!text) return "";
+  let result = renderMath(text);
+  result = result.replace(/__(\d+)__/g, (_, numStr) => {
+    const num = parseInt(numStr);
+    const answer = answeredBlanks[num];
+    return answer
+      ? `<span style="display:inline-block;min-width:80px;border-bottom:2px solid #1d8f57;background:#eafaf3;color:#1d8f57;font-weight:700;padding:0 6px 2px;border-radius:4px;margin:0 2px;">${answer}</span>`
+      : `<span style="display:inline-block;min-width:80px;border-bottom:2px solid #8892a4;color:#6b7280;padding:0 6px 2px;margin:0 2px;">_${num}_</span>`;
+  });
+  return result.replace(/\n/g, "<br/>");
+}
 // ─── Timer Hook ───────────────────────────────────────────────────────────────
 function useTimer(totalSeconds, onExpire) {
   const [remaining, setRemaining] = useState(totalSeconds);
@@ -2308,7 +2321,7 @@ export default function QuizTakePage({ params }) {
                     lineHeight: 1.65,
                   }}
                   dangerouslySetInnerHTML={{
-                    __html: renderText(currentQ.question_text),
+                    __html: renderTextWithBlanks(currentQ.question_text, answeredBlanks),
                   }}
                 />
               </div>
