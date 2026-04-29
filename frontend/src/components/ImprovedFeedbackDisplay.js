@@ -208,15 +208,89 @@ export default function ImprovedFeedbackDisplay({ attempt, quiz }) {
           );
         })()}
 
-        {questions.map((question, idx) => {
+        {questions.flatMap((question, idx) => {
           const questionFeedback = feedback[question.id] || {};
-          const studentAnswer = answers[question.id];
+
+          // ── MULTIPART: render each part as its own individual card ──────────
+          if (questionFeedback.question_type === "multipart" && questionFeedback.part_results?.length > 0) {
+            return questionFeedback.part_results.map((partResult) => {
+              const part = question.parts?.find((p) => p.id === partResult.part_id);
+              const letter = String(partResult.student_answer || "").toUpperCase();
+              const studentAnswerText = part && letter
+                ? (part[`option_${letter.toLowerCase()}`] || partResult.student_answer || "No answer")
+                : (partResult.student_answer || "No answer");
+              const correctAnswerText = partResult.correct_answer || "";
+              const partCorrect = partResult.is_correct;
+
+              return (
+                <div
+                  key={`${question.id}-${partResult.part_id}`}
+                  className={`rounded-xl border-2 p-6 ${
+                    partCorrect ? "border-green-300 bg-green-50" : "border-red-300 bg-red-50"
+                  }`}
+                >
+                  {/* Part Header */}
+                  <div className="flex items-start gap-4 mb-4">
+                    <div className={`flex-shrink-0 w-12 h-12 rounded-full flex items-center justify-center text-white font-bold text-lg ${partCorrect ? "bg-green-600" : "bg-red-600"}`}>
+                      {partResult.part_label}
+                    </div>
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2 mb-2 flex-wrap">
+                        <span className={`px-3 py-1 rounded-full text-sm font-semibold ${partCorrect ? "bg-green-200 text-green-900" : "bg-red-200 text-red-900"}`}>
+                          {partResult.marks_awarded}/{partResult.max_marks} marks
+                        </span>
+                        <span className="px-3 py-1 bg-white rounded-full text-sm font-medium text-gray-700 border">
+                          FILL BLANK
+                        </span>
+                      </div>
+                      <p className="text-lg font-medium text-gray-900 leading-relaxed"
+                        dangerouslySetInnerHTML={{ __html: renderMath(partResult.question_text || question.question_text) }}
+                      />
+                    </div>
+                    <div className="flex-shrink-0">
+                      {partCorrect ? <CheckCircle className="w-8 h-8 text-green-600" /> : <XCircle className="w-8 h-8 text-red-600" />}
+                    </div>
+                  </div>
+
+                  {/* Student Answer — full option text */}
+                  <div className="mb-4 p-4 bg-white rounded-lg border border-gray-200">
+                    <p className="text-sm font-semibold text-gray-600 mb-1">Your Answer:</p>
+                    <p className="text-base text-gray-900">{studentAnswerText}</p>
+                  </div>
+
+                  {/* Correct Answer if wrong */}
+                  {!partCorrect && correctAnswerText && (
+                    <div className="mb-4 p-4 bg-gray-100 rounded-lg border border-gray-300">
+                      <p className="text-sm font-semibold text-gray-600 mb-1">Correct Answer:</p>
+                      <p className="text-base text-gray-900">{correctAnswerText}</p>
+                    </div>
+                  )}
+
+                  {/* AI Feedback — \n rendered as line breaks */}
+                  {partResult.feedback && (
+                    <div className="p-4 bg-white rounded-lg border border-gray-200">
+                      <p className="text-sm font-semibold text-gray-600 mb-2">Feedback:</p>
+                      <p className="text-base text-gray-700 leading-relaxed"
+                        dangerouslySetInnerHTML={{ __html: renderMath(partResult.feedback).replace(/\n/g, "<br/>") }}
+                      />
+                    </div>
+                  )}
+                </div>
+              );
+            });
+          }
+
+          // ── SINGLE QUESTION card ────────────────────────────────────────────
           const marksEarned = questionFeedback.marks_awarded || 0;
-          const maxMarks = question.max_marks || 1;
+          const maxMarks = questionFeedback.max_marks || question.max_marks || 1;
           const isCorrect = marksEarned === maxMarks;
           const isPartial = marksEarned > 0 && marksEarned < maxMarks;
 
-          return (
+          // Use backend-resolved answer text (already "D: last" for MCQ)
+          const displayAnswer = questionFeedback.student_answer || answers[question.id];
+          const displayCorrect = questionFeedback.correct_answer || question.correct_answer;
+
+          return [(
             <div
               key={question.id}
               className={`rounded-xl border-2 p-6 ${
@@ -231,11 +305,7 @@ export default function ImprovedFeedbackDisplay({ attempt, quiz }) {
               <div className="flex items-start gap-4 mb-4">
                 <div
                   className={`flex-shrink-0 w-12 h-12 rounded-full flex items-center justify-center text-white font-bold text-lg ${
-                    isCorrect
-                      ? "bg-green-600"
-                      : isPartial
-                        ? "bg-yellow-600"
-                        : "bg-red-600"
+                    isCorrect ? "bg-green-600" : isPartial ? "bg-yellow-600" : "bg-red-600"
                   }`}
                 >
                   {idx + 1}
@@ -243,84 +313,55 @@ export default function ImprovedFeedbackDisplay({ attempt, quiz }) {
 
                 <div className="flex-1">
                   <div className="flex items-center gap-2 mb-2 flex-wrap">
-                    <span
-                      className={`px-3 py-1 rounded-full text-sm font-semibold ${
-                        isCorrect
-                          ? "bg-green-200 text-green-900"
-                          : isPartial
-                            ? "bg-yellow-200 text-yellow-900"
-                            : "bg-red-200 text-red-900"
-                      }`}
-                    >
+                    <span className={`px-3 py-1 rounded-full text-sm font-semibold ${
+                      isCorrect ? "bg-green-200 text-green-900" : isPartial ? "bg-yellow-200 text-yellow-900" : "bg-red-200 text-red-900"
+                    }`}>
                       {marksEarned}/{maxMarks} marks
                     </span>
-
                     <span className="px-3 py-1 bg-white rounded-full text-sm font-medium text-gray-700 border">
                       {question.question_type.toUpperCase()}
                     </span>
-
                     {question.substrand_name && (
                       <span className="px-3 py-1 bg-indigo-100 rounded-full text-xs font-semibold text-indigo-800 border border-indigo-200">
                         {question.substrand_name}
                       </span>
                     )}
                   </div>
-
                   <p className="text-lg font-medium text-gray-900 leading-relaxed"
                     dangerouslySetInnerHTML={{ __html: renderMath(question.question_text) }}
                   />
                 </div>
 
                 <div className="flex-shrink-0">
-                  {isCorrect ? (
-                    <CheckCircle className="w-8 h-8 text-green-600" />
-                  ) : isPartial ? (
-                    <AlertCircle className="w-8 h-8 text-yellow-600" />
-                  ) : (
-                    <XCircle className="w-8 h-8 text-red-600" />
-                  )}
+                  {isCorrect ? <CheckCircle className="w-8 h-8 text-green-600" /> : isPartial ? <AlertCircle className="w-8 h-8 text-yellow-600" /> : <XCircle className="w-8 h-8 text-red-600" />}
                 </div>
               </div>
 
-              {/* Student Answer */}
+              {/* Student Answer — full text from backend */}
               <div className="mb-4 p-4 bg-white rounded-lg border border-gray-200">
-                <p className="text-sm font-semibold text-gray-600 mb-2">
-                  Your Answer:
-                </p>
+                <p className="text-sm font-semibold text-gray-600 mb-2">Your Answer:</p>
                 <p className="text-base text-gray-900 leading-relaxed"
                   dangerouslySetInnerHTML={{
-                    __html: studentAnswer
-                      ? renderMath(
-                          question.question_type === "math"
-                            ? `$${studentAnswer}$`
-                            : String(studentAnswer)
-                        )
+                    __html: displayAnswer
+                      ? renderMath(question.question_type === "math" ? `$${displayAnswer}$` : String(displayAnswer))
                       : "<span class='italic text-gray-400'>No answer provided</span>"
                   }}
                 />
               </div>
 
-              {/* AI Feedback */}
+              {/* AI Feedback — \n rendered as line breaks */}
               {questionFeedback.feedback && (
                 <div className="mb-4 p-4 bg-white rounded-lg border border-gray-200">
-                  <p className="text-sm font-semibold text-gray-600 mb-2">
-                    Feedback:
-                  </p>
+                  <p className="text-sm font-semibold text-gray-600 mb-2">Feedback:</p>
                   <p className="text-base text-gray-700 leading-relaxed"
-                    dangerouslySetInnerHTML={{ __html: renderMath(questionFeedback.feedback) }}
+                    dangerouslySetInnerHTML={{ __html: renderMath(questionFeedback.feedback).replace(/\n/g, "<br/>") }}
                   />
                 </div>
               )}
 
               {/* Personalized Message */}
               {questionFeedback.personalized_message && (
-                <div
-                  className={`p-4 rounded-lg border-2 mb-4 ${
-                    isCorrect
-                      ? "bg-green-100 border-green-300"
-                      : "bg-blue-100 border-blue-300"
-                  }`}
-                >
+                <div className={`p-4 rounded-lg border-2 mb-4 ${isCorrect ? "bg-green-100 border-green-300" : "bg-blue-100 border-blue-300"}`}>
                   <p className="text-base font-medium text-gray-900 leading-relaxed">
                     💬 {questionFeedback.personalized_message}
                   </p>
@@ -328,14 +369,12 @@ export default function ImprovedFeedbackDisplay({ attempt, quiz }) {
               )}
 
               {/* Points Breakdown */}
-              {(questionFeedback.points_earned?.length > 0 ||
-                questionFeedback.points_missed?.length > 0) && (
+              {(questionFeedback.points_earned?.length > 0 || questionFeedback.points_missed?.length > 0) && (
                 <div className="grid md:grid-cols-2 gap-4 mb-4">
                   {questionFeedback.points_earned?.length > 0 && (
                     <div className="p-4 bg-green-100 rounded-lg border border-green-300">
                       <p className="text-sm font-bold text-green-900 mb-2 flex items-center gap-2">
-                        <CheckCircle className="w-4 h-4" />
-                        Points You Got Right:
+                        <CheckCircle className="w-4 h-4" /> Points You Got Right:
                       </p>
                       <ul className="list-disc list-inside space-y-1">
                         {questionFeedback.points_earned.map((point, i) => (
@@ -346,12 +385,10 @@ export default function ImprovedFeedbackDisplay({ attempt, quiz }) {
                       </ul>
                     </div>
                   )}
-
                   {questionFeedback.points_missed?.length > 0 && (
                     <div className="p-4 bg-red-100 rounded-lg border border-red-300">
                       <p className="text-sm font-bold text-red-900 mb-2 flex items-center gap-2">
-                        <XCircle className="w-4 h-4" />
-                        Points You Missed:
+                        <XCircle className="w-4 h-4" /> Points You Missed:
                       </p>
                       <ul className="list-disc list-inside space-y-1">
                         {questionFeedback.points_missed.map((point, i) => (
@@ -369,8 +406,7 @@ export default function ImprovedFeedbackDisplay({ attempt, quiz }) {
               {questionFeedback.study_tip && (
                 <div className="p-4 bg-blue-50 rounded-lg border border-blue-300">
                   <p className="text-sm font-bold text-blue-900 mb-2 flex items-center gap-2">
-                    <Lightbulb className="w-4 h-4" />
-                    Study Tip:
+                    <Lightbulb className="w-4 h-4" /> Study Tip:
                   </p>
                   <p className="text-sm text-blue-800 leading-relaxed"
                     dangerouslySetInnerHTML={{ __html: renderMath(questionFeedback.study_tip) }}
@@ -378,19 +414,17 @@ export default function ImprovedFeedbackDisplay({ attempt, quiz }) {
                 </div>
               )}
 
-              {/* Model Answer (for incorrect answers) */}
-              {!isCorrect && question.correct_answer && (
+              {/* Model Answer */}
+              {!isCorrect && displayCorrect && (
                 <div className="mt-4 p-4 bg-gray-100 rounded-lg border border-gray-300">
-                  <p className="text-sm font-semibold text-gray-600 mb-2">
-                    Model Answer:
-                  </p>
+                  <p className="text-sm font-semibold text-gray-600 mb-2">Model Answer:</p>
                   <p className="text-base text-gray-900 leading-relaxed"
-                    dangerouslySetInnerHTML={{ __html: renderMath(question.correct_answer) }}
+                    dangerouslySetInnerHTML={{ __html: renderMath(String(displayCorrect)) }}
                   />
                 </div>
               )}
             </div>
-          );
+          )];
         })}
       </div>
 
