@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { fetchWithAuth } from "@/lib/api";
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useParams, useRouter } from "next/navigation";
@@ -1016,7 +1016,7 @@ export default function AttemptResultsPage() {
                   )
               : "<em>No answer provided</em>",
             correct_answer: item.correct_answer
-              ? renderMath(item.correct_answer.replace(/\n/g, "<br/>") || "")
+              ? renderMath(item.correct_answer.replace(/\\n|\n/g, "<br/>") || "")
               : "",
             feedback: renderMath(
               item.feedback
@@ -1025,7 +1025,7 @@ export default function AttemptResultsPage() {
                   "<br/><strong>Part ($1):</strong> ",
                 )
                 ?.replace(/^<br\/>/, "")
-                ?.replace(/\n/g, "<br/>") || "",
+                ?.replace(/\\n|\n/g, "<br/>") || "",
             ),
           };
         })}
@@ -1477,7 +1477,7 @@ export default function AttemptResultsPage() {
                                       {pCorrect ? "✓ Feedback" : "Feedback"}
                                     </p>
                                     <p style={{ fontSize: 13, color: "#374151", lineHeight: 1.7, margin: 0 }}
-                                      dangerouslySetInnerHTML={{ __html: renderMath((part.feedback || "").replace(/\n/g, "<br/>")) }}
+                                      dangerouslySetInnerHTML={{ __html: renderMath((part.feedback || "").replace(/\\n|\n/g, "<br/>")) }}
                                     />
                                   </div>
                                 )}
@@ -1489,7 +1489,7 @@ export default function AttemptResultsPage() {
                                       Correct Answer
                                     </p>
                                     <p style={{ fontSize: 13, color: "#0f172a", lineHeight: 1.6, margin: 0 }}
-                                      dangerouslySetInnerHTML={{ __html: renderMath(correctAnswerText.replace(/\n/g, "<br/>")) }}
+                                      dangerouslySetInnerHTML={{ __html: renderMath(correctAnswerText.replace(/\\n|\n/g, "<br/>")) }}
                                     />
                                   </div>
                                 )}
@@ -1541,7 +1541,7 @@ export default function AttemptResultsPage() {
                                     <div style={{ background: "#f8fafc", borderRadius: 10, padding: "10px 14px", border: "1px dashed #cbd5e1" }}>
                                       <p style={{ fontSize: 11, fontWeight: 700, color: "#475569", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: 4 }}>Correct Answer</p>
                                       <p style={{ fontSize: 13, color: "#0f172a", margin: 0 }}
-                                        dangerouslySetInnerHTML={{ __html: renderMath(correctText.replace(/\n/g, "<br/>")) }}
+                                        dangerouslySetInnerHTML={{ __html: renderMath(correctText.replace(/\\n|\n/g, "<br/>")) }}
                                       />
                                     </div>
                                   )}
@@ -1549,7 +1549,7 @@ export default function AttemptResultsPage() {
                                     <div style={{ background: isCorrect ? "#f0fdf4" : "#fff7ed", borderRadius: 10, padding: "10px 14px", borderLeft: `3px solid ${pColor}` }}>
                                       <p style={{ fontSize: 11, fontWeight: 700, color: pColor, textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: 4 }}>Feedback</p>
                                       <p style={{ fontSize: 13, color: "#374151", lineHeight: 1.7, margin: 0 }}
-                                        dangerouslySetInnerHTML={{ __html: renderMath(segFeedback.replace(/\n/g, "<br/>")) }}
+                                        dangerouslySetInnerHTML={{ __html: renderMath(segFeedback.replace(/\\n|\n/g, "<br/>")) }}
                                       />
                                     </div>
                                   )}
@@ -1665,7 +1665,7 @@ export default function AttemptResultsPage() {
                                 "<br/><strong>Part ($1):</strong> ",
                               )
                               ?.replace(/^<br\/>/, "")
-                              ?.replace(/\n/g, "<br/>") || "",
+                              ?.replace(/\\n|\n/g, "<br/>") || "",
                           ),
                         }}
                       />
@@ -1722,7 +1722,7 @@ export default function AttemptResultsPage() {
                           }}
                           dangerouslySetInnerHTML={{
                             __html: renderMath(
-                              item.study_tip?.replace(/\n/g, "<br/>") || "",
+                              item.study_tip?.replace(/\\n|\n/g, "<br/>") || "",
                             ),
                           }}
                         />
@@ -1801,7 +1801,7 @@ export default function AttemptResultsPage() {
                           }}
                           dangerouslySetInnerHTML={{
                             __html: renderMath(
-                              item.correct_answer?.replace(/\n/g, "<br/>") || "",
+                              item.correct_answer?.replace(/\\n|\n/g, "<br/>") || "",
                             ),
                           }}
                         />
