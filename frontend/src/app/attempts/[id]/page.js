@@ -1175,10 +1175,6 @@ export default function AttemptResultsPage() {
                 label: "Marks",
                 value: `${results.total_marks_awarded ?? 0} / ${results.total_max_marks ?? 0}`,
               },
-              {
-                label: "Correct",
-                value: `${results.correct_answers ?? 0} / ${results.total_questions ?? 0}`,
-              },
               timeTaken ? { label: "Time", value: `${timeTaken} min` } : null,
             ]
               .filter(Boolean)
