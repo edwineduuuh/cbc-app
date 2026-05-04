@@ -1047,7 +1047,8 @@ def _grade_fill_blank(question, student_answer: str) -> dict:
             if ans and str(ans).strip():
                 accepted.append(_normalise(str(ans)))
 
-    is_correct   = student_norm in accepted
+    is_correct      = student_norm in accepted
+    spelling_note   = None  # set when accepted despite spelling mistake
 
     # Fuzzy spelling tolerance — accept if edit distance ≤ 2 for longer words
     if not is_correct:
@@ -1065,6 +1066,13 @@ def _grade_fill_blank(question, student_answer: str) -> dict:
         for acc in accepted:
             if len(acc) >= 4 and _edit_distance(student_norm, acc) <= 2:
                 is_correct = True
+                # Find the original (non-normalised) correct spelling to show the student
+                for orig in re.split(r"[|;]", raw_correct):
+                    if _normalise(orig.strip()) == acc:
+                        spelling_note = orig.strip()
+                        break
+                if not spelling_note:
+                    spelling_note = acc
                 break
 
     # Numeric equivalence
@@ -1093,13 +1101,25 @@ def _grade_fill_blank(question, student_answer: str) -> dict:
                 use_gemini=sw,
             ).strip().upper()
             is_correct = verdict in ("TRUE", "KWELI")
+            # If AI accepted it but it wasn't an exact match, flag the correct spelling
+            if is_correct and student_norm not in accepted:
+                spelling_note = raw_correct.split("|")[0].split(";")[0].strip()
         except Exception as e:
             print(f"⚠ AI fill-blank fallback failed: {e}")
 
     if is_correct:
+        if spelling_note and _normalise(spelling_note) != student_norm:
+            praise = _praise(sw)
+            note = (
+                f"Jibu ni sahihi! Lakini tahajia sahihi ni: \"{spelling_note}\"."
+                if sw else
+                f"{praise} Note: the correct spelling is \"{spelling_note}\"."
+            )
+        else:
+            note = _praise(sw)
         return _correct_result(
             max_marks     = question.max_marks,
-            feedback      = _praise(sw),
+            feedback      = note,
             message       = _encourage(sw),
             points_earned = [student_raw],
         )
