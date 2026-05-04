@@ -949,9 +949,11 @@ JIBU SAHIHI: {correct_answer}
 JIBU LA MWANAFUNZI: {student_answer}
 
 Je, jibu la mwanafunzi ni sahihi?
+Kuwa na uvumilivu kuhusu makosa ya tahajia: ikiwa mwanafunzi aliandika neno karibu na jibu sahihi lakini na makosa madogo ya herufi (1-2 herufi potofu), kubali jibu (KWELI). Usiadhibu tofauti za herufi kubwa/ndogo.
 Mifano:
 - "maelfu" dhidi ya "Maelfu" -> KWELI
 - "mahali pa maelfu" dhidi ya "nafasi ya maelfu" -> KWELI
+- Makosa madogo ya tahajia lakini neno lilo lilo -> KWELI
 - Jibu tofauti kabisa -> UONGO
 
 Jibu kwa neno KWELI au UONGO peke yake. Hakuna kingine."""
@@ -963,10 +965,14 @@ CORRECT ANSWER: {correct_answer}
 STUDENT ANSWER: {student_answer}
 
 Is the student's answer correct?
+Be LENIENT with spelling: if the student clearly intended the right word but made a minor spelling mistake (1-2 wrong letters, transposed letters, missing/extra letter), mark TRUE. Do not penalise for capitalisation differences.
 Examples:
 - "thousands" vs "Thousands" -> TRUE
 - "ten thousand" vs "ten thousands place" -> TRUE
-- Clearly wrong answer -> FALSE
+- "refree" vs "referee" -> TRUE (minor spelling, clearly the right word)
+- "recieve" vs "receive" -> TRUE (common misspelling, same word)
+- "camron" vs "Cameroon" -> TRUE (minor spelling, same country)
+- Completely different word or wrong meaning -> FALSE
 
 Reply with ONLY the word TRUE or FALSE. Nothing else."""
 
@@ -1042,6 +1048,24 @@ def _grade_fill_blank(question, student_answer: str) -> dict:
                 accepted.append(_normalise(str(ans)))
 
     is_correct   = student_norm in accepted
+
+    # Fuzzy spelling tolerance — accept if edit distance ≤ 2 for longer words
+    if not is_correct:
+        def _edit_distance(a, b):
+            if abs(len(a) - len(b)) > 3:
+                return 99
+            dp = list(range(len(b) + 1))
+            for i, ca in enumerate(a):
+                ndp = [i + 1]
+                for j, cb in enumerate(b):
+                    ndp.append(min(dp[j] + (0 if ca == cb else 1), dp[j+1] + 1, ndp[j] + 1))
+                dp = ndp
+            return dp[-1]
+
+        for acc in accepted:
+            if len(acc) >= 4 and _edit_distance(student_norm, acc) <= 2:
+                is_correct = True
+                break
 
     # Numeric equivalence
     if not is_correct:
