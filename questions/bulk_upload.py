@@ -284,25 +284,26 @@ Grade: {grade}
 EXTRACTED TEXT:
 {text}
 
+🚨 RULE #1 — MCQ OPTIONS MUST BE COPIED WORD-FOR-WORD:
+Copy each option EXACTLY as it appears in the text. Do NOT rephrase, correct, improve, or change a single word.
+If the text says "B. Disobedience" then option_b MUST be "Disobedience" — not "Obedience", not "Defiance", not anything else.
+This is the most important rule. Changing option text breaks the correct answer and explanation.
+
+🚨 RULE #2 — EXPLANATION IS REQUIRED FOR EVERY QUESTION:
+Every question MUST have a non-empty "explanation" field explaining why the correct answer is correct.
+For MCQ: explain why the correct option is right AND briefly why the others are wrong.
+Never leave explanation blank or null.
+
 🚨 CRITICAL EXPONENT RULES:
 - 32^1/5 means $32^{{\\frac{{1}}{{5}}}}$ NOT "32 and 1/5"
 - 2^4 means $2^4$ NOT "2 to the 4"
 - x^2/3 means $x^{{\\frac{{2}}{{3}}}}$ NOT "x squared divided by 3"
-- ALWAYS preserve exponent notation with curly braces
 
 🔴 MATH FORMATTING RULES:
 1. Fractions: $\\frac{{1}}{{3}}$ NOT 1/3
 2. Exponents: $x^{{2}}$ or $32^{{\\frac{{1}}{{5}}}}$
 3. Square roots: $\\sqrt{{x}}$
 4. Greek: $\\theta$, $\\pi$
-5. Division of powers: $\\frac{{2^4}}{{32^{{\\frac{{1}}{{5}}}}}}$
-
-EXAMPLE - CORRECT:
-Question: "Evaluate 2^4 / 32^1/5"
-Output: "Evaluate $\\frac{{2^4}}{{32^{{\\frac{{1}}{{5}}}}}}$"
-
-EXAMPLE - WRONG (NEVER):
-"Evaluate $\\frac{{2^4}}{{32\\frac{{1}}{{5}}}}$"  ← This is WRONG
 
 INSTRUCTIONS:
 1. Identify ALL questions in the text
@@ -315,13 +316,14 @@ INSTRUCTIONS:
    - essay: Long-form written responses
 
 4. FOR MCQ QUESTIONS:
-   - Extract the FULL TEXT of each option (A, B, C, D)
+   - Copy each option text EXACTLY as written — do not change any words
    - Set correct_answer to the LETTER only (A, B, C, or D)
+   - explanation must explain why the correct letter is right
 
 5. FOR QUESTIONS WITH IMAGES:
    - Set "image_index" to the number in [IMAGE_X], or 0 for [IMAGE]
 
-CRITICAL: Return ONLY valid JSON. No explanations.
+CRITICAL: Return ONLY valid JSON. No text before or after.
 
 FORMAT:
 {{
@@ -330,13 +332,12 @@ FORMAT:
       "question_number": "1",
       "question_type": "mcq",
       "question_text": "Question here",
-      "image_index": 0,
-      "option_a": "Option A text",
-      "option_b": "Option B text",
-      "option_c": "Option C text",
-      "option_d": "Option D text",
-      "correct_answer": "A",
-      "explanation": "Why A is correct",
+      "option_a": "Exact option A text from the paper",
+      "option_b": "Exact option B text from the paper",
+      "option_c": "Exact option C text from the paper",
+      "option_d": "Exact option D text from the paper",
+      "correct_answer": "B",
+      "explanation": "B is correct because... A is wrong because... C is wrong because...",
       "difficulty": "medium",
       "max_marks": 1
     }},
@@ -345,23 +346,25 @@ FORMAT:
       "question_type": "math",
       "question_text": "Solve: 2x + 5 = 13",
       "correct_answer": "x = 4",
-      "explanation": "Subtract 5, divide by 2",
+      "explanation": "Subtract 5 from both sides to get 2x = 8, then divide by 2 to get x = 4.",
       "difficulty": "medium",
       "max_marks": 2
     }}
   ]
 }}
 
-REMEMBER: 
-- MCQs MUST have option_a through option_d
+REMEMBER:
+- MCQs MUST have option_a through option_d copied VERBATIM from the source
+- explanation is REQUIRED and must not be empty
 - Only include image_index if the question actually refers to an image
-- Preserve all mathematical notation
 """
         
         try:
+            from google.genai import types as genai_types
             response = _get_gemini().models.generate_content(
                 model=GEMINI_MODEL,
                 contents=prompt,
+                config=genai_types.GenerateContentConfig(temperature=0),
             )
             
             raw_text = response.text
