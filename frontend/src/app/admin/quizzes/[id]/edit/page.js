@@ -35,12 +35,34 @@ function QuestionText({ text }) {
   );
 }
 
+const inputCls =
+  "w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500";
+
 export default function EditQuizPage() {
   const params = useParams();
   const router = useRouter();
   const { user, loading: authLoading } = useAuth();
 
+  // Quiz settings state
+  const [form, setForm] = useState({
+    title: "",
+    description: "",
+    grade: "",
+    subject: "",
+    topic: "",
+    quiz_type: "topical",
+    term: "",
+    set_number: "",
+    duration_minutes: 30,
+    passing_score: 50,
+    is_active: true,
+    owner_type: "admin",
+    available_to_teachers: false,
+  });
+
   const [quiz, setQuiz] = useState(null);
+  const [subjects, setSubjects] = useState([]);
+  const [topics, setTopics] = useState([]);
   const [availableQuestions, setAvailableQuestions] = useState([]);
   const [selectedQuestions, setSelectedQuestions] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -48,14 +70,13 @@ export default function EditQuizPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [toast, setToast] = useState({ visible: false, message: "", type: "success" });
 
-  // Filters
-  const [subjects, setSubjects] = useState([]);
+  // Question filters
   const [filterSubject, setFilterSubject] = useState("");
   const [filterGrade, setFilterGrade] = useState("");
   const [filterDifficulty, setFilterDifficulty] = useState("");
   const [filterType, setFilterType] = useState("");
 
-  // Edit modal state
+  // Edit question modal
   const [editingQuestion, setEditingQuestion] = useState(null);
   const [editForm, setEditForm] = useState(BLANK_EDIT);
   const [editSaving, setEditSaving] = useState(false);
@@ -72,16 +93,27 @@ export default function EditQuizPage() {
     fetch(`${API}/subjects/`).then(r => r.json()).then(d => setSubjects(Array.isArray(d) ? d : d.results || [])).catch(() => {});
   }, []);
 
+  // Load topics when subject or grade changes
+  useEffect(() => {
+    if (form.subject && form.grade) {
+      fetch(`${API}/topics/?subject=${form.subject}&grade=${form.grade}`)
+        .then(r => r.json())
+        .then(d => setTopics(Array.isArray(d) ? d : d.results || []))
+        .catch(() => setTopics([]));
+    } else {
+      setTopics([]);
+    }
+  }, [form.subject, form.grade]);
+
   useEffect(() => {
     if (quiz) fetchAvailableQuestions();
-  }, [quiz]);
+  }, [quiz]); // eslint-disable-line
 
-  // Re-fetch when server-side filters or search change (debounced)
   useEffect(() => {
     if (!quiz) return;
     const timer = setTimeout(() => fetchAvailableQuestions(searchTerm, filterSubject, filterGrade), 300);
     return () => clearTimeout(timer);
-  }, [searchTerm, filterSubject, filterGrade, quiz]);
+  }, [searchTerm, filterSubject, filterGrade, quiz]); // eslint-disable-line
 
   const fetchQuiz = async () => {
     const token = localStorage.getItem("accessToken");
@@ -93,6 +125,21 @@ export default function EditQuizPage() {
         const data = await res.json();
         setQuiz(data);
         setSelectedQuestions(data.questions || []);
+        setForm({
+          title: data.title || "",
+          description: data.description || "",
+          grade: data.grade || "",
+          subject: data.subject || "",
+          topic: data.topic || "",
+          quiz_type: data.quiz_type || "topical",
+          term: data.term ?? "",
+          set_number: data.set_number ?? "",
+          duration_minutes: data.duration_minutes ?? 30,
+          passing_score: data.passing_score ?? 50,
+          is_active: data.is_active ?? true,
+          owner_type: data.owner_type || "admin",
+          available_to_teachers: data.available_to_teachers ?? false,
+        });
       } else {
         setToast({ visible: true, message: "Quiz not found", type: "error" });
       }
@@ -174,7 +221,6 @@ export default function EditQuizPage() {
         );
         setEditingQuestion(null);
         setToast({ visible: true, message: "Question updated!", type: "success" });
-        // Reload available questions so the list reflects the edit immediately
         fetchAvailableQuestions(searchTerm, filterSubject, filterGrade);
       } else {
         setToast({ visible: true, message: "Failed to save question", type: "error" });
@@ -187,19 +233,41 @@ export default function EditQuizPage() {
   };
 
   const handleSave = async () => {
+    if (!form.title || !form.subject || !form.grade) {
+      setToast({ visible: true, message: "Title, subject, and grade are required", type: "error" });
+      return;
+    }
     setSaving(true);
     const token = localStorage.getItem("accessToken");
+
+    const payload = {
+      title: form.title,
+      description: form.description,
+      grade: Number(form.grade),
+      subject: Number(form.subject),
+      topic: form.topic ? Number(form.topic) : null,
+      quiz_type: form.quiz_type,
+      term: form.term !== "" ? Number(form.term) : null,
+      set_number: form.set_number !== "" ? Number(form.set_number) : null,
+      duration_minutes: Number(form.duration_minutes),
+      passing_score: Number(form.passing_score),
+      is_active: form.is_active,
+      owner_type: form.owner_type,
+      available_to_teachers: form.available_to_teachers,
+      question_ids: selectedQuestions.map((q) => q.id),
+    };
+
     try {
       const res = await fetch(`${API}/admin/quizzes/${params.id}/`, {
         method: "PATCH",
         headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
-        body: JSON.stringify({ question_ids: selectedQuestions.map((q) => q.id) }),
+        body: JSON.stringify(payload),
       });
       if (res.ok) {
         setToast({ visible: true, message: `Quiz saved — ${selectedQuestions.length} question${selectedQuestions.length !== 1 ? "s" : ""}`, type: "success" });
       } else {
         const err = await res.json().catch(() => ({}));
-        setToast({ visible: true, message: err.detail || "Failed to save quiz", type: "error" });
+        setToast({ visible: true, message: err.detail || JSON.stringify(err) || "Failed to save quiz", type: "error" });
       }
     } catch {
       setToast({ visible: true, message: "Network error", type: "error" });
@@ -250,35 +318,19 @@ export default function EditQuizPage() {
               </button>
             </div>
             <div className="p-6 space-y-4">
-              {/* Question Text */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Question Text</label>
                 <p className="text-xs text-gray-400 mb-1">Use <code>&lt;u&gt;word&lt;/u&gt;</code> to underline, <code>&lt;b&gt;</code> to bold, <code>$math$</code> for inline math</p>
-                <textarea
-                  rows={3}
-                  className="w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  value={editForm.question_text}
-                  onChange={(e) => setEditForm({ ...editForm, question_text: e.target.value })}
-                />
+                <textarea rows={3} className={inputCls} value={editForm.question_text} onChange={(e) => setEditForm({ ...editForm, question_text: e.target.value })} />
               </div>
-
-              {/* Type + Difficulty */}
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Question Type</label>
-                  <select
-                    className="w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    value={editForm.question_type}
-                    onChange={(e) => {
-                      const t = e.target.value;
-                      const clear = t !== "mcq" && t !== "math";
-                      setEditForm({
-                        ...editForm,
-                        question_type: t,
-                        ...(clear && { option_a: "", option_b: "", option_c: "", option_d: "", correct_answer: "" }),
-                      });
-                    }}
-                  >
+                  <select className={inputCls} value={editForm.question_type} onChange={(e) => {
+                    const t = e.target.value;
+                    const clear = t !== "mcq" && t !== "math";
+                    setEditForm({ ...editForm, question_type: t, ...(clear && { option_a: "", option_b: "", option_c: "", option_d: "", correct_answer: "" }) });
+                  }}>
                     <option value="mcq">MCQ</option>
                     <option value="math">Math</option>
                     <option value="fill_blank">Fill in the Blank</option>
@@ -288,46 +340,27 @@ export default function EditQuizPage() {
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Difficulty</label>
-                  <select
-                    className="w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    value={editForm.difficulty}
-                    onChange={(e) => setEditForm({ ...editForm, difficulty: e.target.value })}
-                  >
+                  <select className={inputCls} value={editForm.difficulty} onChange={(e) => setEditForm({ ...editForm, difficulty: e.target.value })}>
                     <option value="easy">Easy</option>
                     <option value="medium">Medium</option>
                     <option value="hard">Hard</option>
                   </select>
                 </div>
               </div>
-
-              {/* MCQ Options */}
               {isMcq && (
                 <div className="grid grid-cols-2 gap-3">
                   {["a", "b", "c", "d"].map((letter) => (
                     <div key={letter}>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
-                        Option {letter.toUpperCase()}
-                      </label>
-                      <input
-                        type="text"
-                        className="w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        value={editForm[`option_${letter}`]}
-                        onChange={(e) => setEditForm({ ...editForm, [`option_${letter}`]: e.target.value })}
-                      />
+                      <label className="block text-sm font-medium text-gray-700 mb-1">Option {letter.toUpperCase()}</label>
+                      <input type="text" className={inputCls} value={editForm[`option_${letter}`]} onChange={(e) => setEditForm({ ...editForm, [`option_${letter}`]: e.target.value })} />
                     </div>
                   ))}
                 </div>
               )}
-
-              {/* Correct Answer */}
               {isMcq ? (
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Correct Answer</label>
-                  <select
-                    className="w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    value={editForm.correct_answer}
-                    onChange={(e) => setEditForm({ ...editForm, correct_answer: e.target.value })}
-                  >
+                  <select className={inputCls} value={editForm.correct_answer} onChange={(e) => setEditForm({ ...editForm, correct_answer: e.target.value })}>
                     <option value="">Select…</option>
                     <option value="A">A</option>
                     <option value="B">B</option>
@@ -338,50 +371,24 @@ export default function EditQuizPage() {
               ) : editForm.question_type === "fill_blank" ? (
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Correct Answer</label>
-                  <input
-                    type="text"
-                    className="w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    value={editForm.correct_answer}
-                    onChange={(e) => setEditForm({ ...editForm, correct_answer: e.target.value })}
-                  />
+                  <input type="text" className={inputCls} value={editForm.correct_answer} onChange={(e) => setEditForm({ ...editForm, correct_answer: e.target.value })} />
                 </div>
               ) : (
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Model Answer / Marking Scheme</label>
-                  <textarea
-                    rows={4}
-                    className="w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    value={editForm.explanation}
-                    onChange={(e) => setEditForm({ ...editForm, explanation: e.target.value })}
-                  />
+                  <textarea rows={4} className={inputCls} value={editForm.explanation} onChange={(e) => setEditForm({ ...editForm, explanation: e.target.value })} />
                 </div>
               )}
-
-              {/* Explanation (for MCQ) */}
               {isMcq && (
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Explanation</label>
-                  <textarea
-                    rows={2}
-                    className="w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    value={editForm.explanation}
-                    onChange={(e) => setEditForm({ ...editForm, explanation: e.target.value })}
-                  />
+                  <textarea rows={2} className={inputCls} value={editForm.explanation} onChange={(e) => setEditForm({ ...editForm, explanation: e.target.value })} />
                 </div>
               )}
             </div>
             <div className="flex justify-end gap-3 p-6 border-t">
-              <button
-                onClick={() => setEditingQuestion(null)}
-                className="px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded-lg"
-              >
-                Cancel
-              </button>
-              <button
-                onClick={saveEdit}
-                disabled={editSaving}
-                className="px-4 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-lg disabled:opacity-50"
-              >
+              <button onClick={() => setEditingQuestion(null)} className="px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded-lg">Cancel</button>
+              <button onClick={saveEdit} disabled={editSaving} className="px-4 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-lg disabled:opacity-50">
                 {editSaving ? "Saving…" : "Save Question"}
               </button>
             </div>
@@ -393,10 +400,7 @@ export default function EditQuizPage() {
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
           <div className="flex items-center gap-4">
-            <button
-              onClick={() => router.replace("/admin/quizzes")}
-              className="flex items-center gap-2 text-gray-600 hover:text-gray-900"
-            >
+            <button onClick={() => router.replace("/admin/quizzes")} className="flex items-center gap-2 text-gray-600 hover:text-gray-900">
               <ArrowLeft className="w-5 h-5" />
               Back
             </button>
@@ -405,19 +409,106 @@ export default function EditQuizPage() {
               <p className="text-gray-600">{quiz.title}</p>
             </div>
           </div>
-          <Button
-            onClick={handleSave}
-            loading={saving}
-            disabled={selectedQuestions.length === 0}
-            variant="primary"
-            size="lg"
-          >
+          <Button onClick={handleSave} loading={saving} variant="primary" size="lg">
             <Save className="w-4 h-4 mr-2" />
             Save Changes
           </Button>
         </div>
 
-        {/* Main Content */}
+        {/* Quiz Settings */}
+        <Card className="p-6 mb-8">
+          <h2 className="text-xl font-bold mb-5">Quiz Settings</h2>
+
+          <div className="grid grid-cols-2 gap-5 mb-5">
+            <div className="col-span-2">
+              <label className="block text-sm font-medium text-gray-700 mb-1">Title <span className="text-red-500">*</span></label>
+              <input type="text" className={inputCls} value={form.title} onChange={e => setForm({ ...form, title: e.target.value })} placeholder="e.g. Grade 7 Math – Term 1 Exam" />
+            </div>
+            <div className="col-span-2">
+              <label className="block text-sm font-medium text-gray-700 mb-1">Description</label>
+              <textarea rows={2} className={inputCls} value={form.description} onChange={e => setForm({ ...form, description: e.target.value })} placeholder="Optional description" />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-3 gap-4 mb-5">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Subject <span className="text-red-500">*</span></label>
+              <select className={inputCls} value={form.subject} onChange={e => setForm({ ...form, subject: e.target.value, topic: "" })}>
+                <option value="">Select subject</option>
+                {subjects.map(s => <option key={s.id} value={s.id}>{s.name}</option>)}
+              </select>
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Grade <span className="text-red-500">*</span></label>
+              <select className={inputCls} value={form.grade} onChange={e => setForm({ ...form, grade: e.target.value, topic: "" })}>
+                <option value="">Select grade</option>
+                {[4,5,6,7,8,9,10,11,12].map(g => <option key={g} value={g}>Grade {g}</option>)}
+              </select>
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Topic</label>
+              <select className={inputCls} value={form.topic} onChange={e => setForm({ ...form, topic: e.target.value })}>
+                <option value="">— None (covers multiple topics) —</option>
+                {topics.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}
+              </select>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-4 gap-4 mb-5">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Quiz Type</label>
+              <select className={inputCls} value={form.quiz_type} onChange={e => setForm({ ...form, quiz_type: e.target.value })}>
+                <option value="topical">Topical Quiz</option>
+                <option value="exam">Exam</option>
+              </select>
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Term</label>
+              <select className={inputCls} value={form.term} onChange={e => setForm({ ...form, term: e.target.value })} disabled={form.quiz_type !== "exam"}>
+                <option value="">— None —</option>
+                <option value="1">Term 1</option>
+                <option value="2">Term 2</option>
+                <option value="3">Term 3</option>
+              </select>
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Set Number</label>
+              <input type="number" className={inputCls} value={form.set_number} onChange={e => setForm({ ...form, set_number: e.target.value })} placeholder="e.g. 1" min="1" disabled={form.quiz_type !== "exam"} />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Owner Type</label>
+              <select className={inputCls} value={form.owner_type} onChange={e => setForm({ ...form, owner_type: e.target.value })}>
+                <option value="admin">Admin Created</option>
+                <option value="teacher">Teacher Created</option>
+              </select>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-4 gap-4 mb-5">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Duration (minutes)</label>
+              <input type="number" className={inputCls} value={form.duration_minutes} onChange={e => setForm({ ...form, duration_minutes: e.target.value })} min="0" />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Passing Score (%)</label>
+              <input type="number" className={inputCls} value={form.passing_score} onChange={e => setForm({ ...form, passing_score: e.target.value })} min="0" max="100" />
+            </div>
+            <div className="flex flex-col justify-end">
+              <label className="flex items-center gap-2 cursor-pointer">
+                <input type="checkbox" className="w-4 h-4 text-blue-600 rounded" checked={form.is_active} onChange={e => setForm({ ...form, is_active: e.target.checked })} />
+                <span className="text-sm font-medium text-gray-700">Active (published)</span>
+              </label>
+            </div>
+            <div className="flex flex-col justify-end">
+              <label className="flex items-center gap-2 cursor-pointer">
+                <input type="checkbox" className="w-4 h-4 text-blue-600 rounded" checked={form.available_to_teachers} onChange={e => setForm({ ...form, available_to_teachers: e.target.checked })} />
+                <span className="text-sm font-medium text-gray-700">Available to teachers</span>
+              </label>
+            </div>
+          </div>
+        </Card>
+
+        {/* Question Management */}
         <div className="grid grid-cols-2 gap-8">
           {/* Available Questions */}
           <Card className="p-6">
@@ -426,55 +517,28 @@ export default function EditQuizPage() {
               <span className="text-sm text-gray-600">{displayedQuestions.length} questions</span>
             </div>
 
-            {/* Search */}
             <div className="relative mb-3">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4" />
-              <input
-                type="text"
-                placeholder="Search questions..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
-              />
+              <input type="text" placeholder="Search questions..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)}
+                className="w-full pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm" />
             </div>
 
-            {/* Filters */}
             <div className="grid grid-cols-2 gap-2 mb-4">
-              <select
-                value={filterSubject}
-                onChange={(e) => setFilterSubject(e.target.value)}
-                className="border rounded-lg px-2 py-1.5 text-xs focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700"
-              >
+              <select value={filterSubject} onChange={(e) => setFilterSubject(e.target.value)} className="border rounded-lg px-2 py-1.5 text-xs focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700">
                 <option value="">All Subjects</option>
-                {subjects.map((s) => (
-                  <option key={s.id} value={s.id}>{s.name}</option>
-                ))}
+                {subjects.map((s) => <option key={s.id} value={s.id}>{s.name}</option>)}
               </select>
-              <select
-                value={filterGrade}
-                onChange={(e) => setFilterGrade(e.target.value)}
-                className="border rounded-lg px-2 py-1.5 text-xs focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700"
-              >
+              <select value={filterGrade} onChange={(e) => setFilterGrade(e.target.value)} className="border rounded-lg px-2 py-1.5 text-xs focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700">
                 <option value="">All Grades</option>
-                {[4,5,6,7,8,9,10,11,12].map((g) => (
-                  <option key={g} value={g}>Grade {g}</option>
-                ))}
+                {[4,5,6,7,8,9,10,11,12].map((g) => <option key={g} value={g}>Grade {g}</option>)}
               </select>
-              <select
-                value={filterDifficulty}
-                onChange={(e) => setFilterDifficulty(e.target.value)}
-                className="border rounded-lg px-2 py-1.5 text-xs focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700"
-              >
+              <select value={filterDifficulty} onChange={(e) => setFilterDifficulty(e.target.value)} className="border rounded-lg px-2 py-1.5 text-xs focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700">
                 <option value="">All Difficulties</option>
                 <option value="easy">Easy</option>
                 <option value="medium">Medium</option>
                 <option value="hard">Hard</option>
               </select>
-              <select
-                value={filterType}
-                onChange={(e) => setFilterType(e.target.value)}
-                className="border rounded-lg px-2 py-1.5 text-xs focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700"
-              >
+              <select value={filterType} onChange={(e) => setFilterType(e.target.value)} className="border rounded-lg px-2 py-1.5 text-xs focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700">
                 <option value="">All Types</option>
                 <option value="mcq">MCQ</option>
                 <option value="math">Math</option>
@@ -484,41 +548,23 @@ export default function EditQuizPage() {
               </select>
             </div>
 
-            <div className="space-y-2 max-h-125 overflow-y-auto">
+            <div className="space-y-2 max-h-[500px] overflow-y-auto">
               {displayedQuestions.map((q) => {
-                const isSelected = selectedQuestions.find((sq) => sq.id === q.id);
+                const isSelected = !!selectedQuestions.find((sq) => sq.id === q.id);
                 return (
-                  <div
-                    key={q.id}
-                    className={`p-3 border rounded-lg ${
-                      isSelected
-                        ? "bg-gray-100 border-gray-300 opacity-50"
-                        : "bg-white border-gray-200 hover:border-blue-300"
-                    }`}
-                  >
+                  <div key={q.id} className={`p-3 border rounded-lg ${isSelected ? "bg-gray-100 border-gray-300 opacity-50" : "bg-white border-gray-200 hover:border-blue-300"}`}>
                     <div className="flex items-start justify-between gap-2">
                       <div className="flex-1 min-w-0">
                         <QuestionText text={q.question_text} />
                         <p className="text-xs text-gray-600 mt-1">{q.topic_name} • {q.difficulty}</p>
                       </div>
                       <div className="flex items-center gap-1 shrink-0">
-                        <button
-                          onClick={() => openEdit(q)}
-                          className="p-1.5 rounded-lg bg-gray-100 text-gray-600 hover:bg-gray-200 transition-colors"
-                          title="Edit question"
-                        >
+                        <button onClick={() => openEdit(q)} className="p-1.5 rounded-lg bg-gray-100 text-gray-600 hover:bg-gray-200 transition-colors" title="Edit question">
                           <Pencil className="w-3.5 h-3.5" />
                         </button>
-                        <button
-                          onClick={() => addQuestion(q)}
-                          disabled={!!isSelected}
-                          className={`p-1.5 rounded-lg transition-colors ${
-                            isSelected
-                              ? "bg-gray-200 text-gray-400 cursor-not-allowed"
-                              : "bg-blue-100 text-blue-600 hover:bg-blue-200"
-                          }`}
-                          title="Add to quiz"
-                        >
+                        <button onClick={() => addQuestion(q)} disabled={isSelected}
+                          className={`p-1.5 rounded-lg transition-colors ${isSelected ? "bg-gray-200 text-gray-400 cursor-not-allowed" : "bg-blue-100 text-blue-600 hover:bg-blue-200"}`}
+                          title="Add to quiz">
                           <Plus className="w-4 h-4" />
                         </button>
                       </div>
@@ -544,7 +590,7 @@ export default function EditQuizPage() {
                 <p className="text-sm mt-2">Add questions from the left panel</p>
               </div>
             ) : (
-              <div className="space-y-2 max-h-[600px] overflow-y-auto">
+              <div className="space-y-2 max-h-[500px] overflow-y-auto">
                 {selectedQuestions.map((q, index) => (
                   <div key={q.id} className="p-3 bg-blue-50 border border-blue-200 rounded-lg">
                     <div className="flex items-start gap-3">
@@ -556,18 +602,10 @@ export default function EditQuizPage() {
                         <p className="text-xs text-gray-600 mt-1">{q.topic_name} • {q.difficulty}</p>
                       </div>
                       <div className="flex items-center gap-1 shrink-0">
-                        <button
-                          onClick={() => openEdit(q)}
-                          className="p-1.5 text-gray-600 hover:bg-blue-200 rounded-lg transition-colors"
-                          title="Edit question"
-                        >
+                        <button onClick={() => openEdit(q)} className="p-1.5 text-gray-600 hover:bg-blue-200 rounded-lg transition-colors" title="Edit question">
                           <Pencil className="w-3.5 h-3.5" />
                         </button>
-                        <button
-                          onClick={() => removeQuestion(q.id)}
-                          className="p-1.5 text-red-600 hover:bg-red-100 rounded-lg transition-colors"
-                          title="Remove from quiz"
-                        >
+                        <button onClick={() => removeQuestion(q.id)} className="p-1.5 text-red-600 hover:bg-red-100 rounded-lg transition-colors" title="Remove from quiz">
                           <X className="w-4 h-4" />
                         </button>
                       </div>

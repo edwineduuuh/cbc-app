@@ -230,7 +230,8 @@ class QuizCreateUpdateSerializer(serializers.ModelSerializer):
         fields = [
             'id', 'title', 'description', 'subject', 'topic',
             'grade', 'duration_minutes', 'passing_score',
-            'is_active', 'questions', 'question_ids', 'owner_type', 'available_to_teachers'
+            'is_active', 'questions', 'question_ids', 'owner_type', 'available_to_teachers',
+            'quiz_type', 'term', 'set_number',
         ]
 
     def validate(self, data):
