@@ -9,14 +9,12 @@ pip install PyPDF2 python-docx Pillow PyMuPDF --break-system-packages
 
 import re
 import json
-import io
 import base64
 import anthropic
 from django.conf import settings
 from django.core.files.base import ContentFile
 from django.db import transaction
 from .models import Question, Topic, Subject
-from .ai_service import _get_gemini, GEMINI_MODEL, parse_ai_json
 
 CLAUDE_MODEL = "claude-sonnet-4-20250514"
 
@@ -170,20 +168,12 @@ class BulkExamUploader:
             return None
     
     def _extract_from_image(self, file):
-        """Extract text from image - uses Claude Vision directly (no tesseract needed)"""
+        """Extract text from image using Claude Vision."""
         try:
-            from PIL import Image
-            
-            image_bytes = file.read()
-            
-            # Use Claude Vision to extract text
-            print("Using Claude Vision to extract text from image...")
-            file.seek(0)
             text = self._extract_with_gemini_vision(file)
             if text:
                 text += f"\n[IMAGE_0]\n"
             return text
-        
         except Exception as e:
             print(f"Image extraction error: {e}")
             file.seek(0)
@@ -360,24 +350,25 @@ REMEMBER:
 """
         
         try:
-            from google.genai import types as genai_types
-            response = _get_gemini().models.generate_content(
-                model=GEMINI_MODEL,
-                contents=prompt,
-                config=genai_types.GenerateContentConfig(temperature=0),
+            client = anthropic.Anthropic(api_key=settings.ANTHROPIC_API_KEY)
+            response = client.messages.create(
+                model=CLAUDE_MODEL,
+                max_tokens=8192,
+                temperature=0,
+                messages=[{"role": "user", "content": prompt}],
             )
-            
-            raw_text = response.text
+
+            raw_text = response.content[0].text
             print(f"=== AI Response (first 500 chars): {raw_text[:500]}")
-            
+
             cleaned = re.sub(r'```json\s*', '', raw_text)
             cleaned = re.sub(r'```\s*', '', cleaned)
-            
+
             start = cleaned.find('{')
             if start == -1:
                 print("No JSON found in response")
                 return []
-            
+
             brace_count = 0
             end = start
             for i in range(start, len(cleaned)):
@@ -388,11 +379,11 @@ REMEMBER:
                     if brace_count == 0:
                         end = i + 1
                         break
-            
+
             json_str = cleaned[start:end]
             result = json.loads(json_str)
             questions = result.get('questions', [])
-            
+
             print(f"=== Parsed {len(questions)} questions")
             return questions
         
