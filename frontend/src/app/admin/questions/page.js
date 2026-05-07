@@ -455,6 +455,16 @@ export default function QuestionManagementPage() {
     editId: null, editName: "",
   });
   const smSet = (patch) => setSm((prev) => ({ ...prev, ...patch }));
+
+  // ── Topic manager modal state ───────────────────────────────────
+  const [showTopicModal, setShowTopicModal] = useState(false);
+  const [tm, setTm] = useState({
+    subject: "", grade: "",
+    topicList: [], loading: false, saving: false,
+    newName: "", newDesc: "", newOrder: "",
+    editId: null, editName: "",
+  });
+  const tmSet = (patch) => setTm((prev) => ({ ...prev, ...patch }));
   const [csvFile, setCsvFile] = useState(null);
   const [actionLoading, setActionLoading] = useState(false);
   const [createImageFile, setCreateImageFile] = useState(null);
@@ -681,6 +691,81 @@ export default function QuestionManagementPage() {
     if (!window.confirm("Delete this substrand? Questions tagged to it will be untagged.")) return;
     await fetchWithAuth(`${API}/admin/substrands/${id}/`, { method: "DELETE" });
     loadSmSubstrands(sm.topic);
+  };
+
+  // ── Topic manager helpers ───────────────────────────────────────
+  const loadTmTopics = async (subject, grade) => {
+    tmSet({ loading: true, topicList: [] });
+    try {
+      const params = new URLSearchParams();
+      if (subject) params.set("subject", subject);
+      if (grade) params.set("grade", grade);
+      const r = await fetchWithAuth(`${API}/admin/topics/?${params}`);
+      const d = await r.json();
+      tmSet({ topicList: Array.isArray(d) ? d : d.results || [], loading: false });
+    } catch { tmSet({ loading: false }); }
+  };
+
+  const reloadTopicsGlobal = async () => {
+    const r = await fetchWithAuth(`${API}/topics/`);
+    if (r.ok) {
+      const d = await r.json();
+      setTopics(Array.isArray(d) ? d : d.results || []);
+    }
+  };
+
+  const handleTmCreate = async () => {
+    if (!tm.newName.trim() || !tm.subject || !tm.grade) return;
+    tmSet({ saving: true });
+    try {
+      const r = await fetchWithAuth(`${API}/admin/topics/`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          subject: parseInt(tm.subject),
+          grade: parseInt(tm.grade),
+          name: tm.newName.trim(),
+          description: tm.newDesc.trim(),
+          order: tm.newOrder !== "" ? parseInt(tm.newOrder) : tm.topicList.length,
+        }),
+      });
+      if (r.ok) {
+        tmSet({ newName: "", newDesc: "", newOrder: "", saving: false });
+        loadTmTopics(tm.subject, tm.grade);
+        reloadTopicsGlobal();
+      } else {
+        const err = await r.json();
+        showToast(err.name?.[0] || err.detail || "Could not create topic", "error");
+        tmSet({ saving: false });
+      }
+    } catch { tmSet({ saving: false }); }
+  };
+
+  const handleTmUpdate = async () => {
+    if (!tm.editName.trim()) return;
+    tmSet({ saving: true });
+    try {
+      const r = await fetchWithAuth(`${API}/admin/topics/${tm.editId}/`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: tm.editName.trim() }),
+      });
+      if (r.ok) {
+        tmSet({ editId: null, editName: "", saving: false });
+        loadTmTopics(tm.subject, tm.grade);
+        reloadTopicsGlobal();
+      } else {
+        showToast("Could not update topic", "error");
+        tmSet({ saving: false });
+      }
+    } catch { tmSet({ saving: false }); }
+  };
+
+  const handleTmDelete = async (id) => {
+    if (!window.confirm("Delete this topic? Sub-strands and question tags will be removed.")) return;
+    await fetchWithAuth(`${API}/admin/topics/${id}/`, { method: "DELETE" });
+    loadTmTopics(tm.subject, tm.grade);
+    reloadTopicsGlobal();
   };
 
   const resetForm = () => {
@@ -1031,6 +1116,12 @@ export default function QuestionManagementPage() {
                 >
                   <Upload className="w-4 h-4" />
                   Import CSV
+                </button>
+                <button
+                  onClick={() => setShowTopicModal(true)}
+                  className="inline-flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-lg border border-emerald-300 bg-emerald-50 text-emerald-700 hover:bg-emerald-100 transition-colors"
+                >
+                  Topics
                 </button>
                 <button
                   onClick={() => setShowSubstrandModal(true)}
@@ -2217,6 +2308,144 @@ export default function QuestionManagementPage() {
                   </button>
                 </div>
               </form>
+            </ModalOverlay>
+          )}
+        </AnimatePresence>
+
+        {/* Manage Topics Modal */}
+        <AnimatePresence>
+          {showTopicModal && (
+            <ModalOverlay onClose={() => setShowTopicModal(false)}>
+              <div className="flex justify-between items-center mb-6">
+                <div>
+                  <h2 className="text-xl font-bold text-gray-900">Manage Topics</h2>
+                  <p className="text-sm text-gray-500 mt-0.5">Add, edit or delete curriculum topics</p>
+                </div>
+                <button onClick={() => setShowTopicModal(false)} className="text-gray-400 hover:text-gray-600">
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+
+              {/* Subject + Grade filter */}
+              <div className="grid grid-cols-2 gap-3 mb-6">
+                <SelectField
+                  label="Learning Area"
+                  name="tm_subject"
+                  value={tm.subject}
+                  onChange={(e) => {
+                    tmSet({ subject: e.target.value, grade: tm.grade, topicList: [], editId: null, newName: "" });
+                    if (e.target.value && tm.grade) loadTmTopics(e.target.value, tm.grade);
+                  }}
+                  options={subjects.map((s) => ({ value: s.id, label: s.name }))}
+                  placeholder="Select area"
+                />
+                <SelectField
+                  label="Grade"
+                  name="tm_grade"
+                  value={tm.grade}
+                  onChange={(e) => {
+                    tmSet({ grade: e.target.value, topicList: [], editId: null, newName: "" });
+                    if (tm.subject && e.target.value) loadTmTopics(tm.subject, e.target.value);
+                  }}
+                  options={GRADES.map((g) => ({ value: g, label: `Grade ${g}` }))}
+                  placeholder="Select grade"
+                />
+              </div>
+
+              {/* Topic list */}
+              {tm.subject && tm.grade ? (
+                <div className="border border-gray-200 rounded-xl overflow-hidden mb-4">
+                  {tm.loading ? (
+                    <div className="p-6 text-center text-sm text-gray-500">Loading…</div>
+                  ) : tm.topicList.length === 0 ? (
+                    <div className="p-6 text-center text-sm text-gray-400">No topics yet — add one below</div>
+                  ) : (
+                    <table className="w-full text-sm">
+                      <thead className="bg-gray-50 border-b border-gray-200">
+                        <tr>
+                          <th className="text-left px-4 py-2.5 font-semibold text-gray-600">Topic</th>
+                          <th className="text-center px-4 py-2.5 font-semibold text-gray-600 w-20">Order</th>
+                          <th className="w-28" />
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-gray-100">
+                        {tm.topicList.map((t) => (
+                          <tr key={t.id} className="hover:bg-gray-50">
+                            <td className="px-4 py-2.5">
+                              {tm.editId === t.id ? (
+                                <input
+                                  autoFocus
+                                  value={tm.editName}
+                                  onChange={(e) => tmSet({ editName: e.target.value })}
+                                  onKeyDown={(e) => { if (e.key === "Enter") handleTmUpdate(); if (e.key === "Escape") tmSet({ editId: null, editName: "" }); }}
+                                  className="w-full px-2 py-1 text-sm border border-emerald-400 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:outline-none"
+                                />
+                              ) : (
+                                <span className="font-medium text-gray-800">{t.name}</span>
+                              )}
+                            </td>
+                            <td className="px-4 py-2.5 text-center text-gray-500">{t.order}</td>
+                            <td className="px-4 py-2.5">
+                              {tm.editId === t.id ? (
+                                <div className="flex gap-1 justify-end">
+                                  <button onClick={handleTmUpdate} disabled={tm.saving} className="px-3 py-1 text-xs font-semibold bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 disabled:opacity-50">Save</button>
+                                  <button onClick={() => tmSet({ editId: null, editName: "" })} className="px-3 py-1 text-xs font-semibold border border-gray-300 rounded-lg hover:bg-gray-50">Cancel</button>
+                                </div>
+                              ) : (
+                                <div className="flex gap-1 justify-end">
+                                  <button onClick={() => tmSet({ editId: t.id, editName: t.name })} className="px-3 py-1 text-xs font-medium border border-gray-300 rounded-lg hover:bg-gray-50">Edit</button>
+                                  <button onClick={() => handleTmDelete(t.id)} className="px-3 py-1 text-xs font-medium border border-red-200 text-red-600 rounded-lg hover:bg-red-50">Delete</button>
+                                </div>
+                              )}
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  )}
+                </div>
+              ) : (
+                <div className="border-2 border-dashed border-gray-200 rounded-xl p-8 text-center text-sm text-gray-400 mb-4">
+                  Select a learning area and grade to manage topics
+                </div>
+              )}
+
+              {/* Add new topic */}
+              {tm.subject && tm.grade && (
+                <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-4">
+                  <p className="text-xs font-semibold text-emerald-700 uppercase tracking-wide mb-3">Add Topic</p>
+                  <div className="flex gap-3 items-end">
+                    <div className="flex-1">
+                      <label className="block text-xs font-medium text-gray-700 mb-1">Name <span className="text-red-500">*</span></label>
+                      <input
+                        value={tm.newName}
+                        onChange={(e) => tmSet({ newName: e.target.value })}
+                        onKeyDown={(e) => { if (e.key === "Enter") handleTmCreate(); }}
+                        placeholder="e.g. Algebra"
+                        className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:outline-none"
+                      />
+                    </div>
+                    <div className="w-24">
+                      <label className="block text-xs font-medium text-gray-700 mb-1">Order</label>
+                      <input
+                        type="number"
+                        min={0}
+                        value={tm.newOrder}
+                        onChange={(e) => tmSet({ newOrder: e.target.value })}
+                        placeholder="auto"
+                        className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:outline-none"
+                      />
+                    </div>
+                    <button
+                      onClick={handleTmCreate}
+                      disabled={tm.saving || !tm.newName.trim()}
+                      className="px-5 py-2 text-sm font-semibold bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 disabled:opacity-50 transition-colors"
+                    >
+                      {tm.saving ? "Adding…" : "Add"}
+                    </button>
+                  </div>
+                </div>
+              )}
             </ModalOverlay>
           )}
         </AnimatePresence>
