@@ -1,53 +1,47 @@
 """
 ai_service.py
-All Gemini API calls for non-grading tasks go through this file.
-Set GEMINI_API_KEY in your .env / Django settings.
+Non-grading AI tasks (lesson plans, open-answer marking, student reports).
+Uses Claude (Anthropic) — Gemini has been removed.
 """
 import json
 import re
-from google import genai
-from google.genai import types
+import anthropic
 from django.conf import settings
 
-_gemini = None
+CLAUDE_MODEL = "claude-sonnet-4-20250514"
 
-def _get_gemini():
-    global _gemini
-    if _gemini is None:
-        _gemini = genai.Client(api_key=settings.GEMINI_API_KEY)
-    return _gemini
+_client = None
 
-GEMINI_MODEL = "gemini-2.5-pro"
+def _get_client():
+    global _client
+    if _client is None:
+        _client = anthropic.Anthropic(api_key=settings.ANTHROPIC_API_KEY)
+    return _client
+
+
+def _call_claude(system: str, user: str, max_tokens: int = 4096) -> str:
+    response = _get_client().messages.create(
+        model=CLAUDE_MODEL,
+        max_tokens=max_tokens,
+        system=system,
+        messages=[{"role": "user", "content": user}],
+    )
+    return response.content[0].text
 
 
 def parse_ai_json(raw_text: str) -> dict:
-    """
-    Robust JSON parser for AI responses.
-    Handles markdown fences, trailing commas, and extra text.
-    """
     raw = raw_text.strip()
-    
-    # Remove markdown code blocks
     raw = re.sub(r'```json\s*', '', raw)
     raw = re.sub(r'```\s*', '', raw)
-    
-    # Find first { and last }
     start = raw.find('{')
     end = raw.rfind('}')
-    
     if start == -1 or end == -1:
         raise ValueError("No valid JSON object found in response")
-    
     raw = raw[start:end+1]
-    
-    # Remove trailing commas before } or ]
     raw = re.sub(r',(\s*[}\]])', r'\1', raw)
-    
-    # Try to parse
     try:
         return json.loads(raw)
     except json.JSONDecodeError as e:
-        # Log the problematic JSON for debugging
         print(f"JSON Parse Error: {e}")
         print(f"Problematic JSON (first 500 chars):\n{raw[:500]}")
         raise ValueError(f"Invalid JSON from AI: {str(e)}")
@@ -89,10 +83,10 @@ Return ONLY a JSON object with EXACTLY these keys:
   "substrand": "string",
   "specific_learning_outcomes": ["SLO 1...", "SLO 2...", "SLO 3..."],
   "key_inquiry_questions": ["Question 1?", "Question 2?"],
-  "core_competencies": ["Communication", "Critical Thinking", ...],
-  "values": ["Respect", "Responsibility", ...],
-  "pertinent_issues": ["Health", "Environmental awareness", ...],
-  "learning_resources": ["Textbook pg X", "Chart on ...", "Specimen of ..."],
+  "core_competencies": ["Communication", "Critical Thinking"],
+  "values": ["Respect", "Responsibility"],
+  "pertinent_issues": ["Health", "Environmental awareness"],
+  "learning_resources": ["Textbook pg X", "Chart on ..."],
   "introduction": {{
     "duration": "5 minutes",
     "teacher_activity": "Detailed description of what teacher does",
@@ -141,14 +135,6 @@ Return ONLY a JSON object with EXACTLY these keys:
       "description": "Why this video is useful for this lesson"
     }}
   ],
-  # "diagrams": [
-  #   {{
-  #     "title": "Diagram title",
-  #     "type": "labeled_diagram | flowchart | table | cycle | bar_chart",
-  #     "description": "Detailed description of what to draw — include labels, arrows, components",
-  #     "caption": "Caption to write under diagram in student notes"
-  #   }}
-  # ],
   "student_notes": {{
     "heading": "Topic heading for student notes",
     "body": "Full student notes content with key facts, definitions, examples. Write 3-5 paragraphs.",
@@ -157,13 +143,7 @@ Return ONLY a JSON object with EXACTLY these keys:
   }}
 }}"""
 
-    message = _get_gemini().models.generate_content(
-        model=GEMINI_MODEL,
-        contents=LESSON_SYSTEM + "\n\n" + prompt,
-        config=types.GenerateContentConfig(temperature=0, max_output_tokens=4096),
-    )
-
-    raw = message.text
+    raw = _call_claude(LESSON_SYSTEM, prompt, max_tokens=4096)
     return parse_ai_json(raw)
 
 
@@ -195,13 +175,7 @@ Evaluate the answer and return JSON:
   "model_answer": "<ideal answer a top student would give>"
 }}"""
 
-    message = _get_gemini().models.generate_content(
-        model=GEMINI_MODEL,
-        contents=MARKING_SYSTEM + "\n\n" + prompt,
-        config=types.GenerateContentConfig(temperature=0, max_output_tokens=512),
-    )
-
-    raw = message.text
+    raw = _call_claude(MARKING_SYSTEM, prompt, max_tokens=512)
     return parse_ai_json(raw)
 
 
@@ -235,11 +209,5 @@ Return JSON:
   "recommendation": "<one specific, actionable recommendation for the teacher or parent>"
 }}"""
 
-    message = _get_gemini().models.generate_content(
-        model=GEMINI_MODEL,
-        contents=REPORT_SYSTEM + "\n\n" + prompt,
-        config=types.GenerateContentConfig(temperature=0, max_output_tokens=512),
-    )
-
-    raw = message.text
+    raw = _call_claude(REPORT_SYSTEM, prompt, max_tokens=512)
     return parse_ai_json(raw)

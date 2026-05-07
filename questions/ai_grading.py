@@ -1038,7 +1038,19 @@ def _grade_fill_blank(question, student_answer: str) -> dict:
 
     student_norm = _normalise(student_raw)
     raw_correct  = str(question.correct_answer).strip()
-    accepted     = [_normalise(a) for a in re.split(r"[|;]", raw_correct) if a.strip()]
+
+    # Strip evidence/citation lines (Ushahidi:, Evidence:, Reference:, Proof:, etc.)
+    # Teachers sometimes append citations to the correct_answer field; they should
+    # not be required in the student's answer.
+    _EVIDENCE_RE = re.compile(
+        r'^(ushahidi|evidence|proof|reference|maelezo|chanzo|citation)[:.]',
+        re.IGNORECASE
+    )
+    _answer_lines = [
+        ln for ln in re.split(r'[\n|;]', raw_correct)
+        if ln.strip() and not _EVIDENCE_RE.match(ln.strip())
+    ]
+    accepted = [_normalise(a) for a in _answer_lines if a.strip()]
 
     # Also include correct_answers JSONField (list of accepted variants)
     extra = getattr(question, "correct_answers", None)
