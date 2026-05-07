@@ -24,6 +24,8 @@ from .authoring_views import (
     QuestionUpdateView,
     BulkQuestionImportView,
     AdminQuizLibraryView,
+    PassageListCreateView,
+    PassageDetailView,
 )
 from .bulk_upload import BulkUploadView
 from .views import (
@@ -120,6 +122,10 @@ urlpatterns = [
     path('admin/payments/', AdminPaymentListView.as_view(), name='admin-payments'),
     path('admin/payments/<int:pk>/verify/', AdminVerifyPaymentView.as_view(), name='admin-verify-payment'),
     path('admin/payments/<int:pk>/reject/', AdminRejectPaymentView.as_view(), name='admin-reject-payment'),
+
+    # ── Admin — Passages ──────────────────────────────────────────
+    path('admin/passages/', PassageListCreateView.as_view(), name='passage-list'),
+    path('admin/passages/<int:pk>/', PassageDetailView.as_view(), name='passage-detail'),
 
     # ── Admin — Bulk Upload ───────────────────────────────────────
     path('admin/bulk-upload/', BulkUploadView.as_view(), name='bulk_upload'),

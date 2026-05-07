@@ -107,6 +107,14 @@ class QuestionSerializer(serializers.ModelSerializer):
             return None
 
 
+class PassageAdminSerializer(serializers.ModelSerializer):
+    subject_name = serializers.CharField(source='subject.name', read_only=True)
+    class Meta:
+        model = Passage
+        fields = ['id', 'title', 'content', 'passage_type', 'subject', 'subject_name', 'grade', 'author', 'created_at']
+        read_only_fields = ['id', 'subject_name', 'created_at']
+
+
 class QuestionDetailSerializer(serializers.ModelSerializer):
     """Full detail - for admin/authoring and attempt review"""
     subject_name   = serializers.CharField(source='topic.subject.name', read_only=True)
@@ -116,6 +124,9 @@ class QuestionDetailSerializer(serializers.ModelSerializer):
     substrand_name = serializers.CharField(source='substrand.name', read_only=True, default=None)
     question_image_url = serializers.SerializerMethodField()
     question_image = serializers.ImageField(required=False, allow_null=True, write_only=True)
+    parts          = QuestionPartSerializer(many=True, read_only=True)
+    passage        = PassageSerializer(read_only=True)
+    passage_id     = serializers.IntegerField(write_only=True, required=False, allow_null=True)
 
     class Meta:
         model  = Question
@@ -126,20 +137,22 @@ class QuestionDetailSerializer(serializers.ModelSerializer):
             'question_text',
             'option_a', 'option_b', 'option_c', 'option_d',
             'correct_answer', 'correct_answers',
-            'explanation', 'difficulty',
+            'explanation', 'difficulty', 'marking_scheme',
             'created_at', 'created_by',
             'question_image_url', 'question_image',
             'table_data', 'max_marks',
+            'passage', 'passage_id',
+            'parts',
         ]
         read_only_fields = [
             'id', 'subject', 'subject_name', 'topic_name', 'grade',
-            'substrand_name', 'created_at', 'created_by'
+            'substrand_name', 'created_at', 'created_by', 'parts', 'passage'
         ]
         extra_kwargs = {
             'topic': {'required': True},
             'substrand': {'required': False, 'allow_null': True},
         }
-    
+
     def get_question_image_url(self, obj):
         if not obj.question_image:
             return None

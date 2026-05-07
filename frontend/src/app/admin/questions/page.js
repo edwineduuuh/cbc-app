@@ -296,6 +296,14 @@ function makeDefaultPart(index) {
   };
 }
 
+const PART_TYPES = [
+  { value: "structured", label: "Structured" },
+  { value: "mcq", label: "MCQ" },
+  { value: "fill_blank", label: "Fill Blank" },
+  { value: "math", label: "Math" },
+  { value: "essay", label: "Essay" },
+];
+
 function PartsBuilder({ parts, onChange }) {
   const addPart = () => onChange([...parts, makeDefaultPart(parts.length)]);
   const removePart = (i) => onChange(parts.filter((_, idx) => idx !== i));
@@ -308,50 +316,75 @@ function PartsBuilder({ parts, onChange }) {
         <p className="text-xs font-semibold text-gray-600 uppercase tracking-wide">
           Sub-questions ({parts.length} parts · {parts.reduce((s, p) => s + Number(p.max_marks || 1), 0)} marks total)
         </p>
-        <button
-          type="button"
-          onClick={addPart}
-          className="text-xs bg-indigo-50 text-indigo-700 border border-indigo-200 px-3 py-1.5 rounded-lg hover:bg-indigo-100 font-medium"
-        >
+        <button type="button" onClick={addPart} className="text-xs bg-indigo-50 text-indigo-700 border border-indigo-200 px-3 py-1.5 rounded-lg hover:bg-indigo-100 font-medium">
           + Add Part
         </button>
       </div>
-      {parts.map((part, i) => (
-        <div key={i} className="border border-gray-200 rounded-xl p-3 bg-gray-50 space-y-2">
-          <div className="flex items-center gap-2">
-            <span className="text-sm font-bold text-indigo-700 w-6">({part.part_label})</span>
+      {parts.map((part, i) => {
+        const isMcqPart = part.question_type === "mcq";
+        return (
+          <div key={i} className="border border-gray-200 rounded-xl p-3 bg-gray-50 space-y-2">
+            <div className="flex items-center gap-2">
+              <span className="text-sm font-bold text-indigo-700 w-6">({part.part_label})</span>
+              <select
+                className="text-xs border border-gray-200 rounded-lg px-2 py-1.5 bg-white"
+                value={part.question_type || "structured"}
+                onChange={(e) => updatePart(i, "question_type", e.target.value)}
+              >
+                {PART_TYPES.map(t => <option key={t.value} value={t.value}>{t.label}</option>)}
+              </select>
+              <input
+                className="flex-1 text-sm border border-gray-200 rounded-lg px-2 py-1.5"
+                placeholder="Part question text"
+                value={part.question_text}
+                onChange={(e) => updatePart(i, "question_text", e.target.value)}
+              />
+              <input type="number" min={1}
+                className="w-16 text-sm border border-gray-200 rounded-lg px-2 py-1.5 text-center"
+                title="Marks" value={part.max_marks}
+                onChange={(e) => updatePart(i, "max_marks", e.target.value)}
+              />
+              <span className="text-xs text-gray-400">mk</span>
+              <button type="button" onClick={() => removePart(i)} className="text-red-400 hover:text-red-600 text-lg leading-none">×</button>
+            </div>
+            {isMcqPart && (
+              <div className="grid grid-cols-2 gap-2">
+                {["a","b","c","d"].map(letter => (
+                  <input key={letter}
+                    className="text-xs border border-gray-200 rounded-lg px-2 py-1.5"
+                    placeholder={`Option ${letter.toUpperCase()}`}
+                    value={part[`option_${letter}`] || ""}
+                    onChange={(e) => updatePart(i, `option_${letter}`, e.target.value)}
+                  />
+                ))}
+              </div>
+            )}
+            {isMcqPart ? (
+              <select
+                className="w-full text-xs border border-gray-200 rounded-lg px-2 py-1.5 bg-white"
+                value={part.correct_answer || ""}
+                onChange={(e) => updatePart(i, "correct_answer", e.target.value)}
+              >
+                <option value="">Correct answer…</option>
+                {["A","B","C","D"].map(l => <option key={l} value={l}>{l}</option>)}
+              </select>
+            ) : (
+              <textarea rows={2}
+                className="w-full text-sm border border-gray-200 rounded-lg px-2 py-1.5"
+                placeholder="Correct answer / model answer"
+                value={part.correct_answer}
+                onChange={(e) => updatePart(i, "correct_answer", e.target.value)}
+              />
+            )}
             <input
-              className="flex-1 text-sm border border-gray-200 rounded-lg px-2 py-1.5"
-              placeholder="Part question text"
-              value={part.question_text}
-              onChange={(e) => updatePart(i, "question_text", e.target.value)}
+              className="w-full text-xs border border-gray-200 rounded-lg px-2 py-1.5 text-gray-500"
+              placeholder="Explanation (optional)"
+              value={part.explanation}
+              onChange={(e) => updatePart(i, "explanation", e.target.value)}
             />
-            <input
-              type="number"
-              min={1}
-              className="w-16 text-sm border border-gray-200 rounded-lg px-2 py-1.5 text-center"
-              title="Marks"
-              value={part.max_marks}
-              onChange={(e) => updatePart(i, "max_marks", e.target.value)}
-            />
-            <span className="text-xs text-gray-400">mk</span>
-            <button type="button" onClick={() => removePart(i)} className="text-red-400 hover:text-red-600 text-lg leading-none">×</button>
           </div>
-          <textarea
-            rows={2}
-            className="w-full text-sm border border-gray-200 rounded-lg px-2 py-1.5"
-            placeholder="Correct answer for this part"
-            value={part.correct_answer}
-            onChange={(e) => updatePart(i, "correct_answer", e.target.value)}
-          />
-          <input
-            className="w-full text-xs border border-gray-200 rounded-lg px-2 py-1.5 text-gray-500"
-            placeholder="Explanation (optional)"
-            value={part.explanation}
-            onChange={(e) => updatePart(i, "explanation", e.target.value)}
-          />
-        </div>
-      ))}
+        );
+      })}
       {parts.length === 0 && (
         <p className="text-xs text-gray-400 text-center py-3">No parts yet. Click &quot;Add Part&quot; to begin.</p>
       )}
@@ -386,11 +419,14 @@ export default function QuestionManagementPage() {
   const [showBulkImport, setShowBulkImport] = useState(false);
   const [editingQuestion, setEditingQuestion] = useState(null);
 
+  const [passages, setPassages] = useState([]);
+
   const [formData, setFormData] = useState({
     subject: "",
     topic: "",
     substrand: "",
     grade: "",
+    passage_id: "",
     question_text: "",
     question_type: "mcq",
     math_format: "open",  // "open" | "mcq" — only used when question_type === "math"
@@ -443,9 +479,10 @@ export default function QuestionManagementPage() {
     if (authLoading || !user) return;
     const loadMeta = async () => {
       try {
-        const [subRes, topRes] = await Promise.all([
+        const [subRes, topRes, passRes] = await Promise.all([
           fetchWithAuth(`${API}/subjects/`),
           fetchWithAuth(`${API}/topics/`),
+          fetchWithAuth(`${API}/admin/passages/`),
         ]);
         if (subRes.ok) {
           const data = await subRes.json();
@@ -454,6 +491,10 @@ export default function QuestionManagementPage() {
         if (topRes.ok) {
           const data = await topRes.json();
           setTopics(Array.isArray(data) ? data : data.results || []);
+        }
+        if (passRes.ok) {
+          const data = await passRes.json();
+          setPassages(Array.isArray(data) ? data : data.results || []);
         }
       } catch (err) {
         console.error("Failed to load metadata:", err);
@@ -761,6 +802,7 @@ export default function QuestionManagementPage() {
     fd.append("max_marks", parseInt(formData.max_marks) || 1);
     fd.append("difficulty", formData.difficulty || "medium");
     if (createImageFile) fd.append("question_image", createImageFile);
+    if (formData.passage_id) fd.append("passage_id", formData.passage_id);
     if (isMultipartStyle && formData.parts?.length > 0) {
       fd.append("parts", JSON.stringify(formData.parts));
     }
@@ -825,6 +867,7 @@ export default function QuestionManagementPage() {
       } else if (editImageDeleted) {
         fd.append("delete_image", "true");
       }
+      fd.append("passage_id", editingQuestion.passage_id || editingQuestion.passage?.id || "");
       if (isMultipartStyleEdit && editingQuestion.parts?.length > 0) {
         fd.append("parts", JSON.stringify(editingQuestion.parts));
       }
@@ -1564,6 +1607,30 @@ export default function QuestionManagementPage() {
                   </div>
                 )}
 
+                {/* Passage selector */}
+                {(() => {
+                  const filteredPassages = passages.filter(p =>
+                    (!formData.subject || String(p.subject) === String(formData.subject)) &&
+                    (!formData.grade || String(p.grade) === String(formData.grade))
+                  );
+                  if (filteredPassages.length === 0) return null;
+                  return (
+                    <div>
+                      <label className="block text-xs font-semibold text-gray-600 mb-1">Link Reading Passage (optional)</label>
+                      <select
+                        className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500"
+                        value={formData.passage_id || ""}
+                        onChange={e => setFormData(prev => ({ ...prev, passage_id: e.target.value }))}
+                      >
+                        <option value="">— No passage —</option>
+                        {filteredPassages.map(p => (
+                          <option key={p.id} value={p.id}>{p.title} (Grade {p.grade})</option>
+                        ))}
+                      </select>
+                    </div>
+                  );
+                })()}
+
                 {/* Question text — stem + parts for multipart, plain for everything else */}
                 {(formData.question_type === "multipart" ||
                   (formData.question_type === "math" && formData.math_format === "multipart")) ? (
@@ -1873,6 +1940,33 @@ export default function QuestionManagementPage() {
                     </div>
                   </div>
                 )}
+
+                {/* Passage selector (edit) */}
+                {(() => {
+                  const subjectId = editingQuestion.subject || editingQuestion.topic_subject;
+                  const gradeVal  = editingQuestion.grade;
+                  const filteredPassages = passages.filter(p =>
+                    (!subjectId || String(p.subject) === String(subjectId)) &&
+                    (!gradeVal  || String(p.grade)   === String(gradeVal))
+                  );
+                  if (filteredPassages.length === 0) return null;
+                  const currentPassageId = editingQuestion.passage_id ?? editingQuestion.passage?.id ?? "";
+                  return (
+                    <div>
+                      <label className="block text-xs font-semibold text-gray-600 mb-1">Link Reading Passage (optional)</label>
+                      <select
+                        className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500"
+                        value={currentPassageId}
+                        onChange={e => setEditingQuestion(prev => ({ ...prev, passage_id: e.target.value }))}
+                      >
+                        <option value="">— No passage —</option>
+                        {filteredPassages.map(p => (
+                          <option key={p.id} value={p.id}>{p.title} (Grade {p.grade})</option>
+                        ))}
+                      </select>
+                    </div>
+                  );
+                })()}
 
                 {/* Question text */}
                 {(editingQuestion.question_type === "multipart" ||

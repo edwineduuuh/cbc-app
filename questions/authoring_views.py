@@ -10,11 +10,41 @@ class QuestionPagination(PageNumberPagination):
     page_size_query_param = 'page_size'
     max_page_size = 500
 from django.db import transaction
-from .models import Subject, Topic, Question
-from .serializers import QuestionDetailSerializer, QuizDetailSerializer, QuizListSerializer
-from .permissions import IsAdminUser, IsTeacherUser, IsAdminOrTeacher  # ← ADD THIS LINE
+from .models import Subject, Topic, Question, QuestionPart, Passage, Quiz
+from .serializers import QuestionDetailSerializer, QuizListSerializer, PassageAdminSerializer
+from .permissions import IsAdminUser, IsAdminOrTeacher
 import csv
 import io
+import json
+
+
+def _save_parts(question, parts_raw):
+    """Create QuestionPart objects from a JSON string or list."""
+    if not parts_raw:
+        return
+    if isinstance(parts_raw, str):
+        try:
+            parts_raw = json.loads(parts_raw)
+        except (json.JSONDecodeError, TypeError):
+            return
+    if not isinstance(parts_raw, list):
+        return
+    question.parts.all().delete()
+    for order, part in enumerate(parts_raw):
+        QuestionPart.objects.create(
+            parent_question=question,
+            order=part.get('order', order),
+            part_label=part.get('part_label', str(order + 1)),
+            question_text=part.get('question_text', ''),
+            question_type=part.get('question_type', 'structured'),
+            correct_answer=part.get('correct_answer', ''),
+            explanation=part.get('explanation', ''),
+            max_marks=int(part.get('max_marks', 1) or 1),
+            option_a=part.get('option_a', ''),
+            option_b=part.get('option_b', ''),
+            option_c=part.get('option_c', ''),
+            option_d=part.get('option_d', ''),
+        )
 
 
 class QuestionCreateView(generics.CreateAPIView):
@@ -27,7 +57,12 @@ class QuestionCreateView(generics.CreateAPIView):
     parser_classes = [MultiPartParser, FormParser, JSONParser]
 
     def perform_create(self, serializer):
-        serializer.save(created_by=self.request.user)
+        passage_raw = self.request.data.get('passage_id') or self.request.data.get('passage')
+        kwargs = {'created_by': self.request.user}
+        if passage_raw and str(passage_raw).isdigit():
+            kwargs['passage_id'] = int(passage_raw)
+        question = serializer.save(**kwargs)
+        _save_parts(question, self.request.data.get('parts'))
 
 
 class QuestionListManageView(generics.ListAPIView):
@@ -86,21 +121,26 @@ class QuestionUpdateView(generics.RetrieveUpdateDestroyAPIView):
 
     def perform_update(self, serializer):
         kwargs = {}
-        # Normalize empty-string substrand (FormData can't send null) to None
         substrand_raw = self.request.data.get('substrand', None)
         if substrand_raw == '' or substrand_raw == 'null':
             kwargs['substrand'] = None
+
+        passage_raw = self.request.data.get('passage_id') or self.request.data.get('passage')
+        if passage_raw and str(passage_raw).isdigit():
+            kwargs['passage_id'] = int(passage_raw)
+        elif passage_raw in ('', 'null', 'None', None) and 'passage_id' in self.request.data:
+            kwargs['passage_id'] = None
+
         if self.request.data.get('delete_image') in ('true', True, '1'):
             instance = self.get_object()
             if instance.question_image:
                 instance.question_image.delete(save=False)
             kwargs['question_image'] = None
-            serializer.save(**kwargs)
         elif 'question_image' in self.request.FILES:
             kwargs['question_image'] = self.request.FILES['question_image']
-            serializer.save(**kwargs)
-        else:
-            serializer.save(**kwargs)
+
+        question = serializer.save(**kwargs)
+        _save_parts(question, self.request.data.get('parts'))
 
 
 class BulkQuestionImportView(generics.CreateAPIView):
@@ -265,13 +305,47 @@ class AdminQuizLibraryView(generics.ListCreateAPIView):
     """
     permission_classes = [IsAdminUser]
     serializer_class = QuizListSerializer
-    
+
     def get_queryset(self):
         return Quiz.objects.filter(available_to_teachers=True)
-    
+
     def perform_create(self, serializer):
         serializer.save(
             created_by=self.request.user,
             owner_type='admin',
             available_to_teachers=True
         )
+
+
+class PassageListCreateView(generics.ListCreateAPIView):
+    """
+    GET  /api/admin/passages/   — list all passages (filterable by subject/grade)
+    POST /api/admin/passages/   — create a new passage
+    """
+    serializer_class = PassageAdminSerializer
+    permission_classes = [IsAdminOrTeacher]
+
+    def get_queryset(self):
+        qs = Passage.objects.select_related('subject').order_by('-created_at')
+        subject = self.request.query_params.get('subject')
+        grade   = self.request.query_params.get('grade')
+        search  = self.request.query_params.get('search')
+        if subject:
+            qs = qs.filter(subject_id=subject)
+        if grade:
+            qs = qs.filter(grade=grade)
+        if search:
+            qs = qs.filter(title__icontains=search)
+        return qs
+
+    def perform_create(self, serializer):
+        serializer.save(created_by=self.request.user)
+
+
+class PassageDetailView(generics.RetrieveUpdateDestroyAPIView):
+    """
+    GET/PUT/PATCH/DELETE /api/admin/passages/<id>/
+    """
+    serializer_class = PassageAdminSerializer
+    permission_classes = [IsAdminOrTeacher]
+    queryset = Passage.objects.all()
