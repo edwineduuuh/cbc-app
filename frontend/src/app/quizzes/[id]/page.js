@@ -1949,6 +1949,7 @@ export default function QuizTakePage({ params }) {
     currentQ.question_type === "structured" ||
     currentQ.question_type === "essay";
   const isTable = currentQ.question_type === "table";
+  const isKiswahili = /kiswahili/i.test(currentQ?.subject_name || "");
 
   // Build answeredBlanks map: { blankNum: optionText } — across ALL questions
   const answeredBlanks = {};
@@ -2237,13 +2238,14 @@ export default function QuizTakePage({ params }) {
                         letterSpacing: "0.06em",
                       }}
                     >
-                      {currentQ.question_type?.replace("_", " ") || "MCQ"}
+                      {isKiswahili
+                        ? (currentQ.question_type === "essay" ? "INSHA" : currentQ.question_type === "structured" ? "MUUNDO" : currentQ.question_type === "fill_blank" ? "JAZA NAFASI" : currentQ.question_type?.replace("_", " ").toUpperCase() || "MCQ")
+                        : currentQ.question_type?.replace("_", " ") || "MCQ"}
                     </span>
                     <span
                       style={{ fontSize: 13, color: "#bcc3d0", marginLeft: 8 }}
                     >
-                      · {currentQ.max_marks} mark
-                      {currentQ.max_marks !== 1 ? "s" : ""}
+                      · {currentQ.max_marks} {isKiswahili ? "alama" : `mark${currentQ.max_marks !== 1 ? "s" : ""}`}
                     </span>
                     {flagged.has(currentIdx) && (
                       <span
@@ -2254,7 +2256,7 @@ export default function QuizTakePage({ params }) {
                           marginLeft: 10,
                         }}
                       >
-                        ⚑ Flagged
+                        ⚑ {isKiswahili ? "Imewekwa alama" : "Flagged"}
                       </span>
                     )}
                   </div>
@@ -2389,7 +2391,7 @@ export default function QuizTakePage({ params }) {
                   type="text"
                   value={answers[currentIdx] ?? ""}
                   onChange={(e) => handleAnswer(e.target.value)}
-                  placeholder="Type your answer here…"
+                  placeholder={isKiswahili ? "Andika jibu lako hapa…" : "Type your answer here…"}
                   style={{
                     width: "100%",
                     border: "2px solid #e8eaf0",
@@ -2421,9 +2423,11 @@ export default function QuizTakePage({ params }) {
                       marginBottom: 10,
                     }}
                   >
-                    {currentQ.question_type === "essay"
-                      ? "Write your essay"
-                      : "Write your answer"}
+                    {isKiswahili
+                      ? (currentQ.question_type === "essay" ? "Andika insha yako" : "Andika jibu lako")
+                      : currentQ.question_type === "essay"
+                        ? "Write your essay"
+                        : "Write your answer"}
                   </p>
                   <ChemTextBar
                     textareaRef={structuredTextareaRef}
@@ -2437,9 +2441,11 @@ export default function QuizTakePage({ params }) {
                       onChange={(e) => handleAnswer(e.target.value)}
                       rows={currentQ.question_type === "essay" ? 8 : 5}
                       placeholder={
-                        currentQ.question_type === "essay"
-                          ? "Begin your essay here…"
-                          : "Explain your answer in detail…"
+                        isKiswahili
+                          ? (currentQ.question_type === "essay" ? "Anza insha yako hapa…" : "Eleza jibu lako kwa undani…")
+                          : currentQ.question_type === "essay"
+                            ? "Begin your essay here…"
+                            : "Explain your answer in detail…"
                       }
                       style={{
                         width: "100%",
@@ -2468,13 +2474,14 @@ export default function QuizTakePage({ params }) {
                         fontWeight: 600,
                       }}
                     >
-                      {(answers[currentIdx] ?? "").length} chars
+                      {isKiswahili ? `herufi ${(answers[currentIdx] ?? "").length}` : `${(answers[currentIdx] ?? "").length} chars`}
                     </span>
                   </div>
                   {currentQ.max_marks > 1 && (
                     <p style={{ fontSize: 12, color: "#8892a4", marginTop: 8 }}>
-                      Worth {currentQ.max_marks} marks — provide a detailed
-                      answer.
+                      {isKiswahili
+                        ? `Alama ${currentQ.max_marks} — toa jibu la kina.`
+                        : `Worth ${currentQ.max_marks} marks — provide a detailed answer.`}
                     </p>
                   )}
                 </div>
@@ -2622,8 +2629,7 @@ export default function QuizTakePage({ params }) {
                               fontWeight: 600,
                             }}
                           >
-                            {part.max_marks} mark
-                            {part.max_marks !== 1 ? "s" : ""}
+                            {part.max_marks} {isKiswahili ? "alama" : `mark${part.max_marks !== 1 ? "s" : ""}`}
                           </span>
                         </div>
                         <p
@@ -2666,7 +2672,7 @@ export default function QuizTakePage({ params }) {
                               value={partAnswer}
                               onChange={(e) => handlePartAnswer(e.target.value)}
                               rows={3}
-                              placeholder="Write your answer here…"
+                              placeholder={isKiswahili ? "Andika jibu lako hapa…" : "Write your answer here…"}
                               style={{
                                 width: "100%",
                                 border: "2px solid #e8eaf0",
@@ -2696,7 +2702,7 @@ export default function QuizTakePage({ params }) {
                                 fontWeight: 600,
                               }}
                             >
-                              {partAnswer.length} chars
+                              {isKiswahili ? `herufi ${partAnswer.length}` : `${partAnswer.length} chars`}
                             </span>
                           </div>
                         )}
