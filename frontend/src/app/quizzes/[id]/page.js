@@ -2529,8 +2529,8 @@ export default function QuizTakePage({ params }) {
                 );
               })()}
 
-              {/* Working panel */}
-              {(isMath || (currentQ.parts && currentQ.parts.length > 0)) && (
+              {/* Working panel — math only */}
+              {isMath && (
                 <WorkingPanel
                   questionIdx={currentIdx}
                   onWorkingCapture={(base64) =>
