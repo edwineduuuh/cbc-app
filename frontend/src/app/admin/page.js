@@ -1306,6 +1306,16 @@ export default function AdminPage() {
               </div>
             </Link>
 
+            <Link href="/admin/topics">
+              <div className="bg-white p-5 rounded-xl border border-gray-200 hover:shadow-lg hover:border-emerald-200 transition-all cursor-pointer group">
+                <Layers className="w-7 h-7 text-emerald-600 mb-3" />
+                <h3 className="font-bold text-gray-900 mb-1">Topics &amp; Sub-strands</h3>
+                <p className="text-sm text-gray-500">
+                  Manage curriculum topics and sub-strands
+                </p>
+              </div>
+            </Link>
+
             <Link href="/admin/analytics">
               <div className="bg-white p-5 rounded-xl border border-gray-200 hover:shadow-lg hover:border-orange-200 transition-all cursor-pointer group">
                 <BarChart3 className="w-7 h-7 text-orange-600 mb-3" />

@@ -394,6 +394,48 @@ class SubstrandDetailView(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [IsAuthenticated]
 
 
+class TopicManageView(generics.ListCreateAPIView):
+    """GET /api/admin/topics/?subject=&grade=   POST /api/admin/topics/"""
+    serializer_class = TopicSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        queryset = Topic.objects.select_related('subject')
+        subject_id = self.request.query_params.get('subject')
+        grade = self.request.query_params.get('grade')
+        if subject_id:
+            queryset = queryset.filter(subject_id=subject_id)
+        if grade:
+            queryset = queryset.filter(grade=grade)
+        return queryset
+
+    def perform_create(self, serializer):
+        from django.utils.text import slugify
+        name = serializer.validated_data.get('name', '')
+        subject = serializer.validated_data.get('subject')
+        grade = serializer.validated_data.get('grade')
+        base_slug = slugify(name)
+        slug = base_slug
+        counter = 1
+        while Topic.objects.filter(subject=subject, grade=grade, slug=slug).exists():
+            slug = f"{base_slug}-{counter}"
+            counter += 1
+        serializer.save(slug=slug)
+
+
+class TopicDetailView(generics.RetrieveUpdateDestroyAPIView):
+    """GET/PATCH/DELETE /api/admin/topics/<id>/"""
+    queryset = Topic.objects.select_related('subject')
+    serializer_class = TopicSerializer
+    permission_classes = [IsAuthenticated]
+
+    def perform_update(self, serializer):
+        from django.utils.text import slugify
+        name = serializer.validated_data.get('name', serializer.instance.name)
+        slug = slugify(name)
+        serializer.save(slug=slug)
+
+
 class QuizListView(generics.ListAPIView):
     serializer_class = QuizListSerializer
     permission_classes = [AllowAny]
