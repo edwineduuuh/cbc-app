@@ -2129,31 +2129,6 @@ export default function QuizTakePage({ params }) {
           ...(currentQ?.passage ? {} : { display: "block" }),
         }}
       >
-        {/* AI grading notice — shown only when quiz contains written-answer questions */}
-        {questions.some(q => q.question_type === "structured" || q.question_type === "essay") && (
-          <div
-            style={{
-              display: "flex",
-              alignItems: "flex-start",
-              gap: 10,
-              background: "#f0f6ff",
-              border: "1px solid #bfdbfe",
-              borderRadius: 12,
-              padding: "10px 14px",
-              marginBottom: 20,
-              fontSize: 13,
-              color: "#374151",
-              lineHeight: 1.5,
-            }}
-          >
-            <span style={{ fontSize: 16, flexShrink: 0 }}>ℹ️</span>
-            <span>
-              This quiz includes written questions graded by an AI marking assistant using
-              educator-written model answers. You may request a human review of any grade
-              by contacting support.
-            </span>
-          </div>
-        )}
 
         {/* Passage Panel */}
         {currentQ?.passage && (
