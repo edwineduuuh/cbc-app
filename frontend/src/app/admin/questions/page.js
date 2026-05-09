@@ -701,9 +701,17 @@ export default function QuestionManagementPage() {
       if (subject) params.set("subject", subject);
       if (grade) params.set("grade", grade);
       const r = await fetchWithAuth(`${API}/admin/topics/?${params}`);
+      if (!r.ok) {
+        showToast(`Topics endpoint error: HTTP ${r.status}`, "error");
+        tmSet({ loading: false });
+        return;
+      }
       const d = await r.json();
       tmSet({ topicList: Array.isArray(d) ? d : d.results || [], loading: false });
-    } catch { tmSet({ loading: false }); }
+    } catch (e) {
+      showToast(e?.message || "Failed to load topics", "error");
+      tmSet({ loading: false });
+    }
   };
 
   const reloadTopicsGlobal = async () => {
@@ -733,12 +741,21 @@ export default function QuestionManagementPage() {
         tmSet({ newName: "", newDesc: "", newOrder: "", saving: false });
         loadTmTopics(tm.subject, tm.grade);
         reloadTopicsGlobal();
+        showToast("Topic created!", "success");
       } else {
-        const err = await r.json();
-        showToast(err.name?.[0] || err.detail || "Could not create topic", "error");
+        const text = await r.text();
+        let msg = `HTTP ${r.status}`;
+        try {
+          const err = JSON.parse(text);
+          msg = err.name?.[0] || err.detail || Object.values(err).flat().join(" ") || msg;
+        } catch { /* non-JSON response */ }
+        showToast(msg, "error");
         tmSet({ saving: false });
       }
-    } catch { tmSet({ saving: false }); }
+    } catch (e) {
+      showToast(e?.message || "Network error", "error");
+      tmSet({ saving: false });
+    }
   };
 
   const handleTmUpdate = async () => {
