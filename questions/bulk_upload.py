@@ -351,11 +351,25 @@ REMEMBER:
         
         try:
             client = anthropic.Anthropic(api_key=settings.ANTHROPIC_API_KEY)
+
+            # Build multimodal content — prepend any extracted images so Claude can actually see them
+            content = []
+            ext_to_mime = {
+                'jpg': 'image/jpeg', 'jpeg': 'image/jpeg',
+                'png': 'image/png', 'gif': 'image/gif', 'webp': 'image/webp',
+            }
+            for i, img_data in enumerate(self.extracted_images):
+                mime = ext_to_mime.get(img_data.get('ext', 'png').lower(), 'image/png')
+                b64 = base64.standard_b64encode(img_data['bytes']).decode('utf-8')
+                content.append({"type": "text", "text": f"IMAGE_{i}:"})
+                content.append({"type": "image", "source": {"type": "base64", "media_type": mime, "data": b64}})
+            content.append({"type": "text", "text": prompt})
+
             response = client.messages.create(
                 model=CLAUDE_MODEL,
                 max_tokens=8192,
                 temperature=0,
-                messages=[{"role": "user", "content": prompt}],
+                messages=[{"role": "user", "content": content}],
             )
 
             raw_text = response.content[0].text
