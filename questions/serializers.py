@@ -59,6 +59,7 @@ class TopicSerializer(serializers.ModelSerializer):
     class Meta:
         model  = Topic
         fields = ['id', 'name', 'slug', 'description', 'subject', 'subject_name', 'grade', 'order', 'question_count', 'quiz_count']
+        extra_kwargs = {'slug': {'required': False, 'allow_blank': True}}
 
     def get_question_count(self, obj):
         return obj.questions.count()
