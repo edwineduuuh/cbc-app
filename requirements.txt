@@ -1,4 +1,5 @@
-﻿africastalking==2.0.2
+﻿# CBC Kenya Backend
+africastalking==2.0.2
 annotated-types==0.7.0
 anthropic==0.79.0
 antlr4-python3-runtime==4.11.0

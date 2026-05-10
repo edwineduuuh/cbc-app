@@ -76,15 +76,22 @@ export default function TopicsPage() {
 
   const loadTopics = async () => {
     setLoading(true);
-    const params = new URLSearchParams();
-    if (filterSubject) params.set("subject", filterSubject);
-    if (filterGrade) params.set("grade", filterGrade);
-    const res = await fetchWithAuth(`${API}/admin/topics/?${params}`);
-    if (res.ok) {
-      const d = await res.json();
-      setTopics(Array.isArray(d) ? d : d.results || []);
+    try {
+      const params = new URLSearchParams();
+      if (filterSubject) params.set("subject", filterSubject);
+      if (filterGrade) params.set("grade", filterGrade);
+      const res = await fetchWithAuth(`${API}/admin/topics/?${params}`);
+      if (res.ok) {
+        const d = await res.json();
+        setTopics(Array.isArray(d) ? d : d.results || []);
+      } else {
+        showToast(`Failed to load topics: HTTP ${res.status}`, "error");
+      }
+    } catch (e) {
+      showToast(e?.message || "Network error loading topics", "error");
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   useEffect(() => {
@@ -149,20 +156,30 @@ export default function TopicsPage() {
       order: Number(topicForm.order) || 0,
     };
     const url = editingTopic ? `${API}/admin/topics/${editingTopic.id}/` : `${API}/admin/topics/`;
-    const res = await fetchWithAuth(url, {
-      method: editingTopic ? "PATCH" : "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
-    });
-    if (res.ok) {
-      showToast(editingTopic ? "Topic updated!" : "Topic created!");
-      setTopicModal(false);
-      loadTopics();
-    } else {
-      const err = await res.json().catch(() => ({}));
-      showToast(JSON.stringify(err) || "Failed to save", "error");
+    try {
+      const res = await fetchWithAuth(url, {
+        method: editingTopic ? "PATCH" : "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      if (res.ok) {
+        showToast(editingTopic ? "Topic updated!" : "Topic created!");
+        setTopicModal(false);
+        loadTopics();
+      } else {
+        const text = await res.text();
+        let msg = `HTTP ${res.status}`;
+        try {
+          const err = JSON.parse(text);
+          msg = err.name?.[0] || err.detail || Object.values(err).flat().join(" ") || msg;
+        } catch { /* non-JSON */ }
+        showToast(msg, "error");
+      }
+    } catch (e) {
+      showToast(e?.message || "Network error", "error");
+    } finally {
+      setSavingTopic(false);
     }
-    setSavingTopic(false);
   };
 
   const handleDeleteTopic = async (id) => {
