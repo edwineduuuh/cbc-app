@@ -361,30 +361,22 @@ class SubstrandListView(generics.ListAPIView):
     permission_classes = [AllowAny]
 
     def get_queryset(self):
-        queryset = Substrand.objects.select_related('topic')
         topic_id = self.request.query_params.get('topic')
-        if topic_id:
-            queryset = queryset.filter(topic_id=topic_id)
-        subject_id = self.request.query_params.get('subject')
-        if subject_id:
-            queryset = queryset.filter(topic__subject_id=subject_id)
-        grade = self.request.query_params.get('grade')
-        if grade:
-            queryset = queryset.filter(topic__grade=grade)
-        return queryset
+        if not topic_id:
+            return Substrand.objects.none()
+        return Substrand.objects.select_related('topic').filter(topic_id=topic_id)
 
 
 class SubstrandManageView(generics.ListCreateAPIView):
-    """GET /api/admin/substrands/?topic=   POST /api/admin/substrands/"""
+    """GET /api/admin/substrands/?topic=<id>   POST /api/admin/substrands/"""
     serializer_class = SubstrandSerializer
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        queryset = Substrand.objects.select_related('topic')
         topic_id = self.request.query_params.get('topic')
-        if topic_id:
-            queryset = queryset.filter(topic_id=topic_id)
-        return queryset
+        if not topic_id:
+            return Substrand.objects.none()
+        return Substrand.objects.select_related('topic').filter(topic_id=topic_id)
 
 
 class SubstrandDetailView(generics.RetrieveUpdateDestroyAPIView):

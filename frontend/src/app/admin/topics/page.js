@@ -76,6 +76,9 @@ export default function TopicsPage() {
 
   const loadTopics = async () => {
     setLoading(true);
+    // Clear substrand cache and expanded state so stale data from a prior filter never shows
+    setSubstrands({});
+    setExpanded({});
     try {
       const params = new URLSearchParams();
       if (filterSubject) params.set("subject", filterSubject);

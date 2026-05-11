@@ -2511,9 +2511,9 @@ export default function QuestionManagementPage() {
                     smSet({ topic: e.target.value, substrands: [], newName: "", editId: null });
                     loadSmSubstrands(e.target.value);
                   }}
-                  disabled={!sm.subject && !sm.grade}
+                  disabled={!sm.subject || !sm.grade}
                   options={topics
-                    .filter((t) => (!sm.subject || t.subject == sm.subject) && (!sm.grade || t.grade == sm.grade))
+                    .filter((t) => t.subject == sm.subject && t.grade == sm.grade)
                     .map((t) => ({ value: t.id, label: t.name }))}
                   placeholder="Select strand"
                 />
