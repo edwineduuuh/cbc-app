@@ -139,6 +139,17 @@ class QuestionUpdateView(generics.RetrieveUpdateDestroyAPIView):
         elif 'question_image' in self.request.FILES:
             kwargs['question_image'] = self.request.FILES['question_image']
 
+        for letter in ('a', 'b', 'c', 'd'):
+            field = f'option_{letter}_image'
+            if self.request.data.get(f'delete_{field}') in ('true', True, '1'):
+                instance = self.get_object()
+                img = getattr(instance, field, None)
+                if img:
+                    img.delete(save=False)
+                kwargs[field] = None
+            elif field in self.request.FILES:
+                kwargs[field] = self.request.FILES[field]
+
         question = serializer.save(**kwargs)
         _save_parts(question, self.request.data.get('parts'))
 

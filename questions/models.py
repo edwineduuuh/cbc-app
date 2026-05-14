@@ -190,6 +190,10 @@ class Question(models.Model):
     help_text="Optional diagram, graph, or illustration",
     storage=MediaCloudinaryStorage(),
 )
+    option_a_image = models.ImageField(upload_to='option_images/', null=True, blank=True, storage=MediaCloudinaryStorage())
+    option_b_image = models.ImageField(upload_to='option_images/', null=True, blank=True, storage=MediaCloudinaryStorage())
+    option_c_image = models.ImageField(upload_to='option_images/', null=True, blank=True, storage=MediaCloudinaryStorage())
+    option_d_image = models.ImageField(upload_to='option_images/', null=True, blank=True, storage=MediaCloudinaryStorage())
     class Meta:
         db_table = 'questions'
         ordering = ['-created_at']

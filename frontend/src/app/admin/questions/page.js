@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useMemo, useCallback } from "react";
+import React, { useState, useEffect, useMemo, useCallback } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { useRouter } from "next/navigation";
 import { fetchWithAuth } from "@/lib/api";
@@ -392,6 +392,53 @@ function PartsBuilder({ parts, onChange }) {
   );
 }
 
+// ── MCQ option row: text input + optional image picker ──────────────────────
+function MCQOptionRow({ letter, value, onChange, imageFile, imagePreview, existingUrl, onImageChange, onImageClear }) {
+  const fileRef = React.useRef(null);
+  const hasImage = imageFile || existingUrl;
+  const previewSrc = imagePreview || existingUrl;
+
+  function handleFile(e) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    onImageChange(file, URL.createObjectURL(file));
+    e.target.value = "";
+  }
+
+  return (
+    <div className="space-y-1">
+      <label className="block text-xs font-semibold text-gray-600 uppercase tracking-wide">Option {letter}</label>
+      <div className="flex items-center gap-2">
+        <input
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          className={`flex-1 text-sm px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none ${hasImage ? "text-gray-400 italic" : ""}`}
+          placeholder={hasImage ? "(image used as option)" : `Type option ${letter}…`}
+        />
+        <button
+          type="button"
+          title={hasImage ? "Replace image" : "Add image"}
+          onClick={() => fileRef.current?.click()}
+          className={`p-2 rounded-lg border transition-all text-sm ${hasImage ? "bg-indigo-50 border-indigo-300 text-indigo-600" : "bg-gray-50 border-gray-300 text-gray-500 hover:border-indigo-300 hover:text-indigo-500"}`}
+        >
+          <ImageIcon className="w-4 h-4" />
+        </button>
+        <input ref={fileRef} type="file" accept="image/*" className="hidden" onChange={handleFile} />
+      </div>
+      {previewSrc && (
+        <div className="relative inline-block">
+          <img src={previewSrc} alt={`Option ${letter}`} className="h-20 rounded-lg border border-gray-200 object-contain bg-gray-50" />
+          <button
+            type="button"
+            onClick={onImageClear}
+            className="absolute -top-1.5 -right-1.5 w-5 h-5 bg-red-500 text-white rounded-full flex items-center justify-center text-xs hover:bg-red-600"
+          >×</button>
+        </div>
+      )}
+    </div>
+  );
+}
+
 export default function QuestionManagementPage() {
   const { user, loading: authLoading } = useAuth();
   const router = useRouter();
@@ -472,6 +519,12 @@ export default function QuestionManagementPage() {
   const [editImageFile, setEditImageFile] = useState(null);
   const [editImagePreview, setEditImagePreview] = useState(null);
   const [editImageDeleted, setEditImageDeleted] = useState(false);
+  // option images: { A: File|null, B: File|null, C: File|null, D: File|null }
+  const [createOptImages, setCreateOptImages] = useState({ A: null, B: null, C: null, D: null });
+  const [createOptPreviews, setCreateOptPreviews] = useState({ A: null, B: null, C: null, D: null });
+  const [editOptImages, setEditOptImages] = useState({ A: null, B: null, C: null, D: null });
+  const [editOptPreviews, setEditOptPreviews] = useState({ A: null, B: null, C: null, D: null });
+  const [editOptDeleted, setEditOptDeleted] = useState({ A: false, B: false, C: false, D: false });
   const [toast, setToast] = useState({
     show: false,
     message: "",
@@ -904,6 +957,9 @@ export default function QuestionManagementPage() {
     fd.append("max_marks", parseInt(formData.max_marks) || 1);
     fd.append("difficulty", formData.difficulty || "medium");
     if (createImageFile) fd.append("question_image", createImageFile);
+    for (const letter of ["A", "B", "C", "D"]) {
+      if (createOptImages[letter]) fd.append(`option_${letter.toLowerCase()}_image`, createOptImages[letter]);
+    }
     if (formData.passage_id) fd.append("passage_id", formData.passage_id);
     if (isMultipartStyle && formData.parts?.length > 0) {
       fd.append("parts", JSON.stringify(formData.parts));
@@ -920,6 +976,8 @@ export default function QuestionManagementPage() {
         resetForm();
         setCreateImageFile(null);
         setCreateImagePreview(null);
+        setCreateOptImages({ A: null, B: null, C: null, D: null });
+        setCreateOptPreviews({ A: null, B: null, C: null, D: null });
         loadQuestions();
       } else {
         showToast(
@@ -969,6 +1027,14 @@ export default function QuestionManagementPage() {
       } else if (editImageDeleted) {
         fd.append("delete_image", "true");
       }
+      for (const letter of ["A", "B", "C", "D"]) {
+        const field = `option_${letter.toLowerCase()}_image`;
+        if (editOptImages[letter]) {
+          fd.append(field, editOptImages[letter]);
+        } else if (editOptDeleted[letter]) {
+          fd.append(`delete_${field}`, "true");
+        }
+      }
       fd.append("passage_id", editingQuestion.passage_id || editingQuestion.passage?.id || "");
       if (isMultipartStyleEdit && editingQuestion.parts?.length > 0) {
         fd.append("parts", JSON.stringify(editingQuestion.parts));
@@ -987,6 +1053,9 @@ export default function QuestionManagementPage() {
         setEditImageFile(null);
         setEditImagePreview(null);
         setEditImageDeleted(false);
+        setEditOptImages({ A: null, B: null, C: null, D: null });
+        setEditOptPreviews({ A: null, B: null, C: null, D: null });
+        setEditOptDeleted({ A: false, B: false, C: false, D: false });
         loadQuestions();
       } else {
         const data = await res.json();
@@ -1773,10 +1842,25 @@ export default function QuestionManagementPage() {
                   (formData.question_type === "math" && formData.math_format === "mcq")) && (
                   <>
                     <div className="grid grid-cols-2 gap-4">
-                      <InputField label="Option A" name="option_a" value={formData.option_a} onChange={handleChange} required />
-                      <InputField label="Option B" name="option_b" value={formData.option_b} onChange={handleChange} required />
-                      <InputField label="Option C" name="option_c" value={formData.option_c} onChange={handleChange} required />
-                      <InputField label="Option D" name="option_d" value={formData.option_d} onChange={handleChange} required />
+                      {["A", "B", "C", "D"].map((letter) => (
+                        <MCQOptionRow
+                          key={letter}
+                          letter={letter}
+                          value={formData[`option_${letter.toLowerCase()}`]}
+                          onChange={(v) => setFormData((p) => ({ ...p, [`option_${letter.toLowerCase()}`]: v }))}
+                          imageFile={createOptImages[letter]}
+                          imagePreview={createOptPreviews[letter]}
+                          existingUrl={null}
+                          onImageChange={(file, preview) => {
+                            setCreateOptImages((p) => ({ ...p, [letter]: file }));
+                            setCreateOptPreviews((p) => ({ ...p, [letter]: preview }));
+                          }}
+                          onImageClear={() => {
+                            setCreateOptImages((p) => ({ ...p, [letter]: null }));
+                            setCreateOptPreviews((p) => ({ ...p, [letter]: null }));
+                          }}
+                        />
+                      ))}
                     </div>
                     <SelectField
                       label="Correct Answer"
@@ -2108,10 +2192,27 @@ export default function QuestionManagementPage() {
                   (editingQuestion.question_type === "math" && (editingQuestion.math_format || "open") === "mcq")) && (
                   <>
                     <div className="grid grid-cols-2 gap-4">
-                      <InputField label="Option A" name="option_a" value={editingQuestion.option_a || ""} onChange={handleEditChange} required />
-                      <InputField label="Option B" name="option_b" value={editingQuestion.option_b || ""} onChange={handleEditChange} required />
-                      <InputField label="Option C" name="option_c" value={editingQuestion.option_c || ""} onChange={handleEditChange} required />
-                      <InputField label="Option D" name="option_d" value={editingQuestion.option_d || ""} onChange={handleEditChange} required />
+                      {["A", "B", "C", "D"].map((letter) => (
+                        <MCQOptionRow
+                          key={letter}
+                          letter={letter}
+                          value={editingQuestion[`option_${letter.toLowerCase()}`] || ""}
+                          onChange={(v) => setEditingQuestion((p) => ({ ...p, [`option_${letter.toLowerCase()}`]: v }))}
+                          imageFile={editOptImages[letter]}
+                          imagePreview={editOptPreviews[letter]}
+                          existingUrl={editOptDeleted[letter] ? null : editingQuestion[`option_${letter.toLowerCase()}_image_url`]}
+                          onImageChange={(file, preview) => {
+                            setEditOptImages((p) => ({ ...p, [letter]: file }));
+                            setEditOptPreviews((p) => ({ ...p, [letter]: preview }));
+                            setEditOptDeleted((p) => ({ ...p, [letter]: false }));
+                          }}
+                          onImageClear={() => {
+                            setEditOptImages((p) => ({ ...p, [letter]: null }));
+                            setEditOptPreviews((p) => ({ ...p, [letter]: null }));
+                            setEditOptDeleted((p) => ({ ...p, [letter]: true }));
+                          }}
+                        />
+                      ))}
                     </div>
                     <SelectField
                       label="Correct Answer"

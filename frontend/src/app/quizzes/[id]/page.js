@@ -373,7 +373,7 @@ function MathInput({ value, onChange }) {
 }
 
 // ─── MCQ Option ───────────────────────────────────────────────────────────────
-function MCQOption({ letter, text, selected, onClick }) {
+function MCQOption({ letter, text, imageUrl, selected, onClick }) {
   const colorMap = {
     A: {
       idle: "#e8f4ff",
@@ -441,17 +441,25 @@ function MCQOption({ letter, text, selected, onClick }) {
       >
         {letter}
       </div>
-      <span
-        style={{
-          fontSize: 15,
-          fontWeight: selected ? 600 : 500,
-          color: selected ? c.activeText : "#1a1a2e",
-          lineHeight: 1.5,
-          textAlign: "left",
-          flex: 1,
-        }}
-        dangerouslySetInnerHTML={{ __html: renderMath(text) }}
-      />
+      {imageUrl ? (
+        <img
+          src={imageUrl}
+          alt={`Option ${letter}`}
+          style={{ flex: 1, maxHeight: 120, objectFit: "contain", borderRadius: 8 }}
+        />
+      ) : (
+        <span
+          style={{
+            fontSize: 15,
+            fontWeight: selected ? 600 : 500,
+            color: selected ? c.activeText : "#1a1a2e",
+            lineHeight: 1.5,
+            textAlign: "left",
+            flex: 1,
+          }}
+          dangerouslySetInnerHTML={{ __html: renderMath(text) }}
+        />
+      )}
       {selected && <CheckCircle size={20} color={c.activeText} />}
     </button>
   );
@@ -2352,13 +2360,16 @@ export default function QuizTakePage({ params }) {
                   }}
                 >
                   {["A", "B", "C", "D"].map((letter) => {
-                    const text = currentQ[`option_${letter.toLowerCase()}`];
-                    if (!text) return null;
+                    const lc = letter.toLowerCase();
+                    const text = currentQ[`option_${lc}`];
+                    const imageUrl = currentQ[`option_${lc}_image_url`];
+                    if (!text && !imageUrl) return null;
                     return (
                       <MCQOption
                         key={letter}
                         letter={letter}
                         text={text}
+                        imageUrl={imageUrl}
                         selected={answers[currentIdx] === letter}
                         onClick={() => handleAnswer(letter)}
                       />

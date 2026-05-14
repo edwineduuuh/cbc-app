@@ -123,8 +123,16 @@ class QuestionDetailSerializer(serializers.ModelSerializer):
     grade          = serializers.IntegerField(source='topic.grade', read_only=True)
     subject        = serializers.IntegerField(source='topic.subject.id', read_only=True)
     substrand_name = serializers.CharField(source='substrand.name', read_only=True, default=None)
-    question_image_url = serializers.SerializerMethodField()
-    question_image = serializers.ImageField(required=False, allow_null=True, write_only=True)
+    question_image_url  = serializers.SerializerMethodField()
+    question_image      = serializers.ImageField(required=False, allow_null=True, write_only=True)
+    option_a_image_url  = serializers.SerializerMethodField()
+    option_b_image_url  = serializers.SerializerMethodField()
+    option_c_image_url  = serializers.SerializerMethodField()
+    option_d_image_url  = serializers.SerializerMethodField()
+    option_a_image      = serializers.ImageField(required=False, allow_null=True, write_only=True)
+    option_b_image      = serializers.ImageField(required=False, allow_null=True, write_only=True)
+    option_c_image      = serializers.ImageField(required=False, allow_null=True, write_only=True)
+    option_d_image      = serializers.ImageField(required=False, allow_null=True, write_only=True)
     parts          = QuestionPartSerializer(many=True, read_only=True)
     passage        = PassageSerializer(read_only=True)
     passage_id     = serializers.IntegerField(write_only=True, required=False, allow_null=True)
@@ -137,6 +145,8 @@ class QuestionDetailSerializer(serializers.ModelSerializer):
             'question_type',
             'question_text',
             'option_a', 'option_b', 'option_c', 'option_d',
+            'option_a_image_url', 'option_b_image_url', 'option_c_image_url', 'option_d_image_url',
+            'option_a_image', 'option_b_image', 'option_c_image', 'option_d_image',
             'correct_answer', 'correct_answers',
             'explanation', 'difficulty', 'marking_scheme',
             'created_at', 'created_by',
@@ -154,17 +164,30 @@ class QuestionDetailSerializer(serializers.ModelSerializer):
             'substrand': {'required': False, 'allow_null': True},
         }
 
-    def get_question_image_url(self, obj):
-        if not obj.question_image:
+    def _image_url(self, obj, field_name):
+        img = getattr(obj, field_name, None)
+        if not img:
             return None
         try:
             request = self.context.get('request')
-            if request:
-                return request.build_absolute_uri(obj.question_image.url)
-            return obj.question_image.url
-        except (ValueError, Exception):
-            # Old image uploaded before Cloudinary - return None
+            return request.build_absolute_uri(img.url) if request else img.url
+        except Exception:
             return None
+
+    def get_question_image_url(self, obj):
+        return self._image_url(obj, 'question_image')
+
+    def get_option_a_image_url(self, obj):
+        return self._image_url(obj, 'option_a_image')
+
+    def get_option_b_image_url(self, obj):
+        return self._image_url(obj, 'option_b_image')
+
+    def get_option_c_image_url(self, obj):
+        return self._image_url(obj, 'option_c_image')
+
+    def get_option_d_image_url(self, obj):
+        return self._image_url(obj, 'option_d_image')
 
 
 class QuizListSerializer(serializers.ModelSerializer):
