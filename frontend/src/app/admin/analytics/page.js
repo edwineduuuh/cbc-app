@@ -509,7 +509,7 @@ function UsersTab({ stats, list, listLoading, filter, onFilterChange }) {
             <table className="w-full text-sm">
               <thead className="bg-gray-50 border-b">
                 <tr>
-                  {["Username", "Email", "Role", "Grade", "Joined", "Last Login", "Status", "Quizzes"].map((h) => (
+                  {["Username", "Email", "Role", "Grade", "School", "Joined", "Last Login", "Status", "Quizzes"].map((h) => (
                     <th key={h} className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">{h}</th>
                   ))}
                 </tr>
@@ -523,6 +523,7 @@ function UsersTab({ stats, list, listLoading, filter, onFilterChange }) {
                       <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${roleColors[u.role] || "bg-gray-100 text-gray-600"}`}>{u.role}</span>
                     </td>
                     <td className="px-4 py-3 text-gray-500">{u.grade ? `G${u.grade}` : "—"}</td>
+                    <td className="px-4 py-3 text-gray-500 max-w-[140px] truncate">{u.school_name || "—"}</td>
                     <td className="px-4 py-3 text-gray-500 whitespace-nowrap">{u.date_joined ? new Date(u.date_joined).toLocaleDateString() : "—"}</td>
                     <td className="px-4 py-3 text-gray-500 whitespace-nowrap">{u.last_login ? new Date(u.last_login).toLocaleDateString() : "—"}</td>
                     <td className="px-4 py-3">

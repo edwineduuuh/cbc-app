@@ -24,6 +24,7 @@ function RegisterPage() {
     parent_name: "",
     parent_phone: "",
     parent_email: "",
+    school_name: "",
   });
   const [showPassword, setShowPassword] = useState(false);
   const [showPassword2, setShowPassword2] = useState(false);
@@ -353,6 +354,20 @@ function RegisterPage() {
                           {errors.grade}
                         </p>
                       )}
+                    </div>
+                  )}
+
+                  {/* School name — students only, optional */}
+                  {formData.role === "student" && (
+                    <div>
+                      <label className={labelCls}>School Name <span className="text-gray-400 font-normal">(optional)</span></label>
+                      <input
+                        name="school_name"
+                        value={formData.school_name}
+                        onChange={handleChange}
+                        placeholder="e.g. Nairobi Primary School"
+                        className={inputCls("school_name")}
+                      />
                     </div>
                   )}
 

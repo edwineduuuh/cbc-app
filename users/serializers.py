@@ -38,7 +38,7 @@ class RegisterSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['username', 'email','password', 'password2', 'role','grade', 'first_name','last_name',
-                  'parent_name', 'parent_phone', 'parent_email']
+                  'parent_name', 'parent_phone', 'parent_email', 'school_name']
 
     def validate(self, attrs):
          """
@@ -90,6 +90,7 @@ class RegisterSerializer(serializers.ModelSerializer):
             parent_name=validated_data.get('parent_name', ''),
             parent_phone=validated_data.get('parent_phone', ''),
             parent_email=validated_data.get('parent_email', ''),
+            school_name=validated_data.get('school_name', ''),
         )
 
         return user

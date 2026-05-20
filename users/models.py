@@ -58,6 +58,9 @@ class User(AbstractUser):
     trial_end = models.DateTimeField(null=True, blank=True)
     has_used_trial = models.BooleanField(default=False)
 
+    school_name = models.CharField(max_length=150, blank=True, default='',
+        help_text="School the student attends (optional, self-reported)")
+
     # Parent/Guardian info (for comms, receipts, progress reports)
     parent_name = models.CharField(max_length=150, blank=True, default='')
     parent_phone = models.CharField(max_length=15, blank=True, default='',

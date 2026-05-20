@@ -100,6 +100,7 @@ class AdminUserListView(APIView):
                 'email': u.email or '',
                 'role': u.role,
                 'grade': u.grade,
+                'school_name': u.school_name or '',
                 'date_joined': u.date_joined.isoformat() if u.date_joined else None,
                 'last_login': u.last_login.isoformat() if u.last_login else None,
                 'has_subscription': u.id in active_sub_ids,
