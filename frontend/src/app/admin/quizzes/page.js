@@ -71,6 +71,7 @@ export default function QuizzesManagementPage() {
     search: "",
     quiz_type: "",
   });
+  const [confirmDelete, setConfirmDelete] = useState(null); // quiz object to delete
 
   // Auth guard
   useEffect(() => {
@@ -131,8 +132,6 @@ export default function QuizzesManagementPage() {
   };
 
   const handleDelete = async (id) => {
-    if (!confirm("Delete this quiz permanently? This cannot be undone."))
-      return;
     try {
       const res = await fetchWithAuth(`${API}/admin/quizzes/${id}/`, {
         method: "DELETE",
@@ -235,6 +234,49 @@ export default function QuizzesManagementPage() {
         visible={toast.show}
         onClose={() => setToast((t) => ({ ...t, show: false }))}
       />
+
+      {/* ── Delete confirmation modal ── */}
+      <AnimatePresence>
+        {confirmDelete && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm px-4"
+            onClick={() => setConfirmDelete(null)}
+          >
+            <motion.div
+              initial={{ scale: 0.92, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.92, opacity: 0 }}
+              transition={{ type: "spring", duration: 0.25 }}
+              onClick={(e) => e.stopPropagation()}
+              className="bg-white rounded-2xl shadow-2xl w-full max-w-sm p-6"
+            >
+              <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Trash2 className="w-6 h-6 text-red-600" />
+              </div>
+              <h3 className="text-lg font-bold text-gray-900 text-center mb-1">Delete Quiz?</h3>
+              <p className="text-sm text-gray-500 text-center mb-1 font-medium">{confirmDelete.title}</p>
+              <p className="text-xs text-gray-400 text-center mb-6">This will permanently remove the quiz and cannot be undone.</p>
+              <div className="flex gap-3">
+                <button
+                  onClick={() => setConfirmDelete(null)}
+                  className="flex-1 py-2.5 rounded-xl border-2 border-gray-200 text-gray-700 font-semibold text-sm hover:bg-gray-50 transition"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={() => { handleDelete(confirmDelete.id); setConfirmDelete(null); }}
+                  className="flex-1 py-2.5 rounded-xl bg-red-600 text-white font-semibold text-sm hover:bg-red-700 transition shadow"
+                >
+                  Delete
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
       <div className="min-h-screen bg-gray-50">
         {/* Header */}
         <div className="bg-white border-b sticky top-0 z-30">
@@ -555,7 +597,7 @@ export default function QuizzesManagementPage() {
                                         <QuizCard
                                           key={quiz.id}
                                           quiz={quiz}
-                                          onDelete={handleDelete}
+                                          onDelete={(quiz) => setConfirmDelete(quiz)}
                                           onTogglePublish={handlePublishToggle}
                                         />
                                       ),
@@ -664,7 +706,7 @@ function QuizCard({ quiz, onDelete, onTogglePublish }) {
             <Edit className="w-4 h-4" />
           </Link>
           <button
-            onClick={() => onDelete(quiz.id)}
+            onClick={() => onDelete(quiz)}
             className="p-1.5 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
             title="Delete"
           >
