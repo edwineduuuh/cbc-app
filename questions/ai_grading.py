@@ -235,27 +235,9 @@ def _sanitize_answer(text: str) -> str:
     return text
 
 
-GRADER_VERSION = "v7"  # bump to bust stale cached results
+GRADER_VERSION = "v8"  # bump to bust stale cached results
 
 def _grade_cache_key(question_id, answer_text: str) -> str:
-    """Generate a cache key for a graded answer."""
-    norm = _normalise(str(answer_text))
-    h = hashlib.sha256(f"{question_id}:{norm}".encode()).hexdigest()[:16]
-    return f"grade:{GRADER_VERSION}:{question_id}:{h}"
-
-
-def _sanitize_answer(text: str) -> str:
-    """Sanitize student answer to prevent prompt injection and enforce length cap."""
-    text = str(text).strip()
-    if len(text) > MAX_ANSWER_LENGTH:
-        text = text[:MAX_ANSWER_LENGTH] + "... (truncated)"
-    return text
-
-
-GRADER_VERSION = "v7"  # bump to bust stale cached results
-
-def _grade_cache_key(question_id, answer_text: str) -> str:
-    """Generate a cache key for a graded answer."""
     norm = _normalise(str(answer_text))
     h = hashlib.sha256(f"{question_id}:{norm}".encode()).hexdigest()[:16]
     return f"grade:{GRADER_VERSION}:{question_id}:{h}"
@@ -752,10 +734,14 @@ Tumia TU habari kutoka jibu sahihi na maelezo ya mwalimu.
 MCQ RULES:
 - Correct option -> full marks. Wrong option -> 0. No partial marks.
 FEEDBACK FORMAT:
-  Correct: "Correct! ..." then 1-2 sentences why. End with one "Remember:" tip.
-  Wrong: "Not quite. The right answer is: ..." For calculation questions show
-  step-by-step working with $$...$$ on its own line. End with "Remember:" tip.
-  Maximum 6 sentences total.
+  For ALL questions involving numbers, formulas, calculations, or steps:
+    ALWAYS show full step-by-step working — whether the student got it right or wrong.
+    Correct: "Correct! [brief why]. Let me show you the correct working:\n[numbered steps using $$...$$]"
+    Wrong:   "Not quite. The correct answer is [Option X]. Here is the working:\n[numbered steps using $$...$$]"
+  For purely language/recall questions (no maths):
+    Correct: "Correct! ..." then 1-2 sentences why.
+    Wrong:   "Not quite. The correct answer is ..." 1-2 sentences why.
+  End every response with one "Remember:" tip. Maximum 10 sentences total.
 """
 
     # ── Passage rules ─────────────────────────────────────────────────────────
@@ -987,6 +973,23 @@ CORRECT ANSWER: {correct_answer}
 Write ONE short sentence (max 12 words) as a helpful tip for this type of problem.
 Use simple words a Grade {grade} student understands.
 Write ONLY the tip. No extra text."""
+
+
+def _build_math_working_prompt(question, correct_answer: str, grade: int) -> str:
+    return f"""You are a Kenyan CBC Grade {grade} maths teacher.
+
+QUESTION: {question.question_text}
+CORRECT ANSWER: {correct_answer}
+
+The student got this RIGHT. Show the step-by-step working so they understand the method.
+- Number each step: Step 1, Step 2, etc.
+- Show ALL calculations using LaTeX display math on their own line: $$...$$
+- Use inline LaTeX for numbers and variables in sentences: $x = 4$, $\\frac{{1}}{{8}}$, $\\times$
+- NEVER write bare maths outside dollar signs
+- Keep it under 120 words total
+- Write like you are talking directly to a Grade {grade} student
+- NO markdown, NO code blocks, NO headings, NO asterisks
+"""
 
 
 def _build_math_solution_prompt(
@@ -1346,20 +1349,31 @@ def _grade_math(question, student_answer: str, working_image: str | None = None)
         return _empty_result(question.max_marks, msg, _near_miss(sw))
 
     def _on_correct(display_value):
+        praise = _praise(sw)
         try:
-            tip = _call_ai(
-                _build_math_study_tip_prompt(question, display_value, grade),
+            working = _call_ai(
+                _build_math_working_prompt(question, correct_str, grade),
+                max_tokens=1200,
                 use_gemini=sw,
-            )
+            ).strip().replace("```", "").replace("**", "")
+            feedback = f"{praise} Let me show you the correct working:\n{working}"
+            tip = working
         except Exception:
-            tip = (
-                "Endelea kufanya mazoezi ya matatizo kama haya!"
-                if sw else
-                "Keep practising similar problems to get even faster!"
-            )
+            try:
+                tip = _call_ai(
+                    _build_math_study_tip_prompt(question, display_value, grade),
+                    use_gemini=sw,
+                )
+            except Exception:
+                tip = (
+                    "Endelea kufanya mazoezi ya matatizo kama haya!"
+                    if sw else
+                    "Keep practising similar problems to get even faster!"
+                )
+            feedback = f"{praise} {tip}"
         return _correct_result(
             max_marks     = question.max_marks,
-            feedback      = f"{_praise(sw)} {tip}",
+            feedback      = feedback,
             message       = _encourage(sw),
             study_tip     = tip,
             points_earned = [str(display_value)],
