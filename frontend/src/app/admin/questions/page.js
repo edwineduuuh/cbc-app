@@ -530,6 +530,7 @@ export default function QuestionManagementPage() {
     message: "",
     type: "success",
   });
+  const [confirmModal, setConfirmModal] = useState({ open: false, message: "", onConfirm: null });
 
   useEffect(() => {
     if (authLoading) return;
@@ -740,10 +741,15 @@ export default function QuestionManagementPage() {
     } catch { smSet({ saving: false }); }
   };
 
-  const handleSmDelete = async (id) => {
-    if (!window.confirm("Delete this substrand? Questions tagged to it will be untagged.")) return;
-    await fetchWithAuth(`${API}/admin/substrands/${id}/`, { method: "DELETE" });
-    loadSmSubstrands(sm.topic);
+  const handleSmDelete = (id) => {
+    setConfirmModal({
+      open: true,
+      message: "Delete this substrand? Questions tagged to it will be untagged.",
+      onConfirm: async () => {
+        await fetchWithAuth(`${API}/admin/substrands/${id}/`, { method: "DELETE" });
+        loadSmSubstrands(sm.topic);
+      },
+    });
   };
 
   // ── Topic manager helpers ───────────────────────────────────────
@@ -831,11 +837,16 @@ export default function QuestionManagementPage() {
     } catch { tmSet({ saving: false }); }
   };
 
-  const handleTmDelete = async (id) => {
-    if (!window.confirm("Delete this topic? Sub-strands and question tags will be removed.")) return;
-    await fetchWithAuth(`${API}/admin/topics/${id}/`, { method: "DELETE" });
-    loadTmTopics(tm.subject, tm.grade);
-    reloadTopicsGlobal();
+  const handleTmDelete = (id) => {
+    setConfirmModal({
+      open: true,
+      message: "Delete this topic? Sub-strands and question tags will be removed.",
+      onConfirm: async () => {
+        await fetchWithAuth(`${API}/admin/topics/${id}/`, { method: "DELETE" });
+        loadTmTopics(tm.subject, tm.grade);
+        reloadTopicsGlobal();
+      },
+    });
   };
 
   const resetForm = () => {
@@ -1067,26 +1078,26 @@ export default function QuestionManagementPage() {
     setActionLoading(false);
   };
 
-  const handleDeleteQuestion = async (questionId) => {
-    if (
-      !confirm(
-        "Are you sure you want to delete this question? This cannot be undone.",
-      )
-    )
-      return;
-    try {
-      const res = await fetchWithAuth(`${API}/admin/questions/${questionId}/`, {
-        method: "DELETE",
-      });
-      if (res.ok) {
-        showToast("Question deleted!");
-        loadQuestions();
-      } else {
-        showToast("Error deleting question", "error");
-      }
-    } catch (err) {
-      showToast("Error deleting question", "error");
-    }
+  const handleDeleteQuestion = (questionId) => {
+    setConfirmModal({
+      open: true,
+      message: "Are you sure you want to delete this question? This cannot be undone.",
+      onConfirm: async () => {
+        try {
+          const res = await fetchWithAuth(`${API}/admin/questions/${questionId}/`, {
+            method: "DELETE",
+          });
+          if (res.ok) {
+            showToast("Question deleted!");
+            loadQuestions();
+          } else {
+            showToast("Error deleting question", "error");
+          }
+        } catch (err) {
+          showToast("Error deleting question", "error");
+        }
+      },
+    });
   };
 
   const openEditModal = async (q) => {
@@ -2739,6 +2750,19 @@ export default function QuestionManagementPage() {
           )}
         </AnimatePresence>
       </div>
+
+      {/* ── Confirm Modal ── */}
+      {confirmModal.open && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm px-4" onClick={() => setConfirmModal({ open: false, message: "", onConfirm: null })}>
+          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-sm p-6" onClick={e => e.stopPropagation()}>
+            <p className="text-gray-800 font-semibold text-center mb-6">{confirmModal.message}</p>
+            <div className="flex gap-3">
+              <button onClick={() => setConfirmModal({ open: false, message: "", onConfirm: null })} className="flex-1 py-2.5 rounded-xl border-2 border-gray-200 text-gray-700 font-semibold text-sm hover:bg-gray-50 transition">Cancel</button>
+              <button onClick={() => { confirmModal.onConfirm(); setConfirmModal({ open: false, message: "", onConfirm: null }); }} className="flex-1 py-2.5 rounded-xl bg-red-600 text-white font-semibold text-sm hover:bg-red-700 transition">Confirm</button>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 }

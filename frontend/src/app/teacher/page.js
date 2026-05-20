@@ -353,11 +353,26 @@ function CreateClassroomModal({ onClose, onCreated }) {
 }
 
 /* ──────────────── ASSIGN QUIZ MODAL ──────────────── */
+function SimpleToast({ msg, type, onClose }) {
+  if (!msg) return null;
+  const bg = type === "error" ? "#dc2626" : "#059669";
+  return (
+    <div style={{ position: "fixed", bottom: 24, left: "50%", transform: "translateX(-50%)", background: bg, color: "#fff", padding: "12px 24px", borderRadius: 12, fontWeight: 600, fontSize: 14, zIndex: 9999, boxShadow: "0 4px 20px rgba(0,0,0,0.15)" }}>
+      {msg}
+    </div>
+  );
+}
+
 function AssignQuizModal({ classroom, onClose, onAssigned }) {
   const [quizzes, setQuizzes] = useState([]);
   const [selected, setSelected] = useState(null);
   const [loading, setLoading] = useState(true);
   const [assigning, setAssigning] = useState(false);
+  const [toastMsg, setToastMsg] = useState(null);
+  const showToast = (msg, type = "success") => {
+    setToastMsg({ msg, type });
+    setTimeout(() => setToastMsg(null), 4000);
+  };
 
   useEffect(() => {
     api
@@ -380,64 +395,67 @@ function AssignQuizModal({ classroom, onClose, onAssigned }) {
       onAssigned();
       onClose();
     } catch {
-      alert("Failed to assign quiz");
+      showToast("Failed to assign quiz", "error");
     } finally {
       setAssigning(false);
     }
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
-      <div className="bg-white rounded-2xl shadow-xl w-full max-w-lg mx-4 p-6">
-        <div className="flex items-center justify-between mb-5">
-          <h3 className="text-lg font-bold text-gray-900">
-            Assign Quiz to {classroom.name}
-          </h3>
+    <>
+      <SimpleToast msg={toastMsg?.msg} type={toastMsg?.type} />
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
+        <div className="bg-white rounded-2xl shadow-xl w-full max-w-lg mx-4 p-6">
+          <div className="flex items-center justify-between mb-5">
+            <h3 className="text-lg font-bold text-gray-900">
+              Assign Quiz to {classroom.name}
+            </h3>
+            <button
+              onClick={onClose}
+              className="text-gray-400 hover:text-gray-600"
+            >
+              <X className="w-5 h-5" />
+            </button>
+          </div>
+          {loading ? (
+            <div className="flex justify-center py-10">
+              <Loader2 className="w-6 h-6 animate-spin text-teal-600" />
+            </div>
+          ) : quizzes.length === 0 ? (
+            <p className="text-gray-500 text-sm text-center py-8">
+              No quizzes available yet.
+            </p>
+          ) : (
+            <div className="max-h-60 overflow-y-auto space-y-2 mb-5">
+              {quizzes.map((q) => (
+                <div
+                  key={q.id}
+                  onClick={() => setSelected(q.id)}
+                  className={`p-3 rounded-xl border-2 cursor-pointer transition-all ${
+                    selected === q.id
+                      ? "border-teal-500 bg-teal-50"
+                      : "border-gray-200 hover:border-gray-300"
+                  }`}
+                >
+                  <p className="font-semibold text-sm text-gray-900">{q.title}</p>
+                  <p className="text-xs text-gray-500">
+                    {q.subject} · Grade {q.grade} · {q.questions_count || "?"}{" "}
+                    questions
+                  </p>
+                </div>
+              ))}
+            </div>
+          )}
           <button
-            onClick={onClose}
-            className="text-gray-400 hover:text-gray-600"
+            onClick={handleAssign}
+            disabled={!selected || assigning}
+            className="w-full py-3 rounded-xl font-bold text-sm text-white bg-linear-to-r from-teal-600 to-emerald-600 hover:opacity-90 disabled:opacity-50 transition-all"
           >
-            <X className="w-5 h-5" />
+            {assigning ? "Assigning..." : "Assign Quiz"}
           </button>
         </div>
-        {loading ? (
-          <div className="flex justify-center py-10">
-            <Loader2 className="w-6 h-6 animate-spin text-teal-600" />
-          </div>
-        ) : quizzes.length === 0 ? (
-          <p className="text-gray-500 text-sm text-center py-8">
-            No quizzes available yet.
-          </p>
-        ) : (
-          <div className="max-h-60 overflow-y-auto space-y-2 mb-5">
-            {quizzes.map((q) => (
-              <div
-                key={q.id}
-                onClick={() => setSelected(q.id)}
-                className={`p-3 rounded-xl border-2 cursor-pointer transition-all ${
-                  selected === q.id
-                    ? "border-teal-500 bg-teal-50"
-                    : "border-gray-200 hover:border-gray-300"
-                }`}
-              >
-                <p className="font-semibold text-sm text-gray-900">{q.title}</p>
-                <p className="text-xs text-gray-500">
-                  {q.subject} · Grade {q.grade} · {q.questions_count || "?"}{" "}
-                  questions
-                </p>
-              </div>
-            ))}
-          </div>
-        )}
-        <button
-          onClick={handleAssign}
-          disabled={!selected || assigning}
-          className="w-full py-3 rounded-xl font-bold text-sm text-white bg-linear-to-r from-teal-600 to-emerald-600 hover:opacity-90 disabled:opacity-50 transition-all"
-        >
-          {assigning ? "Assigning..." : "Assign Quiz"}
-        </button>
       </div>
-    </div>
+    </>
   );
 }
 
@@ -449,6 +467,12 @@ function LiveQuizControl({ classroom, onBack, onRefreshList }) {
   const [actionLoading, setActionLoading] = useState("");
   const [copied, setCopied] = useState(false);
   const [report, setReport] = useState(null);
+  const [toastMsg, setToastMsg] = useState(null);
+  const [confirmModal, setConfirmModal] = useState({ open: false, message: "", onConfirm: null });
+  const showToast = (msg, type = "success") => {
+    setToastMsg({ msg, type });
+    setTimeout(() => setToastMsg(null), 4000);
+  };
 
   // Poll classroom state + leaderboard every 2 seconds while live or waiting
   useEffect(() => {
@@ -485,7 +509,7 @@ function LiveQuizControl({ classroom, onBack, onRefreshList }) {
       const data = await api.startClassroom(room.id);
       setRoom(data);
     } catch (err) {
-      alert(err.message || "Failed to start");
+      showToast(err.message || "Failed to start", "error");
     } finally {
       setActionLoading("");
     }
@@ -497,24 +521,29 @@ function LiveQuizControl({ classroom, onBack, onRefreshList }) {
       const data = await api.nextQuestion(room.id);
       setRoom(data);
     } catch (err) {
-      alert(err.message || "Failed to advance");
+      showToast(err.message || "Failed to advance", "error");
     } finally {
       setActionLoading("");
     }
   };
 
-  const handleEnd = async () => {
-    if (!confirm("End this quiz? Students will see final results.")) return;
-    setActionLoading("end");
-    try {
-      const data = await api.endClassroom(room.id);
-      setRoom(data);
-      onRefreshList();
-    } catch (err) {
-      alert(err.message || "Failed to end");
-    } finally {
-      setActionLoading("");
-    }
+  const handleEnd = () => {
+    setConfirmModal({
+      open: true,
+      message: "End this quiz? Students will see final results.",
+      onConfirm: async () => {
+        setActionLoading("end");
+        try {
+          const data = await api.endClassroom(room.id);
+          setRoom(data);
+          onRefreshList();
+        } catch (err) {
+          showToast(err.message || "Failed to end", "error");
+        } finally {
+          setActionLoading("");
+        }
+      },
+    });
   };
 
   const copyCode = () => {
@@ -834,6 +863,20 @@ function LiveQuizControl({ classroom, onBack, onRefreshList }) {
           </div>
         )}
       </div>
+
+      {/* Confirm Modal */}
+      {confirmModal.open && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm px-4" onClick={() => setConfirmModal({ open: false, message: "", onConfirm: null })}>
+          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-sm p-6" onClick={e => e.stopPropagation()}>
+            <p className="text-gray-800 font-semibold text-center mb-6">{confirmModal.message}</p>
+            <div className="flex gap-3">
+              <button onClick={() => setConfirmModal({ open: false, message: "", onConfirm: null })} className="flex-1 py-2.5 rounded-xl border-2 border-gray-200 text-gray-700 font-semibold text-sm hover:bg-gray-50 transition">Cancel</button>
+              <button onClick={() => { confirmModal.onConfirm(); setConfirmModal({ open: false, message: "", onConfirm: null }); }} className="flex-1 py-2.5 rounded-xl bg-red-600 text-white font-semibold text-sm hover:bg-red-700 transition">Confirm</button>
+            </div>
+          </div>
+        </div>
+      )}
+      <SimpleToast msg={toastMsg?.msg} type={toastMsg?.type} />
     </div>
   );
 }
@@ -844,6 +887,12 @@ function ClassesView() {
   const [loading, setLoading] = useState(true);
   const [showCreate, setShowCreate] = useState(false);
   const [selectedClassroom, setSelectedClassroom] = useState(null);
+  const [toastMsg, setToastMsg] = useState(null);
+  const [confirmModal, setConfirmModal] = useState({ open: false, message: "", onConfirm: null });
+  const showToast = (msg, type = "success") => {
+    setToastMsg({ msg, type });
+    setTimeout(() => setToastMsg(null), 4000);
+  };
 
   const loadClassrooms = useCallback(async () => {
     try {
@@ -860,15 +909,20 @@ function ClassesView() {
     loadClassrooms();
   }, [loadClassrooms]);
 
-  const deleteClassroom = async (id) => {
-    if (!confirm("Delete this classroom?")) return;
-    try {
-      await api.deleteClassroom(id);
-      setClassrooms((prev) => prev.filter((c) => c.id !== id));
-      if (selectedClassroom?.id === id) setSelectedClassroom(null);
-    } catch {
-      alert("Failed to delete classroom");
-    }
+  const deleteClassroom = (id) => {
+    setConfirmModal({
+      open: true,
+      message: "Delete this classroom?",
+      onConfirm: async () => {
+        try {
+          await api.deleteClassroom(id);
+          setClassrooms((prev) => prev.filter((c) => c.id !== id));
+          if (selectedClassroom?.id === id) setSelectedClassroom(null);
+        } catch {
+          showToast("Failed to delete classroom", "error");
+        }
+      },
+    });
   };
 
   if (loading) {
@@ -979,6 +1033,19 @@ function ClassesView() {
           }}
         />
       )}
+
+      {confirmModal.open && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm px-4" onClick={() => setConfirmModal({ open: false, message: "", onConfirm: null })}>
+          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-sm p-6" onClick={e => e.stopPropagation()}>
+            <p className="text-gray-800 font-semibold text-center mb-6">{confirmModal.message}</p>
+            <div className="flex gap-3">
+              <button onClick={() => setConfirmModal({ open: false, message: "", onConfirm: null })} className="flex-1 py-2.5 rounded-xl border-2 border-gray-200 text-gray-700 font-semibold text-sm hover:bg-gray-50 transition">Cancel</button>
+              <button onClick={() => { confirmModal.onConfirm(); setConfirmModal({ open: false, message: "", onConfirm: null }); }} className="flex-1 py-2.5 rounded-xl bg-red-600 text-white font-semibold text-sm hover:bg-red-700 transition">Confirm</button>
+            </div>
+          </div>
+        </div>
+      )}
+      <SimpleToast msg={toastMsg?.msg} type={toastMsg?.type} />
     </div>
   );
 }
@@ -990,6 +1057,12 @@ function LessonPlansView() {
   const [showForm, setShowForm] = useState(false);
   const [generating, setGenerating] = useState(false);
   const [viewingLesson, setViewingLesson] = useState(null);
+  const [toastMsg, setToastMsg] = useState(null);
+  const [confirmModal, setConfirmModal] = useState({ open: false, message: "", onConfirm: null });
+  const showToast = (msg, type = "success") => {
+    setToastMsg({ msg, type });
+    setTimeout(() => setToastMsg(null), 4000);
+  };
   const [form, setForm] = useState({
     grade: "",
     subject: "",
@@ -1036,7 +1109,7 @@ function LessonPlansView() {
   const handleGenerate = async (e) => {
     e.preventDefault();
     if (!form.grade || !form.subject || !form.strand) {
-      alert("Grade, subject and strand are required");
+      showToast("Grade, subject and strand are required", "error");
       return;
     }
     setGenerating(true);
@@ -1069,24 +1142,26 @@ function LessonPlansView() {
         is_practical: false,
       });
     } catch (err) {
-      alert(
-        err.message ||
-          "Failed to generate lesson plan. Check your AI settings.",
-      );
+      showToast(err.message || "Failed to generate lesson plan. Check your AI settings.", "error");
     } finally {
       setGenerating(false);
     }
   };
 
-  const deleteLesson = async (id) => {
-    if (!confirm("Delete this lesson plan?")) return;
-    try {
-      await api.deleteLessonPlan(id);
-      setLessons((prev) => prev.filter((l) => l.id !== id));
-      if (viewingLesson?.id === id) setViewingLesson(null);
-    } catch {
-      alert("Failed to delete");
-    }
+  const deleteLesson = (id) => {
+    setConfirmModal({
+      open: true,
+      message: "Delete this lesson plan?",
+      onConfirm: async () => {
+        try {
+          await api.deleteLessonPlan(id);
+          setLessons((prev) => prev.filter((l) => l.id !== id));
+          if (viewingLesson?.id === id) setViewingLesson(null);
+        } catch {
+          showToast("Failed to delete", "error");
+        }
+      },
+    });
   };
 
   if (loading) {
@@ -1879,6 +1954,19 @@ function LessonPlansView() {
           ))}
         </div>
       )}
+
+      {confirmModal.open && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm px-4" onClick={() => setConfirmModal({ open: false, message: "", onConfirm: null })}>
+          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-sm p-6" onClick={e => e.stopPropagation()}>
+            <p className="text-gray-800 font-semibold text-center mb-6">{confirmModal.message}</p>
+            <div className="flex gap-3">
+              <button onClick={() => setConfirmModal({ open: false, message: "", onConfirm: null })} className="flex-1 py-2.5 rounded-xl border-2 border-gray-200 text-gray-700 font-semibold text-sm hover:bg-gray-50 transition">Cancel</button>
+              <button onClick={() => { confirmModal.onConfirm(); setConfirmModal({ open: false, message: "", onConfirm: null }); }} className="flex-1 py-2.5 rounded-xl bg-red-600 text-white font-semibold text-sm hover:bg-red-700 transition">Confirm</button>
+            </div>
+          </div>
+        </div>
+      )}
+      <SimpleToast msg={toastMsg?.msg} type={toastMsg?.type} />
     </div>
   );
 }

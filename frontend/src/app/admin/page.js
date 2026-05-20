@@ -1047,6 +1047,7 @@ export default function AdminPage() {
     message: "",
     type: "success",
   });
+  const [confirmModal, setConfirmModal] = useState({ open: false, message: "", onConfirm: null });
   const [search, setSearch] = useState("");
   const [filterSubject, setFilterSubject] = useState("");
   const [filterGrade, setFilterGrade] = useState("");
@@ -1118,25 +1119,26 @@ export default function AdminPage() {
     }
   }, [user]);
 
-  const handleDelete = async (id) => {
-    if (!confirm("Delete this question permanently?")) return;
-    try {
-      const res = await fetchWithAuth(`${API}/admin/questions/${id}/`, {
-        method: "DELETE",
-      });
-      if (res.ok) {
-        setToast({
-          visible: true,
-          message: "Question deleted",
-          type: "success",
-        });
-        fetchAll();
-      } else {
-        setToast({ visible: true, message: "Delete failed", type: "error" });
-      }
-    } catch {
-      setToast({ visible: true, message: "Network error", type: "error" });
-    }
+  const handleDelete = (id) => {
+    setConfirmModal({
+      open: true,
+      message: "Delete this question permanently?",
+      onConfirm: async () => {
+        try {
+          const res = await fetchWithAuth(`${API}/admin/questions/${id}/`, {
+            method: "DELETE",
+          });
+          if (res.ok) {
+            setToast({ visible: true, message: "Question deleted", type: "success" });
+            fetchAll();
+          } else {
+            setToast({ visible: true, message: "Delete failed", type: "error" });
+          }
+        } catch {
+          setToast({ visible: true, message: "Network error", type: "error" });
+        }
+      },
+    });
   };
 
   const showToast = (msg, type = "success") => {
@@ -1530,6 +1532,19 @@ export default function AdminPage() {
           )}
         </div>
       </main>
+
+      {/* ── Confirm Modal ── */}
+      {confirmModal.open && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm px-4" onClick={() => setConfirmModal({ open: false, message: "", onConfirm: null })}>
+          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-sm p-6" onClick={e => e.stopPropagation()}>
+            <p className="text-gray-800 font-semibold text-center mb-6">{confirmModal.message}</p>
+            <div className="flex gap-3">
+              <button onClick={() => setConfirmModal({ open: false, message: "", onConfirm: null })} className="flex-1 py-2.5 rounded-xl border-2 border-gray-200 text-gray-700 font-semibold text-sm hover:bg-gray-50 transition">Cancel</button>
+              <button onClick={() => { confirmModal.onConfirm(); setConfirmModal({ open: false, message: "", onConfirm: null }); }} className="flex-1 py-2.5 rounded-xl bg-red-600 text-white font-semibold text-sm hover:bg-red-700 transition">Confirm</button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

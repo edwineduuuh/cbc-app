@@ -112,6 +112,7 @@ export default function CreateQuizPage() {
   const [questions, setQuestions] = useState([]);
   const [selectedIds, setSelectedIds] = useState([]);
   const [loadingQ, setLoadingQ] = useState(false);
+  const [filterGrade, setFilterGrade] = useState("");
   const [filterTopic, setFilterTopic] = useState("");
   const [filterType, setFilterType] = useState("");
   const [filterDiff, setFilterDiff] = useState("");
@@ -125,24 +126,24 @@ export default function CreateQuizPage() {
       .catch(() => {});
   }, []);
 
-  // Load topics when subject+grade confirmed
+  // Load topics when subject+filterGrade changes (step 2)
   useEffect(() => {
-    if (!subject || !grade) { setTopics([]); return; }
+    if (!subject || !filterGrade) { setTopics([]); return; }
     const token = typeof window !== "undefined" ? localStorage.getItem("accessToken") : null;
-    fetch(`${API}/admin/topics/?subject=${subject}&grade=${grade}`, {
+    fetch(`${API}/admin/topics/?subject=${subject}&grade=${filterGrade}`, {
       headers: token ? { Authorization: `Bearer ${token}` } : {},
     })
       .then((r) => r.json())
       .then((d) => setTopics(Array.isArray(d) ? d : d.results || []))
       .catch(() => {});
-  }, [subject, grade]);
+  }, [subject, filterGrade]);
 
   // Load questions when step 2 is reached (or filters change)
   useEffect(() => {
-    if (step !== 2 || !subject || !grade) return;
+    if (step !== 2 || !subject || !filterGrade) return;
     const token = typeof window !== "undefined" ? localStorage.getItem("accessToken") : null;
     setLoadingQ(true);
-    const params = new URLSearchParams({ subject, grade, page_size: 500 });
+    const params = new URLSearchParams({ subject, grade: filterGrade, page_size: 500 });
     if (filterTopic) params.set("topic", filterTopic);
     if (filterType)  params.set("type", filterType);
     if (filterDiff)  params.set("difficulty", filterDiff);
@@ -153,7 +154,7 @@ export default function CreateQuizPage() {
       .then((d) => setQuestions(Array.isArray(d) ? d : d.results || []))
       .catch(() => setQuestions([]))
       .finally(() => setLoadingQ(false));
-  }, [step, subject, grade, filterTopic, filterType, filterDiff]);
+  }, [step, subject, filterGrade, filterTopic, filterType, filterDiff]);
 
   const displayedQuestions = useMemo(() => {
     if (!search.trim()) return questions;
@@ -171,6 +172,8 @@ export default function CreateQuizPage() {
     if (!title.trim()) { showToast("Please enter a quiz title", "error"); return; }
     if (!subject)      { showToast("Please select a learning area", "error"); return; }
     if (!grade)        { showToast("Please select a grade", "error"); return; }
+    setFilterGrade(grade);
+    setFilterTopic("");
     setStep(2);
   };
 
@@ -417,6 +420,13 @@ export default function CreateQuizPage() {
                       />
                     </div>
                     <select
+                      value={filterGrade}
+                      onChange={(e) => { setFilterGrade(e.target.value); setFilterTopic(""); }}
+                      className={`px-3 py-2.5 text-sm border-2 rounded-xl focus:border-indigo-400 outline-none ${filterGrade != grade ? "border-amber-400 bg-amber-50 text-amber-800 font-semibold" : "border-gray-200"}`}
+                    >
+                      {GRADES.map((g) => <option key={g} value={g}>Grade {g}</option>)}
+                    </select>
+                    <select
                       value={filterTopic}
                       onChange={(e) => setFilterTopic(e.target.value)}
                       className="px-3 py-2.5 text-sm border-2 border-gray-200 rounded-xl focus:border-indigo-400 outline-none min-w-[150px]"
@@ -473,7 +483,7 @@ export default function CreateQuizPage() {
                       <p className="font-semibold text-gray-600">No questions found</p>
                       <p className="text-sm text-gray-400 text-center max-w-xs">
                         {questions.length === 0
-                          ? `There are no questions for Grade ${grade} ${selectedSubject?.name} yet. Go to Questions to create some first.`
+                          ? `There are no questions for Grade ${filterGrade} ${selectedSubject?.name} yet. Go to Questions to create some first.`
                           : "Try clearing some filters to see more questions."}
                       </p>
                       {questions.length === 0 && (
