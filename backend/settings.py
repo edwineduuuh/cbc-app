@@ -199,6 +199,8 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://localhost:3001",
     "https://cbc-app-9nlr.vercel.app",
+    "https://stadispace.co.ke",
+    "https://www.stadispace.co.ke",
 ]
 
 # Add production origins from environment
@@ -220,6 +222,8 @@ CSRF_TRUSTED_ORIGINS = [
     "http://localhost:3000",
     "https://cbc-app-9nlr.vercel.app",
     "https://cbc-backend-production-8bc4.up.railway.app",
+    "https://stadispace.co.ke",
+    "https://www.stadispace.co.ke",
 ]
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
