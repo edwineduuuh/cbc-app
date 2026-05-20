@@ -11,8 +11,7 @@ import { Suspense } from "react";
 
 function RegisterPage() {
   const searchParams = useSearchParams();
-  const initialRole =
-    searchParams.get("role") === "teacher" ? "teacher" : "student";
+  const initialRole = "student"; // teacher registration is phase 2
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -255,44 +254,21 @@ function RegisterPage() {
 
               <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-8">
                 <form onSubmit={handleSubmit} className="space-y-5">
-                  {/* Role picker */}
+                  {/* Role picker — teacher option reserved for phase 2
                   <div>
                     <label className={labelCls}>I am a</label>
                     <div className="grid grid-cols-2 gap-3">
-                      <div
-                        className={`role-card flex items-center gap-3 ${formData.role === "student" ? "active" : ""}`}
-                        onClick={() =>
-                          setFormData({ ...formData, role: "student" })
-                        }
-                      >
+                      <div className={`role-card flex items-center gap-3 ${formData.role === "student" ? "active" : ""}`} onClick={() => setFormData({ ...formData, role: "student" })}>
                         <span className="text-2xl">🎓</span>
-                        <div>
-                          <p className="text-sm font-bold text-gray-900">
-                            Student
-                          </p>
-                          <p className="text-xs text-gray-500">
-                            I want to learn
-                          </p>
-                        </div>
+                        <div><p className="text-sm font-bold text-gray-900">Student</p><p className="text-xs text-gray-500">I want to learn</p></div>
                       </div>
-                      <div
-                        className={`role-card flex items-center gap-3 ${formData.role === "teacher" ? "active" : ""}`}
-                        onClick={() =>
-                          setFormData({ ...formData, role: "teacher" })
-                        }
-                      >
+                      <div className={`role-card flex items-center gap-3 ${formData.role === "teacher" ? "active" : ""}`} onClick={() => setFormData({ ...formData, role: "teacher" })}>
                         <span className="text-2xl">📚</span>
-                        <div>
-                          <p className="text-sm font-bold text-gray-900">
-                            Teacher
-                          </p>
-                          <p className="text-xs text-gray-500">
-                            I want to teach
-                          </p>
-                        </div>
+                        <div><p className="text-sm font-bold text-gray-900">Teacher</p><p className="text-xs text-gray-500">I want to teach</p></div>
                       </div>
                     </div>
                   </div>
+                  */}
 
                   {/* Name */}
                   <div className="grid grid-cols-2 gap-4">

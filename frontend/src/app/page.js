@@ -243,7 +243,6 @@ export default function LandingPage() {
               {[
                 ["#features", "Why StadiSpace"],
                 ["#how-it-works", "How It Works"],
-                ["#teachers", "For Teachers"],
                 ["#pricing", "Pricing"],
                 ["#faq", "FAQ"],
               ].map(([href, label]) => (
@@ -313,7 +312,6 @@ export default function LandingPage() {
                 {[
                   ["#features", "Why StadiSpace"],
                   ["#how-it-works", "How It Works"],
-                  ["#teachers", "For Teachers"],
                   ["#pricing", "Pricing"],
                   ["#faq", "FAQ"],
                 ].map(([href, label]) => (
@@ -1354,8 +1352,8 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* ── FOR TEACHERS ── */}
-      <section id="teachers" className="py-20 lg:py-28" style={{ background: "#fff" }}>
+      {/* ── FOR TEACHERS (phase 2) ── */}
+      {/* <section id="teachers" className="py-20 lg:py-28" style={{ background: "#fff" }}>
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <FadeIn className="text-center max-w-xl mx-auto mb-12">
             <p
@@ -1476,7 +1474,7 @@ export default function LandingPage() {
             </Link>
           </FadeIn>
         </div>
-      </section>
+      </section> */ }
 
       {/* ── PRICING ── */}
       <section id="pricing" className="py-20 lg:py-28" style={{ background: "#f0f4f8" }}>
