@@ -43,7 +43,7 @@ function RegisterPage() {
   const validateForm = () => {
     const newErrors = {};
     if (!formData.username) newErrors.username = "Username is required";
-    // email is optional — kids may not have one
+    if (!formData.email) newErrors.email = "Email is required";
     if (!formData.password) newErrors.password = "Password is required";
     if (formData.password.length < 8)
       newErrors.password = "Minimum 8 characters";
@@ -314,16 +314,16 @@ function RegisterPage() {
                       )}
                     </div>
                     <div>
-                      <label className={labelCls}>Email <span className="text-gray-400 font-normal">(optional)</span></label>
+                      <label className={labelCls}>Email *</label>
                       <input
                         name="email"
                         type="email"
                         value={formData.email}
                         onChange={handleChange}
-                        placeholder="yours or parent's email"
+                        placeholder="email@example.com"
+                        required
                         className={inputCls("email")}
                       />
-                      <p className="mt-1 text-[11px] text-gray-400">Use a parent email if you don&apos;t have one — needed only for password resets</p>
                       {errors.email && (
                         <p className="mt-1 text-xs text-red-500">
                           {errors.email}
