@@ -2078,9 +2078,6 @@ export default function QuizTakePage({ params }) {
               <span style={{ fontSize: 12, fontWeight: 600, color: "#8892a4" }}>
                 {answeredCount} of {totalQ} answered
               </span>
-              <span style={{ fontSize: 12, fontWeight: 700, color: "#1a6fc4" }}>
-                {Math.round(progressPct)}%
-              </span>
             </div>
             <div
               style={{
