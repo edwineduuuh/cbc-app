@@ -235,7 +235,7 @@ def _sanitize_answer(text: str) -> str:
     return text
 
 
-GRADER_VERSION = "v8"  # bump to bust stale cached results
+GRADER_VERSION = "v9"  # bump to bust stale cached results
 
 def _grade_cache_key(question_id, answer_text: str) -> str:
     norm = _normalise(str(answer_text))
@@ -1348,6 +1348,37 @@ def _grade_math(question, student_answer: str, working_image: str | None = None)
         msg = "Hujaandika jibu." if sw else "You did not write an answer."
         return _empty_result(question.max_marks, msg, _near_miss(sw))
 
+    def _on_near_miss(student_val, correct_val):
+        """Close but not exact — partial marks + correct working."""
+        partial = max(1, question.max_marks - 1) if question.max_marks >= 2 else 0
+        try:
+            working = _call_ai(
+                _build_math_working_prompt(question, correct_str, grade),
+                max_tokens=1200,
+                use_gemini=sw,
+            ).strip().replace("```", "").replace("**", "")
+            feedback = (
+                f"Almost! Your answer ${student_val}$ is very close but not exact. "
+                f"The correct answer is ${correct_val}$. Check your rounding.\n{working}"
+            )
+            tip = working
+        except Exception:
+            feedback = (
+                f"Almost! Your answer ${student_val}$ is very close but not exact. "
+                f"The correct answer is ${correct_val}$. Check your rounding."
+            )
+            tip = ""
+        return {
+            "marks_awarded":        partial,
+            "max_marks":            question.max_marks,
+            "feedback":             feedback,
+            "is_correct":           False,
+            "personalized_message": _near_miss(sw),
+            "study_tip":            tip,
+            "points_earned":        [],
+            "points_missed":        [f"Correct answer: ${correct_val}$"],
+        }
+
     def _on_correct(display_value):
         praise = _praise(sw)
         try:
@@ -1385,14 +1416,21 @@ def _grade_math(question, student_answer: str, working_image: str | None = None)
 
     # Fast numeric check against all accepted answers
     s_clean = _clean_num(student_bare)
+    near_miss_candidate = None  # (s_num, c_num) for the closest near-miss found
     if s_clean:
         try:
             s_num = float(s_clean)
             for ca_bare in all_correct_bare:
                 if not re.search(r"[a-zA-Z]", ca_bare):
                     c_clean = _clean_num(ca_bare)
-                    if c_clean and abs(s_num - float(c_clean)) < 0.01:
-                        return _on_correct(s_num)
+                    if c_clean:
+                        c_num = float(c_clean)
+                        diff = abs(s_num - c_num)
+                        rel  = diff / abs(c_num) if c_num != 0 else float("inf")
+                        if diff < 0.0001:                  # effectively exact
+                            return _on_correct(s_num)
+                        if diff <= 0.05 or rel <= 0.02:    # close — rounding error
+                            near_miss_candidate = (s_num, c_num)
         except ValueError:
             pass
 
@@ -1407,12 +1445,22 @@ def _grade_math(question, student_answer: str, working_image: str | None = None)
                     if diff is not None and diff == 0:
                         return _on_correct(str(s_expr))
                     try:
-                        if abs(N(s_expr) - N(c_expr)) < 0.01:
+                        num_diff = abs(N(s_expr) - N(c_expr))
+                        c_val    = float(N(c_expr))
+                        rel      = num_diff / abs(c_val) if c_val != 0 else float("inf")
+                        if num_diff < 0.0001:                   # exact
                             return _on_correct(f"approx {N(s_expr):g}")
+                        if num_diff <= 0.05 or rel <= 0.02:     # close
+                            near_miss_candidate = (float(N(s_expr)), c_val)
                     except Exception:
                         pass
             except Exception:
                 pass
+
+    # Resolve near-miss before falling through to AI
+    if near_miss_candidate:
+        s_v, c_v = near_miss_candidate
+        return _on_near_miss(f"{s_v:g}", f"{c_v:g}")
 
     # AI semantic check
     try:
