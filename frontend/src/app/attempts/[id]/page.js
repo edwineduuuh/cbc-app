@@ -43,8 +43,10 @@ function _katex(expr, display) {
 function renderMath(text) {
   if (!text) return "";
   return text
-    .replace(/\$\$([\s\S]+?)\$\$/g, (_, expr) => _katex(expr, true))
-    .replace(/\$([\s\S]+?)\$/g,     (_, expr) => _katex(expr, false));
+    .replace(/\$\$([\s\S]+?)\$\$/g,  (_, expr) => _katex(expr, true))
+    .replace(/\$([\s\S]+?)\$/g,       (_, expr) => _katex(expr, false))
+    .replace(/\\\[([\s\S]+?)\\\]/g,   (_, expr) => _katex(expr, true))
+    .replace(/\\\(([\s\S]+?)\\\)/g,   (_, expr) => _katex(expr, false));
 }
 function getGradeBand(score, grade) {
   if (!grade) return null;
@@ -1684,9 +1686,8 @@ export default function AttemptResultsPage() {
                               fontSize: 13,
                               color: correct ? "#065f46" : "#78350f",
                             }}
-                          >
-                            💡 {item.personalized_message}
-                          </p>
+                            dangerouslySetInnerHTML={{ __html: "💡 " + renderMath(item.personalized_message || "") }}
+                          />
                         </div>
                       )}
                     </div>

@@ -50,8 +50,10 @@ function _katex(expr, display) {
 function renderMath(text) {
   if (!text) return "";
   return text
-    .replace(/\$\$([\s\S]+?)\$\$/g, (_, expr) => _katex(expr, true))
-    .replace(/\$([\s\S]+?)\$/g,     (_, expr) => _katex(expr, false));
+    .replace(/\$\$([\s\S]+?)\$\$/g,  (_, expr) => _katex(expr, true))
+    .replace(/\$([\s\S]+?)\$/g,       (_, expr) => _katex(expr, false))
+    .replace(/\\\[([\s\S]+?)\\\]/g,   (_, expr) => _katex(expr, true))
+    .replace(/\\\(([\s\S]+?)\\\)/g,   (_, expr) => _katex(expr, false));
 }
 
 // Renders text preserving newlines as <br/> and processing math
@@ -115,7 +117,7 @@ function PassageContent({
     const parts = text.split(/(__\d+__)/g);
     return parts.map((part, i) => {
       const match = part.match(/^__(\d+)__$/);
-      if (!match) return part;
+      if (!match) return <span key={i} dangerouslySetInnerHTML={{ __html: renderMath(part) }} />;
       const num = parseInt(match[1]);
       const isActive = activeBlank === num;
       const answer = answeredBlanks[num];
@@ -160,9 +162,8 @@ function PassageContent({
               minHeight: line.trim() === "" ? 20 : "auto",
               fontSize: 15,
             }}
-          >
-            {line.trim() === "" ? "\u00A0" : line}
-          </div>
+            dangerouslySetInnerHTML={{ __html: line.trim() === "" ? "\u00A0" : renderMath(line) }}
+          />
         ))}
       </div>
     );
@@ -233,9 +234,8 @@ function PassageContent({
                     flex: 1,
                     lineHeight: 1.75,
                   }}
-                >
-                  {speech}
-                </span>
+                  dangerouslySetInnerHTML={{ __html: renderMath(speech) }}
+                />
               </div>
             );
           }
@@ -250,9 +250,8 @@ function PassageContent({
                 paddingLeft: 8,
                 borderLeft: "3px solid #e8eaf0",
               }}
-            >
-              {line}
-            </div>
+              dangerouslySetInnerHTML={{ __html: renderMath(line) }}
+            />
           );
         })}
       </div>
