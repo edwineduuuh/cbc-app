@@ -20,6 +20,7 @@ import {
 } from "lucide-react";
 import SimpleMathInput from "@/components/SimpleMathInput";
 import ChemTextBar from "@/components/ChemTextBar";
+import PhysicsFormulaBar from "@/components/PhysicsFormulaBar";
 import katex from "katex";
 import "katex/dist/katex.min.css";
 
@@ -33,15 +34,18 @@ function _patchKatexSvg(html) {
   // ignore it, so we merge instead.
   return html.replace(/<svg([^>]*)>/g, (_, attrs) => {
     if (attrs.includes('style="')) {
-      return '<svg' + attrs.replace('style="', 'style="display:inline;') + '>';
+      return "<svg" + attrs.replace('style="', 'style="display:inline;') + ">";
     }
-    return '<svg style="display:inline;"' + attrs + '>';
+    return '<svg style="display:inline;"' + attrs + ">";
   });
 }
 function _katex(expr, display) {
   try {
     return _patchKatexSvg(
-      katex.renderToString(expr.trim(), { displayMode: display, throwOnError: false })
+      katex.renderToString(expr.trim(), {
+        displayMode: display,
+        throwOnError: false,
+      }),
     );
   } catch {
     return expr;
@@ -50,10 +54,10 @@ function _katex(expr, display) {
 function renderMath(text) {
   if (!text) return "";
   return text
-    .replace(/\$\$([\s\S]+?)\$\$/g,  (_, expr) => _katex(expr, true))
-    .replace(/\$([\s\S]+?)\$/g,       (_, expr) => _katex(expr, false))
-    .replace(/\\\[([\s\S]+?)\\\]/g,   (_, expr) => _katex(expr, true))
-    .replace(/\\\(([\s\S]+?)\\\)/g,   (_, expr) => _katex(expr, false));
+    .replace(/\$\$([\s\S]+?)\$\$/g, (_, expr) => _katex(expr, true))
+    .replace(/\$([\s\S]+?)\$/g, (_, expr) => _katex(expr, false))
+    .replace(/\\\[([\s\S]+?)\\\]/g, (_, expr) => _katex(expr, true))
+    .replace(/\\\(([\s\S]+?)\\\)/g, (_, expr) => _katex(expr, false));
 }
 
 // Renders text preserving newlines as <br/> and processing math
@@ -117,7 +121,13 @@ function PassageContent({
     const parts = text.split(/(__\d+__)/g);
     return parts.map((part, i) => {
       const match = part.match(/^__(\d+)__$/);
-      if (!match) return <span key={i} dangerouslySetInnerHTML={{ __html: renderMath(part) }} />;
+      if (!match)
+        return (
+          <span
+            key={i}
+            dangerouslySetInnerHTML={{ __html: renderMath(part) }}
+          />
+        );
       const num = parseInt(match[1]);
       const isActive = activeBlank === num;
       const answer = answeredBlanks[num];
@@ -162,7 +172,9 @@ function PassageContent({
               minHeight: line.trim() === "" ? 20 : "auto",
               fontSize: 15,
             }}
-            dangerouslySetInnerHTML={{ __html: line.trim() === "" ? "\u00A0" : renderMath(line) }}
+            dangerouslySetInnerHTML={{
+              __html: line.trim() === "" ? "\u00A0" : renderMath(line),
+            }}
           />
         ))}
       </div>
@@ -444,7 +456,12 @@ function MCQOption({ letter, text, imageUrl, selected, onClick }) {
         <img
           src={imageUrl}
           alt={`Option ${letter}`}
-          style={{ flex: 1, maxHeight: 120, objectFit: "contain", borderRadius: 8 }}
+          style={{
+            flex: 1,
+            maxHeight: 120,
+            objectFit: "contain",
+            borderRadius: 8,
+          }}
         />
       ) : (
         <span
@@ -473,7 +490,11 @@ function getMatchingConfig(tableData) {
   const dataRows = rows.slice(1);
 
   const editableCols = new Set();
-  dataRows.forEach((row) => row.forEach((cell, c) => { if (cell.e) editableCols.add(c); }));
+  dataRows.forEach((row) =>
+    row.forEach((cell, c) => {
+      if (cell.e) editableCols.add(c);
+    }),
+  );
 
   if (editableCols.size === 1) {
     const ec = [...editableCols][0];
@@ -484,7 +505,11 @@ function getMatchingConfig(tableData) {
       dataRows.every((row) => row[ec]?.a?.trim() || row[ec]?.v?.trim()) &&
       dataRows.every((row) => row[ic]?.v?.trim())
     ) {
-      return { ec, ic, getAnswer: (row) => row[ec].a?.trim() || row[ec].v?.trim() };
+      return {
+        ec,
+        ic,
+        getAnswer: (row) => row[ec].a?.trim() || row[ec].v?.trim(),
+      };
     }
   }
 
@@ -517,11 +542,11 @@ function MatchingTable({ tableData, answer, onAnswer }) {
   const [pool] = useState(() =>
     dataRows
       .map((row, ri) => ({ key: `${ri + 1}_${ec}`, text: getAnswer(row) }))
-      .sort(() => Math.random() - 0.5)
+      .sort(() => Math.random() - 0.5),
   );
   const [selected, setSelected] = useState(null);
 
-  const ans = (typeof answer === "object" && answer) ? answer : {};
+  const ans = typeof answer === "object" && answer ? answer : {};
   const placedTexts = new Set(Object.values(ans));
   const available = pool.filter((p) => !placedTexts.has(p.text));
 
@@ -551,21 +576,51 @@ function MatchingTable({ tableData, answer, onAnswer }) {
   return (
     <div style={{ fontFamily: "'Lato', sans-serif" }}>
       {/* Instructions */}
-      <p style={{ fontSize: 12, color: "#1a6fc4", fontWeight: 700, marginBottom: 12, letterSpacing: "0.04em", textTransform: "uppercase" }}>
-        {selected ? "▶ Now tap the row to place it" : "Step 1 — tap an answer below · Step 2 — tap its match in the table"}
+      <p
+        style={{
+          fontSize: 12,
+          color: "#1a6fc4",
+          fontWeight: 700,
+          marginBottom: 12,
+          letterSpacing: "0.04em",
+          textTransform: "uppercase",
+        }}
+      >
+        {selected
+          ? "▶ Now tap the row to place it"
+          : "Step 1 — tap an answer below · Step 2 — tap its match in the table"}
       </p>
 
       {/* Table */}
-      <div style={{ overflowX: "auto", marginBottom: 18, borderRadius: 14, border: "1.5px solid #e2e8f0", boxShadow: "0 2px 12px rgba(0,0,0,0.05)" }}>
-        <table style={{ width: "100%", borderCollapse: "collapse", minWidth: 340 }}>
+      <div
+        style={{
+          overflowX: "auto",
+          marginBottom: 18,
+          borderRadius: 14,
+          border: "1.5px solid #e2e8f0",
+          boxShadow: "0 2px 12px rgba(0,0,0,0.05)",
+        }}
+      >
+        <table
+          style={{ width: "100%", borderCollapse: "collapse", minWidth: 340 }}
+        >
           <thead>
             <tr>
               {headers.map((cell, c) => (
-                <th key={c} style={{
-                  padding: "12px 16px", textAlign: "left", fontSize: 13, fontWeight: 700,
-                  color: "#1e293b", background: "#f1f5f9", borderBottom: "2px solid #e2e8f0",
-                  borderRight: c < headers.length - 1 ? "1.5px solid #e2e8f0" : "none",
-                }}>
+                <th
+                  key={c}
+                  style={{
+                    padding: "12px 16px",
+                    textAlign: "left",
+                    fontSize: 13,
+                    fontWeight: 700,
+                    color: "#1e293b",
+                    background: "#f1f5f9",
+                    borderBottom: "2px solid #e2e8f0",
+                    borderRight:
+                      c < headers.length - 1 ? "1.5px solid #e2e8f0" : "none",
+                  }}
+                >
                   {cell.v}
                 </th>
               ))}
@@ -577,41 +632,88 @@ function MatchingTable({ tableData, answer, onAnswer }) {
               const placed = ans[key];
               const isTarget = selected && !placed;
               return (
-                <tr key={ri} style={{ background: ri % 2 === 0 ? "#fff" : "#f8fafc" }}>
+                <tr
+                  key={ri}
+                  style={{ background: ri % 2 === 0 ? "#fff" : "#f8fafc" }}
+                >
                   {/* Column A item */}
-                  <td style={{
-                    padding: "12px 16px", fontSize: 14, fontWeight: 600, color: "#0f172a",
-                    borderBottom: ri < dataRows.length - 1 ? "1px solid #f1f5f9" : "none",
-                    borderRight: "1.5px solid #e2e8f0",
-                  }}>
+                  <td
+                    style={{
+                      padding: "12px 16px",
+                      fontSize: 14,
+                      fontWeight: 600,
+                      color: "#0f172a",
+                      borderBottom:
+                        ri < dataRows.length - 1 ? "1px solid #f1f5f9" : "none",
+                      borderRight: "1.5px solid #e2e8f0",
+                    }}
+                  >
                     {row[ic].v}
                   </td>
                   {/* Drop zone */}
                   <td
                     onClick={() => handleZone(ri)}
                     style={{
-                      padding: "10px 14px", cursor: isTarget || placed ? "pointer" : "default",
-                      borderBottom: ri < dataRows.length - 1 ? "1px solid #f1f5f9" : "none",
-                      background: isTarget ? "#eff6ff" : placed ? "#f0fdf4" : "transparent",
+                      padding: "10px 14px",
+                      cursor: isTarget || placed ? "pointer" : "default",
+                      borderBottom:
+                        ri < dataRows.length - 1 ? "1px solid #f1f5f9" : "none",
+                      background: isTarget
+                        ? "#eff6ff"
+                        : placed
+                          ? "#f0fdf4"
+                          : "transparent",
                       transition: "background 0.15s",
                     }}
                   >
                     {placed ? (
-                      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8 }}>
-                        <span style={{ fontSize: 13, fontWeight: 600, color: "#065f46" }}>{placed}</span>
-                        <button onClick={(e) => removeFromZone(key, e)} style={{
-                          background: "#fee2e2", border: "none", borderRadius: 6, padding: "2px 7px",
-                          fontSize: 12, color: "#dc2626", cursor: "pointer", fontWeight: 700, flexShrink: 0,
-                        }}>✕</button>
+                      <div
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "space-between",
+                          gap: 8,
+                        }}
+                      >
+                        <span
+                          style={{
+                            fontSize: 13,
+                            fontWeight: 600,
+                            color: "#065f46",
+                          }}
+                        >
+                          {placed}
+                        </span>
+                        <button
+                          onClick={(e) => removeFromZone(key, e)}
+                          style={{
+                            background: "#fee2e2",
+                            border: "none",
+                            borderRadius: 6,
+                            padding: "2px 7px",
+                            fontSize: 12,
+                            color: "#dc2626",
+                            cursor: "pointer",
+                            fontWeight: 700,
+                            flexShrink: 0,
+                          }}
+                        >
+                          ✕
+                        </button>
                       </div>
                     ) : (
-                      <span style={{
-                        fontSize: 13, color: isTarget ? "#1a6fc4" : "#94a3b8",
-                        fontWeight: isTarget ? 700 : 400,
-                        border: `2px dashed ${isTarget ? "#1a6fc4" : "#e2e8f0"}`,
-                        borderRadius: 8, padding: "6px 12px", display: "block",
-                        transition: "all 0.15s",
-                      }}>
+                      <span
+                        style={{
+                          fontSize: 13,
+                          color: isTarget ? "#1a6fc4" : "#94a3b8",
+                          fontWeight: isTarget ? 700 : 400,
+                          border: `2px dashed ${isTarget ? "#1a6fc4" : "#e2e8f0"}`,
+                          borderRadius: 8,
+                          padding: "6px 12px",
+                          display: "block",
+                          transition: "all 0.15s",
+                        }}
+                      >
                         {isTarget ? "Tap to place here →" : "— empty —"}
                       </span>
                     )}
@@ -626,7 +728,16 @@ function MatchingTable({ tableData, answer, onAnswer }) {
       {/* Answer pool */}
       {available.length > 0 && (
         <div>
-          <p style={{ fontSize: 11, fontWeight: 700, color: "#64748b", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: 8 }}>
+          <p
+            style={{
+              fontSize: 11,
+              fontWeight: 700,
+              color: "#64748b",
+              textTransform: "uppercase",
+              letterSpacing: "0.06em",
+              marginBottom: 8,
+            }}
+          >
             Answer choices
           </p>
           <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
@@ -638,12 +749,18 @@ function MatchingTable({ tableData, answer, onAnswer }) {
                   type="button"
                   onClick={() => setSelected(isSel ? null : item.key)}
                   style={{
-                    padding: "9px 16px", fontSize: 13, fontWeight: 600, borderRadius: 10,
+                    padding: "9px 16px",
+                    fontSize: 13,
+                    fontWeight: 600,
+                    borderRadius: 10,
                     border: `2px solid ${isSel ? "#1a6fc4" : "#e2e8f0"}`,
                     background: isSel ? "#1a6fc4" : "#fff",
                     color: isSel ? "#fff" : "#1e293b",
-                    cursor: "pointer", transition: "all 0.15s",
-                    boxShadow: isSel ? "0 2px 8px rgba(26,111,196,0.25)" : "0 1px 4px rgba(0,0,0,0.06)",
+                    cursor: "pointer",
+                    transition: "all 0.15s",
+                    boxShadow: isSel
+                      ? "0 2px 8px rgba(26,111,196,0.25)"
+                      : "0 1px 4px rgba(0,0,0,0.06)",
                   }}
                 >
                   {item.text}
@@ -654,7 +771,15 @@ function MatchingTable({ tableData, answer, onAnswer }) {
         </div>
       )}
       {available.length === 0 && (
-        <p style={{ fontSize: 13, color: "#059669", fontWeight: 700, textAlign: "center", padding: "8px 0" }}>
+        <p
+          style={{
+            fontSize: 13,
+            color: "#059669",
+            fontWeight: 700,
+            textAlign: "center",
+            padding: "8px 0",
+          }}
+        >
           ✓ All answers placed — review and submit
         </p>
       )}
@@ -664,25 +789,47 @@ function MatchingTable({ tableData, answer, onAnswer }) {
 
 function FillInTable({ tableData, answer, onAnswer }) {
   const rows = tableData.rows;
-  const ans = (typeof answer === "object" && answer) ? answer : {};
+  const ans = typeof answer === "object" && answer ? answer : {};
 
   const update = (r, c, val) => onAnswer({ ...ans, [`${r}_${c}`]: val });
 
   return (
-    <div style={{ overflowX: "auto", borderRadius: 14, border: "1.5px solid #e2e8f0", boxShadow: "0 2px 12px rgba(0,0,0,0.05)" }}>
-      <table style={{ width: "100%", borderCollapse: "collapse", minWidth: 300 }}>
+    <div
+      style={{
+        overflowX: "auto",
+        borderRadius: 14,
+        border: "1.5px solid #e2e8f0",
+        boxShadow: "0 2px 12px rgba(0,0,0,0.05)",
+      }}
+    >
+      <table
+        style={{ width: "100%", borderCollapse: "collapse", minWidth: 300 }}
+      >
         <tbody>
           {rows.map((row, r) => (
-            <tr key={r} style={{ background: r === 0 ? "#f1f5f9" : r % 2 === 1 ? "#fff" : "#f8fafc" }}>
+            <tr
+              key={r}
+              style={{
+                background:
+                  r === 0 ? "#f1f5f9" : r % 2 === 1 ? "#fff" : "#f8fafc",
+              }}
+            >
               {row.map((cell, c) => (
-                <td key={c} style={{
-                  padding: cell.e ? "8px 10px" : "12px 16px",
-                  borderBottom: r < rows.length - 1 ? "1px solid #f1f5f9" : "none",
-                  borderRight: c < row.length - 1 ? "1.5px solid #e2e8f0" : "none",
-                  fontSize: 14, fontWeight: r === 0 ? 700 : 400, color: "#0f172a",
-                  background: cell.e ? "#eff6ff" : "inherit",
-                  minWidth: 100,
-                }}>
+                <td
+                  key={c}
+                  style={{
+                    padding: cell.e ? "8px 10px" : "12px 16px",
+                    borderBottom:
+                      r < rows.length - 1 ? "1px solid #f1f5f9" : "none",
+                    borderRight:
+                      c < row.length - 1 ? "1.5px solid #e2e8f0" : "none",
+                    fontSize: 14,
+                    fontWeight: r === 0 ? 700 : 400,
+                    color: "#0f172a",
+                    background: cell.e ? "#eff6ff" : "inherit",
+                    minWidth: 100,
+                  }}
+                >
                   {cell.e ? (
                     <input
                       type="text"
@@ -690,9 +837,14 @@ function FillInTable({ tableData, answer, onAnswer }) {
                       onChange={(e) => update(r, c, e.target.value)}
                       placeholder="Your answer…"
                       style={{
-                        width: "100%", border: "none", background: "transparent",
-                        fontSize: 14, fontWeight: 500, color: "#1e3a5f",
-                        outline: "none", fontFamily: "'Lato', sans-serif",
+                        width: "100%",
+                        border: "none",
+                        background: "transparent",
+                        fontSize: 14,
+                        fontWeight: 500,
+                        color: "#1e3a5f",
+                        outline: "none",
+                        fontFamily: "'Lato', sans-serif",
                       }}
                     />
                   ) : (
@@ -751,7 +903,9 @@ function QuestionNav({ questions, answers, currentIdx, onJump, show }) {
                   width: 34,
                   height: 34,
                   borderRadius: 9,
-                  border: current ? "2px solid #1a6fc4" : "2px solid transparent",
+                  border: current
+                    ? "2px solid #1a6fc4"
+                    : "2px solid transparent",
                   cursor: "pointer",
                   fontWeight: 700,
                   fontSize: 12,
@@ -1198,7 +1352,10 @@ function ResultsScreen({ result, quiz }) {
             </button>
           </Link>
         </div>
-        {quiz?.questions?.some(q => q.question_type === "structured" || q.question_type === "essay") && (
+        {quiz?.questions?.some(
+          (q) =>
+            q.question_type === "structured" || q.question_type === "essay",
+        ) && (
           <div
             style={{
               display: "flex",
@@ -1218,7 +1375,8 @@ function ResultsScreen({ result, quiz }) {
             <span>
               Your written answers were graded by an AI marking assistant using
               model answers written by our educators — not by AI judgment alone.
-              If you believe a grade is incorrect, contact us to request a human review.
+              If you believe a grade is incorrect, contact us to request a human
+              review.
             </span>
           </div>
         )}
@@ -1751,10 +1909,13 @@ export default function QuizTakePage({ params }) {
     }
   }, [currentIdx]);
 
-  const goToQuestion = useCallback((idx) => {
-    captureMathField();
-    setCurrentIdx(idx);
-  }, [captureMathField]);
+  const goToQuestion = useCallback(
+    (idx) => {
+      captureMathField();
+      setCurrentIdx(idx);
+    },
+    [captureMathField],
+  );
 
   const openSubmitModal = useCallback(() => {
     captureMathField();
@@ -1855,8 +2016,10 @@ export default function QuizTakePage({ params }) {
     } catch (error) {
       clearTimeout(timeout);
       console.error("Submit error:", error);
-      if (error.name === 'AbortError') {
-        alert("Marking is taking longer than expected. Please try submitting again.");
+      if (error.name === "AbortError") {
+        alert(
+          "Marking is taking longer than expected. Please try submitting again.",
+        );
       } else {
         alert(error.message || "Failed to submit quiz. Check your connection.");
       }
@@ -1964,9 +2127,11 @@ export default function QuizTakePage({ params }) {
     if (q.parts && q.parts.length > 0) {
       // Parts-based cloze: each part has part_label = blank number
       q.parts.forEach((part) => {
-        const letter = typeof answers[qIdx] === "object"
-          ? answers[qIdx]?.[part.id] : null;
-        const optionText = letter ? part[`option_${letter.toLowerCase()}`] : null;
+        const letter =
+          typeof answers[qIdx] === "object" ? answers[qIdx]?.[part.id] : null;
+        const optionText = letter
+          ? part[`option_${letter.toLowerCase()}`]
+          : null;
         if (optionText) answeredBlanks[parseInt(part.part_label)] = optionText;
       });
     } else {
@@ -1984,13 +2149,26 @@ export default function QuizTakePage({ params }) {
         background: "#f7f9fc",
         fontFamily: "'Lato', sans-serif",
       }}
-      onCopy={(e) => { if (!["TEXTAREA","INPUT"].includes(e.target.tagName)) e.preventDefault(); }}
-      onCut={(e)  => { if (!["TEXTAREA","INPUT"].includes(e.target.tagName)) e.preventDefault(); }}
-      onContextMenu={(e) => { if (!["TEXTAREA","INPUT"].includes(e.target.tagName)) e.preventDefault(); }}
+      onCopy={(e) => {
+        if (!["TEXTAREA", "INPUT"].includes(e.target.tagName))
+          e.preventDefault();
+      }}
+      onCut={(e) => {
+        if (!["TEXTAREA", "INPUT"].includes(e.target.tagName))
+          e.preventDefault();
+      }}
+      onContextMenu={(e) => {
+        if (!["TEXTAREA", "INPUT"].includes(e.target.tagName))
+          e.preventDefault();
+      }}
       onKeyDown={(e) => {
         const tag = e.target.tagName;
-        if (["TEXTAREA","INPUT"].includes(tag)) return;
-        if ((e.ctrlKey || e.metaKey) && ["c","a","u","s","p"].includes(e.key.toLowerCase())) e.preventDefault();
+        if (["TEXTAREA", "INPUT"].includes(tag)) return;
+        if (
+          (e.ctrlKey || e.metaKey) &&
+          ["c", "a", "u", "s", "p"].includes(e.key.toLowerCase())
+        )
+          e.preventDefault();
       }}
     >
       <style>{`
@@ -2134,7 +2312,6 @@ export default function QuizTakePage({ params }) {
           ...(currentQ?.passage ? {} : { display: "block" }),
         }}
       >
-
         {/* Passage Panel */}
         {currentQ?.passage && (
           <div
@@ -2243,13 +2420,24 @@ export default function QuizTakePage({ params }) {
                       }}
                     >
                       {isKiswahili
-                        ? (currentQ.question_type === "essay" ? "INSHA" : currentQ.question_type === "structured" ? "MUUNDO" : currentQ.question_type === "fill_blank" ? "JAZA NAFASI" : currentQ.question_type?.replace("_", " ").toUpperCase() || "MCQ")
+                        ? currentQ.question_type === "essay"
+                          ? "INSHA"
+                          : currentQ.question_type === "structured"
+                            ? "MUUNDO"
+                            : currentQ.question_type === "fill_blank"
+                              ? "JAZA NAFASI"
+                              : currentQ.question_type
+                                  ?.replace("_", " ")
+                                  .toUpperCase() || "MCQ"
                         : currentQ.question_type?.replace("_", " ") || "MCQ"}
                     </span>
                     <span
                       style={{ fontSize: 13, color: "#bcc3d0", marginLeft: 8 }}
                     >
-                      · {currentQ.max_marks} {isKiswahili ? "alama" : `mark${currentQ.max_marks !== 1 ? "s" : ""}`}
+                      · {currentQ.max_marks}{" "}
+                      {isKiswahili
+                        ? "alama"
+                        : `mark${currentQ.max_marks !== 1 ? "s" : ""}`}
                     </span>
                     {flagged.has(currentIdx) && (
                       <span
@@ -2305,7 +2493,10 @@ export default function QuizTakePage({ params }) {
                     lineHeight: 1.65,
                   }}
                   dangerouslySetInnerHTML={{
-                    __html: renderTextWithBlanks(currentQ.question_text, answeredBlanks),
+                    __html: renderTextWithBlanks(
+                      currentQ.question_text,
+                      answeredBlanks,
+                    ),
                   }}
                 />
               </div>
@@ -2398,7 +2589,11 @@ export default function QuizTakePage({ params }) {
                   type="text"
                   value={answers[currentIdx] ?? ""}
                   onChange={(e) => handleAnswer(e.target.value)}
-                  placeholder={isKiswahili ? "Andika jibu lako hapa…" : "Type your answer here…"}
+                  placeholder={
+                    isKiswahili
+                      ? "Andika jibu lako hapa…"
+                      : "Type your answer here…"
+                  }
                   style={{
                     width: "100%",
                     border: "2px solid #e8eaf0",
@@ -2431,12 +2626,19 @@ export default function QuizTakePage({ params }) {
                     }}
                   >
                     {isKiswahili
-                      ? (currentQ.question_type === "essay" ? "Andika insha yako" : "Andika jibu lako")
+                      ? currentQ.question_type === "essay"
+                        ? "Andika insha yako"
+                        : "Andika jibu lako"
                       : currentQ.question_type === "essay"
                         ? "Write your essay"
                         : "Write your answer"}
                   </p>
                   <ChemTextBar
+                    textareaRef={structuredTextareaRef}
+                    value={answers[currentIdx] ?? ""}
+                    onChange={(val) => handleAnswer(val)}
+                  />
+                  <PhysicsFormulaBar
                     textareaRef={structuredTextareaRef}
                     value={answers[currentIdx] ?? ""}
                     onChange={(val) => handleAnswer(val)}
@@ -2449,7 +2651,9 @@ export default function QuizTakePage({ params }) {
                       rows={currentQ.question_type === "essay" ? 8 : 5}
                       placeholder={
                         isKiswahili
-                          ? (currentQ.question_type === "essay" ? "Anza insha yako hapa…" : "Eleza jibu lako kwa undani…")
+                          ? currentQ.question_type === "essay"
+                            ? "Anza insha yako hapa…"
+                            : "Eleza jibu lako kwa undani…"
                           : currentQ.question_type === "essay"
                             ? "Begin your essay here…"
                             : "Explain your answer in detail…"
@@ -2481,7 +2685,9 @@ export default function QuizTakePage({ params }) {
                         fontWeight: 600,
                       }}
                     >
-                      {isKiswahili ? `herufi ${(answers[currentIdx] ?? "").length}` : `${(answers[currentIdx] ?? "").length} chars`}
+                      {isKiswahili
+                        ? `herufi ${(answers[currentIdx] ?? "").length}`
+                        : `${(answers[currentIdx] ?? "").length} chars`}
                     </span>
                   </div>
                   {currentQ.max_marks > 1 && (
@@ -2495,53 +2701,90 @@ export default function QuizTakePage({ params }) {
               )}
 
               {/* Table question */}
-              {isTable && currentQ.table_data && (() => {
-                const td = currentQ.table_data;
-                const tt = td.table_type;
-                // Static: display only, nothing to interact with
-                if (tt === "static") {
+              {isTable &&
+                currentQ.table_data &&
+                (() => {
+                  const td = currentQ.table_data;
+                  const tt = td.table_type;
+                  // Static: display only, nothing to interact with
+                  if (tt === "static") {
+                    return (
+                      <div
+                        style={{
+                          marginTop: 4,
+                          overflowX: "auto",
+                          borderRadius: 14,
+                          border: "1.5px solid #e2e8f0",
+                          boxShadow: "0 2px 12px rgba(0,0,0,0.05)",
+                        }}
+                      >
+                        <table
+                          style={{
+                            width: "100%",
+                            borderCollapse: "collapse",
+                            minWidth: 300,
+                          }}
+                        >
+                          <tbody>
+                            {td.rows.map((row, r) => (
+                              <tr
+                                key={r}
+                                style={{
+                                  background:
+                                    r === 0
+                                      ? "#f1f5f9"
+                                      : r % 2 === 1
+                                        ? "#fff"
+                                        : "#f8fafc",
+                                }}
+                              >
+                                {row.map((cell, c) => (
+                                  <td
+                                    key={c}
+                                    style={{
+                                      padding: "12px 16px",
+                                      fontSize: 14,
+                                      fontWeight: r === 0 ? 700 : 400,
+                                      color: "#0f172a",
+                                      borderBottom:
+                                        r < td.rows.length - 1
+                                          ? "1px solid #f1f5f9"
+                                          : "none",
+                                      borderRight:
+                                        c < row.length - 1
+                                          ? "1.5px solid #e2e8f0"
+                                          : "none",
+                                    }}
+                                  >
+                                    {cell.v}
+                                  </td>
+                                ))}
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      </div>
+                    );
+                  }
+                  // Matching: explicit drag-and-drop (or heuristic detection for old data)
+                  if (tt === "matching" || isMatchingTable(td)) {
+                    return (
+                      <MatchingTable
+                        tableData={td}
+                        answer={answers[currentIdx]}
+                        onAnswer={(val) => handleAnswer(val)}
+                      />
+                    );
+                  }
+                  // Fill-in (default)
                   return (
-                    <div style={{ marginTop: 4, overflowX: "auto", borderRadius: 14, border: "1.5px solid #e2e8f0", boxShadow: "0 2px 12px rgba(0,0,0,0.05)" }}>
-                      <table style={{ width: "100%", borderCollapse: "collapse", minWidth: 300 }}>
-                        <tbody>
-                          {td.rows.map((row, r) => (
-                            <tr key={r} style={{ background: r === 0 ? "#f1f5f9" : r % 2 === 1 ? "#fff" : "#f8fafc" }}>
-                              {row.map((cell, c) => (
-                                <td key={c} style={{
-                                  padding: "12px 16px", fontSize: 14,
-                                  fontWeight: r === 0 ? 700 : 400, color: "#0f172a",
-                                  borderBottom: r < td.rows.length - 1 ? "1px solid #f1f5f9" : "none",
-                                  borderRight: c < row.length - 1 ? "1.5px solid #e2e8f0" : "none",
-                                }}>
-                                  {cell.v}
-                                </td>
-                              ))}
-                            </tr>
-                          ))}
-                        </tbody>
-                      </table>
-                    </div>
-                  );
-                }
-                // Matching: explicit drag-and-drop (or heuristic detection for old data)
-                if (tt === "matching" || isMatchingTable(td)) {
-                  return (
-                    <MatchingTable
+                    <FillInTable
                       tableData={td}
                       answer={answers[currentIdx]}
                       onAnswer={(val) => handleAnswer(val)}
                     />
                   );
-                }
-                // Fill-in (default)
-                return (
-                  <FillInTable
-                    tableData={td}
-                    answer={answers[currentIdx]}
-                    onAnswer={(val) => handleAnswer(val)}
-                  />
-                );
-              })()}
+                })()}
 
               {/* Working panel — math only */}
               {isMath && (
@@ -2636,7 +2879,10 @@ export default function QuizTakePage({ params }) {
                               fontWeight: 600,
                             }}
                           >
-                            {part.max_marks} {isKiswahili ? "alama" : `mark${part.max_marks !== 1 ? "s" : ""}`}
+                            {part.max_marks}{" "}
+                            {isKiswahili
+                              ? "alama"
+                              : `mark${part.max_marks !== 1 ? "s" : ""}`}
                           </span>
                         </div>
                         <p
@@ -2679,7 +2925,11 @@ export default function QuizTakePage({ params }) {
                               value={partAnswer}
                               onChange={(e) => handlePartAnswer(e.target.value)}
                               rows={3}
-                              placeholder={isKiswahili ? "Andika jibu lako hapa…" : "Write your answer here…"}
+                              placeholder={
+                                isKiswahili
+                                  ? "Andika jibu lako hapa…"
+                                  : "Write your answer here…"
+                              }
                               style={{
                                 width: "100%",
                                 border: "2px solid #e8eaf0",
@@ -2709,7 +2959,9 @@ export default function QuizTakePage({ params }) {
                                 fontWeight: 600,
                               }}
                             >
-                              {isKiswahili ? `herufi ${partAnswer.length}` : `${partAnswer.length} chars`}
+                              {isKiswahili
+                                ? `herufi ${partAnswer.length}`
+                                : `${partAnswer.length} chars`}
                             </span>
                           </div>
                         )}

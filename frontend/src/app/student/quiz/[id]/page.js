@@ -23,6 +23,7 @@ import katex from "katex";
 import "katex/dist/katex.min.css";
 import SimpleMathInput from "@/components/SimpleMathInput";
 import ChemTextBar from "@/components/ChemTextBar";
+import PhysicsFormulaBar from "@/components/PhysicsFormulaBar";
 
 const API =
   process.env.NEXT_PUBLIC_API_URL ||
@@ -32,15 +33,18 @@ const API =
 function _patchKatexSvg(html) {
   return html.replace(/<svg([^>]*)>/g, (_, attrs) => {
     if (attrs.includes('style="')) {
-      return '<svg' + attrs.replace('style="', 'style="display:inline;') + '>';
+      return "<svg" + attrs.replace('style="', 'style="display:inline;') + ">";
     }
-    return '<svg style="display:inline;"' + attrs + '>';
+    return '<svg style="display:inline;"' + attrs + ">";
   });
 }
 function _katex(expr, display) {
   try {
     return _patchKatexSvg(
-      katex.renderToString(expr.trim(), { displayMode: display, throwOnError: false })
+      katex.renderToString(expr.trim(), {
+        displayMode: display,
+        throwOnError: false,
+      }),
     );
   } catch {
     return expr;
@@ -50,7 +54,7 @@ function renderMath(text) {
   if (!text) return "";
   return text
     .replace(/\$\$([\s\S]+?)\$\$/g, (_, expr) => _katex(expr, true))
-    .replace(/\$([\s\S]+?)\$/g,     (_, expr) => _katex(expr, false));
+    .replace(/\$([\s\S]+?)\$/g, (_, expr) => _katex(expr, false));
 }
 
 // ─── Timer Hook ───────────────────────────────────────────────────────────────
@@ -174,7 +178,7 @@ function MCQOption({ letter, text, selected, onClick }) {
 // ─── Table Input ──────────────────────────────────────────────────────────────
 function TableInput({ tableData, value, onChange }) {
   const rows = tableData?.rows || [];
-  const cellAnswers = (typeof value === "object" && value !== null) ? value : {};
+  const cellAnswers = typeof value === "object" && value !== null ? value : {};
 
   const handleCell = (r, c, val) => {
     const key = `${r}_${c}`;
@@ -186,7 +190,9 @@ function TableInput({ tableData, value, onChange }) {
 
   return (
     <div style={{ overflowX: "auto" }}>
-      <table style={{ borderCollapse: "collapse", width: "100%", minWidth: 280 }}>
+      <table
+        style={{ borderCollapse: "collapse", width: "100%", minWidth: 280 }}
+      >
         <tbody>
           {rows.map((row, r) => (
             <tr key={r}>
@@ -227,13 +233,21 @@ function TableInput({ tableData, value, onChange }) {
                           outline: "none",
                           transition: "border-color 0.15s",
                         }}
-                        onFocus={(e) => (e.target.style.borderColor = "#1a6fc4")}
+                        onFocus={(e) =>
+                          (e.target.style.borderColor = "#1a6fc4")
+                        }
                         onBlur={(e) =>
-                          (e.target.style.borderColor = cellAnswers[key] ? "#1a6fc4" : "#bdd7f5")
+                          (e.target.style.borderColor = cellAnswers[key]
+                            ? "#1a6fc4"
+                            : "#bdd7f5")
                         }
                       />
                     ) : (
-                      <span dangerouslySetInnerHTML={{ __html: renderMath(cell.v || "") }} />
+                      <span
+                        dangerouslySetInnerHTML={{
+                          __html: renderMath(cell.v || ""),
+                        }}
+                      />
                     )}
                   </td>
                 );
@@ -281,8 +295,11 @@ function QuestionNav({ questions, answers, currentIdx, onJump, show }) {
           >
             {questions.map((_, i) => {
               const a = answers[i];
-              const answered = a !== undefined && a !== "" &&
-                (typeof a !== "object" || Object.values(a).some((c) => c !== ""));
+              const answered =
+                a !== undefined &&
+                a !== "" &&
+                (typeof a !== "object" ||
+                  Object.values(a).some((c) => c !== ""));
               const current = i === currentIdx;
               return (
                 <button
@@ -293,7 +310,9 @@ function QuestionNav({ questions, answers, currentIdx, onJump, show }) {
                     minWidth: 36,
                     height: 36,
                     borderRadius: 10,
-                    border: current ? "2px solid #1a6fc4" : "2px solid transparent",
+                    border: current
+                      ? "2px solid #1a6fc4"
+                      : "2px solid transparent",
                     cursor: "pointer",
                     fontWeight: 700,
                     fontSize: 13,
@@ -645,7 +664,10 @@ function ResultsScreen({ result, quiz }) {
               </div>
             ))}
           </div>
-          {quiz?.questions?.some(q => q.question_type === "structured" || q.question_type === "essay") && (
+          {quiz?.questions?.some(
+            (q) =>
+              q.question_type === "structured" || q.question_type === "essay",
+          ) && (
             <div
               style={{
                 display: "flex",
@@ -663,9 +685,10 @@ function ResultsScreen({ result, quiz }) {
             >
               <span style={{ fontSize: 16, flexShrink: 0 }}>ℹ️</span>
               <span>
-                Your written answers were graded by an AI marking assistant using
-                model answers written by our educators — not by AI judgment alone.
-                If you believe a grade is incorrect, contact us to request a human review.
+                Your written answers were graded by an AI marking assistant
+                using model answers written by our educators — not by AI
+                judgment alone. If you believe a grade is incorrect, contact us
+                to request a human review.
               </span>
             </div>
           )}
@@ -688,7 +711,10 @@ function ResultsScreen({ result, quiz }) {
                 {Object.entries(result.detailed_feedback).flatMap(
                   ([qId, feedback], idx) => {
                     // Multipart: render each part as its own card
-                    if (feedback.question_type === "multipart" && feedback.part_results?.length > 0) {
+                    if (
+                      feedback.question_type === "multipart" &&
+                      feedback.part_results?.length > 0
+                    ) {
                       return feedback.part_results.map((part) => {
                         const partCorrect = part.is_correct;
                         const borderColor = partCorrect ? "#1d8f57" : "#c0334a";
@@ -704,47 +730,131 @@ function ResultsScreen({ result, quiz }) {
                               marginBottom: 12,
                             }}
                           >
-                            <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
-                              <div style={{
-                                background: borderColor,
-                                color: "#fff",
-                                width: 28,
-                                height: 28,
-                                borderRadius: 8,
+                            <div
+                              style={{
                                 display: "flex",
                                 alignItems: "center",
-                                justifyContent: "center",
-                                fontWeight: 700,
-                                fontSize: 13,
-                              }}>
+                                gap: 8,
+                                marginBottom: 8,
+                              }}
+                            >
+                              <div
+                                style={{
+                                  background: borderColor,
+                                  color: "#fff",
+                                  width: 28,
+                                  height: 28,
+                                  borderRadius: 8,
+                                  display: "flex",
+                                  alignItems: "center",
+                                  justifyContent: "center",
+                                  fontWeight: 700,
+                                  fontSize: 13,
+                                }}
+                              >
                                 {part.part_label}
                               </div>
-                              <span style={{ fontSize: 13, fontWeight: 700, color: borderColor }}>
+                              <span
+                                style={{
+                                  fontSize: 13,
+                                  fontWeight: 700,
+                                  color: borderColor,
+                                }}
+                              >
                                 {part.marks_awarded}/{part.max_marks} marks
                               </span>
                             </div>
-                            <p style={{ fontSize: 14, fontWeight: 600, color: "#0d0d1a", marginBottom: 8 }}
-                              dangerouslySetInnerHTML={{ __html: renderMath(part.question_text || feedback.question_text) }}
+                            <p
+                              style={{
+                                fontSize: 14,
+                                fontWeight: 600,
+                                color: "#0d0d1a",
+                                marginBottom: 8,
+                              }}
+                              dangerouslySetInnerHTML={{
+                                __html: renderMath(
+                                  part.question_text || feedback.question_text,
+                                ),
+                              }}
                             />
                             <div style={{ marginBottom: 8 }}>
-                              <p style={{ fontSize: 12, color: "#6b7280", fontWeight: 600, marginBottom: 4 }}>Your answer:</p>
-                              <p style={{ fontSize: 14, color: "#0d0d1a", background: "#fff", padding: 8, borderRadius: 8 }}>
+                              <p
+                                style={{
+                                  fontSize: 12,
+                                  color: "#6b7280",
+                                  fontWeight: 600,
+                                  marginBottom: 4,
+                                }}
+                              >
+                                Your answer:
+                              </p>
+                              <p
+                                style={{
+                                  fontSize: 14,
+                                  color: "#0d0d1a",
+                                  background: "#fff",
+                                  padding: 8,
+                                  borderRadius: 8,
+                                }}
+                              >
                                 {part.student_answer || "No answer"}
                               </p>
                             </div>
                             {!partCorrect && part.correct_answer && (
                               <div style={{ marginBottom: 8 }}>
-                                <p style={{ fontSize: 12, color: "#6b7280", fontWeight: 600, marginBottom: 4 }}>Correct answer:</p>
-                                <p style={{ fontSize: 14, color: "#0d0d1a", background: "#fff", padding: 8, borderRadius: 8 }}>
+                                <p
+                                  style={{
+                                    fontSize: 12,
+                                    color: "#6b7280",
+                                    fontWeight: 600,
+                                    marginBottom: 4,
+                                  }}
+                                >
+                                  Correct answer:
+                                </p>
+                                <p
+                                  style={{
+                                    fontSize: 14,
+                                    color: "#0d0d1a",
+                                    background: "#fff",
+                                    padding: 8,
+                                    borderRadius: 8,
+                                  }}
+                                >
                                   {part.correct_answer}
                                 </p>
                               </div>
                             )}
                             {part.feedback && (
-                              <div style={{ background: "#fff", padding: 12, borderRadius: 12 }}>
-                                <p style={{ fontSize: 12, color: "#6b7280", fontWeight: 600, marginBottom: 4 }}>💡 Feedback:</p>
-                                <p style={{ fontSize: 13, color: "#0d0d1a", lineHeight: 1.6 }}
-                                  dangerouslySetInnerHTML={{ __html: renderMath(part.feedback).replace(/\n/g, "<br/>") }}
+                              <div
+                                style={{
+                                  background: "#fff",
+                                  padding: 12,
+                                  borderRadius: 12,
+                                }}
+                              >
+                                <p
+                                  style={{
+                                    fontSize: 12,
+                                    color: "#6b7280",
+                                    fontWeight: 600,
+                                    marginBottom: 4,
+                                  }}
+                                >
+                                  💡 Feedback:
+                                </p>
+                                <p
+                                  style={{
+                                    fontSize: 13,
+                                    color: "#0d0d1a",
+                                    lineHeight: 1.6,
+                                  }}
+                                  dangerouslySetInnerHTML={{
+                                    __html: renderMath(part.feedback).replace(
+                                      /\n/g,
+                                      "<br/>",
+                                    ),
+                                  }}
                                 />
                               </div>
                             )}
@@ -754,61 +864,149 @@ function ResultsScreen({ result, quiz }) {
                     }
 
                     // Single question card
-                    return [(
+                    return [
                       <div
                         key={qId}
                         style={{
-                          background: feedback.is_correct ? "#f0fdf4" : "#fffbeb",
+                          background: feedback.is_correct
+                            ? "#f0fdf4"
+                            : "#fffbeb",
                           border: `2px solid ${feedback.is_correct ? "#1d8f57" : "#d4900a"}`,
                           borderRadius: 16,
                           padding: 16,
                           marginBottom: 12,
                         }}
                       >
-                        <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
-                          <div style={{
-                            background: feedback.is_correct ? "#1d8f57" : "#d4900a",
-                            color: "#fff",
-                            width: 28,
-                            height: 28,
-                            borderRadius: 8,
+                        <div
+                          style={{
                             display: "flex",
                             alignItems: "center",
-                            justifyContent: "center",
-                            fontWeight: 700,
-                            fontSize: 13,
-                          }}>
+                            gap: 8,
+                            marginBottom: 8,
+                          }}
+                        >
+                          <div
+                            style={{
+                              background: feedback.is_correct
+                                ? "#1d8f57"
+                                : "#d4900a",
+                              color: "#fff",
+                              width: 28,
+                              height: 28,
+                              borderRadius: 8,
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              fontWeight: 700,
+                              fontSize: 13,
+                            }}
+                          >
                             {idx + 1}
                           </div>
-                          <span style={{ fontSize: 13, fontWeight: 700, color: feedback.is_correct ? "#1d8f57" : "#d4900a" }}>
+                          <span
+                            style={{
+                              fontSize: 13,
+                              fontWeight: 700,
+                              color: feedback.is_correct
+                                ? "#1d8f57"
+                                : "#d4900a",
+                            }}
+                          >
                             {feedback.marks_awarded}/{feedback.max_marks} marks
                           </span>
                         </div>
 
-                        <p style={{ fontSize: 14, fontWeight: 600, color: "#0d0d1a", marginBottom: 8 }}
-                          dangerouslySetInnerHTML={{ __html: renderMath(feedback.question_text) }}
+                        <p
+                          style={{
+                            fontSize: 14,
+                            fontWeight: 600,
+                            color: "#0d0d1a",
+                            marginBottom: 8,
+                          }}
+                          dangerouslySetInnerHTML={{
+                            __html: renderMath(feedback.question_text),
+                          }}
                         />
 
                         <div style={{ marginBottom: 8 }}>
-                          <p style={{ fontSize: 12, color: "#6b7280", fontWeight: 600, marginBottom: 4 }}>Your answer:</p>
-                          <p style={{ fontSize: 14, color: "#0d0d1a", background: "#fff", padding: 8, borderRadius: 8 }}>
+                          <p
+                            style={{
+                              fontSize: 12,
+                              color: "#6b7280",
+                              fontWeight: 600,
+                              marginBottom: 4,
+                            }}
+                          >
+                            Your answer:
+                          </p>
+                          <p
+                            style={{
+                              fontSize: 14,
+                              color: "#0d0d1a",
+                              background: "#fff",
+                              padding: 8,
+                              borderRadius: 8,
+                            }}
+                          >
                             {feedback.student_answer || "No answer"}
                           </p>
                         </div>
 
                         {feedback.feedback && (
-                          <div style={{ background: "#fff", padding: 12, borderRadius: 12, marginBottom: 8 }}>
-                            <p style={{ fontSize: 12, color: "#6b7280", fontWeight: 600, marginBottom: 4 }}>💡 Feedback:</p>
-                            <p style={{ fontSize: 13, color: "#0d0d1a", lineHeight: 1.6 }}
-                              dangerouslySetInnerHTML={{ __html: renderMath(feedback.feedback).replace(/\n/g, "<br/>") }}
+                          <div
+                            style={{
+                              background: "#fff",
+                              padding: 12,
+                              borderRadius: 12,
+                              marginBottom: 8,
+                            }}
+                          >
+                            <p
+                              style={{
+                                fontSize: 12,
+                                color: "#6b7280",
+                                fontWeight: 600,
+                                marginBottom: 4,
+                              }}
+                            >
+                              💡 Feedback:
+                            </p>
+                            <p
+                              style={{
+                                fontSize: 13,
+                                color: "#0d0d1a",
+                                lineHeight: 1.6,
+                              }}
+                              dangerouslySetInnerHTML={{
+                                __html: renderMath(feedback.feedback).replace(
+                                  /\n/g,
+                                  "<br/>",
+                                ),
+                              }}
                             />
                           </div>
                         )}
 
                         {feedback.points_earned?.length > 0 && (
                           <div style={{ marginBottom: 8 }}>
-                            <p style={{ fontSize: 12, color: "#1d8f57", fontWeight: 600, marginBottom: 4 }}>✓ You got credit for:</p>
-                            <ul style={{ margin: 0, paddingLeft: 20, fontSize: 13, color: "#0d0d1a" }}>
+                            <p
+                              style={{
+                                fontSize: 12,
+                                color: "#1d8f57",
+                                fontWeight: 600,
+                                marginBottom: 4,
+                              }}
+                            >
+                              ✓ You got credit for:
+                            </p>
+                            <ul
+                              style={{
+                                margin: 0,
+                                paddingLeft: 20,
+                                fontSize: 13,
+                                color: "#0d0d1a",
+                              }}
+                            >
                               {feedback.points_earned.map((point, i) => (
                                 <li key={i}>{point}</li>
                               ))}
@@ -818,16 +1016,32 @@ function ResultsScreen({ result, quiz }) {
 
                         {feedback.points_missed?.length > 0 && (
                           <div>
-                            <p style={{ fontSize: 12, color: "#d4900a", fontWeight: 600, marginBottom: 4 }}>✗ You missed:</p>
-                            <ul style={{ margin: 0, paddingLeft: 20, fontSize: 13, color: "#0d0d1a" }}>
+                            <p
+                              style={{
+                                fontSize: 12,
+                                color: "#d4900a",
+                                fontWeight: 600,
+                                marginBottom: 4,
+                              }}
+                            >
+                              ✗ You missed:
+                            </p>
+                            <ul
+                              style={{
+                                margin: 0,
+                                paddingLeft: 20,
+                                fontSize: 13,
+                                color: "#0d0d1a",
+                              }}
+                            >
                               {feedback.points_missed.map((point, i) => (
                                 <li key={i}>{point}</li>
                               ))}
                             </ul>
                           </div>
                         )}
-                      </div>
-                    )];
+                      </div>,
+                    ];
                   },
                 )}
               </div>
@@ -1003,7 +1217,8 @@ export default function QuizTakePage({ params }) {
   const totalQ = questions.length;
   const answeredCount = Object.values(answers).filter((v) => {
     if (v === undefined || v === "") return false;
-    if (typeof v === "object" && v !== null) return Object.values(v).some((c) => c !== "");
+    if (typeof v === "object" && v !== null)
+      return Object.values(v).some((c) => c !== "");
     return true;
   }).length;
   const unanswered = totalQ - answeredCount;
@@ -1053,10 +1268,13 @@ export default function QuizTakePage({ params }) {
     }
   }, [currentIdx]);
 
-  const goToQuestion = useCallback((idx) => {
-    captureMathField();
-    setCurrentIdx(idx);
-  }, [captureMathField]);
+  const goToQuestion = useCallback(
+    (idx) => {
+      captureMathField();
+      setCurrentIdx(idx);
+    },
+    [captureMathField],
+  );
 
   const handleQuizSubmit = async () => {
     setSubmitting(true);
@@ -1185,8 +1403,10 @@ export default function QuizTakePage({ params }) {
       }
     } catch (error) {
       clearTimeout(timeout);
-      if (error.name === 'AbortError') {
-        alert("Marking is taking longer than expected. Please try submitting again.");
+      if (error.name === "AbortError") {
+        alert(
+          "Marking is taking longer than expected. Please try submitting again.",
+        );
       } else {
         alert("Submission failed: " + error.message);
       }
@@ -1426,7 +1646,10 @@ export default function QuizTakePage({ params }) {
       <div
         style={{ maxWidth: 680, margin: "0 auto", padding: "32px 16px 120px" }}
       >
-        {questions.some(q => q.question_type === "structured" || q.question_type === "essay") && (
+        {questions.some(
+          (q) =>
+            q.question_type === "structured" || q.question_type === "essay",
+        ) && (
           <div
             style={{
               display: "flex",
@@ -1444,9 +1667,9 @@ export default function QuizTakePage({ params }) {
           >
             <span style={{ fontSize: 16, flexShrink: 0 }}>ℹ️</span>
             <span>
-              This quiz includes written questions graded by an AI marking assistant using
-              educator-written model answers. You may request a human review of any grade
-              by contacting support.
+              This quiz includes written questions graded by an AI marking
+              assistant using educator-written model answers. You may request a
+              human review of any grade by contacting support.
             </span>
           </div>
         )}
@@ -1647,27 +1870,27 @@ export default function QuizTakePage({ params }) {
                     onChange={(val) => handleAnswer(val)}
                   />
                 ) : (
-                <input
-                  type="text"
-                  value={answers[currentIdx] ?? ""}
-                  onChange={(e) => handleAnswer(e.target.value)}
-                  placeholder="Type your answer here…"
-                  style={{
-                    width: "100%",
-                    border: "2px solid #e8eaf0",
-                    borderRadius: 16,
-                    padding: "14px 18px",
-                    fontSize: 16,
-                    fontWeight: 500,
-                    color: "#0d0d1a",
-                    background: "#fff",
-                    fontFamily: "'Lato', sans-serif",
-                    transition: "border-color 0.15s",
-                    boxShadow: "0 2px 8px rgba(0,0,0,0.04)",
-                  }}
-                  onFocus={(e) => (e.target.style.borderColor = "#1a6fc4")}
-                  onBlur={(e) => (e.target.style.borderColor = "#e8eaf0")}
-                />
+                  <input
+                    type="text"
+                    value={answers[currentIdx] ?? ""}
+                    onChange={(e) => handleAnswer(e.target.value)}
+                    placeholder="Type your answer here…"
+                    style={{
+                      width: "100%",
+                      border: "2px solid #e8eaf0",
+                      borderRadius: 16,
+                      padding: "14px 18px",
+                      fontSize: 16,
+                      fontWeight: 500,
+                      color: "#0d0d1a",
+                      background: "#fff",
+                      fontFamily: "'Lato', sans-serif",
+                      transition: "border-color 0.15s",
+                      boxShadow: "0 2px 8px rgba(0,0,0,0.04)",
+                    }}
+                    onFocus={(e) => (e.target.style.borderColor = "#1a6fc4")}
+                    onBlur={(e) => (e.target.style.borderColor = "#e8eaf0")}
+                  />
                 )}
               </div>
             )}
@@ -1690,6 +1913,11 @@ export default function QuizTakePage({ params }) {
                     : "Write your answer"}
                 </p>
                 <ChemTextBar
+                  textareaRef={structuredTextareaRef}
+                  value={answers[currentIdx] ?? ""}
+                  onChange={(val) => handleAnswer(val)}
+                />
+                <PhysicsFormulaBar
                   textareaRef={structuredTextareaRef}
                   value={answers[currentIdx] ?? ""}
                   onChange={(val) => handleAnswer(val)}
@@ -1843,7 +2071,10 @@ export default function QuizTakePage({ params }) {
             </button>
           ) : (
             <button
-              onClick={() => { captureMathField(); setShowSubmitModal(true); }}
+              onClick={() => {
+                captureMathField();
+                setShowSubmitModal(true);
+              }}
               style={{
                 flex: 1,
                 height: 48,
@@ -1868,7 +2099,10 @@ export default function QuizTakePage({ params }) {
 
           {currentIdx < totalQ - 1 && unanswered === 0 && (
             <button
-              onClick={() => { captureMathField(); setShowSubmitModal(true); }}
+              onClick={() => {
+                captureMathField();
+                setShowSubmitModal(true);
+              }}
               style={{
                 width: 48,
                 height: 48,
