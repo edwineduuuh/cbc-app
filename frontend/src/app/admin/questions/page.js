@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { fetchWithAuth } from "@/lib/api";
 import { motion, AnimatePresence } from "framer-motion";
 import Toast from "@/components/ui/Toast";
+import PhysicsFormulaBar from "@/components/PhysicsFormulaBar";
 import {
   Plus,
   Upload,
@@ -71,7 +72,7 @@ function makeDefaultTable(rows = 2, cols = 5) {
   return {
     table_type: "fill_in",
     rows: Array.from({ length: rows }, () =>
-      Array.from({ length: cols }, () => ({ v: "", e: false, a: "" }))
+      Array.from({ length: cols }, () => ({ v: "", e: false, a: "" })),
     ),
     marking: "ai",
   };
@@ -79,7 +80,10 @@ function makeDefaultTable(rows = 2, cols = 5) {
 
 function pairsToRows(headers, pairs) {
   return [
-    [{ v: headers[0], e: false, a: "" }, { v: headers[1], e: false, a: "" }],
+    [
+      { v: headers[0], e: false, a: "" },
+      { v: headers[1], e: false, a: "" },
+    ],
     ...pairs.map((p) => [
       { v: p.key, e: false, a: "" },
       { v: "", e: true, a: p.value },
@@ -89,23 +93,23 @@ function pairsToRows(headers, pairs) {
 
 function TableBuilder({ value, onChange }) {
   const tableType = value?.table_type || "fill_in";
-  const marking   = value?.marking || "ai";
+  const marking = value?.marking || "ai";
 
   // ── Fill-in / Static grid state ──
-  const rows    = value?.rows || makeDefaultTable().rows;
+  const rows = value?.rows || makeDefaultTable().rows;
   const numRows = rows.length;
   const numCols = rows[0]?.length || 5;
 
   // ── Matching state ──
   const matchHeaders = value?.match_headers || ["Column A", "Column B"];
-  const matchPairs   = value?.match_pairs   || [{ key: "", value: "" }];
+  const matchPairs = value?.match_pairs || [{ key: "", value: "" }];
 
   const emit = (updates) => {
     const next = { ...value, ...updates };
     if (next.table_type === "matching") {
       next.rows = pairsToRows(
         next.match_headers || matchHeaders,
-        next.match_pairs   || matchPairs
+        next.match_pairs || matchPairs,
       );
     }
     onChange(next);
@@ -113,24 +117,32 @@ function TableBuilder({ value, onChange }) {
 
   const updateCell = (r, c, field, val) => {
     const next = rows.map((row, ri) =>
-      row.map((cell, ci) => ri === r && ci === c ? { ...cell, [field]: val } : cell)
+      row.map((cell, ci) =>
+        ri === r && ci === c ? { ...cell, [field]: val } : cell,
+      ),
     );
     emit({ rows: next });
   };
 
   const resize = (newR, newC) => {
     const next = Array.from({ length: newR }, (_, r) =>
-      Array.from({ length: newC }, (_, c) => rows[r]?.[c] || { v: "", e: false, a: "" })
+      Array.from(
+        { length: newC },
+        (_, c) => rows[r]?.[c] || { v: "", e: false, a: "" },
+      ),
     );
     emit({ rows: next });
   };
 
   const updatePair = (i, field, val) =>
-    emit({ match_pairs: matchPairs.map((p, pi) => pi === i ? { ...p, [field]: val } : p) });
+    emit({
+      match_pairs: matchPairs.map((p, pi) =>
+        pi === i ? { ...p, [field]: val } : p,
+      ),
+    });
 
   return (
     <div className="space-y-3">
-
       {/* ── Type + Marking controls ── */}
       <div className="flex flex-wrap gap-3 items-center">
         <div className="flex items-center gap-2">
@@ -147,7 +159,9 @@ function TableBuilder({ value, onChange }) {
         </div>
         {tableType !== "static" && (
           <div className="flex items-center gap-2">
-            <label className="text-xs font-semibold text-gray-600">Marking</label>
+            <label className="text-xs font-semibold text-gray-600">
+              Marking
+            </label>
             <select
               value={marking}
               onChange={(e) => emit({ marking: e.target.value })}
@@ -163,15 +177,27 @@ function TableBuilder({ value, onChange }) {
           <>
             <div className="flex items-center gap-2">
               <label className="text-xs font-medium text-gray-600">Rows</label>
-              <input type="number" min={1} max={20} value={numRows}
+              <input
+                type="number"
+                min={1}
+                max={20}
+                value={numRows}
                 onChange={(e) => resize(Math.max(1, +e.target.value), numCols)}
-                className="w-16 px-2 py-1 border border-gray-300 rounded text-sm" />
+                className="w-16 px-2 py-1 border border-gray-300 rounded text-sm"
+              />
             </div>
             <div className="flex items-center gap-2">
-              <label className="text-xs font-medium text-gray-600">Columns</label>
-              <input type="number" min={1} max={10} value={numCols}
+              <label className="text-xs font-medium text-gray-600">
+                Columns
+              </label>
+              <input
+                type="number"
+                min={1}
+                max={10}
+                value={numCols}
                 onChange={(e) => resize(numRows, Math.max(1, +e.target.value))}
-                className="w-16 px-2 py-1 border border-gray-300 rounded text-sm" />
+                className="w-16 px-2 py-1 border border-gray-300 rounded text-sm"
+              />
             </div>
           </>
         )}
@@ -186,14 +212,18 @@ function TableBuilder({ value, onChange }) {
               className="flex-1 text-sm px-2 py-1.5 border border-gray-300 rounded font-semibold"
               placeholder="Column A header (e.g. Device)"
               value={matchHeaders[0]}
-              onChange={(e) => emit({ match_headers: [e.target.value, matchHeaders[1]] })}
+              onChange={(e) =>
+                emit({ match_headers: [e.target.value, matchHeaders[1]] })
+              }
             />
             <span className="text-gray-400 font-bold">→</span>
             <input
               className="flex-1 text-sm px-2 py-1.5 border border-gray-300 rounded font-semibold"
               placeholder="Column B header (e.g. Use)"
               value={matchHeaders[1]}
-              onChange={(e) => emit({ match_headers: [matchHeaders[0], e.target.value] })}
+              onChange={(e) =>
+                emit({ match_headers: [matchHeaders[0], e.target.value] })
+              }
             />
             <div className="w-7" />
           </div>
@@ -215,17 +245,28 @@ function TableBuilder({ value, onChange }) {
               />
               <button
                 type="button"
-                onClick={() => emit({ match_pairs: matchPairs.filter((_, pi) => pi !== i) })}
+                onClick={() =>
+                  emit({ match_pairs: matchPairs.filter((_, pi) => pi !== i) })
+                }
                 className="w-7 h-7 flex items-center justify-center rounded text-red-400 hover:bg-red-50 text-sm font-bold"
-              >✕</button>
+              >
+                ✕
+              </button>
             </div>
           ))}
           <button
             type="button"
-            onClick={() => emit({ match_pairs: [...matchPairs, { key: "", value: "" }] })}
+            onClick={() =>
+              emit({ match_pairs: [...matchPairs, { key: "", value: "" }] })
+            }
             className="text-xs text-blue-600 hover:underline font-semibold"
-          >+ Add pair</button>
-          <p className="text-xs text-gray-400">Left column = items shown to student. Right column = correct match (shuffled into pool).</p>
+          >
+            + Add pair
+          </button>
+          <p className="text-xs text-gray-400">
+            Left column = items shown to student. Right column = correct match
+            (shuffled into pool).
+          </p>
         </div>
       )}
 
@@ -238,31 +279,43 @@ function TableBuilder({ value, onChange }) {
                 {rows.map((row, r) => (
                   <tr key={r}>
                     {row.map((cell, c) => (
-                      <td key={c}
+                      <td
+                        key={c}
                         className={`border border-gray-200 p-2 align-top min-w-[100px] ${cell.e ? "bg-blue-50" : "bg-gray-50"}`}
                       >
                         <input
                           className="w-full text-sm bg-transparent border-0 focus:outline-none font-medium"
                           placeholder="Value"
                           value={cell.v}
-                          onChange={(e) => updateCell(r, c, "v", e.target.value)}
+                          onChange={(e) =>
+                            updateCell(r, c, "v", e.target.value)
+                          }
                         />
                         {tableType === "fill_in" && (
                           <>
                             <div className="flex items-center gap-1 mt-1">
                               <input
-                                type="checkbox" checked={cell.e}
-                                onChange={(e) => updateCell(r, c, "e", e.target.checked)}
+                                type="checkbox"
+                                checked={cell.e}
+                                onChange={(e) =>
+                                  updateCell(r, c, "e", e.target.checked)
+                                }
                                 className="w-3 h-3 accent-blue-600"
                               />
-                              <span className="text-xs text-gray-500">Student fills</span>
+                              <span className="text-xs text-gray-500">
+                                Student fills
+                              </span>
                             </div>
                             {cell.e && (
                               <input
                                 className={`mt-1 w-full text-xs rounded px-1.5 py-1 bg-white ${cell.a ? "border border-blue-300 placeholder:text-blue-300" : "border-2 border-red-400 placeholder:text-red-400 bg-red-50"}`}
-                                placeholder={cell.a ? "Correct answer" : "⚠ Required!"}
+                                placeholder={
+                                  cell.a ? "Correct answer" : "⚠ Required!"
+                                }
                                 value={cell.a}
-                                onChange={(e) => updateCell(r, c, "a", e.target.value)}
+                                onChange={(e) =>
+                                  updateCell(r, c, "a", e.target.value)
+                                }
                               />
                             )}
                           </>
@@ -314,24 +367,38 @@ function PartsBuilder({ parts, onChange }) {
     <div className="space-y-3">
       <div className="flex items-center justify-between">
         <p className="text-xs font-semibold text-gray-600 uppercase tracking-wide">
-          Sub-questions ({parts.length} parts · {parts.reduce((s, p) => s + Number(p.max_marks || 1), 0)} marks total)
+          Sub-questions ({parts.length} parts ·{" "}
+          {parts.reduce((s, p) => s + Number(p.max_marks || 1), 0)} marks total)
         </p>
-        <button type="button" onClick={addPart} className="text-xs bg-indigo-50 text-indigo-700 border border-indigo-200 px-3 py-1.5 rounded-lg hover:bg-indigo-100 font-medium">
+        <button
+          type="button"
+          onClick={addPart}
+          className="text-xs bg-indigo-50 text-indigo-700 border border-indigo-200 px-3 py-1.5 rounded-lg hover:bg-indigo-100 font-medium"
+        >
           + Add Part
         </button>
       </div>
       {parts.map((part, i) => {
         const isMcqPart = part.question_type === "mcq";
         return (
-          <div key={i} className="border border-gray-200 rounded-xl p-3 bg-gray-50 space-y-2">
+          <div
+            key={i}
+            className="border border-gray-200 rounded-xl p-3 bg-gray-50 space-y-2"
+          >
             <div className="flex items-center gap-2">
-              <span className="text-sm font-bold text-indigo-700 w-6">({part.part_label})</span>
+              <span className="text-sm font-bold text-indigo-700 w-6">
+                ({part.part_label})
+              </span>
               <select
                 className="text-xs border border-gray-200 rounded-lg px-2 py-1.5 bg-white"
                 value={part.question_type || "structured"}
                 onChange={(e) => updatePart(i, "question_type", e.target.value)}
               >
-                {PART_TYPES.map(t => <option key={t.value} value={t.value}>{t.label}</option>)}
+                {PART_TYPES.map((t) => (
+                  <option key={t.value} value={t.value}>
+                    {t.label}
+                  </option>
+                ))}
               </select>
               <input
                 className="flex-1 text-sm border border-gray-200 rounded-lg px-2 py-1.5"
@@ -339,22 +406,34 @@ function PartsBuilder({ parts, onChange }) {
                 value={part.question_text}
                 onChange={(e) => updatePart(i, "question_text", e.target.value)}
               />
-              <input type="number" min={1}
+              <input
+                type="number"
+                min={1}
                 className="w-16 text-sm border border-gray-200 rounded-lg px-2 py-1.5 text-center"
-                title="Marks" value={part.max_marks}
+                title="Marks"
+                value={part.max_marks}
                 onChange={(e) => updatePart(i, "max_marks", e.target.value)}
               />
               <span className="text-xs text-gray-400">mk</span>
-              <button type="button" onClick={() => removePart(i)} className="text-red-400 hover:text-red-600 text-lg leading-none">×</button>
+              <button
+                type="button"
+                onClick={() => removePart(i)}
+                className="text-red-400 hover:text-red-600 text-lg leading-none"
+              >
+                ×
+              </button>
             </div>
             {isMcqPart && (
               <div className="grid grid-cols-2 gap-2">
-                {["a","b","c","d"].map(letter => (
-                  <input key={letter}
+                {["a", "b", "c", "d"].map((letter) => (
+                  <input
+                    key={letter}
                     className="text-xs border border-gray-200 rounded-lg px-2 py-1.5"
                     placeholder={`Option ${letter.toUpperCase()}`}
                     value={part[`option_${letter}`] || ""}
-                    onChange={(e) => updatePart(i, `option_${letter}`, e.target.value)}
+                    onChange={(e) =>
+                      updatePart(i, `option_${letter}`, e.target.value)
+                    }
                   />
                 ))}
               </div>
@@ -363,17 +442,26 @@ function PartsBuilder({ parts, onChange }) {
               <select
                 className="w-full text-xs border border-gray-200 rounded-lg px-2 py-1.5 bg-white"
                 value={part.correct_answer || ""}
-                onChange={(e) => updatePart(i, "correct_answer", e.target.value)}
+                onChange={(e) =>
+                  updatePart(i, "correct_answer", e.target.value)
+                }
               >
                 <option value="">Correct answer…</option>
-                {["A","B","C","D"].map(l => <option key={l} value={l}>{l}</option>)}
+                {["A", "B", "C", "D"].map((l) => (
+                  <option key={l} value={l}>
+                    {l}
+                  </option>
+                ))}
               </select>
             ) : (
-              <textarea rows={2}
+              <textarea
+                rows={2}
                 className="w-full text-sm border border-gray-200 rounded-lg px-2 py-1.5"
                 placeholder="Correct answer / model answer"
                 value={part.correct_answer}
-                onChange={(e) => updatePart(i, "correct_answer", e.target.value)}
+                onChange={(e) =>
+                  updatePart(i, "correct_answer", e.target.value)
+                }
               />
             )}
             <input
@@ -386,14 +474,25 @@ function PartsBuilder({ parts, onChange }) {
         );
       })}
       {parts.length === 0 && (
-        <p className="text-xs text-gray-400 text-center py-3">No parts yet. Click &quot;Add Part&quot; to begin.</p>
+        <p className="text-xs text-gray-400 text-center py-3">
+          No parts yet. Click &quot;Add Part&quot; to begin.
+        </p>
       )}
     </div>
   );
 }
 
 // ── MCQ option row: text input + optional image picker ──────────────────────
-function MCQOptionRow({ letter, value, onChange, imageFile, imagePreview, existingUrl, onImageChange, onImageClear }) {
+function MCQOptionRow({
+  letter,
+  value,
+  onChange,
+  imageFile,
+  imagePreview,
+  existingUrl,
+  onImageChange,
+  onImageClear,
+}) {
   const fileRef = React.useRef(null);
   const hasImage = imageFile || existingUrl;
   const previewSrc = imagePreview || existingUrl;
@@ -407,13 +506,17 @@ function MCQOptionRow({ letter, value, onChange, imageFile, imagePreview, existi
 
   return (
     <div className="space-y-1">
-      <label className="block text-xs font-semibold text-gray-600 uppercase tracking-wide">Option {letter}</label>
+      <label className="block text-xs font-semibold text-gray-600 uppercase tracking-wide">
+        Option {letter}
+      </label>
       <div className="flex items-center gap-2">
         <input
           value={value}
           onChange={(e) => onChange(e.target.value)}
           className={`flex-1 text-sm px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none ${hasImage ? "text-gray-400 italic" : ""}`}
-          placeholder={hasImage ? "(image used as option)" : `Type option ${letter}…`}
+          placeholder={
+            hasImage ? "(image used as option)" : `Type option ${letter}…`
+          }
         />
         <button
           type="button"
@@ -423,16 +526,28 @@ function MCQOptionRow({ letter, value, onChange, imageFile, imagePreview, existi
         >
           <ImageIcon className="w-4 h-4" />
         </button>
-        <input ref={fileRef} type="file" accept="image/*" className="hidden" onChange={handleFile} />
+        <input
+          ref={fileRef}
+          type="file"
+          accept="image/*"
+          className="hidden"
+          onChange={handleFile}
+        />
       </div>
       {previewSrc && (
         <div className="relative inline-block">
-          <img src={previewSrc} alt={`Option ${letter}`} className="h-20 rounded-lg border border-gray-200 object-contain bg-gray-50" />
+          <img
+            src={previewSrc}
+            alt={`Option ${letter}`}
+            className="h-20 rounded-lg border border-gray-200 object-contain bg-gray-50"
+          />
           <button
             type="button"
             onClick={onImageClear}
             className="absolute -top-1.5 -right-1.5 w-5 h-5 bg-red-500 text-white rounded-full flex items-center justify-center text-xs hover:bg-red-600"
-          >×</button>
+          >
+            ×
+          </button>
         </div>
       )}
     </div>
@@ -476,7 +591,7 @@ export default function QuestionManagementPage() {
     passage_id: "",
     question_text: "",
     question_type: "mcq",
-    math_format: "open",  // "open" | "mcq" — only used when question_type === "math"
+    math_format: "open", // "open" | "mcq" — only used when question_type === "math"
     option_a: "",
     option_b: "",
     option_c: "",
@@ -496,20 +611,32 @@ export default function QuestionManagementPage() {
   // ── Substrand manager modal state ──────────────────────────────
   const [showSubstrandModal, setShowSubstrandModal] = useState(false);
   const [sm, setSm] = useState({
-    subject: "", grade: "", topic: "",
-    substrands: [], loading: false, saving: false,
-    newName: "", newOrder: "",
-    editId: null, editName: "",
+    subject: "",
+    grade: "",
+    topic: "",
+    substrands: [],
+    loading: false,
+    saving: false,
+    newName: "",
+    newOrder: "",
+    editId: null,
+    editName: "",
   });
   const smSet = (patch) => setSm((prev) => ({ ...prev, ...patch }));
 
   // ── Topic manager modal state ───────────────────────────────────
   const [showTopicModal, setShowTopicModal] = useState(false);
   const [tm, setTm] = useState({
-    subject: "", grade: "",
-    topicList: [], loading: false, saving: false,
-    newName: "", newDesc: "", newOrder: "",
-    editId: null, editName: "",
+    subject: "",
+    grade: "",
+    topicList: [],
+    loading: false,
+    saving: false,
+    newName: "",
+    newDesc: "",
+    newOrder: "",
+    editId: null,
+    editName: "",
   });
   const tmSet = (patch) => setTm((prev) => ({ ...prev, ...patch }));
   const [csvFile, setCsvFile] = useState(null);
@@ -520,17 +647,46 @@ export default function QuestionManagementPage() {
   const [editImagePreview, setEditImagePreview] = useState(null);
   const [editImageDeleted, setEditImageDeleted] = useState(false);
   // option images: { A: File|null, B: File|null, C: File|null, D: File|null }
-  const [createOptImages, setCreateOptImages] = useState({ A: null, B: null, C: null, D: null });
-  const [createOptPreviews, setCreateOptPreviews] = useState({ A: null, B: null, C: null, D: null });
-  const [editOptImages, setEditOptImages] = useState({ A: null, B: null, C: null, D: null });
-  const [editOptPreviews, setEditOptPreviews] = useState({ A: null, B: null, C: null, D: null });
-  const [editOptDeleted, setEditOptDeleted] = useState({ A: false, B: false, C: false, D: false });
+  const [createOptImages, setCreateOptImages] = useState({
+    A: null,
+    B: null,
+    C: null,
+    D: null,
+  });
+  const [createOptPreviews, setCreateOptPreviews] = useState({
+    A: null,
+    B: null,
+    C: null,
+    D: null,
+  });
+  const [editOptImages, setEditOptImages] = useState({
+    A: null,
+    B: null,
+    C: null,
+    D: null,
+  });
+  const [editOptPreviews, setEditOptPreviews] = useState({
+    A: null,
+    B: null,
+    C: null,
+    D: null,
+  });
+  const [editOptDeleted, setEditOptDeleted] = useState({
+    A: false,
+    B: false,
+    C: false,
+    D: false,
+  });
   const [toast, setToast] = useState({
     show: false,
     message: "",
     type: "success",
   });
-  const [confirmModal, setConfirmModal] = useState({ open: false, message: "", onConfirm: null });
+  const [confirmModal, setConfirmModal] = useState({
+    open: false,
+    message: "",
+    onConfirm: null,
+  });
 
   useEffect(() => {
     if (authLoading) return;
@@ -602,7 +758,8 @@ export default function QuestionManagementPage() {
   useEffect(() => {
     if (formData.subject) {
       let filtered = topics.filter((t) => t.subject == formData.subject);
-      if (formData.grade) filtered = filtered.filter((t) => t.grade == formData.grade);
+      if (formData.grade)
+        filtered = filtered.filter((t) => t.grade == formData.grade);
       setFilteredTopics(filtered);
       // clear topic if it no longer belongs to the new grade/subject
       if (formData.topic && !filtered.find((t) => t.id == formData.topic)) {
@@ -616,17 +773,23 @@ export default function QuestionManagementPage() {
   useEffect(() => {
     if (editingQuestion && editingQuestion.subject) {
       let filtered = topics.filter((t) => t.subject == editingQuestion.subject);
-      if (editingQuestion.grade) filtered = filtered.filter((t) => t.grade == editingQuestion.grade);
+      if (editingQuestion.grade)
+        filtered = filtered.filter((t) => t.grade == editingQuestion.grade);
       setEditFilteredTopics(filtered);
     }
   }, [editingQuestion, topics]);
 
   // Load substrands for create form when topic changes
   useEffect(() => {
-    if (!formData.topic) { setFilteredSubstrands([]); return; }
+    if (!formData.topic) {
+      setFilteredSubstrands([]);
+      return;
+    }
     fetchWithAuth(`${API}/substrands/?topic=${formData.topic}`)
       .then((r) => r.json())
-      .then((d) => setFilteredSubstrands(Array.isArray(d) ? d : d.results || []))
+      .then((d) =>
+        setFilteredSubstrands(Array.isArray(d) ? d : d.results || []),
+      )
       .catch(() => setFilteredSubstrands([]));
     // Clear substrand when topic changes
     setFormData((prev) => ({ ...prev, substrand: "" }));
@@ -635,10 +798,15 @@ export default function QuestionManagementPage() {
   // Load substrands for edit form when topic changes
   useEffect(() => {
     const topicId = editingQuestion?.topic;
-    if (!topicId) { setEditFilteredSubstrands([]); return; }
+    if (!topicId) {
+      setEditFilteredSubstrands([]);
+      return;
+    }
     fetchWithAuth(`${API}/substrands/?topic=${topicId}`)
       .then((r) => r.json())
-      .then((d) => setEditFilteredSubstrands(Array.isArray(d) ? d : d.results || []))
+      .then((d) =>
+        setEditFilteredSubstrands(Array.isArray(d) ? d : d.results || []),
+      )
       .catch(() => setEditFilteredSubstrands([]));
   }, [editingQuestion?.topic]);
 
@@ -689,13 +857,23 @@ export default function QuestionManagementPage() {
 
   // ── Substrand manager helpers ───────────────────────────────────
   const loadSmSubstrands = async (topicId) => {
-    if (!topicId) { smSet({ substrands: [] }); return; }
+    if (!topicId) {
+      smSet({ substrands: [] });
+      return;
+    }
     smSet({ loading: true });
     try {
-      const r = await fetchWithAuth(`${API}/admin/substrands/?topic=${topicId}`);
+      const r = await fetchWithAuth(
+        `${API}/admin/substrands/?topic=${topicId}`,
+      );
       const d = await r.json();
-      smSet({ substrands: Array.isArray(d) ? d : d.results || [], loading: false });
-    } catch { smSet({ loading: false }); }
+      smSet({
+        substrands: Array.isArray(d) ? d : d.results || [],
+        loading: false,
+      });
+    } catch {
+      smSet({ loading: false });
+    }
   };
 
   const handleSmCreate = async () => {
@@ -708,7 +886,8 @@ export default function QuestionManagementPage() {
         body: JSON.stringify({
           topic: parseInt(sm.topic),
           name: sm.newName.trim(),
-          order: sm.newOrder !== "" ? parseInt(sm.newOrder) : sm.substrands.length,
+          order:
+            sm.newOrder !== "" ? parseInt(sm.newOrder) : sm.substrands.length,
         }),
       });
       if (r.ok) {
@@ -716,10 +895,15 @@ export default function QuestionManagementPage() {
         loadSmSubstrands(sm.topic);
       } else {
         const err = await r.json();
-        showToast(err.name?.[0] || err.detail || "Could not create substrand", "error");
+        showToast(
+          err.name?.[0] || err.detail || "Could not create substrand",
+          "error",
+        );
         smSet({ saving: false });
       }
-    } catch { smSet({ saving: false }); }
+    } catch {
+      smSet({ saving: false });
+    }
   };
 
   const handleSmUpdate = async () => {
@@ -738,15 +922,20 @@ export default function QuestionManagementPage() {
         showToast("Could not update substrand", "error");
         smSet({ saving: false });
       }
-    } catch { smSet({ saving: false }); }
+    } catch {
+      smSet({ saving: false });
+    }
   };
 
   const handleSmDelete = (id) => {
     setConfirmModal({
       open: true,
-      message: "Delete this substrand? Questions tagged to it will be untagged.",
+      message:
+        "Delete this substrand? Questions tagged to it will be untagged.",
       onConfirm: async () => {
-        await fetchWithAuth(`${API}/admin/substrands/${id}/`, { method: "DELETE" });
+        await fetchWithAuth(`${API}/admin/substrands/${id}/`, {
+          method: "DELETE",
+        });
         loadSmSubstrands(sm.topic);
       },
     });
@@ -766,7 +955,10 @@ export default function QuestionManagementPage() {
         return;
       }
       const d = await r.json();
-      tmSet({ topicList: Array.isArray(d) ? d : d.results || [], loading: false });
+      tmSet({
+        topicList: Array.isArray(d) ? d : d.results || [],
+        loading: false,
+      });
     } catch (e) {
       showToast(e?.message || "Failed to load topics", "error");
       tmSet({ loading: false });
@@ -793,7 +985,8 @@ export default function QuestionManagementPage() {
           grade: parseInt(tm.grade),
           name: tm.newName.trim(),
           description: tm.newDesc.trim(),
-          order: tm.newOrder !== "" ? parseInt(tm.newOrder) : tm.topicList.length,
+          order:
+            tm.newOrder !== "" ? parseInt(tm.newOrder) : tm.topicList.length,
         }),
       });
       if (r.ok) {
@@ -806,8 +999,14 @@ export default function QuestionManagementPage() {
         let msg = `HTTP ${r.status}`;
         try {
           const err = JSON.parse(text);
-          msg = err.name?.[0] || err.detail || Object.values(err).flat().join(" ") || msg;
-        } catch { /* non-JSON response */ }
+          msg =
+            err.name?.[0] ||
+            err.detail ||
+            Object.values(err).flat().join(" ") ||
+            msg;
+        } catch {
+          /* non-JSON response */
+        }
         showToast(msg, "error");
         tmSet({ saving: false });
       }
@@ -834,13 +1033,16 @@ export default function QuestionManagementPage() {
         showToast("Could not update topic", "error");
         tmSet({ saving: false });
       }
-    } catch { tmSet({ saving: false }); }
+    } catch {
+      tmSet({ saving: false });
+    }
   };
 
   const handleTmDelete = (id) => {
     setConfirmModal({
       open: true,
-      message: "Delete this topic? Sub-strands and question tags will be removed.",
+      message:
+        "Delete this topic? Sub-strands and question tags will be removed.",
       onConfirm: async () => {
         await fetchWithAuth(`${API}/admin/topics/${id}/`, { method: "DELETE" });
         loadTmTopics(tm.subject, tm.grade);
@@ -894,9 +1096,12 @@ export default function QuestionManagementPage() {
         option_d: "",
         correct_answer: "",
         table_data: value === "table" ? makeDefaultTable() : null,
-        parts: value === "multipart"
-          ? (prev.parts?.length > 0 ? prev.parts : [makeDefaultPart(0)])
-          : [],
+        parts:
+          value === "multipart"
+            ? prev.parts?.length > 0
+              ? prev.parts
+              : [makeDefaultPart(0)]
+            : [],
       }));
     } else {
       setFormData({ ...formData, [name]: value });
@@ -914,7 +1119,10 @@ export default function QuestionManagementPage() {
         option_c: "",
         option_d: "",
         correct_answer: "",
-        table_data: value === "table" ? (prev.table_data || makeDefaultTable()) : prev.table_data,
+        table_data:
+          value === "table"
+            ? prev.table_data || makeDefaultTable()
+            : prev.table_data,
       }));
     } else if (name === "math_format") {
       setEditingQuestion((prev) => ({
@@ -925,10 +1133,14 @@ export default function QuestionManagementPage() {
         option_c: "",
         option_d: "",
         correct_answer: "",
-        table_data: value === "table" ? (prev.table_data || makeDefaultTable()) : null,
-        parts: value === "multipart"
-          ? (prev.parts?.length > 0 ? prev.parts : [makeDefaultPart(0)])
-          : [],
+        table_data:
+          value === "table" ? prev.table_data || makeDefaultTable() : null,
+        parts:
+          value === "multipart"
+            ? prev.parts?.length > 0
+              ? prev.parts
+              : [makeDefaultPart(0)]
+            : [],
       }));
     } else {
       setEditingQuestion({ ...editingQuestion, [name]: value });
@@ -940,21 +1152,29 @@ export default function QuestionManagementPage() {
     setActionLoading(true);
     const fd = new FormData();
     if (formData.topic) fd.append("topic", parseInt(formData.topic));
-    if (formData.substrand) fd.append("substrand", parseInt(formData.substrand));
+    if (formData.substrand)
+      fd.append("substrand", parseInt(formData.substrand));
     fd.append("question_text", formData.question_text.trim());
     fd.append("question_type", formData.question_type || "mcq");
-    const isMcqStyle = formData.question_type === "mcq" ||
+    const isMcqStyle =
+      formData.question_type === "mcq" ||
       (formData.question_type === "math" && formData.math_format === "mcq");
-    const isTableStyle = formData.question_type === "table" ||
+    const isTableStyle =
+      formData.question_type === "table" ||
       (formData.question_type === "math" && formData.math_format === "table");
-    const isMultipartStyle = formData.question_type === "multipart" ||
-      (formData.question_type === "math" && formData.math_format === "multipart");
+    const isMultipartStyle =
+      formData.question_type === "multipart" ||
+      (formData.question_type === "math" &&
+        formData.math_format === "multipart");
     if (isMcqStyle) {
       fd.append("option_a", formData.option_a.trim());
       fd.append("option_b", formData.option_b.trim());
       fd.append("option_c", formData.option_c.trim());
       fd.append("option_d", formData.option_d.trim());
-      fd.append("correct_answer", formData.correct_answer ? formData.correct_answer.toUpperCase() : "");
+      fd.append(
+        "correct_answer",
+        formData.correct_answer ? formData.correct_answer.toUpperCase() : "",
+      );
     } else if (!isTableStyle && !isMultipartStyle) {
       fd.append("correct_answer", formData.correct_answer || "");
     }
@@ -969,7 +1189,11 @@ export default function QuestionManagementPage() {
     fd.append("difficulty", formData.difficulty || "medium");
     if (createImageFile) fd.append("question_image", createImageFile);
     for (const letter of ["A", "B", "C", "D"]) {
-      if (createOptImages[letter]) fd.append(`option_${letter.toLowerCase()}_image`, createOptImages[letter]);
+      if (createOptImages[letter])
+        fd.append(
+          `option_${letter.toLowerCase()}_image`,
+          createOptImages[letter],
+        );
     }
     if (formData.passage_id) fd.append("passage_id", formData.passage_id);
     if (isMultipartStyle && formData.parts?.length > 0) {
@@ -1008,16 +1232,23 @@ export default function QuestionManagementPage() {
     try {
       const fd = new FormData();
       fd.append("topic", editingQuestion.topic);
-      if (editingQuestion.substrand) fd.append("substrand", editingQuestion.substrand);
+      if (editingQuestion.substrand)
+        fd.append("substrand", editingQuestion.substrand);
       else fd.append("substrand", "");
       fd.append("question_text", editingQuestion.question_text);
       fd.append("question_type", editingQuestion.question_type || "mcq");
-      const isMcqStyleEdit = editingQuestion.question_type === "mcq" ||
-        (editingQuestion.question_type === "math" && editingQuestion.math_format === "mcq");
-      const isTableStyleEdit = editingQuestion.question_type === "table" ||
-        (editingQuestion.question_type === "math" && editingQuestion.math_format === "table");
-      const isMultipartStyleEdit = editingQuestion.question_type === "multipart" ||
-        (editingQuestion.question_type === "math" && editingQuestion.math_format === "multipart");
+      const isMcqStyleEdit =
+        editingQuestion.question_type === "mcq" ||
+        (editingQuestion.question_type === "math" &&
+          editingQuestion.math_format === "mcq");
+      const isTableStyleEdit =
+        editingQuestion.question_type === "table" ||
+        (editingQuestion.question_type === "math" &&
+          editingQuestion.math_format === "table");
+      const isMultipartStyleEdit =
+        editingQuestion.question_type === "multipart" ||
+        (editingQuestion.question_type === "math" &&
+          editingQuestion.math_format === "multipart");
       if (isMcqStyleEdit) {
         fd.append("option_a", editingQuestion.option_a || "");
         fd.append("option_b", editingQuestion.option_b || "");
@@ -1046,7 +1277,10 @@ export default function QuestionManagementPage() {
           fd.append(`delete_${field}`, "true");
         }
       }
-      fd.append("passage_id", editingQuestion.passage_id || editingQuestion.passage?.id || "");
+      fd.append(
+        "passage_id",
+        editingQuestion.passage_id || editingQuestion.passage?.id || "",
+      );
       if (isMultipartStyleEdit && editingQuestion.parts?.length > 0) {
         fd.append("parts", JSON.stringify(editingQuestion.parts));
       }
@@ -1081,12 +1315,16 @@ export default function QuestionManagementPage() {
   const handleDeleteQuestion = (questionId) => {
     setConfirmModal({
       open: true,
-      message: "Are you sure you want to delete this question? This cannot be undone.",
+      message:
+        "Are you sure you want to delete this question? This cannot be undone.",
       onConfirm: async () => {
         try {
-          const res = await fetchWithAuth(`${API}/admin/questions/${questionId}/`, {
-            method: "DELETE",
-          });
+          const res = await fetchWithAuth(
+            `${API}/admin/questions/${questionId}/`,
+            {
+              method: "DELETE",
+            },
+          );
           if (res.ok) {
             showToast("Question deleted!");
             loadQuestions();
@@ -1107,12 +1345,16 @@ export default function QuestionManagementPage() {
       const fullQ = await res.json();
       setEditingQuestion({
         ...fullQ,
-        math_format: fullQ.question_type === "math"
-          ? (fullQ.option_a ? "mcq"
-            : fullQ.table_data ? "table"
-            : fullQ.parts?.length > 0 ? "multipart"
-            : "open")
-          : "open",
+        math_format:
+          fullQ.question_type === "math"
+            ? fullQ.option_a
+              ? "mcq"
+              : fullQ.table_data
+                ? "table"
+                : fullQ.parts?.length > 0
+                  ? "multipart"
+                  : "open"
+            : "open",
       });
       setEditImageFile(null);
       setEditImagePreview(null);
@@ -1762,7 +2004,10 @@ export default function QuestionManagementPage() {
                       if (e.target.value === "multipart") {
                         setFormData((fd) => ({
                           ...fd,
-                          parts: fd.parts?.length > 0 ? fd.parts : [makeDefaultPart(0)],
+                          parts:
+                            fd.parts?.length > 0
+                              ? fd.parts
+                              : [makeDefaultPart(0)],
                         }));
                       }
                     }}
@@ -1772,15 +2017,20 @@ export default function QuestionManagementPage() {
                 {/* Math answer-format picker — shown before question text so teacher picks format first */}
                 {formData.question_type === "math" && (
                   <div className="bg-indigo-50 border border-indigo-200 rounded-lg p-3">
-                    <label className="block text-xs font-semibold text-indigo-700 mb-2 uppercase tracking-wide">Answer Format</label>
+                    <label className="block text-xs font-semibold text-indigo-700 mb-2 uppercase tracking-wide">
+                      Answer Format
+                    </label>
                     <div className="flex flex-wrap gap-4">
                       {[
-                        ["open",      "Open Answer"],
-                        ["mcq",       "Multiple Choice"],
-                        ["table",     "Table"],
+                        ["open", "Open Answer"],
+                        ["mcq", "Multiple Choice"],
+                        ["table", "Table"],
                         ["multipart", "Multipart"],
                       ].map(([val, lbl]) => (
-                        <label key={val} className="flex items-center gap-2 cursor-pointer text-sm font-medium text-indigo-800">
+                        <label
+                          key={val}
+                          className="flex items-center gap-2 cursor-pointer text-sm font-medium text-indigo-800"
+                        >
                           <input
                             type="radio"
                             name="math_format"
@@ -1797,22 +2047,34 @@ export default function QuestionManagementPage() {
 
                 {/* Passage selector */}
                 {(() => {
-                  const filteredPassages = passages.filter(p =>
-                    (!formData.subject || String(p.subject) === String(formData.subject)) &&
-                    (!formData.grade || String(p.grade) === String(formData.grade))
+                  const filteredPassages = passages.filter(
+                    (p) =>
+                      (!formData.subject ||
+                        String(p.subject) === String(formData.subject)) &&
+                      (!formData.grade ||
+                        String(p.grade) === String(formData.grade)),
                   );
                   if (filteredPassages.length === 0) return null;
                   return (
                     <div>
-                      <label className="block text-xs font-semibold text-gray-600 mb-1">Link Reading Passage (optional)</label>
+                      <label className="block text-xs font-semibold text-gray-600 mb-1">
+                        Link Reading Passage (optional)
+                      </label>
                       <select
                         className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500"
                         value={formData.passage_id || ""}
-                        onChange={e => setFormData(prev => ({ ...prev, passage_id: e.target.value }))}
+                        onChange={(e) =>
+                          setFormData((prev) => ({
+                            ...prev,
+                            passage_id: e.target.value,
+                          }))
+                        }
                       >
                         <option value="">— No passage —</option>
-                        {filteredPassages.map(p => (
-                          <option key={p.id} value={p.id}>{p.title} (Grade {p.grade})</option>
+                        {filteredPassages.map((p) => (
+                          <option key={p.id} value={p.id}>
+                            {p.title} (Grade {p.grade})
+                          </option>
                         ))}
                       </select>
                     </div>
@@ -1820,9 +2082,16 @@ export default function QuestionManagementPage() {
                 })()}
 
                 {/* Question text — stem + parts for multipart, plain for everything else */}
-                {(formData.question_type === "multipart" ||
-                  (formData.question_type === "math" && formData.math_format === "multipart")) ? (
+                {formData.question_type === "multipart" ||
+                (formData.question_type === "math" &&
+                  formData.math_format === "multipart") ? (
                   <div className="space-y-4">
+                    <PhysicsFormulaBar
+                      value={formData.question_text}
+                      onChange={(v) =>
+                        setFormData((p) => ({ ...p, question_text: v }))
+                      }
+                    />
                     <TextField
                       label="Question Stem (intro text / reading passage)"
                       name="question_text"
@@ -1833,24 +2102,35 @@ export default function QuestionManagementPage() {
                     />
                     <PartsBuilder
                       parts={formData.parts || []}
-                      onChange={(p) => setFormData((prev) => ({ ...prev, parts: p }))}
+                      onChange={(p) =>
+                        setFormData((prev) => ({ ...prev, parts: p }))
+                      }
                     />
                   </div>
                 ) : (
-                  <TextField
-                    label="Question"
-                    name="question_text"
-                    value={formData.question_text}
-                    onChange={handleChange}
-                    required
-                    rows={3}
-                    placeholder="Enter the question..."
-                  />
+                  <>
+                    <PhysicsFormulaBar
+                      value={formData.question_text}
+                      onChange={(v) =>
+                        setFormData((p) => ({ ...p, question_text: v }))
+                      }
+                    />
+                    <TextField
+                      label="Question"
+                      name="question_text"
+                      value={formData.question_text}
+                      onChange={handleChange}
+                      required
+                      rows={3}
+                      placeholder="Enter the question... Use $formula$ for LaTeX math"
+                    />
+                  </>
                 )}
 
                 {/* MCQ options */}
                 {(formData.question_type === "mcq" ||
-                  (formData.question_type === "math" && formData.math_format === "mcq")) && (
+                  (formData.question_type === "math" &&
+                    formData.math_format === "mcq")) && (
                   <>
                     <div className="grid grid-cols-2 gap-4">
                       {["A", "B", "C", "D"].map((letter) => (
@@ -1858,17 +2138,34 @@ export default function QuestionManagementPage() {
                           key={letter}
                           letter={letter}
                           value={formData[`option_${letter.toLowerCase()}`]}
-                          onChange={(v) => setFormData((p) => ({ ...p, [`option_${letter.toLowerCase()}`]: v }))}
+                          onChange={(v) =>
+                            setFormData((p) => ({
+                              ...p,
+                              [`option_${letter.toLowerCase()}`]: v,
+                            }))
+                          }
                           imageFile={createOptImages[letter]}
                           imagePreview={createOptPreviews[letter]}
                           existingUrl={null}
                           onImageChange={(file, preview) => {
-                            setCreateOptImages((p) => ({ ...p, [letter]: file }));
-                            setCreateOptPreviews((p) => ({ ...p, [letter]: preview }));
+                            setCreateOptImages((p) => ({
+                              ...p,
+                              [letter]: file,
+                            }));
+                            setCreateOptPreviews((p) => ({
+                              ...p,
+                              [letter]: preview,
+                            }));
                           }}
                           onImageClear={() => {
-                            setCreateOptImages((p) => ({ ...p, [letter]: null }));
-                            setCreateOptPreviews((p) => ({ ...p, [letter]: null }));
+                            setCreateOptImages((p) => ({
+                              ...p,
+                              [letter]: null,
+                            }));
+                            setCreateOptPreviews((p) => ({
+                              ...p,
+                              [letter]: null,
+                            }));
                           }}
                         />
                       ))}
@@ -1879,7 +2176,10 @@ export default function QuestionManagementPage() {
                       value={formData.correct_answer}
                       onChange={handleChange}
                       required
-                      options={["A", "B", "C", "D"].map((v) => ({ value: v, label: v }))}
+                      options={["A", "B", "C", "D"].map((v) => ({
+                        value: v,
+                        label: v,
+                      }))}
                       placeholder="Select"
                     />
                   </>
@@ -1887,25 +2187,35 @@ export default function QuestionManagementPage() {
 
                 {/* Open math / fill_blank correct answer */}
                 {(formData.question_type === "fill_blank" ||
-                  (formData.question_type === "math" && formData.math_format === "open")) && (
+                  (formData.question_type === "math" &&
+                    formData.math_format === "open")) && (
                   <InputField
                     label="Correct Answer"
                     name="correct_answer"
                     value={formData.correct_answer}
                     onChange={handleChange}
                     required
-                    placeholder={formData.question_type === "math" ? "e.g. \\frac{1}{4} or 0.25" : "Enter the correct answer"}
+                    placeholder={
+                      formData.question_type === "math"
+                        ? "e.g. \\frac{1}{4} or 0.25"
+                        : "Enter the correct answer"
+                    }
                   />
                 )}
 
                 {/* Table builder */}
                 {(formData.question_type === "table" ||
-                  (formData.question_type === "math" && formData.math_format === "table")) && (
+                  (formData.question_type === "math" &&
+                    formData.math_format === "table")) && (
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Table Builder</label>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Table Builder
+                    </label>
                     <TableBuilder
                       value={formData.table_data || makeDefaultTable()}
-                      onChange={(td) => setFormData((prev) => ({ ...prev, table_data: td }))}
+                      onChange={(td) =>
+                        setFormData((prev) => ({ ...prev, table_data: td }))
+                      }
                     />
                   </div>
                 )}
@@ -2098,7 +2408,10 @@ export default function QuestionManagementPage() {
                     value={editingQuestion.question_type || "mcq"}
                     onChange={(e) => {
                       handleEditChange(e);
-                      if (e.target.value === "multipart" && !editingQuestion.parts?.length) {
+                      if (
+                        e.target.value === "multipart" &&
+                        !editingQuestion.parts?.length
+                      ) {
                         setEditingQuestion((eq) => ({
                           ...eq,
                           parts: [makeDefaultPart(0)],
@@ -2121,20 +2434,27 @@ export default function QuestionManagementPage() {
                 {/* Math answer-format picker */}
                 {editingQuestion.question_type === "math" && (
                   <div className="bg-indigo-50 border border-indigo-200 rounded-lg p-3">
-                    <label className="block text-xs font-semibold text-indigo-700 mb-2 uppercase tracking-wide">Answer Format</label>
+                    <label className="block text-xs font-semibold text-indigo-700 mb-2 uppercase tracking-wide">
+                      Answer Format
+                    </label>
                     <div className="flex flex-wrap gap-4">
                       {[
-                        ["open",      "Open Answer"],
-                        ["mcq",       "Multiple Choice"],
-                        ["table",     "Table"],
+                        ["open", "Open Answer"],
+                        ["mcq", "Multiple Choice"],
+                        ["table", "Table"],
                         ["multipart", "Multipart"],
                       ].map(([val, lbl]) => (
-                        <label key={val} className="flex items-center gap-2 cursor-pointer text-sm font-medium text-indigo-800">
+                        <label
+                          key={val}
+                          className="flex items-center gap-2 cursor-pointer text-sm font-medium text-indigo-800"
+                        >
                           <input
                             type="radio"
                             name="math_format"
                             value={val}
-                            checked={(editingQuestion.math_format || "open") === val}
+                            checked={
+                              (editingQuestion.math_format || "open") === val
+                            }
                             onChange={handleEditChange}
                           />
                           {lbl}
@@ -2146,25 +2466,39 @@ export default function QuestionManagementPage() {
 
                 {/* Passage selector (edit) */}
                 {(() => {
-                  const subjectId = editingQuestion.subject || editingQuestion.topic_subject;
-                  const gradeVal  = editingQuestion.grade;
-                  const filteredPassages = passages.filter(p =>
-                    (!subjectId || String(p.subject) === String(subjectId)) &&
-                    (!gradeVal  || String(p.grade)   === String(gradeVal))
+                  const subjectId =
+                    editingQuestion.subject || editingQuestion.topic_subject;
+                  const gradeVal = editingQuestion.grade;
+                  const filteredPassages = passages.filter(
+                    (p) =>
+                      (!subjectId || String(p.subject) === String(subjectId)) &&
+                      (!gradeVal || String(p.grade) === String(gradeVal)),
                   );
                   if (filteredPassages.length === 0) return null;
-                  const currentPassageId = editingQuestion.passage_id ?? editingQuestion.passage?.id ?? "";
+                  const currentPassageId =
+                    editingQuestion.passage_id ??
+                    editingQuestion.passage?.id ??
+                    "";
                   return (
                     <div>
-                      <label className="block text-xs font-semibold text-gray-600 mb-1">Link Reading Passage (optional)</label>
+                      <label className="block text-xs font-semibold text-gray-600 mb-1">
+                        Link Reading Passage (optional)
+                      </label>
                       <select
                         className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500"
                         value={currentPassageId}
-                        onChange={e => setEditingQuestion(prev => ({ ...prev, passage_id: e.target.value }))}
+                        onChange={(e) =>
+                          setEditingQuestion((prev) => ({
+                            ...prev,
+                            passage_id: e.target.value,
+                          }))
+                        }
                       >
                         <option value="">— No passage —</option>
-                        {filteredPassages.map(p => (
-                          <option key={p.id} value={p.id}>{p.title} (Grade {p.grade})</option>
+                        {filteredPassages.map((p) => (
+                          <option key={p.id} value={p.id}>
+                            {p.title} (Grade {p.grade})
+                          </option>
                         ))}
                       </select>
                     </div>
@@ -2172,9 +2506,16 @@ export default function QuestionManagementPage() {
                 })()}
 
                 {/* Question text */}
-                {(editingQuestion.question_type === "multipart" ||
-                  (editingQuestion.question_type === "math" && (editingQuestion.math_format || "open") === "multipart")) ? (
+                {editingQuestion.question_type === "multipart" ||
+                (editingQuestion.question_type === "math" &&
+                  (editingQuestion.math_format || "open") === "multipart") ? (
                   <div className="space-y-4">
+                    <PhysicsFormulaBar
+                      value={editingQuestion.question_text}
+                      onChange={(v) =>
+                        setEditingQuestion((p) => ({ ...p, question_text: v }))
+                      }
+                    />
                     <TextField
                       label="Question Stem (intro text / reading passage)"
                       name="question_text"
@@ -2184,43 +2525,80 @@ export default function QuestionManagementPage() {
                     />
                     <PartsBuilder
                       parts={editingQuestion.parts || []}
-                      onChange={(p) => setEditingQuestion((prev) => ({ ...prev, parts: p }))}
+                      onChange={(p) =>
+                        setEditingQuestion((prev) => ({ ...prev, parts: p }))
+                      }
                     />
                   </div>
                 ) : (
-                  <TextField
-                    label="Question"
-                    name="question_text"
-                    value={editingQuestion.question_text}
-                    onChange={handleEditChange}
-                    required
-                    rows={3}
-                  />
+                  <>
+                    <PhysicsFormulaBar
+                      value={editingQuestion.question_text}
+                      onChange={(v) =>
+                        setEditingQuestion((p) => ({ ...p, question_text: v }))
+                      }
+                    />
+                    <TextField
+                      label="Question"
+                      name="question_text"
+                      value={editingQuestion.question_text}
+                      onChange={handleEditChange}
+                      required
+                      rows={3}
+                    />
+                  </>
                 )}
 
                 {/* MCQ options */}
                 {(editingQuestion.question_type === "mcq" ||
-                  (editingQuestion.question_type === "math" && (editingQuestion.math_format || "open") === "mcq")) && (
+                  (editingQuestion.question_type === "math" &&
+                    (editingQuestion.math_format || "open") === "mcq")) && (
                   <>
                     <div className="grid grid-cols-2 gap-4">
                       {["A", "B", "C", "D"].map((letter) => (
                         <MCQOptionRow
                           key={letter}
                           letter={letter}
-                          value={editingQuestion[`option_${letter.toLowerCase()}`] || ""}
-                          onChange={(v) => setEditingQuestion((p) => ({ ...p, [`option_${letter.toLowerCase()}`]: v }))}
+                          value={
+                            editingQuestion[`option_${letter.toLowerCase()}`] ||
+                            ""
+                          }
+                          onChange={(v) =>
+                            setEditingQuestion((p) => ({
+                              ...p,
+                              [`option_${letter.toLowerCase()}`]: v,
+                            }))
+                          }
                           imageFile={editOptImages[letter]}
                           imagePreview={editOptPreviews[letter]}
-                          existingUrl={editOptDeleted[letter] ? null : editingQuestion[`option_${letter.toLowerCase()}_image_url`]}
+                          existingUrl={
+                            editOptDeleted[letter]
+                              ? null
+                              : editingQuestion[
+                                  `option_${letter.toLowerCase()}_image_url`
+                                ]
+                          }
                           onImageChange={(file, preview) => {
                             setEditOptImages((p) => ({ ...p, [letter]: file }));
-                            setEditOptPreviews((p) => ({ ...p, [letter]: preview }));
-                            setEditOptDeleted((p) => ({ ...p, [letter]: false }));
+                            setEditOptPreviews((p) => ({
+                              ...p,
+                              [letter]: preview,
+                            }));
+                            setEditOptDeleted((p) => ({
+                              ...p,
+                              [letter]: false,
+                            }));
                           }}
                           onImageClear={() => {
                             setEditOptImages((p) => ({ ...p, [letter]: null }));
-                            setEditOptPreviews((p) => ({ ...p, [letter]: null }));
-                            setEditOptDeleted((p) => ({ ...p, [letter]: true }));
+                            setEditOptPreviews((p) => ({
+                              ...p,
+                              [letter]: null,
+                            }));
+                            setEditOptDeleted((p) => ({
+                              ...p,
+                              [letter]: true,
+                            }));
                           }}
                         />
                       ))}
@@ -2231,7 +2609,10 @@ export default function QuestionManagementPage() {
                       value={editingQuestion.correct_answer || ""}
                       onChange={handleEditChange}
                       required
-                      options={["A", "B", "C", "D"].map((v) => ({ value: v, label: v }))}
+                      options={["A", "B", "C", "D"].map((v) => ({
+                        value: v,
+                        label: v,
+                      }))}
                       placeholder="Select"
                     />
                   </>
@@ -2239,25 +2620,38 @@ export default function QuestionManagementPage() {
 
                 {/* Open math / fill_blank correct answer */}
                 {(editingQuestion.question_type === "fill_blank" ||
-                  (editingQuestion.question_type === "math" && (editingQuestion.math_format || "open") === "open")) && (
+                  (editingQuestion.question_type === "math" &&
+                    (editingQuestion.math_format || "open") === "open")) && (
                   <InputField
                     label="Correct Answer"
                     name="correct_answer"
                     value={editingQuestion.correct_answer || ""}
                     onChange={handleEditChange}
                     required
-                    placeholder={editingQuestion.question_type === "math" ? "e.g. \\frac{1}{4} or 0.25" : "Enter the correct answer"}
+                    placeholder={
+                      editingQuestion.question_type === "math"
+                        ? "e.g. \\frac{1}{4} or 0.25"
+                        : "Enter the correct answer"
+                    }
                   />
                 )}
 
                 {/* Table builder */}
                 {(editingQuestion.question_type === "table" ||
-                  (editingQuestion.question_type === "math" && (editingQuestion.math_format || "open") === "table")) && (
+                  (editingQuestion.question_type === "math" &&
+                    (editingQuestion.math_format || "open") === "table")) && (
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Table Builder</label>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Table Builder
+                    </label>
                     <TableBuilder
                       value={editingQuestion.table_data || makeDefaultTable()}
-                      onChange={(td) => setEditingQuestion((prev) => ({ ...prev, table_data: td }))}
+                      onChange={(td) =>
+                        setEditingQuestion((prev) => ({
+                          ...prev,
+                          table_data: td,
+                        }))
+                      }
                     />
                   </div>
                 )}
@@ -2447,10 +2841,17 @@ export default function QuestionManagementPage() {
             <ModalOverlay onClose={() => setShowTopicModal(false)}>
               <div className="flex justify-between items-center mb-6">
                 <div>
-                  <h2 className="text-xl font-bold text-gray-900">Manage Topics</h2>
-                  <p className="text-sm text-gray-500 mt-0.5">Add, edit or delete curriculum topics</p>
+                  <h2 className="text-xl font-bold text-gray-900">
+                    Manage Topics
+                  </h2>
+                  <p className="text-sm text-gray-500 mt-0.5">
+                    Add, edit or delete curriculum topics
+                  </p>
                 </div>
-                <button onClick={() => setShowTopicModal(false)} className="text-gray-400 hover:text-gray-600">
+                <button
+                  onClick={() => setShowTopicModal(false)}
+                  className="text-gray-400 hover:text-gray-600"
+                >
                   <X className="w-5 h-5" />
                 </button>
               </div>
@@ -2462,10 +2863,20 @@ export default function QuestionManagementPage() {
                   name="tm_subject"
                   value={tm.subject}
                   onChange={(e) => {
-                    tmSet({ subject: e.target.value, grade: tm.grade, topicList: [], editId: null, newName: "" });
-                    if (e.target.value && tm.grade) loadTmTopics(e.target.value, tm.grade);
+                    tmSet({
+                      subject: e.target.value,
+                      grade: tm.grade,
+                      topicList: [],
+                      editId: null,
+                      newName: "",
+                    });
+                    if (e.target.value && tm.grade)
+                      loadTmTopics(e.target.value, tm.grade);
                   }}
-                  options={subjects.map((s) => ({ value: s.id, label: s.name }))}
+                  options={subjects.map((s) => ({
+                    value: s.id,
+                    label: s.name,
+                  }))}
                   placeholder="Select area"
                 />
                 <SelectField
@@ -2473,10 +2884,19 @@ export default function QuestionManagementPage() {
                   name="tm_grade"
                   value={tm.grade}
                   onChange={(e) => {
-                    tmSet({ grade: e.target.value, topicList: [], editId: null, newName: "" });
-                    if (tm.subject && e.target.value) loadTmTopics(tm.subject, e.target.value);
+                    tmSet({
+                      grade: e.target.value,
+                      topicList: [],
+                      editId: null,
+                      newName: "",
+                    });
+                    if (tm.subject && e.target.value)
+                      loadTmTopics(tm.subject, e.target.value);
                   }}
-                  options={GRADES.map((g) => ({ value: g, label: `Grade ${g}` }))}
+                  options={GRADES.map((g) => ({
+                    value: g,
+                    label: `Grade ${g}`,
+                  }))}
                   placeholder="Select grade"
                 />
               </div>
@@ -2485,15 +2905,23 @@ export default function QuestionManagementPage() {
               {tm.subject && tm.grade ? (
                 <div className="border border-gray-200 rounded-xl overflow-hidden mb-4">
                   {tm.loading ? (
-                    <div className="p-6 text-center text-sm text-gray-500">Loading…</div>
+                    <div className="p-6 text-center text-sm text-gray-500">
+                      Loading…
+                    </div>
                   ) : tm.topicList.length === 0 ? (
-                    <div className="p-6 text-center text-sm text-gray-400">No topics yet — add one below</div>
+                    <div className="p-6 text-center text-sm text-gray-400">
+                      No topics yet — add one below
+                    </div>
                   ) : (
                     <table className="w-full text-sm">
                       <thead className="bg-gray-50 border-b border-gray-200">
                         <tr>
-                          <th className="text-left px-4 py-2.5 font-semibold text-gray-600">Topic</th>
-                          <th className="text-center px-4 py-2.5 font-semibold text-gray-600 w-20">Order</th>
+                          <th className="text-left px-4 py-2.5 font-semibold text-gray-600">
+                            Topic
+                          </th>
+                          <th className="text-center px-4 py-2.5 font-semibold text-gray-600 w-20">
+                            Order
+                          </th>
                           <th className="w-28" />
                         </tr>
                       </thead>
@@ -2505,25 +2933,60 @@ export default function QuestionManagementPage() {
                                 <input
                                   autoFocus
                                   value={tm.editName}
-                                  onChange={(e) => tmSet({ editName: e.target.value })}
-                                  onKeyDown={(e) => { if (e.key === "Enter") handleTmUpdate(); if (e.key === "Escape") tmSet({ editId: null, editName: "" }); }}
+                                  onChange={(e) =>
+                                    tmSet({ editName: e.target.value })
+                                  }
+                                  onKeyDown={(e) => {
+                                    if (e.key === "Enter") handleTmUpdate();
+                                    if (e.key === "Escape")
+                                      tmSet({ editId: null, editName: "" });
+                                  }}
                                   className="w-full px-2 py-1 text-sm border border-emerald-400 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:outline-none"
                                 />
                               ) : (
-                                <span className="font-medium text-gray-800">{t.name}</span>
+                                <span className="font-medium text-gray-800">
+                                  {t.name}
+                                </span>
                               )}
                             </td>
-                            <td className="px-4 py-2.5 text-center text-gray-500">{t.order}</td>
+                            <td className="px-4 py-2.5 text-center text-gray-500">
+                              {t.order}
+                            </td>
                             <td className="px-4 py-2.5">
                               {tm.editId === t.id ? (
                                 <div className="flex gap-1 justify-end">
-                                  <button onClick={handleTmUpdate} disabled={tm.saving} className="px-3 py-1 text-xs font-semibold bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 disabled:opacity-50">Save</button>
-                                  <button onClick={() => tmSet({ editId: null, editName: "" })} className="px-3 py-1 text-xs font-semibold border border-gray-300 rounded-lg hover:bg-gray-50">Cancel</button>
+                                  <button
+                                    onClick={handleTmUpdate}
+                                    disabled={tm.saving}
+                                    className="px-3 py-1 text-xs font-semibold bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 disabled:opacity-50"
+                                  >
+                                    Save
+                                  </button>
+                                  <button
+                                    onClick={() =>
+                                      tmSet({ editId: null, editName: "" })
+                                    }
+                                    className="px-3 py-1 text-xs font-semibold border border-gray-300 rounded-lg hover:bg-gray-50"
+                                  >
+                                    Cancel
+                                  </button>
                                 </div>
                               ) : (
                                 <div className="flex gap-1 justify-end">
-                                  <button onClick={() => tmSet({ editId: t.id, editName: t.name })} className="px-3 py-1 text-xs font-medium border border-gray-300 rounded-lg hover:bg-gray-50">Edit</button>
-                                  <button onClick={() => handleTmDelete(t.id)} className="px-3 py-1 text-xs font-medium border border-red-200 text-red-600 rounded-lg hover:bg-red-50">Delete</button>
+                                  <button
+                                    onClick={() =>
+                                      tmSet({ editId: t.id, editName: t.name })
+                                    }
+                                    className="px-3 py-1 text-xs font-medium border border-gray-300 rounded-lg hover:bg-gray-50"
+                                  >
+                                    Edit
+                                  </button>
+                                  <button
+                                    onClick={() => handleTmDelete(t.id)}
+                                    className="px-3 py-1 text-xs font-medium border border-red-200 text-red-600 rounded-lg hover:bg-red-50"
+                                  >
+                                    Delete
+                                  </button>
                                 </div>
                               )}
                             </td>
@@ -2542,20 +3005,28 @@ export default function QuestionManagementPage() {
               {/* Add new topic */}
               {tm.subject && tm.grade && (
                 <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-4">
-                  <p className="text-xs font-semibold text-emerald-700 uppercase tracking-wide mb-3">Add Topic</p>
+                  <p className="text-xs font-semibold text-emerald-700 uppercase tracking-wide mb-3">
+                    Add Topic
+                  </p>
                   <div className="flex gap-3 items-end">
                     <div className="flex-1">
-                      <label className="block text-xs font-medium text-gray-700 mb-1">Name <span className="text-red-500">*</span></label>
+                      <label className="block text-xs font-medium text-gray-700 mb-1">
+                        Name <span className="text-red-500">*</span>
+                      </label>
                       <input
                         value={tm.newName}
                         onChange={(e) => tmSet({ newName: e.target.value })}
-                        onKeyDown={(e) => { if (e.key === "Enter") handleTmCreate(); }}
+                        onKeyDown={(e) => {
+                          if (e.key === "Enter") handleTmCreate();
+                        }}
                         placeholder="e.g. Algebra"
                         className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:outline-none"
                       />
                     </div>
                     <div className="w-24">
-                      <label className="block text-xs font-medium text-gray-700 mb-1">Order</label>
+                      <label className="block text-xs font-medium text-gray-700 mb-1">
+                        Order
+                      </label>
                       <input
                         type="number"
                         min={0}
@@ -2585,10 +3056,17 @@ export default function QuestionManagementPage() {
             <ModalOverlay onClose={() => setShowSubstrandModal(false)}>
               <div className="flex justify-between items-center mb-6">
                 <div>
-                  <h2 className="text-xl font-bold text-gray-900">Manage Substrands</h2>
-                  <p className="text-sm text-gray-500 mt-0.5">Pick a strand to add, edit or delete its substrands</p>
+                  <h2 className="text-xl font-bold text-gray-900">
+                    Manage Substrands
+                  </h2>
+                  <p className="text-sm text-gray-500 mt-0.5">
+                    Pick a strand to add, edit or delete its substrands
+                  </p>
                 </div>
-                <button onClick={() => setShowSubstrandModal(false)} className="text-gray-400 hover:text-gray-600">
+                <button
+                  onClick={() => setShowSubstrandModal(false)}
+                  className="text-gray-400 hover:text-gray-600"
+                >
                   <X className="w-5 h-5" />
                 </button>
               </div>
@@ -2600,9 +3078,19 @@ export default function QuestionManagementPage() {
                   name="sm_subject"
                   value={sm.subject}
                   onChange={(e) => {
-                    smSet({ subject: e.target.value, grade: "", topic: "", substrands: [], newName: "", editId: null });
+                    smSet({
+                      subject: e.target.value,
+                      grade: "",
+                      topic: "",
+                      substrands: [],
+                      newName: "",
+                      editId: null,
+                    });
                   }}
-                  options={subjects.map((s) => ({ value: s.id, label: s.name }))}
+                  options={subjects.map((s) => ({
+                    value: s.id,
+                    label: s.name,
+                  }))}
                   placeholder="Select area"
                 />
                 <SelectField
@@ -2610,9 +3098,18 @@ export default function QuestionManagementPage() {
                   name="sm_grade"
                   value={sm.grade}
                   onChange={(e) => {
-                    smSet({ grade: e.target.value, topic: "", substrands: [], newName: "", editId: null });
+                    smSet({
+                      grade: e.target.value,
+                      topic: "",
+                      substrands: [],
+                      newName: "",
+                      editId: null,
+                    });
                   }}
-                  options={GRADES.map((g) => ({ value: g, label: `Grade ${g}` }))}
+                  options={GRADES.map((g) => ({
+                    value: g,
+                    label: `Grade ${g}`,
+                  }))}
                   placeholder="Select grade"
                 />
                 <SelectField
@@ -2620,12 +3117,19 @@ export default function QuestionManagementPage() {
                   name="sm_topic"
                   value={sm.topic}
                   onChange={(e) => {
-                    smSet({ topic: e.target.value, substrands: [], newName: "", editId: null });
+                    smSet({
+                      topic: e.target.value,
+                      substrands: [],
+                      newName: "",
+                      editId: null,
+                    });
                     loadSmSubstrands(e.target.value);
                   }}
                   disabled={!sm.subject || !sm.grade}
                   options={topics
-                    .filter((t) => t.subject == sm.subject && t.grade == sm.grade)
+                    .filter(
+                      (t) => t.subject == sm.subject && t.grade == sm.grade,
+                    )
                     .map((t) => ({ value: t.id, label: t.name }))}
                   placeholder="Select strand"
                 />
@@ -2635,15 +3139,23 @@ export default function QuestionManagementPage() {
               {sm.topic ? (
                 <div className="border border-gray-200 rounded-xl overflow-hidden mb-4">
                   {sm.loading ? (
-                    <div className="p-6 text-center text-sm text-gray-500">Loading…</div>
+                    <div className="p-6 text-center text-sm text-gray-500">
+                      Loading…
+                    </div>
                   ) : sm.substrands.length === 0 ? (
-                    <div className="p-6 text-center text-sm text-gray-400">No substrands yet — add one below</div>
+                    <div className="p-6 text-center text-sm text-gray-400">
+                      No substrands yet — add one below
+                    </div>
                   ) : (
                     <table className="w-full text-sm">
                       <thead className="bg-gray-50 border-b border-gray-200">
                         <tr>
-                          <th className="text-left px-4 py-2.5 font-semibold text-gray-600">Substrand</th>
-                          <th className="text-center px-4 py-2.5 font-semibold text-gray-600 w-20">Order</th>
+                          <th className="text-left px-4 py-2.5 font-semibold text-gray-600">
+                            Substrand
+                          </th>
+                          <th className="text-center px-4 py-2.5 font-semibold text-gray-600 w-20">
+                            Order
+                          </th>
                           <th className="w-28" />
                         </tr>
                       </thead>
@@ -2655,15 +3167,25 @@ export default function QuestionManagementPage() {
                                 <input
                                   autoFocus
                                   value={sm.editName}
-                                  onChange={(e) => smSet({ editName: e.target.value })}
-                                  onKeyDown={(e) => { if (e.key === "Enter") handleSmUpdate(); if (e.key === "Escape") smSet({ editId: null, editName: "" }); }}
+                                  onChange={(e) =>
+                                    smSet({ editName: e.target.value })
+                                  }
+                                  onKeyDown={(e) => {
+                                    if (e.key === "Enter") handleSmUpdate();
+                                    if (e.key === "Escape")
+                                      smSet({ editId: null, editName: "" });
+                                  }}
                                   className="w-full px-2 py-1 text-sm border border-indigo-400 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"
                                 />
                               ) : (
-                                <span className="font-medium text-gray-800">{s.name}</span>
+                                <span className="font-medium text-gray-800">
+                                  {s.name}
+                                </span>
                               )}
                             </td>
-                            <td className="px-4 py-2.5 text-center text-gray-500">{s.order}</td>
+                            <td className="px-4 py-2.5 text-center text-gray-500">
+                              {s.order}
+                            </td>
                             <td className="px-4 py-2.5">
                               {sm.editId === s.id ? (
                                 <div className="flex gap-1 justify-end">
@@ -2675,7 +3197,9 @@ export default function QuestionManagementPage() {
                                     Save
                                   </button>
                                   <button
-                                    onClick={() => smSet({ editId: null, editName: "" })}
+                                    onClick={() =>
+                                      smSet({ editId: null, editName: "" })
+                                    }
                                     className="px-3 py-1 text-xs font-semibold border border-gray-300 rounded-lg hover:bg-gray-50"
                                   >
                                     Cancel
@@ -2684,7 +3208,9 @@ export default function QuestionManagementPage() {
                               ) : (
                                 <div className="flex gap-1 justify-end">
                                   <button
-                                    onClick={() => smSet({ editId: s.id, editName: s.name })}
+                                    onClick={() =>
+                                      smSet({ editId: s.id, editName: s.name })
+                                    }
                                     className="px-3 py-1 text-xs font-medium border border-gray-300 rounded-lg hover:bg-gray-50"
                                   >
                                     Edit
@@ -2713,20 +3239,28 @@ export default function QuestionManagementPage() {
               {/* Add new substrand */}
               {sm.topic && (
                 <div className="bg-indigo-50 border border-indigo-200 rounded-xl p-4">
-                  <p className="text-xs font-semibold text-indigo-700 uppercase tracking-wide mb-3">Add Substrand</p>
+                  <p className="text-xs font-semibold text-indigo-700 uppercase tracking-wide mb-3">
+                    Add Substrand
+                  </p>
                   <div className="flex gap-3 items-end">
                     <div className="flex-1">
-                      <label className="block text-xs font-medium text-gray-700 mb-1">Name</label>
+                      <label className="block text-xs font-medium text-gray-700 mb-1">
+                        Name
+                      </label>
                       <input
                         value={sm.newName}
                         onChange={(e) => smSet({ newName: e.target.value })}
-                        onKeyDown={(e) => { if (e.key === "Enter") handleSmCreate(); }}
+                        onKeyDown={(e) => {
+                          if (e.key === "Enter") handleSmCreate();
+                        }}
                         placeholder="e.g. Fractions"
                         className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"
                       />
                     </div>
                     <div className="w-24">
-                      <label className="block text-xs font-medium text-gray-700 mb-1">Order</label>
+                      <label className="block text-xs font-medium text-gray-700 mb-1">
+                        Order
+                      </label>
                       <input
                         type="number"
                         min={0}
@@ -2753,12 +3287,41 @@ export default function QuestionManagementPage() {
 
       {/* ── Confirm Modal ── */}
       {confirmModal.open && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm px-4" onClick={() => setConfirmModal({ open: false, message: "", onConfirm: null })}>
-          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-sm p-6" onClick={e => e.stopPropagation()}>
-            <p className="text-gray-800 font-semibold text-center mb-6">{confirmModal.message}</p>
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm px-4"
+          onClick={() =>
+            setConfirmModal({ open: false, message: "", onConfirm: null })
+          }
+        >
+          <div
+            className="bg-white rounded-2xl shadow-2xl w-full max-w-sm p-6"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <p className="text-gray-800 font-semibold text-center mb-6">
+              {confirmModal.message}
+            </p>
             <div className="flex gap-3">
-              <button onClick={() => setConfirmModal({ open: false, message: "", onConfirm: null })} className="flex-1 py-2.5 rounded-xl border-2 border-gray-200 text-gray-700 font-semibold text-sm hover:bg-gray-50 transition">Cancel</button>
-              <button onClick={() => { confirmModal.onConfirm(); setConfirmModal({ open: false, message: "", onConfirm: null }); }} className="flex-1 py-2.5 rounded-xl bg-red-600 text-white font-semibold text-sm hover:bg-red-700 transition">Confirm</button>
+              <button
+                onClick={() =>
+                  setConfirmModal({ open: false, message: "", onConfirm: null })
+                }
+                className="flex-1 py-2.5 rounded-xl border-2 border-gray-200 text-gray-700 font-semibold text-sm hover:bg-gray-50 transition"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={() => {
+                  confirmModal.onConfirm();
+                  setConfirmModal({
+                    open: false,
+                    message: "",
+                    onConfirm: null,
+                  });
+                }}
+                className="flex-1 py-2.5 rounded-xl bg-red-600 text-white font-semibold text-sm hover:bg-red-700 transition"
+              >
+                Confirm
+              </button>
             </div>
           </div>
         </div>
@@ -2990,21 +3553,17 @@ function InputField({ label, name, value, onChange, required, placeholder }) {
   );
 }
 
-function TextField({
-  label,
-  name,
-  value,
-  onChange,
-  required,
-  rows = 3,
-  placeholder,
-}) {
+const TextField = React.forwardRef(function TextField(
+  { label, name, value, onChange, required, rows = 3, placeholder },
+  ref,
+) {
   return (
     <div>
       <label className="block text-sm font-medium text-gray-700 mb-1">
         {label} {required && <span className="text-red-500">*</span>}
       </label>
       <textarea
+        ref={ref}
         name={name}
         value={value}
         onChange={onChange}
@@ -3015,4 +3574,4 @@ function TextField({
       />
     </div>
   );
-}
+});
