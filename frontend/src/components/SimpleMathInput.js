@@ -303,8 +303,16 @@ export default function SimpleMathInput({ value, onChange }) {
   const [isReady, setIsReady] = useState(false);
   const [activeTab, setActiveTab] = useState("Math");
   const [open, setOpen] = useState(false);
+  const [search, setSearch] = useState("");
 
-  // Init MathLive and enable space key
+  // When searching, flatten all categories; otherwise show active tab only
+  const filteredSymbols = search.trim()
+    ? Object.values(SYMBOL_LIBRARY)
+        .flat()
+        .filter((s) => s.label.toLowerCase().includes(search.toLowerCase()))
+    : SYMBOL_LIBRARY[activeTab];
+
+  // Init MathLive fonts
   useEffect(() => {
     import("mathlive").then((ML) => {
       try {
@@ -321,12 +329,11 @@ export default function SimpleMathInput({ value, onChange }) {
     });
   }, []);
 
-  // Enable space key + set value once ready
+  // Enable space key + set initial value once ready
   useEffect(() => {
     const el = mfRef.current;
     if (!el || !isReady) return;
     try {
-      // Space inserts a LaTeX thin space so students can separate terms
       el.mathModeSpace = "\\,";
       if (value !== undefined && el.value !== value) el.value = value;
     } catch (e) {
@@ -361,27 +368,127 @@ export default function SimpleMathInput({ value, onChange }) {
       events.forEach((ev) => el.removeEventListener(ev, handleFieldChange));
   }, [handleFieldChange]);
 
+  // Insert at cursor position using MathLive's insert() API
   const insertTemplate = useCallback(
     (template) => {
       const el = mfRef.current;
       if (!el || !isReady) return;
       try {
-        el.value = (el.value || "") + template;
-        setTimeout(() => {
-          handleFieldChange();
-          el.focus();
-        }, 0);
-      } catch (e) {}
+        el.focus();
+        el.insert(template);
+        setTimeout(() => handleFieldChange(), 0);
+      } catch (e) {
+        // fallback: append to end
+        try {
+          el.value = (el.value || "") + template;
+          setTimeout(() => {
+            handleFieldChange();
+            el.focus();
+          }, 0);
+        } catch (e2) {}
+      }
     },
     [isReady, handleFieldChange],
   );
 
   return (
-    <div className="w-full">
-      {/* MathLive field */}
-      <div className="mb-2 border border-gray-300 rounded-lg overflow-hidden bg-white shadow-sm">
+    <div className="w-full space-y-2">
+      {/* Symbol panel sits ABOVE the math field so mobile keyboard never covers it */}
+      {isReady && (
+        <div>
+          {/* Toggle button */}
+          <button
+            type="button"
+            onClick={() => {
+              setOpen((v) => !v);
+              setSearch("");
+            }}
+            className={`inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg border transition-all select-none ${
+              open
+                ? "bg-blue-50 text-blue-700 border-blue-200"
+                : "bg-gray-100 text-gray-500 border-gray-200 hover:bg-gray-200"
+            }`}
+          >
+            <span>{open ? "▲" : "▼"}</span>
+            {open ? "Hide symbols" : "± Symbols / Chemistry"}
+          </button>
+
+          {/* Collapsible panel */}
+          {open && (
+            <div className="mt-2 border border-gray-200 rounded-xl bg-gray-50 p-3">
+              {/* Search across all categories */}
+              <input
+                type="text"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                placeholder="Search symbols… e.g. sin, H₂O, alpha"
+                className="w-full mb-3 px-3 py-2 text-sm border border-gray-300 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent"
+              />
+
+              {/* Category tabs — hidden while searching */}
+              {!search.trim() && (
+                <div className="flex gap-1 mb-3 overflow-x-auto pb-1 border-b border-gray-200 scrollbar-none">
+                  {Object.keys(SYMBOL_LIBRARY).map((tab) => (
+                    <button
+                      key={tab}
+                      type="button"
+                      onClick={() => setActiveTab(tab)}
+                      className={`shrink-0 px-3 py-1 text-xs font-semibold rounded-md border-0 transition-all cursor-pointer ${
+                        activeTab === tab
+                          ? "bg-blue-600 text-white"
+                          : "bg-transparent text-gray-500 hover:text-gray-800 hover:bg-gray-200"
+                      }`}
+                    >
+                      {tab}
+                    </button>
+                  ))}
+                </div>
+              )}
+
+              {/* Result count shown when searching */}
+              {search.trim() && (
+                <p className="text-xs text-gray-400 mb-2">
+                  {filteredSymbols.length} result
+                  {filteredSymbols.length !== 1 ? "s" : ""} across all
+                  categories
+                </p>
+              )}
+
+              {/* Symbol grid — 4 cols on mobile, 6 on sm, 8 on md+ */}
+              <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-1.5 max-h-52 overflow-y-auto">
+                {filteredSymbols.length > 0 ? (
+                  filteredSymbols.map((sym) => (
+                    <button
+                      key={sym.value + sym.label}
+                      type="button"
+                      onClick={() => insertTemplate(sym.value)}
+                      title={sym.label}
+                      className="px-1 py-2 text-xs font-medium text-slate-700 bg-white border border-slate-200 rounded-lg cursor-pointer text-center truncate transition-all hover:bg-blue-50 hover:border-blue-300 active:bg-blue-100 active:scale-95 min-h-11 sm:min-h-9"
+                    >
+                      {sym.label}
+                    </button>
+                  ))
+                ) : (
+                  <p className="col-span-full text-xs text-gray-400 text-center py-4">
+                    No symbols found for &ldquo;{search}&rdquo;
+                  </p>
+                )}
+              </div>
+
+              <p className="text-xs text-gray-400 mt-2">
+                Tap to insert at cursor · or type LaTeX directly in the field
+                below
+              </p>
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* MathLive input field */}
+      <div className="border border-gray-300 rounded-lg overflow-hidden bg-white shadow-sm">
         <math-field
           ref={mfRef}
+          placeholder="Type math here, or tap a symbol above…"
           style={{
             width: "100%",
             padding: "14px 16px",
@@ -399,128 +506,6 @@ export default function SimpleMathInput({ value, onChange }) {
           fonts-directory="https://unpkg.com/mathlive@0.109.0/dist/fonts/"
         />
       </div>
-
-      {isReady && (
-        <>
-          {/* Toggle */}
-          <button
-            type="button"
-            onClick={() => setOpen((v) => !v)}
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: 6,
-              fontSize: 12,
-              fontWeight: 600,
-              color: open ? "#1a6fc4" : "#6b7280",
-              background: open ? "#eff6ff" : "#f3f4f6",
-              border: `1px solid ${open ? "#bfdbfe" : "#e5e7eb"}`,
-              borderRadius: 8,
-              padding: "5px 12px",
-              cursor: "pointer",
-              marginBottom: open ? 8 : 0,
-              transition: "all 0.15s",
-            }}
-          >
-            <span>{open ? "▲" : "▼"}</span>
-            {open ? "Hide symbols" : "± Symbols / Chemistry"}
-          </button>
-
-          {/* Collapsible panel */}
-          {open && (
-            <div
-              style={{
-                border: "1px solid #e5e7eb",
-                borderRadius: 12,
-                padding: "10px 12px",
-                background: "#fafafa",
-              }}
-            >
-              {/* Tabs */}
-              <div
-                style={{
-                  display: "flex",
-                  gap: 4,
-                  marginBottom: 10,
-                  borderBottom: "1px solid #e5e7eb",
-                  paddingBottom: 6,
-                }}
-              >
-                {Object.keys(SYMBOL_LIBRARY).map((tab) => (
-                  <button
-                    key={tab}
-                    type="button"
-                    onClick={() => setActiveTab(tab)}
-                    style={{
-                      padding: "4px 14px",
-                      fontSize: 13,
-                      fontWeight: 600,
-                      borderRadius: 6,
-                      border: "none",
-                      cursor: "pointer",
-                      background: activeTab === tab ? "#1a6fc4" : "transparent",
-                      color: activeTab === tab ? "#fff" : "#6b7280",
-                      transition: "all 0.15s",
-                    }}
-                  >
-                    {tab}
-                  </button>
-                ))}
-              </div>
-
-              {/* Symbol grid */}
-              <div
-                style={{
-                  display: "grid",
-                  gridTemplateColumns: "repeat(auto-fill, minmax(52px, 1fr))",
-                  gap: 5,
-                  maxHeight: 200,
-                  overflowY: "auto",
-                }}
-              >
-                {SYMBOL_LIBRARY[activeTab].map((sym) => (
-                  <button
-                    key={sym.value}
-                    type="button"
-                    onClick={() => insertTemplate(sym.value)}
-                    title={sym.label}
-                    style={{
-                      padding: "5px 4px",
-                      fontSize: 12,
-                      fontWeight: 500,
-                      color: "#1e293b",
-                      background: "#fff",
-                      border: "1px solid #e2e8f0",
-                      borderRadius: 7,
-                      cursor: "pointer",
-                      textAlign: "center",
-                      whiteSpace: "nowrap",
-                      overflow: "hidden",
-                      textOverflow: "ellipsis",
-                      transition: "background 0.1s, border-color 0.1s",
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.background = "#eff6ff";
-                      e.currentTarget.style.borderColor = "#93c5fd";
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.background = "#fff";
-                      e.currentTarget.style.borderColor = "#e2e8f0";
-                    }}
-                  >
-                    {sym.label}
-                  </button>
-                ))}
-              </div>
-
-              <p style={{ fontSize: 11, color: "#9ca3af", marginTop: 8 }}>
-                ✓ Click to insert at cursor · or type directly in the field
-                above
-              </p>
-            </div>
-          )}
-        </>
-      )}
 
       {!isReady && (
         <div className="p-3 bg-gray-50 border border-gray-200 rounded-lg text-center">
