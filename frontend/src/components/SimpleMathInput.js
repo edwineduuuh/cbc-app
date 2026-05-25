@@ -402,13 +402,12 @@ export default function SimpleMathInput({ value, onChange }) {
   );
 
   return (
-    <div className="w-full rounded-2xl border border-gray-200 shadow-sm overflow-hidden bg-white">
-
-      {/* ── Toolbar (always visible once ready) ── */}
+    <div className="w-full rounded-2xl border border-gray-200 shadow overflow-hidden bg-white">
+      {/* ── Tab toolbar ── */}
       {isReady && (
-        <div className="border-b border-gray-100 bg-gray-50/60">
+        <div>
           {/* Tab row */}
-          <div className="flex items-center gap-1 px-3 pt-2 pb-2 overflow-x-auto scrollbar-none">
+          <div className="flex items-center gap-0.5 px-2 py-2 bg-slate-800 overflow-x-auto scrollbar-none">
             {Object.keys(SYMBOL_LIBRARY).map((tab) => (
               <button
                 key={tab}
@@ -418,35 +417,35 @@ export default function SimpleMathInput({ value, onChange }) {
                   setSearch("");
                   setOpen(true);
                 }}
-                className={`shrink-0 px-3 py-1 text-xs font-semibold rounded-full border-0 cursor-pointer transition-all ${
+                className={`shrink-0 px-3 py-1.5 text-xs font-semibold rounded-lg border-0 cursor-pointer transition-all ${
                   activeTab === tab && open
-                    ? "bg-blue-600 text-white shadow-sm"
-                    : "text-gray-500 bg-transparent hover:bg-gray-200 hover:text-gray-800"
+                    ? "bg-blue-500 text-white"
+                    : "text-slate-300 hover:bg-slate-700 hover:text-white"
                 }`}
               >
                 {tab}
               </button>
             ))}
-            <div className="ml-auto shrink-0">
+            <div className="ml-auto shrink-0 pl-2">
               <button
                 type="button"
                 onClick={() => {
                   setOpen((v) => !v);
                   setSearch("");
                 }}
-                className="flex items-center gap-1 px-2.5 py-1 text-xs font-medium text-gray-500 bg-white border border-gray-200 rounded-full hover:bg-gray-100 hover:text-gray-700 transition-all cursor-pointer shadow-sm"
+                className="flex items-center gap-1 px-3 py-1.5 text-xs font-semibold text-slate-300 hover:text-white hover:bg-slate-700 rounded-lg transition-all cursor-pointer border-0"
               >
-                {open ? "Hide" : "Show"} <span>{open ? "▲" : "▼"}</span>
+                {open ? "▲ Hide" : "▼ Show"}
               </button>
             </div>
           </div>
 
-          {/* Expandable symbol panel */}
+          {/* Symbol panel */}
           {open && (
-            <div className="px-3 pb-3 bg-white border-t border-gray-100">
+            <div className="bg-slate-100 px-3 pt-3 pb-3 border-b border-slate-200">
               {/* Search */}
-              <div className="relative mt-3 mb-2.5">
-                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm pointer-events-none">
+              <div className="relative mb-3">
+                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm pointer-events-none select-none">
                   🔍
                 </span>
                 <input
@@ -454,19 +453,20 @@ export default function SimpleMathInput({ value, onChange }) {
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
                   placeholder="Search symbols… e.g. sin, H₂O, alpha"
-                  className="w-full pl-8 pr-3 py-2 text-sm border border-gray-200 rounded-xl bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:bg-white focus:border-transparent transition-all"
+                  className="w-full pl-8 pr-3 py-2 text-sm border border-slate-200 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent shadow-sm transition-all"
                 />
               </div>
 
               {search.trim() && (
-                <p className="text-xs text-gray-400 mb-2 pl-1">
+                <p className="text-xs text-slate-400 mb-2">
                   {filteredSymbols.length} result
-                  {filteredSymbols.length !== 1 ? "s" : ""}
+                  {filteredSymbols.length !== 1 ? "s" : ""} across all
+                  categories
                 </p>
               )}
 
-              {/* Symbol grid */}
-              <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-1.5 max-h-48 overflow-y-auto pr-0.5">
+              {/* Symbol grid — buttons pop on slate-100 background */}
+              <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-1.5 max-h-52 overflow-y-auto">
                 {filteredSymbols.length > 0 ? (
                   filteredSymbols.map((sym) => (
                     <button
@@ -474,19 +474,19 @@ export default function SimpleMathInput({ value, onChange }) {
                       type="button"
                       onClick={() => insertTemplate(sym.value)}
                       title={sym.label}
-                      className="px-1 py-2 text-xs font-medium text-slate-700 bg-white border border-slate-200 rounded-xl cursor-pointer text-center truncate shadow-sm hover:bg-blue-50 hover:border-blue-400 hover:text-blue-700 hover:shadow-none active:scale-95 active:bg-blue-100 transition-all min-h-11 sm:min-h-9"
+                      className="px-1 py-2.5 text-xs font-semibold text-slate-700 bg-white border border-slate-200 rounded-lg cursor-pointer text-center truncate shadow-[0_2px_0_#cbd5e1] hover:bg-blue-50 hover:border-blue-400 hover:text-blue-700 hover:shadow-[0_2px_0_#93c5fd] active:translate-y-0.5 active:shadow-none transition-all min-h-11 sm:min-h-9"
                     >
                       {sym.label}
                     </button>
                   ))
                 ) : (
-                  <p className="col-span-full text-xs text-gray-400 text-center py-6">
-                    No symbols found for &ldquo;{search}&rdquo;
+                  <p className="col-span-full text-xs text-slate-400 text-center py-6">
+                    No results for &ldquo;{search}&rdquo;
                   </p>
                 )}
               </div>
 
-              <p className="text-xs text-gray-400 mt-3 pl-0.5">
+              <p className="text-xs text-slate-400 mt-3">
                 Tap to insert at cursor · or type LaTeX directly below
               </p>
             </div>
@@ -494,9 +494,9 @@ export default function SimpleMathInput({ value, onChange }) {
         </div>
       )}
 
-      {/* ── Math input field ── */}
+      {/* ── Math input ── */}
       <div className="relative bg-white">
-        {/* Custom placeholder — avoids MathLive rendering text as math italic */}
+        {/* Custom placeholder — avoids MathLive rendering plain text as math italic */}
         {isEmpty && !isFocused && (
           <div className="absolute inset-0 flex items-center px-4 pointer-events-none z-10">
             <span className="text-gray-400 text-base select-none">
