@@ -23,6 +23,15 @@ export default function LoginPage() {
   const { login, user, loading: authLoading } = useAuth();
   const router = useRouter();
 
+  // Ensure the landing page is in browser history so the back arrow always works,
+  // even when the user arrived via router.replace() or a direct URL.
+  useEffect(() => {
+    if (typeof window !== "undefined" && window.history.length <= 2) {
+      window.history.replaceState(null, "", "/");
+      window.history.pushState(null, "", "/login");
+    }
+  }, []);
+
   // If already logged in, redirect to the right place.
   // Guard with localStorage check: logout() clears tokens synchronously but
   // setUser(null) is async — without this, the stale user state triggers a
