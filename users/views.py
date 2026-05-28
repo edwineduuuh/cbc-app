@@ -514,6 +514,44 @@ def forgot_password(request):
 
 @api_view(['POST'])
 @permission_classes([AllowAny])
+def email_diagnostic(request):
+    """Temporary diagnostic endpoint — returns exact email send error so we can debug.
+    Protected by a secret header: X-Diag-Key: stadispace_diag_2026
+    """
+    if request.headers.get('X-Diag-Key') != 'stadispace_diag_2026':
+        return Response({'error': 'Forbidden'}, status=403)
+
+    test_email = request.data.get('email', request.data.get('to'))
+    if not test_email:
+        return Response({'error': 'Provide email field'}, status=400)
+
+    import logging
+    diag = {
+        'RESEND_KEY_set': bool(os.getenv('RESEND_KEY', '')),
+        'FRONTEND_URL': os.getenv('FRONTEND_URL', '(not set)'),
+        'DEFAULT_FROM_EMAIL': settings.DEFAULT_FROM_EMAIL,
+        'EMAIL_BACKEND': settings.EMAIL_BACKEND,
+        'ANYMAIL_RESEND_API_KEY_set': bool(settings.ANYMAIL.get('RESEND_API_KEY', '')),
+        'send_result': None,
+        'error': None,
+    }
+    try:
+        send_mail(
+            subject='StadiSpace email diagnostic test',
+            message='This is a test email from the diagnostic endpoint.',
+            from_email=settings.DEFAULT_FROM_EMAIL,
+            recipient_list=[test_email],
+            fail_silently=False,
+        )
+        diag['send_result'] = 'SUCCESS'
+    except Exception as e:
+        diag['send_result'] = 'FAILED'
+        diag['error'] = f'{type(e).__name__}: {e}'
+    return Response(diag)
+
+
+@api_view(['POST'])
+@permission_classes([AllowAny])
 def reset_password(request):
     uid = request.data.get('uid')
     token = request.data.get('token')

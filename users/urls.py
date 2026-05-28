@@ -15,7 +15,7 @@ from .views import (
     RegenerateJoinCodeView, RemoveStudentFromClassroomView,
     JoinClassroomView, LeaveClassroomView, MyClassroomsView,
     SearchClassroomsView, GoogleLogin, MicrosoftLogin, update_profile, credits_status,forgot_password, reset_password,
-    streak_status, send_parent_report,
+    streak_status, send_parent_report, email_diagnostic,
 )
 from rest_framework_simplejwt.views import TokenRefreshView
 
@@ -53,6 +53,7 @@ urlpatterns = [
 
     path('forgot-password/', forgot_password, name='forgot-password'),
     path('reset-password/', reset_password, name='reset-password'),
+    path('email-diagnostic/', email_diagnostic, name='email-diagnostic'),
 
 ]
 
