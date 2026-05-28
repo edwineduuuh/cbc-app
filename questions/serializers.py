@@ -193,7 +193,7 @@ class QuestionDetailSerializer(serializers.ModelSerializer):
         return self._image_url(obj, 'option_d_image')
 
     def get_in_quizzes(self, obj):
-        return list(obj.quizzes.values('id', 'title')[:6])
+        return list(obj.quizzes.values('id', 'title', 'grade')[:6])
 
 
 class QuizListSerializer(serializers.ModelSerializer):

@@ -805,7 +805,7 @@ export default function CreateQuizPage() {
                                         <path d="M9 9h6M9 12h6M9 15h4" />
                                       </svg>
                                       <span className="truncate">
-                                        {qz.title}
+                                        {qz.title} · Gr {qz.grade}
                                       </span>
                                     </span>
                                   ))}
