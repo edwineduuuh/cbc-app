@@ -402,47 +402,95 @@ export default function SimpleMathInput({ value, onChange }) {
   );
 
   return (
-    <div className="w-full rounded-xl border border-gray-200 shadow-sm overflow-hidden bg-white">
-      {/* ── Pill tabs ── */}
+    <div style={{ width: "100%" }}>
+      {/* ── Symbol picker (same style as ChemTextBar / PhysicsFormulaBar) ── */}
       {isReady && (
-        <div>
-          <div className="flex items-center gap-2 px-3 py-2.5 bg-white border-b border-gray-100 overflow-x-auto scrollbar-none">
-            {Object.keys(SYMBOL_LIBRARY).map((tab) => (
-              <button
-                key={tab}
-                type="button"
-                onClick={() => {
-                  setActiveTab(tab);
-                  setSearch("");
-                  setOpen(true);
-                }}
-                className={`shrink-0 px-3 py-1 text-xs font-semibold rounded-full border-0 cursor-pointer whitespace-nowrap transition-all ${
-                  activeTab === tab && open
-                    ? "bg-blue-600 text-white shadow-sm"
-                    : "bg-gray-100 text-gray-600 hover:bg-gray-200 hover:text-gray-900"
-                }`}
-              >
-                {tab}
-              </button>
-            ))}
-            <button
-              type="button"
-              onClick={() => {
-                setOpen((v) => !v);
-                setSearch("");
-              }}
-              className="ml-auto shrink-0 w-7 h-7 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 text-gray-500 hover:text-gray-700 border-0 cursor-pointer transition-all text-xs font-bold"
-            >
-              {open ? "▲" : "▼"}
-            </button>
-          </div>
+        <div style={{ marginBottom: 8 }}>
+          <button
+            type="button"
+            onClick={() => {
+              setOpen((v) => !v);
+              setSearch("");
+            }}
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 6,
+              fontSize: 12,
+              fontWeight: 600,
+              color: open ? "#1a6fc4" : "#6b7280",
+              background: open ? "#eff6ff" : "#f3f4f6",
+              border: `1px solid ${open ? "#bfdbfe" : "#e5e7eb"}`,
+              borderRadius: 8,
+              padding: "5px 12px",
+              cursor: "pointer",
+              marginBottom: open ? 8 : 0,
+              transition: "all 0.15s",
+            }}
+          >
+            <span>{open ? "▲" : "▼"}</span>
+            {open ? "Hide symbols" : "± Maths symbols"}
+          </button>
 
-          {/* Symbol panel */}
           {open && (
-            <div className="bg-gray-50 px-3 pt-3 pb-3 border-b border-gray-200">
+            <div
+              style={{
+                border: "1px solid #e5e7eb",
+                borderRadius: 12,
+                padding: "10px 12px",
+                background: "#fafafa",
+                marginBottom: 8,
+              }}
+            >
+              {/* Tabs */}
+              <div
+                style={{
+                  display: "flex",
+                  gap: 4,
+                  marginBottom: 10,
+                  borderBottom: "1px solid #e5e7eb",
+                  paddingBottom: 6,
+                  flexWrap: "wrap",
+                }}
+              >
+                {Object.keys(SYMBOL_LIBRARY).map((t) => (
+                  <button
+                    key={t}
+                    type="button"
+                    onClick={() => {
+                      setActiveTab(t);
+                      setSearch("");
+                    }}
+                    style={{
+                      padding: "4px 12px",
+                      fontSize: 12,
+                      fontWeight: 600,
+                      borderRadius: 6,
+                      border: "none",
+                      cursor: "pointer",
+                      background: activeTab === t ? "#1a6fc4" : "transparent",
+                      color: activeTab === t ? "#fff" : "#6b7280",
+                      transition: "all 0.15s",
+                    }}
+                  >
+                    {t}
+                  </button>
+                ))}
+              </div>
+
               {/* Search */}
-              <div className="relative mb-3">
-                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm pointer-events-none select-none">
+              <div style={{ position: "relative", marginBottom: 8 }}>
+                <span
+                  style={{
+                    position: "absolute",
+                    left: 10,
+                    top: "50%",
+                    transform: "translateY(-50%)",
+                    color: "#9ca3af",
+                    fontSize: 13,
+                    pointerEvents: "none",
+                  }}
+                >
                   🔍
                 </span>
                 <input
@@ -450,20 +498,41 @@ export default function SimpleMathInput({ value, onChange }) {
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
                   placeholder="Search symbols… e.g. sin, H₂O, alpha"
-                  className="w-full pl-8 pr-3 py-2 text-sm border border-gray-200 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent shadow-sm transition-all"
+                  style={{
+                    width: "100%",
+                    paddingLeft: 30,
+                    paddingRight: 10,
+                    paddingTop: 6,
+                    paddingBottom: 6,
+                    fontSize: 12,
+                    border: "1px solid #e5e7eb",
+                    borderRadius: 7,
+                    background: "#fff",
+                    color: "#1e293b",
+                    outline: "none",
+                    boxSizing: "border-box",
+                  }}
                 />
               </div>
 
               {search.trim() && (
-                <p className="text-xs text-gray-400 mb-2">
+                <p style={{ fontSize: 11, color: "#9ca3af", marginBottom: 6 }}>
                   {filteredSymbols.length} result
                   {filteredSymbols.length !== 1 ? "s" : ""} across all
                   categories
                 </p>
               )}
 
-              {/* Symbol grid — white buttons on gray-50 = clear contrast */}
-              <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-1.5 max-h-52 overflow-y-auto">
+              {/* Symbol grid */}
+              <div
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "repeat(auto-fill, minmax(52px, 1fr))",
+                  gap: 5,
+                  maxHeight: 180,
+                  overflowY: "auto",
+                }}
+              >
                 {filteredSymbols.length > 0 ? (
                   filteredSymbols.map((sym) => (
                     <button
@@ -471,20 +540,51 @@ export default function SimpleMathInput({ value, onChange }) {
                       type="button"
                       onClick={() => insertTemplate(sym.value)}
                       title={sym.label}
-                      className="px-1 py-2.5 text-xs font-medium text-gray-700 bg-white border border-gray-200 rounded-lg cursor-pointer text-center truncate shadow-sm hover:bg-blue-50 hover:border-blue-400 hover:text-blue-700 active:translate-y-px active:shadow-none transition-all min-h-11 sm:min-h-9"
+                      style={{
+                        padding: "5px 4px",
+                        fontSize: 12,
+                        fontWeight: 500,
+                        color: "#1e293b",
+                        background: "#fff",
+                        border: "1px solid #e2e8f0",
+                        borderRadius: 7,
+                        cursor: "pointer",
+                        textAlign: "center",
+                        whiteSpace: "nowrap",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        transition: "background 0.1s, border-color 0.1s",
+                        minHeight: 36,
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.background = "#eff6ff";
+                        e.currentTarget.style.borderColor = "#93c5fd";
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.background = "#fff";
+                        e.currentTarget.style.borderColor = "#e2e8f0";
+                      }}
                     >
                       {sym.label}
                     </button>
                   ))
                 ) : (
-                  <p className="col-span-full text-xs text-gray-400 text-center py-6">
+                  <p
+                    style={{
+                      gridColumn: "1/-1",
+                      fontSize: 12,
+                      color: "#9ca3af",
+                      textAlign: "center",
+                      padding: "16px 0",
+                    }}
+                  >
                     No results for &ldquo;{search}&rdquo;
                   </p>
                 )}
               </div>
 
-              <p className="text-xs text-gray-400 mt-3">
-                Tap to insert at cursor · or type LaTeX directly below
+              <p style={{ fontSize: 11, color: "#9ca3af", marginTop: 8 }}>
+                ✓ Click to insert at cursor · type LaTeX directly below
               </p>
             </div>
           )}
@@ -492,11 +592,31 @@ export default function SimpleMathInput({ value, onChange }) {
       )}
 
       {/* ── Math input ── */}
-      <div className="relative bg-white">
+      <div
+        style={{
+          position: "relative",
+          border: "1px solid #e5e7eb",
+          borderRadius: 10,
+          background: "#fff",
+          overflow: "hidden",
+        }}
+      >
         {/* Custom placeholder — avoids MathLive rendering plain text as math italic */}
         {isEmpty && !isFocused && (
-          <div className="absolute inset-0 flex items-center px-4 pointer-events-none z-10">
-            <span className="text-gray-400 text-base select-none">
+          <div
+            style={{
+              position: "absolute",
+              inset: 0,
+              display: "flex",
+              alignItems: "center",
+              paddingLeft: 16,
+              pointerEvents: "none",
+              zIndex: 10,
+            }}
+          >
+            <span
+              style={{ color: "#9ca3af", fontSize: 15, userSelect: "none" }}
+            >
               {isReady
                 ? "Type math here, or select a symbol above…"
                 : "Loading math editor…"}
