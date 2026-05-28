@@ -23,7 +23,23 @@ import {
   Hash,
   BarChart2,
   Tag,
+  Pencil,
 } from "lucide-react";
+
+const BLANK_EDIT = {
+  question_text: "",
+  question_type: "mcq",
+  difficulty: "easy",
+  option_a: "",
+  option_b: "",
+  option_c: "",
+  option_d: "",
+  correct_answer: "",
+  explanation: "",
+};
+
+const inputCls =
+  "w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500";
 
 const API =
   process.env.NEXT_PUBLIC_API_URL ||
@@ -173,6 +189,64 @@ export default function CreateQuizPage() {
   const [search, setSearch] = useState("");
   const [creating, setCreating] = useState(false);
 
+  // ── Inline question edit ───────────────────────────────────────
+  const [editingQuestion, setEditingQuestion] = useState(null);
+  const [editForm, setEditForm] = useState(BLANK_EDIT);
+  const [editSaving, setEditSaving] = useState(false);
+
+  const openEdit = async (e, question) => {
+    e.stopPropagation();
+    const token = typeof window !== "undefined" ? localStorage.getItem("accessToken") : null;
+    try {
+      const res = await fetch(`${API}/admin/questions/${question.id}/`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const data = res.ok ? await res.json() : question;
+      setEditForm({
+        topic: data.topic || "",
+        question_text: data.question_text || "",
+        question_type: data.question_type || "mcq",
+        difficulty: data.difficulty || "easy",
+        option_a: data.option_a || "",
+        option_b: data.option_b || "",
+        option_c: data.option_c || "",
+        option_d: data.option_d || "",
+        correct_answer: data.correct_answer || "",
+        explanation: data.explanation || "",
+      });
+      setEditingQuestion(data);
+    } catch {
+      setEditForm({ ...BLANK_EDIT, ...question });
+      setEditingQuestion(question);
+    }
+  };
+
+  const saveEdit = async () => {
+    setEditSaving(true);
+    const token = typeof window !== "undefined" ? localStorage.getItem("accessToken") : null;
+    try {
+      const res = await fetch(`${API}/admin/questions/${editingQuestion.id}/`, {
+        method: "PATCH",
+        headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
+        body: JSON.stringify(editForm),
+      });
+      if (res.ok) {
+        const updated = await res.json();
+        setQuestions((prev) => prev.map((q) => (q.id === updated.id ? { ...q, ...updated } : q)));
+        setEditingQuestion(null);
+        showToast("Question updated!", "success");
+      } else {
+        showToast("Failed to save question", "error");
+      }
+    } catch {
+      showToast("Network error", "error");
+    } finally {
+      setEditSaving(false);
+    }
+  };
+
+  const isMcqEdit = editForm.question_type === "mcq" || editForm.question_type === "math";
+
   useEffect(() => {
     fetch(`${API}/subjects/`)
       .then((r) => r.json())
@@ -321,6 +395,89 @@ export default function CreateQuizPage() {
         {...toast}
         onClose={() => setToast((t) => ({ ...t, show: false }))}
       />
+
+      {/* Edit Question Modal */}
+      {editingQuestion && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
+          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+            <div className="flex items-center justify-between p-6 border-b">
+              <h2 className="text-xl font-bold">Edit Question</h2>
+              <button onClick={() => setEditingQuestion(null)} className="p-2 hover:bg-gray-100 rounded-lg">
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+            <div className="p-6 space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Question Text</label>
+                <p className="text-xs text-gray-400 mb-1">Use <code>&lt;u&gt;word&lt;/u&gt;</code> to underline, <code>&lt;b&gt;</code> to bold, <code>$math$</code> for inline math</p>
+                <textarea rows={3} className={inputCls} value={editForm.question_text} onChange={(e) => setEditForm({ ...editForm, question_text: e.target.value })} />
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Question Type</label>
+                  <select className={inputCls} value={editForm.question_type} onChange={(e) => { const t = e.target.value; const clear = t !== "mcq" && t !== "math"; setEditForm({ ...editForm, question_type: t, ...(clear && { option_a: "", option_b: "", option_c: "", option_d: "", correct_answer: "" }) }); }}>
+                    <option value="mcq">MCQ</option>
+                    <option value="math">Math</option>
+                    <option value="fill_blank">Fill in the Blank</option>
+                    <option value="structured">Structured</option>
+                    <option value="essay">Essay</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Difficulty</label>
+                  <select className={inputCls} value={editForm.difficulty} onChange={(e) => setEditForm({ ...editForm, difficulty: e.target.value })}>
+                    <option value="easy">Easy</option>
+                    <option value="medium">Medium</option>
+                    <option value="hard">Hard</option>
+                  </select>
+                </div>
+              </div>
+              {isMcqEdit && (
+                <div className="grid grid-cols-2 gap-3">
+                  {["a", "b", "c", "d"].map((letter) => (
+                    <div key={letter}>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">Option {letter.toUpperCase()}</label>
+                      <input type="text" className={inputCls} value={editForm[`option_${letter}`]} onChange={(e) => setEditForm({ ...editForm, [`option_${letter}`]: e.target.value })} />
+                    </div>
+                  ))}
+                </div>
+              )}
+              {isMcqEdit ? (
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Correct Answer</label>
+                  <select className={inputCls} value={editForm.correct_answer} onChange={(e) => setEditForm({ ...editForm, correct_answer: e.target.value })}>
+                    <option value="">Select…</option>
+                    <option value="A">A</option>
+                    <option value="B">B</option>
+                    <option value="C">C</option>
+                    <option value="D">D</option>
+                  </select>
+                </div>
+              ) : editForm.question_type === "fill_blank" ? (
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Correct Answer</label>
+                  <input type="text" className={inputCls} value={editForm.correct_answer} onChange={(e) => setEditForm({ ...editForm, correct_answer: e.target.value })} />
+                </div>
+              ) : (
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Model Answer / Marking Scheme</label>
+                  <textarea rows={4} className={inputCls} value={editForm.explanation} onChange={(e) => setEditForm({ ...editForm, explanation: e.target.value })} />
+                </div>
+              )}
+              {isMcqEdit && (
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Explanation</label>
+                  <textarea rows={2} className={inputCls} value={editForm.explanation} onChange={(e) => setEditForm({ ...editForm, explanation: e.target.value })} />
+                </div>
+              )}
+            </div>
+            <div className="flex justify-end gap-3 p-6 border-t">
+              <button onClick={() => setEditingQuestion(null)} className="px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded-lg">Cancel</button>
+              <button onClick={saveEdit} disabled={editSaving} className="px-4 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-lg disabled:opacity-50">{editSaving ? "Saving…" : "Save Question"}</button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Header */}
       <div className="bg-gradient-to-r from-indigo-700 to-purple-700 text-white">
@@ -811,6 +968,13 @@ export default function CreateQuizPage() {
                                   ))}
                               </div>
                             </div>
+                            <button
+                              onClick={(e) => openEdit(e, q)}
+                              className="shrink-0 p-1.5 rounded-lg bg-gray-100 text-gray-500 hover:bg-blue-50 hover:text-blue-600 transition-colors mt-0.5"
+                              title="Edit question"
+                            >
+                              <Pencil className="w-3.5 h-3.5" />
+                            </button>
                           </div>
                         );
                       })}
