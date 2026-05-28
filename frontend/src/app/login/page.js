@@ -23,10 +23,10 @@ export default function LoginPage() {
   const { login, user, loading: authLoading } = useAuth();
   const router = useRouter();
 
-  // Ensure the landing page is in browser history so the back arrow always works,
-  // even when the user arrived via router.replace() or a direct URL.
+  // Always ensure / is directly behind /login in history so the back arrow
+  // goes to the landing page, regardless of where the user came from.
   useEffect(() => {
-    if (typeof window !== "undefined" && window.history.length <= 2) {
+    if (typeof window !== "undefined") {
       window.history.replaceState(null, "", "/");
       window.history.pushState(null, "", "/login");
     }
