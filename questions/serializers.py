@@ -136,6 +136,7 @@ class QuestionDetailSerializer(serializers.ModelSerializer):
     parts          = QuestionPartSerializer(many=True, read_only=True)
     passage        = PassageSerializer(read_only=True)
     passage_id     = serializers.IntegerField(write_only=True, required=False, allow_null=True)
+    in_quizzes     = serializers.SerializerMethodField()
 
     class Meta:
         model  = Question
@@ -154,10 +155,12 @@ class QuestionDetailSerializer(serializers.ModelSerializer):
             'table_data', 'max_marks',
             'passage', 'passage_id',
             'parts',
+            'in_quizzes',
         ]
         read_only_fields = [
             'id', 'subject', 'subject_name', 'topic_name', 'grade',
-            'substrand_name', 'created_at', 'created_by', 'parts', 'passage'
+            'substrand_name', 'created_at', 'created_by', 'parts', 'passage',
+            'in_quizzes',
         ]
         extra_kwargs = {
             'topic': {'required': True},
@@ -188,6 +191,9 @@ class QuestionDetailSerializer(serializers.ModelSerializer):
 
     def get_option_d_image_url(self, obj):
         return self._image_url(obj, 'option_d_image')
+
+    def get_in_quizzes(self, obj):
+        return list(obj.quizzes.values('id', 'title')[:6])
 
 
 class QuizListSerializer(serializers.ModelSerializer):

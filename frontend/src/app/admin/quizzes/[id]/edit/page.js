@@ -68,7 +68,11 @@ export default function EditQuizPage() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
-  const [toast, setToast] = useState({ visible: false, message: "", type: "success" });
+  const [toast, setToast] = useState({
+    visible: false,
+    message: "",
+    type: "success",
+  });
 
   // Question filters
   const [filterSubject, setFilterSubject] = useState("");
@@ -82,23 +86,36 @@ export default function EditQuizPage() {
   const [editSaving, setEditSaving] = useState(false);
 
   useEffect(() => {
-    if (!authLoading && !user) { router.replace("/login"); return; }
-    if (!authLoading && user && !ALLOWED_ROLES.includes(user.role) && !user.is_staff && !user.is_superuser) {
-      router.replace("/dashboard"); return;
+    if (!authLoading && !user) {
+      router.replace("/login");
+      return;
+    }
+    if (
+      !authLoading &&
+      user &&
+      !ALLOWED_ROLES.includes(user.role) &&
+      !user.is_staff &&
+      !user.is_superuser
+    ) {
+      router.replace("/dashboard");
+      return;
     }
     if (!authLoading && user) fetchQuiz();
   }, [user, authLoading, params.id, router]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
-    fetch(`${API}/subjects/`).then(r => r.json()).then(d => setSubjects(Array.isArray(d) ? d : d.results || [])).catch(() => {});
+    fetch(`${API}/subjects/`)
+      .then((r) => r.json())
+      .then((d) => setSubjects(Array.isArray(d) ? d : d.results || []))
+      .catch(() => {});
   }, []);
 
   // Load topics when subject or grade changes
   useEffect(() => {
     if (form.subject && form.grade) {
       fetch(`${API}/topics/?subject=${form.subject}&grade=${form.grade}`)
-        .then(r => r.json())
-        .then(d => setTopics(Array.isArray(d) ? d : d.results || []))
+        .then((r) => r.json())
+        .then((d) => setTopics(Array.isArray(d) ? d : d.results || []))
         .catch(() => setTopics([]));
     } else {
       setTopics([]);
@@ -111,7 +128,10 @@ export default function EditQuizPage() {
 
   useEffect(() => {
     if (!quiz) return;
-    const timer = setTimeout(() => fetchAvailableQuestions(searchTerm, filterSubject, filterGrade), 300);
+    const timer = setTimeout(
+      () => fetchAvailableQuestions(searchTerm, filterSubject, filterGrade),
+      300,
+    );
     return () => clearTimeout(timer);
   }, [searchTerm, filterSubject, filterGrade, quiz]); // eslint-disable-line
 
@@ -150,16 +170,23 @@ export default function EditQuizPage() {
     }
   };
 
-  const fetchAvailableQuestions = async (search = "", subject = "", grade = "") => {
+  const fetchAvailableQuestions = async (
+    search = "",
+    subject = "",
+    grade = "",
+  ) => {
     const token = localStorage.getItem("accessToken");
     try {
       const p = new URLSearchParams();
       if (search) p.set("search", search);
       if (subject) p.set("subject", subject);
       if (grade) p.set("grade", grade);
-      const res = await fetch(`${API}/admin/questions/manage/?${p.toString()}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const res = await fetch(
+        `${API}/admin/questions/manage/?${p.toString()}`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        },
+      );
       if (res.ok) {
         const data = await res.json();
         setAvailableQuestions(Array.isArray(data) ? data : data.results || []);
@@ -211,19 +238,30 @@ export default function EditQuizPage() {
     try {
       const res = await fetch(`${API}/admin/questions/${editingQuestion.id}/`, {
         method: "PATCH",
-        headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify(editForm),
       });
       if (res.ok) {
         const updated = await res.json();
         setSelectedQuestions((prev) =>
-          prev.map((q) => (q.id === updated.id ? { ...q, ...updated } : q))
+          prev.map((q) => (q.id === updated.id ? { ...q, ...updated } : q)),
         );
         setEditingQuestion(null);
-        setToast({ visible: true, message: "Question updated!", type: "success" });
+        setToast({
+          visible: true,
+          message: "Question updated!",
+          type: "success",
+        });
         fetchAvailableQuestions(searchTerm, filterSubject, filterGrade);
       } else {
-        setToast({ visible: true, message: "Failed to save question", type: "error" });
+        setToast({
+          visible: true,
+          message: "Failed to save question",
+          type: "error",
+        });
       }
     } catch {
       setToast({ visible: true, message: "Network error", type: "error" });
@@ -234,7 +272,11 @@ export default function EditQuizPage() {
 
   const handleSave = async () => {
     if (!form.title || !form.subject || !form.grade) {
-      setToast({ visible: true, message: "Title, subject, and grade are required", type: "error" });
+      setToast({
+        visible: true,
+        message: "Title, subject, and grade are required",
+        type: "error",
+      });
       return;
     }
     setSaving(true);
@@ -260,14 +302,25 @@ export default function EditQuizPage() {
     try {
       const res = await fetch(`${API}/admin/quizzes/${params.id}/`, {
         method: "PATCH",
-        headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify(payload),
       });
       if (res.ok) {
-        setToast({ visible: true, message: `Quiz saved — ${selectedQuestions.length} question${selectedQuestions.length !== 1 ? "s" : ""}`, type: "success" });
+        setToast({
+          visible: true,
+          message: `Quiz saved — ${selectedQuestions.length} question${selectedQuestions.length !== 1 ? "s" : ""}`,
+          type: "success",
+        });
       } else {
         const err = await res.json().catch(() => ({}));
-        setToast({ visible: true, message: err.detail || JSON.stringify(err) || "Failed to save quiz", type: "error" });
+        setToast({
+          visible: true,
+          message: err.detail || JSON.stringify(err) || "Failed to save quiz",
+          type: "error",
+        });
       }
     } catch {
       setToast({ visible: true, message: "Network error", type: "error" });
@@ -276,7 +329,8 @@ export default function EditQuizPage() {
     }
   };
 
-  const isMcq = editForm.question_type === "mcq" || editForm.question_type === "math";
+  const isMcq =
+    editForm.question_type === "mcq" || editForm.question_type === "math";
 
   const displayedQuestions = availableQuestions.filter((q) => {
     if (filterDifficulty && q.difficulty !== filterDifficulty) return false;
@@ -297,7 +351,9 @@ export default function EditQuizPage() {
       <div className="min-h-screen flex items-center justify-center">
         <Card className="p-8 text-center">
           <h2 className="text-xl font-bold mb-4">Quiz not found</h2>
-          <Button onClick={() => router.replace("/admin/quizzes")}>Back to Quizzes</Button>
+          <Button onClick={() => router.replace("/admin/quizzes")}>
+            Back to Quizzes
+          </Button>
         </Card>
       </div>
     );
@@ -305,7 +361,10 @@ export default function EditQuizPage() {
 
   return (
     <>
-      <Toast {...toast} onClose={() => setToast({ ...toast, visible: false })} />
+      <Toast
+        {...toast}
+        onClose={() => setToast({ ...toast, visible: false })}
+      />
 
       {/* Edit Question Modal */}
       {editingQuestion && (
@@ -313,24 +372,56 @@ export default function EditQuizPage() {
           <div className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between p-6 border-b">
               <h2 className="text-xl font-bold">Edit Question</h2>
-              <button onClick={() => setEditingQuestion(null)} className="p-2 hover:bg-gray-100 rounded-lg">
+              <button
+                onClick={() => setEditingQuestion(null)}
+                className="p-2 hover:bg-gray-100 rounded-lg"
+              >
                 <X className="w-5 h-5" />
               </button>
             </div>
             <div className="p-6 space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Question Text</label>
-                <p className="text-xs text-gray-400 mb-1">Use <code>&lt;u&gt;word&lt;/u&gt;</code> to underline, <code>&lt;b&gt;</code> to bold, <code>$math$</code> for inline math</p>
-                <textarea rows={3} className={inputCls} value={editForm.question_text} onChange={(e) => setEditForm({ ...editForm, question_text: e.target.value })} />
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Question Text
+                </label>
+                <p className="text-xs text-gray-400 mb-1">
+                  Use <code>&lt;u&gt;word&lt;/u&gt;</code> to underline,{" "}
+                  <code>&lt;b&gt;</code> to bold, <code>$math$</code> for inline
+                  math
+                </p>
+                <textarea
+                  rows={3}
+                  className={inputCls}
+                  value={editForm.question_text}
+                  onChange={(e) =>
+                    setEditForm({ ...editForm, question_text: e.target.value })
+                  }
+                />
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Question Type</label>
-                  <select className={inputCls} value={editForm.question_type} onChange={(e) => {
-                    const t = e.target.value;
-                    const clear = t !== "mcq" && t !== "math";
-                    setEditForm({ ...editForm, question_type: t, ...(clear && { option_a: "", option_b: "", option_c: "", option_d: "", correct_answer: "" }) });
-                  }}>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Question Type
+                  </label>
+                  <select
+                    className={inputCls}
+                    value={editForm.question_type}
+                    onChange={(e) => {
+                      const t = e.target.value;
+                      const clear = t !== "mcq" && t !== "math";
+                      setEditForm({
+                        ...editForm,
+                        question_type: t,
+                        ...(clear && {
+                          option_a: "",
+                          option_b: "",
+                          option_c: "",
+                          option_d: "",
+                          correct_answer: "",
+                        }),
+                      });
+                    }}
+                  >
                     <option value="mcq">MCQ</option>
                     <option value="math">Math</option>
                     <option value="fill_blank">Fill in the Blank</option>
@@ -339,8 +430,16 @@ export default function EditQuizPage() {
                   </select>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Difficulty</label>
-                  <select className={inputCls} value={editForm.difficulty} onChange={(e) => setEditForm({ ...editForm, difficulty: e.target.value })}>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Difficulty
+                  </label>
+                  <select
+                    className={inputCls}
+                    value={editForm.difficulty}
+                    onChange={(e) =>
+                      setEditForm({ ...editForm, difficulty: e.target.value })
+                    }
+                  >
                     <option value="easy">Easy</option>
                     <option value="medium">Medium</option>
                     <option value="hard">Hard</option>
@@ -351,16 +450,39 @@ export default function EditQuizPage() {
                 <div className="grid grid-cols-2 gap-3">
                   {["a", "b", "c", "d"].map((letter) => (
                     <div key={letter}>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">Option {letter.toUpperCase()}</label>
-                      <input type="text" className={inputCls} value={editForm[`option_${letter}`]} onChange={(e) => setEditForm({ ...editForm, [`option_${letter}`]: e.target.value })} />
+                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                        Option {letter.toUpperCase()}
+                      </label>
+                      <input
+                        type="text"
+                        className={inputCls}
+                        value={editForm[`option_${letter}`]}
+                        onChange={(e) =>
+                          setEditForm({
+                            ...editForm,
+                            [`option_${letter}`]: e.target.value,
+                          })
+                        }
+                      />
                     </div>
                   ))}
                 </div>
               )}
               {isMcq ? (
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Correct Answer</label>
-                  <select className={inputCls} value={editForm.correct_answer} onChange={(e) => setEditForm({ ...editForm, correct_answer: e.target.value })}>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Correct Answer
+                  </label>
+                  <select
+                    className={inputCls}
+                    value={editForm.correct_answer}
+                    onChange={(e) =>
+                      setEditForm({
+                        ...editForm,
+                        correct_answer: e.target.value,
+                      })
+                    }
+                  >
                     <option value="">Select…</option>
                     <option value="A">A</option>
                     <option value="B">B</option>
@@ -370,25 +492,64 @@ export default function EditQuizPage() {
                 </div>
               ) : editForm.question_type === "fill_blank" ? (
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Correct Answer</label>
-                  <input type="text" className={inputCls} value={editForm.correct_answer} onChange={(e) => setEditForm({ ...editForm, correct_answer: e.target.value })} />
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Correct Answer
+                  </label>
+                  <input
+                    type="text"
+                    className={inputCls}
+                    value={editForm.correct_answer}
+                    onChange={(e) =>
+                      setEditForm({
+                        ...editForm,
+                        correct_answer: e.target.value,
+                      })
+                    }
+                  />
                 </div>
               ) : (
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Model Answer / Marking Scheme</label>
-                  <textarea rows={4} className={inputCls} value={editForm.explanation} onChange={(e) => setEditForm({ ...editForm, explanation: e.target.value })} />
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Model Answer / Marking Scheme
+                  </label>
+                  <textarea
+                    rows={4}
+                    className={inputCls}
+                    value={editForm.explanation}
+                    onChange={(e) =>
+                      setEditForm({ ...editForm, explanation: e.target.value })
+                    }
+                  />
                 </div>
               )}
               {isMcq && (
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Explanation</label>
-                  <textarea rows={2} className={inputCls} value={editForm.explanation} onChange={(e) => setEditForm({ ...editForm, explanation: e.target.value })} />
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Explanation
+                  </label>
+                  <textarea
+                    rows={2}
+                    className={inputCls}
+                    value={editForm.explanation}
+                    onChange={(e) =>
+                      setEditForm({ ...editForm, explanation: e.target.value })
+                    }
+                  />
                 </div>
               )}
             </div>
             <div className="flex justify-end gap-3 p-6 border-t">
-              <button onClick={() => setEditingQuestion(null)} className="px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded-lg">Cancel</button>
-              <button onClick={saveEdit} disabled={editSaving} className="px-4 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-lg disabled:opacity-50">
+              <button
+                onClick={() => setEditingQuestion(null)}
+                className="px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded-lg"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={saveEdit}
+                disabled={editSaving}
+                className="px-4 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-lg disabled:opacity-50"
+              >
                 {editSaving ? "Saving…" : "Save Question"}
               </button>
             </div>
@@ -400,7 +561,10 @@ export default function EditQuizPage() {
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
           <div className="flex items-center gap-4">
-            <button onClick={() => router.replace("/admin/quizzes")} className="flex items-center gap-2 text-gray-600 hover:text-gray-900">
+            <button
+              onClick={() => router.replace("/admin/quizzes")}
+              className="flex items-center gap-2 text-gray-600 hover:text-gray-900"
+            >
               <ArrowLeft className="w-5 h-5" />
               Back
             </button>
@@ -409,7 +573,12 @@ export default function EditQuizPage() {
               <p className="text-gray-600">{quiz.title}</p>
             </div>
           </div>
-          <Button onClick={handleSave} loading={saving} variant="primary" size="lg">
+          <Button
+            onClick={handleSave}
+            loading={saving}
+            variant="primary"
+            size="lg"
+          >
             <Save className="w-4 h-4 mr-2" />
             Save Changes
           </Button>
@@ -421,50 +590,117 @@ export default function EditQuizPage() {
 
           <div className="grid grid-cols-2 gap-5 mb-5">
             <div className="col-span-2">
-              <label className="block text-sm font-medium text-gray-700 mb-1">Title <span className="text-red-500">*</span></label>
-              <input type="text" className={inputCls} value={form.title} onChange={e => setForm({ ...form, title: e.target.value })} placeholder="e.g. Grade 7 Math – Term 1 Exam" />
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Title <span className="text-red-500">*</span>
+              </label>
+              <input
+                type="text"
+                className={inputCls}
+                value={form.title}
+                onChange={(e) => setForm({ ...form, title: e.target.value })}
+                placeholder="e.g. Grade 7 Math – Term 1 Exam"
+              />
             </div>
             <div className="col-span-2">
-              <label className="block text-sm font-medium text-gray-700 mb-1">Description</label>
-              <textarea rows={2} className={inputCls} value={form.description} onChange={e => setForm({ ...form, description: e.target.value })} placeholder="Optional description" />
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Description
+              </label>
+              <textarea
+                rows={2}
+                className={inputCls}
+                value={form.description}
+                onChange={(e) =>
+                  setForm({ ...form, description: e.target.value })
+                }
+                placeholder="Optional description"
+              />
             </div>
           </div>
 
           <div className="grid grid-cols-3 gap-4 mb-5">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Subject <span className="text-red-500">*</span></label>
-              <select className={inputCls} value={form.subject} onChange={e => setForm({ ...form, subject: e.target.value, topic: "" })}>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Subject <span className="text-red-500">*</span>
+              </label>
+              <select
+                className={inputCls}
+                value={form.subject}
+                onChange={(e) =>
+                  setForm({ ...form, subject: e.target.value, topic: "" })
+                }
+              >
                 <option value="">Select subject</option>
-                {subjects.map(s => <option key={s.id} value={s.id}>{s.name}</option>)}
+                {subjects.map((s) => (
+                  <option key={s.id} value={s.id}>
+                    {s.name}
+                  </option>
+                ))}
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Grade <span className="text-red-500">*</span></label>
-              <select className={inputCls} value={form.grade} onChange={e => setForm({ ...form, grade: e.target.value, topic: "" })}>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Grade <span className="text-red-500">*</span>
+              </label>
+              <select
+                className={inputCls}
+                value={form.grade}
+                onChange={(e) =>
+                  setForm({ ...form, grade: e.target.value, topic: "" })
+                }
+              >
                 <option value="">Select grade</option>
-                {[4,5,6,7,8,9,10,11,12].map(g => <option key={g} value={g}>Grade {g}</option>)}
+                {[4, 5, 6, 7, 8, 9, 10, 11, 12].map((g) => (
+                  <option key={g} value={g}>
+                    Grade {g}
+                  </option>
+                ))}
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Topic</label>
-              <select className={inputCls} value={form.topic} onChange={e => setForm({ ...form, topic: e.target.value })}>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Topic
+              </label>
+              <select
+                className={inputCls}
+                value={form.topic}
+                onChange={(e) => setForm({ ...form, topic: e.target.value })}
+              >
                 <option value="">— None (covers multiple topics) —</option>
-                {topics.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}
+                {topics.map((t) => (
+                  <option key={t.id} value={t.id}>
+                    {t.name}
+                  </option>
+                ))}
               </select>
             </div>
           </div>
 
           <div className="grid grid-cols-4 gap-4 mb-5">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Quiz Type</label>
-              <select className={inputCls} value={form.quiz_type} onChange={e => setForm({ ...form, quiz_type: e.target.value })}>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Quiz Type
+              </label>
+              <select
+                className={inputCls}
+                value={form.quiz_type}
+                onChange={(e) =>
+                  setForm({ ...form, quiz_type: e.target.value })
+                }
+              >
                 <option value="topical">Topical Quiz</option>
                 <option value="exam">Exam</option>
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Term</label>
-              <select className={inputCls} value={form.term} onChange={e => setForm({ ...form, term: e.target.value })} disabled={form.quiz_type !== "exam"}>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Term
+              </label>
+              <select
+                className={inputCls}
+                value={form.term}
+                onChange={(e) => setForm({ ...form, term: e.target.value })}
+                disabled={form.quiz_type !== "exam"}
+              >
                 <option value="">— None —</option>
                 <option value="1">Term 1</option>
                 <option value="2">Term 2</option>
@@ -472,12 +708,32 @@ export default function EditQuizPage() {
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Set Number</label>
-              <input type="number" className={inputCls} value={form.set_number} onChange={e => setForm({ ...form, set_number: e.target.value })} placeholder="e.g. 1" min="1" disabled={form.quiz_type !== "exam"} />
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Set Number
+              </label>
+              <input
+                type="number"
+                className={inputCls}
+                value={form.set_number}
+                onChange={(e) =>
+                  setForm({ ...form, set_number: e.target.value })
+                }
+                placeholder="e.g. 1"
+                min="1"
+                disabled={form.quiz_type !== "exam"}
+              />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Owner Type</label>
-              <select className={inputCls} value={form.owner_type} onChange={e => setForm({ ...form, owner_type: e.target.value })}>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Owner Type
+              </label>
+              <select
+                className={inputCls}
+                value={form.owner_type}
+                onChange={(e) =>
+                  setForm({ ...form, owner_type: e.target.value })
+                }
+              >
                 <option value="admin">Admin Created</option>
                 <option value="teacher">Teacher Created</option>
               </select>
@@ -486,23 +742,65 @@ export default function EditQuizPage() {
 
           <div className="grid grid-cols-4 gap-4 mb-5">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Duration (minutes)</label>
-              <input type="number" className={inputCls} value={form.duration_minutes} onChange={e => setForm({ ...form, duration_minutes: e.target.value })} min="0" />
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Duration (minutes)
+              </label>
+              <input
+                type="number"
+                className={inputCls}
+                value={form.duration_minutes}
+                onChange={(e) =>
+                  setForm({ ...form, duration_minutes: e.target.value })
+                }
+                min="0"
+              />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Passing Score (%)</label>
-              <input type="number" className={inputCls} value={form.passing_score} onChange={e => setForm({ ...form, passing_score: e.target.value })} min="0" max="100" />
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Passing Score (%)
+              </label>
+              <input
+                type="number"
+                className={inputCls}
+                value={form.passing_score}
+                onChange={(e) =>
+                  setForm({ ...form, passing_score: e.target.value })
+                }
+                min="0"
+                max="100"
+              />
             </div>
             <div className="flex flex-col justify-end">
               <label className="flex items-center gap-2 cursor-pointer">
-                <input type="checkbox" className="w-4 h-4 text-blue-600 rounded" checked={form.is_active} onChange={e => setForm({ ...form, is_active: e.target.checked })} />
-                <span className="text-sm font-medium text-gray-700">Active (published)</span>
+                <input
+                  type="checkbox"
+                  className="w-4 h-4 text-blue-600 rounded"
+                  checked={form.is_active}
+                  onChange={(e) =>
+                    setForm({ ...form, is_active: e.target.checked })
+                  }
+                />
+                <span className="text-sm font-medium text-gray-700">
+                  Active (published)
+                </span>
               </label>
             </div>
             <div className="flex flex-col justify-end">
               <label className="flex items-center gap-2 cursor-pointer">
-                <input type="checkbox" className="w-4 h-4 text-blue-600 rounded" checked={form.available_to_teachers} onChange={e => setForm({ ...form, available_to_teachers: e.target.checked })} />
-                <span className="text-sm font-medium text-gray-700">Available to teachers</span>
+                <input
+                  type="checkbox"
+                  className="w-4 h-4 text-blue-600 rounded"
+                  checked={form.available_to_teachers}
+                  onChange={(e) =>
+                    setForm({
+                      ...form,
+                      available_to_teachers: e.target.checked,
+                    })
+                  }
+                />
+                <span className="text-sm font-medium text-gray-700">
+                  Available to teachers
+                </span>
               </label>
             </div>
           </div>
@@ -514,31 +812,62 @@ export default function EditQuizPage() {
           <Card className="p-6">
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-xl font-bold">Available Questions</h2>
-              <span className="text-sm text-gray-600">{displayedQuestions.length} questions</span>
+              <span className="text-sm text-gray-600">
+                {displayedQuestions.length} questions
+              </span>
             </div>
 
             <div className="relative mb-3">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4" />
-              <input type="text" placeholder="Search questions..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm" />
+              <input
+                type="text"
+                placeholder="Search questions..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="w-full pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+              />
             </div>
 
             <div className="grid grid-cols-2 gap-2 mb-4">
-              <select value={filterSubject} onChange={(e) => setFilterSubject(e.target.value)} className="border rounded-lg px-2 py-1.5 text-xs focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700">
+              <select
+                value={filterSubject}
+                onChange={(e) => setFilterSubject(e.target.value)}
+                className="border rounded-lg px-2 py-1.5 text-xs focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700"
+              >
                 <option value="">All Subjects</option>
-                {subjects.map((s) => <option key={s.id} value={s.id}>{s.name}</option>)}
+                {subjects.map((s) => (
+                  <option key={s.id} value={s.id}>
+                    {s.name}
+                  </option>
+                ))}
               </select>
-              <select value={filterGrade} onChange={(e) => setFilterGrade(e.target.value)} className="border rounded-lg px-2 py-1.5 text-xs focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700">
+              <select
+                value={filterGrade}
+                onChange={(e) => setFilterGrade(e.target.value)}
+                className="border rounded-lg px-2 py-1.5 text-xs focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700"
+              >
                 <option value="">All Grades</option>
-                {[4,5,6,7,8,9,10,11,12].map((g) => <option key={g} value={g}>Grade {g}</option>)}
+                {[4, 5, 6, 7, 8, 9, 10, 11, 12].map((g) => (
+                  <option key={g} value={g}>
+                    Grade {g}
+                  </option>
+                ))}
               </select>
-              <select value={filterDifficulty} onChange={(e) => setFilterDifficulty(e.target.value)} className="border rounded-lg px-2 py-1.5 text-xs focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700">
+              <select
+                value={filterDifficulty}
+                onChange={(e) => setFilterDifficulty(e.target.value)}
+                className="border rounded-lg px-2 py-1.5 text-xs focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700"
+              >
                 <option value="">All Difficulties</option>
                 <option value="easy">Easy</option>
                 <option value="medium">Medium</option>
                 <option value="hard">Hard</option>
               </select>
-              <select value={filterType} onChange={(e) => setFilterType(e.target.value)} className="border rounded-lg px-2 py-1.5 text-xs focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700">
+              <select
+                value={filterType}
+                onChange={(e) => setFilterType(e.target.value)}
+                className="border rounded-lg px-2 py-1.5 text-xs focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700"
+              >
                 <option value="">All Types</option>
                 <option value="mcq">MCQ</option>
                 <option value="math">Math</option>
@@ -550,21 +879,67 @@ export default function EditQuizPage() {
 
             <div className="space-y-2 max-h-[500px] overflow-y-auto">
               {displayedQuestions.map((q) => {
-                const isSelected = !!selectedQuestions.find((sq) => sq.id === q.id);
+                const isSelected = !!selectedQuestions.find(
+                  (sq) => sq.id === q.id,
+                );
                 return (
-                  <div key={q.id} className={`p-3 border rounded-lg ${isSelected ? "bg-gray-100 border-gray-300 opacity-50" : "bg-white border-gray-200 hover:border-blue-300"}`}>
+                  <div
+                    key={q.id}
+                    className={`p-3 border rounded-lg ${isSelected ? "bg-gray-100 border-gray-300 opacity-50" : "bg-white border-gray-200 hover:border-blue-300"}`}
+                  >
                     <div className="flex items-start justify-between gap-2">
                       <div className="flex-1 min-w-0">
                         <QuestionText text={q.question_text} />
-                        <p className="text-xs text-gray-600 mt-1">{q.topic_name} • {q.difficulty}</p>
+                        <div className="flex flex-wrap items-center gap-1 mt-1">
+                          <p className="text-xs text-gray-600">
+                            {q.topic_name} • {q.difficulty}
+                          </p>
+                          {q.in_quizzes &&
+                            q.in_quizzes.length > 0 &&
+                            q.in_quizzes.map((qz) => (
+                              <span
+                                key={qz.id}
+                                className="text-xs px-1.5 py-0.5 bg-violet-50 text-violet-700 border border-violet-200 rounded-full font-medium flex items-center gap-1 max-w-[130px]"
+                              >
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  width="9"
+                                  height="9"
+                                  viewBox="0 0 24 24"
+                                  fill="none"
+                                  stroke="currentColor"
+                                  strokeWidth="2.5"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                >
+                                  <rect
+                                    x="3"
+                                    y="3"
+                                    width="18"
+                                    height="18"
+                                    rx="2"
+                                  />
+                                  <path d="M9 9h6M9 12h6M9 15h4" />
+                                </svg>
+                                <span className="truncate">{qz.title}</span>
+                              </span>
+                            ))}
+                        </div>
                       </div>
                       <div className="flex items-center gap-1 shrink-0">
-                        <button onClick={() => openEdit(q)} className="p-1.5 rounded-lg bg-gray-100 text-gray-600 hover:bg-gray-200 transition-colors" title="Edit question">
+                        <button
+                          onClick={() => openEdit(q)}
+                          className="p-1.5 rounded-lg bg-gray-100 text-gray-600 hover:bg-gray-200 transition-colors"
+                          title="Edit question"
+                        >
                           <Pencil className="w-3.5 h-3.5" />
                         </button>
-                        <button onClick={() => addQuestion(q)} disabled={isSelected}
+                        <button
+                          onClick={() => addQuestion(q)}
+                          disabled={isSelected}
                           className={`p-1.5 rounded-lg transition-colors ${isSelected ? "bg-gray-200 text-gray-400 cursor-not-allowed" : "bg-blue-100 text-blue-600 hover:bg-blue-200"}`}
-                          title="Add to quiz">
+                          title="Add to quiz"
+                        >
                           <Plus className="w-4 h-4" />
                         </button>
                       </div>
@@ -587,25 +962,40 @@ export default function EditQuizPage() {
             {selectedQuestions.length === 0 ? (
               <div className="text-center py-12 text-gray-500">
                 <p>No questions selected</p>
-                <p className="text-sm mt-2">Add questions from the left panel</p>
+                <p className="text-sm mt-2">
+                  Add questions from the left panel
+                </p>
               </div>
             ) : (
               <div className="space-y-2 max-h-[500px] overflow-y-auto">
                 {selectedQuestions.map((q, index) => (
-                  <div key={q.id} className="p-3 bg-blue-50 border border-blue-200 rounded-lg">
+                  <div
+                    key={q.id}
+                    className="p-3 bg-blue-50 border border-blue-200 rounded-lg"
+                  >
                     <div className="flex items-start gap-3">
                       <div className="w-8 h-8 bg-blue-600 text-white rounded-lg flex items-center justify-center font-bold text-sm shrink-0">
                         {index + 1}
                       </div>
                       <div className="flex-1 min-w-0">
                         <QuestionText text={q.question_text} />
-                        <p className="text-xs text-gray-600 mt-1">{q.topic_name} • {q.difficulty}</p>
+                        <p className="text-xs text-gray-600 mt-1">
+                          {q.topic_name} • {q.difficulty}
+                        </p>
                       </div>
                       <div className="flex items-center gap-1 shrink-0">
-                        <button onClick={() => openEdit(q)} className="p-1.5 text-gray-600 hover:bg-blue-200 rounded-lg transition-colors" title="Edit question">
+                        <button
+                          onClick={() => openEdit(q)}
+                          className="p-1.5 text-gray-600 hover:bg-blue-200 rounded-lg transition-colors"
+                          title="Edit question"
+                        >
                           <Pencil className="w-3.5 h-3.5" />
                         </button>
-                        <button onClick={() => removeQuestion(q.id)} className="p-1.5 text-red-600 hover:bg-red-100 rounded-lg transition-colors" title="Remove from quiz">
+                        <button
+                          onClick={() => removeQuestion(q.id)}
+                          className="p-1.5 text-red-600 hover:bg-red-100 rounded-lg transition-colors"
+                          title="Remove from quiz"
+                        >
                           <X className="w-4 h-4" />
                         </button>
                       </div>

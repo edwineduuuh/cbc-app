@@ -77,7 +77,7 @@ class QuestionListManageView(generics.ListAPIView):
     def get_queryset(self):
         queryset = Question.objects.select_related(
             'topic', 'topic__subject', 'created_by'
-        ).prefetch_related('parts')
+        ).prefetch_related('parts', 'quizzes')
 
         subject_id = self.request.query_params.get('subject')
         if subject_id:
