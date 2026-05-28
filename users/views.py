@@ -489,17 +489,22 @@ def forgot_password(request):
         frontend_url = os.getenv('FRONTEND_URL', 'http://localhost:3000')
         reset_url = f"{frontend_url}/reset-password?uid={uid}&token={token}"
 
+        import logging
+        logger = logging.getLogger(__name__)
+        resend_key_set = bool(os.getenv('RESEND_KEY', ''))
+        frontend_url_set = os.getenv('FRONTEND_URL', '')
+        logger.warning(f"[forgot_password] RESEND_KEY set={resend_key_set} | FRONTEND_URL='{frontend_url_set}' | reset_url='{reset_url}'")
         try:
             send_mail(
                 subject='Reset your StadiSpace password',
                 message=f'Hi {user.username},\n\nClick this link to reset your password:\n{reset_url}\n\nThis link expires in 24 hours.\n\nIf you did not request this, ignore this email.',
-                from_email=settings.EMAIL_HOST_USER or settings.DEFAULT_FROM_EMAIL,
+                from_email=settings.DEFAULT_FROM_EMAIL,
                 recipient_list=[email],
                 fail_silently=False,
             )
+            logger.warning(f"[forgot_password] Email sent successfully to {email}")
         except Exception as mail_err:
-            import logging
-            logging.getLogger(__name__).error(f"Password reset email failed for {email}: {mail_err}")
+            logger.error(f"[forgot_password] Email FAILED for {email}: {type(mail_err).__name__}: {mail_err}")
             # Still return success — don't expose server config errors to the user
     except User.DoesNotExist:
         pass  # Don't reveal if email exists
