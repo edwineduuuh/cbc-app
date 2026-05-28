@@ -7,6 +7,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import { useRouter, useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import { Nunito } from "next/font/google";
 import {
   ArrowLeft,
   ArrowRight,
@@ -23,6 +24,8 @@ import ChemTextBar from "@/components/ChemTextBar";
 import PhysicsFormulaBar from "@/components/PhysicsFormulaBar";
 import katex from "katex";
 import "katex/dist/katex.min.css";
+
+const nunito = Nunito({ subsets: ["latin"], weight: ["400", "500", "600", "700", "800"] });
 
 const API =
   process.env.NEXT_PUBLIC_API_URL ||
@@ -2144,10 +2147,10 @@ export default function QuizTakePage({ params }) {
 
   return (
     <div
+      className={nunito.className}
       style={{
         minHeight: "100vh",
         background: "#f7f9fc",
-        fontFamily: "'Lato', sans-serif",
       }}
       onCopy={(e) => {
         if (!["TEXTAREA", "INPUT"].includes(e.target.tagName))
