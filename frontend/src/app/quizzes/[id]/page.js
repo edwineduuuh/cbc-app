@@ -25,7 +25,10 @@ import PhysicsFormulaBar from "@/components/PhysicsFormulaBar";
 import katex from "katex";
 import "katex/dist/katex.min.css";
 
-const nunito = Nunito({ subsets: ["latin"], weight: ["400", "500", "600", "700", "800"] });
+const nunito = Nunito({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800"],
+});
 
 const API =
   process.env.NEXT_PUBLIC_API_URL ||
@@ -2568,7 +2571,7 @@ export default function QuizTakePage({ params }) {
                 </div>
               )}
 
-              {isMath ? (
+              {isMath && !(currentQ.parts && currentQ.parts.length > 0) ? (
                 workingImages[currentIdx] ? (
                   <p
                     style={{
@@ -2789,8 +2792,8 @@ export default function QuizTakePage({ params }) {
                   );
                 })()}
 
-              {/* Working panel — math only */}
-              {isMath && (
+              {/* Working panel — math only, not for multipart */}
+              {isMath && !(currentQ.parts && currentQ.parts.length > 0) && (
                 <WorkingPanel
                   questionIdx={currentIdx}
                   onWorkingCapture={(base64) =>
