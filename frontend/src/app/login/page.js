@@ -23,15 +23,6 @@ export default function LoginPage() {
   const { login, user, loading: authLoading } = useAuth();
   const router = useRouter();
 
-  // Always ensure / is directly behind /login in history so the back arrow
-  // goes to the landing page, regardless of where the user came from.
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      window.history.replaceState(null, "", "/");
-      window.history.pushState(null, "", "/login");
-    }
-  }, []);
-
   // If already logged in, redirect to the right place.
   // Guard with localStorage check: logout() clears tokens synchronously but
   // setUser(null) is async — without this, the stale user state triggers a
@@ -176,7 +167,14 @@ export default function LoginPage() {
         </div>
 
         {/* ── Right Panel — Form ── */}
-        <div className="flex-1 flex items-center justify-center px-6 py-12 bg-gray-50">
+        <div className="flex-1 flex items-center justify-center px-6 py-12 bg-gray-50 relative">
+          <Link
+            href="/"
+            className="absolute top-5 left-5 flex items-center gap-1.5 text-sm text-gray-500 hover:text-gray-900 transition-colors"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+            Home
+          </Link>
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
