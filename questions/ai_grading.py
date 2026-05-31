@@ -1856,6 +1856,191 @@ MISSED: [comma-separated list of what was wrong/missing with the correct answer,
         }
 
 
+# ─────────────────────────────────────────────────────────────────────────────
+#  FINANCIAL STATEMENT GRADER
+# ─────────────────────────────────────────────────────────────────────────────
+
+def _grade_financial_statement(question, student_answer) -> dict:
+    """
+    Grade a financial statement question.
+    Order-independent: a row is correct as long as the label AND amount
+    appear anywhere on the correct side, regardless of position within
+    that side/section.  Only placement (left vs right, or section) matters.
+    """
+    import json as _json
+
+    sw = _is_kiswahili(question)
+    max_marks = question.max_marks
+    schema = getattr(question, "marking_scheme", None)
+    if not schema:
+        return _empty_result(max_marks, "No marking scheme defined.", _near_miss(sw))
+
+    # Parse student answer
+    if isinstance(student_answer, str):
+        try:
+            ans = _json.loads(student_answer)
+        except Exception:
+            return _empty_result(max_marks, "Could not read your answer.", _near_miss(sw))
+    elif isinstance(student_answer, dict):
+        ans = student_answer
+    else:
+        return _empty_result(max_marks, "Unexpected answer format.", _near_miss(sw))
+
+    subtype = schema.get("subtype", "")
+
+    def _norm_label(s):
+        return str(s or "").strip().lower()
+
+    def _norm_amt(v):
+        try:
+            return round(float(str(v).replace(",", "")), 2)
+        except Exception:
+            return None
+
+    def _rows_to_set(rows):
+        """Convert a list of row dicts to a set of (label, amount) tuples."""
+        result = set()
+        for r in (rows or []):
+            lbl = _norm_label(r.get("label", ""))
+            amt = _norm_amt(r.get("amount", ""))
+            if lbl and amt is not None:
+                result.add((lbl, amt))
+        return result
+
+    def _collect_side_rows(side_data):
+        rows = []
+        for sec in side_data.get("sections", []):
+            rows.extend(sec.get("rows", []))
+        return rows
+
+    total_points = 0
+    earned_points = 0
+    points_earned = []
+    points_missed = []
+
+    if subtype in ("balance_sheet", "trading_account"):
+        for side_key in ("left", "right"):
+            schema_rows = _collect_side_rows(schema.get(side_key, {}))
+            student_rows = _collect_side_rows(ans.get(side_key, {}))
+            student_set = _rows_to_set(student_rows)
+            for row in schema_rows:
+                lbl = _norm_label(row.get("label", ""))
+                amt = _norm_amt(row.get("amount", ""))
+                if not lbl or amt is None:
+                    continue
+                total_points += 1
+                if (lbl, amt) in student_set:
+                    earned_points += 1
+                    points_earned.append(f"{row.get('label')} ({schema.get(side_key, {}).get('heading', side_key)} side)")
+                else:
+                    points_missed.append(f"{row.get('label')} ({schema.get(side_key, {}).get('heading', side_key)} side)")
+
+    elif subtype == "t_account":
+        for side_key in ("left", "right"):
+            schema_rows = schema.get(side_key, {}).get("rows", [])
+            student_rows = ans.get(side_key, {}).get("rows", [])
+            student_set = _rows_to_set(student_rows)
+            for row in schema_rows:
+                lbl = _norm_label(row.get("label", ""))
+                amt = _norm_amt(row.get("amount", ""))
+                if not lbl or amt is None:
+                    continue
+                total_points += 1
+                side_name = schema.get(side_key, {}).get("heading", side_key)
+                if (lbl, amt) in student_set:
+                    earned_points += 1
+                    points_earned.append(f"{row.get('label')} ({side_name})")
+                else:
+                    points_missed.append(f"{row.get('label')} ({side_name})")
+
+    elif subtype in ("income_statement", "cash_flow"):
+        # Sections must match by name; rows within a section are order-independent
+        schema_secs = {s.get("name", ""): s for s in schema.get("sections", [])}
+        student_secs = {s.get("name", ""): s for s in ans.get("sections", [])}
+        for sec_name, schema_sec in schema_secs.items():
+            student_sec = student_secs.get(sec_name, {})
+            student_set = _rows_to_set(student_sec.get("rows", []))
+            for row in schema_sec.get("rows", []):
+                lbl = _norm_label(row.get("label", ""))
+                amt = _norm_amt(row.get("amount", ""))
+                if not lbl or amt is None:
+                    continue
+                total_points += 1
+                if (lbl, amt) in student_set:
+                    earned_points += 1
+                    points_earned.append(f"{row.get('label')} ({sec_name})")
+                else:
+                    points_missed.append(f"{row.get('label')} ({sec_name})")
+        if subtype == "cash_flow":
+            s_open = _norm_amt(ans.get("openingBalance", ""))
+            c_open = _norm_amt(schema.get("openingBalance", ""))
+            if c_open is not None:
+                total_points += 1
+                if s_open == c_open:
+                    earned_points += 1
+                    points_earned.append("Opening Cash Balance")
+                else:
+                    points_missed.append("Opening Cash Balance")
+
+    elif subtype == "trial_balance":
+        # Order-independent: match by account name
+        student_rows_by_acct = {}
+        for r in ans.get("rows", []):
+            acct = _norm_label(r.get("account", ""))
+            if acct:
+                student_rows_by_acct[acct] = r
+        for row in schema.get("rows", []):
+            acct = _norm_label(row.get("account", ""))
+            if not acct:
+                continue
+            total_points += 1
+            s_row = student_rows_by_acct.get(acct)
+            c_dr = _norm_amt(row.get("debit", ""))
+            c_cr = _norm_amt(row.get("credit", ""))
+            s_dr = _norm_amt(s_row.get("debit", "")) if s_row else None
+            s_cr = _norm_amt(s_row.get("credit", "")) if s_row else None
+            if s_dr == c_dr and s_cr == c_cr:
+                earned_points += 1
+                points_earned.append(row.get("account"))
+            else:
+                points_missed.append(row.get("account"))
+
+    else:
+        return _empty_result(max_marks, f"Unknown statement subtype: {subtype}", _near_miss(sw))
+
+    if total_points == 0:
+        return _empty_result(max_marks, "Marking scheme has no gradeable rows.", _near_miss(sw))
+
+    ratio = earned_points / total_points
+    marks = round(ratio * max_marks)
+    is_correct = marks >= max_marks
+
+    if is_correct:
+        feedback = "✓ Excellent! All entries are correctly placed and valued."
+        msg = "Well done — your financial statement is complete and accurate!"
+    elif earned_points == 0:
+        feedback = "No correct entries found. Check your labels and amounts carefully."
+        msg = "Review the marking scheme and try again."
+    else:
+        missed_str = ", ".join(points_missed[:5])
+        if len(points_missed) > 5:
+            missed_str += f" and {len(points_missed) - 5} more"
+        feedback = (f"You got {earned_points}/{total_points} entries correct. "
+                    f"Items to review: {missed_str}.")
+        msg = "Good effort — check the items marked incorrect and make sure labels and amounts match exactly."
+
+    return {
+        "marks_awarded":        marks,
+        "max_marks":            max_marks,
+        "feedback":             feedback,
+        "is_correct":           is_correct,
+        "personalized_message": msg,
+        "study_tip":            "",
+        "points_earned":        points_earned,
+        "points_missed":        points_missed,
+    }
+
+
 def _route(
     question,
     student_answer: str,
@@ -1873,6 +2058,8 @@ def _route(
         return _grade_math(question, student_answer, working_image)
     if qt == "table":
         return _grade_table(question, student_answer)
+    if qt == "financial_statement":
+        return _grade_financial_statement(question, student_answer)
 
     sw = _is_kiswahili(question)
     return _empty_result(

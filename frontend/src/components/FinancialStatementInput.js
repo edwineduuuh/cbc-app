@@ -67,24 +67,54 @@ function deepCloneBlank(schema) {
   return json;
 }
 
+// ── order-independent lookup helpers ────────────────────────────────────────
+function normLabel(s) {
+  return String(s || "")
+    .trim()
+    .toLowerCase();
+}
+function normAmt(v) {
+  const n = parseFloat(String(v || "").replace(/,/g, ""));
+  return isNaN(n) ? null : n;
+}
+/** Build a Set<"label|amount"> and a Map<label, amount> from a rows array */
+function buildCorrectLookup(rows) {
+  const set = new Set();
+  const byLabel = new Map();
+  for (const r of rows || []) {
+    const lbl = normLabel(r.label);
+    const amt = normAmt(r.amount);
+    if (lbl && amt !== null) {
+      set.add(`${lbl}|${amt}`);
+      byLabel.set(lbl, amt);
+    }
+  }
+  return { set, byLabel };
+}
+
 // ── shared row display ────────────────────────────────────────────────────────
 const cellCls = (readonly) =>
-  `border-0 border-b border-gray-200 bg-transparent focus:outline-none focus:border-blue-400 text-sm w-full py-1 px-1 ${readonly ? "cursor-default" : ""}`;
+  `border-0 border-b border-gray-200 bg-transparent focus:outline-none focus:border-blue-400 text-sm w-full py-1 px-1 ${
+    readonly ? "cursor-default" : ""
+  }`;
 
 function AmountRowInput({
   row,
   onChange,
   currency,
   readonly,
-  correctRow,
   showCorrect,
+  correctSet, // Set<"label|amount"> for the whole side/section
+  correctByLabel, // Map<label, amount>
 }) {
-  const studentAmt = parseFloat(row.amount) || 0;
-  const correctAmt = parseFloat(correctRow?.amount) || 0;
-  const isCorrectLabel =
-    !showCorrect ||
-    row.label?.trim().toLowerCase() === correctRow?.label?.trim().toLowerCase();
-  const isCorrectAmt = !showCorrect || studentAmt === correctAmt;
+  const lbl = normLabel(row.label);
+  const amt = normAmt(row.amount);
+  const key = `${lbl}|${amt}`;
+  const isCorrect =
+    !showCorrect || !lbl || amt === null || correctSet?.has(key);
+  // If label matches but amount is wrong, show what the correct amount should be
+  const expectedAmt =
+    showCorrect && !isCorrect && lbl ? correctByLabel?.get(lbl) : null;
 
   return (
     <div className="flex items-center gap-1 py-0.5">
@@ -94,10 +124,12 @@ function AmountRowInput({
         disabled={readonly}
         placeholder="Item…"
         onChange={(e) => onChange({ ...row, label: e.target.value })}
-        className={`${cellCls(readonly)} flex-1 ${showCorrect && !isCorrectLabel ? "text-red-500" : ""}`}
+        className={`${cellCls(readonly)} flex-1 ${showCorrect && lbl && !isCorrect ? "text-red-500" : ""}`}
       />
       <div
-        className={`flex items-center gap-0.5 shrink-0 w-32 ${showCorrect && !isCorrectAmt ? "text-red-500" : ""}`}
+        className={`flex items-center gap-0.5 shrink-0 w-32 ${
+          showCorrect && lbl && !isCorrect ? "text-red-500" : ""
+        }`}
       >
         <span className="text-gray-400 text-xs">{currency}</span>
         <input
@@ -109,16 +141,32 @@ function AmountRowInput({
           className={`${cellCls(readonly)} text-right w-full`}
         />
       </div>
-      {showCorrect && !isCorrectAmt && (
+      {showCorrect && lbl && !isCorrect && expectedAmt !== null && (
         <span className="text-xs text-green-600 font-semibold shrink-0 w-20 text-right">
-          ✓ {fmt(correctAmt)}
+          ✓ {fmt(expectedAmt)}
         </span>
       )}
     </div>
   );
 }
 
-function TrialRowInput({ row, onChange, readonly, correctRow, showCorrect }) {
+function TrialRowInput({
+  row,
+  onChange,
+  readonly,
+  showCorrect,
+  correctByAccount,
+}) {
+  const acct = normLabel(row.account);
+  const correctRow = showCorrect ? correctByAccount?.get(acct) : null;
+  const drOk =
+    !showCorrect ||
+    !acct ||
+    parseFloat(row.debit) === parseFloat(correctRow?.debit ?? row.debit);
+  const crOk =
+    !showCorrect ||
+    !acct ||
+    parseFloat(row.credit) === parseFloat(correctRow?.credit ?? row.credit);
   return (
     <div className="grid grid-cols-[1fr_96px_96px] gap-2 py-0.5">
       <input
@@ -127,7 +175,7 @@ function TrialRowInput({ row, onChange, readonly, correctRow, showCorrect }) {
         disabled={readonly}
         placeholder="Account…"
         onChange={(e) => onChange({ ...row, account: e.target.value })}
-        className={`${cellCls(readonly)} ${showCorrect && row.account !== correctRow?.account ? "text-red-500" : ""}`}
+        className={cellCls(readonly)}
       />
       <input
         type="number"
@@ -135,7 +183,7 @@ function TrialRowInput({ row, onChange, readonly, correctRow, showCorrect }) {
         disabled={readonly}
         placeholder="0"
         onChange={(e) => onChange({ ...row, debit: e.target.value })}
-        className={`${cellCls(readonly)} text-right ${showCorrect && parseFloat(row.debit) !== parseFloat(correctRow?.debit) ? "text-red-500" : ""}`}
+        className={`${cellCls(readonly)} text-right ${!drOk ? "text-red-500" : ""}`}
       />
       <input
         type="number"
@@ -143,7 +191,7 @@ function TrialRowInput({ row, onChange, readonly, correctRow, showCorrect }) {
         disabled={readonly}
         placeholder="0"
         onChange={(e) => onChange({ ...row, credit: e.target.value })}
-        className={`${cellCls(readonly)} text-right ${showCorrect && parseFloat(row.credit) !== parseFloat(correctRow?.credit) ? "text-red-500" : ""}`}
+        className={`${cellCls(readonly)} text-right ${!crOk ? "text-red-500" : ""}`}
       />
     </div>
   );
@@ -220,13 +268,18 @@ export default function FinancialStatementInput({
       const correctTotal =
         correctSide?.sections?.reduce((acc, s) => acc + sumRows(s.rows), 0) ||
         0;
+      // Build order-independent lookup from ALL rows on this side
+      const allCorrectRows = (correctSide?.sections || []).flatMap(
+        (s) => s.rows || [],
+      );
+      const { set: correctSet, byLabel: correctByLabel } =
+        buildCorrectLookup(allCorrectRows);
 
       return (
         <div style={panelStyle}>
           <div style={headerStyle}>{side.heading}</div>
           <div style={{ padding: "10px 14px" }}>
             {side.sections.map((sec, si) => {
-              const correctSec = correctSide?.sections?.[si];
               return (
                 <div key={si} className="mb-3">
                   {sec.name !== undefined && (
@@ -242,7 +295,8 @@ export default function FinancialStatementInput({
                       row={row}
                       currency={currency}
                       readonly={readonly}
-                      correctRow={correctSec?.rows?.[ri]}
+                      correctSet={correctSet}
+                      correctByLabel={correctByLabel}
                       showCorrect={showCorrect}
                       onChange={(r) =>
                         updateSection(sideKey, si, {
@@ -302,6 +356,9 @@ export default function FinancialStatementInput({
       const cSide = schema[sideKey];
       const t = total(sideKey);
       const ct = correctTotal(sideKey);
+      const { set: correctSet, byLabel: correctByLabel } = buildCorrectLookup(
+        cSide?.rows || [],
+      );
       return (
         <div style={panelStyle}>
           <div style={headerStyle}>{side.heading}</div>
@@ -312,7 +369,8 @@ export default function FinancialStatementInput({
                 row={row}
                 currency={currency}
                 readonly={readonly}
-                correctRow={cSide?.rows?.[ri]}
+                correctSet={correctSet}
+                correctByLabel={correctByLabel}
                 showCorrect={showCorrect}
                 onChange={(r) =>
                   updateSide(sideKey, {
@@ -396,6 +454,9 @@ export default function FinancialStatementInput({
             const correctSec = schema.sections[si];
             const secTotal = sectionTotals[si];
             const cSecTotal = correctSectionTotals[si];
+            // Order-independent: build lookup from this section's correct rows
+            const { set: correctSet, byLabel: correctByLabel } =
+              buildCorrectLookup(correctSec?.rows || []);
             return (
               <div key={si} className="mb-4">
                 <div className="text-xs font-bold text-indigo-700 uppercase tracking-wide mb-1.5 pb-0.5 border-b border-indigo-100">
@@ -407,7 +468,8 @@ export default function FinancialStatementInput({
                     row={row}
                     currency={currency}
                     readonly={readonly}
-                    correctRow={correctSec?.rows?.[ri]}
+                    correctSet={correctSet}
+                    correctByLabel={correctByLabel}
                     showCorrect={showCorrect}
                     onChange={(r) =>
                       updateSection(si, {
@@ -520,7 +582,11 @@ export default function FinancialStatementInput({
               key={ri}
               row={row}
               readonly={readonly}
-              correctRow={schema.rows[ri]}
+              correctByAccount={
+                showCorrect
+                  ? new Map(schema.rows.map((r) => [normLabel(r.account), r]))
+                  : undefined
+              }
               showCorrect={showCorrect}
               onChange={(r) =>
                 update({
