@@ -7,6 +7,7 @@ import { fetchWithAuth } from "@/lib/api";
 import { motion, AnimatePresence } from "framer-motion";
 import Toast from "@/components/ui/Toast";
 import PhysicsFormulaBar from "@/components/PhysicsFormulaBar";
+import FinancialStatementEditor from "@/components/FinancialStatementEditor";
 import {
   Plus,
   Upload,
@@ -42,6 +43,7 @@ const QUESTION_TYPES = [
   { value: "essay", label: "Essay" },
   { value: "table", label: "Table" },
   { value: "multipart", label: "Multipart" },
+  { value: "financial_statement", label: "Financial Statement" },
 ];
 const DIFFICULTY_COLORS = {
   easy: "bg-green-100 text-green-700 border-green-200",
@@ -601,6 +603,8 @@ export default function QuestionManagementPage() {
     difficulty: "medium",
     table_data: null,
     parts: [],
+    statement_subtype: "",
+    marking_scheme: null,
   });
 
   const [filteredTopics, setFilteredTopics] = useState([]);
@@ -1068,6 +1072,8 @@ export default function QuestionManagementPage() {
       difficulty: "medium",
       table_data: null,
       parts: [],
+      statement_subtype: "",
+      marking_scheme: null,
     });
     setFilteredSubstrands([]);
   };
@@ -1085,6 +1091,8 @@ export default function QuestionManagementPage() {
         option_d: "",
         correct_answer: "",
         table_data: value === "table" ? makeDefaultTable() : null,
+        statement_subtype: "",
+        marking_scheme: null,
       }));
     } else if (name === "math_format") {
       setFormData((prev) => ({
@@ -1181,6 +1189,10 @@ export default function QuestionManagementPage() {
     if (isTableStyle && formData.table_data) {
       fd.append("table_data", JSON.stringify(formData.table_data));
     }
+    if (formData.question_type === "financial_statement") {
+      if (formData.statement_subtype) fd.append("statement_subtype", formData.statement_subtype);
+      if (formData.marking_scheme) fd.append("marking_scheme", JSON.stringify(formData.marking_scheme));
+    }
     fd.append(
       "explanation",
       formData.explanation ? formData.explanation.trim() : "",
@@ -1260,6 +1272,10 @@ export default function QuestionManagementPage() {
       }
       if (isTableStyleEdit && editingQuestion.table_data) {
         fd.append("table_data", JSON.stringify(editingQuestion.table_data));
+      }
+      if (editingQuestion.question_type === "financial_statement") {
+        fd.append("statement_subtype", editingQuestion.statement_subtype || "");
+        if (editingQuestion.marking_scheme) fd.append("marking_scheme", JSON.stringify(editingQuestion.marking_scheme));
       }
       fd.append("max_marks", parseInt(editingQuestion.max_marks) || 1);
       fd.append("explanation", editingQuestion.explanation || "");
@@ -2219,6 +2235,38 @@ export default function QuestionManagementPage() {
                     />
                   </div>
                 )}
+
+                {/* Financial Statement builder */}
+                {formData.question_type === "financial_statement" && (
+                  <div className="space-y-3">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">Statement Type</label>
+                      <select
+                        className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        value={formData.statement_subtype || ""}
+                        onChange={(e) => setFormData((p) => ({ ...p, statement_subtype: e.target.value, marking_scheme: null }))}
+                      >
+                        <option value="">Select statement type…</option>
+                        <option value="balance_sheet">Balance Sheet</option>
+                        <option value="income_statement">Income Statement</option>
+                        <option value="trading_account">Trading / P&L Account</option>
+                        <option value="cash_flow">Cash Flow Statement</option>
+                        <option value="t_account">T-Account / Ledger</option>
+                        <option value="trial_balance">Trial Balance</option>
+                      </select>
+                    </div>
+                    {formData.statement_subtype && (
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">Define Correct Answer Structure</label>
+                        <FinancialStatementEditor
+                          subtype={formData.statement_subtype}
+                          value={formData.marking_scheme}
+                          onChange={(schema) => setFormData((p) => ({ ...p, marking_scheme: schema }))}
+                        />
+                      </div>
+                    )}
+                  </div>
+                )}
                 <TextField
                   label={
                     formData.question_type === "structured" ||
@@ -2653,6 +2701,38 @@ export default function QuestionManagementPage() {
                         }))
                       }
                     />
+                  </div>
+                )}
+
+                {/* Financial Statement builder */}
+                {editingQuestion.question_type === "financial_statement" && (
+                  <div className="space-y-3">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">Statement Type</label>
+                      <select
+                        className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        value={editingQuestion.statement_subtype || ""}
+                        onChange={(e) => setEditingQuestion((p) => ({ ...p, statement_subtype: e.target.value, marking_scheme: null }))}
+                      >
+                        <option value="">Select statement type…</option>
+                        <option value="balance_sheet">Balance Sheet</option>
+                        <option value="income_statement">Income Statement</option>
+                        <option value="trading_account">Trading / P&L Account</option>
+                        <option value="cash_flow">Cash Flow Statement</option>
+                        <option value="t_account">T-Account / Ledger</option>
+                        <option value="trial_balance">Trial Balance</option>
+                      </select>
+                    </div>
+                    {editingQuestion.statement_subtype && (
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">Define Correct Answer Structure</label>
+                        <FinancialStatementEditor
+                          subtype={editingQuestion.statement_subtype}
+                          value={editingQuestion.marking_scheme}
+                          onChange={(schema) => setEditingQuestion((p) => ({ ...p, marking_scheme: schema }))}
+                        />
+                      </div>
+                    )}
                   </div>
                 )}
                 <TextField
