@@ -112,6 +112,16 @@ class Question(models.Model):
         ('essay', 'Essay'),
         ('table', 'Table'),
         ('multipart', 'Multipart'),
+        ('financial_statement', 'Financial Statement'),
+    ]
+
+    STATEMENT_SUBTYPES = [
+        ('balance_sheet', 'Balance Sheet'),
+        ('income_statement', 'Income Statement'),
+        ('trading_account', 'Trading / P&L Account'),
+        ('cash_flow', 'Cash Flow Statement'),
+        ('t_account', 'T-Account / Ledger'),
+        ('trial_balance', 'Trial Balance'),
     ]
 
     # RELATIONSHIPS
@@ -182,6 +192,13 @@ class Question(models.Model):
     marking_scheme = models.JSONField(null=True, blank=True)
     max_marks = models.IntegerField(default=1)
     table_data = models.JSONField(null=True, blank=True, help_text="Table structure for table question type")
+    statement_subtype = models.CharField(
+        max_length=20,
+        choices=STATEMENT_SUBTYPES,
+        blank=True,
+        default='',
+        help_text="For financial_statement type: balance_sheet | income_statement | trading_account | cash_flow | t_account | trial_balance",
+    )
 
     question_image = models.ImageField(
     upload_to='question_images/',

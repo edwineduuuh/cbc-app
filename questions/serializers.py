@@ -94,6 +94,7 @@ class QuestionSerializer(serializers.ModelSerializer):
             'parts',
             'worked_solution',
             'table_data',
+            'statement_subtype',
         ]
 
     def get_question_image_url(self, obj):
@@ -153,6 +154,7 @@ class QuestionDetailSerializer(serializers.ModelSerializer):
             'created_at', 'created_by',
             'question_image_url', 'question_image',
             'table_data', 'max_marks',
+            'statement_subtype',
             'passage', 'passage_id',
             'parts',
             'in_quizzes',

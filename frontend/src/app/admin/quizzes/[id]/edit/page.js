@@ -16,6 +16,7 @@ import {
   CheckCircle2,
   AlertCircle,
 } from "lucide-react";
+import FinancialStatementEditor from "@/components/FinancialStatementEditor";
 
 const API =
   process.env.NEXT_PUBLIC_API_URL ||
@@ -33,6 +34,8 @@ const BLANK_EDIT = {
   option_d: "",
   correct_answer: "",
   explanation: "",
+  statement_subtype: "",
+  marking_scheme: null,
 };
 
 function QuestionText({ text }) {
@@ -55,6 +58,7 @@ const TYPE_LABELS = {
   essay: "Essay",
   table: "Table",
   multipart: "Multipart",
+  financial_statement: "Financial Stmt",
 };
 const TYPE_COLORS = {
   mcq: "bg-blue-100 text-blue-700",
@@ -64,6 +68,7 @@ const TYPE_COLORS = {
   essay: "bg-pink-100 text-pink-700",
   table: "bg-orange-100 text-orange-700",
   multipart: "bg-violet-100 text-violet-700",
+  financial_statement: "bg-emerald-100 text-emerald-700",
 };
 const DIFF_COLORS = {
   easy: "bg-green-100 text-green-700",
@@ -278,6 +283,8 @@ export default function EditQuizPage() {
         option_d: data.option_d || "",
         correct_answer: data.correct_answer || "",
         explanation: data.explanation || "",
+        statement_subtype: data.statement_subtype || "",
+        marking_scheme: data.marking_scheme || null,
       });
       setEditingQuestion(data);
     } catch {
@@ -500,6 +507,9 @@ export default function EditQuizPage() {
                     <option value="fill_blank">Fill in the Blank</option>
                     <option value="structured">Structured</option>
                     <option value="essay">Essay</option>
+                    <option value="financial_statement">
+                      Financial Statement
+                    </option>
                   </select>
                 </div>
                 <div>
@@ -579,6 +589,49 @@ export default function EditQuizPage() {
                       })
                     }
                   />
+                </div>
+              ) : editForm.question_type === "financial_statement" ? (
+                <div className="space-y-3">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Statement Type
+                    </label>
+                    <select
+                      className={inputCls}
+                      value={editForm.statement_subtype || ""}
+                      onChange={(e) =>
+                        setEditForm({
+                          ...editForm,
+                          statement_subtype: e.target.value,
+                          marking_scheme: null,
+                        })
+                      }
+                    >
+                      <option value="">Select statement type…</option>
+                      <option value="balance_sheet">Balance Sheet</option>
+                      <option value="income_statement">Income Statement</option>
+                      <option value="trading_account">
+                        Trading / P&amp;L Account
+                      </option>
+                      <option value="cash_flow">Cash Flow Statement</option>
+                      <option value="t_account">T-Account / Ledger</option>
+                      <option value="trial_balance">Trial Balance</option>
+                    </select>
+                  </div>
+                  {editForm.statement_subtype && (
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Define Correct Answer Structure
+                      </label>
+                      <FinancialStatementEditor
+                        subtype={editForm.statement_subtype}
+                        value={editForm.marking_scheme}
+                        onChange={(schema) =>
+                          setEditForm({ ...editForm, marking_scheme: schema })
+                        }
+                      />
+                    </div>
+                  )}
                 </div>
               ) : (
                 <div>

@@ -25,6 +25,7 @@ import {
   Tag,
   Pencil,
 } from "lucide-react";
+import FinancialStatementEditor from "@/components/FinancialStatementEditor";
 
 const BLANK_EDIT = {
   question_text: "",
@@ -36,6 +37,8 @@ const BLANK_EDIT = {
   option_d: "",
   correct_answer: "",
   explanation: "",
+  statement_subtype: "",
+  marking_scheme: null,
 };
 
 const inputCls =
@@ -56,6 +59,7 @@ const TYPE_LABELS = {
   essay: "Essay",
   table: "Table",
   multipart: "Multipart",
+  financial_statement: "Financial Stmt",
 };
 const TYPE_COLORS = {
   mcq: "bg-blue-100 text-blue-700",
@@ -65,6 +69,7 @@ const TYPE_COLORS = {
   essay: "bg-pink-100 text-pink-700",
   table: "bg-orange-100 text-orange-700",
   multipart: "bg-violet-100 text-violet-700",
+  financial_statement: "bg-emerald-100 text-emerald-700",
 };
 const DIFF_COLORS = {
   easy: "bg-green-100 text-green-700",
@@ -196,7 +201,10 @@ export default function CreateQuizPage() {
 
   const openEdit = async (e, question) => {
     e.stopPropagation();
-    const token = typeof window !== "undefined" ? localStorage.getItem("accessToken") : null;
+    const token =
+      typeof window !== "undefined"
+        ? localStorage.getItem("accessToken")
+        : null;
     try {
       const res = await fetch(`${API}/admin/questions/${question.id}/`, {
         headers: { Authorization: `Bearer ${token}` },
@@ -223,16 +231,24 @@ export default function CreateQuizPage() {
 
   const saveEdit = async () => {
     setEditSaving(true);
-    const token = typeof window !== "undefined" ? localStorage.getItem("accessToken") : null;
+    const token =
+      typeof window !== "undefined"
+        ? localStorage.getItem("accessToken")
+        : null;
     try {
       const res = await fetch(`${API}/admin/questions/${editingQuestion.id}/`, {
         method: "PATCH",
-        headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify(editForm),
       });
       if (res.ok) {
         const updated = await res.json();
-        setQuestions((prev) => prev.map((q) => (q.id === updated.id ? { ...q, ...updated } : q)));
+        setQuestions((prev) =>
+          prev.map((q) => (q.id === updated.id ? { ...q, ...updated } : q)),
+        );
         setEditingQuestion(null);
         showToast("Question updated!", "success");
       } else {
@@ -245,7 +261,8 @@ export default function CreateQuizPage() {
     }
   };
 
-  const isMcqEdit = editForm.question_type === "mcq" || editForm.question_type === "math";
+  const isMcqEdit =
+    editForm.question_type === "mcq" || editForm.question_type === "math";
 
   useEffect(() => {
     fetch(`${API}/subjects/`)
@@ -402,30 +419,77 @@ export default function CreateQuizPage() {
           <div className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between p-6 border-b">
               <h2 className="text-xl font-bold">Edit Question</h2>
-              <button onClick={() => setEditingQuestion(null)} className="p-2 hover:bg-gray-100 rounded-lg">
+              <button
+                onClick={() => setEditingQuestion(null)}
+                className="p-2 hover:bg-gray-100 rounded-lg"
+              >
                 <X className="w-5 h-5" />
               </button>
             </div>
             <div className="p-6 space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Question Text</label>
-                <p className="text-xs text-gray-400 mb-1">Use <code>&lt;u&gt;word&lt;/u&gt;</code> to underline, <code>&lt;b&gt;</code> to bold, <code>$math$</code> for inline math</p>
-                <textarea rows={3} className={inputCls} value={editForm.question_text} onChange={(e) => setEditForm({ ...editForm, question_text: e.target.value })} />
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Question Text
+                </label>
+                <p className="text-xs text-gray-400 mb-1">
+                  Use <code>&lt;u&gt;word&lt;/u&gt;</code> to underline,{" "}
+                  <code>&lt;b&gt;</code> to bold, <code>$math$</code> for inline
+                  math
+                </p>
+                <textarea
+                  rows={3}
+                  className={inputCls}
+                  value={editForm.question_text}
+                  onChange={(e) =>
+                    setEditForm({ ...editForm, question_text: e.target.value })
+                  }
+                />
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Question Type</label>
-                  <select className={inputCls} value={editForm.question_type} onChange={(e) => { const t = e.target.value; const clear = t !== "mcq" && t !== "math"; setEditForm({ ...editForm, question_type: t, ...(clear && { option_a: "", option_b: "", option_c: "", option_d: "", correct_answer: "" }) }); }}>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Question Type
+                  </label>
+                  <select
+                    className={inputCls}
+                    value={editForm.question_type}
+                    onChange={(e) => {
+                      const t = e.target.value;
+                      const clear = t !== "mcq" && t !== "math";
+                      setEditForm({
+                        ...editForm,
+                        question_type: t,
+                        ...(clear && {
+                          option_a: "",
+                          option_b: "",
+                          option_c: "",
+                          option_d: "",
+                          correct_answer: "",
+                        }),
+                      });
+                    }}
+                  >
                     <option value="mcq">MCQ</option>
                     <option value="math">Math</option>
                     <option value="fill_blank">Fill in the Blank</option>
                     <option value="structured">Structured</option>
                     <option value="essay">Essay</option>
+                    <option value="financial_statement">
+                      Financial Statement
+                    </option>
                   </select>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Difficulty</label>
-                  <select className={inputCls} value={editForm.difficulty} onChange={(e) => setEditForm({ ...editForm, difficulty: e.target.value })}>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Difficulty
+                  </label>
+                  <select
+                    className={inputCls}
+                    value={editForm.difficulty}
+                    onChange={(e) =>
+                      setEditForm({ ...editForm, difficulty: e.target.value })
+                    }
+                  >
                     <option value="easy">Easy</option>
                     <option value="medium">Medium</option>
                     <option value="hard">Hard</option>
@@ -436,16 +500,39 @@ export default function CreateQuizPage() {
                 <div className="grid grid-cols-2 gap-3">
                   {["a", "b", "c", "d"].map((letter) => (
                     <div key={letter}>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">Option {letter.toUpperCase()}</label>
-                      <input type="text" className={inputCls} value={editForm[`option_${letter}`]} onChange={(e) => setEditForm({ ...editForm, [`option_${letter}`]: e.target.value })} />
+                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                        Option {letter.toUpperCase()}
+                      </label>
+                      <input
+                        type="text"
+                        className={inputCls}
+                        value={editForm[`option_${letter}`]}
+                        onChange={(e) =>
+                          setEditForm({
+                            ...editForm,
+                            [`option_${letter}`]: e.target.value,
+                          })
+                        }
+                      />
                     </div>
                   ))}
                 </div>
               )}
               {isMcqEdit ? (
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Correct Answer</label>
-                  <select className={inputCls} value={editForm.correct_answer} onChange={(e) => setEditForm({ ...editForm, correct_answer: e.target.value })}>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Correct Answer
+                  </label>
+                  <select
+                    className={inputCls}
+                    value={editForm.correct_answer}
+                    onChange={(e) =>
+                      setEditForm({
+                        ...editForm,
+                        correct_answer: e.target.value,
+                      })
+                    }
+                  >
                     <option value="">Select…</option>
                     <option value="A">A</option>
                     <option value="B">B</option>
@@ -455,25 +542,109 @@ export default function CreateQuizPage() {
                 </div>
               ) : editForm.question_type === "fill_blank" ? (
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Correct Answer</label>
-                  <input type="text" className={inputCls} value={editForm.correct_answer} onChange={(e) => setEditForm({ ...editForm, correct_answer: e.target.value })} />
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Correct Answer
+                  </label>
+                  <input
+                    type="text"
+                    className={inputCls}
+                    value={editForm.correct_answer}
+                    onChange={(e) =>
+                      setEditForm({
+                        ...editForm,
+                        correct_answer: e.target.value,
+                      })
+                    }
+                  />
+                </div>
+              ) : editForm.question_type === "financial_statement" ? (
+                <div className="space-y-3">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Statement Type
+                    </label>
+                    <select
+                      className={inputCls}
+                      value={editForm.statement_subtype || ""}
+                      onChange={(e) =>
+                        setEditForm({
+                          ...editForm,
+                          statement_subtype: e.target.value,
+                          marking_scheme: null,
+                        })
+                      }
+                    >
+                      <option value="">Select statement type…</option>
+                      <option value="balance_sheet">Balance Sheet</option>
+                      <option value="income_statement">Income Statement</option>
+                      <option value="trading_account">
+                        Trading / P&amp;L Account
+                      </option>
+                      <option value="cash_flow">Cash Flow Statement</option>
+                      <option value="t_account">T-Account / Ledger</option>
+                      <option value="trial_balance">Trial Balance</option>
+                    </select>
+                  </div>
+                  {editForm.statement_subtype && (
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Define Correct Answer Structure
+                      </label>
+                      <FinancialStatementEditor
+                        subtype={editForm.statement_subtype}
+                        value={editForm.marking_scheme}
+                        onChange={(schema) =>
+                          setEditForm({ ...editForm, marking_scheme: schema })
+                        }
+                      />
+                    </div>
+                  )}
                 </div>
               ) : (
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Model Answer / Marking Scheme</label>
-                  <textarea rows={4} className={inputCls} value={editForm.explanation} onChange={(e) => setEditForm({ ...editForm, explanation: e.target.value })} />
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Model Answer / Marking Scheme
+                  </label>
+                  <textarea
+                    rows={4}
+                    className={inputCls}
+                    value={editForm.explanation}
+                    onChange={(e) =>
+                      setEditForm({ ...editForm, explanation: e.target.value })
+                    }
+                  />
                 </div>
               )}
               {isMcqEdit && (
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Explanation</label>
-                  <textarea rows={2} className={inputCls} value={editForm.explanation} onChange={(e) => setEditForm({ ...editForm, explanation: e.target.value })} />
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Explanation
+                  </label>
+                  <textarea
+                    rows={2}
+                    className={inputCls}
+                    value={editForm.explanation}
+                    onChange={(e) =>
+                      setEditForm({ ...editForm, explanation: e.target.value })
+                    }
+                  />
                 </div>
               )}
             </div>
             <div className="flex justify-end gap-3 p-6 border-t">
-              <button onClick={() => setEditingQuestion(null)} className="px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded-lg">Cancel</button>
-              <button onClick={saveEdit} disabled={editSaving} className="px-4 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-lg disabled:opacity-50">{editSaving ? "Saving…" : "Save Question"}</button>
+              <button
+                onClick={() => setEditingQuestion(null)}
+                className="px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded-lg"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={saveEdit}
+                disabled={editSaving}
+                className="px-4 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-lg disabled:opacity-50"
+              >
+                {editSaving ? "Saving…" : "Save Question"}
+              </button>
             </div>
           </div>
         </div>

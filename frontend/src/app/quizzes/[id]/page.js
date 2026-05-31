@@ -22,6 +22,7 @@ import {
 import SimpleMathInput from "@/components/SimpleMathInput";
 import ChemTextBar from "@/components/ChemTextBar";
 import PhysicsFormulaBar from "@/components/PhysicsFormulaBar";
+import FinancialStatementInput from "@/components/FinancialStatementInput";
 import katex from "katex";
 import "katex/dist/katex.min.css";
 
@@ -2125,6 +2126,7 @@ export default function QuizTakePage({ params }) {
     currentQ.question_type === "structured" ||
     currentQ.question_type === "essay";
   const isTable = currentQ.question_type === "table";
+  const isFinancial = currentQ.question_type === "financial_statement";
   const isKiswahili = /kiswahili/i.test(currentQ?.subject_name || "");
 
   // Build answeredBlanks map: { blankNum: optionText } — across ALL questions
@@ -2791,6 +2793,33 @@ export default function QuizTakePage({ params }) {
                     />
                   );
                 })()}
+
+              {/* Financial Statement question */}
+              {isFinancial && currentQ.marking_scheme && (
+                <div style={{ marginTop: 8 }}>
+                  <p
+                    style={{
+                      fontSize: 12,
+                      fontWeight: 700,
+                      color: "#8892a4",
+                      textTransform: "uppercase",
+                      letterSpacing: "0.06em",
+                      marginBottom: 12,
+                    }}
+                  >
+                    Complete the financial statement
+                  </p>
+                  <FinancialStatementInput
+                    schema={currentQ.marking_scheme}
+                    value={
+                      typeof answers[currentIdx] === "object"
+                        ? answers[currentIdx]
+                        : null
+                    }
+                    onChange={(json) => handleAnswer(json)}
+                  />
+                </div>
+              )}
 
               {/* Working panel — math only, not for multipart */}
               {isMath && !(currentQ.parts && currentQ.parts.length > 0) && (

@@ -20,6 +20,7 @@ import {
 } from "lucide-react";
 import katex from "katex";
 import "katex/dist/katex.min.css";
+import FinancialStatementInput from "@/components/FinancialStatementInput";
 const API =
   process.env.NEXT_PUBLIC_API_URL ||
   "https://cbc-backend-production-8bc4.up.railway.app/api";
@@ -2060,8 +2061,38 @@ export default function AttemptResultsPage() {
                         );
                       })()}
 
+                    {/* ── FINANCIAL STATEMENT block ── */}
+                    {item.question_type === "financial_statement" &&
+                      item.marking_scheme && (
+                        <div style={{ paddingTop: 12 }}>
+                          <p
+                            style={{
+                              fontSize: 11,
+                              fontWeight: 700,
+                              color: "#475569",
+                              letterSpacing: "0.06em",
+                              textTransform: "uppercase",
+                              marginBottom: 10,
+                            }}
+                          >
+                            Financial Statement Answer
+                          </p>
+                          <FinancialStatementInput
+                            schema={item.marking_scheme}
+                            value={
+                              typeof item.student_answer === "object"
+                                ? item.student_answer
+                                : null
+                            }
+                            readonly={true}
+                            showCorrect={true}
+                          />
+                        </div>
+                      )}
+
                     {/* ── REGULAR (non-multipart) blocks below ── */}
                     {item.question_type !== "multipart" &&
+                      item.question_type !== "financial_statement" &&
                       typeof item.student_answer !== "object" && (
                         <>
                           {/* Your answer */}
