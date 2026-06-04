@@ -488,44 +488,57 @@ function MCQOption({ letter, text, imageUrl, selected, onClick }) {
   );
 }
 
-// ─── Part Formula Bar — always-visible symbol toolbar for multipart answers ──
+// ─── Part Answer Block — full Chemistry + Physics formula bars for multipart ──
 
-const PART_SYMBOLS = [
-  { l: "→",  v: "→"  }, { l: "⇌",  v: "⇌"  }, { l: "²",  v: "²"  },
-  { l: "³",  v: "³"  }, { l: "⁻",  v: "⁻"  }, { l: "⁺",  v: "⁺"  },
-  { l: "₂",  v: "₂"  }, { l: "₃",  v: "₃"  }, { l: "½",  v: "½"  },
-  { l: "√",  v: "√"  }, { l: "≠",  v: "≠"  }, { l: "≤",  v: "≤"  },
-  { l: "≥",  v: "≥"  }, { l: "π",  v: "π"  }, { l: "°",  v: "°"  },
-  { l: "Cl₂", v: "Cl₂" }, { l: "H₂O", v: "H₂O" }, { l: "CO₂", v: "CO₂" },
-  { l: "O₂",  v: "O₂"  }, { l: "H₂",  v: "H₂"  }, { l: "NH₃", v: "NH₃" },
-  { l: "∆",  v: "∆"  }, { l: "∑",  v: "∑"  }, { l: "∝",  v: "∝"  },
-  { l: "×",  v: "×"  }, { l: "÷",  v: "÷"  }, { l: "±",  v: "±"  },
-];
-
-function PartFormulaBar({ value, onChange }) {
-  const insert = (sym) => onChange((value ?? "") + sym);
+function PartAnswerBlock({ value, onChange, isKiswahili }) {
+  const partRef = useRef(null);
   return (
-    <div style={{
-      display: "flex", flexWrap: "wrap", gap: 5,
-      padding: "8px 10px", marginBottom: 8,
-      background: "#f0f4ff", borderRadius: 12,
-      border: "1.5px solid #c7d7f9",
-    }}>
-      {PART_SYMBOLS.map((s) => (
-        <button
-          key={s.v}
-          type="button"
-          onClick={() => insert(s.v)}
+    <div>
+      <ChemTextBar textareaRef={partRef} value={value} onChange={onChange} />
+      <PhysicsFormulaBar
+        textareaRef={partRef}
+        value={value}
+        onChange={onChange}
+      />
+      <div style={{ position: "relative" }}>
+        <textarea
+          ref={partRef}
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          rows={3}
+          placeholder={
+            isKiswahili
+              ? "Andika jibu lako hapa\u2026"
+              : "Write your answer here\u2026"
+          }
           style={{
-            padding: "3px 8px", fontSize: 13, fontWeight: 600,
-            background: "#fff", border: "1.5px solid #c7d7f9",
-            borderRadius: 7, cursor: "pointer", color: "#1e3a8a",
-            lineHeight: 1.4,
+            width: "100%",
+            border: "2px solid #e8eaf0",
+            borderRadius: 14,
+            padding: "12px 16px",
+            fontSize: 15,
+            color: "#0d0d1a",
+            background: "#fff",
+            fontFamily: "'Lato', sans-serif",
+            lineHeight: 1.7,
+            resize: "none",
+          }}
+          onFocus={(e) => (e.target.style.borderColor = "#1a6fc4")}
+          onBlur={(e) => (e.target.style.borderColor = "#e8eaf0")}
+        />
+        <span
+          style={{
+            position: "absolute",
+            bottom: 10,
+            right: 12,
+            fontSize: 11,
+            color: "#bcc3d0",
+            fontWeight: 600,
           }}
         >
-          {s.l}
-        </button>
-      ))}
+          {isKiswahili ? `herufi ${value.length}` : `${value.length} chars`}
+        </span>
+      </div>
     </div>
   );
 }
@@ -2997,56 +3010,11 @@ export default function QuizTakePage({ params }) {
                             })}
                           </div>
                         ) : (
-                          <div>
-                            <PartFormulaBar
-                              value={partAnswer}
-                              onChange={(val) => handlePartAnswer(val)}
-                            />
-                            <div style={{ position: "relative" }}>
-                            <textarea
-                              value={partAnswer}
-                              onChange={(e) => handlePartAnswer(e.target.value)}
-                              rows={3}
-                              placeholder={
-                                isKiswahili
-                                  ? "Andika jibu lako hapa…"
-                                  : "Write your answer here…"
-                              }
-                              style={{
-                                width: "100%",
-                                border: "2px solid #e8eaf0",
-                                borderRadius: 14,
-                                padding: "12px 16px",
-                                fontSize: 15,
-                                color: "#0d0d1a",
-                                background: "#fff",
-                                fontFamily: "'Lato', sans-serif",
-                                lineHeight: 1.7,
-                                resize: "none",
-                              }}
-                              onFocus={(e) =>
-                                (e.target.style.borderColor = "#1a6fc4")
-                              }
-                              onBlur={(e) =>
-                                (e.target.style.borderColor = "#e8eaf0")
-                              }
-                            />
-                            <span
-                              style={{
-                                position: "absolute",
-                                bottom: 10,
-                                right: 12,
-                                fontSize: 11,
-                                color: "#bcc3d0",
-                                fontWeight: 600,
-                              }}
-                            >
-                              {isKiswahili
-                                ? `herufi ${partAnswer.length}`
-                                : `${partAnswer.length} chars`}
-                            </span>
-                          </div>
-                            </div>
+                          <PartAnswerBlock
+                            value={partAnswer}
+                            onChange={(val) => handlePartAnswer(val)}
+                            isKiswahili={isKiswahili}
+                          />
                         )}
                       </div>
                     );
