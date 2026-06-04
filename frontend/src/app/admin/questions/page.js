@@ -573,7 +573,7 @@ export default function QuestionManagementPage() {
   const [filters, setFilters] = useState({
     subject: "",
     grade: "",
-    difficulty: "",
+    topic: "",
     type: "",
     search: "",
   });
@@ -732,7 +732,7 @@ export default function QuestionManagementPage() {
     const params = new URLSearchParams();
     if (filters.subject) params.append("subject", filters.subject);
     if (filters.grade) params.append("grade", filters.grade);
-    if (filters.difficulty) params.append("difficulty", filters.difficulty);
+    if (filters.topic) params.append("topic", filters.topic);
     if (filters.type) params.append("type", filters.type);
     if (filters.search) params.append("search", filters.search);
     try {
@@ -1190,8 +1190,10 @@ export default function QuestionManagementPage() {
       fd.append("table_data", JSON.stringify(formData.table_data));
     }
     if (formData.question_type === "financial_statement") {
-      if (formData.statement_subtype) fd.append("statement_subtype", formData.statement_subtype);
-      if (formData.marking_scheme) fd.append("marking_scheme", JSON.stringify(formData.marking_scheme));
+      if (formData.statement_subtype)
+        fd.append("statement_subtype", formData.statement_subtype);
+      if (formData.marking_scheme)
+        fd.append("marking_scheme", JSON.stringify(formData.marking_scheme));
     }
     fd.append(
       "explanation",
@@ -1275,7 +1277,11 @@ export default function QuestionManagementPage() {
       }
       if (editingQuestion.question_type === "financial_statement") {
         fd.append("statement_subtype", editingQuestion.statement_subtype || "");
-        if (editingQuestion.marking_scheme) fd.append("marking_scheme", JSON.stringify(editingQuestion.marking_scheme));
+        if (editingQuestion.marking_scheme)
+          fd.append(
+            "marking_scheme",
+            JSON.stringify(editingQuestion.marking_scheme),
+          );
       }
       fd.append("max_marks", parseInt(editingQuestion.max_marks) || 1);
       fd.append("explanation", editingQuestion.explanation || "");
@@ -1452,7 +1458,10 @@ export default function QuestionManagementPage() {
                 </h1>
                 <p className="text-sm text-gray-500 mt-0.5">
                   {totalCount} question{totalCount !== 1 ? "s" : ""} total
-                  {filters.subject || filters.grade || filters.search
+                  {filters.subject ||
+                  filters.grade ||
+                  filters.topic ||
+                  filters.search
                     ? " (filtered)"
                     : ""}
                 </p>
@@ -1577,18 +1586,25 @@ export default function QuestionManagementPage() {
                       ))}
                     </select>
                     <select
-                      value={filters.difficulty}
+                      value={filters.topic}
                       onChange={(e) =>
-                        setFilters({ ...filters, difficulty: e.target.value })
+                        setFilters({ ...filters, topic: e.target.value })
                       }
                       className="px-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
                     >
-                      <option value="">All Difficulties</option>
-                      {DIFFICULTIES.map((d) => (
-                        <option key={d} value={d}>
-                          {d.charAt(0).toUpperCase() + d.slice(1)}
-                        </option>
-                      ))}
+                      <option value="">All Topics</option>
+                      {topics
+                        .filter(
+                          (t) =>
+                            (!filters.subject ||
+                              t.subject == filters.subject) &&
+                            (!filters.grade || t.grade == filters.grade),
+                        )
+                        .map((t) => (
+                          <option key={t.id} value={t.id}>
+                            {t.name}
+                          </option>
+                        ))}
                     </select>
                     <select
                       value={filters.type}
@@ -1607,7 +1623,7 @@ export default function QuestionManagementPage() {
                   </div>
                   {(filters.subject ||
                     filters.grade ||
-                    filters.difficulty ||
+                    filters.topic ||
                     filters.type ||
                     filters.search) && (
                     <div className="flex flex-wrap items-center gap-2 mt-3 pt-3 border-t">
@@ -1640,13 +1656,14 @@ export default function QuestionManagementPage() {
                           onRemove={() => setFilters({ ...filters, grade: "" })}
                         />
                       )}
-                      {filters.difficulty && (
+                      {filters.topic && (
                         <FilterTag
-                          label={filters.difficulty}
-                          color="bg-amber-100 text-amber-700"
-                          onRemove={() =>
-                            setFilters({ ...filters, difficulty: "" })
+                          label={
+                            topics.find((t) => t.id == filters.topic)?.name ||
+                            "Topic"
                           }
+                          color="bg-amber-100 text-amber-700"
+                          onRemove={() => setFilters({ ...filters, topic: "" })}
                         />
                       )}
                       {filters.type && (
@@ -1664,7 +1681,7 @@ export default function QuestionManagementPage() {
                           setFilters({
                             subject: "",
                             grade: "",
-                            difficulty: "",
+                            topic: "",
                             type: "",
                             search: "",
                           })
@@ -1709,18 +1726,24 @@ export default function QuestionManagementPage() {
                 No questions found
               </h3>
               <p className="text-gray-500 mb-8 max-w-md mx-auto">
-                {filters.subject || filters.grade || filters.search
+                {filters.subject ||
+                filters.grade ||
+                filters.topic ||
+                filters.search
                   ? "No questions match your current filters. Try adjusting your search criteria."
                   : "Start building your question bank by creating questions or importing from a CSV file."}
               </p>
               <div className="flex items-center justify-center gap-3">
-                {(filters.subject || filters.grade || filters.search) && (
+                {(filters.subject ||
+                  filters.grade ||
+                  filters.topic ||
+                  filters.search) && (
                   <button
                     onClick={() =>
                       setFilters({
                         subject: "",
                         grade: "",
-                        difficulty: "",
+                        topic: "",
                         type: "",
                         search: "",
                       })
@@ -2240,16 +2263,28 @@ export default function QuestionManagementPage() {
                 {formData.question_type === "financial_statement" && (
                   <div className="space-y-3">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">Statement Type</label>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                        Statement Type
+                      </label>
                       <select
                         className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                         value={formData.statement_subtype || ""}
-                        onChange={(e) => setFormData((p) => ({ ...p, statement_subtype: e.target.value, marking_scheme: null }))}
+                        onChange={(e) =>
+                          setFormData((p) => ({
+                            ...p,
+                            statement_subtype: e.target.value,
+                            marking_scheme: null,
+                          }))
+                        }
                       >
                         <option value="">Select statement type…</option>
                         <option value="balance_sheet">Balance Sheet</option>
-                        <option value="income_statement">Income Statement</option>
-                        <option value="trading_account">Trading / P&L Account</option>
+                        <option value="income_statement">
+                          Income Statement
+                        </option>
+                        <option value="trading_account">
+                          Trading / P&L Account
+                        </option>
                         <option value="cash_flow">Cash Flow Statement</option>
                         <option value="t_account">T-Account / Ledger</option>
                         <option value="trial_balance">Trial Balance</option>
@@ -2257,11 +2292,18 @@ export default function QuestionManagementPage() {
                     </div>
                     {formData.statement_subtype && (
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">Define Correct Answer Structure</label>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                          Define Correct Answer Structure
+                        </label>
                         <FinancialStatementEditor
                           subtype={formData.statement_subtype}
                           value={formData.marking_scheme}
-                          onChange={(schema) => setFormData((p) => ({ ...p, marking_scheme: schema }))}
+                          onChange={(schema) =>
+                            setFormData((p) => ({
+                              ...p,
+                              marking_scheme: schema,
+                            }))
+                          }
                         />
                       </div>
                     )}
@@ -2708,16 +2750,28 @@ export default function QuestionManagementPage() {
                 {editingQuestion.question_type === "financial_statement" && (
                   <div className="space-y-3">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">Statement Type</label>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                        Statement Type
+                      </label>
                       <select
                         className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                         value={editingQuestion.statement_subtype || ""}
-                        onChange={(e) => setEditingQuestion((p) => ({ ...p, statement_subtype: e.target.value, marking_scheme: null }))}
+                        onChange={(e) =>
+                          setEditingQuestion((p) => ({
+                            ...p,
+                            statement_subtype: e.target.value,
+                            marking_scheme: null,
+                          }))
+                        }
                       >
                         <option value="">Select statement type…</option>
                         <option value="balance_sheet">Balance Sheet</option>
-                        <option value="income_statement">Income Statement</option>
-                        <option value="trading_account">Trading / P&L Account</option>
+                        <option value="income_statement">
+                          Income Statement
+                        </option>
+                        <option value="trading_account">
+                          Trading / P&L Account
+                        </option>
                         <option value="cash_flow">Cash Flow Statement</option>
                         <option value="t_account">T-Account / Ledger</option>
                         <option value="trial_balance">Trial Balance</option>
@@ -2725,11 +2779,18 @@ export default function QuestionManagementPage() {
                     </div>
                     {editingQuestion.statement_subtype && (
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">Define Correct Answer Structure</label>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                          Define Correct Answer Structure
+                        </label>
                         <FinancialStatementEditor
                           subtype={editingQuestion.statement_subtype}
                           value={editingQuestion.marking_scheme}
-                          onChange={(schema) => setEditingQuestion((p) => ({ ...p, marking_scheme: schema }))}
+                          onChange={(schema) =>
+                            setEditingQuestion((p) => ({
+                              ...p,
+                              marking_scheme: schema,
+                            }))
+                          }
                         />
                       </div>
                     )}
