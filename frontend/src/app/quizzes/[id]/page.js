@@ -2955,7 +2955,16 @@ export default function QuizTakePage({ params }) {
                             })}
                           </div>
                         ) : (
-                          <div style={{ position: "relative" }}>
+                          <div>
+                            <ChemTextBar
+                              value={partAnswer}
+                              onChange={(val) => handlePartAnswer(val)}
+                            />
+                            <PhysicsFormulaBar
+                              value={partAnswer}
+                              onChange={(val) => handlePartAnswer(val)}
+                            />
+                            <div style={{ position: "relative" }}>
                             <textarea
                               value={partAnswer}
                               onChange={(e) => handlePartAnswer(e.target.value)}
