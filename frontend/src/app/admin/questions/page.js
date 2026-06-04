@@ -387,6 +387,7 @@ function PartsBuilder({ parts, onChange }) {
             key={i}
             className="border border-gray-200 rounded-xl p-3 bg-gray-50 space-y-2"
           >
+            {/* Header row: label, type, marks, remove */}
             <div className="flex items-center gap-2">
               <span className="text-sm font-bold text-indigo-700 w-6">
                 ({part.part_label})
@@ -403,12 +404,6 @@ function PartsBuilder({ parts, onChange }) {
                 ))}
               </select>
               <input
-                className="flex-1 text-sm border border-gray-200 rounded-lg px-2 py-1.5"
-                placeholder="Part question text"
-                value={part.question_text}
-                onChange={(e) => updatePart(i, "question_text", e.target.value)}
-              />
-              <input
                 type="number"
                 min={1}
                 className="w-16 text-sm border border-gray-200 rounded-lg px-2 py-1.5 text-center"
@@ -420,11 +415,24 @@ function PartsBuilder({ parts, onChange }) {
               <button
                 type="button"
                 onClick={() => removePart(i)}
-                className="text-red-400 hover:text-red-600 text-lg leading-none"
+                className="ml-auto text-red-400 hover:text-red-600 text-lg leading-none"
               >
                 ×
               </button>
             </div>
+            {/* Part question text with formula bar */}
+            <PhysicsFormulaBar
+              value={part.question_text}
+              onChange={(v) => updatePart(i, "question_text", v)}
+            />
+            <textarea
+              rows={2}
+              className="w-full text-sm border border-gray-200 rounded-lg px-2 py-1.5"
+              placeholder="Part question text"
+              value={part.question_text}
+              onChange={(e) => updatePart(i, "question_text", e.target.value)}
+            />
+            {/* MCQ options */}
             {isMcqPart && (
               <div className="grid grid-cols-2 gap-2">
                 {["a", "b", "c", "d"].map((letter) => (
@@ -440,6 +448,7 @@ function PartsBuilder({ parts, onChange }) {
                 ))}
               </div>
             )}
+            {/* Correct answer with formula bar */}
             {isMcqPart ? (
               <select
                 className="w-full text-xs border border-gray-200 rounded-lg px-2 py-1.5 bg-white"
@@ -456,17 +465,29 @@ function PartsBuilder({ parts, onChange }) {
                 ))}
               </select>
             ) : (
-              <textarea
-                rows={2}
-                className="w-full text-sm border border-gray-200 rounded-lg px-2 py-1.5"
-                placeholder="Correct answer / model answer"
-                value={part.correct_answer}
-                onChange={(e) =>
-                  updatePart(i, "correct_answer", e.target.value)
-                }
-              />
+              <>
+                <PhysicsFormulaBar
+                  value={part.correct_answer}
+                  onChange={(v) => updatePart(i, "correct_answer", v)}
+                />
+                <textarea
+                  rows={2}
+                  className="w-full text-sm border border-gray-200 rounded-lg px-2 py-1.5"
+                  placeholder="Correct answer / model answer"
+                  value={part.correct_answer}
+                  onChange={(e) =>
+                    updatePart(i, "correct_answer", e.target.value)
+                  }
+                />
+              </>
             )}
-            <input
+            {/* Explanation with formula bar */}
+            <PhysicsFormulaBar
+              value={part.explanation}
+              onChange={(v) => updatePart(i, "explanation", v)}
+            />
+            <textarea
+              rows={1}
               className="w-full text-xs border border-gray-200 rounded-lg px-2 py-1.5 text-gray-500"
               placeholder="Explanation (optional)"
               value={part.explanation}
