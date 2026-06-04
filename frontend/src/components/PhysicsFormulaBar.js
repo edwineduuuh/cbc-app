@@ -6,13 +6,13 @@ const PHYSICS_FORMULAS = {
   Kinematics: [
     { l: "v=u+at", v: "$v = u + at$", title: "1st equation of motion" },
     {
-      l: "s=ut+½at²",
+      l: "s=ut+Â½atÂ²",
       v: "$s = ut + \\frac{1}{2}at^2$",
       title: "2nd equation of motion",
     },
-    { l: "v²=u²+2as", v: "$v^2 = u^2 + 2as$", title: "3rd equation of motion" },
+    { l: "vÂ²=uÂ²+2as", v: "$v^2 = u^2 + 2as$", title: "3rd equation of motion" },
     {
-      l: "s=½(u+v)t",
+      l: "s=Â½(u+v)t",
       v: "$s = \\frac{1}{2}(u+v)t$",
       title: "Average displacement",
     },
@@ -24,37 +24,37 @@ const PHYSICS_FORMULAS = {
     { l: "W=mg", v: "$W = mg$", title: "Weight" },
     { l: "p=mv", v: "$p = mv$", title: "Momentum" },
     {
-      l: "F=Δp/Δt",
+      l: "F=Î”p/Î”t",
       v: "$F = \\frac{\\Delta p}{\\Delta t}$",
       title: "Force = rate of change of momentum",
     },
     {
-      l: "Ft=Δp",
+      l: "Ft=Î”p",
       v: "$Ft = \\Delta p$",
       title: "Impulse = change in momentum",
     },
-    { l: "F=μN", v: "$F = \\mu N$", title: "Friction force" },
+    { l: "F=Î¼N", v: "$F = \\mu N$", title: "Friction force" },
   ],
   "Energy & Power": [
-    { l: "KE=½mv²", v: "$KE = \\frac{1}{2}mv^2$", title: "Kinetic Energy" },
+    { l: "KE=Â½mvÂ²", v: "$KE = \\frac{1}{2}mv^2$", title: "Kinetic Energy" },
     { l: "GPE=mgh", v: "$GPE = mgh$", title: "Gravitational Potential Energy" },
     { l: "W=Fd", v: "$W = Fd\\cos\\theta$", title: "Work done" },
     { l: "P=W/t", v: "$P = \\frac{W}{t}$", title: "Power" },
-    { l: "P=Fv", v: "$P = Fv$", title: "Power (force × velocity)" },
+    { l: "P=Fv", v: "$P = Fv$", title: "Power (force Ã— velocity)" },
     {
       l: "eff=%",
       v: "$\\eta = \\frac{P_{out}}{P_{in}} \\times 100\\%$",
       title: "Efficiency",
     },
     {
-      l: "E=mgh+½mv²",
+      l: "E=mgh+Â½mvÂ²",
       v: "$E = mgh + \\frac{1}{2}mv^2$",
       title: "Total mechanical energy",
     },
   ],
   "Thermal Physics": [
     {
-      l: "Q=mcΔT",
+      l: "Q=mcÎ”T",
       v: "$Q = mc\\Delta T$",
       title: "Heat capacity (no change of state)",
     },
@@ -62,13 +62,13 @@ const PHYSICS_FORMULAS = {
     { l: "Q=mLv", v: "$Q = mL_v$", title: "Latent heat of vaporisation" },
     { l: "Pt=mLf", v: "$Pt = mL_f$", title: "Electrical heating to melt" },
     {
-      l: "Pt=mcΔT",
+      l: "Pt=mcÎ”T",
       v: "$Pt = mc\\Delta T$",
       title: "Electrical heating (no change of state)",
     },
     { l: "PV=nRT", v: "$PV = nRT$", title: "Ideal Gas Law" },
     {
-      l: "P₁V₁=P₂V₂",
+      l: "Pâ‚Vâ‚=Pâ‚‚Vâ‚‚",
       v: "$P_1V_1 = P_2V_2$",
       title: "Boyle's Law (constant T)",
     },
@@ -83,25 +83,25 @@ const PHYSICS_FORMULAS = {
       title: "Pressure Law (constant V)",
     },
     {
-      l: "P₁V₁/T₁=P₂V₂/T₂",
+      l: "Pâ‚Vâ‚/Tâ‚=Pâ‚‚Vâ‚‚/Tâ‚‚",
       v: "$\\frac{P_1V_1}{T_1} = \\frac{P_2V_2}{T_2}$",
       title: "Combined Gas Law",
     },
     {
-      l: "T(K)=T(°C)+273",
+      l: "T(K)=T(Â°C)+273",
       v: "$T(K) = T(^\\circ C) + 273$",
       title: "Kelvin-Celsius conversion",
     },
   ],
   Electrostatics: [
     {
-      l: "F=kq₁q₂/r²",
+      l: "F=kqâ‚qâ‚‚/rÂ²",
       v: "$F = \\frac{kq_1q_2}{r^2}$",
       title: "Coulomb's Law",
     },
     { l: "E=F/q", v: "$E = \\frac{F}{q}$", title: "Electric field strength" },
     {
-      l: "E=kQ/r²",
+      l: "E=kQ/rÂ²",
       v: "$E = \\frac{kQ}{r^2}$",
       title: "Electric field (point charge)",
     },
@@ -118,12 +118,12 @@ const PHYSICS_FORMULAS = {
     },
     { l: "C=Q/V", v: "$C = \\frac{Q}{V}$", title: "Capacitance" },
     {
-      l: "E=½CV²",
+      l: "E=Â½CVÂ²",
       v: "$E = \\frac{1}{2}CV^2$",
       title: "Energy stored in capacitor",
     },
     {
-      l: "E=Q²/2C",
+      l: "E=QÂ²/2C",
       v: "$E = \\frac{Q^2}{2C}$",
       title: "Energy stored in capacitor (alt)",
     },
@@ -131,17 +131,17 @@ const PHYSICS_FORMULAS = {
   "Current Electricity": [
     { l: "V=IR", v: "$V = IR$", title: "Ohm's Law" },
     { l: "P=IV", v: "$P = IV$", title: "Electrical Power" },
-    { l: "P=I²R", v: "$P = I^2R$", title: "Power (in terms of R)" },
-    { l: "P=V²/R", v: "$P = \\frac{V^2}{R}$", title: "Power (in terms of V)" },
+    { l: "P=IÂ²R", v: "$P = I^2R$", title: "Power (in terms of R)" },
+    { l: "P=VÂ²/R", v: "$P = \\frac{V^2}{R}$", title: "Power (in terms of V)" },
     { l: "Q=It", v: "$Q = It$", title: "Electric charge" },
     { l: "E=Pt=VIt", v: "$E = Pt = VIt$", title: "Electrical Energy" },
     {
-      l: "Rs=R₁+R₂+…",
+      l: "Rs=Râ‚+Râ‚‚+â€¦",
       v: "$R_s = R_1 + R_2 + \\cdots$",
       title: "Resistors in series",
     },
     {
-      l: "1/Rp=1/R₁+…",
+      l: "1/Rp=1/Râ‚+â€¦",
       v: "$\\frac{1}{R_p} = \\frac{1}{R_1} + \\frac{1}{R_2} + \\cdots$",
       title: "Resistors in parallel",
     },
@@ -151,17 +151,17 @@ const PHYSICS_FORMULAS = {
       title: "EMF with internal resistance",
     },
     {
-      l: "R=ρl/A",
+      l: "R=Ïl/A",
       v: "$R = \\frac{\\rho l}{A}$",
       title: "Resistance (resistivity)",
     },
   ],
   Waves: [
-    { l: "v=fλ", v: "$v = f\\lambda$", title: "Wave speed" },
+    { l: "v=fÎ»", v: "$v = f\\lambda$", title: "Wave speed" },
     { l: "T=1/f", v: "$T = \\frac{1}{f}$", title: "Period" },
     { l: "n=c/v", v: "$n = \\frac{c}{v}$", title: "Refractive index" },
     {
-      l: "n₁sinθ₁=n₂sinθ₂",
+      l: "nâ‚sinÎ¸â‚=nâ‚‚sinÎ¸â‚‚",
       v: "$n_1\\sin\\theta_1 = n_2\\sin\\theta_2$",
       title: "Snell's Law",
     },
@@ -179,25 +179,25 @@ const PHYSICS_FORMULAS = {
     { l: "f=R/2", v: "$f = \\frac{R}{2}$", title: "Focal length of mirror" },
   ],
   "Circular & Gravitation": [
-    { l: "v=rω", v: "$v = r\\omega$", title: "Linear velocity" },
+    { l: "v=rÏ‰", v: "$v = r\\omega$", title: "Linear velocity" },
     {
-      l: "a=v²/r",
+      l: "a=vÂ²/r",
       v: "$a = \\frac{v^2}{r}$",
       title: "Centripetal acceleration",
     },
-    { l: "F=mv²/r", v: "$F = \\frac{mv^2}{r}$", title: "Centripetal force" },
+    { l: "F=mvÂ²/r", v: "$F = \\frac{mv^2}{r}$", title: "Centripetal force" },
     {
-      l: "T=2π/ω",
+      l: "T=2Ï€/Ï‰",
       v: "$T = \\frac{2\\pi}{\\omega}$",
       title: "Period of rotation",
     },
     {
-      l: "F=Gm₁m₂/r²",
+      l: "F=Gmâ‚mâ‚‚/rÂ²",
       v: "$F = \\frac{Gm_1m_2}{r^2}$",
       title: "Newton's Law of Gravitation",
     },
     {
-      l: "g=GM/r²",
+      l: "g=GM/rÂ²",
       v: "$g = \\frac{GM}{r^2}$",
       title: "Gravitational field strength",
     },
@@ -207,36 +207,36 @@ const PHYSICS_FORMULAS = {
       title: "Gravitational PE",
     },
     {
-      l: "v_esc=√(2GM/r)",
+      l: "v_esc=âˆš(2GM/r)",
       v: "$v_{esc} = \\sqrt{\\frac{2GM}{r}}$",
       title: "Escape velocity",
     },
   ],
   "Nuclear / Atomic": [
-    { l: "E=mc²", v: "$E = mc^2$", title: "Mass-energy equivalence" },
+    { l: "E=mcÂ²", v: "$E = mc^2$", title: "Mass-energy equivalence" },
     { l: "E=hf", v: "$E = hf$", title: "Photon energy" },
-    { l: "E=hf-φ", v: "$E_k = hf - \\phi$", title: "Photoelectric effect" },
+    { l: "E=hf-Ï†", v: "$E_k = hf - \\phi$", title: "Photoelectric effect" },
     {
-      l: "N=N₀e^-λt",
+      l: "N=Nâ‚€e^-Î»t",
       v: "$N = N_0 e^{-\\lambda t}$",
       title: "Radioactive decay law",
     },
     {
-      l: "t½=ln2/λ",
+      l: "tÂ½=ln2/Î»",
       v: "$t_{\\frac{1}{2}} = \\frac{\\ln 2}{\\lambda}$",
       title: "Half-life",
     },
-    { l: "A=λN", v: "$A = \\lambda N$", title: "Activity" },
+    { l: "A=Î»N", v: "$A = \\lambda N$", title: "Activity" },
     {
-      l: "ΔE=Δmc²",
+      l: "Î”E=Î”mcÂ²",
       v: "$\\Delta E = \\Delta m c^2$",
       title: "Binding energy / Q-value",
     },
   ],
   Maths: [
     { l: "a/b", v: "$\\frac{a}{b}$", title: "Fraction" },
-    { l: "√x", v: "$\\sqrt{x}$", title: "Square root" },
-    { l: "xⁿ", v: "$x^{n}$", title: "Power" },
+    { l: "âˆšx", v: "$\\sqrt{x}$", title: "Square root" },
+    { l: "xâ¿", v: "$x^{n}$", title: "Power" },
     { l: "log", v: "$\\log_{10}(x)$", title: "Common logarithm" },
     { l: "ln", v: "$\\ln(x)$", title: "Natural logarithm" },
     {
@@ -244,17 +244,22 @@ const PHYSICS_FORMULAS = {
       v: "$\\sin\\theta, \\cos\\theta, \\tan\\theta$",
       title: "Trig functions",
     },
-    { l: "Δ", v: "$\\Delta$", title: "Delta (change in)" },
-    { l: "∑", v: "$\\sum_{i=1}^{n}$", title: "Summation" },
-    { l: "∝", v: "$\\propto$", title: "Proportional to" },
-    { l: "≈", v: "$\\approx$", title: "Approximately equal" },
-    { l: "±", v: "$\\pm$", title: "Plus or minus" },
-    { l: "×10ⁿ", v: "$\\times 10^{n}$", title: "Scientific notation" },
+    { l: "Î”", v: "$\\Delta$", title: "Delta (change in)" },
+    { l: "âˆ‘", v: "$\\sum_{i=1}^{n}$", title: "Summation" },
+    { l: "âˆ", v: "$\\propto$", title: "Proportional to" },
+    { l: "â‰ˆ", v: "$\\approx$", title: "Approximately equal" },
+    { l: "Â±", v: "$\\pm$", title: "Plus or minus" },
+    { l: "Ã—10â¿", v: "$\\times 10^{n}$", title: "Scientific notation" },
   ],
 };
 
-export default function PhysicsFormulaBar({ value, onChange, textareaRef }) {
-  const [open, setOpen] = useState(false);
+export default function PhysicsFormulaBar({
+  value,
+  onChange,
+  textareaRef,
+  defaultOpen = false,
+}) {
+  const [open, setOpen] = useState(defaultOpen);
   const [tab, setTab] = useState("Kinematics");
 
   function insert(formula) {
@@ -295,8 +300,8 @@ export default function PhysicsFormulaBar({ value, onChange, textareaRef }) {
           transition: "all 0.15s",
         }}
       >
-        <span>{open ? "▲" : "▼"}</span>
-        {open ? "Hide physics formulas" : "∫ Physics formulas (LaTeX)"}
+        <span>{open ? "â–²" : "â–¼"}</span>
+        {open ? "Hide physics formulas" : "âˆ« Physics formulas (LaTeX)"}
       </button>
 
       {open && (
@@ -388,7 +393,7 @@ export default function PhysicsFormulaBar({ value, onChange, textareaRef }) {
           </div>
 
           <p style={{ fontSize: 11, color: "#9ca3af", marginTop: 8 }}>
-            ✓ Inserts LaTeX at cursor &mdash; renders via MathJax &mdash; hover
+            âœ“ Inserts LaTeX at cursor &mdash; renders via MathJax &mdash; hover
             a button for the full formula name &mdash; write any formula
             manually with{" "}
             <code

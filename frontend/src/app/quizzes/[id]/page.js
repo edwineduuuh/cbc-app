@@ -488,6 +488,48 @@ function MCQOption({ letter, text, imageUrl, selected, onClick }) {
   );
 }
 
+// ─── Part Formula Bar — always-visible symbol toolbar for multipart answers ──
+
+const PART_SYMBOLS = [
+  { l: "→",  v: "→"  }, { l: "⇌",  v: "⇌"  }, { l: "²",  v: "²"  },
+  { l: "³",  v: "³"  }, { l: "⁻",  v: "⁻"  }, { l: "⁺",  v: "⁺"  },
+  { l: "₂",  v: "₂"  }, { l: "₃",  v: "₃"  }, { l: "½",  v: "½"  },
+  { l: "√",  v: "√"  }, { l: "≠",  v: "≠"  }, { l: "≤",  v: "≤"  },
+  { l: "≥",  v: "≥"  }, { l: "π",  v: "π"  }, { l: "°",  v: "°"  },
+  { l: "Cl₂", v: "Cl₂" }, { l: "H₂O", v: "H₂O" }, { l: "CO₂", v: "CO₂" },
+  { l: "O₂",  v: "O₂"  }, { l: "H₂",  v: "H₂"  }, { l: "NH₃", v: "NH₃" },
+  { l: "∆",  v: "∆"  }, { l: "∑",  v: "∑"  }, { l: "∝",  v: "∝"  },
+  { l: "×",  v: "×"  }, { l: "÷",  v: "÷"  }, { l: "±",  v: "±"  },
+];
+
+function PartFormulaBar({ value, onChange }) {
+  const insert = (sym) => onChange((value ?? "") + sym);
+  return (
+    <div style={{
+      display: "flex", flexWrap: "wrap", gap: 5,
+      padding: "8px 10px", marginBottom: 8,
+      background: "#f0f4ff", borderRadius: 12,
+      border: "1.5px solid #c7d7f9",
+    }}>
+      {PART_SYMBOLS.map((s) => (
+        <button
+          key={s.v}
+          type="button"
+          onClick={() => insert(s.v)}
+          style={{
+            padding: "3px 8px", fontSize: 13, fontWeight: 600,
+            background: "#fff", border: "1.5px solid #c7d7f9",
+            borderRadius: 7, cursor: "pointer", color: "#1e3a8a",
+            lineHeight: 1.4,
+          }}
+        >
+          {s.l}
+        </button>
+      ))}
+    </div>
+  );
+}
+
 // ─── Table Questions ──────────────────────────────────────────────────────────
 
 function getMatchingConfig(tableData) {
@@ -2956,11 +2998,7 @@ export default function QuizTakePage({ params }) {
                           </div>
                         ) : (
                           <div>
-                            <ChemTextBar
-                              value={partAnswer}
-                              onChange={(val) => handlePartAnswer(val)}
-                            />
-                            <PhysicsFormulaBar
+                            <PartFormulaBar
                               value={partAnswer}
                               onChange={(val) => handlePartAnswer(val)}
                             />
