@@ -527,7 +527,9 @@ function BlankTwoCol({ subtype, value, onChange, readonly }) {
     rightHead: "Right",
   };
   const init =
-    value && value._blank ? value : { _blank: true, left: [], right: [] };
+    value && value._blank
+      ? value
+      : { _blank: true, title: "", left: [], right: [] };
   const [state, setState] = React.useState(init);
 
   function push(ch) {
@@ -632,17 +634,26 @@ function BlankTwoCol({ subtype, value, onChange, readonly }) {
               {!readonly && (
                 <button
                   type="button"
+                  title="Remove row"
                   onClick={() => removeRow(side, r.id)}
                   style={{
+                    width: 24,
+                    height: 24,
+                    borderRadius: "50%",
+                    border: "1.5px solid #fca5a5",
+                    background: "#fff5f5",
                     color: "#ef4444",
-                    fontSize: 16,
-                    border: "none",
-                    background: "none",
+                    fontSize: 13,
+                    fontWeight: 700,
                     cursor: "pointer",
-                    lineHeight: 1,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    padding: 0,
+                    flexShrink: 0,
                   }}
                 >
-                  &times;
+                  ✕
                 </button>
               )}
             </div>
@@ -676,9 +687,44 @@ function BlankTwoCol({ subtype, value, onChange, readonly }) {
   }
 
   return (
-    <div style={{ display: "flex", gap: 12 }}>
-      <Side side="left" />
-      <Side side="right" />
+    <div>
+      {!readonly ? (
+        <input
+          value={state.title || ""}
+          onChange={(e) => push({ ...state, title: e.target.value })}
+          placeholder="Enter statement title (e.g. ABC Co. \u2014 Balance Sheet as at 31 Dec 2025)..."
+          style={{
+            width: "100%",
+            textAlign: "center",
+            fontWeight: 600,
+            fontSize: 14,
+            padding: "7px 12px",
+            border: "1.5px dashed #93c5fd",
+            borderRadius: 8,
+            background: "#f8faff",
+            color: "#1e3a8a",
+            boxSizing: "border-box",
+            marginBottom: 12,
+            outline: "none",
+          }}
+        />
+      ) : state.title ? (
+        <p
+          style={{
+            textAlign: "center",
+            fontWeight: 600,
+            fontSize: 14,
+            color: "#1e3a8a",
+            marginBottom: 10,
+          }}
+        >
+          {state.title}
+        </p>
+      ) : null}
+      <div style={{ display: "flex", gap: 12 }}>
+        <Side side="left" />
+        <Side side="right" />
+      </div>
     </div>
   );
 }
@@ -686,7 +732,8 @@ function BlankTwoCol({ subtype, value, onChange, readonly }) {
 function BlankMultiSection({ subtype, value, onChange, readonly }) {
   const sections = BLANK_SECTIONS[subtype] || ["Items"];
   const initRows = Object.fromEntries(sections.map((s) => [s, []]));
-  const init = value && value._blank ? value : { _blank: true, rows: initRows };
+  const init =
+    value && value._blank ? value : { _blank: true, title: "", rows: initRows };
   const [state, setState] = React.useState(init);
 
   function push(ch) {
@@ -764,6 +811,39 @@ function BlankMultiSection({ subtype, value, onChange, readonly }) {
 
   return (
     <div>
+      {!readonly ? (
+        <input
+          value={state.title || ""}
+          onChange={(e) => push({ ...state, title: e.target.value })}
+          placeholder="Enter statement title (e.g. ABC Co. \u2014 Income Statement for year ended 31 Dec 2025)..."
+          style={{
+            width: "100%",
+            textAlign: "center",
+            fontWeight: 600,
+            fontSize: 14,
+            padding: "7px 12px",
+            border: "1.5px dashed #93c5fd",
+            borderRadius: 8,
+            background: "#f8faff",
+            color: "#1e3a8a",
+            boxSizing: "border-box",
+            marginBottom: 12,
+            outline: "none",
+          }}
+        />
+      ) : state.title ? (
+        <p
+          style={{
+            textAlign: "center",
+            fontWeight: 600,
+            fontSize: 14,
+            color: "#1e3a8a",
+            marginBottom: 10,
+          }}
+        >
+          {state.title}
+        </p>
+      ) : null}
       {sections.map((sec) => (
         <div key={sec} style={{ marginBottom: 16 }}>
           <div
@@ -802,17 +882,26 @@ function BlankMultiSection({ subtype, value, onChange, readonly }) {
                 {!readonly && (
                   <button
                     type="button"
+                    title="Remove row"
                     onClick={() => removeRow(sec, r.id)}
                     style={{
+                      width: 24,
+                      height: 24,
+                      borderRadius: "50%",
+                      border: "1.5px solid #fca5a5",
+                      background: "#fff5f5",
                       color: "#ef4444",
-                      fontSize: 16,
-                      border: "none",
-                      background: "none",
+                      fontSize: 13,
+                      fontWeight: 700,
                       cursor: "pointer",
-                      lineHeight: 1,
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      padding: 0,
+                      flexShrink: 0,
                     }}
                   >
-                    &times;
+                    ✕
                   </button>
                 )}
               </div>
@@ -875,7 +964,8 @@ function BlankMultiSection({ subtype, value, onChange, readonly }) {
 }
 
 function BlankTrialBalance({ value, onChange, readonly }) {
-  const init = value && value._blank ? value : { _blank: true, rows: [] };
+  const init =
+    value && value._blank ? value : { _blank: true, title: "", rows: [] };
   const [state, setState] = React.useState(init);
 
   function push(ch) {
@@ -916,103 +1006,149 @@ function BlankTrialBalance({ value, onChange, readonly }) {
   };
 
   return (
-    <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 13 }}>
-      <thead>
-        <tr>
-          <th style={TH}>Account Name</th>
-          <th style={{ ...TH, width: 120 }}>Dr (Ksh)</th>
-          <th style={{ ...TH, width: 120 }}>Cr (Ksh)</th>
-          {!readonly && <th style={{ ...TH, width: 40 }}></th>}
-        </tr>
-      </thead>
-      <tbody>
-        {state.rows.map((r) => (
-          <tr key={r.id}>
-            <td style={CELL}>
-              <input
-                style={inp}
-                disabled={readonly}
-                value={r.account}
-                placeholder="Account name"
-                onChange={(e) => setField(r.id, "account", e.target.value)}
-              />
-            </td>
-            <td style={CELL}>
-              <input
-                style={{ ...inp, textAlign: "right" }}
-                disabled={readonly}
-                type="number"
-                value={r.debit}
-                placeholder="0"
-                onChange={(e) => setField(r.id, "debit", e.target.value)}
-              />
-            </td>
-            <td style={CELL}>
-              <input
-                style={{ ...inp, textAlign: "right" }}
-                disabled={readonly}
-                type="number"
-                value={r.credit}
-                placeholder="0"
-                onChange={(e) => setField(r.id, "credit", e.target.value)}
-              />
-            </td>
-            {!readonly && (
+    <div>
+      {!readonly ? (
+        <input
+          value={state.title || ""}
+          onChange={(e) => push({ ...state, title: e.target.value })}
+          placeholder="Enter statement title (e.g. ABC Co. \u2014 Trial Balance as at 31 Dec 2025)..."
+          style={{
+            width: "100%",
+            textAlign: "center",
+            fontWeight: 600,
+            fontSize: 14,
+            padding: "7px 12px",
+            border: "1.5px dashed #93c5fd",
+            borderRadius: 8,
+            background: "#f8faff",
+            color: "#1e3a8a",
+            boxSizing: "border-box",
+            marginBottom: 12,
+            outline: "none",
+          }}
+        />
+      ) : state.title ? (
+        <p
+          style={{
+            textAlign: "center",
+            fontWeight: 600,
+            fontSize: 14,
+            color: "#1e3a8a",
+            marginBottom: 10,
+          }}
+        >
+          {state.title}
+        </p>
+      ) : null}
+      <table
+        style={{ width: "100%", borderCollapse: "collapse", fontSize: 13 }}
+      >
+        <thead>
+          <tr>
+            <th style={TH}>Account Name</th>
+            <th style={{ ...TH, width: 120 }}>Dr (Ksh)</th>
+            <th style={{ ...TH, width: 120 }}>Cr (Ksh)</th>
+            {!readonly && <th style={{ ...TH, width: 40 }}></th>}
+          </tr>
+        </thead>
+        <tbody>
+          {state.rows.map((r) => (
+            <tr key={r.id}>
               <td style={CELL}>
+                <input
+                  style={inp}
+                  disabled={readonly}
+                  value={r.account}
+                  placeholder="Account name"
+                  onChange={(e) => setField(r.id, "account", e.target.value)}
+                />
+              </td>
+              <td style={CELL}>
+                <input
+                  style={{ ...inp, textAlign: "right" }}
+                  disabled={readonly}
+                  type="number"
+                  value={r.debit}
+                  placeholder="0"
+                  onChange={(e) => setField(r.id, "debit", e.target.value)}
+                />
+              </td>
+              <td style={CELL}>
+                <input
+                  style={{ ...inp, textAlign: "right" }}
+                  disabled={readonly}
+                  type="number"
+                  value={r.credit}
+                  placeholder="0"
+                  onChange={(e) => setField(r.id, "credit", e.target.value)}
+                />
+              </td>
+              {!readonly && (
+                <td style={{ ...CELL, textAlign: "center" }}>
+                  <button
+                    type="button"
+                    title="Remove row"
+                    onClick={() => removeRow(r.id)}
+                    style={{
+                      width: 24,
+                      height: 24,
+                      borderRadius: "50%",
+                      border: "1.5px solid #fca5a5",
+                      background: "#fff5f5",
+                      color: "#ef4444",
+                      fontSize: 13,
+                      fontWeight: 700,
+                      cursor: "pointer",
+                      display: "inline-flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      padding: 0,
+                    }}
+                  >
+                    ✕
+                  </button>
+                </td>
+              )}
+            </tr>
+          ))}
+          {!readonly && (
+            <tr>
+              <td colSpan={readonly ? 3 : 4} style={{ ...CELL, paddingTop: 8 }}>
                 <button
                   type="button"
-                  onClick={() => removeRow(r.id)}
+                  onClick={addRow}
                   style={{
-                    color: "#ef4444",
-                    fontSize: 16,
-                    border: "none",
-                    background: "none",
+                    fontSize: 12,
+                    color: "#2563eb",
+                    background: "#eff6ff",
+                    border: "1px solid #bfdbfe",
+                    borderRadius: 6,
+                    padding: "3px 10px",
                     cursor: "pointer",
                   }}
                 >
-                  &times;
+                  + Add row
                 </button>
               </td>
-            )}
-          </tr>
-        ))}
-        {!readonly && (
-          <tr>
-            <td colSpan={readonly ? 3 : 4} style={{ ...CELL, paddingTop: 8 }}>
-              <button
-                type="button"
-                onClick={addRow}
-                style={{
-                  fontSize: 12,
-                  color: "#2563eb",
-                  background: "#eff6ff",
-                  border: "1px solid #bfdbfe",
-                  borderRadius: 6,
-                  padding: "3px 10px",
-                  cursor: "pointer",
-                }}
-              >
-                + Add row
-              </button>
+            </tr>
+          )}
+        </tbody>
+        <tfoot>
+          <tr style={TOTAL_ROW}>
+            <td style={CELL}>
+              <strong>Totals</strong>
             </td>
+            <td style={{ ...CELL, textAlign: "right", color: "#1d4ed8" }}>
+              {totalDr ? totalDr.toLocaleString("en-KE") : ""}
+            </td>
+            <td style={{ ...CELL, textAlign: "right", color: "#1d4ed8" }}>
+              {totalCr ? totalCr.toLocaleString("en-KE") : ""}
+            </td>
+            {!readonly && <td style={CELL}></td>}
           </tr>
-        )}
-      </tbody>
-      <tfoot>
-        <tr style={TOTAL_ROW}>
-          <td style={CELL}>
-            <strong>Totals</strong>
-          </td>
-          <td style={{ ...CELL, textAlign: "right", color: "#1d4ed8" }}>
-            {totalDr ? totalDr.toLocaleString("en-KE") : ""}
-          </td>
-          <td style={{ ...CELL, textAlign: "right", color: "#1d4ed8" }}>
-            {totalCr ? totalCr.toLocaleString("en-KE") : ""}
-          </td>
-          {!readonly && <td style={CELL}></td>}
-        </tr>
-      </tfoot>
-    </table>
+        </tfoot>
+      </table>
+    </div>
   );
 }
 
