@@ -14,7 +14,7 @@ import anthropic
 from django.conf import settings
 from django.core.files.base import ContentFile
 from django.db import transaction
-from .models import Question, Topic, Subject
+from .models import Question, QuestionPart, Topic, Subject
 
 CLAUDE_MODEL = "claude-sonnet-4-20250514"
 
@@ -295,16 +295,27 @@ INSTRUCTIONS:
 3. Determine question type:
    - mcq: ONLY if has clear A, B, C, D options
    - math: Calculations, equations, solving for x
-   - structured: Multi-part questions requiring explanation
+   - structured: Single open-ended question requiring explanation
    - fill_blank: Fill in the blank
    - essay: Long-form written responses
+   - multipart: Question that has sub-parts labeled (a), (b), (c) OR (i), (ii), (iii) OR a., b., c. etc.
+     Use multipart ANY TIME a question number has lettered/roman-numeral sub-questions under it.
+     Example triggers: "21 (a) ... (b) ... (c)", "3. a) ... b) ... c)", "Q5 i) ... ii) ... iii)"
 
 4. FOR MCQ QUESTIONS:
    - Copy each option text EXACTLY as written — do not change any words
    - Set correct_answer to the LETTER only (A, B, C, or D)
    - explanation must explain why the correct letter is right
 
-5. FOR QUESTIONS WITH IMAGES:
+5. FOR MULTIPART QUESTIONS:
+   - Set question_type to "multipart"
+   - question_text = the stem/intro text shared by all parts (before part a)
+   - Include a "parts" array, one object per sub-part
+   - Each part has: part_label ("a", "b", "c" etc.), question_text, question_type (mcq/structured/math/fill_blank/essay), max_marks, correct_answer, explanation
+   - For MCQ parts also include option_a, option_b, option_c, option_d
+   - max_marks on the parent = sum of all parts' max_marks
+
+6. FOR QUESTIONS WITH IMAGES:
    - Set "image_index" to the number in [IMAGE_X], or 0 for [IMAGE]
 
 CRITICAL: Return ONLY valid JSON. No text before or after.
@@ -333,13 +344,39 @@ FORMAT:
       "explanation": "Subtract 5 from both sides to get 2x = 8, then divide by 2 to get x = 4.",
       "difficulty": "medium",
       "max_marks": 2
+    }},
+    {{
+      "question_number": "3",
+      "question_type": "multipart",
+      "question_text": "Study the diagram below and answer the questions that follow.",
+      "difficulty": "medium",
+      "max_marks": 6,
+      "parts": [
+        {{
+          "part_label": "a",
+          "question_type": "structured",
+          "question_text": "Name the part labeled X.",
+          "correct_answer": "The nucleus",
+          "explanation": "The central part of the cell is the nucleus.",
+          "max_marks": 2
+        }},
+        {{
+          "part_label": "b",
+          "question_type": "structured",
+          "question_text": "State TWO functions of the part labeled Y.",
+          "correct_answer": "1. Controls cell activities 2. Contains genetic material",
+          "explanation": "The cell membrane controls what enters and leaves the cell.",
+          "max_marks": 4
+        }}
+      ]
     }}
   ]
 }}
 
 REMEMBER:
 - MCQs MUST have option_a through option_d copied VERBATIM from the source
-- explanation is REQUIRED and must not be empty
+- explanation is REQUIRED on every question and every part — never empty
+- Use multipart for ANY question that has (a), (b), (c) or i), ii), iii) sub-questions
 - Only include image_index if the question actually refers to an image
 """
         
@@ -428,6 +465,25 @@ REMEMBER:
                     marking_scheme=q_data.get('marking_scheme'),
                     created_by=created_by
                 )
+
+                # Create QuestionPart records for multipart questions
+                if q_data.get('question_type') == 'multipart' and q_data.get('parts'):
+                    for order, part in enumerate(q_data['parts']):
+                        QuestionPart.objects.create(
+                            parent_question=question,
+                            part_label=part.get('part_label', str(order + 1)),
+                            question_text=part.get('question_text', ''),
+                            question_type=part.get('question_type', 'structured'),
+                            option_a=part.get('option_a', ''),
+                            option_b=part.get('option_b', ''),
+                            option_c=part.get('option_c', ''),
+                            option_d=part.get('option_d', ''),
+                            correct_answer=part.get('correct_answer', ''),
+                            explanation=part.get('explanation', ''),
+                            max_marks=part.get('max_marks', 1),
+                            marking_scheme=part.get('marking_scheme'),
+                            order=order,
+                        )
 
                 # Attach image if question references one
                 image_index = q_data.get('image_index')
