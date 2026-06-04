@@ -3046,6 +3046,7 @@ export default function QuizTakePage({ params }) {
                                 : `${partAnswer.length} chars`}
                             </span>
                           </div>
+                            </div>
                         )}
                       </div>
                     );
