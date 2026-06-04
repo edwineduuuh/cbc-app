@@ -23,7 +23,6 @@ import katex from "katex";
 import "katex/dist/katex.min.css";
 import SimpleMathInput from "@/components/SimpleMathInput";
 import ChemTextBar from "@/components/ChemTextBar";
-import PhysicsFormulaBar from "@/components/PhysicsFormulaBar";
 
 const API =
   process.env.NEXT_PUBLIC_API_URL ||
@@ -1913,11 +1912,6 @@ export default function QuizTakePage({ params }) {
                     : "Write your answer"}
                 </p>
                 <ChemTextBar
-                  textareaRef={structuredTextareaRef}
-                  value={answers[currentIdx] ?? ""}
-                  onChange={(val) => handleAnswer(val)}
-                />
-                <PhysicsFormulaBar
                   textareaRef={structuredTextareaRef}
                   value={answers[currentIdx] ?? ""}
                   onChange={(val) => handleAnswer(val)}
