@@ -2866,6 +2866,7 @@ export default function QuizTakePage({ params }) {
                   </p>
                   <FinancialStatementInput
                     schema={currentQ.marking_scheme || null}
+                    subtype={currentQ.statement_subtype || ""}
                     value={
                       typeof answers[currentIdx] === "object"
                         ? answers[currentIdx]
