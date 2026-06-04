@@ -1,637 +1,278 @@
 "use client";
 /**
- * FinancialStatementInput
- * Student-facing component. Renders a blank editable financial statement
- * based on the teacher's marking_scheme structure.
+ * FinancialStatementInput — Student-facing
  *
- * Props:
- *   schema          – marking_scheme JSON from the question (teacher-defined correct answer)
- *   value           – student's current answer JSON (or null)
- *   onChange(json)  – called on every edit
- *   readonly        – if true, shows submitted state (no editing)
- *   showCorrect     – if true, shows correct values alongside (for review)
+ * The teacher provides ALL given data in the question text.
+ * This component shows a blank financial statement where the student
+ * fills in AMOUNTS only (row labels are pre-set by the teacher).
+ *
+ * Simple schema format:
+ *   Two-column (balance_sheet, trading_account, t_account):
+ *     { subtype, title, currency,
+ *       left_heading, left_rows:  [{id, label, amount}],
+ *       right_heading, right_rows: [{id, label, amount}] }
+ *
+ *   Single-column (income_statement, cash_flow):
+ *     { subtype, title, currency, rows: [{id, label, amount}] }
+ *
+ *   Trial balance:
+ *     { subtype, title, currency, rows: [{id, account, debit, credit}] }
  */
 
 import { useState, useEffect } from "react";
 
-// ── helpers ──────────────────────────────────────────────────────────────────
+const TWO_COL = ["balance_sheet", "trading_account", "t_account"];
+
 function fmt(n) {
-  const num = parseFloat(n);
-  if (isNaN(num)) return "";
-  return num.toLocaleString("en-KE");
+  const num = parseFloat(String(n ?? "").replace(/,/g, ""));
+  return isNaN(num) ? "" : num.toLocaleString("en-KE");
 }
 
-function sumRows(rows) {
-  return rows.reduce((acc, r) => acc + (parseFloat(r.amount) || 0), 0);
+function inputCls(correct) {
+  if (correct === true)  return "border-green-400 bg-green-50 text-green-800";
+  if (correct === false) return "border-red-400 bg-red-50 text-red-700";
+  return "border-gray-300 bg-white";
 }
 
-function deepCloneBlank(schema) {
-  // Build a blank student answer mirroring the schema structure (labels present, amounts cleared)
-  const json = JSON.parse(JSON.stringify(schema));
-  const clearRows = (rows) => rows.map((r) => ({ ...r, amount: "" }));
-  const clearRowsLabel = (rows) =>
-    rows.map((r) => ({ ...r, label: "", amount: "" }));
-
-  switch (schema.subtype) {
-    case "balance_sheet":
-    case "trading_account": {
-      const cloneSection = (secs) =>
-        secs.map((s) => ({ ...s, rows: clearRowsLabel(s.rows) }));
-      json.left.sections = cloneSection(json.left.sections);
-      json.right.sections = cloneSection(json.right.sections);
-      break;
-    }
-    case "t_account":
-      json.left.rows = clearRowsLabel(json.left.rows);
-      json.right.rows = clearRowsLabel(json.right.rows);
-      break;
-    case "income_statement":
-    case "cash_flow":
-      json.sections = json.sections.map((s) => ({
-        ...s,
-        rows: clearRowsLabel(s.rows),
-      }));
-      if (schema.subtype === "cash_flow") json.openingBalance = "";
-      break;
-    case "trial_balance":
-      json.rows = json.rows.map((r) => ({
-        ...r,
-        account: "",
-        debit: "",
-        credit: "",
-      }));
-      break;
-    default:
-      break;
-  }
-  return json;
-}
-
-// ── order-independent lookup helpers ────────────────────────────────────────
-function normLabel(s) {
-  return String(s || "")
-    .trim()
-    .toLowerCase();
-}
-function normAmt(v) {
-  const n = parseFloat(String(v || "").replace(/,/g, ""));
-  return isNaN(n) ? null : n;
-}
-/** Build a Set<"label|amount"> and a Map<label, amount> from a rows array */
-function buildCorrectLookup(rows) {
-  const set = new Set();
-  const byLabel = new Map();
-  for (const r of rows || []) {
-    const lbl = normLabel(r.label);
-    const amt = normAmt(r.amount);
-    if (lbl && amt !== null) {
-      set.add(`${lbl}|${amt}`);
-      byLabel.set(lbl, amt);
-    }
-  }
-  return { set, byLabel };
-}
-
-// ── shared row display ────────────────────────────────────────────────────────
-const cellCls = (readonly) =>
-  `border-0 border-b border-gray-200 bg-transparent focus:outline-none focus:border-blue-400 text-sm w-full py-1 px-1 ${
-    readonly ? "cursor-default" : ""
-  }`;
-
-function AmountRowInput({
-  row,
-  onChange,
-  currency,
-  readonly,
-  showCorrect,
-  correctSet, // Set<"label|amount"> for the whole side/section
-  correctByLabel, // Map<label, amount>
-}) {
-  const lbl = normLabel(row.label);
-  const amt = normAmt(row.amount);
-  const key = `${lbl}|${amt}`;
-  const isCorrect =
-    !showCorrect || !lbl || amt === null || correctSet?.has(key);
-  // If label matches but amount is wrong, show what the correct amount should be
-  const expectedAmt =
-    showCorrect && !isCorrect && lbl ? correctByLabel?.get(lbl) : null;
+function AmountCell({ value, onChange, readonly, correctAmt, showCorrect }) {
+  const studentNum = parseFloat(String(value ?? "").replace(/,/g, ""));
+  const correctNum = parseFloat(String(correctAmt ?? "").replace(/,/g, ""));
+  const isCorrect = showCorrect && !isNaN(correctNum)
+    ? !isNaN(studentNum) && Math.abs(studentNum - correctNum) < 0.01
+    : null;
 
   return (
-    <div className="flex items-center gap-1 py-0.5">
+    <div className="flex items-center gap-1">
       <input
-        type="text"
-        value={row.label}
+        type="number"
+        value={value ?? ""}
         disabled={readonly}
-        placeholder="Item…"
-        onChange={(e) => onChange({ ...row, label: e.target.value })}
-        className={`${cellCls(readonly)} flex-1 ${showCorrect && lbl && !isCorrect ? "text-red-500" : ""}`}
+        placeholder="0"
+        onChange={(e) => onChange(e.target.value)}
+        className={`w-full text-right text-sm py-1 px-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-300 ${inputCls(isCorrect)}`}
       />
-      <div
-        className={`flex items-center gap-0.5 shrink-0 w-32 ${
-          showCorrect && lbl && !isCorrect ? "text-red-500" : ""
-        }`}
-      >
-        <span className="text-gray-400 text-xs">{currency}</span>
-        <input
-          type="number"
-          value={row.amount}
-          disabled={readonly}
-          placeholder="0"
-          onChange={(e) => onChange({ ...row, amount: e.target.value })}
-          className={`${cellCls(readonly)} text-right w-full`}
-        />
-      </div>
-      {showCorrect && lbl && !isCorrect && expectedAmt !== null && (
-        <span className="text-xs text-green-600 font-semibold shrink-0 w-20 text-right">
-          ✓ {fmt(expectedAmt)}
-        </span>
+      {showCorrect && isCorrect === false && (
+        <span className="text-xs text-green-700 font-bold shrink-0">✓ {fmt(correctAmt)}</span>
       )}
     </div>
   );
 }
 
-function TrialRowInput({
-  row,
-  onChange,
-  readonly,
-  showCorrect,
-  correctByAccount,
-}) {
-  const acct = normLabel(row.account);
-  const correctRow = showCorrect ? correctByAccount?.get(acct) : null;
-  const drOk =
-    !showCorrect ||
-    !acct ||
-    parseFloat(row.debit) === parseFloat(correctRow?.debit ?? row.debit);
-  const crOk =
-    !showCorrect ||
-    !acct ||
-    parseFloat(row.credit) === parseFloat(correctRow?.credit ?? row.credit);
+function TwoColStatement({ schema, answer, update, currency, readonly, showCorrect }) {
+  const leftRows  = schema.left_rows  || [];
+  const rightRows = schema.right_rows || [];
+  const leftH  = schema.left_heading  || "Left";
+  const rightH = schema.right_heading || "Right";
+  const leftAns  = answer?.left  || {};
+  const rightAns = answer?.right || {};
+  const leftTotal  = leftRows.reduce((s, r)  => s + (parseFloat(leftAns[r.id]  ?? "") || 0), 0);
+  const rightTotal = rightRows.reduce((s, r) => s + (parseFloat(rightAns[r.id] ?? "") || 0), 0);
+  const correctLeftTotal  = leftRows.reduce((s, r)  => s + (parseFloat(r.amount) || 0), 0);
+  const correctRightTotal = rightRows.reduce((s, r) => s + (parseFloat(r.amount) || 0), 0);
+  const maxRows = Math.max(leftRows.length, rightRows.length, 1);
+
   return (
-    <div className="grid grid-cols-[1fr_96px_96px] gap-2 py-0.5">
-      <input
-        type="text"
-        value={row.account}
-        disabled={readonly}
-        placeholder="Account…"
-        onChange={(e) => onChange({ ...row, account: e.target.value })}
-        className={cellCls(readonly)}
-      />
-      <input
-        type="number"
-        value={row.debit}
-        disabled={readonly}
-        placeholder="0"
-        onChange={(e) => onChange({ ...row, debit: e.target.value })}
-        className={`${cellCls(readonly)} text-right ${!drOk ? "text-red-500" : ""}`}
-      />
-      <input
-        type="number"
-        value={row.credit}
-        disabled={readonly}
-        placeholder="0"
-        onChange={(e) => onChange({ ...row, credit: e.target.value })}
-        className={`${cellCls(readonly)} text-right ${!crOk ? "text-red-500" : ""}`}
-      />
+    <div className="overflow-x-auto">
+      <table className="w-full text-sm border-collapse">
+        <thead>
+          <tr>
+            <th className="text-left py-2 px-3 bg-blue-50 text-blue-800 font-bold border border-blue-100">{leftH}</th>
+            <th className="py-2 px-3 bg-blue-50 text-blue-800 font-bold border border-blue-100 text-right w-36">{currency}</th>
+            <th className="text-left py-2 px-3 bg-blue-50 text-blue-800 font-bold border border-blue-100">{rightH}</th>
+            <th className="py-2 px-3 bg-blue-50 text-blue-800 font-bold border border-blue-100 text-right w-36">{currency}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {Array.from({ length: maxRows }).map((_, i) => {
+            const lr = leftRows[i];
+            const rr = rightRows[i];
+            return (
+              <tr key={i} className={i % 2 === 0 ? "bg-white" : "bg-gray-50"}>
+                <td className="py-1.5 px-3 border border-gray-100 font-medium text-gray-700">{lr?.label || ""}</td>
+                <td className="py-1 px-2 border border-gray-100 w-36">
+                  {lr && (
+                    <AmountCell
+                      value={leftAns[lr.id] ?? ""}
+                      onChange={(v) => update({ ...answer, left: { ...leftAns, [lr.id]: v } })}
+                      readonly={readonly}
+                      correctAmt={lr.amount}
+                      showCorrect={showCorrect}
+                    />
+                  )}
+                </td>
+                <td className="py-1.5 px-3 border border-gray-100 font-medium text-gray-700">{rr?.label || ""}</td>
+                <td className="py-1 px-2 border border-gray-100 w-36">
+                  {rr && (
+                    <AmountCell
+                      value={rightAns[rr.id] ?? ""}
+                      onChange={(v) => update({ ...answer, right: { ...rightAns, [rr.id]: v } })}
+                      readonly={readonly}
+                      correctAmt={rr.amount}
+                      showCorrect={showCorrect}
+                    />
+                  )}
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+        <tfoot>
+          <tr className="font-bold bg-gray-100 border-t-2 border-gray-400">
+            <td className="py-2 px-3 border border-gray-200">Total</td>
+            <td className="py-2 px-3 border border-gray-200 text-right text-blue-800">
+              {fmt(leftTotal)}
+              {showCorrect && Math.abs(leftTotal - correctLeftTotal) > 0.01 && (
+                <span className="text-green-700 text-xs ml-1">✓ {fmt(correctLeftTotal)}</span>
+              )}
+            </td>
+            <td className="py-2 px-3 border border-gray-200">Total</td>
+            <td className="py-2 px-3 border border-gray-200 text-right text-blue-800">
+              {fmt(rightTotal)}
+              {showCorrect && Math.abs(rightTotal - correctRightTotal) > 0.01 && (
+                <span className="text-green-700 text-xs ml-1">✓ {fmt(correctRightTotal)}</span>
+              )}
+            </td>
+          </tr>
+        </tfoot>
+      </table>
     </div>
   );
 }
 
-// ── main component ────────────────────────────────────────────────────────────
-export default function FinancialStatementInput({
-  schema,
-  value,
-  onChange,
-  readonly = false,
-  showCorrect = false,
-}) {
-  const [answer, setAnswer] = useState(() => {
-    if (value && typeof value === "object") return value;
-    return deepCloneBlank(schema);
-  });
+function SingleColStatement({ schema, answer, update, currency, readonly, showCorrect }) {
+  const rows = schema.rows || [];
+  const ans  = answer?.rows || {};
+  const studentTotal = rows.reduce((s, r) => s + (parseFloat(ans[r.id] ?? "") || 0), 0);
+  const correctTotal = rows.reduce((s, r) => s + (parseFloat(r.amount) || 0), 0);
+
+  return (
+    <div className="overflow-x-auto">
+      <table className="w-full text-sm border-collapse">
+        <thead>
+          <tr>
+            <th className="text-left py-2 px-3 bg-blue-50 text-blue-800 font-bold border border-blue-100">Item</th>
+            <th className="py-2 px-3 bg-blue-50 text-blue-800 font-bold border border-blue-100 text-right w-40">{currency}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((row, i) => (
+            <tr key={row.id || i} className={i % 2 === 0 ? "bg-white" : "bg-gray-50"}>
+              <td className="py-1.5 px-3 border border-gray-100 font-medium text-gray-700">{row.label}</td>
+              <td className="py-1 px-2 border border-gray-100 w-40">
+                <AmountCell
+                  value={ans[row.id] ?? ""}
+                  onChange={(v) => update({ ...answer, rows: { ...ans, [row.id]: v } })}
+                  readonly={readonly}
+                  correctAmt={row.amount}
+                  showCorrect={showCorrect}
+                />
+              </td>
+            </tr>
+          ))}
+        </tbody>
+        <tfoot>
+          <tr className="font-bold bg-gray-100 border-t-2 border-gray-400">
+            <td className="py-2 px-3 border border-gray-200">{schema.total_label || "Total"}</td>
+            <td className="py-2 px-3 border border-gray-200 text-right text-blue-800">
+              {fmt(studentTotal)}
+              {showCorrect && Math.abs(studentTotal - correctTotal) > 0.01 && (
+                <span className="text-green-700 text-xs ml-1">✓ {fmt(correctTotal)}</span>
+              )}
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  );
+}
+
+function TrialBalanceStatement({ schema, answer, update, currency, readonly, showCorrect }) {
+  const rows = schema.rows || [];
+  const ans  = answer?.rows || {};
+  const totalDr = rows.reduce((s, r) => s + (parseFloat(ans[r.id]?.debit  ?? "") || 0), 0);
+  const totalCr = rows.reduce((s, r) => s + (parseFloat(ans[r.id]?.credit ?? "") || 0), 0);
+
+  return (
+    <div className="overflow-x-auto">
+      <table className="w-full text-sm border-collapse">
+        <thead>
+          <tr>
+            <th className="text-left py-2 px-3 bg-blue-50 text-blue-800 font-bold border border-blue-100">Account</th>
+            <th className="py-2 px-3 bg-blue-50 text-blue-800 font-bold border border-blue-100 text-right w-36">Dr ({currency})</th>
+            <th className="py-2 px-3 bg-blue-50 text-blue-800 font-bold border border-blue-100 text-right w-36">Cr ({currency})</th>
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((row, i) => {
+            const rowAns = ans[row.id] || {};
+            const cDr = parseFloat(row.debit ?? "");
+            const cCr = parseFloat(row.credit ?? "");
+            const sDr = parseFloat(rowAns.debit ?? "");
+            const sCr = parseFloat(rowAns.credit ?? "");
+            const drOk = showCorrect && !isNaN(cDr) ? Math.abs(sDr - cDr) < 0.01 : null;
+            const crOk = showCorrect && !isNaN(cCr) ? Math.abs(sCr - cCr) < 0.01 : null;
+            return (
+              <tr key={row.id || i} className={i % 2 === 0 ? "bg-white" : "bg-gray-50"}>
+                <td className="py-1.5 px-3 border border-gray-100 font-medium text-gray-700">{row.account}</td>
+                <td className="py-1 px-2 border border-gray-100 w-36">
+                  <input type="number" value={rowAns.debit ?? ""} disabled={readonly} placeholder="0"
+                    onChange={(e) => update({ ...answer, rows: { ...ans, [row.id]: { ...rowAns, debit: e.target.value } } })}
+                    className={`w-full text-right text-sm py-1 px-2 border rounded-lg focus:outline-none ${inputCls(drOk)}`}
+                  />
+                </td>
+                <td className="py-1 px-2 border border-gray-100 w-36">
+                  <input type="number" value={rowAns.credit ?? ""} disabled={readonly} placeholder="0"
+                    onChange={(e) => update({ ...answer, rows: { ...ans, [row.id]: { ...rowAns, credit: e.target.value } } })}
+                    className={`w-full text-right text-sm py-1 px-2 border rounded-lg focus:outline-none ${inputCls(crOk)}`}
+                  />
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+        <tfoot>
+          <tr className="font-bold bg-gray-100 border-t-2 border-gray-400">
+            <td className="py-2 px-3 border border-gray-200">Totals</td>
+            <td className="py-2 px-3 border border-gray-200 text-right text-blue-800">{fmt(totalDr)}</td>
+            <td className="py-2 px-3 border border-gray-200 text-right text-blue-800">{fmt(totalCr)}</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  );
+}
+
+export default function FinancialStatementInput({ schema, value, onChange, readonly = false, showCorrect = false }) {
+  const [answer, setAnswer] = useState(value || {});
 
   useEffect(() => {
     if (value && typeof value === "object") setAnswer(value);
   }, [value]);
 
-  const update = (next) => {
-    setAnswer(next);
-    if (onChange) onChange(next);
-  };
-
-  const currency = schema?.currency || "Ksh";
-  const subtype = schema?.subtype;
-
-  // ── table styles ───────────────────────────────────────────────────────────
-  const panelStyle = {
-    background: "#fff",
-    border: "1.5px solid #e2e8f0",
-    borderRadius: 14,
-    overflow: "hidden",
-    flex: 1,
-  };
-  const headerStyle = {
-    background: "#f8fafc",
-    borderBottom: "1.5px solid #e2e8f0",
-    padding: "8px 14px",
-    fontWeight: 700,
-    fontSize: 13,
-    color: "#374151",
-    textAlign: "center",
-  };
-  const totalRowStyle = {
-    borderTop: "2px solid #94a3b8",
-    padding: "6px 14px",
-    display: "flex",
-    justifyContent: "space-between",
-    fontWeight: 700,
-    fontSize: 13,
-    background: "#f1f5f9",
-  };
-
-  // ── BALANCE SHEET / TRADING ACCOUNT ───────────────────────────────────────
-  if (subtype === "balance_sheet" || subtype === "trading_account") {
-    const updateSide = (sideKey, newSide) =>
-      update({ ...answer, [sideKey]: newSide });
-    const updateSection = (sideKey, si, newSec) => {
-      const side = answer[sideKey];
-      updateSide(sideKey, {
-        ...side,
-        sections: side.sections.map((s, i) => (i === si ? newSec : s)),
-      });
-    };
-
-    const renderSide = (sideKey) => {
-      const side = answer[sideKey];
-      const correctSide = schema[sideKey];
-      const total = side.sections.reduce((acc, s) => acc + sumRows(s.rows), 0);
-      const correctTotal =
-        correctSide?.sections?.reduce((acc, s) => acc + sumRows(s.rows), 0) ||
-        0;
-      // Build order-independent lookup from ALL rows on this side
-      const allCorrectRows = (correctSide?.sections || []).flatMap(
-        (s) => s.rows || [],
-      );
-      const { set: correctSet, byLabel: correctByLabel } =
-        buildCorrectLookup(allCorrectRows);
-
-      return (
-        <div style={panelStyle}>
-          <div style={headerStyle}>{side.heading}</div>
-          <div style={{ padding: "10px 14px" }}>
-            {side.sections.map((sec, si) => {
-              return (
-                <div key={si} className="mb-3">
-                  {sec.name !== undefined && (
-                    <div className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-1 pb-0.5 border-b border-gray-100">
-                      {sec.name || (
-                        <span className="opacity-30">(section)</span>
-                      )}
-                    </div>
-                  )}
-                  {sec.rows.map((row, ri) => (
-                    <AmountRowInput
-                      key={ri}
-                      row={row}
-                      currency={currency}
-                      readonly={readonly}
-                      correctSet={correctSet}
-                      correctByLabel={correctByLabel}
-                      showCorrect={showCorrect}
-                      onChange={(r) =>
-                        updateSection(sideKey, si, {
-                          ...sec,
-                          rows: sec.rows.map((x, i) => (i === ri ? r : x)),
-                        })
-                      }
-                    />
-                  ))}
-                </div>
-              );
-            })}
-          </div>
-          <div style={totalRowStyle}>
-            <span>Total</span>
-            <span
-              className={
-                showCorrect && total !== correctTotal ? "text-red-500" : ""
-              }
-            >
-              {currency} {fmt(total)}
-              {showCorrect && total !== correctTotal && (
-                <span className="text-green-600 text-xs ml-2">
-                  ✓ {fmt(correctTotal)}
-                </span>
-              )}
-            </span>
-          </div>
-        </div>
-      );
-    };
-
+  if (!schema || typeof schema !== "object") {
     return (
-      <div className="space-y-3">
-        {schema.title && (
-          <p className="text-center text-sm font-bold text-gray-700 whitespace-pre-line">
-            {schema.title}
-          </p>
-        )}
-        <div className="flex gap-3">
-          {renderSide("left")}
-          {renderSide("right")}
-        </div>
-      </div>
+      <p className="text-sm text-amber-700 p-3 border border-amber-200 bg-amber-50 rounded-lg">
+        Financial statement not set up yet. Please contact your teacher.
+      </p>
     );
   }
 
-  // ── T-ACCOUNT ─────────────────────────────────────────────────────────────
-  if (subtype === "t_account") {
-    const updateSide = (sideKey, newSide) =>
-      update({ ...answer, [sideKey]: newSide });
-    const total = (sideKey) => sumRows(answer[sideKey]?.rows || []);
-    const correctTotal = (sideKey) => sumRows(schema[sideKey]?.rows || []);
-
-    const renderSide = (sideKey) => {
-      const side = answer[sideKey];
-      const cSide = schema[sideKey];
-      const t = total(sideKey);
-      const ct = correctTotal(sideKey);
-      const { set: correctSet, byLabel: correctByLabel } = buildCorrectLookup(
-        cSide?.rows || [],
-      );
-      return (
-        <div style={panelStyle}>
-          <div style={headerStyle}>{side.heading}</div>
-          <div style={{ padding: "10px 14px" }}>
-            {side.rows.map((row, ri) => (
-              <AmountRowInput
-                key={ri}
-                row={row}
-                currency={currency}
-                readonly={readonly}
-                correctSet={correctSet}
-                correctByLabel={correctByLabel}
-                showCorrect={showCorrect}
-                onChange={(r) =>
-                  updateSide(sideKey, {
-                    ...side,
-                    rows: side.rows.map((x, i) => (i === ri ? r : x)),
-                  })
-                }
-              />
-            ))}
-          </div>
-          <div style={totalRowStyle}>
-            <span>Total</span>
-            <span className={showCorrect && t !== ct ? "text-red-500" : ""}>
-              {currency} {fmt(t)}
-              {showCorrect && t !== ct && (
-                <span className="text-green-600 text-xs ml-2">✓ {fmt(ct)}</span>
-              )}
-            </span>
-          </div>
-        </div>
-      );
-    };
-
-    return (
-      <div className="space-y-3">
-        {(schema.accountName || answer.accountName) && (
-          <p className="text-center text-sm font-bold text-gray-700">
-            {schema.accountName}
-          </p>
-        )}
-        <div className="flex gap-3">
-          {renderSide("left")}
-          {renderSide("right")}
-        </div>
-      </div>
-    );
-  }
-
-  // ── INCOME STATEMENT / CASH FLOW ─────────────────────────────────────────
-  if (subtype === "income_statement" || subtype === "cash_flow") {
-    const updateSection = (si, newSec) =>
-      update({
-        ...answer,
-        sections: answer.sections.map((s, i) => (i === si ? newSec : s)),
-      });
-
-    const sectionTotals = answer.sections.map((s) => sumRows(s.rows));
-    const grandTotal = sectionTotals.reduce((a, b) => a + b, 0);
-    const correctSectionTotals = schema.sections.map((s) => sumRows(s.rows));
-    const correctGrandTotal = correctSectionTotals.reduce((a, b) => a + b, 0);
-    const openingBal = parseFloat(answer.openingBalance) || 0;
-    const closingBal = openingBal + grandTotal;
-    const correctOpeningBal = parseFloat(schema.openingBalance) || 0;
-    const correctClosingBal = correctOpeningBal + correctGrandTotal;
-
-    return (
-      <div style={panelStyle}>
-        {schema.title && <div style={headerStyle}>{schema.title}</div>}
-        <div style={{ padding: "12px 16px" }}>
-          {subtype === "cash_flow" && (
-            <div className="flex justify-between items-center py-1.5 border-b border-gray-100 mb-3">
-              <span className="text-sm font-semibold text-gray-600">
-                Opening Cash Balance
-              </span>
-              <div className="flex items-center gap-1 w-36">
-                <span className="text-gray-400 text-xs">{currency}</span>
-                <input
-                  type="number"
-                  value={answer.openingBalance || ""}
-                  disabled={readonly}
-                  placeholder="0"
-                  onChange={(e) =>
-                    update({ ...answer, openingBalance: e.target.value })
-                  }
-                  className={`${cellCls(readonly)} text-right w-full`}
-                />
-              </div>
-            </div>
-          )}
-          {answer.sections.map((sec, si) => {
-            const correctSec = schema.sections[si];
-            const secTotal = sectionTotals[si];
-            const cSecTotal = correctSectionTotals[si];
-            // Order-independent: build lookup from this section's correct rows
-            const { set: correctSet, byLabel: correctByLabel } =
-              buildCorrectLookup(correctSec?.rows || []);
-            return (
-              <div key={si} className="mb-4">
-                <div className="text-xs font-bold text-indigo-700 uppercase tracking-wide mb-1.5 pb-0.5 border-b border-indigo-100">
-                  {sec.name}
-                </div>
-                {sec.rows.map((row, ri) => (
-                  <AmountRowInput
-                    key={ri}
-                    row={row}
-                    currency={currency}
-                    readonly={readonly}
-                    correctSet={correctSet}
-                    correctByLabel={correctByLabel}
-                    showCorrect={showCorrect}
-                    onChange={(r) =>
-                      updateSection(si, {
-                        ...sec,
-                        rows: sec.rows.map((x, i) => (i === ri ? r : x)),
-                      })
-                    }
-                  />
-                ))}
-                <div className="flex justify-between items-center py-1 border-t border-gray-200 mt-1 text-sm font-semibold text-gray-600">
-                  <span>{sec.subtotalLabel || "Subtotal"}</span>
-                  <span
-                    className={
-                      showCorrect && secTotal !== cSecTotal
-                        ? "text-red-500"
-                        : ""
-                    }
-                  >
-                    {currency} {fmt(secTotal)}
-                    {showCorrect && secTotal !== cSecTotal && (
-                      <span className="text-green-600 text-xs ml-2">
-                        ✓ {fmt(cSecTotal)}
-                      </span>
-                    )}
-                  </span>
-                </div>
-              </div>
-            );
-          })}
-          <div
-            style={{
-              ...totalRowStyle,
-              marginTop: 8,
-              borderRadius: "0 0 10px 10px",
-            }}
-          >
-            <span>
-              {subtype === "cash_flow"
-                ? schema.closingBalanceLabel || "Closing Cash Balance"
-                : schema.resultLabel || "Net Profit / (Loss)"}
-            </span>
-            <span
-              className={
-                showCorrect &&
-                (subtype === "cash_flow"
-                  ? closingBal !== correctClosingBal
-                  : grandTotal !== correctGrandTotal)
-                  ? "text-red-500"
-                  : ""
-              }
-            >
-              {currency}{" "}
-              {fmt(subtype === "cash_flow" ? closingBal : grandTotal)}
-              {showCorrect &&
-                (subtype === "cash_flow"
-                  ? closingBal !== correctClosingBal
-                  : grandTotal !== correctGrandTotal) && (
-                  <span className="text-green-600 text-xs ml-2">
-                    ✓{" "}
-                    {fmt(
-                      subtype === "cash_flow"
-                        ? correctClosingBal
-                        : correctGrandTotal,
-                    )}
-                  </span>
-                )}
-            </span>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  // ── TRIAL BALANCE ─────────────────────────────────────────────────────────
-  if (subtype === "trial_balance") {
-    const totalDebit = answer.rows.reduce(
-      (a, r) => a + (parseFloat(r.debit) || 0),
-      0,
-    );
-    const totalCredit = answer.rows.reduce(
-      (a, r) => a + (parseFloat(r.credit) || 0),
-      0,
-    );
-    const cTotalDebit = schema.rows.reduce(
-      (a, r) => a + (parseFloat(r.debit) || 0),
-      0,
-    );
-    const cTotalCredit = schema.rows.reduce(
-      (a, r) => a + (parseFloat(r.credit) || 0),
-      0,
-    );
-
-    return (
-      <div style={panelStyle}>
-        {schema.title && <div style={headerStyle}>{schema.title}</div>}
-        <div style={{ padding: "0 16px" }}>
-          <div className="grid grid-cols-[1fr_96px_96px] gap-2 py-2 border-b border-gray-200">
-            <span className="text-xs font-semibold text-gray-500 uppercase tracking-wide">
-              Account
-            </span>
-            <span className="text-xs font-semibold text-gray-500 uppercase tracking-wide text-right">
-              Dr ({currency})
-            </span>
-            <span className="text-xs font-semibold text-gray-500 uppercase tracking-wide text-right">
-              Cr ({currency})
-            </span>
-          </div>
-          {answer.rows.map((row, ri) => (
-            <TrialRowInput
-              key={ri}
-              row={row}
-              readonly={readonly}
-              correctByAccount={
-                showCorrect
-                  ? new Map(schema.rows.map((r) => [normLabel(r.account), r]))
-                  : undefined
-              }
-              showCorrect={showCorrect}
-              onChange={(r) =>
-                update({
-                  ...answer,
-                  rows: answer.rows.map((x, i) => (i === ri ? r : x)),
-                })
-              }
-            />
-          ))}
-          <div className="grid grid-cols-[1fr_96px_96px] gap-2 py-2 border-t-2 border-gray-400 font-bold text-sm mt-2">
-            <span>Totals</span>
-            <span
-              className={`text-right ${showCorrect && totalDebit !== cTotalDebit ? "text-red-500" : ""}`}
-            >
-              {fmt(totalDebit)}
-              {showCorrect && totalDebit !== cTotalDebit && (
-                <span className="text-green-600 text-xs block">
-                  ✓ {fmt(cTotalDebit)}
-                </span>
-              )}
-            </span>
-            <span
-              className={`text-right ${showCorrect && totalCredit !== cTotalCredit ? "text-red-500" : ""}`}
-            >
-              {fmt(totalCredit)}
-              {showCorrect && totalCredit !== cTotalCredit && (
-                <span className="text-green-600 text-xs block">
-                  ✓ {fmt(cTotalCredit)}
-                </span>
-              )}
-            </span>
-          </div>
-          {totalDebit === totalCredit && totalDebit > 0 && !showCorrect && (
-            <p className="text-center text-xs text-green-600 font-semibold py-2">
-              ✓ Trial balance agrees
-            </p>
-          )}
-        </div>
-      </div>
-    );
-  }
+  const update = (next) => { setAnswer(next); if (onChange) onChange(next); };
+  const currency = schema.currency || "Ksh";
+  const subtype  = schema.subtype  || "";
 
   return (
-    <p className="text-sm text-gray-400 italic">
-      Unsupported statement type: {subtype}
-    </p>
+    <div className="space-y-3">
+      {schema.title && (
+        <p className="text-center text-sm font-bold text-gray-700 border-b pb-2">{schema.title}</p>
+      )}
+      {TWO_COL.includes(subtype) ? (
+        <TwoColStatement schema={schema} answer={answer} update={update} currency={currency} readonly={readonly} showCorrect={showCorrect} />
+      ) : subtype === "trial_balance" ? (
+        <TrialBalanceStatement schema={schema} answer={answer} update={update} currency={currency} readonly={readonly} showCorrect={showCorrect} />
+      ) : (
+        <SingleColStatement schema={schema} answer={answer} update={update} currency={currency} readonly={readonly} showCorrect={showCorrect} />
+      )}
+    </div>
   );
 }

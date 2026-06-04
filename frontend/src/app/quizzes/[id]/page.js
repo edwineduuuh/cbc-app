@@ -2795,7 +2795,7 @@ export default function QuizTakePage({ params }) {
                 })()}
 
               {/* Financial Statement question */}
-              {isFinancial && currentQ.marking_scheme && (
+              {isFinancial && (
                 <div style={{ marginTop: 8 }}>
                   <p
                     style={{
@@ -2810,7 +2810,7 @@ export default function QuizTakePage({ params }) {
                     Complete the financial statement
                   </p>
                   <FinancialStatementInput
-                    schema={currentQ.marking_scheme}
+                    schema={currentQ.marking_scheme || null}
                     value={
                       typeof answers[currentIdx] === "object"
                         ? answers[currentIdx]
