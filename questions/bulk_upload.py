@@ -12,6 +12,7 @@ import json
 import base64
 import anthropic
 from django.conf import settings
+from django.core.files.base import ContentFile
 from django.db import transaction
 from .models import Question, Topic, Subject
 
@@ -97,6 +98,22 @@ class BulkExamUploader:
                 page = doc[page_num]
                 page_text = page.get_text()
                 text += page_text + f"\n[PAGE {page_num + 1}]\n"
+
+                image_list = page.get_images()
+                for img_index, img in enumerate(image_list):
+                    try:
+                        xref = img[0]
+                        base_image = doc.extract_image(xref)
+                        image_bytes = base_image["image"]
+                        self.extracted_images.append({
+                            'bytes': image_bytes,
+                            'page': page_num + 1,
+                            'index': img_index,
+                            'ext': base_image["ext"]
+                        })
+                        text += f"\n[IMAGE_{len(self.extracted_images)-1}]\n"
+                    except Exception as e:
+                        print(f"Failed to extract image {img_index} from page {page_num}: {e}")
             
             doc.close()
             
@@ -124,7 +141,20 @@ class BulkExamUploader:
             
             for paragraph in doc.paragraphs:
                 text += paragraph.text + "\n"
-            
+
+            for rel in doc.part.rels.values():
+                if "image" in rel.target_ref:
+                    try:
+                        image_bytes = rel.target_part.blob
+                        self.extracted_images.append({
+                            'bytes': image_bytes,
+                            'index': len(self.extracted_images),
+                            'ext': rel.target_ref.split('.')[-1]
+                        })
+                        text += f"\n[IMAGE_{len(self.extracted_images)-1}]\n"
+                    except Exception as e:
+                        print(f"Failed to extract image from Word: {e}")
+
             return text
         
         except Exception as e:
@@ -134,7 +164,10 @@ class BulkExamUploader:
     def _extract_from_image(self, file):
         """Extract text from image using Claude Vision."""
         try:
-            return self._extract_with_gemini_vision(file)
+            text = self._extract_with_gemini_vision(file)
+            if text:
+                text += "\n[IMAGE_0]\n"
+            return text
         except Exception as e:
             print(f"Image extraction error: {e}")
             file.seek(0)
@@ -395,7 +428,18 @@ REMEMBER:
                     marking_scheme=q_data.get('marking_scheme'),
                     created_by=created_by
                 )
-                
+
+                # Attach image if question references one
+                image_index = q_data.get('image_index')
+                if image_index is not None and image_index < len(self.extracted_images):
+                    img_data = self.extracted_images[image_index]
+                    question.question_image.save(
+                        f'question_{question.id}.{img_data["ext"]}',
+                        ContentFile(img_data['bytes']),
+                        save=True
+                    )
+                    print(f"Attached image to question {question.id}")
+
                 created_questions.append(question)
                 print(f"Created Q{question.id}: {question.question_text[:60]}")
             
