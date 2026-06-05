@@ -13,7 +13,12 @@ class _PartProxy:
     """Wraps a QuestionPart to look like a Question for grade_answer."""
     def __init__(self, part, parent_question):
         self.id            = part.id
-        self.question_text = part.question_text
+        # Prepend the parent stem so the AI sees the actual numbers/scenario.
+        # A part like "the cost on hire purchase terms" has no figures on its
+        # own; without the stem the model hallucinates working to fit the answer.
+        _stem = (getattr(parent_question, 'question_text', '') or '').strip()
+        _ptxt = (part.question_text or '').strip()
+        self.question_text = f"{_stem}\n\n{_ptxt}" if _stem and _stem not in _ptxt else _ptxt
         self.question_type = part.question_type or 'structured'
         self.correct_answer = part.correct_answer
         self.max_marks     = part.max_marks
