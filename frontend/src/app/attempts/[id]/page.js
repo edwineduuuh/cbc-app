@@ -48,14 +48,7 @@ function renderMath(text) {
   if (!text) return "";
   if (text.includes('class="katex"') || text.includes("class='katex'"))
     return text;
-  // Pre-process: wrap bare LaTeX tokens (backslash-command with braces) that
-  // are NOT already inside $...$ delimiters. We only match patterns with { }
-  // which never appear in plain English, so false-positives are impossible.
-  const wrapped = text.replace(
-    /(?<!\$)(\\(?:frac|sqrt|sum|int|prod|lim|binom|left|right|begin|end|text|mathrm|mathbf|overline|underline|vec|hat|bar|tilde|over|under|overbrace|underbrace)\{[^$]*?\}[^$\n]*?)(?!\$)/g,
-    (match) => `$${match}$`,
-  );
-  return wrapped
+  return text
     .replace(/\$\$([\s\S]+?)\$\$/g, (_, expr) => _katex(expr, true))
     .replace(/\$([\s\S]+?)\$/g, (_, expr) => _katex(expr, false))
     .replace(/\\\[([\s\S]+?)\\\]/g, (_, expr) => _katex(expr, true))
