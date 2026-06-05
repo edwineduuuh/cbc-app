@@ -2282,6 +2282,7 @@ def _grade_multipart(question, student_answer, working_image=None) -> dict:
             "feedback":       result["feedback"],
             "is_correct":     result["is_correct"],
             "correct_answer": part_obj.correct_answer if part_obj else "",
+            "question_type":  part_obj.question_type if part_obj else "",
             "points_earned":  _to_list(result.get("points_earned", [])),
             "points_missed":  _to_list(result.get("points_missed", [])),
             "study_tip":      result.get("study_tip", ""),

@@ -1805,8 +1805,8 @@ export default function AttemptResultsPage() {
                                     </div>
                                   )}
 
-                                  {/* Correct answer — only when not full marks */}
-                                  {!pCorrect && correctAnswerText && (
+                                  {/* Correct answer — skip for MCQ: feedback already says "Jibu sahihi ni X: ..." */}
+                                  {!pCorrect && correctAnswerText && part.question_type !== "mcq" && (
                                     <div
                                       style={{
                                         background: "#f8fafc",
