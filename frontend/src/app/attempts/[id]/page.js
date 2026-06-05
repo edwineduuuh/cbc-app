@@ -1805,8 +1805,8 @@ export default function AttemptResultsPage() {
                                     </div>
                                   )}
 
-                                  {/* Correct answer — skip for MCQ: feedback already says "Jibu sahihi ni X: ..." */}
-                                  {!pCorrect && correctAnswerText && part.question_type !== "mcq" && (
+                                  {/* Correct answer — skip for MCQ and all Kiswahili parts (feedback is self-contained) */}
+                                  {!pCorrect && correctAnswerText && part.question_type !== "mcq" && !/kiswahili/i.test(results.quiz?.subject || "") && (
                                     <div
                                       style={{
                                         background: "#f8fafc",
