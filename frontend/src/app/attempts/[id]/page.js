@@ -32,16 +32,36 @@ function _patchKatexSvg(html) {
     return '<svg style="display:inline;"' + attrs + ">";
   });
 }
+// Turn LaTeX into readable plain text — used when KaTeX can't render it,
+// so users never see raw "\mathrm{\text{...}}" or red KaTeX error messages.
+function _latexToText(s) {
+  return String(s)
+    .replace(/\\times/g, " × ")
+    .replace(/\\div/g, " ÷ ")
+    .replace(/\\cdot/g, " · ")
+    .replace(/\\pm/g, " ± ")
+    .replace(/\\frac\s*\{([^{}]*)\}\s*\{([^{}]*)\}/g, "$1/$2")
+    .replace(/\\sqrt\s*\{([^{}]*)\}/g, "√($1)")
+    .replace(/\\(?:text|mathrm|mathbf|mathit|operatorname)\s*\{([^{}]*)\}/g, "$1")
+    .replace(/\^\s*\{([^{}]*)\}/g, "^$1")
+    .replace(/_\s*\{([^{}]*)\}/g, "_$1")
+    .replace(/\\[a-zA-Z]+/g, "") // strip any remaining commands
+    .replace(/[{}$]/g, "") // strip braces and stray dollars
+    .replace(/&#x9;|\t/g, " ")
+    .replace(/\s{2,}/g, " ")
+    .trim();
+}
 function _katex(expr, display) {
+  const clean = expr.trim();
   try {
     return _patchKatexSvg(
-      katex.renderToString(expr.trim(), {
+      katex.renderToString(clean, {
         displayMode: display,
-        throwOnError: false,
+        throwOnError: true, // throw → fall back to readable text below
       }),
     );
   } catch {
-    return expr;
+    return _latexToText(clean);
   }
 }
 function renderMath(text) {
@@ -1843,7 +1863,7 @@ export default function AttemptResultsPage() {
                         const parts = quizQ?.parts || [];
                         // Split only at part boundaries "(N) ..." — preserves internal newlines in each segment
                         const feedbackSegments = (item.feedback || "")
-                          .split(/\n+(?=\(\d+\))/)
+                          .split(/\n+(?=\((?:\d+|[a-z]+)\))/i)
                           .filter((s) => s.trim());
                         return (
                           <div
@@ -1864,9 +1884,10 @@ export default function AttemptResultsPage() {
                                 : "";
                               const segFeedback = feedbackSegments[pi] || "";
                               // Determine correctness from feedback text — part.correct_answer may be full text, not a letter
-                              const isCorrect = /\(\d+\)\s*correct!/i.test(
-                                segFeedback,
-                              );
+                              const isCorrect =
+                                /\((?:\d+|[a-z]+)\)\s*(?:correct|excellent|spot on|well done|perfect|great|yes|hongera|vizuri|sahihi|nzuri)/i.test(
+                                  segFeedback,
+                                );
                               const pColor = isCorrect ? "#059669" : "#dc2626";
                               const pBg = isCorrect ? "#f0fdf4" : "#fff5f5";
                               const pBorder = isCorrect ? "#bbf7d0" : "#fecaca";
