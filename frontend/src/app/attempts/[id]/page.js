@@ -1997,7 +1997,7 @@ export default function AttemptResultsPage() {
                                         )}
                                       </p>
                                     </div>
-                                    {!isCorrect && correctText && (
+                                    {!isCorrect && correctText && !/kiswahili/i.test(results.quiz?.subject || "") && (
                                       <div
                                         style={{
                                           background: "#f8fafc",
@@ -2360,10 +2360,11 @@ export default function AttemptResultsPage() {
                               </div>
                             )}
 
-                          {/* Correct answer — not shown for tables (points_missed covers it in plain English) */}
+                          {/* Correct answer — not shown for tables or Kiswahili (feedback is self-contained) */}
                           {!correct &&
                             item.correct_answer &&
-                            item.question_type !== "table" && (
+                            item.question_type !== "table" &&
+                            !/kiswahili/i.test(results.quiz?.subject || "") && (
                               <div
                                 style={{
                                   background: "#f8fafc",

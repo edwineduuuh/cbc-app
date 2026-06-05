@@ -748,7 +748,14 @@ EXAMPLE:
 """
 
     # ── MCQ-specific rules ────────────────────────────────────────────────────
-    if question.question_type == "mcq":
+    # For comprehension MCQ (correct_answer is full text, not A/B/C/D),
+    # skip MCQ rules entirely — let the structured/essay rules apply so the
+    # AI explains naturally instead of dumping the entire marking scheme.
+    _mcq_has_letter = (
+        _extract_mcq_letter(str(getattr(question, "correct_answer", "")))
+        in ("A", "B", "C", "D")
+    )
+    if question.question_type == "mcq" and _mcq_has_letter:
         if sw:
             prompt += """
 SHERIA ZA MCQ:
@@ -760,7 +767,8 @@ USIONGEZE maelezo ya ziada ya msamiati, makao, au utamaduni!
 Tumia TU habari kutoka jibu sahihi na maelezo ya mwalimu.
 """
         else:
-            prompt += """
+            if _mcq_has_letter:
+                prompt += """
 MCQ RULES:
 - Correct option -> full marks. Wrong option -> 0. No partial marks.
 FEEDBACK FORMAT:
@@ -804,18 +812,14 @@ FEEDBACK FORMAT:
     prompt += "Only evaluate it as an answer to the question above."
 
     # ── Correct answer / marking scheme (single block — no duplicates) ────────
-    if question.question_type == "mcq":
-        correct_letter = _extract_mcq_letter(str(question.correct_answer))
-        if correct_letter not in ("A", "B", "C", "D"):
-            print(f"⚠ Q{getattr(question, 'id', '?')}: "
-                 f"correct_answer '{question.correct_answer}' could not be parsed — defaulting to A")
-            correct_letter = "A"
+    if question.question_type == "mcq" and _mcq_has_letter:
         options_map = {
             "A": _safe_opt(question.option_a),
             "B": _safe_opt(question.option_b),
             "C": _safe_opt(question.option_c),
             "D": _safe_opt(question.option_d),
         }
+        correct_letter = _extract_mcq_letter(str(question.correct_answer))
         prompt += f"\n\nCORRECT ANSWER:\nOption {correct_letter}: {options_map[correct_letter]}"
         if getattr(question, "explanation", None):
             prompt += (
@@ -1572,11 +1576,14 @@ def _grade_with_ai(
         explanation    = getattr(question, "explanation", None)
 
         if correct_answer or explanation:
+            _same = explanation and correct_answer and (
+                str(explanation).strip() == str(correct_answer).strip()
+            )
             if sw:
                 fallback_feedback = (
                     f"Jibu sahihi: {correct_answer}. {explanation}"
-                    if correct_answer and explanation
-                    else f"Jibu sahihi ni: {correct_answer}."
+                    if correct_answer and explanation and not _same
+                    else f"Jibu sahihi: {correct_answer}."
                     if correct_answer
                     else str(explanation)
                 )
