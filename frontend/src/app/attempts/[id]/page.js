@@ -44,13 +44,41 @@ function _katex(expr, display) {
     return expr;
   }
 }
+// Detects bare LaTeX tokens not already wrapped in delimiters and wraps them
+function _wrapBareLaTeX(text) {
+  // If text already contains $ or \[ delimiters, skip
+  if (/\$|\\\[|\\\(/.test(text)) return text;
+  // If text contains LaTeX commands, wrap the whole thing inline
+  if (
+    /\\[a-zA-Z]+\{|\\frac|\\sqrt|\\int|\\sum|\\prod|\\lim|\\infty|\\alpha|\\beta|\\gamma|\\delta|\\theta|\\lambda|\\mu|\\pi|\\sigma|\\omega|\\Delta|\\nabla|\\times|\\cdot|\\leq|\\geq|\\neq|\\approx|\\rightarrow|\\leftarrow|\\Rightarrow|\\vec|\\hat|\\bar|\\overline|\\underline|_{|^\{/.test(
+      text,
+    )
+  ) {
+    return `$${text}$`;
+  }
+  return text;
+}
 function renderMath(text) {
   if (!text) return "";
-  return text
+  // First handle explicit delimiters
+  let result = text
     .replace(/\$\$([\s\S]+?)\$\$/g, (_, expr) => _katex(expr, true))
     .replace(/\$([\s\S]+?)\$/g, (_, expr) => _katex(expr, false))
     .replace(/\\\[([\s\S]+?)\\\]/g, (_, expr) => _katex(expr, true))
     .replace(/\\\(([\s\S]+?)\\\)/g, (_, expr) => _katex(expr, false));
+  // Then handle bare LaTeX in any remaining text nodes (not already rendered)
+  // Split by already-rendered KaTeX spans and wrap bare LaTeX in remaining text
+  result = result.replace(/(^|(?:<\/[^>]+>))([^<]+)/g, (match, tag, plain) => {
+    const wrapped = _wrapBareLaTeX(plain);
+    if (wrapped === plain) return match;
+    return (
+      tag +
+      wrapped
+        .replace(/\$\$([\s\S]+?)\$\$/g, (_, expr) => _katex(expr, true))
+        .replace(/\$([\s\S]+?)\$/g, (_, expr) => _katex(expr, false))
+    );
+  });
+  return result;
 }
 function getGradeBand(score, grade) {
   if (!grade) return null;
@@ -549,7 +577,7 @@ function ReportCard({
                         lineHeight: 1.65,
                       }}
                       dangerouslySetInnerHTML={{
-                        __html: renderMath(item.question_text),
+                        __html: item.question_text,
                       }}
                     />
                   </div>
@@ -596,7 +624,7 @@ function ReportCard({
                         lineHeight: 1.7,
                       }}
                       dangerouslySetInnerHTML={{
-                        __html: renderMath(item.student_answer),
+                        __html: item.student_answer,
                       }}
                     />
                   </div>
@@ -622,7 +650,7 @@ function ReportCard({
                           lineHeight: 1.7,
                         }}
                         dangerouslySetInnerHTML={{
-                          __html: renderMath(item.correct_answer || ""),
+                          __html: item.correct_answer || "",
                         }}
                       />
                     </div>
@@ -657,7 +685,7 @@ function ReportCard({
                         lineHeight: 1.8,
                       }}
                       dangerouslySetInnerHTML={{
-                        __html: renderMath(item.feedback),
+                        __html: item.feedback,
                       }}
                     />
                   </div>
