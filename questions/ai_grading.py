@@ -989,6 +989,11 @@ The student got this RIGHT. Show the step-by-step working so they understand the
 - Keep it under 120 words total
 - Write like you are talking directly to a Grade {grade} student
 - NO markdown, NO code blocks, NO headings, NO asterisks
+
+CRITICAL — present a SINGLE clean solution only:
+- Work the maths out silently FIRST. Output ONLY the final, correct, polished steps.
+- Your final answer MUST equal the CORRECT ANSWER above ({correct_answer}). If your steps disagree, fix them BEFORE writing — never on the page.
+- ABSOLUTELY FORBIDDEN: self-correction or thinking aloud. Never write "wait", "let me recalculate", "actually", "no that's wrong", "let me redo", or repeat a step. One correct pass, no second-guessing.
 """
 
 
@@ -1011,6 +1016,11 @@ Write a step-by-step solution in simple words a Grade {grade} student can follow
 - Keep it under 150 words total
 - Write like you are talking to a child who is struggling with Maths
 - NO markdown, NO code blocks, NO headings, NO asterisks
+
+CRITICAL — present a SINGLE clean solution only:
+- Work the maths out silently FIRST. Output ONLY the final, correct, polished steps.
+- Your final answer MUST equal the CORRECT ANSWER above ({correct_answer}). If your steps disagree, fix them BEFORE writing — never on the page.
+- ABSOLUTELY FORBIDDEN: self-correction or thinking aloud. Never write "wait", "let me recalculate", "actually", "no that's wrong", "let me redo", or repeat a step. One correct pass, no second-guessing.
 """
 
 
