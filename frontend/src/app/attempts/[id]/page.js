@@ -46,18 +46,9 @@ function _katex(expr, display) {
 }
 function renderMath(text) {
   if (!text) return "";
-  // If text already contains rendered KaTeX HTML, pass through untouched
   if (text.includes('class="katex"') || text.includes("class='katex'"))
     return text;
-  // Auto-wrap bare LaTeX expressions not wrapped in $...$ delimiters
-  let t = text.replace(
-    /(\\frac|\\sqrt|\\int|\\sum|\\prod|\\lim|\\vec|\\hat|\\bar|\\overline|\\sin|\\cos|\\tan|\\log|\\ln|\\Delta|\\alpha|\\beta|\\gamma|\\theta|\\lambda|\\mu|\\pi|\\sigma|\\omega|\\times|\\cdot|\\leq|\\geq|\\neq|\\approx|\\rightarrow|\\Rightarrow|\\varepsilon|\\eta|\\rho|\\nabla)([^$\n]*)/g,
-    (match) => {
-      // Only wrap if not already inside a $ delimiter
-      return `$${match}$`;
-    },
-  );
-  return t
+  return text
     .replace(/\$\$([\s\S]+?)\$\$/g, (_, expr) => _katex(expr, true))
     .replace(/\$([\s\S]+?)\$/g, (_, expr) => _katex(expr, false))
     .replace(/\\\[([\s\S]+?)\\\]/g, (_, expr) => _katex(expr, true))
