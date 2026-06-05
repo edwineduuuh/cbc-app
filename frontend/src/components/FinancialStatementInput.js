@@ -587,11 +587,178 @@ function uid() {
   return Math.random().toString(36).slice(2, 8);
 }
 
+// ── TwoColSide must be at module level (NOT inside BlankTwoCol) ──────────────
+// Defining it inside another component would cause React to treat it as a new
+// component type on every render, unmounting/remounting it and losing focus.
+function TwoColSide({
+  heading,
+  rows,
+  readonly,
+  onLabelChange,
+  onAmountChange,
+  onRemove,
+  onAdd,
+  total,
+}) {
+  return (
+    <div style={{ flex: 1, minWidth: 0 }}>
+      <div
+        style={{
+          background: "linear-gradient(135deg, #1e40af 0%, #1d4ed8 100%)",
+          color: "#fff",
+          fontWeight: 700,
+          fontSize: 13,
+          padding: "10px 14px",
+          borderRadius: "10px 10px 0 0",
+          textAlign: "center",
+          letterSpacing: "0.03em",
+        }}
+      >
+        {heading}
+      </div>
+      <div
+        style={{ border: "1px solid #e2e8f0", borderTop: "none", background: "#fff" }}
+      >
+        {rows.map((r) => (
+          <div
+            key={r.id}
+            style={{
+              display: "flex",
+              gap: 8,
+              alignItems: "center",
+              padding: "6px 10px",
+              borderBottom: "1px solid #f1f5f9",
+              background: "#fff",
+            }}
+          >
+            <input
+              style={{
+                flex: 2,
+                fontSize: 13,
+                padding: "7px 10px",
+                border: "1.5px solid #e2e8f0",
+                borderRadius: 8,
+                background: readonly ? "#f8fafc" : "#fff",
+                color: "#111827",
+                outline: "none",
+                minWidth: 0,
+              }}
+              disabled={readonly}
+              value={r.label}
+              placeholder="Item name"
+              onChange={(e) => onLabelChange(r.id, e.target.value)}
+              onFocus={(e) => {
+                e.target.style.borderColor = "#3b82f6";
+                e.target.style.boxShadow = "0 0 0 3px rgba(59,130,246,0.15)";
+              }}
+              onBlur={(e) => {
+                e.target.style.borderColor = "#e2e8f0";
+                e.target.style.boxShadow = "none";
+              }}
+            />
+            <input
+              style={{
+                flex: 1,
+                fontSize: 13,
+                fontWeight: 600,
+                padding: "7px 10px",
+                border: "1.5px solid #e2e8f0",
+                borderRadius: 8,
+                textAlign: "right",
+                background: readonly ? "#f8fafc" : "#fff",
+                color: "#111827",
+                outline: "none",
+                minWidth: 0,
+                WebkitAppearance: "none",
+                MozAppearance: "textfield",
+              }}
+              disabled={readonly}
+              value={r.amount}
+              placeholder="0"
+              type="text"
+              inputMode="decimal"
+              onChange={(e) =>
+                onAmountChange(r.id, e.target.value.replace(/[^0-9.\-]/g, ""))
+              }
+              onFocus={(e) => {
+                e.target.style.borderColor = "#3b82f6";
+                e.target.style.boxShadow = "0 0 0 3px rgba(59,130,246,0.15)";
+              }}
+              onBlur={(e) => {
+                e.target.style.borderColor = "#e2e8f0";
+                e.target.style.boxShadow = "none";
+              }}
+            />
+            {!readonly && (
+              <button
+                type="button"
+                title="Remove row"
+                onClick={() => onRemove(r.id)}
+                style={{
+                  width: 28,
+                  height: 28,
+                  borderRadius: 8,
+                  border: "1.5px solid #fca5a5",
+                  background: "#fff5f5",
+                  color: "#ef4444",
+                  fontSize: 14,
+                  fontWeight: 700,
+                  cursor: "pointer",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  padding: 0,
+                  flexShrink: 0,
+                }}
+              >
+                ✕
+              </button>
+            )}
+          </div>
+        ))}
+        {!readonly && (
+          <div style={{ padding: "8px 10px", background: "#f8fafc" }}>
+            <button
+              type="button"
+              onClick={onAdd}
+              style={{
+                fontSize: 13,
+                color: "#1d4ed8",
+                background: "#eff6ff",
+                border: "1.5px dashed #93c5fd",
+                borderRadius: 8,
+                padding: "5px 14px",
+                cursor: "pointer",
+                fontWeight: 600,
+                width: "100%",
+              }}
+            >
+              + Add row
+            </button>
+          </div>
+        )}
+      </div>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          padding: "8px 14px",
+          fontWeight: 700,
+          fontSize: 14,
+          background: "#1e40af",
+          color: "#fff",
+          borderRadius: "0 0 10px 10px",
+        }}
+      >
+        <span>Total</span>
+        <span>{total}</span>
+      </div>
+    </div>
+  );
+}
+
 function BlankTwoCol({ subtype, value, onChange, readonly }) {
-  const cfg = BLANK_CONFIGS[subtype] || {
-    leftHead: "Left",
-    rightHead: "Right",
-  };
+  const cfg = BLANK_CONFIGS[subtype] || { leftHead: "Left", rightHead: "Right" };
   const init =
     value && value._blank
       ? value
@@ -604,188 +771,28 @@ function BlankTwoCol({ subtype, value, onChange, readonly }) {
   }
 
   function addRow(side) {
-    const next = {
+    push({
       ...state,
       [side]: [...(state[side] || []), { id: uid(), label: "", amount: "" }],
-    };
-    push(next);
+    });
   }
   function setField(side, id, field, val) {
-    const next = {
+    push({
       ...state,
-      [side]: state[side].map((r) =>
-        r.id === id ? { ...r, [field]: val } : r,
-      ),
-    };
-    push(next);
+      [side]: state[side].map((r) => (r.id === id ? { ...r, [field]: val } : r)),
+    });
   }
   function removeRow(side, id) {
-    const next = { ...state, [side]: state[side].filter((r) => r.id !== id) };
-    push(next);
+    push({ ...state, [side]: state[side].filter((r) => r.id !== id) });
   }
 
-  const total = (side) =>
-    (state[side] || []).reduce((s, r) => s + (parseFloat(r.amount) || 0), 0);
-  const T = (side) => (total(side) ? total(side).toLocaleString("en-KE") : "");
-
-  const colStyle = { flex: 1, minWidth: 0 };
-  const hdr = {
-    background: "linear-gradient(135deg, #1e40af 0%, #1d4ed8 100%)",
-    color: "#fff",
-    fontWeight: 700,
-    fontSize: 13,
-    padding: "10px 14px",
-    borderRadius: "10px 10px 0 0",
-    textAlign: "center",
-    letterSpacing: "0.03em",
-  };
-  const rowStyle = {
-    display: "flex",
-    gap: 8,
-    alignItems: "center",
-    padding: "6px 10px",
-    borderBottom: "1px solid #f1f5f9",
-    background: "#fff",
-  };
-  const labelIn = {
-    flex: 2,
-    fontSize: 13,
-    padding: "7px 10px",
-    border: "1.5px solid #e2e8f0",
-    borderRadius: 8,
-    background: readonly ? "#f8fafc" : "#fff",
-    color: "#111827",
-    outline: "none",
-  };
-  const amtIn = {
-    flex: 1,
-    fontSize: 13,
-    fontWeight: 600,
-    padding: "7px 10px",
-    border: "1.5px solid #e2e8f0",
-    borderRadius: 8,
-    textAlign: "right",
-    background: readonly ? "#f8fafc" : "#fff",
-    color: "#111827",
-    outline: "none",
-    WebkitAppearance: "none",
-    MozAppearance: "textfield",
-  };
-  const totRow = {
-    display: "flex",
-    justifyContent: "space-between",
-    padding: "8px 14px",
-    fontWeight: 700,
-    fontSize: 14,
-    background: "#1e40af",
-    color: "#fff",
-    borderRadius: "0 0 10px 10px",
-  };
-
-  function Side({ side }) {
-    return (
-      <div style={colStyle}>
-        <div style={hdr}>{side === "left" ? cfg.leftHead : cfg.rightHead}</div>
-        <div
-          style={{
-            border: "1px solid #e2e8f0",
-            borderTop: "none",
-            background: "#fff",
-          }}
-        >
-          {(state[side] || []).map((r) => (
-            <div key={r.id} style={rowStyle}>
-              <input
-                style={labelIn}
-                disabled={readonly}
-                value={r.label}
-                placeholder="Item name"
-                onChange={(e) => setField(side, r.id, "label", e.target.value)}
-                onFocus={(e) => {
-                  e.target.style.borderColor = "#3b82f6";
-                  e.target.style.boxShadow = "0 0 0 3px rgba(59,130,246,0.15)";
-                }}
-                onBlur={(e) => {
-                  e.target.style.borderColor = "#e2e8f0";
-                  e.target.style.boxShadow = "none";
-                }}
-              />
-              <input
-                style={amtIn}
-                disabled={readonly}
-                value={r.amount}
-                placeholder="0"
-                type="text"
-                inputMode="decimal"
-                onChange={(e) => {
-                  const v = e.target.value.replace(/[^0-9.\-]/g, "");
-                  setField(side, r.id, "amount", v);
-                }}
-                onFocus={(e) => {
-                  e.target.style.borderColor = "#3b82f6";
-                  e.target.style.boxShadow = "0 0 0 3px rgba(59,130,246,0.15)";
-                }}
-                onBlur={(e) => {
-                  e.target.style.borderColor = "#e2e8f0";
-                  e.target.style.boxShadow = "none";
-                }}
-              />
-              {!readonly && (
-                <button
-                  type="button"
-                  title="Remove row"
-                  onClick={() => removeRow(side, r.id)}
-                  style={{
-                    width: 28,
-                    height: 28,
-                    borderRadius: 8,
-                    border: "1.5px solid #fca5a5",
-                    background: "#fff5f5",
-                    color: "#ef4444",
-                    fontSize: 14,
-                    fontWeight: 700,
-                    cursor: "pointer",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    padding: 0,
-                    flexShrink: 0,
-                  }}
-                >
-                  ✕
-                </button>
-              )}
-            </div>
-          ))}
-          {!readonly && (
-            <div style={{ padding: "8px 10px", background: "#f8fafc" }}>
-              <button
-                type="button"
-                onClick={() => addRow(side)}
-                style={{
-                  fontSize: 13,
-                  color: "#1d4ed8",
-                  background: "#eff6ff",
-                  border: "1.5px dashed #93c5fd",
-                  borderRadius: 8,
-                  padding: "5px 14px",
-                  cursor: "pointer",
-                  fontWeight: 600,
-                  width: "100%",
-                }}
-              >
-                + Add row
-              </button>
-            </div>
-          )}
-        </div>
-        <div style={totRow}>
-          <span>Total</span>
-          <span>{T(side)}</span>
-        </div>
-      </div>
+  const calcTotal = (side) => {
+    const t = (state[side] || []).reduce(
+      (s, r) => s + (parseFloat(r.amount) || 0),
+      0,
     );
-  }
+    return t ? t.toLocaleString("en-KE") : "";
+  };
 
   return (
     <div>
@@ -793,7 +800,7 @@ function BlankTwoCol({ subtype, value, onChange, readonly }) {
         <input
           value={state.title || ""}
           onChange={(e) => push({ ...state, title: e.target.value })}
-          placeholder="Enter statement title (e.g. ABC Co. \u2014 Balance Sheet as at 31 Dec 2025)..."
+          placeholder="Enter statement title (e.g. ABC Co. — Balance Sheet as at 31 Dec 2025)..."
           style={{
             width: "100%",
             textAlign: "center",
@@ -823,8 +830,26 @@ function BlankTwoCol({ subtype, value, onChange, readonly }) {
         </p>
       ) : null}
       <div style={{ display: "flex", gap: 12 }}>
-        <Side side="left" />
-        <Side side="right" />
+        <TwoColSide
+          heading={cfg.leftHead}
+          rows={state.left || []}
+          readonly={readonly}
+          onLabelChange={(id, val) => setField("left", id, "label", val)}
+          onAmountChange={(id, val) => setField("left", id, "amount", val)}
+          onRemove={(id) => removeRow("left", id)}
+          onAdd={() => addRow("left")}
+          total={calcTotal("left")}
+        />
+        <TwoColSide
+          heading={cfg.rightHead}
+          rows={state.right || []}
+          readonly={readonly}
+          onLabelChange={(id, val) => setField("right", id, "label", val)}
+          onAmountChange={(id, val) => setField("right", id, "amount", val)}
+          onRemove={(id) => removeRow("right", id)}
+          onAdd={() => addRow("right")}
+          total={calcTotal("right")}
+        />
       </div>
     </div>
   );
