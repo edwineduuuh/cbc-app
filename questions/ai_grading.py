@@ -133,11 +133,14 @@ def _praise(sw: bool) -> str:
 
 
 def _encourage(sw: bool) -> str:
-    return random.choice(ENCOURAGE_SW if sw else ENCOURAGE_EN)
+    # Compliment/encouragement line removed by request — no "well done", no
+    # "karibu". The marks and feedback speak for themselves.
+    return ""
 
 
 def _near_miss(sw: bool) -> str:
-    return random.choice(NEAR_MISS_SW if sw else NEAR_MISS_EN)
+    # Near-miss compliment removed by request (no "karibu"/"jaribu tena").
+    return ""
 
 
 def _empty_result(max_marks: int, feedback: str, message: str) -> dict:
@@ -562,9 +565,35 @@ def _build_marking_prompt(question, student_answer: str, sw: bool, has_image: bo
     is_cloze    = has_passage and getattr(question.passage, "passage_type", "") == "cloze"
     max_marks   = question.max_marks
 
+    # ── Passage / dialogue FIRST — the AI must read it before any rules ────────
+    passage_block = ""
+    if has_passage and is_cloze:
+        if sw:
+            passage_block = (
+                f"\n--- KIFUNGU ---\n{question.passage.content}\n--- MWISHO ---\n"
+                "CLOZE — jaza nafasi kutoka muktadha wa kifungu tu. Usifafanue maneno.\n"
+            )
+        else:
+            passage_block = (
+                f"\n--- PASSAGE ---\n{question.passage.content}\n--- END ---\n"
+                "CLOZE — fill the blank from passage context only. Do NOT explain word meanings.\n"
+            )
+    elif has_passage and not is_cloze:
+        if sw:
+            passage_block = (
+                f"\n--- KIFUNGU / MAZUNGUMZO ---\n{question.passage.content}\n--- MWISHO ---\n"
+                "UFAHAMU — jibu KUTOKA kwa kifungu/mazungumzo haya pekee. Maoni: sentensi 2 TU.\n"
+            )
+        else:
+            passage_block = (
+                f"\n--- PASSAGE / DIALOGUE ---\n{question.passage.content}\n--- END PASSAGE ---\n"
+                "COMPREHENSION — answer ONLY from the passage/dialogue above. Feedback: max 2 sentences.\n"
+            )
+
     # ── Role + language rules ─────────────────────────────────────────────────
     if sw:
         prompt = f"Wewe ni mwalimu wa CBC Kenya anayerekebisha jibu la mwanafunzi wa Darasa {grade}.\n"
+        prompt += passage_block
         prompt += """
 ========================================================
 SHERIA KUU — KISWAHILI SANIFU CHA CBC KENYA
@@ -610,6 +639,7 @@ FANYA hivi TU:
 """
     else:
         prompt = f"You are a Kenyan CBC teacher marking a Grade {grade} student's answer.\n"
+        prompt += passage_block
         prompt += """
 LANGUAGE: English only in every JSON field. Zero words in any other language.
 TONE: Kind, direct, like a Kenyan primary school teacher.
@@ -742,41 +772,6 @@ FEEDBACK FORMAT:
     Correct: "Correct! ..." then 1-2 sentences why.
     Wrong:   "Not quite. The correct answer is ..." 1-2 sentences why.
   End every response with one "Remember:" tip. Maximum 10 sentences total.
-"""
-
-    # ── Passage rules ─────────────────────────────────────────────────────────
-    if has_passage and is_cloze:
-        if sw:
-            prompt += f"""
-CLOZE — jaza nafasi kutoka muktadha wa kifungu tu. Usifafanue maneno.
---- KIFUNGU ---
-{question.passage.content}
---- MWISHO ---
-"""
-        else:
-            prompt += f"""
-CLOZE — fill blank from passage context only. Do NOT explain word meanings.
---- PASSAGE ---
-{question.passage.content}
---- END ---
-"""
-    elif has_passage and not is_cloze:
-        if sw:
-            prompt += f"""
-UFAHAMU — jibu kutoka kifungu tu. Sema wapi kifungu kinasema jibu: "Kifungu kinasema..."
-Maoni: sentensi 2 TU — si zaidi.
---- KIFUNGU ---
-{question.passage.content}
---- MWISHO ---
-"""
-        else:
-            prompt += f"""
-COMPREHENSION — answer from passage only.
-Cite exactly where: "The passage states..." or "In paragraph..."
-Feedback: maximum 2 sentences only.
---- PASSAGE ---
-{question.passage.content}
---- END PASSAGE ---
 """
 
     # ── Question text ─────────────────────────────────────────────────────────

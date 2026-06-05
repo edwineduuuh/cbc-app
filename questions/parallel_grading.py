@@ -9,103 +9,14 @@ from .ai_grading import grade_answer
 import time
 
 
-class _PartProxy:
-    """Wraps a QuestionPart to look like a Question for grade_answer."""
-    def __init__(self, part, parent_question):
-        self.id            = part.id
-        # Prepend the parent stem so the AI sees the actual numbers/scenario.
-        # A part like "the cost on hire purchase terms" has no figures on its
-        # own; without the stem the model hallucinates working to fit the answer.
-        _stem = (getattr(parent_question, 'question_text', '') or '').strip()
-        _ptxt = (part.question_text or '').strip()
-        self.question_text = f"{_stem}\n\n{_ptxt}" if _stem and _stem not in _ptxt else _ptxt
-        self.question_type = part.question_type or 'structured'
-        self.correct_answer = part.correct_answer
-        self.max_marks     = part.max_marks
-        self.explanation   = part.explanation or ''
-        self.topic         = parent_question.topic   # needed for _is_kiswahili
-        self.option_a      = getattr(part, 'option_a', '') or ''
-        self.option_b      = getattr(part, 'option_b', '') or ''
-        self.option_c      = getattr(part, 'option_c', '') or ''
-        self.option_d      = getattr(part, 'option_d', '') or ''
-        self.table_data    = None
-        self.worked_solution = ''
-        self.marking_scheme  = getattr(part, 'marking_scheme', None)
-
-
-def _grade_multipart(question, answer_dict):
-    """
-    Grade a multipart question by grading each part independently.
-    Returns a combined result dict with 'part_results' key.
-    """
-    parts = list(question.parts.all())
-    if not parts:
-        return {
-            'marks_awarded': 0,
-            'max_marks': question.max_marks,
-            'is_correct': False,
-            'feedback': 'No parts configured for this multipart question.',
-            'part_results': [],
-            'points_earned': [],
-            'points_missed': [],
-            'personalized_message': '',
-            'study_tip': '',
-        }
-
-    if not isinstance(answer_dict, dict):
-        answer_dict = {}
-
-    part_results = []
-    for part in parts:
-        part_answer = str(answer_dict.get(str(part.id), '')).strip()
-        proxy = _PartProxy(part, question)
-        try:
-            result = grade_answer(proxy, part_answer)
-        except Exception as e:
-            print(f"❌ Part grading failed for part {part.id}: {e}")
-            result = {
-                'marks_awarded': 0,
-                'max_marks': part.max_marks,
-                'is_correct': False,
-                'feedback': 'Grading error.',
-                'points_earned': [],
-                'points_missed': [],
-                'personalized_message': '',
-                'study_tip': '',
-            }
-        part_results.append({
-            'part_id':       part.id,
-            'part_label':    part.part_label,
-            'question_text': part.question_text,
-            'correct_answer': part.correct_answer,
-            'student_answer': part_answer,
-            'marks_awarded':  result['marks_awarded'],
-            'max_marks':      result['max_marks'],
-            'is_correct':     result['is_correct'],
-            'feedback':       result.get('feedback', ''),
-            'study_tip':      result.get('study_tip', ''),
-        })
-
-    total_marks = sum(r['marks_awarded'] for r in part_results)
-    total_max   = sum(r['max_marks']     for r in part_results)
-
-    return {
-        'marks_awarded':       total_marks,
-        'max_marks':           total_max,
-        'is_correct':          total_marks >= total_max and total_max > 0,
-        'feedback':            '',  # per-part feedback lives in part_results
-        'part_results':        part_results,
-        'points_earned':       [],
-        'points_missed':       [],
-        'personalized_message': '',
-        'study_tip':           '',
-    }
-
-
 def _grade_one(question, student_answer, working_image):
-    """Grade a single question, routing multipart to _grade_multipart."""
-    if question.question_type == 'multipart':
-        return _grade_multipart(question, student_answer)
+    """Grade one question.
+
+    grade_answer() already handles multipart questions internally — it grades
+    each part with full PASSAGE (dialogue) and parent-stem context. We must NOT
+    re-implement multipart here: the old local proxy had no `.parts` and no
+    `passage`, so every multipart/dialogue part crashed with 'Grading error'.
+    """
     return grade_answer(question, student_answer, working_image)
 
 
