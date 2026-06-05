@@ -1885,135 +1885,114 @@ def _grade_financial_statement(question, student_answer) -> dict:
     if not schema:
         return _empty_result(max_marks, "No marking scheme defined.", _near_miss(sw))
 
-    # Parse student answer
+    # Parse student answer — never raise; an unreadable answer just scores 0.
     if isinstance(student_answer, str):
         try:
             ans = _json.loads(student_answer)
         except Exception:
-            return _empty_result(max_marks, "Could not read your answer.", _near_miss(sw))
+            ans = {}
     elif isinstance(student_answer, dict):
         ans = student_answer
     else:
-        return _empty_result(max_marks, "Unexpected answer format.", _near_miss(sw))
+        ans = {}
+    if not isinstance(ans, dict):
+        ans = {}
 
     subtype = schema.get("subtype", "")
 
-    def _norm_label(s):
-        return str(s or "").strip().lower()
-
-    def _norm_amt(v):
+    def _amt(v):
+        """Parse an amount to a rounded float, or None if blank/invalid."""
         try:
-            return round(float(str(v).replace(",", "")), 2)
+            s = str(v).replace(",", "").strip()
+            return round(float(s), 2) if s != "" else None
         except Exception:
             return None
 
-    def _rows_to_set(rows):
-        """Convert a list of row dicts to a set of (label, amount) tuples."""
-        result = set()
-        for r in (rows or []):
-            lbl = _norm_label(r.get("label", ""))
-            amt = _norm_amt(r.get("amount", ""))
-            if lbl and amt is not None:
-                result.add((lbl, amt))
-        return result
-
-    def _collect_side_rows(side_data):
-        rows = []
-        for sec in side_data.get("sections", []):
-            rows.extend(sec.get("rows", []))
-        return rows
+    def _dict(v):
+        """Return v if it's a dict, else an empty dict — keeps lookups safe."""
+        return v if isinstance(v, dict) else {}
 
     total_points = 0
     earned_points = 0
     points_earned = []
     points_missed = []
 
+    # The student input stores answers keyed by the SCHEME's row id, so we grade
+    # by walking the marking scheme and pulling each row's amount by id. Placement
+    # (which side/section) is enforced because we read from the matching bucket.
+    def _check(label, correct, student):
+        nonlocal total_points, earned_points
+        if correct is None:
+            return  # blank template row in the scheme — not gradeable
+        total_points += 1
+        if student is not None and abs(student - correct) < 0.01:
+            earned_points += 1
+            points_earned.append(label)
+        else:
+            points_missed.append(f"{label} (correct: {correct:g})")
+
     if subtype in ("balance_sheet", "trading_account"):
         for side_key in ("left", "right"):
-            schema_rows = _collect_side_rows(schema.get(side_key, {}))
-            student_rows = _collect_side_rows(ans.get(side_key, {}))
-            student_set = _rows_to_set(student_rows)
-            for row in schema_rows:
-                lbl = _norm_label(row.get("label", ""))
-                amt = _norm_amt(row.get("amount", ""))
-                if not lbl or amt is None:
-                    continue
-                total_points += 1
-                if (lbl, amt) in student_set:
-                    earned_points += 1
-                    points_earned.append(f"{row.get('label')} ({schema.get(side_key, {}).get('heading', side_key)} side)")
-                else:
-                    points_missed.append(f"{row.get('label')} ({schema.get(side_key, {}).get('heading', side_key)} side)")
+            side = _dict(schema.get(side_key))
+            s_side = _dict(ans.get(side_key))
+            heading = side.get("heading", side_key)
+            for sec in (side.get("sections") or []):
+                for row in (_dict(sec).get("rows") or []):
+                    rid = _dict(row).get("id")
+                    lbl = _dict(row).get("label") or "(item)"
+                    _check(f"{lbl} ({heading})", _amt(row.get("amount")),
+                           _amt(s_side.get(rid)))
 
     elif subtype == "t_account":
         for side_key in ("left", "right"):
-            schema_rows = schema.get(side_key, {}).get("rows", [])
-            student_rows = ans.get(side_key, {}).get("rows", [])
-            student_set = _rows_to_set(student_rows)
-            for row in schema_rows:
-                lbl = _norm_label(row.get("label", ""))
-                amt = _norm_amt(row.get("amount", ""))
-                if not lbl or amt is None:
-                    continue
-                total_points += 1
-                side_name = schema.get(side_key, {}).get("heading", side_key)
-                if (lbl, amt) in student_set:
-                    earned_points += 1
-                    points_earned.append(f"{row.get('label')} ({side_name})")
-                else:
-                    points_missed.append(f"{row.get('label')} ({side_name})")
+            side = _dict(schema.get(side_key))
+            s_side = _dict(ans.get(side_key))
+            heading = side.get("heading", side_key)
+            for row in (side.get("rows") or []):
+                rid = _dict(row).get("id")
+                lbl = _dict(row).get("label") or "(item)"
+                _check(f"{lbl} ({heading})", _amt(row.get("amount")),
+                       _amt(s_side.get(rid)))
 
     elif subtype in ("income_statement", "cash_flow"):
-        # Sections must match by name; rows within a section are order-independent
-        schema_secs = {s.get("name", ""): s for s in schema.get("sections", [])}
-        student_secs = {s.get("name", ""): s for s in ans.get("sections", [])}
-        for sec_name, schema_sec in schema_secs.items():
-            student_sec = student_secs.get(sec_name, {})
-            student_set = _rows_to_set(student_sec.get("rows", []))
-            for row in schema_sec.get("rows", []):
-                lbl = _norm_label(row.get("label", ""))
-                amt = _norm_amt(row.get("amount", ""))
-                if not lbl or amt is None:
-                    continue
-                total_points += 1
-                if (lbl, amt) in student_set:
-                    earned_points += 1
-                    points_earned.append(f"{row.get('label')} ({sec_name})")
-                else:
-                    points_missed.append(f"{row.get('label')} ({sec_name})")
-        if subtype == "cash_flow":
-            s_open = _norm_amt(ans.get("openingBalance", ""))
-            c_open = _norm_amt(schema.get("openingBalance", ""))
-            if c_open is not None:
-                total_points += 1
-                if s_open == c_open:
-                    earned_points += 1
-                    points_earned.append("Opening Cash Balance")
-                else:
-                    points_missed.append("Opening Cash Balance")
+        amounts = _dict(ans.get("amounts"))
+        for sec in (schema.get("sections") or []):
+            sec_name = _dict(sec).get("name", "")
+            for row in (_dict(sec).get("rows") or []):
+                rid = _dict(row).get("id")
+                lbl = _dict(row).get("label") or "(item)"
+                label = f"{lbl} ({sec_name})" if sec_name else lbl
+                _check(label, _amt(row.get("amount")), _amt(amounts.get(rid)))
+        if subtype == "cash_flow" and _amt(schema.get("openingBalance")) is not None:
+            _check("Opening Cash Balance", _amt(schema.get("openingBalance")),
+                   _amt(amounts.get("__opening")))
 
     elif subtype == "trial_balance":
-        # Order-independent: match by account name
-        student_rows_by_acct = {}
-        for r in ans.get("rows", []):
-            acct = _norm_label(r.get("account", ""))
-            if acct:
-                student_rows_by_acct[acct] = r
-        for row in schema.get("rows", []):
-            acct = _norm_label(row.get("account", ""))
-            if not acct:
-                continue
+        s_rows = _dict(ans.get("rows"))
+        for row in (schema.get("rows") or []):
+            row = _dict(row)
+            rid = row.get("id")
+            acct = row.get("account") or "(account)"
+            c_dr, c_cr = _amt(row.get("debit")), _amt(row.get("credit"))
+            if c_dr is None and c_cr is None:
+                continue  # blank scheme row
             total_points += 1
-            s_row = student_rows_by_acct.get(acct)
-            c_dr = _norm_amt(row.get("debit", ""))
-            c_cr = _norm_amt(row.get("credit", ""))
-            s_dr = _norm_amt(s_row.get("debit", "")) if s_row else None
-            s_cr = _norm_amt(s_row.get("credit", "")) if s_row else None
-            if s_dr == c_dr and s_cr == c_cr:
+            cell = _dict(s_rows.get(rid))
+            s_dr, s_cr = _amt(cell.get("debit")), _amt(cell.get("credit"))
+            ok_dr = (c_dr is None and s_dr is None) or (
+                c_dr is not None and s_dr is not None and abs(s_dr - c_dr) < 0.01)
+            ok_cr = (c_cr is None and s_cr is None) or (
+                c_cr is not None and s_cr is not None and abs(s_cr - c_cr) < 0.01)
+            if ok_dr and ok_cr:
                 earned_points += 1
-                points_earned.append(row.get("account"))
+                points_earned.append(acct)
             else:
-                points_missed.append(row.get("account"))
+                bits = []
+                if c_dr is not None:
+                    bits.append(f"Dr {c_dr:g}")
+                if c_cr is not None:
+                    bits.append(f"Cr {c_cr:g}")
+                points_missed.append(f"{acct} (correct: {', '.join(bits)})")
 
     else:
         return _empty_result(max_marks, f"Unknown statement subtype: {subtype}", _near_miss(sw))
@@ -2023,7 +2002,10 @@ def _grade_financial_statement(question, student_answer) -> dict:
 
     ratio = earned_points / total_points
     marks = round(ratio * max_marks)
-    is_correct = marks >= max_marks
+    is_correct = earned_points == total_points
+    # Never show full marks unless every entry is correct.
+    if not is_correct and marks >= max_marks:
+        marks = max(0, max_marks - 1)
 
     if is_correct:
         feedback = "✓ Excellent! All entries are correctly placed and valued."

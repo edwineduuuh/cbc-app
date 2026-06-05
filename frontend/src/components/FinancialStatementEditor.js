@@ -319,23 +319,32 @@ export default function FinancialStatementEditor({
   onChange,
   currency = "Ksh",
 }) {
-  const [schema, setSchema] = useState(() => {
+  const [storedSchema, setStoredSchema] = useState(() => {
     if (value && typeof value === "object" && value.subtype === subtype)
       return value;
     return initSchema(subtype, currency);
   });
 
-  // When subtype changes externally, re-init
+  // Always render a schema that MATCHES the current subtype. On the render that
+  // fires right after subtype changes (before the effect re-inits state), the
+  // stored schema still has the old shape — reading e.g. schema.left.sections
+  // on it would crash. Deriving here keeps the UI fire-proof.
+  const schema =
+    storedSchema && storedSchema.subtype === subtype
+      ? storedSchema
+      : initSchema(subtype, currency);
+
+  // When subtype changes externally, re-init state + notify parent.
   useEffect(() => {
     if (!value || value.subtype !== subtype) {
       const fresh = initSchema(subtype, currency);
-      setSchema(fresh);
+      setStoredSchema(fresh);
       onChange(fresh);
     }
   }, [subtype]); // eslint-disable-line
 
   const update = (next) => {
-    setSchema(next);
+    setStoredSchema(next);
     onChange(next);
   };
 
