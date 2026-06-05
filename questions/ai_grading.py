@@ -911,10 +911,10 @@ MAX MARKS: {max_marks}
 {{
   "marks_awarded": <integer between 0 and {max_marks}>,
   "is_correct": <true if marks_awarded == {max_marks}, else false>,
-  "feedback": "<Start with 'Correct!' if is_correct is true, or 'Not quite.' if false. Then 4-6 sentences separated by \\n covering what was right, what was wrong, and the full correct answer. Use LaTeX for ALL maths.>",
+  "feedback": "<Start with 'Correct!' if is_correct is true, or 'Not quite.' if false. Then 4-6 sentences separated by \\n covering what was right, what was wrong, and the full correct answer. ALWAYS wrap any maths in dollar signs: inline as $x = 4$ and display as $$\\frac{{1}}{{2}}bh$$. NEVER write bare LaTeX without dollar signs.>",
   "study_tip": "<{study_tip_instruction}>",
-  "points_earned": ["<what student got right in simple words>"],
-  "points_missed": ["<what student missed in simple words>"]
+  "points_earned": ["<what student got right. Wrap any math in $...$>"],
+  "points_missed": ["<what student missed. Wrap any math in $...$>"]
 }}"""
 
     return prompt
