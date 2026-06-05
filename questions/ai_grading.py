@@ -2082,7 +2082,18 @@ class _PartProxy:
     def __init__(self, part):
         parent                    = part.parent_question
         self.id                   = part.id
-        self.question_text        = part.question_text
+        # Prepend the parent question's shared stem so AI graders and the
+        # working/solution generators see the actual scenario and numbers.
+        # A part like "the cost on hire purchase terms" carries NO figures on
+        # its own — the deposit, instalments, etc. live on the parent stem.
+        # Without this the model has only the final answer and hallucinates
+        # working (made-up deposits/instalments) that happens to fit it.
+        parent_stem = (getattr(parent, "question_text", "") or "").strip()
+        part_text   = (part.question_text or "").strip()
+        if parent_stem and parent_stem not in part_text:
+            self.question_text    = f"{parent_stem}\n\n{part_text}"
+        else:
+            self.question_text    = part_text
         self.question_type        = part.question_type
         self.correct_answer       = part.correct_answer
         self.correct_answers      = []   # _grade_math / _grade_fill_blank need this
