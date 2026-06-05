@@ -40,50 +40,67 @@ function fmt(n) {
 }
 
 const CELL = {
-  padding: "5px 10px",
+  padding: "8px 12px",
   border: "1px solid #e5e7eb",
   verticalAlign: "middle",
 };
 const TH = {
   ...CELL,
-  background: "#eff6ff",
-  color: "#1d4ed8",
+  background: "linear-gradient(135deg, #1e40af 0%, #1d4ed8 100%)",
+  color: "#fff",
   fontWeight: 700,
   fontSize: 12,
   textAlign: "center",
+  letterSpacing: "0.04em",
+  textTransform: "uppercase",
 };
 const SUBTOTAL_ROW = {
   fontWeight: 700,
-  background: "#f0f9ff",
-  borderTop: "1px solid #bfdbfe",
+  background: "#eff6ff",
+  borderTop: "2px solid #bfdbfe",
 };
 const TOTAL_ROW = {
   fontWeight: 700,
-  background: "#f3f4f6",
-  borderTop: "2px solid #9ca3af",
+  background: "#1e40af",
+  color: "#fff",
+  borderTop: "2px solid #1e3a8a",
 };
 
 function AmountInput({ value, onChange, readonly }) {
   return (
     <input
-      type="number"
+      type="text"
+      inputMode="decimal"
       value={value ?? ""}
       disabled={readonly}
       placeholder="0"
-      onChange={(e) => onChange(e.target.value)}
+      onChange={(e) => {
+        const v = e.target.value.replace(/[^0-9.\-]/g, "");
+        onChange(v);
+      }}
       style={{
         width: "100%",
         textAlign: "right",
-        fontSize: 13,
-        padding: "4px 8px",
+        fontSize: 14,
+        fontWeight: 600,
+        padding: "7px 10px",
         border: "1.5px solid #d1d5db",
         borderRadius: 8,
-        background: readonly ? "#f9fafb" : "#fff",
+        background: readonly ? "#f8fafc" : "#fff",
         outline: "none",
         boxSizing: "border-box",
+        color: readonly ? "#6b7280" : "#111827",
+        WebkitAppearance: "none",
+        MozAppearance: "textfield",
       }}
-      onFocus={(e) => (e.target.style.borderColor = "#3b82f6")}
-      onBlur={(e) => (e.target.style.borderColor = "#d1d5db")}
+      onFocus={(e) => {
+        e.target.style.borderColor = "#3b82f6";
+        e.target.style.boxShadow = "0 0 0 3px rgba(59,130,246,0.15)";
+      }}
+      onBlur={(e) => {
+        e.target.style.borderColor = "#d1d5db";
+        e.target.style.boxShadow = "none";
+      }}
     />
   );
 }
@@ -170,8 +187,15 @@ function TwoColInput({ schema, answer, update, currency, readonly }) {
           <tbody>{buildRows(leftSections, leftAns, "left")}</tbody>
           <tfoot>
             <tr style={TOTAL_ROW}>
-              <td style={CELL}>Total</td>
-              <td style={{ ...CELL, textAlign: "right", color: "#1d4ed8" }}>
+              <td style={{ ...CELL, color: "#fff" }}>Total</td>
+              <td
+                style={{
+                  ...CELL,
+                  textAlign: "right",
+                  color: "#fff",
+                  fontWeight: 700,
+                }}
+              >
                 {fmt(leftTotal)}
               </td>
             </tr>
@@ -191,8 +215,15 @@ function TwoColInput({ schema, answer, update, currency, readonly }) {
           <tbody>{buildRows(rightSections, rightAns, "right")}</tbody>
           <tfoot>
             <tr style={TOTAL_ROW}>
-              <td style={CELL}>Total</td>
-              <td style={{ ...CELL, textAlign: "right", color: "#1d4ed8" }}>
+              <td style={{ ...CELL, color: "#fff" }}>Total</td>
+              <td
+                style={{
+                  ...CELL,
+                  textAlign: "right",
+                  color: "#fff",
+                  fontWeight: 700,
+                }}
+              >
                 {fmt(rightTotal)}
               </td>
             </tr>
@@ -274,8 +305,15 @@ function TAccountInput({ schema, answer, update, currency, readonly }) {
           </tbody>
           <tfoot>
             <tr style={TOTAL_ROW}>
-              <td style={CELL}>Total</td>
-              <td style={{ ...CELL, textAlign: "right", color: "#1d4ed8" }}>
+              <td style={{ ...CELL, color: "#fff" }}>Total</td>
+              <td
+                style={{
+                  ...CELL,
+                  textAlign: "right",
+                  color: "#fff",
+                  fontWeight: 700,
+                }}
+              >
                 {fmt(leftTotal)}
               </td>
             </tr>
@@ -309,8 +347,15 @@ function TAccountInput({ schema, answer, update, currency, readonly }) {
           </tbody>
           <tfoot>
             <tr style={TOTAL_ROW}>
-              <td style={CELL}>Total</td>
-              <td style={{ ...CELL, textAlign: "right", color: "#1d4ed8" }}>
+              <td style={{ ...CELL, color: "#fff" }}>Total</td>
+              <td
+                style={{
+                  ...CELL,
+                  textAlign: "right",
+                  color: "#fff",
+                  fontWeight: 700,
+                }}
+              >
                 {fmt(rightTotal)}
               </td>
             </tr>
@@ -421,10 +466,17 @@ function MultiSectionInput({ schema, answer, update, currency, readonly }) {
         <tbody>{rows}</tbody>
         <tfoot>
           <tr style={TOTAL_ROW}>
-            <td style={{ ...CELL, color: "#111827" }}>
+            <td style={{ ...CELL, color: "#fff" }}>
               {schema.resultLabel || schema.closingBalanceLabel || "Total"}
             </td>
-            <td style={{ ...CELL, textAlign: "right", color: "#1d4ed8" }}>
+            <td
+              style={{
+                ...CELL,
+                textAlign: "right",
+                color: "#fff",
+                fontWeight: 700,
+              }}
+            >
               {fmt(grandTotal)}
             </td>
           </tr>
@@ -487,11 +539,25 @@ function TrialBalanceInput({ schema, answer, update, currency, readonly }) {
         </tbody>
         <tfoot>
           <tr style={TOTAL_ROW}>
-            <td style={CELL}>Totals</td>
-            <td style={{ ...CELL, textAlign: "right", color: "#1d4ed8" }}>
+            <td style={{ ...CELL, color: "#fff" }}>Totals</td>
+            <td
+              style={{
+                ...CELL,
+                textAlign: "right",
+                color: "#fff",
+                fontWeight: 700,
+              }}
+            >
               {fmt(totalDr)}
             </td>
-            <td style={{ ...CELL, textAlign: "right", color: "#1d4ed8" }}>
+            <td
+              style={{
+                ...CELL,
+                textAlign: "right",
+                color: "#fff",
+                fontWeight: 700,
+              }}
+            >
               {fmt(totalCr)}
             </td>
           </tr>
@@ -564,56 +630,69 @@ function BlankTwoCol({ subtype, value, onChange, readonly }) {
 
   const colStyle = { flex: 1, minWidth: 0 };
   const hdr = {
-    background: "#eff6ff",
-    color: "#1d4ed8",
+    background: "linear-gradient(135deg, #1e40af 0%, #1d4ed8 100%)",
+    color: "#fff",
     fontWeight: 700,
-    fontSize: 12,
-    padding: "6px 10px",
-    borderRadius: "8px 8px 0 0",
+    fontSize: 13,
+    padding: "10px 14px",
+    borderRadius: "10px 10px 0 0",
     textAlign: "center",
-    border: "1px solid #bfdbfe",
+    letterSpacing: "0.03em",
   };
   const rowStyle = {
     display: "flex",
-    gap: 4,
+    gap: 8,
     alignItems: "center",
-    padding: "4px 6px",
-    borderBottom: "1px solid #f3f4f6",
+    padding: "6px 10px",
+    borderBottom: "1px solid #f1f5f9",
+    background: "#fff",
   };
   const labelIn = {
     flex: 2,
     fontSize: 13,
-    padding: "4px 8px",
-    border: "1.5px solid #d1d5db",
-    borderRadius: 6,
-    background: readonly ? "#f9fafb" : "#fff",
+    padding: "7px 10px",
+    border: "1.5px solid #e2e8f0",
+    borderRadius: 8,
+    background: readonly ? "#f8fafc" : "#fff",
+    color: "#111827",
+    outline: "none",
   };
   const amtIn = {
     flex: 1,
     fontSize: 13,
-    padding: "4px 8px",
-    border: "1.5px solid #d1d5db",
-    borderRadius: 6,
+    fontWeight: 600,
+    padding: "7px 10px",
+    border: "1.5px solid #e2e8f0",
+    borderRadius: 8,
     textAlign: "right",
-    background: readonly ? "#f9fafb" : "#fff",
+    background: readonly ? "#f8fafc" : "#fff",
+    color: "#111827",
+    outline: "none",
+    WebkitAppearance: "none",
+    MozAppearance: "textfield",
   };
   const totRow = {
     display: "flex",
     justifyContent: "space-between",
-    padding: "6px 10px",
+    padding: "8px 14px",
     fontWeight: 700,
-    fontSize: 13,
-    background: "#f3f4f6",
-    borderTop: "2px solid #9ca3af",
-    borderRadius: "0 0 8px 8px",
-    border: "1px solid #e5e7eb",
+    fontSize: 14,
+    background: "#1e40af",
+    color: "#fff",
+    borderRadius: "0 0 10px 10px",
   };
 
   function Side({ side }) {
     return (
       <div style={colStyle}>
         <div style={hdr}>{side === "left" ? cfg.leftHead : cfg.rightHead}</div>
-        <div style={{ border: "1px solid #e5e7eb", borderTop: "none" }}>
+        <div
+          style={{
+            border: "1px solid #e2e8f0",
+            borderTop: "none",
+            background: "#fff",
+          }}
+        >
           {(state[side] || []).map((r) => (
             <div key={r.id} style={rowStyle}>
               <input
@@ -622,14 +701,34 @@ function BlankTwoCol({ subtype, value, onChange, readonly }) {
                 value={r.label}
                 placeholder="Item name"
                 onChange={(e) => setField(side, r.id, "label", e.target.value)}
+                onFocus={(e) => {
+                  e.target.style.borderColor = "#3b82f6";
+                  e.target.style.boxShadow = "0 0 0 3px rgba(59,130,246,0.15)";
+                }}
+                onBlur={(e) => {
+                  e.target.style.borderColor = "#e2e8f0";
+                  e.target.style.boxShadow = "none";
+                }}
               />
               <input
                 style={amtIn}
                 disabled={readonly}
                 value={r.amount}
-                placeholder="Amount"
-                type="number"
-                onChange={(e) => setField(side, r.id, "amount", e.target.value)}
+                placeholder="0"
+                type="text"
+                inputMode="decimal"
+                onChange={(e) => {
+                  const v = e.target.value.replace(/[^0-9.\-]/g, "");
+                  setField(side, r.id, "amount", v);
+                }}
+                onFocus={(e) => {
+                  e.target.style.borderColor = "#3b82f6";
+                  e.target.style.boxShadow = "0 0 0 3px rgba(59,130,246,0.15)";
+                }}
+                onBlur={(e) => {
+                  e.target.style.borderColor = "#e2e8f0";
+                  e.target.style.boxShadow = "none";
+                }}
               />
               {!readonly && (
                 <button
@@ -637,13 +736,13 @@ function BlankTwoCol({ subtype, value, onChange, readonly }) {
                   title="Remove row"
                   onClick={() => removeRow(side, r.id)}
                   style={{
-                    width: 24,
-                    height: 24,
-                    borderRadius: "50%",
+                    width: 28,
+                    height: 28,
+                    borderRadius: 8,
                     border: "1.5px solid #fca5a5",
                     background: "#fff5f5",
                     color: "#ef4444",
-                    fontSize: 13,
+                    fontSize: 14,
                     fontWeight: 700,
                     cursor: "pointer",
                     display: "flex",
@@ -659,18 +758,20 @@ function BlankTwoCol({ subtype, value, onChange, readonly }) {
             </div>
           ))}
           {!readonly && (
-            <div style={{ padding: "6px 10px" }}>
+            <div style={{ padding: "8px 10px", background: "#f8fafc" }}>
               <button
                 type="button"
                 onClick={() => addRow(side)}
                 style={{
-                  fontSize: 12,
-                  color: "#2563eb",
+                  fontSize: 13,
+                  color: "#1d4ed8",
                   background: "#eff6ff",
-                  border: "1px solid #bfdbfe",
-                  borderRadius: 6,
-                  padding: "3px 10px",
+                  border: "1.5px dashed #93c5fd",
+                  borderRadius: 8,
+                  padding: "5px 14px",
                   cursor: "pointer",
+                  fontWeight: 600,
+                  width: "100%",
                 }}
               >
                 + Add row
@@ -786,27 +887,35 @@ function BlankMultiSection({ subtype, value, onChange, readonly }) {
 
   const rowStyle = {
     display: "flex",
-    gap: 4,
+    gap: 8,
     alignItems: "center",
-    padding: "4px 8px",
-    borderBottom: "1px solid #f3f4f6",
+    padding: "6px 10px",
+    borderBottom: "1px solid #f1f5f9",
+    background: "#fff",
   };
   const labelIn = {
     flex: 2,
     fontSize: 13,
-    padding: "4px 8px",
-    border: "1.5px solid #d1d5db",
-    borderRadius: 6,
-    background: readonly ? "#f9fafb" : "#fff",
+    padding: "7px 10px",
+    border: "1.5px solid #e2e8f0",
+    borderRadius: 8,
+    background: readonly ? "#f8fafc" : "#fff",
+    color: "#111827",
+    outline: "none",
   };
   const amtIn = {
     flex: 1,
     fontSize: 13,
-    padding: "4px 8px",
-    border: "1.5px solid #d1d5db",
-    borderRadius: 6,
+    fontWeight: 600,
+    padding: "7px 10px",
+    border: "1.5px solid #e2e8f0",
+    borderRadius: 8,
     textAlign: "right",
-    background: readonly ? "#f9fafb" : "#fff",
+    background: readonly ? "#f8fafc" : "#fff",
+    color: "#111827",
+    outline: "none",
+    WebkitAppearance: "none",
+    MozAppearance: "textfield",
   };
 
   return (
@@ -845,21 +954,34 @@ function BlankMultiSection({ subtype, value, onChange, readonly }) {
         </p>
       ) : null}
       {sections.map((sec) => (
-        <div key={sec} style={{ marginBottom: 16 }}>
+        <div
+          key={sec}
+          style={{
+            marginBottom: 16,
+            borderRadius: 10,
+            overflow: "hidden",
+            boxShadow: "0 1px 4px rgba(0,0,0,0.07)",
+          }}
+        >
           <div
             style={{
-              background: "#eff6ff",
-              color: "#1d4ed8",
+              background: "linear-gradient(135deg, #1e40af 0%, #1d4ed8 100%)",
+              color: "#fff",
               fontWeight: 700,
-              fontSize: 12,
-              padding: "6px 10px",
-              borderRadius: "8px 8px 0 0",
-              border: "1px solid #bfdbfe",
+              fontSize: 13,
+              padding: "10px 14px",
+              letterSpacing: "0.03em",
             }}
           >
             {sec}
           </div>
-          <div style={{ border: "1px solid #e5e7eb", borderTop: "none" }}>
+          <div
+            style={{
+              border: "1px solid #e2e8f0",
+              borderTop: "none",
+              background: "#fff",
+            }}
+          >
             {(state.rows[sec] || []).map((r) => (
               <div key={r.id} style={rowStyle}>
                 <input
@@ -868,16 +990,36 @@ function BlankMultiSection({ subtype, value, onChange, readonly }) {
                   value={r.label}
                   placeholder="Item name"
                   onChange={(e) => setField(sec, r.id, "label", e.target.value)}
+                  onFocus={(e) => {
+                    e.target.style.borderColor = "#3b82f6";
+                    e.target.style.boxShadow =
+                      "0 0 0 3px rgba(59,130,246,0.15)";
+                  }}
+                  onBlur={(e) => {
+                    e.target.style.borderColor = "#e2e8f0";
+                    e.target.style.boxShadow = "none";
+                  }}
                 />
                 <input
                   style={amtIn}
                   disabled={readonly}
                   value={r.amount}
-                  placeholder="Amount"
-                  type="number"
-                  onChange={(e) =>
-                    setField(sec, r.id, "amount", e.target.value)
-                  }
+                  placeholder="0"
+                  type="text"
+                  inputMode="decimal"
+                  onChange={(e) => {
+                    const v = e.target.value.replace(/[^0-9.\-]/g, "");
+                    setField(sec, r.id, "amount", v);
+                  }}
+                  onFocus={(e) => {
+                    e.target.style.borderColor = "#3b82f6";
+                    e.target.style.boxShadow =
+                      "0 0 0 3px rgba(59,130,246,0.15)";
+                  }}
+                  onBlur={(e) => {
+                    e.target.style.borderColor = "#e2e8f0";
+                    e.target.style.boxShadow = "none";
+                  }}
                 />
                 {!readonly && (
                   <button
@@ -885,13 +1027,13 @@ function BlankMultiSection({ subtype, value, onChange, readonly }) {
                     title="Remove row"
                     onClick={() => removeRow(sec, r.id)}
                     style={{
-                      width: 24,
-                      height: 24,
-                      borderRadius: "50%",
+                      width: 28,
+                      height: 28,
+                      borderRadius: 8,
                       border: "1.5px solid #fca5a5",
                       background: "#fff5f5",
                       color: "#ef4444",
-                      fontSize: 13,
+                      fontSize: 14,
                       fontWeight: 700,
                       cursor: "pointer",
                       display: "flex",
@@ -907,18 +1049,20 @@ function BlankMultiSection({ subtype, value, onChange, readonly }) {
               </div>
             ))}
             {!readonly && (
-              <div style={{ padding: "6px 10px" }}>
+              <div style={{ padding: "8px 10px", background: "#f8fafc" }}>
                 <button
                   type="button"
                   onClick={() => addRow(sec)}
                   style={{
-                    fontSize: 12,
-                    color: "#2563eb",
+                    fontSize: 13,
+                    color: "#1d4ed8",
                     background: "#eff6ff",
-                    border: "1px solid #bfdbfe",
-                    borderRadius: 6,
-                    padding: "3px 10px",
+                    border: "1.5px dashed #93c5fd",
+                    borderRadius: 8,
+                    padding: "5px 14px",
                     cursor: "pointer",
+                    fontWeight: 600,
+                    width: "100%",
                   }}
                 >
                   + Add row
@@ -929,16 +1073,17 @@ function BlankMultiSection({ subtype, value, onChange, readonly }) {
               style={{
                 display: "flex",
                 justifyContent: "space-between",
-                padding: "6px 10px",
+                padding: "8px 14px",
                 fontWeight: 700,
                 fontSize: 13,
-                background: "#f3f4f6",
-                borderTop: "1px solid #e5e7eb",
+                background: "#eff6ff",
+                borderTop: "2px solid #bfdbfe",
+                color: "#1e40af",
               }}
             >
               <span>Subtotal</span>
               <span>
-                {secTotal(sec) ? secTotal(sec).toLocaleString("en-KE") : ""}
+                {secTotal(sec) ? secTotal(sec).toLocaleString("en-KE") : "—"}
               </span>
             </div>
           </div>
@@ -998,11 +1143,15 @@ function BlankTrialBalance({ value, onChange, readonly }) {
   );
   const inp = {
     fontSize: 13,
-    padding: "4px 8px",
-    border: "1.5px solid #d1d5db",
-    borderRadius: 6,
-    background: readonly ? "#f9fafb" : "#fff",
+    padding: "7px 10px",
+    border: "1.5px solid #e2e8f0",
+    borderRadius: 8,
+    background: readonly ? "#f8fafc" : "#fff",
+    color: "#111827",
+    outline: "none",
     width: "100%",
+    WebkitAppearance: "none",
+    MozAppearance: "textfield",
   };
 
   return (
@@ -1065,22 +1214,54 @@ function BlankTrialBalance({ value, onChange, readonly }) {
               </td>
               <td style={CELL}>
                 <input
-                  style={{ ...inp, textAlign: "right" }}
+                  style={{ ...inp, textAlign: "right", fontWeight: 600 }}
                   disabled={readonly}
-                  type="number"
+                  type="text"
+                  inputMode="decimal"
                   value={r.debit}
                   placeholder="0"
-                  onChange={(e) => setField(r.id, "debit", e.target.value)}
+                  onChange={(e) =>
+                    setField(
+                      r.id,
+                      "debit",
+                      e.target.value.replace(/[^0-9.\-]/g, ""),
+                    )
+                  }
+                  onFocus={(e) => {
+                    e.target.style.borderColor = "#3b82f6";
+                    e.target.style.boxShadow =
+                      "0 0 0 3px rgba(59,130,246,0.15)";
+                  }}
+                  onBlur={(e) => {
+                    e.target.style.borderColor = "#e2e8f0";
+                    e.target.style.boxShadow = "none";
+                  }}
                 />
               </td>
               <td style={CELL}>
                 <input
-                  style={{ ...inp, textAlign: "right" }}
+                  style={{ ...inp, textAlign: "right", fontWeight: 600 }}
                   disabled={readonly}
-                  type="number"
+                  type="text"
+                  inputMode="decimal"
                   value={r.credit}
                   placeholder="0"
-                  onChange={(e) => setField(r.id, "credit", e.target.value)}
+                  onChange={(e) =>
+                    setField(
+                      r.id,
+                      "credit",
+                      e.target.value.replace(/[^0-9.\-]/g, ""),
+                    )
+                  }
+                  onFocus={(e) => {
+                    e.target.style.borderColor = "#3b82f6";
+                    e.target.style.boxShadow =
+                      "0 0 0 3px rgba(59,130,246,0.15)";
+                  }}
+                  onBlur={(e) => {
+                    e.target.style.borderColor = "#e2e8f0";
+                    e.target.style.boxShadow = "none";
+                  }}
                 />
               </td>
               {!readonly && (
@@ -1090,13 +1271,13 @@ function BlankTrialBalance({ value, onChange, readonly }) {
                     title="Remove row"
                     onClick={() => removeRow(r.id)}
                     style={{
-                      width: 24,
-                      height: 24,
-                      borderRadius: "50%",
+                      width: 28,
+                      height: 28,
+                      borderRadius: 8,
                       border: "1.5px solid #fca5a5",
                       background: "#fff5f5",
                       color: "#ef4444",
-                      fontSize: 13,
+                      fontSize: 14,
                       fontWeight: 700,
                       cursor: "pointer",
                       display: "inline-flex",
@@ -1113,18 +1294,23 @@ function BlankTrialBalance({ value, onChange, readonly }) {
           ))}
           {!readonly && (
             <tr>
-              <td colSpan={readonly ? 3 : 4} style={{ ...CELL, paddingTop: 8 }}>
+              <td
+                colSpan={readonly ? 3 : 4}
+                style={{ ...CELL, paddingTop: 8, background: "#f8fafc" }}
+              >
                 <button
                   type="button"
                   onClick={addRow}
                   style={{
-                    fontSize: 12,
-                    color: "#2563eb",
+                    fontSize: 13,
+                    color: "#1d4ed8",
                     background: "#eff6ff",
-                    border: "1px solid #bfdbfe",
-                    borderRadius: 6,
-                    padding: "3px 10px",
+                    border: "1.5px dashed #93c5fd",
+                    borderRadius: 8,
+                    padding: "5px 14px",
                     cursor: "pointer",
+                    fontWeight: 600,
+                    width: "100%",
                   }}
                 >
                   + Add row
@@ -1135,13 +1321,27 @@ function BlankTrialBalance({ value, onChange, readonly }) {
         </tbody>
         <tfoot>
           <tr style={TOTAL_ROW}>
-            <td style={CELL}>
+            <td style={{ ...CELL, color: "#fff" }}>
               <strong>Totals</strong>
             </td>
-            <td style={{ ...CELL, textAlign: "right", color: "#1d4ed8" }}>
-              {totalDr ? totalDr.toLocaleString("en-KE") : ""}
+            <td
+              style={{
+                ...CELL,
+                textAlign: "right",
+                color: "#fff",
+                fontWeight: 700,
+              }}
+            >
+              {totalDr ? totalDr.toLocaleString("en-KE") : "—"}
             </td>
-            <td style={{ ...CELL, textAlign: "right", color: "#1d4ed8" }}>
+            <td
+              style={{
+                ...CELL,
+                textAlign: "right",
+                color: "#fff",
+                fontWeight: 700,
+              }}
+            >
               {totalCr ? totalCr.toLocaleString("en-KE") : ""}
             </td>
             {!readonly && <td style={CELL}></td>}
