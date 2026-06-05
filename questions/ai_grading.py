@@ -1912,87 +1912,182 @@ def _grade_financial_statement(question, student_answer) -> dict:
         """Return v if it's a dict, else an empty dict — keeps lookups safe."""
         return v if isinstance(v, dict) else {}
 
+    def _norm_lbl(s):
+        """Normalise a label: lowercase, drop punctuation, de-pluralise."""
+        s = re.sub(r"[^\w\s]", " ", str(s or "").lower())
+        s = re.sub(r"\s+", " ", s).strip()
+        if len(s) > 3 and s.endswith("s"):
+            s = s[:-1]
+        return s
+
+    def _lev(a, b, cap=2):
+        if abs(len(a) - len(b)) > cap:
+            return cap + 1
+        prev = list(range(len(b) + 1))
+        for i, ca in enumerate(a):
+            cur = [i + 1]
+            for j, cb in enumerate(b):
+                cur.append(min(prev[j] + (ca != cb), prev[j + 1] + 1, cur[j] + 1))
+            prev = cur
+        return prev[-1]
+
+    def _lbl_match(a, b):
+        """Order-independent label match, tolerant of spelling/plurals/casing."""
+        if not a or not b:
+            return False
+        if a == b or a in b or b in a:
+            return True
+        return _lev(a, b) <= 2
+
     total_points = 0
     earned_points = 0
     points_earned = []
     points_missed = []
 
-    # The student input stores answers keyed by the SCHEME's row id, so we grade
-    # by walking the marking scheme and pulling each row's amount by id. Placement
-    # (which side/section) is enforced because we read from the matching bucket.
-    def _check(label, correct, student):
+    # ── Order-independent matching ───────────────────────────────────────────
+    # A statement is graded by CONTENT, not row order. For each expected entry
+    # (label, amount) on a given side/section we look for ANY unused student row
+    # on that same side whose label matches (fuzzy) and amount is equal. So a
+    # student who lists Motor Vehicle before Furniture still earns both marks.
+    def _submitted(val, label_by_id):
+        """Student rows as [(norm_label, amount)] from either input mode:
+        blank/free mode  → list of {label, amount};
+        fill-amount mode → {row_id: amount} (label taken from the scheme)."""
+        out = []
+        if isinstance(val, list):
+            for r in val:
+                r = _dict(r)
+                out.append((_norm_lbl(r.get("label")), _amt(r.get("amount"))))
+        elif isinstance(val, dict):
+            for rid, amt in val.items():
+                out.append((_norm_lbl(label_by_id.get(rid, "")), _amt(amt)))
+        return out
+
+    def _match(expected, submitted):
+        """expected: [(norm_label, amount, display)]; submitted: [(norm_label, amount)]."""
         nonlocal total_points, earned_points
-        if correct is None:
-            return  # blank template row in the scheme — not gradeable
-        total_points += 1
-        if student is not None and abs(student - correct) < 0.01:
-            earned_points += 1
-            points_earned.append(label)
-        else:
-            points_missed.append(f"{label} (correct: {correct:g})")
+        used = [False] * len(submitted)
+        for elbl, eamt, edisp in expected:
+            if eamt is None:
+                continue  # blank template row — not gradeable
+            total_points += 1
+            hit = -1
+            for i, (slbl, samt) in enumerate(submitted):
+                if used[i] or samt is None:
+                    continue
+                if abs(samt - eamt) < 0.01 and _lbl_match(elbl, slbl):
+                    hit = i
+                    break
+            if hit >= 0:
+                used[hit] = True
+                earned_points += 1
+                points_earned.append(edisp)
+            else:
+                points_missed.append(f"{edisp} (correct: {eamt:g})")
 
     if subtype in ("balance_sheet", "trading_account"):
         for side_key in ("left", "right"):
             side = _dict(schema.get(side_key))
-            s_side = _dict(ans.get(side_key))
             heading = side.get("heading", side_key)
+            expected, label_by_id = [], {}
             for sec in (side.get("sections") or []):
                 for row in (_dict(sec).get("rows") or []):
-                    rid = _dict(row).get("id")
-                    lbl = _dict(row).get("label") or "(item)"
-                    _check(f"{lbl} ({heading})", _amt(row.get("amount")),
-                           _amt(s_side.get(rid)))
+                    row = _dict(row)
+                    lbl = row.get("label") or "(item)"
+                    label_by_id[row.get("id")] = lbl
+                    expected.append((_norm_lbl(lbl), _amt(row.get("amount")),
+                                     f"{lbl} ({heading})"))
+            _match(expected, _submitted(ans.get(side_key), label_by_id))
 
     elif subtype == "t_account":
         for side_key in ("left", "right"):
             side = _dict(schema.get(side_key))
-            s_side = _dict(ans.get(side_key))
             heading = side.get("heading", side_key)
+            expected, label_by_id = [], {}
             for row in (side.get("rows") or []):
-                rid = _dict(row).get("id")
-                lbl = _dict(row).get("label") or "(item)"
-                _check(f"{lbl} ({heading})", _amt(row.get("amount")),
-                       _amt(s_side.get(rid)))
+                row = _dict(row)
+                lbl = row.get("label") or "(item)"
+                label_by_id[row.get("id")] = lbl
+                expected.append((_norm_lbl(lbl), _amt(row.get("amount")),
+                                 f"{lbl} ({heading})"))
+            _match(expected, _submitted(ans.get(side_key), label_by_id))
 
     elif subtype in ("income_statement", "cash_flow"):
-        amounts = _dict(ans.get("amounts"))
+        expected, label_by_id = [], {}
         for sec in (schema.get("sections") or []):
-            sec_name = _dict(sec).get("name", "")
-            for row in (_dict(sec).get("rows") or []):
-                rid = _dict(row).get("id")
-                lbl = _dict(row).get("label") or "(item)"
-                label = f"{lbl} ({sec_name})" if sec_name else lbl
-                _check(label, _amt(row.get("amount")), _amt(amounts.get(rid)))
-        if subtype == "cash_flow" and _amt(schema.get("openingBalance")) is not None:
-            _check("Opening Cash Balance", _amt(schema.get("openingBalance")),
-                   _amt(amounts.get("__opening")))
+            sec = _dict(sec)
+            sname = sec.get("name", "")
+            for row in (sec.get("rows") or []):
+                row = _dict(row)
+                lbl = row.get("label") or "(item)"
+                label_by_id[row.get("id")] = lbl
+                disp = f"{lbl} ({sname})" if sname else lbl
+                expected.append((_norm_lbl(lbl), _amt(row.get("amount")), disp))
+        # Student rows: fill-amount mode {amounts:{id:amt}} or free mode {rows:{section:[...]}}
+        if isinstance(ans.get("amounts"), dict):
+            submitted = _submitted(ans.get("amounts"), label_by_id)
+            opening = _amt(schema.get("openingBalance"))
+            if subtype == "cash_flow" and opening is not None:
+                expected.append(("opening cash balance", opening, "Opening Cash Balance"))
+                submitted.append(("opening cash balance",
+                                  _amt(_dict(ans.get("amounts")).get("__opening"))))
+        else:
+            submitted = []
+            for _sec, rowlist in _dict(ans.get("rows")).items():
+                if isinstance(rowlist, list):
+                    for r in rowlist:
+                        r = _dict(r)
+                        submitted.append((_norm_lbl(r.get("label")), _amt(r.get("amount"))))
+        _match(expected, submitted)
 
     elif subtype == "trial_balance":
-        s_rows = _dict(ans.get("rows"))
+        # Two-column (Dr/Cr) entries matched by account name, order-independent.
+        expected = []
         for row in (schema.get("rows") or []):
             row = _dict(row)
-            rid = row.get("id")
             acct = row.get("account") or "(account)"
             c_dr, c_cr = _amt(row.get("debit")), _amt(row.get("credit"))
             if c_dr is None and c_cr is None:
-                continue  # blank scheme row
+                continue
+            expected.append((_norm_lbl(acct), c_dr, c_cr, acct))
+        sub, sr = [], ans.get("rows")
+        if isinstance(sr, list):  # free mode
+            for r in sr:
+                r = _dict(r)
+                sub.append((_norm_lbl(r.get("account")),
+                            _amt(r.get("debit")), _amt(r.get("credit"))))
+        elif isinstance(sr, dict):  # fill mode {id: {debit, credit}}
+            acct_by_id = {_dict(row).get("id"): (_dict(row).get("account") or "")
+                          for row in (schema.get("rows") or [])}
+            for rid, cell in sr.items():
+                cell = _dict(cell)
+                sub.append((_norm_lbl(acct_by_id.get(rid, "")),
+                            _amt(cell.get("debit")), _amt(cell.get("credit"))))
+        used = [False] * len(sub)
+        for elbl, edr, ecr, edisp in expected:
             total_points += 1
-            cell = _dict(s_rows.get(rid))
-            s_dr, s_cr = _amt(cell.get("debit")), _amt(cell.get("credit"))
-            ok_dr = (c_dr is None and s_dr is None) or (
-                c_dr is not None and s_dr is not None and abs(s_dr - c_dr) < 0.01)
-            ok_cr = (c_cr is None and s_cr is None) or (
-                c_cr is not None and s_cr is not None and abs(s_cr - c_cr) < 0.01)
-            if ok_dr and ok_cr:
+            hit = -1
+            for i, (slbl, sdr, scr) in enumerate(sub):
+                if used[i]:
+                    continue
+                dr_ok = (edr is None and sdr is None) or (
+                    edr is not None and sdr is not None and abs(sdr - edr) < 0.01)
+                cr_ok = (ecr is None and scr is None) or (
+                    ecr is not None and scr is not None and abs(scr - ecr) < 0.01)
+                if _lbl_match(elbl, slbl) and dr_ok and cr_ok:
+                    hit = i
+                    break
+            if hit >= 0:
+                used[hit] = True
                 earned_points += 1
-                points_earned.append(acct)
+                points_earned.append(edisp)
             else:
                 bits = []
-                if c_dr is not None:
-                    bits.append(f"Dr {c_dr:g}")
-                if c_cr is not None:
-                    bits.append(f"Cr {c_cr:g}")
-                points_missed.append(f"{acct} (correct: {', '.join(bits)})")
+                if edr is not None:
+                    bits.append(f"Dr {edr:g}")
+                if ecr is not None:
+                    bits.append(f"Cr {ecr:g}")
+                points_missed.append(f"{edisp} (correct: {', '.join(bits)})")
 
     else:
         return _empty_result(max_marks, f"Unknown statement subtype: {subtype}", _near_miss(sw))
