@@ -2433,6 +2433,8 @@ def grade_answer(
         result = _grade_multipart(question, student_answer, working_image)
     elif question.question_type == "table":
         result = _grade_table(question, student_answer)
+    elif question.question_type == "financial_statement":
+        result = _grade_financial_statement(question, student_answer)
     else:
         result = _route(question, str(student_answer), working_image)
 
