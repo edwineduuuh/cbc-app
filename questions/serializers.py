@@ -79,6 +79,7 @@ class QuestionSerializer(serializers.ModelSerializer):
     question_image_url = serializers.SerializerMethodField()
     passage = PassageSerializer(read_only=True)
     parts   = QuestionPartSerializer(many=True, read_only=True)
+    statement_schema_template = serializers.SerializerMethodField()
 
     class Meta:
         model  = Question
@@ -95,6 +96,7 @@ class QuestionSerializer(serializers.ModelSerializer):
             'worked_solution',
             'table_data',
             'statement_subtype',
+            'statement_schema_template',
         ]
 
     def get_question_image_url(self, obj):
@@ -107,6 +109,28 @@ class QuestionSerializer(serializers.ModelSerializer):
             return obj.question_image.url
         except:
             return None
+
+    def get_statement_schema_template(self, obj):
+        """Expose only headings/section-names so the blank student form uses the correct
+        orientation. No row labels, no amounts — student still types everything."""
+        if obj.question_type != 'financial_statement':
+            return None
+        schema = obj.marking_scheme
+        if not schema or not isinstance(schema, dict):
+            return None
+        result = {'subtype': schema.get('subtype', '')}
+        left = schema.get('left')
+        right = schema.get('right')
+        if isinstance(left, dict):
+            result['leftHeading'] = left.get('heading', '')
+        if isinstance(right, dict):
+            result['rightHeading'] = right.get('heading', '')
+        sections = schema.get('sections')
+        if isinstance(sections, list):
+            result['sectionNames'] = [
+                s.get('name', '') for s in sections if isinstance(s, dict)
+            ]
+        return result
 
 
 class PassageAdminSerializer(serializers.ModelSerializer):

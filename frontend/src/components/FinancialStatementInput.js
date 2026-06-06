@@ -612,12 +612,19 @@ function TwoColSide({
           borderRadius: "10px 10px 0 0",
           textAlign: "center",
           letterSpacing: "0.03em",
+          wordBreak: "break-word",
+          whiteSpace: "normal",
+          lineHeight: 1.35,
         }}
       >
         {heading}
       </div>
       <div
-        style={{ border: "1px solid #e2e8f0", borderTop: "none", background: "#fff" }}
+        style={{
+          border: "1px solid #e2e8f0",
+          borderTop: "none",
+          background: "#fff",
+        }}
       >
         {rows.map((r) => (
           <div
@@ -757,8 +764,12 @@ function TwoColSide({
   );
 }
 
-function BlankTwoCol({ subtype, value, onChange, readonly }) {
-  const cfg = BLANK_CONFIGS[subtype] || { leftHead: "Left", rightHead: "Right" };
+function BlankTwoCol({ subtype, value, onChange, readonly, headings }) {
+  const defaults = BLANK_CONFIGS[subtype] || { leftHead: "Left", rightHead: "Right" };
+  const cfg = {
+    leftHead: headings?.leftHeading || defaults.leftHead,
+    rightHead: headings?.rightHeading || defaults.rightHead,
+  };
   const init =
     value && value._blank
       ? value
@@ -779,7 +790,9 @@ function BlankTwoCol({ subtype, value, onChange, readonly }) {
   function setField(side, id, field, val) {
     push({
       ...state,
-      [side]: state[side].map((r) => (r.id === id ? { ...r, [field]: val } : r)),
+      [side]: state[side].map((r) =>
+        r.id === id ? { ...r, [field]: val } : r,
+      ),
     });
   }
   function removeRow(side, id) {
@@ -855,8 +868,9 @@ function BlankTwoCol({ subtype, value, onChange, readonly }) {
   );
 }
 
-function BlankMultiSection({ subtype, value, onChange, readonly }) {
-  const sections = BLANK_SECTIONS[subtype] || ["Items"];
+function BlankMultiSection({ subtype, value, onChange, readonly, headings }) {
+  const defaultSections = BLANK_SECTIONS[subtype] || ["Items"];
+  const sections = (headings?.sectionNames?.length ? headings.sectionNames : defaultSections);
   const initRows = Object.fromEntries(sections.map((s) => [s, []]));
   const init =
     value && value._blank ? value : { _blank: true, title: "", rows: initRows };
@@ -1381,6 +1395,7 @@ function BlankTrialBalance({ value, onChange, readonly }) {
 
 export default function FinancialStatementInput({
   schema,
+  schemaHeadings = null,
   subtype: subtypeProp,
   value,
   onChange,
@@ -1444,6 +1459,7 @@ export default function FinancialStatementInput({
           resolvedSubtype === "t_account") && (
           <BlankTwoCol
             subtype={resolvedSubtype}
+            headings={schemaHeadings}
             value={value}
             onChange={onChange}
             readonly={readonly}
@@ -1453,6 +1469,7 @@ export default function FinancialStatementInput({
           resolvedSubtype === "cash_flow") && (
           <BlankMultiSection
             subtype={resolvedSubtype}
+            headings={schemaHeadings}
             value={value}
             onChange={onChange}
             readonly={readonly}

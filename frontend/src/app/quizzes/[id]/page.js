@@ -2865,7 +2865,8 @@ export default function QuizTakePage({ params }) {
                     Complete the financial statement
                   </p>
                   <FinancialStatementInput
-                    schema={currentQ.marking_scheme || null}
+                    schema={null}
+                    schemaHeadings={currentQ.statement_schema_template || null}
                     subtype={currentQ.statement_subtype || ""}
                     value={
                       typeof answers[currentIdx] === "object"
