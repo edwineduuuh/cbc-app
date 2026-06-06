@@ -133,6 +133,7 @@ function AmountRow({ row, onChange, onDelete, currency }) {
         />
       </div>
       <button
+        type="button"
         onClick={onDelete}
         className="p-1 text-red-400 hover:text-red-600 hover:bg-red-50 rounded"
       >
@@ -168,6 +169,7 @@ function TrialRow({ row, onChange, onDelete }) {
         className="w-24 border border-gray-200 rounded-lg px-2 py-1.5 text-sm focus:outline-none focus:border-blue-400 text-right"
       />
       <button
+        type="button"
         onClick={onDelete}
         className="p-1 text-red-400 hover:text-red-600 hover:bg-red-50 rounded"
       >
@@ -231,7 +233,8 @@ function TwoSidePanel({
               />
               {side.sections.length > 1 && (
                 <button
-                  onClick={() => removeSection(si)}
+                  type="button"
+        onClick={() => removeSection(si)}
                   className="text-red-300 hover:text-red-500"
                 >
                   <Trash2 className="w-3 h-3" />
@@ -258,7 +261,8 @@ function TwoSidePanel({
               />
             ))}
             <button
-              onClick={() =>
+              type="button"
+        onClick={() =>
                 updateSection(si, { ...sec, rows: [...sec.rows, emptyRow()] })
               }
               className="text-xs text-blue-600 hover:text-blue-800 flex items-center gap-1 mt-1 mb-1"
@@ -268,7 +272,8 @@ function TwoSidePanel({
           </div>
         ))}
         <button
-          onClick={addSection}
+          type="button"
+        onClick={addSection}
           className="text-xs text-indigo-600 hover:text-indigo-800 flex items-center gap-1 mt-2 border border-dashed border-indigo-300 rounded-lg px-3 py-1.5 w-full justify-center"
         >
           <Plus className="w-3 h-3" /> Add section
@@ -303,6 +308,7 @@ function TwoSidePanel({
         />
       ))}
       <button
+        type="button"
         onClick={() => update({ ...side, rows: [...side.rows, emptyRow()] })}
         className="text-xs text-blue-600 hover:text-blue-800 flex items-center gap-1 mt-1"
       >
@@ -561,7 +567,8 @@ export default function FinancialStatementEditor({
                 />
                 {schema.sections.length > 1 && (
                   <button
-                    onClick={() => removeSection(si)}
+                    type="button"
+        onClick={() => removeSection(si)}
                     className="text-red-300 hover:text-red-500"
                   >
                     <Trash2 className="w-3.5 h-3.5" />
@@ -588,7 +595,8 @@ export default function FinancialStatementEditor({
                 />
               ))}
               <button
-                onClick={() =>
+                type="button"
+        onClick={() =>
                   updateSection(si, { ...sec, rows: [...sec.rows, emptyRow()] })
                 }
                 className="text-xs text-blue-600 hover:text-blue-800 flex items-center gap-1 mt-1"
@@ -600,7 +608,8 @@ export default function FinancialStatementEditor({
         </div>
         <div className="flex items-center gap-3">
           <button
-            onClick={addSection}
+            type="button"
+        onClick={addSection}
             className="text-xs text-indigo-600 hover:text-indigo-800 flex items-center gap-1 border border-dashed border-indigo-300 rounded-lg px-3 py-1.5"
           >
             <Plus className="w-3 h-3" /> Add section
@@ -702,7 +711,8 @@ export default function FinancialStatementEditor({
           </div>
           <div className="px-4 pb-3">
             <button
-              onClick={() =>
+              type="button"
+        onClick={() =>
                 update({
                   ...schema,
                   rows: [
