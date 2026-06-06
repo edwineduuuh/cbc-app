@@ -2115,15 +2115,46 @@ export default function AttemptResultsPage() {
                                   });
                                 })()
                               ) : (
-                                <span
-                                  dangerouslySetInnerHTML={{
-                                    __html: renderMath(
-                                      item.question_type === "math"
-                                        ? `$${item.student_answer}$`
-                                        : item.student_answer,
-                                    ),
-                                  }}
-                                />
+                                (() => {
+                                  const raw = String(item.student_answer || "");
+                                  // Detect list answers and show vertically
+                                  let listItems = null;
+                                  if (raw.includes("\n")) {
+                                    listItems = raw.split(/\n+/).map(s => s.trim()).filter(Boolean);
+                                  } else if (/[,;]/.test(raw)) {
+                                    listItems = raw.split(/[,;]+/).map(s => s.trim()).filter(Boolean);
+                                  } else if (
+                                    raw === raw.toUpperCase() &&
+                                    raw.trim().split(/\s+/).length >= 2 &&
+                                    !/[.?!]/.test(raw)
+                                  ) {
+                                    // All-caps words separated by spaces (e.g. "HONEST RESPONSIBLE ADAPTABLE")
+                                    listItems = raw.trim().split(/\s+/).filter(Boolean);
+                                  }
+                                  if (listItems && listItems.length >= 2) {
+                                    return (
+                                      <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+                                        {listItems.map((it, i) => (
+                                          <div key={i} style={{ display: "flex", gap: 6 }}>
+                                            <span style={{ color: "#3b82f6", flexShrink: 0 }}>•</span>
+                                            <span dangerouslySetInnerHTML={{ __html: renderMath(it) }} />
+                                          </div>
+                                        ))}
+                                      </div>
+                                    );
+                                  }
+                                  return (
+                                    <span
+                                      dangerouslySetInnerHTML={{
+                                        __html: renderMath(
+                                          item.question_type === "math"
+                                            ? `$${raw}$`
+                                            : raw,
+                                        ),
+                                      }}
+                                    />
+                                  );
+                                })()
                               )}
                             </div>
                           </div>

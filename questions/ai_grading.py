@@ -973,7 +973,7 @@ ALAMA ZA JUU: {max_marks}
 
 {{
   "marks_awarded": <nambari kamili kati ya 0 na {max_marks}>,
-  "feedback": "<Sentensi 4-6 KWA KISWAHILI SANIFU: nini kilisahihika, nini kilikosekana, jibu kamili sahihi. Sentensi fupi. Moja kwa moja.>",
+  "feedback": "<Sentensi 4-6 KWA KISWAHILI SANIFU zikitenganishwa na \\n. Kwa maswali ya orodha (taja sababu X/sifa X): baada ya sentensi ya kwanza, weka maelezo ya kila pointi kwenye MSTARI WAKE MWENYEWE — usichanganye maelezo mengi katika sentensi moja. Usiseme sentensi ya muhtasari mwishoni. Moja kwa moja.>",
   "personalized_message": "<sentensi moja fupi ya kuhamasisha KWA KISWAHILI SANIFU>",
   "study_tip": "<{study_tip_instruction}>",
   "points_earned": ["<pointi sahihi kwa Kiswahili Sanifu>"],
@@ -999,7 +999,7 @@ MAX MARKS: {max_marks}
 {{
   "marks_awarded": <integer between 0 and {max_marks}>,
   "is_correct": <true if marks_awarded == {max_marks}, else false>,
-  "feedback": "<Start with 'Correct!' if is_correct is true, or 'Not quite.' if false. Then 4-6 sentences separated by \\n covering what was right, what was wrong, and the full correct answer. ALWAYS wrap any maths in dollar signs: inline as $x = 4$ and display as $$\\frac{{1}}{{2}}bh$$. NEVER write bare LaTeX without dollar signs.>",
+  "feedback": "<Start with 'Correct!' if is_correct is true, or 'Not quite.' if false. Then 4-6 sentences separated by \\n. For list questions (state X reasons/characteristics/examples): after the opening line, put EACH point's explanation on its OWN LINE — never cram multiple point explanations into one paragraph sentence. Do NOT add a closing summary sentence. ALWAYS wrap any maths in dollar signs: inline as $x = 4$ and display as $$\\frac{{1}}{{2}}bh$$. NEVER write bare LaTeX without dollar signs.>",
   "study_tip": "<{study_tip_instruction}>",
   "points_earned": ["<what student got right. Wrap any math in $...$>"],
   "points_missed": ["<what student missed. Wrap any math in $...$>"]
