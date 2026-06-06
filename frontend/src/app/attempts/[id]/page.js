@@ -2025,22 +2025,24 @@ export default function AttemptResultsPage() {
                     {item.question_type === "financial_statement" && (
                       <div style={{ paddingTop: 12, display: "flex", flexDirection: "column", gap: 12 }}>
                         {/* Readonly statement with student fill-in */}
-                        {item.marking_scheme ? (
-                          <FinancialStatementInput
-                            schema={item.marking_scheme}
-                            value={
-                              typeof item.student_answer === "object"
-                                ? item.student_answer
-                                : null
-                            }
-                            readonly={true}
-                            showCorrect={true}
-                          />
-                        ) : (
-                          <div style={{ padding: "10px 14px", background: "#fef3c7", borderRadius: 10, fontSize: 13, color: "#92400e" }}>
-                            Statement schema not available — please retake the quiz.
-                          </div>
-                        )}
+                        {(() => {
+                          const sa = typeof item.student_answer === "object" ? item.student_answer : null;
+                          const isBlank = sa?._blank === true;
+                          const ms = item.marking_scheme;
+                          return (
+                            <FinancialStatementInput
+                              schema={isBlank ? null : (ms || null)}
+                              schemaHeadings={isBlank && ms ? {
+                                leftHeading: ms.left?.heading,
+                                rightHeading: ms.right?.heading,
+                                sectionNames: ms.sections?.map(s => s.name),
+                              } : null}
+                              subtype={ms?.subtype || ""}
+                              value={sa}
+                              readonly={true}
+                            />
+                          );
+                        })()}
 
                         {/* Feedback */}
                         {item.feedback && (

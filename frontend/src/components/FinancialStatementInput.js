@@ -776,6 +776,11 @@ function BlankTwoCol({ subtype, value, onChange, readonly, headings }) {
       : { _blank: true, title: "", left: [], right: [] };
   const [state, setState] = React.useState(init);
 
+  // Sync when value loads asynchronously (readonly results page)
+  React.useEffect(() => {
+    if (readonly && value && value._blank) setState(value);
+  }, [readonly, value]);
+
   function push(ch) {
     setState(ch);
     if (onChange) onChange(ch);
@@ -875,6 +880,11 @@ function BlankMultiSection({ subtype, value, onChange, readonly, headings }) {
   const init =
     value && value._blank ? value : { _blank: true, title: "", rows: initRows };
   const [state, setState] = React.useState(init);
+
+  // Sync when value loads asynchronously (readonly results page)
+  React.useEffect(() => {
+    if (readonly && value && value._blank) setState(value);
+  }, [readonly, value]);
 
   function push(ch) {
     setState(ch);
