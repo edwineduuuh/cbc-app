@@ -250,35 +250,53 @@ def _clean_correct_answer(text: str) -> str:
     return cleaned.strip()
 
 
-def _format_scheme_as_bullets(text: str) -> str:
-    """Convert a flat Kiswahili marking-scheme string into a readable bullet list.
+def _format_scheme_as_bullets(text: str, sw: bool = True) -> str:
+    """Convert a flat marking-scheme / choice list into a readable bullet list.
 
-    'Muundo wa Mazungumzo: Tamthilia...Maelekezo ya Jukwaani: Kuna...'
-    becomes:
-    'Majibu yanayokubalika:\n• Muundo wa Mazungumzo: Tamthilia...\n• Maelekezo ya Jukwaani: Kuna...'
+    Handles multiple patterns:
+      - Kiswahili label sections: 'Label: text. Label: text.'
+      - MCQ option lists:         'A: text. B: text. C: text.'
+      - Numbered lists:           '1. text. 2. text. 3. text.'
     """
     if not text:
         return text
 
     cleaned = _clean_correct_answer(text)
 
-    # Strip known intro headers like "Majibu Yanayokubalika (Taja mbili pekee):"
+    # Strip known intro headers
     header_re = re.compile(
-        r'^(Majibu\s+[Yy]anayokubalika[^:]*:|Jibu\s+sahihi\s*:)\s*',
+        r'^(Majibu\s+[Yy]anayokubalika[^:]*:|Jibu\s+sahihi\s*:|Any\s+\w+\s+(?:correct\s+)?(?:pairs?|answers?)\s+from\s*:)\s*',
         re.IGNORECASE,
     )
     m = header_re.match(cleaned)
-    header = "Majibu yanayokubalika"
+    header = "Majibu yanayokubalika" if sw else "Acceptable answers"
     body = cleaned
     if m:
         body = cleaned[m.end():].strip()
 
-    # Split on ".Capital" boundaries — each Kiswahili section starts LABEL: text.
-    parts = re.split(r'\.(?=[A-Z][a-zA-Z /]+:)', body)
-    parts = [p.strip().rstrip(".") for p in parts if p.strip()]
+    # Try each split pattern in priority order
+    patterns = [
+        r'\.(?=[A-Z][a-zA-Z /]+:)',          # Kiswahili label sections
+        r'\.(?=[A-D]:\s)',                    # MCQ choices A: B: C: D:
+        r'(?<=\.)\s+(?=[A-D]:\s)',            # MCQ choices with space
+        r'(?<=[a-z\)\'"])\.\s+(?=\d+\.\s)',  # Numbered list items
+    ]
+    parts = None
+    for pat in patterns:
+        candidate = re.split(pat, body)
+        candidate = [p.strip().rstrip(".,") for p in candidate if p.strip()]
+        if len(candidate) >= 2:
+            parts = candidate
+            break
 
-    if len(parts) <= 1:
-        # No detectable structure — return cleaned as-is
+    # Also handle comma-separated short items like "hill/will, roar/door, birds/words"
+    if parts is None and "," in body and len(body) < 300:
+        candidate = [p.strip() for p in body.split(",") if p.strip()]
+        if len(candidate) >= 3:
+            parts = candidate
+            header = "Acceptable pairs" if not sw else "Jozi zinazokubalika"
+
+    if not parts:
         return cleaned
 
     bullets = "\n".join(f"• {p}" for p in parts)
@@ -807,6 +825,11 @@ EXAMPLE:
   Correct: "Acacia trees → Giraffe → Lion"
   Student: "accacia - giraffes - lions"  →  FULL MARKS (same items, same order)
   Student: "Lion → Giraffe → Acacia"     →  0 MARKS (wrong order)
+
+FEEDBACK FORMATTING — for questions with multiple acceptable items (e.g. "state two features", "name any two pairs"):
+  - NEVER write them as one long paragraph
+  - Use bullet format: "Acceptable answers:\\n• Item 1\\n• Item 2\\n• Item 3"
+  - Use \\n in JSON for line breaks
 """
 
     # ── MCQ-specific rules ────────────────────────────────────────────────────
@@ -1645,22 +1668,16 @@ def _grade_with_ai(
                 _ca_str == _ex_str or
                 (_ca_str[:80] and _ex_str[:80] and _ca_str[:80] == _ex_str[:80])
             ))
+            _src = _ca_str or _ex_str
+            _fmt = _format_scheme_as_bullets(_src, sw=sw) if _src else ""
             if sw:
-                _fmt = _format_scheme_as_bullets(_ca_str) if _ca_str else (
-                    _format_scheme_as_bullets(_ex_str) if _ex_str else ""
-                )
                 fallback_feedback = (
                     f"Jibu si sahihi.\n{_fmt}" if _fmt
                     else "Jibu si sahihi. Angalia jibu sahihi na mwalimu wako."
                 )
             else:
-                _ca_clean = _clean_correct_answer(_ca_str)
-                _ex_clean = _clean_correct_answer(_ex_str) if not _same else ""
                 fallback_feedback = (
-                    f"Not quite.\n{_format_scheme_as_bullets(_ca_clean)}"
-                    if _ca_clean
-                    else f"Not quite. {_ex_clean}"
-                    if _ex_clean
+                    f"Not quite.\n{_fmt}" if _fmt
                     else "Not quite. Please review the correct answer with your teacher."
                 )
             return {
