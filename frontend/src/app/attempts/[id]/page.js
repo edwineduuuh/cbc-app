@@ -1805,46 +1805,6 @@ export default function AttemptResultsPage() {
                                     </div>
                                   )}
 
-                                  {/* Correct answer — skip for MCQ and all Kiswahili parts (feedback is self-contained) */}
-                                  {!pCorrect && correctAnswerText && part.question_type !== "mcq" && !/kiswahili/i.test(results.quiz?.subject || "") && (
-                                    <div
-                                      style={{
-                                        background: "#f8fafc",
-                                        borderRadius: 10,
-                                        padding: "10px 14px",
-                                        border: "1px dashed #cbd5e1",
-                                      }}
-                                    >
-                                      <p
-                                        style={{
-                                          fontSize: 11,
-                                          fontWeight: 700,
-                                          color: "#475569",
-                                          textTransform: "uppercase",
-                                          letterSpacing: "0.06em",
-                                          marginBottom: 5,
-                                        }}
-                                      >
-                                        Correct Answer
-                                      </p>
-                                      <p
-                                        style={{
-                                          fontSize: 13,
-                                          color: "#0f172a",
-                                          lineHeight: 1.6,
-                                          margin: 0,
-                                        }}
-                                        dangerouslySetInnerHTML={{
-                                          __html: renderMath(
-                                            correctAnswerText.replace(
-                                              /\\n|\n/g,
-                                              "<br/>",
-                                            ),
-                                          ),
-                                        }}
-                                      />
-                                    </div>
-                                  )}
                                 </div>
                               </div>
                             );
@@ -1997,44 +1957,6 @@ export default function AttemptResultsPage() {
                                         )}
                                       </p>
                                     </div>
-                                    {!isCorrect && correctText && !/kiswahili/i.test(results.quiz?.subject || "") && (
-                                      <div
-                                        style={{
-                                          background: "#f8fafc",
-                                          borderRadius: 10,
-                                          padding: "10px 14px",
-                                          border: "1px dashed #cbd5e1",
-                                        }}
-                                      >
-                                        <p
-                                          style={{
-                                            fontSize: 11,
-                                            fontWeight: 700,
-                                            color: "#475569",
-                                            textTransform: "uppercase",
-                                            letterSpacing: "0.06em",
-                                            marginBottom: 4,
-                                          }}
-                                        >
-                                          Correct Answer
-                                        </p>
-                                        <p
-                                          style={{
-                                            fontSize: 13,
-                                            color: "#0f172a",
-                                            margin: 0,
-                                          }}
-                                          dangerouslySetInnerHTML={{
-                                            __html: renderMath(
-                                              correctText.replace(
-                                                /\\n|\n/g,
-                                                "<br/>",
-                                              ),
-                                            ),
-                                          }}
-                                        />
-                                      </div>
-                                    )}
                                     {segFeedback && (
                                       <div
                                         style={{
@@ -2360,48 +2282,6 @@ export default function AttemptResultsPage() {
                               </div>
                             )}
 
-                          {/* Correct answer — not shown for tables or Kiswahili (feedback is self-contained) */}
-                          {!correct &&
-                            item.correct_answer &&
-                            item.question_type !== "table" &&
-                            !/kiswahili/i.test(results.quiz?.subject || "") && (
-                              <div
-                                style={{
-                                  background: "#f8fafc",
-                                  border: "1px solid #e2e8f0",
-                                  borderRadius: 12,
-                                  padding: "12px 16px",
-                                }}
-                              >
-                                <p
-                                  style={{
-                                    fontSize: 11,
-                                    fontWeight: 700,
-                                    color: "#475569",
-                                    letterSpacing: "0.06em",
-                                    textTransform: "uppercase",
-                                    marginBottom: 6,
-                                  }}
-                                >
-                                  Correct Answer
-                                </p>
-                                <div
-                                  style={{
-                                    fontSize: 14,
-                                    color: "#0f172a",
-                                    lineHeight: 1.6,
-                                  }}
-                                  dangerouslySetInnerHTML={{
-                                    __html: renderMath(
-                                      item.correct_answer?.replace(
-                                        /\\n|\n/g,
-                                        "<br/>",
-                                      ) || "",
-                                    ),
-                                  }}
-                                />
-                              </div>
-                            )}
                         </>
                       )}
                   </div>
