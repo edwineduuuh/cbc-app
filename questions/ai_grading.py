@@ -241,18 +241,48 @@ _MARKING_ALLOC_RE = re.compile(
 )
 
 def _clean_correct_answer(text: str) -> str:
-    """Strip admin-only marking-allocation language from a correct_answer string.
-
-    Removes 'Utoaji wa Alama: ...', '(One mark per ...)', '[2 marks]' etc.
-    so students never see internal marking instructions.
-    """
+    """Strip admin-only marking-allocation language from a correct_answer string."""
     if not text:
         return text
     cleaned = _MARKING_ALLOC_RE.sub("", str(text)).strip().rstrip(".")
-    # Collapse multiple dots/spaces left by removal
     cleaned = re.sub(r"\.{2,}", ".", cleaned)
     cleaned = re.sub(r"\s{2,}", " ", cleaned)
     return cleaned.strip()
+
+
+def _format_scheme_as_bullets(text: str) -> str:
+    """Convert a flat Kiswahili marking-scheme string into a readable bullet list.
+
+    'Muundo wa Mazungumzo: Tamthilia...Maelekezo ya Jukwaani: Kuna...'
+    becomes:
+    'Majibu yanayokubalika:\n• Muundo wa Mazungumzo: Tamthilia...\n• Maelekezo ya Jukwaani: Kuna...'
+    """
+    if not text:
+        return text
+
+    cleaned = _clean_correct_answer(text)
+
+    # Strip known intro headers like "Majibu Yanayokubalika (Taja mbili pekee):"
+    header_re = re.compile(
+        r'^(Majibu\s+[Yy]anayokubalika[^:]*:|Jibu\s+sahihi\s*:)\s*',
+        re.IGNORECASE,
+    )
+    m = header_re.match(cleaned)
+    header = "Majibu yanayokubalika"
+    body = cleaned
+    if m:
+        body = cleaned[m.end():].strip()
+
+    # Split on ".Capital" boundaries — each Kiswahili section starts LABEL: text.
+    parts = re.split(r'\.(?=[A-Z][a-zA-Z /]+:)', body)
+    parts = [p.strip().rstrip(".") for p in parts if p.strip()]
+
+    if len(parts) <= 1:
+        # No detectable structure — return cleaned as-is
+        return cleaned
+
+    bullets = "\n".join(f"• {p}" for p in parts)
+    return f"{header}:\n{bullets}"
 
 
 def _sanitize_answer(text: str) -> str:
@@ -740,6 +770,10 @@ SHERIA ZA KUREKEBISHA:
 9. HARAMU KABISA — USITUMIE MANENO HAYA KAMWE katika maoni yako:
    - "Utoaji wa Alama", "Alama 1 kwa kutaja", "Alama 1 kwa maelezo", "×2 = Alama"
    - Maneno yoyote yanayohusu jinsi alama zinavyohesabiwa — hiyo ni lugha ya walimu tu, si ya wanafunzi
+10. UANDISHI WA MAONI — kwa maswali yanayohitaji majibu mengi (k.m. "taja sababu mbili"):
+    - USIANDIKE kama aya moja ndefu inayoendelea — inaonekana vibaya
+    - ANDIKA kwa muundo: "Majibu yanayokubalika:\n• Sifa 1: maelezo\n• Sifa 2: maelezo"
+    - Katika JSON, tumia \\n kwa mistari mipya
 """
     else:
         prompt += """
@@ -1604,29 +1638,30 @@ def _grade_with_ai(
         explanation    = getattr(question, "explanation", None)
 
         if correct_answer or explanation:
-            _same = explanation and correct_answer and (
-                str(explanation).strip() == str(correct_answer).strip()
-            )
+            # Fuzzy same-check: treat explanation as duplicate if it shares the first 80 chars
+            _ca_str = str(correct_answer).strip() if correct_answer else ""
+            _ex_str = str(explanation).strip() if explanation else ""
+            _same = bool(_ca_str and _ex_str and (
+                _ca_str == _ex_str or
+                (_ca_str[:80] and _ex_str[:80] and _ca_str[:80] == _ex_str[:80])
+            ))
             if sw:
-                # Never dump raw marking scheme to students — use cleaned short version
-                _clean_ca = _clean_correct_answer(str(correct_answer)) if correct_answer else ""
-                _clean_ex = _clean_correct_answer(str(explanation)) if explanation and not _same else ""
+                _fmt = _format_scheme_as_bullets(_ca_str) if _ca_str else (
+                    _format_scheme_as_bullets(_ex_str) if _ex_str else ""
+                )
                 fallback_feedback = (
-                    f"Jibu si sahihi. {_clean_ca}. {_clean_ex}".strip(". ")
-                    if _clean_ca and _clean_ex
-                    else f"Jibu si sahihi. {_clean_ca}".strip(". ")
-                    if _clean_ca
-                    else f"Jibu si sahihi. {_clean_ex}".strip(". ")
-                    if _clean_ex
+                    f"Jibu si sahihi.\n{_fmt}" if _fmt
                     else "Jibu si sahihi. Angalia jibu sahihi na mwalimu wako."
                 )
             else:
+                _ca_clean = _clean_correct_answer(_ca_str)
+                _ex_clean = _clean_correct_answer(_ex_str) if not _same else ""
                 fallback_feedback = (
-                    f"The correct answer is: {correct_answer}. {explanation}"
-                    if correct_answer and explanation
-                    else f"The correct answer is: {correct_answer}."
-                    if correct_answer
-                    else str(explanation)
+                    f"Not quite.\n{_format_scheme_as_bullets(_ca_clean)}"
+                    if _ca_clean
+                    else f"Not quite. {_ex_clean}"
+                    if _ex_clean
+                    else "Not quite. Please review the correct answer with your teacher."
                 )
             return {
                 "marks_awarded":        0,
@@ -1636,11 +1671,7 @@ def _grade_with_ai(
                 "personalized_message": _near_miss(sw),
                 "study_tip":            explanation or "",
                 "points_earned":        [],
-                "points_missed":        (
-                    [f"Jibu sahihi: {correct_answer}" if sw
-                     else f"Correct answer: {correct_answer}"]
-                    if correct_answer else []
-                ),
+                "points_missed":        [],
             }
 
         msg = (
