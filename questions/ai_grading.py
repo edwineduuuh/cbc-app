@@ -963,6 +963,8 @@ To earn method marks from the photo:
             "Taja aya au mstari maalum wa kifungu ambapo jibu linapatikana. USIRUDIE maoni."
             if (has_passage and not is_cloze) else
             "Kidokezo kimoja kipya cha kukumbuka — mbinu rahisi au kidokezo cha mtihani. "
+            "HARAMU KABISA: Usiseme mwanafunzi aandike majibu zaidi kuliko yaliyohitajika kama 'akiba' — "
+            "katika mtihani wa CBC Kenya, majibu ya KWANZA tu yanachaguliwa (k.m. kama swali linahitaji 3, majibu 4-5 HAYATAZINGATIWA). "
             "Ikiwa huna uhakika wa 100%, acha tupu ''. USIBUNIWE ukweli wako mwenyewe."
         )
         prompt += f"""
@@ -986,7 +988,9 @@ ALAMA ZA JUU: {max_marks}
             "One NEW memory trick or exam tip the student can use next time. "
             "CRITICAL: Do NOT copy, repeat, or paraphrase the explanation or feedback text — "
             "the student already sees that. If you cannot think of a genuinely new tip, use ''. "
-            "Do NOT invent cultural facts or word definitions."
+            "Do NOT invent cultural facts or word definitions. "
+            "NEVER suggest writing extra answers as backup — in CBC Kenya marking, "
+            "only the FIRST n answers are marked (e.g. if 3 are required, answers 4, 5, 6 are ignored entirely)."
         )
         prompt += f"""
 
