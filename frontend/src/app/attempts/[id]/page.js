@@ -64,11 +64,26 @@ function _katex(expr, display) {
     return _latexToText(clean);
   }
 }
+function _mdTableToHtml(text) {
+  // Convert markdown table blocks to HTML tables
+  const tableRe = /(\|.+\|\s*\n\|[-| :]+\|\s*\n(?:\|.+\|\s*\n?)*)/g;
+  return text.replace(tableRe, (block) => {
+    const rows = block.trim().split("\n").map(r => r.trim());
+    const header = rows[0].split("|").filter((_,i,a) => i > 0 && i < a.length-1).map(c => `<th style="padding:6px 10px;border:1px solid #cbd5e1;background:#f1f5f9;font-weight:700;text-align:left">${c.trim()}</th>`).join("");
+    const body = rows.slice(2).map(r => {
+      const cells = r.split("|").filter((_,i,a) => i > 0 && i < a.length-1).map(c => `<td style="padding:6px 10px;border:1px solid #e2e8f0">${c.trim()}</td>`).join("");
+      return `<tr>${cells}</tr>`;
+    }).join("");
+    return `<table style="border-collapse:collapse;font-size:13px;margin:8px 0;width:auto"><thead><tr>${header}</tr></thead><tbody>${body}</tbody></table>`;
+  });
+}
+
 function renderMath(text) {
   if (!text) return "";
   if (text.includes('class="katex"') || text.includes("class='katex'"))
     return text;
-  return text
+  const withTables = _mdTableToHtml(text);
+  return withTables
     .replace(/\$\$([\s\S]+?)\$\$/g, (_, expr) => _katex(expr, true))
     .replace(/\$([\s\S]+?)\$/g, (_, expr) => _katex(expr, false))
     .replace(/\\\[([\s\S]+?)\\\]/g, (_, expr) => _katex(expr, true))
@@ -2007,21 +2022,10 @@ export default function AttemptResultsPage() {
                       })()}
 
                     {/* ── FINANCIAL STATEMENT block ── */}
-                    {item.question_type === "financial_statement" &&
-                      item.marking_scheme && (
-                        <div style={{ paddingTop: 12 }}>
-                          <p
-                            style={{
-                              fontSize: 11,
-                              fontWeight: 700,
-                              color: "#475569",
-                              letterSpacing: "0.06em",
-                              textTransform: "uppercase",
-                              marginBottom: 10,
-                            }}
-                          >
-                            Financial Statement Answer
-                          </p>
+                    {item.question_type === "financial_statement" && (
+                      <div style={{ paddingTop: 12, display: "flex", flexDirection: "column", gap: 12 }}>
+                        {/* Readonly statement with student fill-in */}
+                        {item.marking_scheme ? (
                           <FinancialStatementInput
                             schema={item.marking_scheme}
                             value={
@@ -2032,8 +2036,53 @@ export default function AttemptResultsPage() {
                             readonly={true}
                             showCorrect={true}
                           />
-                        </div>
-                      )}
+                        ) : (
+                          <div style={{ padding: "10px 14px", background: "#fef3c7", borderRadius: 10, fontSize: 13, color: "#92400e" }}>
+                            Statement schema not available — please retake the quiz.
+                          </div>
+                        )}
+
+                        {/* Feedback */}
+                        {item.feedback && (
+                          <div style={{ background: correct ? "#f0fdf4" : "#fffbeb", border: `1px solid ${correct ? "#bbf7d0" : "#fde68a"}`, borderRadius: 12, padding: "14px 16px" }}>
+                            <p style={{ fontSize: 11, fontWeight: 700, color: correct ? "#059669" : "#92400e", letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: 8 }}>
+                              {correct ? "✓ Feedback" : "Feedback"}
+                            </p>
+                            <p style={{ fontSize: 14, color: "#0f172a", lineHeight: 1.7, margin: 0 }}
+                              dangerouslySetInnerHTML={{ __html: item.feedback?.replace(/\\n|\n/g, "<br/>") }}
+                            />
+                          </div>
+                        )}
+
+                        {/* Points missed */}
+                        {!correct && item.points_missed?.length > 0 && (
+                          <div style={{ background: "#fff5f5", border: "1px solid #fecaca", borderRadius: 12, padding: "12px 16px" }}>
+                            <p style={{ fontSize: 11, fontWeight: 700, color: "#dc2626", letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: 8 }}>
+                              Items to Review
+                            </p>
+                            <ul style={{ margin: 0, paddingLeft: 18, display: "flex", flexDirection: "column", gap: 4 }}>
+                              {item.points_missed.map((pt, i) => (
+                                <li key={i} style={{ fontSize: 13, color: "#7f1d1d", lineHeight: 1.5 }}>{pt}</li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
+
+                        {/* Points earned */}
+                        {item.points_earned?.length > 0 && (
+                          <div style={{ background: "#f0fdf4", border: "1px solid #bbf7d0", borderRadius: 12, padding: "12px 16px" }}>
+                            <p style={{ fontSize: 11, fontWeight: 700, color: "#059669", letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: 8 }}>
+                              Correct Entries
+                            </p>
+                            <ul style={{ margin: 0, paddingLeft: 18, display: "flex", flexDirection: "column", gap: 4 }}>
+                              {item.points_earned.map((pt, i) => (
+                                <li key={i} style={{ fontSize: 13, color: "#14532d", lineHeight: 1.5 }}>✓ {pt}</li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
+                      </div>
+                    )}
 
                     {/* ── REGULAR (non-multipart) blocks below ── */}
                     {item.question_type !== "multipart" &&

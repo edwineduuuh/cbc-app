@@ -1078,13 +1078,14 @@ def _build_detailed_feedback(questions, results, answers, working_images):
             'option_c':             question.option_c,
             'option_d':             question.option_d,
             'table_data':           question.table_data if question.question_type == 'table' else None,
+            'marking_scheme':       question.marking_scheme if question.question_type == 'financial_statement' else None,
             'student_answer':       display_student,
             'marks_awarded':        result['marks_awarded'],
             'max_marks':            result['max_marks'],
             'feedback':             result['feedback'],
             'is_correct':           result['is_correct'],
             'correct_answer': (
-                None if question.question_type == 'table'
+                None if question.question_type in ('table', 'financial_statement')
                 else clean_correct_answer(display_correct) if not result['is_correct'] else None
             ),
             'worked_solution':      question.worked_solution,
@@ -1320,14 +1321,15 @@ def submit_quiz(request):
                 'option_c': question.option_c,
                 'option_d': question.option_d,
                 'table_data': question.table_data if question.question_type == 'table' else None,
+                'marking_scheme': question.marking_scheme if question.question_type == 'financial_statement' else None,
                 'student_answer': display_student,
                 'marks_awarded': result['marks_awarded'],
                 'max_marks': result['max_marks'],
                 'feedback': result['feedback'],
                 'is_correct': result['is_correct'],
                 'correct_answer': (
-                    None  # points_missed already explains this in plain English
-                    if question.question_type == 'table'
+                    None
+                    if question.question_type in ('table', 'financial_statement')
                     else clean_correct_answer(display_correct) if not result['is_correct'] else None
                 ),
                 'points_earned': result.get('points_earned', []),
