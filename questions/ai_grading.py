@@ -230,6 +230,31 @@ def _safe_opt(val) -> str:
     return str(val).strip() if val and str(val).strip() else "(not provided)"
 
 
+_MARKING_ALLOC_RE = re.compile(
+    r"\.?\s*Utoaji wa Alama\s*:.*$|"
+    r"\.?\s*Alama \d+ kwa kila sifa.*$|"
+    r"\(Alama \d+.*?\)|"
+    r"\(\d+ marks?\)|"
+    r"(?:\s*\(\s*One mark per.*?\))|"
+    r"(?:\s*\[\s*\d+ mark.*?\])",
+    re.IGNORECASE | re.DOTALL,
+)
+
+def _clean_correct_answer(text: str) -> str:
+    """Strip admin-only marking-allocation language from a correct_answer string.
+
+    Removes 'Utoaji wa Alama: ...', '(One mark per ...)', '[2 marks]' etc.
+    so students never see internal marking instructions.
+    """
+    if not text:
+        return text
+    cleaned = _MARKING_ALLOC_RE.sub("", str(text)).strip().rstrip(".")
+    # Collapse multiple dots/spaces left by removal
+    cleaned = re.sub(r"\.{2,}", ".", cleaned)
+    cleaned = re.sub(r"\s{2,}", " ", cleaned)
+    return cleaned.strip()
+
+
 def _sanitize_answer(text: str) -> str:
     """Sanitize student answer: enforce length cap to prevent prompt injection."""
     text = str(text).strip()
@@ -238,7 +263,7 @@ def _sanitize_answer(text: str) -> str:
     return text
 
 
-GRADER_VERSION = "v9"  # bump to bust stale cached results
+GRADER_VERSION = "v10"  # bump to bust stale cached results
 
 def _grade_cache_key(question_id, answer_text: str) -> str:
     norm = _normalise(str(answer_text))
@@ -712,6 +737,9 @@ SHERIA ZA KUREKEBISHA:
    - Usiongeze makao ya wanyama, maana za maneno, au sheria za kisarufi
    - Maoni: linganisha jibu la mwanafunzi na la mwalimu TU
    - Kama mwanafunzi amekosea, sema: "Jibu sahihi ni [jibu la mwalimu]" — basi
+9. HARAMU KABISA — USITUMIE MANENO HAYA KAMWE katika maoni yako:
+   - "Utoaji wa Alama", "Alama 1 kwa kutaja", "Alama 1 kwa maelezo", "×2 = Alama"
+   - Maneno yoyote yanayohusu jinsi alama zinavyohesabiwa — hiyo ni lugha ya walimu tu, si ya wanafunzi
 """
     else:
         prompt += """
@@ -839,7 +867,7 @@ FEEDBACK FORMAT:
         else:
             prompt += (
                 f"\n\nEXPECTED ANSWER (follow exactly — do NOT use your own judgment):\n"
-                f"{question.correct_answer}"
+                f"{_clean_correct_answer(str(question.correct_answer))}"
             )
         if getattr(question, "explanation", None):
             prompt += (
@@ -1580,12 +1608,17 @@ def _grade_with_ai(
                 str(explanation).strip() == str(correct_answer).strip()
             )
             if sw:
+                # Never dump raw marking scheme to students — use cleaned short version
+                _clean_ca = _clean_correct_answer(str(correct_answer)) if correct_answer else ""
+                _clean_ex = _clean_correct_answer(str(explanation)) if explanation and not _same else ""
                 fallback_feedback = (
-                    f"Jibu sahihi: {correct_answer}. {explanation}"
-                    if correct_answer and explanation and not _same
-                    else f"Jibu sahihi: {correct_answer}."
-                    if correct_answer
-                    else str(explanation)
+                    f"Jibu si sahihi. {_clean_ca}. {_clean_ex}".strip(". ")
+                    if _clean_ca and _clean_ex
+                    else f"Jibu si sahihi. {_clean_ca}".strip(". ")
+                    if _clean_ca
+                    else f"Jibu si sahihi. {_clean_ex}".strip(". ")
+                    if _clean_ex
+                    else "Jibu si sahihi. Angalia jibu sahihi na mwalimu wako."
                 )
             else:
                 fallback_feedback = (
