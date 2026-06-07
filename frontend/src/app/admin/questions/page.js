@@ -348,6 +348,9 @@ function makeDefaultPart(index) {
     correct_answer: "",
     max_marks: 1,
     explanation: "",
+    marking_scheme: null,
+    table_data: null,
+    statement_subtype: "",
   };
 }
 
@@ -357,6 +360,8 @@ const PART_TYPES = [
   { value: "fill_blank", label: "Fill Blank" },
   { value: "math", label: "Math" },
   { value: "essay", label: "Essay" },
+  { value: "table", label: "Table" },
+  { value: "financial_statement", label: "Financial Statement" },
 ];
 
 function PartsBuilder({ parts, onChange }) {
@@ -432,6 +437,40 @@ function PartsBuilder({ parts, onChange }) {
               value={part.question_text}
               onChange={(e) => updatePart(i, "question_text", e.target.value)}
             />
+            {/* Financial Statement part */}
+            {part.question_type === "financial_statement" && (
+              <div className="space-y-2">
+                <select
+                  className="w-full text-xs border border-gray-200 rounded-lg px-2 py-1.5 bg-white"
+                  value={part.statement_subtype || ""}
+                  onChange={(e) => updatePart(i, "statement_subtype", e.target.value)}
+                >
+                  <option value="">Select statement type…</option>
+                  <option value="balance_sheet">Balance Sheet</option>
+                  <option value="trading_account">Trading Account</option>
+                  <option value="t_account">T-Account / Ledger</option>
+                  <option value="income_statement">Income Statement</option>
+                  <option value="cash_flow">Cash Flow Statement</option>
+                  <option value="trial_balance">Trial Balance</option>
+                </select>
+                {part.statement_subtype && (
+                  <FinancialStatementEditor
+                    subtype={part.statement_subtype}
+                    value={part.marking_scheme}
+                    onChange={(schema) => updatePart(i, "marking_scheme", schema)}
+                  />
+                )}
+              </div>
+            )}
+
+            {/* Table part */}
+            {part.question_type === "table" && (
+              <TableBuilder
+                value={part.table_data || makeDefaultTable()}
+                onChange={(td) => updatePart(i, "table_data", td)}
+              />
+            )}
+
             {/* MCQ options */}
             {isMcqPart && (
               <div className="grid grid-cols-2 gap-2">
@@ -449,37 +488,33 @@ function PartsBuilder({ parts, onChange }) {
               </div>
             )}
             {/* Correct answer with formula bar */}
-            {isMcqPart ? (
-              <select
-                className="w-full text-xs border border-gray-200 rounded-lg px-2 py-1.5 bg-white"
-                value={part.correct_answer || ""}
-                onChange={(e) =>
-                  updatePart(i, "correct_answer", e.target.value)
-                }
-              >
-                <option value="">Correct answer…</option>
-                {["A", "B", "C", "D"].map((l) => (
-                  <option key={l} value={l}>
-                    {l}
-                  </option>
-                ))}
-              </select>
-            ) : (
-              <>
-                <PhysicsFormulaBar
-                  value={part.correct_answer}
-                  onChange={(v) => updatePart(i, "correct_answer", v)}
-                />
-                <textarea
-                  rows={2}
-                  className="w-full text-sm border border-gray-200 rounded-lg px-2 py-1.5"
-                  placeholder="Correct answer / model answer"
-                  value={part.correct_answer}
-                  onChange={(e) =>
-                    updatePart(i, "correct_answer", e.target.value)
-                  }
-                />
-              </>
+            {part.question_type !== "financial_statement" && part.question_type !== "table" && (
+              isMcqPart ? (
+                <select
+                  className="w-full text-xs border border-gray-200 rounded-lg px-2 py-1.5 bg-white"
+                  value={part.correct_answer || ""}
+                  onChange={(e) => updatePart(i, "correct_answer", e.target.value)}
+                >
+                  <option value="">Correct answer…</option>
+                  {["A", "B", "C", "D"].map((l) => (
+                    <option key={l} value={l}>{l}</option>
+                  ))}
+                </select>
+              ) : (
+                <>
+                  <PhysicsFormulaBar
+                    value={part.correct_answer}
+                    onChange={(v) => updatePart(i, "correct_answer", v)}
+                  />
+                  <textarea
+                    rows={2}
+                    className="w-full text-sm border border-gray-200 rounded-lg px-2 py-1.5"
+                    placeholder="Correct answer / model answer"
+                    value={part.correct_answer}
+                    onChange={(e) => updatePart(i, "correct_answer", e.target.value)}
+                  />
+                </>
+              )
             )}
             {/* Explanation with formula bar */}
             <PhysicsFormulaBar
