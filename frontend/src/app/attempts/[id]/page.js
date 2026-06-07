@@ -779,12 +779,19 @@ export default function AttemptResultsPage() {
     }
   }, []);
 
-  const fetchResults = useCallback(async () => {
+  const fetchResults = useCallback(async (retryCount = 0) => {
+    const MAX_RETRIES = 10;
+    const RETRY_DELAY = 2000;
     const token = localStorage.getItem("accessToken");
     try {
       const res = await fetchWithAuth(`${API}/attempts/${params.id}/`);
       if (res.ok) {
         const data = await res.json();
+        // detailed_feedback not ready yet — keep spinner and retry
+        if (!data.detailed_feedback && retryCount < MAX_RETRIES) {
+          setTimeout(() => fetchResults(retryCount + 1), RETRY_DELAY);
+          return;
+        }
         setResults(data);
         const quizRes = await fetch(
           `${API}/quizzes/${data.quiz?.id || data.quiz_id}/`,
@@ -794,11 +801,19 @@ export default function AttemptResultsPage() {
           const qd = await quizRes.json();
           setQuizGrade(qd.grade);
         }
+        setLoading(false);
+      } else if (retryCount < MAX_RETRIES) {
+        setTimeout(() => fetchResults(retryCount + 1), RETRY_DELAY);
+      } else {
+        setLoading(false);
       }
     } catch (e) {
       console.error(e);
-    } finally {
-      setLoading(false);
+      if (retryCount < MAX_RETRIES) {
+        setTimeout(() => fetchResults(retryCount + 1), RETRY_DELAY);
+      } else {
+        setLoading(false);
+      }
     }
   }, [params.id]);
 
@@ -1025,18 +1040,40 @@ export default function AttemptResultsPage() {
           justifyContent: "center",
         }}
       >
-        <div style={{ textAlign: "center" }}>
-          <p style={{ color: "#64748b", marginBottom: 16 }}>
-            Results not found.
+        <div style={{ textAlign: "center", padding: "0 24px" }}>
+          <div style={{ fontSize: 32, marginBottom: 12 }}>⏳</div>
+          <p style={{ color: "#1e40af", fontWeight: 700, fontSize: 16, marginBottom: 6 }}>
+            Loading your results…
           </p>
+          <p style={{ color: "#64748b", fontSize: 13, marginBottom: 20 }}>
+            This can take a few seconds. Please wait.
+          </p>
+          <button
+            onClick={() => { setLoading(true); fetchResults(); }}
+            style={{
+              background: "#1a6fc4",
+              color: "#fff",
+              border: "none",
+              borderRadius: 8,
+              padding: "10px 20px",
+              fontSize: 14,
+              fontWeight: 600,
+              cursor: "pointer",
+              marginBottom: 12,
+              display: "block",
+              width: "100%",
+            }}
+          >
+            Retry now
+          </button>
           <Link href="/explore">
             <button
               style={{
-                color: "#1a6fc4",
+                color: "#64748b",
                 background: "none",
                 border: "none",
                 cursor: "pointer",
-                fontSize: 14,
+                fontSize: 13,
               }}
             >
               ← Back to Explore
