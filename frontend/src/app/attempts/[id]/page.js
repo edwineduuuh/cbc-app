@@ -2316,7 +2316,12 @@ export default function AttemptResultsPage() {
                               )}
                             </div>
                           </div>
+                        </>
+                      )}
 
+                    {/* ── Feedback + study tip + points — shown for all non-multipart types ── */}
+                    {item.question_type !== "multipart" && (
+                      <>
                           {/* AI Feedback */}
                           <div
                             style={{
@@ -2473,9 +2478,8 @@ export default function AttemptResultsPage() {
                                 </ul>
                               </div>
                             )}
-
-                        </>
-                      )}
+                      </>
+                    )}
                   </div>
                 )}
               </motion.div>
