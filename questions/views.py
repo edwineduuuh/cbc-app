@@ -1014,7 +1014,7 @@ _GRADING_EXECUTOR = ThreadPoolExecutor(max_workers=20, thread_name_prefix='grade
 atexit.register(_GRADING_EXECUTOR.shutdown, wait=False)
 
 
-def _build_detailed_feedback(questions, results, answers, working_images, request=None):
+def _build_detailed_feedback(questions, results, answers, working_images):
     """Build the detailed_feedback dict from grading results. Pure function, no DB."""
     detailed_feedback = {}
     for question, result in zip(questions, results):
@@ -1073,10 +1073,7 @@ def _build_detailed_feedback(questions, results, answers, working_images, reques
         _img_url = None
         if question.question_image:
             try:
-                _img_url = (
-                    request.build_absolute_uri(question.question_image.url)
-                    if request else question.question_image.url
-                )
+                _img_url = question.question_image.url
             except Exception:
                 pass
 
@@ -1123,7 +1120,7 @@ def _run_grading_task(attempt_id, quiz_id, questions, answers, working_images,
         score_pct = (total_marks_awarded / total_max_marks * 100) if total_max_marks > 0 else 0
         correct   = sum(1 for r in results if r['is_correct'])
 
-        detailed_feedback = _build_detailed_feedback(questions, results, answers, working_images, request)
+        detailed_feedback = _build_detailed_feedback(questions, results, answers, working_images)
 
         with transaction.atomic():
             Attempt.objects.filter(pk=attempt_id).update(
