@@ -58,9 +58,25 @@ function _katex(expr, display) {
     return expr;
   }
 }
+function _mdTableToHtml(text) {
+  const tableRe = /(\|.+\|\s*\n\|[-| :]+\|\s*\n(?:\|.+\|\s*\n?)*)/g;
+  return text.replace(tableRe, (block) => {
+    const rows = block.trim().split("\n").map(r => r.trim());
+    const header = rows[0].split("|").filter((_, i, a) => i > 0 && i < a.length - 1)
+      .map(c => `<th style="padding:6px 12px;border:1px solid #cbd5e1;background:#f1f5f9;font-weight:700;text-align:left;font-size:13px">${c.trim()}</th>`).join("");
+    const body = rows.slice(2).map(r => {
+      const cells = r.split("|").filter((_, i, a) => i > 0 && i < a.length - 1)
+        .map(c => `<td style="padding:6px 12px;border:1px solid #e2e8f0;font-size:13px">${c.trim()}</td>`).join("");
+      return `<tr>${cells}</tr>`;
+    }).join("");
+    return `<table style="border-collapse:collapse;margin:10px 0;width:auto;max-width:100%"><thead><tr>${header}</tr></thead><tbody>${body}</tbody></table>`;
+  });
+}
+
 function renderMath(text) {
   if (!text) return "";
-  return text
+  const withTables = _mdTableToHtml(text);
+  return withTables
     .replace(/\$\$([\s\S]+?)\$\$/g, (_, expr) => _katex(expr, true))
     .replace(/\$([\s\S]+?)\$/g, (_, expr) => _katex(expr, false))
     .replace(/\\\[([\s\S]+?)\\\]/g, (_, expr) => _katex(expr, true))
