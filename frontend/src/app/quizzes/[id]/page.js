@@ -3028,11 +3028,13 @@ export default function QuizTakePage({ params }) {
                             <FinancialStatementInput
                               schema={null}
                               schemaHeadings={part.marking_scheme ? {
-                                leftHeading: part.marking_scheme?.left?.heading,
-                                rightHeading: part.marking_scheme?.right?.heading,
-                                sectionNames: part.marking_scheme?.sections?.map(s => s.name),
+                                leftHeading: part.marking_scheme.left?.heading,
+                                rightHeading: part.marking_scheme.right?.heading,
+                                sectionNames: Array.isArray(part.marking_scheme.sections)
+                                  ? part.marking_scheme.sections.map(s => s.name)
+                                  : undefined,
                               } : null}
-                              subtype={part.statement_subtype || ""}
+                              subtype={part.statement_subtype || part.marking_scheme?.subtype || ""}
                               value={typeof partAnswer === "object" ? partAnswer : null}
                               onChange={(json) => handlePartAnswer(json)}
                             />
