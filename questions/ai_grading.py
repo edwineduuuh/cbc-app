@@ -1404,6 +1404,17 @@ def _grade_mcq(question, student_answer: str) -> dict:
     }
 
 
+def _wrap_math(s: str) -> str:
+    """Wrap a math answer in $...$ for display, stripping any existing wrappers first."""
+    s = s.strip()
+    s = re.sub(r'^[Aa]nswer\s*:\s*', '', s).strip()
+    if s.startswith('$$') and s.endswith('$$') and len(s) > 4:
+        s = s[2:-2].strip()
+    elif s.startswith('$') and s.endswith('$') and len(s) > 2:
+        s = s[1:-1].strip()
+    return f"${s}$"
+
+
 def _grade_math(question, student_answer: str, working_image: str | None = None) -> dict:
     """
     Math grader.
@@ -1592,14 +1603,14 @@ def _grade_math(question, student_answer: str, working_image: str | None = None)
         "max_marks":            question.max_marks,
         "feedback":             (
             f"Jibu sahihi ni {correct_str}." if sw
-            else f"Not quite. The correct answer is ${correct_str}$."
+            else f"Not quite. The correct answer is {_wrap_math(correct_str)}."
         ),
         "is_correct":           False,
         "personalized_message": _near_miss(sw),
         "study_tip":            solution,
         "points_earned":        [],
         "points_missed":        [
-            f"Jibu sahihi: {correct_str}" if sw else f"Correct answer: ${correct_str}$"
+            f"Jibu sahihi: {correct_str}" if sw else f"Correct answer: {_wrap_math(correct_str)}"
         ],
     }
 

@@ -2437,8 +2437,10 @@ export default function AttemptResultsPage() {
                             )}
 
                           {/* Points missed */}
-                          {item.points_missed &&
-                            item.points_missed.length > 0 && (
+                          {(Array.isArray(item.points_missed)
+                              ? item.points_missed
+                              : item.points_missed ? [String(item.points_missed)] : []
+                            ).length > 0 && (
                               <div
                                 style={{
                                   background: "#fff7ed",
@@ -2460,7 +2462,10 @@ export default function AttemptResultsPage() {
                                   ✗ Points Missed
                                 </p>
                                 <ul style={{ margin: 0, paddingLeft: 16 }}>
-                                  {item.points_missed.map((point, i) => (
+                                  {(Array.isArray(item.points_missed)
+                                    ? item.points_missed
+                                    : [String(item.points_missed)]
+                                  ).map((point, i) => (
                                     <li
                                       key={i}
                                       className="kalam"
