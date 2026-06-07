@@ -1547,6 +1547,13 @@ export default function AttemptResultsPage() {
                           __html: renderMath(item.question_text || ""),
                         }}
                       />
+                      {item.question_image_url && (
+                        <img
+                          src={item.question_image_url}
+                          alt="Question"
+                          style={{ maxWidth: "100%", borderRadius: 8, marginTop: 8, display: "block" }}
+                        />
+                      )}
                     </div>
                   </div>
                   {isOpen ? (
