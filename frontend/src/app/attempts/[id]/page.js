@@ -2117,9 +2117,54 @@ export default function AttemptResultsPage() {
                       </div>
                     )}
 
+                    {/* ── TABLE question: render filled table ── */}
+                    {item.question_type === "table" && item.table_data && (
+                      <div style={{ background: "#eff6ff", borderRadius: 12, padding: "12px 16px", marginBottom: 12 }}>
+                        <p style={{ fontSize: 11, fontWeight: 700, color: "#1d4ed8", letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: 8 }}>Your Answer</p>
+                        <div style={{ overflowX: "auto" }}>
+                          <table style={{ borderCollapse: "collapse", fontSize: 13, width: "100%" }}>
+                            <tbody>
+                              {(item.table_data.rows || []).map((row, rIdx) => (
+                                <tr key={rIdx}>
+                                  {row.map((cell, cIdx) => {
+                                    const isEditable = cell.e;
+                                    const key = `${rIdx}_${cIdx}`;
+                                    const studentVal = isEditable
+                                      ? ((typeof item.student_answer === "object" ? item.student_answer : {})[key] || "")
+                                      : null;
+                                    const correctVal = cell.a || cell.v || "";
+                                    const isCorrect = isEditable && studentVal && String(studentVal).trim().toLowerCase() === String(correctVal).trim().toLowerCase();
+                                    const isWrong = isEditable && studentVal && !isCorrect;
+                                    return (
+                                      <td key={cIdx} style={{
+                                        border: "1px solid #cbd5e1",
+                                        padding: "6px 10px",
+                                        background: isEditable
+                                          ? (isCorrect ? "#f0fdf4" : isWrong ? "#fff5f5" : "#fafafa")
+                                          : "#f1f5f9",
+                                        fontWeight: isEditable ? 600 : 400,
+                                        color: isEditable
+                                          ? (isCorrect ? "#15803d" : isWrong ? "#dc2626" : "#374151")
+                                          : "#374151",
+                                        textAlign: "center",
+                                        minWidth: 80,
+                                      }}>
+                                        {isEditable ? (studentVal || <span style={{ color: "#94a3b8", fontStyle: "italic" }}>blank</span>) : (cell.v || "")}
+                                      </td>
+                                    );
+                                  })}
+                                </tr>
+                              ))}
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    )}
+
                     {/* ── REGULAR (non-multipart) blocks below ── */}
                     {item.question_type !== "multipart" &&
                       item.question_type !== "financial_statement" &&
+                      item.question_type !== "table" &&
                       typeof item.student_answer !== "object" && (
                         <>
                           {/* Your answer */}

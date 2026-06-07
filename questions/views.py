@@ -1087,7 +1087,11 @@ def _build_detailed_feedback(questions, results, answers, working_images):
             'option_d':             question.option_d,
             'table_data':           question.table_data if question.question_type == 'table' else None,
             'marking_scheme':       question.marking_scheme if question.question_type == 'financial_statement' else None,
-            'student_answer':       display_student,
+            'student_answer':       (
+                answers.get(str(question.id), {})
+                if question.question_type == 'table'
+                else display_student
+            ),
             'marks_awarded':        result['marks_awarded'],
             'max_marks':            result['max_marks'],
             'feedback':             result['feedback'],
@@ -1341,7 +1345,11 @@ def submit_quiz(request):
                 'option_d': question.option_d,
                 'table_data': question.table_data if question.question_type == 'table' else None,
                 'marking_scheme': question.marking_scheme if question.question_type == 'financial_statement' else None,
-                'student_answer': display_student,
+                'student_answer': (
+                    answers.get(str(question.id), {})
+                    if question.question_type == 'table'
+                    else display_student
+                ),
                 'marks_awarded': result['marks_awarded'],
                 'max_marks': result['max_marks'],
                 'feedback': result['feedback'],
