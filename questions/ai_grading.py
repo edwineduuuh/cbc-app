@@ -912,15 +912,30 @@ FEEDBACK FORMAT:
                 f"{question.explanation}"
             )
     else:
-        if getattr(question, "marking_scheme", None):
-            points_text = "\n".join(
-                f"- {p['description']} ({p['marks']} marks)"
-                for p in question.marking_scheme.get("points", [])
-            )
-            prompt += (
-                f"\n\nMARKING SCHEME (follow exactly — do NOT use your own judgment):\n"
-                f"{points_text}"
-            )
+        ms = getattr(question, "marking_scheme", None)
+        if ms and question.question_type != "financial_statement":
+            if isinstance(ms, str) and ms.strip():
+                # Plain text marking scheme written by admin — feed directly
+                scheme_text = ms.strip()
+            elif isinstance(ms, dict) and ms.get("points"):
+                # Structured {points: [{description, marks}]} format
+                scheme_text = "\n".join(
+                    f"- {p['description']} ({p['marks']} marks)"
+                    for p in ms["points"]
+                )
+            else:
+                scheme_text = ""
+            if scheme_text:
+                prompt += (
+                    f"\n\nMARKING SCHEME (follow exactly — award marks only for "
+                    f"these specific points, do NOT use your own judgment):\n"
+                    f"{scheme_text}"
+                )
+            else:
+                prompt += (
+                    f"\n\nEXPECTED ANSWER (follow exactly):\n"
+                    f"{_clean_correct_answer(str(question.correct_answer))}"
+                )
         else:
             prompt += (
                 f"\n\nEXPECTED ANSWER (follow exactly — do NOT use your own judgment):\n"
