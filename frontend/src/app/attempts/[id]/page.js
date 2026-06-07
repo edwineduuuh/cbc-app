@@ -758,6 +758,7 @@ export default function AttemptResultsPage() {
   const [isPremium, setIsPremium] = useState(false);
   const [loading, setLoading] = useState(true);
   const [grading, setGrading] = useState(false);
+  const [gradingFailed, setGradingFailed] = useState(false);
   const [expanded, setExpanded] = useState({});
   const [downloading, setDownloading] = useState(false);
   const pollRef = useRef(null);
@@ -787,6 +788,11 @@ export default function AttemptResultsPage() {
       const res = await fetchWithAuth(`${API}/attempts/${params.id}/`);
       if (res.ok) {
         const data = await res.json();
+        if (data.status === "grading_failed") {
+          setGradingFailed(true);
+          setLoading(false);
+          return;
+        }
         // detailed_feedback not ready yet — keep spinner and retry
         if (!data.detailed_feedback && retryCount < MAX_RETRIES) {
           setTimeout(() => fetchResults(retryCount + 1), RETRY_DELAY);
@@ -805,6 +811,7 @@ export default function AttemptResultsPage() {
       } else if (retryCount < MAX_RETRIES) {
         setTimeout(() => fetchResults(retryCount + 1), RETRY_DELAY);
       } else {
+        setGradingFailed(true);
         setLoading(false);
       }
     } catch (e) {
@@ -839,6 +846,7 @@ export default function AttemptResultsPage() {
         } else if (data.status === "grading_failed" || attempts >= MAX_POLLS) {
           clearInterval(pollRef.current);
           setGrading(false);
+          setGradingFailed(true);
           setLoading(false);
         }
       } catch {
@@ -865,6 +873,7 @@ export default function AttemptResultsPage() {
             return;
           }
           if (data.status === "grading_failed") {
+            setGradingFailed(true);
             setLoading(false);
             return;
           }
@@ -1029,56 +1038,34 @@ export default function AttemptResultsPage() {
       </div>
     );
 
-  if (!results)
+  if (gradingFailed)
     return (
-      <div
-        style={{
-          minHeight: "100vh",
-          background: "#f8fafc",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <div style={{ textAlign: "center", padding: "0 24px" }}>
-          <div style={{ fontSize: 32, marginBottom: 12 }}>⏳</div>
-          <p style={{ color: "#1e40af", fontWeight: 700, fontSize: 16, marginBottom: 6 }}>
-            Loading your results…
+      <div style={{ minHeight: "100vh", background: "#f8fafc", display: "flex", alignItems: "center", justifyContent: "center" }}>
+        <div style={{ textAlign: "center", padding: "0 24px", maxWidth: 340 }}>
+          <div style={{ fontSize: 36, marginBottom: 12 }}>😔</div>
+          <p style={{ color: "#dc2626", fontWeight: 700, fontSize: 16, marginBottom: 8 }}>
+            Grading failed
           </p>
-          <p style={{ color: "#64748b", fontSize: 13, marginBottom: 20 }}>
-            This can take a few seconds. Please wait.
+          <p style={{ color: "#64748b", fontSize: 13, marginBottom: 20, lineHeight: 1.6 }}>
+            Something went wrong while marking your quiz. Your credits have not been deducted. Please try the quiz again.
           </p>
-          <button
-            onClick={() => { setLoading(true); fetchResults(); }}
-            style={{
-              background: "#1a6fc4",
-              color: "#fff",
-              border: "none",
-              borderRadius: 8,
-              padding: "10px 20px",
-              fontSize: 14,
-              fontWeight: 600,
-              cursor: "pointer",
-              marginBottom: 12,
-              display: "block",
-              width: "100%",
-            }}
-          >
-            Retry now
-          </button>
-          <Link href="/explore">
-            <button
-              style={{
-                color: "#64748b",
-                background: "none",
-                border: "none",
-                cursor: "pointer",
-                fontSize: 13,
-              }}
-            >
-              ← Back to Explore
+          <Link href="/browse">
+            <button style={{ background: "#1a6fc4", color: "#fff", border: "none", borderRadius: 8, padding: "10px 20px", fontSize: 14, fontWeight: 600, cursor: "pointer", width: "100%" }}>
+              Go to Browse
             </button>
           </Link>
+        </div>
+      </div>
+    );
+
+  if (!results)
+    return (
+      <div style={{ minHeight: "100vh", background: "#f8fafc", display: "flex", alignItems: "center", justifyContent: "center" }}>
+        <div style={{ textAlign: "center", padding: "0 24px" }}>
+          <div style={{ width: 40, height: 40, borderRadius: "50%", border: "3px solid #e2e8f0", borderTopColor: "#1a6fc4", animation: "spin 0.8s linear infinite", margin: "0 auto 16px" }} />
+          <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
+          <p style={{ color: "#1e40af", fontWeight: 600, fontSize: 15, marginBottom: 4 }}>Loading results…</p>
+          <p style={{ color: "#94a3b8", fontSize: 13 }}>Please wait</p>
         </div>
       </div>
     );
