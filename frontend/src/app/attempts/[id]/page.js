@@ -1108,6 +1108,36 @@ export default function AttemptResultsPage() {
       }}
     >
       <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Kalam:wght@300;400;700&display=swap');
+        .kalam { font-family: 'Kalam', cursive; }
+        .mark-tick {
+          font-family: 'Kalam', cursive;
+          font-weight: 700;
+          font-size: 22px;
+          color: #16a34a;
+          display: inline-block;
+          transform: rotate(-8deg);
+          line-height: 1;
+        }
+        .mark-cross {
+          font-family: 'Kalam', cursive;
+          font-weight: 700;
+          font-size: 20px;
+          color: #dc2626;
+          display: inline-block;
+          transform: rotate(5deg);
+          line-height: 1;
+        }
+        .mark-partial {
+          font-family: 'Kalam', cursive;
+          font-weight: 700;
+          font-size: 18px;
+          color: #d97706;
+          display: inline-block;
+          line-height: 1;
+        }
+      `}</style>
+      <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Instrument+Serif:ital@0;1&display=swap');
         * { box-sizing: border-box; }
         @keyframes spin { to { transform: rotate(360deg); } }
@@ -1506,11 +1536,11 @@ export default function AttemptResultsPage() {
                       }}
                     >
                       {correct ? (
-                        <CheckCircle size={18} color="#059669" />
+                        <span className="mark-tick">✓</span>
                       ) : partial ? (
-                        <Award size={18} color="#d97706" />
+                        <span className="mark-partial">~</span>
                       ) : (
-                        <XCircle size={18} color="#dc2626" />
+                        <span className="mark-cross">✗</span>
                       )}
                     </div>
                     <div style={{ flex: 1 }}>
@@ -1547,8 +1577,9 @@ export default function AttemptResultsPage() {
                           )}
                         </span>
                         <span
+                          className="kalam"
                           style={{
-                            fontSize: 13,
+                            fontSize: 15,
                             fontWeight: 700,
                             padding: "3px 10px",
                             borderRadius: 20,
@@ -2297,22 +2328,24 @@ export default function AttemptResultsPage() {
                             }}
                           >
                             <p
+                              className="kalam"
                               style={{
-                                fontSize: 11,
+                                fontSize: 17,
                                 fontWeight: 700,
-                                color: correct ? "#059669" : "#92400e",
-                                letterSpacing: "0.06em",
-                                textTransform: "uppercase",
+                                color: correct ? "#16a34a" : "#92400e",
                                 marginBottom: 8,
+                                transform: "rotate(-1deg)",
+                                display: "inline-block",
                               }}
                             >
                               {correct ? "✓ Correct!" : "Feedback"}
                             </p>
                             <div
+                              className="kalam"
                               style={{
-                                fontSize: 14,
+                                fontSize: 15,
                                 color: correct ? "#065f46" : "#78350f",
-                                lineHeight: 1.7,
+                                lineHeight: 1.8,
                               }}
                               dangerouslySetInnerHTML={{
                                 __html: renderMath(
@@ -2380,10 +2413,11 @@ export default function AttemptResultsPage() {
                                   📚 Study Tip
                                 </p>
                                 <div
+                                  className="kalam"
                                   style={{
-                                    fontSize: 13,
+                                    fontSize: 14,
                                     color: "#581c87",
-                                    lineHeight: 1.6,
+                                    lineHeight: 1.8,
                                   }}
                                   dangerouslySetInnerHTML={{
                                     __html: renderMath(
@@ -2410,25 +2444,25 @@ export default function AttemptResultsPage() {
                                 }}
                               >
                                 <p
+                                  className="kalam"
                                   style={{
-                                    fontSize: 11,
+                                    fontSize: 15,
                                     fontWeight: 700,
                                     color: "#c2410c",
-                                    letterSpacing: "0.06em",
-                                    textTransform: "uppercase",
                                     marginBottom: 6,
                                   }}
                                 >
-                                  ⚠ Points Missed
+                                  ✗ Points Missed
                                 </p>
                                 <ul style={{ margin: 0, paddingLeft: 16 }}>
                                   {item.points_missed.map((point, i) => (
                                     <li
                                       key={i}
+                                      className="kalam"
                                       style={{
-                                        fontSize: 13,
+                                        fontSize: 14,
                                         color: "#9a3412",
-                                        lineHeight: 1.6,
+                                        lineHeight: 1.7,
                                         marginBottom: 2,
                                       }}
                                       dangerouslySetInnerHTML={{
