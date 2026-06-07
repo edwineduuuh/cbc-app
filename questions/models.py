@@ -242,6 +242,8 @@ class QuestionPart(models.Model):
         ('essay', 'Essay'),
         ('math', 'Mathematical Expression'),
         ('fill_blank', 'Fill in the Blank'),
+        ('table', 'Table'),
+        ('financial_statement', 'Financial Statement'),
     ]
     
     parent_question = models.ForeignKey(
@@ -267,7 +269,11 @@ class QuestionPart(models.Model):
     max_marks = models.IntegerField(default=1)
     marking_scheme = models.JSONField(null=True, blank=True)
     explanation = models.TextField(blank=True)
-    
+
+    # Financial statement / table part fields
+    statement_subtype = models.CharField(max_length=50, blank=True, default='')
+    table_data = models.JSONField(null=True, blank=True)
+
     order = models.IntegerField(default=0)
     
     class Meta:

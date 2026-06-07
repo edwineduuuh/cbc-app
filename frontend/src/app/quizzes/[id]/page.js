@@ -3005,16 +3005,9 @@ export default function QuizTakePage({ params }) {
                           }}
                         />
                         {part.question_type === "mcq" ? (
-                          <div
-                            style={{
-                              display: "flex",
-                              flexDirection: "column",
-                              gap: 10,
-                            }}
-                          >
+                          <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
                             {["A", "B", "C", "D"].map((letter) => {
-                              const text =
-                                part[`option_${letter.toLowerCase()}`];
+                              const text = part[`option_${letter.toLowerCase()}`];
                               if (!text) return null;
                               return (
                                 <MCQOption
@@ -3026,6 +3019,23 @@ export default function QuizTakePage({ params }) {
                                 />
                               );
                             })}
+                          </div>
+                        ) : part.question_type === "financial_statement" ? (
+                          <div style={{ marginTop: 8 }}>
+                            <p style={{ fontSize: 11, fontWeight: 700, color: "#64748b", letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: 8 }}>
+                              Complete the financial statement
+                            </p>
+                            <FinancialStatementInput
+                              schema={null}
+                              schemaHeadings={part.marking_scheme ? {
+                                leftHeading: part.marking_scheme?.left?.heading,
+                                rightHeading: part.marking_scheme?.right?.heading,
+                                sectionNames: part.marking_scheme?.sections?.map(s => s.name),
+                              } : null}
+                              subtype={part.statement_subtype || ""}
+                              value={typeof partAnswer === "object" ? partAnswer : null}
+                              onChange={(json) => handlePartAnswer(json)}
+                            />
                           </div>
                         ) : (
                           <PartAnswerBlock

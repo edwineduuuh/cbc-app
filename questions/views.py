@@ -104,7 +104,10 @@ def _save_parts(instance, parts_raw):
             question_type=part.get('question_type', 'structured'),
             correct_answer=part.get('correct_answer', ''),
             max_marks=int(part.get('max_marks', 1)),
+            marking_scheme=part.get('marking_scheme'),
             explanation=part.get('explanation', ''),
+            statement_subtype=part.get('statement_subtype', ''),
+            table_data=part.get('table_data'),
             order=i,
         )
 

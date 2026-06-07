@@ -17,7 +17,7 @@ class QuestionPartSerializer(serializers.ModelSerializer):
             'id', 'part_label', 'question_text', 'question_type',
             'option_a', 'option_b', 'option_c', 'option_d',
             'correct_answer', 'max_marks', 'marking_scheme',
-            'explanation', 'order'
+            'explanation', 'order', 'statement_subtype', 'table_data'
         ]
 class SubstrandSerializer(serializers.ModelSerializer):
     topic_name = serializers.CharField(source='topic.name', read_only=True)
