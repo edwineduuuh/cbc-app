@@ -143,6 +143,44 @@ def _near_miss(sw: bool) -> str:
     return ""
 
 
+def _no_answer_result(question, sw: bool) -> dict:
+    """Return 0 marks but still show the correct answer so the student learns."""
+    max_marks = question.max_marks
+    correct = str(getattr(question, "correct_answer", "") or "").strip()
+    # For MCQ, map letter to full option text
+    if getattr(question, "question_type", "") == "mcq":
+        letter = _extract_mcq_letter(correct)
+        if letter in ("A", "B", "C", "D"):
+            opt_text = _safe_opt(getattr(question, f"option_{letter.lower()}", ""))
+            correct_display = f"Option {letter}: {opt_text}" if opt_text else f"Option {letter}"
+        else:
+            correct_display = correct
+    else:
+        correct_display = _clean_correct_answer(correct) if correct else ""
+
+    if sw:
+        fb = "Hujajibu swali hili."
+        if correct_display:
+            fb += f"\nJibu sahihi ni: {correct_display}"
+        msg = "Jaribu kujibu maswali yote — hata ukikisia, unaweza kupata alama!"
+    else:
+        fb = "You did not answer this question."
+        if correct_display:
+            fb += f"\nThe correct answer was: {correct_display}"
+        msg = "Always attempt every question — even a guess gives you a chance at marks!"
+
+    return {
+        "marks_awarded":        0,
+        "max_marks":            max_marks,
+        "feedback":             fb,
+        "is_correct":           False,
+        "personalized_message": msg,
+        "study_tip":            "",
+        "points_earned":        [],
+        "points_missed":        ([f"Jibu sahihi: {correct_display}" if sw else f"Correct answer: {correct_display}"] if correct_display else []),
+    }
+
+
 def _empty_result(max_marks: int, feedback: str, message: str) -> dict:
     return {
         "marks_awarded":        0,
@@ -1149,8 +1187,7 @@ def _grade_fill_blank(question, student_answer: str) -> dict:
     student_raw = str(student_answer).strip()
 
     if not student_raw:
-        msg = "Hujaandika jibu." if sw else "You did not write an answer."
-        return _empty_result(question.max_marks, msg, _near_miss(sw))
+        return _no_answer_result(question, sw)
 
     student_norm = _normalise(student_raw)
     raw_correct  = str(question.correct_answer).strip()
@@ -1279,8 +1316,7 @@ def _grade_mcq(question, student_answer: str) -> dict:
     student_raw = str(student_answer or "").strip()
 
     if not student_raw:
-        msg = "Hujajibu swali la MCQ." if sw else "You did not answer the MCQ question."
-        return _empty_result(question.max_marks, msg, _near_miss(sw))
+        return _no_answer_result(question, sw)
 
     correct_letter = _extract_mcq_letter(question.correct_answer)
     if correct_letter not in ("A", "B", "C", "D"):
@@ -1469,8 +1505,7 @@ def _grade_math(question, student_answer: str, working_image: str | None = None)
     if not student_str:
         if working_image:
             return _grade_with_ai(question, "See student's working in the image above.", working_image)
-        msg = "Hujaandika jibu." if sw else "You did not write an answer."
-        return _empty_result(question.max_marks, msg, _near_miss(sw))
+        return _no_answer_result(question, sw)
 
     def _on_near_miss(student_val, correct_val):
         """Close but not exact — partial marks + correct working."""
@@ -1652,8 +1687,7 @@ def _grade_with_ai(
         if working_image and qt in ("math", "structured"):
             student_raw = "See student's working in the image above."
         else:
-            msg = "Hujaandika jibu." if sw else "You did not write an answer."
-            return _empty_result(question.max_marks, msg, _near_miss(sw))
+            return _no_answer_result(question, sw)
     try:
         prompt   = _build_marking_prompt(question, student_answer, sw, bool(working_image))
         raw_text = _call_ai(prompt, working_image, max_tokens, use_gemini=sw)

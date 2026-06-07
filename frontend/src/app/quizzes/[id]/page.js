@@ -1081,30 +1081,35 @@ function SubmitModal({ open, onConfirm, onCancel, unanswered, submitting }) {
               Submit Quiz?
             </h3>
             {unanswered > 0 ? (
-              <p
+              <div
                 style={{
-                  fontSize: 14,
-                  color: "#d4900a",
+                  background: "#fff7ed",
+                  border: "1.5px solid #fb923c",
+                  borderRadius: 12,
+                  padding: "12px 16px",
+                  marginBottom: 20,
                   textAlign: "center",
-                  marginBottom: 24,
-                  lineHeight: 1.6,
-                  fontFamily: "'Lato', sans-serif",
                 }}
               >
-                <strong>{unanswered}</strong> question
-                {unanswered !== 1 ? "s" : ""} unanswered. You can still go back.
-              </p>
+                <p style={{ fontSize: 15, fontWeight: 700, color: "#c2410c", marginBottom: 4 }}>
+                  ⚠ {unanswered} question{unanswered !== 1 ? "s" : ""} not answered
+                </p>
+                <p style={{ fontSize: 13, color: "#9a3412", lineHeight: 1.5 }}>
+                  Go back and attempt them — even a guess earns you a chance at marks. You will still get the correct answer in feedback.
+                </p>
+              </div>
             ) : (
               <p
                 style={{
                   fontSize: 14,
-                  color: "#6b7280",
+                  color: "#16a34a",
+                  fontWeight: 600,
                   textAlign: "center",
                   marginBottom: 24,
                   fontFamily: "'Lato', sans-serif",
                 }}
               >
-                All questions answered. Ready!
+                ✓ All questions answered. Ready to submit!
               </p>
             )}
             {submitting && (
@@ -1939,9 +1944,20 @@ export default function QuizTakePage({ params }) {
 
   const totalQ = questions.length;
   const answeredCount = questions.filter((q, idx) => {
-    if (workingImages[idx]) return true; // working image counts as answered
+    if (workingImages[idx]) return true;
     const v = answers[idx];
     if (v === undefined || v === null) return false;
+    // Multipart: every part must have an answer
+    if (q.parts && q.parts.length > 0) {
+      if (typeof v !== "object") return false;
+      return q.parts.every((part) => {
+        const pa = v[String(part.id)];
+        if (pa === undefined || pa === null) return false;
+        if (typeof pa === "object") return Object.keys(pa).length > 0;
+        const s = String(pa).trim();
+        return s !== "" && s !== "\\placeholder{}";
+      });
+    }
     if (typeof v === "object") return Object.keys(v).length > 0;
     const s = String(v).trim();
     return s !== "" && s !== "\\placeholder{}";
