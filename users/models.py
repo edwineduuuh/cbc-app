@@ -82,6 +82,9 @@ class User(AbstractUser):
         help_text='Total quizzes taken (analytics)'
     )
 
+    # Email verification
+    email_verified = models.BooleanField(default=False)
+
     # STREAK TRACKING
     current_streak = models.IntegerField(default=0, help_text='Current daily streak')
     longest_streak = models.IntegerField(default=0, help_text='All-time longest streak')

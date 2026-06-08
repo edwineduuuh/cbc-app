@@ -14,7 +14,8 @@ class UserSerializer(serializers.ModelSerializer):
         fields = [
             'id', 'username', 'email', 'role', 'grade',
             'first_name', 'last_name',
-            'is_staff', 'is_superuser'  # ADD THESE TWO
+            'is_staff', 'is_superuser',
+            'email_verified',
         ]
         read_only_fields = ['id', 'is_staff', 'is_superuser']
 

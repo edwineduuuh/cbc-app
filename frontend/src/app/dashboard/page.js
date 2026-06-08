@@ -434,6 +434,30 @@ export default function DashboardPage() {
         * { font-family: 'DM Sans', sans-serif; }
       `}</style>
 
+      {/* Email verification banner */}
+      {user && user.email_verified === false && (
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+          <div className="flex items-center gap-3 bg-blue-50 border border-blue-200 text-blue-800 px-5 py-3 rounded-xl">
+            <span className="text-lg">✉️</span>
+            <span className="text-sm font-semibold flex-1">
+              Verify your email to secure your account — check your inbox for a link from StadiSpace.
+            </span>
+            <button
+              onClick={async () => {
+                const token = localStorage.getItem("accessToken");
+                await fetch(`${API}/auth/resend-verification/`, {
+                  method: "POST",
+                  headers: { Authorization: `Bearer ${token}` },
+                });
+              }}
+              className="text-xs font-bold text-blue-900 bg-blue-200 px-3 py-1.5 rounded-lg hover:bg-blue-300 transition-colors whitespace-nowrap"
+            >
+              Resend email
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* Subscription expiry warning */}
       {expiryWarning && (
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
@@ -454,7 +478,7 @@ export default function DashboardPage() {
             <div className="flex-1">
               <p className="text-teal-200 text-sm mb-1">Good {timeOfDay} 👋</p>
               <h1 className="font-display text-4xl font-bold text-white mb-3">
-                {user?.username}
+                {user?.first_name || user?.username}
               </h1>
 
               {/* Quote integrated in header */}

@@ -52,6 +52,12 @@ class RegisterView(generics.CreateAPIView):
         except BaseException:
             pass
 
+        # Send email verification link (best-effort)
+        try:
+            _send_verification_email(user)
+        except BaseException:
+            pass
+
         refresh = RefreshToken.for_user(user)
 
         return Response({
@@ -595,6 +601,56 @@ def reset_password(request):
     user.save()
 
     return Response({'message': 'Password reset successful. You can now log in.'})
+
+
+def _send_verification_email(user):
+    token = default_token_generator.make_token(user)
+    uid = urlsafe_base64_encode(force_bytes(user.pk))
+    frontend_url = os.getenv('FRONTEND_URL', 'http://localhost:3000')
+    verify_url = f"{frontend_url}/verify-email?uid={uid}&token={token}"
+    send_mail(
+        subject='Verify your StadiSpace email',
+        message=(
+            f"Hi {user.first_name or user.email},\n\n"
+            f"Click the link below to verify your email address:\n{verify_url}\n\n"
+            f"This link expires in 24 hours. If you didn't create a StadiSpace account, ignore this email."
+        ),
+        from_email=settings.DEFAULT_FROM_EMAIL,
+        recipient_list=[user.email],
+        fail_silently=False,
+    )
+
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def resend_verification(request):
+    user = request.user
+    if user.email_verified:
+        return Response({'message': 'Email already verified'})
+    try:
+        _send_verification_email(user)
+    except Exception as e:
+        return Response({'error': f'Failed to send email: {e}'}, status=500)
+    return Response({'message': 'Verification email sent'})
+
+
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def verify_email(request):
+    uid = request.data.get('uid')
+    token = request.data.get('token')
+    if not uid or not token:
+        return Response({'error': 'uid and token are required'}, status=400)
+    try:
+        user_id = force_str(urlsafe_base64_decode(uid))
+        user = User.objects.get(pk=user_id)
+    except (User.DoesNotExist, ValueError, Exception):
+        return Response({'error': 'Invalid verification link'}, status=400)
+    if not default_token_generator.check_token(user, token):
+        return Response({'error': 'Verification link expired or invalid'}, status=400)
+    user.email_verified = True
+    user.save(update_fields=['email_verified'])
+    return Response({'message': 'Email verified successfully'})
 
 
 @api_view(['POST'])
