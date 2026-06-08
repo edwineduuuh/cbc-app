@@ -6,25 +6,17 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import Toast from "@/components/ui/Toast";
 import { BookOpen, ArrowRight, Eye, EyeOff, CheckCircle } from "lucide-react";
-
 import { Suspense } from "react";
 
 function RegisterPage() {
   const searchParams = useSearchParams();
-  const initialRole = "student"; // teacher registration is phase 2
   const [formData, setFormData] = useState({
-    username: "",
+    first_name: "",
     email: "",
     password: "",
     password2: "",
-    first_name: "",
-    last_name: "",
-    role: initialRole,
     grade: "",
-    parent_name: "",
     parent_phone: "",
-    parent_email: "",
-    school_name: "",
   });
   const [showPassword, setShowPassword] = useState(false);
   const [showPassword2, setShowPassword2] = useState(false);
@@ -35,6 +27,7 @@ function RegisterPage() {
 
   const { register } = useAuth();
   const reason = searchParams.get("reason");
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
     if (errors[e.target.name]) setErrors({ ...errors, [e.target.name]: "" });
@@ -42,22 +35,15 @@ function RegisterPage() {
 
   const validateForm = () => {
     const newErrors = {};
-    if (!formData.username) newErrors.username = "Username is required";
+    if (!formData.first_name.trim()) newErrors.first_name = "First name is required";
     if (!formData.email) newErrors.email = "Email is required";
     if (!formData.password) newErrors.password = "Password is required";
-    if (formData.password.length < 8)
-      newErrors.password = "Minimum 8 characters";
-    if (formData.password !== formData.password2)
-      newErrors.password2 = "Passwords don't match";
-    if (formData.role === "student") {
-      if (!formData.grade) newErrors.grade = "Please select your grade";
-      const rawPhone = formData.parent_phone
-        .replace(/\D/g, "")
-        .replace(/^0/, "");
-      if (!rawPhone) newErrors.parent_phone = "Parent phone is required";
-      else if (rawPhone.length !== 9)
-        newErrors.parent_phone = "Enter 9 digits (e.g. 712345678)";
-    }
+    if (formData.password.length < 8) newErrors.password = "Minimum 8 characters";
+    if (formData.password !== formData.password2) newErrors.password2 = "Passwords don't match";
+    if (!formData.grade) newErrors.grade = "Please select your grade";
+    const rawPhone = formData.parent_phone.replace(/\D/g, "").replace(/^0/, "");
+    if (!rawPhone) newErrors.parent_phone = "Parent phone is required";
+    else if (rawPhone.length !== 9) newErrors.parent_phone = "Enter 9 digits (e.g. 712345678)";
     return newErrors;
   };
 
@@ -71,20 +57,13 @@ function RegisterPage() {
 
     setLoading(true);
     const userData = {
-      username: formData.username,
+      first_name: formData.first_name.trim(),
       email: formData.email,
       password: formData.password,
       password2: formData.password2,
-      first_name: formData.first_name,
-      last_name: formData.last_name,
-      role: formData.role,
-      ...(formData.role === "student" && {
-        grade: parseInt(formData.grade),
-        parent_name: formData.parent_name,
-        parent_phone:
-          "254" + formData.parent_phone.replace(/\D/g, "").replace(/^0/, ""),
-        parent_email: formData.parent_email,
-      }),
+      role: "student",
+      grade: parseInt(formData.grade),
+      parent_phone: "254" + formData.parent_phone.replace(/\D/g, "").replace(/^0/, ""),
     };
 
     const result = await register(userData);
@@ -92,7 +71,6 @@ function RegisterPage() {
     if (!result.success) {
       try {
         const parsedError = JSON.parse(result.error);
-        // DRF returns arrays: {"field": ["error msg"]} — flatten to strings
         const flatErrors = {};
         for (const [key, value] of Object.entries(parsedError)) {
           flatErrors[key] = Array.isArray(value) ? value.join(". ") : value;
@@ -105,10 +83,8 @@ function RegisterPage() {
       }
       setLoading(false);
     } else {
-      // Clear guest session data on successful registration
       localStorage.removeItem("guest_session_id");
       localStorage.removeItem("guest_quizzes_taken");
-      // AuthContext.register() handles the redirect
     }
   };
 
@@ -116,13 +92,12 @@ function RegisterPage() {
     `w-full px-4 py-3 border-2 rounded-xl text-sm text-gray-900 outline-none transition-all bg-gray-50 focus:bg-white placeholder-gray-400 font-['DM_Sans',sans-serif] ${
       errors[field]
         ? "border-red-400 focus:border-red-500"
-        : "border-gray-200 focus:border-green-500 focus:shadow-[0_0_0_3px_rgba(22,163,74,0.1)]"
+        : "border-gray-200 focus:border-teal-500 focus:shadow-[0_0_0_3px_rgba(14,116,144,0.1)]"
     }`;
-  const labelCls =
-    "block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1.5";
+  const labelCls = "block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1.5";
 
   const perks = [
-    "2 free quizzes, no card needed",
+    "5 free quizzes — no card needed",
     "All CBE learning areas, Grades 4–10",
     "AI-powered instant marking",
     "Pay via M-Pesa when ready",
@@ -131,15 +106,11 @@ function RegisterPage() {
   return (
     <>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;500;600;700&display=swap');
-        .font-display { font-family: 'Playfair Display', serif; }
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700;900&family=DM+Sans:wght@400;500;600;700&display=swap');
+        .font-display { font-family: 'Cormorant Garamond', serif; }
         * { font-family: 'DM Sans', sans-serif; }
-        .hero-bg { background: linear-gradient(145deg, #0a3d1f 0%, #0f5c2e 50%, #1a7a42 100%); }
-        .gold-gradient { background: linear-gradient(135deg, #f5a623, #e8870a); }
+        .hero-bg { background: linear-gradient(145deg, #0c4a6e 0%, #0e7490 50%, #06b6d4 100%); }
         .dot-pattern { background-image: radial-gradient(circle, rgba(255,255,255,0.07) 1px, transparent 1px); background-size: 28px 28px; }
-        .role-card { border: 2px solid #e5e7eb; border-radius: 12px; padding: 14px 16px; cursor: pointer; transition: all 0.15s; }
-        .role-card:hover { border-color: #16a34a; background: #f0fdf4; }
-        .role-card.active { border-color: #16a34a; background: #f0fdf4; }
       `}</style>
 
       <Toast
@@ -150,7 +121,7 @@ function RegisterPage() {
       />
 
       <div className="min-h-screen flex">
-        {/* ── Left decorative panel ── */}
+        {/* Left decorative panel */}
         <div className="hidden lg:flex lg:w-[40%] hero-bg relative overflow-hidden flex-col justify-between p-12">
           <div className="dot-pattern absolute inset-0" />
 
@@ -159,10 +130,8 @@ function RegisterPage() {
               <BookOpen className="w-5 h-5 text-white" />
             </div>
             <div className="leading-none">
-              <span className="font-display text-lg font-bold text-white block">
-                StadiSpace
-              </span>
-              <span className="text-[10px] font-semibold text-green-400 tracking-widest uppercase block">
+              <span className="font-display text-lg font-bold text-white block">StadiSpace</span>
+              <span className="text-[10px] font-semibold text-cyan-300 tracking-widest uppercase block">
                 Learning Platform
               </span>
             </div>
@@ -176,18 +145,16 @@ function RegisterPage() {
               <br />
               <span className="text-amber-400">the top.</span>
             </h2>
-            <p className="text-green-200 text-base leading-relaxed mb-10 max-w-xs">
-              Join 12,000+ Kenyan students already mastering the CBE curriculum.
+            <p className="text-cyan-100 text-base leading-relaxed mb-10 max-w-xs">
+              Join thousands of Kenyan students already mastering the CBE curriculum.
             </p>
             <div className="space-y-3">
               {perks.map((p) => (
                 <div key={p} className="flex items-center gap-3">
-                  <div className="w-5 h-5 rounded-full bg-amber-400/20 flex items-center justify-center flex-shrink-0">
+                  <div className="w-5 h-5 rounded-full bg-amber-400/20 flex items-center justify-center shrink-0">
                     <CheckCircle className="w-3.5 h-3.5 text-amber-400" />
                   </div>
-                  <span className="text-green-100 text-sm font-medium">
-                    {p}
-                  </span>
+                  <span className="text-cyan-100 text-sm font-medium">{p}</span>
                 </div>
               ))}
             </div>
@@ -196,58 +163,47 @@ function RegisterPage() {
           <div className="relative">
             <div className="bg-white/10 backdrop-blur border border-white/15 rounded-2xl p-5">
               <p className="text-white/90 text-sm italic leading-relaxed mb-3">
-                "The AI marking is incredible — it marks open-ended questions
-                and tells you exactly what you missed."
+                "The AI marking is incredible — it marks open-ended questions and tells you exactly what you missed."
               </p>
-              <p className="text-green-300 text-xs font-semibold">
-                — Brian O., Grade 9 · Mombasa
-              </p>
+              <p className="text-cyan-300 text-xs font-semibold">— Brian O., Grade 9 · Mombasa</p>
             </div>
           </div>
         </div>
 
-        {/* ── Right form panel ── */}
+        {/* Right form panel */}
         <div className="flex-1 overflow-y-auto bg-gray-50">
           <div className="min-h-full flex items-start justify-center px-6 py-10">
             <motion.div
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-              className="w-full max-w-xl"
+              className="w-full max-w-md"
             >
               {/* Mobile logo */}
               <div className="lg:hidden flex items-center gap-2.5 mb-8">
-                <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-green-700 to-emerald-600 flex items-center justify-center">
+                <div className="w-9 h-9 rounded-xl bg-linear-to-br from-teal-700 to-cyan-600 flex items-center justify-center">
                   <BookOpen className="w-4 h-4 text-white" />
                 </div>
-                <span className="font-display text-lg font-bold text-green-900">
-                  CBE Kenya
-                </span>
+                <span className="font-display text-lg font-bold text-teal-900">StadiSpace</span>
               </div>
+
               {reason === "quota" && (
-                <div className="mb-6 flex items-center gap-3 bg-emerald-50 border-2 border-emerald-200 rounded-xl px-5 py-4">
+                <div className="mb-6 flex items-center gap-3 bg-teal-50 border-2 border-teal-200 rounded-xl px-5 py-4">
                   <span className="text-2xl">🎉</span>
                   <div>
-                    <p className="font-bold text-emerald-800 text-sm">
-                      You are enjoying StadiSpace!
-                    </p>
-                    <p className="text-emerald-700 text-xs mt-0.5">
-                      Create a free account to unlock 2 free quizzes — no
-                      payment needed.
+                    <p className="font-bold text-teal-800 text-sm">You're enjoying StadiSpace!</p>
+                    <p className="text-teal-700 text-xs mt-0.5">
+                      Create a free account to unlock 5 free quizzes — no payment needed.
                     </p>
                   </div>
                 </div>
               )}
+
               <div className="mb-8">
-                <h1 className="font-display text-4xl text-gray-900 mb-2">
-                  Create Account
-                </h1>
+                <h1 className="font-display text-4xl text-gray-900 mb-2">Create Account</h1>
                 <p className="text-gray-500 text-sm">
                   Already have an account?{" "}
-                  <Link
-                    href="/login"
-                    className="font-semibold text-green-700 hover:text-green-800"
-                  >
+                  <Link href="/login" className="font-semibold text-teal-700 hover:text-teal-800">
                     Sign in
                   </Link>
                 </p>
@@ -255,176 +211,88 @@ function RegisterPage() {
 
               <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-8">
                 <form onSubmit={handleSubmit} className="space-y-5">
-                  {/* Role picker — teacher option reserved for phase 2
+
+                  {/* First Name */}
                   <div>
-                    <label className={labelCls}>I am a</label>
-                    <div className="grid grid-cols-2 gap-3">
-                      <div className={`role-card flex items-center gap-3 ${formData.role === "student" ? "active" : ""}`} onClick={() => setFormData({ ...formData, role: "student" })}>
-                        <span className="text-2xl">🎓</span>
-                        <div><p className="text-sm font-bold text-gray-900">Student</p><p className="text-xs text-gray-500">I want to learn</p></div>
-                      </div>
-                      <div className={`role-card flex items-center gap-3 ${formData.role === "teacher" ? "active" : ""}`} onClick={() => setFormData({ ...formData, role: "teacher" })}>
-                        <span className="text-2xl">📚</span>
-                        <div><p className="text-sm font-bold text-gray-900">Teacher</p><p className="text-xs text-gray-500">I want to teach</p></div>
-                      </div>
-                    </div>
-                  </div>
-                  */}
-
-                  {/* Name */}
-                  <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <label className={labelCls}>First Name</label>
-                      <input
-                        name="first_name"
-                        value={formData.first_name}
-                        onChange={handleChange}
-                        placeholder="Grace"
-                        className={inputCls("first_name")}
-                      />
-                    </div>
-                    <div>
-                      <label className={labelCls}>Last Name</label>
-                      <input
-                        name="last_name"
-                        value={formData.last_name}
-                        onChange={handleChange}
-                        placeholder="Wanjiru"
-                        className={inputCls("last_name")}
-                      />
-                    </div>
+                    <label className={labelCls}>First Name *</label>
+                    <input
+                      name="first_name"
+                      value={formData.first_name}
+                      onChange={handleChange}
+                      placeholder="e.g. Grace"
+                      className={inputCls("first_name")}
+                    />
+                    {errors.first_name && (
+                      <p className="mt-1 text-xs text-red-500">{errors.first_name}</p>
+                    )}
                   </div>
 
-                  {/* Username + Email */}
-                  <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <label className={labelCls}>Username *</label>
-                      <input
-                        name="username"
-                        value={formData.username}
-                        onChange={handleChange}
-                        placeholder="gracew"
-                        required
-                        className={inputCls("username")}
-                      />
-                      {errors.username && (
-                        <p className="mt-1 text-xs text-red-500">
-                          {errors.username}
-                        </p>
-                      )}
-                    </div>
-                    <div>
-                      <label className={labelCls}>Email *</label>
-                      <input
-                        name="email"
-                        type="email"
-                        value={formData.email}
-                        onChange={handleChange}
-                        placeholder="email@example.com"
-                        required
-                        className={inputCls("email")}
-                      />
-                      {errors.email && (
-                        <p className="mt-1 text-xs text-red-500">
-                          {errors.email}
-                        </p>
-                      )}
-                    </div>
+                  {/* Email */}
+                  <div>
+                    <label className={labelCls}>Email *</label>
+                    <input
+                      name="email"
+                      type="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      placeholder="email@example.com"
+                      required
+                      className={inputCls("email")}
+                    />
+                    {errors.email && (
+                      <p className="mt-1 text-xs text-red-500">{errors.email}</p>
+                    )}
                   </div>
 
-                  {/* Grade — students only */}
-                  {formData.role === "student" && (
-                    <div>
-                      <label className={labelCls}>Grade *</label>
-                      <select
-                        name="grade"
-                        value={formData.grade}
-                        onChange={handleChange}
-                        className={inputCls("grade")}
-                      >
-                        <option value="">Select your grade</option>
-                        {[4, 5, 6, 7, 8, 9, 10, 11, 12].map((g) => (
-                          <option key={g} value={g}>
-                            Grade {g}
-                          </option>
-                        ))}
-                      </select>
-                      {errors.grade && (
-                        <p className="mt-1 text-xs text-red-500">
-                          {errors.grade}
-                        </p>
-                      )}
-                    </div>
-                  )}
+                  {/* Grade */}
+                  <div>
+                    <label className={labelCls}>Grade *</label>
+                    <select
+                      name="grade"
+                      value={formData.grade}
+                      onChange={handleChange}
+                      className={inputCls("grade")}
+                    >
+                      <option value="">Select your grade</option>
+                      {[4, 5, 6, 7, 8, 9, 10, 11, 12].map((g) => (
+                        <option key={g} value={g}>Grade {g}</option>
+                      ))}
+                    </select>
+                    {errors.grade && (
+                      <p className="mt-1 text-xs text-red-500">{errors.grade}</p>
+                    )}
+                  </div>
 
-                  {/* School name — students only, optional */}
-                  {formData.role === "student" && (
-                    <div>
-                      <label className={labelCls}>School Name <span className="text-gray-400 font-normal">(optional)</span></label>
+                  {/* Parent Phone */}
+                  <div>
+                    <label className={labelCls}>Parent Phone *</label>
+                    <div className="flex gap-2">
+                      <span className="px-3 py-3 bg-gray-100 border-2 border-gray-200 rounded-xl text-gray-600 font-bold text-sm">
+                        +254
+                      </span>
                       <input
-                        name="school_name"
-                        value={formData.school_name}
-                        onChange={handleChange}
-                        placeholder="e.g. Nairobi Primary School"
-                        className={inputCls("school_name")}
+                        type="tel"
+                        inputMode="numeric"
+                        name="parent_phone"
+                        value={formData.parent_phone}
+                        onChange={(e) => {
+                          let val = e.target.value.replace(/\D/g, "");
+                          if (val.startsWith("254")) val = val.slice(3);
+                          if (val.startsWith("0")) val = val.slice(1);
+                          setFormData({ ...formData, parent_phone: val.slice(0, 9) });
+                        }}
+                        placeholder="712345678"
+                        maxLength={9}
+                        className={`flex-1 ${inputCls("parent_phone")}`}
                       />
                     </div>
-                  )}
-
-                  {/* Parent / Guardian section — students only */}
-                  {formData.role === "student" && (
-                    <div className="pt-2 border-t border-gray-100">
-                      <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-3">
-                        Parent / Guardian Details
-                      </p>
-                      <div className="space-y-4">
-                        <div>
-                          <label className={labelCls}>Parent Name</label>
-                          <input
-                            name="parent_name"
-                            value={formData.parent_name}
-                            onChange={handleChange}
-                            placeholder="e.g. Mary Wanjiru"
-                            className={inputCls("parent_name")}
-                          />
-                        </div>
-                        <div>
-                          <label className={labelCls}>Parent Phone *</label>
-                          <div className="flex gap-2">
-                            <span className="px-3 py-3 bg-gray-100 border-2 border-gray-200 rounded-xl text-gray-600 font-bold text-sm">
-                              +254
-                            </span>
-                            <input
-                              type="tel"
-                              inputMode="numeric"
-                              name="parent_phone"
-                              value={formData.parent_phone}
-                              onChange={(e) => {
-                                let val = e.target.value.replace(/\D/g, "");
-                                if (val.startsWith("254")) val = val.slice(3);
-                                if (val.startsWith("0")) val = val.slice(1);
-                                setFormData({
-                                  ...formData,
-                                  parent_phone: val.slice(0, 9),
-                                });
-                              }}
-                              placeholder="712345678"
-                              maxLength={9}
-                              className={`flex-1 ${inputCls("parent_phone")}`}
-                            />
-                          </div>
-                          {errors.parent_phone && (
-                            <p className="mt-1 text-xs text-red-500">
-                              {errors.parent_phone}
-                            </p>
-                          )}
-                          <p className="mt-1 text-[11px] text-gray-400">
-                            For progress updates & payment receipts via SMS
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  )}
+                    {errors.parent_phone && (
+                      <p className="mt-1 text-xs text-red-500">{errors.parent_phone}</p>
+                    )}
+                    <p className="mt-1 text-[11px] text-gray-400">
+                      For progress updates & M-Pesa payment
+                    </p>
+                  </div>
 
                   {/* Passwords */}
                   <div className="grid grid-cols-2 gap-4">
@@ -436,7 +304,7 @@ function RegisterPage() {
                           type={showPassword ? "text" : "password"}
                           value={formData.password}
                           onChange={handleChange}
-                          placeholder="Min. 8 characters"
+                          placeholder="Min. 8 chars"
                           required
                           className={`${inputCls("password")} pr-10`}
                         />
@@ -445,28 +313,22 @@ function RegisterPage() {
                           onClick={() => setShowPassword(!showPassword)}
                           className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
                         >
-                          {showPassword ? (
-                            <EyeOff className="w-4 h-4" />
-                          ) : (
-                            <Eye className="w-4 h-4" />
-                          )}
+                          {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                         </button>
                       </div>
                       {errors.password && (
-                        <p className="mt-1 text-xs text-red-500">
-                          {errors.password}
-                        </p>
+                        <p className="mt-1 text-xs text-red-500">{errors.password}</p>
                       )}
                     </div>
                     <div>
-                      <label className={labelCls}>Confirm Password *</label>
+                      <label className={labelCls}>Confirm *</label>
                       <div className="relative">
                         <input
                           name="password2"
                           type={showPassword2 ? "text" : "password"}
                           value={formData.password2}
                           onChange={handleChange}
-                          placeholder="Re-enter password"
+                          placeholder="Re-enter"
                           required
                           className={`${inputCls("password2")} pr-10`}
                         />
@@ -475,17 +337,11 @@ function RegisterPage() {
                           onClick={() => setShowPassword2(!showPassword2)}
                           className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
                         >
-                          {showPassword2 ? (
-                            <EyeOff className="w-4 h-4" />
-                          ) : (
-                            <Eye className="w-4 h-4" />
-                          )}
+                          {showPassword2 ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                         </button>
                       </div>
                       {errors.password2 && (
-                        <p className="mt-1 text-xs text-red-500">
-                          {errors.password2}
-                        </p>
+                        <p className="mt-1 text-xs text-red-500">{errors.password2}</p>
                       )}
                     </div>
                   </div>
@@ -494,20 +350,16 @@ function RegisterPage() {
                     type="submit"
                     disabled={loading}
                     className="group w-full flex items-center justify-center gap-2 py-3.5 rounded-xl font-bold text-sm text-white transition-all duration-200 shadow-sm hover:shadow-md hover:scale-[1.01] disabled:opacity-60 mt-2"
-                    style={{
-                      background: "linear-gradient(135deg, #15803d, #059669)",
-                    }}
+                    style={{ background: "linear-gradient(135deg, #0e7490, #0f1f3d)" }}
                   >
                     {loading ? (
                       <>
-                        <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />{" "}
+                        <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
                         Creating account…
                       </>
                     ) : (
                       <>
-                        {formData.role === "teacher"
-                          ? "Create Teacher Account"
-                          : "Create Free Account"}{" "}
+                        Start Free Trial
                         <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
                       </>
                     )}
@@ -515,24 +367,18 @@ function RegisterPage() {
                 </form>
               </div>
 
-              {/* Trial reminder */}
               <div className="mt-5 flex items-center justify-center gap-2 bg-amber-50 border border-amber-200 rounded-xl px-5 py-3">
                 <span className="text-amber-500">✦</span>
                 <p className="text-xs font-medium text-amber-800">
-                  2 free quizzes · Full AI feedback · No credit card · M-Pesa
-                  accepted
+                  5 free quizzes · Full AI feedback · No credit card · M-Pesa accepted
                 </p>
               </div>
 
               <p className="text-center text-xs text-gray-400 mt-4">
                 By signing up you agree to our{" "}
-                <a href="#" className="text-green-700 hover:underline">
-                  Terms
-                </a>{" "}
+                <a href="#" className="text-teal-700 hover:underline">Terms</a>{" "}
                 &{" "}
-                <a href="#" className="text-green-700 hover:underline">
-                  Privacy Policy
-                </a>
+                <a href="#" className="text-teal-700 hover:underline">Privacy Policy</a>
               </p>
             </motion.div>
           </div>
@@ -541,12 +387,13 @@ function RegisterPage() {
     </>
   );
 }
+
 export default function RegisterPageWrapper() {
   return (
     <Suspense
       fallback={
         <div className="min-h-screen flex items-center justify-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-600" />
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-teal-600" />
         </div>
       }
     >

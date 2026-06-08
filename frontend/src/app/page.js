@@ -139,8 +139,8 @@ export default function LandingPage() {
   const steps = [
     {
       n: "01",
-      title: "Explore. No commitment.",
-      desc: "Browse quizzes across all learning areas. Try 2 completely free - no signup, no card, no pressure.",
+      title: "Sign up. It's free.",
+      desc: "Create your account in under a minute. No card required. You get 5 free quizzes the moment you're in.",
     },
     {
       n: "02",
@@ -150,14 +150,14 @@ export default function LandingPage() {
     {
       n: "03",
       title: "Subscribe when ready.",
-      desc: "After your free quizzes, unlock unlimited practice for less than the cost of a single tutor session.",
+      desc: "After your 5 free quizzes, unlock unlimited practice for less than the cost of a single tutor session.",
     },
   ];
 
   const faqs = [
     {
       q: "Can I try before subscribing?",
-      a: "Yes. Browse all quizzes and try 2 completely free - no account needed, no card required. When you're ready for more, subscribe.",
+      a: "Yes. Sign up for free and get 5 full quizzes — no card required. When you're ready for more, subscribe.",
     },
     {
       q: "Who creates the questions?",
@@ -266,7 +266,7 @@ export default function LandingPage() {
                   Sign In
                 </button>
               </Link>
-              <Link href="/explore">
+              <Link href="/register">
                 <button
                   style={{
                     background: "linear-gradient(135deg, #0e7490, #0f1f3d)",
@@ -280,7 +280,7 @@ export default function LandingPage() {
                   }}
                   className="hover:opacity-90 transition-all hover:scale-[1.02]"
                 >
-                  Try Free →
+                  Start Free →
                 </button>
               </Link>
             </div>
@@ -345,7 +345,7 @@ export default function LandingPage() {
                       Sign In
                     </button>
                   </Link>
-                  <Link href="/explore">
+                  <Link href="/register">
                     <button
                       style={{
                         background: "linear-gradient(135deg, #0e7490, #0f1f3d)",
@@ -358,7 +358,7 @@ export default function LandingPage() {
                         border: "none",
                       }}
                     >
-                      Try Free →
+                      Start Free →
                     </button>
                   </Link>
                 </div>
@@ -476,7 +476,7 @@ export default function LandingPage() {
                 transition={{ duration: 0.6, delay: 0.35 }}
                 className="flex flex-col sm:flex-row gap-3 mb-8"
               >
-                <Link href="/explore">
+                <Link href="/register">
                   <button
                     style={{
                       background: "linear-gradient(135deg, #0e7490, #0f1f3d)",
@@ -493,7 +493,7 @@ export default function LandingPage() {
                     }}
                     className="hover:scale-[1.02] transition-all duration-200 group"
                   >
-                    Try 2 Free Quizzes - No Signup
+                    Start Free Trial — 5 Quizzes
                     <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                   </button>
                 </Link>
@@ -546,7 +546,7 @@ export default function LandingPage() {
                 </div>
                 <p style={{ color: "#94a3b8", fontSize: 13 }}>
                   <span style={{ color: "#0f1f3d", fontWeight: 600 }}>
-                    2 free quizzes
+                    5 free quizzes
                   </span>{" "}
                   to start. No card. No pressure.
                 </p>
@@ -1002,13 +1002,13 @@ export default function LandingPage() {
                 marginBottom: 24,
               }}
             >
-              Two free quizzes. No account. No card.
+              5 free quizzes. Sign up in seconds.
               <br />
               <em style={{ color: "rgba(255,255,255,0.75)" }}>
                 Just your child and a question.
               </em>
             </h2>
-            <Link href="/explore">
+            <Link href="/register">
               <button
                 style={{
                   background: "white",
@@ -1025,7 +1025,7 @@ export default function LandingPage() {
                 }}
                 className="hover:scale-[1.02] transition-all"
               >
-                Try It Now - It's Free <ArrowRight className="w-4 h-4" />
+                Create Free Account <ArrowRight className="w-4 h-4" />
               </button>
             </Link>
           </FadeIn>
@@ -1198,7 +1198,7 @@ export default function LandingPage() {
           </div>
 
           <FadeIn delay={0.4} className="text-center mt-14">
-            <Link href="/explore">
+            <Link href="/register">
               <button
                 style={{
                   background: "linear-gradient(135deg, #0e7490, #0f1f3d)",
@@ -1215,11 +1215,11 @@ export default function LandingPage() {
                 }}
                 className="hover:opacity-90 hover:scale-[1.02] transition-all"
               >
-                Explore Quizzes <ArrowRight className="w-4 h-4" />
+                Start Free Trial <ArrowRight className="w-4 h-4" />
               </button>
             </Link>
             <p style={{ color: "#94a3b8", fontSize: 13, marginTop: 12 }}>
-              No account needed · M-Pesa accepted · Cancel anytime
+              Free to sign up · M-Pesa accepted · Cancel anytime
             </p>
           </FadeIn>
         </div>
@@ -2021,11 +2021,11 @@ export default function LandingPage() {
                 margin: "0 auto 40px",
               }}
             >
-              Two free quizzes. No account. No commitment. Just a student, a
+              5 free quizzes. No card. Sign up in seconds. Just a student, a
               question, and everything that follows when they finally understand{" "}
               <em>why.</em>
             </p>
-            <Link href="/explore">
+            <Link href="/register">
               <button
                 style={{
                   background: "linear-gradient(135deg, #0e7490, #06b6d4)",
@@ -2042,12 +2042,12 @@ export default function LandingPage() {
                 }}
                 className="hover:scale-[1.03] transition-all duration-200 group"
               >
-                Explore Quizzes - Free
+                Start Free Trial
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </button>
             </Link>
             <p style={{ color: "#475569", fontSize: 13, marginTop: 16 }}>
-              2 free quizzes · M-Pesa accepted · Cancel anytime
+              5 free quizzes · M-Pesa accepted · Cancel anytime
             </p>
           </FadeIn>
         </div>
@@ -2088,7 +2088,7 @@ export default function LandingPage() {
                   ["#features", "Why StadiSpace"],
                   ["#pricing", "Pricing"],
                   ["#faq", "FAQ"],
-                  ["/explore", "Try Free"],
+                  ["/register", "Start Free"],
                 ],
               },
               {

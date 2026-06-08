@@ -667,7 +667,7 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
     
     # Free trial counter
-    free_quizzes_remaining = models.IntegerField(default=3)
+    free_quizzes_remaining = models.IntegerField(default=5)
     free_trial_exhausted = models.BooleanField(default=False)
     
     # Analytics

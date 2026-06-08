@@ -426,7 +426,11 @@ def update_profile(request):
         user.email = data['email']
     if 'grade' in data and hasattr(user, 'grade'):
         user.grade = data['grade']
-    
+    if 'parent_name' in data and hasattr(user, 'parent_name'):
+        user.parent_name = data['parent_name']
+    if 'school_name' in data and hasattr(user, 'school_name'):
+        user.school_name = data['school_name']
+
     user.save()
     
     return Response({

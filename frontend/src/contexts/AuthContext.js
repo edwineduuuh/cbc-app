@@ -167,8 +167,12 @@ export function AuthProvider({ children }) {
       const fullUser = await getCurrentUser(data.tokens.access);
       setUser(fullUser);
 
-      const redirectPath = redirectByRole(fullUser);
-      router.replace(redirectPath);
+      // Students go to /welcome to complete their profile; other roles go to their dashboard
+      if (!fullUser.role || fullUser.role === "student") {
+        router.replace("/welcome");
+      } else {
+        router.replace(redirectByRole(fullUser));
+      }
 
       return { success: true };
     } catch (error) {

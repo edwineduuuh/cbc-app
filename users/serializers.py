@@ -24,40 +24,36 @@ class RegisterSerializer(serializers.ModelSerializer):
     Handles password validation and hashing.
     """
     password = serializers.CharField(
-        write_only = True,
-        required = True,
-        validators = [validate_password],
-        style = {'input_type':'password'}
+        write_only=True,
+        required=True,
+        validators=[validate_password],
+        style={'input_type': 'password'}
     )
     password2 = serializers.CharField(
-        write_only = True,
-        required = True,
-        style = {'input_type':'password'}
+        write_only=True,
+        required=True,
+        style={'input_type': 'password'}
     )
+    username = serializers.CharField(required=False, allow_blank=True)
 
     class Meta:
         model = User
-        fields = ['username', 'email','password', 'password2', 'role','grade', 'first_name','last_name',
+        fields = ['username', 'email', 'password', 'password2', 'role', 'grade', 'first_name', 'last_name',
                   'parent_name', 'parent_phone', 'parent_email', 'school_name']
 
     def validate(self, attrs):
-         """
-        Validate that passwords match.
-        """
-         if attrs['password'] != attrs['password2']:
-             raise serializers.ValidationError({
-                 "password": "Password fields didn't match"
-             })
-         return attrs
-    
-    def validate_grade(self, value):
+        if attrs['password'] != attrs['password2']:
+            raise serializers.ValidationError({
+                "password": "Password fields didn't match"
+            })
+        return attrs
 
+    def validate_grade(self, value):
         if value is not None and (value < 4 or value > 12):
             raise serializers.ValidationError("Grade must be between 4 and 12")
         return value
-    
+
     def validate_parent_phone(self, value):
-        """Normalize parent phone to 254 format"""
         if not value:
             return value
         import re
@@ -72,16 +68,26 @@ class RegisterSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError("Invalid Kenyan phone number")
         return phone
 
+    def _generate_username(self, email):
+        import re
+        base = re.sub(r'[^a-z0-9]', '', email.split('@')[0].lower())
+        if not base:
+            base = 'user'
+        username = base
+        counter = 1
+        while User.objects.filter(username=username).exists():
+            username = f"{base}{counter}"
+            counter += 1
+        return username
+
     def create(self, validated_data):
-        """
-        Create new user with hashed password.
-        """
         validated_data.pop('password2')
 
-        # Create user
+        username = validated_data.get('username') or self._generate_username(validated_data['email'])
+
         user = User.objects.create_user(
-            username=validated_data['username'],
-            email = validated_data['email'],
+            username=username,
+            email=validated_data['email'],
             password=validated_data['password'],
             role=validated_data.get('role', 'student'),
             grade=validated_data.get('grade'),
