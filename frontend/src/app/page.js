@@ -1530,11 +1530,12 @@ export default function LandingPage() {
                       fontWeight: 700,
                       textTransform: "uppercase",
                       letterSpacing: "0.12em",
-                      marginBottom: 12,
+                      marginBottom: 4,
                     }}
                   >
                     Weekly
                   </h3>
+                  <p style={{ color: "#94a3b8", fontSize: 12, marginBottom: 12 }}>Try it out</p>
                   <div
                     style={{
                       display: "flex",
@@ -1543,6 +1544,7 @@ export default function LandingPage() {
                       marginBottom: 6,
                     }}
                   >
+                    <span style={{ color: "#94a3b8", fontSize: 13, fontWeight: 600, marginBottom: 10 }}>KES</span>
                     <span
                       style={{
                         fontFamily: "'Cormorant Garamond', serif",
@@ -1552,22 +1554,11 @@ export default function LandingPage() {
                         lineHeight: 1,
                       }}
                     >
-                      149
-                    </span>
-                    <span
-                      style={{
-                        color: "#94a3b8",
-                        fontSize: 14,
-                        fontWeight: 500,
-                        marginBottom: 8,
-                      }}
-                    >
-                      KES / wk
+                      349
                     </span>
                   </div>
-                  <p style={{ color: "#94a3b8", fontSize: 12 }}>
-                    Just KES 21/day · 7 days
-                  </p>
+                  <p style={{ color: "#94a3b8", fontSize: 12, marginBottom: 4 }}>per week · 7 days</p>
+                  <p style={{ color: "#64748b", fontSize: 12, fontWeight: 600 }}>KES 50/day</p>
                 </div>
                 <ul
                   style={{
@@ -1579,10 +1570,10 @@ export default function LandingPage() {
                   }}
                 >
                   {[
-                    "All learning areas",
-                    "Grades 4 to 10",
-                    "Unlimited practice",
-                    "AI-powered feedback",
+                    "Unlimited quiz attempts",
+                    "Instant marking with detailed feedback",
+                    "All learning areas & grades",
+                    "Performance tracking",
                   ].map((item) => (
                     <li
                       key={item}
@@ -1595,7 +1586,7 @@ export default function LandingPage() {
                       }}
                     >
                       <CheckCircle
-                        className="w-4 h-4 flex-shrink-0"
+                        className="w-4 h-4 shrink-0"
                         style={{ color: "#0e7490" }}
                       />
                       {item}
@@ -1616,7 +1607,7 @@ export default function LandingPage() {
                     }}
                     className="hover:bg-gray-50 transition-all"
                   >
-                    Get Started
+                    Choose Weekly →
                   </button>
                 </Link>
               </div>
@@ -1655,7 +1646,7 @@ export default function LandingPage() {
                       letterSpacing: "0.08em",
                     }}
                   >
-                    ★ MOST POPULAR
+                    MOST POPULAR
                   </div>
                 </div>
                 <div style={{ marginBottom: 20 }}>
@@ -1666,11 +1657,12 @@ export default function LandingPage() {
                       fontWeight: 700,
                       textTransform: "uppercase",
                       letterSpacing: "0.12em",
-                      marginBottom: 12,
+                      marginBottom: 4,
                     }}
                   >
                     Monthly
                   </h3>
+                  <p style={{ color: "#94a3b8", fontSize: 12, marginBottom: 12 }}>Most popular choice</p>
                   <div
                     style={{
                       display: "flex",
@@ -1679,6 +1671,7 @@ export default function LandingPage() {
                       marginBottom: 6,
                     }}
                   >
+                    <span style={{ color: "#94a3b8", fontSize: 13, fontWeight: 600, marginBottom: 10 }}>KES</span>
                     <span
                       style={{
                         fontFamily: "'Cormorant Garamond', serif",
@@ -1688,24 +1681,21 @@ export default function LandingPage() {
                         lineHeight: 1,
                       }}
                     >
-                      499
-                    </span>
-                    <span
-                      style={{
-                        color: "#94a3b8",
-                        fontSize: 14,
-                        fontWeight: 500,
-                        marginBottom: 8,
-                      }}
-                    >
-                      KES / mo
+                      999
                     </span>
                   </div>
-                  <p
-                    style={{ color: "#0e7490", fontSize: 12, fontWeight: 600 }}
-                  >
-                    Save 16% vs weekly · KES 17/day
-                  </p>
+                  <p style={{ color: "#94a3b8", fontSize: 12, marginBottom: 6 }}>per month · 30 days</p>
+                  <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                    <span style={{ color: "#64748b", fontSize: 12, fontWeight: 600 }}>KES 33/day</span>
+                    <span style={{
+                      background: "#f0fdf4",
+                      color: "#16a34a",
+                      fontSize: 11,
+                      fontWeight: 700,
+                      padding: "2px 8px",
+                      borderRadius: 100,
+                    }}>↑ Save 28%</span>
+                  </div>
                 </div>
                 <ul
                   style={{
@@ -1717,11 +1707,11 @@ export default function LandingPage() {
                   }}
                 >
                   {[
-                    "All learning areas",
-                    "Grades 4 to 10",
-                    "Unlimited practice",
-                    "Detailed feedback",
-                    "PDF report downloads",
+                    "Everything in Weekly",
+                    "Save 28% vs weekly plan",
+                    "Download PDF reports",
+                    "Priority support",
+                    "Progress analytics dashboard",
                   ].map((item) => (
                     <li
                       key={item}
@@ -1734,7 +1724,7 @@ export default function LandingPage() {
                       }}
                     >
                       <CheckCircle
-                        className="w-4 h-4 flex-shrink-0"
+                        className="w-4 h-4 shrink-0"
                         style={{ color: "#0e7490" }}
                       />
                       {item}
@@ -1756,7 +1746,7 @@ export default function LandingPage() {
                     }}
                     className="hover:opacity-90 transition-all"
                   >
-                    Get Started
+                    Get Started →
                   </button>
                 </Link>
               </div>
@@ -1767,11 +1757,11 @@ export default function LandingPage() {
               <div
                 className="card-lift relative h-full flex flex-col"
                 style={{
-                  background: "#0f1f3d",
-                  border: "1.5px solid #1e3a6e",
+                  background: "white",
+                  border: "1.5px solid #e2e8f0",
                   borderRadius: 20,
                   padding: 28,
-                  boxShadow: "0 24px 60px rgba(15,31,61,0.25)",
+                  boxShadow: "0 24px 60px rgba(15,31,61,0.1)",
                 }}
               >
                 <div
@@ -1784,33 +1774,33 @@ export default function LandingPage() {
                 >
                   <div
                     style={{
-                      background: "linear-gradient(135deg, #0f1f3d, #1e3a6e)",
-                      color: "#06b6d4",
+                      background: "#0f1f3d",
+                      color: "white",
                       padding: "5px 16px",
                       borderRadius: 100,
                       fontSize: 10,
                       fontWeight: 700,
                       whiteSpace: "nowrap",
-                      border: "1px solid #1e3a6e",
                       letterSpacing: "0.08em",
                     }}
                   >
-                    ✦ BEST VALUE · SAVE 33%
+                    BEST VALUE
                   </div>
                 </div>
                 <div style={{ marginBottom: 20 }}>
                   <h3
                     style={{
-                      color: "#06b6d4",
+                      color: "#0f1f3d",
                       fontSize: 11,
                       fontWeight: 700,
                       textTransform: "uppercase",
                       letterSpacing: "0.12em",
-                      marginBottom: 12,
+                      marginBottom: 4,
                     }}
                   >
                     Termly
                   </h3>
+                  <p style={{ color: "#94a3b8", fontSize: 12, marginBottom: 12 }}>Best value for serious students</p>
                   <div
                     style={{
                       display: "flex",
@@ -1819,31 +1809,31 @@ export default function LandingPage() {
                       marginBottom: 6,
                     }}
                   >
+                    <span style={{ color: "#94a3b8", fontSize: 13, fontWeight: 600, marginBottom: 10 }}>KES</span>
                     <span
                       style={{
                         fontFamily: "'Cormorant Garamond', serif",
                         fontSize: 52,
                         fontWeight: 700,
-                        color: "white",
+                        color: "#0f1f3d",
                         lineHeight: 1,
                       }}
                     >
-                      999
-                    </span>
-                    <span
-                      style={{
-                        color: "#06b6d4",
-                        fontSize: 14,
-                        fontWeight: 500,
-                        marginBottom: 8,
-                      }}
-                    >
-                      KES / term
+                      2199
                     </span>
                   </div>
-                  <p style={{ color: "#64748b", fontSize: 12 }}>
-                    Just KES 11/day for 3 months
-                  </p>
+                  <p style={{ color: "#94a3b8", fontSize: 12, marginBottom: 6 }}>per term · 90 days</p>
+                  <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                    <span style={{ color: "#64748b", fontSize: 12, fontWeight: 600 }}>KES 24/day</span>
+                    <span style={{
+                      background: "#f0fdf4",
+                      color: "#16a34a",
+                      fontSize: 11,
+                      fontWeight: 700,
+                      padding: "2px 8px",
+                      borderRadius: 100,
+                    }}>↑ Save 27%</span>
+                  </div>
                 </div>
                 <ul
                   style={{
@@ -1855,12 +1845,11 @@ export default function LandingPage() {
                   }}
                 >
                   {[
-                    "All learning areas",
-                    "Grades 4 to 10",
-                    "Unlimited practice",
-                    "Detailed feedback",
-                    "Priority support",
-                    "Covers entire term",
+                    "Everything in Monthly",
+                    "Save 27% vs monthly plan",
+                    "Covers entire school term",
+                    "Just KES 24/day",
+                    "Parent progress reports",
                   ].map((item) => (
                     <li
                       key={item}
@@ -1868,13 +1857,13 @@ export default function LandingPage() {
                         display: "flex",
                         alignItems: "center",
                         gap: 10,
-                        color: "#94a3b8",
+                        color: "#475569",
                         fontSize: 14,
                       }}
                     >
                       <CheckCircle
-                        className="w-4 h-4 flex-shrink-0"
-                        style={{ color: "#06b6d4" }}
+                        className="w-4 h-4 shrink-0"
+                        style={{ color: "#0f1f3d" }}
                       />
                       {item}
                     </li>
@@ -1886,16 +1875,16 @@ export default function LandingPage() {
                       width: "100%",
                       padding: "13px 0",
                       borderRadius: 12,
-                      background: "linear-gradient(135deg, #0e7490, #06b6d4)",
+                      background: "#0f1f3d",
                       color: "white",
                       fontWeight: 700,
                       fontSize: 14,
                       border: "none",
-                      boxShadow: "0 8px 24px rgba(14,116,144,0.3)",
+                      boxShadow: "0 8px 24px rgba(15,31,61,0.25)",
                     }}
                     className="hover:opacity-90 transition-all"
                   >
-                    Get Started
+                    Choose Termly →
                   </button>
                 </Link>
               </div>
