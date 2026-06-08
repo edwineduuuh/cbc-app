@@ -512,7 +512,7 @@ def forgot_password(request):
         try:
             send_mail(
                 subject='Reset your StadiSpace password',
-                message=f'Hi {user.username},\n\nClick this link to reset your password:\n{reset_url}\n\nThis link expires in 24 hours.\n\nIf you did not request this, ignore this email.',
+                message=f'Hi {user.first_name or user.email},\n\nClick this link to reset your password:\n{reset_url}\n\nThis link expires in 24 hours.\n\nIf you did not request this, ignore this email.',
                 from_email=settings.DEFAULT_FROM_EMAIL,
                 recipient_list=[email],
                 fail_silently=False,
@@ -583,11 +583,43 @@ def reset_password(request):
     
     if not default_token_generator.check_token(user, token):
         return Response({'error': 'Reset link expired or invalid'}, status=400)
-    
+
+    from django.contrib.auth.password_validation import validate_password
+    from django.core.exceptions import ValidationError as DjangoValidationError
+    try:
+        validate_password(new_password, user)
+    except DjangoValidationError as e:
+        return Response({'error': ' '.join(e.messages)}, status=400)
+
     user.set_password(new_password)
     user.save()
-    
+
     return Response({'message': 'Password reset successful. You can now log in.'})
+
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def change_password(request):
+    user = request.user
+    old_password = request.data.get('old_password')
+    new_password = request.data.get('new_password')
+
+    if not old_password or not new_password:
+        return Response({'error': 'old_password and new_password are required'}, status=400)
+
+    if not user.check_password(old_password):
+        return Response({'error': 'Current password is incorrect'}, status=400)
+
+    from django.contrib.auth.password_validation import validate_password
+    from django.core.exceptions import ValidationError as DjangoValidationError
+    try:
+        validate_password(new_password, user)
+    except DjangoValidationError as e:
+        return Response({'error': ' '.join(e.messages)}, status=400)
+
+    user.set_password(new_password)
+    user.save()
+    return Response({'message': 'Password changed successfully'})
 
 
 @api_view(['POST'])
