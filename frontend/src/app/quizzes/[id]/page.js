@@ -2216,26 +2216,31 @@ export default function QuizTakePage({ params }) {
   const isFinancial = currentQ.question_type === "financial_statement";
   const isKiswahili = /kiswahili/i.test(currentQ?.subject_name || "");
 
-  // Build answeredBlanks map: { blankNum: optionText } — across ALL questions
+  // Build answeredBlanks map: { blankNum: optionText } — scoped to current passage only
   const answeredBlanks = {};
-  questions.forEach((q, qIdx) => {
-    if (q.parts && q.parts.length > 0) {
-      // Parts-based cloze: each part has part_label = blank number
-      q.parts.forEach((part) => {
-        const letter =
-          typeof answers[qIdx] === "object" ? answers[qIdx]?.[part.id] : null;
-        const optionText = letter
-          ? part[`option_${letter.toLowerCase()}`]
-          : null;
-        if (optionText) answeredBlanks[parseInt(part.part_label)] = optionText;
-      });
-    } else {
-      // Standalone MCQ question in a cloze passage: question position = blank number
-      const letter = typeof answers[qIdx] === "string" ? answers[qIdx] : null;
-      const optionText = letter ? q[`option_${letter.toLowerCase()}`] : null;
-      if (optionText) answeredBlanks[qIdx + 1] = optionText;
-    }
-  });
+  const currentPassageId = currentQ?.passage?.id;
+  if (currentPassageId) {
+    const samePassageQs = questions
+      .map((q, idx) => ({ q, idx }))
+      .filter(({ q }) => q.passage?.id === currentPassageId);
+
+    samePassageQs.forEach(({ q, idx }, posInPassage) => {
+      if (q.parts && q.parts.length > 0) {
+        q.parts.forEach((part) => {
+          const letter =
+            typeof answers[idx] === "object" ? answers[idx]?.[part.id] : null;
+          const optionText = letter
+            ? part[`option_${letter.toLowerCase()}`]
+            : null;
+          if (optionText) answeredBlanks[parseInt(part.part_label)] = optionText;
+        });
+      } else {
+        const letter = typeof answers[idx] === "string" ? answers[idx] : null;
+        const optionText = letter ? q[`option_${letter.toLowerCase()}`] : null;
+        if (optionText) answeredBlanks[posInPassage + 1] = optionText;
+      }
+    });
+  }
 
   return (
     <div
