@@ -349,7 +349,7 @@ def _sanitize_answer(text: str) -> str:
     return text
 
 
-GRADER_VERSION = "v10"  # bump to bust stale cached results
+GRADER_VERSION = "v11"  # bump to bust stale cached results
 
 def _grade_cache_key(question_id, answer_text: str) -> str:
     norm = _normalise(str(answer_text))
@@ -794,7 +794,9 @@ MATH FORMATTING — NON-NEGOTIABLE:
   - RIGHT: "divide by $3^4$ to get $-1$"
   - WRONG: "2 times 8 = 16"
   - RIGHT: "$2 \\times 8 = 16$"
-"""
+  - NEVER use \\begin{array}, \\begin{matrix}, or ANY LaTeX environment
+  - NEVER output HTML tags (<span>, <div>, <code>, <pre>) or KaTeX pre-rendered HTML
+""" + _CBC_MATH_FORMAT_RULES
 
     # ── Marking rules ─────────────────────────────────────────────────────────
     if sw:
@@ -1104,6 +1106,71 @@ Examples:
 Reply with ONLY the word TRUE or FALSE. Nothing else."""
 
 
+_CBC_MATH_FORMAT_RULES = """
+─── CBC KENYA — MANDATORY METHOD AND FORMAT RULES ────────────────────────────
+
+⛔ ABSOLUTELY FORBIDDEN — these make output unreadable for students:
+  1. LaTeX environments: \\begin{array}, \\begin{matrix}, \\begin{pmatrix}, \\begin{bmatrix}
+     These NEVER render. Use numbered steps with $$...$$ instead.
+  2. HTML tags of any kind: <span>, <div>, <table>, <code>, <pre>
+     These must NEVER appear in your output.
+  3. KaTeX pre-rendered HTML (e.g. class="katex", class="katex-display")
+     Never output KaTeX HTML. Only output LaTeX source code wrapped in $...$ or $$...$$
+  4. \\\\ for line breaks (only allowed inside $$\\frac{}{}$$ style display math)
+  5. Listing multiples to find LCM (e.g. "Multiples of 4: 4, 8, 12, 16…")
+  6. Prime factorization trees for HCF/GCF
+
+✅ LCM — ALWAYS USE THE L-METHOD (LADDER METHOD), shown as a markdown table:
+
+  Example: LCM of 4, 6, 8
+  | ÷ | 4 | 6 | 8 |
+  |---|---|---|---|
+  | 2 | 2 | 3 | 4 |
+  | 2 | 1 | 3 | 2 |
+  | 2 | 1 | 3 | 1 |
+  | 3 | 1 | 1 | 1 |
+  LCM = $2 \\times 2 \\times 2 \\times 3 = 24$
+
+  Rules:
+  - Divide by the smallest prime that divides AT LEAST ONE number; carry unchanged if not divisible
+  - Stop when ALL numbers in the last row are 1
+  - LCM = product of ALL factors in the left column
+
+✅ GCF / HCF — ALWAYS USE THE L-METHOD, shown as a markdown table:
+
+  Example: HCF of 24 and 36
+  | ÷ | 24 | 36 |
+  |---|----|----|
+  | 2 | 12 | 18 |
+  | 2 |  6 |  9 |
+  | 3 |  2 |  3 |
+  HCF = $2 \\times 2 \\times 3 = 12$
+
+  Rules:
+  - Only divide by primes that divide ALL numbers in the current row
+  - Stop when the remaining numbers share no common factor
+  - HCF = product of factors in the left column
+
+✅ COLUMN ADDITION / SUBTRACTION — numbered steps, NO visual column layout:
+  Step 1: Ones column: $1 + 8 = 9$
+  Step 2: Tens column: $6 + 7 = 13$. Write $3$, carry $1$.
+  Step 3: Hundreds column: $3 + 4 + 1 = 8$
+  $$746361 + 413478 = 1159839$$
+
+✅ LONG MULTIPLICATION — numbered steps:
+  Step 1: $124 \\times 6 = 744$
+  Step 2: $124 \\times 30 = 3720$ (shift one place left)
+  $$744 + 3720 = 4464$$
+
+✅ LONG DIVISION — numbered steps (this method already works well, keep using it):
+  Step 1: How many times does $4$ go into $19$? $4 \\times 4 = 16$. Write $4$, remainder $3$.
+  Step 2: Bring down $5$. $35 \\div 4$: $4 \\times 8 = 32$. Write $8$, remainder $3$.
+  $$1956 \\div 4 = 489$$
+
+─────────────────────────────────────────────────────────────────────────────
+"""
+
+
 def _build_math_study_tip_prompt(question, correct_answer, grade: int) -> str:
     return f"""You are a Kenyan CBC Grade {grade} maths teacher.
 A student just got this question RIGHT.
@@ -1127,15 +1194,15 @@ The student got this RIGHT. Show the step-by-step working so they understand the
 - Show ALL calculations using LaTeX display math on their own line: $$...$$
 - Use inline LaTeX for numbers and variables in sentences: $x = 4$, $\\frac{{1}}{{8}}$, $\\times$
 - NEVER write bare maths outside dollar signs
-- Keep it under 120 words total
+- Keep it under 150 words total
 - Write like you are talking directly to a Grade {grade} student
-- NO markdown, NO code blocks, NO headings, NO asterisks
+- NO headings, NO asterisks
 
 CRITICAL — present a SINGLE clean solution only:
 - Work the maths out silently FIRST. Output ONLY the final, correct, polished steps.
 - Your final answer MUST equal the CORRECT ANSWER above ({correct_answer}). If your steps disagree, fix them BEFORE writing — never on the page.
 - ABSOLUTELY FORBIDDEN: self-correction or thinking aloud. Never write "wait", "let me recalculate", "actually", "no that's wrong", "let me redo", or repeat a step. One correct pass, no second-guessing.
-"""
+{_CBC_MATH_FORMAT_RULES}"""
 
 
 def _build_math_solution_prompt(
@@ -1154,15 +1221,15 @@ Write a step-by-step solution in simple words a Grade {grade} student can follow
 - Use inline LaTeX for numbers and variables in sentences: $x = 4$, $\\frac{{1}}{{8}}$, $\\times$
 - NEVER write bare maths outside dollar signs
 - At the end, in one short sentence say what mistake the student likely made
-- Keep it under 150 words total
+- Keep it under 180 words total
 - Write like you are talking to a child who is struggling with Maths
-- NO markdown, NO code blocks, NO headings, NO asterisks
+- NO headings, NO asterisks
 
 CRITICAL — present a SINGLE clean solution only:
 - Work the maths out silently FIRST. Output ONLY the final, correct, polished steps.
 - Your final answer MUST equal the CORRECT ANSWER above ({correct_answer}). If your steps disagree, fix them BEFORE writing — never on the page.
 - ABSOLUTELY FORBIDDEN: self-correction or thinking aloud. Never write "wait", "let me recalculate", "actually", "no that's wrong", "let me redo", or repeat a step. One correct pass, no second-guessing.
-"""
+{_CBC_MATH_FORMAT_RULES}"""
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -1345,6 +1412,12 @@ def _grade_mcq(question, student_answer: str) -> dict:
 
     # ── Use cached explanation if available (saves API calls) ─────────────
     cached = getattr(question, 'cached_ai_explanation', None)
+    if cached and isinstance(cached, dict) and cached.get('feedback'):
+        # Invalidate stale entries that contain broken LaTeX arrays or raw KaTeX HTML
+        _stale_markers = ('\\begin{', 'class="katex"', "class='katex'", 'arrayr', '<span')
+        _cache_text = (cached.get('feedback', '') or '') + (cached.get('study_tip', '') or '')
+        if any(m in _cache_text for m in _stale_markers):
+            cached = None  # force fresh generation
     if cached and isinstance(cached, dict) and cached.get('feedback'):
         correct_text = options_map.get(correct_letter, "(unknown)")
         if is_correct:

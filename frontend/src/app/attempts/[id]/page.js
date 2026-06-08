@@ -65,16 +65,26 @@ function _katex(expr, display) {
   }
 }
 function _mdTableToHtml(text) {
-  // Convert markdown table blocks to HTML tables
-  const tableRe = /(\|.+\|\s*\n\|[-| :]+\|\s*\n(?:\|.+\|\s*\n?)*)/g;
+  // Convert markdown table blocks to HTML tables.
+  // Handles both \n and <br/> as row separators (the caller may have already
+  // converted newlines to <br/> before reaching renderMath).
+  const NL = /\s*(?:\n|<br\s*\/?>)\s*/;
+  const tableRe = /(\|.+\|(?:\s*(?:\n|<br\s*\/?>))\|[-| :]+\|(?:\s*(?:\n|<br\s*\/?>))(?:\|.+\|(?:\s*(?:\n|<br\s*\/?>))?)*)/g;
   return text.replace(tableRe, (block) => {
-    const rows = block.trim().split("\n").map(r => r.trim());
-    const header = rows[0].split("|").filter((_,i,a) => i > 0 && i < a.length-1).map(c => `<th style="padding:6px 10px;border:1px solid #cbd5e1;background:#f1f5f9;font-weight:700;text-align:left">${c.trim()}</th>`).join("");
+    const rows = block.trim().split(/\n|<br\s*\/?>/).map(r => r.trim()).filter(Boolean);
+    if (rows.length < 3) return block;
+    const header = rows[0].split("|")
+      .filter((_,i,a) => i > 0 && i < a.length-1)
+      .map((c, ci) => `<th style="padding:6px 10px;border:1px solid #cbd5e1;background:#e8f0fe;font-weight:700;text-align:center;${ci === 0 ? "font-size:12px;color:#3730a3" : ""}">${c.trim()}</th>`)
+      .join("");
     const body = rows.slice(2).map(r => {
-      const cells = r.split("|").filter((_,i,a) => i > 0 && i < a.length-1).map(c => `<td style="padding:6px 10px;border:1px solid #e2e8f0">${c.trim()}</td>`).join("");
+      const cells = r.split("|")
+        .filter((_,i,a) => i > 0 && i < a.length-1)
+        .map((c, ci) => `<td style="padding:6px 10px;border:1px solid #e2e8f0;text-align:center;${ci === 0 ? "font-weight:700;background:#f0f4ff;color:#1e3a8a" : ""}">${c.trim()}</td>`)
+        .join("");
       return `<tr>${cells}</tr>`;
     }).join("");
-    return `<table style="border-collapse:collapse;font-size:13px;margin:8px 0;width:auto"><thead><tr>${header}</tr></thead><tbody>${body}</tbody></table>`;
+    return `<table style="border-collapse:collapse;font-size:14px;margin:10px 0;font-family:monospace"><thead><tr>${header}</tr></thead><tbody>${body}</tbody></table>`;
   });
 }
 
