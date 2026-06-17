@@ -1798,6 +1798,7 @@ def _grade_with_ai(
         elif marks < question.max_marks and feedback.strip().lower().startswith("correct"):
             feedback = "Not quite. " + feedback[8:]
 
+        cache.delete("ai_grading:consecutive_failures")
         return {
             "marks_awarded":        marks,
             "max_marks":            question.max_marks,
@@ -1811,6 +1812,20 @@ def _grade_with_ai(
 
     except Exception as e:
         print(f"AI Grading Error (Q{getattr(question, 'id', '?')}): {e}")
+        # Track consecutive failures in cache — alert if grading is systemically broken
+        _fail_key = "ai_grading:consecutive_failures"
+        try:
+            fails = (cache.get(_fail_key) or 0) + 1
+            cache.set(_fail_key, fails, 3600)  # resets after 1 hour of no failures
+            if fails in (5, 20, 50):  # alert at thresholds, not every failure
+                import logging
+                logging.getLogger("django").error(
+                    f"AI GRADING ALERT: {fails} consecutive failures. "
+                    f"Last error on Q{getattr(question, 'id', '?')}: {type(e).__name__}: {e}. "
+                    f"Check CLAUDE_MODEL ({CLAUDE_MODEL}) and Gemini quota."
+                )
+        except Exception:
+            pass
 
         correct_answer = getattr(question, "correct_answer", None)
         explanation    = getattr(question, "explanation", None)
