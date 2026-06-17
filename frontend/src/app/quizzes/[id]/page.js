@@ -1937,6 +1937,7 @@ export default function QuizTakePage({ params }) {
   const [flagged, setFlagged] = useState(new Set());
   const [workingImages, setWorkingImages] = useState({});
   const [activeBlank, setActiveBlank] = useState(null); // ← blank highlight state
+  const [keyboardOffset, setKeyboardOffset] = useState(0);
   const quizStartedAt = useRef(new Date().toISOString());
   const structuredTextareaRef = useRef(null);
 
@@ -1984,6 +1985,23 @@ export default function QuizTakePage({ params }) {
       }
     })();
   }, [quizId, user, guestSessionFromUrl, router]);
+
+  useEffect(() => {
+    if (typeof window === "undefined" || !window.visualViewport) return;
+    const onViewportChange = () => {
+      const offset =
+        window.innerHeight -
+        window.visualViewport.height -
+        window.visualViewport.offsetTop;
+      setKeyboardOffset(Math.max(0, offset));
+    };
+    window.visualViewport.addEventListener("resize", onViewportChange);
+    window.visualViewport.addEventListener("scroll", onViewportChange);
+    return () => {
+      window.visualViewport.removeEventListener("resize", onViewportChange);
+      window.visualViewport.removeEventListener("scroll", onViewportChange);
+    };
+  }, []);
 
   const handleAnswer = useCallback(
     (value) => {
@@ -3081,7 +3099,7 @@ export default function QuizTakePage({ params }) {
       <div
         style={{
           position: "fixed",
-          bottom: 0,
+          bottom: keyboardOffset,
           left: 0,
           right: 0,
           zIndex: 20,
@@ -3089,6 +3107,7 @@ export default function QuizTakePage({ params }) {
           borderTop: "1px solid #e8eaf0",
           padding: "14px 16px",
           boxShadow: "0 -4px 20px rgba(0,0,0,0.08)",
+          transition: "bottom 0.15s ease",
         }}
       >
         <div

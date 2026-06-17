@@ -40,15 +40,15 @@ def _get_claude():
     errors in threaded parallel grading (ThreadPoolExecutor)."""
     return anthropic.Anthropic(api_key=settings.ANTHROPIC_API_KEY)
 
-CLAUDE_MODEL          = "claude-sonnet-4-20250514"
+CLAUDE_MODEL          = "claude-sonnet-4-6"
 GEMINI_MODEL          = "gemini-2.5-flash"
 GEMINI_FALLBACK_MODEL = "gemini-2.5-pro"
 MAX_RETRIES  = 2
 
 MAX_TOKENS_MCQ        = 400
-MAX_TOKENS_STRUCTURED = 800
-MAX_TOKENS_ESSAY      = 1000
-MAX_TOKENS_DEFAULT    = 600
+MAX_TOKENS_STRUCTURED = 1200
+MAX_TOKENS_ESSAY      = 1400
+MAX_TOKENS_DEFAULT    = 800
 
 SYMPY_TIMEOUT_SECONDS = 3
 
@@ -278,11 +278,29 @@ _MARKING_ALLOC_RE = re.compile(
     re.IGNORECASE | re.DOTALL,
 )
 
+def _strip_html(text: str) -> str:
+    """Remove pre-rendered KaTeX/HTML from admin fields before passing to AI.
+
+    Strips <span class="katex"...> wrappers and all other HTML tags, leaving
+    only the plain LaTeX source (which the AI can re-render properly).
+    """
+    if not text:
+        return text
+    import re as _re
+    # Remove entire katex-display/katex spans (they wrap already-rendered math)
+    text = _re.sub(r'<span[^>]*class=["\'][^"\']*katex[^"\']*["\'][^>]*>.*?</span>', '', text, flags=_re.DOTALL | _re.IGNORECASE)
+    # Remove remaining HTML tags
+    text = _re.sub(r'<[^>]+>', '', text)
+    # Collapse excessive whitespace left behind
+    text = _re.sub(r' {2,}', ' ', text).strip()
+    return text
+
+
 def _clean_correct_answer(text: str) -> str:
     """Strip admin-only marking-allocation language from a correct_answer string."""
     if not text:
         return text
-    cleaned = _MARKING_ALLOC_RE.sub("", str(text)).strip().rstrip(".")
+    cleaned = _MARKING_ALLOC_RE.sub("", _strip_html(str(text))).strip().rstrip(".")
     cleaned = re.sub(r"\.{2,}", ".", cleaned)
     cleaned = re.sub(r"\s{2,}", " ", cleaned)
     return cleaned.strip()
@@ -349,7 +367,7 @@ def _sanitize_answer(text: str) -> str:
     return text
 
 
-GRADER_VERSION = "v11"  # bump to bust stale cached results
+GRADER_VERSION = "v13"  # bump to bust stale cached results
 
 def _grade_cache_key(question_id, answer_text: str) -> str:
     norm = _normalise(str(answer_text))
@@ -796,7 +814,7 @@ MATH FORMATTING — NON-NEGOTIABLE:
   - RIGHT: "$2 \\times 8 = 16$"
   - NEVER use \\begin{array}, \\begin{matrix}, or ANY LaTeX environment
   - NEVER output HTML tags (<span>, <div>, <code>, <pre>) or KaTeX pre-rendered HTML
-""" + _CBC_MATH_FORMAT_RULES
+""" + (f"\n{_CBC_MATH_FORMAT_RULES}" if question.question_type == "math" else "")
 
     # ── Marking rules ─────────────────────────────────────────────────────────
     if sw:
@@ -949,7 +967,7 @@ FEEDBACK FORMAT:
         if getattr(question, "explanation", None):
             prompt += (
                 f"\nEXPLANATION (use to confirm only — do NOT expand or add to it): "
-                f"{question.explanation}"
+                f"{_strip_html(str(question.explanation))}"
             )
     else:
         ms = getattr(question, "marking_scheme", None)
@@ -984,7 +1002,7 @@ FEEDBACK FORMAT:
         if getattr(question, "explanation", None):
             prompt += (
                 f"\nEXPLANATION (use to confirm only — do NOT expand or add to it): "
-                f"{question.explanation}"
+                f"{_strip_html(str(question.explanation))}"
             )
 
     # ── METHOD MARKS for questions with working images ────────────────────────
