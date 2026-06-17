@@ -367,7 +367,7 @@ def _sanitize_answer(text: str) -> str:
     return text
 
 
-GRADER_VERSION = "v15"  # bump to bust stale cached results
+GRADER_VERSION = "v16"  # bump to bust stale cached results
 
 def _grade_cache_key(question_id, answer_text: str) -> str:
     norm = _normalise(str(answer_text))
@@ -1005,10 +1005,14 @@ OTHER RULES:
         correct_letter = _extract_mcq_letter(str(question.correct_answer))
         prompt += f"\n\nCORRECT ANSWER:\nOption {correct_letter}: {options_map[correct_letter]}"
         if getattr(question, "explanation", None):
-            prompt += (
-                f"\nEXPLANATION (use to confirm only — do NOT expand or add to it): "
-                f"{_strip_html(str(question.explanation))}"
+            _expl_label = (
+                "TEACHER'S EXPLANATION FOR STUDENT (comprehension question — copy this VERBATIM "
+                "into the study_tip field exactly as written; it contains passage evidence the "
+                "student needs to see; do NOT paraphrase, shorten, or add to it)"
+                if (has_passage and not is_cloze)
+                else "EXPLANATION (use to confirm only — do NOT expand or add to it)"
             )
+            prompt += f"\n{_expl_label}: {_strip_html(str(question.explanation))}"
     else:
         ms = getattr(question, "marking_scheme", None)
         if ms and question.question_type != "financial_statement":
@@ -1040,10 +1044,14 @@ OTHER RULES:
                 f"{_clean_correct_answer(str(question.correct_answer))}"
             )
         if getattr(question, "explanation", None):
-            prompt += (
-                f"\nEXPLANATION (use to confirm only — do NOT expand or add to it): "
-                f"{_strip_html(str(question.explanation))}"
+            _expl_label = (
+                "TEACHER'S EXPLANATION FOR STUDENT (comprehension question — copy this VERBATIM "
+                "into the study_tip field exactly as written; it contains passage evidence the "
+                "student needs to see; do NOT paraphrase, shorten, or add to it)"
+                if (has_passage and not is_cloze)
+                else "EXPLANATION (use to confirm only — do NOT expand or add to it)"
             )
+            prompt += f"\n{_expl_label}: {_strip_html(str(question.explanation))}"
 
     # ── METHOD MARKS for questions with working images ────────────────────────
     if has_image and question.question_type in ("math", "structured"):
@@ -1073,7 +1081,8 @@ To earn method marks from the photo:
     # ── JSON output template ──────────────────────────────────────────────────
     if sw:
         study_tip_instruction = (
-            "Taja aya au mstari maalum wa kifungu ambapo jibu linapatikana. USIRUDIE maoni."
+            "NAKILI maelezo ya mwalimu NENO KWA NENO kutoka sehemu ya TEACHER'S EXPLANATION FOR STUDENT — "
+            "usibadilishe chochote, usiongeze neno, usiondoe neno. Hiyo ndiyo study_tip yako."
             if (has_passage and not is_cloze) else
             "Kidokezo kimoja kipya cha kukumbuka — mbinu rahisi au kidokezo cha mtihani. "
             "HARAMU KABISA: Usiseme mwanafunzi aandike majibu zaidi kuliko yaliyohitajika kama 'akiba' — "
@@ -1095,8 +1104,8 @@ ALAMA ZA JUU: {max_marks}
 
     else:
         study_tip_instruction = (
-            "Point to the specific paragraph or line where the answer is found. "
-            "Do NOT repeat or paraphrase the feedback or explanation."
+            "Copy the TEACHER'S EXPLANATION FOR STUDENT field WORD FOR WORD into this field — "
+            "do not change, shorten, or paraphrase it. That is your entire study_tip."
             if (has_passage and not is_cloze) else
             "One NEW memory trick or exam tip the student can use next time. "
             "CRITICAL: Do NOT copy, repeat, or paraphrase the explanation or feedback text — "
