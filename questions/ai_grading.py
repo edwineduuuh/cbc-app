@@ -367,7 +367,7 @@ def _sanitize_answer(text: str) -> str:
     return text
 
 
-GRADER_VERSION = "v13"  # bump to bust stale cached results
+GRADER_VERSION = "v14"  # bump to bust stale cached results
 
 def _grade_cache_key(question_id, answer_text: str) -> str:
     norm = _normalise(str(answer_text))
@@ -900,29 +900,69 @@ FEEDBACK FORMATTING — for questions with multiple acceptable items (e.g. "stat
     )
     if question.question_type == "mcq" and _mcq_has_letter:
         if sw:
-            prompt += """
+            prompt += f"""
 SHERIA ZA MCQ:
 - Chaguo sahihi -> alama zote
 - Chaguo baya -> alama 0 — hakuna alama za sehemu
-MAONI: Anza na "Hongera!" au "Jibu si sahihi. Jibu sahihi ni ..."
-Eleza kwa nini kwa sentensi 1-2 FUPI. Malizia na "Kumbuka:".
-USIONGEZE maelezo ya ziada ya msamiati, makao, au utamaduni!
-Tumia TU habari kutoka jibu sahihi na maelezo ya mwalimu.
+
+JINSI YA KUANDIKA MAONI (Darasa {grade}, CBC Kenya):
+USISEME kamwe: "Hongera kwa kuchagua jibu sahihi!", "Umefanya vizuri sana!", "Jibu lako ni sahihi kabisa!"
+Maneno hayo ni matupu — hayafundishi chochote.
+
+BADALA YAKE — andika kama mwalimu anayeandika ubao:
+  Jibu SAHIHI: Anza na sentensi MOJA inayoeleza KWA NINI chaguo hilo ni sahihi.
+               Kisha sentensi MOJA inayoonyesha kwa nini chaguo kingine kikuu si sahihi.
+               Lugha rahisi ya Darasa {grade}. Maneno ambayo mwanafunzi anaweza kuandika daftarini.
+  Jibu KOSA:   Anza na "Jibu sahihi ni [Chaguo X]." Kisha eleza KWA NINI ni sahihi kwa sentensi 1-2.
+               Kisha eleza KWA NINI chaguo la mwanafunzi si sahihi kwa sentensi 1.
+
+MFANO WA MAONI MAZURI (jibu sahihi):
+  "Usanisinzi hutumia nishati ya jua kubadilisha dioksidi kaboni na maji kuwa chakula.
+   Kupika na kupiga pasi hutumia nishati ya joto, si nishati ya mwanga."
+
+MFANO MBAYA (USIFANYE HIVI):
+  "Hongera! Umechagua jibu sahihi. Vizuri sana!"
+
+KANUNI NYINGINE:
+- Usitumie maneno magumu bila kueleza maana
+- Usiseme "kulingana na mpango wa alama" au lugha ya walimu
+- Maoni: sentensi 2-3 tu, moja kwa moja
 """
         else:
             if _mcq_has_letter:
-                prompt += """
+                prompt += f"""
 MCQ RULES:
 - Correct option -> full marks. Wrong option -> 0. No partial marks.
-FEEDBACK FORMAT:
-  For ALL questions involving numbers, formulas, calculations, or steps:
-    ALWAYS show full step-by-step working — whether the student got it right or wrong.
-    Correct: "Correct! [brief why]. Let me show you the correct working:\n[numbered steps using $$...$$]"
-    Wrong:   "Not quite. The correct answer is [Option X]. Here is the working:\n[numbered steps using $$...$$]"
-  For purely language/recall questions (no maths):
-    Correct: "Correct! ..." then 1-2 sentences why.
-    Wrong:   "Not quite. The correct answer is ..." 1-2 sentences why.
-  End every response with one "Remember:" tip. Maximum 10 sentences total.
+
+HOW TO WRITE FEEDBACK (Grade {grade}, CBC Kenya style):
+NEVER say: "Well done for picking the right answer!", "You are exactly right!", "Great job!", "That is correct!"
+These phrases teach nothing. A student cannot write them in their exercise book.
+
+INSTEAD — write like a CBC teacher explaining at the board:
+  CORRECT answer: One sentence explaining WHY the correct option is right (the concept, the reason).
+                  One sentence explaining why the most tempting wrong option is NOT correct.
+                  Simple Grade {grade} language. Facts the student can note down.
+  WRONG answer:   Start with "The correct answer is [Option X]." Then 1-2 sentences why it is right.
+                  Then 1 sentence why the student's choice is wrong.
+
+GOOD FEEDBACK EXAMPLE (correct answer):
+  "Photosynthesis uses light energy from the sun to make food.
+   Cooking and ironing use heat energy, not light, so they are not uses of light."
+
+BAD FEEDBACK EXAMPLE (never do this):
+  "Correct! Keeping away pests is indeed an importance of lighting a house properly.
+   Well done for picking the right answer!"
+
+For questions with numbers, formulas, or calculations:
+  Show step-by-step working using $$...$$ for display math and $...$ for inline math.
+  Correct: explain the method, then show the working.
+  Wrong: show the correct working step by step.
+
+OTHER RULES:
+- No hard vocabulary without explaining it simply
+- No phrases like "according to the marking scheme" — just teach the concept
+- Maximum 4 sentences total. Direct and factual.
+- Do NOT repeat the question back to the student
 """
 
     # ── Question text ─────────────────────────────────────────────────────────
