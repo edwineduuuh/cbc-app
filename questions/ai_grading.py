@@ -367,7 +367,7 @@ def _sanitize_answer(text: str) -> str:
     return text
 
 
-GRADER_VERSION = "v14"  # bump to bust stale cached results
+GRADER_VERSION = "v15"  # bump to bust stale cached results
 
 def _grade_cache_key(question_id, answer_text: str) -> str:
     norm = _normalise(str(answer_text))
@@ -1512,10 +1512,13 @@ def _grade_mcq(question, student_answer: str) -> dict:
         # Cache the explanation on the question for future students
         try:
             from questions.models import Question
+            _ok_prefix  = "Vizuri! " if sw else "Correct! "
+            _bad_prefix = "Jibu si sahihi. " if sw else "Not quite. "
+            _raw_fb = ai_result.get('feedback', '')
             cache_data = {
-                'feedback': ai_result.get('feedback', ''),
-                'feedback_correct': "Correct! " + ai_result.get('feedback', '').lstrip("Not quite. ").lstrip("Correct! "),
-                'feedback_wrong': "Not quite. " + ai_result.get('feedback', '').lstrip("Correct! ").lstrip("Not quite. "),
+                'feedback': _raw_fb,
+                'feedback_correct': _ok_prefix  + re.sub(r'^(Correct!|Not quite\.|Vizuri!|Jibu si sahihi\.)\s*', '', _raw_fb),
+                'feedback_wrong':   _bad_prefix + re.sub(r'^(Correct!|Not quite\.|Vizuri!|Jibu si sahihi\.)\s*', '', _raw_fb),
                 'study_tip': ai_result.get('study_tip', ''),
                 'explanation': ai_result.get('explanation', ''),
             }
@@ -1530,9 +1533,9 @@ def _grade_mcq(question, student_answer: str) -> dict:
             "is_correct":    is_correct,
             # Fix feedback prefix if AI got confused about correctness
             "feedback": (
-                ("Correct! " + ai_result["feedback"].lstrip("Not quite. ").lstrip("Correct! "))
+                (("Vizuri! " if sw else "Correct! ") + re.sub(r'^(Correct!|Not quite\.|Vizuri!|Jibu si sahihi\.)\s*', '', ai_result["feedback"]))
                 if is_correct
-                else ("Not quite. " + ai_result["feedback"].lstrip("Correct! ").lstrip("Not quite. "))
+                else (("Jibu si sahihi. " if sw else "Not quite. ") + re.sub(r'^(Correct!|Not quite\.|Vizuri!|Jibu si sahihi\.)\s*', '', ai_result["feedback"]))
             ),
             "points_earned": ai_result.get("points_earned", []) if is_correct else [],
             "points_missed": ai_result.get("points_missed", []) if not is_correct else [],
@@ -1833,10 +1836,12 @@ def _grade_with_ai(
             pass  # marks win — student got it right, don't penalise
 
         feedback = result.get("feedback", "")
-        if marks == question.max_marks and feedback.strip().lower().startswith("not"):
-            feedback = "Correct! " + feedback
-        elif marks < question.max_marks and feedback.strip().lower().startswith("correct"):
-            feedback = "Not quite. " + feedback[8:]
+        _sw_here = _is_kiswahili(question)
+        _strip_prefix = lambda f: re.sub(r'^(Correct!|Not quite\.|Vizuri!|Jibu si sahihi\.)\s*', '', f)
+        if marks == question.max_marks and re.match(r'^(not quite|jibu si sahihi)', feedback.strip().lower()):
+            feedback = ("Vizuri! " if _sw_here else "Correct! ") + _strip_prefix(feedback)
+        elif marks < question.max_marks and re.match(r'^(correct!|vizuri!)', feedback.strip().lower()):
+            feedback = ("Jibu si sahihi. " if _sw_here else "Not quite. ") + _strip_prefix(feedback)
 
         cache.delete("ai_grading:consecutive_failures")
         return {
