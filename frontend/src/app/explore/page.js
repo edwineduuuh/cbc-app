@@ -55,6 +55,23 @@ export default function ExplorePage() {
 
   const motivationalLine = MOTIVATIONAL_LINES[new Date().getDay() % MOTIVATIONAL_LINES.length];
 
+  // Robust scroll: waits (via rAF) until the target element is in the DOM,
+  // then smooth-scrolls the window to it with a small top offset. Triggered
+  // directly from a click so the browser treats it as a user gesture.
+  const scrollToId = (id) => {
+    let tries = 0;
+    const tick = () => {
+      const el = document.getElementById(id);
+      if (el) {
+        const top = el.getBoundingClientRect().top + window.pageYOffset - 12;
+        window.scrollTo({ top, behavior: "smooth" });
+      } else if (tries++ < 30) {
+        requestAnimationFrame(tick);
+      }
+    };
+    requestAnimationFrame(tick);
+  };
+
   // Auto-select user's grade on load
   useEffect(() => {
     if (userGrade && GRADES.includes(userGrade)) {
@@ -110,7 +127,6 @@ export default function ExplorePage() {
       .then((r) => r.json())
       .then((data) => {
         setSubjects(Array.isArray(data) ? data : []);
-        setTimeout(() => document.getElementById("subject-section")?.scrollIntoView({ behavior: "smooth", block: "start" }), 150);
       })
       .catch(() => {})
       .finally(() => setLoadingSubjects(false));
@@ -121,7 +137,6 @@ export default function ExplorePage() {
     if (!selectedGrade || !selectedSubject) return;
     setSelectedStrand(null);
     setSelectedTab("all");
-    setTimeout(() => document.getElementById("quiz-section")?.scrollIntoView({ behavior: "smooth", block: "start" }), 150);
 
     const token = localStorage.getItem("accessToken");
     const headers = token ? { Authorization: `Bearer ${token}` } : {};
@@ -217,7 +232,7 @@ export default function ExplorePage() {
               return (
                 <button
                   key={g}
-                  onClick={() => setSelectedGrade(g)}
+                  onClick={() => { setSelectedGrade(g); scrollToId("subject-section"); }}
                   style={{
                     padding: "8px 18px",
                     borderRadius: 12,
@@ -264,7 +279,7 @@ export default function ExplorePage() {
               ) : (
                 <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(160px, 1fr))", gap: 8 }}>
                   {subjects.map((s) => (
-                    <button key={s.id} onClick={() => setSelectedSubject(s)}
+                    <button key={s.id} onClick={() => { setSelectedSubject(s); scrollToId("quiz-section"); }}
                       style={{
                         padding: "14px 14px",
                         borderRadius: 14,
