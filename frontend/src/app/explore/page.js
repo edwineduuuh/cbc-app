@@ -1,10 +1,10 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronRight, BookOpen } from "lucide-react";
+import { ChevronRight, BookOpen, Loader2 } from "lucide-react";
 
 const API =
   process.env.NEXT_PUBLIC_API_URL ||
@@ -51,6 +51,10 @@ export default function ExplorePage() {
 
   const [freeAttemptsLeft, setFreeAttemptsLeft] = useState(2);
   const [isSubscribed, setIsSubscribed] = useState(false);
+  const [loadingQuizId, setLoadingQuizId] = useState(null);
+
+  const subjectRef = useRef(null);
+  const quizRef = useRef(null);
 
   const motivationalLine = MOTIVATIONAL_LINES[new Date().getDay() % MOTIVATIONAL_LINES.length];
 
@@ -107,7 +111,10 @@ export default function ExplorePage() {
       headers: token ? { Authorization: `Bearer ${token}` } : {},
     })
       .then((r) => r.json())
-      .then((data) => setSubjects(Array.isArray(data) ? data : []))
+      .then((data) => {
+        setSubjects(Array.isArray(data) ? data : []);
+        setTimeout(() => subjectRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }), 80);
+      })
       .catch(() => {})
       .finally(() => setLoadingSubjects(false));
   }, [selectedGrade]);
@@ -117,6 +124,7 @@ export default function ExplorePage() {
     if (!selectedGrade || !selectedSubject) return;
     setSelectedStrand(null);
     setSelectedTab("all");
+    setTimeout(() => quizRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }), 80);
 
     const token = localStorage.getItem("accessToken");
     const headers = token ? { Authorization: `Bearer ${token}` } : {};
@@ -144,13 +152,13 @@ export default function ExplorePage() {
   });
 
   const handleQuizClick = (quiz) => {
+    if (loadingQuizId) return;
     if (!user && !authLoading) {
       const deviceUsed = parseInt(localStorage.getItem("device_quizzes_used") || "0");
       if (deviceUsed >= 2) { router.push("/register?reason=quota"); return; }
-      router.push(`/quizzes/${quiz.id}`);
-      return;
     }
-    if (!isSubscribed && freeAttemptsLeft <= 0) { router.push("/subscribe"); return; }
+    if (user && !isSubscribed && freeAttemptsLeft <= 0) { router.push("/subscribe"); return; }
+    setLoadingQuizId(quiz.id);
     router.push(`/quizzes/${quiz.id}`);
   };
 
@@ -246,7 +254,7 @@ export default function ExplorePage() {
         {/* Learning areas */}
         <AnimatePresence>
           {selectedGrade && (
-            <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
+            <motion.div ref={subjectRef} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
               style={{ background: "#fff", borderRadius: 20, border: "1px solid #e8eaf0", padding: 20, marginBottom: 16 }}>
               <p style={{ fontSize: 12, fontWeight: 700, color: "#8892a4", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: 12 }}>
                 Select learning area
@@ -287,7 +295,7 @@ export default function ExplorePage() {
         {/* Quizzes panel */}
         <AnimatePresence>
           {selectedSubject && (
-            <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
+            <motion.div ref={quizRef} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
               style={{ background: "#fff", borderRadius: 20, border: "1px solid #e8eaf0", padding: 20 }}>
               {/* Tabs */}
               <div style={{ display: "flex", gap: 6, marginBottom: 14, paddingBottom: 14, borderBottom: "1px solid #e8eaf0", overflowX: "auto" }}>
@@ -351,16 +359,21 @@ export default function ExplorePage() {
                     const isExam = quiz.quiz_type === "exam";
                     const scoreColor = score >= 75 ? "#1d8f57" : score >= 50 ? "#d4900a" : "#c0334a";
 
+                    const isThisLoading = loadingQuizId === quiz.id;
                     return (
                       <button key={quiz.id} onClick={() => handleQuizClick(quiz)}
+                        disabled={!!loadingQuizId}
                         style={{
                           padding: "14px 16px", borderRadius: 16,
-                          border: "1.5px solid #e8eaf0", background: "#fff",
+                          border: `1.5px solid ${isThisLoading ? "#1a6fc4" : "#e8eaf0"}`,
+                          background: isThisLoading ? "#f0f7ff" : "#fff",
                           display: "flex", alignItems: "center", justifyContent: "space-between",
                           gap: 12, textAlign: "left", transition: "all 0.15s",
+                          opacity: loadingQuizId && !isThisLoading ? 0.5 : 1,
+                          cursor: loadingQuizId ? "default" : "pointer",
                         }}
-                        onMouseEnter={(e) => { e.currentTarget.style.borderColor = "#bdd7f5"; e.currentTarget.style.boxShadow = "0 2px 12px rgba(26,111,196,0.08)"; }}
-                        onMouseLeave={(e) => { e.currentTarget.style.borderColor = "#e8eaf0"; e.currentTarget.style.boxShadow = "none"; }}>
+                        onMouseEnter={(e) => { if (!loadingQuizId) { e.currentTarget.style.borderColor = "#bdd7f5"; e.currentTarget.style.boxShadow = "0 2px 12px rgba(26,111,196,0.08)"; }}}
+                        onMouseLeave={(e) => { if (!loadingQuizId) { e.currentTarget.style.borderColor = "#e8eaf0"; e.currentTarget.style.boxShadow = "none"; }}}>
                         <div style={{ flex: 1 }}>
                           <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 5, flexWrap: "wrap" }}>
                             <span style={{ fontSize: 14, fontWeight: 600, color: "#0d0d1a" }}>{quiz.title}</span>
@@ -386,7 +399,10 @@ export default function ExplorePage() {
                             </div>
                           )}
                         </div>
-                        <ChevronRight size={18} color="#bcc3d0" style={{ flexShrink: 0 }} />
+                        {isThisLoading
+                          ? <Loader2 size={18} color="#1a6fc4" style={{ flexShrink: 0, animation: "spin 0.8s linear infinite" }} />
+                          : <ChevronRight size={18} color="#bcc3d0" style={{ flexShrink: 0 }} />
+                        }
                       </button>
                     );
                   })}
