@@ -1,22 +1,16 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { Suspense, useState, useEffect } from "react";
 import { useAuth } from "@/contexts/AuthContext";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronRight, BookOpen, Loader2 } from "lucide-react";
+import { Loader2 } from "lucide-react";
 
 const API =
   process.env.NEXT_PUBLIC_API_URL ||
   "https://cbc-backend-production-8bc4.up.railway.app/api";
 
 const GRADES = [4, 5, 6, 7, 8, 9, 10, 11, 12];
-
-const QUIZ_TYPE_TABS = [
-  { id: "all", label: "All" },
-  { id: "topical", label: "Strand quizzes" },
-  { id: "exam", label: "Integrated assessments" },
-];
 
 const MOTIVATIONAL_LINES = [
   "Every strand you complete brings you one step closer to mastery.",
@@ -25,9 +19,10 @@ const MOTIVATIONAL_LINES = [
   "Challenge yourself across strands. Growth happens outside the comfort zone.",
 ];
 
-export default function ExplorePage() {
+function ExploreContent() {
   const { user, loading: authLoading } = useAuth();
   const router = useRouter();
+  const searchParams = useSearchParams();
 
   useEffect(() => {
     if (!authLoading && user?.role === "teacher") {
@@ -36,142 +31,49 @@ export default function ExplorePage() {
   }, [user, authLoading, router]);
 
   const userGrade = user?.grade ? parseInt(user.grade) : null;
-  const [selectedGrade, setSelectedGrade] = useState(null);
-  const [selectedSubject, setSelectedSubject] = useState(null);
-  const [selectedTab, setSelectedTab] = useState("all");
-  const [selectedStrand, setSelectedStrand] = useState(null);
+  const gradeParam = searchParams.get("grade");
+  const [selectedGrade, setSelectedGrade] = useState(
+    gradeParam && GRADES.includes(parseInt(gradeParam)) ? parseInt(gradeParam) : null
+  );
 
   const [subjects, setSubjects] = useState([]);
-  const [strands, setStrands] = useState([]);
-  const [quizzes, setQuizzes] = useState([]);
-  const [attempts, setAttempts] = useState({});
-
   const [loadingSubjects, setLoadingSubjects] = useState(false);
-  const [loadingQuizzes, setLoadingQuizzes] = useState(false);
-
-  const [freeAttemptsLeft, setFreeAttemptsLeft] = useState(2);
-  const [isSubscribed, setIsSubscribed] = useState(false);
-  const [loadingQuizId, setLoadingQuizId] = useState(null);
+  const [loadingSubjectId, setLoadingSubjectId] = useState(null);
 
   const motivationalLine = MOTIVATIONAL_LINES[new Date().getDay() % MOTIVATIONAL_LINES.length];
 
-  // Robust scroll: waits (via rAF) until the target element is in the DOM,
-  // then scrolls it into view. scrollIntoView is used because it scrolls
-  // whatever the real scroll container is (window OR an inner div) — unlike
-  // window.scrollTo, which no-ops if the scroller isn't the window.
-  const scrollToId = (id) => {
-    let tries = 0;
-    const tick = () => {
-      const el = document.getElementById(id);
-      if (el) {
-        try { el.scrollIntoView({ behavior: "smooth", block: "start" }); } catch { el.scrollIntoView(); }
-      } else if (tries++ < 40) {
-        requestAnimationFrame(tick);
-      }
-    };
-    requestAnimationFrame(tick);
-  };
-
-  // Auto-select user's grade on load
+  // Auto-select user's grade on load (only if nothing already chosen via URL)
   useEffect(() => {
-    if (userGrade && GRADES.includes(userGrade)) {
+    if (!selectedGrade && userGrade && GRADES.includes(userGrade)) {
       setSelectedGrade(userGrade);
     }
-  }, [userGrade]);
-
-  // Credits
-  useEffect(() => {
-    if (!user) {
-      const deviceUsed = parseInt(localStorage.getItem("device_quizzes_used") || "0");
-      setFreeAttemptsLeft(Math.max(0, 2 - deviceUsed));
-      return;
-    }
-    const token = localStorage.getItem("accessToken");
-    fetch(`${API}/credits/status/`, { headers: { Authorization: `Bearer ${token}` } })
-      .then((r) => r.json())
-      .then((data) => {
-        setIsSubscribed(!!data.has_subscription);
-        setFreeAttemptsLeft(data.quiz_credits ?? 0);
-      })
-      .catch(() => {});
-  }, [user]);
-
-  // Attempts map
-  useEffect(() => {
-    if (!user) return;
-    const token = localStorage.getItem("accessToken");
-    fetch(`${API}/attempts/`, { headers: { Authorization: `Bearer ${token}` } })
-      .then((r) => r.json())
-      .then((data) => {
-        const map = {};
-        const list = Array.isArray(data) ? data : data.results || [];
-        list.forEach((a) => {
-          if (!map[a.quiz] || a.score > map[a.quiz].score) map[a.quiz] = a;
-        });
-        setAttempts(map);
-      })
-      .catch(() => {});
-  }, [user]);
+  }, [userGrade]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Load subjects when grade changes
   useEffect(() => {
     if (!selectedGrade) return;
-    setSelectedSubject(null);
-    setQuizzes([]);
-    setStrands([]);
+    setSubjects([]);
     setLoadingSubjects(true);
     const token = localStorage.getItem("accessToken");
     fetch(`${API}/subjects/?grade=${selectedGrade}`, {
       headers: token ? { Authorization: `Bearer ${token}` } : {},
     })
       .then((r) => r.json())
-      .then((data) => {
-        setSubjects(Array.isArray(data) ? data : []);
-      })
+      .then((data) => setSubjects(Array.isArray(data) ? data : []))
       .catch(() => {})
       .finally(() => setLoadingSubjects(false));
   }, [selectedGrade]);
 
-  // Load strands + quizzes when subject changes
-  useEffect(() => {
-    if (!selectedGrade || !selectedSubject) return;
-    setSelectedStrand(null);
-    setSelectedTab("all");
-
-    const token = localStorage.getItem("accessToken");
-    const headers = token ? { Authorization: `Bearer ${token}` } : {};
-
-    fetch(`${API}/topics/?subject=${selectedSubject.id}&grade=${selectedGrade}`, { headers })
-      .then((r) => r.json())
-      .then((data) => setStrands(Array.isArray(data) ? data : []))
-      .catch(() => {});
-
-    setLoadingQuizzes(true);
-    fetch(`${API}/quizzes/?grade=${selectedGrade}&subject=${selectedSubject.id}`, { headers })
-      .then((r) => r.json())
-      .then((data) => setQuizzes(Array.isArray(data) ? data : data.results || []))
-      .catch(() => {})
-      .finally(() => setLoadingQuizzes(false));
-  }, [selectedGrade, selectedSubject]);
-
-  const filteredQuizzes = quizzes.filter((q) => {
-    const typeMatch =
-      selectedTab === "all" ||
-      (selectedTab === "topical" && q.quiz_type === "topical") ||
-      (selectedTab === "exam" && q.quiz_type === "exam");
-    const strandMatch = !selectedStrand || q.topic === selectedStrand.id;
-    return typeMatch && strandMatch;
-  });
-
-  const handleQuizClick = (quiz) => {
-    if (loadingQuizId) return;
-    if (!user && !authLoading) {
-      const deviceUsed = parseInt(localStorage.getItem("device_quizzes_used") || "0");
-      if (deviceUsed >= 2) { router.push("/register?reason=quota"); return; }
-    }
-    if (user && !isSubscribed && freeAttemptsLeft <= 0) { router.push("/subscribe"); return; }
-    setLoadingQuizId(quiz.id);
-    router.push(`/quizzes/${quiz.id}`);
+  const handleSubjectClick = (s) => {
+    if (loadingSubjectId) return;
+    setLoadingSubjectId(s.id);
+    const q = new URLSearchParams({
+      grade: String(selectedGrade),
+      subject: String(s.id),
+      name: s.name || "",
+      icon: s.icon || "📚",
+    });
+    router.push(`/explore/quizzes?${q.toString()}`);
   };
 
   const firstName = user?.first_name || user?.username || "there";
@@ -214,7 +116,7 @@ export default function ExplorePage() {
           {userGrade && (
             <div style={{ marginTop: 16, display: "inline-flex", alignItems: "center", gap: 8, background: "rgba(255,255,255,0.12)", borderRadius: 30, padding: "6px 14px" }}>
               <span style={{ fontSize: 12, fontWeight: 700, color: "#fff" }}>
-                Your grade is pre-selected below - or explore any grade you'd like to review
+                Your grade is pre-selected below - or explore any grade you&apos;d like to review
               </span>
             </div>
           )}
@@ -232,7 +134,7 @@ export default function ExplorePage() {
               return (
                 <button
                   key={g}
-                  onClick={() => { setSelectedGrade(g); scrollToId("subject-section"); }}
+                  onClick={() => setSelectedGrade(g)}
                   style={{
                     padding: "8px 18px",
                     borderRadius: 12,
@@ -278,143 +180,30 @@ export default function ExplorePage() {
                 </div>
               ) : (
                 <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(160px, 1fr))", gap: 8 }}>
-                  {subjects.map((s) => (
-                    <button key={s.id} onClick={() => { setSelectedSubject(s); scrollToId("quiz-section"); }}
-                      style={{
-                        padding: "14px 14px",
-                        borderRadius: 14,
-                        border: `2px solid ${selectedSubject?.id === s.id ? "#1a6fc4" : "#e8eaf0"}`,
-                        background: selectedSubject?.id === s.id ? "#e8f4ff" : "#f7f9fc",
-                        display: "flex", alignItems: "center", gap: 10,
-                        transition: "all 0.15s", textAlign: "left",
-                        boxShadow: selectedSubject?.id === s.id ? "0 2px 12px rgba(26,111,196,0.12)" : "none",
-                      }}
-                      onMouseEnter={(e) => { if (selectedSubject?.id !== s.id) e.currentTarget.style.borderColor = "#bdd7f5"; }}
-                      onMouseLeave={(e) => { if (selectedSubject?.id !== s.id) e.currentTarget.style.borderColor = "#e8eaf0"; }}
-                    >
-                      <span style={{ fontSize: 24 }}>{s.icon || "📚"}</span>
-                      <span style={{ fontSize: 13, fontWeight: selectedSubject?.id === s.id ? 700 : 500, color: selectedSubject?.id === s.id ? "#1a6fc4" : "#1a1a2e", lineHeight: 1.3 }}>
-                        {s.name}
-                      </span>
-                    </button>
-                  ))}
-                </div>
-              )}
-            </motion.div>
-          )}
-        </AnimatePresence>
-
-        {/* Quizzes panel */}
-        <AnimatePresence>
-          {selectedSubject && (
-            <motion.div id="quiz-section" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
-              style={{ background: "#fff", borderRadius: 20, border: "1px solid #e8eaf0", padding: 20 }}>
-              {/* Tabs */}
-              <div style={{ display: "flex", gap: 6, marginBottom: 14, paddingBottom: 14, borderBottom: "1px solid #e8eaf0", overflowX: "auto" }}>
-                {QUIZ_TYPE_TABS.map((tab) => (
-                  <button key={tab.id} onClick={() => { setSelectedTab(tab.id); setSelectedStrand(null); }}
-                    style={{
-                      padding: "6px 14px", borderRadius: 20, whiteSpace: "nowrap", border: "none",
-                      background: selectedTab === tab.id ? "#1a6fc4" : "#f0f2f7",
-                      color: selectedTab === tab.id ? "#fff" : "#6b7280",
-                      fontSize: 13, fontWeight: selectedTab === tab.id ? 700 : 500, transition: "all 0.15s",
-                    }}>
-                    {tab.label}
-                  </button>
-                ))}
-              </div>
-
-              {/* Strand chips */}
-              {selectedTab !== "exam" && strands.length > 0 && (
-                <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginBottom: 16 }}>
-                  <button onClick={() => setSelectedStrand(null)}
-                    style={{
-                      padding: "4px 12px", borderRadius: 20, fontSize: 12,
-                      border: `1px solid ${!selectedStrand ? "#bdd7f5" : "#e8eaf0"}`,
-                      background: !selectedStrand ? "#e8f4ff" : "#f7f9fc",
-                      color: !selectedStrand ? "#1a6fc4" : "#6b7280",
-                      fontWeight: !selectedStrand ? 700 : 400,
-                    }}>
-                    All strands
-                  </button>
-                  {strands.map((strand) => (
-                    <button key={strand.id} onClick={() => setSelectedStrand(strand)}
-                      style={{
-                        padding: "4px 12px", borderRadius: 20, fontSize: 12,
-                        border: `1px solid ${selectedStrand?.id === strand.id ? "#bdd7f5" : "#e8eaf0"}`,
-                        background: selectedStrand?.id === strand.id ? "#e8f4ff" : "#f7f9fc",
-                        color: selectedStrand?.id === strand.id ? "#1a6fc4" : "#6b7280",
-                        fontWeight: selectedStrand?.id === strand.id ? 700 : 400,
-                      }}>
-                      {strand.name}
-                    </button>
-                  ))}
-                </div>
-              )}
-
-              {/* Quiz list */}
-              {loadingQuizzes ? (
-                <div style={{ display: "flex", justifyContent: "center", padding: "32px 0" }}>
-                  <div style={{ width: 32, height: 32, border: "3px solid #e8eaf0", borderTopColor: "#1a6fc4", borderRadius: "50%", animation: "spin 0.8s linear infinite" }} />
-                </div>
-              ) : filteredQuizzes.length === 0 ? (
-                <div style={{ textAlign: "center", padding: "40px 0" }}>
-                  <BookOpen size={40} color="#bcc3d0" style={{ margin: "0 auto 12px" }} />
-                  <p style={{ fontSize: 14, color: "#8892a4" }}>No assessments found</p>
-                  <p style={{ fontSize: 13, color: "#bcc3d0", marginTop: 4 }}>Check back soon — more content is being added</p>
-                </div>
-              ) : (
-                <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-                  {filteredQuizzes.map((quiz) => {
-                    const attempt = attempts[quiz.id];
-                    const score = attempt ? Math.round(attempt.score) : null;
-                    const isExam = quiz.quiz_type === "exam";
-                    const scoreColor = score >= 75 ? "#1d8f57" : score >= 50 ? "#d4900a" : "#c0334a";
-
-                    const isThisLoading = loadingQuizId === quiz.id;
+                  {subjects.map((s) => {
+                    const isThisLoading = loadingSubjectId === s.id;
                     return (
-                      <button key={quiz.id} onClick={() => handleQuizClick(quiz)}
-                        disabled={!!loadingQuizId}
+                      <button key={s.id} onClick={() => handleSubjectClick(s)}
+                        disabled={!!loadingSubjectId}
                         style={{
-                          padding: "14px 16px", borderRadius: 16,
-                          border: `1.5px solid ${isThisLoading ? "#1a6fc4" : "#e8eaf0"}`,
-                          background: isThisLoading ? "#f0f7ff" : "#fff",
-                          display: "flex", alignItems: "center", justifyContent: "space-between",
-                          gap: 12, textAlign: "left", transition: "all 0.15s",
-                          opacity: loadingQuizId && !isThisLoading ? 0.5 : 1,
-                          cursor: loadingQuizId ? "default" : "pointer",
+                          padding: "14px 14px",
+                          borderRadius: 14,
+                          border: `2px solid ${isThisLoading ? "#1a6fc4" : "#e8eaf0"}`,
+                          background: isThisLoading ? "#e8f4ff" : "#f7f9fc",
+                          display: "flex", alignItems: "center", gap: 10,
+                          transition: "all 0.15s", textAlign: "left",
+                          boxShadow: isThisLoading ? "0 2px 12px rgba(26,111,196,0.12)" : "none",
+                          opacity: loadingSubjectId && !isThisLoading ? 0.5 : 1,
+                          cursor: loadingSubjectId ? "default" : "pointer",
                         }}
-                        onMouseEnter={(e) => { if (!loadingQuizId) { e.currentTarget.style.borderColor = "#bdd7f5"; e.currentTarget.style.boxShadow = "0 2px 12px rgba(26,111,196,0.08)"; }}}
-                        onMouseLeave={(e) => { if (!loadingQuizId) { e.currentTarget.style.borderColor = "#e8eaf0"; e.currentTarget.style.boxShadow = "none"; }}}>
-                        <div style={{ flex: 1 }}>
-                          <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 5, flexWrap: "wrap" }}>
-                            <span style={{ fontSize: 14, fontWeight: 600, color: "#0d0d1a" }}>{quiz.title}</span>
-                            <span style={{
-                              fontSize: 11, padding: "2px 8px", borderRadius: 20,
-                              background: isExam ? "#f0eeff" : "#e8f4ff",
-                              color: isExam ? "#534ab7" : "#1a6fc4", fontWeight: 600,
-                            }}>
-                              {isExam ? "Integrated assessment" : "Strand quiz"}
-                            </span>
-                          </div>
-                          <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
-                            <span style={{ fontSize: 12, color: "#8892a4" }}>
-                              {quiz.total_questions || 0} questions · {quiz.duration_minutes || 30} mins
-                            </span>
-                            {score !== null && (
-                              <span style={{ fontSize: 12, fontWeight: 700, color: scoreColor }}>Last: {score}%</span>
-                            )}
-                          </div>
-                          {score !== null && (
-                            <div style={{ height: 3, background: "#f0f2f7", borderRadius: 99, marginTop: 8, overflow: "hidden" }}>
-                              <div style={{ height: "100%", width: `${score}%`, background: scoreColor, borderRadius: 99, transition: "width 0.6s ease" }} />
-                            </div>
-                          )}
-                        </div>
-                        {isThisLoading
-                          ? <Loader2 size={18} color="#1a6fc4" style={{ flexShrink: 0, animation: "spin 0.8s linear infinite" }} />
-                          : <ChevronRight size={18} color="#bcc3d0" style={{ flexShrink: 0 }} />
-                        }
+                        onMouseEnter={(e) => { if (!loadingSubjectId) e.currentTarget.style.borderColor = "#bdd7f5"; }}
+                        onMouseLeave={(e) => { if (!loadingSubjectId) e.currentTarget.style.borderColor = "#e8eaf0"; }}
+                      >
+                        <span style={{ fontSize: 24 }}>{s.icon || "📚"}</span>
+                        <span style={{ flex: 1, fontSize: 13, fontWeight: isThisLoading ? 700 : 500, color: isThisLoading ? "#1a6fc4" : "#1a1a2e", lineHeight: 1.3 }}>
+                          {s.name}
+                        </span>
+                        {isThisLoading && <Loader2 size={16} color="#1a6fc4" style={{ flexShrink: 0, animation: "spin 0.8s linear infinite" }} />}
                       </button>
                     );
                   })}
@@ -425,5 +214,13 @@ export default function ExplorePage() {
         </AnimatePresence>
       </div>
     </div>
+  );
+}
+
+export default function ExplorePage() {
+  return (
+    <Suspense fallback={null}>
+      <ExploreContent />
+    </Suspense>
   );
 }
