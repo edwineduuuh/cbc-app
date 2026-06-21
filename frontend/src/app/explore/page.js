@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
@@ -52,9 +52,6 @@ export default function ExplorePage() {
   const [freeAttemptsLeft, setFreeAttemptsLeft] = useState(2);
   const [isSubscribed, setIsSubscribed] = useState(false);
   const [loadingQuizId, setLoadingQuizId] = useState(null);
-
-  const subjectRef = useRef(null);
-  const quizRef = useRef(null);
 
   const motivationalLine = MOTIVATIONAL_LINES[new Date().getDay() % MOTIVATIONAL_LINES.length];
 
@@ -113,7 +110,7 @@ export default function ExplorePage() {
       .then((r) => r.json())
       .then((data) => {
         setSubjects(Array.isArray(data) ? data : []);
-        setTimeout(() => subjectRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }), 80);
+        setTimeout(() => document.getElementById("subject-section")?.scrollIntoView({ behavior: "smooth", block: "start" }), 150);
       })
       .catch(() => {})
       .finally(() => setLoadingSubjects(false));
@@ -124,7 +121,7 @@ export default function ExplorePage() {
     if (!selectedGrade || !selectedSubject) return;
     setSelectedStrand(null);
     setSelectedTab("all");
-    setTimeout(() => quizRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }), 80);
+    setTimeout(() => document.getElementById("quiz-section")?.scrollIntoView({ behavior: "smooth", block: "start" }), 150);
 
     const token = localStorage.getItem("accessToken");
     const headers = token ? { Authorization: `Bearer ${token}` } : {};
@@ -254,7 +251,7 @@ export default function ExplorePage() {
         {/* Learning areas */}
         <AnimatePresence>
           {selectedGrade && (
-            <motion.div ref={subjectRef} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
+            <motion.div id="subject-section" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
               style={{ background: "#fff", borderRadius: 20, border: "1px solid #e8eaf0", padding: 20, marginBottom: 16 }}>
               <p style={{ fontSize: 12, fontWeight: 700, color: "#8892a4", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: 12 }}>
                 Select learning area
@@ -295,7 +292,7 @@ export default function ExplorePage() {
         {/* Quizzes panel */}
         <AnimatePresence>
           {selectedSubject && (
-            <motion.div ref={quizRef} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
+            <motion.div id="quiz-section" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
               style={{ background: "#fff", borderRadius: 20, border: "1px solid #e8eaf0", padding: 20 }}>
               {/* Tabs */}
               <div style={{ display: "flex", gap: 6, marginBottom: 14, paddingBottom: 14, borderBottom: "1px solid #e8eaf0", overflowX: "auto" }}>
