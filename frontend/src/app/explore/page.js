@@ -56,16 +56,16 @@ export default function ExplorePage() {
   const motivationalLine = MOTIVATIONAL_LINES[new Date().getDay() % MOTIVATIONAL_LINES.length];
 
   // Robust scroll: waits (via rAF) until the target element is in the DOM,
-  // then smooth-scrolls the window to it with a small top offset. Triggered
-  // directly from a click so the browser treats it as a user gesture.
+  // then scrolls it into view. scrollIntoView is used because it scrolls
+  // whatever the real scroll container is (window OR an inner div) — unlike
+  // window.scrollTo, which no-ops if the scroller isn't the window.
   const scrollToId = (id) => {
     let tries = 0;
     const tick = () => {
       const el = document.getElementById(id);
       if (el) {
-        const top = el.getBoundingClientRect().top + window.pageYOffset - 12;
-        window.scrollTo({ top, behavior: "smooth" });
-      } else if (tries++ < 30) {
+        try { el.scrollIntoView({ behavior: "smooth", block: "start" }); } catch { el.scrollIntoView(); }
+      } else if (tries++ < 40) {
         requestAnimationFrame(tick);
       }
     };
