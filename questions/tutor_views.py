@@ -10,15 +10,12 @@ stay a focused series (one per sub-strand).
 """
 import random
 
-from django.db import IntegrityError
-from django.utils.text import slugify
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import status
 
-from .models import Topic, Substrand
-from .permissions import IsAdminOrTeacher
+from .models import Topic
 from . import tutor
 
 
@@ -122,78 +119,6 @@ def tutor_chat(request):
         )
 
     return Response({"reply": reply})
-
-
-# ─────────────────────────────────────────────────────────────
-#  ADMIN — AI-suggested KICD sub-strands (propose, admin approves)
-# ─────────────────────────────────────────────────────────────
-
-@api_view(["POST"])
-@permission_classes([IsAdminOrTeacher])
-def suggest_substrands(request, topic_id):
-    """Propose official KICD sub-strands for a strand. Saves NOTHING — returns
-    a list the admin reviews and approves on the frontend."""
-    try:
-        topic = Topic.objects.select_related("subject").get(pk=topic_id)
-    except Topic.DoesNotExist:
-        return Response({"error": "Topic not found"}, status=status.HTTP_404_NOT_FOUND)
-
-    existing = set(
-        topic.substrands.values_list("name", flat=True)
-    )
-    try:
-        suggestions = tutor.suggest_substrands(topic)
-    except Exception as e:
-        return Response(
-            {"error": f"Could not get suggestions: {type(e).__name__}"},
-            status=status.HTTP_502_BAD_GATEWAY,
-        )
-
-    # flag which ones the topic already has so the UI can pre-skip them
-    for s in suggestions:
-        s["already_exists"] = s["name"] in existing
-
-    return Response({
-        "topic": {"id": topic.id, "name": topic.name, "grade": topic.grade,
-                   "subject": topic.subject.name},
-        "suggestions": suggestions,
-    })
-
-
-@api_view(["POST"])
-@permission_classes([IsAdminOrTeacher])
-def bulk_create_substrands(request):
-    """Create the admin-approved sub-strands.
-    Body: { "topic": <id>, "substrands": [{"name", "order"}, ...] }"""
-    topic_id = request.data.get("topic")
-    items = request.data.get("substrands", [])
-    if not topic_id or not isinstance(items, list) or not items:
-        return Response(
-            {"error": "topic and a non-empty substrands list are required"},
-            status=status.HTTP_400_BAD_REQUEST,
-        )
-    try:
-        topic = Topic.objects.get(pk=topic_id)
-    except Topic.DoesNotExist:
-        return Response({"error": "Topic not found"}, status=status.HTTP_404_NOT_FOUND)
-
-    created, skipped = [], []
-    for it in items:
-        name = (it.get("name") or "").strip()
-        if not name:
-            continue
-        try:
-            sub = Substrand.objects.create(
-                topic=topic,
-                name=name,
-                slug=slugify(name),
-                order=it.get("order", 0),
-            )
-            created.append({"id": sub.id, "name": sub.name, "order": sub.order})
-        except IntegrityError:
-            skipped.append(name)  # duplicate (topic, name)
-
-    return Response({"created": created, "skipped": skipped}, status=status.HTTP_201_CREATED)
 
 
 # ─────────────────────────────────────────────────────────────

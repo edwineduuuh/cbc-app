@@ -28,10 +28,7 @@ from .authoring_views import (
     PassageDetailView,
 )
 from .bulk_upload import BulkUploadView
-from .tutor_views import (
-    teach_topic, tutor_chat, flashcards_feed,
-    suggest_substrands, bulk_create_substrands,
-)
+from .tutor_views import teach_topic, tutor_chat, flashcards_feed
 from .views import (
     SubjectListView,
     TopicListView,
@@ -72,9 +69,7 @@ urlpatterns = [
     path('topics/', TopicListView.as_view(), name='topic-list'),
     path('substrands/', SubstrandListView.as_view(), name='substrand-list'),
     path('admin/substrands/', SubstrandManageView.as_view(), name='substrand-manage'),
-    path('admin/substrands/bulk/', bulk_create_substrands, name='substrand-bulk-create'),
     path('admin/substrands/<int:pk>/', SubstrandDetailView.as_view(), name='substrand-detail'),
-    path('admin/topics/<int:topic_id>/suggest-substrands/', suggest_substrands, name='suggest-substrands'),
     path('admin/topics/', TopicManageView.as_view(), name='topic-manage'),
     path('admin/topics/<int:pk>/', TopicDetailView.as_view(), name='topic-detail'),
     path('quizzes/', QuizListView.as_view(), name='quiz-list'),
