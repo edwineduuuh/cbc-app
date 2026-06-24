@@ -28,7 +28,7 @@ from .authoring_views import (
     PassageDetailView,
 )
 from .bulk_upload import BulkUploadView
-from .tutor_views import teach_topic, tutor_chat, reels_feed
+from .tutor_views import teach_topic, tutor_chat, flashcards_feed
 from .views import (
     SubjectListView,
     TopicListView,
@@ -176,10 +176,10 @@ urlpatterns = [
     path('quiz-access/', views.check_quiz_access, name='quiz-access'),
     path('quiz/<int:quiz_id>/start/', views.start_quiz_with_check, name='start-quiz-check'),
 
-# ── AI Tutor & Reels ──────────────────────────────────────────
+# ── AI Tutor & Flash Cards ────────────────────────────────────
 path('tutor/topics/<int:topic_id>/lesson/', teach_topic, name='tutor-teach-topic'),
 path('tutor/chat/', tutor_chat, name='tutor-chat'),
-path('reels/', reels_feed, name='reels-feed'),
+path('flashcards/', flashcards_feed, name='flashcards-feed'),
 
 # ── Motivational Content ──────────────────────────────────────
 path('motivational/', views.MotivationalContentListView.as_view(), name='motivational-content'),

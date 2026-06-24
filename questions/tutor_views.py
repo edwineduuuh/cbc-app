@@ -3,18 +3,15 @@ questions/tutor_views.py
 Endpoints for the AI Tutor (pre-quiz "teacher") and the Reels feed.
 
 - Tutor lessons are cached on Topic.cached_ai_lesson (generated once via Claude).
-- Reels are built purely from existing question content (NO AI) and ranked by
-  the student's weak topics, reusing Quiz.topic + Attempt.score.
+- Flash cards are built purely from existing question content (NO AI), selected
+  by Grade -> Learning area (Subject) -> Strand (Topic).
 """
-import random
-
-from django.db.models import Avg
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import status
 
-from .models import Topic, Question, Attempt
+from .models import Topic, Question
 from . import tutor
 
 
@@ -90,71 +87,67 @@ def tutor_chat(request):
 
 
 # ─────────────────────────────────────────────────────────────
-#  REELS — swipeable micro-lessons from existing content (NO AI)
+#  FLASH CARDS — front=question, back=answer+explanation (NO AI)
+#  Selected by Grade → Learning area (Subject) → Strand (Topic).
 # ─────────────────────────────────────────────────────────────
 
-REELS_DEFAULT_LIMIT = 20
-REELS_CANDIDATE_POOL = 300
+FLASHCARDS_LIMIT = 60
 
 
-def _weak_topic_rank(user):
-    """Return {topic_id: rank} where rank 0 = the student's weakest topic.
-    Based on average quiz score per topic for completed attempts."""
-    rows = (
-        Attempt.objects
-        .filter(student=user, status="completed", quiz__topic__isnull=False)
-        .values("quiz__topic")
-        .annotate(avg=Avg("score"))
-        .order_by("avg")  # weakest (lowest avg) first
-    )
-    return {row["quiz__topic"]: i for i, row in enumerate(rows)}
+def _resolve_answer(q):
+    """For MCQs, turn a bare letter (A/B/C/D) into the full option text so the
+    card back is meaningful. Other types already store the model answer."""
+    ans = (q.correct_answer or "").strip()
+    if q.question_type == "mcq" and len(ans) == 1 and ans.upper() in "ABCD":
+        option = getattr(q, f"option_{ans.lower()}", "") or ""
+        return f"{ans.upper()}. {option}".strip(". ") if option else ans.upper()
+    return ans
 
 
-def _reel_from_question(q):
+def _card_from_question(q):
     return {
         "id": q.id,
+        "front": q.question_text,
+        "answer": _resolve_answer(q),
+        "explanation": q.explanation,
         "subject": q.topic.subject.name,
         "topic": q.topic.name,
         "topic_id": q.topic_id,
         "grade": q.topic.grade,
-        "hook": q.question_text,
-        "concept": q.explanation,
-        "answer": q.correct_answer,
         "type": q.question_type,
     }
 
 
 @api_view(["GET"])
 @permission_classes([IsAuthenticated])
-def reels_feed(request):
-    """A personalized feed of micro-lesson reels, weakest topics first."""
-    user = request.user
+def flashcards_feed(request):
+    """Flash cards for a strand. Params: grade, subject, topic (topic preferred).
+
+    Cards are built from questions that have an answer to study from. The
+    explanation (if present) shows on the back as the "why".
+    """
     subject_id = request.query_params.get("subject")
     grade = request.query_params.get("grade")
-    try:
-        limit = min(int(request.query_params.get("limit", REELS_DEFAULT_LIMIT)), 50)
-    except (TypeError, ValueError):
-        limit = REELS_DEFAULT_LIMIT
+    topic_id = request.query_params.get("topic")
 
     qs = (
         Question.objects
-        .exclude(explanation="")
         .select_related("topic", "topic__subject")
+        .exclude(correct_answer="")
     )
-    if subject_id:
-        qs = qs.filter(topic__subject_id=subject_id)
-    if grade:
-        qs = qs.filter(topic__grade=grade)
+    if topic_id:
+        qs = qs.filter(topic_id=topic_id)
+    else:
+        if subject_id:
+            qs = qs.filter(topic__subject_id=subject_id)
+        if grade:
+            qs = qs.filter(topic__grade=grade)
 
-    candidates = list(qs.order_by("-created_at")[:REELS_CANDIDATE_POOL])
-    if not candidates:
-        return Response({"reels": []})
+    if not topic_id and not subject_id and not grade:
+        return Response(
+            {"error": "Choose a grade and learning area first"},
+            status=status.HTTP_400_BAD_REQUEST,
+        )
 
-    rank = _weak_topic_rank(user)
-    big = len(rank) + 1
-    # weak topics first (by rank), then everything else; shuffle within a tier
-    random.shuffle(candidates)
-    candidates.sort(key=lambda q: rank.get(q.topic_id, big))
-
-    reels = [_reel_from_question(q) for q in candidates[:limit]]
-    return Response({"reels": reels, "personalized": bool(rank)})
+    cards = [_card_from_question(q) for q in qs.order_by("difficulty", "id")[:FLASHCARDS_LIMIT]]
+    return Response({"cards": cards, "count": len(cards)})
