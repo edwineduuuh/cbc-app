@@ -16,9 +16,12 @@ import re
 import anthropic
 from django.conf import settings
 
+# Generation (lessons, flashcards) — quality; cached so cost is one-time.
 CLAUDE_MODEL = "claude-sonnet-4-6"
+# Chat follow-ups — cheap + fast; live per message so cost matters.
+CLAUDE_CHAT_MODEL = "claude-haiku-4-5-20251001"
 
-# How many of a topic's questions to feed in as source material for a lesson.
+# How many of a topic's questions to feed in as source material.
 SOURCE_QUESTION_LIMIT = 40
 
 
@@ -28,9 +31,10 @@ def _get_claude():
     return anthropic.Anthropic(api_key=settings.ANTHROPIC_API_KEY)
 
 
-def _call_claude(system: str, messages: list, max_tokens: int = 3000) -> str:
+def _call_claude(system: str, messages: list, max_tokens: int = 3000,
+                 model: str = CLAUDE_MODEL) -> str:
     response = _get_claude().messages.create(
-        model=CLAUDE_MODEL,
+        model=model,
         max_tokens=max_tokens,
         temperature=0.4,
         system=system,
@@ -98,27 +102,35 @@ mathematics (wrap inline math in \\( \\) and display math in \\[ \\]).
 Respond with VALID JSON ONLY — no markdown fences, no text outside the JSON."""
 
 
-def generate_topic_lesson(topic) -> dict:
-    """Generate a coherent lesson for a Topic, grounded in its own questions."""
+def _source_block(topic) -> str:
     source = _harvest_topic_content(topic)
-    source_block = (
-        f"\nHere is real content from this topic's questions — use it as the "
-        f"factual basis for the lesson (teach these ideas, don't just list the "
-        f"questions):\n\n{source}\n"
-        if source.strip()
-        else "\n(There is little stored content for this topic — teach it from "
-        "your own CBC subject knowledge.)\n"
-    )
+    if source.strip():
+        return (
+            f"\nReal content from this strand's questions — use it as the factual "
+            f"basis (teach these ideas, don't just list the questions):\n\n{source}\n"
+        )
+    return ("\n(Little stored content for this strand — teach from your own CBC "
+            "subject knowledge.)\n")
 
-    user = f"""Write a lesson for this CBC topic.
+
+def generate_lesson(topic, substrand=None) -> dict:
+    """Generate a lesson grounded in the strand's questions. If a substrand is
+    given, the lesson is FOCUSED on that sub-strand's learning outcomes."""
+    focus = (
+        f"\nFocus this lesson specifically on the sub-strand: \"{substrand.name}\". "
+        f"Teach only what belongs to that sub-strand, not the whole strand.\n"
+        if substrand else ""
+    )
+    scope_name = substrand.name if substrand else topic.name
+
+    user = f"""Write a CBC/CBE lesson.
 
 Subject: {topic.subject.name}
 Grade: {topic.grade}
-Topic: {topic.name}
-{source_block}
+Strand: {topic.name}{focus}{_source_block(topic)}
 Return ONLY this JSON shape:
 {{
-  "heading": "Engaging lesson title",
+  "heading": "Engaging lesson title for {scope_name}",
   "intro": "1-2 sentence friendly hook that says why this matters",
   "sections": [
     {{
@@ -129,28 +141,96 @@ Return ONLY this JSON shape:
   ],
   "key_terms": [{{"term": "word", "definition": "simple meaning"}}],
   "summary_points": ["Key takeaway 1", "Key takeaway 2", "Key takeaway 3"],
-  "ready_check": "One friendly question that checks if the student is ready to try a quiz"
+  "ready_check": "One friendly question that checks readiness to try a quiz"
 }}
 
-Aim for 3-5 sections. Keep it tight and teachable, not a textbook dump."""
+Aim for 3-5 sections. Tight and teachable, not a textbook dump."""
 
-    raw = _call_claude(
-        LESSON_SYSTEM,
-        [{"role": "user", "content": user}],
-        max_tokens=3500,
-    )
+    raw = _call_claude(LESSON_SYSTEM, [{"role": "user", "content": user}], max_tokens=3500)
     return _parse_json(raw)
 
 
-def get_or_create_topic_lesson(topic, force: bool = False) -> dict:
-    """Return the cached lesson, generating + caching it on first request."""
-    if topic.cached_ai_lesson and not force:
-        return topic.cached_ai_lesson
-
-    lesson = generate_topic_lesson(topic)
-    topic.cached_ai_lesson = lesson
-    topic.save(update_fields=["cached_ai_lesson"])
+def get_or_create_lesson(topic, substrand=None, force: bool = False) -> dict:
+    """Return the cached lesson (per sub-strand, or whole-strand fallback)."""
+    holder = substrand or topic
+    if holder.cached_ai_lesson and not force:
+        return holder.cached_ai_lesson
+    lesson = generate_lesson(topic, substrand=substrand)
+    holder.cached_ai_lesson = lesson
+    holder.save(update_fields=["cached_ai_lesson"])
     return lesson
+
+
+# ─────────────────────────────────────────────────────────────
+#  FLASH CARD DECK GENERATION (hybrid, CBE, cached)
+# ─────────────────────────────────────────────────────────────
+
+FLASHCARD_SYSTEM = """You are an expert Kenyan CBC/CBE teacher creating clean,
+engaging revision flash cards. CBE is competency-based, so favour APPLICATION and
+understanding over rote recall. Cards must be sharp: a short front, a clean back.
+You may use LaTeX for maths (\\( \\) inline, \\[ \\] display).
+Respond with VALID JSON ONLY."""
+
+
+def generate_flashcards(topic, substrand=None, count: int = 12) -> list:
+    """Generate a clean deck of flash cards grounded in the strand's questions,
+    focused on the sub-strand if given. Returns a list of card dicts."""
+    focus = (
+        f"\nFocus ONLY on the sub-strand: \"{substrand.name}\".\n"
+        if substrand else ""
+    )
+    scope_name = substrand.name if substrand else topic.name
+
+    user = f"""Create about {count} revision flash cards.
+
+Subject: {topic.subject.name}
+Grade: {topic.grade}
+Strand: {topic.name}{focus}{_source_block(topic)}
+Make a varied, engaging deck for "{scope_name}". Use a MIX of card types:
+- "concept": a definition / what-is question
+- "application": a short real-life Kenyan scenario (CBE competency)
+- "recall": a key fact
+- "why": reasoning ("why does ...")
+
+Return ONLY:
+{{
+  "cards": [
+    {{
+      "type": "concept|application|recall|why",
+      "front": "Short prompt (the question/term)",
+      "back": "Clean, correct answer",
+      "why": "One short line on why it matters (optional, can be empty)"
+    }}
+  ]
+}}
+
+Keep fronts short. Ground answers in the real content above. Grade-appropriate."""
+
+    raw = _call_claude(FLASHCARD_SYSTEM, [{"role": "user", "content": user}], max_tokens=3500)
+    data = _parse_json(raw)
+    cards = []
+    for c in data.get("cards", []):
+        front = (c.get("front") or "").strip()
+        back = (c.get("back") or "").strip()
+        if front and back:
+            cards.append({
+                "front": front,
+                "back": back,
+                "why": (c.get("why") or "").strip(),
+                "type": c.get("type", "concept"),
+            })
+    return cards
+
+
+def get_or_create_flashcards(topic, substrand=None, force: bool = False) -> list:
+    """Return the cached deck (per sub-strand, or whole-strand fallback)."""
+    holder = substrand or topic
+    if holder.cached_flashcards and not force:
+        return holder.cached_flashcards
+    cards = generate_flashcards(topic, substrand=substrand)
+    holder.cached_flashcards = cards
+    holder.save(update_fields=["cached_flashcards"])
+    return cards
 
 
 # ─────────────────────────────────────────────────────────────
@@ -280,4 +360,4 @@ def tutor_chat(topic, history: list, attachment: dict = None, max_tokens: int = 
             {"type": "text", "text": messages[-1]["content"] or "Please look at this."},
         ]
 
-    return _call_claude(system, messages, max_tokens=max_tokens)
+    return _call_claude(system, messages, max_tokens=max_tokens, model=CLAUDE_CHAT_MODEL)

@@ -1,11 +1,15 @@
 """
 questions/tutor_views.py
-Endpoints for the AI Tutor (pre-quiz "teacher") and the Reels feed.
+Endpoints for the AI Tutor and AI Flash Cards.
 
-- Tutor lessons are cached on Topic.cached_ai_lesson (generated once via Claude).
-- Flash cards are built purely from existing question content (NO AI), selected
-  by Grade -> Learning area (Subject) -> Strand (Topic).
+Both are selected by Grade -> Learning area -> Strand (Topic) -> Sub-strand(s).
+Content is hybrid AI, grounded in the strand's real questions, and cached per
+sub-strand (whole-strand fallback when a strand has no sub-strands). Multi-select
+composes already-cached units: flash cards merge into one shuffled deck; lessons
+stay a focused series (one per sub-strand).
 """
+import random
+
 from django.db import IntegrityError
 from django.utils.text import slugify
 from rest_framework.decorators import api_view, permission_classes
@@ -13,9 +17,30 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import status
 
-from .models import Topic, Question, Substrand
+from .models import Topic, Substrand
 from .permissions import IsAdminOrTeacher
 from . import tutor
+
+
+def _resolve_topic_and_substrands(request):
+    """Parse topic + optional substrands CSV. Returns (topic, [substrands]) or
+    raises ValueError with a message."""
+    topic_id = request.query_params.get("topic")
+    if not topic_id:
+        raise ValueError("A strand (topic) is required")
+    try:
+        topic = Topic.objects.select_related("subject").get(pk=topic_id)
+    except Topic.DoesNotExist:
+        raise ValueError("Topic not found")
+
+    raw = request.query_params.get("substrands", "").strip()
+    substrands = []
+    if raw:
+        ids = [int(x) for x in raw.split(",") if x.strip().isdigit()]
+        substrands = list(
+            topic.substrands.filter(id__in=ids).order_by("order", "name")
+        )
+    return topic, substrands
 
 
 # ─────────────────────────────────────────────────────────────
@@ -25,19 +50,32 @@ from . import tutor
 @api_view(["GET"])
 @permission_classes([IsAuthenticated])
 def teach_topic(request, topic_id):
-    """Return the cached lesson for a topic, generating it on first request."""
+    """Tutor lessons for a strand. With ?substrands=1,2 returns a focused SERIES
+    (one lesson per sub-strand). Without it, returns a single whole-strand lesson.
+    Each unit is cached per sub-strand (composes already-cached units)."""
     try:
         topic = Topic.objects.select_related("subject").get(pk=topic_id)
     except Topic.DoesNotExist:
         return Response({"error": "Topic not found"}, status=status.HTTP_404_NOT_FOUND)
 
-    force = request.query_params.get("refresh") == "1" and (
-        request.user.is_staff or getattr(request.user, "role", "") in
-        ("admin", "superadmin", "teacher", "school_admin")
-    )
+    raw = request.query_params.get("substrands", "").strip()
+    substrands = []
+    if raw:
+        ids = [int(x) for x in raw.split(",") if x.strip().isdigit()]
+        substrands = list(topic.substrands.filter(id__in=ids).order_by("order", "name"))
 
     try:
-        lesson = tutor.get_or_create_topic_lesson(topic, force=force)
+        if substrands:
+            lessons = [
+                {"substrand": {"id": s.id, "name": s.name},
+                 "lesson": tutor.get_or_create_lesson(topic, substrand=s)}
+                for s in substrands
+            ]
+        else:
+            lessons = [
+                {"substrand": None,
+                 "lesson": tutor.get_or_create_lesson(topic)}
+            ]
     except Exception as e:
         return Response(
             {"error": f"Could not generate lesson: {type(e).__name__}"},
@@ -45,13 +83,9 @@ def teach_topic(request, topic_id):
         )
 
     return Response({
-        "topic": {
-            "id": topic.id,
-            "name": topic.name,
-            "grade": topic.grade,
-            "subject": topic.subject.name,
-        },
-        "lesson": lesson,
+        "topic": {"id": topic.id, "name": topic.name, "grade": topic.grade,
+                  "subject": topic.subject.name},
+        "lessons": lessons,
     })
 
 
@@ -163,67 +197,39 @@ def bulk_create_substrands(request):
 
 
 # ─────────────────────────────────────────────────────────────
-#  FLASH CARDS — front=question, back=answer+explanation (NO AI)
-#  Selected by Grade → Learning area (Subject) → Strand (Topic).
+#  FLASH CARDS — hybrid AI deck, grounded in the strand's questions,
+#  cached per sub-strand. Multi-select → one merged, shuffled deck.
 # ─────────────────────────────────────────────────────────────
-
-FLASHCARDS_LIMIT = 60
-
-
-def _resolve_answer(q):
-    """For MCQs, turn a bare letter (A/B/C/D) into the full option text so the
-    card back is meaningful. Other types already store the model answer."""
-    ans = (q.correct_answer or "").strip()
-    if q.question_type == "mcq" and len(ans) == 1 and ans.upper() in "ABCD":
-        option = getattr(q, f"option_{ans.lower()}", "") or ""
-        return f"{ans.upper()}. {option}".strip(". ") if option else ans.upper()
-    return ans
-
-
-def _card_from_question(q):
-    return {
-        "id": q.id,
-        "front": q.question_text,
-        "answer": _resolve_answer(q),
-        "explanation": q.explanation,
-        "subject": q.topic.subject.name,
-        "topic": q.topic.name,
-        "topic_id": q.topic_id,
-        "grade": q.topic.grade,
-        "type": q.question_type,
-    }
-
 
 @api_view(["GET"])
 @permission_classes([IsAuthenticated])
 def flashcards_feed(request):
-    """Flash cards for a strand. Params: grade, subject, topic (topic preferred).
+    """Flash cards for a strand. With ?substrands=1,2 merges those sub-strands'
+    cached decks into ONE shuffled deck. Without it, a whole-strand deck."""
+    try:
+        topic, substrands = _resolve_topic_and_substrands(request)
+    except ValueError as e:
+        return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
-    Cards are built from questions that have an answer to study from. The
-    explanation (if present) shows on the back as the "why".
-    """
-    subject_id = request.query_params.get("subject")
-    grade = request.query_params.get("grade")
-    topic_id = request.query_params.get("topic")
-
-    qs = (
-        Question.objects
-        .select_related("topic", "topic__subject")
-        .exclude(correct_answer="")
-    )
-    if topic_id:
-        qs = qs.filter(topic_id=topic_id)
-    else:
-        if subject_id:
-            qs = qs.filter(topic__subject_id=subject_id)
-        if grade:
-            qs = qs.filter(topic__grade=grade)
-
-    if not topic_id and not subject_id and not grade:
+    try:
+        cards = []
+        if substrands:
+            for s in substrands:
+                for c in tutor.get_or_create_flashcards(topic, substrand=s):
+                    cards.append({**c, "substrand": s.name})
+        else:
+            for c in tutor.get_or_create_flashcards(topic):
+                cards.append({**c, "substrand": None})
+    except Exception as e:
         return Response(
-            {"error": "Choose a grade and learning area first"},
-            status=status.HTTP_400_BAD_REQUEST,
+            {"error": f"Could not generate cards: {type(e).__name__}"},
+            status=status.HTTP_502_BAD_GATEWAY,
         )
 
-    cards = [_card_from_question(q) for q in qs.order_by("difficulty", "id")[:FLASHCARDS_LIMIT]]
-    return Response({"cards": cards, "count": len(cards)})
+    random.shuffle(cards)  # shuffle across all selected sub-strands
+    return Response({
+        "topic": {"id": topic.id, "name": topic.name, "grade": topic.grade,
+                  "subject": topic.subject.name},
+        "cards": cards,
+        "count": len(cards),
+    })

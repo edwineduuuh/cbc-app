@@ -37,7 +37,13 @@ class Topic(models.Model):
         null=True,
         blank=True,
         default=None,
-        help_text="Cached AI-generated lesson for the tutor — avoids repeat API calls",
+        help_text="Cached AI lesson for the WHOLE strand (fallback when no substrands)",
+    )
+    cached_flashcards = models.JSONField(
+        null=True,
+        blank=True,
+        default=None,
+        help_text="Cached AI flashcard deck for the WHOLE strand (fallback when no substrands)",
     )
     created_at = models.DateTimeField(auto_now_add=True)
 
@@ -54,6 +60,14 @@ class Substrand(models.Model):
     name = models.CharField(max_length=150)
     slug = models.SlugField(max_length=150, blank=True)
     order = models.IntegerField(default=0)
+    cached_ai_lesson = models.JSONField(
+        null=True, blank=True, default=None,
+        help_text="Cached AI lesson focused on this sub-strand",
+    )
+    cached_flashcards = models.JSONField(
+        null=True, blank=True, default=None,
+        help_text="Cached AI flashcard deck for this sub-strand",
+    )
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
