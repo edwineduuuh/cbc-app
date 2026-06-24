@@ -14,6 +14,8 @@ import {
   Crown,
   Sparkles,
   Heart,
+  GraduationCap,
+  Clapperboard,
 } from "lucide-react";
 
 export default function Navbar() {
@@ -33,6 +35,8 @@ export default function Navbar() {
     : [
         { href: "/dashboard", label: "Dashboard", icon: Home },
         { href: "/explore", label: "Browse", icon: BookOpen },
+        { href: "/reels", label: "Reels", icon: Clapperboard },
+        { href: "/tutor", label: "Tutor", icon: GraduationCap },
         { href: "/progress", label: "Progress", icon: BarChart3 },
         { href: "/life-skills", label: "Life Skills", icon: Heart },
       ];

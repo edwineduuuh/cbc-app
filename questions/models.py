@@ -33,6 +33,12 @@ class Topic(models.Model):
     slug = models.SlugField(max_length=150)
     description = models.TextField(blank=True)
     order = models.IntegerField(default=0, help_text="Display order within greade")
+    cached_ai_lesson = models.JSONField(
+        null=True,
+        blank=True,
+        default=None,
+        help_text="Cached AI-generated lesson for the tutor — avoids repeat API calls",
+    )
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
