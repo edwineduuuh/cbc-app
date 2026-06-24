@@ -1,7 +1,6 @@
 "use client";
 import { fetchWithAuth } from "@/lib/api";
 import { use } from "react";
-import Image from "next/image";
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -30,6 +29,15 @@ const nunito = Nunito({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700", "800"],
 });
+
+/* Serve Cloudinary images straight from its CDN with auto format/quality and a
+   width cap — far faster than proxying through the Next.js image optimizer. */
+function cldOptimize(url, width = 900) {
+  if (!url || !url.includes("res.cloudinary.com") || !url.includes("/upload/")) {
+    return url;
+  }
+  return url.replace("/upload/", `/upload/f_auto,q_auto,w_${width}/`);
+}
 
 const API =
   process.env.NEXT_PUBLIC_API_URL ||
@@ -2633,13 +2641,13 @@ export default function QuizTakePage({ params }) {
                     window.open(currentQ.question_image_url, "_blank")
                   }
                 >
-                  <Image
-                    src={currentQ.question_image_url}
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={cldOptimize(currentQ.question_image_url)}
                     alt="Question diagram"
-                    width={800}
-                    height={500}
+                    loading={currentIdx === 0 ? "eager" : "lazy"}
+                    decoding="async"
                     style={{ width: "100%", height: "auto", display: "block" }}
-                    priority={currentIdx === 0}
                   />
                   <div
                     style={{
