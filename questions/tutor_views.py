@@ -61,6 +61,7 @@ def tutor_chat(request):
     """
     topic_id = request.data.get("topic_id")
     messages = request.data.get("messages", [])
+    attachment = request.data.get("attachment")
 
     if not topic_id or not isinstance(messages, list) or not messages:
         return Response(
@@ -74,7 +75,7 @@ def tutor_chat(request):
         return Response({"error": "Topic not found"}, status=status.HTTP_404_NOT_FOUND)
 
     try:
-        reply = tutor.tutor_chat(topic, messages)
+        reply = tutor.tutor_chat(topic, messages, attachment=attachment)
     except ValueError as e:
         return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
     except Exception as e:

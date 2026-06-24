@@ -169,10 +169,37 @@ Rules:
 - Keep replies focused — a few short paragraphs at most."""
 
 
-def tutor_chat(topic, history: list, max_tokens: int = 1200) -> str:
+SUPPORTED_IMAGE_TYPES = {"image/png", "image/jpeg", "image/webp", "image/gif"}
+SUPPORTED_DOC_TYPES = {"application/pdf"}
+
+
+def _attachment_block(attachment: dict):
+    """Build a Claude content block from an uploaded image or PDF.
+    attachment: {"name", "media_type", "data" (base64)}. Returns None if invalid."""
+    if not attachment:
+        return None
+    media_type = (attachment.get("media_type") or "").lower()
+    data = attachment.get("data")
+    if not data:
+        return None
+    if media_type in SUPPORTED_IMAGE_TYPES:
+        return {
+            "type": "image",
+            "source": {"type": "base64", "media_type": media_type, "data": data},
+        }
+    if media_type in SUPPORTED_DOC_TYPES:
+        return {
+            "type": "document",
+            "source": {"type": "base64", "media_type": media_type, "data": data},
+        }
+    return None
+
+
+def tutor_chat(topic, history: list, attachment: dict = None, max_tokens: int = 1200) -> str:
     """Answer a student's follow-up question about a topic.
 
     history: [{"role": "user"|"assistant", "content": "..."}] (most recent last)
+    attachment: optional uploaded image/PDF attached to the latest message.
     """
     context = (
         f"You are teaching: {topic.subject.name} — Grade {topic.grade} — "
@@ -189,5 +216,13 @@ def tutor_chat(topic, history: list, max_tokens: int = 1200) -> str:
 
     if not messages or messages[-1]["role"] != "user":
         raise ValueError("Last message must be from the student")
+
+    # Attach the uploaded file (if any) to the most recent user message.
+    block = _attachment_block(attachment)
+    if block:
+        messages[-1]["content"] = [
+            block,
+            {"type": "text", "text": messages[-1]["content"] or "Please look at this."},
+        ]
 
     return _call_claude(system, messages, max_tokens=max_tokens)

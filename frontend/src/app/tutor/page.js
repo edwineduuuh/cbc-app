@@ -4,6 +4,7 @@ import { Suspense, useCallback, useEffect, useRef, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useAuth } from "@/contexts/AuthContext";
 import { fetchWithAuth } from "@/lib/api";
+import Markdown from "@/components/Markdown";
 import {
   GraduationCap,
   Send,
@@ -12,11 +13,27 @@ import {
   BookOpen,
   Lightbulb,
   CheckCircle2,
+  Plus,
+  X,
+  FileText,
 } from "lucide-react";
+
+const MAX_UPLOAD_MB = 6;
+const ACCEPTED_UPLOAD = "image/png,image/jpeg,image/webp,image/gif,application/pdf";
 
 const API =
   process.env.NEXT_PUBLIC_API_URL ||
   "https://cbc-backend-production-8bc4.up.railway.app/api";
+
+/* Read a File as a base64 string (without the data: prefix). */
+function fileToBase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(String(reader.result).split(",")[1] || "");
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
 
 /* Typeset MathJax inside a node whenever deps change. */
 function useMathJax(ref, deps) {
@@ -136,14 +153,28 @@ function LessonView({ topicId, onBack }) {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const [messages, setMessages] = useState([]); // {role, content}
+  const [messages, setMessages] = useState([]); // {role, content, attachment?}
   const [input, setInput] = useState("");
   const [sending, setSending] = useState(false);
+  const [file, setFile] = useState(null);
 
   const lessonRef = useRef(null);
   const chatRef = useRef(null);
+  const fileInputRef = useRef(null);
+  const textareaRef = useRef(null);
   useMathJax(lessonRef, [data]);
   useMathJax(chatRef, [messages, sending]);
+
+  const onPickFile = (e) => {
+    const f = e.target.files?.[0];
+    e.target.value = ""; // allow re-picking the same file
+    if (!f) return;
+    if (f.size > MAX_UPLOAD_MB * 1024 * 1024) {
+      alert(`File too large — max ${MAX_UPLOAD_MB} MB.`);
+      return;
+    }
+    setFile(f);
+  };
 
   useEffect(() => {
     let active = true;
@@ -164,15 +195,39 @@ function LessonView({ topicId, onBack }) {
 
   const send = useCallback(async () => {
     const text = input.trim();
-    if (!text || sending) return;
-    const next = [...messages, { role: "user", content: text }];
+    if ((!text && !file) || sending) return;
+
+    const pending = file;
+    const userMsg = {
+      role: "user",
+      content: text || (pending ? `(sent ${pending.name})` : ""),
+      ...(pending ? { attachment: pending.name } : {}),
+    };
+    const next = [...messages, userMsg];
     setMessages(next);
     setInput("");
+    setFile(null);
+    if (textareaRef.current) textareaRef.current.style.height = "auto";
     setSending(true);
+
     try {
+      let attachment = null;
+      if (pending) {
+        attachment = {
+          name: pending.name,
+          media_type: pending.type,
+          data: await fileToBase64(pending),
+        };
+      }
+      // strip display-only fields before sending history to the API
+      const apiMessages = next.map(({ role, content }) => ({ role, content }));
       const res = await fetchWithAuth(`${API}/tutor/chat/`, {
         method: "POST",
-        body: JSON.stringify({ topic_id: topicId, messages: next }),
+        body: JSON.stringify({
+          topic_id: topicId,
+          messages: apiMessages,
+          attachment,
+        }),
       });
       const d = await res.json();
       if (!res.ok) throw new Error(d.error || "Tutor unavailable");
@@ -185,7 +240,7 @@ function LessonView({ topicId, onBack }) {
     } finally {
       setSending(false);
     }
-  }, [input, messages, sending, topicId]);
+  }, [input, messages, sending, file, topicId]);
 
   if (loading) {
     return (
@@ -232,9 +287,9 @@ function LessonView({ topicId, onBack }) {
             {lesson.heading || topic.name}
           </h1>
           {lesson.intro && (
-            <p className="mt-2 text-lg text-gray-600 dark:text-gray-300">
+            <Markdown className="mt-2 text-lg text-gray-600 dark:text-gray-300">
               {lesson.intro}
-            </p>
+            </Markdown>
           )}
         </header>
 
@@ -247,15 +302,15 @@ function LessonView({ topicId, onBack }) {
               <BookOpen className="h-5 w-5 text-emerald-500" />
               {s.title}
             </h2>
-            <div className="whitespace-pre-line text-gray-700 dark:text-gray-200">
+            <Markdown className="text-gray-700 dark:text-gray-200">
               {s.body}
-            </div>
+            </Markdown>
             {s.example && (
               <div className="mt-3 rounded-xl bg-emerald-50 p-3 text-gray-800 dark:bg-emerald-900/20 dark:text-gray-100">
                 <span className="mb-1 block text-xs font-bold uppercase tracking-wide text-emerald-600">
                   Example
                 </span>
-                <div className="whitespace-pre-line">{s.example}</div>
+                <Markdown>{s.example}</Markdown>
               </div>
             )}
           </section>
@@ -307,13 +362,23 @@ function LessonView({ topicId, onBack }) {
               className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}
             >
               <div
-                className={`max-w-[85%] whitespace-pre-line rounded-2xl px-4 py-2.5 ${
+                className={`max-w-[85%] rounded-2xl px-4 py-2.5 ${
                   m.role === "user"
                     ? "bg-emerald-600 text-white"
                     : "bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-100"
                 }`}
               >
-                {m.content}
+                {m.attachment && (
+                  <div className="mb-1.5 flex items-center gap-1.5 rounded-lg bg-black/10 px-2 py-1 text-xs">
+                    <FileText className="h-3.5 w-3.5" />
+                    <span className="truncate">{m.attachment}</span>
+                  </div>
+                )}
+                {m.role === "assistant" ? (
+                  <Markdown>{m.content}</Markdown>
+                ) : (
+                  <span className="whitespace-pre-line">{m.content}</span>
+                )}
               </div>
             </div>
           ))}
@@ -326,18 +391,54 @@ function LessonView({ topicId, onBack }) {
           )}
         </div>
 
-        <div className="mt-3 flex gap-2">
+        {/* attachment preview */}
+        {file && (
+          <div className="mt-3 inline-flex items-center gap-2 rounded-lg border border-gray-300 bg-gray-50 px-3 py-1.5 text-sm dark:border-gray-700 dark:bg-gray-800">
+            <FileText className="h-4 w-4 text-emerald-600" />
+            <span className="max-w-[200px] truncate">{file.name}</span>
+            <button onClick={() => setFile(null)} className="text-gray-400 hover:text-gray-700">
+              <X className="h-4 w-4" />
+            </button>
+          </div>
+        )}
+
+        <div className="mt-3 flex items-end gap-2">
           <input
+            ref={fileInputRef}
+            type="file"
+            accept={ACCEPTED_UPLOAD}
+            className="hidden"
+            onChange={onPickFile}
+          />
+          <button
+            onClick={() => fileInputRef.current?.click()}
+            title="Attach an image or PDF"
+            className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-gray-300 text-gray-500 hover:bg-gray-50 dark:border-gray-700 dark:hover:bg-gray-800"
+          >
+            <Plus className="h-5 w-5" />
+          </button>
+          <textarea
+            ref={textareaRef}
             value={input}
-            onChange={(e) => setInput(e.target.value)}
-            onKeyDown={(e) => e.key === "Enter" && send()}
-            placeholder="Type your question…"
-            className="flex-1 rounded-full border border-gray-300 px-4 py-3 text-gray-900 focus:border-emerald-500 focus:outline-none dark:border-gray-700 dark:bg-gray-800 dark:text-white"
+            onChange={(e) => {
+              setInput(e.target.value);
+              e.target.style.height = "auto";
+              e.target.style.height = `${Math.min(e.target.scrollHeight, 160)}px`;
+            }}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" && !e.shiftKey) {
+                e.preventDefault();
+                send();
+              }
+            }}
+            rows={1}
+            placeholder="Type your question…  (Shift+Enter for a new line)"
+            className="max-h-40 flex-1 resize-none rounded-2xl border border-gray-300 px-4 py-3 text-gray-900 focus:border-emerald-500 focus:outline-none dark:border-gray-700 dark:bg-gray-800 dark:text-white"
           />
           <button
             onClick={send}
-            disabled={sending || !input.trim()}
-            className="flex items-center justify-center rounded-full bg-emerald-600 px-5 text-white disabled:opacity-50"
+            disabled={sending || (!input.trim() && !file)}
+            className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-emerald-600 text-white disabled:opacity-50"
           >
             <Send className="h-5 w-5" />
           </button>
