@@ -1,27 +1,31 @@
 "use client";
 
-import { useEffect, useRef } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import remarkMath from "remark-math";
+import rehypeKatex from "rehype-katex";
+import "katex/dist/katex.min.css";
+
+/** Normalise LaTeX delimiters to the $-form that remark-math understands, so
+ * both new content and older cached content (which used \( \) / \[ \]) render. */
+function normalizeMath(s) {
+  return String(s || "")
+    .replace(/\\\[/g, "$$$$")
+    .replace(/\\\]/g, "$$$$")
+    .replace(/\\\(/g, "$")
+    .replace(/\\\)/g, "$");
+}
 
 /**
- * Renders Markdown (GitHub-flavoured: tables, lists, bold, etc.) with clean
- * Tailwind styling, then runs MathJax over the result so \( \) / $ $ math
- * typesets correctly.
+ * Renders Markdown (GFM tables/lists/bold) with real math rendered by KaTeX.
+ * KaTeX renders synchronously in React, so there's no MathJax timing race.
  */
 export default function Markdown({ children, className = "" }) {
-  const ref = useRef(null);
-
-  useEffect(() => {
-    if (ref.current && typeof window !== "undefined" && window.MathJax?.typesetPromise) {
-      window.MathJax.typesetPromise([ref.current]).catch(() => {});
-    }
-  }, [children]);
-
   return (
-    <div ref={ref} className={className}>
+    <div className={className}>
       <ReactMarkdown
-        remarkPlugins={[remarkGfm]}
+        remarkPlugins={[remarkGfm, remarkMath]}
+        rehypePlugins={[[rehypeKatex, { throwOnError: false, strict: false }]]}
         components={{
           h1: (p) => <h1 className="mt-3 mb-2 text-xl font-bold" {...p} />,
           h2: (p) => <h2 className="mt-3 mb-2 text-lg font-bold" {...p} />,
@@ -46,7 +50,6 @@ export default function Markdown({ children, className = "" }) {
               {...p}
             />
           ),
-          // Tables — the main culprit in the screenshot
           table: (p) => (
             <div className="my-3 overflow-x-auto">
               <table className="w-full border-collapse text-sm" {...p} />
@@ -65,7 +68,7 @@ export default function Markdown({ children, className = "" }) {
           hr: () => <hr className="my-3 border-gray-200 dark:border-gray-700" />,
         }}
       >
-        {children}
+        {normalizeMath(children)}
       </ReactMarkdown>
     </div>
   );

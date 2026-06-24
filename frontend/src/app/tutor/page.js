@@ -35,20 +35,10 @@ function fileToBase64(file) {
   });
 }
 
-function useMathJax(ref, deps) {
-  useEffect(() => {
-    if (ref.current && typeof window !== "undefined" && window.MathJax?.typesetPromise) {
-      window.MathJax.typesetPromise([ref.current]).catch(() => {});
-    }
-  }, deps); // eslint-disable-line react-hooks/exhaustive-deps
-}
-
 /* ── One lesson's body ───────────────────────────────────────── */
 function LessonBody({ lesson }) {
-  const ref = useRef(null);
-  useMathJax(ref, [lesson]);
   return (
-    <article ref={ref} className="space-y-6">
+    <article className="space-y-6">
       {lesson.intro && (
         <Markdown className="text-lg text-gray-600 dark:text-gray-300">{lesson.intro}</Markdown>
       )}
@@ -114,10 +104,8 @@ function LessonSeries({ selection, onBack }) {
   const [input, setInput] = useState("");
   const [sending, setSending] = useState(false);
   const [file, setFile] = useState(null);
-  const chatRef = useRef(null);
   const fileInputRef = useRef(null);
   const textareaRef = useRef(null);
-  useMathJax(chatRef, [messages, sending]);
 
   useEffect(() => {
     let act = true;
@@ -244,7 +232,7 @@ function LessonSeries({ selection, onBack }) {
           Still stuck? Ask me anything about {topic.name}
         </h2>
 
-        <div ref={chatRef} className="space-y-3">
+        <div className="space-y-3">
           {messages.map((m, i) => (
             <div key={i} className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}>
               <div className={`max-w-[85%] rounded-2xl px-4 py-2.5 ${

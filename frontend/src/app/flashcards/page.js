@@ -1,11 +1,12 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { useAuth } from "@/contexts/AuthContext";
 import { fetchWithAuth } from "@/lib/api";
 import SubstrandPicker from "@/components/SubstrandPicker";
+import Markdown from "@/components/Markdown";
 import {
   Layers,
   ChevronLeft,
@@ -26,14 +27,6 @@ const TYPE_LABEL = {
   why: "Why?",
 };
 
-function useMathJax(ref, deps) {
-  useEffect(() => {
-    if (ref.current && typeof window !== "undefined" && window.MathJax?.typesetPromise) {
-      window.MathJax.typesetPromise([ref.current]).catch(() => {});
-    }
-  }, deps); // eslint-disable-line react-hooks/exhaustive-deps
-}
-
 /* ── The flip-card deck ──────────────────────────────────────── */
 function Deck({ selection, onBack }) {
   const [cards, setCards] = useState([]);
@@ -41,9 +34,6 @@ function Deck({ selection, onBack }) {
   const [error, setError] = useState("");
   const [i, setI] = useState(0);
   const [flipped, setFlipped] = useState(false);
-
-  const faceRef = useRef(null);
-  useMathJax(faceRef, [i, flipped, cards]);
 
   useEffect(() => {
     let active = true;
@@ -135,11 +125,8 @@ function Deck({ selection, onBack }) {
                 <span className="truncate text-xs text-gray-400">{card.substrand}</span>
               )}
             </div>
-            <div
-              ref={!flipped ? faceRef : null}
-              className="flex flex-1 items-center justify-center overflow-auto text-center text-xl font-medium text-gray-900 dark:text-white"
-            >
-              {card.front}
+            <div className="flex flex-1 items-center justify-center overflow-auto text-center text-xl font-medium text-gray-900 dark:text-white">
+              <Markdown>{card.front}</Markdown>
             </div>
             <span className="mt-2 text-center text-xs text-gray-400">Tap to flip</span>
           </div>
@@ -147,12 +134,14 @@ function Deck({ selection, onBack }) {
           {/* Back */}
           <div className="absolute inset-0 flex flex-col rounded-3xl border border-indigo-200 bg-indigo-50 p-6 shadow-lg [backface-visibility:hidden] [transform:rotateY(180deg)] dark:border-indigo-900 dark:bg-indigo-950/40">
             <span className="mb-2 text-xs font-bold uppercase tracking-wide text-emerald-600">Answer</span>
-            <div ref={flipped ? faceRef : null} className="flex-1 overflow-auto">
-              <p className="text-center text-lg font-semibold text-gray-900 dark:text-white">{card.back}</p>
+            <div className="flex-1 overflow-auto">
+              <div className="text-center text-lg font-semibold text-gray-900 dark:text-white">
+                <Markdown>{card.back}</Markdown>
+              </div>
               {card.why && (
-                <p className="mt-3 border-t border-indigo-200/60 pt-3 text-sm leading-relaxed text-gray-600 dark:border-indigo-900 dark:text-gray-300">
-                  💡 {card.why}
-                </p>
+                <div className="mt-3 border-t border-indigo-200/60 pt-3 text-sm leading-relaxed text-gray-600 dark:border-indigo-900 dark:text-gray-300">
+                  <Markdown>{`💡 ${card.why}`}</Markdown>
+                </div>
               )}
             </div>
             <span className="mt-2 text-center text-xs text-gray-400">Tap to flip back</span>
