@@ -90,6 +90,19 @@ export function AuthProvider({ children }) {
     initializeAuth();
   }, [initializeAuth]);
 
+  // Warm the backend so kids don't hit a 30s cold-start on their first tap.
+  // Fires on load (overlaps the splash) and keeps it warm while the app is open.
+  useEffect(() => {
+    const API_URL =
+      process.env.NEXT_PUBLIC_API_URL ||
+      "https://cbc-backend-production-8bc4.up.railway.app/api";
+    const ping = () =>
+      fetch(`${API_URL}/health/`, { cache: "no-store" }).catch(() => {});
+    ping();
+    const id = setInterval(ping, 4 * 60 * 1000); // every 4 minutes
+    return () => clearInterval(id);
+  }, []);
+
   // Fetch user quota info
   const fetchQuotaInfo = async (token) => {
     try {

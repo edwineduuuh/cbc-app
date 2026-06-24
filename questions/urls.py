@@ -1,7 +1,22 @@
 from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
+from django.db import connection
+from django.http import JsonResponse
 from . import views
+
+
+def health(request):
+    """Lightweight keep-warm endpoint. Touches the DB with a trivial query so a
+    cron ping keeps both the web service and the database connection warm,
+    avoiding cold-start delays for users."""
+    try:
+        with connection.cursor() as cur:
+            cur.execute("SELECT 1")
+        db = "ok"
+    except Exception:
+        db = "down"
+    return JsonResponse({"status": "ok", "db": db})
 from .authoring_analytics_views import QuestionAnalyticsView, AISuggestionsView
 from .admin_analytics_extended_views import (
     AdminUserStatsView,
@@ -64,6 +79,9 @@ from .views import (
 )
 
 urlpatterns = [
+    # ── Health / keep-warm ───────────────────────────────────────
+    path('health/', health, name='health'),
+
     # ── Public / Student ─────────────────────────────────────────
     path('subjects/', SubjectListView.as_view(), name='subject-list'),
     path('topics/', TopicListView.as_view(), name='topic-list'),
