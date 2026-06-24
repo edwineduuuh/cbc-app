@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { fetchWithAuth } from "@/lib/api";
 import {
   Plus, Pencil, Trash2, X, Save, Layers, ChevronDown, ChevronRight, Search,
+  Sparkles, Loader2,
 } from "lucide-react";
 import Toast from "@/components/ui/Toast";
 
@@ -52,6 +53,13 @@ export default function TopicsPage() {
   const [subParentTopic, setSubParentTopic] = useState(null);
   const [subForm, setSubForm] = useState(BLANK_SUB);
   const [savingSub, setSavingSub] = useState(false);
+
+  // AI substrand suggestions
+  const [suggestModal, setSuggestModal] = useState(false);
+  const [suggestTopic, setSuggestTopic] = useState(null);
+  const [suggesting, setSuggesting] = useState(false);
+  const [suggestions, setSuggestions] = useState([]); // {name, order, checked, already_exists}
+  const [savingSuggestions, setSavingSuggestions] = useState(false);
 
   // delete confirm
   const [confirmDelete, setConfirmDelete] = useState(null); // { type: 'topic'|'sub', item }
@@ -253,6 +261,60 @@ export default function TopicsPage() {
     setConfirmDelete(null);
   };
 
+  // ── AI sub-strand suggestions (KICD) ────────────────────────
+  const openSuggest = async (topic) => {
+    setSuggestTopic(topic);
+    setSuggestions([]);
+    setSuggestModal(true);
+    setSuggesting(true);
+    try {
+      const res = await fetchWithAuth(`${API}/admin/topics/${topic.id}/suggest-substrands/`, {
+        method: "POST",
+      });
+      const d = await res.json();
+      if (!res.ok) throw new Error(d.error || "Could not get suggestions");
+      setSuggestions(
+        (d.suggestions || []).map(s => ({ ...s, checked: !s.already_exists }))
+      );
+    } catch (e) {
+      showToast(e.message || "Suggestion failed", "error");
+      setSuggestModal(false);
+    } finally {
+      setSuggesting(false);
+    }
+  };
+
+  const saveSuggestions = async () => {
+    const chosen = suggestions.filter(s => s.checked && s.name.trim());
+    if (!chosen.length) {
+      showToast("Tick at least one sub-strand", "error");
+      return;
+    }
+    setSavingSuggestions(true);
+    try {
+      const res = await fetchWithAuth(`${API}/admin/substrands/bulk/`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          topic: suggestTopic.id,
+          substrands: chosen.map((s, i) => ({ name: s.name.trim(), order: s.order ?? i + 1 })),
+        }),
+      });
+      const d = await res.json();
+      if (!res.ok) throw new Error(d.error || "Failed to create");
+      const created = d.created?.length || 0;
+      const skipped = d.skipped?.length || 0;
+      showToast(`Added ${created} sub-strand${created !== 1 ? "s" : ""}${skipped ? ` (${skipped} already existed)` : ""}`);
+      setSuggestModal(false);
+      reloadSubs(suggestTopic.id);
+      setExpanded(prev => ({ ...prev, [suggestTopic.id]: true }));
+    } catch (e) {
+      showToast(e.message || "Failed to create", "error");
+    } finally {
+      setSavingSuggestions(false);
+    }
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -368,6 +430,77 @@ export default function TopicsPage() {
               <button onClick={handleSaveSub} disabled={savingSub} className="flex items-center gap-2 px-5 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-lg disabled:opacity-50">
                 <Save className="w-4 h-4" />
                 {savingSub ? "Saving…" : editingSub ? "Save Changes" : "Create Sub-strand"}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* AI sub-strand suggestions modal */}
+      {suggestModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
+          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md">
+            <div className="flex items-center justify-between p-6 border-b">
+              <h2 className="text-xl font-bold flex items-center gap-2">
+                <Sparkles className="w-5 h-5 text-purple-600" />
+                Suggested sub-strands
+                <span className="text-sm font-normal text-gray-500">for {suggestTopic?.name}</span>
+              </h2>
+              <button onClick={() => setSuggestModal(false)} className="p-2 hover:bg-gray-100 rounded-lg"><X className="w-5 h-5" /></button>
+            </div>
+
+            <div className="p-6">
+              <p className="text-xs text-gray-500 mb-4">
+                AI-proposed official KICD sub-strands. Review, edit names, untick any that are wrong, then add the ones you approve.
+              </p>
+
+              {suggesting ? (
+                <div className="py-8 flex flex-col items-center gap-2 text-gray-500">
+                  <Loader2 className="w-6 h-6 animate-spin text-purple-500" />
+                  <span className="text-sm">Asking AI for KICD sub-strands…</span>
+                </div>
+              ) : suggestions.length === 0 ? (
+                <p className="py-6 text-sm text-gray-400 text-center">No suggestions returned.</p>
+              ) : (
+                <div className="space-y-2 max-h-72 overflow-y-auto">
+                  {suggestions.map((s, idx) => (
+                    <div key={idx} className="flex items-center gap-2">
+                      <input
+                        type="checkbox"
+                        checked={s.checked}
+                        onChange={(e) => {
+                          const v = e.target.checked;
+                          setSuggestions(prev => prev.map((x, i) => i === idx ? { ...x, checked: v } : x));
+                        }}
+                        className="h-4 w-4 rounded border-gray-300 text-purple-600 focus:ring-purple-500"
+                      />
+                      <input
+                        type="text"
+                        value={s.name}
+                        onChange={(e) => {
+                          const v = e.target.value;
+                          setSuggestions(prev => prev.map((x, i) => i === idx ? { ...x, name: v } : x));
+                        }}
+                        className="flex-1 border border-gray-200 rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-purple-400"
+                      />
+                      {s.already_exists && (
+                        <span className="text-[10px] px-2 py-0.5 bg-amber-100 text-amber-700 rounded-full shrink-0">exists</span>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            <div className="flex justify-end gap-3 p-6 border-t">
+              <button onClick={() => setSuggestModal(false)} className="px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded-lg">Cancel</button>
+              <button
+                onClick={saveSuggestions}
+                disabled={suggesting || savingSuggestions || !suggestions.some(s => s.checked)}
+                className="flex items-center gap-2 px-5 py-2 text-sm font-medium text-white bg-purple-600 hover:bg-purple-700 rounded-lg disabled:opacity-50"
+              >
+                <Save className="w-4 h-4" />
+                {savingSuggestions ? "Adding…" : "Add approved"}
               </button>
             </div>
           </div>
@@ -493,12 +626,19 @@ export default function TopicsPage() {
                           ))}
                         </div>
                       )}
-                      <div className="px-6 py-3 border-t border-gray-100">
+                      <div className="px-6 py-3 border-t border-gray-100 flex items-center gap-4">
                         <button
                           onClick={() => openCreateSub(topic)}
                           className="flex items-center gap-1.5 text-xs font-medium text-blue-600 hover:text-blue-800"
                         >
                           <Plus className="w-3 h-3" /> Add sub-strand
+                        </button>
+                        <button
+                          onClick={() => openSuggest(topic)}
+                          className="flex items-center gap-1.5 text-xs font-medium text-purple-600 hover:text-purple-800"
+                          title="Let AI suggest the official KICD sub-strands"
+                        >
+                          <Sparkles className="w-3 h-3" /> Suggest sub-strands (AI)
                         </button>
                       </div>
                     </div>

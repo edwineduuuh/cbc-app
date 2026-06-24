@@ -154,6 +154,61 @@ def get_or_create_topic_lesson(topic, force: bool = False) -> dict:
 
 
 # ─────────────────────────────────────────────────────────────
+#  SUBSTRAND SUGGESTION (admin helper — proposes official KICD
+#  sub-strands for a strand; admin reviews & approves before save)
+# ─────────────────────────────────────────────────────────────
+
+SUBSTRAND_SYSTEM = """You are a Kenyan KICD curriculum specialist who knows the
+official CBE/CBC Curriculum Designs. For a given learning area, grade and strand,
+list ONLY the real, official KICD sub-strands for that strand at that grade.
+Do NOT invent sub-strands. If you are not certain a sub-strand is official, leave
+it out. Respond with valid JSON only."""
+
+
+def suggest_substrands(topic) -> list:
+    """Return a list of {"name", "order"} suggested KICD sub-strands for a strand.
+    Grounded with a sample of the strand's own question texts so the suggestions
+    match the scope actually taught. NOTHING is saved here — this is advisory."""
+    sample_qs = list(
+        topic.questions.values_list("question_text", flat=True)[:15]
+    )
+    anchor = (
+        "\n".join(f"- {q[:120]}" for q in sample_qs)
+        if sample_qs
+        else "(no sample questions available)"
+    )
+
+    user = f"""Learning area: {topic.subject.name}
+Grade: {topic.grade}
+Strand: {topic.name}
+
+Sample questions actually taught under this strand (for scope only):
+{anchor}
+
+List the official KICD sub-strands for this strand at this grade.
+Return ONLY:
+{{
+  "substrands": [
+    {{"name": "Official sub-strand name", "order": 1}}
+  ]
+}}
+If unsure of the exact official list, return the ones you are confident about."""
+
+    raw = _call_claude(
+        SUBSTRAND_SYSTEM,
+        [{"role": "user", "content": user}],
+        max_tokens=1000,
+    )
+    data = _parse_json(raw)
+    out = []
+    for i, s in enumerate(data.get("substrands", []), start=1):
+        name = (s.get("name") or "").strip()
+        if name:
+            out.append({"name": name, "order": s.get("order", i)})
+    return out
+
+
+# ─────────────────────────────────────────────────────────────
 #  FOLLOW-UP CHAT (pre-quiz teacher — generous, may explain fully)
 # ─────────────────────────────────────────────────────────────
 
