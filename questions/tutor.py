@@ -16,10 +16,12 @@ import re
 import anthropic
 from django.conf import settings
 
-# Generation (lessons, flashcards) — quality; cached so cost is one-time.
-CLAUDE_MODEL = "claude-sonnet-4-6"
-# Chat follow-ups — cheap + fast; live per message so cost matters.
-CLAUDE_CHAT_MODEL = "claude-haiku-4-5-20251001"
+# Generation (lessons, flashcards) — max quality; cached, so the cost is
+# one-time per sub-strand. Opus is the most capable model.
+CLAUDE_MODEL = "claude-opus-4-8"
+# Chat follow-ups — live per message, so it must be accurate AND fast. Sonnet
+# is the balance: far stronger than Haiku (Kiswahili included), still quick.
+CLAUDE_CHAT_MODEL = "claude-sonnet-4-6"
 
 # How many of a topic's questions to feed in as source material.
 SOURCE_QUESTION_LIMIT = 40
@@ -33,14 +35,16 @@ def _get_claude():
 
 def _call_claude(system: str, messages: list, max_tokens: int = 3000,
                  model: str = CLAUDE_MODEL) -> str:
+    # NB: no `temperature` — Opus 4.8 rejects sampling params (400). Sonnet is
+    # fine without it too.
     response = _get_claude().messages.create(
         model=model,
         max_tokens=max_tokens,
-        temperature=0.4,
         system=system,
         messages=messages,
     )
-    return response.content[0].text
+    # Return the first text block (robust whether or not thinking is on).
+    return next((b.text for b in response.content if b.type == "text"), "")
 
 
 def _parse_json(raw_text: str) -> dict:
