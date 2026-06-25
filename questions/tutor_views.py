@@ -19,6 +19,21 @@ from .models import Topic
 from . import tutor
 
 
+STAFF_ROLES = ("admin", "superadmin", "teacher", "school_admin")
+
+
+def _can_force(user):
+    """Only admins/teachers may force a (paid) regeneration, bypassing cache."""
+    return bool(
+        getattr(user, "is_staff", False)
+        or getattr(user, "role", "") in STAFF_ROLES
+    )
+
+
+def _wants_force(request):
+    return request.query_params.get("refresh") == "1" and _can_force(request.user)
+
+
 def _resolve_topic_and_substrands(request):
     """Parse topic + optional substrands CSV. Returns (topic, [substrands]) or
     raises ValueError with a message."""
@@ -61,17 +76,19 @@ def teach_topic(request, topic_id):
         ids = [int(x) for x in raw.split(",") if x.strip().isdigit()]
         substrands = list(topic.substrands.filter(id__in=ids).order_by("order", "name"))
 
+    force = _wants_force(request)  # admin/teacher + ?refresh=1 → regenerate
+
     try:
         if substrands:
             lessons = [
                 {"substrand": {"id": s.id, "name": s.name},
-                 "lesson": tutor.get_or_create_lesson(topic, substrand=s)}
+                 "lesson": tutor.get_or_create_lesson(topic, substrand=s, force=force)}
                 for s in substrands
             ]
         else:
             lessons = [
                 {"substrand": None,
-                 "lesson": tutor.get_or_create_lesson(topic)}
+                 "lesson": tutor.get_or_create_lesson(topic, force=force)}
             ]
     except Exception as e:
         return Response(
@@ -136,14 +153,16 @@ def flashcards_feed(request):
     except ValueError as e:
         return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
+    force = _wants_force(request)  # admin/teacher + ?refresh=1 → regenerate
+
     try:
         cards = []
         if substrands:
             for s in substrands:
-                for c in tutor.get_or_create_flashcards(topic, substrand=s):
+                for c in tutor.get_or_create_flashcards(topic, substrand=s, force=force):
                     cards.append({**c, "substrand": s.name})
         else:
-            for c in tutor.get_or_create_flashcards(topic):
+            for c in tutor.get_or_create_flashcards(topic, force=force):
                 cards.append({**c, "substrand": None})
     except Exception as e:
         return Response(

@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { useAuth } from "@/contexts/AuthContext";
@@ -14,7 +14,10 @@ import {
   RotateCcw,
   Loader2,
   ArrowLeft,
+  RefreshCw,
 } from "lucide-react";
+
+const STAFF_ROLES = ["admin", "superadmin", "teacher", "school_admin"];
 
 const API =
   process.env.NEXT_PUBLIC_API_URL ||
@@ -29,29 +32,46 @@ const TYPE_LABEL = {
 
 /* ── The flip-card deck ──────────────────────────────────────── */
 function Deck({ selection, onBack }) {
+  const { user } = useAuth();
+  const isStaff = STAFF_ROLES.includes(user?.role) || user?.is_staff;
+
   const [cards, setCards] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [i, setI] = useState(0);
   const [flipped, setFlipped] = useState(false);
+  const [regenerating, setRegenerating] = useState(false);
+  const mounted = useRef(true);
+  useEffect(() => () => { mounted.current = false; }, []);
 
-  useEffect(() => {
-    let active = true;
-    const q = selection.substrandIds.length
-      ? `&substrands=${selection.substrandIds.join(",")}`
-      : "";
-    fetchWithAuth(`${API}/flashcards/?topic=${selection.topicId}${q}`)
+  const fetchCards = useCallback((force) => {
+    const params = [`topic=${selection.topicId}`];
+    if (selection.substrandIds.length) params.push(`substrands=${selection.substrandIds.join(",")}`);
+    if (force) params.push("refresh=1");
+    return fetchWithAuth(`${API}/flashcards/?${params.join("&")}`)
       .then(async (r) => {
         if (!r.ok) throw new Error((await r.json()).error || "Could not load cards");
         return r.json();
       })
-      .then((d) => active && setCards(d.cards || []))
-      .catch((e) => active && setError(e.message))
-      .finally(() => active && setLoading(false));
-    return () => {
-      active = false;
-    };
+      .then((d) => {
+        if (!mounted.current) return;
+        setCards(d.cards || []);
+        setI(0);
+        setFlipped(false);
+      })
+      .catch((e) => mounted.current && setError(e.message))
+      .finally(() => mounted.current && setLoading(false));
   }, [selection]);
+
+  useEffect(() => {
+    fetchCards(false);
+  }, [fetchCards]);
+
+  const regenerate = () => {
+    setRegenerating(true);
+    setError("");
+    fetchCards(true).finally(() => mounted.current && setRegenerating(false));
+  };
 
   const go = useCallback(
     (dir) => {
@@ -100,9 +120,22 @@ function Deck({ selection, onBack }) {
 
   return (
     <div className="mx-auto max-w-2xl px-4 py-8">
-      <button onClick={onBack} className="mb-4 flex items-center gap-1 text-sm font-medium text-indigo-600 hover:underline">
-        <ArrowLeft className="h-4 w-4" /> Change selection
-      </button>
+      <div className="mb-4 flex items-center justify-between">
+        <button onClick={onBack} className="flex items-center gap-1 text-sm font-medium text-indigo-600 hover:underline">
+          <ArrowLeft className="h-4 w-4" /> Change selection
+        </button>
+        {isStaff && (
+          <button
+            onClick={regenerate}
+            disabled={regenerating}
+            title="Regenerate this deck on the current model (admin only)"
+            className="flex items-center gap-1.5 rounded-full border border-amber-300 px-3 py-1.5 text-xs font-semibold text-amber-700 hover:bg-amber-50 disabled:opacity-50 dark:border-amber-700 dark:text-amber-400"
+          >
+            <RefreshCw className={`h-3.5 w-3.5 ${regenerating ? "animate-spin" : ""}`} />
+            {regenerating ? "Regenerating…" : "Regenerate (admin)"}
+          </button>
+        )}
+      </div>
 
       <div className="mb-3 flex items-center justify-between text-sm text-gray-500">
         <span className="truncate pr-2">{selection.title}</span>

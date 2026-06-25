@@ -17,11 +17,14 @@ import {
   X,
   FileText,
   ArrowLeft,
+  RefreshCw,
 } from "lucide-react";
 
 const API =
   process.env.NEXT_PUBLIC_API_URL ||
   "https://cbc-backend-production-8bc4.up.railway.app/api";
+
+const STAFF_ROLES = ["admin", "superadmin", "teacher", "school_admin"];
 
 const MAX_UPLOAD_MB = 6;
 const ACCEPTED_UPLOAD = "image/png,image/jpeg,image/webp,image/gif,application/pdf";
@@ -94,10 +97,14 @@ function LessonBody({ lesson }) {
 
 /* ── Lesson series + chat ────────────────────────────────────── */
 function LessonSeries({ selection, onBack }) {
+  const { user } = useAuth();
+  const isStaff = STAFF_ROLES.includes(user?.role) || user?.is_staff;
+
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [active, setActive] = useState(0);
+  const [regenerating, setRegenerating] = useState(false);
 
   // chat
   const [messages, setMessages] = useState([]);
@@ -106,24 +113,33 @@ function LessonSeries({ selection, onBack }) {
   const [file, setFile] = useState(null);
   const fileInputRef = useRef(null);
   const textareaRef = useRef(null);
+  const mounted = useRef(true);
+  useEffect(() => () => { mounted.current = false; }, []);
 
-  useEffect(() => {
-    let act = true;
-    const q = selection.substrandIds.length
-      ? `?substrands=${selection.substrandIds.join(",")}`
-      : "";
-    fetchWithAuth(`${API}/tutor/topics/${selection.topicId}/lesson/${q}`)
+  const fetchLessons = useCallback((force) => {
+    const params = [];
+    if (selection.substrandIds.length) params.push(`substrands=${selection.substrandIds.join(",")}`);
+    if (force) params.push("refresh=1");
+    const url = `${API}/tutor/topics/${selection.topicId}/lesson/${params.length ? `?${params.join("&")}` : ""}`;
+    return fetchWithAuth(url)
       .then(async (r) => {
         if (!r.ok) throw new Error((await r.json()).error || "Could not load lesson");
         return r.json();
       })
-      .then((d) => act && setData(d))
-      .catch((e) => act && setError(e.message))
-      .finally(() => act && setLoading(false));
-    return () => {
-      act = false;
-    };
+      .then((d) => mounted.current && setData(d))
+      .catch((e) => mounted.current && setError(e.message))
+      .finally(() => mounted.current && setLoading(false));
   }, [selection]);
+
+  useEffect(() => {
+    fetchLessons(false);
+  }, [fetchLessons]);
+
+  const regenerate = () => {
+    setRegenerating(true);
+    setError("");
+    fetchLessons(true).finally(() => mounted.current && setRegenerating(false));
+  };
 
   const onPickFile = (e) => {
     const f = e.target.files?.[0];
@@ -194,9 +210,22 @@ function LessonSeries({ selection, onBack }) {
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-8">
-      <button onClick={onBack} className="mb-4 flex items-center gap-1 text-sm font-medium text-emerald-600 hover:underline">
-        <ArrowLeft className="h-4 w-4" /> Change selection
-      </button>
+      <div className="mb-4 flex items-center justify-between">
+        <button onClick={onBack} className="flex items-center gap-1 text-sm font-medium text-emerald-600 hover:underline">
+          <ArrowLeft className="h-4 w-4" /> Change selection
+        </button>
+        {isStaff && (
+          <button
+            onClick={regenerate}
+            disabled={regenerating}
+            title="Regenerate this lesson on the current model (admin only)"
+            className="flex items-center gap-1.5 rounded-full border border-amber-300 px-3 py-1.5 text-xs font-semibold text-amber-700 hover:bg-amber-50 disabled:opacity-50 dark:border-amber-700 dark:text-amber-400"
+          >
+            <RefreshCw className={`h-3.5 w-3.5 ${regenerating ? "animate-spin" : ""}`} />
+            {regenerating ? "Regenerating…" : "Regenerate (admin)"}
+          </button>
+        )}
+      </div>
 
       <div className="mb-1 text-sm font-medium text-emerald-600">
         {topic.subject} • Grade {topic.grade} • {topic.name}
