@@ -104,7 +104,7 @@ function renderTextWithBlanks(text, answeredBlanks = {}) {
     const num = parseInt(numStr);
     const answer = answeredBlanks[num];
     return answer
-      ? `<span style="display:inline-block;min-width:80px;border-bottom:2px solid #1d8f57;background:#eafaf3;color:#1d8f57;font-weight:700;padding:0 6px 2px;border-radius:4px;margin:0 2px;">${answer}</span>`
+      ? `<span style="display:inline-block;min-width:80px;border-bottom:2px solid #2563eb;background:#eff6ff;color:#1d4ed8;font-weight:700;padding:0 6px 2px;border-radius:4px;margin:0 2px;">${answer}</span>`
       : `<span style="display:inline-block;min-width:80px;border-bottom:2px solid #8892a4;color:#6b7280;padding:0 6px 2px;margin:0 2px;">_${num}_</span>`;
   });
   return result.replace(/\n/g, "<br/>");
@@ -169,13 +169,13 @@ function PassageContent({
           style={{
             display: "inline-block",
             minWidth: 80,
-            borderBottom: `2px solid ${isActive ? "#1a6fc4" : answer ? "#1d8f57" : "#8892a4"}`,
+            borderBottom: `2px solid ${isActive ? "#1a6fc4" : answer ? "#2563eb" : "#8892a4"}`,
             background: isActive
               ? "#e8f4ff"
               : answer
-                ? "#eafaf3"
+                ? "#eff6ff"
                 : "transparent",
-            color: isActive ? "#1a6fc4" : answer ? "#1d8f57" : "#6b7280",
+            color: isActive ? "#1a6fc4" : answer ? "#1d4ed8" : "#6b7280",
             fontWeight: answer ? 700 : 400,
             padding: "0 6px 2px",
             borderRadius: 4,
