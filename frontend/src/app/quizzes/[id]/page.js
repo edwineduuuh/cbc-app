@@ -2252,13 +2252,20 @@ export default function QuizTakePage({ params }) {
 
     samePassageQs.forEach(({ q, idx }, posInPassage) => {
       if (q.parts && q.parts.length > 0) {
-        q.parts.forEach((part) => {
+        q.parts.forEach((part, partIdx) => {
           const letter =
             typeof answers[idx] === "object" ? answers[idx]?.[part.id] : null;
           const optionText = letter
             ? part[`option_${letter.toLowerCase()}`]
             : null;
-          if (optionText) answeredBlanks[parseInt(part.part_label)] = optionText;
+          if (optionText) {
+            // Blank number: use a digit in the part_label when present
+            // (e.g. "3", "1.", "1(a)"); otherwise fall back to the part's
+            // position so letter labels ("a","b","c"…) map to 1,2,3…
+            const m = String(part.part_label ?? "").match(/\d+/);
+            const blankNum = m ? parseInt(m[0], 10) : partIdx + 1;
+            answeredBlanks[blankNum] = optionText;
+          }
         });
       } else {
         const letter = typeof answers[idx] === "string" ? answers[idx] : null;
