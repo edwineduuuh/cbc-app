@@ -267,10 +267,29 @@ class QuizListSerializer(serializers.ModelSerializer):
         }
 
 
+def ordered_quiz_questions(quiz):
+    """Return a quiz's questions in the order they were ADDED (the order the
+    creator selected them), not the Question model's default `-created_at`.
+    Uses the M2M through table's auto-increment id = insertion order."""
+    through = Quiz.questions.through
+    ordered_ids = list(
+        through.objects.filter(quiz_id=quiz.id)
+        .order_by('id')
+        .values_list('question_id', flat=True)
+    )
+    qmap = {
+        q.id: q
+        for q in quiz.questions
+        .select_related('topic', 'topic__subject', 'passage')
+        .prefetch_related('parts')
+    }
+    return [qmap[i] for i in ordered_ids if i in qmap]
+
+
 class QuizDetailSerializer(serializers.ModelSerializer):
     subject_name = serializers.CharField(source='subject.name', read_only=True)
     topic_name   = serializers.CharField(source='topic.name', read_only=True, allow_null=True)
-    questions    = QuestionSerializer(many=True, read_only=True)
+    questions    = serializers.SerializerMethodField()
 
     class Meta:
         model  = Quiz
@@ -279,6 +298,11 @@ class QuizDetailSerializer(serializers.ModelSerializer):
             'topic_name', 'grade', 'questions',
             'duration_minutes', 'passing_score'
         ]
+
+    def get_questions(self, obj):
+        return QuestionSerializer(
+            ordered_quiz_questions(obj), many=True, context=self.context
+        ).data
 
 
 class QuizCreateUpdateSerializer(serializers.ModelSerializer):
@@ -308,9 +332,11 @@ class QuizCreateUpdateSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError({"subject": "This field is required."})
 
         # question_ids always takes priority — the spread quiz object may include
-        # a stale `questions` list from the GET response which would otherwise win
+        # a stale `questions` list from the GET response which would otherwise win.
+        # Preserve the given order (filter(id__in=...) would reorder by -created_at).
         if 'question_ids' in data:
-            data['questions'] = list(Question.objects.filter(id__in=data['question_ids']))
+            qmap = Question.objects.in_bulk(data['question_ids'])
+            data['questions'] = [qmap[i] for i in data['question_ids'] if i in qmap]
 
         return data
 
@@ -380,7 +406,7 @@ class AttemptDetailSerializer(serializers.ModelSerializer):
         return QuizDetailSerializer(obj.quiz).data
 
     def get_questions_review(self, obj):
-        questions = obj.quiz.questions.all()
+        questions = ordered_quiz_questions(obj.quiz)  # match the quiz-taking order
         review = []
         for question in questions:
             student_answer = obj.answers.get(str(question.id))
