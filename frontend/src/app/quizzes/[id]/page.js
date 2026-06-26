@@ -1994,6 +1994,22 @@ export default function QuizTakePage({ params }) {
     })();
   }, [quizId, user, guestSessionFromUrl, router]);
 
+  // Preload EVERY question's image in the background the moment the quiz loads,
+  // so a timed student never has to wait for an image when they reach it.
+  useEffect(() => {
+    if (!questions.length || typeof window === "undefined") return;
+    const preloaded = [];
+    questions.forEach((q) => {
+      if (q.question_image_url) {
+        const im = new window.Image();
+        im.decoding = "async";
+        im.src = cldOptimize(q.question_image_url);
+        preloaded.push(im);
+      }
+    });
+    return () => preloaded.forEach((im) => (im.src = ""));
+  }, [questions]);
+
   useEffect(() => {
     if (typeof window === "undefined" || !window.visualViewport) return;
     const onViewportChange = () => {
@@ -2665,7 +2681,7 @@ export default function QuizTakePage({ params }) {
                   <img
                     src={cldOptimize(currentQ.question_image_url)}
                     alt="Question diagram"
-                    loading={currentIdx === 0 ? "eager" : "lazy"}
+                    loading="eager"
                     decoding="async"
                     style={{ width: "100%", height: "auto", display: "block" }}
                   />
