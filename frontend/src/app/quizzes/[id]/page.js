@@ -2572,6 +2572,19 @@ export default function QuizTakePage({ params }) {
                         ? "alama"
                         : `mark${currentQ.max_marks !== 1 ? "s" : ""}`}
                     </span>
+                    {currentQ.created_at && (
+                      <span
+                        style={{ fontSize: 12, color: "#bcc3d0", marginLeft: 8 }}
+                        title={new Date(currentQ.created_at).toLocaleString()}
+                      >
+                        · {isKiswahili ? "Imeongezwa" : "Added"}{" "}
+                        {new Date(currentQ.created_at).toLocaleDateString("en-GB", {
+                          day: "numeric",
+                          month: "short",
+                          year: "numeric",
+                        })}
+                      </span>
+                    )}
                     {flagged.has(currentIdx) && (
                       <span
                         style={{

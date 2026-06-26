@@ -97,6 +97,7 @@ class QuestionSerializer(serializers.ModelSerializer):
             'table_data',
             'statement_subtype',
             'statement_schema_template',
+            'created_at',
         ]
 
     def get_question_image_url(self, obj):
