@@ -60,8 +60,22 @@ export async function getCurrentUser(accessToken) {
   return data;
 }
 
+// Fail fast instead of hanging forever on a slow/asleep backend. A request that
+// never resolves leaves pages stuck and unresponsive after the tab has sat idle.
+const REQUEST_TIMEOUT_MS = 25000;
+
+function fetchWithTimeout(url, options = {}, ms = REQUEST_TIMEOUT_MS) {
+  // Respect a caller-supplied AbortSignal (e.g. quiz submit) — don't override it.
+  if (options.signal) return fetch(url, options);
+  const controller = new AbortController();
+  const id = setTimeout(() => controller.abort(), ms);
+  return fetch(url, { ...options, signal: controller.signal }).finally(() =>
+    clearTimeout(id),
+  );
+}
+
 export async function refreshAccessToken(refreshToken) {
-  const response = await fetch(`${API_URL}/auth/token/refresh/`, {
+  const response = await fetchWithTimeout(`${API_URL}/auth/token/refresh/`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -84,7 +98,7 @@ export async function fetchWithAuth(url, options = {}) {
       ...(options.headers || {}),
       ...(token ? { Authorization: `Bearer ${token}` } : {}),
     };
-    return fetch(url, { ...options, headers });
+    return fetchWithTimeout(url, { ...options, headers });
   };
 
   let token = localStorage.getItem("accessToken");
