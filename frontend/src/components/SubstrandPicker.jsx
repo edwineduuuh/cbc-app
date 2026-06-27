@@ -46,7 +46,11 @@ export default function SubstrandPicker({ onStart, accent = "indigo", startLabel
   useEffect(() => {
     fetchWithAuth(`${API}/subjects/`)
       .then((r) => r.json())
-      .then((d) => setSubjects(Array.isArray(d) ? d : d.results || []))
+      .then((d) => {
+        const list = Array.isArray(d) ? d : d.results || [];
+        // Kiswahili is blocked from AI lessons/flash cards (AI invents wrong grammar)
+        setSubjects(list.filter((s) => (s.name || "").trim().toLowerCase() !== "kiswahili"));
+      })
       .catch(() => {});
   }, []);
 

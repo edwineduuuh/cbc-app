@@ -34,6 +34,20 @@ def _wants_force(request):
     return request.query_params.get("refresh") == "1" and _can_force(request.user)
 
 
+# Kiswahili is BLOCKED from AI generation — Claude/Opus invents wrong grammar
+# (ngeli), so we don't let the tutor or flash cards author Kiswahili content.
+def _is_kiswahili(topic):
+    name = getattr(getattr(topic, "subject", None), "name", "") or ""
+    return name.strip().lower() == "kiswahili"
+
+
+_KISWAHILI_BLOCKED = {
+    "error": "Kiswahili isn't available for AI lessons and flash cards yet — "
+             "its content is teacher-authored to keep the grammar correct.",
+    "blocked_subject": "kiswahili",
+}
+
+
 def _resolve_topic_and_substrands(request):
     """Parse topic + optional substrands CSV. Returns (topic, [substrands]) or
     raises ValueError with a message."""
@@ -69,6 +83,9 @@ def teach_topic(request, topic_id):
         topic = Topic.objects.select_related("subject").get(pk=topic_id)
     except Topic.DoesNotExist:
         return Response({"error": "Topic not found"}, status=status.HTTP_404_NOT_FOUND)
+
+    if _is_kiswahili(topic):
+        return Response(_KISWAHILI_BLOCKED, status=status.HTTP_403_FORBIDDEN)
 
     raw = request.query_params.get("substrands", "").strip()
     substrands = []
@@ -125,6 +142,9 @@ def tutor_chat(request):
     except Topic.DoesNotExist:
         return Response({"error": "Topic not found"}, status=status.HTTP_404_NOT_FOUND)
 
+    if _is_kiswahili(topic):
+        return Response(_KISWAHILI_BLOCKED, status=status.HTTP_403_FORBIDDEN)
+
     try:
         reply = tutor.tutor_chat(topic, messages, attachment=attachment)
     except ValueError as e:
@@ -152,6 +172,9 @@ def flashcards_feed(request):
         topic, substrands = _resolve_topic_and_substrands(request)
     except ValueError as e:
         return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+    if _is_kiswahili(topic):
+        return Response(_KISWAHILI_BLOCKED, status=status.HTTP_403_FORBIDDEN)
 
     force = _wants_force(request)  # admin/teacher + ?refresh=1 → regenerate
 
