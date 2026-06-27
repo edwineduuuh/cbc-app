@@ -1177,20 +1177,24 @@ _CBC_MATH_FORMAT_RULES = """
 ─── CBC KENYA — MANDATORY METHOD AND FORMAT RULES ────────────────────────────
 
 ⛔ ABSOLUTELY FORBIDDEN — these make output unreadable for students:
-  1. LaTeX environments: \\begin{array}, \\begin{matrix}, \\begin{pmatrix}, \\begin{bmatrix}
-     These NEVER render. Use numbered steps with $$...$$ instead.
+  1. Matrix environments: \\begin{matrix}, \\begin{pmatrix}, \\begin{bmatrix}.
+     (The `array` environment IS allowed and renders — you MUST use it for the
+      vertical column layouts shown below.)
   2. HTML tags of any kind: <span>, <div>, <table>, <code>, <pre>
      These must NEVER appear in your output.
   3. KaTeX pre-rendered HTML (e.g. class="katex", class="katex-display")
      Never output KaTeX HTML. Only output LaTeX source code wrapped in $...$ or $$...$$
-  4. \\\\ for line breaks (only allowed inside $$\\frac{}{}$$ style display math)
-  5. Listing multiples to find LCM (e.g. "Multiples of 4: 4, 8, 12, 16…")
-  6. Prime factorization trees for HCF/GCF
+  4. Listing multiples to find LCM (e.g. "Multiples of 4: 4, 8, 12, 16…")
+  5. Prime factorization trees for HCF/GCF
+  6. Comparison / inequality SYMBOLS a young pupil may not know — NEVER write
+     ≥, ≤, >, <, \\geq, \\leq, \\gt, \\lt. Say it in WORDS: "5 or more",
+     "less than 5", "is between 19000 and 20000". Avoid ANY notation a CBC
+     primary pupil has not met; explain in plain words at their grade level.
 
 ✅ LCM — ALWAYS USE THE L-METHOD (LADDER METHOD), shown as a markdown table:
 
-  Example: LCM of 4, 6, 8
-  | ÷ | 4 | 6 | 8 |
+  Example: LCM of 4, 6, 8  (leave the top-left corner blank — no "÷" symbol)
+  |   | 4 | 6 | 8 |
   |---|---|---|---|
   | 2 | 2 | 3 | 4 |
   | 2 | 1 | 3 | 2 |
@@ -1205,8 +1209,8 @@ _CBC_MATH_FORMAT_RULES = """
 
 ✅ GCF / HCF — ALWAYS USE THE L-METHOD, shown as a markdown table:
 
-  Example: HCF of 24 and 36
-  | ÷ | 24 | 36 |
+  Example: HCF of 24 and 36  (leave the top-left corner blank — no "÷" symbol)
+  |   | 24 | 36 |
   |---|----|----|
   | 2 | 12 | 18 |
   | 2 |  6 |  9 |
@@ -1218,16 +1222,17 @@ _CBC_MATH_FORMAT_RULES = """
   - Stop when the remaining numbers share no common factor
   - HCF = product of factors in the left column
 
-✅ COLUMN ADDITION / SUBTRACTION — numbered steps, NO visual column layout:
-  Step 1: Ones column: $1 + 8 = 9$
-  Step 2: Tens column: $6 + 7 = 13$. Write $3$, carry $1$.
-  Step 3: Hundreds column: $3 + 4 + 1 = 8$
-  $$746361 + 413478 = 1159839$$
+✅ COLUMN ADDITION / SUBTRACTION — show it VERTICALLY (stacked), the way it is
+   taught in class, using an `array`. Operator on the left, a line above the answer:
+  $$\\begin{array}{r} 746361 \\\\ +\\;413478 \\\\ \\hline 1159839 \\end{array}$$
+  Then add short plain-word notes for any carrying/borrowing (e.g. "the ones make
+  11, so write 1 and carry 1 to the tens"). NEVER lay it out as horizontal
+  "Ones column / Tens column" steps — always stack it.
 
-✅ LONG MULTIPLICATION — numbered steps:
-  Step 1: $124 \\times 6 = 744$
-  Step 2: $124 \\times 30 = 3720$ (shift one place left)
-  $$744 + 3720 = 4464$$
+✅ LONG MULTIPLICATION — show it VERTICALLY with each partial product on its own
+   line, then the vertical sum:
+  $$\\begin{array}{r} 124 \\\\ \\times\\;6 \\\\ \\hline 744 \\end{array}$$
+  For a 2-digit multiplier, show each partial product line, then add them vertically.
 
 ✅ LONG DIVISION — numbered steps (this method already works well, keep using it):
   Step 1: How many times does $4$ go into $19$? $4 \\times 4 = 16$. Write $4$, remainder $3$.
