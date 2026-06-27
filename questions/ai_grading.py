@@ -1445,6 +1445,24 @@ def _grade_mcq(question, student_answer: str) -> dict:
 
     correct_letter = _extract_mcq_letter(question.correct_answer)
     if correct_letter not in ("A", "B", "C", "D"):
+        if sw:
+            # Kiswahili with a text answer (no clean A/B/C/D): still NEVER call
+            # the AI (it invents grammar). Match the text deterministically.
+            correct_disp = _clean_correct_answer(question.correct_answer or "")
+            is_correct = _normalise(student_raw) == _normalise(correct_disp)
+            if is_correct:
+                return {
+                    "marks_awarded": question.max_marks, "max_marks": question.max_marks,
+                    "feedback": "Jibu ni sahihi!", "is_correct": True,
+                    "personalized_message": "", "study_tip": "",
+                    "points_earned": [correct_disp], "points_missed": [],
+                }
+            return {
+                "marks_awarded": 0, "max_marks": question.max_marks,
+                "feedback": f"Jibu si sahihi. Jibu sahihi ni {correct_disp}.",
+                "is_correct": False, "personalized_message": "", "study_tip": "",
+                "points_earned": [], "points_missed": [f"Jibu sahihi: {correct_disp}"],
+            }
         return _grade_with_ai(question, student_answer)
 
     options_map = {
@@ -1467,6 +1485,36 @@ def _grade_mcq(question, student_answer: str) -> dict:
                 break
 
     is_correct = selected_letter == correct_letter
+
+    # ── Kiswahili: NEVER let the AI write grammar explanations — it invents
+    #    wrong ngeli (e.g. calling "maneno" YA-YA instead of LI-YA). Grade
+    #    deterministically and show only the correct answer; _augment_feedback
+    #    adds the admin's explanation (if any) + an acknowledgement. ──────────
+    if sw:
+        correct_text = options_map.get(correct_letter, "")
+        correct_display = (f"{correct_letter}) {correct_text}".strip()
+                           if correct_text else correct_letter)
+        if is_correct:
+            return {
+                "marks_awarded": question.max_marks,
+                "max_marks": question.max_marks,
+                "feedback": "Jibu ni sahihi!",
+                "is_correct": True,
+                "personalized_message": "",
+                "study_tip": "",
+                "points_earned": [correct_display],
+                "points_missed": [],
+            }
+        return {
+            "marks_awarded": 0,
+            "max_marks": question.max_marks,
+            "feedback": f"Jibu si sahihi. Jibu sahihi ni {correct_display}.",
+            "is_correct": False,
+            "personalized_message": "",
+            "study_tip": "",
+            "points_earned": [],
+            "points_missed": [f"Jibu sahihi: {correct_display}"],
+        }
 
     # ── Use cached explanation if available (saves API calls) ─────────────
     cached = getattr(question, 'cached_ai_explanation', None)

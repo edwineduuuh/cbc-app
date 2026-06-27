@@ -79,6 +79,10 @@ class Command(BaseCommand):
                 break
             grade = q.topic.grade
             sw = _is_kiswahili(q)
+            if sw:
+                # AI is NOT reliable for Kiswahili grammar (invents wrong ngeli).
+                # Leave Kiswahili explanations to admins — never auto-generate them.
+                continue
             passage_text = q.passage.content if q.passage else ""
             parts = list(q.parts.all())
 
