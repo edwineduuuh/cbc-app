@@ -2624,6 +2624,41 @@ def _grade_multipart(question, student_answer, working_image=None) -> dict:
 #  PUBLIC API
 # ─────────────────────────────────────────────────────────────────────────────
 
+def _augment_feedback(question, result: dict) -> dict:
+    """Make every result feel premium, not bare:
+    - Always surface the ADMIN-written explanation (question.explanation) — the
+      teacher wrote it precisely so a struggling kid learns why. The old MCQ
+      path only used the AI explanation, so when the AI didn't run the student
+      saw just 'the answer is C'.
+    - Always include a short acknowledgement (praise when right, encouragement
+      when wrong) instead of nothing.
+    """
+    try:
+        sw = _is_kiswahili(question)
+    except Exception:
+        sw = False
+
+    admin_expl = (getattr(question, "explanation", "") or "").strip()
+    if admin_expl:
+        if not (result.get("explanation") or "").strip():
+            result["explanation"] = admin_expl
+        fb = (result.get("feedback") or "").strip()
+        if admin_expl not in fb:
+            label = "Maelezo" if sw else "Explanation"
+            result["feedback"] = f"{fb}\n\n{label}: {admin_expl}".strip()
+
+    if not (result.get("personalized_message") or "").strip():
+        if result.get("is_correct"):
+            result["personalized_message"] = _praise(sw)
+        else:
+            result["personalized_message"] = (
+                "Usijali — soma maelezo, utaielewa wakati ujao."
+                if sw else
+                "Don't worry — read the explanation and you'll get it next time."
+            )
+    return result
+
+
 def grade_answer(
     question,
     student_answer,
@@ -2662,6 +2697,9 @@ def grade_answer(
         result = _grade_financial_statement(question, student_answer)
     else:
         result = _route(question, str(student_answer), working_image)
+
+    # Always surface the admin explanation + an acknowledgement (premium feel)
+    result = _augment_feedback(question, result)
 
     # Cache the result
     if cache_key:
