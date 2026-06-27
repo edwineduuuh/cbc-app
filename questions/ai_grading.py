@@ -1445,17 +1445,35 @@ def _neutral_mcq_body(text: str) -> str:
     return s.strip()
 
 
+def _clean_explanation_text(text: str) -> str:
+    """Tidy a teacher's explanation for display — DETERMINISTICALLY, with zero
+    rewording, zero AI, zero invention. Only strips authoring labels (e.g.
+    "Mwongozo wa Maelezo:") and a restated "Jibu Sahihi: …" / "Correct answer: …"
+    (the system shows the verdict + correct option itself). Every other word is
+    kept exactly as the teacher wrote it — critical for Kiswahili grammar."""
+    s = (text or "").strip()
+    if not s:
+        return ""
+    # leading authoring label
+    s = re.sub(r'^\s*(mwongozo wa maelezo|maelezo|ufafanuzi|explanation|guide)\s*:\s*',
+               '', s, flags=re.I)
+    # a restated correct-answer label and the rest of that line (needs the colon,
+    # so a mid-sentence "jibu sahihi" without a colon is never touched)
+    s = re.sub(r'(?i)\s*(jibu sahihi|correct answer)\s*:[^\n]*', '', s)
+    return s.strip()
+
+
 def _mcq_det_result(question, is_correct, correct_display, sw, admin_expl):
-    """Deterministic MCQ result with NO AI. Includes the admin explanation if
-    one exists — the teacher's explanation is authoritative, and this also works
-    for cloze/multipart parts (the part proxy exposes part.explanation)."""
+    """Deterministic MCQ result with NO AI. Serves the teacher's explanation
+    (cleaned, never reworded) if one exists. Works for cloze/multipart parts too
+    (the part proxy exposes part.explanation)."""
     if sw:
         verdict = "Jibu ni sahihi!" if is_correct else f"Jibu si sahihi. Jibu sahihi ni {correct_display}."
         missed = f"Jibu sahihi: {correct_display}"
     else:
         verdict = "Correct!" if is_correct else f"Not quite. The correct answer is {correct_display}."
         missed = f"Correct answer: {correct_display}"
-    expl = (admin_expl or "").strip()
+    expl = _clean_explanation_text(admin_expl)
     fb = f"{verdict}\n{expl}".strip() if expl else verdict
     return {
         "marks_awarded": question.max_marks if is_correct else 0,
@@ -1510,9 +1528,9 @@ def _grade_mcq(question, student_answer: str) -> dict:
 
     is_correct = selected_letter == correct_letter
 
-    # Kiswahili (AI invents wrong ngeli) OR an admin explanation exists → grade
-    # deterministically and show the teacher's explanation. Covers cloze parts
-    # too (the part proxy exposes part.explanation).
+    # If the teacher wrote an explanation, serve it (cleaned, never reworded) —
+    # for Kiswahili and English. Kiswahili without one stays bare (no AI
+    # inventing grammar). Only English-without-explanation falls back to the AI.
     if sw or admin_expl:
         correct_text = options_map.get(correct_letter, "")
         if sw:
@@ -1523,7 +1541,7 @@ def _grade_mcq(question, student_answer: str) -> dict:
                                if correct_text else f"Option {correct_letter}")
         return _mcq_det_result(question, is_correct, correct_display, sw, admin_expl)
 
-    # ── English, no admin explanation — use cached/AI explanation ─────────
+    # ── English, no teacher explanation — AI writes one (cached) ──────────
     cached = getattr(question, 'cached_ai_explanation', None)
     if cached and isinstance(cached, dict) and cached.get('feedback'):
         # Invalidate stale entries that contain broken LaTeX arrays or raw KaTeX HTML
