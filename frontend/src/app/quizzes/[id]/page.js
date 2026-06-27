@@ -1103,7 +1103,7 @@ function SubmitModal({ open, onConfirm, onCancel, unanswered, submitting }) {
                   ⚠ {unanswered} question{unanswered !== 1 ? "s" : ""} not answered
                 </p>
                 <p style={{ fontSize: 13, color: "#9a3412", lineHeight: 1.5 }}>
-                  Go back and attempt them — even a guess earns you a chance at marks. You will still get the correct answer in feedback.
+                  Go back and attempt them — take a breath, stay calm, and do your best on each one. You will still see the correct answer in the feedback.
                 </p>
               </div>
             ) : (

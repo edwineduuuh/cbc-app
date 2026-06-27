@@ -166,12 +166,12 @@ def _no_answer_result(question, sw: bool) -> dict:
         fb = "Hujajibu swali hili."
         if correct_display:
             fb += f"\nJibu sahihi ni: {correct_display}"
-        msg = "Jaribu kujibu maswali yote — hata ukikisia, unaweza kupata alama!"
+        msg = "Jaribu kujibu maswali yote kwa utulivu."
     else:
         fb = "You did not answer this question."
         if correct_display:
             fb += f"\nThe correct answer was: {correct_display}"
-        msg = "Always attempt every question — even a guess gives you a chance at marks!"
+        msg = "Try every question calmly and do your best — you'll see the correct answer in the feedback."
 
     return {
         "marks_awarded":        0,
