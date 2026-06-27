@@ -921,33 +921,30 @@ MCQ RULES:
 - Correct option -> full marks. Wrong option -> 0. No partial marks.
 
 HOW TO WRITE FEEDBACK (Grade {grade}, CBC Kenya style):
-NEVER say: "Well done for picking the right answer!", "You are exactly right!", "Great job!", "That is correct!"
-These phrases teach nothing. A student cannot write them in their exercise book.
+⚠ This SAME feedback is shown to EVERY student — those who got it right AND
+those who got it wrong. So it MUST be NEUTRAL:
+- NEVER write "you", "your answer", "you chose", "you picked", "your choice".
+- NEVER write a verdict — no "Correct", "Not quite", "right", "wrong",
+  "exactly right". The system adds the verdict and states the correct answer
+  itself. Your ONLY job is the explanation.
+- Explain in ONE sentence WHY the correct option is the right one (the reason/
+  concept). Then ONE sentence on why the most tempting other option does not fit.
+- Simple Grade {grade} language — facts the student can note in their book.
+- Maximum 3 sentences. No "according to the marking scheme".
 
-INSTEAD — write like a CBC teacher explaining at the board:
-  CORRECT answer: One sentence explaining WHY the correct option is right (the concept, the reason).
-                  One sentence explaining why the most tempting wrong option is NOT correct.
-                  Simple Grade {grade} language. Facts the student can note down.
-  WRONG answer:   Start with "The correct answer is [Option X]." Then 1-2 sentences why it is right.
-                  Then 1 sentence why the student's choice is wrong.
+GOOD (neutral) EXAMPLE:
+  "Photosynthesis uses light energy from the sun to make food. Cooking and
+   ironing use heat energy, not light, so they are not uses of light energy."
 
-GOOD FEEDBACK EXAMPLE (correct answer):
-  "Photosynthesis uses light energy from the sun to make food.
-   Cooking and ironing use heat energy, not light, so they are not uses of light."
+BAD EXAMPLES (NEVER do this):
+  "Correct! You chose Option B, which is exactly right."   (verdict + references the choice)
+  "Well done for picking the right answer!"                 (verdict, teaches nothing)
 
-BAD FEEDBACK EXAMPLE (never do this):
-  "Correct! Keeping away pests is indeed an importance of lighting a house properly.
-   Well done for picking the right answer!"
-
-For questions with numbers, formulas, or calculations:
-  Show step-by-step working using $$...$$ for display math and $...$ for inline math.
-  Correct: explain the method, then show the working.
-  Wrong: show the correct working step by step.
+For questions with numbers/calculations: show the working with $$...$$ display
+math and $...$ inline math — still NEUTRAL, no "you", no verdict.
 
 OTHER RULES:
 - No hard vocabulary without explaining it simply
-- No phrases like "according to the marking scheme" — just teach the concept
-- Maximum 4 sentences total. Direct and factual.
 - Do NOT repeat the question back to the student
 """
 
@@ -1436,6 +1433,18 @@ def _grade_fill_blank(question, student_answer: str) -> dict:
     }
 
 
+def _neutral_mcq_body(text: str) -> str:
+    """Strip verdicts, a leading 'The correct answer is …' sentence, and stray
+    'Explanation:' / 'Correct answer:' labels — leaving only the neutral concept
+    explanation. We add the verdict + correct answer ourselves, so the cached
+    body must contain neither (it's shared by right and wrong answers)."""
+    s = (text or "").strip()
+    s = re.sub(r'^\s*(correct!|not quite\.?|vizuri!|jibu si sahihi\.?)\s*', '', s, flags=re.I)
+    s = re.sub(r'^\s*the correct answer is[^.\n]*[.\n]\s*', '', s, flags=re.I)
+    s = re.sub(r'(?im)^\s*(explanation|correct answer|jibu sahihi)\s*:\s*', '', s)
+    return s.strip()
+
+
 def _grade_mcq(question, student_answer: str) -> dict:
     sw = _is_kiswahili(question)
     student_raw = str(student_answer or "").strip()
@@ -1520,10 +1529,21 @@ def _grade_mcq(question, student_answer: str) -> dict:
     cached = getattr(question, 'cached_ai_explanation', None)
     if cached and isinstance(cached, dict) and cached.get('feedback'):
         # Invalidate stale entries that contain broken LaTeX arrays or raw KaTeX HTML
-        _stale_markers = ('\\begin{', 'class="katex"', "class='katex'", 'arrayr', '<span')
-        _cache_text = (cached.get('feedback', '') or '') + (cached.get('study_tip', '') or '')
+        _stale_markers = (
+            '\\begin{', 'class="katex"', "class='katex'", 'arrayr', '<span',
+            # Old non-neutral feedback that referenced the student's choice and
+            # produced contradictions ("Not quite. You chose B, which is right").
+            'you chose', 'you picked', 'you selected', 'your choice',
+            'which is exactly right', 'you are right', 'you got it right',
+        )
+        _cache_text = " ".join((
+            cached.get('feedback', '') or '',
+            cached.get('feedback_correct', '') or '',
+            cached.get('feedback_wrong', '') or '',
+            cached.get('study_tip', '') or '',
+        )).lower()
         if any(m in _cache_text for m in _stale_markers):
-            cached = None  # force fresh generation
+            cached = None  # force fresh generation in the new neutral format
     if cached and isinstance(cached, dict) and cached.get('feedback'):
         correct_text = options_map.get(correct_letter, "(unknown)")
         if is_correct:
@@ -1535,7 +1555,9 @@ def _grade_mcq(question, student_answer: str) -> dict:
                 "is_correct":           True,
                 "personalized_message": _encourage(sw),
                 "study_tip":            cached.get('study_tip', ''),
-                "explanation":          cached.get('explanation', ''),
+                # truthy so _augment_feedback won't append the admin explanation
+                # again — the cached feedback already explains
+                "explanation":          cached.get('explanation') or feedback,
                 "points_earned":        [f"Option {correct_letter}: {correct_text}"],
                 "points_missed":        [],
             }
@@ -1548,27 +1570,33 @@ def _grade_mcq(question, student_answer: str) -> dict:
                 "is_correct":           False,
                 "personalized_message": _near_miss(sw),
                 "study_tip":            cached.get('study_tip', ''),
-                "explanation":          cached.get('explanation', ''),
+                # truthy so _augment_feedback won't append the admin explanation
+                # again — the cached feedback already explains
+                "explanation":          cached.get('explanation') or feedback,
                 "points_earned":        [],
                 "points_missed":        [f"Correct answer: Option {correct_letter}: {correct_text}"],
             }
 
-    # ── No cache — call AI once, then cache the explanation ───────────────
+    # ── No cache — call AI once, then cache the NEUTRAL explanation ───────
     try:
         ai_result = _grade_with_ai(question, student_answer)
 
-        # Cache the explanation on the question for future students
+        correct_text = options_map.get(correct_letter, "")
+        _body = _neutral_mcq_body(ai_result.get('feedback', ''))
+        _ok_fb  = f"Correct! {_body}".strip()
+        _bad_fb = (f"Not quite. The correct answer is Option {correct_letter}: "
+                   f"{correct_text}. {_body}").strip()
+
+        # Cache for future students (the body is choice-independent, so it's
+        # safe to reuse for both correct and wrong answers)
         try:
             from questions.models import Question
-            _ok_prefix  = "Vizuri! " if sw else "Correct! "
-            _bad_prefix = "Jibu si sahihi. " if sw else "Not quite. "
-            _raw_fb = ai_result.get('feedback', '')
             cache_data = {
-                'feedback': _raw_fb,
-                'feedback_correct': _ok_prefix  + re.sub(r'^(Correct!|Not quite\.|Vizuri!|Jibu si sahihi\.)\s*', '', _raw_fb),
-                'feedback_wrong':   _bad_prefix + re.sub(r'^(Correct!|Not quite\.|Vizuri!|Jibu si sahihi\.)\s*', '', _raw_fb),
+                'feedback': _body,
+                'feedback_correct': _ok_fb,
+                'feedback_wrong':   _bad_fb,
                 'study_tip': ai_result.get('study_tip', ''),
-                'explanation': ai_result.get('explanation', ''),
+                'explanation': _body,
             }
             Question.objects.filter(pk=question.pk).update(cached_ai_explanation=cache_data)
         except Exception as cache_err:
@@ -1576,15 +1604,13 @@ def _grade_mcq(question, student_answer: str) -> dict:
 
         return {
             **ai_result,
-            # 🔒 Verdict is OURS — AI cannot touch these two
+            # 🔒 Verdict is OURS — AI cannot touch these
             "marks_awarded": question.max_marks if is_correct else 0,
             "is_correct":    is_correct,
-            # Fix feedback prefix if AI got confused about correctness
-            "feedback": (
-                (("Vizuri! " if sw else "Correct! ") + re.sub(r'^(Correct!|Not quite\.|Vizuri!|Jibu si sahihi\.)\s*', '', ai_result["feedback"]))
-                if is_correct
-                else (("Jibu si sahihi. " if sw else "Not quite. ") + re.sub(r'^(Correct!|Not quite\.|Vizuri!|Jibu si sahihi\.)\s*', '', ai_result["feedback"]))
-            ),
+            "feedback":      _ok_fb if is_correct else _bad_fb,
+            # set so _augment_feedback knows there's already an explanation and
+            # doesn't append the admin one again (avoids a duplicate)
+            "explanation":   _body,
             "points_earned": ai_result.get("points_earned", []) if is_correct else [],
             "points_missed": ai_result.get("points_missed", []) if not is_correct else [],
             "personalized_message": _encourage(sw) if is_correct else _near_miss(sw),
@@ -2673,13 +2699,15 @@ def _augment_feedback(question, result: dict) -> dict:
         sw = False
 
     admin_expl = (getattr(question, "explanation", "") or "").strip()
-    if admin_expl:
-        if not (result.get("explanation") or "").strip():
-            result["explanation"] = admin_expl
-        fb = (result.get("feedback") or "").strip()
-        if admin_expl not in fb:
-            label = "Maelezo" if sw else "Explanation"
-            result["feedback"] = f"{fb}\n\n{label}: {admin_expl}".strip()
+    # Only surface the admin explanation when grading produced NO explanation of
+    # its own (e.g. bare Kiswahili "Jibu sahihi: C"). If the feedback already
+    # explains, appending again just duplicates it.
+    already_has = bool((result.get("explanation") or "").strip())
+    fb = (result.get("feedback") or "").strip()
+    if admin_expl and not already_has and admin_expl not in fb:
+        result["explanation"] = admin_expl
+        label = "Maelezo" if sw else "Explanation"
+        result["feedback"] = f"{fb}\n\n{label}: {admin_expl}".strip()
 
     if not (result.get("personalized_message") or "").strip():
         if result.get("is_correct"):
