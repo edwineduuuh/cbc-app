@@ -289,6 +289,10 @@ class QuestionPart(models.Model):
     max_marks = models.IntegerField(default=1)
     marking_scheme = models.JSONField(null=True, blank=True)
     explanation = models.TextField(blank=True)
+    cached_ai_explanation = models.JSONField(
+        null=True, blank=True, default=None,
+        help_text="Cached AI-rephrased version of this part's explanation",
+    )
 
     # Financial statement / table part fields
     statement_subtype = models.CharField(max_length=50, blank=True, default='')

@@ -1463,6 +1463,69 @@ def _clean_explanation_text(text: str) -> str:
     return s.strip()
 
 
+def _ai_rephrase_explanation(admin_expl: str, sw: bool, grade) -> str:
+    """Present the TEACHER's explanation cleanly to the student. The AI may
+    rephrase for clarity, but must keep the EXACT same meaning and invent
+    NOTHING. For Kiswahili it is pinned to the teacher's wording/terms so it
+    can't drift into wrong grammar."""
+    lang = "Kiswahili" if sw else "English"
+    if sw:
+        rules = (
+            "- Andika kwa Kiswahili pekee.\n"
+            "- DUMISHA maana ile ile HASA. USIBADILISHE maana wala USIONGEZE jambo lolote jipya.\n"
+            "- HIFADHI maneno ya kisarufi (majina ya ngeli kama LI-YA, viambishi, mifano) "
+            "HASA kama mwalimu alivyoandika — usiyabadilishe.\n"
+            "- Unaweza kupanga sentensi upya ziwe wazi kwa mwanafunzi, lakini maudhui yabaki yaleyale."
+        )
+    else:
+        rules = (
+            "- Keep the EXACT same meaning. Do NOT add, remove, or change any fact.\n"
+            "- You may rephrase for clarity and flow for the student.\n"
+            "- Invent nothing that is not in the teacher's text."
+        )
+    prompt = f"""A teacher wrote this explanation for a Grade {grade} {lang} question.
+Rewrite it cleanly to show to the student as feedback.
+RULES:
+{rules}
+- Remove authoring labels (e.g. "Mwongozo wa Maelezo:", "Explanation:") and any
+  restated "the correct answer is ..." / "Jibu Sahihi: ..." — the system already
+  shows the verdict and the correct option separately.
+- Output ONLY the explanation text. No labels, no quotes, no preamble.
+
+TEACHER'S EXPLANATION:
+{admin_expl}"""
+    model = KISWAHILI_MODEL if sw else CLAUDE_MODEL
+    return _call_claude(prompt, max_tokens=500, model=model).strip()
+
+
+def _present_explanation(question, admin_expl: str, sw: bool) -> str:
+    """Return the AI-rephrased teacher explanation, cached per question/part.
+    Falls back to the teacher's text verbatim if the AI call fails."""
+    admin_expl = (admin_expl or "").strip()
+    if not admin_expl:
+        return ""
+    cache = getattr(question, "cached_ai_explanation", None)
+    if isinstance(cache, dict) and cache.get("expl_src") == admin_expl and cache.get("shown"):
+        return cache["shown"]
+
+    grade = getattr(getattr(question, "topic", None), "grade", "") or ""
+    try:
+        shown = _ai_rephrase_explanation(admin_expl, sw, grade)
+    except Exception:
+        shown = ""
+    shown = _clean_explanation_text(shown) or _clean_explanation_text(admin_expl)
+
+    payload = {"expl_src": admin_expl, "shown": shown}
+    try:
+        from .models import Question, QuestionPart
+        model = QuestionPart if getattr(question, "_is_part", False) else Question
+        model.objects.filter(pk=question.id).update(cached_ai_explanation=payload)
+        question.cached_ai_explanation = payload
+    except Exception:
+        pass
+    return shown
+
+
 def _mcq_det_result(question, is_correct, correct_display, sw, admin_expl):
     """Deterministic MCQ result with NO AI. Serves the teacher's explanation
     (cleaned, never reworded) if one exists. Works for cloze/multipart parts too
@@ -1504,7 +1567,8 @@ def _grade_mcq(question, student_answer: str) -> dict:
         if sw or admin_expl:
             correct_disp = _clean_correct_answer(question.correct_answer or "")
             is_correct = _normalise(student_raw) == _normalise(correct_disp)
-            return _mcq_det_result(question, is_correct, correct_disp, sw, admin_expl)
+            shown = _present_explanation(question, admin_expl, sw) if admin_expl else ""
+            return _mcq_det_result(question, is_correct, correct_disp, sw, shown)
         return _grade_with_ai(question, student_answer)
 
     options_map = {
@@ -1539,7 +1603,8 @@ def _grade_mcq(question, student_answer: str) -> dict:
         else:
             correct_display = (f"Option {correct_letter}: {correct_text}".strip()
                                if correct_text else f"Option {correct_letter}")
-        return _mcq_det_result(question, is_correct, correct_display, sw, admin_expl)
+        shown = _present_explanation(question, admin_expl, sw) if admin_expl else ""
+        return _mcq_det_result(question, is_correct, correct_display, sw, shown)
 
     # ── English, no teacher explanation — AI writes one (cached) ──────────
     cached = getattr(question, 'cached_ai_explanation', None)
@@ -2583,7 +2648,9 @@ class _PartProxy:
         self.passage              = parent.passage
         self.table_data           = getattr(part, "table_data", None)
         self.math_options         = getattr(part, "math_options", {}) or {}
-        self.cached_ai_explanation = None  # MCQ cache — parts are never shared
+        # Per-part cache for the AI-rephrased explanation (field on QuestionPart).
+        self.cached_ai_explanation = getattr(part, "cached_ai_explanation", None)
+        self._is_part             = True
         self.worked_solution      = None
 
 
