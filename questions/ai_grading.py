@@ -41,8 +41,12 @@ def _get_claude():
     return anthropic.Anthropic(api_key=settings.ANTHROPIC_API_KEY)
 
 CLAUDE_MODEL          = "claude-sonnet-4-6"
-GEMINI_MODEL          = "gemini-2.5-flash"
-GEMINI_FALLBACK_MODEL = "gemini-2.5-pro"
+# Kiswahili grades on Opus (the strongest model) — NOT Gemini.
+KISWAHILI_MODEL       = "claude-opus-4-8"
+GEMINI_MODEL          = "gemini-2.5-flash"        # legacy, no longer used for grading
+GEMINI_FALLBACK_MODEL = "gemini-2.5-pro"          # legacy, no longer used for grading
+# Opus 4.7/4.8 reject sampling params (temperature) — omit them for these models.
+_NO_TEMPERATURE_MODELS = ("claude-opus-4-8", "claude-opus-4-7", "claude-fable-5")
 MAX_RETRIES  = 2
 
 MAX_TOKENS_MCQ        = 400
@@ -525,40 +529,16 @@ def _call_ai(
     prompt: str,
     working_image: str | None = None,
     max_tokens: int = MAX_TOKENS_DEFAULT,
-    use_gemini: bool = False,
+    kiswahili: bool = False,
 ) -> str:
     """
-    Call Claude (primary) with Gemini fallback.
-    If use_gemini=True, skip Claude and go straight to Gemini
-    (used for Kiswahili questions where Gemini is more reliable).
-    temperature=0 for deterministic grading.
+    Grade with Claude only — NO Gemini. Kiswahili routes to Opus (the strongest
+    model); everything else uses the default grading model.
     Returns the raw text response.
     """
-    if use_gemini:
-        print(f"🤖 Kiswahili detected — routing directly to Gemini")
-        try:
-            result = _call_gemini_inner(prompt, working_image, max_tokens)
-            print(f"🤖 API used: Gemini (Kiswahili direct)")
-            return result
-        except Exception as e:
-            print(f"⚠ Gemini failed for Kiswahili: {type(e).__name__}: {e}")
-            print("↩ Falling back to Claude for Kiswahili...")
-            result = _call_claude(prompt, working_image, max_tokens)
-            print(f"🤖 API used: Claude (Kiswahili fallback)")
-            return result
-
-    # ── Try Claude first ──────────────────────────────────────────────────
-    try:
-        result = _call_claude(prompt, working_image, max_tokens)
-        print(f"🤖 API used: Claude ({CLAUDE_MODEL})")
-        return result
-    except Exception as e:
-        print(f"⚠ Claude failed: {type(e).__name__}: {e}")
-        print("↩ Falling back to Gemini...")
-
-    # ── Gemini fallback ───────────────────────────────────────────────────
-    result = _call_gemini_inner(prompt, working_image, max_tokens)
-    print(f"🤖 API used: Gemini (fallback)")
+    model = KISWAHILI_MODEL if kiswahili else CLAUDE_MODEL
+    result = _call_claude(prompt, working_image, max_tokens, model=model)
+    print(f"🤖 API used: Claude ({model}){' [kiswahili]' if kiswahili else ''}")
     return result
 
 
@@ -566,6 +546,7 @@ def _call_claude(
     prompt: str,
     working_image: str | None = None,
     max_tokens: int = MAX_TOKENS_DEFAULT,
+    model: str = CLAUDE_MODEL,
 ) -> str:
     """Call Anthropic Claude. Returns raw text response."""
     content = []
@@ -587,15 +568,20 @@ def _call_claude(
     else:
         content.append({"type": "text", "text": prompt})
 
+    params = {
+        "model": model,
+        "max_tokens": max_tokens,
+        "messages": [{"role": "user", "content": content}],
+    }
+    # Opus 4.7/4.8 reject temperature (400). Sonnet still wants temperature=0
+    # for deterministic grading.
+    if model not in _NO_TEMPERATURE_MODELS:
+        params["temperature"] = 0
+
     for attempt in range(MAX_RETRIES):
         try:
-            response = _get_claude().messages.create(
-                model=CLAUDE_MODEL,
-                max_tokens=max_tokens,
-                temperature=0,
-                messages=[{"role": "user", "content": content}],
-            )
-            text = response.content[0].text
+            response = _get_claude().messages.create(**params)
+            text = next((b.text for b in response.content if b.type == "text"), "")
             if not text:
                 raise Exception("Claude returned empty response")
             return text
@@ -1402,7 +1388,7 @@ def _grade_fill_blank(question, student_answer: str) -> dict:
         try:
             verdict   = _call_ai(
                 _build_fill_blank_ai_prompt(question, student_raw, raw_correct, sw),
-                use_gemini=sw,
+                kiswahili=sw,
             ).strip().upper()
             is_correct = verdict in ("TRUE", "KWELI")
             # If AI accepted it but it wasn't an exact match, flag the correct spelling
@@ -1662,7 +1648,7 @@ def _grade_math(question, student_answer: str, working_image: str | None = None)
             working = _call_ai(
                 _build_math_working_prompt(question, correct_str, grade),
                 max_tokens=1200,
-                use_gemini=sw,
+                kiswahili=sw,
             ).strip().replace("```", "").replace("**", "")
             feedback = (
                 f"Almost! Your answer ${student_val}$ is very close but not exact. "
@@ -1692,7 +1678,7 @@ def _grade_math(question, student_answer: str, working_image: str | None = None)
             working = _call_ai(
                 _build_math_working_prompt(question, correct_str, grade),
                 max_tokens=1200,
-                use_gemini=sw,
+                kiswahili=sw,
             ).strip().replace("```", "").replace("**", "")
             feedback = f"{praise} Let me show you the correct working:\n{working}"
             tip = working
@@ -1700,7 +1686,7 @@ def _grade_math(question, student_answer: str, working_image: str | None = None)
             try:
                 tip = _call_ai(
                     _build_math_study_tip_prompt(question, display_value, grade),
-                    use_gemini=sw,
+                    kiswahili=sw,
                 )
             except Exception:
                 tip = (
@@ -1774,7 +1760,7 @@ def _grade_math(question, student_answer: str, working_image: str | None = None)
         verdict = _call_ai(
             _build_fill_blank_ai_prompt(question, student_str, correct_str, sw),
             working_image=working_image,
-            use_gemini=sw,
+            kiswahili=sw,
         ).strip().upper()
         if verdict in ("TRUE", "KWELI"):
             return _on_correct(student_str)
@@ -1787,7 +1773,7 @@ def _grade_math(question, student_answer: str, working_image: str | None = None)
             _build_math_solution_prompt(question, student_str, correct_str, grade),
             working_image=working_image,
             max_tokens=1200,
-            use_gemini=sw,
+            kiswahili=sw,
         ).strip().replace("```", "").replace("**", "")
     except Exception:
         solution = (
@@ -1838,7 +1824,7 @@ def _grade_with_ai(
             return _no_answer_result(question, sw)
     try:
         prompt   = _build_marking_prompt(question, student_answer, sw, bool(working_image))
-        raw_text = _call_ai(prompt, working_image, max_tokens, use_gemini=sw)
+        raw_text = _call_ai(prompt, working_image, max_tokens, kiswahili=sw)
         result   = _parse_json_response(raw_text)
         marks    = _safe_int_marks(result.get("marks_awarded", 0), question.max_marks)
 
@@ -2108,7 +2094,7 @@ EARNED: [comma-separated list of what the student got right, e.g. "Input role, P
 MISSED: [comma-separated list of what was wrong/missing with the correct answer, e.g. "Output role: should be 'presents results to user'"]"""
 
     try:
-        response = _call_ai(prompt, use_gemini=sw).strip()
+        response = _call_ai(prompt, kiswahili=sw).strip()
         marks_awarded = 0
         feedback = ""
         earned = []
