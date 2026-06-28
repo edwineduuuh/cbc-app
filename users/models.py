@@ -77,6 +77,12 @@ class User(AbstractUser):
         default=0,
         help_text='Number of free quizzes used'
     )
+    # Free taste of the AI tools: strand keys (e.g. "topic:5") previewed in the
+    # Tutor / Flash Cards before subscribing. Re-opening a previewed strand is free.
+    ai_previews_used = models.JSONField(
+        default=list, blank=True,
+        help_text='Strands previewed free in the AI Tutor / Flash Cards'
+    )
     total_quizzes_taken = models.IntegerField(
         default=0,
         help_text='Total quizzes taken (analytics)'

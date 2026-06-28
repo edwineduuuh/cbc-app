@@ -59,10 +59,38 @@ def _has_paid_access(user):
         return False
 
 
+# Free taste: non-subscribers get FREE_AI_PREVIEWS distinct strands of Tutor
+# lessons / Flash Cards (shared allowance). Re-opening an already-previewed strand
+# is free, so a page refresh never burns the allowance. Tutor CHAT is excluded —
+# it's live, unbounded cost, and the real upsell.
+FREE_AI_PREVIEWS = 2
+
+
+def _allow_ai_preview(user, strand_key):
+    if _has_paid_access(user):
+        return True
+    used = list(getattr(user, "ai_previews_used", None) or [])
+    if strand_key in used:
+        return True
+    if len(used) < FREE_AI_PREVIEWS:
+        used.append(strand_key)
+        type(user).objects.filter(pk=user.pk).update(ai_previews_used=used)
+        user.ai_previews_used = used  # keep the in-memory object in sync
+        return True
+    return False
+
+
 _PAYWALL = {
-    "error": "Subscribe to unlock the AI Tutor and Flash Cards.",
+    "error": "You've used your free previews. Subscribe to unlock the AI Tutor and Flash Cards.",
     "paywall": True,
     "feature": "ai_tools",
+    "redirect": "/subscribe",
+}
+
+_CHAT_PAYWALL = {
+    "error": "The AI tutor chat is for subscribers. Subscribe to ask unlimited questions.",
+    "paywall": True,
+    "feature": "ai_chat",
     "redirect": "/subscribe",
 }
 
@@ -98,9 +126,6 @@ def teach_topic(request, topic_id):
     """Tutor lessons for a strand. With ?substrands=1,2 returns a focused SERIES
     (one lesson per sub-strand). Without it, returns a single whole-strand lesson.
     Each unit is cached per sub-strand (composes already-cached units)."""
-    if not _has_paid_access(request.user):
-        return Response(_PAYWALL, status=status.HTTP_402_PAYMENT_REQUIRED)
-
     try:
         topic = Topic.objects.select_related("subject").get(pk=topic_id)
     except Topic.DoesNotExist:
@@ -108,6 +133,9 @@ def teach_topic(request, topic_id):
 
     if _is_kiswahili(topic):
         return Response(_KISWAHILI_BLOCKED, status=status.HTTP_403_FORBIDDEN)
+
+    if not _allow_ai_preview(request.user, f"topic:{topic.id}"):
+        return Response(_PAYWALL, status=status.HTTP_402_PAYMENT_REQUIRED)
 
     raw = request.query_params.get("substrands", "").strip()
     substrands = []
@@ -150,7 +178,7 @@ def tutor_chat(request):
     Body: { "topic_id": int, "messages": [{"role","content"}, ...] }
     """
     if not _has_paid_access(request.user):
-        return Response(_PAYWALL, status=status.HTTP_402_PAYMENT_REQUIRED)
+        return Response(_CHAT_PAYWALL, status=status.HTTP_402_PAYMENT_REQUIRED)
 
     topic_id = request.data.get("topic_id")
     messages = request.data.get("messages", [])
@@ -193,9 +221,6 @@ def tutor_chat(request):
 def flashcards_feed(request):
     """Flash cards for a strand. With ?substrands=1,2 merges those sub-strands'
     cached decks into ONE shuffled deck. Without it, a whole-strand deck."""
-    if not _has_paid_access(request.user):
-        return Response(_PAYWALL, status=status.HTTP_402_PAYMENT_REQUIRED)
-
     try:
         topic, substrands = _resolve_topic_and_substrands(request)
     except ValueError as e:
@@ -203,6 +228,9 @@ def flashcards_feed(request):
 
     if _is_kiswahili(topic):
         return Response(_KISWAHILI_BLOCKED, status=status.HTTP_403_FORBIDDEN)
+
+    if not _allow_ai_preview(request.user, f"topic:{topic.id}"):
+        return Response(_PAYWALL, status=status.HTTP_402_PAYMENT_REQUIRED)
 
     force = _wants_force(request)  # admin/teacher + ?refresh=1 → regenerate
 
