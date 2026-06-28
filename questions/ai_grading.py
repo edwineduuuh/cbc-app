@@ -147,8 +147,27 @@ def _near_miss(sw: bool) -> str:
     return ""
 
 
+def _model_answer_from_scheme(ms) -> str:
+    """Pull a readable model answer out of a marking scheme (plain text, or a
+    {points:[{description,...}]} dict) — used when a structured question has no
+    `correct_answer` field but the answer lives in the scheme."""
+    if not ms:
+        return ""
+    if isinstance(ms, str):
+        return ms.strip()
+    if isinstance(ms, dict):
+        pts = ms.get("points")
+        if isinstance(pts, list):
+            return "; ".join(
+                str(p.get("description", "")).strip()
+                for p in pts if isinstance(p, dict) and p.get("description")
+            ).strip()
+    return ""
+
+
 def _no_answer_result(question, sw: bool) -> dict:
-    """Return 0 marks but still show the correct answer so the student learns."""
+    """Return 0 marks but STILL teach — show the correct/model answer AND the
+    teacher's explanation, so a kid who skipped still learns from it."""
     max_marks = question.max_marks
     correct = str(getattr(question, "correct_answer", "") or "").strip()
     # For MCQ, map letter to full option text
@@ -161,17 +180,27 @@ def _no_answer_result(question, sw: bool) -> dict:
             correct_display = correct
     else:
         correct_display = _clean_correct_answer(correct) if correct else ""
+        # structured/essay answers often live in the marking scheme, not correct_answer
+        if not correct_display:
+            correct_display = _model_answer_from_scheme(getattr(question, "marking_scheme", None))
+
+    # The teacher's explanation (cleaned) — surfaced even when unanswered.
+    admin_expl = _clean_explanation_text(getattr(question, "explanation", "") or "")
 
     if sw:
         fb = "Hujajibu swali hili."
         if correct_display:
-            fb += f"\nJibu sahihi ni: {correct_display}"
+            fb += f"\nJibu linalotarajiwa: {correct_display}"
+        if admin_expl:
+            fb += f"\n{admin_expl}"
         msg = "Jaribu kujibu maswali yote kwa utulivu."
     else:
         fb = "You did not answer this question."
         if correct_display:
-            fb += f"\nThe correct answer was: {correct_display}"
-        msg = "Try every question calmly and do your best — you'll see the correct answer in the feedback."
+            fb += f"\nExpected answer: {correct_display}"
+        if admin_expl:
+            fb += f"\n{admin_expl}"
+        msg = "Try every question calmly and do your best — you'll always see the answer here so you can still learn it."
 
     return {
         "marks_awarded":        0,
@@ -180,6 +209,8 @@ def _no_answer_result(question, sw: bool) -> dict:
         "is_correct":           False,
         "personalized_message": msg,
         "study_tip":            "",
+        # truthy when present so _augment_feedback won't append the explanation twice
+        "explanation":          admin_expl,
         "points_earned":        [],
         "points_missed":        ([f"Jibu sahihi: {correct_display}" if sw else f"Correct answer: {correct_display}"] if correct_display else []),
     }
