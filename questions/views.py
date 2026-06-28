@@ -1464,6 +1464,7 @@ def credits_status(request):
     user = request.user
 
     # Check subscription first
+    expired_plan = None
     try:
         subscription = Subscription.objects.get(user=user)
         if subscription.is_valid:
@@ -1484,19 +1485,35 @@ def credits_status(request):
                 'expiry_warning': expiry_warning,
                 'message': f'✨ {subscription.plan.name} - Unlimited access'
             })
+        else:
+            expired_plan = subscription.plan.name
     except Subscription.DoesNotExist:
         pass
 
     # Free quiz credits — from User model (single source of truth)
     credits = user.quiz_credits
 
+    # If a former subscriber has leftover free quizzes, TELL them — don't silently
+    # let them burn through credits thinking they're still subscribed.
+    expiry_warning = None
+    if expired_plan:
+        if credits > 0:
+            expiry_warning = (
+                f'⚠️ Your {expired_plan} plan has ended — you still have {credits} '
+                f'free quiz{"zes" if credits != 1 else ""} left. Subscribe to keep '
+                f'unlimited quizzes plus the AI Tutor & Flash Cards.'
+            )
+        else:
+            expiry_warning = f'⚠️ Your {expired_plan} plan has ended. Subscribe to keep learning.'
+
     return Response({
         'has_access': credits > 0,
         'quiz_credits': credits,
         'has_subscription': False,
-        'subscription_status': 'free_trial',
+        'subscription_status': 'expired' if expired_plan else 'free_trial',
         'subscription_plan': None,
         'subscription_expires': None,
+        'expiry_warning': expiry_warning,
         'message': (
             f'🎓 {credits} free quiz{"zes" if credits != 1 else ""} remaining'
             if credits > 0

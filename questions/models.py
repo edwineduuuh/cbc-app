@@ -706,8 +706,8 @@ class UserProfile(models.Model):
     
     def can_start_quiz(self):
         """Check if user can start a quiz"""
-        # Check subscription
-        if hasattr(self.user, 'subscription') and self.user.subscription.is_active:
+        # Check subscription (is_valid respects the expiry date, unlike is_active)
+        if hasattr(self.user, 'subscription') and self.user.subscription.is_valid:
             return True, "Unlimited (Subscribed)"
         
         # Check free trial

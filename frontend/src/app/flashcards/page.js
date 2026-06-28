@@ -33,11 +33,13 @@ const TYPE_LABEL = {
 /* ── The flip-card deck ──────────────────────────────────────── */
 function Deck({ selection, onBack }) {
   const { user } = useAuth();
+  const router = useRouter();
   const isStaff = STAFF_ROLES.includes(user?.role) || user?.is_staff;
 
   const [cards, setCards] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [paywalled, setPaywalled] = useState(false);
   const [i, setI] = useState(0);
   const [flipped, setFlipped] = useState(false);
   const [regenerating, setRegenerating] = useState(false);
@@ -50,7 +52,12 @@ function Deck({ selection, onBack }) {
     if (force) params.push("refresh=1");
     return fetchWithAuth(`${API}/flashcards/?${params.join("&")}`)
       .then(async (r) => {
-        if (!r.ok) throw new Error((await r.json()).error || "Could not load cards");
+        if (!r.ok) {
+          const body = await r.json().catch(() => ({}));
+          const err = new Error(body.error || "Could not load cards");
+          err.paywall = r.status === 402 || body.paywall;
+          throw err;
+        }
         return r.json();
       })
       .then((d) => {
@@ -59,7 +66,11 @@ function Deck({ selection, onBack }) {
         setI(0);
         setFlipped(false);
       })
-      .catch((e) => mounted.current && setError(e.message))
+      .catch((e) => {
+        if (!mounted.current) return;
+        setError(e.message);
+        setPaywalled(!!e.paywall);
+      })
       .finally(() => mounted.current && setLoading(false));
   }, [selection]);
 
@@ -99,6 +110,30 @@ function Deck({ selection, onBack }) {
       <div className="flex h-[60vh] flex-col items-center justify-center gap-3 text-gray-500">
         <Loader2 className="h-8 w-8 animate-spin text-indigo-600" />
         <p>Building your deck…</p>
+      </div>
+    );
+  }
+
+  if (paywalled) {
+    return (
+      <div className="mx-auto max-w-md px-4 py-16 text-center">
+        <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-indigo-100 dark:bg-indigo-900/40">
+          <Layers className="h-7 w-7 text-indigo-600 dark:text-indigo-400" />
+        </div>
+        <h2 className="mb-2 text-xl font-bold text-gray-900 dark:text-white">
+          Unlock the AI Tutor &amp; Flash Cards
+        </h2>
+        <p className="mb-6 text-gray-600 dark:text-gray-300">
+          {error || "These are part of a StadiSpace plan. Subscribe to revise with AI."}
+        </p>
+        <div className="flex items-center justify-center gap-3">
+          <button onClick={() => router.push("/subscribe")} className="rounded-full bg-indigo-600 px-6 py-2.5 font-semibold text-white hover:bg-indigo-700">
+            Subscribe now
+          </button>
+          <button onClick={onBack} className="rounded-full border border-gray-300 px-6 py-2.5 font-semibold text-gray-700 dark:border-gray-700 dark:text-gray-200">
+            Back
+          </button>
+        </div>
       </div>
     );
   }
