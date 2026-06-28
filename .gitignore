@@ -6,3 +6,8 @@ db.sqlite3
 node_modules/
 .next/
 .DS_Store
+
+# Local dev scratch scripts + editor config
+write_bars.py
+test_unicode.py
+.claude/settings.json
