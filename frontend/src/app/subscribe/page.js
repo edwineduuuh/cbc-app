@@ -28,20 +28,19 @@ const API =
   process.env.NEXT_PUBLIC_API_URL ||
   "https://cbc-backend-production-8bc4.up.railway.app/api";
 
-const PLANS = [
-  {
-    id: 2,
-    slug: "weekly",
+// Cosmetic copy ONLY, keyed by slug. The money — id, price, duration — comes
+// from /api/plans/, so the price shown is always exactly the price charged.
+// Daily cost and savings are computed from the live price below (never hardcoded),
+// so they can't contradict it either.
+const PLAN_META = {
+  weekly: {
     name: "Weekly",
     tagline: "Try it out",
-    price: 349,
     period: "week",
-    duration: 7,
-    dailyCost: 50,
-    savings: null,
+    color: "slate",
     badge: null,
     popular: false,
-    color: "slate",
+    savingsVs: null,
     features: [
       "Unlimited quiz attempts",
       "Instant marking with detailed feedback",
@@ -49,49 +48,90 @@ const PLANS = [
       "Performance tracking",
     ],
   },
-  {
-    id: 3,
-    slug: "monthly",
+  monthly: {
     name: "Monthly",
     tagline: "Most popular choice",
-    price: 999,
     period: "month",
-    duration: 30,
-    dailyCost: 33,
-    savings: { amount: 397, percent: 28, vs: "weekly" },
+    color: "teal",
     badge: "MOST POPULAR",
     popular: true,
-    color: "teal",
+    savingsVs: "weekly",
     features: [
       "Everything in Weekly",
-      "Save 16% vs weekly plan",
       "Download PDF reports",
       "Priority support",
       "Progress analytics dashboard",
     ],
   },
-  {
-    id: 1,
-    slug: "termly",
+  termly: {
     name: "Termly",
     tagline: "Best value for serious students",
-    price: 2199,
     period: "term",
-    duration: 90,
-    dailyCost: 24,
-    savings: { amount: 798, percent: 27, vs: "monthly" },
+    color: "navy",
     badge: "BEST VALUE",
     popular: false,
-    color: "navy",
+    savingsVs: "monthly",
     features: [
       "Everything in Monthly",
-      "Save 33% vs monthly plan",
       "Covers entire school term",
-      "Just KES 24/day",
       "Parent progress reports",
     ],
   },
-];
+};
+
+const PLAN_ORDER = ["weekly", "monthly", "termly"];
+
+// Display-only fallback if /api/plans/ is briefly unreachable — the charge always
+// uses the DB value (via plan_id), so these never affect what a user is billed.
+const FALLBACK = {
+  weekly: { id: 2, price_kes: 349, duration_days: 7 },
+  monthly: { id: 3, price_kes: 999, duration_days: 30 },
+  termly: { id: 1, price_kes: 2199, duration_days: 90 },
+};
+
+// Merge live API plans (id/price/duration) with the cosmetic meta, computing
+// daily cost + savings from the live price.
+function buildPlans(apiPlans) {
+  const bySlug = {};
+  (apiPlans || []).forEach((p) => {
+    bySlug[p.slug] = p;
+  });
+  PLAN_ORDER.forEach((slug) => {
+    if (!bySlug[slug]) bySlug[slug] = { slug, ...FALLBACK[slug] };
+  });
+
+  const dailyRate = (p) => p.price_kes / p.duration_days;
+
+  return PLAN_ORDER.filter((slug) => bySlug[slug] && PLAN_META[slug]).map((slug) => {
+    const api = bySlug[slug];
+    const meta = PLAN_META[slug];
+    const dailyCost = Math.round(api.price_kes / api.duration_days);
+
+    let savings = null;
+    const base = meta.savingsVs ? bySlug[meta.savingsVs] : null;
+    if (base) {
+      const percent = Math.round((1 - dailyRate(api) / dailyRate(base)) * 100);
+      const amount = Math.round(dailyRate(base) * api.duration_days - api.price_kes);
+      if (percent > 0) savings = { percent, amount, vs: meta.savingsVs };
+    }
+
+    return {
+      id: api.id,
+      slug,
+      name: meta.name,
+      tagline: meta.tagline,
+      price: api.price_kes,
+      period: meta.period,
+      duration: api.duration_days,
+      dailyCost,
+      savings,
+      badge: meta.badge,
+      popular: meta.popular,
+      color: meta.color,
+      features: meta.features,
+    };
+  });
+}
 
 export default function SubscribePage() {
   const { user, loading: authLoading } = useAuth();
@@ -100,6 +140,9 @@ export default function SubscribePage() {
   const [showModal, setShowModal] = useState(false);
   const [subscription, setSubscription] = useState(null);
   const [loadingStatus, setLoadingStatus] = useState(true);
+  // Prices/ids come from the API (single source of truth). Start on the fallback
+  // so the cards render instantly, then swap in the live plans.
+  const [plans, setPlans] = useState(() => buildPlans(null));
 
   useEffect(() => {
     if (!authLoading && user?.role === "teacher") {
@@ -108,6 +151,21 @@ export default function SubscribePage() {
     }
     fetchSubscriptionStatus();
   }, [authLoading, user]);
+
+  useEffect(() => {
+    let cancelled = false;
+    fetch(`${API}/plans/`)
+      .then((r) => (r.ok ? r.json() : Promise.reject()))
+      .then((d) => {
+        if (cancelled) return;
+        const list = Array.isArray(d) ? d : d.results || [];
+        if (list.length) setPlans(buildPlans(list));
+      })
+      .catch(() => {}); // keep the fallback prices on failure
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   const fetchSubscriptionStatus = async () => {
     try {
@@ -199,7 +257,7 @@ export default function SubscribePage() {
       {/* Pricing Cards */}
       <div className="max-w-5xl mx-auto px-4 pb-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5 items-stretch">
-          {PLANS.map((plan, i) => (
+          {plans.map((plan, i) => (
             <motion.div
               key={plan.slug}
               initial={{ opacity: 0, y: 30 }}
@@ -364,7 +422,7 @@ export default function SubscribePage() {
               },
               {
                 label: "StadiSpace",
-                cost: "999",
+                cost: String(plans.find((p) => p.slug === "termly")?.price ?? 2199),
                 period: "/term",
                 color: "text-teal-600",
                 bg: "bg-teal-50",
