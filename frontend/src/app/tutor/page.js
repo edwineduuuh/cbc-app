@@ -213,10 +213,10 @@ function LessonSeries({ selection, onBack }) {
           <GraduationCap className="h-7 w-7 text-emerald-600 dark:text-emerald-400" />
         </div>
         <h2 className="mb-2 text-xl font-bold text-gray-900 dark:text-white">
-          Unlock the AI Tutor &amp; Flash Cards
+          Unlock the Tutor &amp; Flash Cards
         </h2>
         <p className="mb-6 text-gray-600 dark:text-gray-300">
-          {error || "These are part of a StadiSpace plan. Subscribe to learn with the AI tutor."}
+          {error || "These are part of a StadiSpace plan. Subscribe to learn with your tutor."}
         </p>
         <div className="flex items-center justify-center gap-3">
           <button onClick={() => router.push("/subscribe")} className="rounded-full bg-emerald-600 px-6 py-2.5 font-semibold text-white hover:bg-emerald-700">
@@ -397,7 +397,7 @@ export default function TutorPage() {
               <GraduationCap className="h-6 w-6 text-emerald-600 dark:text-emerald-400" />
             </div>
             <div>
-              <h1 className="text-2xl font-bold text-gray-900 dark:text-white">AI Tutor</h1>
+              <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Tutor</h1>
               <p className="text-sm text-gray-500 dark:text-gray-400">
                 Pick a strand and sub-strands — I’ll teach them before your quiz.
               </p>

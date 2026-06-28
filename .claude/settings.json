@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python -c \"import django; import os; os.environ.setdefault\\('DJANGO_SETTINGS_MODULE', 'backend.settings'\\); django.setup\\(\\); from questions.views import TopicManageView, TopicDetailView; print\\('IMPORT OK'\\)\")",
+      "Bash(python manage.py makemigrations questions --name add_option_images)",
+      "Bash(Get-ChildItem -Path \"c:\\\\Users\\\\LENOVO T14\\\\Desktop\\\\cbc-app\\\\frontend\\\\src\" -Recurse -Directory)",
+      "Bash(Select-Object -ExpandProperty FullName)",
+      "Bash(Head -30)",
+      "Bash(python manage.py makemigrations users --name add_school_name_to_user)",
+      "Bash(git -C \"c:\\\\Users\\\\LENOVO T14\\\\Desktop\\\\cbc-app\" status)",
+      "Bash(git -C \"c:\\\\Users\\\\LENOVO T14\\\\Desktop\\\\cbc-app\" add frontend/src/app/attempts/[id]/page.js frontend/src/app/quizzes/[id]/page.js)",
+      "Bash(git -C 'c:\\\\Users\\\\LENOVO T14\\\\Desktop\\\\cbc-app' commit -m ' *)",
+      "Bash(git -C \"c:\\\\Users\\\\LENOVO T14\\\\Desktop\\\\cbc-app\" push)"
+    ]
+  }
+}

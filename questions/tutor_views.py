@@ -42,7 +42,7 @@ def _is_kiswahili(topic):
 
 
 _KISWAHILI_BLOCKED = {
-    "error": "Kiswahili isn't available for AI lessons and flash cards yet — "
+    "error": "Kiswahili isn't available for lessons and flash cards yet — "
              "its content is teacher-authored to keep the grammar correct.",
     "blocked_subject": "kiswahili",
 }
@@ -81,16 +81,16 @@ def _allow_ai_preview(user, strand_key):
 
 
 _PAYWALL = {
-    "error": "You've used your free previews. Subscribe to unlock the AI Tutor and Flash Cards.",
+    "error": "You've used your free previews. Subscribe to unlock the Tutor and Flash Cards.",
     "paywall": True,
-    "feature": "ai_tools",
+    "feature": "tutor_tools",
     "redirect": "/subscribe",
 }
 
 _CHAT_PAYWALL = {
-    "error": "The AI tutor chat is for subscribers. Subscribe to ask unlimited questions.",
+    "error": "Tutor chat is for subscribers. Subscribe to ask unlimited questions.",
     "paywall": True,
-    "feature": "ai_chat",
+    "feature": "tutor_chat",
     "redirect": "/subscribe",
 }
 

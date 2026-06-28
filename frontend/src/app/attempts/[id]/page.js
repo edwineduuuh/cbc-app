@@ -1013,10 +1013,10 @@ export default function AttemptResultsPage() {
               margin: 0,
             }}
           >
-            Marking your answers…
+            Marking your quiz…
           </p>
           <p style={{ fontSize: 14, color: "#64748b", marginTop: 6 }}>
-            AI is reviewing each question. This usually takes 15–30 seconds.
+            We&apos;re checking each answer carefully. This usually takes 15–30 seconds.
           </p>
         </div>
         <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>

@@ -4,7 +4,25 @@
       "Bash(git add *)",
       "Bash(git commit -m ' *)",
       "Bash(git push *)",
-      "Bash(git commit *)"
+      "Bash(git commit *)",
+      "Bash(xargs wc *)",
+      "Bash(node --input-type=module --eval ' *)",
+      "Bash(npx next *)",
+      "Bash(node -e \"require\\('./src/app/admin/page.js'\\)\")",
+      "Bash(npx eslint *)",
+      "Bash(python -c \"from questions.ai_grading import _grade_table, _grade_table_holistic; print\\('OK'\\)\")",
+      "Bash(python manage.py makemigrations questions --name add_multipart_question_type)",
+      "Bash(python manage.py makemigrations questions --name add_grading_attempt_status)",
+      "Bash(xargs ls *)",
+      "WebSearch",
+      "WebFetch(domain:www.standardmedia.co.ke)",
+      "WebFetch(domain:posts.kictanet.or.ke)",
+      "WebFetch(domain:techweez.com)",
+      "WebFetch(domain:cioafrica.co)",
+      "Bash(powershell -Command \"\\(Get-Content 'c:\\\\Users\\\\LENOVO T14\\\\Desktop\\\\cbc-app\\\\frontend\\\\src\\\\app\\\\attempts\\\\[id]\\\\page.js' -Raw\\) -replace '\\\\.replace\\\\\\(/\\\\\\\\\\\\\\\\n/g, \\\\\"<br/>\\\\\"\\)', '.replace\\(/\\\\\\\\\\\\\\\\n|\\\\\\\\n/g, \\\\\"<br/>\\\\\"\\)' | Set-Content 'c:\\\\Users\\\\LENOVO T14\\\\Desktop\\\\cbc-app\\\\frontend\\\\src\\\\app\\\\attempts\\\\[id]\\\\page.js' -Encoding utf8\")",
+      "Bash(cat \"C:\\\\Users\\\\LENOVO T14\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\c--Users-LENOVO-T14-Desktop-cbc-app\\\\486795f6-ad1c-4b06-8e71-5c408baa1f5a\\\\tasks\\\\b8oe7o6wo.output\")",
+      "Read(//c/Users/LENOVO T14/AppData/Local/Temp/claude/c--Users-LENOVO-T14-Desktop-cbc-app/486795f6-ad1c-4b06-8e71-5c408baa1f5a/tasks/**)",
+      "Bash(python manage.py makemigrations users --name=\"add_email_verified\")"
     ]
   }
 }

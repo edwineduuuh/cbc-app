@@ -2,7 +2,7 @@
 
 import { useRef, useEffect, useState, useCallback } from "react";
 
-const SYMBOL_LIBRARY = {
+const  SYMBOL_LIBRARY = {
   Math: [
     { label: "a/b", value: "\\frac{a}{b}" },
     { label: "x²", value: "x^{2}" },

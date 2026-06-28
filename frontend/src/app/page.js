@@ -161,7 +161,7 @@ export default function LandingPage() {
     },
     {
       q: "Who creates the questions?",
-      a: "Every question on StadiSpace is crafted by qualified Kenyan educators with deep knowledge of the CBE curriculum. These are not AI-generated or imported questions - they are purpose-built for Kenyan learners.",
+      a: "Every question on StadiSpace is crafted by qualified Kenyan educators with deep knowledge of the CBE curriculum. These are not auto-generated or imported questions - they are purpose-built, by hand, for Kenyan learners.",
     },
     {
       q: "Which grades are covered?",

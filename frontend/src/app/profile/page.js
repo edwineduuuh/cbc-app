@@ -517,7 +517,7 @@ export default function SettingsPage() {
                           <div className="space-y-3">
                             {[
                               "Unlimited practice questions",
-                              "AI-powered marking & feedback",
+                              "Instant marking & detailed feedback",
                               "Full progress analytics",
                               "All learning areas — Grades 4–10",
                               "Exam simulation sets",
@@ -552,7 +552,7 @@ export default function SettingsPage() {
                             </div>
                           </div>
                           <p className="text-sm text-gray-500 mb-5 leading-relaxed">
-                            Subscribe to unlock unlimited quizzes, AI marking,
+                            Subscribe to unlock unlimited quizzes, instant marking,
                             and full analytics.
                           </p>
                           <Link href="/subscribe">

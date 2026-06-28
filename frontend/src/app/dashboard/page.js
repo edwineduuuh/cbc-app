@@ -640,7 +640,7 @@ export default function DashboardPage() {
                   </div>
                   <h3 className="text-xl font-bold mb-2">Go Premium</h3>
                   <p className="text-amber-100 text-sm">
-                    Unlimited quizzes, AI feedback, analytics & more
+                    Unlimited quizzes, instant feedback, analytics & more
                   </p>
                 </div>
               </motion.div>

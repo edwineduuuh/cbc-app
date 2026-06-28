@@ -99,7 +99,7 @@ function RegisterPage() {
   const perks = [
     "5 free quizzes — no card needed",
     "All CBE learning areas, Grades 4–10",
-    "AI-powered instant marking",
+    "Instant marking with detailed feedback",
     "Pay via M-Pesa when ready",
   ];
 
@@ -163,7 +163,7 @@ function RegisterPage() {
           <div className="relative">
             <div className="bg-white/10 backdrop-blur border border-white/15 rounded-2xl p-5">
               <p className="text-white/90 text-sm italic leading-relaxed mb-3">
-                "The AI marking is incredible — it marks open-ended questions and tells you exactly what you missed."
+                "The marking is incredible — it grades open-ended questions and tells you exactly what you missed."
               </p>
               <p className="text-cyan-300 text-xs font-semibold">— Brian O., Grade 9 · Mombasa</p>
             </div>
@@ -370,7 +370,7 @@ function RegisterPage() {
               <div className="mt-5 flex items-center justify-center gap-2 bg-amber-50 border border-amber-200 rounded-xl px-5 py-3">
                 <span className="text-amber-500">✦</span>
                 <p className="text-xs font-medium text-amber-800">
-                  5 free quizzes · Full AI feedback · No credit card · M-Pesa accepted
+                  5 free quizzes · Full feedback · No credit card · M-Pesa accepted
                 </p>
               </div>
 

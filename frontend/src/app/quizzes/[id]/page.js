@@ -1423,7 +1423,7 @@ function ResultsScreen({ result, quiz }) {
               lineHeight: 1.5,
             }}
           >
-            See exactly what you got wrong, AI explanations per question, study
+            See exactly what you got wrong, clear explanations per question, study
             tips, and save your progress.
           </p>
           <Link href="/register?reason=quota">
@@ -1464,10 +1464,9 @@ function ResultsScreen({ result, quiz }) {
           >
             <span style={{ fontSize: 16, flexShrink: 0 }}>ℹ️</span>
             <span>
-              Your written answers were graded by an AI marking assistant using
-              model answers written by our educators — not by AI judgment alone.
-              If you believe a grade is incorrect, contact us to request a human
-              review.
+              Your written answers are checked against model answers written by
+              our educators. If you believe a grade is incorrect, contact us to
+              request a human review.
             </span>
           </div>
         )}
@@ -1603,10 +1602,10 @@ function ResultsScreen({ result, quiz }) {
                       marginBottom: 4,
                     }}
                   >
-                    AI FEEDBACK
+                    DETAILED FEEDBACK
                   </p>
                   <p style={{ fontSize: 13, color: "#6b7280" }}>
-                    Detailed AI feedback explaining exactly what you missed and
+                    Clear feedback explaining exactly what you missed and
                     how to improve.
                   </p>
                 </div>

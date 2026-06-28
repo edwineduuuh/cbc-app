@@ -232,13 +232,13 @@ export default function ExplorePage() {
                 Try {guestQuota.remaining} Quizzes Free!
               </h1>
               <p className="text-cyan-100 text-lg mb-6 max-w-2xl">
-                Experience AI-powered feedback on any quiz below. No signup
+                Experience instant feedback on any quiz below. No signup
                 required to start. Sign up after to get 4 MORE free quizzes!
               </p>
               <div className="flex items-center gap-4 text-sm">
                 <div className="flex items-center gap-2">
                   <CheckCircle className="w-5 h-5 text-amber-300" />
-                  <span>Instant AI marking</span>
+                  <span>Instant marking</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <CheckCircle className="w-5 h-5 text-amber-300" />
@@ -596,7 +596,7 @@ export default function ExplorePage() {
                   {[
                     "Unlimited quizzes",
                     "All learning areas & grades",
-                    "AI-powered marking",
+                    "Instant marking",
                     "Progress tracking",
                     "M-Pesa payment",
                   ].map((item) => (

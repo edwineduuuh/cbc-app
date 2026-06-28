@@ -684,9 +684,8 @@ function ResultsScreen({ result, quiz }) {
             >
               <span style={{ fontSize: 16, flexShrink: 0 }}>ℹ️</span>
               <span>
-                Your written answers were graded by an AI marking assistant
-                using model answers written by our educators — not by AI
-                judgment alone. If you believe a grade is incorrect, contact us
+                Your written answers are checked against model answers written
+                by our educators. If you believe a grade is incorrect, contact us
                 to request a human review.
               </span>
             </div>
@@ -1666,8 +1665,8 @@ export default function QuizTakePage({ params }) {
           >
             <span style={{ fontSize: 16, flexShrink: 0 }}>ℹ️</span>
             <span>
-              This quiz includes written questions graded by an AI marking
-              assistant using educator-written model answers. You may request a
+              This quiz includes written questions graded against
+              educator-written model answers. You may request a
               human review of any grade by contacting support.
             </span>
           </div>

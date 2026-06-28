@@ -121,10 +121,10 @@ function Deck({ selection, onBack }) {
           <Layers className="h-7 w-7 text-indigo-600 dark:text-indigo-400" />
         </div>
         <h2 className="mb-2 text-xl font-bold text-gray-900 dark:text-white">
-          Unlock the AI Tutor &amp; Flash Cards
+          Unlock the Tutor &amp; Flash Cards
         </h2>
         <p className="mb-6 text-gray-600 dark:text-gray-300">
-          {error || "These are part of a StadiSpace plan. Subscribe to revise with AI."}
+          {error || "These are part of a StadiSpace plan. Subscribe to start revising."}
         </p>
         <div className="flex items-center justify-center gap-3">
           <button onClick={() => router.push("/subscribe")} className="rounded-full bg-indigo-600 px-6 py-2.5 font-semibold text-white hover:bg-indigo-700">
