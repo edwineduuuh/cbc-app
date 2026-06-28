@@ -122,6 +122,19 @@ function ExploreContent() {
           )}
         </div>
 
+        {/* Growing-library reassurance (always-on, friendly) */}
+        <div style={{
+          display: "flex", alignItems: "center", gap: 10,
+          background: "#fff7e6", border: "1px solid #ffe2a8", borderRadius: 14,
+          padding: "10px 14px", marginBottom: 16, fontSize: 13, color: "#8a6d3b", lineHeight: 1.5,
+        }}>
+          <span style={{ fontSize: 18, flexShrink: 0 }}>🌱</span>
+          <span>
+            Fresh quizzes land <strong>every day</strong>! Don&apos;t see your strand yet?
+            It&apos;s probably already on its way — check back tomorrow. ✨
+          </span>
+        </div>
+
         {/* Grade selector */}
         <div style={{ background: "#fff", borderRadius: 20, border: "1px solid #e8eaf0", padding: 20, marginBottom: 16 }}>
           <p style={{ fontSize: 12, fontWeight: 700, color: "#8892a4", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: 12 }}>

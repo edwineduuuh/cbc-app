@@ -4,7 +4,7 @@ import { Suspense, useState, useEffect } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { useRouter, useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
-import { ChevronRight, BookOpen, Loader2, ArrowLeft } from "lucide-react";
+import { ChevronRight, Loader2, ArrowLeft } from "lucide-react";
 
 const API =
   process.env.NEXT_PUBLIC_API_URL ||
@@ -15,6 +15,8 @@ const QUIZ_TYPE_TABS = [
   { id: "topical", label: "Strand quizzes" },
   { id: "exam", label: "Integrated assessments" },
 ];
+
+const WHATSAPP_NUMBER = "254717946924";
 
 function QuizzesContent() {
   const { user, loading: authLoading } = useAuth();
@@ -200,10 +202,31 @@ function QuizzesContent() {
               <div style={{ width: 32, height: 32, border: "3px solid #e8eaf0", borderTopColor: "#1a6fc4", borderRadius: "50%", animation: "spin 0.8s linear infinite" }} />
             </div>
           ) : filteredQuizzes.length === 0 ? (
-            <div style={{ textAlign: "center", padding: "40px 0" }}>
-              <BookOpen size={40} color="#bcc3d0" style={{ margin: "0 auto 12px" }} />
-              <p style={{ fontSize: 14, color: "#8892a4" }}>No assessments found</p>
-              <p style={{ fontSize: 13, color: "#bcc3d0", marginTop: 4 }}>Check back soon — more content is being added</p>
+            <div style={{ textAlign: "center", padding: "40px 16px" }}>
+              <div style={{ fontSize: 44, marginBottom: 6 }}>🚧</div>
+              <p style={{ fontSize: 15, fontWeight: 700, color: "#3a4252", margin: "0 0 6px" }}>
+                This corner&apos;s still cooking!
+              </p>
+              <p style={{ fontSize: 13.5, color: "#8892a4", lineHeight: 1.6, maxWidth: 360, margin: "0 auto 16px" }}>
+                Our teachers hand-write every question (no robots here 🤖🚫), so good
+                things take a day or two. Your {subjectName}
+                {selectedStrand ? ` — ${selectedStrand.name}` : ""} {selectedStrand ? "strand" : "quizzes"} are
+                on the way — pop back soon! 👀
+              </p>
+              <a
+                href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
+                  `Hi StadiSpace! Please add ${subjectName} (Grade ${grade})${selectedStrand ? ` — ${selectedStrand.name} strand` : ""} quizzes 🙏`
+                )}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  display: "inline-flex", alignItems: "center", gap: 6,
+                  background: "#25D366", color: "#fff", fontSize: 13, fontWeight: 700,
+                  padding: "9px 18px", borderRadius: 22, textDecoration: "none",
+                }}
+              >
+                💬 Ask us to add it faster
+              </a>
             </div>
           ) : (
             <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
