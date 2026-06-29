@@ -295,16 +295,6 @@ export default function LifeSkills() {
           >
             Real-world knowledge textbooks don&apos;t cover
           </h1>
-          <p
-            style={{
-              color: "rgba(255,255,255,0.80)",
-              fontSize: 16,
-              margin: 0,
-              lineHeight: 1.6,
-            }}
-          >
-            Skills for money, relationships, safety, health, citizenship, and your future.
-          </p>
         </div>
       </div>
 
