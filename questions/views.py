@@ -1057,7 +1057,11 @@ def _build_detailed_feedback(questions, results, answers, working_images):
                 for c_idx, cell in enumerate(row):
                     if cell.get('e'):
                         key = f"{r_idx}_{c_idx}"
-                        given = cell_answers.get(key, '(blank)')
+                        given = cell_answers.get(key, '')
+                        if isinstance(given, list):
+                            given = ', '.join(given) if given else '(blank)'
+                        elif not given:
+                            given = '(blank)'
                         lines.append(f"Cell ({r_idx+1},{c_idx+1}): {given}")
             display_student = ' | '.join(lines) if lines else '(no answers)'
             correct_lines, has_cell_answers = [], False
@@ -1310,7 +1314,11 @@ def submit_quiz(request):
                     for c_idx, cell in enumerate(row):
                         if cell.get('e'):
                             key = f"{r_idx}_{c_idx}"
-                            given = cell_answers.get(key, '(blank)')
+                            given = cell_answers.get(key, '')
+                            if isinstance(given, list):
+                                given = ', '.join(given) if given else '(blank)'
+                            elif not given:
+                                given = '(blank)'
                             lines.append(f"Cell ({r_idx+1},{c_idx+1}): {given}")
                 display_student = ' | '.join(lines) if lines else '(no answers)'
                 correct_lines = []

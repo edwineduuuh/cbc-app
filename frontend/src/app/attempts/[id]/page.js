@@ -2170,12 +2170,22 @@ export default function AttemptResultsPage() {
                                   {row.map((cell, cIdx) => {
                                     const isEditable = cell.e;
                                     const key = `${rIdx}_${cIdx}`;
-                                    const studentVal = isEditable
-                                      ? ((typeof item.student_answer === "object" ? item.student_answer : {})[key] || "")
+                                    const rawStudent = isEditable
+                                      ? (typeof item.student_answer === "object" ? item.student_answer : {})[key]
                                       : null;
+                                    const studentArr = Array.isArray(rawStudent)
+                                      ? rawStudent
+                                      : rawStudent
+                                        ? [rawStudent]
+                                        : [];
+                                    const studentVal = studentArr.join(", ");
                                     const correctVal = cell.a || cell.v || "";
-                                    const isCorrect = isEditable && studentVal && String(studentVal).trim().toLowerCase() === String(correctVal).trim().toLowerCase();
-                                    const isWrong = isEditable && studentVal && !isCorrect;
+                                    // set comparison (handles multiple chips per cell)
+                                    const norm = (s) => String(s).trim().toLowerCase();
+                                    const expSet = new Set(String(correctVal).split(",").map(norm).filter(Boolean));
+                                    const studSet = new Set(studentArr.map(norm).filter(Boolean));
+                                    const isCorrect = isEditable && studSet.size > 0 && expSet.size === studSet.size && [...expSet].every((t) => studSet.has(t));
+                                    const isWrong = isEditable && studentArr.length > 0 && !isCorrect;
                                     return (
                                       <td key={cIdx} style={{
                                         border: "1px solid #cbd5e1",

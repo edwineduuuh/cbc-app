@@ -624,38 +624,63 @@ function MatchingTable({ tableData, answer, onAnswer }) {
   const dataRows = rows.slice(1);
   const { ec, ic, getAnswer } = getMatchingConfig(tableData);
 
-  // Shuffle pool once on mount
-  const [pool] = useState(() =>
-    dataRows
-      .map((row, ri) => ({ key: `${ri + 1}_${ec}`, text: getAnswer(row) }))
-      .sort(() => Math.random() - 0.5),
-  );
+  // A cell's answer may be a COMMA-SEPARATED set of chips. Multi-mode (several
+  // chips per cell + reuse) kicks in when any cell lists >1 chip, or an answer
+  // repeats across rows. Otherwise it stays the classic 1-to-1, used-once flow.
+  const rowTokens = (row) =>
+    getAnswer(row).split(",").map((s) => s.trim()).filter(Boolean);
+  const allTokens = dataRows.flatMap(rowTokens);
+  const distinctTokens = [...new Set(allTokens)];
+  const multiMode =
+    dataRows.some((row) => rowTokens(row).length > 1) ||
+    allTokens.length !== distinctTokens.length;
+
+  // Shuffle the chip pool once on mount.
+  const [pool] = useState(() => {
+    const items = multiMode
+      ? distinctTokens.map((text, i) => ({ key: `t${i}`, text }))
+      : dataRows.map((row, ri) => ({ key: `${ri + 1}_${ec}`, text: getAnswer(row) }));
+    return items.sort(() => Math.random() - 0.5);
+  });
   const [selected, setSelected] = useState(null);
 
-  const ans = typeof answer === "object" && answer ? answer : {};
-  const placedTexts = new Set(Object.values(ans));
-  const available = pool.filter((p) => !placedTexts.has(p.text));
+  // ans[key] is ALWAYS an array of placed chip texts (back-compat: coerce old
+  // single-value answers to arrays).
+  const rawAns = typeof answer === "object" && answer ? answer : {};
+  const ans = {};
+  for (const k in rawAns) {
+    ans[k] = Array.isArray(rawAns[k]) ? rawAns[k] : rawAns[k] ? [rawAns[k]] : [];
+  }
+  const placedAt = (key) => ans[key] || [];
+
+  const placedTexts = new Set(Object.values(ans).flat());
+  // Multi-mode chips are reusable, so the pool always stays available.
+  const available = multiMode ? pool : pool.filter((p) => !placedTexts.has(p.text));
 
   const handleZone = (ri) => {
     const key = `${ri + 1}_${ec}`;
     if (selected) {
       const item = pool.find((p) => p.key === selected);
-      if (item) {
-        // If zone already had something, return it to pool first (implicit — it's excluded from placed)
-        onAnswer({ ...ans, [key]: item.text });
-        setSelected(null);
+      if (!item) return;
+      const cur = placedAt(key);
+      if (multiMode) {
+        if (!cur.includes(item.text)) onAnswer({ ...ans, [key]: [...cur, item.text] });
+      } else {
+        onAnswer({ ...ans, [key]: [item.text] }); // replace (1-to-1)
       }
-    } else if (ans[key]) {
+      setSelected(null);
+    } else if (!multiMode && placedAt(key).length) {
+      // classic: tap a filled zone (no selection) to clear it
       const next = { ...ans };
       delete next[key];
       onAnswer(next);
     }
   };
 
-  const removeFromZone = (key, e) => {
+  const removeChip = (key, text, e) => {
     e.stopPropagation();
-    const next = { ...ans };
-    delete next[key];
+    const next = { ...ans, [key]: placedAt(key).filter((t) => t !== text) };
+    if (next[key].length === 0) delete next[key];
     onAnswer(next);
   };
 
@@ -673,8 +698,10 @@ function MatchingTable({ tableData, answer, onAnswer }) {
         }}
       >
         {selected
-          ? "▶ Now tap the row to place it"
-          : "Step 1 — tap an answer below · Step 2 — tap its match in the table"}
+          ? "▶ Now tap a row to place it"
+          : multiMode
+            ? "Tap an answer, then a row — you can place several per row and reuse the same answer"
+            : "Step 1 — tap an answer below · Step 2 — tap its match in the table"}
       </p>
 
       {/* Table */}
@@ -715,8 +742,8 @@ function MatchingTable({ tableData, answer, onAnswer }) {
           <tbody>
             {dataRows.map((row, ri) => {
               const key = `${ri + 1}_${ec}`;
-              const placed = ans[key];
-              const isTarget = selected && !placed;
+              const placed = placedAt(key);
+              const isTarget = selected && (multiMode || placed.length === 0);
               return (
                 <tr
                   key={ri}
@@ -741,51 +768,56 @@ function MatchingTable({ tableData, answer, onAnswer }) {
                     onClick={() => handleZone(ri)}
                     style={{
                       padding: "10px 14px",
-                      cursor: isTarget || placed ? "pointer" : "default",
+                      cursor: isTarget || placed.length ? "pointer" : "default",
                       borderBottom:
                         ri < dataRows.length - 1 ? "1px solid #f1f5f9" : "none",
                       background: isTarget
                         ? "#eff6ff"
-                        : placed
+                        : placed.length
                           ? "#f0fdf4"
                           : "transparent",
                       transition: "background 0.15s",
                     }}
                   >
-                    {placed ? (
-                      <div
-                        style={{
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "space-between",
-                          gap: 8,
-                        }}
-                      >
-                        <span
-                          style={{
-                            fontSize: 13,
-                            fontWeight: 600,
-                            color: "#065f46",
-                          }}
-                        >
-                          {placed}
-                        </span>
-                        <button
-                          onClick={(e) => removeFromZone(key, e)}
-                          style={{
-                            background: "#fee2e2",
-                            border: "none",
-                            borderRadius: 6,
-                            padding: "2px 7px",
-                            fontSize: 12,
-                            color: "#dc2626",
-                            cursor: "pointer",
-                            fontWeight: 700,
-                            flexShrink: 0,
-                          }}
-                        >
-                          ✕
-                        </button>
+                    {placed.length ? (
+                      <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: 6 }}>
+                        {placed.map((txt, idx) => (
+                          <span
+                            key={idx}
+                            style={{
+                              display: "inline-flex",
+                              alignItems: "center",
+                              gap: 6,
+                              background: "#dcfce7",
+                              borderRadius: 8,
+                              padding: "4px 8px",
+                              fontSize: 13,
+                              fontWeight: 600,
+                              color: "#065f46",
+                            }}
+                          >
+                            {txt}
+                            <button
+                              onClick={(e) => removeChip(key, txt, e)}
+                              style={{
+                                background: "#fee2e2",
+                                border: "none",
+                                borderRadius: 6,
+                                padding: "1px 6px",
+                                fontSize: 11,
+                                color: "#dc2626",
+                                cursor: "pointer",
+                                fontWeight: 700,
+                                flexShrink: 0,
+                              }}
+                            >
+                              ✕
+                            </button>
+                          </span>
+                        ))}
+                        {multiMode && isTarget && (
+                          <span style={{ fontSize: 12, color: "#1a6fc4", fontWeight: 700 }}>+ add</span>
+                        )}
                       </div>
                     ) : (
                       <span
@@ -856,7 +888,7 @@ function MatchingTable({ tableData, answer, onAnswer }) {
           </div>
         </div>
       )}
-      {available.length === 0 && (
+      {!multiMode && available.length === 0 && (
         <p
           style={{
             fontSize: 13,

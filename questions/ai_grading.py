@@ -2104,6 +2104,86 @@ def _grade_with_ai(
 #  QUESTION ROUTER
 # ─────────────────────────────────────────────────────────────────────────────
 
+def _grade_matching_multi(question, cell_answers, editable_cells, rows, max_marks, sw):
+    """Deterministic grading for matching tables where chips are placed into
+    cells. Each cell's correct answer may be a COMMA-SEPARATED set (multiple
+    chips belong there). Per cell: partial credit — each correct chip earns a
+    share, each wrong/extra chip costs the same share, floored at 0 for the cell.
+    Chips are exact authored text, so set comparison (case-insensitive) is exact.
+    """
+    n = len(editable_cells)
+    if not n:
+        return _empty_result(max_marks, "No editable cells found in table.", _near_miss(sw))
+    marks_per_cell = max_marks / n
+    total = 0.0
+    points_earned, points_missed = [], []
+
+    for r_idx, c_idx, correct_answer in editable_cells:
+        key = f"{r_idx}_{c_idx}"
+        # row label = the static (non-editable) cell in this 2-col row
+        try:
+            label = (rows[r_idx][1 - c_idx].get("v") or "").strip() or f"Row {r_idx + 1}"
+        except Exception:
+            label = f"Row {r_idx + 1}"
+
+        # Answer is in the cell's `a`; fall back to its `v` (some teachers type
+        # the correct answer straight into the cell) — matches the chip pool.
+        expected_raw = str(correct_answer)
+        if not expected_raw.strip():
+            try:
+                expected_raw = str(rows[r_idx][c_idx].get("v") or "")
+            except Exception:
+                expected_raw = ""
+        expected = [t.strip() for t in expected_raw.split(",") if t.strip()]
+        exp_set = {_normalise(t) for t in expected}
+
+        raw = cell_answers.get(key, [])
+        student = raw if isinstance(raw, list) else [t.strip() for t in str(raw).split(",") if t.strip()]
+        stud_set = {_normalise(t) for t in student if str(t).strip()}
+
+        if not exp_set:
+            continue
+
+        matched = exp_set & stud_set
+        wrong = stud_set - exp_set
+        frac = min(1.0, max(0.0, (len(matched) - len(wrong)) / len(exp_set)))
+        total += frac * marks_per_cell
+
+        exp_disp = ", ".join(expected)
+        if frac >= 1.0:
+            points_earned.append(f"{label}: {exp_disp} ✓")
+        elif matched:
+            got = ", ".join(student) if student else "(none)"
+            points_earned.append(f"{label}: partly right ({got})")
+            points_missed.append(f"{label}: correct answer is {exp_disp}")
+        else:
+            got = ", ".join(student) if student else "(no answer)"
+            points_missed.append(f"{label}: got {got}, correct answer is {exp_disp}")
+
+    marks_awarded = round(max(0, min(total, max_marks)))
+    is_correct = marks_awarded == max_marks
+
+    if is_correct:
+        feedback = _praise(sw) + (" Jedwali lako lote ni sahihi!" if sw else " Every match is correct!")
+    elif marks_awarded > 0:
+        feedback = (f"Umepata {marks_awarded} kati ya {max_marks} alama." if sw
+                    else f"You got {marks_awarded} out of {max_marks} marks — check the rows you missed.")
+    else:
+        feedback = ("Hakuna seli iliyokuwa sahihi." if sw
+                    else "None matched correctly. Review the question and try again.")
+
+    return {
+        "marks_awarded": marks_awarded,
+        "max_marks": max_marks,
+        "feedback": feedback,
+        "is_correct": is_correct,
+        "personalized_message": _encourage(sw) if is_correct else _near_miss(sw),
+        "study_tip": "",
+        "points_earned": points_earned,
+        "points_missed": points_missed,
+    }
+
+
 def _grade_table(question, student_answer) -> dict:
     """
     Grade a table question.
@@ -2127,17 +2207,28 @@ def _grade_table(question, student_answer) -> dict:
     if not editable_cells:
         return _empty_result(max_marks, "No editable cells found in table.", _near_miss(sw))
 
-    # Normalise student_answer to dict
+    # Normalise student_answer to dict. Values may be a string (typed cells) OR
+    # a list (matching-table chips — possibly several per cell).
+    def _norm_val(v):
+        if isinstance(v, list):
+            return [str(x).strip() for x in v if str(x).strip()]
+        return str(v).strip()
+
     if isinstance(student_answer, dict):
-        cell_answers = {str(k): str(v).strip() for k, v in student_answer.items()}
+        cell_answers = {str(k): _norm_val(v) for k, v in student_answer.items()}
     elif isinstance(student_answer, str):
         try:
-            cell_answers = json.loads(student_answer)
-            cell_answers = {str(k): str(v).strip() for k, v in cell_answers.items()}
+            parsed = json.loads(student_answer)
+            cell_answers = {str(k): _norm_val(v) for k, v in parsed.items()}
         except Exception:
             cell_answers = {}
     else:
         cell_answers = {}
+
+    # ── MATCHING TABLE: chips submitted as lists → deterministic set grading
+    #    (exact, order-agnostic, supports multiple chips per cell + reuse) ────
+    if any(isinstance(v, list) for v in cell_answers.values()):
+        return _grade_matching_multi(question, cell_answers, editable_cells, rows, max_marks, sw)
 
     # ── AI MODE: one holistic call, order-agnostic ──────────────────────────
     if marking == "ai":
