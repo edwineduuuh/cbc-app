@@ -98,7 +98,7 @@ export default async function Image() {
 
         {/* Stats row */}
         <div style={{ display: "flex", gap: 24 }}>
-          {["2 Free Quizzes", "All CBE Subjects", "From KES 149/week"].map((label) => (
+          {["2 Free Quizzes", "All CBE Subjects", "Grades 4–10"].map((label) => (
             <div
               key={label}
               style={{

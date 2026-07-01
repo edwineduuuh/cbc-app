@@ -626,11 +626,6 @@ export default function DashboardPage() {
                 className="bg-linear-to-br from-amber-500 to-orange-600 rounded-2xl p-6 text-white cursor-pointer shadow-lg hover:shadow-xl transition-all relative overflow-hidden group"
               >
                 <div className="absolute inset-0 bg-white/0 group-hover:bg-white/5 transition-all" />
-                <div className="absolute top-3 right-3">
-                  <span className="bg-white/20 backdrop-blur-sm text-white text-xs font-bold px-3 py-1 rounded-full">
-                    From KES 149/wk
-                  </span>
-                </div>
                 <div className="relative">
                   <div className="flex items-center justify-between mb-4">
                     <div className="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center">
