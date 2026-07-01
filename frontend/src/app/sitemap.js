@@ -38,17 +38,8 @@ export default function sitemap() {
       changeFrequency: "weekly",
       priority: 0.7,
     },
-    {
-      url: `${BASE_URL}/dashboard`,
-      lastModified: new Date(),
-      changeFrequency: "daily",
-      priority: 0.6,
-    },
-    {
-      url: `${BASE_URL}/progress`,
-      lastModified: new Date(),
-      changeFrequency: "daily",
-      priority: 0.5,
-    },
+    // NOTE: /dashboard and /progress are intentionally omitted — they are
+    // logged-in-only pages blocked by robots.txt, so listing them here just
+    // triggers "Submitted URL blocked by robots.txt" warnings with no SEO value.
   ];
 }
