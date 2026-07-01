@@ -79,18 +79,37 @@ export const metadata = {
 const structuredData = {
   "@context": "https://schema.org",
   "@type": "EducationalOrganization",
+  // Stable entity id so Google treats this as ONE distinct node (helps separate
+  // us from the unrelated Tanzanian "StadiSpace"/MITZKITS of the same name).
+  "@id": `${BASE_URL}/#organization`,
   name: "StadiSpace",
+  alternateName: "StadiSpace Kenya",
   url: BASE_URL,
+  logo: `${BASE_URL}/og-image.png`,
+  image: `${BASE_URL}/og-image.png`,
   description:
-    "Online CBE learning platform for Kenyan students in Grades 4–10. Interactive quizzes, instant marking of MCQ and structured questions, and detailed progress tracking.",
+    "StadiSpace is a Kenyan online learning platform for CBE (Competency Based Education) students in Grades 4–10. It offers interactive quizzes with instant marking of MCQ and structured questions, an AI-free hand-crafted question bank, and detailed progress tracking. It is a Kenya-based education service and is not affiliated with any other organisation of the same name.",
   address: {
     "@type": "PostalAddress",
     addressCountry: "KE",
   },
-  areaServed: "KE",
+  areaServed: { "@type": "Country", name: "Kenya" },
+  foundingLocation: {
+    "@type": "Place",
+    address: { "@type": "PostalAddress", addressCountry: "KE" },
+  },
   educationalLevel: ["Grade 4", "Grade 5", "Grade 6", "Grade 7", "Grade 8", "Grade 9", "Grade 10"],
   teaches: "Competency Based Education (CBE), Kenya",
-  inLanguage: "en",
+  knowsAbout: [
+    "CBE Kenya",
+    "Kenya primary school revision",
+    "Kenya junior secondary quizzes",
+    "Grades 4-10 practice quizzes",
+  ],
+  inLanguage: "en-KE",
+  // TODO: add sameAs with the official StadiSpace Kenya social profile URLs —
+  // this is the strongest signal that links the brand name to THIS domain.
+  // sameAs: ["https://facebook.com/…", "https://instagram.com/…", ...],
 };
 
 const initThemeScript = `
