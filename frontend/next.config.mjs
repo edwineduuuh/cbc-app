@@ -21,8 +21,11 @@ const nextConfig = {
           { key: "X-Content-Type-Options", value: "nosniff" },
           { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
           {
+            // camera=(self): the "photograph your working" upload uses
+            // capture="environment", so allow the camera for our own origin.
+            // mic/geolocation are unused → fully disabled.
             key: "Permissions-Policy",
-            value: "camera=(), microphone=(), geolocation=(), browsing-topics=()",
+            value: "camera=(self), microphone=(), geolocation=(), browsing-topics=()",
           },
         ],
       },
