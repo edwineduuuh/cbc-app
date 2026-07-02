@@ -40,7 +40,7 @@ def _get_claude():
     errors in threaded parallel grading (ThreadPoolExecutor)."""
     return anthropic.Anthropic(api_key=settings.ANTHROPIC_API_KEY)
 
-CLAUDE_MODEL          = "claude-sonnet-4-6"
+CLAUDE_MODEL          = "claude-opus-4-8"
 # Kiswahili grades on Opus (the strongest model) — NOT Gemini.
 KISWAHILI_MODEL       = "claude-opus-4-8"
 GEMINI_MODEL          = "gemini-2.5-flash"        # legacy, no longer used for grading
