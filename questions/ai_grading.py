@@ -1060,20 +1060,23 @@ OTHER RULES:
                     )
                 else:
                     prompt += (
-                        f"\n\nMARKING SCHEME — the teacher's EXPECTED / SAMPLE correct points "
-                        f"(NOT the complete list of every acceptable answer):\n{scheme_text}\n\n"
-                        "HOW TO MARK — grade like a fair human teacher, not a checklist:\n"
-                        "- Award a mark for EVERY answer the student gives that is genuinely "
-                        "correct for THIS question — whether or not it appears above. Use your "
-                        "subject knowledge (this is a Kenyan CBE subject in English).\n"
-                        "- Judge by MEANING, not wording: if the student's phrasing describes a "
-                        "correct point, award it. Do NOT reject a correct idea as 'too vague' if "
-                        "a fair teacher would accept it.\n"
-                        "- NEVER refuse a mark 'because it is not on the marking scheme' and never "
-                        "say that to the student — if the answer is genuinely correct, it earns "
-                        "the mark.\n"
-                        "- Only withhold a mark when the answer is actually WRONG, irrelevant, or "
-                        "not a real answer to the question. Do NOT invent facts to justify a mark."
+                        f"\n\nACCEPTED ANSWERS — the teacher's authority on what is correct:\n"
+                        f"{scheme_text}\n\n"
+                        "HOW TO MARK — you are a MATCHER, not a judge. Go through the ACCEPTED "
+                        "ANSWERS one by one and, for EACH, decide whether the student mentioned "
+                        "it. Award that answer's mark if they did.\n"
+                        "- Match by MEANING and by NAME — paraphrases, synonyms, and looser "
+                        "phrasing all count. Any description in brackets is for YOUR understanding "
+                        "only; if the question just says 'state/list/name/give', the student "
+                        "NAMING the point (or clearly meaning it) earns the mark — they need NOT "
+                        "reproduce the description. Do NOT reject a real match as 'too vague'.\n"
+                        "- Do NOT use your own outside knowledge to decide correctness, and do NOT "
+                        "dispute whether an accepted answer is 'standard' or 'a real function'. "
+                        "The teacher's list is the authority, not your opinion.\n"
+                        "- A student point that matches NO accepted answer simply earns nothing — "
+                        "kindly show the correct answer. NEVER tell the student their answer is "
+                        "'not in the accepted answers' or 'not on the marking scheme'.\n"
+                        "- Never invent facts of your own."
                     )
             else:
                 prompt += (
