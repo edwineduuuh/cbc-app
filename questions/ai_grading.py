@@ -886,6 +886,15 @@ MARKING RULES:
    - Do NOT explain why wrong options are wrong beyond "the correct answer is X"
    - If teacher gave an explanation, COPY it — do NOT expand or add to it
    - Your Kiswahili/cultural knowledge is UNRELIABLE — stick to teacher's data
+9. "STATE / LIST" vs "EXPLAIN": Only require an explanation or description when the
+   QUESTION itself asks to "explain", "describe", "give reasons", or "state and
+   explain". If the question only says "state / list / name / give / mention", a
+   correct point BY NAME earns its mark in full — do NOT withhold marks, and do NOT
+   tell the student they need to add an explanation.
+10. BE CONSISTENT — no contradictions: a point you count as correct MUST be shown as
+    fully correct. NEVER mark a point correct (✅ / in the "earned" list) and also say
+    it "needs an explanation to earn the mark". If a point only partly earns marks,
+    put it in the missed/partial explanation — never in the earned list.
 
 SEQUENCE / ORDERING QUESTIONS (food chains, timelines, steps):
 - Mark based on whether the student has the RIGHT ITEMS in the RIGHT ORDER
@@ -1042,11 +1051,30 @@ OTHER RULES:
             else:
                 scheme_text = ""
             if scheme_text:
-                prompt += (
-                    f"\n\nMARKING SCHEME (follow exactly — award marks only for "
-                    f"these specific points, do NOT use your own judgment):\n"
-                    f"{scheme_text}"
-                )
+                if sw:
+                    # Kiswahili: AI knowledge is unreliable — grade strictly to
+                    # the teacher's scheme, never accept unlisted answers.
+                    prompt += (
+                        f"\n\nMARKING SCHEME (grade STRICTLY against these points; do "
+                        f"NOT accept unlisted answers, do NOT invent facts):\n{scheme_text}"
+                    )
+                else:
+                    prompt += (
+                        f"\n\nMARKING SCHEME — the teacher's EXPECTED / SAMPLE correct points "
+                        f"(NOT the complete list of every acceptable answer):\n{scheme_text}\n\n"
+                        "HOW TO MARK — grade like a fair human teacher, not a checklist:\n"
+                        "- Award a mark for EVERY answer the student gives that is genuinely "
+                        "correct for THIS question — whether or not it appears above. Use your "
+                        "subject knowledge (this is a Kenyan CBE subject in English).\n"
+                        "- Judge by MEANING, not wording: if the student's phrasing describes a "
+                        "correct point, award it. Do NOT reject a correct idea as 'too vague' if "
+                        "a fair teacher would accept it.\n"
+                        "- NEVER refuse a mark 'because it is not on the marking scheme' and never "
+                        "say that to the student — if the answer is genuinely correct, it earns "
+                        "the mark.\n"
+                        "- Only withhold a mark when the answer is actually WRONG, irrelevant, or "
+                        "not a real answer to the question. Do NOT invent facts to justify a mark."
+                    )
             else:
                 prompt += (
                     f"\n\nEXPECTED ANSWER (follow exactly):\n"
