@@ -1060,23 +1060,21 @@ OTHER RULES:
                     )
                 else:
                     prompt += (
-                        f"\n\nACCEPTED ANSWERS — the teacher's authority on what is correct:\n"
-                        f"{scheme_text}\n\n"
-                        "HOW TO MARK — you are a MATCHER, not a judge. Go through the ACCEPTED "
-                        "ANSWERS one by one and, for EACH, decide whether the student mentioned "
-                        "it. Award that answer's mark if they did.\n"
-                        "- Match by MEANING and by NAME — paraphrases, synonyms, and looser "
-                        "phrasing all count. Any description in brackets is for YOUR understanding "
-                        "only; if the question just says 'state/list/name/give', the student "
-                        "NAMING the point (or clearly meaning it) earns the mark — they need NOT "
-                        "reproduce the description. Do NOT reject a real match as 'too vague'.\n"
-                        "- Do NOT use your own outside knowledge to decide correctness, and do NOT "
-                        "dispute whether an accepted answer is 'standard' or 'a real function'. "
-                        "The teacher's list is the authority, not your opinion.\n"
-                        "- A student point that matches NO accepted answer simply earns nothing — "
-                        "kindly show the correct answer. NEVER tell the student their answer is "
-                        "'not in the accepted answers' or 'not on the marking scheme'.\n"
-                        "- Never invent facts of your own."
+                        f"\n\nEXPECTED ANSWERS — a GUIDE to correct points (usually NOT the full "
+                        f"list; most questions have more correct answers than shown):\n{scheme_text}\n\n"
+                        "HOW TO MARK — grade like a fair, GENEROUS teacher marking a revision quiz. "
+                        "The golden rule: NEVER mark a correct answer wrong.\n"
+                        "- Award the mark for ANY point the student gives that correctly answers "
+                        "the question — whether or not it is listed above. The list is a guide, not "
+                        "a ceiling.\n"
+                        "- Match listed points by MEANING — paraphrases, synonyms and looser "
+                        "phrasing all count. Naming a point is enough unless the question says "
+                        "'explain/describe'.\n"
+                        "- For a point NOT listed: award it if it is a genuinely correct answer to "
+                        "THIS question. When it is a borderline judgment call, FAVOUR THE STUDENT.\n"
+                        "- ONLY withhold a mark when the answer is clearly WRONG, irrelevant, or "
+                        "off-topic. Do NOT invent facts, and NEVER say 'not on the marking scheme'.\n"
+                        "- Award partial marks fairly; never exceed the max."
                     )
             else:
                 prompt += (
