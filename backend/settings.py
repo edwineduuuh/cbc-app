@@ -65,6 +65,7 @@ else:
     DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 INSTALLED_APPS = [
+    'jazzmin',  # must come BEFORE django.contrib.admin — themes the admin UI
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -301,4 +302,42 @@ LOGGING = {
         'sms':    {'handlers': ['console'], 'level': 'DEBUG', 'propagate': False},
         'mpesa':  {'handlers': ['console'], 'level': 'DEBUG', 'propagate': False},
     },
+}
+
+# ── Jazzmin — pretty Django admin ──────────────────────────────────────────────
+JAZZMIN_SETTINGS = {
+    "site_title": "StadiSpace Admin",
+    "site_header": "StadiSpace",
+    "site_brand": "StadiSpace",
+    "welcome_sign": "Welcome to StadiSpace Admin",
+    "copyright": "StadiSpace",
+    "search_model": ["users.User", "questions.Question", "questions.Quiz"],
+    "topmenu_links": [
+        {"name": "Home", "url": "admin:index"},
+        {"name": "View site", "url": "https://stadispace.co.ke", "new_window": True},
+    ],
+    "icons": {
+        "users.User": "fas fa-user-graduate",
+        "auth.Group": "fas fa-users",
+        "questions.Subject": "fas fa-graduation-cap",
+        "questions.Topic": "fas fa-layer-group",
+        "questions.Question": "fas fa-circle-question",
+        "questions.Quiz": "fas fa-list-check",
+        "questions.Attempt": "fas fa-pen-to-square",
+        "questions.Passage": "fas fa-book-open",
+        "questions.SubscriptionPlan": "fas fa-tags",
+        "questions.Subscription": "fas fa-star",
+        "questions.PaymentRequest": "fas fa-money-bill-wave",
+        "questions.MotivationalContent": "fas fa-heart",
+    },
+    "show_ui_builder": True,   # a live theme customiser appears in the admin
+    "changeform_format": "horizontal_tabs",
+}
+
+JAZZMIN_UI_TWEAKS = {
+    "theme": "flatly",              # clean, friendly light theme
+    "navbar": "navbar-dark",
+    "sidebar": "sidebar-dark-primary",
+    "sidebar_nav_flat_style": True,
+    "actions_sticky_top": True,
 }
