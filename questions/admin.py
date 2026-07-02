@@ -163,11 +163,52 @@ class QuizAdmin(admin.ModelAdmin):
 
 @admin.register(Attempt)
 class AttemptAdmin(admin.ModelAdmin):
-    list_display = ['student', 'quiz', 'score', 'status', 'started_at', 'completed_at']
-    list_filter = ['status', 'quiz__grade', 'quiz__subject']
+    list_display = ['student', 'quiz', 'score', 'marks_overridden', 'status', 'started_at', 'completed_at']
+    list_filter = ['status', 'marks_overridden', 'quiz__grade', 'quiz__subject']
     search_fields = ['student__username', 'quiz__title']
-    readonly_fields = ['started_at', 'completed_at', 'score', 'total_questions', 'correct_answers']
+    # Marks are now EDITABLE so an admin can override a grade the AI got wrong.
+    # Identity + timestamps + the student's raw answers stay locked.
+    readonly_fields = ['started_at', 'completed_at', 'student', 'quiz', 'total_questions', 'answers']
+    fields = [
+        'student', 'quiz', 'status',
+        'score', 'total_marks_awarded', 'total_max_marks', 'correct_answers',
+        'detailed_feedback', 'marks_overridden', 'override_note',
+        'total_questions', 'answers', 'started_at', 'completed_at',
+    ]
     ordering = ['-started_at']
+    actions = ['recompute_from_feedback']
+
+    @admin.action(description="Recompute score from the per-question marks (detailed_feedback)")
+    def recompute_from_feedback(self, request, queryset):
+        """After editing a question's marks_awarded in detailed_feedback, run this to
+        re-total the attempt and update the student's score. Flags it as overridden."""
+        updated = 0
+        for att in queryset:
+            fb = att.detailed_feedback or {}
+            items = fb.values() if isinstance(fb, dict) else (fb if isinstance(fb, list) else [])
+            awarded = max_marks = 0.0
+            for it in items:
+                if isinstance(it, dict):
+                    awarded += float(it.get('marks_awarded') or 0)
+                    max_marks += float(it.get('max_marks') or 0)
+            if max_marks > 0:
+                att.total_marks_awarded = awarded
+                att.total_max_marks = max_marks
+                att.score = round(awarded / max_marks * 100, 1)
+                att.marks_overridden = True
+                att.save(update_fields=[
+                    'total_marks_awarded', 'total_max_marks', 'score', 'marks_overridden',
+                ])
+                updated += 1
+        self.message_user(request, f"Recomputed {updated} attempt(s) from per-question marks.")
+
+    def save_model(self, request, obj, form, change):
+        # Any manual edit to the marks flags the attempt as human-overridden.
+        if change and any(f in form.changed_data for f in
+                          ('score', 'total_marks_awarded', 'total_max_marks',
+                           'correct_answers', 'detailed_feedback')):
+            obj.marks_overridden = True
+        super().save_model(request, obj, form, change)
 
    
 @admin.register(AIGradingSettings)

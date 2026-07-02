@@ -433,7 +433,17 @@ class Attempt(models.Model):
         blank=True,
         help_text='Question-by-question AI feedback'
     )
-    
+
+    # Human mark override (audit trail) — lets an admin correct the AI's grade.
+    marks_overridden = models.BooleanField(
+        default=False,
+        help_text="A human corrected the AI's marks on this attempt",
+    )
+    override_note = models.TextField(
+        blank=True, default="",
+        help_text="Why the marks were overridden (audit trail)",
+    )
+
     class Meta:
         db_table = 'attempts'
         ordering = ['-started_at']
