@@ -183,9 +183,13 @@ def _no_answer_result(question, sw: bool) -> dict:
         # structured/essay answers often live in the marking scheme, not correct_answer
         if not correct_display:
             correct_display = _model_answer_from_scheme(getattr(question, "marking_scheme", None))
+        # a scheme-derived model answer can carry machinery — never show that raw
+        if _looks_like_scheme_machinery(correct_display):
+            correct_display = _scrub_machinery(correct_display)
 
-    # The teacher's explanation (cleaned) — surfaced even when unanswered.
-    admin_expl = _clean_explanation_text(getattr(question, "explanation", "") or "")
+    # The teacher's explanation — surfaced even when unanswered, but student-safe
+    # (machinery rewritten into teaching, or hidden — never dumped raw).
+    admin_expl = _studentize_explanation(question, getattr(question, "explanation", "") or "", sw)
 
     if sw:
         fb = "Hujajibu swali hili."
@@ -1586,6 +1590,98 @@ def _present_explanation(question, admin_expl: str, sw: bool) -> str:
     return shown
 
 
+# ── Scheme-machinery detection & studentizing ─────────────────────────────────
+# Teachers sometimes author the `explanation` (or marking scheme) as INTERNAL
+# grader instructions — "the API should validate…", "Category 1: … Acceptable
+# Concepts: …", "API Evaluation Override Rule: ACCEPT_ANY_VALID_ALTERNATIVE: True",
+# mark tallies, etc. That is backstage plumbing a STUDENT must never see. These
+# helpers detect it and turn it into a clean, warm, student-facing explanation.
+_SCHEME_MACHINERY_RE = re.compile(
+    r'(the\s+api\b|\bapi\b|override\s+rule|accept_any|acceptable\s+concepts?|'
+    r'marking\s+(scheme|pool|guide)|category\s*\d|\bvalidate\b|award\s+\d+\s+marks?|'
+    r'\(\s*max\s+\d+\s+marks?\s*\)|from\s+this\s+database|\bdatabase\b|evaluation\s+rule)',
+    re.I,
+)
+
+
+def _looks_like_scheme_machinery(text: str) -> bool:
+    return bool(text and _SCHEME_MACHINERY_RE.search(text))
+
+
+def _scrub_machinery(text: str) -> str:
+    """Defensive net: drop any LINE that is clearly grader machinery (in case the
+    AI echoed the marking scheme back). Keeps ordinary sentences untouched."""
+    s = (text or "").strip()
+    if not s:
+        return ""
+    kept = [ln for ln in s.splitlines() if not _looks_like_scheme_machinery(ln)]
+    return re.sub(r'\n{3,}', '\n\n', "\n".join(kept)).strip()
+
+
+def _ai_studentize(raw: str, grade, question_text: str) -> str:
+    """Rewrite internal grader notes into a short explanation spoken TO the
+    student. Presents the same concepts — invents no new facts — and strips ALL
+    machinery (API, database, categories, override rules, mark tallies)."""
+    prompt = f"""The notes below were written by a teacher as an INTERNAL marking guide for a Grade {grade} question. They are written for the grading system, NOT for the student, and contain backstage machinery.
+
+Rewrite them as a short, warm EXPLANATION spoken directly TO THE STUDENT, teaching why the correct answers are correct.
+
+STRICT RULES:
+- Plain, encouraging language a Grade {grade} student understands.
+- NEVER mention "the API", "the system", a "database", a "marking scheme", "categories", "acceptable concepts", "override rules", "evaluation rules", or ANY mark tallies (e.g. "award 1 mark", "max 4 marks"). The student must never see backstage machinery.
+- Explain the ACTUAL subject concepts only. Cover the same points the notes contain — do NOT invent new facts or add examples that aren't there.
+- 2 to 4 sentences. No headings, no labels, no bullets, no preamble. Output ONLY the explanation text.
+
+QUESTION: {question_text}
+
+TEACHER'S INTERNAL NOTES:
+{raw}"""
+    return _call_claude(prompt, max_tokens=350, model=CLAUDE_MODEL).strip()
+
+
+def _studentize_explanation(question, admin_expl: str, sw: bool) -> str:
+    """Return a student-safe explanation. Clean teacher prose is passed through
+    (deterministic label-strip only). Grader machinery is rewritten by the AI
+    into student-facing teaching — or, if that can't be done safely (Kiswahili,
+    where AI grammar is unreliable; or the AI still leaks), HIDDEN rather than
+    dumped raw. Cached per question/part."""
+    admin_expl = (admin_expl or "").strip()
+    if not admin_expl:
+        return ""
+    if not _looks_like_scheme_machinery(admin_expl):
+        # ordinary teacher prose — keep it, just strip authoring labels
+        return _clean_explanation_text(admin_expl)
+    # machinery present — must NOT show it raw
+    if sw:
+        # never risk AI-authored Kiswahili grammar; showing nothing beats machinery
+        return ""
+
+    cache = getattr(question, "cached_ai_explanation", None)
+    if (isinstance(cache, dict) and cache.get("expl_src") == admin_expl
+            and cache.get("mode") == "student"):
+        return cache.get("shown", "")
+
+    grade = getattr(getattr(question, "topic", None), "grade", "") or ""
+    q_text = getattr(question, "question_text", "") or ""
+    try:
+        shown = _ai_studentize(admin_expl, grade, q_text)
+    except Exception:
+        shown = ""
+    shown = _clean_explanation_text(shown)
+    if _looks_like_scheme_machinery(shown):   # AI still leaked → drop entirely
+        shown = ""
+
+    payload = {"expl_src": admin_expl, "shown": shown, "mode": "student"}
+    try:
+        from .models import Question, QuestionPart
+        model = QuestionPart if getattr(question, "_is_part", False) else Question
+        model.objects.filter(pk=question.id).update(cached_ai_explanation=payload)
+        question.cached_ai_explanation = payload
+    except Exception:
+        pass
+    return shown
+
+
 def _mcq_det_result(question, is_correct, correct_display, sw, admin_expl):
     """Deterministic MCQ result with NO AI. Serves the teacher's explanation
     (cleaned, never reworded) if one exists. Works for cloze/multipart parts too
@@ -2932,7 +3028,12 @@ def _augment_feedback(question, result: dict) -> dict:
     except Exception:
         sw = False
 
-    admin_expl = (getattr(question, "explanation", "") or "").strip()
+    # Present the teacher's explanation to the student CLEANLY — never dump raw
+    # grader machinery ("the API should validate…", category tables, override
+    # rules). _studentize_explanation rewrites machinery into student teaching
+    # (or hides it) and passes clean prose straight through.
+    raw_expl = (getattr(question, "explanation", "") or "").strip()
+    admin_expl = _studentize_explanation(question, raw_expl, sw)
     # Only surface the admin explanation when grading produced NO explanation of
     # its own (e.g. bare Kiswahili "Jibu sahihi: C"). If the feedback already
     # explains, appending again just duplicates it.
@@ -2942,6 +3043,13 @@ def _augment_feedback(question, result: dict) -> dict:
         result["explanation"] = admin_expl
         label = "Maelezo" if sw else "Explanation"
         result["feedback"] = f"{fb}\n\n{label}: {admin_expl}".strip()
+
+    # Safety net: even the grader's OWN feedback/tip can echo the scheme back
+    # (it's fed the marking scheme). Strip any line that is clearly machinery so
+    # "API Evaluation Override Rule: …" can never reach a student.
+    for _k in ("feedback", "study_tip", "explanation"):
+        if _looks_like_scheme_machinery(result.get(_k, "")):
+            result[_k] = _scrub_machinery(result.get(_k, ""))
 
     if not (result.get("personalized_message") or "").strip():
         if result.get("is_correct"):
