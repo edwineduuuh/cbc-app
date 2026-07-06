@@ -15,7 +15,7 @@ from concurrent.futures import ThreadPoolExecutor, TimeoutError as FuturesTimeou
 
 import anthropic
 from django.conf import settings
-from django.core.cache import cache
+from django.core.cache import cache, caches
 from google import genai as genai_client
 from google.genai import types
 from sympy import N, simplify, sympify
@@ -43,6 +43,10 @@ def _get_claude():
 CLAUDE_MODEL          = "claude-opus-4-8"
 # Kiswahili grades on Opus (the strongest model) — NOT Gemini.
 KISWAHILI_MODEL       = "claude-opus-4-8"
+# Explanation cleanup (rephrasing teacher text for students) is NOT grading —
+# it needs no frontier judgment, so it runs on cheap Haiku. GRADING stays on
+# Opus. Kiswahili explanations still use Opus (grammar reliability).
+EXPLANATION_MODEL     = "claude-haiku-4-5"
 GEMINI_MODEL          = "gemini-2.5-flash"        # legacy, no longer used for grading
 GEMINI_FALLBACK_MODEL = "gemini-2.5-pro"          # legacy, no longer used for grading
 # Opus 4.7/4.8 reject sampling params (temperature) — omit them for these models.
@@ -61,6 +65,20 @@ MAX_ANSWER_LENGTH     = 5000
 
 # Cache TTL for graded answers (24 hours)
 GRADE_CACHE_TTL       = 86400
+
+# Graded answers live in the DB-backed 'grades' cache (shared across workers,
+# survives restarts). Fall back to the default cache if it isn't configured.
+try:
+    grade_cache = caches['grades']
+except Exception:
+    grade_cache = cache
+
+# Prompt-caching breakpoint. _build_marking_prompt inserts this marker between
+# the big STATIC instruction preamble and the per-question content; _call_claude
+# splits on it and marks the prefix cache_control=ephemeral. The model reads the
+# exact same text (marker stripped), so grading is byte-for-byte unchanged — it
+# just bills the repeated preamble at ~10% after the first call within 5 min.
+_CACHE_BREAK = "\x00\x00STADI_CACHE_BREAK\x00\x00"
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -596,12 +614,24 @@ def _call_claude(
                 "data": img_data,
             },
         })
+        text = prompt + "\n\nThe student has shared a photo of their working above."
+    else:
+        text = prompt
+
+    # Prompt caching: if the prompt carries a cache breakpoint, send the static
+    # preamble as its own cache_control block and the per-question tail as a
+    # second block. prefix + tail == the original text exactly, so the model's
+    # input is unchanged — only the repeated preamble gets billed at cache rates.
+    if _CACHE_BREAK in text:
+        prefix, tail = text.split(_CACHE_BREAK, 1)
         content.append({
             "type": "text",
-            "text": prompt + "\n\nThe student has shared a photo of their working above.",
+            "text": prefix,
+            "cache_control": {"type": "ephemeral"},
         })
+        content.append({"type": "text", "text": tail})
     else:
-        content.append({"type": "text", "text": prompt})
+        content.append({"type": "text", "text": text})
 
     params = {
         "model": model,
@@ -991,6 +1021,11 @@ OTHER RULES:
 - No hard vocabulary without explaining it simply
 - Do NOT repeat the question back to the student
 """
+
+    # Cache breakpoint: everything above is the STATIC instruction preamble
+    # (stable per grade / type / language / has_image) — mark it cacheable.
+    # Everything below is per-question and changes on every call.
+    prompt += _CACHE_BREAK
 
     # ── Question text ─────────────────────────────────────────────────────────
     q_text = question.question_text
@@ -1558,7 +1593,7 @@ RULES:
 
 TEACHER'S EXPLANATION:
 {admin_expl}"""
-    model = KISWAHILI_MODEL if sw else CLAUDE_MODEL
+    model = KISWAHILI_MODEL if sw else EXPLANATION_MODEL
     return _call_claude(prompt, max_tokens=500, model=model).strip()
 
 
@@ -1636,7 +1671,7 @@ QUESTION: {question_text}
 
 TEACHER'S INTERNAL NOTES:
 {raw}"""
-    return _call_claude(prompt, max_tokens=350, model=CLAUDE_MODEL).strip()
+    return _call_claude(prompt, max_tokens=350, model=EXPLANATION_MODEL).strip()
 
 
 def _studentize_explanation(question, admin_expl: str, sw: bool) -> str:
@@ -3084,11 +3119,24 @@ def grade_answer(
     """
     parts = list(question.parts.all())
 
-    # Cache lookup (skip for image submissions — unique every time)
+    # Cache lookup (skip only for image submissions — those are unique every
+    # time). Covers single-answer AND multipart questions: an identical answer
+    # is graded once, ever, and reused across every student and restart.
     cache_key = None
-    if not working_image and not parts and isinstance(student_answer, str):
-        cache_key = _grade_cache_key(question.id, student_answer)
-        cached = cache.get(cache_key)
+    if not working_image:
+        if isinstance(student_answer, str):
+            cache_key = _grade_cache_key(question.id, student_answer)
+        elif isinstance(student_answer, dict):
+            try:
+                canon = json.dumps(student_answer, sort_keys=True, ensure_ascii=False)
+            except Exception:
+                canon = str(student_answer)
+            cache_key = _grade_cache_key(question.id, canon)
+    if cache_key:
+        try:
+            cached = grade_cache.get(cache_key)
+        except Exception:
+            cached = None  # e.g. cache table not yet created — grade normally
         if cached:
             print(f"✅ Cache hit for Q{question.id}")
             return cached
@@ -3105,10 +3153,10 @@ def grade_answer(
     # Always surface the admin explanation + an acknowledgement (premium feel)
     result = _augment_feedback(question, result)
 
-    # Cache the result
+    # Cache the result (persistent, shared across workers)
     if cache_key:
         try:
-            cache.set(cache_key, result, GRADE_CACHE_TTL)
+            grade_cache.set(cache_key, result, GRADE_CACHE_TTL)
         except Exception:
             pass  # Cache failures should never block grading
 

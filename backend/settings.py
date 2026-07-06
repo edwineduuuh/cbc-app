@@ -130,10 +130,21 @@ DATABASES = {
 }
 
 CACHES = {
+    # Fast per-process cache for transient counters/flags.
     'default': {
         'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
         'TIMEOUT': 86400,  # 24 hours
-    }
+    },
+    # Graded answers: DB-backed so they PERSIST across restarts AND are SHARED
+    # across all worker processes. Without this the same answer is re-graded
+    # (and re-billed to the AI) after every restart and on every other worker.
+    # Requires the cache table: `python manage.py createcachetable` (idempotent —
+    # safe to run on every deploy). Grading degrades gracefully if it's missing.
+    'grades': {
+        'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
+        'LOCATION': 'stadispace_grade_cache',
+        'TIMEOUT': 86400,  # 24 hours
+    },
 }
 # Password validation
 # https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators
