@@ -43,10 +43,11 @@ def _get_claude():
 CLAUDE_MODEL          = "claude-opus-4-8"
 # Kiswahili grades on Opus (the strongest model) — NOT Gemini.
 KISWAHILI_MODEL       = "claude-opus-4-8"
-# Explanation cleanup (rephrasing teacher text for students) is NOT grading —
-# it needs no frontier judgment, so it runs on cheap Haiku. GRADING stays on
-# Opus. Kiswahili explanations still use Opus (grammar reliability).
-EXPLANATION_MODEL     = "claude-haiku-4-5"
+# Explanation cleanup (rephrasing teacher text for students). Kept on Opus by
+# choice — everything the student sees runs on the top model. (This is a small,
+# cached cost; the real savings come from prompt caching + the persistent grade
+# cache, which are quality-neutral.)
+EXPLANATION_MODEL     = "claude-opus-4-8"
 GEMINI_MODEL          = "gemini-2.5-flash"        # legacy, no longer used for grading
 GEMINI_FALLBACK_MODEL = "gemini-2.5-pro"          # legacy, no longer used for grading
 # Opus 4.7/4.8 reject sampling params (temperature) — omit them for these models.
