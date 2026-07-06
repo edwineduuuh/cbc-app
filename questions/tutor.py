@@ -34,13 +34,23 @@ def _get_claude():
 
 
 def _call_claude(system: str, messages: list, max_tokens: int = 3000,
-                 model: str = CLAUDE_MODEL) -> str:
+                 model: str = CLAUDE_MODEL, cache_system: bool = True) -> str:
     # NB: no `temperature` — Opus 4.8 rejects sampling params (400). Sonnet is
     # fine without it too.
+    #
+    # Prompt caching: send the system prompt as a cache_control block so a
+    # repeated prefix is billed at ~10% instead of full price. The model reads
+    # the exact same text — output is unchanged. (Blocks below the cache minimum
+    # are silently not cached, so this is always safe.)
+    system_param = [{
+        "type": "text",
+        "text": system,
+        **({"cache_control": {"type": "ephemeral"}} if cache_system else {}),
+    }]
     response = _get_claude().messages.create(
         model=model,
         max_tokens=max_tokens,
-        system=system,
+        system=system_param,
         messages=messages,
     )
     # Return the first text block (robust whether or not thinking is on).
@@ -308,5 +318,21 @@ def tutor_chat(topic, history: list, attachment: dict = None, max_tokens: int = 
             block,
             {"type": "text", "text": messages[-1]["content"] or "Please look at this."},
         ]
+
+    # Prompt caching: mark the end of the conversation history (everything
+    # BEFORE the newest question) as a cache breakpoint. Each new message then
+    # bills the whole prior thread at ~10% and pays full price only for the new
+    # turn. Byte-identical to the model — the reply is unchanged. Short early
+    # threads fall below the cache minimum and are simply not cached (no cost).
+    if len(messages) >= 2:
+        prev = messages[-2]
+        if isinstance(prev["content"], str):
+            prev["content"] = [{
+                "type": "text", "text": prev["content"],
+                "cache_control": {"type": "ephemeral"},
+            }]
+        elif isinstance(prev["content"], list) and prev["content"]:
+            prev["content"][-1] = {**prev["content"][-1],
+                                   "cache_control": {"type": "ephemeral"}}
 
     return _call_claude(system, messages, max_tokens=max_tokens, model=CLAUDE_CHAT_MODEL)
