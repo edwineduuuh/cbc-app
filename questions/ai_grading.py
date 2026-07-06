@@ -1632,10 +1632,27 @@ def _present_explanation(question, admin_expl: str, sw: bool) -> str:
 # Concepts: …", "API Evaluation Override Rule: ACCEPT_ANY_VALID_ALTERNATIVE: True",
 # mark tallies, etc. That is backstage plumbing a STUDENT must never see. These
 # helpers detect it and turn it into a clean, warm, student-facing explanation.
+# BROAD detector — decides whether an explanation needs a clean AI rewrite.
+# Over-triggering is safe here: it just means the teacher's text gets rephrased
+# into student prose (still faithful, machinery stripped). Under-triggering is
+# what's dangerous (raw machinery leaks), so this errs toward catching more:
+# API/database talk, "acceptable concepts", "marking scheme/pool", "sample
+# answers", mark tallies ("4 x 1 = 4 marks", "Any 4", "4 marks"), category lists.
 _SCHEME_MACHINERY_RE = re.compile(
     r'(the\s+api\b|\bapi\b|override\s+rule|accept_any|acceptable\s+concepts?|'
-    r'marking\s+(scheme|pool|guide)|category\s*\d|\bvalidate\b|award\s+\d+\s+marks?|'
+    r'marking\s+(scheme|pool|guide)|sample\s+answers?|category\s*\d|\bvalidate\b|'
+    r'\bany\s+\d+\b|\d+\s*[x×*]\s*\d+|\d+\s*marks?\b|award\s+\d+|'
     r'\(\s*max\s+\d+\s+marks?\s*\)|from\s+this\s+database|\bdatabase\b|evaluation\s+rule)',
+    re.I,
+)
+
+# NARROW detector — used only to DELETE a line from the grader's own feedback as
+# a last-resort scrub. Must be UNAMBIGUOUS machinery so it never eats a real
+# feedback sentence that merely mentions a number ("you gave 2 correct points").
+_HARD_MACHINERY_RE = re.compile(
+    r'(the\s+api\b|api\s+evaluation|override\s+rule|accept_any|acceptable\s+concepts?|'
+    r'marking\s+(scheme|pool)|sample\s+answers?|from\s+this\s+database|'
+    r'evaluation\s+rule|\d+\s*[x×]\s*\d+\s*=)',
     re.I,
 )
 
@@ -1645,12 +1662,13 @@ def _looks_like_scheme_machinery(text: str) -> bool:
 
 
 def _scrub_machinery(text: str) -> str:
-    """Defensive net: drop any LINE that is clearly grader machinery (in case the
-    AI echoed the marking scheme back). Keeps ordinary sentences untouched."""
+    """Defensive net: drop any LINE that is UNAMBIGUOUS grader machinery (in case
+    the AI echoed the marking scheme back). Uses the narrow detector so ordinary
+    feedback sentences — even ones mentioning a number — are never removed."""
     s = (text or "").strip()
     if not s:
         return ""
-    kept = [ln for ln in s.splitlines() if not _looks_like_scheme_machinery(ln)]
+    kept = [ln for ln in s.splitlines() if not _HARD_MACHINERY_RE.search(ln)]
     return re.sub(r'\n{3,}', '\n\n', "\n".join(kept)).strip()
 
 
