@@ -2026,18 +2026,26 @@ export default function QuizTakePage({ params }) {
     })();
   }, [quizId, user, guestSessionFromUrl, router]);
 
-  // Preload EVERY question's image in the background the moment the quiz loads,
-  // so a timed student never has to wait for an image when they reach it.
+  // Preload EVERY image the quiz can show — question images AND MCQ option
+  // images — the moment the quiz loads, so a timed student never waits for an
+  // image when they reach a question. Same Cloudinary transform used at render
+  // so the preloaded URL is the exact one the browser will request.
   useEffect(() => {
     if (!questions.length || typeof window === "undefined") return;
-    const preloaded = [];
+    const urls = new Set();
     questions.forEach((q) => {
-      if (q.question_image_url) {
-        const im = new window.Image();
-        im.decoding = "async";
-        im.src = cldOptimize(q.question_image_url);
-        preloaded.push(im);
-      }
+      if (q.question_image_url) urls.add(cldOptimize(q.question_image_url));
+      ["a", "b", "c", "d"].forEach((lc) => {
+        const u = q[`option_${lc}_image_url`];
+        if (u) urls.add(cldOptimize(u));
+      });
+    });
+    const preloaded = [];
+    urls.forEach((src) => {
+      const im = new window.Image();
+      im.decoding = "async";
+      im.src = src;
+      preloaded.push(im);
     });
     return () => preloaded.forEach((im) => (im.src = ""));
   }, [questions]);

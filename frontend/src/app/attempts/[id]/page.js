@@ -897,6 +897,25 @@ export default function AttemptResultsPage() {
     return () => clearInterval(pollRef.current);
   }, [params.id, user, router, fetchResults, fetchCreditsStatus, startPolling]);
 
+  // Preload EVERY image the results page will show the instant results arrive,
+  // so the student never waits on an image while scrolling their feedback. Uses
+  // the raw URL — the exact one rendered below (this page doesn't cldOptimize).
+  useEffect(() => {
+    if (!results || typeof window === "undefined") return;
+    const fb = results.detailed_feedback || {};
+    const preloaded = [];
+    Object.values(fb).forEach((item) => {
+      const url = item && item.question_image_url;
+      if (url) {
+        const im = new window.Image();
+        im.decoding = "async";
+        im.src = url;
+        preloaded.push(im);
+      }
+    });
+    return () => preloaded.forEach((im) => (im.src = ""));
+  }, [results]);
+
   useEffect(() => {
     const currentPath = window.location.pathname;
     window.history.replaceState(null, "", currentPath);
