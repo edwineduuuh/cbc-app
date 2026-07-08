@@ -1204,7 +1204,7 @@ MAX MARKS: {max_marks}
 {{
   "marks_awarded": <integer between 0 and {max_marks}>,
   "is_correct": <true if marks_awarded == {max_marks}, else false>,
-  "feedback": "<Start with 'Correct!' if is_correct is true, or 'Not quite.' if false. Then 4-6 sentences separated by \\n. For list questions (state X reasons/characteristics/examples): after the opening line, put EACH point's explanation on its OWN LINE — never cram multiple point explanations into one paragraph sentence. Do NOT add a closing summary sentence. ALWAYS wrap any maths in dollar signs: inline as $x = 4$ and display as $$\\frac{{1}}{{2}}bh$$. NEVER write bare LaTeX without dollar signs.>",
+  "feedback": "<Start with EXACTLY one opener: 'Correct!' if marks_awarded equals {max_marks}; 'Partially correct.' if marks_awarded is between 1 and {max_marks}-1 (they got some but not all); or 'Not quite.' only if marks_awarded is 0. NEVER say 'Not quite.' when the student earned some marks. Then 4-6 sentences separated by \\n. For list questions (state X reasons/characteristics/examples): after the opening line, put EACH point's explanation on its OWN LINE — never cram multiple point explanations into one paragraph sentence. Do NOT add a closing summary sentence. ALWAYS wrap any maths in dollar signs: inline as $x = 4$ and display as $$\\frac{{1}}{{2}}bh$$. NEVER write bare LaTeX without dollar signs.>",
   "study_tip": "<{study_tip_instruction}>",
   "points_earned": ["<what student got right. Wrap any math in $...$>"],
   "points_missed": ["<what student missed. Wrap any math in $...$>"]
@@ -2202,11 +2202,23 @@ def _grade_with_ai(
 
         feedback = result.get("feedback", "")
         _sw_here = _is_kiswahili(question)
-        _strip_prefix = lambda f: re.sub(r'^(Correct!|Not quite\.|Vizuri!|Jibu si sahihi\.)\s*', '', f)
-        if marks == question.max_marks and re.match(r'^(not quite|jibu si sahihi)', feedback.strip().lower()):
-            feedback = ("Vizuri! " if _sw_here else "Correct! ") + _strip_prefix(feedback)
-        elif marks < question.max_marks and re.match(r'^(correct!|vizuri!)', feedback.strip().lower()):
-            feedback = ("Jibu si sahihi. " if _sw_here else "Not quite. ") + _strip_prefix(feedback)
+        # Deterministic THREE-state verdict so a partial score never reads as a
+        # failure: full marks -> "Correct!", some-but-not-all -> "Partially
+        # correct.", zero -> "Not quite.". Strip whatever opener the model used
+        # (any language) and prepend the right one for the marks actually given.
+        _strip_prefix = lambda f: re.sub(
+            r'^(correct!|not quite\.?|partially correct\.?|vizuri!|'
+            r'jibu si sahihi\.?|sehemu ni sahihi\.?)\s*',
+            '', f.strip(), flags=re.I)
+        _body = _strip_prefix(feedback)
+        _body = re.sub(r'^(?:\\n|\s)+', '', _body)  # drop leading separators the model left
+        if marks >= question.max_marks:
+            _verdict = "Vizuri!" if _sw_here else "Correct!"
+        elif marks > 0:
+            _verdict = "Sehemu ni sahihi." if _sw_here else "Partially correct."
+        else:
+            _verdict = "Jibu si sahihi." if _sw_here else "Not quite."
+        feedback = f"{_verdict}\n{_body}".strip() if _body else _verdict
 
         cache.delete("ai_grading:consecutive_failures")
         return {
