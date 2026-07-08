@@ -1970,6 +1970,7 @@ export default function QuizTakePage({ params }) {
   const [currentIdx, setCurrentIdx] = useState(0);
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
+  const submittedRef = useRef(false); // locks after a successful submit so re-clicks during navigation can't fire another attempt
   const [showSubmitModal, setShowSubmitModal] = useState(false);
   const [result, setResult] = useState(null);
   const [showNav, setShowNav] = useState(true);
@@ -2090,6 +2091,10 @@ export default function QuizTakePage({ params }) {
   }, [captureMathField]);
 
   const handleQuizSubmit = async () => {
+    // Guard: ignore re-clicks while a submit is in flight, and permanently once
+    // one has succeeded (kids were spamming Submit during the navigation gap and
+    // creating duplicate attempts).
+    if (submitting || submittedRef.current) return;
     setSubmitting(true);
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 20000); // 20s — submit is now instant
@@ -2157,15 +2162,25 @@ export default function QuizTakePage({ params }) {
       }
 
       if (response.status === 402) {
-        if (data?.quota_exceeded) router.push("/register?reason=quota");
-        else if (data?.credits_exhausted) router.push("/subscribe");
+        if (data?.quota_exceeded) {
+          submittedRef.current = true;
+          router.push("/register?reason=quota");
+        } else if (data?.credits_exhausted) {
+          submittedRef.current = true;
+          router.push("/subscribe");
+        } else {
+          setSubmitting(false); // no redirect — let them retry
+          alert(data?.error || "Submission failed. Please try again.");
+        }
         return;
       }
       if (!response.ok) {
+        setSubmitting(false); // retryable error
         alert(data?.error || "Submission failed. Please try again.");
         return;
       }
       if (data.show_signup_prompt) {
+        submittedRef.current = true;
         router.push("/register?reason=quota");
         return;
       }
@@ -2174,14 +2189,20 @@ export default function QuizTakePage({ params }) {
           localStorage.getItem("device_quizzes_used") || "0",
         );
         localStorage.setItem("device_quizzes_used", String(used + 1));
+        submittedRef.current = true;
         setResult(data);
-      } else {
-        // 201 (sync legacy) or 202 (async grading) — both include id
-        if (data.id) router.replace(`/attempts/${data.id}`);
-        else setResult(data);
+        return;
       }
+      // 201 (sync legacy) or 202 (async grading) — both include id.
+      // Lock the button and KEEP it in the "Marking…" state; navigation to the
+      // results page unmounts this screen. We deliberately do NOT flip submitting
+      // back to false here — that gap is what let kids re-click and double-submit.
+      submittedRef.current = true;
+      if (data.id) router.replace(`/attempts/${data.id}`);
+      else setResult(data);
     } catch (error) {
       clearTimeout(timeout);
+      setSubmitting(false); // real error — allow another attempt
       console.error("Submit error:", error);
       if (error.name === "AbortError") {
         alert(
@@ -2190,8 +2211,6 @@ export default function QuizTakePage({ params }) {
       } else {
         alert(error.message || "Failed to submit quiz. Check your connection.");
       }
-    } finally {
-      setSubmitting(false);
     }
   };
 
