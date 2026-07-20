@@ -140,9 +140,12 @@ export default function SubscribePage() {
   const [showModal, setShowModal] = useState(false);
   const [subscription, setSubscription] = useState(null);
   const [loadingStatus, setLoadingStatus] = useState(true);
-  // Prices/ids come from the API (single source of truth). Start on the fallback
-  // so the cards render instantly, then swap in the live plans.
+  // Prices/ids come from the API (single source of truth). `plans` always holds
+  // a valid array (fallback) so nothing crashes, but we don't SHOW prices until
+  // the live /plans/ call resolves — otherwise the fallback price flashes and
+  // then jumps to the real one. `plansReady` gates the price display.
   const [plans, setPlans] = useState(() => buildPlans(null));
+  const [plansReady, setPlansReady] = useState(false);
 
   useEffect(() => {
     if (!authLoading && user?.role === "teacher") {
@@ -154,14 +157,17 @@ export default function SubscribePage() {
 
   useEffect(() => {
     let cancelled = false;
-    fetch(`${API}/plans/`)
+    fetch(`${API}/plans/`, { cache: "no-store" })
       .then((r) => (r.ok ? r.json() : Promise.reject()))
       .then((d) => {
         if (cancelled) return;
         const list = Array.isArray(d) ? d : d.results || [];
         if (list.length) setPlans(buildPlans(list));
       })
-      .catch(() => {}); // keep the fallback prices on failure
+      .catch(() => {}) // keep the fallback prices on failure
+      .finally(() => {
+        if (!cancelled) setPlansReady(true); // reveal prices once the live call settles
+      });
     return () => {
       cancelled = true;
     };
@@ -293,32 +299,48 @@ export default function SubscribePage() {
                   <p className="text-sm text-gray-400">{plan.tagline}</p>
                 </div>
 
-                {/* Price */}
+                {/* Price — shown only once the live /plans/ call resolves, so a
+                    fallback price never flashes and then jumps to the real one. */}
                 <div className="mb-5">
-                  <div className="flex items-baseline gap-1">
-                    <span className="text-sm text-gray-500 font-medium">
-                      KES
-                    </span>
-                    <span className="text-5xl font-black text-gray-900 tracking-tight">
-                      {plan.price}
-                    </span>
-                  </div>
-                  <p className="text-sm text-gray-400 mt-1">
-                    per {plan.period} &middot; {plan.duration} days
-                  </p>
+                  {plansReady ? (
+                    <>
+                      <div className="flex items-baseline gap-1">
+                        <span className="text-sm text-gray-500 font-medium">
+                          KES
+                        </span>
+                        <span className="text-5xl font-black text-gray-900 tracking-tight">
+                          {plan.price}
+                        </span>
+                      </div>
+                      <p className="text-sm text-gray-400 mt-1">
+                        per {plan.period} &middot; {plan.duration} days
+                      </p>
+                    </>
+                  ) : (
+                    <>
+                      <div className="h-12 w-32 bg-gray-200 rounded-lg animate-pulse" />
+                      <div className="h-4 w-40 bg-gray-100 rounded mt-2 animate-pulse" />
+                    </>
+                  )}
                 </div>
 
                 {/* Daily cost pill */}
                 <div className="flex flex-wrap gap-2 mb-5">
-                  <div className="inline-flex items-center gap-1.5 bg-gray-50 text-gray-600 px-3 py-1.5 rounded-lg text-xs font-semibold border border-gray-100">
-                    <Clock className="w-3 h-3" />
-                    KES {plan.dailyCost}/day
-                  </div>
-                  {plan.savings && (
-                    <div className="inline-flex items-center gap-1.5 bg-emerald-50 text-emerald-700 px-3 py-1.5 rounded-lg text-xs font-bold border border-emerald-100">
-                      <TrendingUp className="w-3 h-3" />
-                      Save {plan.savings.percent}%
-                    </div>
+                  {plansReady ? (
+                    <>
+                      <div className="inline-flex items-center gap-1.5 bg-gray-50 text-gray-600 px-3 py-1.5 rounded-lg text-xs font-semibold border border-gray-100">
+                        <Clock className="w-3 h-3" />
+                        KES {plan.dailyCost}/day
+                      </div>
+                      {plan.savings && (
+                        <div className="inline-flex items-center gap-1.5 bg-emerald-50 text-emerald-700 px-3 py-1.5 rounded-lg text-xs font-bold border border-emerald-100">
+                          <TrendingUp className="w-3 h-3" />
+                          Save {plan.savings.percent}%
+                        </div>
+                      )}
+                    </>
+                  ) : (
+                    <div className="h-7 w-28 bg-gray-100 rounded-lg animate-pulse" />
                   )}
                 </div>
 

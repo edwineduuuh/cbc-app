@@ -3,7 +3,10 @@ from questions.models import SubscriptionPlan
 
 
 class Command(BaseCommand):
-    help = "Create or update the 3 subscription plans: Weekly (149), Monthly (499), Termly (999)"
+    help = (
+        "Create the 3 subscription plans IF MISSING. Never overwrites an existing "
+        "plan — prices are managed in the Django admin, not here."
+    )
 
     def handle(self, *args, **options):
         plans = [
@@ -11,7 +14,7 @@ class Command(BaseCommand):
                 "name": "Weekly",
                 "slug": "weekly",
                 "description": "Perfect for trying out StadiSpace",
-                "price_kes": 149,
+                "price_kes": 349,
                 "billing_period": "weekly",
                 "duration_days": 7,
                 "max_quizzes_per_day": 0,
@@ -25,7 +28,7 @@ class Command(BaseCommand):
                 "name": "Monthly",
                 "slug": "monthly",
                 "description": "Most popular — best for consistent practice",
-                "price_kes": 499,
+                "price_kes": 999,
                 "billing_period": "monthly",
                 "duration_days": 30,
                 "max_quizzes_per_day": 0,
@@ -39,7 +42,7 @@ class Command(BaseCommand):
                 "name": "Termly",
                 "slug": "termly",
                 "description": "Best value — covers an entire school term",
-                "price_kes": 999,
+                "price_kes": 2199,
                 "billing_period": "termly",
                 "duration_days": 90,
                 "max_quizzes_per_day": 0,
@@ -51,25 +54,23 @@ class Command(BaseCommand):
             },
         ]
 
-        # Deactivate any old plans not in our 3
-        kept_slugs = [p["slug"] for p in plans]
-        deactivated = SubscriptionPlan.objects.exclude(slug__in=kept_slugs).filter(is_active=True).update(is_active=False)
-        if deactivated:
-            self.stdout.write(f"Deactivated {deactivated} old plan(s)")
-
         for plan_data in plans:
             slug = plan_data.pop("slug")
-            obj, created = SubscriptionPlan.objects.update_or_create(
+            # get_or_create ONLY sets these values when the row is first created.
+            # An existing plan is left exactly as the admin configured it — this
+            # command must never silently reset a live price.
+            obj, created = SubscriptionPlan.objects.get_or_create(
                 slug=slug,
                 defaults=plan_data,
             )
-            action = "Created" if created else "Updated"
-            self.stdout.write(self.style.SUCCESS(
-                f"{action}: {obj.name} — KES {obj.price_kes}/{obj.billing_period} (ID: {obj.id})"
-            ))
+            if created:
+                self.stdout.write(self.style.SUCCESS(
+                    f"Created: {obj.name} — KES {obj.price_kes}/{obj.billing_period} (ID: {obj.id})"
+                ))
+            else:
+                self.stdout.write(
+                    f"Exists (left untouched): {obj.name} — KES {obj.price_kes}/"
+                    f"{obj.billing_period} (ID: {obj.id})"
+                )
 
-        self.stdout.write(self.style.SUCCESS("\nDone! Plans are ready."))
-        self.stdout.write(
-            "IMPORTANT: Update the plan IDs in the frontend subscribe page "
-            "to match the database IDs shown above."
-        )
+        self.stdout.write(self.style.SUCCESS("\nDone. Prices are managed in the Django admin, not by this command."))
