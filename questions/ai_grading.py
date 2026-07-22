@@ -40,8 +40,12 @@ def _get_claude():
     errors in threaded parallel grading (ThreadPoolExecutor)."""
     return anthropic.Anthropic(api_key=settings.ANTHROPIC_API_KEY)
 
-CLAUDE_MODEL          = "claude-opus-4-8"
-# Kiswahili grades on Opus (the strongest model) — NOT Gemini.
+# Grading runs on Sonnet — strong at marking, ~40% cheaper output than Opus.
+# If this model is ever retired, _call_claude auto-falls-back to a working one
+# (see _MODEL_FALLBACKS) so grading NEVER silently breaks. Change this one line
+# to move grading between models.
+CLAUDE_MODEL          = "claude-sonnet-4-6"
+# Kiswahili grades on Opus (the strongest model) — AI is unreliable there.
 KISWAHILI_MODEL       = "claude-opus-4-8"
 # Explanation cleanup (rephrasing teacher text for students). Kept on Opus by
 # choice — everything the student sees runs on the top model. (This is a small,
@@ -52,6 +56,16 @@ GEMINI_MODEL          = "gemini-2.5-flash"        # legacy, no longer used for g
 GEMINI_FALLBACK_MODEL = "gemini-2.5-pro"          # legacy, no longer used for grading
 # Opus 4.7/4.8 reject sampling params (temperature) — omit them for these models.
 _NO_TEMPERATURE_MODELS = ("claude-opus-4-8", "claude-opus-4-7", "claude-fable-5")
+
+# If a model is retired/unavailable, _call_claude automatically retries on its
+# fallback so grading survives a phase-out you didn't hear about. It also logs a
+# loud line so you find out and can update the constant above.
+_MODEL_FALLBACKS = {
+    "claude-sonnet-4-6": "claude-opus-4-8",
+    "claude-haiku-4-5":  "claude-sonnet-4-6",
+    "claude-opus-4-8":   "claude-sonnet-4-6",
+    "claude-opus-4-7":   "claude-opus-4-8",
+}
 MAX_RETRIES  = 2
 
 MAX_TOKENS_MCQ        = 400
@@ -596,6 +610,20 @@ def _call_ai(
     return result
 
 
+def _is_model_unavailable(exc) -> bool:
+    """True when an exception means the requested model is retired / renamed /
+    unavailable — the signal to fall back instead of retrying a dead model."""
+    if isinstance(exc, getattr(anthropic, "NotFoundError", ())):
+        return True
+    if isinstance(exc, getattr(anthropic, "PermissionDeniedError", ())):
+        return True
+    msg = str(exc).lower()
+    return "model" in msg and any(
+        k in msg for k in ("not found", "does not exist", "deprecat", "retired",
+                           "not available", "unknown model", "invalid model")
+    )
+
+
 def _call_claude(
     prompt: str,
     working_image: str | None = None,
@@ -644,22 +672,51 @@ def _call_claude(
     if model not in _NO_TEMPERATURE_MODELS:
         params["temperature"] = 0
 
-    for attempt in range(MAX_RETRIES):
-        try:
-            response = _get_claude().messages.create(**params)
-            text = next((b.text for b in response.content if b.type == "text"), "")
-            if not text:
-                raise Exception("Claude returned empty response")
-            return text
-        except anthropic.RateLimitError:
-            wait = 2 ** attempt
-            print(f"⚠ Claude rate limited — retrying in {wait}s (attempt {attempt + 1}/{MAX_RETRIES})")
-            time.sleep(wait)
-        except Exception as e:
-            if attempt == MAX_RETRIES - 1:
-                raise
-            time.sleep(2 ** attempt)
-    raise Exception("Claude API exhausted all retries.")
+    attempted = set()
+    while True:
+        attempted.add(params["model"])
+        model_dead, last_exc = False, None
+        for attempt in range(MAX_RETRIES):
+            try:
+                response = _get_claude().messages.create(**params)
+                text = next((b.text for b in response.content if b.type == "text"), "")
+                if not text:
+                    raise Exception("Claude returned empty response")
+                return text
+            except anthropic.RateLimitError:
+                wait = 2 ** attempt
+                print(f"⚠ Claude rate limited — retrying in {wait}s (attempt {attempt + 1}/{MAX_RETRIES})")
+                time.sleep(wait)
+            except Exception as e:
+                last_exc = e
+                if _is_model_unavailable(e):
+                    model_dead = True   # don't burn retries on a retired model
+                    break
+                if attempt == MAX_RETRIES - 1:
+                    raise
+                time.sleep(2 ** attempt)
+
+        # Model retired / unavailable → switch to its fallback so grading keeps
+        # working, and log LOUDLY so the phase-out doesn't go unnoticed.
+        if model_dead:
+            fallback = _MODEL_FALLBACKS.get(params["model"])
+            if fallback and fallback not in attempted:
+                print(
+                    f"🔴🔴 MODEL '{params['model']}' IS UNAVAILABLE (retired/renamed?). "
+                    f"Auto-falling back to '{fallback}'. ACTION NEEDED: update CLAUDE_MODEL "
+                    f"in ai_grading.py. Detail: {last_exc}"
+                )
+                try:
+                    cache.set("ai_grading:dead_model", str(params["model"]), 86400)
+                except Exception:
+                    pass
+                params["model"] = fallback
+                params.pop("temperature", None)
+                if fallback not in _NO_TEMPERATURE_MODELS:
+                    params["temperature"] = 0
+                continue
+            raise last_exc
+        raise Exception("Claude API exhausted all retries.")
 
 
 def _call_gemini_inner(
