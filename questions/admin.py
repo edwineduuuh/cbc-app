@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.core.cache import caches
 from .models import Subject, Topic, Substrand, Question, Quiz, Attempt, AIGradingSettings
 
 
@@ -213,7 +214,37 @@ class AttemptAdmin(admin.ModelAdmin):
    
 @admin.register(AIGradingSettings)
 class AIGradingSettingsAdmin(admin.ModelAdmin):
-       list_display = ['__str__', 'strictness_level', 'updated_at']
+    list_display = ['__str__', 'strictness_level', 'model_health', 'updated_at']
+    readonly_fields = ['model_health']
+    actions = ['clear_model_alert']
+
+    def _grades_cache(self):
+        try:
+            return caches['grades']
+        except Exception:
+            return caches['default']
+
+    @admin.display(description='Grading model health')
+    def model_health(self, obj=None):
+        """Surfaces the flag _call_claude sets when a model is retired/unavailable
+        and grading auto-falls-back — so a silent phase-out is actually visible."""
+        try:
+            dead = self._grades_cache().get('ai_grading:dead_model')
+        except Exception:
+            dead = None
+        if dead:
+            return (f"⚠ Model '{dead}' was UNAVAILABLE — grading auto-fell-back to keep "
+                    f"working. ACTION: update CLAUDE_MODEL in ai_grading.py, then run the "
+                    f"'Clear the grading-model alert' action below.")
+        return "✓ All grading models healthy"
+
+    @admin.action(description="Clear the grading-model alert (after updating the model)")
+    def clear_model_alert(self, request, queryset):
+        try:
+            self._grades_cache().delete('ai_grading:dead_model')
+            self.message_user(request, "Cleared the grading-model alert.")
+        except Exception as e:
+            self.message_user(request, f"Could not clear the alert: {e}", level='error')
 
 
 from .models import SubscriptionPlan, PaymentRequest, Subscription

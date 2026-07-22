@@ -707,7 +707,9 @@ def _call_claude(
                     f"in ai_grading.py. Detail: {last_exc}"
                 )
                 try:
-                    cache.set("ai_grading:dead_model", str(params["model"]), 86400)
+                    # DB-backed cache so the Django admin (a different process)
+                    # can surface this — see AIGradingSettingsAdmin.model_health.
+                    grade_cache.set("ai_grading:dead_model", str(params["model"]), 7 * 86400)
                 except Exception:
                     pass
                 params["model"] = fallback
