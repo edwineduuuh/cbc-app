@@ -1695,79 +1695,66 @@ def admin_grading_health_clear(request):
 @api_view(['POST'])
 @permission_classes([IsAdminUser])
 def admin_grading_cost(request):
-    """Grade a SAMPLE of a quiz's questions live and return the real KES cost +
-    a projected monthly per-student figure. Spends API credits — deliberate."""
+    """Estimate grading cost using Anthropic's FREE token-counting endpoint —
+    spends NO credits, and still works at a zero balance (offline fallback)."""
     from . import ai_grading as g
 
     quiz_id     = request.data.get('quiz_id')
-    sample_size = int(request.data.get('sample_size', 5) or 5)
+    sample_size = int(request.data.get('sample_size', 6) or 6)
     per_month   = int(request.data.get('quizzes_per_month', 20) or 20)
     kes         = float(request.data.get('kes_per_usd', 130) or 130)
     sub         = float(request.data.get('sub_price', 999) or 999)
+    ASSUMED_OUTPUT = 350  # typical grading-feedback output size (tokens)
 
     quiz = (Quiz.objects.filter(pk=quiz_id).first() if quiz_id
             else Quiz.objects.filter(is_active=True).order_by('id').first())
     if not quiz:
         return Response({'error': 'No quiz found'}, status=404)
 
-    all_qs   = list(quiz.questions.all())
-    ai_total = sum(1 for q in all_qs if q.question_type != 'mcq')  # MCQs graded free
-    sample   = all_qs[:max(1, sample_size)]
+    all_qs = list(quiz.questions.all())
+    ai_qs  = [q for q in all_qs if q.question_type != 'mcq']  # MCQs graded free
+    sample = ai_qs[:max(1, sample_size)]
 
-    calls = []
-    real_get = g._get_claude
-    def patched():
-        client = real_get()
-        real_create = client.messages.create
-        def wrapped(**p):
-            r = real_create(**p)
-            u = r.usage
-            calls.append({'model': p.get('model'), 'in': u.input_tokens, 'out': u.output_tokens,
-                          'cw': getattr(u, 'cache_creation_input_tokens', 0),
-                          'cr': getattr(u, 'cache_read_input_tokens', 0)})
-            return r
-        client.messages.create = wrapped
-        return client
+    model = g.CLAUDE_MODEL
+    pin, pout = _GRADING_PRICES.get(model, _GRADING_PRICES['claude-sonnet-4-6'])
 
-    class _NoCache:
-        def get(self, *a, **k): return None
-        def set(self, *a, **k): pass
-        def delete(self, *a, **k): pass
+    def input_tokens_for(q):
+        """Free: count the real grading prompt's tokens. Falls back to a local
+        char-based estimate if the count call is unavailable."""
+        try:
+            sw = g._is_kiswahili(q)
+        except Exception:
+            sw = False
+        try:
+            prompt = g._build_marking_prompt(q, (q.correct_answer or 'sample answer'), sw, False)
+            prompt = prompt.replace(g._CACHE_BREAK, '')
+            resp = g._get_claude().messages.count_tokens(
+                model=model, messages=[{'role': 'user', 'content': prompt}])
+            return int(resp.input_tokens)
+        except Exception:
+            base = 1300  # the static instruction preamble (~1.24k tokens)
+            txt = (getattr(q, 'question_text', '') or '') + str(getattr(q, 'correct_answer', '') or '')
+            return base + len(txt) // 4
 
-    orig_get, orig_cache = g._get_claude, g.grade_cache
-    g._get_claude, g.grade_cache = patched, _NoCache()
-    ai_in_sample = 0
-    try:
-        for q in sample:
-            ans = ({str(pp.id): (pp.correct_answer or 'sample answer') for pp in q.parts.all()}
-                   if q.parts.exists() else (q.correct_answer or 'sample answer'))
-            try:
-                g.grade_answer(q, ans)
-                if q.question_type != 'mcq':
-                    ai_in_sample += 1
-            except Exception:
-                pass
-    finally:
-        g._get_claude, g.grade_cache = orig_get, orig_cache
+    counted, total_in = 0, 0
+    for q in sample:
+        try:
+            total_in += input_tokens_for(q)
+            counted += 1
+        except Exception:
+            pass
+    if not counted:
+        return Response({'error': 'Could not estimate cost.'}, status=500)
 
-    sample_usd = 0.0
-    tot = {'in': 0, 'out': 0, 'cw': 0, 'cr': 0}
-    for c in calls:
-        pin, pout = _GRADING_PRICES.get(c['model'], _GRADING_PRICES['claude-sonnet-4-6'])
-        sample_usd += c['in'] * pin + c['cw'] * pin * 1.25 + c['cr'] * pin * 0.10 + c['out'] * pout
-        for k in tot:
-            tot[k] += c[k]
-
-    sample_kes = sample_usd * kes
-    avg_per_ai = sample_kes / ai_in_sample if ai_in_sample else 0.0
-    est_quiz_kes = avg_per_ai * ai_total           # full quiz estimate
-    monthly = est_quiz_kes * per_month
+    avg_in       = total_in / counted
+    per_q_kes    = (avg_in * pin + ASSUMED_OUTPUT * pout) * kes
+    est_quiz_kes = per_q_kes * len(ai_qs)
+    monthly      = est_quiz_kes * per_month
     return Response({
         'quiz_id': quiz.id, 'quiz_title': quiz.title,
-        'total_questions': len(all_qs), 'ai_graded_questions': ai_total,
-        'sample_size': len(sample), 'api_calls': len(calls), 'no_credits': len(calls) == 0,
-        'sample_cost_kes': round(sample_kes, 2),
-        'avg_kes_per_graded_question': round(avg_per_ai, 2),
+        'total_questions': len(all_qs), 'ai_graded_questions': len(ai_qs),
+        'sample_size': counted, 'model': model, 'free_estimate': True,
+        'avg_input_tokens': round(avg_in), 'assumed_output_tokens': ASSUMED_OUTPUT,
         'est_cost_per_quiz_kes': round(est_quiz_kes, 2),
         'quizzes_per_month': per_month,
         'est_monthly_kes': round(monthly),

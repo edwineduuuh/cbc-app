@@ -79,11 +79,7 @@ export default function AdminGradingPanel() {
       });
       const d = await r.json();
       if (!r.ok) {
-        setCostError(d?.error || "Measurement failed.");
-      } else if (d.no_credits) {
-        setCostError(
-          "No API calls were made — your Anthropic credit balance is likely zero. Top up, then try again.",
-        );
+        setCostError(d?.error || "Estimate failed.");
       } else {
         setCost(d);
       }
@@ -156,8 +152,8 @@ export default function AdminGradingPanel() {
           <h4 className="text-sm font-bold text-gray-900">Grading cost</h4>
         </div>
         <p className="text-xs text-gray-500 mb-3">
-          Grades a small sample live to estimate what a quiz costs. Spends a few
-          shillings of API credit each time.
+          Estimates what a quiz costs using free token counting — spends{" "}
+          <strong>no credits</strong>, works even at a zero balance.
         </p>
 
         <div className="flex flex-wrap items-center gap-2 mb-3">
