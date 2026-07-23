@@ -8,6 +8,7 @@ Deterministic (temperature=0), prompt-injection hardened, with answer caching.
 import base64
 import hashlib
 import json
+import os
 import random
 import re
 import time
@@ -2970,6 +2971,149 @@ def _grade_financial_statement(question, student_answer) -> dict:
     }
 
 
+# ─────────────────────────────────────────────────────────────────────────────
+#  MARKING-SCHEME PRE-MATCH  (skip the AI on clearly-in-scheme answers)
+#
+#  Quality-safe by construction: it returns a result ONLY when the student has
+#  clearly named enough distinct scheme points to earn FULL marks. Every other
+#  case (partial, negated, unlisted, ambiguous, non-list question, unstructured
+#  scheme, Kiswahili) returns None → the AI grades it exactly as before. So it
+#  can never mark a correct answer wrong; at worst it misses a match and pays for
+#  an AI call it could have skipped.
+#
+#  Modes (env SCHEME_PREMATCH_MODE): "off" | "shadow" (default) | "live".
+#   - shadow: still grades with the AI, but records whether the pre-match would
+#     have agreed — so you can trust it before flipping to "live" (which saves).
+# ─────────────────────────────────────────────────────────────────────────────
+SCHEME_PREMATCH_MODE = os.environ.get("SCHEME_PREMATCH_MODE", "shadow").strip().lower()
+
+_LIST_VERBS = ("state", "list", "name", "give", "mention", "identify", "outline")
+_EXPLAIN_MARKERS = ("explain", "describe", "discuss", "justify", "elaborate",
+                    "account for", "distinguish", "reason", " why", " how ")
+_NEGATION_RE = re.compile(
+    r"\b(not|no|never|without|isn'?t|aren'?t|don'?t|doesn'?t|can'?t|cannot|won'?t|"
+    r"neither|nor)\b", re.I)
+_MATCH_STOPWORDS = {
+    "the","a","an","of","to","and","or","in","on","for","is","are","be","being",
+    "it","that","this","these","those","with","as","by","from","at","they","them",
+    "their","there","then","which","who","whom","was","were","will","would","can",
+    "could","should","may","might","must","has","have","had","do","does","did",
+    "so","such","than","when","where","while","also","any","some","one","two",
+    "he","she","we","you","his","her","its","our","your","my","into","out","up",
+}
+
+
+def _content_tokens(s: str) -> set:
+    return {w for w in re.findall(r"[a-z0-9]+", _normalise(s))
+            if w not in _MATCH_STOPWORDS and len(w) > 2}
+
+
+def _is_list_type_question(question) -> bool:
+    """A 'state/list/name' question where naming the point earns the mark — no
+    explanation required. Excludes explain/describe/why questions entirely."""
+    qt = " " + (getattr(question, "question_text", "") or "").lower() + " "
+    if any(m in qt for m in _EXPLAIN_MARKERS):
+        return False
+    return any(re.search(rf"\b{v}\b", qt) for v in _LIST_VERBS)
+
+
+def _extract_scheme_points(question):
+    """[(description, marks)] only when the scheme is RELIABLY structured (the
+    {points:[{description,marks}]} form). Otherwise None → the AI handles it."""
+    ms = getattr(question, "marking_scheme", None)
+    if isinstance(ms, dict) and isinstance(ms.get("points"), list):
+        pts = []
+        for p in ms["points"]:
+            if isinstance(p, dict) and str(p.get("description", "")).strip():
+                try:
+                    m = float(p.get("marks", 1) or 1)
+                except Exception:
+                    m = 1.0
+                pts.append((str(p["description"]).strip(), m))
+        return pts or None
+    return None
+
+
+def _student_items(answer: str):
+    parts = re.split(r"[\n;,/•]|\s-\s|\band\b|\bor\b|\d+[\.\)]", str(answer or ""))
+    return [p.strip() for p in parts if p and p.strip()]
+
+
+def _item_matches_point(item: str, point: str) -> bool:
+    """HIGH-PRECISION match: the smaller concept's distinctive words are (nearly)
+    all shared, with ≥2 shared words (or 1 for a single-word point), and NO
+    negation. Deliberately biased to MISS rather than falsely match."""
+    if _NEGATION_RE.search(item):
+        return False
+    it, pt = _content_tokens(item), _content_tokens(point)
+    if not it or not pt:
+        return False
+    shared = it & pt
+    smaller = min(len(it), len(pt))
+    coverage = len(shared) / smaller
+    return coverage >= 0.75 and len(shared) >= (2 if len(pt) >= 2 else 1)
+
+
+def _scheme_prematch(question, student_answer):
+    """Full-marks result if the student clearly named enough distinct scheme
+    points to earn max marks; else None (→ AI). See section header for safety."""
+    if _is_kiswahili(question):            # AI (Opus) stays authoritative for Kiswahili
+        return None
+    if not _is_list_type_question(question):
+        return None
+    points = _extract_scheme_points(question)
+    if not points:
+        return None
+    max_marks = getattr(question, "max_marks", 0) or 0
+    if max_marks <= 0:
+        return None
+    items = _student_items(student_answer)
+    if not items:
+        return None
+
+    used, awarded, matched = set(), 0.0, []
+    for item in items:
+        if awarded >= max_marks:            # CBC marks only the first N answers
+            break
+        for i, (desc, mk) in enumerate(points):
+            if i in used:
+                continue
+            if _item_matches_point(item, desc):
+                used.add(i); awarded += mk; matched.append(desc)
+                break
+        else:
+            # A leading answer matched NOTHING in the scheme — it could be a
+            # correct-but-unlisted point the AI should judge. Hand off to the AI.
+            return None
+    if awarded < max_marks:
+        return None
+
+    sw = _is_kiswahili(question)  # always False here, but keep symmetry
+    return {
+        "marks_awarded":        int(round(min(awarded, max_marks))),
+        "max_marks":            max_marks,
+        "feedback":             "Correct!\nYou named all the required points.",
+        "is_correct":           True,
+        "personalized_message": "",
+        "study_tip":            "",
+        "points_earned":        matched,
+        "points_missed":        [],
+        "_prematched":          True,
+    }
+
+
+def _record_prematch_shadow(question, pm, ai_result):
+    """In shadow mode, count whether the pre-match would have agreed with the AI
+    (both award full marks). Surfaced in the admin grading panel."""
+    try:
+        full = getattr(question, "max_marks", None)
+        agree = (ai_result.get("marks_awarded") == pm.get("marks_awarded") == full)
+        key = "prematch:agree" if agree else "prematch:disagree"
+        grade_cache.set(key, (grade_cache.get(key) or 0) + 1, GRADE_CACHE_TTL)
+    except Exception:
+        pass
+
+
 def _route(
     question,
     student_answer: str,
@@ -2980,6 +3124,18 @@ def _route(
     if qt == "mcq":
         return _grade_mcq(question, student_answer)
     if qt in ("structured", "essay"):
+        # Scheme pre-match: skip the AI when the answer is clearly full-marks.
+        if qt == "structured" and SCHEME_PREMATCH_MODE in ("shadow", "live") and not working_image:
+            try:
+                pm = _scheme_prematch(question, student_answer)
+            except Exception:
+                pm = None
+            if pm is not None:
+                if SCHEME_PREMATCH_MODE == "live":
+                    return pm
+                ai = _grade_with_ai(question, student_answer, working_image)  # shadow
+                _record_prematch_shadow(question, pm, ai)
+                return ai
         return _grade_with_ai(question, student_answer, working_image)
     if qt == "fill_blank":
         return _grade_fill_blank(question, student_answer)

@@ -145,6 +145,51 @@ export default function AdminGradingPanel() {
         )}
       </div>
 
+      {/* ── Scheme pre-match (cost saver) ── */}
+      {health?.prematch_mode && health.prematch_mode !== "off" && (
+        <div className="border-t border-gray-100 pt-5 mb-5">
+          <h4 className="text-sm font-bold text-gray-900 mb-1">
+            Scheme pre-match{" "}
+            <span
+              className={`ml-1 text-[10px] font-bold uppercase px-2 py-0.5 rounded-full ${
+                health.prematch_mode === "live"
+                  ? "bg-emerald-100 text-emerald-700"
+                  : "bg-amber-100 text-amber-700"
+              }`}
+            >
+              {health.prematch_mode}
+            </span>
+          </h4>
+          {(() => {
+            const a = health.prematch_agree || 0;
+            const d = health.prematch_disagree || 0;
+            const total = a + d;
+            const pct = total ? Math.round((a / total) * 100) : null;
+            return (
+              <p className="text-xs text-gray-500">
+                {health.prematch_mode === "shadow" ? (
+                  total === 0 ? (
+                    "Watching… grade some list-type questions to gather agreement data before going live."
+                  ) : (
+                    <>
+                      Agreed with the AI on <strong>{pct}%</strong> of {total}{" "}
+                      full-mark cases ({a} agree / {d} disagree). Set{" "}
+                      <code>SCHEME_PREMATCH_MODE=live</code> once you're happy to
+                      start skipping those AI calls.
+                    </>
+                  )
+                ) : (
+                  <>
+                    Live — skipping AI on clearly-full-mark answers. Lifetime
+                    shadow agreement: {pct == null ? "n/a" : `${pct}%`}.
+                  </>
+                )}
+              </p>
+            );
+          })()}
+        </div>
+      )}
+
       {/* ── Cost ── */}
       <div className="border-t border-gray-100 pt-5">
         <div className="flex items-center gap-2 mb-2">

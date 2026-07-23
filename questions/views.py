@@ -1666,10 +1666,13 @@ _GRADING_PRICES = {  # USD per token (input, output); cache write 1.25x in, read
 @permission_classes([IsAdminUser])
 def admin_grading_health(request):
     """Grading model-health status for the custom admin dashboard."""
-    from .ai_grading import CLAUDE_MODEL, KISWAHILI_MODEL, grade_cache
+    from .ai_grading import CLAUDE_MODEL, KISWAHILI_MODEL, grade_cache, SCHEME_PREMATCH_MODE
     dead = None
+    agree = disagree = 0
     try:
         dead = grade_cache.get('ai_grading:dead_model')
+        agree = grade_cache.get('prematch:agree') or 0
+        disagree = grade_cache.get('prematch:disagree') or 0
     except Exception:
         pass
     return Response({
@@ -1677,6 +1680,9 @@ def admin_grading_health(request):
         'dead_model':     dead,
         'grading_model':  CLAUDE_MODEL,
         'kiswahili_model': KISWAHILI_MODEL,
+        'prematch_mode':     SCHEME_PREMATCH_MODE,
+        'prematch_agree':    agree,
+        'prematch_disagree': disagree,
     })
 
 
