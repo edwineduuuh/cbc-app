@@ -3114,6 +3114,28 @@ def _record_prematch_shadow(question, pm, ai_result):
         pass
 
 
+def _prematch_mode() -> str:
+    """Effective pre-match mode. An admin override saved from the dashboard (in
+    the DB-backed cache) wins over the SCHEME_PREMATCH_MODE env default, so the
+    mode is toggleable from the frontend with no redeploy."""
+    override = None
+    try:
+        override = grade_cache.get("prematch:mode")
+    except Exception:
+        pass
+    mode = (override or SCHEME_PREMATCH_MODE or "off").strip().lower()
+    return mode if mode in ("off", "shadow", "live") else "off"
+
+
+def set_prematch_mode(mode: str) -> str:
+    """Persist the admin's chosen mode (off|shadow|live). Returns the value set."""
+    mode = (mode or "off").strip().lower()
+    if mode not in ("off", "shadow", "live"):
+        mode = "off"
+    grade_cache.set("prematch:mode", mode, None)  # no expiry
+    return mode
+
+
 def _route(
     question,
     student_answer: str,
@@ -3125,13 +3147,14 @@ def _route(
         return _grade_mcq(question, student_answer)
     if qt in ("structured", "essay"):
         # Scheme pre-match: skip the AI when the answer is clearly full-marks.
-        if qt == "structured" and SCHEME_PREMATCH_MODE in ("shadow", "live") and not working_image:
+        mode = _prematch_mode()
+        if qt == "structured" and mode in ("shadow", "live") and not working_image:
             try:
                 pm = _scheme_prematch(question, student_answer)
             except Exception:
                 pm = None
             if pm is not None:
-                if SCHEME_PREMATCH_MODE == "live":
+                if mode == "live":
                     return pm
                 ai = _grade_with_ai(question, student_answer, working_image)  # shadow
                 _record_prematch_shadow(question, pm, ai)

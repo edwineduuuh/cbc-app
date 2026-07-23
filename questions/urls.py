@@ -79,6 +79,7 @@ from .views import (
     admin_grading_health,
     admin_grading_health_clear,
     admin_grading_cost,
+    admin_prematch_mode,
 )
 
 urlpatterns = [
@@ -148,6 +149,7 @@ urlpatterns = [
     path('admin/grading-health/', admin_grading_health, name='admin-grading-health'),
     path('admin/grading-health/clear/', admin_grading_health_clear, name='admin-grading-health-clear'),
     path('admin/grading-cost/', admin_grading_cost, name='admin-grading-cost'),
+    path('admin/prematch-mode/', admin_prematch_mode, name='admin-prematch-mode'),
     path('admin/payments/', AdminPaymentListView.as_view(), name='admin-payments'),
     path('admin/payments/<int:pk>/verify/', AdminVerifyPaymentView.as_view(), name='admin-verify-payment'),
     path('admin/payments/<int:pk>/reject/', AdminRejectPaymentView.as_view(), name='admin-reject-payment'),

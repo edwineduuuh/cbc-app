@@ -1666,7 +1666,7 @@ _GRADING_PRICES = {  # USD per token (input, output); cache write 1.25x in, read
 @permission_classes([IsAdminUser])
 def admin_grading_health(request):
     """Grading model-health status for the custom admin dashboard."""
-    from .ai_grading import CLAUDE_MODEL, KISWAHILI_MODEL, grade_cache, SCHEME_PREMATCH_MODE
+    from .ai_grading import CLAUDE_MODEL, KISWAHILI_MODEL, grade_cache, _prematch_mode
     dead = None
     agree = disagree = 0
     try:
@@ -1680,10 +1680,19 @@ def admin_grading_health(request):
         'dead_model':     dead,
         'grading_model':  CLAUDE_MODEL,
         'kiswahili_model': KISWAHILI_MODEL,
-        'prematch_mode':     SCHEME_PREMATCH_MODE,
+        'prematch_mode':     _prematch_mode(),
         'prematch_agree':    agree,
         'prematch_disagree': disagree,
     })
+
+
+@api_view(['POST'])
+@permission_classes([IsAdminUser])
+def admin_prematch_mode(request):
+    """Toggle the scheme pre-match mode from the dashboard: off | shadow | live."""
+    from .ai_grading import set_prematch_mode
+    mode = set_prematch_mode(request.data.get('mode', 'off'))
+    return Response({'prematch_mode': mode})
 
 
 @api_view(['POST'])

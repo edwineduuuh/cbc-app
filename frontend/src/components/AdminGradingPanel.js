@@ -27,6 +27,7 @@ export default function AdminGradingPanel() {
   const [health, setHealth] = useState(null);
   const [loadingHealth, setLoadingHealth] = useState(true);
   const [clearing, setClearing] = useState(false);
+  const [savingMode, setSavingMode] = useState(false);
 
   const [cost, setCost] = useState(null);
   const [measuring, setMeasuring] = useState(false);
@@ -61,6 +62,23 @@ export default function AdminGradingPanel() {
       await loadHealth();
     } finally {
       setClearing(false);
+    }
+  };
+
+  const changeMode = async (mode) => {
+    setSavingMode(true);
+    try {
+      await fetch(`${API}/admin/prematch-mode/`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token()}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ mode }),
+      });
+      await loadHealth();
+    } finally {
+      setSavingMode(false);
     }
   };
 
@@ -146,49 +164,72 @@ export default function AdminGradingPanel() {
       </div>
 
       {/* ── Scheme pre-match (cost saver) ── */}
-      {health?.prematch_mode && health.prematch_mode !== "off" && (
-        <div className="border-t border-gray-100 pt-5 mb-5">
-          <h4 className="text-sm font-bold text-gray-900 mb-1">
-            Scheme pre-match{" "}
-            <span
-              className={`ml-1 text-[10px] font-bold uppercase px-2 py-0.5 rounded-full ${
-                health.prematch_mode === "live"
-                  ? "bg-emerald-100 text-emerald-700"
-                  : "bg-amber-100 text-amber-700"
-              }`}
-            >
-              {health.prematch_mode}
-            </span>
-          </h4>
-          {(() => {
-            const a = health.prematch_agree || 0;
-            const d = health.prematch_disagree || 0;
-            const total = a + d;
-            const pct = total ? Math.round((a / total) * 100) : null;
+      <div className="border-t border-gray-100 pt-5 mb-5">
+        <h4 className="text-sm font-bold text-gray-900 mb-1">Scheme pre-match</h4>
+        <p className="text-xs text-gray-500 mb-3">
+          Skips the AI on “state/list” answers that clearly earn full marks.{" "}
+          <strong>Shadow</strong> compares silently (no change for students);{" "}
+          <strong>Live</strong> starts saving.
+        </p>
+
+        <div className="inline-flex rounded-lg border border-gray-200 overflow-hidden mb-3">
+          {["off", "shadow", "live"].map((m) => {
+            const active = health?.prematch_mode === m;
             return (
-              <p className="text-xs text-gray-500">
-                {health.prematch_mode === "shadow" ? (
-                  total === 0 ? (
-                    "Watching… grade some list-type questions to gather agreement data before going live."
-                  ) : (
-                    <>
-                      Agreed with the AI on <strong>{pct}%</strong> of {total}{" "}
-                      full-mark cases ({a} agree / {d} disagree). Set{" "}
-                      <code>SCHEME_PREMATCH_MODE=live</code> once you're happy to
-                      start skipping those AI calls.
-                    </>
-                  )
-                ) : (
-                  <>
-                    Live — skipping AI on clearly-full-mark answers. Lifetime
-                    shadow agreement: {pct == null ? "n/a" : `${pct}%`}.
-                  </>
-                )}
+              <button
+                key={m}
+                onClick={() => changeMode(m)}
+                disabled={savingMode || active}
+                className={`px-4 py-1.5 text-xs font-semibold capitalize transition-colors ${
+                  m !== "off" ? "border-l border-gray-200" : ""
+                } ${
+                  active
+                    ? m === "live"
+                      ? "bg-emerald-600 text-white"
+                      : m === "shadow"
+                        ? "bg-amber-500 text-white"
+                        : "bg-gray-700 text-white"
+                    : "bg-white text-gray-600 hover:bg-gray-50"
+                }`}
+              >
+                {m}
+              </button>
+            );
+          })}
+        </div>
+
+        {(() => {
+          const a = health?.prematch_agree || 0;
+          const d = health?.prematch_disagree || 0;
+          const total = a + d;
+          const pct = total ? Math.round((a / total) * 100) : null;
+          if (!health?.prematch_mode || health.prematch_mode === "off")
+            return (
+              <p className="text-xs text-gray-400">
+                Off — every structured answer goes to the AI.
               </p>
             );
-          })()}
-        </div>
-      )}
+          if (total === 0)
+            return (
+              <p className="text-xs text-gray-500">
+                No data yet — grade some list-type questions to see how often it
+                agrees with the AI.
+              </p>
+            );
+          return (
+            <p className="text-xs text-gray-500">
+              Agreed with the AI on <strong>{pct}%</strong> of {total} full-mark
+              cases ({a} agree / {d} disagree).
+              {health.prematch_mode === "shadow" && pct >= 95 && (
+                <span className="text-emerald-700 font-semibold">
+                  {" "}
+                  Looks safe — switch to Live to start saving.
+                </span>
+              )}
+            </p>
+          );
+        })()}
+      </div>
 
       {/* ── Cost ── */}
       <div className="border-t border-gray-100 pt-5">
