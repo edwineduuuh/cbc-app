@@ -1652,6 +1652,131 @@ class SubscriptionStatusView(APIView):
 
 # ─── Admin Views ──────────────────────────────────────────────
 
+# ─── Admin: grading model health + cost measurement ──────────────────────────
+_GRADING_PRICES = {  # USD per token (input, output); cache write 1.25x in, read 0.10x
+    'claude-sonnet-4-6': (3 / 1e6, 15 / 1e6),
+    'claude-opus-4-8':   (5 / 1e6, 25 / 1e6),
+    'claude-opus-4-7':   (5 / 1e6, 25 / 1e6),
+    'claude-haiku-4-5':  (1 / 1e6, 5 / 1e6),
+    'claude-fable-5':    (10 / 1e6, 50 / 1e6),
+}
+
+
+@api_view(['GET'])
+@permission_classes([IsAdminUser])
+def admin_grading_health(request):
+    """Grading model-health status for the custom admin dashboard."""
+    from .ai_grading import CLAUDE_MODEL, KISWAHILI_MODEL, grade_cache
+    dead = None
+    try:
+        dead = grade_cache.get('ai_grading:dead_model')
+    except Exception:
+        pass
+    return Response({
+        'healthy':        not dead,
+        'dead_model':     dead,
+        'grading_model':  CLAUDE_MODEL,
+        'kiswahili_model': KISWAHILI_MODEL,
+    })
+
+
+@api_view(['POST'])
+@permission_classes([IsAdminUser])
+def admin_grading_health_clear(request):
+    """Clear the model-unavailable alert after updating the model."""
+    from .ai_grading import grade_cache
+    try:
+        grade_cache.delete('ai_grading:dead_model')
+    except Exception:
+        pass
+    return Response({'cleared': True})
+
+
+@api_view(['POST'])
+@permission_classes([IsAdminUser])
+def admin_grading_cost(request):
+    """Grade a SAMPLE of a quiz's questions live and return the real KES cost +
+    a projected monthly per-student figure. Spends API credits — deliberate."""
+    from . import ai_grading as g
+
+    quiz_id     = request.data.get('quiz_id')
+    sample_size = int(request.data.get('sample_size', 5) or 5)
+    per_month   = int(request.data.get('quizzes_per_month', 20) or 20)
+    kes         = float(request.data.get('kes_per_usd', 130) or 130)
+    sub         = float(request.data.get('sub_price', 999) or 999)
+
+    quiz = (Quiz.objects.filter(pk=quiz_id).first() if quiz_id
+            else Quiz.objects.filter(is_active=True).order_by('id').first())
+    if not quiz:
+        return Response({'error': 'No quiz found'}, status=404)
+
+    all_qs   = list(quiz.questions.all())
+    ai_total = sum(1 for q in all_qs if q.question_type != 'mcq')  # MCQs graded free
+    sample   = all_qs[:max(1, sample_size)]
+
+    calls = []
+    real_get = g._get_claude
+    def patched():
+        client = real_get()
+        real_create = client.messages.create
+        def wrapped(**p):
+            r = real_create(**p)
+            u = r.usage
+            calls.append({'model': p.get('model'), 'in': u.input_tokens, 'out': u.output_tokens,
+                          'cw': getattr(u, 'cache_creation_input_tokens', 0),
+                          'cr': getattr(u, 'cache_read_input_tokens', 0)})
+            return r
+        client.messages.create = wrapped
+        return client
+
+    class _NoCache:
+        def get(self, *a, **k): return None
+        def set(self, *a, **k): pass
+        def delete(self, *a, **k): pass
+
+    orig_get, orig_cache = g._get_claude, g.grade_cache
+    g._get_claude, g.grade_cache = patched, _NoCache()
+    ai_in_sample = 0
+    try:
+        for q in sample:
+            ans = ({str(pp.id): (pp.correct_answer or 'sample answer') for pp in q.parts.all()}
+                   if q.parts.exists() else (q.correct_answer or 'sample answer'))
+            try:
+                g.grade_answer(q, ans)
+                if q.question_type != 'mcq':
+                    ai_in_sample += 1
+            except Exception:
+                pass
+    finally:
+        g._get_claude, g.grade_cache = orig_get, orig_cache
+
+    sample_usd = 0.0
+    tot = {'in': 0, 'out': 0, 'cw': 0, 'cr': 0}
+    for c in calls:
+        pin, pout = _GRADING_PRICES.get(c['model'], _GRADING_PRICES['claude-sonnet-4-6'])
+        sample_usd += c['in'] * pin + c['cw'] * pin * 1.25 + c['cr'] * pin * 0.10 + c['out'] * pout
+        for k in tot:
+            tot[k] += c[k]
+
+    sample_kes = sample_usd * kes
+    avg_per_ai = sample_kes / ai_in_sample if ai_in_sample else 0.0
+    est_quiz_kes = avg_per_ai * ai_total           # full quiz estimate
+    monthly = est_quiz_kes * per_month
+    return Response({
+        'quiz_id': quiz.id, 'quiz_title': quiz.title,
+        'total_questions': len(all_qs), 'ai_graded_questions': ai_total,
+        'sample_size': len(sample), 'api_calls': len(calls), 'no_credits': len(calls) == 0,
+        'sample_cost_kes': round(sample_kes, 2),
+        'avg_kes_per_graded_question': round(avg_per_ai, 2),
+        'est_cost_per_quiz_kes': round(est_quiz_kes, 2),
+        'quizzes_per_month': per_month,
+        'est_monthly_kes': round(monthly),
+        'sub_price': round(sub),
+        'pct_of_revenue': round(monthly / sub * 100, 1) if sub else 0,
+        'margin_kes': round(sub - monthly),
+    })
+
+
 class AdminPaymentListView(generics.ListAPIView):
     permission_classes = [IsAdminUser]
     serializer_class = PaymentRequestSerializer

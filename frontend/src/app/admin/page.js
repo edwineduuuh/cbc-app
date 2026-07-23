@@ -31,6 +31,7 @@ import {
 import Button from "@/components/ui/Button";
 import Toast from "@/components/ui/Toast";
 import AdminPaymentsPanel from "@/components/AdminPaymentsPanel";
+import AdminGradingPanel from "@/components/AdminGradingPanel";
 import AdminNavigation from "@/components/AdminNavigation";
 const API = process.env.NEXT_PUBLIC_API_URL || "https://cbc-backend-production-8bc4.up.railway.app/api";
 // ─── Stat Card ────────────────────────────────────────────────────────────────
@@ -1328,6 +1329,11 @@ export default function AdminPage() {
               </div>
             </Link>
           </div>
+        </div>
+
+        {/* ── AI Grading health + cost ── */}
+        <div className="mt-6">
+          <AdminGradingPanel />
         </div>
 
         {/* ── Payments (superadmin only) ── */}
