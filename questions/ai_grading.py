@@ -78,8 +78,9 @@ SYMPY_TIMEOUT_SECONDS = 3
 # Answer length cap — reject absurdly long answers (prompt injection vector)
 MAX_ANSWER_LENGTH     = 5000
 
-# Cache TTL for graded answers (24 hours)
-GRADE_CACHE_TTL       = 86400
+# Cache TTL for graded answers — 1 year. Safe because the cache key embeds a
+# content-hash of the question (editing it auto-invalidates its grades).
+GRADE_CACHE_TTL       = 60 * 60 * 24 * 365
 
 # Graded answers live in the DB-backed 'grades' cache (shared across workers,
 # survives restarts). Fall back to the default cache if it isn't configured.
@@ -441,10 +442,26 @@ def _sanitize_answer(text: str) -> str:
 
 GRADER_VERSION = "v16"  # bump to bust stale cached results
 
-def _grade_cache_key(question_id, answer_text: str) -> str:
+
+def _question_content_version(question) -> str:
+    """Short hash of the grading-relevant fields. Editing a question's answer,
+    marking scheme, explanation or marks changes this, which auto-invalidates
+    that question's cached grades — so a (near-)forever cache TTL stays correct."""
+    parts = [
+        str(getattr(question, "correct_answer", "") or ""),
+        str(getattr(question, "marking_scheme", "") or ""),
+        str(getattr(question, "explanation", "") or ""),
+        str(getattr(question, "max_marks", "") or ""),
+    ]
+    return hashlib.sha256("|".join(parts).encode()).hexdigest()[:8]
+
+
+def _grade_cache_key(question, answer_text: str) -> str:
+    qid = getattr(question, "id", question)  # accepts a Question or a bare id
+    ver = _question_content_version(question) if hasattr(question, "id") else "0"
     norm = _normalise(str(answer_text))
-    h = hashlib.sha256(f"{question_id}:{norm}".encode()).hexdigest()[:16]
-    return f"grade:{GRADER_VERSION}:{question_id}:{h}"
+    h = hashlib.sha256(f"{qid}:{ver}:{norm}".encode()).hexdigest()[:16]
+    return f"grade:{GRADER_VERSION}:{qid}:{h}"
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -3215,13 +3232,13 @@ def grade_answer(
     cache_key = None
     if not working_image:
         if isinstance(student_answer, str):
-            cache_key = _grade_cache_key(question.id, student_answer)
+            cache_key = _grade_cache_key(question, student_answer)
         elif isinstance(student_answer, dict):
             try:
                 canon = json.dumps(student_answer, sort_keys=True, ensure_ascii=False)
             except Exception:
                 canon = str(student_answer)
-            cache_key = _grade_cache_key(question.id, canon)
+            cache_key = _grade_cache_key(question, canon)
     if cache_key:
         try:
             cached = grade_cache.get(cache_key)

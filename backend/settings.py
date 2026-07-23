@@ -143,7 +143,16 @@ CACHES = {
     'grades': {
         'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
         'LOCATION': 'stadispace_grade_cache',
-        'TIMEOUT': 86400,  # 24 hours
+        # 1 year — a repeated answer is graded ONCE and reused. Safe to keep this
+        # long because the cache key embeds a content-hash of the question, so
+        # editing a question's answer/scheme auto-invalidates just its grades.
+        'TIMEOUT': 60 * 60 * 24 * 365,
+        'OPTIONS': {
+            # Django's DB cache defaults to only 300 entries(!) and evicts the
+            # rest — which silently defeats grade caching. Hold a million.
+            'MAX_ENTRIES': 1_000_000,
+            'CULL_FREQUENCY': 4,
+        },
     },
 }
 # Password validation
