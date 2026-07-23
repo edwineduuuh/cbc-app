@@ -3128,11 +3128,20 @@ def _prematch_mode() -> str:
 
 
 def set_prematch_mode(mode: str) -> str:
-    """Persist the admin's chosen mode (off|shadow|live). Returns the value set."""
+    """Persist the admin's chosen mode (off|shadow|live). Returns the value set.
+    Self-heals if the cache table doesn't exist yet (creates it, then retries)."""
     mode = (mode or "off").strip().lower()
     if mode not in ("off", "shadow", "live"):
         mode = "off"
-    grade_cache.set("prematch:mode", mode, None)  # no expiry
+    try:
+        grade_cache.set("prematch:mode", mode, None)  # no expiry
+    except Exception:
+        try:
+            from django.core.management import call_command
+            call_command("createcachetable")
+            grade_cache.set("prematch:mode", mode, None)
+        except Exception:
+            pass
     return mode
 
 
