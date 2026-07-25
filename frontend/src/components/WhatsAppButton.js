@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, MessageCircle, ArrowRight, Clock } from "lucide-react";
 
@@ -31,6 +32,10 @@ const QUICK_MESSAGES = [
 
 export default function WhatsAppButton() {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
+
+  // Support button shows on the dashboard only (all screen sizes).
+  if (pathname !== "/dashboard") return null;
 
   const openChat = (msg) => {
     const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
