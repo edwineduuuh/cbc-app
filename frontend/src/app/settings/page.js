@@ -91,9 +91,9 @@ export default function SettingsPage() {
           </p>
         </div>
 
-        <div className="flex gap-6">
+        <div className="flex flex-col md:flex-row gap-6">
           {/* Sidebar */}
-          <div className="w-56 flex-shrink-0">
+          <div className="w-full md:w-56 md:shrink-0">
             {/* Avatar */}
             <div className="bg-white rounded-2xl p-4 border border-gray-100 shadow-sm mb-4 text-center">
               <div className="relative inline-block mb-3">
