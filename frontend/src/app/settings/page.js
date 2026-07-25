@@ -23,6 +23,9 @@ import {
   Save,
   Camera,
   Palette,
+  Sun,
+  Moon,
+  Monitor,
 } from "lucide-react";
 
 const API = process.env.NEXT_PUBLIC_API_URL || "https://cbc-backend-production-8bc4.up.railway.app/api";
@@ -54,7 +57,7 @@ export default function SettingsPage() {
   if (!user) return null;
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=DM+Sans:wght@400;500;600;700&display=swap');
         .font-display { font-family: 'Playfair Display', serif; }
@@ -85,8 +88,10 @@ export default function SettingsPage() {
       <div className="max-w-5xl mx-auto px-4 py-8">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="font-display text-3xl text-gray-900 mb-1">Settings</h1>
-          <p className="text-gray-500 text-sm">
+          <h1 className="font-display text-3xl text-gray-900 dark:text-white mb-1">
+            Settings
+          </h1>
+          <p className="text-gray-500 dark:text-gray-400 text-sm">
             Manage your account preferences
           </p>
         </div>
@@ -95,22 +100,26 @@ export default function SettingsPage() {
           {/* Sidebar */}
           <div className="w-full md:w-56 md:shrink-0">
             {/* Avatar */}
-            <div className="bg-white rounded-2xl p-4 border border-gray-100 shadow-sm mb-4 text-center">
+            <div className="bg-white dark:bg-slate-800 rounded-2xl p-4 border border-gray-100 dark:border-slate-700 shadow-sm mb-4 text-center">
               <div className="relative inline-block mb-3">
-                <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-teal-500 to-emerald-600 flex items-center justify-center text-white font-bold text-2xl mx-auto">
+                <div className="w-16 h-16 rounded-2xl bg-linear-to-br from-teal-500 to-emerald-600 flex items-center justify-center text-white font-bold text-2xl mx-auto">
                   {user.username?.charAt(0).toUpperCase()}
                 </div>
               </div>
-              <p className="font-bold text-gray-900 text-sm">{user.username}</p>
-              <p className="text-xs text-gray-400 mt-0.5">{user.email}</p>
-              <div className="mt-2 inline-flex items-center gap-1 bg-teal-50 text-teal-700 px-2 py-1 rounded-full text-xs font-semibold">
+              <p className="font-bold text-gray-900 dark:text-white text-sm">
+                {user.username}
+              </p>
+              <p className="text-xs text-gray-400 dark:text-gray-500 mt-0.5">
+                {user.email}
+              </p>
+              <div className="mt-2 inline-flex items-center gap-1 bg-teal-50 dark:bg-teal-500/10 text-teal-700 dark:text-teal-300 px-2 py-1 rounded-full text-xs font-semibold">
                 <GraduationCap className="w-3 h-3" />
                 Grade {user.grade || "—"}
               </div>
             </div>
 
             {/* Nav */}
-            <nav className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+            <nav className="bg-white dark:bg-slate-800 rounded-2xl border border-gray-100 dark:border-slate-700 shadow-sm overflow-hidden">
               {SECTIONS.map((section, i) => {
                 const Icon = section.icon;
                 const isActive = activeSection === section.id;
@@ -120,18 +129,20 @@ export default function SettingsPage() {
                     key={section.id}
                     onClick={() => setActiveSection(section.id)}
                     className={`w-full flex items-center gap-3 px-4 py-3 text-left text-sm font-medium transition-all ${
-                      i < SECTIONS.length - 1 ? "border-b border-gray-50" : ""
+                      i < SECTIONS.length - 1
+                        ? "border-b border-gray-50 dark:border-slate-700/50"
+                        : ""
                     } ${
                       isActive
                         ? isDanger
-                          ? "bg-red-50 text-red-600"
-                          : "bg-teal-50 text-teal-700"
+                          ? "bg-red-50 dark:bg-red-500/10 text-red-600 dark:text-red-400"
+                          : "bg-teal-50 dark:bg-teal-500/10 text-teal-700 dark:text-teal-300"
                         : isDanger
-                          ? "text-red-500 hover:bg-red-50"
-                          : "text-gray-600 hover:bg-gray-50"
+                          ? "text-red-500 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-500/10"
+                          : "text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-slate-700/50"
                     }`}
                   >
-                    <Icon className="w-4 h-4 flex-shrink-0" />
+                    <Icon className="w-4 h-4 shrink-0" />
                     {section.label}
                     {isActive && <ChevronRight className="w-3 h-3 ml-auto" />}
                   </button>
@@ -280,13 +291,13 @@ function ProfileSection({ user, showToast }) {
         </div>
 
         <div>
-          <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1.5">
+          <label className="block text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-1.5">
             Grade Level
           </label>
           <select
             value={form.grade}
             onChange={(e) => setForm({ ...form, grade: e.target.value })}
-            className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl text-sm focus:border-teal-500 focus:outline-none bg-gray-50 focus:bg-white transition-all"
+            className="w-full px-4 py-3 border-2 border-gray-200 dark:border-slate-700 rounded-xl text-sm focus:border-teal-500 dark:focus:border-teal-400 focus:outline-none bg-gray-50 dark:bg-slate-700 dark:text-white focus:bg-white dark:focus:bg-slate-600 transition-all"
           >
             <option value="">Select grade</option>
             {[4, 5, 6, 7, 8, 9, 10, 11, 12].map((g) => (
@@ -473,7 +484,7 @@ function NotificationsSection({ showToast }) {
   const Toggle = ({ checked, onChange }) => (
     <button
       onClick={onChange}
-      className={`relative w-11 h-6 rounded-full transition-colors ${checked ? "bg-teal-500" : "bg-gray-200"}`}
+      className={`relative w-11 h-6 rounded-full transition-colors ${checked ? "bg-teal-500" : "bg-gray-200 dark:bg-slate-600"}`}
     >
       <span
         className={`absolute top-1 w-4 h-4 bg-white rounded-full shadow transition-transform ${checked ? "translate-x-6" : "translate-x-1"}`}
@@ -523,17 +534,19 @@ function NotificationsSection({ showToast }) {
           return (
             <div
               key={item.key}
-              className={`flex items-center justify-between py-4 ${i < items.length - 1 ? "border-b border-gray-50" : ""}`}
+              className={`flex items-center justify-between py-4 ${i < items.length - 1 ? "border-b border-gray-50 dark:border-slate-700/50" : ""}`}
             >
               <div className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-lg bg-gray-100 flex items-center justify-center">
-                  <Icon className="w-4 h-4 text-gray-500" />
+                <div className="w-8 h-8 rounded-lg bg-gray-100 dark:bg-slate-700 flex items-center justify-center">
+                  <Icon className="w-4 h-4 text-gray-500 dark:text-gray-300" />
                 </div>
                 <div>
-                  <p className="text-sm font-semibold text-gray-900">
+                  <p className="text-sm font-semibold text-gray-900 dark:text-white">
                     {item.label}
                   </p>
-                  <p className="text-xs text-gray-400">{item.desc}</p>
+                  <p className="text-xs text-gray-400 dark:text-gray-500">
+                    {item.desc}
+                  </p>
                 </div>
               </div>
               <Toggle
@@ -561,11 +574,11 @@ function SecuritySection({ user }) {
 
   return (
     <div className="space-y-4">
-      <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
-        <h2 className="font-bold text-gray-900 text-lg mb-1">
+      <div className="bg-white dark:bg-slate-800 rounded-2xl border border-gray-100 dark:border-slate-700 shadow-sm p-6">
+        <h2 className="font-bold text-gray-900 dark:text-white text-lg mb-1">
           Account Security
         </h2>
-        <p className="text-gray-500 text-sm mb-6">
+        <p className="text-gray-500 dark:text-gray-400 text-sm mb-6">
           Monitor your account activity
         </p>
 
@@ -578,10 +591,12 @@ function SecuritySection({ user }) {
           ].map(({ label, value }) => (
             <div
               key={label}
-              className="flex justify-between items-center py-2 border-b border-gray-50 last:border-0"
+              className="flex justify-between items-center py-2 border-b border-gray-50 dark:border-slate-700/50 last:border-0"
             >
-              <span className="text-sm text-gray-500">{label}</span>
-              <span className="text-sm font-semibold text-gray-900">
+              <span className="text-sm text-gray-500 dark:text-gray-400">
+                {label}
+              </span>
+              <span className="text-sm font-semibold text-gray-900 dark:text-white">
                 {value}
               </span>
             </div>
@@ -589,27 +604,27 @@ function SecuritySection({ user }) {
         </div>
       </div>
 
-      <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
-        <h3 className="font-bold text-gray-900 text-sm mb-4">
+      <div className="bg-white dark:bg-slate-800 rounded-2xl border border-gray-100 dark:border-slate-700 shadow-sm p-6">
+        <h3 className="font-bold text-gray-900 dark:text-white text-sm mb-4">
           Active Sessions
         </h3>
         {sessions.map((s, i) => (
           <div key={i} className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-lg bg-emerald-100 flex items-center justify-center">
-                <Shield className="w-4 h-4 text-emerald-600" />
+              <div className="w-8 h-8 rounded-lg bg-emerald-100 dark:bg-emerald-500/15 flex items-center justify-center">
+                <Shield className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
               </div>
               <div>
-                <p className="text-sm font-semibold text-gray-900">
+                <p className="text-sm font-semibold text-gray-900 dark:text-white">
                   {s.device}
                 </p>
-                <p className="text-xs text-gray-400">
+                <p className="text-xs text-gray-400 dark:text-gray-500">
                   {s.location} · {s.time}
                 </p>
               </div>
             </div>
             {s.current && (
-              <span className="text-xs font-bold px-2 py-1 bg-emerald-100 text-emerald-700 rounded-full">
+              <span className="text-xs font-bold px-2 py-1 bg-emerald-100 dark:bg-emerald-500/15 text-emerald-700 dark:text-emerald-400 rounded-full">
                 Current
               </span>
             )}
@@ -632,21 +647,27 @@ function DangerSection({ logout, router, showToast }) {
 
   return (
     <div className="space-y-4">
-      <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
-        <h2 className="font-bold text-gray-900 text-lg mb-1">Danger Zone</h2>
-        <p className="text-gray-500 text-sm mb-6">
+      <div className="bg-white dark:bg-slate-800 rounded-2xl border border-gray-100 dark:border-slate-700 shadow-sm p-6">
+        <h2 className="font-bold text-gray-900 dark:text-white text-lg mb-1">
+          Danger Zone
+        </h2>
+        <p className="text-gray-500 dark:text-gray-400 text-sm mb-6">
           Irreversible actions — proceed with caution
         </p>
 
         {/* Sign out all devices */}
-        <div className="flex items-center justify-between p-4 bg-gray-50 rounded-xl mb-3">
+        <div className="flex items-center justify-between p-4 bg-gray-50 dark:bg-slate-700/50 rounded-xl mb-3">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg bg-orange-100 flex items-center justify-center">
-              <LogOut className="w-4 h-4 text-orange-600" />
+            <div className="w-8 h-8 rounded-lg bg-orange-100 dark:bg-orange-500/15 flex items-center justify-center">
+              <LogOut className="w-4 h-4 text-orange-600 dark:text-orange-400" />
             </div>
             <div>
-              <p className="text-sm font-semibold text-gray-900">Sign Out</p>
-              <p className="text-xs text-gray-400">Sign out of your account</p>
+              <p className="text-sm font-semibold text-gray-900 dark:text-white">
+                Sign Out
+              </p>
+              <p className="text-xs text-gray-400 dark:text-gray-500">
+                Sign out of your account
+              </p>
             </div>
           </div>
           <button
@@ -724,16 +745,80 @@ function DangerSection({ logout, router, showToast }) {
 
 // ─── Appearance Section ────────────────────────────────────
 function AppearanceSection({ showToast }) {
+  const { theme, setTheme } = useThemeContext();
+
+  const OPTIONS = [
+    { id: "light", label: "Light", desc: "Bright and clean", icon: Sun },
+    { id: "dark", label: "Dark", desc: "Easy on the eyes", icon: Moon },
+    {
+      id: "system",
+      label: "System",
+      desc: "Match your device",
+      icon: Monitor,
+    },
+  ];
+
+  const choose = (id) => {
+    setTheme(id);
+    showToast(
+      id === "system" ? "Following your device theme" : `${id[0].toUpperCase()}${id.slice(1)} theme applied`,
+    );
+  };
+
   return (
-    <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
-      <h2 className="font-bold text-gray-900 text-lg mb-1">Appearance</h2>
-      <p className="text-gray-500 text-sm mb-6">
-        We are using a clean, light theme for a consistent experience.
+    <div className="bg-white dark:bg-slate-800 rounded-2xl border border-gray-100 dark:border-slate-700 shadow-sm p-6">
+      <h2 className="font-bold text-gray-900 dark:text-white text-lg mb-1">
+        Appearance
+      </h2>
+      <p className="text-gray-500 dark:text-gray-400 text-sm mb-6">
+        Choose how StadiSpace looks on this device.
       </p>
-      <div className="p-4 bg-amber-50 rounded-lg border border-amber-200">
-        <p className="text-sm text-amber-900">
-          Theme customization is not available at this time.
-        </p>
+
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+        {OPTIONS.map((opt) => {
+          const Icon = opt.icon;
+          const active = (theme || "light") === opt.id;
+          return (
+            <button
+              key={opt.id}
+              onClick={() => choose(opt.id)}
+              className={`flex flex-col items-start gap-2 rounded-2xl border-2 p-4 text-left transition-all ${
+                active
+                  ? "border-teal-500 bg-teal-50 dark:bg-teal-500/10"
+                  : "border-gray-200 dark:border-slate-700 hover:border-gray-300 dark:hover:border-slate-600"
+              }`}
+            >
+              <div
+                className={`flex h-10 w-10 items-center justify-center rounded-xl ${
+                  active
+                    ? "bg-teal-500 text-white"
+                    : "bg-gray-100 dark:bg-slate-700 text-gray-500 dark:text-gray-300"
+                }`}
+              >
+                <Icon className="h-5 w-5" />
+              </div>
+              <div>
+                <p
+                  className={`text-sm font-bold ${
+                    active
+                      ? "text-teal-700 dark:text-teal-300"
+                      : "text-gray-900 dark:text-white"
+                  }`}
+                >
+                  {opt.label}
+                </p>
+                <p className="text-xs text-gray-500 dark:text-gray-400">
+                  {opt.desc}
+                </p>
+              </div>
+              {active && (
+                <span className="mt-1 inline-flex items-center gap-1 text-xs font-semibold text-teal-600 dark:text-teal-400">
+                  <Check className="h-3 w-3" /> Active
+                </span>
+              )}
+            </button>
+          );
+        })}
       </div>
     </div>
   );
