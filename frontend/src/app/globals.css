@@ -129,3 +129,65 @@ body {
   display: inline !important;
   overflow: visible !important;
 }
+
+/* ═══════════════════════════════════════════════════════════════════
+   GLOBAL DARK MODE
+   Most pages hardcode light Tailwind colors (bg-white, bg-gray-50,
+   text-gray-900, border-gray-100 …) that don't respond to dark mode.
+   Instead of hand-editing every element on every page, remap those
+   NEUTRAL utilities here whenever <html> carries .dark. Coloured
+   utilities (teal / red / emerald / amber / blue …), text-white, and
+   gradients are deliberately left untouched so buttons, badges and
+   brand colours keep their identity. Pages that already declare their
+   own dark: variants (Settings, Tutor) still land on the same palette,
+   so the result stays coherent everywhere.
+   ═══════════════════════════════════════════════════════════════════ */
+:root {
+  --dk-card:   #1e293b; /* elevated surface  (bg-white)            */
+  --dk-inset:  #0f172a; /* recessed surface  (bg-gray-50/100)      */
+  --dk-mid:    #334155; /* dividers, toggles (bg-gray-200)         */
+  --dk-border: #334155;
+  --dk-text:   #f1f5f9; /* headings          (text-gray-900/800)   */
+  --dk-text-2: #cbd5e1; /* body              (text-gray-700/600)   */
+  --dk-text-3: #94a3b8; /* muted             (text-gray-500/400)   */
+}
+
+/* ── Surfaces ── */
+html.dark .bg-white { background-color: var(--dk-card) !important; }
+html.dark .bg-gray-50,
+html.dark .bg-gray-100,
+html.dark .bg-slate-50,
+html.dark .bg-slate-100 { background-color: var(--dk-inset) !important; }
+html.dark .bg-gray-200 { background-color: var(--dk-mid) !important; }
+/* translucent white bars (sticky top / bottom navs use bg-white/95) */
+html.dark [class*="bg-white/"] { background-color: rgba(30, 41, 59, 0.92) !important; }
+
+/* ── Text ── */
+html.dark .text-gray-900,
+html.dark .text-gray-800,
+html.dark .text-black { color: var(--dk-text) !important; }
+html.dark .text-gray-700,
+html.dark .text-gray-600 { color: var(--dk-text-2) !important; }
+html.dark .text-gray-500,
+html.dark .text-gray-400 { color: var(--dk-text-3) !important; }
+
+/* ── Borders ── */
+html.dark .border-gray-50,
+html.dark .border-gray-100,
+html.dark .border-gray-200,
+html.dark .border-gray-300 { border-color: var(--dk-border) !important; }
+
+/* ── Neutral hover states ── */
+html.dark .hover\:bg-gray-50:hover,
+html.dark .hover\:bg-gray-100:hover { background-color: rgba(255, 255, 255, 0.05) !important; }
+
+/* ── Form controls (also overrides the light-text !important rule above) ── */
+html.dark input,
+html.dark textarea,
+html.dark select {
+  color: var(--dk-text) !important;
+  background-color: var(--dk-inset) !important;
+  border-color: var(--dk-border);
+}
+html.dark input::placeholder,
+html.dark textarea::placeholder { color: var(--dk-text-3) !important; }
