@@ -39,7 +39,7 @@ export default function WhatsAppButton() {
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3">
+    <div className="fixed bottom-20 right-4 z-50 flex flex-col items-end gap-3 md:bottom-6 md:right-6">
       <AnimatePresence>
         {open && (
           <motion.div
@@ -47,7 +47,7 @@ export default function WhatsAppButton() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 16, scale: 0.95 }}
             transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
-            className="w-80 rounded-3xl overflow-hidden shadow-2xl"
+            className="w-[calc(100vw-2rem)] max-w-80 rounded-3xl overflow-hidden shadow-2xl"
             style={{
               background: "#0d1117",
               border: "1px solid rgba(255,255,255,0.1)",

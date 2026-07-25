@@ -115,6 +115,15 @@ body {
   overflow: visible !important;
 }
 
+/* Reserve room for the fixed mobile bottom tab bar (NavBar). The class is
+   toggled on <body> only while the bottom bar is actually shown, so pages
+   without the nav (login/register/quiz) keep their normal spacing. */
+@media (max-width: 767px) {
+  body.has-bottom-nav {
+    padding-bottom: calc(4.25rem + env(safe-area-inset-bottom));
+  }
+}
+
 .katex .sqrt-sign svg,
 .katex .sqrt-line {
   display: inline !important;
