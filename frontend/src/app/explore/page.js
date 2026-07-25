@@ -79,7 +79,7 @@ function ExploreContent() {
   const firstName = user?.first_name || user?.username || "there";
 
   return (
-    <div style={{ minHeight: "100vh", background: "#f7f9fc", fontFamily: "'Lato', sans-serif", paddingBottom: 60, paddingTop: 24 }}>
+    <div style={{ minHeight: "100vh", background: "var(--bg)", fontFamily: "'Lato', sans-serif", paddingBottom: 60, paddingTop: 24 }}>
       <div style={{ maxWidth: 800, margin: "0 auto", padding: "0 16px" }}>
 
         {/* Motivational header */}
@@ -136,8 +136,8 @@ function ExploreContent() {
         </div>
 
         {/* Grade selector */}
-        <div style={{ background: "#fff", borderRadius: 20, border: "1px solid #e8eaf0", padding: 20, marginBottom: 16 }}>
-          <p style={{ fontSize: 12, fontWeight: 700, color: "#8892a4", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: 12 }}>
+        <div style={{ background: "var(--bg-card)", borderRadius: 20, border: "1px solid var(--border)", padding: 20, marginBottom: 16 }}>
+          <p style={{ fontSize: 12, fontWeight: 700, color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: 12 }}>
             Select grade
           </p>
           <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
@@ -151,9 +151,9 @@ function ExploreContent() {
                   style={{
                     padding: "8px 18px",
                     borderRadius: 12,
-                    border: `2px solid ${isSelected ? "#1a6fc4" : "#e8eaf0"}`,
-                    background: isSelected ? "#1a6fc4" : isUserGrade ? "#f0f7ff" : "#fff",
-                    color: isSelected ? "#fff" : isUserGrade ? "#1a6fc4" : "#6b7280",
+                    border: `2px solid ${isSelected ? "#1a6fc4" : "var(--border)"}`,
+                    background: isSelected ? "#1a6fc4" : isUserGrade ? "#f0f7ff" : "var(--bg-card)",
+                    color: isSelected ? "#fff" : isUserGrade ? "#1a6fc4" : "var(--text-muted)",
                     fontSize: 14,
                     fontWeight: isSelected || isUserGrade ? 700 : 500,
                     transition: "all 0.15s",
@@ -182,13 +182,13 @@ function ExploreContent() {
         <AnimatePresence>
           {selectedGrade && (
             <motion.div id="subject-section" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
-              style={{ background: "#fff", borderRadius: 20, border: "1px solid #e8eaf0", padding: 20, marginBottom: 16 }}>
-              <p style={{ fontSize: 12, fontWeight: 700, color: "#8892a4", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: 12 }}>
+              style={{ background: "var(--bg-card)", borderRadius: 20, border: "1px solid var(--border)", padding: 20, marginBottom: 16 }}>
+              <p style={{ fontSize: 12, fontWeight: 700, color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: 12 }}>
                 Select learning area
               </p>
               {loadingSubjects ? (
                 <div style={{ display: "flex", justifyContent: "center", padding: "20px 0" }}>
-                  <div style={{ width: 28, height: 28, border: "3px solid #e8eaf0", borderTopColor: "#1a6fc4", borderRadius: "50%", animation: "spin 0.8s linear infinite" }} />
+                  <div style={{ width: 28, height: 28, border: "3px solid var(--border)", borderTopColor: "#1a6fc4", borderRadius: "50%", animation: "spin 0.8s linear infinite" }} />
                   <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
                 </div>
               ) : (
@@ -201,8 +201,8 @@ function ExploreContent() {
                         style={{
                           padding: "14px 14px",
                           borderRadius: 14,
-                          border: `2px solid ${isThisLoading ? "#1a6fc4" : "#e8eaf0"}`,
-                          background: isThisLoading ? "#e8f4ff" : "#f7f9fc",
+                          border: `2px solid ${isThisLoading ? "#1a6fc4" : "var(--border)"}`,
+                          background: isThisLoading ? "#e8f4ff" : "var(--bg-secondary)",
                           display: "flex", alignItems: "center", gap: 10,
                           transition: "all 0.15s", textAlign: "left",
                           boxShadow: isThisLoading ? "0 2px 12px rgba(26,111,196,0.12)" : "none",
@@ -210,10 +210,10 @@ function ExploreContent() {
                           cursor: loadingSubjectId ? "default" : "pointer",
                         }}
                         onMouseEnter={(e) => { if (!loadingSubjectId) e.currentTarget.style.borderColor = "#bdd7f5"; }}
-                        onMouseLeave={(e) => { if (!loadingSubjectId) e.currentTarget.style.borderColor = "#e8eaf0"; }}
+                        onMouseLeave={(e) => { if (!loadingSubjectId) e.currentTarget.style.borderColor = "var(--border)"; }}
                       >
                         <span style={{ fontSize: 24 }}>{s.icon || "📚"}</span>
-                        <span style={{ flex: 1, fontSize: 13, fontWeight: isThisLoading ? 700 : 500, color: isThisLoading ? "#1a6fc4" : "#1a1a2e", lineHeight: 1.3 }}>
+                        <span style={{ flex: 1, fontSize: 13, fontWeight: isThisLoading ? 700 : 500, color: isThisLoading ? "#1a6fc4" : "var(--text)", lineHeight: 1.3 }}>
                           {s.name}
                         </span>
                         {isThisLoading && <Loader2 size={16} color="#1a6fc4" style={{ flexShrink: 0, animation: "spin 0.8s linear infinite" }} />}

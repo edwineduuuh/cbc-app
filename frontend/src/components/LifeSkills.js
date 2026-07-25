@@ -31,7 +31,7 @@ function ContentCard({ item, onClick }) {
       transition={{ duration: 0.2 }}
       onClick={() => onClick(item)}
       style={{
-        background: "#fff",
+        background: "var(--bg-card)",
         border: `1.5px solid ${colors.border}`,
         borderRadius: 14,
         padding: "20px 22px",
@@ -65,7 +65,7 @@ function ContentCard({ item, onClick }) {
         style={{
           fontWeight: 700,
           fontSize: 16,
-          color: "#1a1a2e",
+          color: "var(--text)",
           lineHeight: 1.3,
         }}
       >
@@ -77,7 +77,7 @@ function ContentCard({ item, onClick }) {
         <div
           style={{
             fontSize: 14,
-            color: "#555",
+            color: "var(--text-muted)",
             lineHeight: 1.6,
           }}
         >
@@ -95,7 +95,7 @@ function ContentCard({ item, onClick }) {
         }}
       >
         {item.author ? (
-          <span style={{ fontSize: 12, color: "#888" }}>— {item.author}</span>
+          <span style={{ fontSize: 12, color: "var(--text-muted)" }}>— {item.author}</span>
         ) : (
           <span />
         )}
@@ -148,7 +148,7 @@ function DetailView({ item, onBack }) {
 
       <div
         style={{
-          background: "#fff",
+          background: "var(--bg-card)",
           border: `2px solid ${colors.border}`,
           borderRadius: 16,
           padding: "32px 36px",
@@ -176,7 +176,7 @@ function DetailView({ item, onBack }) {
           style={{
             fontSize: 26,
             fontWeight: 800,
-            color: "#1a1a2e",
+            color: "var(--text)",
             margin: "16px 0 20px",
             lineHeight: 1.25,
           }}
@@ -188,7 +188,7 @@ function DetailView({ item, onBack }) {
         <div
           style={{
             fontSize: 16,
-            color: "#333",
+            color: "var(--text)",
             lineHeight: 1.85,
             whiteSpace: "pre-wrap",
           }}
@@ -203,7 +203,7 @@ function DetailView({ item, onBack }) {
               paddingTop: 20,
               borderTop: `1px solid ${colors.border}`,
               fontSize: 14,
-              color: "#666",
+              color: "var(--text-muted)",
               fontStyle: "italic",
             }}
           >
@@ -246,7 +246,7 @@ export default function LifeSkills() {
     filter === "all" ? items : items.filter((i) => i.content_type === filter);
 
   return (
-    <div style={{ minHeight: "100vh", background: "#f8f9ff", padding: "0 0 60px" }}>
+    <div style={{ minHeight: "100vh", background: "var(--bg)", padding: "0 0 60px" }}>
       {/* Hero */}
       <div
         style={{
@@ -331,9 +331,9 @@ export default function LifeSkills() {
                       padding: "7px 18px",
                       borderRadius: 20,
                       border: "1.5px solid",
-                      borderColor: filter === f ? "#2563eb" : "#d1d5db",
-                      background: filter === f ? "#2563eb" : "#fff",
-                      color: filter === f ? "#fff" : "#555",
+                      borderColor: filter === f ? "#2563eb" : "var(--border)",
+                      background: filter === f ? "#2563eb" : "var(--bg-card)",
+                      color: filter === f ? "#fff" : "var(--text-muted)",
                       fontWeight: 600,
                       fontSize: 13,
                       cursor: "pointer",
@@ -355,7 +355,7 @@ export default function LifeSkills() {
                   style={{
                     textAlign: "center",
                     padding: "60px 0",
-                    color: "#888",
+                    color: "var(--text-muted)",
                     fontSize: 15,
                   }}
                 >
@@ -381,7 +381,7 @@ export default function LifeSkills() {
                   style={{
                     textAlign: "center",
                     padding: "60px 20px",
-                    color: "#888",
+                    color: "var(--text-muted)",
                   }}
                 >
                   <Lightbulb size={40} color="#d1d5db" style={{ marginBottom: 16 }} />
