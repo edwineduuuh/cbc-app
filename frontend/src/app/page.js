@@ -51,7 +51,7 @@ function FAQItem({ q, a }) {
   const [open, setOpen] = useState(false);
   return (
     <div
-      style={{ borderBottom: "1px solid #e2e8f0" }}
+      style={{ borderBottom: "1px solid var(--border)" }}
       className="last:border-0"
     >
       <button
@@ -227,7 +227,7 @@ export default function LandingPage() {
       <nav
         style={{
           background: "rgba(255,255,255,0.95)",
-          borderBottom: "1px solid #e2e8f0",
+          borderBottom: "1px solid var(--border)",
         }}
         className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md"
       >
@@ -305,7 +305,7 @@ export default function LandingPage() {
               initial={{ height: 0, opacity: 0 }}
               animate={{ height: "auto", opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
-              style={{ borderTop: "1px solid #e2e8f0", background: "white" }}
+              style={{ borderTop: "1px solid var(--border)", background: "var(--bg-card)" }}
               className="md:hidden overflow-hidden"
             >
               <div className="px-4 py-4 space-y-1">
@@ -327,13 +327,13 @@ export default function LandingPage() {
                 ))}
                 <div
                   className="pt-3 flex flex-col gap-2"
-                  style={{ borderTop: "1px solid #e2e8f0" }}
+                  style={{ borderTop: "1px solid var(--border)" }}
                 >
                   <Link href="/login">
                     <button
                       style={{
                         color: "var(--text)",
-                        border: "1px solid #e2e8f0",
+                        border: "1px solid var(--border)",
                         borderRadius: 12,
                         padding: "11px 0",
                         fontSize: 14,
@@ -505,8 +505,8 @@ export default function LandingPage() {
                       fontSize: 15,
                       padding: "15px 28px",
                       borderRadius: 14,
-                      border: "1px solid #e2e8f0",
-                      background: "white",
+                      border: "1px solid var(--border)",
+                      background: "var(--bg-card)",
                     }}
                     className="hover:border-teal-300 hover:text-teal-700 transition-all"
                   >
@@ -562,8 +562,8 @@ export default function LandingPage() {
             >
               <div
                 style={{
-                  background: "white",
-                  border: "1px solid #e2e8f0",
+                  background: "var(--bg-card)",
+                  border: "1px solid var(--border)",
                   borderRadius: 24,
                   overflow: "hidden",
                   boxShadow: "0 40px 80px rgba(15,31,61,0.12)",
@@ -800,8 +800,8 @@ export default function LandingPage() {
                   position: "absolute",
                   right: -10,
                   top: 20,
-                  background: "white",
-                  border: "1px solid #e2e8f0",
+                  background: "var(--bg-card)",
+                  border: "1px solid var(--border)",
                   borderRadius: 16,
                   padding: "12px 16px",
                   boxShadow: "0 16px 40px rgba(15,31,61,0.12)",
@@ -914,7 +914,7 @@ export default function LandingPage() {
         className="py-20 lg:py-28"
         style={{
           background: "var(--bg)",
-          borderBottom: "1px solid #e2e8f0",
+          borderBottom: "1px solid var(--border)",
         }}
       >
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -1011,7 +1011,7 @@ export default function LandingPage() {
             <Link href="/register">
               <button
                 style={{
-                  background: "white",
+                  background: "var(--bg-card)",
                   color: "#0e7490",
                   fontWeight: 700,
                   fontSize: 15,
@@ -1033,7 +1033,7 @@ export default function LandingPage() {
       </section>
 
       {/* ── FEATURES ── */}
-      <section id="features" className="py-20 lg:py-28" style={{ background: "white" }}>
+      <section id="features" className="py-20 lg:py-28" style={{ background: "var(--bg-card)" }}>
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <FadeIn className="text-center max-w-2xl mx-auto mb-16">
             <p
@@ -1073,8 +1073,8 @@ export default function LandingPage() {
                 <div
                   className="card-lift h-full"
                   style={{
-                    background: "white",
-                    border: "1px solid #e2e8f0",
+                    background: "var(--bg-card)",
+                    border: "1px solid var(--border)",
                     borderRadius: 20,
                     padding: 24,
                   }}
@@ -1226,7 +1226,7 @@ export default function LandingPage() {
       </section>
 
       {/* ── TESTIMONIALS ── */}
-      <section className="py-20 lg:py-28" style={{ background: "white" }}>
+      <section className="py-20 lg:py-28" style={{ background: "var(--bg-card)" }}>
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <FadeIn className="text-center max-w-xl mx-auto mb-16">
             <p
@@ -1261,8 +1261,8 @@ export default function LandingPage() {
                 <div
                   className="card-lift h-full flex flex-col"
                   style={{
-                    background: "white",
-                    border: "1px solid #e2e8f0",
+                    background: "var(--bg-card)",
+                    border: "1px solid var(--border)",
                     borderRadius: 20,
                     padding: 24,
                   }}
@@ -1414,7 +1414,7 @@ export default function LandingPage() {
                 <div
                   style={{
                     background: "var(--bg)",
-                    border: "1px solid #e2e8f0",
+                    border: "1px solid var(--border)",
                     borderRadius: 16,
                     padding: 28,
                   }}
@@ -1516,8 +1516,8 @@ export default function LandingPage() {
               <div
                 className="card-lift h-full flex flex-col"
                 style={{
-                  background: "white",
-                  border: "1.5px solid #e2e8f0",
+                  background: "var(--bg-card)",
+                  border: "1.5px solid var(--border)",
                   borderRadius: 20,
                   padding: 28,
                 }}
@@ -1599,7 +1599,7 @@ export default function LandingPage() {
                       width: "100%",
                       padding: "13px 0",
                       borderRadius: 12,
-                      border: "1.5px solid #e2e8f0",
+                      border: "1.5px solid var(--border)",
                       color: "var(--text)",
                       background: "transparent",
                       fontWeight: 700,
@@ -1618,7 +1618,7 @@ export default function LandingPage() {
               <div
                 className="card-lift relative h-full flex flex-col"
                 style={{
-                  background: "white",
+                  background: "var(--bg-card)",
                   border: "2px solid #0e7490",
                   borderRadius: 20,
                   padding: 28,
@@ -1757,8 +1757,8 @@ export default function LandingPage() {
               <div
                 className="card-lift relative h-full flex flex-col"
                 style={{
-                  background: "white",
-                  border: "1.5px solid #e2e8f0",
+                  background: "var(--bg-card)",
+                  border: "1.5px solid var(--border)",
                   borderRadius: 20,
                   padding: 28,
                   boxShadow: "0 24px 60px rgba(15,31,61,0.1)",
@@ -1897,8 +1897,8 @@ export default function LandingPage() {
                 display: "inline-flex",
                 alignItems: "center",
                 gap: 8,
-                background: "white",
-                border: "1px solid #e2e8f0",
+                background: "var(--bg-card)",
+                border: "1px solid var(--border)",
                 borderRadius: 100,
                 padding: "11px 20px",
                 boxShadow: "0 2px 8px rgba(0,0,0,0.04)",
@@ -1915,7 +1915,7 @@ export default function LandingPage() {
       </section>
 
       {/* ── FAQ ── */}
-      <section id="faq" className="py-20 lg:py-28" style={{ background: "white" }}>
+      <section id="faq" className="py-20 lg:py-28" style={{ background: "var(--bg-card)" }}>
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           <FadeIn className="text-center mb-14">
             <p
@@ -1944,8 +1944,8 @@ export default function LandingPage() {
           <FadeIn>
             <div
               style={{
-                background: "white",
-                border: "1px solid #e2e8f0",
+                background: "var(--bg-card)",
+                border: "1px solid var(--border)",
                 borderRadius: 20,
                 padding: "8px 28px",
                 boxShadow: "0 4px 20px rgba(0,0,0,0.04)",

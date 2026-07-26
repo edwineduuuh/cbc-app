@@ -74,7 +74,7 @@ function _mdTableToHtml(text) {
       .map(c => `<th style="padding:6px 12px;border:1px solid #cbd5e1;background:#f1f5f9;font-weight:700;text-align:left;font-size:13px">${c.trim()}</th>`).join("");
     const body = rows.slice(2).map(r => {
       const cells = r.split("|").filter((_, i, a) => i > 0 && i < a.length - 1)
-        .map(c => `<td style="padding:6px 12px;border:1px solid #e2e8f0;font-size:13px">${c.trim()}</td>`).join("");
+        .map(c => `<td style="padding:6px 12px;border:1px solid var(--border);font-size:13px">${c.trim()}</td>`).join("");
       return `<tr>${cells}</tr>`;
     }).join("");
     return `<table style="border-collapse:collapse;margin:10px 0;width:auto;max-width:100%"><thead><tr>${header}</tr></thead><tbody>${body}</tbody></table>`;
@@ -710,7 +710,7 @@ function MatchingTable({ tableData, answer, onAnswer }) {
           overflowX: "auto",
           marginBottom: 18,
           borderRadius: 14,
-          border: "1.5px solid #e2e8f0",
+          border: "1.5px solid var(--border)",
           boxShadow: "0 2px 12px rgba(0,0,0,0.05)",
         }}
       >
@@ -729,9 +729,9 @@ function MatchingTable({ tableData, answer, onAnswer }) {
                     fontWeight: 700,
                     color: "var(--text)",
                     background: "var(--bg)",
-                    borderBottom: "2px solid #e2e8f0",
+                    borderBottom: "2px solid var(--border)",
                     borderRight:
-                      c < headers.length - 1 ? "1.5px solid #e2e8f0" : "none",
+                      c < headers.length - 1 ? "1.5px solid var(--border)" : "none",
                   }}
                 >
                   {cell.v}
@@ -758,7 +758,7 @@ function MatchingTable({ tableData, answer, onAnswer }) {
                       color: "var(--text)",
                       borderBottom:
                         ri < dataRows.length - 1 ? "1px solid var(--border)" : "none",
-                      borderRight: "1.5px solid #e2e8f0",
+                      borderRight: "1.5px solid var(--border)",
                     }}
                   >
                     {row[ic].v}
@@ -916,7 +916,7 @@ function FillInTable({ tableData, answer, onAnswer }) {
       style={{
         overflowX: "auto",
         borderRadius: 14,
-        border: "1.5px solid #e2e8f0",
+        border: "1.5px solid var(--border)",
         boxShadow: "0 2px 12px rgba(0,0,0,0.05)",
       }}
     >
@@ -940,7 +940,7 @@ function FillInTable({ tableData, answer, onAnswer }) {
                     borderBottom:
                       r < rows.length - 1 ? "1px solid var(--border)" : "none",
                     borderRight:
-                      c < row.length - 1 ? "1.5px solid #e2e8f0" : "none",
+                      c < row.length - 1 ? "1.5px solid var(--border)" : "none",
                     fontSize: 14,
                     fontWeight: r === 0 ? 700 : 400,
                     color: "var(--text)",
@@ -2934,7 +2934,7 @@ export default function QuizTakePage({ params }) {
                           marginTop: 4,
                           overflowX: "auto",
                           borderRadius: 14,
-                          border: "1.5px solid #e2e8f0",
+                          border: "1.5px solid var(--border)",
                           boxShadow: "0 2px 12px rgba(0,0,0,0.05)",
                         }}
                       >
@@ -2972,7 +2972,7 @@ export default function QuizTakePage({ params }) {
                                           : "none",
                                       borderRight:
                                         c < row.length - 1
-                                          ? "1.5px solid #e2e8f0"
+                                          ? "1.5px solid var(--border)"
                                           : "none",
                                     }}
                                   >
