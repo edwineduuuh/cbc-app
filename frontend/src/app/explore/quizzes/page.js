@@ -120,7 +120,7 @@ function QuizzesContent() {
   };
 
   return (
-    <div style={{ minHeight: "100vh", background: "#f7f9fc", fontFamily: "'Lato', sans-serif", paddingBottom: 60, paddingTop: 24 }}>
+    <div style={{ minHeight: "100vh", background: "var(--bg)", fontFamily: "'Lato', sans-serif", paddingBottom: 60, paddingTop: 24 }}>
       <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
       <div style={{ maxWidth: 800, margin: "0 auto", padding: "0 16px" }}>
 
@@ -152,9 +152,9 @@ function QuizzesContent() {
 
         {/* Quizzes panel */}
         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
-          style={{ background: "#fff", borderRadius: 20, border: "1px solid #e8eaf0", padding: 20 }}>
+          style={{ background: "var(--bg-card)", borderRadius: 20, border: "1px solid var(--border)", padding: 20 }}>
           {/* Tabs */}
-          <div style={{ display: "flex", gap: 6, marginBottom: 14, paddingBottom: 14, borderBottom: "1px solid #e8eaf0", overflowX: "auto" }}>
+          <div style={{ display: "flex", gap: 6, marginBottom: 14, paddingBottom: 14, borderBottom: "1px solid var(--border)", overflowX: "auto" }}>
             {QUIZ_TYPE_TABS.map((tab) => (
               <button key={tab.id} onClick={() => { setSelectedTab(tab.id); setSelectedStrand(null); }}
                 style={{
@@ -199,15 +199,15 @@ function QuizzesContent() {
           {/* Quiz list */}
           {loadingQuizzes ? (
             <div style={{ display: "flex", justifyContent: "center", padding: "32px 0" }}>
-              <div style={{ width: 32, height: 32, border: "3px solid #e8eaf0", borderTopColor: "#1a6fc4", borderRadius: "50%", animation: "spin 0.8s linear infinite" }} />
+              <div style={{ width: 32, height: 32, border: "3px solid var(--border)", borderTopColor: "#1a6fc4", borderRadius: "50%", animation: "spin 0.8s linear infinite" }} />
             </div>
           ) : filteredQuizzes.length === 0 ? (
             <div style={{ textAlign: "center", padding: "40px 16px" }}>
               <div style={{ fontSize: 44, marginBottom: 6 }}>🚧</div>
-              <p style={{ fontSize: 15, fontWeight: 700, color: "#3a4252", margin: "0 0 6px" }}>
+              <p style={{ fontSize: 15, fontWeight: 700, color: "var(--text)", margin: "0 0 6px" }}>
                 This corner&apos;s still cooking!
               </p>
-              <p style={{ fontSize: 13.5, color: "#8892a4", lineHeight: 1.6, maxWidth: 360, margin: "0 auto 16px" }}>
+              <p style={{ fontSize: 13.5, color: "var(--text-muted)", lineHeight: 1.6, maxWidth: 360, margin: "0 auto 16px" }}>
                 Our teachers hand-write every question (no robots here 🤖🚫), so good
                 things take a day or two. Your {subjectName}
                 {selectedStrand ? ` — ${selectedStrand.name}` : ""} {selectedStrand ? "strand" : "quizzes"} are
@@ -253,7 +253,7 @@ function QuizzesContent() {
                     onMouseLeave={(e) => { if (!loadingQuizId) { e.currentTarget.style.borderColor = "#e8eaf0"; e.currentTarget.style.boxShadow = "none"; }}}>
                     <div style={{ flex: 1 }}>
                       <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 5, flexWrap: "wrap" }}>
-                        <span style={{ fontSize: 14, fontWeight: 600, color: "#0d0d1a" }}>{quiz.title}</span>
+                        <span style={{ fontSize: 14, fontWeight: 600, color: "var(--text)" }}>{quiz.title}</span>
                         <span style={{
                           fontSize: 11, padding: "2px 8px", borderRadius: 20,
                           background: isExam ? "#f0eeff" : "#e8f4ff",
@@ -263,7 +263,7 @@ function QuizzesContent() {
                         </span>
                       </div>
                       <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
-                        <span style={{ fontSize: 12, color: "#8892a4" }}>
+                        <span style={{ fontSize: 12, color: "var(--text-muted)" }}>
                           {quiz.total_questions || 0} questions · {quiz.duration_minutes || 30} mins
                         </span>
                         {score !== null && (
@@ -271,7 +271,7 @@ function QuizzesContent() {
                         )}
                       </div>
                       {score !== null && (
-                        <div style={{ height: 3, background: "#f0f2f7", borderRadius: 99, marginTop: 8, overflow: "hidden" }}>
+                        <div style={{ height: 3, background: "var(--bg)", borderRadius: 99, marginTop: 8, overflow: "hidden" }}>
                           <div style={{ height: "100%", width: `${score}%`, background: scoreColor, borderRadius: 99, transition: "width 0.6s ease" }} />
                         </div>
                       )}

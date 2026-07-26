@@ -85,7 +85,7 @@ function FAQItem({ q, a }) {
           >
             <p
               className="pb-5 leading-relaxed text-sm"
-              style={{ color: "#475569", fontFamily: "'DM Sans', sans-serif" }}
+              style={{ color: "var(--text)", fontFamily: "'DM Sans', sans-serif" }}
             >
               {a}
             </p>
@@ -208,7 +208,7 @@ export default function LandingPage() {
   return (
     <div
       className="min-h-screen"
-      style={{ background: "#f8fafc", fontFamily: "'DM Sans', sans-serif" }}
+      style={{ background: "var(--bg)", fontFamily: "'DM Sans', sans-serif" }}
     >
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=DM+Sans:wght@300;400;500;600;700&display=swap');
@@ -249,7 +249,7 @@ export default function LandingPage() {
                 <a
                   key={href}
                   href={href}
-                  style={{ color: "#475569", fontSize: 14, fontWeight: 500 }}
+                  style={{ color: "var(--text)", fontSize: 14, fontWeight: 500 }}
                   className="hover:text-teal-600 transition-colors"
                 >
                   {label}
@@ -260,7 +260,7 @@ export default function LandingPage() {
             <div className="hidden md:flex items-center gap-3">
               <Link href="/login">
                 <button
-                  style={{ color: "#475569", fontSize: 14, fontWeight: 600 }}
+                  style={{ color: "var(--text)", fontSize: 14, fontWeight: 600 }}
                   className="hover:text-teal-600 transition-colors px-4 py-2"
                 >
                   Sign In
@@ -287,7 +287,7 @@ export default function LandingPage() {
 
             <button
               onClick={() => setMenuOpen(!menuOpen)}
-              style={{ color: "#475569" }}
+              style={{ color: "var(--text)" }}
               className="md:hidden p-2"
             >
               {menuOpen ? (
@@ -319,7 +319,7 @@ export default function LandingPage() {
                     key={href}
                     href={href}
                     onClick={() => setMenuOpen(false)}
-                    style={{ color: "#475569", fontSize: 14 }}
+                    style={{ color: "var(--text)", fontSize: 14 }}
                     className="block py-3 px-3 rounded-lg hover:text-teal-600 transition-colors font-medium"
                   >
                     {label}
@@ -332,7 +332,7 @@ export default function LandingPage() {
                   <Link href="/login">
                     <button
                       style={{
-                        color: "#475569",
+                        color: "var(--text)",
                         border: "1px solid #e2e8f0",
                         borderRadius: 12,
                         padding: "11px 0",
@@ -456,7 +456,7 @@ export default function LandingPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.25 }}
                 style={{
-                  color: "#475569",
+                  color: "var(--text)",
                   fontSize: 17,
                   lineHeight: 1.8,
                   marginBottom: 36,
@@ -500,7 +500,7 @@ export default function LandingPage() {
                 <a href="#how-it-works">
                   <button
                     style={{
-                      color: "#475569",
+                      color: "var(--text)",
                       fontWeight: 600,
                       fontSize: 15,
                       padding: "15px 28px",
@@ -544,7 +544,7 @@ export default function LandingPage() {
                     </div>
                   ))}
                 </div>
-                <p style={{ color: "#94a3b8", fontSize: 13 }}>
+                <p style={{ color: "var(--text-muted)", fontSize: 13 }}>
                   <span style={{ color: "#0f1f3d", fontWeight: 600 }}>
                     5 free quizzes
                   </span>{" "}
@@ -576,8 +576,8 @@ export default function LandingPage() {
                     alignItems: "center",
                     justifyContent: "space-between",
                     padding: "14px 20px",
-                    borderBottom: "1px solid #f1f5f9",
-                    background: "#f8fafc",
+                    borderBottom: "1px solid var(--border)",
+                    background: "var(--bg)",
                   }}
                 >
                   <div
@@ -600,7 +600,7 @@ export default function LandingPage() {
                     <div>
                       <p
                         style={{
-                          color: "#94a3b8",
+                          color: "var(--text-muted)",
                           fontSize: 10,
                           fontWeight: 600,
                           textTransform: "uppercase",
@@ -641,7 +641,7 @@ export default function LandingPage() {
                   {/* Question */}
                   <p
                     style={{
-                      color: "#334155",
+                      color: "var(--text)",
                       fontSize: 13,
                       lineHeight: 1.65,
                       marginBottom: 12,
@@ -676,7 +676,7 @@ export default function LandingPage() {
                     <p
                       style={{
                         fontSize: 12,
-                        color: "#334155",
+                        color: "var(--text)",
                         lineHeight: 1.6,
                         margin: 0,
                       }}
@@ -711,7 +711,7 @@ export default function LandingPage() {
                     <p
                       style={{
                         fontSize: 12,
-                        color: "#475569",
+                        color: "var(--text)",
                         lineHeight: 1.65,
                         margin: 0,
                       }}
@@ -725,7 +725,7 @@ export default function LandingPage() {
                   {/* Study tip */}
                   <div
                     style={{
-                      background: "#faf5ff",
+                      background: "var(--bg)",
                       border: "1px solid #e9d5ff",
                       borderRadius: 12,
                       padding: "10px 14px",
@@ -761,7 +761,7 @@ export default function LandingPage() {
                 <div
                   style={{
                     padding: "10px 20px",
-                    borderTop: "1px solid #f1f5f9",
+                    borderTop: "1px solid var(--border)",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "space-between",
@@ -810,7 +810,7 @@ export default function LandingPage() {
                 <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
                   <div
                     style={{
-                      background: "#f0fafb",
+                      background: "var(--bg)",
                       borderRadius: 10,
                       padding: 8,
                     }}
@@ -820,7 +820,7 @@ export default function LandingPage() {
                   <div>
                     <p
                       style={{
-                        color: "#94a3b8",
+                        color: "var(--text-muted)",
                         fontSize: 10,
                         fontWeight: 600,
                         margin: 0,
@@ -913,7 +913,7 @@ export default function LandingPage() {
       <section
         className="py-20 lg:py-28"
         style={{
-          background: "#f0f4f8",
+          background: "var(--bg)",
           borderBottom: "1px solid #e2e8f0",
         }}
       >
@@ -958,7 +958,7 @@ export default function LandingPage() {
             />
             <p
               style={{
-                color: "#475569",
+                color: "var(--text)",
                 fontSize: 16,
                 lineHeight: 1.9,
                 maxWidth: 620,
@@ -1119,7 +1119,7 @@ export default function LandingPage() {
       <section
         id="how-it-works"
         className="py-20 lg:py-28"
-        style={{ background: "#f0f4f8" }}
+        style={{ background: "var(--bg)" }}
       >
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <FadeIn className="text-center max-w-xl mx-auto mb-16">
@@ -1218,7 +1218,7 @@ export default function LandingPage() {
                 Start Free Trial <ArrowRight className="w-4 h-4" />
               </button>
             </Link>
-            <p style={{ color: "#94a3b8", fontSize: 13, marginTop: 12 }}>
+            <p style={{ color: "var(--text-muted)", fontSize: 13, marginTop: 12 }}>
               Free to sign up · M-Pesa accepted · Cancel anytime
             </p>
           </FadeIn>
@@ -1278,7 +1278,7 @@ export default function LandingPage() {
                   </div>
                   <p
                     style={{
-                      color: "#475569",
+                      color: "var(--text)",
                       fontSize: 15,
                       lineHeight: 1.8,
                       flex: 1,
@@ -1326,14 +1326,14 @@ export default function LandingPage() {
                         >
                           {t.name}
                         </p>
-                        <p style={{ color: "#94a3b8", fontSize: 11 }}>
+                        <p style={{ color: "var(--text-muted)", fontSize: 11 }}>
                           {t.role}
                         </p>
                       </div>
                     </div>
                     <span
                       style={{
-                        background: "#f0fafb",
+                        background: "var(--bg)",
                         color: "#0e7490",
                         fontSize: 11,
                         fontWeight: 600,
@@ -1353,7 +1353,7 @@ export default function LandingPage() {
       </section>
 
       {/* ── FOR TEACHERS (phase 2) ── */}
-      {/* <section id="teachers" className="py-20 lg:py-28" style={{ background: "#fff" }}>
+      {/* <section id="teachers" className="py-20 lg:py-28" style={{ background: "var(--bg-card)" }}>
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <FadeIn className="text-center max-w-xl mx-auto mb-12">
             <p
@@ -1381,7 +1381,7 @@ export default function LandingPage() {
             </h2>
             <p
               style={{
-                color: "#475569",
+                color: "var(--text)",
                 fontSize: 16,
                 marginTop: 16,
                 lineHeight: 1.7,
@@ -1413,7 +1413,7 @@ export default function LandingPage() {
               <FadeIn key={i} delay={i * 0.1}>
                 <div
                   style={{
-                    background: "#f8fafc",
+                    background: "var(--bg)",
                     border: "1px solid #e2e8f0",
                     borderRadius: 16,
                     padding: 28,
@@ -1445,7 +1445,7 @@ export default function LandingPage() {
                     {f.title}
                   </h3>
                   <p
-                    style={{ color: "#475569", fontSize: 14, lineHeight: 1.7 }}
+                    style={{ color: "var(--text)", fontSize: 14, lineHeight: 1.7 }}
                   >
                     {f.desc}
                   </p>
@@ -1477,7 +1477,7 @@ export default function LandingPage() {
       </section> */ }
 
       {/* ── PRICING ── */}
-      <section id="pricing" className="py-20 lg:py-28" style={{ background: "#f0f4f8" }}>
+      <section id="pricing" className="py-20 lg:py-28" style={{ background: "var(--bg)" }}>
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <FadeIn className="text-center max-w-xl mx-auto mb-16">
             <p
@@ -1535,7 +1535,7 @@ export default function LandingPage() {
                   >
                     Weekly
                   </h3>
-                  <p style={{ color: "#94a3b8", fontSize: 12, marginBottom: 12 }}>Try it out</p>
+                  <p style={{ color: "var(--text-muted)", fontSize: 12, marginBottom: 12 }}>Try it out</p>
                   <div
                     style={{
                       display: "flex",
@@ -1544,7 +1544,7 @@ export default function LandingPage() {
                       marginBottom: 6,
                     }}
                   >
-                    <span style={{ color: "#94a3b8", fontSize: 13, fontWeight: 600, marginBottom: 10 }}>KES</span>
+                    <span style={{ color: "var(--text-muted)", fontSize: 13, fontWeight: 600, marginBottom: 10 }}>KES</span>
                     <span
                       style={{
                         fontFamily: "'Cormorant Garamond', serif",
@@ -1557,7 +1557,7 @@ export default function LandingPage() {
                       349
                     </span>
                   </div>
-                  <p style={{ color: "#94a3b8", fontSize: 12, marginBottom: 4 }}>per week · 7 days</p>
+                  <p style={{ color: "var(--text-muted)", fontSize: 12, marginBottom: 4 }}>per week · 7 days</p>
                   <p style={{ color: "#64748b", fontSize: 12, fontWeight: 600 }}>KES 50/day</p>
                 </div>
                 <ul
@@ -1581,7 +1581,7 @@ export default function LandingPage() {
                         display: "flex",
                         alignItems: "center",
                         gap: 10,
-                        color: "#475569",
+                        color: "var(--text)",
                         fontSize: 14,
                       }}
                     >
@@ -1600,7 +1600,7 @@ export default function LandingPage() {
                       padding: "13px 0",
                       borderRadius: 12,
                       border: "1.5px solid #e2e8f0",
-                      color: "#475569",
+                      color: "var(--text)",
                       background: "transparent",
                       fontWeight: 700,
                       fontSize: 14,
@@ -1662,7 +1662,7 @@ export default function LandingPage() {
                   >
                     Monthly
                   </h3>
-                  <p style={{ color: "#94a3b8", fontSize: 12, marginBottom: 12 }}>Most popular choice</p>
+                  <p style={{ color: "var(--text-muted)", fontSize: 12, marginBottom: 12 }}>Most popular choice</p>
                   <div
                     style={{
                       display: "flex",
@@ -1671,7 +1671,7 @@ export default function LandingPage() {
                       marginBottom: 6,
                     }}
                   >
-                    <span style={{ color: "#94a3b8", fontSize: 13, fontWeight: 600, marginBottom: 10 }}>KES</span>
+                    <span style={{ color: "var(--text-muted)", fontSize: 13, fontWeight: 600, marginBottom: 10 }}>KES</span>
                     <span
                       style={{
                         fontFamily: "'Cormorant Garamond', serif",
@@ -1684,7 +1684,7 @@ export default function LandingPage() {
                       999
                     </span>
                   </div>
-                  <p style={{ color: "#94a3b8", fontSize: 12, marginBottom: 6 }}>per month · 30 days</p>
+                  <p style={{ color: "var(--text-muted)", fontSize: 12, marginBottom: 6 }}>per month · 30 days</p>
                   <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
                     <span style={{ color: "#64748b", fontSize: 12, fontWeight: 600 }}>KES 33/day</span>
                     <span style={{
@@ -1719,7 +1719,7 @@ export default function LandingPage() {
                         display: "flex",
                         alignItems: "center",
                         gap: 10,
-                        color: "#475569",
+                        color: "var(--text)",
                         fontSize: 14,
                       }}
                     >
@@ -1800,7 +1800,7 @@ export default function LandingPage() {
                   >
                     Termly
                   </h3>
-                  <p style={{ color: "#94a3b8", fontSize: 12, marginBottom: 12 }}>Best value for serious students</p>
+                  <p style={{ color: "var(--text-muted)", fontSize: 12, marginBottom: 12 }}>Best value for serious students</p>
                   <div
                     style={{
                       display: "flex",
@@ -1809,7 +1809,7 @@ export default function LandingPage() {
                       marginBottom: 6,
                     }}
                   >
-                    <span style={{ color: "#94a3b8", fontSize: 13, fontWeight: 600, marginBottom: 10 }}>KES</span>
+                    <span style={{ color: "var(--text-muted)", fontSize: 13, fontWeight: 600, marginBottom: 10 }}>KES</span>
                     <span
                       style={{
                         fontFamily: "'Cormorant Garamond', serif",
@@ -1822,7 +1822,7 @@ export default function LandingPage() {
                       2199
                     </span>
                   </div>
-                  <p style={{ color: "#94a3b8", fontSize: 12, marginBottom: 6 }}>per term · 90 days</p>
+                  <p style={{ color: "var(--text-muted)", fontSize: 12, marginBottom: 6 }}>per term · 90 days</p>
                   <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
                     <span style={{ color: "#64748b", fontSize: 12, fontWeight: 600 }}>KES 24/day</span>
                     <span style={{
@@ -1857,7 +1857,7 @@ export default function LandingPage() {
                         display: "flex",
                         alignItems: "center",
                         gap: 10,
-                        color: "#475569",
+                        color: "var(--text)",
                         fontSize: 14,
                       }}
                     >
@@ -1905,7 +1905,7 @@ export default function LandingPage() {
               }}
             >
               <Phone className="w-4 h-4" style={{ color: "#0e7490" }} />
-              <span style={{ color: "#475569", fontSize: 13, fontWeight: 500 }}>
+              <span style={{ color: "var(--text)", fontSize: 13, fontWeight: 500 }}>
                 Pay with <strong style={{ color: "#0f1f3d" }}>M-Pesa</strong> -
                 no card ever needed
               </span>
@@ -2035,7 +2035,7 @@ export default function LandingPage() {
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </button>
             </Link>
-            <p style={{ color: "#475569", fontSize: 13, marginTop: 16 }}>
+            <p style={{ color: "var(--text)", fontSize: 13, marginTop: 16 }}>
               5 free quizzes · M-Pesa accepted · Cancel anytime
             </p>
           </FadeIn>
@@ -2060,7 +2060,7 @@ export default function LandingPage() {
               </div>
               <p
                 style={{
-                  color: "#475569",
+                  color: "var(--text)",
                   fontSize: 13,
                   lineHeight: 1.7,
                   maxWidth: 260,
@@ -2100,7 +2100,7 @@ export default function LandingPage() {
               <div key={col.title}>
                 <h3
                   style={{
-                    color: "#475569",
+                    color: "var(--text)",
                     fontSize: 11,
                     fontWeight: 700,
                     textTransform: "uppercase",
@@ -2117,7 +2117,7 @@ export default function LandingPage() {
                     <li key={label}>
                       <a
                         href={href}
-                        style={{ color: "#334155", fontSize: 13 }}
+                        style={{ color: "var(--text)", fontSize: 13 }}
                         className="hover:text-teal-400 transition-colors"
                       >
                         {label}
@@ -2129,10 +2129,10 @@ export default function LandingPage() {
             ))}
           </div>
           <div className="pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
-            <p style={{ color: "#334155", fontSize: 12 }}>
+            <p style={{ color: "var(--text)", fontSize: 12 }}>
               © 2025 StadiSpace. All rights reserved.
             </p>
-            <p style={{ color: "#334155", fontSize: 12 }}>
+            <p style={{ color: "var(--text)", fontSize: 12 }}>
               Made with purpose for Kenyan students 🇰🇪
             </p>
           </div>

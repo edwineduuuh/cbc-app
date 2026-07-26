@@ -193,7 +193,7 @@ function PassageContent({
 
   if (t === "poem") {
     return (
-      <div style={{ fontStyle: "italic", color: "#374151" }}>
+      <div style={{ fontStyle: "italic", color: "var(--text)" }}>
         {content.split("\n").map((line, i) => (
           <div
             key={i}
@@ -235,7 +235,7 @@ function PassageContent({
       return speakerMap[key];
     };
     return (
-      <div style={{ color: "#374151" }}>
+      <div style={{ color: "var(--text)" }}>
         {lines.map((line, i) => {
           const match = line.match(/^([^:]{1,40}):\s*(.+)/);
           if (match) {
@@ -273,7 +273,7 @@ function PassageContent({
                 <span
                   style={{
                     fontSize: 15,
-                    color: "#1a1a2e",
+                    color: "var(--text)",
                     flex: 1,
                     lineHeight: 1.75,
                   }}
@@ -287,11 +287,11 @@ function PassageContent({
               key={i}
               style={{
                 fontSize: 13,
-                color: "#8892a4",
+                color: "var(--text-muted)",
                 fontStyle: "italic",
                 marginBottom: 10,
                 paddingLeft: 8,
-                borderLeft: "3px solid #e8eaf0",
+                borderLeft: "3px solid var(--border)",
               }}
               dangerouslySetInnerHTML={{ __html: renderMath(line) }}
             />
@@ -311,7 +311,7 @@ function PassageContent({
             style={{
               fontSize: 15,
               lineHeight: 1.9,
-              color: "#374151",
+              color: "var(--text)",
               marginBottom: 14,
               textIndent: "1.4em",
             }}
@@ -329,7 +329,7 @@ function PassageContent({
       style={{
         fontSize: 15,
         lineHeight: 1.9,
-        color: "#374151",
+        color: "var(--text)",
         whiteSpace: "pre-line",
       }}
     >
@@ -390,10 +390,10 @@ function MathInput({ value, onChange }) {
   return (
     <div
       style={{
-        border: "2px solid #e8eaf0",
+        border: "2px solid var(--border)",
         borderRadius: 16,
         overflow: "hidden",
-        background: "#fff",
+        background: "var(--bg-card)",
         boxShadow: "0 2px 8px rgba(0,0,0,0.04)",
         minHeight: "68px",
       }}
@@ -537,12 +537,12 @@ function PartAnswerBlock({ value, onChange, isKiswahili }) {
           }
           style={{
             width: "100%",
-            border: "2px solid #e8eaf0",
+            border: "2px solid var(--border)",
             borderRadius: 14,
             padding: "12px 16px",
             fontSize: 15,
-            color: "#0d0d1a",
-            background: "#fff",
+            color: "var(--text)",
+            background: "var(--bg-card)",
             fontFamily: "'Lato', sans-serif",
             lineHeight: 1.7,
             resize: "none",
@@ -556,7 +556,7 @@ function PartAnswerBlock({ value, onChange, isKiswahili }) {
             bottom: 10,
             right: 12,
             fontSize: 11,
-            color: "#bcc3d0",
+            color: "var(--text-muted)",
             fontWeight: 600,
           }}
         >
@@ -727,8 +727,8 @@ function MatchingTable({ tableData, answer, onAnswer }) {
                     textAlign: "left",
                     fontSize: 13,
                     fontWeight: 700,
-                    color: "#1e293b",
-                    background: "#f1f5f9",
+                    color: "var(--text)",
+                    background: "var(--bg)",
                     borderBottom: "2px solid #e2e8f0",
                     borderRight:
                       c < headers.length - 1 ? "1.5px solid #e2e8f0" : "none",
@@ -755,9 +755,9 @@ function MatchingTable({ tableData, answer, onAnswer }) {
                       padding: "12px 16px",
                       fontSize: 14,
                       fontWeight: 600,
-                      color: "#0f172a",
+                      color: "var(--text)",
                       borderBottom:
-                        ri < dataRows.length - 1 ? "1px solid #f1f5f9" : "none",
+                        ri < dataRows.length - 1 ? "1px solid var(--border)" : "none",
                       borderRight: "1.5px solid #e2e8f0",
                     }}
                   >
@@ -770,7 +770,7 @@ function MatchingTable({ tableData, answer, onAnswer }) {
                       padding: "10px 14px",
                       cursor: isTarget || placed.length ? "pointer" : "default",
                       borderBottom:
-                        ri < dataRows.length - 1 ? "1px solid #f1f5f9" : "none",
+                        ri < dataRows.length - 1 ? "1px solid var(--border)" : "none",
                       background: isTarget
                         ? "#eff6ff"
                         : placed.length
@@ -938,12 +938,12 @@ function FillInTable({ tableData, answer, onAnswer }) {
                   style={{
                     padding: cell.e ? "8px 10px" : "12px 16px",
                     borderBottom:
-                      r < rows.length - 1 ? "1px solid #f1f5f9" : "none",
+                      r < rows.length - 1 ? "1px solid var(--border)" : "none",
                     borderRight:
                       c < row.length - 1 ? "1.5px solid #e2e8f0" : "none",
                     fontSize: 14,
                     fontWeight: r === 0 ? 700 : 400,
-                    color: "#0f172a",
+                    color: "var(--text)",
                     background: cell.e ? "#eff6ff" : "inherit",
                     minWidth: 100,
                   }}
@@ -1006,7 +1006,7 @@ function QuestionNav({ questions, answers, currentIdx, onJump, show }) {
             backdropFilter: "blur(6px)",
             borderRadius: 14,
             boxShadow: "0 2px 16px rgba(0,0,0,0.08)",
-            border: "1px solid #e8eaf0",
+            border: "1px solid var(--border)",
           }}
         >
           {questions.map((_, i) => {
@@ -1086,7 +1086,7 @@ function SubmitModal({ open, onConfirm, onCancel, unanswered, submitting }) {
             animate={{ scale: 1, y: 0 }}
             exit={{ scale: 0.93, y: 20 }}
             style={{
-              background: "#fff",
+              background: "var(--bg-card)",
               borderRadius: 24,
               padding: 32,
               width: "100%",
@@ -1113,7 +1113,7 @@ function SubmitModal({ open, onConfirm, onCancel, unanswered, submitting }) {
                 fontSize: 22,
                 fontWeight: 800,
                 textAlign: "center",
-                color: "#0d0d1a",
+                color: "var(--text)",
                 marginBottom: 10,
                 fontFamily: "'Syne', sans-serif",
               }}
@@ -1172,7 +1172,7 @@ function SubmitModal({ open, onConfirm, onCancel, unanswered, submitting }) {
                 >
                   We are marking your answers…
                 </p>
-                <p style={{ fontSize: 12, color: "#8892a4" }}>{fact}</p>
+                <p style={{ fontSize: 12, color: "var(--text-muted)" }}>{fact}</p>
               </div>
             )}
             <div style={{ display: "flex", gap: 12 }}>
@@ -1182,9 +1182,9 @@ function SubmitModal({ open, onConfirm, onCancel, unanswered, submitting }) {
                   flex: 1,
                   padding: "12px 0",
                   borderRadius: 12,
-                  border: "2px solid #e8eaf0",
-                  background: "#fff",
-                  color: "#6b7280",
+                  border: "2px solid var(--border)",
+                  background: "var(--bg-card)",
+                  color: "var(--text)",
                   fontSize: 14,
                   fontWeight: 600,
                   cursor: "pointer",
@@ -1296,7 +1296,7 @@ function ResultsScreen({ result, quiz }) {
               style={{
                 fontSize: 48,
                 fontWeight: 800,
-                color: "#0d0d1a",
+                color: "var(--text)",
                 fontFamily: "'Syne', sans-serif",
               }}
             >
@@ -1315,12 +1315,12 @@ function ResultsScreen({ result, quiz }) {
         </div>
         <div
           style={{
-            background: "#fff",
+            background: "var(--bg-card)",
             borderRadius: 24,
             padding: 28,
             marginBottom: 16,
             boxShadow: "0 8px 40px rgba(0,0,0,0.08)",
-            border: "1px solid #e8eaf0",
+            border: "1px solid var(--border)",
           }}
         >
           <h2
@@ -1328,7 +1328,7 @@ function ResultsScreen({ result, quiz }) {
               fontSize: 22,
               fontWeight: 800,
               textAlign: "center",
-              color: "#0d0d1a",
+              color: "var(--text)",
               marginBottom: 20,
               fontFamily: "'Syne', sans-serif",
             }}
@@ -1358,7 +1358,7 @@ function ResultsScreen({ result, quiz }) {
               <div
                 key={label}
                 style={{
-                  background: "#f7f9fc",
+                  background: "var(--bg)",
                   borderRadius: 14,
                   padding: "14px 12px",
                   textAlign: "center",
@@ -1367,7 +1367,7 @@ function ResultsScreen({ result, quiz }) {
                 <p
                   style={{
                     fontSize: 11,
-                    color: "#8892a4",
+                    color: "var(--text-muted)",
                     fontWeight: 600,
                     marginBottom: 4,
                     textTransform: "uppercase",
@@ -1380,7 +1380,7 @@ function ResultsScreen({ result, quiz }) {
                   style={{
                     fontSize: 16,
                     fontWeight: 700,
-                    color: "#0d0d1a",
+                    color: "var(--text)",
                     fontFamily: "'Syne', sans-serif",
                   }}
                 >
@@ -1396,9 +1396,9 @@ function ResultsScreen({ result, quiz }) {
                   width: "100%",
                   padding: "12px 0",
                   borderRadius: 12,
-                  border: "2px solid #e8eaf0",
-                  background: "#fff",
-                  color: "#6b7280",
+                  border: "2px solid var(--border)",
+                  background: "var(--bg-card)",
+                  color: "var(--text)",
                   fontSize: 14,
                   fontWeight: 600,
                   cursor: "pointer",
@@ -1461,7 +1461,7 @@ function ResultsScreen({ result, quiz }) {
           <Link href="/register?reason=quota">
             <button
               style={{
-                background: "#fff",
+                background: "var(--bg-card)",
                 color: "#764ba2",
                 padding: "12px 28px",
                 borderRadius: 12,
@@ -1490,7 +1490,7 @@ function ResultsScreen({ result, quiz }) {
               padding: "10px 14px",
               marginBottom: 20,
               fontSize: 13,
-              color: "#374151",
+              color: "var(--text)",
               lineHeight: 1.5,
             }}
           >
@@ -1507,7 +1507,7 @@ function ResultsScreen({ result, quiz }) {
           style={{
             fontSize: 20,
             fontWeight: 800,
-            color: "#0d0d1a",
+            color: "var(--text)",
             marginBottom: 16,
             fontFamily: "'Syne', sans-serif",
           }}
@@ -1521,11 +1521,11 @@ function ResultsScreen({ result, quiz }) {
             <div
               key={qId}
               style={{
-                background: "#fff",
+                background: "var(--bg-card)",
                 borderRadius: 16,
                 padding: 20,
                 marginBottom: 12,
-                border: "1px solid #e8eaf0",
+                border: "1px solid var(--border)",
                 boxShadow: "0 2px 8px rgba(0,0,0,0.04)",
               }}
             >
@@ -1558,7 +1558,7 @@ function ResultsScreen({ result, quiz }) {
                   <span
                     style={{
                       fontWeight: 700,
-                      color: "#0d0d1a",
+                      color: "var(--text)",
                       fontSize: 14,
                     }}
                   >
@@ -1581,7 +1581,7 @@ function ResultsScreen({ result, quiz }) {
               <p
                 style={{
                   fontSize: 14,
-                  color: "#374151",
+                  color: "var(--text)",
                   marginBottom: 12,
                   lineHeight: 1.6,
                 }}
@@ -1621,7 +1621,7 @@ function ResultsScreen({ result, quiz }) {
                 <div
                   style={{
                     filter: "blur(4px)",
-                    background: "#f9fafb",
+                    background: "var(--bg)",
                     padding: "10px 14px",
                     userSelect: "none",
                   }}
@@ -1630,13 +1630,13 @@ function ResultsScreen({ result, quiz }) {
                     style={{
                       fontSize: 12,
                       fontWeight: 700,
-                      color: "#6b7280",
+                      color: "var(--text)",
                       marginBottom: 4,
                     }}
                   >
                     DETAILED FEEDBACK
                   </p>
-                  <p style={{ fontSize: 13, color: "#6b7280" }}>
+                  <p style={{ fontSize: 13, color: "var(--text)" }}>
                     Clear feedback explaining exactly what you missed and
                     how to improve.
                   </p>
@@ -1805,9 +1805,9 @@ function WorkingPanel({ questionIdx, onWorkingCapture }) {
         <div
           style={{
             marginTop: 12,
-            background: "#fff",
+            background: "var(--bg-card)",
             borderRadius: 16,
-            border: "2px solid #e8eaf0",
+            border: "2px solid var(--border)",
             padding: 16,
           }}
         >
@@ -1848,10 +1848,10 @@ function WorkingPanel({ questionIdx, onWorkingCapture }) {
                   width: "100%",
                   height: 200,
                   borderRadius: 10,
-                  border: "1.5px solid #e8eaf0",
+                  border: "1.5px solid var(--border)",
                   cursor: "crosshair",
                   touchAction: "none",
-                  background: "#fff",
+                  background: "var(--bg-card)",
                   display: "block",
                 }}
               />
@@ -2239,7 +2239,7 @@ export default function QuizTakePage({ params }) {
       <div
         style={{
           minHeight: "100vh",
-          background: "#f7f9fc",
+          background: "var(--bg)",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
@@ -2250,7 +2250,7 @@ export default function QuizTakePage({ params }) {
             style={{
               width: 48,
               height: 48,
-              border: "3px solid #e8eaf0",
+              border: "3px solid var(--border)",
               borderTopColor: "#1a6fc4",
               borderRadius: "50%",
               animation: "spin 0.8s linear infinite",
@@ -2259,7 +2259,7 @@ export default function QuizTakePage({ params }) {
           />
           <p
             style={{
-              color: "#8892a4",
+              color: "var(--text-muted)",
               fontSize: 14,
               fontFamily: "'Lato', sans-serif",
             }}
@@ -2279,14 +2279,14 @@ export default function QuizTakePage({ params }) {
       <div
         style={{
           minHeight: "100vh",
-          background: "#f7f9fc",
+          background: "var(--bg)",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
         }}
       >
         <div style={{ textAlign: "center" }}>
-          <p style={{ color: "#8892a4", fontSize: 14 }}>No questions found.</p>
+          <p style={{ color: "var(--text-muted)", fontSize: 14 }}>No questions found.</p>
           <Link href="/explore">
             <button
               style={{
@@ -2354,7 +2354,7 @@ export default function QuizTakePage({ params }) {
       className={nunito.className}
       style={{
         minHeight: "100vh",
-        background: "#f7f9fc",
+        background: "var(--bg)",
       }}
       onCopy={(e) => {
         if (!["TEXTAREA", "INPUT"].includes(e.target.tagName))
@@ -2418,8 +2418,8 @@ export default function QuizTakePage({ params }) {
           position: "sticky",
           top: 0,
           zIndex: 20,
-          background: "#fff",
-          borderBottom: "1px solid #e8eaf0",
+          background: "var(--bg-card)",
+          borderBottom: "1px solid var(--border)",
           boxShadow: "0 2px 12px rgba(0,0,0,0.05)",
         }}
       >
@@ -2440,8 +2440,8 @@ export default function QuizTakePage({ params }) {
                 width: 38,
                 height: 38,
                 borderRadius: 10,
-                border: "2px solid #e8eaf0",
-                background: "#fff",
+                border: "2px solid var(--border)",
+                background: "var(--bg-card)",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -2460,14 +2460,14 @@ export default function QuizTakePage({ params }) {
                 marginBottom: 5,
               }}
             >
-              <span style={{ fontSize: 12, fontWeight: 600, color: "#8892a4" }}>
+              <span style={{ fontSize: 12, fontWeight: 600, color: "var(--text-muted)" }}>
                 {answeredCount} of {totalQ} answered
               </span>
             </div>
             <div
               style={{
                 height: 6,
-                background: "#e8eaf0",
+                background: "var(--bg)",
                 borderRadius: 99,
                 overflow: "hidden",
               }}
@@ -2495,7 +2495,7 @@ export default function QuizTakePage({ params }) {
               width: 38,
               height: 38,
               borderRadius: 10,
-              border: "2px solid #e8eaf0",
+              border: "2px solid var(--border)",
               background: showNav ? "#e8f4ff" : "#fff",
               display: "flex",
               alignItems: "center",
@@ -2524,9 +2524,9 @@ export default function QuizTakePage({ params }) {
           <div
             className="passage-panel"
             style={{
-              background: "#fff",
+              background: "var(--bg-card)",
               borderRadius: 20,
-              border: "2px solid #e8eaf0",
+              border: "2px solid var(--border)",
               padding: 24,
             }}
           >
@@ -2544,8 +2544,8 @@ export default function QuizTakePage({ params }) {
                   fontWeight: 700,
                   textTransform: "uppercase",
                   letterSpacing: "0.08em",
-                  color: "#8892a4",
-                  background: "#f0f2f7",
+                  color: "var(--text-muted)",
+                  background: "var(--bg)",
                   padding: "4px 10px",
                   borderRadius: 6,
                 }}
@@ -2553,7 +2553,7 @@ export default function QuizTakePage({ params }) {
                 {currentQ.passage.passage_type}
               </span>
               {currentQ.passage.author && (
-                <span style={{ fontSize: 12, color: "#8892a4" }}>
+                <span style={{ fontSize: 12, color: "var(--text-muted)" }}>
                   — {currentQ.passage.author}
                 </span>
               )}
@@ -2562,7 +2562,7 @@ export default function QuizTakePage({ params }) {
               style={{
                 fontSize: 16,
                 fontWeight: 800,
-                color: "#0d0d1a",
+                color: "var(--text)",
                 marginBottom: 16,
                 fontFamily: "'Syne', sans-serif",
               }}
@@ -2621,7 +2621,7 @@ export default function QuizTakePage({ params }) {
                       style={{
                         fontSize: 13,
                         fontWeight: 700,
-                        color: "#8892a4",
+                        color: "var(--text-muted)",
                         textTransform: "uppercase",
                         letterSpacing: "0.06em",
                       }}
@@ -2639,7 +2639,7 @@ export default function QuizTakePage({ params }) {
                         : currentQ.question_type?.replace("_", " ") || "MCQ"}
                     </span>
                     <span
-                      style={{ fontSize: 13, color: "#bcc3d0", marginLeft: 8 }}
+                      style={{ fontSize: 13, color: "var(--text-muted)", marginLeft: 8 }}
                     >
                       · {currentQ.max_marks}{" "}
                       {isKiswahili
@@ -2648,7 +2648,7 @@ export default function QuizTakePage({ params }) {
                     </span>
                     {currentQ.created_at && (
                       <span
-                        style={{ fontSize: 12, color: "#bcc3d0", marginLeft: 8 }}
+                        style={{ fontSize: 12, color: "var(--text-muted)", marginLeft: 8 }}
                         title={new Date(currentQ.created_at).toLocaleString()}
                       >
                         · {isKiswahili ? "Imeongezwa" : "Added"}{" "}
@@ -2697,11 +2697,11 @@ export default function QuizTakePage({ params }) {
               {/* Question text */}
               <div
                 style={{
-                  background: "#fff",
+                  background: "var(--bg-card)",
                   borderRadius: 20,
                   padding: "22px 24px",
                   marginBottom: 24,
-                  border: "2px solid #e8eaf0",
+                  border: "2px solid var(--border)",
                   boxShadow: "0 4px 16px rgba(0,0,0,0.05)",
                 }}
               >
@@ -2709,7 +2709,7 @@ export default function QuizTakePage({ params }) {
                   style={{
                     fontSize: 18,
                     fontWeight: 600,
-                    color: "#0d0d1a",
+                    color: "var(--text)",
                     lineHeight: 1.65,
                   }}
                   dangerouslySetInnerHTML={{
@@ -2728,7 +2728,7 @@ export default function QuizTakePage({ params }) {
                     marginBottom: 24,
                     borderRadius: 16,
                     overflow: "hidden",
-                    border: "2px solid #e8eaf0",
+                    border: "2px solid var(--border)",
                     cursor: "pointer",
                   }}
                   onClick={() =>
@@ -2746,9 +2746,9 @@ export default function QuizTakePage({ params }) {
                   <div
                     style={{
                       padding: "8px 14px",
-                      background: "#f7f9fc",
+                      background: "var(--bg)",
                       fontSize: 11,
-                      color: "#8892a4",
+                      color: "var(--text-muted)",
                       fontWeight: 600,
                     }}
                   >
@@ -2816,13 +2816,13 @@ export default function QuizTakePage({ params }) {
                   }
                   style={{
                     width: "100%",
-                    border: "2px solid #e8eaf0",
+                    border: "2px solid var(--border)",
                     borderRadius: 16,
                     padding: "14px 18px",
                     fontSize: 16,
                     fontWeight: 500,
-                    color: "#0d0d1a",
-                    background: "#fff",
+                    color: "var(--text)",
+                    background: "var(--bg-card)",
                     fontFamily: "'Lato', sans-serif",
                     transition: "border-color 0.15s",
                     boxShadow: "0 2px 8px rgba(0,0,0,0.04)",
@@ -2839,7 +2839,7 @@ export default function QuizTakePage({ params }) {
                     style={{
                       fontSize: 12,
                       fontWeight: 700,
-                      color: "#8892a4",
+                      color: "var(--text-muted)",
                       textTransform: "uppercase",
                       letterSpacing: "0.06em",
                       marginBottom: 10,
@@ -2880,12 +2880,12 @@ export default function QuizTakePage({ params }) {
                       }
                       style={{
                         width: "100%",
-                        border: "2px solid #e8eaf0",
+                        border: "2px solid var(--border)",
                         borderRadius: 16,
                         padding: "14px 18px",
                         fontSize: 15,
-                        color: "#0d0d1a",
-                        background: "#fff",
+                        color: "var(--text)",
+                        background: "var(--bg-card)",
                         fontFamily: "'Lato', sans-serif",
                         lineHeight: 1.7,
                         resize: "none",
@@ -2901,7 +2901,7 @@ export default function QuizTakePage({ params }) {
                         bottom: 10,
                         right: 12,
                         fontSize: 11,
-                        color: "#bcc3d0",
+                        color: "var(--text-muted)",
                         fontWeight: 600,
                       }}
                     >
@@ -2911,7 +2911,7 @@ export default function QuizTakePage({ params }) {
                     </span>
                   </div>
                   {currentQ.max_marks > 1 && (
-                    <p style={{ fontSize: 12, color: "#8892a4", marginTop: 8 }}>
+                    <p style={{ fontSize: 12, color: "var(--text-muted)", marginTop: 8 }}>
                       {isKiswahili
                         ? `Alama ${currentQ.max_marks} — toa jibu la kina.`
                         : `Worth ${currentQ.max_marks} marks — provide a detailed answer.`}
@@ -2965,10 +2965,10 @@ export default function QuizTakePage({ params }) {
                                       padding: "12px 16px",
                                       fontSize: 14,
                                       fontWeight: r === 0 ? 700 : 400,
-                                      color: "#0f172a",
+                                      color: "var(--text)",
                                       borderBottom:
                                         r < td.rows.length - 1
-                                          ? "1px solid #f1f5f9"
+                                          ? "1px solid var(--border)"
                                           : "none",
                                       borderRight:
                                         c < row.length - 1
@@ -3013,7 +3013,7 @@ export default function QuizTakePage({ params }) {
                     style={{
                       fontSize: 12,
                       fontWeight: 700,
-                      color: "#8892a4",
+                      color: "var(--text-muted)",
                       textTransform: "uppercase",
                       letterSpacing: "0.06em",
                       marginBottom: 12,
@@ -3091,10 +3091,10 @@ export default function QuizTakePage({ params }) {
                       <div
                         key={part.id}
                         style={{
-                          background: "#fff",
+                          background: "var(--bg-card)",
                           borderRadius: 16,
                           padding: 20,
-                          border: "2px solid #e8eaf0",
+                          border: "2px solid var(--border)",
                         }}
                       >
                         <div
@@ -3124,7 +3124,7 @@ export default function QuizTakePage({ params }) {
                           <span
                             style={{
                               fontSize: 13,
-                              color: "#8892a4",
+                              color: "var(--text-muted)",
                               fontWeight: 600,
                             }}
                           >
@@ -3137,7 +3137,7 @@ export default function QuizTakePage({ params }) {
                         <p
                           style={{
                             fontSize: 15,
-                            color: "#0d0d1a",
+                            color: "var(--text)",
                             lineHeight: 1.65,
                             marginBottom: 14,
                           }}
@@ -3205,8 +3205,8 @@ export default function QuizTakePage({ params }) {
           left: 0,
           right: 0,
           zIndex: 20,
-          background: "#fff",
-          borderTop: "1px solid #e8eaf0",
+          background: "var(--bg-card)",
+          borderTop: "1px solid var(--border)",
           padding: "14px 16px",
           boxShadow: "0 -4px 20px rgba(0,0,0,0.08)",
           transition: "bottom 0.15s ease",
@@ -3228,8 +3228,8 @@ export default function QuizTakePage({ params }) {
               width: 48,
               height: 48,
               borderRadius: 14,
-              border: "2px solid #e8eaf0",
-              background: "#fff",
+              border: "2px solid var(--border)",
+              background: "var(--bg-card)",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
