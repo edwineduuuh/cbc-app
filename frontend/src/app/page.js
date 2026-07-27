@@ -530,7 +530,7 @@ export default function LandingPage() {
                         height: 32,
                         borderRadius: "50%",
                         background: c,
-                        border: "2px solid white",
+                        border: "2px solid var(--border)",
                         marginLeft: i > 0 ? -8 : 0,
                         display: "flex",
                         alignItems: "center",
@@ -588,7 +588,7 @@ export default function LandingPage() {
                         width: 30,
                         height: 30,
                         borderRadius: "50%",
-                        background: "#f0fdf4",
+                        background: "var(--bg-secondary)",
                         border: "1.5px solid #bbf7d0",
                         display: "flex",
                         alignItems: "center",
@@ -624,7 +624,7 @@ export default function LandingPage() {
                   </div>
                   <span
                     style={{
-                      background: "#f0fdf4",
+                      background: "var(--bg-secondary)",
                       color: "#16a34a",
                       fontSize: 12,
                       fontWeight: 700,
@@ -689,7 +689,7 @@ export default function LandingPage() {
                   {/* AI Feedback */}
                   <div
                     style={{
-                      background: "#f0fdf4",
+                      background: "var(--bg-secondary)",
                       border: "1px solid #bbf7d0",
                       borderRadius: 12,
                       padding: "12px 14px",
@@ -781,7 +781,7 @@ export default function LandingPage() {
                     <span
                       style={{
                         fontSize: 11,
-                        color: "#64748b",
+                        color: "var(--text)",
                         fontWeight: 500,
                       }}
                     >
@@ -901,7 +901,7 @@ export default function LandingPage() {
               >
                 {s.value}
               </div>
-              <p style={{ color: "#64748b", fontSize: 13, fontWeight: 500 }}>
+              <p style={{ color: "var(--text)", fontSize: 13, fontWeight: 500 }}>
                 {s.label}
               </p>
             </FadeIn>
@@ -1061,7 +1061,7 @@ export default function LandingPage() {
               <br />
               <em style={{ color: "#0e7490" }}>Trusted by Kenyan parents.</em>
             </h2>
-            <p style={{ color: "#64748b", fontSize: 16, lineHeight: 1.7 }}>
+            <p style={{ color: "var(--text)", fontSize: 16, lineHeight: 1.7 }}>
               Every question is expert-crafted around CBE. Not imported. Not
               generic. Made here, for here.
             </p>
@@ -1104,7 +1104,7 @@ export default function LandingPage() {
                     {f.title}
                   </h3>
                   <p
-                    style={{ color: "#64748b", fontSize: 13, lineHeight: 1.7 }}
+                    style={{ color: "var(--text)", fontSize: 13, lineHeight: 1.7 }}
                   >
                     {f.desc}
                   </p>
@@ -1188,7 +1188,7 @@ export default function LandingPage() {
                     {s.title}
                   </h3>
                   <p
-                    style={{ color: "#64748b", fontSize: 14, lineHeight: 1.7 }}
+                    style={{ color: "var(--text)", fontSize: 14, lineHeight: 1.7 }}
                   >
                     {s.desc}
                   </p>
@@ -1505,7 +1505,7 @@ export default function LandingPage() {
               <br />
               <em style={{ color: "#0e7490" }}>tutor session.</em>
             </h2>
-            <p style={{ color: "#64748b", fontSize: 15 }}>
+            <p style={{ color: "var(--text)", fontSize: 15 }}>
               All learning areas. Grades 4 to 10. Unlimited practice.
             </p>
           </FadeIn>
@@ -1525,7 +1525,7 @@ export default function LandingPage() {
                 <div style={{ marginBottom: 20 }}>
                   <h3
                     style={{
-                      color: "#64748b",
+                      color: "var(--text)",
                       fontSize: 11,
                       fontWeight: 700,
                       textTransform: "uppercase",
@@ -1558,7 +1558,7 @@ export default function LandingPage() {
                     </span>
                   </div>
                   <p style={{ color: "var(--text-muted)", fontSize: 12, marginBottom: 4 }}>per week · 7 days</p>
-                  <p style={{ color: "#64748b", fontSize: 12, fontWeight: 600 }}>KES 50/day</p>
+                  <p style={{ color: "var(--text)", fontSize: 12, fontWeight: 600 }}>KES 50/day</p>
                 </div>
                 <ul
                   style={{
@@ -1686,9 +1686,9 @@ export default function LandingPage() {
                   </div>
                   <p style={{ color: "var(--text-muted)", fontSize: 12, marginBottom: 6 }}>per month · 30 days</p>
                   <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                    <span style={{ color: "#64748b", fontSize: 12, fontWeight: 600 }}>KES 33/day</span>
+                    <span style={{ color: "var(--text)", fontSize: 12, fontWeight: 600 }}>KES 33/day</span>
                     <span style={{
-                      background: "#f0fdf4",
+                      background: "var(--bg-secondary)",
                       color: "#16a34a",
                       fontSize: 11,
                       fontWeight: 700,
@@ -1824,9 +1824,9 @@ export default function LandingPage() {
                   </div>
                   <p style={{ color: "var(--text-muted)", fontSize: 12, marginBottom: 6 }}>per term · 90 days</p>
                   <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                    <span style={{ color: "#64748b", fontSize: 12, fontWeight: 600 }}>KES 24/day</span>
+                    <span style={{ color: "var(--text)", fontSize: 12, fontWeight: 600 }}>KES 24/day</span>
                     <span style={{
-                      background: "#f0fdf4",
+                      background: "var(--bg-secondary)",
                       color: "#16a34a",
                       fontSize: 11,
                       fontWeight: 700,
@@ -1996,13 +1996,13 @@ export default function LandingPage() {
             >
               Your child's potential
               <br />
-              <em style={{ color: "#64748b" }}>is not the question.</em>
+              <em style={{ color: "var(--text)" }}>is not the question.</em>
               <br />
               <span className="teal-text">The practice is.</span>
             </h2>
             <p
               style={{
-                color: "#64748b",
+                color: "var(--text)",
                 fontSize: 16,
                 lineHeight: 1.85,
                 marginBottom: 40,

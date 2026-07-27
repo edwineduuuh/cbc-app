@@ -75,12 +75,12 @@ function _mdTableToHtml(text) {
     if (rows.length < 3) return block;
     const header = rows[0].split("|")
       .filter((_,i,a) => i > 0 && i < a.length-1)
-      .map((c, ci) => `<th style="padding:6px 10px;border:1px solid #cbd5e1;background:#e8f0fe;font-weight:700;text-align:center;${ci === 0 ? "font-size:12px;color:#3730a3" : ""}">${c.trim()}</th>`)
+      .map((c, ci) => `<th style="padding:6px 10px;border:1px solid var(--border);background:var(--bg-secondary);font-weight:700;text-align:center;color:var(--text);${ci === 0 ? "font-size:12px" : ""}">${c.trim()}</th>`)
       .join("");
     const body = rows.slice(2).map(r => {
       const cells = r.split("|")
         .filter((_,i,a) => i > 0 && i < a.length-1)
-        .map((c, ci) => `<td style="padding:6px 10px;border:1px solid #e2e8f0;text-align:center;${ci === 0 ? "font-weight:700;background:#f0f4ff;color:#1e3a8a" : ""}">${c.trim()}</td>`)
+        .map((c, ci) => `<td style="padding:6px 10px;border:1px solid var(--border);text-align:center;color:var(--text);${ci === 0 ? "font-weight:700;background:var(--bg-secondary)" : ""}">${c.trim()}</td>`)
         .join("");
       return `<tr>${cells}</tr>`;
     }).join("");
@@ -256,17 +256,17 @@ function ReportCard({
         top: 0,
         width: 940,
         padding: 48,
-        background: "#f8fafc",
-        color: "#0f172a",
+        background: "var(--bg-secondary)",
+        color: "var(--text)",
         fontFamily: "'Inter', system-ui, sans-serif",
       }}
     >
       <div
         style={{
-          background: "#ffffff",
+          background: "var(--bg-card)",
           padding: 40,
           borderRadius: 28,
-          border: "1px solid #e2e8f0",
+          border: "1px solid var(--border)",
           boxShadow: "0 20px 80px rgba(15,23,42,0.08)",
         }}
       >
@@ -286,7 +286,7 @@ function ReportCard({
                 fontSize: 12,
                 letterSpacing: "0.22em",
                 textTransform: "uppercase",
-                color: "#475569",
+                color: "var(--text)",
                 fontWeight: 700,
               }}
             >
@@ -308,7 +308,7 @@ function ReportCard({
               style={{
                 margin: 0,
                 fontSize: 12,
-                color: "#6b7280",
+                color: "var(--text)",
                 textTransform: "uppercase",
                 letterSpacing: "0.18em",
               }}
@@ -320,12 +320,12 @@ function ReportCard({
                 margin: "10px 0 0",
                 fontSize: 16,
                 fontWeight: 700,
-                color: "#0f172a",
+                color: "var(--text)",
               }}
             >
               {date}
             </p>
-            <p style={{ margin: "8px 0 0", fontSize: 13, color: "#475569" }}>
+            <p style={{ margin: "8px 0 0", fontSize: 13, color: "var(--text)" }}>
               {quizType || "Quiz"}
             </p>
           </div>
@@ -343,8 +343,8 @@ function ReportCard({
             style={{
               padding: 26,
               borderRadius: 20,
-              border: "1px solid #e2e8f0",
-              background: "#f8fafc",
+              border: "1px solid var(--border)",
+              background: "var(--bg-secondary)",
             }}
           >
             <p
@@ -353,7 +353,7 @@ function ReportCard({
                 fontSize: 11,
                 textTransform: "uppercase",
                 letterSpacing: "0.18em",
-                color: "#6b7280",
+                color: "var(--text)",
                 fontWeight: 700,
               }}
             >
@@ -364,16 +364,16 @@ function ReportCard({
                 margin: "12px 0 0",
                 fontSize: 22,
                 fontWeight: 800,
-                color: "#111827",
+                color: "var(--text)",
               }}
             >
               {studentName || "Student Name"}
             </p>
-            <p style={{ margin: "6px 0 0", fontSize: 13, color: "#475569" }}>
+            <p style={{ margin: "6px 0 0", fontSize: 13, color: "var(--text)" }}>
               {studentGrade || "Grade N/A"}
             </p>
             {studentId && (
-              <p style={{ margin: "10px 0 0", fontSize: 12, color: "#64748b" }}>
+              <p style={{ margin: "10px 0 0", fontSize: 12, color: "var(--text)" }}>
                 Student ID: {studentId}
               </p>
             )}
@@ -383,8 +383,8 @@ function ReportCard({
             style={{
               padding: 26,
               borderRadius: 20,
-              border: "1px solid #e2e8f0",
-              background: "#f8fafc",
+              border: "1px solid var(--border)",
+              background: "var(--bg-secondary)",
             }}
           >
             <p
@@ -393,7 +393,7 @@ function ReportCard({
                 fontSize: 11,
                 textTransform: "uppercase",
                 letterSpacing: "0.18em",
-                color: "#6b7280",
+                color: "var(--text)",
                 fontWeight: 700,
               }}
             >
@@ -414,17 +414,17 @@ function ReportCard({
                   value: gradeBand
                     ? `${gradeBand.grade} — ${gradeBand.label}`
                     : "N/A",
-                  color: gradeBand ? gradeBand.color : "#475569",
+                  color: gradeBand ? gradeBand.color : "var(--text)",
                 },
                 {
                   label: "Marks",
                   value: `${marks} / ${total}`,
-                  color: "#111827",
+                  color: "var(--text)",
                 },
                 {
                   label: "Correct",
                   value: `${correctAnswers} / ${totalQuestions || "N/A"}`,
-                  color: "#111827",
+                  color: "var(--text)",
                 },
               ].map((item) => (
                 <div
@@ -432,8 +432,8 @@ function ReportCard({
                   style={{
                     padding: 18,
                     borderRadius: 16,
-                    background: "#ffffff",
-                    border: "1px solid #e5e7eb",
+                    background: "var(--bg-card)",
+                    border: "1px solid var(--border)",
                   }}
                 >
                   <p
@@ -442,7 +442,7 @@ function ReportCard({
                       fontSize: 11,
                       textTransform: "uppercase",
                       letterSpacing: "0.16em",
-                      color: "#6b7280",
+                      color: "var(--text)",
                       fontWeight: 700,
                     }}
                   >
@@ -475,8 +475,8 @@ function ReportCard({
           <div
             style={{
               borderRadius: 20,
-              border: "1px solid #e2e8f0",
-              background: "#ffffff",
+              border: "1px solid var(--border)",
+              background: "var(--bg-card)",
               padding: 24,
             }}
           >
@@ -486,7 +486,7 @@ function ReportCard({
                 fontSize: 11,
                 textTransform: "uppercase",
                 letterSpacing: "0.18em",
-                color: "#6b7280",
+                color: "var(--text)",
                 fontWeight: 700,
               }}
             >
@@ -497,7 +497,7 @@ function ReportCard({
                 margin: "14px 0 0",
                 fontSize: 15,
                 lineHeight: 1.75,
-                color: "#334155",
+                color: "var(--text)",
               }}
             >
               {message.body}
@@ -506,8 +506,8 @@ function ReportCard({
           <div
             style={{
               borderRadius: 20,
-              border: "1px solid #e2e8f0",
-              background: "#ffffff",
+              border: "1px solid var(--border)",
+              background: "var(--bg-card)",
               padding: 24,
             }}
           >
@@ -517,7 +517,7 @@ function ReportCard({
                 fontSize: 11,
                 textTransform: "uppercase",
                 letterSpacing: "0.18em",
-                color: "#6b7280",
+                color: "var(--text)",
                 fontWeight: 700,
               }}
             >
@@ -538,7 +538,7 @@ function ReportCard({
                 margin: "12px 0 0",
                 fontSize: 14,
                 lineHeight: 1.75,
-                color: "#334155",
+                color: "var(--text)",
               }}
             >
               {message.body}
@@ -552,7 +552,7 @@ function ReportCard({
               margin: 0,
               fontSize: 22,
               fontWeight: 800,
-              color: "#0f172a",
+              color: "var(--text)",
               marginBottom: 18,
             }}
           >
@@ -564,8 +564,8 @@ function ReportCard({
                 key={item.index}
                 style={{
                   borderRadius: 20,
-                  border: "1px solid #e5e7eb",
-                  background: "#f8fafc",
+                  border: "1px solid var(--border)",
+                  background: "var(--bg-secondary)",
                   padding: 22,
                 }}
               >
@@ -583,7 +583,7 @@ function ReportCard({
                         margin: 0,
                         fontSize: 13,
                         fontWeight: 700,
-                        color: "#0f172a",
+                        color: "var(--text)",
                       }}
                     >
                       Question {item.index}
@@ -592,7 +592,7 @@ function ReportCard({
                       style={{
                         margin: "8px 0 0",
                         fontSize: 13,
-                        color: "#475569",
+                        color: "var(--text)",
                         lineHeight: 1.65,
                       }}
                       dangerouslySetInnerHTML={{
@@ -630,7 +630,7 @@ function ReportCard({
                         fontWeight: 700,
                         textTransform: "uppercase",
                         letterSpacing: "0.16em",
-                        color: "#475569",
+                        color: "var(--text)",
                       }}
                     >
                       Student answer
@@ -639,7 +639,7 @@ function ReportCard({
                       style={{
                         margin: "10px 0 0",
                         fontSize: 14,
-                        color: "#0f172a",
+                        color: "var(--text)",
                         lineHeight: 1.7,
                       }}
                       dangerouslySetInnerHTML={{
@@ -656,7 +656,7 @@ function ReportCard({
                           fontWeight: 700,
                           textTransform: "uppercase",
                           letterSpacing: "0.16em",
-                          color: "#475569",
+                          color: "var(--text)",
                         }}
                       >
                         Correct answer
@@ -665,7 +665,7 @@ function ReportCard({
                         style={{
                           margin: "10px 0 0",
                           fontSize: 14,
-                          color: "#0f172a",
+                          color: "var(--text)",
                           lineHeight: 1.7,
                         }}
                         dangerouslySetInnerHTML={{
@@ -680,7 +680,7 @@ function ReportCard({
                   <div
                     style={{
                       marginTop: 16,
-                      borderTop: "1px solid #e2e8f0",
+                      borderTop: "1px solid var(--border)",
                       paddingTop: 16,
                     }}
                   >
@@ -691,7 +691,7 @@ function ReportCard({
                         fontWeight: 700,
                         textTransform: "uppercase",
                         letterSpacing: "0.16em",
-                        color: "#475569",
+                        color: "var(--text)",
                       }}
                     >
                       Feedback
@@ -700,7 +700,7 @@ function ReportCard({
                       style={{
                         margin: "10px 0 0",
                         fontSize: 14,
-                        color: "#0f172a",
+                        color: "var(--text)",
                         lineHeight: 1.8,
                       }}
                       dangerouslySetInnerHTML={{
@@ -727,7 +727,7 @@ function ReportCard({
               style={{
                 margin: 0,
                 fontSize: 11,
-                color: "#6b7280",
+                color: "var(--text)",
                 letterSpacing: "0.18em",
                 textTransform: "uppercase",
                 fontWeight: 700,
@@ -740,13 +740,13 @@ function ReportCard({
                 margin: "10px 0 0",
                 fontSize: 16,
                 fontWeight: 700,
-                color: "#0f172a",
+                color: "var(--text)",
               }}
             >
               StadiSpace Academic Team
             </p>
           </div>
-          <div style={{ textAlign: "right", color: "#94a3b8", fontSize: 12 }}>
+          <div style={{ textAlign: "right", color: "var(--text-muted)", fontSize: 12 }}>
             <p style={{ margin: 0 }}>www.stadispace.co.ke</p>
             <p style={{ margin: "8px 0 0" }}>Official student report</p>
           </div>
@@ -934,7 +934,7 @@ export default function AttemptResultsPage() {
 
       const canvas = await html2canvas(pageElement, {
         scale: 2,
-        backgroundColor: "#ffffff",
+        backgroundColor: "var(--bg-card)",
         useCORS: true,
       });
 
@@ -1004,7 +1004,7 @@ export default function AttemptResultsPage() {
       <div
         style={{
           minHeight: "100vh",
-          background: "#f8fafc",
+          background: "var(--bg-secondary)",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
@@ -1018,7 +1018,7 @@ export default function AttemptResultsPage() {
             width: 56,
             height: 56,
             borderRadius: "50%",
-            border: "4px solid #e2e8f0",
+            border: "4px solid var(--border)",
             borderTopColor: "#1a6fc4",
             animation: "spin 0.9s linear infinite",
           }}
@@ -1028,13 +1028,13 @@ export default function AttemptResultsPage() {
             style={{
               fontSize: 18,
               fontWeight: 700,
-              color: "#1e293b",
+              color: "var(--text)",
               margin: 0,
             }}
           >
             Marking your quiz…
           </p>
-          <p style={{ fontSize: 14, color: "#64748b", marginTop: 6 }}>
+          <p style={{ fontSize: 14, color: "var(--text)", marginTop: 6 }}>
             We&apos;re checking each answer carefully. This usually takes 15–30 seconds.
           </p>
         </div>
@@ -1047,7 +1047,7 @@ export default function AttemptResultsPage() {
       <div
         style={{
           minHeight: "100vh",
-          background: "#f8fafc",
+          background: "var(--bg-secondary)",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
@@ -1058,7 +1058,7 @@ export default function AttemptResultsPage() {
             width: 40,
             height: 40,
             borderRadius: "50%",
-            border: "3px solid #e2e8f0",
+            border: "3px solid var(--border)",
             borderTopColor: "#1a6fc4",
             animation: "spin 0.8s linear infinite",
           }}
@@ -1069,13 +1069,13 @@ export default function AttemptResultsPage() {
 
   if (gradingFailed)
     return (
-      <div style={{ minHeight: "100vh", background: "#f8fafc", display: "flex", alignItems: "center", justifyContent: "center" }}>
+      <div style={{ minHeight: "100vh", background: "var(--bg-secondary)", display: "flex", alignItems: "center", justifyContent: "center" }}>
         <div style={{ textAlign: "center", padding: "0 24px", maxWidth: 340 }}>
           <div style={{ fontSize: 36, marginBottom: 12 }}>😔</div>
           <p style={{ color: "#dc2626", fontWeight: 700, fontSize: 16, marginBottom: 8 }}>
             Grading failed
           </p>
-          <p style={{ color: "#64748b", fontSize: 13, marginBottom: 20, lineHeight: 1.6 }}>
+          <p style={{ color: "var(--text)", fontSize: 13, marginBottom: 20, lineHeight: 1.6 }}>
             Something went wrong while marking your quiz. Your credits have not been deducted. Please try the quiz again.
           </p>
           <Link href="/browse">
@@ -1089,12 +1089,12 @@ export default function AttemptResultsPage() {
 
   if (!results)
     return (
-      <div style={{ minHeight: "100vh", background: "#f8fafc", display: "flex", alignItems: "center", justifyContent: "center" }}>
+      <div style={{ minHeight: "100vh", background: "var(--bg-secondary)", display: "flex", alignItems: "center", justifyContent: "center" }}>
         <div style={{ textAlign: "center", padding: "0 24px" }}>
-          <div style={{ width: 40, height: 40, borderRadius: "50%", border: "3px solid #e2e8f0", borderTopColor: "#1a6fc4", animation: "spin 0.8s linear infinite", margin: "0 auto 16px" }} />
+          <div style={{ width: 40, height: 40, borderRadius: "50%", border: "3px solid var(--border)", borderTopColor: "#1a6fc4", animation: "spin 0.8s linear infinite", margin: "0 auto 16px" }} />
           <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
           <p style={{ color: "#1e40af", fontWeight: 600, fontSize: 15, marginBottom: 4 }}>Loading results…</p>
-          <p style={{ color: "#94a3b8", fontSize: 13 }}>Please wait</p>
+          <p style={{ color: "var(--text-muted)", fontSize: 13 }}>Please wait</p>
         </div>
       </div>
     );
@@ -1132,7 +1132,7 @@ export default function AttemptResultsPage() {
     <div
       style={{
         minHeight: "100vh",
-        background: "#f8fafc",
+        background: "var(--bg-secondary)",
         fontFamily: "'Inter', system-ui, sans-serif",
       }}
     >
@@ -1246,7 +1246,7 @@ export default function AttemptResultsPage() {
             display: "flex",
             alignItems: "center",
             gap: 6,
-            color: "#64748b",
+            color: "var(--text)",
             background: "none",
             border: "none",
             cursor: "pointer",
@@ -1263,12 +1263,12 @@ export default function AttemptResultsPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           style={{
-            background: "#fff",
+            background: "var(--bg-card)",
             borderRadius: 24,
             padding: "40px 32px",
             marginBottom: 16,
             boxShadow: "0 4px 24px rgba(0,0,0,0.08)",
-            border: "1px solid #f1f5f9",
+            border: "1px solid var(--border)",
             textAlign: "center",
             position: "relative",
             overflow: "hidden",
@@ -1305,7 +1305,7 @@ export default function AttemptResultsPage() {
             style={{
               fontSize: 13,
               fontWeight: 600,
-              color: "#94a3b8",
+              color: "var(--text-muted)",
               letterSpacing: "0.08em",
               textTransform: "uppercase",
               marginBottom: 8,
@@ -1383,14 +1383,14 @@ export default function AttemptResultsPage() {
               .map(({ label, value }) => (
                 <div key={label} style={{ textAlign: "center" }}>
                   <div
-                    style={{ fontSize: 22, fontWeight: 800, color: "#0f172a" }}
+                    style={{ fontSize: 22, fontWeight: 800, color: "var(--text)" }}
                   >
                     {value}
                   </div>
                   <div
                     style={{
                       fontSize: 12,
-                      color: "#94a3b8",
+                      color: "var(--text-muted)",
                       fontWeight: 500,
                       marginTop: 2,
                     }}
@@ -1411,9 +1411,9 @@ export default function AttemptResultsPage() {
                 gap: 6,
                 padding: "10px 20px",
                 borderRadius: 12,
-                background: "#f1f5f9",
+                background: "var(--bg-secondary)",
                 border: "none",
-                color: "#475569",
+                color: "var(--text)",
                 fontSize: 13,
                 fontWeight: 600,
                 cursor: "pointer",
@@ -1451,11 +1451,11 @@ export default function AttemptResultsPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
           style={{
-            background: "#fff",
+            background: "var(--bg-card)",
             borderRadius: 20,
             padding: "20px 24px",
             marginBottom: 32,
-            border: "1px solid #f1f5f9",
+            border: "1px solid var(--border)",
             boxShadow: "0 2px 12px rgba(0,0,0,0.04)",
             display: "flex",
             alignItems: "flex-start",
@@ -1468,13 +1468,13 @@ export default function AttemptResultsPage() {
               style={{
                 fontSize: 15,
                 fontWeight: 700,
-                color: "#0f172a",
+                color: "var(--text)",
                 marginBottom: 4,
               }}
             >
               {message.title}
             </p>
-            <p style={{ fontSize: 14, color: "#475569", lineHeight: 1.6 }}>
+            <p style={{ fontSize: 14, color: "var(--text)", lineHeight: 1.6 }}>
               {message.body}
             </p>
           </div>
@@ -1485,7 +1485,7 @@ export default function AttemptResultsPage() {
           style={{
             fontSize: 20,
             fontWeight: 800,
-            color: "#0f172a",
+            color: "var(--text)",
             marginBottom: 16,
           }}
         >
@@ -1521,7 +1521,7 @@ export default function AttemptResultsPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.04 }}
                 style={{
-                  background: "#fff",
+                  background: "var(--bg-card)",
                   borderRadius: 18,
                   border: `1px solid ${cardColor}`,
                   overflow: "hidden",
@@ -1585,7 +1585,7 @@ export default function AttemptResultsPage() {
                           style={{
                             fontSize: 14,
                             fontWeight: 700,
-                            color: "#0f172a",
+                            color: "var(--text)",
                           }}
                         >
                           Question {index + 1}
@@ -1623,7 +1623,7 @@ export default function AttemptResultsPage() {
                       <p
                         style={{
                           fontSize: 13,
-                          color: "#64748b",
+                          color: "var(--text)",
                           marginTop: 2,
                           lineHeight: 1.5,
                         }}
@@ -1757,7 +1757,7 @@ export default function AttemptResultsPage() {
                                       style={{
                                         fontSize: 14,
                                         fontWeight: 600,
-                                        color: "#0f172a",
+                                        color: "var(--text)",
                                         lineHeight: 1.5,
                                         margin: 0,
                                       }}
@@ -1811,7 +1811,7 @@ export default function AttemptResultsPage() {
                                 {/* Part body */}
                                 <div
                                   style={{
-                                    background: "#fff",
+                                    background: "var(--bg-card)",
                                     padding: "14px 16px",
                                     display: "flex",
                                     flexDirection: "column",
@@ -1856,7 +1856,7 @@ export default function AttemptResultsPage() {
                                       ) : (
                                         <span
                                           style={{
-                                            color: "#94a3b8",
+                                            color: "var(--text-muted)",
                                             fontStyle: "italic",
                                           }}
                                         >
@@ -1871,7 +1871,7 @@ export default function AttemptResultsPage() {
                                     <div
                                       style={{
                                         background: pCorrect
-                                          ? "#f0fdf4"
+                                          ? "var(--bg-secondary)"
                                           : pPartial
                                             ? "#fffbeb"
                                             : "#fff7ed",
@@ -1895,7 +1895,7 @@ export default function AttemptResultsPage() {
                                       <p
                                         style={{
                                           fontSize: 13,
-                                          color: "#374151",
+                                          color: "var(--text)",
                                           lineHeight: 1.7,
                                           margin: 0,
                                         }}
@@ -2004,7 +2004,7 @@ export default function AttemptResultsPage() {
                                       style={{
                                         fontSize: 14,
                                         fontWeight: 600,
-                                        color: "#0f172a",
+                                        color: "var(--text)",
                                         lineHeight: 1.5,
                                         margin: 0,
                                         flex: 1,
@@ -2018,7 +2018,7 @@ export default function AttemptResultsPage() {
                                   </div>
                                   <div
                                     style={{
-                                      background: "#fff",
+                                      background: "var(--bg-card)",
                                       padding: "14px 16px",
                                       display: "flex",
                                       flexDirection: "column",
@@ -2054,7 +2054,7 @@ export default function AttemptResultsPage() {
                                         {fullText || (
                                           <span
                                             style={{
-                                              color: "#94a3b8",
+                                              color: "var(--text-muted)",
                                               fontStyle: "italic",
                                             }}
                                           >
@@ -2067,7 +2067,7 @@ export default function AttemptResultsPage() {
                                       <div
                                         style={{
                                           background: isCorrect
-                                            ? "#f0fdf4"
+                                            ? "var(--bg-secondary)"
                                             : "#fff7ed",
                                           borderRadius: 10,
                                           padding: "10px 14px",
@@ -2089,7 +2089,7 @@ export default function AttemptResultsPage() {
                                         <p
                                           style={{
                                             fontSize: 13,
-                                            color: "#374151",
+                                            color: "var(--text)",
                                             lineHeight: 1.7,
                                             margin: 0,
                                           }}
@@ -2137,11 +2137,11 @@ export default function AttemptResultsPage() {
 
                         {/* Feedback */}
                         {item.feedback && (
-                          <div style={{ background: correct ? "#f0fdf4" : "#fffbeb", border: `1px solid ${correct ? "#bbf7d0" : "#fde68a"}`, borderRadius: 12, padding: "14px 16px" }}>
+                          <div style={{ background: correct ? "var(--bg-secondary)" : "#fffbeb", border: `1px solid ${correct ? "#bbf7d0" : "#fde68a"}`, borderRadius: 12, padding: "14px 16px" }}>
                             <p style={{ fontSize: 11, fontWeight: 700, color: correct ? "#059669" : "#92400e", letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: 8 }}>
                               {correct ? "✓ Feedback" : "Feedback"}
                             </p>
-                            <p style={{ fontSize: 14, color: "#0f172a", lineHeight: 1.7, margin: 0 }}
+                            <p style={{ fontSize: 14, color: "var(--text)", lineHeight: 1.7, margin: 0 }}
                               dangerouslySetInnerHTML={{ __html: item.feedback?.replace(/\\n|\n/g, "<br/>") }}
                             />
                           </div>
@@ -2149,7 +2149,7 @@ export default function AttemptResultsPage() {
 
                         {/* Points missed */}
                         {!correct && item.points_missed?.length > 0 && (
-                          <div style={{ background: "#fff5f5", border: "1px solid #fecaca", borderRadius: 12, padding: "12px 16px" }}>
+                          <div style={{ background: "var(--bg-secondary)", border: "1px solid #fecaca", borderRadius: 12, padding: "12px 16px" }}>
                             <p style={{ fontSize: 11, fontWeight: 700, color: "#dc2626", letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: 8 }}>
                               Items to Review
                             </p>
@@ -2163,7 +2163,7 @@ export default function AttemptResultsPage() {
 
                         {/* Points earned */}
                         {item.points_earned?.length > 0 && (
-                          <div style={{ background: "#f0fdf4", border: "1px solid #bbf7d0", borderRadius: 12, padding: "12px 16px" }}>
+                          <div style={{ background: "var(--bg-secondary)", border: "1px solid #bbf7d0", borderRadius: 12, padding: "12px 16px" }}>
                             <p style={{ fontSize: 11, fontWeight: 700, color: "#059669", letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: 8 }}>
                               Correct Entries
                             </p>
@@ -2210,16 +2210,16 @@ export default function AttemptResultsPage() {
                                         border: "1px solid #cbd5e1",
                                         padding: "6px 10px",
                                         background: isEditable
-                                          ? (isCorrect ? "#f0fdf4" : isWrong ? "#fff5f5" : "#fafafa")
-                                          : "#f1f5f9",
+                                          ? (isCorrect ? "var(--bg-secondary)" : isWrong ? "var(--bg-secondary)" : "var(--bg-secondary)")
+                                          : "var(--bg-secondary)",
                                         fontWeight: isEditable ? 600 : 400,
                                         color: isEditable
-                                          ? (isCorrect ? "#15803d" : isWrong ? "#dc2626" : "#374151")
-                                          : "#374151",
+                                          ? (isCorrect ? "#15803d" : isWrong ? "#dc2626" : "var(--text)")
+                                          : "var(--text)",
                                         textAlign: "center",
                                         minWidth: 80,
                                       }}>
-                                        {isEditable ? (studentVal || <span style={{ color: "#94a3b8", fontStyle: "italic" }}>blank</span>) : (cell.v || "")}
+                                        {isEditable ? (studentVal || <span style={{ color: "var(--text-muted)", fontStyle: "italic" }}>blank</span>) : (cell.v || "")}
                                       </td>
                                     );
                                   })}
@@ -2268,7 +2268,7 @@ export default function AttemptResultsPage() {
                               {!item.student_answer ? (
                                 <span
                                   style={{
-                                    color: "#94a3b8",
+                                    color: "var(--text-muted)",
                                     fontStyle: "italic",
                                   }}
                                 >
@@ -2364,7 +2364,7 @@ export default function AttemptResultsPage() {
                           {/* AI Feedback */}
                           <div
                             style={{
-                              background: correct ? "#f0fdf4" : "#fffbeb",
+                              background: correct ? "var(--bg-secondary)" : "#fffbeb",
                               border: `1px solid ${correct ? "#bbf7d0" : "#fde68a"}`,
                               borderRadius: 12,
                               padding: "14px 16px",
@@ -2437,7 +2437,7 @@ export default function AttemptResultsPage() {
                             ) && (
                               <div
                                 style={{
-                                  background: "#faf5ff",
+                                  background: "var(--bg-secondary)",
                                   border: "1px solid #e9d5ff",
                                   borderRadius: 12,
                                   padding: "12px 16px",
@@ -2596,11 +2596,11 @@ export default function AttemptResultsPage() {
                     minWidth: 140,
                     padding: "14px 0",
                     borderRadius: 14,
-                    background: "#fff",
-                    color: "#475569",
+                    background: "var(--bg-card)",
+                    color: "var(--text)",
                     fontSize: 14,
                     fontWeight: 600,
-                    border: "2px solid #e2e8f0",
+                    border: "2px solid var(--border)",
                     cursor: "pointer",
                   }}
                 >
@@ -2633,11 +2633,11 @@ export default function AttemptResultsPage() {
                     minWidth: 120,
                     padding: "14px 0",
                     borderRadius: 14,
-                    background: "#fff",
-                    color: "#475569",
+                    background: "var(--bg-card)",
+                    color: "var(--text)",
                     fontSize: 14,
                     fontWeight: 600,
-                    border: "2px solid #e2e8f0",
+                    border: "2px solid var(--border)",
                     cursor: "pointer",
                   }}
                 >

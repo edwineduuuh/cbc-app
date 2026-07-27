@@ -203,7 +203,7 @@ function TableInput({ tableData, value, onChange }) {
                     style={{
                       border: "2px solid var(--border)",
                       padding: cell.e ? "6px" : "10px 14px",
-                      background: cell.e ? "#eff6ff" : "#f9fafb",
+                      background: cell.e ? "#eff6ff" : "var(--bg-secondary)",
                       fontWeight: cell.e ? 500 : 600,
                       fontSize: 15,
                       color: "var(--text)",
@@ -319,8 +319,8 @@ function QuestionNav({ questions, answers, currentIdx, onJump, show }) {
                       ? "#1a6fc4"
                       : answered
                         ? "#d4edda"
-                        : "#f0f2f7",
-                    color: current ? "#fff" : answered ? "#1a7a4a" : "#8892a4",
+                        : "var(--bg-secondary)",
+                    color: current ? "#fff" : answered ? "#1a7a4a" : "var(--text-muted)",
                     transition: "all 0.15s",
                     display: "flex",
                     alignItems: "center",
@@ -867,7 +867,7 @@ function ResultsScreen({ result, quiz }) {
                         key={qId}
                         style={{
                           background: feedback.is_correct
-                            ? "#f0fdf4"
+                            ? "var(--bg-secondary)"
                             : "#fffbeb",
                           border: `2px solid ${feedback.is_correct ? "#1d8f57" : "#d4900a"}`,
                           borderRadius: 16,

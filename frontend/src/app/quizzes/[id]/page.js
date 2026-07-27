@@ -71,10 +71,10 @@ function _mdTableToHtml(text) {
   return text.replace(tableRe, (block) => {
     const rows = block.trim().split("\n").map(r => r.trim());
     const header = rows[0].split("|").filter((_, i, a) => i > 0 && i < a.length - 1)
-      .map(c => `<th style="padding:6px 12px;border:1px solid #cbd5e1;background:#f1f5f9;font-weight:700;text-align:left;font-size:13px">${c.trim()}</th>`).join("");
+      .map(c => `<th style="padding:6px 12px;border:1px solid var(--border);background:var(--bg-secondary);color:var(--text);font-weight:700;text-align:left;font-size:13px">${c.trim()}</th>`).join("");
     const body = rows.slice(2).map(r => {
       const cells = r.split("|").filter((_, i, a) => i > 0 && i < a.length - 1)
-        .map(c => `<td style="padding:6px 12px;border:1px solid var(--border);font-size:13px">${c.trim()}</td>`).join("");
+        .map(c => `<td style="padding:6px 12px;border:1px solid var(--border);color:var(--text);font-size:13px">${c.trim()}</td>`).join("");
       return `<tr>${cells}</tr>`;
     }).join("");
     return `<table style="border-collapse:collapse;margin:10px 0;width:auto;max-width:100%"><thead><tr>${header}</tr></thead><tbody>${body}</tbody></table>`;
@@ -175,7 +175,7 @@ function PassageContent({
               : answer
                 ? "#eff6ff"
                 : "transparent",
-            color: isActive ? "#1a6fc4" : answer ? "#1d4ed8" : "#6b7280",
+            color: isActive ? "#1a6fc4" : answer ? "#1d4ed8" : "var(--text)",
             fontWeight: answer ? 700 : 400,
             padding: "0 6px 2px",
             borderRadius: 4,
@@ -499,7 +499,7 @@ function MCQOption({ letter, text, imageUrl, selected, onClick }) {
           style={{
             fontSize: 15,
             fontWeight: selected ? 600 : 500,
-            color: selected ? c.activeText : "#1a1a2e",
+            color: selected ? c.activeText : "var(--text)",
             lineHeight: 1.5,
             textAlign: "left",
             flex: 1,
@@ -747,7 +747,7 @@ function MatchingTable({ tableData, answer, onAnswer }) {
               return (
                 <tr
                   key={ri}
-                  style={{ background: ri % 2 === 0 ? "#fff" : "#f8fafc" }}
+                  style={{ background: ri % 2 === 0 ? "var(--bg-card)" : "var(--bg-secondary)" }}
                 >
                   {/* Column A item */}
                   <td
@@ -774,7 +774,7 @@ function MatchingTable({ tableData, answer, onAnswer }) {
                       background: isTarget
                         ? "#eff6ff"
                         : placed.length
-                          ? "#f0fdf4"
+                          ? "var(--bg-secondary)"
                           : "transparent",
                       transition: "background 0.15s",
                     }}
@@ -823,9 +823,9 @@ function MatchingTable({ tableData, answer, onAnswer }) {
                       <span
                         style={{
                           fontSize: 13,
-                          color: isTarget ? "#1a6fc4" : "#94a3b8",
+                          color: isTarget ? "#1a6fc4" : "var(--text-muted)",
                           fontWeight: isTarget ? 700 : 400,
-                          border: `2px dashed ${isTarget ? "#1a6fc4" : "#e2e8f0"}`,
+                          border: `2px dashed ${isTarget ? "#1a6fc4" : "var(--border)"}`,
                           borderRadius: 8,
                           padding: "6px 12px",
                           display: "block",
@@ -850,7 +850,7 @@ function MatchingTable({ tableData, answer, onAnswer }) {
             style={{
               fontSize: 11,
               fontWeight: 700,
-              color: "#64748b",
+              color: "var(--text)",
               textTransform: "uppercase",
               letterSpacing: "0.06em",
               marginBottom: 8,
@@ -871,9 +871,9 @@ function MatchingTable({ tableData, answer, onAnswer }) {
                     fontSize: 13,
                     fontWeight: 600,
                     borderRadius: 10,
-                    border: `2px solid ${isSel ? "#1a6fc4" : "#e2e8f0"}`,
-                    background: isSel ? "#1a6fc4" : "#fff",
-                    color: isSel ? "#fff" : "#1e293b",
+                    border: `2px solid ${isSel ? "#1a6fc4" : "var(--border)"}`,
+                    background: isSel ? "#1a6fc4" : "var(--bg-card)",
+                    color: isSel ? "#fff" : "var(--text)",
                     cursor: "pointer",
                     transition: "all 0.15s",
                     boxShadow: isSel
@@ -929,7 +929,7 @@ function FillInTable({ tableData, answer, onAnswer }) {
               key={r}
               style={{
                 background:
-                  r === 0 ? "#f1f5f9" : r % 2 === 1 ? "#fff" : "#f8fafc",
+                  r === 0 ? "var(--bg-secondary)" : r % 2 === 1 ? "var(--bg-card)" : "var(--bg-secondary)",
               }}
             >
               {row.map((cell, c) => (
@@ -1031,8 +1031,8 @@ function QuestionNav({ questions, answers, currentIdx, onJump, show }) {
                     ? "#1a6fc4"
                     : answered
                       ? "#d4edda"
-                      : "#f0f2f7",
-                  color: current ? "#fff" : answered ? "#1a7a4a" : "#8892a4",
+                      : "var(--bg-secondary)",
+                  color: current ? "#fff" : answered ? "#1a7a4a" : "var(--text-muted)",
                   transition: "all 0.15s",
                   display: "flex",
                   alignItems: "center",
@@ -1792,8 +1792,8 @@ function WorkingPanel({ questionIdx, onWorkingCapture }) {
           padding: "8px 16px",
           borderRadius: 10,
           border: "2px dashed #bdd7f5",
-          background: hasWorking ? "#e8f4ff" : "#f7f9fc",
-          color: hasWorking ? "#1a6fc4" : "#8892a4",
+          background: hasWorking ? "#e8f4ff" : "var(--bg-secondary)",
+          color: hasWorking ? "#1a6fc4" : "var(--text-muted)",
           fontSize: 13,
           fontWeight: 600,
           cursor: "pointer",
@@ -1821,9 +1821,9 @@ function WorkingPanel({ questionIdx, onWorkingCapture }) {
                   borderRadius: 8,
                   fontSize: 12,
                   fontWeight: 700,
-                  border: "2px solid " + (mode === m ? "#1a6fc4" : "#e8eaf0"),
-                  background: mode === m ? "#e8f4ff" : "#fff",
-                  color: mode === m ? "#1a6fc4" : "#8892a4",
+                  border: "2px solid " + (mode === m ? "#1a6fc4" : "var(--border)"),
+                  background: mode === m ? "#e8f4ff" : "var(--bg-card)",
+                  color: mode === m ? "#1a6fc4" : "var(--text-muted)",
                   cursor: "pointer",
                 }}
               >
@@ -2496,7 +2496,7 @@ export default function QuizTakePage({ params }) {
               height: 38,
               borderRadius: 10,
               border: "2px solid var(--border)",
-              background: showNav ? "#e8f4ff" : "#fff",
+              background: showNav ? "#e8f4ff" : "var(--bg-card)",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
@@ -2679,8 +2679,8 @@ export default function QuizTakePage({ params }) {
                     width: 36,
                     height: 36,
                     borderRadius: 10,
-                    border: `2px solid ${flagged.has(currentIdx) ? "#f0d690" : "#e8eaf0"}`,
-                    background: flagged.has(currentIdx) ? "#fff8e6" : "#fff",
+                    border: `2px solid ${flagged.has(currentIdx) ? "#f0d690" : "var(--border)"}`,
+                    background: flagged.has(currentIdx) ? "#fff8e6" : "var(--bg-card)",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
@@ -2952,10 +2952,10 @@ export default function QuizTakePage({ params }) {
                                 style={{
                                   background:
                                     r === 0
-                                      ? "#f1f5f9"
+                                      ? "var(--bg-secondary)"
                                       : r % 2 === 1
-                                        ? "#fff"
-                                        : "#f8fafc",
+                                        ? "var(--bg-card)"
+                                        : "var(--bg-secondary)",
                                 }}
                               >
                                 {row.map((cell, c) => (
@@ -3163,7 +3163,7 @@ export default function QuizTakePage({ params }) {
                           </div>
                         ) : part.question_type === "financial_statement" ? (
                           <div style={{ marginTop: 8 }}>
-                            <p style={{ fontSize: 11, fontWeight: 700, color: "#64748b", letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: 8 }}>
+                            <p style={{ fontSize: 11, fontWeight: 700, color: "var(--text)", letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: 8 }}>
                               Complete the financial statement
                             </p>
                             <FinancialStatementInput

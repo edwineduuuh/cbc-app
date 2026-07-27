@@ -159,8 +159,8 @@ function QuizzesContent() {
               <button key={tab.id} onClick={() => { setSelectedTab(tab.id); setSelectedStrand(null); }}
                 style={{
                   padding: "6px 14px", borderRadius: 20, whiteSpace: "nowrap", border: "none",
-                  background: selectedTab === tab.id ? "#1a6fc4" : "#f0f2f7",
-                  color: selectedTab === tab.id ? "#fff" : "#6b7280",
+                  background: selectedTab === tab.id ? "#1a6fc4" : "var(--bg-secondary)",
+                  color: selectedTab === tab.id ? "#fff" : "var(--text)",
                   fontSize: 13, fontWeight: selectedTab === tab.id ? 700 : 500, transition: "all 0.15s",
                 }}>
                 {tab.label}
@@ -174,9 +174,9 @@ function QuizzesContent() {
               <button onClick={() => setSelectedStrand(null)}
                 style={{
                   padding: "4px 12px", borderRadius: 20, fontSize: 12,
-                  border: `1px solid ${!selectedStrand ? "#bdd7f5" : "#e8eaf0"}`,
-                  background: !selectedStrand ? "#e8f4ff" : "#f7f9fc",
-                  color: !selectedStrand ? "#1a6fc4" : "#6b7280",
+                  border: `1px solid ${!selectedStrand ? "#bdd7f5" : "var(--border)"}`,
+                  background: !selectedStrand ? "#e8f4ff" : "var(--bg-secondary)",
+                  color: !selectedStrand ? "#1a6fc4" : "var(--text)",
                   fontWeight: !selectedStrand ? 700 : 400,
                 }}>
                 All strands
@@ -185,9 +185,9 @@ function QuizzesContent() {
                 <button key={strand.id} onClick={() => setSelectedStrand(strand)}
                   style={{
                     padding: "4px 12px", borderRadius: 20, fontSize: 12,
-                    border: `1px solid ${selectedStrand?.id === strand.id ? "#bdd7f5" : "#e8eaf0"}`,
-                    background: selectedStrand?.id === strand.id ? "#e8f4ff" : "#f7f9fc",
-                    color: selectedStrand?.id === strand.id ? "#1a6fc4" : "#6b7280",
+                    border: `1px solid ${selectedStrand?.id === strand.id ? "#bdd7f5" : "var(--border)"}`,
+                    background: selectedStrand?.id === strand.id ? "#e8f4ff" : "var(--bg-secondary)",
+                    color: selectedStrand?.id === strand.id ? "#1a6fc4" : "var(--text)",
                     fontWeight: selectedStrand?.id === strand.id ? 700 : 400,
                   }}>
                   {strand.name}
@@ -242,8 +242,8 @@ function QuizzesContent() {
                     disabled={!!loadingQuizId}
                     style={{
                       padding: "14px 16px", borderRadius: 16,
-                      border: `1.5px solid ${isThisLoading ? "#1a6fc4" : "#e8eaf0"}`,
-                      background: isThisLoading ? "#f0f7ff" : "#fff",
+                      border: `1.5px solid ${isThisLoading ? "#1a6fc4" : "var(--border)"}`,
+                      background: isThisLoading ? "#f0f7ff" : "var(--bg-card)",
                       display: "flex", alignItems: "center", justifyContent: "space-between",
                       gap: 12, textAlign: "left", transition: "all 0.15s",
                       opacity: loadingQuizId && !isThisLoading ? 0.5 : 1,
