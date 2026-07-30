@@ -610,6 +610,28 @@ function StudentDetailModal({ user, onClose }) {
   const scoreColor = (v) =>
     v == null ? "text-gray-400" : v >= 75 ? "text-emerald-600" : v >= 50 ? "text-amber-600" : "text-red-600";
 
+  const downloadCSV = () => {
+    if (!data?.attempts?.length) return;
+    const cols = ["Quiz", "Subject", "Grade", "Type", "Status", "Score %", "Marks awarded", "Max marks", "Correct", "Questions", "When"];
+    const esc = (v) => `"${String(v ?? "").replace(/"/g, '""')}"`;
+    const lines = [cols.join(",")];
+    for (const a of data.attempts) {
+      lines.push([
+        a.quiz, a.subject, a.grade ?? "", a.type, a.status,
+        a.score ?? "", a.marks_awarded ?? "", a.max_marks ?? "",
+        a.correct ?? "", a.total_questions ?? "",
+        a.when ? new Date(a.when).toLocaleString() : "",
+      ].map(esc).join(","));
+    }
+    const blob = new Blob([lines.join("\n")], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `${user.username}-quiz-history.csv`;
+    link.click();
+    URL.revokeObjectURL(url);
+  };
+
   return (
     <div className="fixed inset-0 z-[90] flex items-center justify-center p-4" onClick={onClose}>
       <div className="absolute inset-0 bg-black/50" />
@@ -678,7 +700,15 @@ function StudentDetailModal({ user, onClose }) {
 
             {/* Attempts table */}
             <div>
-              <h4 className="text-sm font-bold text-gray-900 mb-2">Quiz history</h4>
+              <div className="flex items-center justify-between mb-2">
+                <h4 className="text-sm font-bold text-gray-900">Quiz history</h4>
+                {data.attempts.length > 0 && (
+                  <button onClick={downloadCSV}
+                    className="text-xs font-semibold text-indigo-600 hover:text-indigo-800 border border-indigo-200 rounded-lg px-3 py-1.5">
+                    Download CSV
+                  </button>
+                )}
+              </div>
               {data.attempts.length === 0 ? (
                 <p className="text-sm text-gray-400 py-4">No quiz attempts yet.</p>
               ) : (
@@ -1413,6 +1443,7 @@ function LoadingSkeleton() {
 function ActiveUsersTab() {
   const todayISO = new Date().toISOString().slice(0, 10);
   const [date, setDate] = useState(todayISO);
+  const [detailUser, setDetailUser] = useState(null);
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -1506,7 +1537,7 @@ function ActiveUsersTab() {
             </thead>
             <tbody className="divide-y divide-gray-100 dark:divide-slate-700">
               {users.map((u) => (
-                <tr key={u.id} className="hover:bg-gray-50 dark:hover:bg-slate-700/40 transition-colors">
+                <tr key={u.id} onClick={() => setDetailUser(u)} className="hover:bg-indigo-50 dark:hover:bg-slate-700/40 cursor-pointer transition-colors">
                   <td className="px-4 py-3 text-sm font-semibold text-gray-900 dark:text-white">{u.username}</td>
                   <td className="px-4 py-3 text-sm text-gray-500 dark:text-gray-400">{u.email || "—"}</td>
                   <td className="px-4 py-3 text-sm text-gray-500 dark:text-gray-400 capitalize">{u.role || "student"}</td>
@@ -1517,6 +1548,10 @@ function ActiveUsersTab() {
           </table>
         )}
       </div>
+
+      {detailUser && (
+        <StudentDetailModal user={detailUser} onClose={() => setDetailUser(null)} />
+      )}
     </div>
   );
 }
