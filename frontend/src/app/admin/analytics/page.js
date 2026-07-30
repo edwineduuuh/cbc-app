@@ -515,7 +515,7 @@ function UsersTab({ stats, list, listLoading, filter, onFilterChange }) {
             <table className="w-full text-sm">
               <thead className="bg-gray-50 border-b">
                 <tr>
-                  {["Username", "Email", "Role", "Grade", "School", "Joined", "Last Login", "Status", "Quizzes"].map((h) => (
+                  {["Username", "Email", "Role", "Grade", "School", "Joined", "Last Active", "Status", "Quizzes"].map((h) => (
                     <th key={h} className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">{h}</th>
                   ))}
                 </tr>

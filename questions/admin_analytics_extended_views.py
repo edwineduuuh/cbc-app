@@ -1,7 +1,7 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.contrib.auth import get_user_model
-from django.db.models import Count, Avg, Sum, Q
+from django.db.models import Count, Avg, Sum, Q, Max
 from django.db.models.functions import ExtractHour, TruncDate, TruncMonth
 from django.utils import timezone
 from datetime import timedelta, datetime
@@ -92,8 +92,21 @@ class AdminUserListView(APIView):
             .values_list('user_id', flat=True)
         )
 
+        # Real activity from the Attempt table — last_login alone is unreliable
+        # (JWT never set it before). last_active = most recent of a real quiz
+        # attempt or a recorded login; quizzes_taken = actual completed attempts.
+        qs = qs.annotate(
+            _last_attempt=Max('quiz_attempts__started_at'),
+            _done=Count('quiz_attempts',
+                        filter=Q(quiz_attempts__status='completed'), distinct=True),
+        )
+
         results = []
         for u in qs.order_by('-date_joined')[:100]:
+            last_active = u.last_login
+            if u._last_attempt and (not last_active or u._last_attempt > last_active):
+                last_active = u._last_attempt
+            quizzes = max(u.total_quizzes_taken or 0, u._done or 0)
             results.append({
                 'id': u.id,
                 'username': u.username,
@@ -102,10 +115,12 @@ class AdminUserListView(APIView):
                 'grade': u.grade,
                 'school_name': u.school_name or '',
                 'date_joined': u.date_joined.isoformat() if u.date_joined else None,
-                'last_login': u.last_login.isoformat() if u.last_login else None,
+                # keep the key name 'last_login' so the frontend needs no change,
+                # but populate it with real "last active" data.
+                'last_login': last_active.isoformat() if last_active else None,
                 'has_subscription': u.id in active_sub_ids,
                 'quiz_credits': u.quiz_credits,
-                'total_quizzes_taken': u.total_quizzes_taken,
+                'total_quizzes_taken': quizzes,
                 'current_streak': u.current_streak,
             })
 
