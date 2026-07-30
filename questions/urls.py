@@ -45,7 +45,7 @@ from .authoring_views import (
 from .bulk_upload import BulkUploadView
 from .tutor_views import teach_topic, tutor_chat, flashcards_feed
 from .live_views import (
-    live_slots, my_live_bookings, create_live_booking,
+    live_availability, my_live_bookings, create_live_booking,
     pay_live_booking, cancel_live_booking,
 )
 from .views import (
@@ -211,8 +211,8 @@ path('tutor/topics/<int:topic_id>/lesson/', teach_topic, name='tutor-teach-topic
 path('tutor/chat/', tutor_chat, name='tutor-chat'),
 path('flashcards/', flashcards_feed, name='flashcards-feed'),
 
-# ── Live Lessons (1:1 Zoom tuition) ───────────────────────────
-path('live/slots/', live_slots, name='live-slots'),
+# ── Live Lessons (group Zoom tuition) ─────────────────────────
+path('live/availability/', live_availability, name='live-availability'),
 path('live/bookings/', my_live_bookings, name='live-my-bookings'),
 path('live/bookings/create/', create_live_booking, name='live-create-booking'),
 path('live/bookings/<int:booking_id>/pay/', pay_live_booking, name='live-pay-booking'),

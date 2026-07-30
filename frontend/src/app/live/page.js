@@ -6,30 +6,23 @@ import { useAuth } from "@/contexts/AuthContext";
 import { fetchWithAuth } from "@/lib/api";
 import {
   Video, Calendar, Clock, Loader2, CheckCircle2, AlertCircle,
-  ChevronLeft, ChevronRight, X, Sparkles,
+  ChevronLeft, ChevronRight, X, Sparkles, Users,
 } from "lucide-react";
 
 const API =
   process.env.NEXT_PUBLIC_API_URL ||
   "https://cbc-backend-production-8bc4.up.railway.app/api";
 
-const FALLBACK_PRICING = { 60: 1500, 90: 2100, 120: 2700 };
-const DUR_LABEL = { 60: "1 hour", 90: "1½ hours", 120: "2 hours" };
-const ALL_DURATIONS = [60, 90, 120];
 const WEEKDAYS = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
 
 const dateKey = (d) => {
   const x = new Date(d);
   return `${x.getFullYear()}-${String(x.getMonth() + 1).padStart(2, "0")}-${String(x.getDate()).padStart(2, "0")}`;
 };
-const fmtTime = (iso) =>
-  new Date(iso).toLocaleTimeString("en-KE", { hour: "2-digit", minute: "2-digit" });
-const fmtDay = (d) =>
-  new Date(d).toLocaleDateString("en-KE", { weekday: "long", day: "numeric", month: "long" });
-const fmtWhen = (iso) =>
-  new Date(iso).toLocaleString("en-KE", {
-    weekday: "short", day: "numeric", month: "short", hour: "2-digit", minute: "2-digit",
-  });
+const fmtDay = (k) =>
+  new Date(k + "T00:00:00").toLocaleDateString("en-KE", { weekday: "long", day: "numeric", month: "long" });
+const fmtDate = (k) =>
+  new Date(k + "T00:00:00").toLocaleDateString("en-KE", { weekday: "short", day: "numeric", month: "short" });
 
 const STATUS_UI = {
   requested: { label: "Waiting for approval", cls: "bg-amber-100 text-amber-800 dark:bg-amber-500/15 dark:text-amber-300" },
@@ -45,8 +38,8 @@ export default function LiveLessonsPage() {
   const { user, loading: authLoading } = useAuth();
   const router = useRouter();
 
-  const [slots, setSlots] = useState([]);
-  const [pricing, setPricing] = useState(FALLBACK_PRICING);
+  const [sessions, setSessions] = useState([]);
+  const [defaultPrice, setDefaultPrice] = useState(1500);
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -54,13 +47,12 @@ export default function LiveLessonsPage() {
     const n = new Date();
     return new Date(n.getFullYear(), n.getMonth(), 1);
   });
-  const [selectedDate, setSelectedDate] = useState(null); // dateKey
+  const [selectedDate, setSelectedDate] = useState(null);
 
   // Booking modal
-  const [activeSlot, setActiveSlot] = useState(null);
-  const [duration, setDuration] = useState(60);
+  const [active, setActive] = useState(null); // {date, window_key, window_label, price_kes}
   const [subjects, setSubjects] = useState([]);
-  const [subjectId, setSubjectId] = useState(""); // "" = General
+  const [subjectId, setSubjectId] = useState("");
   const [topics, setTopics] = useState([]);
   const [strand, setStrand] = useState("");
   const [phone, setPhone] = useState("");
@@ -80,12 +72,12 @@ export default function LiveLessonsPage() {
 
   const load = useCallback(async () => {
     try {
-      const [s, b] = await Promise.all([
-        fetchWithAuth(`${API}/live/slots/`).then((r) => r.json()),
+      const [a, b] = await Promise.all([
+        fetchWithAuth(`${API}/live/availability/`).then((r) => r.json()),
         fetchWithAuth(`${API}/live/bookings/`).then((r) => r.json()),
       ]);
-      setSlots(s.slots || []);
-      if (s.pricing) setPricing(s.pricing);
+      setSessions(a.sessions || []);
+      if (a.default_price) setDefaultPrice(a.default_price);
       setBookings(b.bookings || []);
     } catch {
       /* still renders */
@@ -97,7 +89,6 @@ export default function LiveLessonsPage() {
   useEffect(() => { if (user) load(); }, [user, load]);
   useEffect(() => () => clearInterval(pollRef.current), []);
 
-  // Subjects for the kid's grade (for the booking dropdown)
   useEffect(() => {
     if (!user) return;
     const grade = user.grade ? `?grade=${user.grade}` : "";
@@ -107,7 +98,6 @@ export default function LiveLessonsPage() {
       .catch(() => setSubjects([]));
   }, [user]);
 
-  // Topics (strands) whenever a subject is chosen in the modal
   useEffect(() => {
     if (!subjectId) { setTopics([]); setStrand(""); return; }
     const grade = user?.grade ? `&grade=${user.grade}` : "";
@@ -118,24 +108,17 @@ export default function LiveLessonsPage() {
     setStrand("");
   }, [subjectId, user]);
 
-  const priceFor = (d) => Number(pricing[d] ?? pricing[String(d)] ?? FALLBACK_PRICING[d]);
-
-  // Group available slots by local date
+  // Group sessions by date
   const byDate = useMemo(() => {
     const m = {};
-    for (const s of slots) {
-      const k = dateKey(s.starts_at);
-      (m[k] = m[k] || []).push(s);
-    }
-    for (const k in m) m[k].sort((a, b) => new Date(a.starts_at) - new Date(b.starts_at));
+    for (const s of sessions) (m[s.date] = m[s.date] || []).push(s);
     return m;
-  }, [slots]);
+  }, [sessions]);
 
-  // Calendar grid (6 weeks) for the current month
   const grid = useMemo(() => {
     const first = new Date(month.getFullYear(), month.getMonth(), 1);
     const start = new Date(first);
-    start.setDate(first.getDate() - first.getDay()); // back to Sunday
+    start.setDate(first.getDate() - first.getDay());
     return Array.from({ length: 42 }, (_, i) => {
       const d = new Date(start);
       d.setDate(start.getDate() + i);
@@ -146,17 +129,13 @@ export default function LiveLessonsPage() {
   const todayKey = dateKey(new Date());
   const canGoPrev = month > new Date(new Date().getFullYear(), new Date().getMonth(), 1);
 
-  const openBooking = (slot) => {
-    setActiveSlot(slot);
-    setDuration(60);
+  const openBooking = (s) => {
+    setActive(s);
     setSubjectId("");
     setStrand("");
     setNote("");
     setPhone(user?.phone || "");
   };
-
-  const durationsForSlot = (slot) =>
-    ALL_DURATIONS.filter((d) => d <= (slot?.max_duration_minutes || 120));
 
   const submitBooking = async () => {
     if (!phone.trim()) return flash("Please enter your phone number.", "err");
@@ -166,17 +145,17 @@ export default function LiveLessonsPage() {
       const res = await fetchWithAuth(`${API}/live/bookings/create/`, {
         method: "POST",
         body: JSON.stringify({
-          slot_id: activeSlot.id,
+          session_date: active.date,
+          window_key: active.window_key,
           phone: phone.trim(),
-          duration_minutes: duration,
           learning_area: subject ? subject.name : "General",
           strand: strand || (subject ? "General" : ""),
           note: note.trim(),
         }),
       });
       const d = await res.json();
-      if (!res.ok) throw new Error(d.error || "Could not book that slot.");
-      setActiveSlot(null);
+      if (!res.ok) throw new Error(d.error || "Could not book that session.");
+      setActive(null);
       flash("Requested! We'll confirm a teacher, then you can pay.");
       load();
     } catch (e) {
@@ -233,34 +212,31 @@ export default function LiveLessonsPage() {
   }
   if (!user) return null;
 
-  const daySlots = selectedDate ? byDate[selectedDate] || [] : [];
+  const daySessions = selectedDate ? byDate[selectedDate] || [] : [];
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
-      <div className="mx-auto max-w-4xl px-4 py-8">
-        {/* Hero + pricing */}
+      <div className="mx-auto max-w-3xl px-4 py-8">
+        {/* Hero + price */}
         <div className="rounded-3xl bg-gradient-to-br from-indigo-600 via-blue-600 to-emerald-600 p-6 sm:p-8 text-white mb-6">
           <div className="flex items-center gap-2 mb-2">
             <Video className="h-6 w-6" />
-            <span className="text-sm font-semibold uppercase tracking-wide opacity-90">Live Zoom Tuition</span>
+            <span className="text-sm font-semibold uppercase tracking-wide opacity-90">Live Zoom Classes</span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-black mb-2">Book a 1-on-1 live lesson</h1>
-          <p className="text-white/90 text-sm sm:text-base max-w-2xl mb-5">
-            A real teacher, one-on-one on Zoom. Pick a time, choose what you want to
-            work on, and pay by M-Pesa. Book longer and save.
+          <h1 className="text-2xl sm:text-3xl font-black mb-2">Join a live lesson</h1>
+          <p className="text-white/90 text-sm sm:text-base max-w-2xl mb-4">
+            Real teachers, live on Zoom. Pick a day and a time, choose your subject,
+            and pay by M-Pesa. Learn together with other students.
           </p>
-          <div className="grid grid-cols-3 gap-2 sm:gap-3 max-w-md">
-            {ALL_DURATIONS.map((d) => (
-              <div key={d} className="rounded-2xl bg-white/15 backdrop-blur px-3 py-3 text-center">
-                <p className="text-xs opacity-90">{DUR_LABEL[d]}</p>
-                <p className="text-lg sm:text-xl font-black">KES {priceFor(d).toLocaleString()}</p>
-                {d > 60 && (
-                  <p className="text-[10px] font-semibold text-emerald-200">
-                    save {(priceFor(60) * (d / 60) - priceFor(d)).toLocaleString()}
-                  </p>
-                )}
-              </div>
-            ))}
+          <div className="inline-flex items-center gap-3 rounded-2xl bg-white/15 backdrop-blur px-5 py-3">
+            <div>
+              <p className="text-2xl font-black">KES {Number(defaultPrice).toLocaleString()}</p>
+              <p className="text-xs opacity-90">per session</p>
+            </div>
+            <div className="h-8 w-px bg-white/25" />
+            <div className="flex items-center gap-1.5 text-sm">
+              <Users className="h-4 w-4" /> Group class
+            </div>
           </div>
         </div>
 
@@ -279,8 +255,7 @@ export default function LiveLessonsPage() {
                           {b.learning_area}{b.strand && b.strand !== "General" ? ` · ${b.strand}` : ""}
                         </p>
                         <p className="text-sm text-gray-500 dark:text-gray-400 flex items-center gap-1.5 mt-0.5">
-                          <Calendar className="h-3.5 w-3.5" /> {fmtWhen(b.when)}
-                          <span className="mx-1">·</span> {DUR_LABEL[b.duration_minutes] || `${b.duration_minutes} min`}
+                          <Calendar className="h-3.5 w-3.5" /> {fmtDate(b.session_date)} · {b.window_label}
                           <span className="mx-1">·</span> KES {b.amount_kes.toLocaleString()}
                         </p>
                       </div>
@@ -306,7 +281,7 @@ export default function LiveLessonsPage() {
                     )}
                     {b.status === "confirmed" && !b.zoom_link && (
                       <p className="mt-3 text-sm text-emerald-700 dark:text-emerald-400">
-                        Paid ✓ — your teacher will add the Zoom link here shortly.
+                        Paid ✓ — your Zoom link will appear here shortly.
                       </p>
                     )}
                     {b.status === "rejected" && b.rejection_reason && (
@@ -326,7 +301,7 @@ export default function LiveLessonsPage() {
 
         {/* Calendar */}
         <section>
-          <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-3">Pick a date</h2>
+          <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-3">Pick a day</h2>
           <div className="rounded-2xl bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 p-4 shadow-sm">
             <div className="flex items-center justify-between mb-3">
               <button onClick={() => canGoPrev && setMonth(new Date(month.getFullYear(), month.getMonth() - 1, 1))}
@@ -377,63 +352,49 @@ export default function LiveLessonsPage() {
             </div>
           </div>
 
-          {/* Times for the chosen date */}
+          {/* Windows for the chosen day */}
           {selectedDate && (
             <div className="mt-5">
               <h3 className="font-bold text-gray-900 dark:text-white mb-2">{fmtDay(selectedDate)}</h3>
-              {daySlots.length === 0 ? (
-                <p className="text-sm text-gray-500">No times left on this day.</p>
+              {daySessions.length === 0 ? (
+                <p className="text-sm text-gray-500">No sessions on this day.</p>
               ) : (
-                <div className="flex flex-wrap gap-2">
-                  {daySlots.map((s) => (
-                    <button key={s.id} onClick={() => openBooking(s)}
-                      className="rounded-xl bg-white dark:bg-slate-800 border-2 border-indigo-200 dark:border-indigo-500/30 px-4 py-2.5 text-sm font-bold text-indigo-700 dark:text-indigo-300 hover:border-indigo-500 flex items-center gap-2">
-                      <Clock className="h-4 w-4" /> {fmtTime(s.starts_at)}
+                <div className="grid gap-2 sm:grid-cols-2">
+                  {daySessions.map((s) => (
+                    <button key={s.window_key} onClick={() => openBooking(s)}
+                      className="rounded-xl bg-white dark:bg-slate-800 border-2 border-indigo-200 dark:border-indigo-500/30 px-4 py-3 text-left hover:border-indigo-500 flex items-center justify-between">
+                      <span className="flex items-center gap-2 font-bold text-indigo-700 dark:text-indigo-300">
+                        <Clock className="h-4 w-4" /> {s.window_label}
+                      </span>
+                      <span className="text-sm font-black text-gray-900 dark:text-white">KES {s.price_kes.toLocaleString()}</span>
                     </button>
                   ))}
                 </div>
               )}
             </div>
           )}
-          {slots.length === 0 && (
+          {sessions.length === 0 && (
             <div className="mt-5 rounded-2xl bg-white dark:bg-slate-800 border border-dashed border-gray-300 dark:border-slate-600 p-8 text-center text-gray-500 dark:text-gray-400">
               <Clock className="h-8 w-8 mx-auto mb-2 opacity-50" />
-              <p>No times scheduled yet — new sessions are added regularly. Check back soon.</p>
+              <p>No sessions scheduled yet — new ones are added regularly. Check back soon.</p>
             </div>
           )}
         </section>
       </div>
 
       {/* Booking modal */}
-      {activeSlot && (
+      {active && (
         <div className="fixed inset-0 z-[70] flex items-end sm:items-center justify-center">
-          <div className="absolute inset-0 bg-black/50" onClick={() => setActiveSlot(null)} />
+          <div className="absolute inset-0 bg-black/50" onClick={() => setActive(null)} />
           <div className="relative w-full sm:max-w-md bg-white dark:bg-slate-800 rounded-t-3xl sm:rounded-3xl p-6 shadow-2xl max-h-[92vh] overflow-y-auto">
-            <button onClick={() => setActiveSlot(null)} className="absolute right-4 top-4 text-gray-400 hover:text-gray-700">
+            <button onClick={() => setActive(null)} className="absolute right-4 top-4 text-gray-400 hover:text-gray-700">
               <X className="h-5 w-5" />
             </button>
-            <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-1">Book this lesson</h3>
+            <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-1">Book this session</h3>
             <p className="text-sm text-gray-500 dark:text-gray-400 mb-4 flex items-center gap-1.5">
-              <Calendar className="h-3.5 w-3.5" /> {fmtWhen(activeSlot.starts_at)}
+              <Calendar className="h-3.5 w-3.5" /> {fmtDate(active.date)} · {active.window_label} · KES {active.price_kes.toLocaleString()}
             </p>
 
-            {/* Duration */}
-            <label className="block text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase mb-1.5">Length</label>
-            <div className="grid grid-cols-3 gap-2 mb-4">
-              {durationsForSlot(activeSlot).map((d) => (
-                <button key={d} onClick={() => setDuration(d)}
-                  className={`rounded-xl border-2 py-2 text-center transition-colors ${
-                    duration === d
-                      ? "border-indigo-500 bg-indigo-50 dark:bg-indigo-500/10"
-                      : "border-gray-200 dark:border-slate-700"
-                  }`}>
-                  <p className="text-xs font-semibold text-gray-700 dark:text-gray-200">{DUR_LABEL[d]}</p>
-                  <p className="text-sm font-black text-gray-900 dark:text-white">KES {priceFor(d).toLocaleString()}</p>
-                </button>
-              ))}
-            </div>
-
-            {/* Learning area */}
             <label className="block text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase mb-1.5">Learning area</label>
             <select value={subjectId} onChange={(e) => setSubjectId(e.target.value)}
               className="w-full mb-4 px-4 py-3 rounded-xl border-2 border-gray-200 dark:border-slate-700 bg-gray-50 dark:bg-slate-700 dark:text-white text-sm focus:border-indigo-500 focus:outline-none">
@@ -443,7 +404,6 @@ export default function LiveLessonsPage() {
               ))}
             </select>
 
-            {/* Strand (only when a subject is picked) */}
             {subjectId && (
               <>
                 <label className="block text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase mb-1.5">Strand of interest</label>
@@ -457,12 +417,10 @@ export default function LiveLessonsPage() {
               </>
             )}
 
-            {/* Phone */}
             <label className="block text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase mb-1.5">M-Pesa phone</label>
             <input value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="07XX XXX XXX"
               className="w-full mb-4 px-4 py-3 rounded-xl border-2 border-gray-200 dark:border-slate-700 bg-gray-50 dark:bg-slate-700 dark:text-white text-sm focus:border-indigo-500 focus:outline-none" />
 
-            {/* Note */}
             <label className="block text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase mb-1.5">Anything specific? (optional)</label>
             <textarea value={note} onChange={(e) => setNote(e.target.value)} rows={2}
               placeholder="e.g. I keep getting fractions wrong"
@@ -471,10 +429,10 @@ export default function LiveLessonsPage() {
             <button onClick={submitBooking} disabled={busy}
               className="w-full rounded-xl bg-indigo-600 py-3 text-sm font-bold text-white hover:bg-indigo-700 disabled:opacity-60 flex items-center justify-center gap-2">
               {busy ? <Loader2 className="h-4 w-4 animate-spin" /> : <Sparkles className="h-4 w-4" />}
-              Request lesson — KES {priceFor(duration).toLocaleString()}
+              Request session — KES {active.price_kes.toLocaleString()}
             </button>
             <p className="text-[11px] text-gray-400 mt-2 text-center">
-              You only pay once we've confirmed a teacher for your time.
+              You only pay once we've confirmed a teacher for your session.
             </p>
           </div>
         </div>

@@ -1,38 +1,32 @@
 """
 questions/live_views.py
-Live-lesson booking — 1:1 Zoom tuition on admin-published slots.
+Live group lessons — fixed daily Zoom windows.
 
-Flow: student browses OPEN slots → requests one → admin approves (Django admin)
-→ student pays KES via IntaSend STK push → shared M-Pesa webhook confirms the
-booking → student sees the Zoom link. Kept separate from the subscription
-payment path; the webhook only *matches* a booking by its IntaSend invoice id.
+Admin sets availability (date range + which windows are open + price). Students
+pick a date + window on a calendar, choose subject/strand, and request. Any
+number of students may join a session (group Zoom). Admin approves (or
+reschedules by editing the date/window) → student pays via IntaSend STK push →
+the shared M-Pesa webhook confirms and reveals the Zoom link.
 """
 import logging
+from datetime import date as _date, timedelta
+from zoneinfo import ZoneInfo
 
 from django.utils import timezone
-from django.db import transaction
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import status
 
 from .models import (
-    LiveSlot, LiveBooking, LIVE_ACTIVE_STATES, LIVE_PRICING, live_price,
+    LiveBooking, LiveAvailability, live_availability_for,
+    LIVE_WINDOW_LABEL, LIVE_WINDOW_HOUR, LIVE_SESSION_PRICE,
 )
 from .intasend_api import IntaSendAPI
 
 mpesa_logger = logging.getLogger("mpesa")
-
-
-def _slot_json(slot):
-    # Generic time slot — students choose their own subject/strand at booking.
-    return {
-        "id": slot.id,
-        "starts_at": slot.starts_at.isoformat(),
-        "max_duration_minutes": slot.max_duration_minutes,
-        "grade": slot.grade,
-        "notes": slot.notes,
-    }
+EAT = ZoneInfo("Africa/Nairobi")
+HORIZON_DAYS = 60
 
 
 def _booking_json(b):
@@ -41,109 +35,103 @@ def _booking_json(b):
         "status": b.status,
         "status_label": b.get_status_display(),
         "amount_kes": b.amount_kes,
-        "duration_minutes": b.duration_minutes,
         "learning_area": b.learning_area or "General",
         "strand": b.strand or "",
-        "phone": b.phone,
         "note": b.note,
-        "when": b.when.isoformat(),  # effective (possibly rescheduled) time
-        # Zoom link only revealed once the lesson is paid & confirmed.
+        "session_date": b.session_date.isoformat(),
+        "window_key": b.window_key,
+        "window_label": b.window_label,
+        "phone": b.phone,
         "zoom_link": b.zoom_link if b.status == "confirmed" else "",
         "rejection_reason": b.rejection_reason,
         "created_at": b.created_at.isoformat(),
-        "slot": _slot_json(b.slot),
     }
 
 
 @api_view(["GET"])
 @permission_classes([IsAuthenticated])
-def live_slots(request):
-    """Upcoming, open, not-yet-booked slots the student can request."""
-    now = timezone.now()
-    booked_ids = LiveBooking.objects.filter(
-        status__in=LIVE_ACTIVE_STATES
-    ).values_list("slot_id", flat=True)
-    slots = (
-        LiveSlot.objects.filter(is_open=True, starts_at__gt=now)
-        .exclude(id__in=list(booked_ids))
-        .order_by("starts_at")
-    )
-    # pricing keys are strings so they survive JSON cleanly on the client
-    pricing = {str(k): v for k, v in LIVE_PRICING.items()}
-    return Response({"slots": [_slot_json(s) for s in slots], "pricing": pricing})
+def live_availability(request):
+    """Upcoming open group sessions for the next HORIZON_DAYS, from the admin's
+    availability rules. Today's already-started windows are skipped."""
+    now_eat = timezone.now().astimezone(EAT)
+    today = now_eat.date()
+    horizon = today + timedelta(days=HORIZON_DAYS)
+
+    sessions = []
+    cur = today
+    while cur <= horizon:
+        rule = live_availability_for(cur)
+        if rule:
+            for key in rule.open_window_keys():
+                if cur == today and LIVE_WINDOW_HOUR.get(key, 0) <= now_eat.hour:
+                    continue  # window already started/passed today
+                sessions.append({
+                    "date": cur.isoformat(),
+                    "window_key": key,
+                    "window_label": LIVE_WINDOW_LABEL[key],
+                    "price_kes": rule.price_kes,
+                })
+        cur += timedelta(days=1)
+
+    return Response({"sessions": sessions, "default_price": LIVE_SESSION_PRICE})
 
 
 @api_view(["GET"])
 @permission_classes([IsAuthenticated])
 def my_live_bookings(request):
-    bookings = request.user.live_bookings.select_related("slot").all()
+    bookings = request.user.live_bookings.all()
     return Response({"bookings": [_booking_json(b) for b in bookings]})
 
 
 @api_view(["POST"])
 @permission_classes([IsAuthenticated])
 def create_live_booking(request):
-    """Request a slot.
-    Body: { slot_id, phone, duration_minutes, learning_area, strand, note }."""
-    slot_id = request.data.get("slot_id")
+    """Request a session.
+    Body: { session_date (YYYY-MM-DD), window_key, learning_area, strand, note, phone }."""
+    raw_date = request.data.get("session_date")
+    window_key = (request.data.get("window_key") or "").strip()
     phone = (request.data.get("phone") or "").strip()
     note = (request.data.get("note") or "").strip()
     learning_area = (request.data.get("learning_area") or "").strip() or "General"
     strand = (request.data.get("strand") or "").strip()
 
+    if not raw_date or not window_key or not phone:
+        return Response({"error": "session_date, window_key and phone are required"},
+                        status=status.HTTP_400_BAD_REQUEST)
     try:
-        duration = int(request.data.get("duration_minutes") or 60)
-    except (ValueError, TypeError):
-        duration = 60
-    if duration not in LIVE_PRICING:
-        return Response({"error": "Please choose a valid session length."},
-                        status=status.HTTP_400_BAD_REQUEST)
+        session_date = _date.fromisoformat(raw_date)
+    except ValueError:
+        return Response({"error": "Invalid date"}, status=status.HTTP_400_BAD_REQUEST)
 
-    if not slot_id or not phone:
-        return Response({"error": "slot_id and phone are required"},
-                        status=status.HTTP_400_BAD_REQUEST)
+    today = timezone.now().astimezone(EAT).date()
+    if session_date < today:
+        return Response({"error": "That date has passed."}, status=status.HTTP_400_BAD_REQUEST)
 
-    # Book atomically so two students can't grab the same slot.
-    with transaction.atomic():
-        try:
-            slot = LiveSlot.objects.select_for_update().get(pk=slot_id)
-        except LiveSlot.DoesNotExist:
-            return Response({"error": "Slot not found"}, status=status.HTTP_404_NOT_FOUND)
+    rule = live_availability_for(session_date)
+    if not rule or window_key not in rule.open_window_keys():
+        return Response({"error": "That session isn't available. Please pick another."},
+                        status=status.HTTP_409_CONFLICT)
 
-        if not slot.is_open or slot.starts_at <= timezone.now():
-            return Response({"error": "That slot is no longer available."},
-                            status=status.HTTP_409_CONFLICT)
-        if duration > slot.max_duration_minutes:
-            return Response({"error": "That session length isn't available for this time."},
-                            status=status.HTTP_400_BAD_REQUEST)
-        if LiveBooking.objects.filter(slot=slot, status__in=LIVE_ACTIVE_STATES).exists():
-            return Response({"error": "That slot has just been booked. Please pick another."},
-                            status=status.HTTP_409_CONFLICT)
-
-        booking = LiveBooking.objects.create(
-            student=request.user,
-            slot=slot,
-            phone=phone,
-            note=note,
-            duration_minutes=duration,
-            learning_area=learning_area,
-            strand=strand,
-            amount_kes=live_price(duration),
-            status="requested",
-        )
-
+    booking = LiveBooking.objects.create(
+        student=request.user,
+        session_date=session_date,
+        window_key=window_key,
+        learning_area=learning_area,
+        strand=strand,
+        note=note,
+        phone=phone,
+        amount_kes=rule.price_kes,
+        status="requested",
+    )
     return Response({"booking": _booking_json(booking)}, status=status.HTTP_201_CREATED)
 
 
 @api_view(["POST"])
 @permission_classes([IsAuthenticated])
 def pay_live_booking(request, booking_id):
-    """Trigger an IntaSend STK push for an APPROVED booking.
-    Body: { phone } (optional — defaults to the booking's phone)."""
+    """Trigger an IntaSend STK push for an APPROVED booking."""
     try:
-        booking = LiveBooking.objects.select_related("slot").get(
-            pk=booking_id, student=request.user
-        )
+        booking = LiveBooking.objects.get(pk=booking_id, student=request.user)
     except LiveBooking.DoesNotExist:
         return Response({"error": "Booking not found"}, status=status.HTTP_404_NOT_FOUND)
 
@@ -205,9 +193,7 @@ def cancel_live_booking(request, booking_id):
 
 def confirm_booking_from_callback(invoice_id, state, payment_reference):
     """Called by the shared IntaSend webhook when an invoice_id isn't a
-    subscription PaymentRequest. Returns True if it matched a live booking.
-    Only COMPLETE/CLEARING confirms; the booking's Zoom link (set by admin at
-    approval) then becomes visible to the student."""
+    subscription PaymentRequest. Returns True if it matched a live booking."""
     try:
         booking = (
             LiveBooking.objects.select_for_update()
@@ -217,7 +203,7 @@ def confirm_booking_from_callback(invoice_id, state, payment_reference):
         return False
 
     if booking.status == "confirmed":
-        return True  # already handled — idempotent
+        return True  # idempotent
     if state in ("COMPLETE", "CLEARING"):
         booking.status = "confirmed"
         booking.mpesa_code = payment_reference or "INTASEND_CONFIRMED"

@@ -1190,60 +1190,64 @@ class MotivationalContent(models.Model):
 #  machinery so it can't affect that money path.
 # ─────────────────────────────────────────────────────────────
 
-# Booking states that "hold" a slot (block others from booking it).
-LIVE_ACTIVE_STATES = ("requested", "approved", "payment_submitted", "confirmed")
+# Fixed daily group-session windows (Kenya time). Each is a group Zoom class of
+# a set length; any number of students can join. Change here to change the menu.
+LIVE_WINDOWS = [
+    {"key": "w0800", "label": "8:00 – 10:00 AM", "hour": 8},
+    {"key": "w1030", "label": "10:30 – 12:30 PM", "hour": 10},
+    {"key": "w1400", "label": "2:00 – 4:00 PM", "hour": 14},
+    {"key": "w1630", "label": "4:30 – 6:30 PM", "hour": 16},
+    {"key": "w1900", "label": "7:00 – 9:00 PM", "hour": 19},
+]
+LIVE_WINDOW_CHOICES = [(w["key"], w["label"]) for w in LIVE_WINDOWS]
+LIVE_WINDOW_LABEL = {w["key"]: w["label"] for w in LIVE_WINDOWS}
+LIVE_WINDOW_HOUR = {w["key"]: w["hour"] for w in LIVE_WINDOWS}
+LIVE_SESSION_PRICE = 1500  # default flat price per group session (admin can override per rule)
 
-# Duration → price (KES). Longer sessions get a "book more, save more" discount,
-# but total profit still rises (teacher ~1000/hr). One place to change pricing.
-LIVE_PRICING = {60: 1500, 90: 2100, 120: 2700}
 
+class LiveAvailability(models.Model):
+    """A date range + which of the fixed windows are open in it, plus the price.
+    You set a few of these (e.g. August: all windows; term: evenings only)."""
+    date_start = models.DateField(help_text="First date this applies (inclusive)")
+    date_end = models.DateField(help_text="Last date this applies (inclusive)")
+    label = models.CharField(max_length=80, blank=True, help_text="e.g. August holiday")
+    price_kes = models.IntegerField(default=LIVE_SESSION_PRICE,
+                                    help_text="Flat price per group session in this range")
+    is_active = models.BooleanField(default=True)
 
-def live_price(duration_minutes):
-    """Price for a duration, defaulting to the 1-hour rate if unknown."""
-    return LIVE_PRICING.get(int(duration_minutes), LIVE_PRICING[60])
+    open_w0800 = models.BooleanField("8:00–10:00 AM", default=True)
+    open_w1030 = models.BooleanField("10:30–12:30 PM", default=True)
+    open_w1400 = models.BooleanField("2:00–4:00 PM", default=True)
+    open_w1630 = models.BooleanField("4:30–6:30 PM", default=True)
+    open_w1900 = models.BooleanField("7:00–9:00 PM", default=True)
 
-
-class LiveSlot(models.Model):
-    """A bookable live-lesson time published by an admin/teacher. Times are
-    generic (not tied to a subject) — the student picks their learning area and
-    strand when booking, and the admin confirms the right teacher afterwards."""
-    starts_at = models.DateTimeField(help_text="When the lesson starts (EAT)")
-    # Longest lesson a student may book in this slot. Set to 60 if you're only
-    # free for an hour; the 1½/2-hour options then won't show for this slot.
-    max_duration_minutes = models.IntegerField(
-        default=120, help_text="Longest bookable lesson here (60, 90 or 120)")
-    subject = models.CharField(max_length=100, blank=True,
-                               help_text="Optional note — students choose their own subject")
-    grade = models.CharField(max_length=20, blank=True, help_text="e.g. Grade 9 (optional)")
-    teacher_name = models.CharField(max_length=100, blank=True)
-    price_kes = models.IntegerField(default=1500, help_text="Unused — price comes from duration")
-    is_open = models.BooleanField(default=True, help_text="Uncheck to hide/close this slot")
-    notes = models.CharField(max_length=200, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        db_table = "live_slots"
-        ordering = ["starts_at"]
+        db_table = "live_availability"
+        ordering = ["date_start"]
+        verbose_name_plural = "Live availability"
 
     def __str__(self):
-        when = timezone.localtime(self.starts_at).strftime("%a %d %b, %H:%M")
-        return f"{when} — {self.subject or 'Any'} (KES {self.price_kes})"
+        return f"{self.date_start} → {self.date_end} ({self.label or 'availability'})"
 
-    @property
-    def is_booked(self):
-        return self.bookings.filter(status__in=LIVE_ACTIVE_STATES).exists()
+    def open_window_keys(self):
+        return [w["key"] for w in LIVE_WINDOWS if getattr(self, f"open_{w['key']}", False)]
 
-    @property
-    def is_available(self):
-        return (
-            self.is_open
-            and self.starts_at > timezone.now()
-            and not self.is_booked
-        )
+
+def live_availability_for(d):
+    """The active rule covering date d, or None."""
+    return (
+        LiveAvailability.objects
+        .filter(is_active=True, date_start__lte=d, date_end__gte=d)
+        .order_by("date_start")
+        .first()
+    )
 
 
 class LiveBooking(models.Model):
-    """A student's request for a LiveSlot, through payment to a confirmed lesson."""
+    """A student's request for a fixed group session, through payment to a
+    confirmed lesson with a Zoom link. Many students may book the same session."""
     STATUS_CHOICES = [
         ("requested", "Requested"),
         ("approved", "Approved — awaiting payment"),
@@ -1255,31 +1259,25 @@ class LiveBooking(models.Model):
     ]
 
     student = models.ForeignKey(User, on_delete=models.CASCADE, related_name="live_bookings")
-    slot = models.ForeignKey(LiveSlot, on_delete=models.PROTECT, related_name="bookings")
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default="requested")
 
-    phone = models.CharField(max_length=15, help_text="Contact / M-Pesa phone")
-    note = models.TextField(blank=True, help_text="What the student wants help with")
-    amount_kes = models.IntegerField(help_text="Price snapshot at booking time")
+    # The chosen session (edit these to reschedule).
+    session_date = models.DateField()
+    window_key = models.CharField(max_length=10, choices=LIVE_WINDOW_CHOICES)
 
     # What the student wants — helps you brief the right teacher.
-    duration_minutes = models.IntegerField(default=60)
-    learning_area = models.CharField(max_length=120, blank=True,
-                                     help_text="Subject, or 'General'")
-    strand = models.CharField(max_length=200, blank=True,
-                              help_text="Strand/topic, or 'General'")
+    learning_area = models.CharField(max_length=120, blank=True, help_text="Subject, or 'General'")
+    strand = models.CharField(max_length=200, blank=True, help_text="Strand/topic, or 'General'")
+    note = models.TextField(blank=True, help_text="What the student wants help with")
 
-    # Confirmed/rescheduled time. If set, it overrides the slot's original time
-    # (admin edits this to reschedule after checking teacher availability).
-    scheduled_at = models.DateTimeField(null=True, blank=True)
+    phone = models.CharField(max_length=15, help_text="Contact / M-Pesa phone")
+    amount_kes = models.IntegerField(help_text="Price snapshot at booking time")
 
     # Payment (IntaSend STK push — mirrors PaymentRequest, but self-contained).
-    # checkout_request_id holds the IntaSend invoice_id so the shared M-Pesa
-    # webhook can match this booking and confirm it.
     checkout_request_id = models.CharField(max_length=100, blank=True, default="")
     mpesa_code = models.CharField(max_length=20, blank=True, default="")
 
-    # Set by admin on confirmation
+    # Set by admin (share the SAME Zoom link with everyone in a session).
     zoom_link = models.URLField(blank=True)
     admin_notes = models.TextField(blank=True)
     rejection_reason = models.TextField(blank=True)
@@ -1293,9 +1291,8 @@ class LiveBooking(models.Model):
         ordering = ["-created_at"]
 
     def __str__(self):
-        return f"{self.student.username} → {self.slot} [{self.status}]"
+        return f"{self.student.username} → {self.session_date} {self.window_label} [{self.status}]"
 
     @property
-    def when(self):
-        """The effective lesson time — rescheduled time if set, else the slot's."""
-        return self.scheduled_at or self.slot.starts_at
+    def window_label(self):
+        return LIVE_WINDOW_LABEL.get(self.window_key, self.window_key)
