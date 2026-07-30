@@ -515,7 +515,7 @@ function UsersTab({ stats, list, listLoading, filter, onFilterChange }) {
             <table className="w-full text-sm">
               <thead className="bg-gray-50 border-b">
                 <tr>
-                  {["Username", "Email", "Role", "Grade", "School", "Joined", "Last Active", "Status", "Quizzes"].map((h) => (
+                  {["Username", "Email", "Role", "Grade", "School", "Joined", "Last Active", "Time", "Status", "Quizzes"].map((h) => (
                     <th key={h} className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">{h}</th>
                   ))}
                 </tr>
@@ -532,6 +532,7 @@ function UsersTab({ stats, list, listLoading, filter, onFilterChange }) {
                     <td className="px-4 py-3 text-gray-500 max-w-[140px] truncate">{u.school_name || "—"}</td>
                     <td className="px-4 py-3 text-gray-500 whitespace-nowrap">{u.date_joined ? new Date(u.date_joined).toLocaleDateString() : "—"}</td>
                     <td className="px-4 py-3 text-gray-500 whitespace-nowrap">{u.last_login ? new Date(u.last_login).toLocaleDateString() : "—"}</td>
+                    <td className="px-4 py-3 text-gray-500 whitespace-nowrap">{u.last_login ? new Date(u.last_login).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }) : "—"}</td>
                     <td className="px-4 py-3">
                       {u.has_subscription
                         ? <span className="px-2 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-700">Premium</span>
