@@ -113,6 +113,10 @@ class LoginView(generics.GenericAPIView):
                 'error': 'Account is disabled'
             }, status=status.HTTP_403_FORBIDDEN)
         
+        # Record the login day for admin analytics (best-effort).
+        from .auth import touch_activity
+        touch_activity(user)
+
         # Generate tokens
         refresh = RefreshToken.for_user(user)
 

@@ -245,3 +245,21 @@ class ClassroomInvitation(models.Model):
     
     def __str__(self):
         return f"{self.student.username} joined {self.classroom}"
+
+class DailyActivity(models.Model):
+    """One row per user per day they were active (any authenticated request).
+    Powers the admin "who used StadiSpace on day X" report. Recorded going
+    forward only — see users/auth.py."""
+    user = models.ForeignKey(
+        'users.User', on_delete=models.CASCADE, related_name='daily_activity')
+    date = models.DateField(db_index=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        db_table = 'daily_activity'
+        unique_together = ('user', 'date')
+        ordering = ['-date']
+        verbose_name_plural = 'Daily activity'
+
+    def __str__(self):
+        return f"{self.user.username} active {self.date}"

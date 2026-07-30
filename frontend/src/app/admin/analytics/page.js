@@ -138,6 +138,7 @@ export default function AdminAnalyticsPage() {
   const tabs = [
     { id: "overview",     label: "Overview",          icon: BarChart3 },
     { id: "users",        label: "Users",             icon: Users },
+    { id: "activeusers",  label: "Daily Logins",      icon: UserCheck },
     { id: "revenue",      label: "Revenue",           icon: CreditCard },
     { id: "quizperf",     label: "Quiz Performance",  icon: Target },
     { id: "engagement",   label: "Engagement",        icon: Activity },
@@ -205,6 +206,11 @@ export default function AdminAnalyticsPage() {
                     filter={userFilter}
                     onFilterChange={setUserFilter}
                   />
+                </TabPane>
+              )}
+              {activeTab === "activeusers" && (
+                <TabPane key="activeusers">
+                  <ActiveUsersTab />
                 </TabPane>
               )}
               {activeTab === "revenue" && (
@@ -1261,6 +1267,118 @@ function LoadingSkeleton() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div className="bg-white rounded-xl border p-6 h-72" />
         <div className="bg-white rounded-xl border p-6 h-72" />
+      </div>
+    </div>
+  );
+}
+
+// ─── Daily Logins tab — who used StadiSpace on a chosen day ───
+function ActiveUsersTab() {
+  const todayISO = new Date().toISOString().slice(0, 10);
+  const [date, setDate] = useState(todayISO);
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    let alive = true;
+    setLoading(true);
+    fetchWithAuth(`${API}/admin/analytics/active-users/?date=${date}`)
+      .then((r) => r.json())
+      .then((d) => { if (alive) setData(d); })
+      .catch(() => { if (alive) setData(null); })
+      .finally(() => { if (alive) setLoading(false); });
+    return () => { alive = false; };
+  }, [date]);
+
+  const trend = data?.trend || [];
+  const maxCount = Math.max(1, ...trend.map((t) => t.count));
+  const users = data?.users || [];
+
+  return (
+    <div className="space-y-6">
+      {/* Header + date picker */}
+      <div className="bg-white dark:bg-slate-800 rounded-xl border border-gray-200 dark:border-slate-700 p-6">
+        <div className="flex flex-wrap items-end justify-between gap-4">
+          <div>
+            <h3 className="text-lg font-bold text-gray-900 dark:text-white">Daily Logins</h3>
+            <p className="text-sm text-gray-500 dark:text-gray-400 mt-0.5">
+              Everyone who used StadiSpace on the chosen day. Recorded from launch of this feature onward.
+            </p>
+          </div>
+          <div>
+            <label className="block text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase mb-1">Date</label>
+            <input
+              type="date"
+              value={date}
+              max={todayISO}
+              onChange={(e) => setDate(e.target.value)}
+              className="px-3 py-2 rounded-lg border-2 border-gray-200 dark:border-slate-700 bg-gray-50 dark:bg-slate-700 dark:text-white text-sm focus:border-indigo-500 focus:outline-none"
+            />
+          </div>
+        </div>
+
+        <div className="mt-5 flex items-baseline gap-2">
+          <span className="text-4xl font-black text-indigo-600 dark:text-indigo-400">
+            {loading ? "—" : data?.count ?? 0}
+          </span>
+          <span className="text-sm text-gray-500 dark:text-gray-400">
+            {(data?.count === 1 ? "student" : "students")} active on {new Date(date + "T00:00:00").toLocaleDateString("en-KE", { weekday: "long", day: "numeric", month: "long" })}
+          </span>
+        </div>
+      </div>
+
+      {/* 14-day trend */}
+      {trend.length > 0 && (
+        <div className="bg-white dark:bg-slate-800 rounded-xl border border-gray-200 dark:border-slate-700 p-6">
+          <h4 className="text-sm font-bold text-gray-900 dark:text-white mb-4">Last 14 days</h4>
+          <div className="flex items-end gap-1.5 h-32">
+            {trend.map((t) => (
+              <div key={t.date} className="flex-1 flex flex-col items-center gap-1 group">
+                <div className="w-full flex items-end justify-center" style={{ height: "100%" }}>
+                  <div
+                    className={`w-full rounded-t-md transition-all ${t.date === date ? "bg-indigo-600" : "bg-indigo-200 dark:bg-indigo-500/30 group-hover:bg-indigo-400"}`}
+                    style={{ height: `${(t.count / maxCount) * 100}%`, minHeight: t.count > 0 ? 4 : 0 }}
+                    title={`${t.date}: ${t.count}`}
+                  />
+                </div>
+                <span className="text-[9px] text-gray-400">{t.date.slice(8)}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* User list */}
+      <div className="bg-white dark:bg-slate-800 rounded-xl border border-gray-200 dark:border-slate-700 overflow-hidden">
+        {loading ? (
+          <div className="p-10 flex items-center justify-center text-gray-400">
+            <Loader2 className="w-5 h-5 animate-spin" />
+          </div>
+        ) : users.length === 0 ? (
+          <div className="p-10 text-center text-gray-500 dark:text-gray-400">
+            No one recorded as active on this day.
+          </div>
+        ) : (
+          <table className="w-full">
+            <thead className="bg-gray-50 dark:bg-slate-900/40">
+              <tr>
+                {["User", "Email", "Role", "Grade"].map((h) => (
+                  <th key={h} className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">{h}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-gray-100 dark:divide-slate-700">
+              {users.map((u) => (
+                <tr key={u.id} className="hover:bg-gray-50 dark:hover:bg-slate-700/40 transition-colors">
+                  <td className="px-4 py-3 text-sm font-semibold text-gray-900 dark:text-white">{u.username}</td>
+                  <td className="px-4 py-3 text-sm text-gray-500 dark:text-gray-400">{u.email || "—"}</td>
+                  <td className="px-4 py-3 text-sm text-gray-500 dark:text-gray-400 capitalize">{u.role || "student"}</td>
+                  <td className="px-4 py-3 text-sm text-gray-500 dark:text-gray-400">{u.grade ? `Grade ${u.grade}` : "—"}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
       </div>
     </div>
   );

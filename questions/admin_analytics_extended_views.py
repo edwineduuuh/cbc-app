@@ -322,3 +322,51 @@ class AdminEngagementView(APIView):
             'peak_hours': peak_hours,
             'signups_trend': signups_trend,
         })
+
+
+class AdminActiveUsersView(APIView):
+    """Who used StadiSpace on a given day (from DailyActivity), plus a 14-day
+    trend. Recorded going forward only. ?date=YYYY-MM-DD (default: today EAT)."""
+    permission_classes = [IsAdminUser]
+
+    def get(self, request):
+        from zoneinfo import ZoneInfo
+        from users.models import DailyActivity
+
+        eat = ZoneInfo("Africa/Nairobi")
+        today = timezone.now().astimezone(eat).date()
+        raw = request.query_params.get('date')
+        try:
+            day = datetime.fromisoformat(raw).date() if raw else today
+        except ValueError:
+            day = today
+
+        qs = (DailyActivity.objects.filter(date=day)
+              .select_related('user').order_by('user__username'))
+        users = [{
+            'id': a.user_id,
+            'username': a.user.username,
+            'email': a.user.email,
+            'role': a.user.role,
+            'grade': a.user.grade,
+        } for a in qs]
+
+        start = day - timedelta(days=13)
+        counts = {
+            t['date'].isoformat(): t['count']
+            for t in (DailyActivity.objects
+                      .filter(date__gte=start, date__lte=day)
+                      .values('date').annotate(count=Count('id')))
+        }
+        trend = []
+        d = start
+        while d <= day:
+            trend.append({'date': d.isoformat(), 'count': counts.get(d.isoformat(), 0)})
+            d += timedelta(days=1)
+
+        return Response({
+            'date': day.isoformat(),
+            'count': len(users),
+            'users': users,
+            'trend': trend,
+        })

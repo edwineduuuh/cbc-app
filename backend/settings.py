@@ -197,7 +197,8 @@ AUTH_USER_MODEL = 'users.User'
 # REST Framework Configuration
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework_simplejwt.authentication.JWTAuthentication'
+        # Same as SimpleJWT, but also records daily activity for admin analytics.
+        'users.auth.ActivityTrackingJWTAuthentication'
     ],
 }
 
