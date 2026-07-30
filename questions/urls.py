@@ -25,6 +25,7 @@ from .admin_analytics_extended_views import (
     AdminQuizPerformanceView,
     AdminEngagementView,
     AdminActiveUsersView,
+    AdminStudentDetailView,
 )
 from .authoring_quiz_views import (
     QuizListCreateView,
@@ -143,6 +144,7 @@ urlpatterns = [
     path('admin/analytics/quizzes/', AdminQuizPerformanceView.as_view(), name='admin-quiz-performance'),
     path('admin/analytics/engagement/', AdminEngagementView.as_view(), name='admin-engagement'),
     path('admin/analytics/active-users/', AdminActiveUsersView.as_view(), name='admin-active-users'),
+    path('admin/users/<int:user_id>/detail/', AdminStudentDetailView.as_view(), name='admin-student-detail'),
     path('admin/users/stats/', AdminUserStatsView.as_view(), name='admin-user-stats'),
     path('admin/users/', AdminUserListView.as_view(), name='admin-user-list'),
     path('admin/revenue/stats/', AdminRevenueStatsView.as_view(), name='admin-revenue-stats'),

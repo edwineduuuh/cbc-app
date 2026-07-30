@@ -385,3 +385,70 @@ class AdminActiveUsersView(APIView):
             'users': users,
             'trend': trend,
         })
+
+
+class AdminStudentDetailView(APIView):
+    """Drill-down for one student: their quiz attempts (what, score, when),
+    a summary, and a per-subject breakdown."""
+    permission_classes = [IsAdminUser]
+
+    def get(self, request, user_id):
+        try:
+            u = User.objects.get(pk=user_id)
+        except User.DoesNotExist:
+            return Response({'error': 'User not found'}, status=404)
+
+        attempts = (
+            Attempt.objects.filter(student=u)
+            .select_related('quiz', 'quiz__subject')
+            .order_by('-started_at')
+        )
+        completed = attempts.filter(status='completed')
+        agg = completed.aggregate(avg=Avg('score'), n=Count('id'))
+
+        by_subject = [
+            {
+                'subject': b['quiz__subject__name'] or '—',
+                'avg_score': round(b['avg'], 1) if b['avg'] is not None else 0,
+                'attempts': b['n'],
+            }
+            for b in (completed.values('quiz__subject__name')
+                      .annotate(avg=Avg('score'), n=Count('id')).order_by('-n'))
+        ]
+
+        rows = []
+        for a in attempts[:100]:
+            when = a.completed_at or a.started_at
+            rows.append({
+                'id': a.id,
+                'quiz': a.quiz.title if a.quiz else '—',
+                'subject': a.quiz.subject.name if a.quiz and a.quiz.subject else '—',
+                'grade': a.quiz.grade if a.quiz else None,
+                'type': a.quiz.quiz_type if a.quiz else '',
+                'status': a.status,
+                'score': round(a.score, 1) if a.score is not None else None,
+                'marks_awarded': a.total_marks_awarded,
+                'max_marks': a.total_max_marks,
+                'correct': a.correct_answers,
+                'total_questions': a.total_questions,
+                'when': when.isoformat() if when else None,
+            })
+
+        return Response({
+            'student': {
+                'id': u.id,
+                'username': u.username,
+                'email': u.email or '',
+                'grade': u.grade,
+                'role': u.role,
+                'date_joined': u.date_joined.isoformat() if u.date_joined else None,
+            },
+            'summary': {
+                'completed': agg['n'] or 0,
+                'avg_score': round(agg['avg'], 1) if agg['avg'] is not None else 0,
+                'current_streak': u.current_streak,
+                'total_attempts': attempts.count(),
+            },
+            'by_subject': by_subject,
+            'attempts': rows,
+        })

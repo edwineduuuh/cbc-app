@@ -381,6 +381,7 @@ function OverviewTab({ stats, questionStats, groupStats }) {
 function UsersTab({ stats, list, listLoading, filter, onFilterChange }) {
   const GRADES = [4, 5, 6, 7, 8, 9, 10, 11, 12];
   const ROLES = ["student", "teacher", "admin", "superadmin", "school_admin"];
+  const [detailUser, setDetailUser] = useState(null);
 
   const roleColors = {
     student: "bg-blue-100 text-blue-700",
@@ -522,7 +523,7 @@ function UsersTab({ stats, list, listLoading, filter, onFilterChange }) {
               </thead>
               <tbody className="divide-y divide-gray-100">
                 {list.results.map((u) => (
-                  <tr key={u.id} className="hover:bg-gray-50 transition-colors">
+                  <tr key={u.id} onClick={() => setDetailUser(u)} className="hover:bg-indigo-50 cursor-pointer transition-colors">
                     <td className="px-4 py-3 font-medium text-gray-900">{u.username}</td>
                     <td className="px-4 py-3 text-gray-500 max-w-[160px] truncate">{u.email || "—"}</td>
                     <td className="px-4 py-3">
@@ -579,6 +580,141 @@ function UsersTab({ stats, list, listLoading, filter, onFilterChange }) {
           </div>
         </div>
       )}
+
+      {detailUser && (
+        <StudentDetailModal user={detailUser} onClose={() => setDetailUser(null)} />
+      )}
+    </div>
+  );
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// STUDENT DETAIL MODAL — click a user to see their quizzes, scores & analytics
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function StudentDetailModal({ user, onClose }) {
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    let alive = true;
+    setLoading(true);
+    fetchWithAuth(`${API}/admin/users/${user.id}/detail/`)
+      .then((r) => r.json())
+      .then((d) => { if (alive) setData(d); })
+      .catch(() => { if (alive) setData(null); })
+      .finally(() => { if (alive) setLoading(false); });
+    return () => { alive = false; };
+  }, [user.id]);
+
+  const s = data?.summary;
+  const scoreColor = (v) =>
+    v == null ? "text-gray-400" : v >= 75 ? "text-emerald-600" : v >= 50 ? "text-amber-600" : "text-red-600";
+
+  return (
+    <div className="fixed inset-0 z-[90] flex items-center justify-center p-4" onClick={onClose}>
+      <div className="absolute inset-0 bg-black/50" />
+      <div
+        className="relative w-full max-w-3xl max-h-[88vh] overflow-y-auto bg-white rounded-2xl shadow-2xl"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* Header */}
+        <div className="sticky top-0 bg-white border-b px-6 py-4 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-indigo-500 to-blue-600 flex items-center justify-center text-white font-bold">
+              {user.username?.charAt(0).toUpperCase()}
+            </div>
+            <div>
+              <p className="font-bold text-gray-900">{user.username}</p>
+              <p className="text-xs text-gray-400">{user.email || "—"}{user.grade ? ` · Grade ${user.grade}` : ""}</p>
+            </div>
+          </div>
+          <button onClick={onClose} className="text-gray-400 hover:text-gray-700 text-2xl leading-none">×</button>
+        </div>
+
+        {loading ? (
+          <div className="p-16 flex justify-center"><Loader2 className="w-6 h-6 animate-spin text-indigo-500" /></div>
+        ) : !data ? (
+          <div className="p-16 text-center text-gray-400">Couldn't load this student.</div>
+        ) : (
+          <div className="p-6 space-y-6">
+            {/* Summary cards */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+              <div className="bg-gray-50 rounded-xl p-4">
+                <p className="text-2xl font-black text-gray-900">{s.completed}</p>
+                <p className="text-xs text-gray-500">Quizzes done</p>
+              </div>
+              <div className="bg-gray-50 rounded-xl p-4">
+                <p className={`text-2xl font-black ${scoreColor(s.avg_score)}`}>{s.avg_score}%</p>
+                <p className="text-xs text-gray-500">Average score</p>
+              </div>
+              <div className="bg-gray-50 rounded-xl p-4">
+                <p className="text-2xl font-black text-gray-900">{s.current_streak}</p>
+                <p className="text-xs text-gray-500">Day streak</p>
+              </div>
+              <div className="bg-gray-50 rounded-xl p-4">
+                <p className="text-2xl font-black text-gray-900">{s.total_attempts}</p>
+                <p className="text-xs text-gray-500">Total attempts</p>
+              </div>
+            </div>
+
+            {/* Per-subject breakdown */}
+            {data.by_subject.length > 0 && (
+              <div>
+                <h4 className="text-sm font-bold text-gray-900 mb-2">By learning area</h4>
+                <div className="space-y-2">
+                  {data.by_subject.map((b) => (
+                    <div key={b.subject} className="flex items-center gap-3">
+                      <span className="w-32 text-sm text-gray-600 truncate">{b.subject}</span>
+                      <div className="flex-1 h-2 rounded-full bg-gray-100 overflow-hidden">
+                        <div className="h-full bg-indigo-500 rounded-full" style={{ width: `${b.avg_score}%` }} />
+                      </div>
+                      <span className={`text-sm font-bold w-12 text-right ${scoreColor(b.avg_score)}`}>{b.avg_score}%</span>
+                      <span className="text-xs text-gray-400 w-8 text-right">×{b.attempts}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Attempts table */}
+            <div>
+              <h4 className="text-sm font-bold text-gray-900 mb-2">Quiz history</h4>
+              {data.attempts.length === 0 ? (
+                <p className="text-sm text-gray-400 py-4">No quiz attempts yet.</p>
+              ) : (
+                <div className="border rounded-xl overflow-hidden overflow-x-auto">
+                  <table className="w-full text-sm">
+                    <thead className="bg-gray-50">
+                      <tr>
+                        {["Quiz", "Subject", "Score", "Marks", "When"].map((h) => (
+                          <th key={h} className="px-3 py-2 text-left text-xs font-semibold text-gray-500 uppercase whitespace-nowrap">{h}</th>
+                        ))}
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-gray-100">
+                      {data.attempts.map((a) => (
+                        <tr key={a.id} className="hover:bg-gray-50">
+                          <td className="px-3 py-2 font-medium text-gray-900 max-w-[180px] truncate">{a.quiz}</td>
+                          <td className="px-3 py-2 text-gray-500 whitespace-nowrap">{a.subject}</td>
+                          <td className={`px-3 py-2 font-bold whitespace-nowrap ${scoreColor(a.score)}`}>
+                            {a.status === "completed" && a.score != null ? `${a.score}%` : <span className="text-gray-400 font-normal capitalize">{a.status.replace("_", " ")}</span>}
+                          </td>
+                          <td className="px-3 py-2 text-gray-500 whitespace-nowrap">
+                            {a.max_marks ? `${a.marks_awarded}/${a.max_marks}` : "—"}
+                          </td>
+                          <td className="px-3 py-2 text-gray-400 whitespace-nowrap">
+                            {a.when ? new Date(a.when).toLocaleString([], { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" }) : "—"}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
