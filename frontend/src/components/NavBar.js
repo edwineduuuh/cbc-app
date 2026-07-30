@@ -16,6 +16,7 @@ import {
   Heart,
   GraduationCap,
   Layers,
+  Video,
   Menu,
   X,
 } from "lucide-react";
@@ -43,6 +44,7 @@ export default function Navbar() {
         { href: "/tutor", label: "Tutor", icon: GraduationCap, primary: true },
         { href: "/progress", label: "Progress", icon: BarChart3, primary: true },
         { href: "/flashcards", label: "Flash Cards", icon: Layers },
+        { href: "/live", label: "Live Lessons", icon: Video },
         { href: "/life-skills", label: "Life Skills", icon: Heart },
       ];
 

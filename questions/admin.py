@@ -277,3 +277,61 @@ class MotivationalContentAdmin(admin.ModelAdmin):
     grade_range.short_description = 'Grades'
 
 
+
+
+# ─────────────────────────────────────────────────────────────
+#  LIVE LESSONS — publish slots, manage bookings (approve → confirm)
+# ─────────────────────────────────────────────────────────────
+from django.utils import timezone as _tz
+from .models import LiveSlot, LiveBooking
+
+
+@admin.register(LiveSlot)
+class LiveSlotAdmin(admin.ModelAdmin):
+    list_display = ("starts_at", "subject", "grade", "teacher_name",
+                    "price_kes", "is_open", "booked")
+    list_filter = ("is_open", "subject", "grade")
+    list_editable = ("is_open", "price_kes")
+    ordering = ("starts_at",)
+
+    def booked(self, obj):
+        return obj.is_booked
+    booked.boolean = True
+
+
+@admin.register(LiveBooking)
+class LiveBookingAdmin(admin.ModelAdmin):
+    list_display = ("id", "student", "slot", "status", "amount_kes",
+                    "phone", "has_zoom", "created_at")
+    list_filter = ("status",)
+    search_fields = ("student__username", "student__email", "phone", "mpesa_code")
+    readonly_fields = ("checkout_request_id", "mpesa_code", "confirmed_at",
+                       "created_at", "updated_at")
+    autocomplete_fields = ()
+    fields = ("student", "slot", "status", "amount_kes", "phone", "note",
+              "zoom_link", "admin_notes", "rejection_reason",
+              "checkout_request_id", "mpesa_code", "confirmed_at",
+              "created_at", "updated_at")
+    actions = ("approve_bookings", "mark_confirmed", "reject_bookings")
+
+    def has_zoom(self, obj):
+        return bool(obj.zoom_link)
+    has_zoom.boolean = True
+    has_zoom.short_description = "Zoom set"
+
+    @admin.action(description="Approve → student can pay (set the Zoom link first!)")
+    def approve_bookings(self, request, queryset):
+        n = queryset.filter(status="requested").update(status="approved")
+        self.message_user(request, f"Approved {n} booking(s). "
+                                   f"Make sure each has a Zoom link so it's ready.")
+
+    @admin.action(description="Mark CONFIRMED (paid) — reveals Zoom link to student")
+    def mark_confirmed(self, request, queryset):
+        n = queryset.exclude(status="confirmed").update(
+            status="confirmed", confirmed_at=_tz.now())
+        self.message_user(request, f"Confirmed {n} booking(s).")
+
+    @admin.action(description="Reject bookings")
+    def reject_bookings(self, request, queryset):
+        n = queryset.update(status="rejected")
+        self.message_user(request, f"Rejected {n} booking(s).")

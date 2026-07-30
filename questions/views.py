@@ -2609,6 +2609,10 @@ def mpesa_callback(request):
                     .get(checkout_request_id=invoice_id)
                 )
             except PaymentRequest.DoesNotExist:
+                # Not a subscription payment — maybe a live-lesson booking.
+                from .live_views import confirm_booking_from_callback
+                if confirm_booking_from_callback(invoice_id, state, payment_reference):
+                    return Response({'message': 'ok'})
                 mpesa_logger.warning("No PaymentRequest for invoice_id=%s", invoice_id)
                 return Response({'message': 'ok'})
 

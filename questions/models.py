@@ -1181,3 +1181,91 @@ class MotivationalContent(models.Model):
     def __str__(self):
         preview = self.text[:60] + '...' if len(self.text) > 60 else self.text
         return f"[{self.get_content_type_display()}] {preview}"
+
+# ─────────────────────────────────────────────────────────────
+#  LIVE LESSONS — 1:1 Zoom tuition. Admin publishes fixed slots;
+#  student requests → admin approves → student pays (manual M-Pesa,
+#  same trusted pattern as PaymentRequest) → admin verifies & sets the
+#  Zoom link → confirmed. Kept fully separate from the subscription
+#  machinery so it can't affect that money path.
+# ─────────────────────────────────────────────────────────────
+
+# Booking states that "hold" a slot (block others from booking it).
+LIVE_ACTIVE_STATES = ("requested", "approved", "payment_submitted", "confirmed")
+
+
+class LiveSlot(models.Model):
+    """A bookable 1-hour live-lesson slot published by an admin/teacher."""
+    starts_at = models.DateTimeField(help_text="When the lesson starts (EAT)")
+    duration_minutes = models.IntegerField(default=60)
+    subject = models.CharField(max_length=100, blank=True,
+                               help_text="e.g. Mathematics, or leave blank for 'Any'")
+    grade = models.CharField(max_length=20, blank=True, help_text="e.g. Grade 9 (optional)")
+    teacher_name = models.CharField(max_length=100, blank=True)
+    price_kes = models.IntegerField(default=1500)
+    is_open = models.BooleanField(default=True, help_text="Uncheck to hide/close this slot")
+    notes = models.CharField(max_length=200, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        db_table = "live_slots"
+        ordering = ["starts_at"]
+
+    def __str__(self):
+        when = timezone.localtime(self.starts_at).strftime("%a %d %b, %H:%M")
+        return f"{when} — {self.subject or 'Any'} (KES {self.price_kes})"
+
+    @property
+    def is_booked(self):
+        return self.bookings.filter(status__in=LIVE_ACTIVE_STATES).exists()
+
+    @property
+    def is_available(self):
+        return (
+            self.is_open
+            and self.starts_at > timezone.now()
+            and not self.is_booked
+        )
+
+
+class LiveBooking(models.Model):
+    """A student's request for a LiveSlot, through payment to a confirmed lesson."""
+    STATUS_CHOICES = [
+        ("requested", "Requested"),
+        ("approved", "Approved — awaiting payment"),
+        ("payment_submitted", "Payment submitted — verifying"),
+        ("confirmed", "Confirmed"),
+        ("rejected", "Rejected"),
+        ("cancelled", "Cancelled"),
+        ("completed", "Completed"),
+    ]
+
+    student = models.ForeignKey(User, on_delete=models.CASCADE, related_name="live_bookings")
+    slot = models.ForeignKey(LiveSlot, on_delete=models.PROTECT, related_name="bookings")
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default="requested")
+
+    phone = models.CharField(max_length=15, help_text="Contact / M-Pesa phone")
+    note = models.TextField(blank=True, help_text="What the student wants help with")
+    amount_kes = models.IntegerField(help_text="Price snapshot at booking time")
+
+    # Payment (IntaSend STK push — mirrors PaymentRequest, but self-contained).
+    # checkout_request_id holds the IntaSend invoice_id so the shared M-Pesa
+    # webhook can match this booking and confirm it.
+    checkout_request_id = models.CharField(max_length=100, blank=True, default="")
+    mpesa_code = models.CharField(max_length=20, blank=True, default="")
+
+    # Set by admin on confirmation
+    zoom_link = models.URLField(blank=True)
+    admin_notes = models.TextField(blank=True)
+    rejection_reason = models.TextField(blank=True)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    confirmed_at = models.DateTimeField(null=True, blank=True)
+
+    class Meta:
+        db_table = "live_bookings"
+        ordering = ["-created_at"]
+
+    def __str__(self):
+        return f"{self.student.username} → {self.slot} [{self.status}]"
