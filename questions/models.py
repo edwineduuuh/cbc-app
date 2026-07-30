@@ -1193,16 +1193,30 @@ class MotivationalContent(models.Model):
 # Booking states that "hold" a slot (block others from booking it).
 LIVE_ACTIVE_STATES = ("requested", "approved", "payment_submitted", "confirmed")
 
+# Duration → price (KES). Longer sessions get a "book more, save more" discount,
+# but total profit still rises (teacher ~1000/hr). One place to change pricing.
+LIVE_PRICING = {60: 1500, 90: 2100, 120: 2700}
+
+
+def live_price(duration_minutes):
+    """Price for a duration, defaulting to the 1-hour rate if unknown."""
+    return LIVE_PRICING.get(int(duration_minutes), LIVE_PRICING[60])
+
 
 class LiveSlot(models.Model):
-    """A bookable 1-hour live-lesson slot published by an admin/teacher."""
+    """A bookable live-lesson time published by an admin/teacher. Times are
+    generic (not tied to a subject) — the student picks their learning area and
+    strand when booking, and the admin confirms the right teacher afterwards."""
     starts_at = models.DateTimeField(help_text="When the lesson starts (EAT)")
-    duration_minutes = models.IntegerField(default=60)
+    # Longest lesson a student may book in this slot. Set to 60 if you're only
+    # free for an hour; the 1½/2-hour options then won't show for this slot.
+    max_duration_minutes = models.IntegerField(
+        default=120, help_text="Longest bookable lesson here (60, 90 or 120)")
     subject = models.CharField(max_length=100, blank=True,
-                               help_text="e.g. Mathematics, or leave blank for 'Any'")
+                               help_text="Optional note — students choose their own subject")
     grade = models.CharField(max_length=20, blank=True, help_text="e.g. Grade 9 (optional)")
     teacher_name = models.CharField(max_length=100, blank=True)
-    price_kes = models.IntegerField(default=1500)
+    price_kes = models.IntegerField(default=1500, help_text="Unused — price comes from duration")
     is_open = models.BooleanField(default=True, help_text="Uncheck to hide/close this slot")
     notes = models.CharField(max_length=200, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -1248,6 +1262,17 @@ class LiveBooking(models.Model):
     note = models.TextField(blank=True, help_text="What the student wants help with")
     amount_kes = models.IntegerField(help_text="Price snapshot at booking time")
 
+    # What the student wants — helps you brief the right teacher.
+    duration_minutes = models.IntegerField(default=60)
+    learning_area = models.CharField(max_length=120, blank=True,
+                                     help_text="Subject, or 'General'")
+    strand = models.CharField(max_length=200, blank=True,
+                              help_text="Strand/topic, or 'General'")
+
+    # Confirmed/rescheduled time. If set, it overrides the slot's original time
+    # (admin edits this to reschedule after checking teacher availability).
+    scheduled_at = models.DateTimeField(null=True, blank=True)
+
     # Payment (IntaSend STK push — mirrors PaymentRequest, but self-contained).
     # checkout_request_id holds the IntaSend invoice_id so the shared M-Pesa
     # webhook can match this booking and confirm it.
@@ -1269,3 +1294,8 @@ class LiveBooking(models.Model):
 
     def __str__(self):
         return f"{self.student.username} → {self.slot} [{self.status}]"
+
+    @property
+    def when(self):
+        """The effective lesson time — rescheduled time if set, else the slot's."""
+        return self.scheduled_at or self.slot.starts_at

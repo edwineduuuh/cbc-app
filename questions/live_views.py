@@ -16,21 +16,21 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import status
 
-from .models import LiveSlot, LiveBooking, LIVE_ACTIVE_STATES
+from .models import (
+    LiveSlot, LiveBooking, LIVE_ACTIVE_STATES, LIVE_PRICING, live_price,
+)
 from .intasend_api import IntaSendAPI
 
 mpesa_logger = logging.getLogger("mpesa")
 
 
 def _slot_json(slot):
+    # Generic time slot — students choose their own subject/strand at booking.
     return {
         "id": slot.id,
         "starts_at": slot.starts_at.isoformat(),
-        "duration_minutes": slot.duration_minutes,
-        "subject": slot.subject or "Any subject",
+        "max_duration_minutes": slot.max_duration_minutes,
         "grade": slot.grade,
-        "teacher_name": slot.teacher_name,
-        "price_kes": slot.price_kes,
         "notes": slot.notes,
     }
 
@@ -41,8 +41,12 @@ def _booking_json(b):
         "status": b.status,
         "status_label": b.get_status_display(),
         "amount_kes": b.amount_kes,
+        "duration_minutes": b.duration_minutes,
+        "learning_area": b.learning_area or "General",
+        "strand": b.strand or "",
         "phone": b.phone,
         "note": b.note,
+        "when": b.when.isoformat(),  # effective (possibly rescheduled) time
         # Zoom link only revealed once the lesson is paid & confirmed.
         "zoom_link": b.zoom_link if b.status == "confirmed" else "",
         "rejection_reason": b.rejection_reason,
@@ -64,7 +68,9 @@ def live_slots(request):
         .exclude(id__in=list(booked_ids))
         .order_by("starts_at")
     )
-    return Response({"slots": [_slot_json(s) for s in slots]})
+    # pricing keys are strings so they survive JSON cleanly on the client
+    pricing = {str(k): v for k, v in LIVE_PRICING.items()}
+    return Response({"slots": [_slot_json(s) for s in slots], "pricing": pricing})
 
 
 @api_view(["GET"])
@@ -77,10 +83,21 @@ def my_live_bookings(request):
 @api_view(["POST"])
 @permission_classes([IsAuthenticated])
 def create_live_booking(request):
-    """Request a slot. Body: { slot_id, phone, note }."""
+    """Request a slot.
+    Body: { slot_id, phone, duration_minutes, learning_area, strand, note }."""
     slot_id = request.data.get("slot_id")
     phone = (request.data.get("phone") or "").strip()
     note = (request.data.get("note") or "").strip()
+    learning_area = (request.data.get("learning_area") or "").strip() or "General"
+    strand = (request.data.get("strand") or "").strip()
+
+    try:
+        duration = int(request.data.get("duration_minutes") or 60)
+    except (ValueError, TypeError):
+        duration = 60
+    if duration not in LIVE_PRICING:
+        return Response({"error": "Please choose a valid session length."},
+                        status=status.HTTP_400_BAD_REQUEST)
 
     if not slot_id or not phone:
         return Response({"error": "slot_id and phone are required"},
@@ -96,6 +113,9 @@ def create_live_booking(request):
         if not slot.is_open or slot.starts_at <= timezone.now():
             return Response({"error": "That slot is no longer available."},
                             status=status.HTTP_409_CONFLICT)
+        if duration > slot.max_duration_minutes:
+            return Response({"error": "That session length isn't available for this time."},
+                            status=status.HTTP_400_BAD_REQUEST)
         if LiveBooking.objects.filter(slot=slot, status__in=LIVE_ACTIVE_STATES).exists():
             return Response({"error": "That slot has just been booked. Please pick another."},
                             status=status.HTTP_409_CONFLICT)
@@ -105,7 +125,10 @@ def create_live_booking(request):
             slot=slot,
             phone=phone,
             note=note,
-            amount_kes=slot.price_kes,
+            duration_minutes=duration,
+            learning_area=learning_area,
+            strand=strand,
+            amount_kes=live_price(duration),
             status="requested",
         )
 

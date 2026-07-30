@@ -282,17 +282,22 @@ class MotivationalContentAdmin(admin.ModelAdmin):
 # ─────────────────────────────────────────────────────────────
 #  LIVE LESSONS — publish slots, manage bookings (approve → confirm)
 # ─────────────────────────────────────────────────────────────
+from urllib.parse import quote
 from django.utils import timezone as _tz
+from django.utils.html import format_html
 from .models import LiveSlot, LiveBooking
+from .intasend_api import IntaSendAPI
 
 
 @admin.register(LiveSlot)
 class LiveSlotAdmin(admin.ModelAdmin):
-    list_display = ("starts_at", "subject", "grade", "teacher_name",
-                    "price_kes", "is_open", "booked")
-    list_filter = ("is_open", "subject", "grade")
-    list_editable = ("is_open", "price_kes")
+    list_display = ("starts_at", "max_duration_minutes", "grade",
+                    "teacher_name", "is_open", "booked")
+    list_filter = ("is_open", "grade")
+    list_editable = ("is_open",)
     ordering = ("starts_at",)
+    fields = ("starts_at", "max_duration_minutes", "grade", "teacher_name",
+              "is_open", "notes")
 
     def booked(self, obj):
         return obj.is_booked
@@ -301,23 +306,44 @@ class LiveSlotAdmin(admin.ModelAdmin):
 
 @admin.register(LiveBooking)
 class LiveBookingAdmin(admin.ModelAdmin):
-    list_display = ("id", "student", "slot", "status", "amount_kes",
-                    "phone", "has_zoom", "created_at")
-    list_filter = ("status",)
-    search_fields = ("student__username", "student__email", "phone", "mpesa_code")
-    readonly_fields = ("checkout_request_id", "mpesa_code", "confirmed_at",
-                       "created_at", "updated_at")
-    autocomplete_fields = ()
-    fields = ("student", "slot", "status", "amount_kes", "phone", "note",
+    list_display = ("id", "student", "when_display", "learning_area", "strand",
+                    "duration_minutes", "status", "amount_kes",
+                    "whatsapp", "has_zoom")
+    list_filter = ("status", "learning_area")
+    search_fields = ("student__username", "student__email", "phone", "mpesa_code",
+                     "learning_area", "strand")
+    readonly_fields = ("whatsapp", "checkout_request_id", "mpesa_code",
+                       "confirmed_at", "created_at", "updated_at")
+    fields = ("student", "slot",
+              # reschedule: edit scheduled_at to move the lesson
+              "scheduled_at", "status",
+              "learning_area", "strand", "duration_minutes", "amount_kes",
+              "phone", "whatsapp", "note",
               "zoom_link", "admin_notes", "rejection_reason",
               "checkout_request_id", "mpesa_code", "confirmed_at",
               "created_at", "updated_at")
     actions = ("approve_bookings", "mark_confirmed", "reject_bookings")
 
+    def when_display(self, obj):
+        return _tz.localtime(obj.when).strftime("%a %d %b, %H:%M")
+    when_display.short_description = "When"
+
     def has_zoom(self, obj):
         return bool(obj.zoom_link)
     has_zoom.boolean = True
     has_zoom.short_description = "Zoom set"
+
+    def whatsapp(self, obj):
+        """One-tap click-to-chat link to the student's WhatsApp."""
+        phone, err = IntaSendAPI.normalize_phone(obj.phone or "")
+        if err or not phone:
+            return obj.phone or "—"
+        when = _tz.localtime(obj.when).strftime("%a %d %b at %H:%M")
+        msg = (f"Hi! About your StadiSpace live lesson ({obj.learning_area or 'General'}) "
+               f"on {when} — ")
+        url = f"https://wa.me/{phone}?text={quote(msg)}"
+        return format_html('<a href="{}" target="_blank" rel="noopener">💬 WhatsApp</a>', url)
+    whatsapp.short_description = "Message"
 
     @admin.action(description="Approve → student can pay (set the Zoom link first!)")
     def approve_bookings(self, request, queryset):
