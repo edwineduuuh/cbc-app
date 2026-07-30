@@ -606,9 +606,27 @@ function StudentDetailModal({ user, onClose }) {
     return () => { alive = false; };
   }, [user.id]);
 
+  // Attempt drill-down (full question-by-question result)
+  const [openAttempt, setOpenAttempt] = useState(null);
+  const [attemptData, setAttemptData] = useState(null);
+  const [attemptLoading, setAttemptLoading] = useState(false);
+
+  useEffect(() => {
+    if (!openAttempt) { setAttemptData(null); return; }
+    let alive = true;
+    setAttemptLoading(true);
+    fetchWithAuth(`${API}/admin/attempts/${openAttempt}/detail/`)
+      .then((r) => r.json())
+      .then((d) => { if (alive) setAttemptData(d); })
+      .catch(() => { if (alive) setAttemptData(null); })
+      .finally(() => { if (alive) setAttemptLoading(false); });
+    return () => { alive = false; };
+  }, [openAttempt]);
+
   const s = data?.summary;
   const scoreColor = (v) =>
     v == null ? "text-gray-400" : v >= 75 ? "text-emerald-600" : v >= 50 ? "text-amber-600" : "text-red-600";
+  const asText = (v) => (v == null ? "" : typeof v === "string" ? v : JSON.stringify(v));
 
   const downloadCSV = () => {
     if (!data?.attempts?.length) return;
@@ -723,7 +741,7 @@ function StudentDetailModal({ user, onClose }) {
                     </thead>
                     <tbody className="divide-y divide-gray-100">
                       {data.attempts.map((a) => (
-                        <tr key={a.id} className="hover:bg-gray-50">
+                        <tr key={a.id} onClick={() => setOpenAttempt(a.id)} className="hover:bg-indigo-50 cursor-pointer">
                           <td className="px-3 py-2 font-medium text-gray-900 max-w-[180px] truncate">{a.quiz}</td>
                           <td className="px-3 py-2 text-gray-500 whitespace-nowrap">{a.subject}</td>
                           <td className={`px-3 py-2 font-bold whitespace-nowrap ${scoreColor(a.score)}`}>
@@ -745,6 +763,58 @@ function StudentDetailModal({ user, onClose }) {
           </div>
         )}
       </div>
+
+      {/* Full attempt result — question-by-question */}
+      {openAttempt && (
+        <div className="fixed inset-0 z-[95] flex items-center justify-center p-4"
+          onClick={(e) => { e.stopPropagation(); setOpenAttempt(null); }}>
+          <div className="absolute inset-0 bg-black/60" />
+          <div className="relative w-full max-w-3xl max-h-[90vh] overflow-y-auto bg-white rounded-2xl shadow-2xl"
+            onClick={(e) => e.stopPropagation()}>
+            <div className="sticky top-0 bg-white border-b px-6 py-4 flex items-center justify-between gap-3">
+              <button onClick={() => setOpenAttempt(null)} className="text-sm font-semibold text-indigo-600 hover:text-indigo-800">← Back</button>
+              {attemptData?.attempt && (
+                <div className="text-right min-w-0">
+                  <p className="font-bold text-gray-900 text-sm truncate">{attemptData.attempt.quiz}</p>
+                  <p className="text-xs text-gray-400">
+                    {attemptData.attempt.subject} · {attemptData.attempt.score != null ? `${attemptData.attempt.score}%` : attemptData.attempt.status}
+                    {attemptData.attempt.max_marks ? ` · ${attemptData.attempt.marks_awarded}/${attemptData.attempt.max_marks}` : ""}
+                  </p>
+                </div>
+              )}
+            </div>
+            {attemptLoading ? (
+              <div className="p-16 flex justify-center"><Loader2 className="w-6 h-6 animate-spin text-indigo-500" /></div>
+            ) : !attemptData ? (
+              <div className="p-16 text-center text-gray-400">Couldn't load this attempt.</div>
+            ) : attemptData.questions.length === 0 ? (
+              <div className="p-10 text-center text-gray-400 text-sm">No per-question feedback stored for this attempt.</div>
+            ) : (
+              <div className="p-6 space-y-3">
+                {attemptData.questions.map((q, i) => {
+                  const zero = (q.marks_awarded ?? 0) <= 0 && (q.max_marks ?? 0) > 0;
+                  const full = (q.max_marks ?? 0) > 0 && (q.marks_awarded ?? 0) >= q.max_marks;
+                  const badge = full ? "bg-emerald-100 text-emerald-700" : zero ? "bg-red-100 text-red-700" : "bg-amber-100 text-amber-700";
+                  return (
+                    <div key={q.id} className={`rounded-xl border p-4 ${zero ? "border-red-200 bg-red-50/40" : "border-gray-200"}`}>
+                      <div className="flex items-start justify-between gap-3 mb-2">
+                        <p className="text-sm font-semibold text-gray-900">Q{i + 1}. {q.question_text}</p>
+                        <span className={`shrink-0 text-xs font-bold px-2 py-0.5 rounded-full ${badge}`}>{q.marks_awarded ?? 0}/{q.max_marks ?? 0}</span>
+                      </div>
+                      {q.question_image_url && <img src={q.question_image_url} alt="" className="max-h-32 rounded-lg mb-2" />}
+                      <div className="text-sm space-y-1">
+                        <p><span className="text-gray-400">Student:</span> <span className={zero ? "text-red-600 font-medium" : "text-gray-700"}>{asText(q.student_answer) || "—"}</span></p>
+                        <p><span className="text-gray-400">Correct:</span> <span className="text-emerald-700">{asText(q.correct_answer) || "—"}</span></p>
+                        {q.feedback && <p className="text-xs text-gray-500 italic mt-1">{q.feedback}</p>}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

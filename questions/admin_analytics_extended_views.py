@@ -452,3 +452,50 @@ class AdminStudentDetailView(APIView):
             'by_subject': by_subject,
             'attempts': rows,
         })
+
+
+class AdminAttemptDetailView(APIView):
+    """Full question-by-question result of one attempt (like the attempts page),
+    so an admin can see which questions were failed badly. Reads the stored
+    detailed_feedback — no re-grading."""
+    permission_classes = [IsAdminUser]
+
+    def get(self, request, attempt_id):
+        try:
+            a = (Attempt.objects
+                 .select_related('quiz', 'quiz__subject', 'student')
+                 .get(pk=attempt_id))
+        except Attempt.DoesNotExist:
+            return Response({'error': 'Attempt not found'}, status=404)
+
+        df = a.detailed_feedback or {}
+        questions = []
+        for qid, f in df.items():
+            questions.append({
+                'id': qid,
+                'question_text': f.get('question_text', ''),
+                'question_type': f.get('question_type', ''),
+                'question_image_url': f.get('question_image_url'),
+                'student_answer': f.get('student_answer', ''),
+                'correct_answer': f.get('correct_answer', ''),
+                'marks_awarded': f.get('marks_awarded'),
+                'max_marks': f.get('max_marks'),
+                'is_correct': f.get('is_correct'),
+                'feedback': f.get('feedback', ''),
+            })
+
+        when = a.completed_at or a.started_at
+        return Response({
+            'attempt': {
+                'id': a.id,
+                'quiz': a.quiz.title if a.quiz else '—',
+                'subject': a.quiz.subject.name if a.quiz and a.quiz.subject else '—',
+                'student': a.student.username,
+                'status': a.status,
+                'score': round(a.score, 1) if a.score is not None else None,
+                'marks_awarded': a.total_marks_awarded,
+                'max_marks': a.total_max_marks,
+                'when': when.isoformat() if when else None,
+            },
+            'questions': questions,
+        })
