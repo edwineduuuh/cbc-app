@@ -26,8 +26,10 @@ def touch_activity(user):
             return
         from .models import DailyActivity
         DailyActivity.objects.get_or_create(user=user, date=today)
-        # Keep the existing last_activity_date stat fresh too (once/day, cheap).
-        type(user).objects.filter(pk=user.pk).update(last_activity_date=today)
+        # Keep last_activity_date AND last_login fresh (the admin "Last Login"
+        # column reads last_login, which JWT never set). Once/day, cheap.
+        type(user).objects.filter(pk=user.pk).update(
+            last_activity_date=today, last_login=timezone.now())
         cache.set(ck, 1, 60 * 60 * 24)
     except Exception:
         logger.debug("touch_activity failed", exc_info=True)
