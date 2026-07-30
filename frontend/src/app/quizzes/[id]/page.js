@@ -499,7 +499,9 @@ function MCQOption({ letter, text, imageUrl, selected, onClick }) {
           style={{
             fontSize: 15,
             fontWeight: selected ? 600 : 500,
-            color: selected ? c.activeText : "var(--text)",
+            // idle text = the option's own dark accent (readable on its light
+            // pastel bg in BOTH themes); var(--text) would go light->invisible.
+            color: selected ? c.activeText : c.idleText,
             lineHeight: 1.5,
             textAlign: "left",
             flex: 1,
