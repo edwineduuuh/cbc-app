@@ -17,6 +17,7 @@ import {
   Sparkles,
   Crown,
   Heart,
+  Video,
 } from "lucide-react";
 
 const API =
@@ -547,9 +548,7 @@ export default function DashboardPage() {
         )}
 
         {/* Action Cards Grid */}
-        <div
-          className={`grid grid-cols-1 ${!isPremium ? "md:grid-cols-2 lg:grid-cols-4" : "md:grid-cols-3"} gap-6`}
-        >
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {/* Browse Quizzes Card */}
           <Link href="/explore">
             <motion.div
@@ -613,6 +612,28 @@ export default function DashboardPage() {
                 <h3 className="text-xl font-bold mb-2">Life Skills</h3>
                 <p className="text-rose-100 text-sm">
                   Money, relationships, digital safety, health & citizenship
+                </p>
+              </div>
+            </motion.div>
+          </Link>
+
+          {/* Live Lessons Card */}
+          <Link href="/live">
+            <motion.div
+              whileHover={{ scale: 1.02 }}
+              className="bg-linear-to-br from-indigo-600 to-emerald-600 rounded-2xl p-6 text-white cursor-pointer shadow-lg hover:shadow-xl transition-all relative overflow-hidden group"
+            >
+              <div className="absolute inset-0 bg-white/0 group-hover:bg-white/5 transition-all" />
+              <div className="relative">
+                <div className="flex items-center justify-between mb-4">
+                  <div className="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center">
+                    <Video className="w-6 h-6" />
+                  </div>
+                  <ChevronRight className="w-5 h-5 opacity-50 group-hover:opacity-100 transition-opacity" />
+                </div>
+                <h3 className="text-xl font-bold mb-2">Book a Live Lesson</h3>
+                <p className="text-indigo-100 text-sm">
+                  1-on-1 Zoom tuition with a real teacher — pick a time that suits you
                 </p>
               </div>
             </motion.div>
