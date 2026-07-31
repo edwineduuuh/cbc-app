@@ -2042,6 +2042,38 @@ def _wrap_math(s: str) -> str:
     return f"${s}$"
 
 
+def _short_numeric_correct(question, student_answer: str) -> bool:
+    """True if the student wrote a plain NUMBER + optional unit — including
+    LaTeX unit markup like "60\\min" or "18\\operatorname{\\mathrm{cm}}" —
+    whose value appears in the correct answer(s). Type-independent, so a
+    correct short answer is never failed just because the stored answer carries
+    a unit or sentence, or the question was saved with the wrong type."""
+    student_bare = _strip_assignment(str(student_answer).strip())
+    s_clean = _clean_num(student_bare)
+    if not s_clean:
+        return False
+    norm = re.sub(r"\\[a-zA-Z]+\*?", " ", student_bare)   # drop LaTeX commands
+    norm = re.sub(r"[{}\\$]", " ", norm).strip()
+    if not re.match(r"^-?\d+\.?\d*\s*[a-zA-Z]{0,15}\.?$", norm):  # number + optional unit
+        return False
+    try:
+        s_num = float(s_clean)
+    except ValueError:
+        return False
+    correct = [str(getattr(question, "correct_answer", "") or "").strip()]
+    extra = getattr(question, "correct_answers", None)
+    if extra and isinstance(extra, list):
+        correct += [str(a).strip() for a in extra if a and str(a).strip()]
+    for ca in correct:
+        for tok in re.findall(r"-?\d+\.?\d*", ca):
+            try:
+                if abs(s_num - float(tok)) < 1e-9:
+                    return True
+            except ValueError:
+                pass
+    return False
+
+
 def _grade_math(question, student_answer: str, working_image: str | None = None) -> dict:
     """
     Math grader.
@@ -2169,26 +2201,10 @@ def _grade_math(question, student_answer: str, working_image: str | None = None)
         except ValueError:
             pass
 
-    # Worded correct answers (e.g. "18 cm", "60 minutes (1 hour)"): if the
-    # student wrote a plain NUMBER + optional unit — including LaTeX unit
-    # markup like "60\min" or "18\operatorname{\mathrm{cm}}" — and that value
-    # appears in the correct answer, it's correct. Stops correct short answers
-    # being failed just because the stored answer carries a unit or sentence.
-    if s_clean:
-        _norm = re.sub(r"\\[a-zA-Z]+\*?", " ", student_bare)  # drop LaTeX commands
-        _norm = re.sub(r"[{}\\$]", " ", _norm).strip()
-        if re.match(r"^-?\d+\.?\d*\s*[a-zA-Z]{0,15}\.?$", _norm):  # number + optional unit
-            try:
-                s_num = float(s_clean)
-                for ca_bare in all_correct_bare:
-                    for tok in re.findall(r"-?\d+\.?\d*", ca_bare):
-                        try:
-                            if abs(s_num - float(tok)) < 1e-9:
-                                return _on_correct(s_num)
-                        except ValueError:
-                            pass
-            except ValueError:
-                pass
+    # Correct short answer vs a worded/sentence correct answer (e.g. "18 cm",
+    # "60 minutes (1 hour)") — including LaTeX unit markup from the math input.
+    if _short_numeric_correct(question, student_answer):
+        return _on_correct(_clean_num(student_bare))
 
     # Symbolic / approximate check with timeout (try all accepted answers)
     s_expr = _parse_math_expr(student_bare)
@@ -2285,6 +2301,21 @@ def _grade_with_ai(
             student_raw = "See student's working in the image above."
         else:
             return _no_answer_result(question, sw)
+
+    # Safety net: a correct single-mark NUMBER + unit answer passes regardless
+    # of question type or how the correct answer is stored — so a numeric
+    # question saved as the wrong type can't fail a right short answer. Only for
+    # 1-mark, non-MCQ, no-working-image (multi-mark essays still go to the AI).
+    if (qt != "mcq" and not working_image
+            and getattr(question, "max_marks", 1) <= 1
+            and _short_numeric_correct(question, student_answer)):
+        return _correct_result(
+            max_marks     = question.max_marks,
+            feedback      = _praise(sw) + (" Sahihi!" if sw else " Correct!"),
+            message       = _encourage(sw),
+            study_tip     = "",
+            points_earned = [str(student_answer).strip()],
+        )
     try:
         prompt   = _build_marking_prompt(question, student_answer, sw, bool(working_image))
         raw_text = _call_ai(prompt, working_image, max_tokens, kiswahili=sw)
