@@ -225,8 +225,7 @@ export default function LiveLessonsPage() {
           </div>
           <h1 className="text-2xl sm:text-3xl font-black mb-2">Join a live lesson</h1>
           <p className="text-white/90 text-sm sm:text-base max-w-2xl mb-4">
-            Real teachers, live on Zoom. Pick a day and a time, choose your subject,
-            and pay by M-Pesa. Learn together with other students.
+            Real teachers, live on Zoom. Pick a day and a time, choose your subject.
           </p>
           <div className="inline-flex items-center gap-3 rounded-2xl bg-white/15 backdrop-blur px-5 py-3">
             <div>
