@@ -439,6 +439,7 @@ class AdminStudentDetailView(APIView):
                 'id': u.id,
                 'username': u.username,
                 'email': u.email or '',
+                'phone': u.parent_phone or '',
                 'grade': u.grade,
                 'role': u.role,
                 'date_joined': u.date_joined.isoformat() if u.date_joined else None,

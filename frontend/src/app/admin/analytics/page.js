@@ -666,6 +666,9 @@ function StudentDetailModal({ user, onClose }) {
             <div>
               <p className="font-bold text-gray-900">{user.username}</p>
               <p className="text-xs text-gray-400">{user.email || "—"}{user.grade ? ` · Grade ${user.grade}` : ""}</p>
+              {data?.student?.phone && (
+                <p className="text-xs text-gray-600 font-medium mt-0.5">📱 {data.student.phone}</p>
+              )}
             </div>
           </div>
           <button onClick={onClose} className="text-gray-400 hover:text-gray-700 text-2xl leading-none">×</button>
