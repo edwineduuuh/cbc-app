@@ -68,14 +68,14 @@ def send_welcome_email(user):
         recipient = parent_email
         greeting = f"Hi {parent_name or 'there'},"
         subject = f"Welcome to StadiSpace - {child_name}'s learning journey starts now!"
-        intro = f"Welcome to StadiSpace! {child_name}'s account is ready with 2 free quizzes to explore."
+        intro = f"Welcome to StadiSpace! {child_name}'s account is ready with 3 free quizzes to explore."
         body_name = child_name
     elif user.email:
         # No parent email - email goes to student, greet student
         recipient = user.email
         greeting = f"Hi {child_name},"
         subject = "Welcome to StadiSpace - your learning journey starts now!"
-        intro = "Your StadiSpace account is ready with 2 free quizzes to explore."
+        intro = "Your StadiSpace account is ready with 3 free quizzes to explore."
         body_name = "You"
     else:
         return False
@@ -84,7 +84,7 @@ def send_welcome_email(user):
         f"{greeting}\n\n"
         f"{intro}\n\n"
         f"What {body_name} get{'s' if body_name != 'You' else ''}:\n"
-        f"  - 2 free quizzes with full AI-powered feedback\n"
+        f"  - 3 free quizzes with full AI-powered feedback\n"
         f"  - All CBE learning areas, Grades 4-10\n"
         f"  - Instant marking with detailed explanations\n"
         f"  - Progress tracking and performance analytics\n\n"

@@ -1,6 +1,6 @@
 """
 questions/credits.py
-Free trial credits system - 2 free quizzes per user
+Free trial credits system - 3 free quizzes per user
 """
 
 from functools import wraps
@@ -75,7 +75,7 @@ def get_user_credits_status(user):
             'has_access': False,
             'quiz_credits': 0,
             'subscription_status': 'none',
-            'message': 'Sign up to get 2 free quizzes'
+            'message': 'Sign up to get 3 free quizzes'
         }
 
     # Check subscription

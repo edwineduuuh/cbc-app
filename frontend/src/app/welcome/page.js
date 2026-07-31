@@ -89,7 +89,7 @@ export default function WelcomePage() {
           <div className="flex items-center justify-center gap-2 bg-amber-50 border border-amber-200 rounded-xl px-5 py-3 mb-6">
             <span className="text-amber-500 text-base">✦</span>
             <p className="text-xs font-medium text-amber-800">
-              5 free quizzes are waiting for you
+              3 free quizzes are waiting for you
             </p>
           </div>
 

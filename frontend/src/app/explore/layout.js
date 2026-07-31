@@ -6,7 +6,7 @@ export const metadata = {
   openGraph: {
     title: "Explore CBE Quizzes - StadiSpace",
     description:
-      "Browse hundreds of CBE quizzes across all learning areas for Grades 4-10. Start with 2 free quizzes.",
+      "Browse hundreds of CBE quizzes across all learning areas for Grades 4-10. Start with 3 free quizzes.",
     url: "https://stadispace.co.ke/explore",
   },
 };

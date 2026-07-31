@@ -1380,7 +1380,7 @@ export default function QuizTakePage({ params }) {
             setTimeout(() => {
               const shouldSignup = confirm(
                 `Quiz complete! You scored ${data.score}%\n\n` +
-                  `You've used your 2 free quizzes!\n\n` +
+                  `You've used your 3 free quizzes!\n\n` +
                   `Sign up now to get 2 MORE free quizzes + save your progress.`,
               );
               if (shouldSignup) {

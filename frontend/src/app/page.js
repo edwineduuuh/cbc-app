@@ -140,7 +140,7 @@ export default function LandingPage() {
     {
       n: "01",
       title: "Sign up. It's free.",
-      desc: "Create your account in under a minute. No card required. You get 5 free quizzes the moment you're in.",
+      desc: "Create your account in under a minute. No card required. You get 3 free quizzes the moment you're in.",
     },
     {
       n: "02",
@@ -150,7 +150,7 @@ export default function LandingPage() {
     {
       n: "03",
       title: "Subscribe when ready.",
-      desc: "After your 5 free quizzes, unlock unlimited practice for less than the cost of a single tutor session.",
+      desc: "After your 3 free quizzes, unlock unlimited practice for less than the cost of a single tutor session.",
     },
   ];
 
@@ -470,7 +470,7 @@ export default function LandingPage() {
                     }}
                     className="hover:scale-[1.02] transition-all duration-200 group"
                   >
-                    Start Free Trial - 5 Quizzes
+                    Start Free Trial - 3 Quizzes
                     <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                   </button>
                 </Link>
@@ -523,7 +523,7 @@ export default function LandingPage() {
                 </div>
                 <p style={{ color: "var(--text-muted)", fontSize: 13 }}>
                   <span style={{ color: "#0f1f3d", fontWeight: 600 }}>
-                    5 free quizzes
+                    3 free quizzes
                   </span>{" "}
                   to start. No card. No pressure.
                 </p>
@@ -878,7 +878,7 @@ export default function LandingPage() {
               >
                 {s.value}
               </div>
-              <p style={{ color: "var(--text)", fontSize: 13, fontWeight: 500 }}>
+              <p style={{ color: "rgba(255,255,255,0.6)", fontSize: 13, fontWeight: 500 }}>
                 {s.label}
               </p>
             </FadeIn>
@@ -979,7 +979,7 @@ export default function LandingPage() {
                 marginBottom: 24,
               }}
             >
-              5 free quizzes. Sign up in seconds.
+              3 free quizzes. Sign up in seconds.
               <br />
               <em style={{ color: "rgba(255,255,255,0.75)" }}>
                 Just your child and a question.
@@ -1861,7 +1861,7 @@ export default function LandingPage() {
                 margin: "0 auto 40px",
               }}
             >
-              5 free quizzes. No card. Sign up in seconds. Just a student, a
+              3 free quizzes. No card. Sign up in seconds. Just a student, a
               question, and everything that follows when they finally understand{" "}
               <em>why.</em>
             </p>
@@ -1887,7 +1887,7 @@ export default function LandingPage() {
               </button>
             </Link>
             <p style={{ color: "var(--text)", fontSize: 13, marginTop: 16 }}>
-              5 free quizzes · M-Pesa accepted · Cancel anytime
+              3 free quizzes · M-Pesa accepted · Cancel anytime
             </p>
           </FadeIn>
         </div>

@@ -68,9 +68,9 @@ class User(AbstractUser):
     parent_email = models.EmailField(blank=True, default='',
         help_text='Parent email for receipts & progress reports')
 
-    # FREE TRIAL CREDITS - 2 free quizzes for every new user
+    # FREE TRIAL CREDITS - 3 free quizzes for every new user
     quiz_credits = models.IntegerField(
-        default=2,
+        default=3,
         help_text='Free quiz attempts remaining'
     )
     free_quizzes_used = models.IntegerField(

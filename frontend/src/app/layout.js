@@ -41,7 +41,7 @@ export const metadata = {
     siteName: "StadiSpace",
     title: "StadiSpace - CBE Quizzes & Learning for Kenyan Students",
     description:
-      "Interactive quizzes, instant marking of MCQ and structured questions, and progress tracking for CBE students in Grades 4-10. Start with 2 free quizzes - no card required.",
+      "Interactive quizzes, instant marking of MCQ and structured questions, and progress tracking for CBE students in Grades 4-10. Start with 3 free quizzes - no card required.",
     images: [
       {
         url: "/og-image.png",
