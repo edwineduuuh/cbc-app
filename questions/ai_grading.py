@@ -2169,6 +2169,25 @@ def _grade_math(question, student_answer: str, working_image: str | None = None)
         except ValueError:
             pass
 
+    # Worded correct answers (e.g. "60 minutes (1 hour)"): a SHORT numeric
+    # student answer whose value appears anywhere in the answer is correct.
+    # Stops a kid who writes "60 min", "60 minutes" or "1 hour" being failed
+    # just because the stored answer is a full sentence.
+    if s_clean:
+        letters = re.sub(r"[^a-zA-Z]", "", student_bare)
+        if len(letters) <= 12:  # basically a number + a short unit word
+            try:
+                s_num = float(s_clean)
+                for ca_bare in all_correct_bare:
+                    for tok in re.findall(r"-?\d+\.?\d*", ca_bare):
+                        try:
+                            if abs(s_num - float(tok)) < 1e-9:
+                                return _on_correct(s_num)
+                        except ValueError:
+                            pass
+            except ValueError:
+                pass
+
     # Symbolic / approximate check with timeout (try all accepted answers)
     s_expr = _parse_math_expr(student_bare)
     if s_expr is not None:
