@@ -111,9 +111,9 @@ export default function JoinClassroomPage() {
         onClose={() => setToast({ ...toast, show: false })}
       />
 
-      <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50/30">
+      <div className="min-h-screen bg-gray-50">
         {/* Header */}
-        <div className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white">
+        <div className="bg-blue-600 text-white">
           <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -181,7 +181,7 @@ export default function JoinClassroomPage() {
                     <motion.div
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
-                      className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl p-6 border-2 border-green-200"
+                      className="bg-green-50 rounded-2xl p-6 border-2 border-green-200"
                     >
                       <div className="flex items-center gap-2 mb-4">
                         <Sparkles className="w-5 h-5 text-green-600" />
@@ -191,7 +191,7 @@ export default function JoinClassroomPage() {
                       </div>
 
                       <div className="flex items-start gap-4">
-                        <div className="w-16 h-16 bg-gradient-to-br from-emerald-500 to-teal-500 rounded-2xl flex items-center justify-center text-3xl">
+                        <div className="w-16 h-16 bg-emerald-500 rounded-2xl flex items-center justify-center text-3xl">
                           {preview.subject_icon || "📚"}
                         </div>
                         <div className="flex-1">
@@ -226,7 +226,7 @@ export default function JoinClassroomPage() {
                     size="lg"
                     loading={loading}
                     disabled={!joinCode || loading}
-                    className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700"
+                    className="w-full bg-blue-600 hover:from-blue-700 hover:to-indigo-700"
                   >
                     {loading ? "Joining..." : "Join Classroom"}
                   </Button>

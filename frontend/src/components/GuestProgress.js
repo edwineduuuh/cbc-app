@@ -87,7 +87,7 @@ export default function GuestProgress() {
             </div>
           </div>
           <Link href="/register">
-            <button className="px-4 py-2 rounded-xl bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white text-sm font-semibold transition-all shadow-lg">
+            <button className="px-4 py-2 rounded-xl bg-green-600 hover:from-green-700 hover:to-emerald-700 text-white text-sm font-semibold transition-all shadow-lg">
               Sign Up Free
             </button>
           </Link>
@@ -144,7 +144,7 @@ export default function GuestProgress() {
 
             {/* Quick Stats */}
             <div className="grid grid-cols-2 gap-3">
-              <div className="p-4 rounded-xl bg-gradient-to-br from-blue-600/20 to-indigo-600/20 border border-blue-500/30">
+              <div className="p-4 rounded-xl bg-blue-600/20 border border-blue-500/30">
                 <div className="flex items-center gap-2 mb-2">
                   <Trophy className="w-4 h-4 text-blue-400" />
                   <span className="text-xs text-blue-300 font-semibold">
@@ -156,7 +156,7 @@ export default function GuestProgress() {
                 </p>
               </div>
 
-              <div className="p-4 rounded-xl bg-gradient-to-br from-green-600/20 to-emerald-600/20 border border-green-500/30">
+              <div className="p-4 rounded-xl bg-green-600/20 border border-green-500/30">
                 <div className="flex items-center gap-2 mb-2">
                   <TrendingUp className="w-4 h-4 text-green-400" />
                   <span className="text-xs text-green-300 font-semibold">
@@ -169,7 +169,7 @@ export default function GuestProgress() {
                 </p>
               </div>
 
-              <div className="p-4 rounded-xl bg-gradient-to-br from-amber-600/20 to-orange-600/20 border border-amber-500/30">
+              <div className="p-4 rounded-xl bg-amber-600/20 border border-amber-500/30">
                 <div className="flex items-center gap-2 mb-2">
                   <Target className="w-4 h-4 text-amber-400" />
                   <span className="text-xs text-amber-300 font-semibold">
@@ -181,7 +181,7 @@ export default function GuestProgress() {
                 </p>
               </div>
 
-              <div className="p-4 rounded-xl bg-gradient-to-br from-purple-600/20 to-pink-600/20 border border-purple-500/30">
+              <div className="p-4 rounded-xl bg-purple-600/20 border border-purple-500/30">
                 <div className="flex items-center gap-2 mb-2">
                   <BookOpen className="w-4 h-4 text-purple-400" />
                   <span className="text-xs text-purple-300 font-semibold">
@@ -219,7 +219,7 @@ export default function GuestProgress() {
                   {[65, 85, 72, 90, 78].map((h, i) => (
                     <div key={i} className="flex-1 flex flex-col gap-2">
                       <div
-                        className="bg-gradient-to-t from-green-500 to-emerald-500 rounded-t-lg"
+                        className="bg-green-500 rounded-t-lg"
                         style={{ height: `${h}%` }}
                       />
                       <span className="text-[10px] text-center text-white/50">
@@ -294,7 +294,7 @@ export default function GuestProgress() {
 
             {/* CTA Button */}
             <Link href="/register">
-              <button className="w-full py-4 rounded-xl bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-white font-bold text-lg shadow-2xl shadow-yellow-500/30 transition-all transform hover:scale-[1.02] flex items-center justify-center gap-2">
+              <button className="w-full py-4 rounded-xl bg-yellow-500 hover:from-yellow-600 hover:to-orange-600 text-white font-bold text-lg shadow-2xl shadow-yellow-500/30 transition-all transform hover:scale-[1.02] flex items-center justify-center gap-2">
                 <Sparkles className="w-5 h-5" />
                 Sign Up Free - Get Full Access
               </button>

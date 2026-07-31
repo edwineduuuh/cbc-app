@@ -181,29 +181,6 @@ export default function LandingPage() {
     },
   ];
 
-  const testimonials = [
-    {
-      name: "Grace W.",
-      role: "Parent · Nairobi",
-      quote:
-        "She used to dread revision. Now she asks to practice before dinner. I don't know what changed but I'm not complaining.",
-      grade: "Grade 7",
-    },
-    {
-      name: "Brian O.",
-      role: "Student · Mombasa",
-      quote:
-        "The explanations actually make sense. Not just the answer - why the answer is what it is. That's the difference.",
-      grade: "Grade 9",
-    },
-    {
-      name: "Mrs. Kamau",
-      role: "Parent · Kisumu",
-      quote:
-        "Worth every shilling. The progress tracking alone tells me more than a whole term report used to.",
-      grade: "Grade 8",
-    },
-  ];
 
   return (
     <div
@@ -234,7 +211,7 @@ export default function LandingPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <Link href="/">
-              <div className="font-bold text-white text-xl px-3 py-2 rounded-xl bg-gradient-to-br from-slate-800 to-teal-700">
+              <div className="font-bold text-white text-xl px-3 py-2 rounded-xl bg-slate-800">
                 StadiSpace
               </div>
             </Link>
@@ -1059,7 +1036,7 @@ export default function LandingPage() {
             >
               Built for Kenyan students.
               <br />
-              <em style={{ color: "#0e7490" }}>Trusted by Kenyan parents.</em>
+              <em style={{ color: "#0e7490" }}>Made with Kenyan parents in mind.</em>
             </h2>
             <p style={{ color: "var(--text)", fontSize: 16, lineHeight: 1.7 }}>
               Every question is expert-crafted around CBE. Not imported. Not
@@ -1225,132 +1202,6 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* ── TESTIMONIALS ── */}
-      <section className="py-20 lg:py-28" style={{ background: "var(--bg-card)" }}>
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <FadeIn className="text-center max-w-xl mx-auto mb-16">
-            <p
-              style={{
-                color: "#0e7490",
-                fontSize: 12,
-                fontWeight: 700,
-                textTransform: "uppercase",
-                letterSpacing: "0.2em",
-                marginBottom: 14,
-              }}
-            >
-              Real feedback
-            </p>
-            <h2
-              style={{
-                fontFamily: "'Cormorant Garamond', serif",
-                fontSize: "clamp(34px, 4vw, 56px)",
-                color: "#0f1f3d",
-                lineHeight: 1.1,
-              }}
-            >
-              Parents and students
-              <br />
-              <em style={{ color: "#0e7490" }}>speak plainly.</em>
-            </h2>
-          </FadeIn>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {testimonials.map((t, i) => (
-              <FadeIn key={t.name} delay={i * 0.1}>
-                <div
-                  className="card-lift h-full flex flex-col"
-                  style={{
-                    background: "var(--bg-card)",
-                    border: "1px solid var(--border)",
-                    borderRadius: 20,
-                    padding: 24,
-                  }}
-                >
-                  <div style={{ display: "flex", gap: 4, marginBottom: 16 }}>
-                    {[...Array(5)].map((_, i) => (
-                      <Star
-                        key={i}
-                        className="w-4 h-4"
-                        style={{ fill: "#0e7490", color: "#0e7490" }}
-                      />
-                    ))}
-                  </div>
-                  <p
-                    style={{
-                      color: "var(--text)",
-                      fontSize: 15,
-                      lineHeight: 1.8,
-                      flex: 1,
-                      marginBottom: 20,
-                      fontStyle: "italic",
-                      fontFamily: "'Cormorant Garamond', serif",
-                    }}
-                  >
-                    "{t.quote}"
-                  </p>
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "space-between",
-                    }}
-                  >
-                    <div
-                      style={{ display: "flex", alignItems: "center", gap: 10 }}
-                    >
-                      <div
-                        style={{
-                          width: 36,
-                          height: 36,
-                          borderRadius: "50%",
-                          background:
-                            "linear-gradient(135deg, #0f1f3d, #1e3a6e)",
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          color: "white",
-                          fontWeight: 700,
-                          fontSize: 13,
-                        }}
-                      >
-                        {t.name[0]}
-                      </div>
-                      <div>
-                        <p
-                          style={{
-                            color: "#0f1f3d",
-                            fontWeight: 600,
-                            fontSize: 13,
-                          }}
-                        >
-                          {t.name}
-                        </p>
-                        <p style={{ color: "var(--text-muted)", fontSize: 11 }}>
-                          {t.role}
-                        </p>
-                      </div>
-                    </div>
-                    <span
-                      style={{
-                        background: "var(--bg)",
-                        color: "#0e7490",
-                        fontSize: 11,
-                        fontWeight: 600,
-                        padding: "4px 10px",
-                        borderRadius: 8,
-                        border: "1px solid #bae6fd",
-                      }}
-                    >
-                      {t.grade}
-                    </span>
-                  </div>
-                </div>
-              </FadeIn>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* ── FOR TEACHERS (phase 2) ── */}
       {/* <section id="teachers" className="py-20 lg:py-28" style={{ background: "var(--bg-card)" }}>
@@ -2054,7 +1905,7 @@ export default function LandingPage() {
           >
             <div className="col-span-2">
               <div style={{ marginBottom: 16 }}>
-                <div className="font-bold text-white text-xl px-3 py-2 rounded-xl bg-gradient-to-br from-slate-800 to-teal-700 inline-block">
+                <div className="font-bold text-white text-xl px-3 py-2 rounded-xl bg-slate-800 inline-block">
                   StadiSpace
                 </div>
               </div>

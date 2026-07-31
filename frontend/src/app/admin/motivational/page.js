@@ -68,21 +68,21 @@ const CATEGORIES = [
 
 const TYPE_STYLES = {
   quote: {
-    bg: "bg-gradient-to-br from-amber-50 to-orange-50",
+    bg: "bg-amber-50",
     border: "border-amber-200",
     badge: "bg-amber-100 text-amber-700",
     icon: "text-amber-500",
     ring: "ring-amber-200",
   },
   story: {
-    bg: "bg-gradient-to-br from-indigo-50 to-purple-50",
+    bg: "bg-indigo-50",
     border: "border-indigo-200",
     badge: "bg-indigo-100 text-indigo-700",
     icon: "text-indigo-500",
     ring: "ring-indigo-200",
   },
   tip: {
-    bg: "bg-gradient-to-br from-emerald-50 to-teal-50",
+    bg: "bg-emerald-50",
     border: "border-emerald-200",
     badge: "bg-emerald-100 text-emerald-700",
     icon: "text-emerald-500",
@@ -340,7 +340,7 @@ export default function MotivationalAdminPage() {
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             onClick={openCreate}
-            className="flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-emerald-500 to-teal-600 text-white rounded-xl font-semibold text-sm shadow-lg shadow-emerald-200 hover:shadow-emerald-300 transition-shadow"
+            className="flex items-center gap-2 px-5 py-2.5 bg-emerald-500 text-white rounded-xl font-semibold text-sm shadow-lg shadow-emerald-200 hover:shadow-emerald-300 transition-shadow"
           >
             <Plus className="w-4 h-4" />
             Add New
@@ -817,7 +817,7 @@ export default function MotivationalAdminPage() {
                 <button
                   onClick={handleSave}
                   disabled={saving || !form.text.trim()}
-                  className="flex-1 px-4 py-2.5 text-sm font-semibold text-white bg-gradient-to-r from-emerald-500 to-teal-600 rounded-xl hover:shadow-lg hover:shadow-emerald-200 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                  className="flex-1 px-4 py-2.5 text-sm font-semibold text-white bg-emerald-500 rounded-xl hover:shadow-lg hover:shadow-emerald-200 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                 >
                   {saving ? (
                     <motion.div

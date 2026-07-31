@@ -195,7 +195,7 @@ export default function LoginPage() {
           >
             {/* Mobile logo */}
             <div className="lg:hidden flex items-center gap-2.5 mb-8">
-              <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-cyan-700 to-teal-600 flex items-center justify-center">
+              <div className="w-9 h-9 rounded-xl bg-cyan-700 flex items-center justify-center">
                 <BookOpen className="w-4 h-4 text-white" />
               </div>
               <span className="font-display text-lg font-bold text-cyan-900">

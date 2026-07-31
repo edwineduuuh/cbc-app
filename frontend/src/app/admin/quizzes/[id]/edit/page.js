@@ -401,7 +401,7 @@ export default function EditQuizPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 via-indigo-50/30 to-purple-50/20">
+      <div className="min-h-screen flex items-center justify-center bg-slate-50">
         <div className="text-center">
           <div className="w-14 h-14 border-4 border-indigo-200 border-t-indigo-600 rounded-full animate-spin mx-auto mb-4" />
           <p className="text-gray-500 font-medium">Loading quiz…</p>
@@ -412,7 +412,7 @@ export default function EditQuizPage() {
 
   if (!quiz) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 via-indigo-50/30 to-purple-50/20">
+      <div className="min-h-screen flex items-center justify-center bg-slate-50">
         <div className="bg-white rounded-2xl shadow-lg p-10 text-center max-w-sm w-full">
           <div className="w-14 h-14 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
             <AlertCircle className="w-7 h-7 text-red-500" />
@@ -438,7 +438,7 @@ export default function EditQuizPage() {
   );
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-indigo-50/30 to-purple-50/20">
+    <div className="min-h-screen bg-slate-50">
       <AppToast
         show={toast.visible}
         message={toast.message}
@@ -684,7 +684,7 @@ export default function EditQuizPage() {
       )}
 
       {/* ── Gradient Header ── */}
-      <div className="bg-gradient-to-r from-indigo-700 to-purple-700 text-white">
+      <div className="bg-indigo-700 text-white">
         <div className="max-w-7xl mx-auto px-6 py-8">
           <button
             onClick={() => router.replace("/admin/quizzes")}

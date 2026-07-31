@@ -188,7 +188,7 @@ export default function PremiumExplore() {
           </div>
 
           {/* Premium Badge */}
-          <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-gradient-to-r from-yellow-400 to-orange-400 text-white">
+          <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-yellow-400 text-white">
             <Crown className="w-4 h-4" />
             <span className="text-xs font-bold">Unlimited</span>
           </div>
@@ -310,7 +310,7 @@ export default function PremiumExplore() {
                       onClick={() => handleSubjectClick(subject)}
                       className="group relative overflow-hidden rounded-2xl p-6 bg-white border border-gray-200 hover:border-green-300 hover:shadow-xl transition-all duration-300 text-left"
                     >
-                      <div className="absolute inset-0 bg-gradient-to-br from-green-500 to-emerald-500 opacity-0 group-hover:opacity-10 transition-opacity" />
+                      <div className="absolute inset-0 bg-green-500 opacity-0 group-hover:opacity-10 transition-opacity" />
                       <div className="relative">
                         <div className="flex items-center gap-3 mb-3">
                           <div className="w-12 h-12 rounded-xl bg-green-100 flex items-center justify-center text-2xl">
@@ -388,7 +388,7 @@ export default function PremiumExplore() {
                         </div>
                         <button
                           onClick={() => startQuiz(quiz.id)}
-                          className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-semibold text-sm transition-all shadow-lg shadow-green-500/30"
+                          className="px-6 py-2.5 rounded-xl bg-green-600 hover:from-green-700 hover:to-emerald-700 text-white font-semibold text-sm transition-all shadow-lg shadow-green-500/30"
                         >
                           Start Quiz
                         </button>

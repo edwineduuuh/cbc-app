@@ -449,7 +449,7 @@ function UsersTab({ stats, list, listLoading, filter, onFilterChange }) {
                         initial={{ width: 0 }}
                         animate={{ width: `${pct}%` }}
                         transition={{ duration: 0.6, delay: i * 0.05 }}
-                        className="h-full bg-gradient-to-r from-emerald-400 to-teal-500 rounded-lg"
+                        className="h-full bg-emerald-400 rounded-lg"
                       />
                       <span className="absolute inset-0 flex items-center px-2 text-xs font-semibold text-gray-700">{item.count}</span>
                     </div>
@@ -563,7 +563,7 @@ function UsersTab({ stats, list, listLoading, filter, onFilterChange }) {
             {stats.recent_signups.map((u) => (
               <div key={u.id} className="flex items-center justify-between py-2 border-b border-gray-50 last:border-0">
                 <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-teal-400 to-emerald-500 flex items-center justify-center text-white text-xs font-bold">
+                  <div className="w-8 h-8 rounded-lg bg-teal-400 flex items-center justify-center text-white text-xs font-bold">
                     {u.username?.charAt(0).toUpperCase()}
                   </div>
                   <div>
@@ -660,7 +660,7 @@ function StudentDetailModal({ user, onClose }) {
         {/* Header */}
         <div className="sticky top-0 bg-white border-b px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-indigo-500 to-blue-600 flex items-center justify-center text-white font-bold">
+            <div className="w-11 h-11 rounded-xl bg-indigo-500 flex items-center justify-center text-white font-bold">
               {user.username?.charAt(0).toUpperCase()}
             </div>
             <div>
@@ -879,7 +879,7 @@ function RevenueTab({ stats }) {
                       initial={{ height: 0 }}
                       animate={{ height: `${heightPct}%` }}
                       transition={{ duration: 0.6, delay: i * 0.1 }}
-                      className="w-full bg-gradient-to-t from-emerald-500 to-teal-400 rounded-t-lg absolute bottom-0"
+                      className="w-full bg-emerald-500 rounded-t-lg absolute bottom-0"
                     />
                   </div>
                   <span className="text-xs text-gray-500">{m.label}</span>
@@ -1003,7 +1003,7 @@ function QuizPerfTab({ data }) {
                       </div>
                     </div>
                     <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
-                      <motion.div initial={{ width: 0 }} animate={{ width: `${barPct}%` }} transition={{ duration: 0.6, delay: i * 0.08 }} className="h-full bg-gradient-to-r from-orange-400 to-amber-500 rounded-full" />
+                      <motion.div initial={{ width: 0 }} animate={{ width: `${barPct}%` }} transition={{ duration: 0.6, delay: i * 0.08 }} className="h-full bg-orange-400 rounded-full" />
                     </div>
                   </div>
                 </div>
@@ -1107,7 +1107,7 @@ function EngagementTab({ data }) {
                       initial={{ height: 0 }}
                       animate={{ height: `${heightPct}%` }}
                       transition={{ duration: 0.5, delay: i * 0.04 }}
-                      className="w-full bg-gradient-to-t from-blue-500 to-blue-400 rounded-t absolute bottom-0"
+                      className="w-full bg-blue-500 rounded-t absolute bottom-0"
                       title={`${formatDate(d.date)}: ${d.count}`}
                     />
                   </div>
@@ -1134,7 +1134,7 @@ function EngagementTab({ data }) {
                       initial={{ height: 0 }}
                       animate={{ height: `${heightPct}%` }}
                       transition={{ duration: 0.5, delay: i * 0.04 }}
-                      className="w-full bg-gradient-to-t from-emerald-500 to-teal-400 rounded-t absolute bottom-0"
+                      className="w-full bg-emerald-500 rounded-t absolute bottom-0"
                       title={`${formatDate(d.date)}: ${d.count}`}
                     />
                   </div>
@@ -1322,7 +1322,7 @@ function InsightsTab({ subjects, suggestions, suggestionsLoading, selectedSubjec
   const grades = [4, 5, 6, 7, 8, 9, 10, 11, 12];
   return (
     <div className="space-y-6">
-      <div className="bg-linear-to-r from-purple-50 to-blue-50 rounded-xl border border-purple-100 p-6">
+      <div className="bg-purple-50 rounded-xl border border-purple-100 p-6">
         <div className="flex items-start gap-4">
           <div className="w-12 h-12 rounded-xl bg-purple-100 flex items-center justify-center shrink-0">
             <Zap className="w-6 h-6 text-purple-600" />

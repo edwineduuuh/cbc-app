@@ -102,7 +102,7 @@ export default function SettingsPage() {
             {/* Avatar */}
             <div className="bg-white dark:bg-slate-800 rounded-2xl p-4 border border-gray-100 dark:border-slate-700 shadow-sm mb-4 text-center">
               <div className="relative inline-block mb-3">
-                <div className="w-16 h-16 rounded-2xl bg-linear-to-br from-teal-500 to-emerald-600 flex items-center justify-center text-white font-bold text-2xl mx-auto">
+                <div className="w-16 h-16 rounded-2xl bg-teal-500 flex items-center justify-center text-white font-bold text-2xl mx-auto">
                   {user.username?.charAt(0).toUpperCase()}
                 </div>
               </div>
@@ -563,13 +563,11 @@ function NotificationsSection({ showToast }) {
 
 // ─── Security Section ─────────────────────────────────────────
 function SecuritySection({ user }) {
-  const sessions = [
-    {
-      device: "Chrome on Windows",
-      location: "Nairobi, Kenya",
-      current: true,
-      time: "Now",
-    },
+  const rows = [
+    { label: "Account type", value: (user.role || "student") },
+    { label: "Email", value: user.email || "-" },
+    { label: "Email verified", value: user.email_verified ? "Yes" : "No" },
+    { label: "Grade", value: user.grade ? `Grade ${user.grade}` : "-" },
   ];
 
   return (
@@ -579,16 +577,11 @@ function SecuritySection({ user }) {
           Account Security
         </h2>
         <p className="text-gray-500 dark:text-gray-400 text-sm mb-6">
-          Monitor your account activity
+          Your account details
         </p>
 
         <div className="space-y-3">
-          {[
-            { label: "Account Created", value: "Active" },
-            { label: "Last Login", value: "Today" },
-            { label: "Account Type", value: user.role || "Student" },
-            { label: "2FA", value: "Not enabled" },
-          ].map(({ label, value }) => (
+          {rows.map(({ label, value }) => (
             <div
               key={label}
               className="flex justify-between items-center py-2 border-b border-gray-50 dark:border-slate-700/50 last:border-0"
@@ -596,40 +589,20 @@ function SecuritySection({ user }) {
               <span className="text-sm text-gray-500 dark:text-gray-400">
                 {label}
               </span>
-              <span className="text-sm font-semibold text-gray-900 dark:text-white">
+              <span className="text-sm font-semibold text-gray-900 dark:text-white capitalize">
                 {value}
               </span>
             </div>
           ))}
         </div>
-      </div>
 
-      <div className="bg-white dark:bg-slate-800 rounded-2xl border border-gray-100 dark:border-slate-700 shadow-sm p-6">
-        <h3 className="font-bold text-gray-900 dark:text-white text-sm mb-4">
-          Active Sessions
-        </h3>
-        {sessions.map((s, i) => (
-          <div key={i} className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-lg bg-emerald-100 dark:bg-emerald-500/15 flex items-center justify-center">
-                <Shield className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
-              </div>
-              <div>
-                <p className="text-sm font-semibold text-gray-900 dark:text-white">
-                  {s.device}
-                </p>
-                <p className="text-xs text-gray-400 dark:text-gray-500">
-                  {s.location} · {s.time}
-                </p>
-              </div>
-            </div>
-            {s.current && (
-              <span className="text-xs font-bold px-2 py-1 bg-emerald-100 dark:bg-emerald-500/15 text-emerald-700 dark:text-emerald-400 rounded-full">
-                Current
-              </span>
-            )}
-          </div>
-        ))}
+        <div className="mt-5 flex items-start gap-3 bg-gray-50 dark:bg-slate-700/40 rounded-xl p-4">
+          <Shield className="w-4 h-4 text-gray-400 mt-0.5 shrink-0" />
+          <p className="text-xs text-gray-500 dark:text-gray-400">
+            Keep your password private and change it if you think someone else
+            knows it. You can update it under the Password tab.
+          </p>
+        </div>
       </div>
     </div>
   );

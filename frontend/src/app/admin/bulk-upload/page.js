@@ -211,7 +211,7 @@ export default function BulkUploadPage() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
 
           {/* How it works */}
-          <div className="bg-linear-to-r from-emerald-50 to-blue-50 rounded-xl border border-emerald-100 p-5">
+          <div className="bg-emerald-50 rounded-xl border border-emerald-100 p-5">
             <div className="flex items-start gap-4">
               <div className="w-10 h-10 rounded-xl bg-emerald-100 flex items-center justify-center shrink-0">
                 <Zap className="w-5 h-5 text-emerald-600" />

@@ -473,7 +473,7 @@ export default function DashboardPage() {
       )}
 
       {/* Header with Quote */}
-      <div className="bg-gradient-to-r from-slate-800 via-slate-700 to-teal-700">
+      <div className="bg-slate-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="flex items-start justify-between gap-6">
             <div className="flex-1">
@@ -527,7 +527,7 @@ export default function DashboardPage() {
             animate={{ opacity: 1, y: 0 }}
             className="bg-white rounded-2xl border border-gray-200 shadow-sm p-8 text-center mb-8"
           >
-            <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-slate-700 to-teal-600 flex items-center justify-center mx-auto mb-4">
+            <div className="w-16 h-16 rounded-2xl bg-slate-700 flex items-center justify-center mx-auto mb-4">
               <BookOpen className="w-8 h-8 text-white" />
             </div>
             <h3 className="font-display text-2xl font-bold text-gray-900 mb-2">
@@ -538,7 +538,7 @@ export default function DashboardPage() {
               detailed analytics.
             </p>
             <Link href="/explore">
-              <button className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-slate-700 to-teal-600 hover:from-slate-800 hover:to-teal-700 text-white font-semibold transition-all shadow-lg">
+              <button className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-slate-700 hover:from-slate-800 hover:to-teal-700 text-white font-semibold transition-all shadow-lg">
                 <BookOpen className="w-5 h-5" />
                 Browse Quizzes
                 <ChevronRight className="w-4 h-4" />
@@ -553,7 +553,7 @@ export default function DashboardPage() {
           <Link href="/explore">
             <motion.div
               whileHover={{ scale: 1.02 }}
-              className="bg-gradient-to-br from-slate-700 to-teal-600 rounded-2xl p-6 text-white cursor-pointer shadow-lg hover:shadow-xl transition-all relative overflow-hidden group"
+              className="bg-slate-700 rounded-2xl p-6 text-white cursor-pointer shadow-lg hover:shadow-xl transition-all relative overflow-hidden group"
             >
               <div className="absolute inset-0 bg-white/0 group-hover:bg-white/5 transition-all" />
               <div className="relative">
@@ -576,7 +576,7 @@ export default function DashboardPage() {
           <Link href="/progress">
             <motion.div
               whileHover={{ scale: 1.02 }}
-              className="bg-gradient-to-br from-blue-600 to-indigo-600 rounded-2xl p-6 text-white cursor-pointer shadow-lg hover:shadow-xl transition-all relative overflow-hidden group"
+              className="bg-blue-600 rounded-2xl p-6 text-white cursor-pointer shadow-lg hover:shadow-xl transition-all relative overflow-hidden group"
             >
               <div className="absolute inset-0 bg-white/0 group-hover:bg-white/5 transition-all" />
               <div className="relative">
@@ -599,7 +599,7 @@ export default function DashboardPage() {
           <Link href="/life-skills">
             <motion.div
               whileHover={{ scale: 1.02 }}
-              className="bg-linear-to-br from-rose-500 to-pink-600 rounded-2xl p-6 text-white cursor-pointer shadow-lg hover:shadow-xl transition-all relative overflow-hidden group"
+              className="bg-rose-500 rounded-2xl p-6 text-white cursor-pointer shadow-lg hover:shadow-xl transition-all relative overflow-hidden group"
             >
               <div className="absolute inset-0 bg-white/0 group-hover:bg-white/5 transition-all" />
               <div className="relative">
@@ -621,7 +621,7 @@ export default function DashboardPage() {
           <Link href="/live">
             <motion.div
               whileHover={{ scale: 1.02 }}
-              className="bg-linear-to-br from-indigo-600 to-emerald-600 rounded-2xl p-6 text-white cursor-pointer shadow-lg hover:shadow-xl transition-all relative overflow-hidden group"
+              className="bg-indigo-600 rounded-2xl p-6 text-white cursor-pointer shadow-lg hover:shadow-xl transition-all relative overflow-hidden group"
             >
               <div className="absolute inset-0 bg-white/0 group-hover:bg-white/5 transition-all" />
               <div className="relative">
@@ -644,7 +644,7 @@ export default function DashboardPage() {
             <Link href="/subscribe">
               <motion.div
                 whileHover={{ scale: 1.02 }}
-                className="bg-linear-to-br from-amber-500 to-orange-600 rounded-2xl p-6 text-white cursor-pointer shadow-lg hover:shadow-xl transition-all relative overflow-hidden group"
+                className="bg-amber-500 rounded-2xl p-6 text-white cursor-pointer shadow-lg hover:shadow-xl transition-all relative overflow-hidden group"
               >
                 <div className="absolute inset-0 bg-white/0 group-hover:bg-white/5 transition-all" />
                 <div className="relative">
@@ -731,10 +731,10 @@ function StreakCard({ current, longest }) {
     <motion.div
       initial={{ opacity: 0, scale: 0.95 }}
       animate={{ opacity: 1, scale: 1 }}
-      className="bg-gradient-to-br from-orange-50 to-rose-50 rounded-2xl border border-orange-200 shadow-sm p-5 hover:shadow-md transition-all relative overflow-hidden"
+      className="bg-orange-50 rounded-2xl border border-orange-200 shadow-sm p-5 hover:shadow-md transition-all relative overflow-hidden"
     >
       <div className="flex items-start justify-between mb-2">
-        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-rose-500 to-orange-500 flex items-center justify-center">
+        <div className="w-10 h-10 rounded-xl bg-rose-500 flex items-center justify-center">
           <Flame className="w-5 h-5 text-white" />
         </div>
         {current > 0 && (

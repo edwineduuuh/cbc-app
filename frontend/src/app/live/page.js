@@ -218,7 +218,7 @@ export default function LiveLessonsPage() {
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
       <div className="mx-auto max-w-3xl px-4 py-8">
         {/* Hero + price */}
-        <div className="rounded-3xl bg-gradient-to-br from-indigo-600 via-blue-600 to-emerald-600 p-6 sm:p-8 text-white mb-6">
+        <div className="rounded-3xl bg-indigo-600 p-6 sm:p-8 text-white mb-6">
           <div className="flex items-center gap-2 mb-2">
             <Video className="h-6 w-6" />
             <span className="text-sm font-semibold uppercase tracking-wide opacity-90">Live Zoom Classes</span>

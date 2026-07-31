@@ -407,7 +407,7 @@ export default function CreateQuizPage() {
   const step1Valid = title.trim() && subject && grade;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-indigo-50/30 to-purple-50/20">
+    <div className="min-h-screen bg-slate-50">
       <Toast
         {...toast}
         onClose={() => setToast((t) => ({ ...t, show: false }))}
@@ -651,7 +651,7 @@ export default function CreateQuizPage() {
       )}
 
       {/* Header */}
-      <div className="bg-gradient-to-r from-indigo-700 to-purple-700 text-white">
+      <div className="bg-indigo-700 text-white">
         <div className="max-w-6xl mx-auto px-6 py-8">
           <Link
             href="/admin/quizzes"
@@ -1251,7 +1251,7 @@ export default function CreateQuizPage() {
                   <button
                     onClick={createQuiz}
                     disabled={selectedIds.length === 0 || creating}
-                    className={`w-full py-3.5 rounded-xl font-bold text-white shadow transition-all flex items-center justify-center gap-2 ${selectedIds.length === 0 ? "bg-gray-200 text-gray-400 cursor-not-allowed" : "bg-gradient-to-r from-green-600 to-emerald-500 hover:from-green-700 hover:to-emerald-600 hover:shadow-lg"}`}
+                    className={`w-full py-3.5 rounded-xl font-bold text-white shadow transition-all flex items-center justify-center gap-2 ${selectedIds.length === 0 ? "bg-gray-200 text-gray-400 cursor-not-allowed" : "bg-green-600 hover:from-green-700 hover:to-emerald-600 hover:shadow-lg"}`}
                   >
                     {creating ? (
                       <Loader2 className="w-4 h-4 animate-spin" />

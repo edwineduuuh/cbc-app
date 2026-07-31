@@ -104,9 +104,9 @@ export default function MyClassroomsPage() {
         onClose={() => setToast({ ...toast, show: false })}
       />
 
-      <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50/30">
+      <div className="min-h-screen bg-gray-50">
         {/* Header */}
-        <div className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white">
+        <div className="bg-blue-600 text-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -152,7 +152,7 @@ export default function MyClassroomsPage() {
                 Ask your teacher for a join code to get started
               </p>
               <Link href="/student/join-classroom">
-                <Button className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700">
+                <Button className="bg-blue-600 hover:from-blue-700 hover:to-indigo-700">
                   <Plus className="w-4 h-4 mr-2" />
                   Join a Classroom
                 </Button>
@@ -186,7 +186,7 @@ export default function MyClassroomsPage() {
                     <div className="p-6">
                       {/* Subject Icon & Name */}
                       <div className="flex items-center gap-3 mb-4">
-                        <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-500 rounded-xl flex items-center justify-center text-2xl">
+                        <div className="w-12 h-12 bg-blue-500 rounded-xl flex items-center justify-center text-2xl">
                           {classroom.subject_icon || "📚"}
                         </div>
                         <div>

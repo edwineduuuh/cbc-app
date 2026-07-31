@@ -62,8 +62,8 @@ export default function StudentQuizzesPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50">
-      <div className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white">
+    <div className="min-h-screen bg-gray-50">
+      <div className="bg-blue-600 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <h1 className="text-4xl font-bold">My Quizzes</h1>
           <p className="text-blue-100 text-lg mt-2">

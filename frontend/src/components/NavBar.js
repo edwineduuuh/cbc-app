@@ -85,7 +85,7 @@ export default function Navbar() {
             href={isTeacher ? "/teacher" : "/dashboard"}
             className="flex items-center gap-2"
           >
-            <div className="font-bold text-white text-xl px-3 py-2 rounded-xl bg-gradient-to-br from-slate-800 to-teal-700">
+            <div className="font-bold text-white text-xl px-3 py-2 rounded-xl bg-slate-800">
               StadiSpace
             </div>
           </Link>
@@ -112,7 +112,7 @@ export default function Navbar() {
             })}
             {!user.has_subscription && (
               <Link href="/subscribe">
-                <button className="flex items-center gap-2 px-4 py-2 ml-1 rounded-lg text-sm font-bold bg-linear-to-r from-amber-500 to-orange-500 text-white hover:from-amber-600 hover:to-orange-600 transition-all shadow-sm hover:shadow-md">
+                <button className="flex items-center gap-2 px-4 py-2 ml-1 rounded-lg text-sm font-bold bg-amber-500 text-white hover:from-amber-600 hover:to-orange-600 transition-all shadow-sm hover:shadow-md">
                   <Sparkles className="w-4 h-4" />
                   Upgrade
                 </button>
@@ -126,7 +126,7 @@ export default function Navbar() {
               onClick={() => setShowDropdown(!showDropdown)}
               className="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-gray-50 transition-colors"
             >
-              <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-teal-500 to-emerald-600 flex items-center justify-center text-white font-bold text-sm">
+              <div className="w-9 h-9 rounded-xl bg-teal-500 flex items-center justify-center text-white font-bold text-sm">
                 {user.username?.charAt(0).toUpperCase()}
               </div>
               <div className="hidden sm:block text-left">
@@ -158,7 +158,7 @@ export default function Navbar() {
                   {/* Premium Badge (if subscribed) */}
                   {user.has_subscription && (
                     <div className="px-4 py-2 mb-2">
-                      <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-gradient-to-r from-yellow-400 to-orange-400 text-white">
+                      <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-yellow-400 text-white">
                         <Crown className="w-4 h-4" />
                         <span className="text-xs font-bold">
                           Premium Member
@@ -275,7 +275,7 @@ export default function Navbar() {
               })}
               {!user.has_subscription && (
                 <Link href="/subscribe" onClick={() => setShowMore(false)}>
-                  <div className="flex flex-col items-center gap-1.5 rounded-2xl bg-linear-to-br from-amber-500 to-orange-500 py-4 text-xs font-bold text-white">
+                  <div className="flex flex-col items-center gap-1.5 rounded-2xl bg-amber-500 py-4 text-xs font-bold text-white">
                     <Sparkles className="w-6 h-6" />
                     Upgrade
                   </div>

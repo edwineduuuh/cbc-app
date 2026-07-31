@@ -146,7 +146,7 @@ function RegisterPage() {
               <span className="text-amber-400">the top.</span>
             </h2>
             <p className="text-cyan-100 text-base leading-relaxed mb-10 max-w-xs">
-              Join thousands of Kenyan students already mastering the CBE curriculum.
+              Master the CBE curriculum with instant, detailed feedback on every quiz.
             </p>
             <div className="space-y-3">
               {perks.map((p) => (
@@ -181,7 +181,7 @@ function RegisterPage() {
             >
               {/* Mobile logo */}
               <div className="lg:hidden flex items-center gap-2.5 mb-8">
-                <div className="w-9 h-9 rounded-xl bg-linear-to-br from-teal-700 to-cyan-600 flex items-center justify-center">
+                <div className="w-9 h-9 rounded-xl bg-teal-700 flex items-center justify-center">
                   <BookOpen className="w-4 h-4 text-white" />
                 </div>
                 <span className="font-display text-lg font-bold text-teal-900">StadiSpace</span>

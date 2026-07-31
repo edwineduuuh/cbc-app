@@ -998,7 +998,7 @@ function GroupedStatsPanel({ onFilter }) {
                           initial={{ width: 0 }}
                           animate={{ width: `${pct}%` }}
                           transition={{ duration: 0.7, ease: "easeOut" }}
-                          className="h-full bg-gradient-to-r from-emerald-400 to-teal-500 group-hover:from-emerald-500 group-hover:to-teal-600 rounded-full transition-colors"
+                          className="h-full bg-emerald-400 group-hover:from-emerald-500 group-hover:to-teal-600 rounded-full transition-colors"
                         />
                       </div>
                       <span className="text-xs font-bold text-gray-700 w-8 text-right flex-shrink-0">
@@ -1187,7 +1187,7 @@ export default function AdminPage() {
         }}
       />
       {/* ── Header ── */}
-      <header className="bg-gradient-to-r from-emerald-800 to-teal-700 sticky top-0 z-10 shadow-lg">
+      <header className="bg-emerald-800 sticky top-0 z-10 shadow-lg">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="w-9 h-9 rounded-xl bg-white/20 flex items-center justify-center">

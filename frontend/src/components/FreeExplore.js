@@ -163,7 +163,7 @@ export default function ExplorePage() {
   const featuredQuiz = quizzes[0]; // Could be based on analytics
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
+    <div className="min-h-screen bg-gray-50">
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap');
         body { font-family: 'DM Sans', sans-serif; }
@@ -174,7 +174,7 @@ export default function ExplorePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <Link href="/" className="flex items-center gap-2.5">
-              <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-cyan-700 to-cyan-600 flex items-center justify-center shadow-sm">
+              <div className="w-9 h-9 rounded-xl bg-cyan-700 flex items-center justify-center shadow-sm">
                 <BookOpen className="w-4 h-4 text-white" />
               </div>
               <div className="leading-none">
@@ -194,7 +194,7 @@ export default function ExplorePage() {
                   </p>
                 </div>
               ) : guestSession ? (
-                <div className="px-4 py-2 rounded-xl bg-gradient-to-r from-amber-50 to-orange-50 border-2 border-amber-300">
+                <div className="px-4 py-2 rounded-xl bg-amber-50 border-2 border-amber-300">
                   <p className="text-sm font-bold text-amber-900">
                     🆓 {guestQuota.remaining} FREE QUIZ
                     {guestQuota.remaining === 1 ? "" : "ZES"} LEFT!
@@ -218,7 +218,7 @@ export default function ExplorePage() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="mb-12 bg-gradient-to-br from-cyan-600 via-cyan-700 to-blue-800 rounded-3xl p-8 md:p-12 text-white relative overflow-hidden"
+            className="mb-12 bg-cyan-600 rounded-3xl p-8 md:p-12 text-white relative overflow-hidden"
           >
             <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl" />
             <div className="relative z-10">
@@ -303,7 +303,7 @@ export default function ExplorePage() {
                   </div>
                 </div>
                 <div className="flex-shrink-0">
-                  <button className="px-6 py-3 rounded-xl bg-gradient-to-r from-orange-500 to-red-500 text-white font-bold flex items-center gap-2 hover:from-orange-600 hover:to-red-600 transition-all shadow-lg">
+                  <button className="px-6 py-3 rounded-xl bg-orange-500 text-white font-bold flex items-center gap-2 hover:from-orange-600 hover:to-red-600 transition-all shadow-lg">
                     Start Free Quiz
                     <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                   </button>
@@ -351,7 +351,7 @@ export default function ExplorePage() {
                       className="w-full px-6 py-5 flex items-center justify-between hover:bg-gray-50 transition-colors"
                     >
                       <div className="flex items-center gap-4">
-                        <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-cyan-600 to-blue-600 flex items-center justify-center">
+                        <div className="w-12 h-12 rounded-xl bg-cyan-600 flex items-center justify-center">
                           <span className="text-white font-bold text-lg">
                             {grade.match(/\d+/)?.[0] || "?"}
                           </span>
@@ -459,7 +459,7 @@ export default function ExplorePage() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5 }}
-            className="mt-12 bg-gradient-to-r from-cyan-50 to-blue-50 rounded-2xl p-8 text-center border-2 border-cyan-200"
+            className="mt-12 bg-cyan-50 rounded-2xl p-8 text-center border-2 border-cyan-200"
           >
             <Star className="w-12 h-12 text-amber-500 mx-auto mb-4" />
             <h3 className="text-2xl font-bold text-gray-900 mb-2">
@@ -470,7 +470,7 @@ export default function ExplorePage() {
               attempts
             </p>
             <Link href="/register">
-              <button className="px-8 py-3 rounded-xl bg-gradient-to-r from-cyan-600 to-blue-600 text-white font-bold hover:from-cyan-700 hover:to-blue-700 transition-all shadow-lg">
+              <button className="px-8 py-3 rounded-xl bg-cyan-600 text-white font-bold hover:from-cyan-700 hover:to-blue-700 transition-all shadow-lg">
                 Sign Up Free
               </button>
             </Link>
@@ -503,7 +503,7 @@ export default function ExplorePage() {
               </button>
 
               <div className="text-center mb-6">
-                <div className="w-16 h-16 rounded-full bg-gradient-to-br from-cyan-600 to-blue-600 flex items-center justify-center mx-auto mb-4">
+                <div className="w-16 h-16 rounded-full bg-cyan-600 flex items-center justify-center mx-auto mb-4">
                   <Sparkles className="w-8 h-8 text-white" />
                 </div>
                 <h2 className="text-2xl font-bold text-gray-900 mb-2">
@@ -533,7 +533,7 @@ export default function ExplorePage() {
               </div>
 
               <Link href="/register">
-                <button className="w-full py-3.5 rounded-xl bg-gradient-to-r from-cyan-600 to-blue-600 text-white font-bold hover:from-cyan-700 hover:to-blue-700 shadow-lg mb-3">
+                <button className="w-full py-3.5 rounded-xl bg-cyan-600 text-white font-bold hover:from-cyan-700 hover:to-blue-700 shadow-lg mb-3">
                   Sign Up for 4 More Free Quizzes
                 </button>
               </Link>
@@ -573,7 +573,7 @@ export default function ExplorePage() {
               </button>
 
               <div className="text-center mb-6">
-                <div className="w-16 h-16 rounded-full bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center mx-auto mb-4">
+                <div className="w-16 h-16 rounded-full bg-amber-500 flex items-center justify-center mx-auto mb-4">
                   <Trophy className="w-8 h-8 text-white" />
                 </div>
                 <h2 className="text-2xl font-bold text-gray-900 mb-2">
@@ -612,7 +612,7 @@ export default function ExplorePage() {
               </div>
 
               <Link href="/student/payments">
-                <button className="w-full py-3.5 rounded-xl bg-gradient-to-r from-amber-500 to-orange-600 text-white font-bold hover:from-amber-600 hover:to-orange-700 shadow-lg mb-3">
+                <button className="w-full py-3.5 rounded-xl bg-amber-500 text-white font-bold hover:from-amber-600 hover:to-orange-700 shadow-lg mb-3">
                   Subscribe Now
                 </button>
               </Link>

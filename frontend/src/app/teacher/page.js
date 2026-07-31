@@ -268,7 +268,7 @@ function CreateClassroomModal({ onClose, onCreated }) {
             <button
               onClick={handleGenQuestions}
               disabled={generating}
-              className="w-full py-3 rounded-xl font-bold text-sm text-white bg-linear-to-r from-teal-600 to-emerald-600 hover:opacity-90 disabled:opacity-50 flex items-center justify-center gap-2"
+              className="w-full py-3 rounded-xl font-bold text-sm text-white bg-teal-600 hover:opacity-90 disabled:opacity-50 flex items-center justify-center gap-2"
             >
               {generating ? (
                 <>
@@ -332,7 +332,7 @@ function CreateClassroomModal({ onClose, onCreated }) {
             <button
               onClick={handleCreate}
               disabled={loading || generatedQuestions.length === 0}
-              className="w-full py-3 rounded-xl font-bold text-sm text-white bg-linear-to-r from-teal-600 to-emerald-600 hover:opacity-90 disabled:opacity-50 flex items-center justify-center gap-2"
+              className="w-full py-3 rounded-xl font-bold text-sm text-white bg-teal-600 hover:opacity-90 disabled:opacity-50 flex items-center justify-center gap-2"
             >
               {loading ? (
                 <>
@@ -449,7 +449,7 @@ function AssignQuizModal({ classroom, onClose, onAssigned }) {
           <button
             onClick={handleAssign}
             disabled={!selected || assigning}
-            className="w-full py-3 rounded-xl font-bold text-sm text-white bg-linear-to-r from-teal-600 to-emerald-600 hover:opacity-90 disabled:opacity-50 transition-all"
+            className="w-full py-3 rounded-xl font-bold text-sm text-white bg-teal-600 hover:opacity-90 disabled:opacity-50 transition-all"
           >
             {assigning ? "Assigning..." : "Assign Quiz"}
           </button>
@@ -664,7 +664,7 @@ function LiveQuizControl({ classroom, onBack, onRefreshList }) {
               <button
                 onClick={handleStart}
                 disabled={!!actionLoading || leaderboard.length === 0}
-                className="px-8 py-3 rounded-xl font-bold text-sm text-white bg-linear-to-r from-green-600 to-emerald-600 hover:opacity-90 disabled:opacity-50 inline-flex items-center gap-2"
+                className="px-8 py-3 rounded-xl font-bold text-sm text-white bg-green-600 hover:opacity-90 disabled:opacity-50 inline-flex items-center gap-2"
               >
                 {actionLoading === "start" ? (
                   <Loader2 className="w-4 h-4 animate-spin" />
@@ -722,7 +722,7 @@ function LiveQuizControl({ classroom, onBack, onRefreshList }) {
                   <button
                     onClick={handleNext}
                     disabled={!!actionLoading}
-                    className="px-6 py-3 rounded-xl font-bold text-sm text-white bg-linear-to-r from-blue-600 to-indigo-600 hover:opacity-90 disabled:opacity-50 inline-flex items-center gap-2"
+                    className="px-6 py-3 rounded-xl font-bold text-sm text-white bg-blue-600 hover:opacity-90 disabled:opacity-50 inline-flex items-center gap-2"
                   >
                     {actionLoading === "next" ? (
                       <Loader2 className="w-4 h-4 animate-spin" />
@@ -735,7 +735,7 @@ function LiveQuizControl({ classroom, onBack, onRefreshList }) {
                   <button
                     onClick={handleEnd}
                     disabled={!!actionLoading}
-                    className="px-6 py-3 rounded-xl font-bold text-sm text-white bg-linear-to-r from-red-600 to-pink-600 hover:opacity-90 disabled:opacity-50 inline-flex items-center gap-2"
+                    className="px-6 py-3 rounded-xl font-bold text-sm text-white bg-red-600 hover:opacity-90 disabled:opacity-50 inline-flex items-center gap-2"
                   >
                     {actionLoading === "end" ? (
                       <Loader2 className="w-4 h-4 animate-spin" />
@@ -951,7 +951,7 @@ function ClassesView() {
         <h2 className="text-lg font-bold text-gray-900">My Live Quizzes</h2>
         <button
           onClick={() => setShowCreate(true)}
-          className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-bold text-white bg-linear-to-r from-teal-600 to-emerald-600 hover:opacity-90"
+          className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-bold text-white bg-teal-600 hover:opacity-90"
         >
           <Plus className="w-4 h-4" /> New Quiz
         </button>
@@ -968,7 +968,7 @@ function ClassesView() {
           </p>
           <button
             onClick={() => setShowCreate(true)}
-            className="px-5 py-2.5 rounded-xl text-sm font-bold text-white bg-linear-to-r from-teal-600 to-emerald-600"
+            className="px-5 py-2.5 rounded-xl text-sm font-bold text-white bg-teal-600"
           >
             Create Live Quiz
           </button>
@@ -1688,7 +1688,7 @@ function LessonPlansView() {
         <h2 className="text-lg font-bold text-gray-900">Lesson Plans</h2>
         <button
           onClick={() => setShowForm(!showForm)}
-          className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-bold text-white bg-linear-to-r from-teal-600 to-emerald-600 hover:opacity-90"
+          className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-bold text-white bg-teal-600 hover:opacity-90"
         >
           <Plus className="w-4 h-4" /> Generate Lesson
         </button>
@@ -1865,7 +1865,7 @@ function LessonPlansView() {
               <button
                 type="submit"
                 disabled={generating}
-                className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold text-white bg-linear-to-r from-teal-600 to-emerald-600 hover:opacity-90 disabled:opacity-50"
+                className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold text-white bg-teal-600 hover:opacity-90 disabled:opacity-50"
               >
                 {generating ? (
                   <>
@@ -1901,7 +1901,7 @@ function LessonPlansView() {
           </p>
           <button
             onClick={() => setShowForm(true)}
-            className="px-5 py-2.5 rounded-xl text-sm font-bold text-white bg-linear-to-r from-teal-600 to-emerald-600"
+            className="px-5 py-2.5 rounded-xl text-sm font-bold text-white bg-teal-600"
           >
             Generate Your First Lesson
           </button>
@@ -2073,7 +2073,7 @@ function AnalyticsView() {
                 <div className="flex items-center gap-3">
                   <div className="w-32 h-2 bg-gray-100 rounded-full overflow-hidden">
                     <div
-                      className="h-full rounded-full bg-linear-to-r from-teal-500 to-emerald-500"
+                      className="h-full rounded-full bg-teal-500"
                       style={{
                         width: `${Math.min(s.average_score || 0, 100)}%`,
                       }}
@@ -2106,7 +2106,7 @@ function AnalyticsView() {
                   className="px-5 py-3 flex items-center justify-between"
                 >
                   <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-lg bg-linear-to-br from-teal-500 to-emerald-600 flex items-center justify-center text-white font-bold text-xs">
+                    <div className="w-8 h-8 rounded-lg bg-teal-500 flex items-center justify-center text-white font-bold text-xs">
                       {i + 1}
                     </div>
                     <div>

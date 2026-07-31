@@ -249,7 +249,7 @@ export default function SubscribePage() {
 
           <h1 className="text-4xl md:text-5xl font-black text-gray-900 mb-3 leading-tight tracking-tight">
             Unlock unlimited{" "}
-            <span className="bg-linear-to-r from-teal-600 to-cyan-600 bg-clip-text text-transparent">
+            <span className="bg-teal-600 bg-clip-text text-transparent">
               learning
             </span>
           </h1>
@@ -280,8 +280,8 @@ export default function SubscribePage() {
                 <div
                   className={`absolute -top-3.5 left-1/2 -translate-x-1/2 ${
                     plan.popular
-                      ? "bg-linear-to-r from-teal-600 to-cyan-600"
-                      : "bg-linear-to-r from-gray-800 to-gray-700"
+                      ? "bg-teal-600"
+                      : "bg-gray-800"
                   } text-white text-[10px] font-black tracking-widest px-4 py-1.5 rounded-full`}
                 >
                   {plan.badge}
@@ -368,7 +368,7 @@ export default function SubscribePage() {
                   onClick={() => handleSelectPlan(plan)}
                   className={`w-full py-3.5 rounded-xl font-bold text-sm transition-all duration-200 flex items-center justify-center gap-2 ${
                     plan.popular
-                      ? "bg-linear-to-r from-teal-600 to-cyan-600 text-white hover:from-teal-700 hover:to-cyan-700 shadow-lg shadow-teal-200 hover:shadow-xl hover:shadow-teal-200"
+                      ? "bg-teal-600 text-white hover:from-teal-700 hover:to-cyan-700 shadow-lg shadow-teal-200 hover:shadow-xl hover:shadow-teal-200"
                       : plan.slug === "termly"
                         ? "bg-gray-900 text-white hover:bg-gray-800"
                         : "bg-gray-100 text-gray-900 hover:bg-gray-200 border border-gray-200"
@@ -415,7 +415,7 @@ export default function SubscribePage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5 }}
-          className="bg-linear-to-br from-gray-50 to-gray-100 rounded-2xl p-7 border border-gray-200"
+          className="bg-gray-50 rounded-2xl p-7 border border-gray-200"
         >
           <h3 className="text-lg font-black text-gray-900 mb-1 text-center">
             Better value than traditional tutoring
@@ -599,7 +599,7 @@ function PaymentModal({ plan, onClose, onSuccess }) {
         className="bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden"
       >
         {/* Header */}
-        <div className="bg-linear-to-r from-teal-600 to-cyan-600 p-5 text-white">
+        <div className="bg-teal-600 p-5 text-white">
           <div className="flex items-center justify-between mb-2">
             <div className="flex gap-1.5">
               {[1, 2, 3].map((s) => (
@@ -671,7 +671,7 @@ function PaymentModal({ plan, onClose, onSuccess }) {
               <button
                 onClick={handleSTKPush}
                 disabled={loading}
-                className="w-full bg-linear-to-r from-teal-600 to-cyan-600 text-white font-bold py-3.5 rounded-xl hover:from-teal-700 hover:to-cyan-700 disabled:opacity-60 transition-all flex items-center justify-center gap-2 text-sm"
+                className="w-full bg-teal-600 text-white font-bold py-3.5 rounded-xl hover:from-teal-700 hover:to-cyan-700 disabled:opacity-60 transition-all flex items-center justify-center gap-2 text-sm"
               >
                 {loading ? (
                   <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
@@ -771,7 +771,7 @@ function PaymentModal({ plan, onClose, onSuccess }) {
               </div>
               <button
                 onClick={onSuccess}
-                className="w-full bg-linear-to-r from-teal-600 to-cyan-600 text-white font-bold py-3.5 rounded-xl transition-all text-sm"
+                className="w-full bg-teal-600 text-white font-bold py-3.5 rounded-xl transition-all text-sm"
               >
                 Start Learning ?
               </button>

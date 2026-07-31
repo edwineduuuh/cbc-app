@@ -253,7 +253,7 @@ export default function SettingsPage() {
             <div className="rounded-2xl p-4 sticky top-24 bg-white border border-gray-200 shadow-sm">
               {/* Avatar */}
               <div className="flex flex-col items-center text-center pb-5 mb-3 border-b border-gray-100">
-                <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center text-white text-2xl font-bold mb-3 shadow-lg">
+                <div className="w-16 h-16 rounded-2xl bg-emerald-500 flex items-center justify-center text-white text-2xl font-bold mb-3 shadow-lg">
                   {initials}
                 </div>
                 <p className="font-bold text-gray-900 text-sm">{displayName}</p>
@@ -322,7 +322,7 @@ export default function SettingsPage() {
                   >
                     <div className="rounded-2xl p-6 bg-white border border-gray-200 shadow-sm">
                       <div className="flex items-center gap-5 mb-6">
-                        <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center text-white text-3xl font-bold shadow-xl flex-shrink-0">
+                        <div className="w-20 h-20 rounded-2xl bg-emerald-500 flex items-center justify-center text-white text-3xl font-bold shadow-xl flex-shrink-0">
                           {initials}
                         </div>
                         <div>
@@ -391,18 +391,21 @@ export default function SettingsPage() {
                           icon={Calendar}
                           iconColor="#ec4899"
                           label="Member Since"
-                          value={new Date().toLocaleDateString("en-KE", {
-                            month: "long",
-                            year: "numeric",
-                          })}
+                          value={
+                            user?.date_joined
+                              ? new Date(user.date_joined).toLocaleDateString("en-KE", {
+                                  month: "long",
+                                  year: "numeric",
+                                })
+                              : "-"
+                          }
                         />
                       </div>
                     </div>
                     <div className="rounded-2xl p-4 flex items-start gap-3 bg-blue-50 border border-blue-200">
                       <AlertCircle className="w-4 h-4 text-blue-500 flex-shrink-0 mt-0.5" />
                       <p className="text-sm text-gray-600 leading-relaxed">
-                        To update your name, email or grade, contact our support
-                        team. Profile editing is coming soon.
+                        To update your name, email or grade, head to Settings.
                       </p>
                     </div>
                   </Section>

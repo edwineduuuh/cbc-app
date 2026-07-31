@@ -83,7 +83,7 @@
 
 //         {/* Premium Data Sections */}
 //         {premiumData.kenyan_example && (
-//           <div className="p-4 bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl border border-green-200">
+//           <div className="p-4 bg-green-50 rounded-xl border border-green-200">
 //             <div className="flex items-start gap-3">
 //               <MapPin className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
 //               <div>
@@ -194,7 +194,7 @@
 //           {onNext && (
 //             <button
 //               onClick={onNext}
-//               className="px-6 py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl font-semibold hover:from-blue-700 hover:to-indigo-700 flex items-center gap-2"
+//               className="px-6 py-2.5 bg-blue-600 text-white rounded-xl font-semibold hover:from-blue-700 hover:to-indigo-700 flex items-center gap-2"
 //             >
 //               Next Question
 //               <ArrowRight className="w-4 h-4" />

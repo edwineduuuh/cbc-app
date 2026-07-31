@@ -1,7 +1,7 @@
 export const metadata = {
   title: "Sign Up Free - Start Learning CBE Today",
   description:
-    "Create your free StadiSpace account. Get 2 free quizzes instantly - no credit card needed. Join thousands of Kenyan students already learning with CBE.",
+    "Create your free StadiSpace account. Get 2 free quizzes instantly - no credit card needed. Learn the CBE way with instant, detailed feedback.",
   alternates: { canonical: "https://stadispace.co.ke/register" },
   openGraph: {
     title: "Sign Up Free - StadiSpace",
