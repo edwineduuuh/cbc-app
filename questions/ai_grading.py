@@ -2169,13 +2169,15 @@ def _grade_math(question, student_answer: str, working_image: str | None = None)
         except ValueError:
             pass
 
-    # Worded correct answers (e.g. "60 minutes (1 hour)"): a SHORT numeric
-    # student answer whose value appears anywhere in the answer is correct.
-    # Stops a kid who writes "60 min", "60 minutes" or "1 hour" being failed
-    # just because the stored answer is a full sentence.
+    # Worded correct answers (e.g. "18 cm", "60 minutes (1 hour)"): if the
+    # student wrote a plain NUMBER + optional unit — including LaTeX unit
+    # markup like "60\min" or "18\operatorname{\mathrm{cm}}" — and that value
+    # appears in the correct answer, it's correct. Stops correct short answers
+    # being failed just because the stored answer carries a unit or sentence.
     if s_clean:
-        letters = re.sub(r"[^a-zA-Z]", "", student_bare)
-        if len(letters) <= 12:  # basically a number + a short unit word
+        _norm = re.sub(r"\\[a-zA-Z]+\*?", " ", student_bare)  # drop LaTeX commands
+        _norm = re.sub(r"[{}\\$]", " ", _norm).strip()
+        if re.match(r"^-?\d+\.?\d*\s*[a-zA-Z]{0,15}\.?$", _norm):  # number + optional unit
             try:
                 s_num = float(s_clean)
                 for ca_bare in all_correct_bare:
