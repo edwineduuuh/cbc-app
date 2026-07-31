@@ -274,7 +274,7 @@ export default function TopicsPage() {
             </h3>
             <p className="text-gray-600 text-sm mb-6">
               &quot;{confirmDelete.item.name}&quot;
-              {confirmDelete.type === "topic" && " — all sub-strands will also be deleted."}
+              {confirmDelete.type === "topic" && " - all sub-strands will also be deleted."}
             </p>
             <div className="flex gap-3 justify-center">
               <button onClick={() => setConfirmDelete(null)} className="px-5 py-2 rounded-lg bg-gray-100 text-gray-700 font-medium text-sm hover:bg-gray-200">Cancel</button>

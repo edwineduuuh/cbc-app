@@ -362,7 +362,7 @@ export default function AdminPaymentsPanel() {
                     )}
                 </div>
 
-                {/* Actions — only for pending */}
+                {/* Actions - only for pending */}
                 {payment.status === "pending" && (
                   <div className="flex gap-2 flex-shrink-0">
                     <button

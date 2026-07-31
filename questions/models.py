@@ -201,7 +201,7 @@ class Question(models.Model):
     # COMMON FIELDS
     explanation = models.TextField(blank=True, help_text="Optional explanation of answers")
     worked_solution = models.JSONField(null=True, blank=True, default=None, help_text="Step-by-step solution with LaTeX")   
-    cached_ai_explanation = models.JSONField(null=True, blank=True, default=None, help_text="Cached AI explanation for MCQ — avoids repeat API calls")
+    cached_ai_explanation = models.JSONField(null=True, blank=True, default=None, help_text="Cached AI explanation for MCQ - avoids repeat API calls")
     difficulty = models.CharField(max_length=10, choices=DIFFICULTY_CHOICES, default='medium')
 
     # METADATA
@@ -434,7 +434,7 @@ class Attempt(models.Model):
         help_text='Question-by-question AI feedback'
     )
 
-    # Human mark override (audit trail) — lets an admin correct the AI's grade.
+    # Human mark override (audit trail) - lets an admin correct the AI's grade.
     marks_overridden = models.BooleanField(
         default=False,
         help_text="A human corrected the AI's marks on this attempt",
@@ -532,7 +532,7 @@ User = get_user_model()
 
 class SubscriptionPlan(models.Model):
     """
-    The Darja tiers — configurable subscription plans
+    The Darja tiers - configurable subscription plans
     """
     BILLING_CHOICES = [
         ('weekly', 'Weekly'),
@@ -563,16 +563,16 @@ class SubscriptionPlan(models.Model):
         ordering = ['order', 'price_kes']
 
     def __str__(self):
-        return f"{self.name} — KES {self.price_kes}/{self.billing_period}"
+        return f"{self.name} - KES {self.price_kes}/{self.billing_period}"
 
 
 class PaymentRequest(models.Model):
     """
-    Manual M-Pesa payment — student submits transaction code, admin verifies
+    Manual M-Pesa payment - student submits transaction code, admin verifies
     """
     STATUS_CHOICES = [
         ('pending', 'Pending Verification'),
-        ('verified', 'Verified — Active'),
+        ('verified', 'Verified - Active'),
         ('rejected', 'Rejected'),
         ('expired', 'Expired'),
     ]
@@ -639,10 +639,10 @@ class PaymentRequest(models.Model):
         if not created:
             # Extend existing subscription
             if subscription.end_date > timezone.now():
-                # Still active — extend from current end
+                # Still active - extend from current end
                 subscription.end_date += timedelta(days=self.plan.duration_days)
             else:
-                # Expired — restart from now
+                # Expired - restart from now
                 subscription.start_date = timezone.now()
                 subscription.end_date = timezone.now() + timedelta(days=self.plan.duration_days)
             subscription.plan = self.plan
@@ -662,7 +662,7 @@ class PaymentRequest(models.Model):
 
 class Subscription(models.Model):
     """
-    Active subscription for a user — created when payment is verified
+    Active subscription for a user - created when payment is verified
     """
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='subscription')
     plan = models.ForeignKey(SubscriptionPlan, on_delete=models.PROTECT)
@@ -679,7 +679,7 @@ class Subscription(models.Model):
         db_table = 'subscriptions'
 
     def __str__(self):
-        return f"{self.user.username} — {self.plan.name} — expires {self.end_date.date()}"
+        return f"{self.user.username} - {self.plan.name} - expires {self.end_date.date()}"
 
     @property
     def is_valid(self):
@@ -1128,7 +1128,7 @@ class StudentAnswer(models.Model):
     marked_at   = models.DateTimeField(null=True, blank=True)
 
     def __str__(self):
-        return f"{self.session.student_name} — Q{self.question.order}"
+        return f"{self.session.student_name} - Q{self.question.order}"
 
 class GuestUsage(models.Model):
     fingerprint = models.CharField(max_length=64, unique=True)
@@ -1183,7 +1183,7 @@ class MotivationalContent(models.Model):
         return f"[{self.get_content_type_display()}] {preview}"
 
 # ─────────────────────────────────────────────────────────────
-#  LIVE LESSONS — 1:1 Zoom tuition. Admin publishes fixed slots;
+#  LIVE LESSONS - 1:1 Zoom tuition. Admin publishes fixed slots;
 #  student requests → admin approves → student pays (manual M-Pesa,
 #  same trusted pattern as PaymentRequest) → admin verifies & sets the
 #  Zoom link → confirmed. Kept fully separate from the subscription
@@ -1193,11 +1193,11 @@ class MotivationalContent(models.Model):
 # Fixed daily group-session windows (Kenya time). Each is a group Zoom class of
 # a set length; any number of students can join. Change here to change the menu.
 LIVE_WINDOWS = [
-    {"key": "w0800", "label": "8:00 – 10:00 AM", "hour": 8},
-    {"key": "w1030", "label": "10:30 – 12:30 PM", "hour": 10},
-    {"key": "w1400", "label": "2:00 – 4:00 PM", "hour": 14},
-    {"key": "w1630", "label": "4:30 – 6:30 PM", "hour": 16},
-    {"key": "w1900", "label": "7:00 – 9:00 PM", "hour": 19},
+    {"key": "w0800", "label": "8:00 - 10:00 AM", "hour": 8},
+    {"key": "w1030", "label": "10:30 - 12:30 PM", "hour": 10},
+    {"key": "w1400", "label": "2:00 - 4:00 PM", "hour": 14},
+    {"key": "w1630", "label": "4:30 - 6:30 PM", "hour": 16},
+    {"key": "w1900", "label": "7:00 - 9:00 PM", "hour": 19},
 ]
 LIVE_WINDOW_CHOICES = [(w["key"], w["label"]) for w in LIVE_WINDOWS]
 LIVE_WINDOW_LABEL = {w["key"]: w["label"] for w in LIVE_WINDOWS}
@@ -1215,11 +1215,11 @@ class LiveAvailability(models.Model):
                                     help_text="Flat price per group session in this range")
     is_active = models.BooleanField(default=True)
 
-    open_w0800 = models.BooleanField("8:00–10:00 AM", default=True)
-    open_w1030 = models.BooleanField("10:30–12:30 PM", default=True)
-    open_w1400 = models.BooleanField("2:00–4:00 PM", default=True)
-    open_w1630 = models.BooleanField("4:30–6:30 PM", default=True)
-    open_w1900 = models.BooleanField("7:00–9:00 PM", default=True)
+    open_w0800 = models.BooleanField("8:00-10:00 AM", default=True)
+    open_w1030 = models.BooleanField("10:30-12:30 PM", default=True)
+    open_w1400 = models.BooleanField("2:00-4:00 PM", default=True)
+    open_w1630 = models.BooleanField("4:30-6:30 PM", default=True)
+    open_w1900 = models.BooleanField("7:00-9:00 PM", default=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
 
@@ -1250,8 +1250,8 @@ class LiveBooking(models.Model):
     confirmed lesson with a Zoom link. Many students may book the same session."""
     STATUS_CHOICES = [
         ("requested", "Requested"),
-        ("approved", "Approved — awaiting payment"),
-        ("payment_submitted", "Payment submitted — verifying"),
+        ("approved", "Approved - awaiting payment"),
+        ("payment_submitted", "Payment submitted - verifying"),
         ("confirmed", "Confirmed"),
         ("rejected", "Rejected"),
         ("cancelled", "Cancelled"),
@@ -1265,7 +1265,7 @@ class LiveBooking(models.Model):
     session_date = models.DateField()
     window_key = models.CharField(max_length=10, choices=LIVE_WINDOW_CHOICES)
 
-    # What the student wants — helps you brief the right teacher.
+    # What the student wants - helps you brief the right teacher.
     learning_area = models.CharField(max_length=120, blank=True, help_text="Subject, or 'General'")
     strand = models.CharField(max_length=200, blank=True, help_text="Strand/topic, or 'General'")
     note = models.TextField(blank=True, help_text="What the student wants help with")
@@ -1273,7 +1273,7 @@ class LiveBooking(models.Model):
     phone = models.CharField(max_length=15, help_text="Contact / M-Pesa phone")
     amount_kes = models.IntegerField(help_text="Price snapshot at booking time")
 
-    # Payment (IntaSend STK push — mirrors PaymentRequest, but self-contained).
+    # Payment (IntaSend STK push - mirrors PaymentRequest, but self-contained).
     checkout_request_id = models.CharField(max_length=100, blank=True, default="")
     mpesa_code = models.CharField(max_length=20, blank=True, default="")
 

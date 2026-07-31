@@ -1,6 +1,6 @@
 """
 questions/live_views.py
-Live group lessons — fixed daily Zoom windows.
+Live group lessons - fixed daily Zoom windows.
 
 Admin sets availability (date range + which windows are open + price). Students
 pick a date + window on a calendar, choose subject/strand, and request. Any
@@ -184,7 +184,7 @@ def cancel_live_booking(request, booking_id):
     except LiveBooking.DoesNotExist:
         return Response({"error": "Booking not found"}, status=status.HTTP_404_NOT_FOUND)
     if booking.status == "confirmed":
-        return Response({"error": "This lesson is already confirmed — contact support to change it."},
+        return Response({"error": "This lesson is already confirmed - contact support to change it."},
                         status=status.HTTP_409_CONFLICT)
     booking.status = "cancelled"
     booking.save(update_fields=["status", "updated_at"])

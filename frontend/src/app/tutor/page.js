@@ -157,7 +157,7 @@ function LessonSeries({ selection, onBack }) {
     e.target.value = "";
     if (!f) return;
     if (f.size > MAX_UPLOAD_MB * 1024 * 1024) {
-      alert(`File too large — max ${MAX_UPLOAD_MB} MB.`);
+      alert(`File too large - max ${MAX_UPLOAD_MB} MB.`);
       return;
     }
     setFile(f);
@@ -399,7 +399,7 @@ export default function TutorPage() {
             <div>
               <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Tutor</h1>
               <p className="text-sm text-gray-500 dark:text-gray-400">
-                Pick a strand and sub-strands — I’ll teach them before your quiz.
+                Pick a strand and sub-strands - I’ll teach them before your quiz.
               </p>
             </div>
           </div>

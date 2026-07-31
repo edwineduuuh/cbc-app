@@ -97,8 +97,8 @@ function RegisterPage() {
   const labelCls = "block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1.5";
 
   const perks = [
-    "5 free quizzes — no card needed",
-    "All CBE learning areas, Grades 4–10",
+    "5 free quizzes - no card needed",
+    "All CBE learning areas, Grades 4-10",
     "Instant marking with detailed feedback",
     "Pay via M-Pesa when ready",
   ];
@@ -163,9 +163,9 @@ function RegisterPage() {
           <div className="relative">
             <div className="bg-white/10 backdrop-blur border border-white/15 rounded-2xl p-5">
               <p className="text-white/90 text-sm italic leading-relaxed mb-3">
-                "The marking is incredible — it grades open-ended questions and tells you exactly what you missed."
+                "The marking is incredible - it grades open-ended questions and tells you exactly what you missed."
               </p>
-              <p className="text-cyan-300 text-xs font-semibold">— Brian O., Grade 9 · Mombasa</p>
+              <p className="text-cyan-300 text-xs font-semibold">- Brian O., Grade 9 · Mombasa</p>
             </div>
           </div>
         </div>
@@ -193,7 +193,7 @@ function RegisterPage() {
                   <div>
                     <p className="font-bold text-teal-800 text-sm">You're enjoying StadiSpace!</p>
                     <p className="text-teal-700 text-xs mt-0.5">
-                      Create a free account to unlock 5 free quizzes — no payment needed.
+                      Create a free account to unlock 5 free quizzes - no payment needed.
                     </p>
                   </div>
                 </div>

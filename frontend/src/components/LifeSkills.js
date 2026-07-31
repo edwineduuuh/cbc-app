@@ -95,7 +95,7 @@ function ContentCard({ item, onClick }) {
         }}
       >
         {item.author ? (
-          <span style={{ fontSize: 12, color: "var(--text-muted)" }}>— {item.author}</span>
+          <span style={{ fontSize: 12, color: "var(--text-muted)" }}>- {item.author}</span>
         ) : (
           <span />
         )}
@@ -207,7 +207,7 @@ function DetailView({ item, onBack }) {
               fontStyle: "italic",
             }}
           >
-            — {item.author}
+            - {item.author}
           </div>
         )}
       </div>

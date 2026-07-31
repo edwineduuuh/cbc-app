@@ -57,7 +57,7 @@ function StatCard({ label, value, icon: Icon, gradient, delay = 0 }) {
           <div className="w-11 h-11 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center mb-4">
             <Icon className="w-5 h-5 text-white" />
           </div>
-          <p className="text-4xl font-bold tracking-tight">{value ?? "—"}</p>
+          <p className="text-4xl font-bold tracking-tight">{value ?? "-"}</p>
           <p className="text-sm mt-1 text-white/80 font-medium">{label}</p>
         </div>
       </div>
@@ -435,7 +435,7 @@ function QuestionModal({ open, onClose, onSave, subjects, topics, editData }) {
                   <option value="">Select strand</option>
                   {filteredTopics.map((t) => (
                     <option key={t.id} value={t.id}>
-                      Grade {t.grade} – {t.name}
+                      Grade {t.grade} - {t.name}
                     </option>
                   ))}
                 </select>
@@ -588,7 +588,7 @@ function QuestionModal({ open, onClose, onSave, subjects, topics, editData }) {
                 <label className={labelCls}>
                   Marking Scheme (JSON){" "}
                   <span className="normal-case font-normal text-gray-400">
-                    — optional
+                    - optional
                   </span>
                 </label>
                 <textarea
@@ -608,7 +608,7 @@ function QuestionModal({ open, onClose, onSave, subjects, topics, editData }) {
               <label className={labelCls}>
                 Explanation{" "}
                 <span className="normal-case font-normal text-gray-400">
-                  — optional
+                  - optional
                 </span>
               </label>
               <textarea
@@ -625,7 +625,7 @@ function QuestionModal({ open, onClose, onSave, subjects, topics, editData }) {
               <label className={labelCls}>
                 Question Image{" "}
                 <span className="normal-case font-normal text-gray-400">
-                  — optional
+                  - optional
                 </span>
               </label>
 
@@ -1253,7 +1253,7 @@ export default function AdminPage() {
           <StatCard
             label="Average Score"
             value={
-              stats?.average_score ? `${Math.round(stats.average_score)}%` : "—"
+              stats?.average_score ? `${Math.round(stats.average_score)}%` : "-"
             }
             icon={BarChart2}
             gradient="rose"
@@ -1407,7 +1407,7 @@ export default function AdminPage() {
                 No questions yet
               </h3>
               <p className="text-gray-400 text-sm mb-7 max-w-xs mx-auto">
-                Start building your question library — create questions or
+                Start building your question library - create questions or
                 import from CSV
               </p>
               <div className="flex flex-col sm:flex-row gap-3 justify-center">

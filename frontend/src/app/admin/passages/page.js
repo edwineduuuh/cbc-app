@@ -187,7 +187,7 @@ export default function PassagesPage() {
           <div className="bg-white rounded-2xl shadow-2xl p-8 max-w-sm w-full text-center">
             <h3 className="text-lg font-bold mb-2">Delete passage?</h3>
             <p className="text-gray-600 text-sm mb-6">
-              &quot;{confirmDelete.title}&quot; — this will unlink it from all associated questions.
+              &quot;{confirmDelete.title}&quot; - this will unlink it from all associated questions.
             </p>
             <div className="flex gap-3 justify-center">
               <button onClick={() => setConfirmDelete(null)} className="px-5 py-2 rounded-lg bg-gray-100 text-gray-700 font-medium text-sm hover:bg-gray-200">Cancel</button>
@@ -325,7 +325,7 @@ export default function PassagesPage() {
                       <span className="text-xs px-2 py-0.5 bg-emerald-100 text-emerald-700 rounded-full capitalize">{p.passage_type}</span>
                       <span className="text-xs px-2 py-0.5 bg-blue-100 text-blue-700 rounded-full">Grade {p.grade}</span>
                       <span className="text-xs px-2 py-0.5 bg-gray-100 text-gray-600 rounded-full">{p.subject_name}</span>
-                      {p.author && <span className="text-xs text-gray-400">— {p.author}</span>}
+                      {p.author && <span className="text-xs text-gray-400">- {p.author}</span>}
                     </div>
                     <p className="text-sm text-gray-600 line-clamp-2">{p.content}</p>
                     <p className="text-xs text-gray-400 mt-1">{p.content?.length || 0} chars · ~{Math.round((p.content || "").split(/\s+/).filter(Boolean).length)} words</p>

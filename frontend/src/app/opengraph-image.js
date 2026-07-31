@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 
 export const runtime = "edge";
-export const alt = "StadiSpace — CBE Learning Platform for Kenya";
+export const alt = "StadiSpace - CBE Learning Platform for Kenya";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -93,12 +93,12 @@ export default async function Image() {
         >
           CBE Quizzes & Learning for Kenyan Students
           <br />
-          Grades 4–10 · MCQ & Structured Marking · Progress Tracking
+          Grades 4-10 · MCQ & Structured Marking · Progress Tracking
         </div>
 
         {/* Stats row */}
         <div style={{ display: "flex", gap: 24 }}>
-          {["2 Free Quizzes", "All CBE Subjects", "Grades 4–10"].map((label) => (
+          {["2 Free Quizzes", "All CBE Subjects", "Grades 4-10"].map((label) => (
             <div
               key={label}
               style={{

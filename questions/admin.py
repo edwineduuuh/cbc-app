@@ -227,13 +227,13 @@ class AIGradingSettingsAdmin(admin.ModelAdmin):
     @admin.display(description='Grading model health')
     def model_health(self, obj=None):
         """Surfaces the flag _call_claude sets when a model is retired/unavailable
-        and grading auto-falls-back — so a silent phase-out is actually visible."""
+        and grading auto-falls-back - so a silent phase-out is actually visible."""
         try:
             dead = self._grades_cache().get('ai_grading:dead_model')
         except Exception:
             dead = None
         if dead:
-            return (f"⚠ Model '{dead}' was UNAVAILABLE — grading auto-fell-back to keep "
+            return (f"⚠ Model '{dead}' was UNAVAILABLE - grading auto-fell-back to keep "
                     f"working. ACTION: update CLAUDE_MODEL in ai_grading.py, then run the "
                     f"'Clear the grading-model alert' action below.")
         return "✓ All grading models healthy"
@@ -273,14 +273,14 @@ class MotivationalContentAdmin(admin.ModelAdmin):
     ordering = ['-created_at']
 
     def grade_range(self, obj):
-        return f"G{obj.grade_min}–G{obj.grade_max}"
+        return f"G{obj.grade_min}-G{obj.grade_max}"
     grade_range.short_description = 'Grades'
 
 
 
 
 # ─────────────────────────────────────────────────────────────
-#  LIVE LESSONS — publish slots, manage bookings (approve → confirm)
+#  LIVE LESSONS - publish slots, manage bookings (approve → confirm)
 # ─────────────────────────────────────────────────────────────
 from urllib.parse import quote
 from django.utils import timezone as _tz
@@ -337,9 +337,9 @@ class LiveBookingAdmin(admin.ModelAdmin):
         """One-tap click-to-chat link to the student's WhatsApp."""
         phone, err = IntaSendAPI.normalize_phone(obj.phone or "")
         if err or not phone:
-            return obj.phone or "—"
+            return obj.phone or "-"
         msg = (f"Hi! About your StadiSpace live lesson ({obj.learning_area or 'General'}) "
-               f"on {obj.session_date} {obj.window_label} — ")
+               f"on {obj.session_date} {obj.window_label} - ")
         url = f"https://wa.me/{phone}?text={quote(msg)}"
         return format_html('<a href="{}" target="_blank" rel="noopener">💬 WhatsApp</a>', url)
     whatsapp.short_description = "Message"
@@ -350,7 +350,7 @@ class LiveBookingAdmin(admin.ModelAdmin):
         self.message_user(request, f"Approved {n} booking(s). "
                                    f"Make sure each has a Zoom link so it's ready.")
 
-    @admin.action(description="Mark CONFIRMED (paid) — reveals Zoom link to student")
+    @admin.action(description="Mark CONFIRMED (paid) - reveals Zoom link to student")
     def mark_confirmed(self, request, queryset):
         n = queryset.exclude(status="confirmed").update(
             status="confirmed", confirmed_at=_tz.now())

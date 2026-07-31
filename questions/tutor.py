@@ -1,11 +1,11 @@
 """
 questions/tutor.py
-AI Tutor — a pre-quiz "teacher" that teaches a Topic and answers a student's
+AI Tutor - a pre-quiz "teacher" that teaches a Topic and answers a student's
 follow-up questions about it. Claude only (no Gemini).
 
 Lessons are GROUNDED in the topic's own questions (their explanations and
 worked solutions) and CACHED on Topic.cached_ai_lesson, mirroring the existing
-Question.cached_ai_explanation pattern — so a lesson is generated once per topic
+Question.cached_ai_explanation pattern - so a lesson is generated once per topic
 and then served instantly and for free to every student after.
 
 Built fresh. Does NOT import or depend on the abandoned ai_service.py.
@@ -16,10 +16,10 @@ import re
 import anthropic
 from django.conf import settings
 
-# Generation (lessons, flashcards) — max quality; cached, so the cost is
+# Generation (lessons, flashcards) - max quality; cached, so the cost is
 # one-time per sub-strand. Opus is the most capable model.
 CLAUDE_MODEL = "claude-opus-4-8"
-# Chat follow-ups — live per message, so it must be accurate AND fast. Sonnet
+# Chat follow-ups - live per message, so it must be accurate AND fast. Sonnet
 # is the balance: far stronger than Haiku (Kiswahili included), still quick.
 CLAUDE_CHAT_MODEL = "claude-sonnet-4-6"
 
@@ -28,19 +28,19 @@ SOURCE_QUESTION_LIMIT = 40
 
 
 def _get_claude():
-    """Fresh client per call — matches ai_grading.py to avoid closed-client
+    """Fresh client per call - matches ai_grading.py to avoid closed-client
     issues under threads."""
     return anthropic.Anthropic(api_key=settings.ANTHROPIC_API_KEY)
 
 
 def _call_claude(system: str, messages: list, max_tokens: int = 3000,
                  model: str = CLAUDE_MODEL, cache_system: bool = True) -> str:
-    # NB: no `temperature` — Opus 4.8 rejects sampling params (400). Sonnet is
+    # NB: no `temperature` - Opus 4.8 rejects sampling params (400). Sonnet is
     # fine without it too.
     #
     # Prompt caching: send the system prompt as a cache_control block so a
     # repeated prefix is billed at ~10% instead of full price. The model reads
-    # the exact same text — output is unchanged. (Blocks below the cache minimum
+    # the exact same text - output is unchanged. (Blocks below the cache minimum
     # are silently not cached, so this is always safe.)
     system_param = [{
         "type": "text",
@@ -72,7 +72,7 @@ def _parse_json(raw_text: str) -> dict:
 
 
 # ─────────────────────────────────────────────────────────────
-#  SOURCE MATERIAL — harvest the topic's own content
+#  SOURCE MATERIAL - harvest the topic's own content
 # ─────────────────────────────────────────────────────────────
 
 def _harvest_topic_content(topic) -> str:
@@ -113,17 +113,17 @@ You write clear, engaging lessons that teach a topic BEFORE a student is tested,
 pitched exactly at the learner's grade level. Use simple language, everyday
 Kenyan examples, and build understanding step by step. You may use LaTeX for
 mathematics (wrap inline math in \\( \\) and display math in \\[ \\]).
-Respond with VALID JSON ONLY — no markdown fences, no text outside the JSON."""
+Respond with VALID JSON ONLY - no markdown fences, no text outside the JSON."""
 
 
 def _source_block(topic) -> str:
     source = _harvest_topic_content(topic)
     if source.strip():
         return (
-            f"\nReal content from this strand's questions — use it as the factual "
+            f"\nReal content from this strand's questions - use it as the factual "
             f"basis (teach these ideas, don't just list the questions):\n\n{source}\n"
         )
-    return ("\n(Little stored content for this strand — teach from your own CBC "
+    return ("\n(Little stored content for this strand - teach from your own CBC "
             "subject knowledge.)\n")
 
 
@@ -248,19 +248,19 @@ def get_or_create_flashcards(topic, substrand=None, force: bool = False) -> list
 
 
 # ─────────────────────────────────────────────────────────────
-#  FOLLOW-UP CHAT (pre-quiz teacher — generous, may explain fully)
+#  FOLLOW-UP CHAT (pre-quiz teacher - generous, may explain fully)
 # ─────────────────────────────────────────────────────────────
 
 TUTOR_SYSTEM = """You are a warm, patient Kenyan CBC/CBE teacher helping a student
 UNDERSTAND a topic before they attempt a quiz on it. This is learning time, not a
-test — so explain fully and generously, give examples, and check understanding.
+test - so explain fully and generously, give examples, and check understanding.
 
 Rules:
 - Stay strictly on the given topic and subject; gently redirect if asked off-topic.
 - Match the student's grade level: simple words, short sentences, Kenyan examples.
 - Be encouraging. Never be condescending.
 - Use LaTeX for maths: inline \\( \\), display \\[ \\].
-- Keep replies focused — a few short paragraphs at most."""
+- Keep replies focused - a few short paragraphs at most."""
 
 
 SUPPORTED_IMAGE_TYPES = {"image/png", "image/jpeg", "image/webp", "image/gif"}
@@ -296,7 +296,7 @@ def tutor_chat(topic, history: list, attachment: dict = None, max_tokens: int = 
     attachment: optional uploaded image/PDF attached to the latest message.
     """
     context = (
-        f"You are teaching: {topic.subject.name} — Grade {topic.grade} — "
+        f"You are teaching: {topic.subject.name} - Grade {topic.grade} - "
         f"{topic.name}."
     )
     system = f"{TUTOR_SYSTEM}\n\n{context}"
@@ -322,7 +322,7 @@ def tutor_chat(topic, history: list, attachment: dict = None, max_tokens: int = 
     # Prompt caching: mark the end of the conversation history (everything
     # BEFORE the newest question) as a cache breakpoint. Each new message then
     # bills the whole prior thread at ~10% and pays full price only for the new
-    # turn. Byte-identical to the model — the reply is unchanged. Short early
+    # turn. Byte-identical to the model - the reply is unchanged. Short early
     # threads fall below the cache minimum and are simply not cached (no cost).
     if len(messages) >= 2:
         prev = messages[-2]

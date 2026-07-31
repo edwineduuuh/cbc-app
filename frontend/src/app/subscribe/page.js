@@ -28,7 +28,7 @@ const API =
   process.env.NEXT_PUBLIC_API_URL ||
   "https://cbc-backend-production-8bc4.up.railway.app/api";
 
-// Cosmetic copy ONLY, keyed by slug. The money — id, price, duration — comes
+// Cosmetic copy ONLY, keyed by slug. The money - id, price, duration - comes
 // from /api/plans/, so the price shown is always exactly the price charged.
 // Daily cost and savings are computed from the live price below (never hardcoded),
 // so they can't contradict it either.
@@ -81,7 +81,7 @@ const PLAN_META = {
 
 const PLAN_ORDER = ["weekly", "monthly", "termly"];
 
-// Display-only fallback if /api/plans/ is briefly unreachable — the charge always
+// Display-only fallback if /api/plans/ is briefly unreachable - the charge always
 // uses the DB value (via plan_id), so these never affect what a user is billed.
 const FALLBACK = {
   weekly: { id: 2, price_kes: 349, duration_days: 7 },
@@ -142,7 +142,7 @@ export default function SubscribePage() {
   const [loadingStatus, setLoadingStatus] = useState(true);
   // Prices/ids come from the API (single source of truth). `plans` always holds
   // a valid array (fallback) so nothing crashes, but we don't SHOW prices until
-  // the live /plans/ call resolves — otherwise the fallback price flashes and
+  // the live /plans/ call resolves - otherwise the fallback price flashes and
   // then jumps to the real one. `plansReady` gates the price display.
   const [plans, setPlans] = useState(() => buildPlans(null));
   const [plansReady, setPlansReady] = useState(false);
@@ -255,7 +255,7 @@ export default function SubscribePage() {
           </h1>
 
           <p className="text-lg text-gray-500 max-w-lg mx-auto mb-2">
-            CBE quizzes for Grades 4–10. Instant marking. Pick a plan and start now.
+            CBE quizzes for Grades 4-10. Instant marking. Pick a plan and start now.
           </p>
         </motion.div>
       </div>
@@ -299,7 +299,7 @@ export default function SubscribePage() {
                   <p className="text-sm text-gray-400">{plan.tagline}</p>
                 </div>
 
-                {/* Price — shown only once the live /plans/ call resolves, so a
+                {/* Price - shown only once the live /plans/ call resolves, so a
                     fallback price never flashes and then jumps to the real one. */}
                 <div className="mb-5">
                   {plansReady ? (

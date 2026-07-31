@@ -1,6 +1,6 @@
 ﻿"use client";
 /**
- * FinancialStatementInput — Student-facing quiz component.
+ * FinancialStatementInput - Student-facing quiz component.
  *
  * Reads the SAME schema that FinancialStatementEditor produces.
  * Teacher sets up the structure (row labels + correct amounts hidden from student).
@@ -818,7 +818,7 @@ function BlankTwoCol({ subtype, value, onChange, readonly, headings }) {
         <input
           value={state.title || ""}
           onChange={(e) => push({ ...state, title: e.target.value })}
-          placeholder="Enter statement title (e.g. ABC Co. — Balance Sheet as at 31 Dec 2025)..."
+          placeholder="Enter statement title (e.g. ABC Co. - Balance Sheet as at 31 Dec 2025)..."
           style={{
             width: "100%",
             textAlign: "center",
@@ -1132,7 +1132,7 @@ function BlankMultiSection({ subtype, value, onChange, readonly, headings }) {
             >
               <span>Subtotal</span>
               <span>
-                {secTotal(sec) ? secTotal(sec).toLocaleString("en-KE") : "—"}
+                {secTotal(sec) ? secTotal(sec).toLocaleString("en-KE") : "-"}
               </span>
             </div>
           </div>
@@ -1381,7 +1381,7 @@ function BlankTrialBalance({ value, onChange, readonly }) {
                 fontWeight: 700,
               }}
             >
-              {totalDr ? totalDr.toLocaleString("en-KE") : "—"}
+              {totalDr ? totalDr.toLocaleString("en-KE") : "-"}
             </td>
             <td
               style={{
@@ -1419,7 +1419,7 @@ export default function FinancialStatementInput({
     if (value && typeof value === "object") setAnswer(value);
   }, [value]);
 
-  // Resolve subtype — from schema or from the subtype prop passed directly
+  // Resolve subtype - from schema or from the subtype prop passed directly
   const resolvedSubtype = (schema && schema.subtype) || subtypeProp || "";
 
   // If no schema but we have a subtype, render a blank dynamic template
@@ -1440,7 +1440,7 @@ export default function FinancialStatementInput({
         </div>
       );
     }
-    // Blank template — student adds their own rows
+    // Blank template - student adds their own rows
     const titleMap = {
       balance_sheet: "Balance Sheet",
       trading_account: "Trading / P&L Account",

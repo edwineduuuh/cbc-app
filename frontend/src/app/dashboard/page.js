@@ -41,7 +41,7 @@ const QUOTES = [
     author: "Benjamin Franklin",
   },
   {
-    text: "Success is not final, failure is not fatal — it is the courage to continue.",
+    text: "Success is not final, failure is not fatal - it is the courage to continue.",
     author: "Winston Churchill",
   },
   {
@@ -57,7 +57,7 @@ const QUOTES = [
     author: "Nelson Mandela",
   },
   {
-    text: "Don't watch the clock — do what it does. Keep going.",
+    text: "Don't watch the clock - do what it does. Keep going.",
     author: "Sam Levenson",
   },
   {
@@ -441,7 +441,7 @@ export default function DashboardPage() {
           <div className="flex items-center gap-3 bg-blue-50 border border-blue-200 text-blue-800 px-5 py-3 rounded-xl">
             <span className="text-lg">✉️</span>
             <span className="text-sm font-semibold flex-1">
-              Verify your email to secure your account — check your inbox for a link from StadiSpace.
+              Verify your email to secure your account - check your inbox for a link from StadiSpace.
             </span>
             <button
               onClick={async () => {
@@ -486,7 +486,7 @@ export default function DashboardPage() {
               <p className="text-white font-semibold italic text-sm leading-relaxed">
                 &ldquo;{quote.text}&rdquo;
               </p>
-              <p className="text-xs text-teal-200 mt-1">— {quote.author}</p>
+              <p className="text-xs text-teal-200 mt-1">- {quote.author}</p>
             </div>
           </div>
         </div>
@@ -633,13 +633,13 @@ export default function DashboardPage() {
                 </div>
                 <h3 className="text-xl font-bold mb-2">Book a Live Lesson</h3>
                 <p className="text-indigo-100 text-sm">
-                  1-on-1 Zoom tuition with a real teacher — pick a time that suits you
+                  1-on-1 Zoom tuition with a real teacher - pick a time that suits you
                 </p>
               </div>
             </motion.div>
           </Link>
 
-          {/* Subscribe CTA Card — only for non-premium */}
+          {/* Subscribe CTA Card - only for non-premium */}
           {!isPremium && (
             <Link href="/subscribe">
               <motion.div

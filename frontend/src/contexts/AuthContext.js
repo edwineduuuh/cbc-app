@@ -48,7 +48,7 @@ export function AuthProvider({ children }) {
       try {
         setUser(JSON.parse(cachedUser));
       } catch (_) {
-        /* corrupt cache — ignore */
+        /* corrupt cache - ignore */
       }
     }
 
@@ -59,7 +59,7 @@ export function AuthProvider({ children }) {
       setUser(fullUser);
       localStorage.setItem("user", JSON.stringify(fullUser));
     } catch (error) {
-      // If we already set a cached user above, don't blow it away —
+      // If we already set a cached user above, don't blow it away -
       // just try a token refresh in case the access token expired.
       const refreshToken = localStorage.getItem("refreshToken");
       if (refreshToken) {
@@ -159,7 +159,7 @@ export function AuthProvider({ children }) {
       setUser(fullUser);
       localStorage.setItem("user", JSON.stringify(fullUser)); // SAVE TO LOCALSTORAGE
 
-      // Route based on role — replace so back button doesn't return to login
+      // Route based on role - replace so back button doesn't return to login
       const redirectPath = redirectByRole(fullUser);
       router.replace(redirectPath);
 
@@ -199,7 +199,7 @@ export function AuthProvider({ children }) {
     localStorage.removeItem("refreshToken");
     localStorage.removeItem("user");
     setUser(null);
-    window.location.href = "/login"; // hard redirect — bypasses competing router calls
+    window.location.href = "/login"; // hard redirect - bypasses competing router calls
   };
 
   const value = {

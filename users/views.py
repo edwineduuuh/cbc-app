@@ -39,7 +39,7 @@ class RegisterView(generics.CreateAPIView):
                 send_sms(
                     user.parent_phone,
                     f"Hi {user.parent_name or 'there'}! {child_name} just joined StadiSpace. "
-                    f"They have 2 free quizzes to try — full feedback included. "
+                    f"They have 2 free quizzes to try - full feedback included. "
                     f"See their progress at stadispace.co.ke"
                 )
             except BaseException:
@@ -89,7 +89,7 @@ class LoginView(generics.GenericAPIView):
                 'error': 'Please provide both email and password'
             }, status=status.HTTP_400_BAD_REQUEST)
 
-        # Accept email or username — look up by email if it contains @
+        # Accept email or username - look up by email if it contains @
         if '@' in identifier:
             try:
                 user_obj = User.objects.get(email__iexact=identifier)
@@ -530,7 +530,7 @@ def forgot_password(request):
             logger.warning(f"[forgot_password] Email sent successfully to {email}")
         except Exception as mail_err:
             logger.error(f"[forgot_password] Email FAILED for {email}: {type(mail_err).__name__}: {mail_err}")
-            # Still return success — don't expose server config errors to the user
+            # Still return success - don't expose server config errors to the user
     except User.DoesNotExist:
         pass  # Don't reveal if email exists
 
@@ -540,7 +540,7 @@ def forgot_password(request):
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def email_diagnostic(request):
-    """Temporary diagnostic endpoint — returns exact email send error so we can debug.
+    """Temporary diagnostic endpoint - returns exact email send error so we can debug.
     Protected by a secret header: X-Diag-Key: stadispace_diag_2026
     """
     if request.headers.get('X-Diag-Key') != 'stadispace_diag_2026':

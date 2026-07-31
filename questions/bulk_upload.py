@@ -268,12 +268,12 @@ Grade: {grade}
 EXTRACTED TEXT:
 {text}
 
-🚨 RULE #1 — MCQ OPTIONS MUST BE COPIED WORD-FOR-WORD:
+🚨 RULE #1 - MCQ OPTIONS MUST BE COPIED WORD-FOR-WORD:
 Copy each option EXACTLY as it appears in the text. Do NOT rephrase, correct, improve, or change a single word.
-If the text says "B. Disobedience" then option_b MUST be "Disobedience" — not "Obedience", not "Defiance", not anything else.
+If the text says "B. Disobedience" then option_b MUST be "Disobedience" - not "Obedience", not "Defiance", not anything else.
 This is the most important rule. Changing option text breaks the correct answer and explanation.
 
-🚨 RULE #2 — EXPLANATION IS REQUIRED FOR EVERY QUESTION:
+🚨 RULE #2 - EXPLANATION IS REQUIRED FOR EVERY QUESTION:
 Every question MUST have a non-empty "explanation" field explaining why the correct answer is correct.
 For MCQ: explain why the correct option is right AND briefly why the others are wrong.
 Never leave explanation blank or null.
@@ -303,7 +303,7 @@ INSTRUCTIONS:
      Example triggers: "21 (a) ... (b) ... (c)", "3. a) ... b) ... c)", "Q5 i) ... ii) ... iii)"
 
 4. FOR MCQ QUESTIONS:
-   - Copy each option text EXACTLY as written — do not change any words
+   - Copy each option text EXACTLY as written - do not change any words
    - Set correct_answer to the LETTER only (A, B, C, or D)
    - explanation must explain why the correct letter is right
 
@@ -375,7 +375,7 @@ FORMAT:
 
 REMEMBER:
 - MCQs MUST have option_a through option_d copied VERBATIM from the source
-- explanation is REQUIRED on every question and every part — never empty
+- explanation is REQUIRED on every question and every part - never empty
 - Use multipart for ANY question that has (a), (b), (c) or i), ii), iii) sub-questions
 - Only include image_index if the question actually refers to an image
 """

@@ -598,7 +598,7 @@ export default function MotivationalAdminPage() {
 
               {/* Modal body */}
               <div className="p-5 space-y-5">
-                {/* Type selector — big buttons */}
+                {/* Type selector - big buttons */}
                 <div>
                   <label className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2 block">
                     Type

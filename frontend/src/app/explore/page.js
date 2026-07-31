@@ -15,7 +15,7 @@ const GRADES = [4, 5, 6, 7, 8, 9, 10, 11, 12];
 const MOTIVATIONAL_LINES = [
   "Every strand you complete brings you one step closer to mastery.",
   "Consistent practice today builds the confidence you need tomorrow.",
-  "The best learners don't wait — they explore, attempt, and improve.",
+  "The best learners don't wait - they explore, attempt, and improve.",
   "Challenge yourself across strands. Growth happens outside the comfort zone.",
 ];
 
@@ -131,7 +131,7 @@ function ExploreContent() {
           <span style={{ fontSize: 18, flexShrink: 0 }}>🌱</span>
           <span>
             Fresh quizzes land <strong>every day</strong>! Don&apos;t see your strand yet?
-            It&apos;s probably already on its way — check back tomorrow. ✨
+            It&apos;s probably already on its way - check back tomorrow. ✨
           </span>
         </div>
 

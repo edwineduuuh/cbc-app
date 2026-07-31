@@ -210,12 +210,12 @@ function QuizzesContent() {
               <p style={{ fontSize: 13.5, color: "var(--text-muted)", lineHeight: 1.6, maxWidth: 360, margin: "0 auto 16px" }}>
                 Our teachers hand-write every question (no robots here 🤖🚫), so good
                 things take a day or two. Your {subjectName}
-                {selectedStrand ? ` — ${selectedStrand.name}` : ""} {selectedStrand ? "strand" : "quizzes"} are
-                on the way — pop back soon! 👀
+                {selectedStrand ? ` - ${selectedStrand.name}` : ""} {selectedStrand ? "strand" : "quizzes"} are
+                on the way - pop back soon! 👀
               </p>
               <a
                 href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
-                  `Hi StadiSpace! Please add ${subjectName} (Grade ${grade})${selectedStrand ? ` — ${selectedStrand.name} strand` : ""} quizzes 🙏`
+                  `Hi StadiSpace! Please add ${subjectName} (Grade ${grade})${selectedStrand ? ` - ${selectedStrand.name} strand` : ""} quizzes 🙏`
                 )}`}
                 target="_blank"
                 rel="noopener noreferrer"

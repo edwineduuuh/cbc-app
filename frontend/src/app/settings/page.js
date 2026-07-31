@@ -114,7 +114,7 @@ export default function SettingsPage() {
               </p>
               <div className="mt-2 inline-flex items-center gap-1 bg-teal-50 dark:bg-teal-500/10 text-teal-700 dark:text-teal-300 px-2 py-1 rounded-full text-xs font-semibold">
                 <GraduationCap className="w-3 h-3" />
-                Grade {user.grade || "—"}
+                Grade {user.grade || "-"}
               </div>
             </div>
 
@@ -652,7 +652,7 @@ function DangerSection({ logout, router, showToast }) {
           Danger Zone
         </h2>
         <p className="text-gray-500 dark:text-gray-400 text-sm mb-6">
-          Irreversible actions — proceed with caution
+          Irreversible actions - proceed with caution
         </p>
 
         {/* Sign out all devices */}

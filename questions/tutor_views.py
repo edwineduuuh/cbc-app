@@ -24,7 +24,7 @@ from . import tutor
 STAFF_ROLES = ("admin", "superadmin", "teacher", "school_admin")
 
 # ── Anti-spam limits for Tutor CHAT (live per-message cost) ──
-# Generous enough that a real learner never hits them — only abuse does. Chat
+# Generous enough that a real learner never hits them - only abuse does. Chat
 # is already subscribers-only, so these bound a paying kid's worst-case day.
 TUTOR_DAILY_LIMIT = 50          # messages per student per day
 MAX_ATTACHMENT_MB = 4           # per uploaded image/PDF (the biggest cost lever)
@@ -51,7 +51,7 @@ def _attachment_too_big(attachment) -> bool:
 def _tutor_quota(user):
     """Count one tutor-chat message against the student's daily cap.
     Returns (allowed: bool, remaining: int|None). Staff/teachers bypass. A cache
-    failure fails OPEN — a paying student is never blocked by an infra glitch."""
+    failure fails OPEN - a paying student is never blocked by an infra glitch."""
     if getattr(user, "is_staff", False) or getattr(user, "role", "") in STAFF_ROLES:
         return True, None
     key = f"tutor:chat:{user.pk}:{date.today().isoformat()}"
@@ -81,7 +81,7 @@ def _wants_force(request):
     return request.query_params.get("refresh") == "1" and _can_force(request.user)
 
 
-# Kiswahili is BLOCKED from AI generation — Claude/Opus invents wrong grammar
+# Kiswahili is BLOCKED from AI generation - Claude/Opus invents wrong grammar
 # (ngeli), so we don't let the tutor or flash cards author Kiswahili content.
 def _is_kiswahili(topic):
     name = getattr(getattr(topic, "subject", None), "name", "") or ""
@@ -89,14 +89,14 @@ def _is_kiswahili(topic):
 
 
 _KISWAHILI_BLOCKED = {
-    "error": "Kiswahili isn't available for lessons and flash cards yet — "
+    "error": "Kiswahili isn't available for lessons and flash cards yet - "
              "its content is teacher-authored to keep the grammar correct.",
     "blocked_subject": "kiswahili",
 }
 
 
 # The AI Tutor and Flash Cards cost live AI on every use, so they're a subscriber
-# perk — free-trial quiz credits do NOT unlock them. Staff/teachers always pass.
+# perk - free-trial quiz credits do NOT unlock them. Staff/teachers always pass.
 def _has_paid_access(user):
     if getattr(user, "is_staff", False) or getattr(user, "role", "") in STAFF_ROLES:
         return True
@@ -108,7 +108,7 @@ def _has_paid_access(user):
 
 # Free taste: non-subscribers get FREE_AI_PREVIEWS distinct strands of Tutor
 # lessons / Flash Cards (shared allowance). Re-opening an already-previewed strand
-# is free, so a page refresh never burns the allowance. Tutor CHAT is excluded —
+# is free, so a page refresh never burns the allowance. Tutor CHAT is excluded -
 # it's live, unbounded cost, and the real upsell.
 FREE_AI_PREVIEWS = 2
 
@@ -164,7 +164,7 @@ def _resolve_topic_and_substrands(request):
 
 
 # ─────────────────────────────────────────────────────────────
-#  AI TUTOR — teach a topic + follow-up chat
+#  AI TUTOR - teach a topic + follow-up chat
 # ─────────────────────────────────────────────────────────────
 
 @api_view(["GET"])
@@ -240,7 +240,7 @@ def tutor_chat(request):
     # Reject oversized uploads before spending anything (the biggest cost lever).
     if _attachment_too_big(attachment):
         return Response(
-            {"error": f"That file's a bit big — please upload something under "
+            {"error": f"That file's a bit big - please upload something under "
                       f"{MAX_ATTACHMENT_MB} MB."},
             status=status.HTTP_413_REQUEST_ENTITY_TOO_LARGE,
         )
@@ -259,7 +259,7 @@ def tutor_chat(request):
     if not allowed:
         return Response(
             {"error": "That's all your tutor questions for today 👋 "
-                      "Come back tomorrow — your teacher will be right here.",
+                      "Come back tomorrow - your teacher will be right here.",
              "limit_reached": True},
             status=status.HTTP_429_TOO_MANY_REQUESTS,
         )
@@ -278,7 +278,7 @@ def tutor_chat(request):
 
 
 # ─────────────────────────────────────────────────────────────
-#  FLASH CARDS — hybrid AI deck, grounded in the strand's questions,
+#  FLASH CARDS - hybrid AI deck, grounded in the strand's questions,
 #  cached per sub-strand. Multi-select → one merged, shuffled deck.
 # ─────────────────────────────────────────────────────────────
 

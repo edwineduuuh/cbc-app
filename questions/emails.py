@@ -22,7 +22,7 @@ def send_payment_receipt_email(user, plan_name, amount, mpesa_code, days):
         return False
 
     parent_name = getattr(user, 'parent_name', '') or 'Parent'
-    subject = f"StadiSpace Payment Confirmed — {plan_name} Plan"
+    subject = f"StadiSpace Payment Confirmed - {plan_name} Plan"
     message = (
         f"Hi {parent_name},\n\n"
         f"Payment of KES {amount} for {user.first_name or user.username}'s "
@@ -35,7 +35,7 @@ def send_payment_receipt_email(user, plan_name, amount, mpesa_code, days):
         f"marking, and detailed performance analytics.\n\n"
         f"Track their progress at https://stadispace.co.ke/dashboard\n\n"
         f"Thank you for investing in your child's education!\n"
-        f"— The StadiSpace Team"
+        f"- The StadiSpace Team"
     )
 
     try:
@@ -64,17 +64,17 @@ def send_welcome_email(user):
     child_name = user.first_name or user.username
 
     if parent_email:
-        # Email goes to parent — greet parent
+        # Email goes to parent - greet parent
         recipient = parent_email
         greeting = f"Hi {parent_name or 'there'},"
-        subject = f"Welcome to StadiSpace — {child_name}'s learning journey starts now!"
+        subject = f"Welcome to StadiSpace - {child_name}'s learning journey starts now!"
         intro = f"Welcome to StadiSpace! {child_name}'s account is ready with 2 free quizzes to explore."
         body_name = child_name
     elif user.email:
-        # No parent email — email goes to student, greet student
+        # No parent email - email goes to student, greet student
         recipient = user.email
         greeting = f"Hi {child_name},"
-        subject = "Welcome to StadiSpace — your learning journey starts now!"
+        subject = "Welcome to StadiSpace - your learning journey starts now!"
         intro = "Your StadiSpace account is ready with 2 free quizzes to explore."
         body_name = "You"
     else:
@@ -85,13 +85,13 @@ def send_welcome_email(user):
         f"{intro}\n\n"
         f"What {body_name} get{'s' if body_name != 'You' else ''}:\n"
         f"  - 2 free quizzes with full AI-powered feedback\n"
-        f"  - All CBE learning areas, Grades 4–10\n"
+        f"  - All CBE learning areas, Grades 4-10\n"
         f"  - Instant marking with detailed explanations\n"
         f"  - Progress tracking and performance analytics\n\n"
         f"Start learning: https://stadispace.co.ke/explore\n\n"
         f"When ready for unlimited access, subscribe from KES 149/week "
         f"via M-Pesa.\n\n"
-        f"— The StadiSpace Team"
+        f"- The StadiSpace Team"
     )
 
     try:

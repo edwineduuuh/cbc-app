@@ -5,10 +5,10 @@
  * The teacher defines the CORRECT answer structure (marking scheme).
  *
  * Props:
- *   subtype        – "balance_sheet" | "income_statement" | "trading_account" | "cash_flow" | "t_account" | "trial_balance"
- *   value          – current marking_scheme JSON (or null)
- *   onChange(json) – called whenever the structure changes
- *   currency       – default "Ksh"
+ *   subtype        - "balance_sheet" | "income_statement" | "trading_account" | "cash_flow" | "t_account" | "trial_balance"
+ *   value          - current marking_scheme JSON (or null)
+ *   onChange(json) - called whenever the structure changes
+ *   currency       - default "Ksh"
  */
 
 import { useState, useEffect } from "react";
@@ -333,7 +333,7 @@ export default function FinancialStatementEditor({
 
   // Always render a schema that MATCHES the current subtype. On the render that
   // fires right after subtype changes (before the effect re-inits state), the
-  // stored schema still has the old shape — reading e.g. schema.left.sections
+  // stored schema still has the old shape - reading e.g. schema.left.sections
   // on it would crash. Deriving here keeps the UI fire-proof.
   const schema =
     storedSchema && storedSchema.subtype === subtype
@@ -372,7 +372,7 @@ export default function FinancialStatementEditor({
               value={schema.title}
               placeholder={
                 subtype === "balance_sheet"
-                  ? "e.g. PEMBE TATU TRADERS – Balance Sheet"
+                  ? "e.g. PEMBE TATU TRADERS - Balance Sheet"
                   : "e.g. Trading Account for year ended…"
               }
               onChange={(e) => update({ ...schema, title: e.target.value })}

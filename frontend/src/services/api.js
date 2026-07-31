@@ -1,5 +1,5 @@
 /**
- * api.js — StadiSpace Teacher Portal
+ * api.js - StadiSpace Teacher Portal
  * All fetch calls to the Django backend, centralized here.
  * Import in your components:  import api from "@/services/api";
  */
@@ -102,7 +102,7 @@ const api = {
   // ── STUDENT JOIN (no auth) ───────────────────────────────────
 
   /**
-   * Student joins by code — returns classroom info + questions
+   * Student joins by code - returns classroom info + questions
    * @param {string} code - 6-char join code
    */
   joinClassroom: (code) =>

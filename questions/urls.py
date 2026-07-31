@@ -124,7 +124,7 @@ urlpatterns = [
     path('payments/my/', MyPaymentsView.as_view(), name='my-payments'),
     path('payments/status/', SubscriptionStatusView.as_view(), name='subscription-status'),
 
-    # ── Admin — Questions ─────────────────────────────────────────
+    # ── Admin - Questions ─────────────────────────────────────────
     path('admin/questions/', QuestionListManageView.as_view(), name='admin-question-list'),
     path('admin/questions/create/', QuestionCreateView.as_view(), name='question-create'),
     path('admin/questions/manage/', QuestionListManageView.as_view(), name='question-manage'),
@@ -132,13 +132,13 @@ urlpatterns = [
     path('admin/questions/bulk-import/', BulkQuestionImportView.as_view(), name='bulk-import'),
     path('admin/questions/<int:pk>/', QuestionUpdateView.as_view(), name='question-update'),
 
-    # ── Admin — Quizzes ───────────────────────────────────────────
+    # ── Admin - Quizzes ───────────────────────────────────────────
     path('admin/quizzes/', QuizListCreateView.as_view(), name='quiz-list-create'),
     path('admin/quizzes/<int:pk>/', AdminQuizDetailView.as_view(), name='admin-quiz-detail'),
     path('admin/quizzes/<int:pk>/publish/', QuizPublishView.as_view(), name='quiz-publish'),
     path('admin/quiz-library/', AdminQuizLibraryView.as_view(), name='admin-quiz-library'),
 
-    # ── Admin — Stats & Analytics ─────────────────────────────────
+    # ── Admin - Stats & Analytics ─────────────────────────────────
     path('admin/stats/', AdminStatsView.as_view(), name='admin-stats'),
     path('admin/analytics/questions/', QuestionAnalyticsView.as_view(), name='question-analytics'),
     path('admin/analytics/suggestions/', AISuggestionsView.as_view(), name='ai-suggestions'),
@@ -151,11 +151,11 @@ urlpatterns = [
     path('admin/users/', AdminUserListView.as_view(), name='admin-user-list'),
     path('admin/revenue/stats/', AdminRevenueStatsView.as_view(), name='admin-revenue-stats'),
 
-    # ── Admin — Question Sets ─────────────────────────────────────
+    # ── Admin - Question Sets ─────────────────────────────────────
     path('admin/question-sets/', QuestionSetListCreateView.as_view(), name='question-set-list'),
     path('admin/question-sets/<int:pk>/', QuestionSetDetailView.as_view(), name='question-set-detail'),
 
-    # ── Admin — Payments ──────────────────────────────────────────
+    # ── Admin - Payments ──────────────────────────────────────────
     path('admin/grading-health/', admin_grading_health, name='admin-grading-health'),
     path('admin/grading-health/clear/', admin_grading_health_clear, name='admin-grading-health-clear'),
     path('admin/grading-cost/', admin_grading_cost, name='admin-grading-cost'),
@@ -164,11 +164,11 @@ urlpatterns = [
     path('admin/payments/<int:pk>/verify/', AdminVerifyPaymentView.as_view(), name='admin-verify-payment'),
     path('admin/payments/<int:pk>/reject/', AdminRejectPaymentView.as_view(), name='admin-reject-payment'),
 
-    # ── Admin — Passages ──────────────────────────────────────────
+    # ── Admin - Passages ──────────────────────────────────────────
     path('admin/passages/', PassageListCreateView.as_view(), name='passage-list'),
     path('admin/passages/<int:pk>/', PassageDetailView.as_view(), name='passage-detail'),
 
-    # ── Admin — Bulk Upload ───────────────────────────────────────
+    # ── Admin - Bulk Upload ───────────────────────────────────────
     path('admin/bulk-upload/', BulkUploadView.as_view(), name='bulk_upload'),
 
     # ── Teacher ───────────────────────────────────────────────────

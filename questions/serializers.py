@@ -113,7 +113,7 @@ class QuestionSerializer(serializers.ModelSerializer):
 
     def get_statement_schema_template(self, obj):
         """Expose only headings/section-names so the blank student form uses the correct
-        orientation. No row labels, no amounts — student still types everything."""
+        orientation. No row labels, no amounts - student still types everything."""
         if obj.question_type != 'financial_statement':
             return None
         schema = obj.marking_scheme
@@ -307,7 +307,7 @@ class QuizDetailSerializer(serializers.ModelSerializer):
 
 
 class QuizCreateUpdateSerializer(serializers.ModelSerializer):
-    """For creating/updating quizzes – accepts question IDs"""
+    """For creating/updating quizzes - accepts question IDs"""
     questions = serializers.PrimaryKeyRelatedField(
         many=True,
         queryset=Question.objects.all(),
@@ -332,7 +332,7 @@ class QuizCreateUpdateSerializer(serializers.ModelSerializer):
         if 'subject' not in data and not self.instance:
             raise serializers.ValidationError({"subject": "This field is required."})
 
-        # question_ids always takes priority — the spread quiz object may include
+        # question_ids always takes priority - the spread quiz object may include
         # a stale `questions` list from the GET response which would otherwise win.
         # Preserve the given order (filter(id__in=...) would reorder by -created_at).
         if 'question_ids' in data:

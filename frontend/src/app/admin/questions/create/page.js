@@ -545,16 +545,16 @@ export default function AddQuestionPage() {
                   >
                     <option value="">Select correct option</option>
                     <option value="A">
-                      A{form.option_a ? ` — ${form.option_a}` : ""}
+                      A{form.option_a ? ` - ${form.option_a}` : ""}
                     </option>
                     <option value="B">
-                      B{form.option_b ? ` — ${form.option_b}` : ""}
+                      B{form.option_b ? ` - ${form.option_b}` : ""}
                     </option>
                     <option value="C">
-                      C{form.option_c ? ` — ${form.option_c}` : ""}
+                      C{form.option_c ? ` - ${form.option_c}` : ""}
                     </option>
                     <option value="D">
-                      D{form.option_d ? ` — ${form.option_d}` : ""}
+                      D{form.option_d ? ` - ${form.option_d}` : ""}
                     </option>
                   </select>
                 </div>

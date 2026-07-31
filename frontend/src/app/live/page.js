@@ -26,8 +26,8 @@ const fmtDate = (k) =>
 
 const STATUS_UI = {
   requested: { label: "Waiting for approval", cls: "bg-amber-100 text-amber-800 dark:bg-amber-500/15 dark:text-amber-300" },
-  approved: { label: "Approved — pay to confirm", cls: "bg-blue-100 text-blue-800 dark:bg-blue-500/15 dark:text-blue-300" },
-  payment_submitted: { label: "Payment sent — confirming…", cls: "bg-amber-100 text-amber-800 dark:bg-amber-500/15 dark:text-amber-300" },
+  approved: { label: "Approved - pay to confirm", cls: "bg-blue-100 text-blue-800 dark:bg-blue-500/15 dark:text-blue-300" },
+  payment_submitted: { label: "Payment sent - confirming…", cls: "bg-amber-100 text-amber-800 dark:bg-amber-500/15 dark:text-amber-300" },
   confirmed: { label: "Confirmed", cls: "bg-emerald-100 text-emerald-800 dark:bg-emerald-500/15 dark:text-emerald-300" },
   rejected: { label: "Not available", cls: "bg-red-100 text-red-700 dark:bg-red-500/15 dark:text-red-300" },
   cancelled: { label: "Cancelled", cls: "bg-gray-100 text-gray-600 dark:bg-slate-700 dark:text-gray-300" },
@@ -280,7 +280,7 @@ export default function LiveLessonsPage() {
                     )}
                     {b.status === "confirmed" && !b.zoom_link && (
                       <p className="mt-3 text-sm text-emerald-700 dark:text-emerald-400">
-                        Paid ✓ — your Zoom link will appear here shortly.
+                        Paid ✓ - your Zoom link will appear here shortly.
                       </p>
                     )}
                     {b.status === "rejected" && b.rejection_reason && (
@@ -375,7 +375,7 @@ export default function LiveLessonsPage() {
           {sessions.length === 0 && (
             <div className="mt-5 rounded-2xl bg-white dark:bg-slate-800 border border-dashed border-gray-300 dark:border-slate-600 p-8 text-center text-gray-500 dark:text-gray-400">
               <Clock className="h-8 w-8 mx-auto mb-2 opacity-50" />
-              <p>No sessions scheduled yet — new ones are added regularly. Check back soon.</p>
+              <p>No sessions scheduled yet - new ones are added regularly. Check back soon.</p>
             </div>
           )}
         </section>
@@ -428,7 +428,7 @@ export default function LiveLessonsPage() {
             <button onClick={submitBooking} disabled={busy}
               className="w-full rounded-xl bg-indigo-600 py-3 text-sm font-bold text-white hover:bg-indigo-700 disabled:opacity-60 flex items-center justify-center gap-2">
               {busy ? <Loader2 className="h-4 w-4 animate-spin" /> : <Sparkles className="h-4 w-4" />}
-              Request session — KES {active.price_kes.toLocaleString()}
+              Request session - KES {active.price_kes.toLocaleString()}
             </button>
             <p className="text-[11px] text-gray-400 mt-2 text-center">
               You only pay once we've confirmed a teacher for your session.

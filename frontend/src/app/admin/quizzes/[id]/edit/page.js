@@ -372,7 +372,7 @@ export default function EditQuizPage() {
       if (res.ok) {
         setToast({
           visible: true,
-          message: `Quiz saved — ${selectedQuestions.length} question${selectedQuestions.length !== 1 ? "s" : ""}`,
+          message: `Quiz saved - ${selectedQuestions.length} question${selectedQuestions.length !== 1 ? "s" : ""}`,
           type: "success",
         });
       } else {
@@ -740,7 +740,7 @@ export default function EditQuizPage() {
                 className="w-full border-2 border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-indigo-400 font-medium"
                 value={form.title}
                 onChange={(e) => setForm({ ...form, title: e.target.value })}
-                placeholder="e.g. Grade 7 Math – Term 1 Exam"
+                placeholder="e.g. Grade 7 Math - Term 1 Exam"
               />
             </div>
             <div>
@@ -780,7 +780,7 @@ export default function EditQuizPage() {
                 label: "Topic",
                 field: "topic",
                 options: topics.map((t) => ({ value: t.id, label: t.name })),
-                placeholder: "— None —",
+                placeholder: "- None -",
                 nullable: true,
               },
             ].map(({ label, field, options, placeholder, nullable }) => (
@@ -836,7 +836,7 @@ export default function EditQuizPage() {
                 onChange={(e) => setForm({ ...form, term: e.target.value })}
                 disabled={form.quiz_type !== "exam"}
               >
-                <option value="">— None —</option>
+                <option value="">- None -</option>
                 <option value="1">Term 1</option>
                 <option value="2">Term 2</option>
                 <option value="3">Term 3</option>

@@ -354,13 +354,13 @@ export default function SettingsPage() {
                           icon={User}
                           iconColor="#10b981"
                           label="Username"
-                          value={user.username || "—"}
+                          value={user.username || "-"}
                         />
                         <InfoRow
                           icon={Mail}
                           iconColor="#3b82f6"
                           label="Email"
-                          value={user.email || "—"}
+                          value={user.email || "-"}
                         />
                         <InfoRow
                           icon={Shield}
@@ -519,7 +519,7 @@ export default function SettingsPage() {
                               "Unlimited practice questions",
                               "Instant marking & detailed feedback",
                               "Full progress analytics",
-                              "All learning areas — Grades 4–10",
+                              "All learning areas - Grades 4-10",
                               "Exam simulation sets",
                               "Priority support",
                             ].map((f) => (
@@ -563,7 +563,7 @@ export default function SettingsPage() {
                                   "linear-gradient(135deg, #f59e0b, #ea580c)",
                               }}
                             >
-                              Subscribe — From KES 500/month
+                              Subscribe - From KES 500/month
                             </button>
                           </Link>
                         </div>
@@ -750,7 +750,7 @@ export default function SettingsPage() {
                       </div>
                     </div>
 
-                    {/* Support — WhatsApp */}
+                    {/* Support - WhatsApp */}
                     <div className="rounded-2xl p-4 flex items-center justify-between bg-white border border-gray-200">
                       <div className="flex items-center gap-3">
                         <Sparkles className="w-4 h-4 text-amber-500" />

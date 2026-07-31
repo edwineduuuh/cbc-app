@@ -138,7 +138,7 @@ export default function WhatsAppButton() {
               <div className="flex items-center justify-center gap-1.5 mt-3">
                 <Clock className="w-3 h-3 text-white/20" />
                 <p className="text-xs text-white/25 text-center">
-                  Mon – Sat, 8am – 8pm EAT
+                  Mon - Sat, 8am - 8pm EAT
                 </p>
               </div>
             </div>

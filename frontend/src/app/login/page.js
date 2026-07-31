@@ -25,7 +25,7 @@ export default function LoginPage() {
 
   // If already logged in, redirect to the right place.
   // Guard with localStorage check: logout() clears tokens synchronously but
-  // setUser(null) is async — without this, the stale user state triggers a
+  // setUser(null) is async - without this, the stale user state triggers a
   // false redirect to /dashboard immediately after logout.
   useEffect(() => {
     if (!authLoading && user && localStorage.getItem("accessToken")) {
@@ -86,7 +86,7 @@ export default function LoginPage() {
       />
 
       <div className="min-h-screen flex">
-        {/* ── Left Panel — Decorative ── */}
+        {/* ── Left Panel - Decorative ── */}
         <div className="hidden lg:flex lg:w-[45%] hero-bg relative overflow-hidden flex-col justify-between p-12">
           <div className="dot-pattern absolute inset-0" />
 
@@ -110,7 +110,7 @@ export default function LoginPage() {
             <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-4 py-2 mb-8">
               <Sparkles className="w-3.5 h-3.5 text-amber-400" />
               <span className="text-white/80 text-xs font-semibold tracking-wide uppercase">
-                Grades 4–10 • Instant Marking
+                Grades 4-10 • Instant Marking
               </span>
             </div>
             <h2 className="font-display text-5xl text-white leading-[1.1] mb-6">
@@ -161,12 +161,12 @@ export default function LoginPage() {
               it."
             </p>
             <p className="text-cyan-300 text-xs font-semibold">
-              — Wanjiru M., Parent · Nairobi
+              - Wanjiru M., Parent · Nairobi
             </p>
           </div>
         </div>
 
-        {/* ── Right Panel — Form ── */}
+        {/* ── Right Panel - Form ── */}
         <div className="flex-1 flex items-center justify-center px-6 py-12 bg-gray-50 relative">
           <Link
             href="/"

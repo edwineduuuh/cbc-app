@@ -9,14 +9,14 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         if Question.objects.exists():
-            self.stdout.write("Data already loaded — skipping.")
+            self.stdout.write("Data already loaded - skipping.")
             return
 
         fixture = os.path.join(os.path.dirname(__file__), '..', '..', '..', 'data_clean.json')
         fixture = os.path.abspath(fixture)
 
         if not os.path.exists(fixture):
-            self.stdout.write(self.style.WARNING("Fixture not found — skipping."))
+            self.stdout.write(self.style.WARNING("Fixture not found - skipping."))
             return
 
         self.stdout.write("Clearing partial data...")

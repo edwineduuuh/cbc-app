@@ -157,7 +157,7 @@ export default function LandingPage() {
   const faqs = [
     {
       q: "Can I try before subscribing?",
-      a: "Yes. Sign up for free and get 5 full quizzes — no card required. When you're ready for more, subscribe.",
+      a: "Yes. Sign up for free and get 5 full quizzes - no card required. When you're ready for more, subscribe.",
     },
     {
       q: "Who creates the questions?",
@@ -493,7 +493,7 @@ export default function LandingPage() {
                     }}
                     className="hover:scale-[1.02] transition-all duration-200 group"
                   >
-                    Start Free Trial — 5 Quizzes
+                    Start Free Trial - 5 Quizzes
                     <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                   </button>
                 </Link>
@@ -553,7 +553,7 @@ export default function LandingPage() {
               </motion.div>
             </div>
 
-            {/* Right — Structured Question Demo */}
+            {/* Right - Structured Question Demo */}
             <motion.div
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
@@ -706,7 +706,7 @@ export default function LandingPage() {
                         marginBottom: 6,
                       }}
                     >
-                      ✓ Correct — full marks
+                      ✓ Correct - full marks
                     </p>
                     <p
                       style={{
@@ -717,7 +717,7 @@ export default function LandingPage() {
                       }}
                     >
                       Both points are exactly right. Delivering oxygen to cells
-                      and removing waste (CO₂) — that is precisely what the
+                      and removing waste (CO₂) - that is precisely what the
                       marking scheme required. Well done.
                     </p>
                   </div>
@@ -751,7 +751,7 @@ export default function LandingPage() {
                         margin: 0,
                       }}
                     >
-                      Remember three jobs — deliver oxygen, deliver nutrients,
+                      Remember three jobs - deliver oxygen, deliver nutrients,
                       remove waste. Pick any two when a question asks for two.
                     </p>
                   </div>
@@ -884,7 +884,7 @@ export default function LandingPage() {
       >
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
           {[
-            { value: "Grade 4–10", label: "Fully Covered" },
+            { value: "Grade 4-10", label: "Fully Covered" },
             { value: "500+", label: "Expert Questions" },
             { value: "Instant", label: "Feedback, Every Time" },
             { value: "24/7", label: "Always Available" },
@@ -1469,7 +1469,7 @@ export default function LandingPage() {
                 }}
                 className="hover:opacity-90 transition-all hover:scale-[1.02]"
               >
-                Sign Up as a Teacher — It&apos;s Free →
+                Sign Up as a Teacher - It&apos;s Free →
               </button>
             </Link>
           </FadeIn>
@@ -1613,7 +1613,7 @@ export default function LandingPage() {
               </div>
             </FadeIn>
 
-            {/* Monthly — Popular */}
+            {/* Monthly - Popular */}
             <FadeIn delay={0.15}>
               <div
                 className="card-lift relative h-full flex flex-col"
@@ -1752,7 +1752,7 @@ export default function LandingPage() {
               </div>
             </FadeIn>
 
-            {/* Termly — Best Value */}
+            {/* Termly - Best Value */}
             <FadeIn delay={0.2}>
               <div
                 className="card-lift relative h-full flex flex-col"

@@ -706,7 +706,7 @@ export default function CreateQuizPage() {
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
                         className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 outline-none transition-all text-gray-900 font-medium"
-                        placeholder="e.g. Grade 6 Mathematics — Numbers & Operations"
+                        placeholder="e.g. Grade 6 Mathematics - Numbers & Operations"
                       />
                     </div>
                     <div>
@@ -718,7 +718,7 @@ export default function CreateQuizPage() {
                         onChange={(e) => setSubject(e.target.value)}
                         className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 outline-none transition-all"
                       >
-                        <option value="">— Select Learning Area —</option>
+                        <option value="">- Select Learning Area -</option>
                         {subjects.map((s) => (
                           <option key={s.id} value={s.id}>
                             {s.icon} {s.name}
@@ -735,7 +735,7 @@ export default function CreateQuizPage() {
                         onChange={(e) => setGrade(e.target.value)}
                         className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 outline-none transition-all"
                       >
-                        <option value="">— Select Grade —</option>
+                        <option value="">- Select Grade -</option>
                         {GRADES.map((g) => (
                           <option key={g} value={g}>
                             Grade {g}
@@ -938,7 +938,7 @@ export default function CreateQuizPage() {
                 <div className="bg-indigo-600 text-white rounded-2xl px-5 py-3 flex items-center justify-between text-sm">
                   <span className="font-semibold">{title}</span>
                   <span className="bg-white/20 rounded-lg px-3 py-1">
-                    {selectedSubject?.name || "—"} · Grade {grade}
+                    {selectedSubject?.name || "-"} · Grade {grade}
                   </span>
                 </div>
 

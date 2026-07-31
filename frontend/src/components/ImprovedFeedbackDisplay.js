@@ -180,7 +180,7 @@ export default function ImprovedFeedbackDisplay({ attempt, quiz }) {
           Question-by-Question Breakdown
         </h2>
 
-        {/* Substrand coverage summary — topical quizzes only (exams are intentionally assorted) */}
+        {/* Substrand coverage summary - topical quizzes only (exams are intentionally assorted) */}
         {(() => {
           const hasSubstrands = questions.some((q) => q.substrand_name);
           const isTopical = !quiz.quiz_type || quiz.quiz_type === "topical";
@@ -252,7 +252,7 @@ export default function ImprovedFeedbackDisplay({ attempt, quiz }) {
                     </div>
                   </div>
 
-                  {/* Student Answer — full option text */}
+                  {/* Student Answer - full option text */}
                   <div className="mb-4 p-4 bg-white rounded-lg border border-gray-200">
                     <p className="text-sm font-semibold text-gray-600 mb-1">Your Answer:</p>
                     <p className="text-base text-gray-900">{studentAnswerText}</p>
@@ -266,7 +266,7 @@ export default function ImprovedFeedbackDisplay({ attempt, quiz }) {
                     </div>
                   )}
 
-                  {/* AI Feedback — \n rendered as line breaks */}
+                  {/* AI Feedback - \n rendered as line breaks */}
                   {partResult.feedback && (
                     <div className="p-4 bg-white rounded-lg border border-gray-200">
                       <p className="text-sm font-semibold text-gray-600 mb-2">Feedback:</p>
@@ -337,7 +337,7 @@ export default function ImprovedFeedbackDisplay({ attempt, quiz }) {
                 </div>
               </div>
 
-              {/* Student Answer — full text from backend */}
+              {/* Student Answer - full text from backend */}
               <div className="mb-4 p-4 bg-white rounded-lg border border-gray-200">
                 <p className="text-sm font-semibold text-gray-600 mb-2">Your Answer:</p>
                 <p className="text-base text-gray-900 leading-relaxed"
@@ -349,7 +349,7 @@ export default function ImprovedFeedbackDisplay({ attempt, quiz }) {
                 />
               </div>
 
-              {/* AI Feedback — \n rendered as line breaks */}
+              {/* AI Feedback - \n rendered as line breaks */}
               {questionFeedback.feedback && (
                 <div className="mb-4 p-4 bg-white rounded-lg border border-gray-200">
                   <p className="text-sm font-semibold text-gray-600 mb-2">Feedback:</p>

@@ -193,7 +193,7 @@ export default function SubstrandPicker({ onStart, accent = "indigo", startLabel
             </div>
           ) : subs.length === 0 ? (
             <p className="rounded-xl bg-amber-50 px-3 py-2 text-sm text-amber-700 dark:bg-amber-900/20">
-              No sub-strands here yet — we’ll use the whole strand.
+              No sub-strands here yet - we’ll use the whole strand.
             </p>
           ) : (
             <div className="grid gap-2 sm:grid-cols-2">

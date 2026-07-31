@@ -65,7 +65,7 @@ export async function getCurrentUser(accessToken) {
 const REQUEST_TIMEOUT_MS = 25000;
 
 function fetchWithTimeout(url, options = {}, ms = REQUEST_TIMEOUT_MS) {
-  // Respect a caller-supplied AbortSignal (e.g. quiz submit) — don't override it.
+  // Respect a caller-supplied AbortSignal (e.g. quiz submit) - don't override it.
   if (options.signal) return fetch(url, options);
   const controller = new AbortController();
   const id = setTimeout(() => controller.abort(), ms);
@@ -104,7 +104,7 @@ export async function fetchWithAuth(url, options = {}) {
   let token = localStorage.getItem("accessToken");
   let response = await makeRequest(token);
 
-  // Token expired — try to refresh once and retry
+  // Token expired - try to refresh once and retry
   if (response.status === 401) {
     const refreshToken = localStorage.getItem("refreshToken");
     if (!refreshToken) {

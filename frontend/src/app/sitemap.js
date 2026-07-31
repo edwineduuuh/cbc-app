@@ -38,7 +38,7 @@ export default function sitemap() {
       changeFrequency: "weekly",
       priority: 0.7,
     },
-    // NOTE: /dashboard and /progress are intentionally omitted — they are
+    // NOTE: /dashboard and /progress are intentionally omitted - they are
     // logged-in-only pages blocked by robots.txt, so listing them here just
     // triggers "Submitted URL blocked by robots.txt" warnings with no SEO value.
   ];

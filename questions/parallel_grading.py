@@ -12,7 +12,7 @@ import time
 def _grade_one(question, student_answer, working_image):
     """Grade one question.
 
-    grade_answer() already handles multipart questions internally — it grades
+    grade_answer() already handles multipart questions internally - it grades
     each part with full PASSAGE (dialogue) and parent-stem context. We must NOT
     re-implement multipart here: the old local proxy had no `.parts` and no
     `passage`, so every multipart/dialogue part crashed with 'Grading error'.

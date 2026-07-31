@@ -3,14 +3,14 @@ scan_arithmetic_answers.py
 
 Flags PLAIN-LANGUAGE, BIG-NUMBER arithmetic questions whose STORED answer
 doesn't match any obvious operation (+, −, ×, ÷) on the numbers in the
-question — catching authoring typos like "183654 + 264907" stored as 448661
+question - catching authoring typos like "183654 + 264907" stored as 448661
 instead of 448561.
 
 Heuristic, no AI. To stay precise (few false positives) it only looks at
 questions that:
-  * have NO maths notation (no $, \\, =, ^, fractions, logs, variables) —
+  * have NO maths notation (no $, \\, =, ^, fractions, logs, variables) -
     i.e. real word problems, not algebra/geometry; and
-  * have exactly two "large" numbers (>= --min-number, default 100) —
+  * have exactly two "large" numbers (>= --min-number, default 100) -
     the place authoring typos hide and pupils can't easily self-check.
 
 It then flags any where the stored answer isn't the sum, difference, product
@@ -88,7 +88,7 @@ class Command(BaseCommand):
         for q in qs:
             text = q.question_text or ""
             if _NOTATION.search(text):
-                continue  # algebra/geometry/notation — not a plain sum
+                continue  # algebra/geometry/notation - not a plain sum
             stored = _stored_numeric(q)
             if not stored:
                 continue
@@ -102,7 +102,7 @@ class Command(BaseCommand):
             if b and a % b == 0:
                 cands["quotient"] = a // b
             if stored & set(cands.values()):
-                continue  # matches an obvious operation — looks fine
+                continue  # matches an obvious operation - looks fine
             best = min(
                 ((abs(v - s), op, v) for s in stored for op, v in cands.items()),
                 key=lambda t: t[0],

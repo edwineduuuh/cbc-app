@@ -332,7 +332,7 @@ function TableBuilder({ value, onChange }) {
           <p className="text-xs text-gray-400">
             {tableType === "fill_in"
               ? 'Check "Student fills" on cells where students enter answers. Set the correct answer for each editable cell.'
-              : "Static table — students cannot edit any cell. Use this for reference tables."}
+              : "Static table - students cannot edit any cell. Use this for reference tables."}
           </p>
         </>
       )}
@@ -649,7 +649,7 @@ export default function QuestionManagementPage() {
     passage_id: "",
     question_text: "",
     question_type: "mcq",
-    math_format: "open", // "open" | "mcq" — only used when question_type === "math"
+    math_format: "open", // "open" | "mcq" - only used when question_type === "math"
     option_a: "",
     option_b: "",
     option_c: "",
@@ -2037,12 +2037,12 @@ export default function QuestionManagementPage() {
                     disabled={!formData.subject}
                     options={filteredTopics.map((t) => ({
                       value: t.id,
-                      label: `${t.name} — Grade ${t.grade}`,
+                      label: `${t.name} - Grade ${t.grade}`,
                     }))}
                     placeholder="Select Strand"
                   />
                 </div>
-                {/* Substrand — optional, loads after strand is picked */}
+                {/* Substrand - optional, loads after strand is picked */}
                 {filteredSubstrands.length > 0 && (
                   <SelectField
                     label="Substrand (optional)"
@@ -2053,7 +2053,7 @@ export default function QuestionManagementPage() {
                       value: s.id,
                       label: s.name,
                     }))}
-                    placeholder="— Select substrand —"
+                    placeholder="- Select substrand -"
                   />
                 )}
                 <div className="grid grid-cols-3 gap-4">
@@ -2109,7 +2109,7 @@ export default function QuestionManagementPage() {
                     options={QUESTION_TYPES}
                   />
                 </div>
-                {/* Math answer-format picker — shown before question text so teacher picks format first */}
+                {/* Math answer-format picker - shown before question text so teacher picks format first */}
                 {formData.question_type === "math" && (
                   <div className="bg-indigo-50 border border-indigo-200 rounded-lg p-3">
                     <label className="block text-xs font-semibold text-indigo-700 mb-2 uppercase tracking-wide">
@@ -2165,7 +2165,7 @@ export default function QuestionManagementPage() {
                           }))
                         }
                       >
-                        <option value="">— No passage —</option>
+                        <option value="">- No passage -</option>
                         {filteredPassages.map((p) => (
                           <option key={p.id} value={p.id}>
                             {p.title} (Grade {p.grade})
@@ -2176,7 +2176,7 @@ export default function QuestionManagementPage() {
                   );
                 })()}
 
-                {/* Question text — stem + parts for multipart, plain for everything else */}
+                {/* Question text - stem + parts for multipart, plain for everything else */}
                 {formData.question_type === "multipart" ||
                 (formData.question_type === "math" &&
                   formData.math_format === "multipart") ? (
@@ -2508,12 +2508,12 @@ export default function QuestionManagementPage() {
                     required
                     options={editFilteredTopics.map((t) => ({
                       value: t.id,
-                      label: `${t.name} — Grade ${t.grade}`,
+                      label: `${t.name} - Grade ${t.grade}`,
                     }))}
                     placeholder="Select Strand"
                   />
                 </div>
-                {/* Substrand — optional, loads after strand is picked */}
+                {/* Substrand - optional, loads after strand is picked */}
                 {editFilteredSubstrands.length > 0 && (
                   <SelectField
                     label="Substrand (optional)"
@@ -2524,7 +2524,7 @@ export default function QuestionManagementPage() {
                       value: s.id,
                       label: s.name,
                     }))}
-                    placeholder="— Select substrand —"
+                    placeholder="- Select substrand -"
                   />
                 )}
                 <div className="grid grid-cols-4 gap-4">
@@ -2640,7 +2640,7 @@ export default function QuestionManagementPage() {
                           }))
                         }
                       >
-                        <option value="">— No passage —</option>
+                        <option value="">- No passage -</option>
                         {filteredPassages.map((p) => (
                           <option key={p.id} value={p.id}>
                             {p.title} (Grade {p.grade})
@@ -3107,7 +3107,7 @@ export default function QuestionManagementPage() {
                     </div>
                   ) : tm.topicList.length === 0 ? (
                     <div className="p-6 text-center text-sm text-gray-400">
-                      No topics yet — add one below
+                      No topics yet - add one below
                     </div>
                   ) : (
                     <table className="w-full text-sm">
@@ -3341,7 +3341,7 @@ export default function QuestionManagementPage() {
                     </div>
                   ) : sm.substrands.length === 0 ? (
                     <div className="p-6 text-center text-sm text-gray-400">
-                      No substrands yet — add one below
+                      No substrands yet - add one below
                     </div>
                   ) : (
                     <table className="w-full text-sm">

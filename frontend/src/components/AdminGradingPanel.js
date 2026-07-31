@@ -206,13 +206,13 @@ export default function AdminGradingPanel() {
           if (!health?.prematch_mode || health.prematch_mode === "off")
             return (
               <p className="text-xs text-gray-400">
-                Off — every structured answer goes to the AI.
+                Off - every structured answer goes to the AI.
               </p>
             );
           if (total === 0)
             return (
               <p className="text-xs text-gray-500">
-                No data yet — grade some list-type questions to see how often it
+                No data yet - grade some list-type questions to see how often it
                 agrees with the AI.
               </p>
             );
@@ -223,7 +223,7 @@ export default function AdminGradingPanel() {
               {health.prematch_mode === "shadow" && pct >= 95 && (
                 <span className="text-emerald-700 font-semibold">
                   {" "}
-                  Looks safe — switch to Live to start saving.
+                  Looks safe - switch to Live to start saving.
                 </span>
               )}
             </p>
@@ -238,7 +238,7 @@ export default function AdminGradingPanel() {
           <h4 className="text-sm font-bold text-gray-900">Grading cost</h4>
         </div>
         <p className="text-xs text-gray-500 mb-3">
-          Estimates what a quiz costs using free token counting — spends{" "}
+          Estimates what a quiz costs using free token counting - spends{" "}
           <strong>no credits</strong>, works even at a zero balance.
         </p>
 

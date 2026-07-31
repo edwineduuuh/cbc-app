@@ -68,7 +68,7 @@ class QuestionCreateView(generics.CreateAPIView):
 class QuestionListManageView(generics.ListAPIView):
     """
     GET /api/admin/questions/manage/
-    List all questions with filters — paginated (100 per page)
+    List all questions with filters - paginated (100 per page)
     """
     serializer_class = QuestionDetailSerializer
     permission_classes = [IsAuthenticated]
@@ -330,8 +330,8 @@ class AdminQuizLibraryView(generics.ListCreateAPIView):
 
 class PassageListCreateView(generics.ListCreateAPIView):
     """
-    GET  /api/admin/passages/   — list all passages (filterable by subject/grade)
-    POST /api/admin/passages/   — create a new passage
+    GET  /api/admin/passages/   - list all passages (filterable by subject/grade)
+    POST /api/admin/passages/   - create a new passage
     """
     serializer_class = PassageAdminSerializer
     permission_classes = [IsAdminOrTeacher]

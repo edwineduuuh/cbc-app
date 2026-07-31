@@ -9,7 +9,7 @@ Grades every question in the quiz through the REAL grading path (cache
 bypassed so each one hits the API), captures token usage per call, prices it
 per the model actually used, and projects a monthly per-student cost to
 compare against the subscription price. MCQs cost nothing (graded
-deterministically) — that shows up as zero.
+deterministically) - that shows up as zero.
 """
 import json
 
@@ -54,7 +54,7 @@ class Command(BaseCommand):
             return
 
         questions = list(quiz.questions.all())
-        self.stdout.write(f"Quiz {quiz.id}: {quiz.title!r} — {len(questions)} questions\n")
+        self.stdout.write(f"Quiz {quiz.id}: {quiz.title!r} - {len(questions)} questions\n")
 
         # Capture usage of every underlying API call.
         calls = []
@@ -104,7 +104,7 @@ class Command(BaseCommand):
 
         quiz_kes = total_usd * kes
         self.stdout.write("\n--- COST OF ONE FULL QUIZ ---")
-        self.stdout.write(f"API calls made        : {len(calls)} (MCQs make none — they're free)")
+        self.stdout.write(f"API calls made        : {len(calls)} (MCQs make none - they're free)")
         self.stdout.write(f"Tokens  full-in={tot['in']}  cache-write={tot['cw']}  "
                           f"cache-read={tot['cr']}  out={tot['out']}")
         self.stdout.write(f"Cost per quiz         : ${total_usd:.4f}  (~KES {quiz_kes:.2f})")
@@ -118,5 +118,5 @@ class Command(BaseCommand):
         self.stdout.write(f"Subscription price    : KES {sub:.0f}")
         self.stdout.write(f"Grading is ~{pct:.0f}% of revenue  -> "
                           f"~KES {sub - monthly_kes:.0f} gross margin per student")
-        self.stdout.write(self.style.SUCCESS("\nNote: real cost is LOWER — caching makes repeat "
+        self.stdout.write(self.style.SUCCESS("\nNote: real cost is LOWER - caching makes repeat "
                                              "answers and warm prompts far cheaper than this."))

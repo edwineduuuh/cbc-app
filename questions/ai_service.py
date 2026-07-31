@@ -1,7 +1,7 @@
 """
 ai_service.py
 Non-grading AI tasks (lesson plans, open-answer marking, student reports).
-Uses Claude (Anthropic) — Gemini has been removed.
+Uses Claude (Anthropic) - Gemini has been removed.
 """
 import json
 import re
@@ -53,7 +53,7 @@ def parse_ai_json(raw_text: str) -> dict:
 
 LESSON_SYSTEM = """You are an expert Kenyan CBC curriculum specialist and experienced teacher trainer.
 You write lesson plans that fully comply with TSC (Teachers Service Commission) requirements.
-Always respond with valid JSON only — no markdown fences, no commentary outside the JSON."""
+Always respond with valid JSON only - no markdown fences, no commentary outside the JSON."""
 
 def generate_lesson_plan(data: dict) -> dict:
     """
@@ -148,7 +148,7 @@ Return ONLY a JSON object with EXACTLY these keys:
 
 
 # ─────────────────────────────────────────────────────────────
-#  AI MARKING — OPEN-ENDED ANSWERS
+#  AI MARKING - OPEN-ENDED ANSWERS
 # ─────────────────────────────────────────────────────────────
 
 MARKING_SYSTEM = """You are a fair and encouraging Kenyan CBC teacher marking student answers.

@@ -65,7 +65,7 @@ else:
     DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 INSTALLED_APPS = [
-    'jazzmin',  # must come BEFORE django.contrib.admin — themes the admin UI
+    'jazzmin',  # must come BEFORE django.contrib.admin - themes the admin UI
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -138,18 +138,18 @@ CACHES = {
     # Graded answers: DB-backed so they PERSIST across restarts AND are SHARED
     # across all worker processes. Without this the same answer is re-graded
     # (and re-billed to the AI) after every restart and on every other worker.
-    # Requires the cache table: `python manage.py createcachetable` (idempotent —
+    # Requires the cache table: `python manage.py createcachetable` (idempotent -
     # safe to run on every deploy). Grading degrades gracefully if it's missing.
     'grades': {
         'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
         'LOCATION': 'stadispace_grade_cache',
-        # 1 year — a repeated answer is graded ONCE and reused. Safe to keep this
+        # 1 year - a repeated answer is graded ONCE and reused. Safe to keep this
         # long because the cache key embeds a content-hash of the question, so
         # editing a question's answer/scheme auto-invalidates just its grades.
         'TIMEOUT': 60 * 60 * 24 * 365,
         'OPTIONS': {
             # Django's DB cache defaults to only 300 entries(!) and evicts the
-            # rest — which silently defeats grade caching. Hold a million.
+            # rest - which silently defeats grade caching. Hold a million.
             'MAX_ENTRIES': 1_000_000,
             'CULL_FREQUENCY': 4,
         },
@@ -325,7 +325,7 @@ LOGGING = {
     },
 }
 
-# ── Jazzmin — pretty Django admin ──────────────────────────────────────────────
+# ── Jazzmin - pretty Django admin ──────────────────────────────────────────────
 JAZZMIN_SETTINGS = {
     "site_title": "StadiSpace Admin",
     "site_header": "StadiSpace",

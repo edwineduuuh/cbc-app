@@ -1,6 +1,6 @@
 """
 IntaSend M-Pesa STK Push Integration
-Replaces Daraja API — works with individual Buy Goods Till via IntaSend.
+Replaces Daraja API - works with individual Buy Goods Till via IntaSend.
 """
 import os
 import re
@@ -70,7 +70,7 @@ class IntaSendAPI:
             return {'success': False, 'error': str(error)}
         except requests.exceptions.Timeout:
             logger.error("IntaSend STK Push timed out")
-            return {'success': False, 'error': 'Request timed out — please try again'}
+            return {'success': False, 'error': 'Request timed out - please try again'}
         except Exception as e:
             logger.exception("IntaSend STK Push error: %s", e)
             return {'success': False, 'error': str(e)}

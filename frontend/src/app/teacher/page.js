@@ -624,7 +624,7 @@ function LiveQuizControl({ classroom, onBack, onRefreshList }) {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Main Panel */}
         <div className="lg:col-span-2 space-y-4">
-          {/* WAITING — Lobby */}
+          {/* WAITING - Lobby */}
           {status === "waiting" && (
             <div className="bg-white rounded-xl border border-gray-200 p-8 text-center">
               <Radio className="w-12 h-12 text-amber-500 mx-auto mb-4" />
@@ -676,7 +676,7 @@ function LiveQuizControl({ classroom, onBack, onRefreshList }) {
             </div>
           )}
 
-          {/* LIVE — Current Question */}
+          {/* LIVE - Current Question */}
           {status === "live" && currentQ && (
             <div className="bg-white rounded-xl border-2 border-green-200 p-6">
               <div className="flex items-center justify-between mb-4">
@@ -763,7 +763,7 @@ function LiveQuizControl({ classroom, onBack, onRefreshList }) {
             </div>
           )}
 
-          {/* ENDED — Results Summary */}
+          {/* ENDED - Results Summary */}
           {status === "ended" && (
             <div className="bg-white rounded-xl border border-gray-200 p-6">
               <div className="flex items-center gap-3 mb-6">
@@ -825,7 +825,7 @@ function LiveQuizControl({ classroom, onBack, onRefreshList }) {
           )}
         </div>
 
-        {/* Sidebar — Leaderboard (shown during waiting/live) */}
+        {/* Sidebar - Leaderboard (shown during waiting/live) */}
         {status !== "ended" && (
           <div className="bg-white rounded-xl border border-gray-200 p-5">
             <h4 className="font-bold text-sm text-gray-900 mb-4 flex items-center gap-2">

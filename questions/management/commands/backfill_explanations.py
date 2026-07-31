@@ -2,10 +2,10 @@
 backfill_explanations.py
 
 Generates the MISSING explanations for passage/cloze comprehension questions
-(and their parts) — the ones authored with an empty `explanation` field, so a
+(and their parts) - the ones authored with an empty `explanation` field, so a
 kid who gets them wrong currently sees only "the answer is C".
 
-Uses OPUS (claude-opus-4-8) — no Gemini. Kiswahili questions get a Kiswahili
+Uses OPUS (claude-opus-4-8) - no Gemini. Kiswahili questions get a Kiswahili
 explanation, English ones an English explanation. Grounded in the passage and
 the correct answer, short and grade-appropriate. Only fills BLANK fields; never
 overwrites an explanation an admin already wrote.
@@ -48,7 +48,7 @@ CORRECT ANSWER: {correct}
 
 Rules:
 - Write ONLY in {lang}. 1-3 short sentences.
-- Explain the reason grounded in the passage/grammar — not just "because it is C".
+- Explain the reason grounded in the passage/grammar - not just "because it is C".
 - Simple words a Grade {grade} pupil understands. No symbols or jargon.
 - Output ONLY the explanation text. No labels, no "Explanation:", no quotes."""
     model = KISWAHILI_MODEL if sw else CLAUDE_MODEL
@@ -81,7 +81,7 @@ class Command(BaseCommand):
             sw = _is_kiswahili(q)
             if sw:
                 # AI is NOT reliable for Kiswahili grammar (invents wrong ngeli).
-                # Leave Kiswahili explanations to admins — never auto-generate them.
+                # Leave Kiswahili explanations to admins - never auto-generate them.
                 continue
             passage_text = q.passage.content if q.passage else ""
             parts = list(q.parts.all())

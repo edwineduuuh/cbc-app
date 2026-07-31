@@ -5,7 +5,7 @@ from questions.models import SubscriptionPlan
 class Command(BaseCommand):
     help = (
         "Create the 3 subscription plans IF MISSING. Never overwrites an existing "
-        "plan — prices are managed in the Django admin, not here."
+        "plan - prices are managed in the Django admin, not here."
     )
 
     def handle(self, *args, **options):
@@ -27,7 +27,7 @@ class Command(BaseCommand):
             {
                 "name": "Monthly",
                 "slug": "monthly",
-                "description": "Most popular — best for consistent practice",
+                "description": "Most popular - best for consistent practice",
                 "price_kes": 999,
                 "billing_period": "monthly",
                 "duration_days": 30,
@@ -41,7 +41,7 @@ class Command(BaseCommand):
             {
                 "name": "Termly",
                 "slug": "termly",
-                "description": "Best value — covers an entire school term",
+                "description": "Best value - covers an entire school term",
                 "price_kes": 2199,
                 "billing_period": "termly",
                 "duration_days": 90,
@@ -57,7 +57,7 @@ class Command(BaseCommand):
         for plan_data in plans:
             slug = plan_data.pop("slug")
             # get_or_create ONLY sets these values when the row is first created.
-            # An existing plan is left exactly as the admin configured it — this
+            # An existing plan is left exactly as the admin configured it - this
             # command must never silently reset a live price.
             obj, created = SubscriptionPlan.objects.get_or_create(
                 slug=slug,
@@ -65,11 +65,11 @@ class Command(BaseCommand):
             )
             if created:
                 self.stdout.write(self.style.SUCCESS(
-                    f"Created: {obj.name} — KES {obj.price_kes}/{obj.billing_period} (ID: {obj.id})"
+                    f"Created: {obj.name} - KES {obj.price_kes}/{obj.billing_period} (ID: {obj.id})"
                 ))
             else:
                 self.stdout.write(
-                    f"Exists (left untouched): {obj.name} — KES {obj.price_kes}/"
+                    f"Exists (left untouched): {obj.name} - KES {obj.price_kes}/"
                     f"{obj.billing_period} (ID: {obj.id})"
                 )
 

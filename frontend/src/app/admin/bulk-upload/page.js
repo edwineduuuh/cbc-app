@@ -59,7 +59,7 @@ export default function BulkUploadPage() {
     }
   }, [result]);
 
-  // Load subjects — public endpoint, plain fetch avoids auth-redirect on token issues
+  // Load subjects - public endpoint, plain fetch avoids auth-redirect on token issues
   useEffect(() => {
     if (authLoading || !user) return;
     const load = async () => {

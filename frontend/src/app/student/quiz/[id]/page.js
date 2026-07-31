@@ -619,13 +619,13 @@ function ResultsScreen({ result, quiz }) {
               },
               {
                 label: "Correct",
-                value: `${result.correct_answers ?? "—"} questions`,
+                value: `${result.correct_answers ?? "-"} questions`,
               },
               {
                 label: "Time Taken",
                 value: result.time_taken
                   ? `${Math.floor(result.time_taken / 60)}m ${result.time_taken % 60}s`
-                  : "—",
+                  : "-",
               },
               { label: "Pass Mark", value: `${quiz?.passing_score ?? 75}%` },
             ].map(({ label, value }) => (
@@ -1958,7 +1958,7 @@ export default function QuizTakePage({ params }) {
                 </div>
                 {currentQ.max_marks > 1 && (
                   <p style={{ fontSize: 12, color: "var(--text-muted)", marginTop: 8 }}>
-                    Worth {currentQ.max_marks} marks — provide a detailed
+                    Worth {currentQ.max_marks} marks - provide a detailed
                     answer.
                   </p>
                 )}
@@ -1987,7 +1987,7 @@ export default function QuizTakePage({ params }) {
                 />
                 {currentQ.max_marks > 1 && (
                   <p style={{ fontSize: 12, color: "var(--text-muted)", marginTop: 8 }}>
-                    Worth {currentQ.max_marks} marks — fill all cells.
+                    Worth {currentQ.max_marks} marks - fill all cells.
                   </p>
                 )}
               </div>
@@ -2108,7 +2108,7 @@ export default function QuizTakePage({ params }) {
                 cursor: "pointer",
                 flexShrink: 0,
               }}
-              title="All answered — submit now"
+              title="All answered - submit now"
             >
               <Send size={18} color="#1d8f57" />
             </button>

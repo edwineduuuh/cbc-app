@@ -15,7 +15,7 @@
   --font-mono: var(--font-geist-mono);
 }
 
-/* Dark mode is controlled by .dark class only — see ThemeContext.js */
+/* Dark mode is controlled by .dark class only - see ThemeContext.js */
 html.dark {
   --background: #0a0a0a;
   --foreground: #ededed;

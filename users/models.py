@@ -53,7 +53,7 @@ class User(AbstractUser):
         help_text=_("Student's current grade level (only for students)."),
     )
 
-    # FREE TRIAL FIELDS (kept for migration compatibility — not used for access control)
+    # FREE TRIAL FIELDS (kept for migration compatibility - not used for access control)
     trial_start = models.DateTimeField(null=True, blank=True)
     trial_end = models.DateTimeField(null=True, blank=True)
     has_used_trial = models.BooleanField(default=False)
@@ -68,7 +68,7 @@ class User(AbstractUser):
     parent_email = models.EmailField(blank=True, default='',
         help_text='Parent email for receipts & progress reports')
 
-    # FREE TRIAL CREDITS — 2 free quizzes for every new user
+    # FREE TRIAL CREDITS - 2 free quizzes for every new user
     quiz_credits = models.IntegerField(
         default=2,
         help_text='Free quiz attempts remaining'
@@ -249,7 +249,7 @@ class ClassroomInvitation(models.Model):
 class DailyActivity(models.Model):
     """One row per user per day they were active (any authenticated request).
     Powers the admin "who used StadiSpace on day X" report. Recorded going
-    forward only — see users/auth.py."""
+    forward only - see users/auth.py."""
     user = models.ForeignKey(
         'users.User', on_delete=models.CASCADE, related_name='daily_activity')
     date = models.DateField(db_index=True)

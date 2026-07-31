@@ -1,6 +1,6 @@
 """
 users/auth.py
-JWT authentication that also records daily activity — so the admin can see
+JWT authentication that also records daily activity - so the admin can see
 who used StadiSpace on any given day. Deduped via cache to one DB write per
 user per day; failures never break authentication.
 """

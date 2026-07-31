@@ -1,6 +1,6 @@
 """
 questions/credits.py
-Free trial credits system — 2 free quizzes per user
+Free trial credits system - 2 free quizzes per user
 """
 
 from functools import wraps
@@ -49,7 +49,7 @@ def check_quiz_credits(view_func):
                 'quiz_credits': 0,
             }, status=status.HTTP_402_PAYMENT_REQUIRED)
 
-        # User has credits — proceed and deduct after successful submission
+        # User has credits - proceed and deduct after successful submission
         response = view_func(request, *args, **kwargs)
 
         if response.status_code in [200, 201]:
@@ -89,7 +89,7 @@ def get_user_credits_status(user):
                 'subscription_status': 'active',
                 'subscription_plan': subscription.plan.name,
                 'subscription_expires': subscription.end_date,
-                'message': f'{subscription.plan.name} — Unlimited access'
+                'message': f'{subscription.plan.name} - Unlimited access'
             }
     except Exception:
         pass

@@ -32,7 +32,7 @@ function _patchKatexSvg(html) {
     return '<svg style="display:inline;"' + attrs + ">";
   });
 }
-// Turn LaTeX into readable plain text — used when KaTeX can't render it,
+// Turn LaTeX into readable plain text - used when KaTeX can't render it,
 // so users never see raw "\mathrm{\text{...}}" or red KaTeX error messages.
 function _latexToText(s) {
   return String(s)
@@ -192,7 +192,7 @@ function getMessage(score) {
     return {
       emoji: "🏆",
       title: "Outstanding!",
-      body: "You absolutely crushed this. Your understanding is exceptional — keep pushing these boundaries!",
+      body: "You absolutely crushed this. Your understanding is exceptional - keep pushing these boundaries!",
     };
   if (score >= 75)
     return {
@@ -210,7 +210,7 @@ function getMessage(score) {
     return {
       emoji: "🌱",
       title: "Keep Building!",
-      body: "You are making progress and that counts. Go back through the material and try again — each attempt makes you stronger.",
+      body: "You are making progress and that counts. Go back through the material and try again - each attempt makes you stronger.",
     };
   return {
     emoji: "💡",
@@ -412,7 +412,7 @@ function ReportCard({
                 {
                   label: "Grade Band",
                   value: gradeBand
-                    ? `${gradeBand.grade} — ${gradeBand.label}`
+                    ? `${gradeBand.grade} - ${gradeBand.label}`
                     : "N/A",
                   color: gradeBand ? gradeBand.color : "var(--text)",
                 },
@@ -803,7 +803,7 @@ export default function AttemptResultsPage() {
           setLoading(false);
           return;
         }
-        // detailed_feedback not ready yet — keep spinner and retry
+        // detailed_feedback not ready yet - keep spinner and retry
         if (!data.detailed_feedback && retryCount < MAX_RETRIES) {
           setTimeout(() => fetchResults(retryCount + 1), RETRY_DELAY);
           return;
@@ -860,7 +860,7 @@ export default function AttemptResultsPage() {
           setLoading(false);
         }
       } catch {
-        /* network blip — keep polling */
+        /* network blip - keep polling */
       }
     }, 2000);
   }, [params.id, fetchResults, fetchCreditsStatus]);
@@ -870,7 +870,7 @@ export default function AttemptResultsPage() {
       router.push("/login");
       return;
     }
-    // Check status first — if the attempt is still grading, start polling.
+    // Check status first - if the attempt is still grading, start polling.
     (async () => {
       try {
         const res = await fetchWithAuth(
@@ -899,7 +899,7 @@ export default function AttemptResultsPage() {
 
   // Preload EVERY image the results page will show the instant results arrive,
   // so the student never waits on an image while scrolling their feedback. Uses
-  // the raw URL — the exact one rendered below (this page doesn't cldOptimize).
+  // the raw URL - the exact one rendered below (this page doesn't cldOptimize).
   useEffect(() => {
     if (!results || typeof window === "undefined") return;
     const fb = results.detailed_feedback || {};
@@ -1035,7 +1035,7 @@ export default function AttemptResultsPage() {
             Marking your quiz…
           </p>
           <p style={{ fontSize: 14, color: "var(--text)", marginTop: 6 }}>
-            We&apos;re checking each answer carefully. This usually takes 15–30 seconds.
+            We&apos;re checking each answer carefully. This usually takes 15-30 seconds.
           </p>
         </div>
         <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
@@ -1528,7 +1528,7 @@ export default function AttemptResultsPage() {
                   boxShadow: "0 2px 8px rgba(0,0,0,0.04)",
                 }}
               >
-                {/* Question header — always visible */}
+                {/* Question header - always visible */}
                 <button
                   onClick={() => toggleExpand(qId)}
                   style={{
@@ -1927,7 +1927,7 @@ export default function AttemptResultsPage() {
                           (q) => String(q.id) === String(qId),
                         );
                         const parts = quizQ?.parts || [];
-                        // Split only at part boundaries "(N) ..." — preserves internal newlines in each segment
+                        // Split only at part boundaries "(N) ..." - preserves internal newlines in each segment
                         const feedbackSegments = (item.feedback || "")
                           .split(/\n+(?=\((?:\d+|[a-z]+)\))/i)
                           .filter((s) => s.trim());
@@ -1949,7 +1949,7 @@ export default function AttemptResultsPage() {
                                   letter
                                 : "";
                               const segFeedback = feedbackSegments[pi] || "";
-                              // Determine correctness from feedback text — part.correct_answer may be full text, not a letter
+                              // Determine correctness from feedback text - part.correct_answer may be full text, not a letter
                               const isCorrect =
                                 /\((?:\d+|[a-z]+)\)\s*(?:correct|excellent|spot on|well done|perfect|great|yes|hongera|vizuri|sahihi|nzuri)/i.test(
                                   segFeedback,
@@ -2358,7 +2358,7 @@ export default function AttemptResultsPage() {
                         </>
                       )}
 
-                    {/* ── Feedback + study tip + points — shown for all non-multipart types ── */}
+                    {/* ── Feedback + study tip + points - shown for all non-multipart types ── */}
                     {item.question_type !== "multipart" && (
                       <>
                           {/* AI Feedback */}
@@ -2430,7 +2430,7 @@ export default function AttemptResultsPage() {
                             )}
                           </div>
 
-                          {/* Study tip — hide if it's a duplicate of the feedback */}
+                          {/* Study tip - hide if it's a duplicate of the feedback */}
                           {item.study_tip &&
                             !item.feedback?.includes(
                               item.study_tip?.slice(0, 80),
@@ -2540,7 +2540,7 @@ export default function AttemptResultsPage() {
             gap: 12,
           }}
         >
-          {/* Upgrade banner — only shown when no credits left */}
+          {/* Upgrade banner - only shown when no credits left */}
           {!isPremium && credits === 0 && (
             <div
               style={{
@@ -2561,8 +2561,8 @@ export default function AttemptResultsPage() {
                 You have used your 2 free quizzes
               </p>
               <p style={{ fontSize: 13, color: "#1e40af", lineHeight: 1.5 }}>
-                Subscribe for KES 500/month to keep going — unlimited quizzes,
-                all learning areas, Grades 4–10.
+                Subscribe for KES 500/month to keep going - unlimited quizzes,
+                all learning areas, Grades 4-10.
               </p>
             </div>
           )}
@@ -2624,7 +2624,7 @@ export default function AttemptResultsPage() {
                     cursor: "pointer",
                   }}
                 >
-                  Unlock unlimited access — KES 500/mo
+                  Unlock unlimited access - KES 500/mo
                 </button>
                 <button
                   onClick={() => router.push(`/quizzes/${results.quiz?.id}`)}

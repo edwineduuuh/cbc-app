@@ -525,15 +525,15 @@ function UsersTab({ stats, list, listLoading, filter, onFilterChange }) {
                 {list.results.map((u) => (
                   <tr key={u.id} onClick={() => setDetailUser(u)} className="hover:bg-indigo-50 cursor-pointer transition-colors">
                     <td className="px-4 py-3 font-medium text-gray-900">{u.username}</td>
-                    <td className="px-4 py-3 text-gray-500 max-w-[160px] truncate">{u.email || "—"}</td>
+                    <td className="px-4 py-3 text-gray-500 max-w-[160px] truncate">{u.email || "-"}</td>
                     <td className="px-4 py-3">
                       <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${roleColors[u.role] || "bg-gray-100 text-gray-600"}`}>{u.role}</span>
                     </td>
-                    <td className="px-4 py-3 text-gray-500">{u.grade ? `G${u.grade}` : "—"}</td>
-                    <td className="px-4 py-3 text-gray-500 max-w-[140px] truncate">{u.school_name || "—"}</td>
-                    <td className="px-4 py-3 text-gray-500 whitespace-nowrap">{u.date_joined ? new Date(u.date_joined).toLocaleDateString() : "—"}</td>
-                    <td className="px-4 py-3 text-gray-500 whitespace-nowrap">{u.last_login ? new Date(u.last_login).toLocaleDateString() : "—"}</td>
-                    <td className="px-4 py-3 text-gray-500 whitespace-nowrap">{u.last_login ? new Date(u.last_login).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }) : "—"}</td>
+                    <td className="px-4 py-3 text-gray-500">{u.grade ? `G${u.grade}` : "-"}</td>
+                    <td className="px-4 py-3 text-gray-500 max-w-[140px] truncate">{u.school_name || "-"}</td>
+                    <td className="px-4 py-3 text-gray-500 whitespace-nowrap">{u.date_joined ? new Date(u.date_joined).toLocaleDateString() : "-"}</td>
+                    <td className="px-4 py-3 text-gray-500 whitespace-nowrap">{u.last_login ? new Date(u.last_login).toLocaleDateString() : "-"}</td>
+                    <td className="px-4 py-3 text-gray-500 whitespace-nowrap">{u.last_login ? new Date(u.last_login).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }) : "-"}</td>
                     <td className="px-4 py-3">
                       {u.has_subscription
                         ? <span className="px-2 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-700">Premium</span>
@@ -589,7 +589,7 @@ function UsersTab({ stats, list, listLoading, filter, onFilterChange }) {
 }
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// STUDENT DETAIL MODAL — click a user to see their quizzes, scores & analytics
+// STUDENT DETAIL MODAL - click a user to see their quizzes, scores & analytics
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 function StudentDetailModal({ user, onClose }) {
   const [data, setData] = useState(null);
@@ -665,7 +665,7 @@ function StudentDetailModal({ user, onClose }) {
             </div>
             <div>
               <p className="font-bold text-gray-900">{user.username}</p>
-              <p className="text-xs text-gray-400">{user.email || "—"}{user.grade ? ` · Grade ${user.grade}` : ""}</p>
+              <p className="text-xs text-gray-400">{user.email || "-"}{user.grade ? ` · Grade ${user.grade}` : ""}</p>
               {data?.student?.phone && (
                 <p className="text-xs text-gray-600 font-medium mt-0.5">📱 {data.student.phone}</p>
               )}
@@ -751,10 +751,10 @@ function StudentDetailModal({ user, onClose }) {
                             {a.status === "completed" && a.score != null ? `${a.score}%` : <span className="text-gray-400 font-normal capitalize">{a.status.replace("_", " ")}</span>}
                           </td>
                           <td className="px-3 py-2 text-gray-500 whitespace-nowrap">
-                            {a.max_marks ? `${a.marks_awarded}/${a.max_marks}` : "—"}
+                            {a.max_marks ? `${a.marks_awarded}/${a.max_marks}` : "-"}
                           </td>
                           <td className="px-3 py-2 text-gray-400 whitespace-nowrap">
-                            {a.when ? new Date(a.when).toLocaleString([], { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" }) : "—"}
+                            {a.when ? new Date(a.when).toLocaleString([], { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" }) : "-"}
                           </td>
                         </tr>
                       ))}
@@ -767,7 +767,7 @@ function StudentDetailModal({ user, onClose }) {
         )}
       </div>
 
-      {/* Full attempt result — question-by-question */}
+      {/* Full attempt result - question-by-question */}
       {openAttempt && (
         <div className="fixed inset-0 z-[95] flex items-center justify-center p-4"
           onClick={(e) => { e.stopPropagation(); setOpenAttempt(null); }}>
@@ -806,8 +806,8 @@ function StudentDetailModal({ user, onClose }) {
                       </div>
                       {q.question_image_url && <img src={q.question_image_url} alt="" className="max-h-32 rounded-lg mb-2" />}
                       <div className="text-sm space-y-1">
-                        <p><span className="text-gray-400">Student:</span> <span className={zero ? "text-red-600 font-medium" : "text-gray-700"}>{asText(q.student_answer) || "—"}</span></p>
-                        <p><span className="text-gray-400">Correct:</span> <span className="text-emerald-700">{asText(q.correct_answer) || "—"}</span></p>
+                        <p><span className="text-gray-400">Student:</span> <span className={zero ? "text-red-600 font-medium" : "text-gray-700"}>{asText(q.student_answer) || "-"}</span></p>
+                        <p><span className="text-gray-400">Correct:</span> <span className="text-emerald-700">{asText(q.correct_answer) || "-"}</span></p>
                         {q.feedback && <p className="text-xs text-gray-500 italic mt-1">{q.feedback}</p>}
                       </div>
                     </div>
@@ -853,7 +853,7 @@ function RevenueTab({ stats }) {
           iconBg="bg-emerald-100 text-emerald-600"
           value={`KES ${stats.this_month?.toLocaleString()}`}
           label="This Month"
-          subtitle={monthChange !== null ? `${monthChange > 0 ? "+" : ""}${monthChange}% vs last month` : "—"}
+          subtitle={monthChange !== null ? `${monthChange > 0 ? "+" : ""}${monthChange}% vs last month` : "-"}
           valueColor={monthChange > 0 ? "text-green-600" : monthChange < 0 ? "text-red-600" : "text-gray-900"}
         />
         <KPICard icon={<UserCheck className="w-6 h-6" />} iconBg="bg-blue-100 text-blue-600" value={stats.active_subscriptions} label="Active Subscriptions" subtitle="Currently valid" />
@@ -939,9 +939,9 @@ function RevenueTab({ stats }) {
                     <td className="px-4 py-3 font-medium text-gray-900">{p.user__username}</td>
                     <td className="px-4 py-3 text-gray-600">{p.plan__name}</td>
                     <td className="px-4 py-3 font-semibold text-gray-900">{p.amount_paid?.toLocaleString()}</td>
-                    <td className="px-4 py-3 text-gray-500 font-mono text-xs">{p.mpesa_code || "—"}</td>
-                    <td className="px-4 py-3 text-gray-500">{p.phone_number || "—"}</td>
-                    <td className="px-4 py-3 text-gray-500 whitespace-nowrap">{p.submitted_at ? new Date(p.submitted_at).toLocaleDateString() : "—"}</td>
+                    <td className="px-4 py-3 text-gray-500 font-mono text-xs">{p.mpesa_code || "-"}</td>
+                    <td className="px-4 py-3 text-gray-500">{p.phone_number || "-"}</td>
+                    <td className="px-4 py-3 text-gray-500 whitespace-nowrap">{p.submitted_at ? new Date(p.submitted_at).toLocaleDateString() : "-"}</td>
                     <td className="px-4 py-3">
                       <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${statusColors[p.status] || "bg-gray-100 text-gray-600"}`}>{p.status}</span>
                     </td>
@@ -1410,7 +1410,7 @@ function KPICard({ icon, iconBg, value, valueColor = "text-gray-900", label, sub
       <div className="flex items-center gap-3 mb-3">
         <div className={`w-11 h-11 rounded-xl flex items-center justify-center ${iconBg}`}>{icon}</div>
       </div>
-      <p className={`text-3xl font-bold ${valueColor}`}>{value ?? "—"}</p>
+      <p className={`text-3xl font-bold ${valueColor}`}>{value ?? "-"}</p>
       <p className="text-sm font-medium text-gray-700 mt-1">{label}</p>
       {subtitle && <p className="text-xs text-gray-400 mt-0.5">{subtitle}</p>}
     </div>
@@ -1512,7 +1512,7 @@ function LoadingSkeleton() {
   );
 }
 
-// ─── Daily Logins tab — who used StadiSpace on a chosen day ───
+// ─── Daily Logins tab - who used StadiSpace on a chosen day ───
 function ActiveUsersTab() {
   const todayISO = new Date().toISOString().slice(0, 10);
   const [date, setDate] = useState(todayISO);
@@ -1560,7 +1560,7 @@ function ActiveUsersTab() {
 
         <div className="mt-5 flex items-baseline gap-2">
           <span className="text-4xl font-black text-indigo-600 dark:text-indigo-400">
-            {loading ? "—" : data?.count ?? 0}
+            {loading ? "-" : data?.count ?? 0}
           </span>
           <span className="text-sm text-gray-500 dark:text-gray-400">
             {(data?.count === 1 ? "student" : "students")} active on {new Date(date + "T00:00:00").toLocaleDateString("en-KE", { weekday: "long", day: "numeric", month: "long" })}
@@ -1612,9 +1612,9 @@ function ActiveUsersTab() {
               {users.map((u) => (
                 <tr key={u.id} onClick={() => setDetailUser(u)} className="hover:bg-indigo-50 dark:hover:bg-slate-700/40 cursor-pointer transition-colors">
                   <td className="px-4 py-3 text-sm font-semibold text-gray-900 dark:text-white">{u.username}</td>
-                  <td className="px-4 py-3 text-sm text-gray-500 dark:text-gray-400">{u.email || "—"}</td>
+                  <td className="px-4 py-3 text-sm text-gray-500 dark:text-gray-400">{u.email || "-"}</td>
                   <td className="px-4 py-3 text-sm text-gray-500 dark:text-gray-400 capitalize">{u.role || "student"}</td>
-                  <td className="px-4 py-3 text-sm text-gray-500 dark:text-gray-400">{u.grade ? `Grade ${u.grade}` : "—"}</td>
+                  <td className="px-4 py-3 text-sm text-gray-500 dark:text-gray-400">{u.grade ? `Grade ${u.grade}` : "-"}</td>
                 </tr>
               ))}
             </tbody>

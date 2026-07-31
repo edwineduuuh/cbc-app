@@ -31,7 +31,7 @@ const nunito = Nunito({
 });
 
 /* Serve Cloudinary images straight from its CDN with auto format/quality and a
-   width cap — far faster than proxying through the Next.js image optimizer. */
+   width cap - far faster than proxying through the Next.js image optimizer. */
 function cldOptimize(url, width = 900) {
   if (!url || !url.includes("res.cloudinary.com") || !url.includes("/upload/")) {
     return url;
@@ -45,7 +45,7 @@ const API =
 function _patchKatexSvg(html) {
   // KaTeX 0.16+ draws \sqrt with SVGs. Tailwind v4 sets svg{display:block}
   // globally which hides them. We must inject display:inline INTO the existing
-  // style attribute — adding a second style attribute is invalid and browsers
+  // style attribute - adding a second style attribute is invalid and browsers
   // ignore it, so we merge instead.
   return html.replace(/<svg([^>]*)>/g, (_, attrs) => {
     if (attrs.includes('style="')) {
@@ -323,7 +323,7 @@ function PassageContent({
     );
   }
 
-  // Default — handles blanks too
+  // Default - handles blanks too
   return (
     <p
       style={{
@@ -514,7 +514,7 @@ function MCQOption({ letter, text, imageUrl, selected, onClick }) {
   );
 }
 
-// ─── Part Answer Block — full Chemistry + Physics formula bars for multipart ──
+// ─── Part Answer Block - full Chemistry + Physics formula bars for multipart ──
 
 function PartAnswerBlock({ value, onChange, isKiswahili }) {
   const partRef = useRef(null);
@@ -601,7 +601,7 @@ function getMatchingConfig(tableData) {
     }
   }
 
-  // Fallback: both columns fully static (.e false) but both have .v values —
+  // Fallback: both columns fully static (.e false) but both have .v values -
   // teacher filled the table as a reference and expects matching behaviour.
   // Treat column index 1 as the answer pool.
   if (editableCols.size === 0) {
@@ -702,8 +702,8 @@ function MatchingTable({ tableData, answer, onAnswer }) {
         {selected
           ? "▶ Now tap a row to place it"
           : multiMode
-            ? "Tap an answer, then a row — you can place several per row and reuse the same answer"
-            : "Step 1 — tap an answer below · Step 2 — tap its match in the table"}
+            ? "Tap an answer, then a row - you can place several per row and reuse the same answer"
+            : "Step 1 - tap an answer below · Step 2 - tap its match in the table"}
       </p>
 
       {/* Table */}
@@ -834,7 +834,7 @@ function MatchingTable({ tableData, answer, onAnswer }) {
                           transition: "all 0.15s",
                         }}
                       >
-                        {isTarget ? "Tap to place here →" : "— empty —"}
+                        {isTarget ? "Tap to place here →" : "- empty -"}
                       </span>
                     )}
                   </td>
@@ -900,7 +900,7 @@ function MatchingTable({ tableData, answer, onAnswer }) {
             padding: "8px 0",
           }}
         >
-          ✓ All answers placed — review and submit
+          ✓ All answers placed - review and submit
         </p>
       )}
     </div>
@@ -1137,7 +1137,7 @@ function SubmitModal({ open, onConfirm, onCancel, unanswered, submitting }) {
                   ⚠ {unanswered} question{unanswered !== 1 ? "s" : ""} not answered
                 </p>
                 <p style={{ fontSize: 13, color: "#9a3412", lineHeight: 1.5 }}>
-                  Go back and attempt them — take a breath, stay calm, and do your best on each one. You will still see the correct answer in the feedback.
+                  Go back and attempt them - take a breath, stay calm, and do your best on each one. You will still see the correct answer in the feedback.
                 </p>
               </div>
             ) : (
@@ -1352,9 +1352,9 @@ function ResultsScreen({ result, quiz }) {
               },
               {
                 label: "Correct",
-                value: `${result.correct_answers ?? "—"} questions`,
+                value: `${result.correct_answers ?? "-"} questions`,
               },
-              { label: "Questions", value: result.total_questions ?? "—" },
+              { label: "Questions", value: result.total_questions ?? "-" },
               { label: "Pass Mark", value: `${quiz?.passing_score ?? 75}%` },
             ].map(({ label, value }) => (
               <div
@@ -2028,8 +2028,8 @@ export default function QuizTakePage({ params }) {
     })();
   }, [quizId, user, guestSessionFromUrl, router]);
 
-  // Preload EVERY image the quiz can show — question images AND MCQ option
-  // images — the moment the quiz loads, so a timed student never waits for an
+  // Preload EVERY image the quiz can show - question images AND MCQ option
+  // images - the moment the quiz loads, so a timed student never waits for an
   // image when they reach a question. Same Cloudinary transform used at render
   // so the preloaded URL is the exact one the browser will request.
   useEffect(() => {
@@ -2107,7 +2107,7 @@ export default function QuizTakePage({ params }) {
     if (submitting || submittedRef.current) return;
     setSubmitting(true);
     const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 20000); // 20s — submit is now instant
+    const timeout = setTimeout(() => controller.abort(), 20000); // 20s - submit is now instant
     try {
       // Snapshot answers + capture any visible math field directly
       const finalAnswers = { ...answers };
@@ -2179,7 +2179,7 @@ export default function QuizTakePage({ params }) {
           submittedRef.current = true;
           router.push("/subscribe");
         } else {
-          setSubmitting(false); // no redirect — let them retry
+          setSubmitting(false); // no redirect - let them retry
           alert(data?.error || "Submission failed. Please try again.");
         }
         return;
@@ -2203,16 +2203,16 @@ export default function QuizTakePage({ params }) {
         setResult(data);
         return;
       }
-      // 201 (sync legacy) or 202 (async grading) — both include id.
+      // 201 (sync legacy) or 202 (async grading) - both include id.
       // Lock the button and KEEP it in the "Marking…" state; navigation to the
       // results page unmounts this screen. We deliberately do NOT flip submitting
-      // back to false here — that gap is what let kids re-click and double-submit.
+      // back to false here - that gap is what let kids re-click and double-submit.
       submittedRef.current = true;
       if (data.id) router.replace(`/attempts/${data.id}`);
       else setResult(data);
     } catch (error) {
       clearTimeout(timeout);
-      setSubmitting(false); // real error — allow another attempt
+      setSubmitting(false); // real error - allow another attempt
       console.error("Submit error:", error);
       if (error.name === "AbortError") {
         alert(
@@ -2318,7 +2318,7 @@ export default function QuizTakePage({ params }) {
   const isFinancial = currentQ.question_type === "financial_statement";
   const isKiswahili = /kiswahili/i.test(currentQ?.subject_name || "");
 
-  // Build answeredBlanks map: { blankNum: optionText } — scoped to current passage only
+  // Build answeredBlanks map: { blankNum: optionText } - scoped to current passage only
   const answeredBlanks = {};
   const currentPassageId = currentQ?.passage?.id;
   if (currentPassageId) {
@@ -2556,7 +2556,7 @@ export default function QuizTakePage({ params }) {
               </span>
               {currentQ.passage.author && (
                 <span style={{ fontSize: 12, color: "var(--text-muted)" }}>
-                  — {currentQ.passage.author}
+                  - {currentQ.passage.author}
                 </span>
               )}
             </div>
@@ -2797,7 +2797,7 @@ export default function QuizTakePage({ params }) {
                       padding: "12px 0",
                     }}
                   >
-                    ✓ Working photo captured — no need to type your answer.
+                    ✓ Working photo captured - no need to type your answer.
                   </p>
                 ) : isMCQ ? null : (
                   <SimpleMathInput
@@ -2915,8 +2915,8 @@ export default function QuizTakePage({ params }) {
                   {currentQ.max_marks > 1 && (
                     <p style={{ fontSize: 12, color: "var(--text-muted)", marginTop: 8 }}>
                       {isKiswahili
-                        ? `Alama ${currentQ.max_marks} — toa jibu la kina.`
-                        : `Worth ${currentQ.max_marks} marks — provide a detailed answer.`}
+                        ? `Alama ${currentQ.max_marks} - toa jibu la kina.`
+                        : `Worth ${currentQ.max_marks} marks - provide a detailed answer.`}
                     </p>
                   )}
                 </div>
@@ -3037,7 +3037,7 @@ export default function QuizTakePage({ params }) {
                 </div>
               )}
 
-              {/* Working panel — math only, not for multipart */}
+              {/* Working panel - math only, not for multipart */}
               {isMath && !(currentQ.parts && currentQ.parts.length > 0) && (
                 <WorkingPanel
                   questionIdx={currentIdx}
@@ -3294,7 +3294,7 @@ export default function QuizTakePage({ params }) {
           {currentIdx < totalQ - 1 && unanswered === 0 && (
             <button
               onClick={openSubmitModal}
-              title="All answered — submit now"
+              title="All answered - submit now"
               style={{
                 width: 48,
                 height: 48,

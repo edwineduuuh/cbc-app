@@ -727,7 +727,7 @@ export default function FullProgress() {
     .map((s) => ({ label: s.name, value: Math.round(s.avg) }));
 
   const handleShare = async () => {
-    const text = `📊 ${studentName}'s StadiSpace Progress Report\n${gradeLabel ? gradeLabel + " • " : ""}${cbeGrade.grade} — ${cbeGrade.label}\n${subjects.length} learning areas • ${completed.length} quizzes\nOverall Average: ${Math.round(avgScore)}%\n\nTrack CBE progress at stadispace.com`;
+    const text = `📊 ${studentName}'s StadiSpace Progress Report\n${gradeLabel ? gradeLabel + " • " : ""}${cbeGrade.grade} - ${cbeGrade.label}\n${subjects.length} learning areas • ${completed.length} quizzes\nOverall Average: ${Math.round(avgScore)}%\n\nTrack CBE progress at stadispace.com`;
     if (navigator.share) {
       try {
         await navigator.share({
@@ -1011,7 +1011,7 @@ export default function FullProgress() {
                   }}
                 >
                   <Award className="w-3.5 h-3.5" />
-                  {cbeGrade.grade} — {cbeGrade.label}
+                  {cbeGrade.grade} - {cbeGrade.label}
                 </span>
                 <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold bg-gray-100 text-gray-600">
                   {levelData.emoji} {levelData.title} Lv.{levelData.level}

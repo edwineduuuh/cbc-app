@@ -35,7 +35,7 @@ export default function WelcomePage() {
           body: JSON.stringify(formData),
         });
       } catch (_) {
-        // non-fatal — profile can be completed later
+        // non-fatal - profile can be completed later
       } finally {
         setSaving(false);
       }

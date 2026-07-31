@@ -92,7 +92,7 @@ class AdminUserListView(APIView):
             .values_list('user_id', flat=True)
         )
 
-        # Real activity from the Attempt table — last_login alone is unreliable
+        # Real activity from the Attempt table - last_login alone is unreliable
         # (JWT never set it before). last_active = most recent of a real quiz
         # attempt or a recorded login; quizzes_taken = actual completed attempts.
         qs = qs.annotate(
@@ -155,7 +155,7 @@ class AdminRevenueStatsView(APIView):
             .order_by('-revenue')
         )
 
-        # Monthly trend — last 6 months
+        # Monthly trend - last 6 months
         monthly_trend = []
         for i in range(5, -1, -1):
             m = now.month - i
@@ -274,7 +274,7 @@ class AdminEngagementView(APIView):
 
         students = User.objects.filter(role='student')
 
-        # DAU — last 14 days (fill zeros for missing days)
+        # DAU - last 14 days (fill zeros for missing days)
         raw_dau = {
             str(row['date']): row['count']
             for row in students
@@ -288,7 +288,7 @@ class AdminEngagementView(APIView):
             d = str((now - timedelta(days=i)).date())
             dau.append({'date': d, 'count': raw_dau.get(d, 0)})
 
-        # Signups trend — last 14 days
+        # Signups trend - last 14 days
         raw_signups = {
             str(row['date']): row['count']
             for row in User.objects
@@ -408,7 +408,7 @@ class AdminStudentDetailView(APIView):
 
         by_subject = [
             {
-                'subject': b['quiz__subject__name'] or '—',
+                'subject': b['quiz__subject__name'] or '-',
                 'avg_score': round(b['avg'], 1) if b['avg'] is not None else 0,
                 'attempts': b['n'],
             }
@@ -421,8 +421,8 @@ class AdminStudentDetailView(APIView):
             when = a.completed_at or a.started_at
             rows.append({
                 'id': a.id,
-                'quiz': a.quiz.title if a.quiz else '—',
-                'subject': a.quiz.subject.name if a.quiz and a.quiz.subject else '—',
+                'quiz': a.quiz.title if a.quiz else '-',
+                'subject': a.quiz.subject.name if a.quiz and a.quiz.subject else '-',
                 'grade': a.quiz.grade if a.quiz else None,
                 'type': a.quiz.quiz_type if a.quiz else '',
                 'status': a.status,
@@ -458,7 +458,7 @@ class AdminStudentDetailView(APIView):
 class AdminAttemptDetailView(APIView):
     """Full question-by-question result of one attempt (like the attempts page),
     so an admin can see which questions were failed badly. Reads the stored
-    detailed_feedback — no re-grading."""
+    detailed_feedback - no re-grading."""
     permission_classes = [IsAdminUser]
 
     def get(self, request, attempt_id):
@@ -489,8 +489,8 @@ class AdminAttemptDetailView(APIView):
         return Response({
             'attempt': {
                 'id': a.id,
-                'quiz': a.quiz.title if a.quiz else '—',
-                'subject': a.quiz.subject.name if a.quiz and a.quiz.subject else '—',
+                'quiz': a.quiz.title if a.quiz else '-',
+                'subject': a.quiz.subject.name if a.quiz and a.quiz.subject else '-',
                 'student': a.student.username,
                 'status': a.status,
                 'score': round(a.score, 1) if a.score is not None else None,

@@ -625,7 +625,7 @@ export default function SimpleMathInput({ value, onChange }) {
           overflow: "hidden",
         }}
       >
-        {/* Custom placeholder — avoids MathLive rendering plain text as math italic */}
+        {/* Custom placeholder - avoids MathLive rendering plain text as math italic */}
         {isEmpty && !isFocused && (
           <div
             style={{

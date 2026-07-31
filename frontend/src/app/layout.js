@@ -11,11 +11,11 @@ const BASE_URL = "https://stadispace.co.ke";
 export const metadata = {
   metadataBase: new URL(BASE_URL),
   title: {
-    default: "StadiSpace — CBE Quizzes & Learning for Kenyan Students",
+    default: "StadiSpace - CBE Quizzes & Learning for Kenyan Students",
     template: "%s | StadiSpace",
   },
   description:
-    "StadiSpace helps Kenyan students in Grades 4–10 excel in CBE with interactive quizzes, instant marking of MCQ and structured questions, and detailed progress tracking. Start free today.",
+    "StadiSpace helps Kenyan students in Grades 4-10 excel in CBE with interactive quizzes, instant marking of MCQ and structured questions, and detailed progress tracking. Start free today.",
   keywords: [
     "CBE Kenya",
     "Kenya online learning",
@@ -39,24 +39,24 @@ export const metadata = {
     locale: "en_KE",
     url: BASE_URL,
     siteName: "StadiSpace",
-    title: "StadiSpace — CBE Quizzes & Learning for Kenyan Students",
+    title: "StadiSpace - CBE Quizzes & Learning for Kenyan Students",
     description:
-      "Interactive quizzes, instant marking of MCQ and structured questions, and progress tracking for CBE students in Grades 4–10. Start with 2 free quizzes — no card required.",
+      "Interactive quizzes, instant marking of MCQ and structured questions, and progress tracking for CBE students in Grades 4-10. Start with 2 free quizzes - no card required.",
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "StadiSpace — CBE Learning Platform for Kenya",
+        alt: "StadiSpace - CBE Learning Platform for Kenya",
       },
     ],
   },
 
   twitter: {
     card: "summary_large_image",
-    title: "StadiSpace — CBE Quizzes for Kenyan Students",
+    title: "StadiSpace - CBE Quizzes for Kenyan Students",
     description:
-      "Interactive quizzes, instant marking of MCQ and structured questions, and progress tracking for CBE students in Grades 4–10.",
+      "Interactive quizzes, instant marking of MCQ and structured questions, and progress tracking for CBE students in Grades 4-10.",
     images: ["/og-image.png"],
   },
 
@@ -88,7 +88,7 @@ const structuredData = {
   logo: `${BASE_URL}/og-image.png`,
   image: `${BASE_URL}/og-image.png`,
   description:
-    "StadiSpace is a Kenyan online learning platform for CBE (Competency Based Education) students in Grades 4–10. It offers interactive quizzes with instant marking of MCQ and structured questions, an AI-free hand-crafted question bank, and detailed progress tracking. It is a Kenya-based education service and is not affiliated with any other organisation of the same name.",
+    "StadiSpace is a Kenyan online learning platform for CBE (Competency Based Education) students in Grades 4-10. It offers interactive quizzes with instant marking of MCQ and structured questions, an AI-free hand-crafted question bank, and detailed progress tracking. It is a Kenya-based education service and is not affiliated with any other organisation of the same name.",
   address: {
     "@type": "PostalAddress",
     addressCountry: "KE",
@@ -107,7 +107,7 @@ const structuredData = {
     "Grades 4-10 practice quizzes",
   ],
   inLanguage: "en-KE",
-  // TODO: add sameAs with the official StadiSpace Kenya social profile URLs —
+  // TODO: add sameAs with the official StadiSpace Kenya social profile URLs -
   // this is the strongest signal that links the brand name to THIS domain.
   // sameAs: ["https://facebook.com/…", "https://instagram.com/…", ...],
 };

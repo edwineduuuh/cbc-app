@@ -1011,7 +1011,7 @@ from django.db.models import F as _F
 
 _grading_logger = logging.getLogger('grading')
 
-# Shared pool — 20 concurrent grading jobs across all workers on this process.
+# Shared pool - 20 concurrent grading jobs across all workers on this process.
 # Each job internally uses up to 5 AI threads, so max ~100 parallel AI calls.
 _GRADING_EXECUTOR = ThreadPoolExecutor(max_workers=20, thread_name_prefix='grader')
 atexit.register(_GRADING_EXECUTOR.shutdown, wait=False)
@@ -1119,7 +1119,7 @@ def _build_detailed_feedback(questions, results, answers, working_images):
 def _run_grading_task(attempt_id, quiz_id, questions, answers, working_images,
                       user_id, has_subscription, parsed_started_at):
     """
-    Background grading task — runs in _GRADING_EXECUTOR thread pool.
+    Background grading task - runs in _GRADING_EXECUTOR thread pool.
     Grades the quiz then writes results back to the Attempt row.
     """
     close_old_connections()
@@ -1152,7 +1152,7 @@ def _run_grading_task(attempt_id, quiz_id, questions, answers, working_images,
                     quiz_credits=_F('quiz_credits') - 1
                 )
 
-        # Streak update — fetch fresh user object in this thread
+        # Streak update - fetch fresh user object in this thread
         try:
             user_obj = User.objects.get(pk=user_id)
             user_obj.update_streak()
@@ -1173,7 +1173,7 @@ def _run_grading_task(attempt_id, quiz_id, questions, answers, working_images,
 def get_attempt_grading_status(request, attempt_id):
     """
     GET /api/attempts/<attempt_id>/grading-status/
-    Lightweight polling endpoint — returns status + score when done.
+    Lightweight polling endpoint - returns status + score when done.
     """
     try:
         attempt = Attempt.objects.only(
@@ -1333,7 +1333,7 @@ def submit_quiz(request):
                 if has_cell_answers:
                     display_correct = ' | '.join(correct_lines)
                 else:
-                    # Cells have no stored answers — fall back to question's correct_answer field
+                    # Cells have no stored answers - fall back to question's correct_answer field
                     display_correct = question.correct_answer or (' | '.join(correct_lines) if correct_lines else '')
 
             _img_url2 = None
@@ -1441,7 +1441,7 @@ def submit_quiz(request):
             parsed_started_at = parse_datetime(raw_started_at)
 
         # Create the attempt immediately so the student gets a fast response.
-        # Grading happens in a background thread — status starts as 'grading'.
+        # Grading happens in a background thread - status starts as 'grading'.
         attempt = Attempt.objects.create(
             student=user,
             quiz=quiz,
@@ -1498,16 +1498,16 @@ def credits_status(request):
     except Subscription.DoesNotExist:
         pass
 
-    # Free quiz credits — from User model (single source of truth)
+    # Free quiz credits - from User model (single source of truth)
     credits = user.quiz_credits
 
-    # If a former subscriber has leftover free quizzes, TELL them — don't silently
+    # If a former subscriber has leftover free quizzes, TELL them - don't silently
     # let them burn through credits thinking they're still subscribed.
     expiry_warning = None
     if expired_plan:
         if credits > 0:
             expiry_warning = (
-                f'⚠️ Your {expired_plan} plan has ended — you still have {credits} '
+                f'⚠️ Your {expired_plan} plan has ended - you still have {credits} '
                 f'free quiz{"zes" if credits != 1 else ""} left. Subscribe to keep '
                 f'unlimited quizzes plus the AI Tutor & Flash Cards.'
             )
@@ -1561,7 +1561,7 @@ def get_attempt_results(request, attempt_id):
 # ─── Student Views ────────────────────────────────────────────
 
 class SubscriptionPlanListView(generics.ListAPIView):
-    """GET /api/plans/ — list active plans (public)"""
+    """GET /api/plans/ - list active plans (public)"""
     permission_classes = [AllowAny]
     queryset = SubscriptionPlan.objects.filter(is_active=True)
     serializer_class = SubscriptionPlanSerializer
@@ -1601,7 +1601,7 @@ class SubmitPaymentView(APIView):
             'status': 'pending',
         }, status=201)
 class MyPaymentsView(generics.ListAPIView):
-    """GET /api/payments/my/ — student's own payment history"""
+    """GET /api/payments/my/ - student's own payment history"""
     permission_classes = [IsAuthenticated]
     serializer_class = PaymentRequestSerializer
 
@@ -1710,7 +1710,7 @@ def admin_grading_health_clear(request):
 @api_view(['POST'])
 @permission_classes([IsAdminUser])
 def admin_grading_cost(request):
-    """Estimate grading cost using Anthropic's FREE token-counting endpoint —
+    """Estimate grading cost using Anthropic's FREE token-counting endpoint -
     spends NO credits, and still works at a zero balance (offline fallback)."""
     from . import ai_grading as g
 
@@ -1862,7 +1862,7 @@ def make_join_code(length=6):
 @api_view(["GET"])
 @permission_classes([IsAuthenticated])
 def list_lesson_plans(request):
-    """GET /api/lessons/ — list teacher's lesson plans"""
+    """GET /api/lessons/ - list teacher's lesson plans"""
     plans = LessonPlan.objects.filter(teacher=request.user).order_by("-created_at")
     # optional filters
     grade   = request.query_params.get("grade")
@@ -1943,8 +1943,8 @@ def lesson_plan_detail(request, pk):
 @permission_classes([IsAuthenticated])
 def classrooms(request):
     """
-    GET  /api/classrooms/        — list teacher's classrooms
-    POST /api/classrooms/        — create new classroom + questions
+    GET  /api/classrooms/        - list teacher's classrooms
+    POST /api/classrooms/        - create new classroom + questions
     Body for POST:
     {
       "name": "...", "subject": "...", "grade": "...",
@@ -1959,7 +1959,7 @@ def classrooms(request):
         qs = LiveSession.objects.filter(teacher=request.user).prefetch_related("questions","sessions")
         return Response(ClassroomSerializer(qs, many=True).data)
 
-    # POST — create classroom
+    # POST - create classroom
     data = request.data
     required = ["name", "subject", "grade"]
     for f in required:
@@ -2020,7 +2020,7 @@ def classroom_detail(request, pk):
 @api_view(["POST"])
 @permission_classes([IsAuthenticated])
 def start_classroom(request, pk):
-    """POST /api/classrooms/<pk>/start/ — set status to live"""
+    """POST /api/classrooms/<pk>/start/ - set status to live"""
     classroom = get_object_or_404(LiveSession, pk=pk, teacher=request.user)
     classroom.status = "live"
     classroom.started_at = timezone.now()
@@ -2032,7 +2032,7 @@ def start_classroom(request, pk):
 @api_view(["POST"])
 @permission_classes([IsAuthenticated])
 def end_classroom(request, pk):
-    """POST /api/classrooms/<pk>/end/ — set status to ended, trigger AI reports"""
+    """POST /api/classrooms/<pk>/end/ - set status to ended, trigger AI reports"""
     classroom = get_object_or_404(LiveSession, pk=pk, teacher=request.user)
     classroom.status = "ended"
     classroom.ended_at = timezone.now()
@@ -2056,7 +2056,7 @@ def end_classroom(request, pk):
                 total=total_points,
                 wrong_questions=wrong_qs[:6],   # limit to 6 for token budget
             )
-            # Store as JSON on the session (add ai_report field — see migration note below)
+            # Store as JSON on the session (add ai_report field - see migration note below)
             session.ai_report = report
             session.save(update_fields=["ai_report"])
         except Exception:
@@ -2068,7 +2068,7 @@ def end_classroom(request, pk):
 @api_view(["POST"])
 @permission_classes([IsAuthenticated])
 def next_question(request, pk):
-    """POST /api/classrooms/<pk>/next/ — advance current_question_index"""
+    """POST /api/classrooms/<pk>/next/ - advance current_question_index"""
     classroom = get_object_or_404(Classroom, pk=pk, teacher=request.user)
     total_qs = classroom.questions.count()
     if classroom.current_question_index + 1 >= total_qs:
@@ -2087,7 +2087,7 @@ def join_classroom(request, code):
     """
     GET /api/join/<code>/
     Returns classroom info + questions (without correct answers).
-    Students use this to join by code — no auth needed.
+    Students use this to join by code - no auth needed.
     """
     classroom = get_object_or_404(Classroom, join_code=code.upper())
     if classroom.status == "ended":
@@ -2192,7 +2192,7 @@ def submit_answer(request, session_id):
             is_correct     = result.get("is_correct", False)
             ai_feedback    = result.get("feedback", "")
         except Exception as e:
-            # Fallback — don't crash the student's session
+            # Fallback - don't crash the student's session
             ai_feedback = "Your answer has been recorded and will be reviewed."
 
     answer = StudentAnswer.objects.create(
@@ -2221,7 +2221,7 @@ def submit_answer(request, session_id):
 
 @api_view(["GET"])
 def session_results(request, session_id):
-    """GET /api/sessions/<session_id>/results/ — student's full result"""
+    """GET /api/sessions/<session_id>/results/ - student's full result"""
     session = get_object_or_404(StudentSession, pk=session_id)
     return Response(StudentSessionSerializer(session).data)
 
@@ -2232,7 +2232,7 @@ def session_results(request, session_id):
 
 @api_view(["GET"])
 def leaderboard(request, classroom_id):
-    """GET /api/classrooms/<classroom_id>/leaderboard/ — sorted by score"""
+    """GET /api/classrooms/<classroom_id>/leaderboard/ - sorted by score"""
     classroom = get_object_or_404(Classroom, pk=classroom_id)
     sessions  = classroom.sessions.order_by("-total_score")
     return Response(LeaderboardSerializer(sessions, many=True).data)
@@ -2320,7 +2320,7 @@ def classroom_report(request, pk):
 @api_view(["GET"])
 @permission_classes([IsAuthenticated])
 def teacher_analytics(request):
-    """GET /api/analytics/teacher/ — comprehensive dashboard stats"""
+    """GET /api/analytics/teacher/ - comprehensive dashboard stats"""
     teacher = request.user
 
     # Basic counts
@@ -2340,7 +2340,7 @@ def teacher_analytics(request):
     avg_score_data = sessions.aggregate(avg=Avg("total_score"))
     average_score = round(avg_score_data["avg"] or 0, 1)
 
-    # Subject performance — average score per subject across classrooms
+    # Subject performance - average score per subject across classrooms
     subject_performance = []
     subject_classrooms = classrooms.filter(status="ended").values("subject").annotate(
         count=Count("id"),
@@ -2356,7 +2356,7 @@ def teacher_analytics(request):
             "total_students": subj_sessions.values("student_name").distinct().count(),
         })
 
-    # Top students — by total_score across all the teacher's ended classrooms
+    # Top students - by total_score across all the teacher's ended classrooms
     top_students = list(
         sessions.filter(classroom__status="ended")
         .values("student_name")
@@ -2369,7 +2369,7 @@ def teacher_analytics(request):
     for s in top_students:
         s["avg_score"] = round(s["avg_score"], 1)
 
-    # Struggling students — below average or bottom performers
+    # Struggling students - below average or bottom performers
     struggling_students = list(
         sessions.filter(classroom__status="ended")
         .values("student_name")
@@ -2538,13 +2538,13 @@ def initiate_stk_push(request):
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def mpesa_callback(request):
-    """IntaSend M-Pesa webhook — called by IntaSend after STK Push completes."""
+    """IntaSend M-Pesa webhook - called by IntaSend after STK Push completes."""
     mpesa_logger.info("IntaSend callback received: %s", json.dumps(request.data, default=str))
 
     # Validate challenge secret so only IntaSend can trigger this endpoint
     challenge = os.getenv('INTASEND_CHALLENGE', '')
     if challenge and request.data.get('challenge') != challenge:
-        mpesa_logger.warning("IntaSend callback: invalid challenge — rejected")
+        mpesa_logger.warning("IntaSend callback: invalid challenge - rejected")
         return Response({'error': 'Invalid challenge'}, status=403)
 
     try:
@@ -2594,10 +2594,10 @@ def mpesa_callback(request):
             mpesa_logger.warning("IntaSend callback missing invoice_id in payload: %s", data)
             return Response({'message': 'ok'})
 
-        # PENDING/PROCESSING are intermediate states — log and wait for final state
+        # PENDING/PROCESSING are intermediate states - log and wait for final state
         intermediate_states = {'PENDING', 'PROCESSING', 'INITIATED', 'RETRY'}
         if state in intermediate_states:
-            mpesa_logger.info("IntaSend intermediate state=%s for invoice=%s — waiting", state, invoice_id)
+            mpesa_logger.info("IntaSend intermediate state=%s for invoice=%s - waiting", state, invoice_id)
             return Response({'message': 'ok'})
 
         with transaction.atomic():
@@ -2609,7 +2609,7 @@ def mpesa_callback(request):
                     .get(checkout_request_id=invoice_id)
                 )
             except PaymentRequest.DoesNotExist:
-                # Not a subscription payment — maybe a live-lesson booking.
+                # Not a subscription payment - maybe a live-lesson booking.
                 from .live_views import confirm_booking_from_callback
                 if confirm_booking_from_callback(invoice_id, state, payment_reference):
                     return Response({'message': 'ok'})
@@ -2619,7 +2619,7 @@ def mpesa_callback(request):
             # Allow reprocessing if a previous intermediate/rejected callback arrived first
             if payment_request.status == 'verified':
                 mpesa_logger.info(
-                    "Already verified payment %s — skipping duplicate callback",
+                    "Already verified payment %s - skipping duplicate callback",
                     payment_request.id,
                 )
                 return Response({'message': 'ok'})
@@ -2781,7 +2781,7 @@ def _activate_payment(payment_request, amount_paid=None, payment_reference='INTA
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def check_payment_status(request, payment_request_id):
-    """Check payment status — also polls IntaSend directly so webhook is not required."""
+    """Check payment status - also polls IntaSend directly so webhook is not required."""
     try:
         payment_request = PaymentRequest.objects.select_related('plan', 'user').get(
             id=payment_request_id, user=request.user
@@ -2910,7 +2910,7 @@ def test_email_sms(request):
             recipient_list=[request.user.email],
             fail_silently=False,
         )
-        results['email'] = 'OK — sent to ' + request.user.email
+        results['email'] = 'OK - sent to ' + request.user.email
     except Exception as e:
         results['email'] = f'FAILED: {e}'
 
@@ -2924,7 +2924,7 @@ def test_email_sms(request):
         except Exception as e:
             results['sms'] = f'FAILED: {e}'
     else:
-        results['sms'] = 'SKIPPED — pass phone in request body'
+        results['sms'] = 'SKIPPED - pass phone in request body'
 
     return Response(results)
 
@@ -2977,7 +2977,7 @@ from .models import MotivationalContent
 from .serializers import MotivationalContentSerializer
 
 class MotivationalContentListView(generics.ListAPIView):
-    """Public endpoint — returns active motivational content, optionally filtered."""
+    """Public endpoint - returns active motivational content, optionally filtered."""
     serializer_class = MotivationalContentSerializer
     permission_classes = [AllowAny]
 
@@ -3003,7 +3003,7 @@ class MotivationalContentListView(generics.ListAPIView):
 from .serializers import MotivationalContentAdminSerializer
 
 class MotivationalContentAdminListCreateView(generics.ListCreateAPIView):
-    """Admin endpoint — list all (incl. inactive) & create motivational content."""
+    """Admin endpoint - list all (incl. inactive) & create motivational content."""
     serializer_class = MotivationalContentAdminSerializer
     permission_classes = [IsAuthenticated]
 
@@ -3017,7 +3017,7 @@ class MotivationalContentAdminListCreateView(generics.ListCreateAPIView):
 
 
 class MotivationalContentAdminDetailView(generics.RetrieveUpdateDestroyAPIView):
-    """Admin endpoint — retrieve / update / delete a single motivational item."""
+    """Admin endpoint - retrieve / update / delete a single motivational item."""
     serializer_class = MotivationalContentAdminSerializer
     permission_classes = [IsAuthenticated]
 
