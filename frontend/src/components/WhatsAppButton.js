@@ -96,7 +96,7 @@ export default function WhatsAppButton() {
                   border: "1px solid rgba(255,255,255,0.08)",
                 }}
               >
-                👋 Hi! How can we help you today? Pick a topic below or send us
+                Hi! How can we help you today? Pick a topic below or send us
                 a message directly.
               </div>
 

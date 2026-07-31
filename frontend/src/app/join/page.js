@@ -194,7 +194,7 @@ export default function JoinPage() {
               gap: 14,
             }}
           >
-            <span style={{ fontSize: 24, marginRight: 10 }}>⭐</span>
+            <span style={{ fontSize: 24, marginRight: 10 }}></span>
             <span>
               Want unlimited quizzes at home? <br />
               <span style={{ color: "#b45309", fontWeight: 900 }}>
@@ -216,7 +216,7 @@ export default function JoinPage() {
               fontSize: 32,
             }}
           >
-            🎮
+           
           </div>
           <h1
             style={{
@@ -769,7 +769,7 @@ export default function JoinPage() {
               fontSize: 50,
             }}
           >
-            {percentage >= 80 ? "🏆" : percentage >= 60 ? "🎉" : "💪"}
+            {percentage >= 80 ? "🏆" : percentage >= 60 ? "" : ""}
           </div>
           <h1
             style={{

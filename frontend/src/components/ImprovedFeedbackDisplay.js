@@ -439,7 +439,7 @@ export default function ImprovedFeedbackDisplay({ attempt, quiz }) {
           {percentage >= 80 ? (
             <>
               <p className="text-lg text-gray-800 leading-relaxed">
-                🎉 <strong>Excellent work!</strong> You have a strong
+                <strong>Excellent work!</strong> You have a strong
                 understanding of this strand.
               </p>
               <p className="text-base text-gray-700 leading-relaxed">
@@ -454,7 +454,7 @@ export default function ImprovedFeedbackDisplay({ attempt, quiz }) {
           ) : percentage >= 60 ? (
             <>
               <p className="text-lg text-gray-800 leading-relaxed">
-                👍 <strong>Good effort!</strong> You're on the right track.
+                <strong>Good effort!</strong> You're on the right track.
               </p>
               <p className="text-base text-gray-700 leading-relaxed">
                 To improve further:
@@ -468,7 +468,7 @@ export default function ImprovedFeedbackDisplay({ attempt, quiz }) {
           ) : (
             <>
               <p className="text-lg text-gray-800 leading-relaxed">
-                💪 <strong>Keep going!</strong> Everyone learns at their own
+                <strong>Keep going!</strong> Everyone learns at their own
                 pace.
               </p>
               <p className="text-base text-gray-700 leading-relaxed">

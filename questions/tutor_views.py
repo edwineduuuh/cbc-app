@@ -258,7 +258,7 @@ def tutor_chat(request):
     allowed, remaining = _tutor_quota(request.user)
     if not allowed:
         return Response(
-            {"error": "That's all your tutor questions for today 👋 "
+            {"error": "That's all your tutor questions for today "
                       "Come back tomorrow - your teacher will be right here.",
              "limit_reached": True},
             status=status.HTTP_429_TOO_MANY_REQUESTS,

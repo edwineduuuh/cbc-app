@@ -477,7 +477,7 @@ export default function DashboardPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="flex items-start justify-between gap-6">
             <div className="flex-1">
-              <p className="text-teal-200 text-sm mb-1">Good {timeOfDay} 👋</p>
+              <p className="text-teal-200 text-sm mb-1">Good {timeOfDay}</p>
               <h1 className="font-display text-4xl font-bold text-white mb-3">
                 {user?.first_name || user?.username}
               </h1>
@@ -722,7 +722,7 @@ function StreakCard({ current, longest }) {
         : current >= 14
           ? "On fire! Keep going!"
           : current >= 7
-            ? "One week strong! 💪"
+            ? "One week strong!"
             : current >= 3
               ? "Building momentum!"
               : "Keep it up!";
@@ -743,7 +743,7 @@ function StreakCard({ current, longest }) {
             transition={{ repeat: Infinity, duration: 2 }}
             className="text-2xl"
           >
-            🔥
+           
           </motion.div>
         )}
       </div>

@@ -152,7 +152,7 @@ export default function LoginPage() {
             <div className="flex gap-1 mb-3">
               {[...Array(5)].map((_, i) => (
                 <span key={i} className="text-amber-400 text-sm">
-                  ★
+                 
                 </span>
               ))}
             </div>

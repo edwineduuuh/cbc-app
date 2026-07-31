@@ -1491,7 +1491,7 @@ function LessonPlansView() {
                 <div className="bg-white rounded-xl border border-gray-200 p-5">
                   <h4 className="font-bold text-gray-900 mb-2 text-sm flex items-center gap-2">
                     <span className="w-6 h-6 rounded bg-yellow-100 text-yellow-700 flex items-center justify-center text-xs">
-                      🚀
+                     
                     </span>
                     Extension Activity
                   </h4>
@@ -1504,7 +1504,7 @@ function LessonPlansView() {
                 <div className="bg-white rounded-xl border border-gray-200 p-5">
                   <h4 className="font-bold text-gray-900 mb-2 text-sm flex items-center gap-2">
                     <span className="w-6 h-6 rounded bg-pink-100 text-pink-700 flex items-center justify-center text-xs">
-                      🤝
+                     
                     </span>
                     Support Activity
                   </h4>

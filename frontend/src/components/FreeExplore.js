@@ -189,7 +189,7 @@ export default function ExplorePage() {
                 <div className="px-4 py-2 rounded-xl bg-cyan-50 border border-cyan-200">
                   <p className="text-sm font-semibold text-cyan-800">
                     {userCredits.quiz_credits === "unlimited"
-                      ? "✨ Unlimited"
+                      ? "Unlimited"
                       : `🎓 ${userCredits.quiz_credits} left`}
                   </p>
                 </div>
@@ -264,7 +264,7 @@ export default function ExplorePage() {
             <div className="flex items-center gap-2 mb-4">
               <Flame className="w-5 h-5 text-orange-500" />
               <h2 className="text-2xl font-bold text-gray-900">
-                🔥 Most Popular - Try This First!
+                Most Popular - Try This First!
               </h2>
             </div>
             <div

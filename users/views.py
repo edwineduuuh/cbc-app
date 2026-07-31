@@ -275,7 +275,7 @@ class JoinClassroomView(generics.GenericAPIView):
             )
         
         return Response({
-            'message': f'🎉 Successfully joined {classroom.subject.name} - Grade {classroom.grade}{classroom.name}',
+            'message': f'Successfully joined {classroom.subject.name} - Grade {classroom.grade}{classroom.name}',
             'classroom': ClassroomSerializer(classroom).data
         }, status=status.HTTP_200_OK)
 

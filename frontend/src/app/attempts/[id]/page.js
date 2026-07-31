@@ -196,19 +196,19 @@ function getMessage(score) {
     };
   if (score >= 75)
     return {
-      emoji: "⭐",
+      emoji: "",
       title: "Excellent Work!",
       body: "You are performing at a really high level. A bit more focus on the tricky areas and you will be hitting perfect scores!",
     };
   if (score >= 50)
     return {
-      emoji: "💪",
+      emoji: "",
       title: "Good Progress!",
       body: "You are building solid foundations. Review the questions you found tricky and you will see real improvement.",
     };
   if (score >= 30)
     return {
-      emoji: "🌱",
+      emoji: "",
       title: "Keep Building!",
       body: "You are making progress and that counts. Go back through the material and try again - each attempt makes you stronger.",
     };
@@ -1071,7 +1071,7 @@ export default function AttemptResultsPage() {
     return (
       <div style={{ minHeight: "100vh", background: "var(--bg-secondary)", display: "flex", alignItems: "center", justifyContent: "center" }}>
         <div style={{ textAlign: "center", padding: "0 24px", maxWidth: 340 }}>
-          <div style={{ fontSize: 36, marginBottom: 12 }}>😔</div>
+          <div style={{ fontSize: 36, marginBottom: 12 }}></div>
           <p style={{ color: "#dc2626", fontWeight: 700, fontSize: 16, marginBottom: 8 }}>
             Grading failed
           </p>

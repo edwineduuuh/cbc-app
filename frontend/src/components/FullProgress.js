@@ -131,7 +131,7 @@ function getLevel(n) {
   return {
     level: 1,
     title: "Beginner",
-    emoji: "🌱",
+    emoji: "",
     color: "#6ee7b7",
     next: 5,
     pct: (n / 5) * 100,

@@ -2078,7 +2078,7 @@ def _grade_math(question, student_answer: str, working_image: str | None = None)
     """
     Math grader.
 
-    ⭐ CRITICAL: If working_image is provided, METHOD MARKS are prioritized.
+    CRITICAL: If working_image is provided, METHOD MARKS are prioritized.
     The student has shown their working - they deserve marks for correct method
     even if the final answer differs due to arithmetic errors.
 

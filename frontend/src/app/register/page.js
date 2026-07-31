@@ -189,7 +189,7 @@ function RegisterPage() {
 
               {reason === "quota" && (
                 <div className="mb-6 flex items-center gap-3 bg-teal-50 border-2 border-teal-200 rounded-xl px-5 py-4">
-                  <span className="text-2xl">🎉</span>
+                  <span className="text-2xl"></span>
                   <div>
                     <p className="font-bold text-teal-800 text-sm">You're enjoying StadiSpace!</p>
                     <p className="text-teal-700 text-xs mt-0.5">

@@ -1059,7 +1059,7 @@ const facts = [
   "📚 Regular practice improves retention by up to 80%.",
   "🧠 Taking quizzes is more effective than re-reading notes.",
   "⏱️ Short daily practice sessions beat long weekly cramming.",
-  "🎯 Students who review mistakes improve faster than those who don't.",
+  "Students who review mistakes improve faster than those who don't.",
 ];
 const fact = facts[Math.floor(Math.random() * facts.length)];
 
@@ -1335,7 +1335,7 @@ function ResultsScreen({ result, quiz }) {
               fontFamily: "'Syne', sans-serif",
             }}
           >
-            {passed ? "🎉 Well done!" : "📚 Keep going!"}
+            {passed ? "Well done!" : "📚 Keep going!"}
           </h2>
           <div
             style={{

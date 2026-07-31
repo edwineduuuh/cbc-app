@@ -128,10 +128,10 @@ function ExploreContent() {
           background: "#fff7e6", border: "1px solid #ffe2a8", borderRadius: 14,
           padding: "10px 14px", marginBottom: 16, fontSize: 13, color: "#8a6d3b", lineHeight: 1.5,
         }}>
-          <span style={{ fontSize: 18, flexShrink: 0 }}>🌱</span>
+          <span style={{ fontSize: 18, flexShrink: 0 }}></span>
           <span>
             Fresh quizzes land <strong>every day</strong>! Don&apos;t see your strand yet?
-            It&apos;s probably already on its way - check back tomorrow. ✨
+            It&apos;s probably already on its way - check back tomorrow.
           </span>
         </div>
 

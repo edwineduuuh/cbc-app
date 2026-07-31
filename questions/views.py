@@ -1491,7 +1491,7 @@ def credits_status(request):
                 'subscription_expires': subscription.end_date,
                 'days_remaining': days_left,
                 'expiry_warning': expiry_warning,
-                'message': f'✨ {subscription.plan.name} - Unlimited access'
+                'message': f'{subscription.plan.name} - Unlimited access'
             })
         else:
             expired_plan = subscription.plan.name
