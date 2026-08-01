@@ -1983,6 +1983,12 @@ export default function QuizTakePage({ params }) {
   const quizStartedAt = useRef(new Date().toISOString());
   const structuredTextareaRef = useRef(null);
 
+  // Practice vs Exam mode + per-question immediate feedback (Practice only)
+  const [started, setStarted] = useState(false);
+  const [mode, setMode] = useState("practice"); // 'practice' | 'exam'
+  const [feedbacks, setFeedbacks] = useState({}); // index -> grade-one response
+  const [checking, setChecking] = useState(false);
+
   const currentQ = questions[currentIdx];
 
   const totalQ = questions.length;
@@ -2020,6 +2026,8 @@ export default function QuizTakePage({ params }) {
         const data = await res.json();
         setQuiz(data);
         setQuestions(data.questions || []);
+        // Exam-type quizzes default to Exam mode (no immediate feedback).
+        if (data.quiz_type === "exam") setMode("exam");
       } catch (err) {
         console.error("❌ Failed to load quiz:", err);
       } finally {
@@ -2099,6 +2107,38 @@ export default function QuizTakePage({ params }) {
     captureMathField();
     setTimeout(() => setShowSubmitModal(true), 50);
   }, [captureMathField]);
+
+  // Practice mode: grade the current question immediately for instant feedback.
+  const checkAnswer = async () => {
+    if (checking || feedbacks[currentIdx]) return;
+    const ans = answers[currentIdx];
+    const hasImg = !!workingImages[currentIdx];
+    const hasAns =
+      hasImg ||
+      (ans !== undefined &&
+        ans !== null &&
+        (typeof ans === "object"
+          ? Object.keys(ans).length > 0
+          : String(ans).trim() !== "" && String(ans).trim() !== "\\placeholder{}"));
+    if (!hasAns) return;
+    setChecking(true);
+    try {
+      const res = await fetchWithAuth(`${API}/quizzes/grade-one/`, {
+        method: "POST",
+        body: JSON.stringify({
+          question_id: currentQ.id,
+          answer: ans ?? "",
+          working_image: workingImages[currentIdx] || undefined,
+        }),
+      });
+      const d = await res.json();
+      if (res.ok) setFeedbacks((p) => ({ ...p, [currentIdx]: d }));
+    } catch {
+      /* ignore - they can still move on */
+    } finally {
+      setChecking(false);
+    }
+  };
 
   const handleQuizSubmit = async () => {
     // Guard: ignore re-clicks while a submit is in flight, and permanently once
@@ -2317,6 +2357,126 @@ export default function QuizTakePage({ params }) {
   const isTable = currentQ.question_type === "table";
   const isFinancial = currentQ.question_type === "financial_statement";
   const isKiswahili = /kiswahili/i.test(currentQ?.subject_name || "");
+
+  // Start screen: pick Practice vs Exam before the quiz (and timer) begins.
+  if (quiz && !started) {
+    const examType = quiz.quiz_type === "exam";
+    return (
+      <div
+        className={nunito.className}
+        style={{
+          minHeight: "100vh",
+          background: "var(--bg)",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          padding: 20,
+        }}
+      >
+        <div
+          style={{
+            maxWidth: 460,
+            width: "100%",
+            background: "var(--bg-card)",
+            border: "1px solid var(--border)",
+            borderRadius: 24,
+            padding: 28,
+            textAlign: "center",
+          }}
+        >
+          <h1 style={{ fontSize: 22, fontWeight: 800, color: "var(--text)", marginBottom: 6 }}>
+            {quiz.title}
+          </h1>
+          <p style={{ color: "var(--text-muted)", fontSize: 14, marginBottom: 22 }}>
+            {totalQ} question{totalQ !== 1 ? "s" : ""}
+            {quiz.duration_minutes ? ` · ${quiz.duration_minutes} min` : ""}
+          </p>
+          <p
+            style={{
+              fontSize: 12,
+              fontWeight: 700,
+              color: "var(--text-muted)",
+              textTransform: "uppercase",
+              letterSpacing: "0.06em",
+              marginBottom: 12,
+            }}
+          >
+            How do you want to take it?
+          </p>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 20 }}>
+            {[
+              { id: "practice", title: "Practice", desc: "Feedback after each question" },
+              { id: "exam", title: "Exam", desc: "Feedback only at the end" },
+            ].map((m) => {
+              const active = mode === m.id;
+              return (
+                <button
+                  key={m.id}
+                  onClick={() => setMode(m.id)}
+                  style={{
+                    textAlign: "left",
+                    padding: 16,
+                    borderRadius: 16,
+                    cursor: "pointer",
+                    border: `2px solid ${active ? "#1a6fc4" : "var(--border)"}`,
+                    background: active ? "rgba(26,111,196,0.08)" : "var(--bg-card)",
+                  }}
+                >
+                  <div
+                    style={{
+                      fontWeight: 800,
+                      fontSize: 15,
+                      color: active ? "#1a6fc4" : "var(--text)",
+                      marginBottom: 4,
+                    }}
+                  >
+                    {m.title}
+                  </div>
+                  <div style={{ fontSize: 12, color: "var(--text-muted)", lineHeight: 1.4 }}>
+                    {m.desc}
+                  </div>
+                </button>
+              );
+            })}
+          </div>
+          {examType && (
+            <p
+              style={{
+                fontSize: 12,
+                color: "#b45309",
+                background: "#fffbeb",
+                border: "1px solid #fde68a",
+                borderRadius: 10,
+                padding: "8px 10px",
+                marginBottom: 16,
+              }}
+            >
+              This is an exam-style quiz - Exam mode is recommended.
+            </p>
+          )}
+          <button
+            onClick={() => {
+              quizStartedAt.current = new Date().toISOString();
+              setStarted(true);
+            }}
+            style={{
+              width: "100%",
+              height: 50,
+              borderRadius: 14,
+              border: "none",
+              background: "linear-gradient(135deg, #1a6fc4, #0ea5c9)",
+              color: "#fff",
+              fontSize: 16,
+              fontWeight: 800,
+              cursor: "pointer",
+            }}
+          >
+            Start Quiz →
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   // Build answeredBlanks map: { blankNum: optionText } - scoped to current passage only
   const answeredBlanks = {};
@@ -3199,6 +3359,53 @@ export default function QuizTakePage({ params }) {
         </div>
       </div>
 
+      {/* Practice-mode immediate feedback */}
+      {mode === "practice" &&
+        feedbacks[currentIdx] &&
+        (() => {
+          const fb = feedbacks[currentIdx];
+          const f = fb.feedback || {};
+          const full = fb.max_marks > 0 ? fb.marks_awarded >= fb.max_marks : fb.is_correct;
+          const zero = (fb.marks_awarded ?? 0) <= 0;
+          const color = full ? "#1d8f57" : zero ? "#dc2626" : "#d4900a";
+          const bg = full ? "#eafaf3" : zero ? "#fdeef0" : "#fff8e6";
+          return (
+            <div style={{ maxWidth: 680, margin: "0 auto 96px", padding: "0 16px" }}>
+              <div style={{ background: bg, border: `1.5px solid ${color}44`, borderRadius: 16, padding: 16 }}>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    marginBottom: 8,
+                  }}
+                >
+                  <span style={{ fontWeight: 800, color, fontSize: 15 }}>
+                    {full ? "Correct!" : zero ? "Not quite" : "Partially correct"}
+                  </span>
+                  <span style={{ fontWeight: 800, color, fontSize: 14 }}>
+                    {fb.marks_awarded}/{fb.max_marks}
+                  </span>
+                </div>
+                {f.correct_answer && !full && (
+                  <p style={{ fontSize: 13, color: "var(--text)", marginBottom: 6 }}>
+                    <b>Correct answer:</b>{" "}
+                    {typeof f.correct_answer === "string"
+                      ? f.correct_answer
+                      : JSON.stringify(f.correct_answer)}
+                  </p>
+                )}
+                {f.feedback && (
+                  <div
+                    style={{ fontSize: 13, color: "var(--text-muted)", lineHeight: 1.6 }}
+                    dangerouslySetInnerHTML={{ __html: renderMath(f.feedback) }}
+                  />
+                )}
+              </div>
+            </div>
+          );
+        })()}
+
       {/* Bottom Nav */}
       <div
         style={{
@@ -3243,7 +3450,33 @@ export default function QuizTakePage({ params }) {
             <ArrowLeft size={20} color="#6b7280" />
           </button>
 
-          {currentIdx < totalQ - 1 ? (
+          {mode === "practice" && !feedbacks[currentIdx] ? (
+            <button
+              onClick={checkAnswer}
+              disabled={checking}
+              style={{
+                flex: 1,
+                height: 48,
+                borderRadius: 14,
+                border: "none",
+                background: checking
+                  ? "#94a3b8"
+                  : "linear-gradient(135deg, #7c3aed, #1a6fc4)",
+                color: "#fff",
+                fontSize: 15,
+                fontWeight: 700,
+                cursor: checking ? "default" : "pointer",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: 8,
+                fontFamily: "'Syne', sans-serif",
+                boxShadow: "0 4px 16px rgba(124,58,237,0.3)",
+              }}
+            >
+              {checking ? "Checking..." : "Check Answer"}
+            </button>
+          ) : currentIdx < totalQ - 1 ? (
             <button
               onClick={() => goToQuestion(currentIdx + 1)}
               style={{
