@@ -26,12 +26,15 @@ export default function Navbar() {
   const router = useRouter();
   const pathname = usePathname();
   const [showDropdown, setShowDropdown] = useState(false);
-  const [showMore, setShowMore] = useState(false);
+  const [showMore, setShowMore] = useState(false);        // mobile sheet
+  const [showDeskMore, setShowDeskMore] = useState(false); // desktop dropdown
 
   const isTeacher = user?.role === "teacher" || user?.role === "admin";
+  const isStudent = !isTeacher;
 
-  // `primary` items sit directly in the mobile bottom tab bar; the rest go
-  // behind the "More" tab so the bar never overflows on small screens.
+  // `primary` items are always visible (inline on desktop, tabs on mobile).
+  // The rest live under "More". Live Lessons is a highlighted CTA, handled
+  // separately so it stands out as a money-maker rather than a plain link.
   const navLinks = isTeacher
     ? [
         { href: "/teacher", label: "My Classes", icon: Home, primary: true },
@@ -41,16 +44,17 @@ export default function Navbar() {
     : [
         { href: "/dashboard", label: "Dashboard", icon: Home, primary: true },
         { href: "/explore", label: "Browse", icon: BookOpen, primary: true },
-        { href: "/tutor", label: "Tutor", icon: GraduationCap, primary: true },
         { href: "/progress", label: "Progress", icon: BarChart3, primary: true },
+        { href: "/life-skills", label: "Life Skills", icon: Heart, primary: true },
+        { href: "/tutor", label: "Tutor", icon: GraduationCap },
         { href: "/flashcards", label: "Flash Cards", icon: Layers },
-        { href: "/live", label: "Live Lessons", icon: Video },
-        { href: "/life-skills", label: "Life Skills", icon: Heart },
       ];
+
+  const liveLink = { href: "/live", label: "Live Lessons", icon: Video };
 
   const primaryLinks = navLinks.filter((l) => l.primary);
   const moreLinks = navLinks.filter((l) => !l.primary);
-  const showMoreTab = moreLinks.length > 0 || !user?.has_subscription;
+  const showMoreTab = moreLinks.length > 0 || isStudent || !user?.has_subscription;
 
   const hide =
     !user ||
@@ -79,26 +83,26 @@ export default function Navbar() {
   return (
     <nav className="bg-white border-b border-gray-200 sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between h-16 gap-2">
           {/* Logo */}
           <Link
             href={isTeacher ? "/teacher" : "/dashboard"}
-            className="flex items-center gap-2"
+            className="flex items-center gap-2 shrink-0"
           >
             <div className="font-bold text-white text-xl px-3 py-2 rounded-xl bg-slate-800">
               StadiSpace
             </div>
           </Link>
 
-          {/* Nav Links */}
+          {/* Desktop nav */}
           <div className="hidden md:flex items-center gap-1">
-            {navLinks.map((link) => {
+            {primaryLinks.map((link) => {
               const isActive = pathname === link.href;
               const Icon = link.icon;
               return (
                 <Link key={link.href} href={link.href}>
                   <button
-                    className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold transition-all ${
+                    className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-semibold whitespace-nowrap transition-all ${
                       isActive
                         ? "bg-teal-50 text-teal-700"
                         : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
@@ -110,9 +114,67 @@ export default function Navbar() {
                 </Link>
               );
             })}
+
+            {/* More dropdown */}
+            {moreLinks.length > 0 && (
+              <div className="relative">
+                <button
+                  onClick={() => setShowDeskMore((v) => !v)}
+                  className={`flex items-center gap-1 px-3 py-2 rounded-lg text-sm font-semibold whitespace-nowrap transition-all ${
+                    moreActive
+                      ? "bg-teal-50 text-teal-700"
+                      : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+                  }`}
+                >
+                  More
+                  <ChevronDown
+                    className={`w-4 h-4 transition-transform ${showDeskMore ? "rotate-180" : ""}`}
+                  />
+                </button>
+                {showDeskMore && (
+                  <>
+                    <div className="fixed inset-0 z-10" onClick={() => setShowDeskMore(false)} />
+                    <div className="absolute left-0 mt-2 w-48 bg-white rounded-xl shadow-lg border border-gray-200 py-2 z-20">
+                      {moreLinks.map((link) => {
+                        const Icon = link.icon;
+                        const isActive = pathname === link.href;
+                        return (
+                          <Link key={link.href} href={link.href} onClick={() => setShowDeskMore(false)}>
+                            <div
+                              className={`flex items-center gap-3 px-4 py-2.5 text-sm font-medium transition-colors ${
+                                isActive ? "text-teal-700 bg-teal-50" : "text-gray-700 hover:bg-gray-50"
+                              }`}
+                            >
+                              <Icon className="w-4 h-4 text-gray-400" />
+                              {link.label}
+                            </div>
+                          </Link>
+                        );
+                      })}
+                    </div>
+                  </>
+                )}
+              </div>
+            )}
+
+            {/* Live Lessons - highlighted money-maker */}
+            {isStudent && (
+              <Link href="/live">
+                <button
+                  className={`flex items-center gap-2 px-3 py-2 ml-1 rounded-lg text-sm font-bold whitespace-nowrap text-white transition-all shadow-sm hover:shadow-md ${
+                    pathname === "/live" ? "bg-blue-700" : "bg-blue-600 hover:bg-blue-700"
+                  }`}
+                >
+                  <Video className="w-4 h-4" />
+                  Live Lessons
+                </button>
+              </Link>
+            )}
+
+            {/* Upgrade */}
             {!user.has_subscription && (
               <Link href="/subscribe">
-                <button className="flex items-center gap-2 px-4 py-2 ml-1 rounded-lg text-sm font-bold bg-amber-500 text-white hover:from-amber-600 hover:to-orange-600 transition-all shadow-sm hover:shadow-md">
+                <button className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-bold whitespace-nowrap bg-amber-500 text-white hover:bg-amber-600 transition-all shadow-sm hover:shadow-md">
                   <Sparkles className="w-4 h-4" />
                   Upgrade
                 </button>
@@ -121,7 +183,7 @@ export default function Navbar() {
           </div>
 
           {/* User Menu */}
-          <div className="relative">
+          <div className="relative shrink-0">
             <button
               onClick={() => setShowDropdown(!showDropdown)}
               className="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-gray-50 transition-colors"
@@ -147,15 +209,11 @@ export default function Navbar() {
             {/* Dropdown */}
             {showDropdown && (
               <>
-                {/* Backdrop */}
                 <div
                   className="fixed inset-0 z-10"
                   onClick={() => setShowDropdown(false)}
                 />
-
-                {/* Menu */}
                 <div className="absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-lg border border-gray-200 py-2 z-20">
-                  {/* Premium Badge (if subscribed) */}
                   {user.has_subscription && (
                     <div className="px-4 py-2 mb-2">
                       <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-yellow-400 text-white">
@@ -229,7 +287,7 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* ── "More" sheet ── */}
+      {/* ── "More" sheet (mobile) ── */}
       {showMore && (
         <div className="md:hidden fixed inset-0 z-60">
           <div
@@ -255,11 +313,7 @@ export default function Navbar() {
                 const isActive = pathname === link.href;
                 const Icon = link.icon;
                 return (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    onClick={() => setShowMore(false)}
-                  >
+                  <Link key={link.href} href={link.href} onClick={() => setShowMore(false)}>
                     <div
                       className={`flex flex-col items-center gap-1.5 rounded-2xl border py-4 text-xs font-semibold transition-colors ${
                         isActive
@@ -273,6 +327,14 @@ export default function Navbar() {
                   </Link>
                 );
               })}
+              {isStudent && (
+                <Link href={liveLink.href} onClick={() => setShowMore(false)}>
+                  <div className="flex flex-col items-center gap-1.5 rounded-2xl bg-blue-600 py-4 text-xs font-bold text-white">
+                    <Video className="w-6 h-6" />
+                    Live Lessons
+                  </div>
+                </Link>
+              )}
               {!user.has_subscription && (
                 <Link href="/subscribe" onClick={() => setShowMore(false)}>
                   <div className="flex flex-col items-center gap-1.5 rounded-2xl bg-amber-500 py-4 text-xs font-bold text-white">
