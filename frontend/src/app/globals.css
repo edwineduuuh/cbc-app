@@ -191,3 +191,11 @@ html.dark select {
 }
 html.dark input::placeholder,
 html.dark textarea::placeholder { color: var(--dk-text-3) !important; }
+/* Gentle "sonar" glow to draw attention to the Live Lessons CTA (money-maker).
+   Subtle expanding ring, not a harsh blink. */
+@keyframes liveGlow {
+  0%   { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.45); }
+  70%  { box-shadow: 0 0 0 7px rgba(37, 99, 235, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0); }
+}
+.live-glow { animation: liveGlow 2.2s ease-out infinite; }

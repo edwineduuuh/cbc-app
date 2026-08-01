@@ -28,6 +28,8 @@ export default function Navbar() {
   const [showDropdown, setShowDropdown] = useState(false);
   const [showMore, setShowMore] = useState(false);        // mobile sheet
   const [showDeskMore, setShowDeskMore] = useState(false); // desktop dropdown
+  const [mounted, setMounted] = useState(false);
+  const [liveSeen, setLiveSeen] = useState(false);         // has this user opened Live Lessons?
 
   const isTeacher = user?.role === "teacher" || user?.role === "admin";
   const isStudent = !isTeacher;
@@ -71,6 +73,14 @@ export default function Navbar() {
     return () => document.body.classList.remove("has-bottom-nav");
   }, [hide]);
 
+  // Read the "seen Live Lessons" flag once mounted (avoids SSR/hydration flash).
+  useEffect(() => {
+    setMounted(true);
+    try {
+      if (localStorage.getItem("seenLiveLessons") === "1") setLiveSeen(true);
+    } catch {}
+  }, []);
+
   if (hide) return null;
 
   const handleLogout = () => {
@@ -79,6 +89,16 @@ export default function Navbar() {
   };
 
   const moreActive = moreLinks.some((l) => l.href === pathname);
+
+  // Show the "New" badge until the user has opened Live Lessons (per-browser).
+  const showLiveNew =
+    isStudent && mounted && !liveSeen && pathname !== "/live";
+  const markLiveSeen = () => {
+    try {
+      localStorage.setItem("seenLiveLessons", "1");
+    } catch {}
+    setLiveSeen(true);
+  };
 
   return (
     <nav className="bg-white border-b border-gray-200 sticky top-0 z-50">
@@ -157,16 +177,21 @@ export default function Navbar() {
               </div>
             )}
 
-            {/* Live Lessons - highlighted money-maker */}
+            {/* Live Lessons - highlighted money-maker (always glows) */}
             {isStudent && (
-              <Link href="/live">
+              <Link href="/live" onClick={markLiveSeen}>
                 <button
-                  className={`flex items-center gap-2 px-3 py-2 ml-1 rounded-lg text-sm font-bold whitespace-nowrap text-white transition-all shadow-sm hover:shadow-md ${
+                  className={`live-glow flex items-center gap-2 px-3 py-2 ml-1 rounded-lg text-sm font-bold whitespace-nowrap text-white transition-colors ${
                     pathname === "/live" ? "bg-blue-700" : "bg-blue-600 hover:bg-blue-700"
                   }`}
                 >
                   <Video className="w-4 h-4" />
                   Live Lessons
+                  {showLiveNew && (
+                    <span className="text-[9px] font-black uppercase tracking-wide bg-yellow-300 text-blue-900 px-1.5 py-0.5 rounded">
+                      New
+                    </span>
+                  )}
                 </button>
               </Link>
             )}
@@ -276,12 +301,15 @@ export default function Navbar() {
           {showMoreTab && (
             <button
               onClick={() => setShowMore(true)}
-              className={`flex flex-1 flex-col items-center gap-0.5 py-2 text-[11px] font-semibold leading-tight transition-colors ${
+              className={`relative flex flex-1 flex-col items-center gap-0.5 py-2 text-[11px] font-semibold leading-tight transition-colors ${
                 moreActive || showMore ? "text-teal-600" : "text-gray-500"
               }`}
             >
               <Menu className="w-5.5 h-5.5" />
               <span>More</span>
+              {showLiveNew && (
+                <span className="absolute top-1.5 right-[calc(50%-16px)] h-2.5 w-2.5 rounded-full bg-yellow-400 ring-2 ring-white" />
+              )}
             </button>
           )}
         </div>
@@ -328,8 +356,19 @@ export default function Navbar() {
                 );
               })}
               {isStudent && (
-                <Link href={liveLink.href} onClick={() => setShowMore(false)}>
-                  <div className="flex flex-col items-center gap-1.5 rounded-2xl bg-blue-600 py-4 text-xs font-bold text-white">
+                <Link
+                  href={liveLink.href}
+                  onClick={() => {
+                    setShowMore(false);
+                    markLiveSeen();
+                  }}
+                >
+                  <div className="live-glow relative flex flex-col items-center gap-1.5 rounded-2xl bg-blue-600 py-4 text-xs font-bold text-white">
+                    {showLiveNew && (
+                      <span className="absolute top-1.5 right-1.5 text-[8px] font-black uppercase bg-yellow-300 text-blue-900 px-1 py-0.5 rounded">
+                        New
+                      </span>
+                    )}
                     <Video className="w-6 h-6" />
                     Live Lessons
                   </div>
