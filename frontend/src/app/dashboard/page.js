@@ -547,8 +547,8 @@ export default function DashboardPage() {
           </motion.div>
         )}
 
-        {/* Action Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {/* Explore row - study utilities (3-up, no orphan) */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {/* Browse Quizzes Card */}
           <Link href="/explore">
             <motion.div
@@ -616,7 +616,10 @@ export default function DashboardPage() {
               </div>
             </motion.div>
           </Link>
+        </div>
 
+        {/* Money-maker band - Live Lessons + Upgrade stand out on their own row */}
+        <div className={`grid grid-cols-1 gap-6 mt-6 ${!isPremium ? "md:grid-cols-2" : ""}`}>
           {/* Live Lessons Card */}
           <Link href="/live">
             <motion.div
