@@ -3367,6 +3367,19 @@ export default function QuizTakePage({ params }) {
           const zero = (fb.marks_awarded ?? 0) <= 0;
           const color = full ? "#1d8f57" : zero ? "#dc2626" : "#d4900a";
           const bg = full ? "#eafaf3" : zero ? "#fdeef0" : "#fff8e6";
+          // Strip a leading verdict word (the heading already shows it) and turn
+          // literal \n / real newlines into proper line breaks for clean spacing.
+          const body = (f.feedback || "")
+            .trim()
+            .replace(/^(Correct!|Not quite\.?|Partially correct\.?)\s*/i, "");
+          // Split on literal \n / real newlines into clean, spaced paragraphs.
+          const segs = body.split(/\\n|\r\n|\n/).map((s) => s.trim()).filter(Boolean);
+          const fbHtml = segs
+            .map(
+              (s, i, a) =>
+                `<p style="margin:0 0 ${i < a.length - 1 ? "10px" : "0"} 0">${renderMath(s)}</p>`,
+            )
+            .join("");
           return (
             <div style={{ maxWidth: 680, margin: "16px auto 110px", padding: "0 16px" }}>
               <div style={{ background: bg, border: `1.5px solid ${color}44`, borderRadius: 16, padding: 16 }}>
@@ -3393,10 +3406,10 @@ export default function QuizTakePage({ params }) {
                       : JSON.stringify(f.correct_answer)}
                   </p>
                 )}
-                {f.feedback && (
+                {body && (
                   <div
-                    style={{ fontSize: 13, color: "var(--text-muted)", lineHeight: 1.6 }}
-                    dangerouslySetInnerHTML={{ __html: renderMath(f.feedback) }}
+                    style={{ fontSize: 13.5, color: "var(--text)", lineHeight: 1.75 }}
+                    dangerouslySetInnerHTML={{ __html: fbHtml }}
                   />
                 )}
               </div>
