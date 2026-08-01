@@ -1200,6 +1200,51 @@ def get_attempt_grading_status(request, attempt_id):
 
 
 @api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def grade_one(request):
+    """
+    POST /api/quizzes/grade-one/
+    Grade a SINGLE question for Practice mode (immediate feedback).
+
+    Body: { question_id, answer, working_image? }
+
+    Reuses grade_answer() — identical grading rules and caching. Because
+    grade_answer caches by question+answer, grading here pre-warms the cache,
+    so the normal end-of-quiz submit re-grades the same answers as free cache
+    hits (no double AI cost). Returns the same per-question feedback shape the
+    results page renders.
+    """
+    from .ai_grading import grade_answer
+
+    question_id = request.data.get('question_id')
+    answer = request.data.get('answer', '')
+    working_image = request.data.get('working_image')
+
+    if not question_id:
+        return Response({'error': 'question_id required'}, status=400)
+    try:
+        question = Question.objects.select_related('passage').get(id=question_id)
+    except Question.DoesNotExist:
+        return Response({'error': 'Question not found'}, status=404)
+
+    try:
+        result = grade_answer(question, answer, working_image)
+    except Exception as exc:
+        return Response({'error': f'Grading failed: {type(exc).__name__}'}, status=502)
+
+    wi = {str(question.id): working_image} if working_image else {}
+    fb = _build_detailed_feedback([question], [result], {str(question.id): answer}, wi)
+
+    return Response({
+        'question_id': question.id,
+        'marks_awarded': result.get('marks_awarded', 0),
+        'max_marks': result.get('max_marks', question.max_marks),
+        'is_correct': result.get('is_correct', False),
+        'feedback': fb.get(str(question.id), {}),
+    })
+
+
+@api_view(['POST'])
 @permission_classes([AllowAny])  # Allow both guest and authenticated
 def submit_quiz(request):
     """
