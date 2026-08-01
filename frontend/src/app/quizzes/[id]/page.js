@@ -3356,10 +3356,8 @@ export default function QuizTakePage({ params }) {
               )}
             </motion.div>
           </AnimatePresence>
-        </div>
-      </div>
 
-      {/* Practice-mode immediate feedback */}
+          {/* Practice-mode immediate feedback */}
       {mode === "practice" &&
         feedbacks[currentIdx] &&
         (() => {
@@ -3370,7 +3368,7 @@ export default function QuizTakePage({ params }) {
           const color = full ? "#1d8f57" : zero ? "#dc2626" : "#d4900a";
           const bg = full ? "#eafaf3" : zero ? "#fdeef0" : "#fff8e6";
           return (
-            <div style={{ maxWidth: 680, margin: "0 auto 96px", padding: "0 16px" }}>
+            <div style={{ maxWidth: 680, margin: "16px auto 110px", padding: "0 16px" }}>
               <div style={{ background: bg, border: `1.5px solid ${color}44`, borderRadius: 16, padding: 16 }}>
                 <div
                   style={{
@@ -3405,6 +3403,8 @@ export default function QuizTakePage({ params }) {
             </div>
           );
         })()}
+        </div>
+      </div>
 
       {/* Bottom Nav */}
       <div
