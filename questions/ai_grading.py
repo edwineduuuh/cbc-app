@@ -441,7 +441,7 @@ def _sanitize_answer(text: str) -> str:
     return text
 
 
-GRADER_VERSION = "v16"  # bump to bust stale cached results
+GRADER_VERSION = "v17"  # bump to bust stale cached results
 
 
 def _question_content_version(question) -> str:
@@ -1255,7 +1255,7 @@ ALAMA ZA JUU: {max_marks}
 
 {{
   "marks_awarded": <nambari kamili kati ya 0 na {max_marks}>,
-  "feedback": "<Sentensi 4-6 KWA KISWAHILI SANIFU zikitenganishwa na \\n. Kwa maswali ya orodha (taja sababu X/sifa X): baada ya sentensi ya kwanza, weka maelezo ya kila pointi kwenye MSTARI WAKE MWENYEWE - usichanganye maelezo mengi katika sentensi moja. Usiseme sentensi ya muhtasari mwishoni. Moja kwa moja.>",
+  "feedback": "<KWA KISWAHILI SANIFU, zikitenganishwa na \\n. UREFU hutegemea alama: (a) ALAMA ZOTE - sentensi 1-2 TU zinazothibitisha alichokipata sawa; USIORODHESHE majibu mengine ambayo mwanafunzi hakuhitaji kuandika. (b) SEHEMU au SIFURI - sentensi 2-4: sema alichopata sawa, kisha kilichokosekana na jibu sahihi. Kwa maswali ya orodha weka kila pointi kwenye MSTARI WAKE MWENYEWE. HARAMU: USINAKILI maneno ya mpango wa alama, wala usiandike 'na nyingine zozote zinazofaa' au orodha ya majibu mbadala ambayo mwanafunzi hakuandika. Usiseme sentensi ya muhtasari mwishoni. Moja kwa moja.>",
   "personalized_message": "<sentensi moja fupi ya kuhamasisha KWA KISWAHILI SANIFU>",
   "study_tip": "<{study_tip_instruction}>",
   "points_earned": ["<pointi sahihi kwa Kiswahili Sanifu>"],
@@ -1281,7 +1281,7 @@ MAX MARKS: {max_marks}
 {{
   "marks_awarded": <integer between 0 and {max_marks}>,
   "is_correct": <true if marks_awarded == {max_marks}, else false>,
-  "feedback": "<Start with EXACTLY one opener: 'Correct!' if marks_awarded equals {max_marks}; 'Partially correct.' if marks_awarded is between 1 and {max_marks}-1 (they got some but not all); or 'Not quite.' only if marks_awarded is 0. NEVER say 'Not quite.' when the student earned some marks. Then 4-6 sentences separated by \\n. For list questions (state X reasons/characteristics/examples): after the opening line, put EACH point's explanation on its OWN LINE - never cram multiple point explanations into one paragraph sentence. Do NOT add a closing summary sentence. ALWAYS wrap any maths in dollar signs: inline as $x = 4$ and display as $$\\frac{{1}}{{2}}bh$$. NEVER write bare LaTeX without dollar signs.>",
+  "feedback": "<Start with EXACTLY one opener: 'Correct!' if marks_awarded equals {max_marks}; 'Partially correct.' if marks_awarded is between 1 and {max_marks}-1 (they got some but not all); or 'Not quite.' only if marks_awarded is 0. NEVER say 'Not quite.' when the student earned some marks. LENGTH DEPENDS ON THE SCORE: (a) FULL MARKS - keep it SHORT, 1 to 2 sentences confirming in your own words what the student got right; do NOT teach the whole topic and do NOT list any extra answers the student did not need to give. They already earned everything. (b) PARTIAL or ZERO - 2 to 4 sentences: name what they got right, then what was missing or wrong and the correct point. For list questions put each point on its OWN LINE separated by \\n. HARD BAN - the feedback is about THIS student's answer only; NEVER copy the marking scheme's wording and NEVER write phrases like 'and any other relevant point', 'other possible reasons', 'accept any', 'sample answers', 'any of the following', or a list of alternative answers the student did not write. Do NOT add a closing summary sentence. Do NOT use em dashes or en dashes (— or –); use a plain hyphen. ALWAYS wrap any maths in dollar signs: inline as $x = 4$ and display as $$\\frac{{1}}{{2}}bh$$. NEVER write bare LaTeX without dollar signs.>",
   "study_tip": "<{study_tip_instruction}>",
   "points_earned": ["<what student got right. Wrap any math in $...$>"],
   "points_missed": ["<what student missed. Wrap any math in $...$>"]
@@ -1729,7 +1729,12 @@ _SCHEME_MACHINERY_RE = re.compile(
 _HARD_MACHINERY_RE = re.compile(
     r'(the\s+api\b|api\s+evaluation|override\s+rule|accept_any|acceptable\s+concepts?|'
     r'marking\s+(scheme|pool)|sample\s+answers?|from\s+this\s+database|'
-    r'evaluation\s+rule|\d+\s*[x×]\s*\d+\s*=)',
+    r'evaluation\s+rule|\d+\s*[x×]\s*\d+\s*=|'
+    # scheme-answer-list leakage - teacher shorthand that must never reach a student
+    r'and\s+any\s+other\s+relevant|any\s+other\s+(relevant|correct|valid|suitable|appropriate)\s+'
+    r'(point|answer|reason|example|response|idea)|'
+    r'other\s+(possible|acceptable|correct)\s+(?:\w+\s+){0,2}(reasons?|answers?|points?|examples?)\s*:?|'
+    r'accept\s+any\b|any\s+of\s+the\s+following|\bor\s+any\s+other\b)',
     re.I,
 )
 
@@ -2341,6 +2346,8 @@ def _grade_with_ai(
             '', f.strip(), flags=re.I)
         _body = _strip_prefix(feedback)
         _body = re.sub(r'^(?:\\n|\s)+', '', _body)  # drop leading separators the model left
+        _body = _scrub_machinery(_body)             # drop any leaked scheme-answer-list lines
+        _body = _body.replace("—", "-").replace("–", "-")  # no em/en dashes, ever
         if marks >= question.max_marks:
             _verdict = "Vizuri!" if _sw_here else "Correct!"
         elif marks > 0:
