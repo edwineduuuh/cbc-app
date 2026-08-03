@@ -441,7 +441,7 @@ def _sanitize_answer(text: str) -> str:
     return text
 
 
-GRADER_VERSION = "v17"  # bump to bust stale cached results
+GRADER_VERSION = "v18"  # bump to bust stale cached results
 
 
 def _question_content_version(question) -> str:
@@ -1007,6 +1007,28 @@ MARKING RULES:
     fully correct. NEVER mark a point correct (✅ / in the "earned" list) and also say
     it "needs an explanation to earn the mark". If a point only partly earns marks,
     put it in the missed/partial explanation - never in the earned list.
+11. SYNONYMS AND MORE-SPECIFIC TERMS - THE MOST COMMON UNFAIR FAIL. The expected
+    answer is the teacher's LABEL, not the only acceptable word. Award FULL marks when
+    the student's answer is EITHER:
+      (a) a recognised synonym of the expected term, OR
+      (b) a MORE SPECIFIC, scientifically correct sub-type of the expected term that
+          genuinely fits the scenario the question describes.
+    A more precise correct term is MORE right, NEVER wrong - it shows deeper
+    understanding, so it must NEVER be marked down.
+    - WORKED EXAMPLE (follow this exactly): Question describes two organisms that
+      BOTH benefit and live closely together; expected answer "Symbiosis"; student
+      writes "Mutualism" -> FULL MARKS. Mutualism IS symbiosis where both benefit, so
+      given "both benefit" it is the precise, correct term. Failing it is WRONG.
+    - EXAMPLE: expected "energy"; a moving object; student writes "kinetic energy"
+      -> FULL MARKS (more specific and correct).
+    - EXAMPLE: expected "reproduction"; student writes "sexual reproduction" when the
+      scenario is sexual -> FULL MARKS.
+    - GUARDRAIL: only award when the student's term is genuinely CORRECT for THIS
+      scenario. Do NOT award a DIFFERENT concept, a broader/vaguer term when the
+      question asked for the specific one, or a term that does not fit the scenario.
+    - If you catch yourself writing an explanation that AGREES the student's term is
+      correct (e.g. "that is specifically called X"), you MUST award the marks. Your
+      verdict and your explanation can never contradict each other.
 
 SEQUENCE / ORDERING QUESTIONS (food chains, timelines, steps):
 - Mark based on whether the student has the RIGHT ITEMS in the RIGHT ORDER
