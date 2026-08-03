@@ -1989,6 +1989,19 @@ export default function QuizTakePage({ params }) {
   const [feedbacks, setFeedbacks] = useState({}); // index -> grade-one response
   const [checking, setChecking] = useState(false);
 
+  // Passage questions read better in landscape - detect a phone held portrait so
+  // we can nudge the reader to rotate. Auto-clears the moment they turn sideways.
+  const [isPortraitPhone, setIsPortraitPhone] = useState(false);
+  const [tiltDismissed, setTiltDismissed] = useState(false);
+  useEffect(() => {
+    if (typeof window === "undefined" || !window.matchMedia) return;
+    const mq = window.matchMedia("(max-width: 768px) and (orientation: portrait)");
+    const update = () => setIsPortraitPhone(mq.matches);
+    update();
+    mq.addEventListener?.("change", update);
+    return () => mq.removeEventListener?.("change", update);
+  }, []);
+
   const currentQ = questions[currentIdx];
 
   const totalQ = questions.length;
@@ -2544,6 +2557,7 @@ export default function QuizTakePage({ params }) {
         @import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Lato:wght@400;500;600;700&display=swap');
         @keyframes spin { to { transform: rotate(360deg); } }
         @keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:0.7; } }
+        @keyframes tiltNudge { 0%,55%,100% { transform: rotate(0deg); } 70%,85% { transform: rotate(90deg); } }
         * { box-sizing: border-box; margin: 0; padding: 0; }
         textarea:focus, input:focus { outline: none; }
         button { font-family: inherit; }
@@ -2672,6 +2686,79 @@ export default function QuizTakePage({ params }) {
       </div>
 
       {/* Content */}
+      {/* Rotate-your-phone nudge - passage questions read far better in landscape */}
+      {currentQ?.passage && isPortraitPhone && !tiltDismissed && (
+        <div
+          style={{
+            maxWidth: 680,
+            margin: "12px auto -8px",
+            padding: "0 16px",
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: 12,
+              background: "var(--bg-card)",
+              border: "1px solid var(--border)",
+              borderLeft: "4px solid #6366f1",
+              borderRadius: 14,
+              padding: "10px 12px",
+              boxShadow: "0 2px 10px rgba(0,0,0,0.06)",
+            }}
+          >
+            <svg
+              width="22"
+              height="22"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#6366f1"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              style={{
+                flexShrink: 0,
+                transformOrigin: "center",
+                animation: "tiltNudge 2.8s ease-in-out infinite",
+              }}
+            >
+              <rect x="7" y="2" width="10" height="20" rx="2" ry="2" />
+              <line x1="11" y1="18" x2="13" y2="18" />
+            </svg>
+            <p
+              style={{
+                flex: 1,
+                fontSize: 13,
+                lineHeight: 1.4,
+                color: "var(--text)",
+                fontWeight: 500,
+              }}
+            >
+              {isKiswahili
+                ? "Dokezo: geuza simu yako upande kwa kusoma kifungu kwa urahisi."
+                : "Tip: turn your phone sideways to read the passage more comfortably."}
+            </p>
+            <button
+              onClick={() => setTiltDismissed(true)}
+              aria-label={isKiswahili ? "Funga" : "Dismiss"}
+              style={{
+                flexShrink: 0,
+                background: "transparent",
+                border: "none",
+                cursor: "pointer",
+                color: "var(--text-muted)",
+                fontSize: 18,
+                lineHeight: 1,
+                padding: "2px 6px",
+              }}
+            >
+              ×
+            </button>
+          </div>
+        </div>
+      )}
+
       <div
         className={currentQ?.passage ? "passage-grid" : ""}
         style={{
