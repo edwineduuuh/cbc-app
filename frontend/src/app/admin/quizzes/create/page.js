@@ -77,6 +77,20 @@ const DIFF_COLORS = {
   hard: "bg-red-100 text-red-700",
 };
 
+// Compact "2 Aug 2026, 14:30" for the per-question created-at stamp
+function fmtStamp(iso) {
+  if (!iso) return null;
+  const d = new Date(iso);
+  if (isNaN(d.getTime())) return null;
+  return d.toLocaleString("en-GB", {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+}
+
 function Toast({ show, message, type, onClose }) {
   useEffect(() => {
     if (show) {
@@ -1103,6 +1117,15 @@ export default function CreateQuizPage() {
                                   <span className="text-xs px-2 py-0.5 bg-amber-50 text-amber-700 rounded-full font-medium">
                                     {q.max_marks} mk
                                     {q.max_marks !== 1 ? "s" : ""}
+                                  </span>
+                                )}
+                                {fmtStamp(q.created_at) && (
+                                  <span
+                                    className="flex items-center gap-1 text-xs px-2 py-0.5 bg-gray-50 text-gray-500 rounded-full"
+                                    title={`Created ${new Date(q.created_at).toLocaleString()}`}
+                                  >
+                                    <Clock className="w-3 h-3" />
+                                    {fmtStamp(q.created_at)}
                                   </span>
                                 )}
                                 {q.in_quizzes &&
