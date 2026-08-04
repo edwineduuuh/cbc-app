@@ -105,12 +105,15 @@ export default function AddQuestionPage() {
   const { user, loading: authLoading } = useAuth();
   const router = useRouter();
   const fileInputRef = useRef(null);
+  const explFileInputRef = useRef(null);
 
   const [subjects, setSubjects] = useState([]);
   const [topics, setTopics] = useState([]);
   const [saving, setSaving] = useState(false);
   const [imageFile, setImageFile] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
+  const [explImageFile, setExplImageFile] = useState(null);
+  const [explImagePreview, setExplImagePreview] = useState(null);
   const [toast, setToast] = useState({
     show: false,
     message: "",
@@ -202,6 +205,25 @@ export default function AddQuestionPage() {
     if (fileInputRef.current) fileInputRef.current.value = "";
   };
 
+  const handleExplImageChange = (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    if (file.size > 5 * 1024 * 1024) {
+      showToast("Diagram must be under 5MB", "error");
+      return;
+    }
+    setExplImageFile(file);
+    const reader = new FileReader();
+    reader.onload = (ev) => setExplImagePreview(ev.target.result);
+    reader.readAsDataURL(file);
+  };
+
+  const removeExplImage = () => {
+    setExplImageFile(null);
+    setExplImagePreview(null);
+    if (explFileInputRef.current) explFileInputRef.current.value = "";
+  };
+
   const handleSave = async () => {
     if (!form.topic || !form.question_text) {
       showToast("Please fill in strand and question text", "error");
@@ -230,6 +252,9 @@ export default function AddQuestionPage() {
 
       if (imageFile) {
         formData.append("question_image", imageFile);
+      }
+      if (explImageFile) {
+        formData.append("explanation_image", explImageFile);
       }
 
       const res = await fetchWithAuth(`${API}/admin/questions/create/`, {
@@ -611,6 +636,48 @@ export default function AddQuestionPage() {
                 placeholder="Explain the answer..."
                 className="w-full px-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
               />
+
+              {/* Explanation diagram (optional) */}
+              <p className="text-xs text-gray-500 mt-3 mb-2 flex items-center gap-1.5">
+                <ImageIcon className="w-3.5 h-3.5 text-purple-600" />
+                Explanation diagram (optional) - shown with the answer feedback
+              </p>
+              {explImagePreview ? (
+                <div className="relative inline-block">
+                  <img
+                    src={explImagePreview}
+                    alt="Explanation diagram preview"
+                    className="max-h-48 rounded-xl border shadow-sm"
+                  />
+                  <button
+                    onClick={removeExplImage}
+                    className="absolute -top-2 -right-2 bg-red-500 text-white p-1.5 rounded-full shadow-md hover:bg-red-600 transition-colors"
+                  >
+                    <Trash2 className="w-4 h-4" />
+                  </button>
+                  <p className="text-xs text-gray-500 mt-2">
+                    {explImageFile?.name} (
+                    {(explImageFile?.size / 1024).toFixed(0)} KB)
+                  </p>
+                </div>
+              ) : (
+                <label className="flex flex-col items-center justify-center w-full h-28 border-2 border-dashed border-gray-300 rounded-xl cursor-pointer hover:border-emerald-400 hover:bg-emerald-50/50 transition-colors">
+                  <Upload className="w-6 h-6 text-gray-400 mb-1.5" />
+                  <span className="text-sm text-gray-600 font-medium">
+                    Click to upload a diagram
+                  </span>
+                  <span className="text-xs text-gray-400 mt-1">
+                    PNG, JPG, GIF up to 5MB
+                  </span>
+                  <input
+                    ref={explFileInputRef}
+                    type="file"
+                    accept="image/*"
+                    onChange={handleExplImageChange}
+                    className="hidden"
+                  />
+                </label>
+              )}
             </div>
 
             {/* Actions */}

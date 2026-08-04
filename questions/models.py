@@ -231,6 +231,13 @@ class Question(models.Model):
     option_b_image = models.ImageField(upload_to='option_images/', null=True, blank=True, storage=MediaCloudinaryStorage())
     option_c_image = models.ImageField(upload_to='option_images/', null=True, blank=True, storage=MediaCloudinaryStorage())
     option_d_image = models.ImageField(upload_to='option_images/', null=True, blank=True, storage=MediaCloudinaryStorage())
+    explanation_image = models.ImageField(
+        upload_to='explanation_images/',
+        null=True,
+        blank=True,
+        help_text="Optional diagram shown with the explanation/feedback",
+        storage=MediaCloudinaryStorage(),
+    )
     class Meta:
         db_table = 'questions'
         ordering = ['-created_at']

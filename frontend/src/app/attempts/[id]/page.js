@@ -2475,6 +2475,41 @@ export default function AttemptResultsPage() {
                               </div>
                             )}
 
+                          {/* Explanation diagram (optional, set by the teacher) */}
+                          {item.explanation_image_url && (
+                            <div
+                              style={{
+                                background: "var(--bg-secondary)",
+                                border: "1px solid var(--border)",
+                                borderRadius: 12,
+                                padding: 12,
+                                marginBottom: 12,
+                              }}
+                            >
+                              <p
+                                style={{
+                                  fontSize: 11,
+                                  fontWeight: 700,
+                                  color: "var(--text-muted)",
+                                  letterSpacing: "0.06em",
+                                  textTransform: "uppercase",
+                                  marginBottom: 8,
+                                }}
+                              >
+                                Diagram
+                              </p>
+                              <img
+                                src={item.explanation_image_url}
+                                alt="Explanation diagram"
+                                style={{
+                                  maxWidth: "100%",
+                                  borderRadius: 8,
+                                  display: "block",
+                                }}
+                              />
+                            </div>
+                          )}
+
                           {/* Points missed */}
                           {(Array.isArray(item.points_missed)
                               ? item.points_missed

@@ -159,6 +159,8 @@ class QuestionDetailSerializer(serializers.ModelSerializer):
     option_b_image      = serializers.ImageField(required=False, allow_null=True, write_only=True)
     option_c_image      = serializers.ImageField(required=False, allow_null=True, write_only=True)
     option_d_image      = serializers.ImageField(required=False, allow_null=True, write_only=True)
+    explanation_image_url = serializers.SerializerMethodField()
+    explanation_image     = serializers.ImageField(required=False, allow_null=True, write_only=True)
     parts          = QuestionPartSerializer(many=True, read_only=True)
     passage        = PassageSerializer(read_only=True)
     passage_id     = serializers.IntegerField(write_only=True, required=False, allow_null=True)
@@ -176,6 +178,7 @@ class QuestionDetailSerializer(serializers.ModelSerializer):
             'option_a_image', 'option_b_image', 'option_c_image', 'option_d_image',
             'correct_answer', 'correct_answers',
             'explanation', 'difficulty', 'marking_scheme',
+            'explanation_image_url', 'explanation_image',
             'created_at', 'created_by',
             'question_image_url', 'question_image',
             'table_data', 'max_marks',
@@ -206,6 +209,9 @@ class QuestionDetailSerializer(serializers.ModelSerializer):
 
     def get_question_image_url(self, obj):
         return self._image_url(obj, 'question_image')
+
+    def get_explanation_image_url(self, obj):
+        return self._image_url(obj, 'explanation_image')
 
     def get_option_a_image_url(self, obj):
         return self._image_url(obj, 'option_a_image')

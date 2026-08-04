@@ -703,9 +703,14 @@ export default function QuestionManagementPage() {
   const [actionLoading, setActionLoading] = useState(false);
   const [createImageFile, setCreateImageFile] = useState(null);
   const [createImagePreview, setCreateImagePreview] = useState(null);
+  const [createExplImageFile, setCreateExplImageFile] = useState(null);
+  const [createExplImagePreview, setCreateExplImagePreview] = useState(null);
   const [editImageFile, setEditImageFile] = useState(null);
   const [editImagePreview, setEditImagePreview] = useState(null);
   const [editImageDeleted, setEditImageDeleted] = useState(false);
+  const [editExplImageFile, setEditExplImageFile] = useState(null);
+  const [editExplImagePreview, setEditExplImagePreview] = useState(null);
+  const [editExplImageDeleted, setEditExplImageDeleted] = useState(false);
   // option images: { A: File|null, B: File|null, C: File|null, D: File|null }
   const [createOptImages, setCreateOptImages] = useState({
     A: null,
@@ -1258,6 +1263,8 @@ export default function QuestionManagementPage() {
     fd.append("max_marks", parseInt(formData.max_marks) || 1);
     fd.append("difficulty", formData.difficulty || "medium");
     if (createImageFile) fd.append("question_image", createImageFile);
+    if (createExplImageFile)
+      fd.append("explanation_image", createExplImageFile);
     for (const letter of ["A", "B", "C", "D"]) {
       if (createOptImages[letter])
         fd.append(
@@ -1281,6 +1288,8 @@ export default function QuestionManagementPage() {
         resetForm();
         setCreateImageFile(null);
         setCreateImagePreview(null);
+        setCreateExplImageFile(null);
+        setCreateExplImagePreview(null);
         setCreateOptImages({ A: null, B: null, C: null, D: null });
         setCreateOptPreviews({ A: null, B: null, C: null, D: null });
         loadQuestions();
@@ -1347,6 +1356,11 @@ export default function QuestionManagementPage() {
       } else if (editImageDeleted) {
         fd.append("delete_image", "true");
       }
+      if (editExplImageFile) {
+        fd.append("explanation_image", editExplImageFile);
+      } else if (editExplImageDeleted) {
+        fd.append("delete_explanation_image", "true");
+      }
       for (const letter of ["A", "B", "C", "D"]) {
         const field = `option_${letter.toLowerCase()}_image`;
         if (editOptImages[letter]) {
@@ -1376,6 +1390,9 @@ export default function QuestionManagementPage() {
         setEditImageFile(null);
         setEditImagePreview(null);
         setEditImageDeleted(false);
+        setEditExplImageFile(null);
+        setEditExplImagePreview(null);
+        setEditExplImageDeleted(false);
         setEditOptImages({ A: null, B: null, C: null, D: null });
         setEditOptPreviews({ A: null, B: null, C: null, D: null });
         setEditOptDeleted({ A: false, B: false, C: false, D: false });
@@ -1437,6 +1454,9 @@ export default function QuestionManagementPage() {
       setEditImageFile(null);
       setEditImagePreview(null);
       setEditImageDeleted(false);
+      setEditExplImageFile(null);
+      setEditExplImagePreview(fullQ.explanation_image_url || null);
+      setEditExplImageDeleted(false);
       setShowEditModal(true);
     } catch (err) {
       showToast("Could not load question details", "error");
@@ -2434,6 +2454,56 @@ export default function QuestionManagementPage() {
                     </label>
                   )}
                 </div>
+                {/* Explanation diagram (optional) */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Explanation Diagram (Optional) - shown with the feedback
+                  </label>
+                  {createExplImagePreview ? (
+                    <div className="relative inline-block">
+                      <img
+                        src={createExplImagePreview}
+                        alt="Explanation diagram preview"
+                        className="max-h-32 rounded-lg border"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setCreateExplImageFile(null);
+                          setCreateExplImagePreview(null);
+                        }}
+                        className="absolute -top-2 -right-2 bg-red-500 text-white p-1 rounded-full shadow"
+                      >
+                        <X className="w-3 h-3" />
+                      </button>
+                    </div>
+                  ) : (
+                    <label className="flex items-center gap-2 px-4 py-3 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:border-emerald-400 transition-colors">
+                      <Upload className="w-5 h-5 text-gray-400" />
+                      <span className="text-sm text-gray-500">
+                        Click to upload a diagram for the explanation
+                      </span>
+                      <input
+                        type="file"
+                        accept="image/*"
+                        className="hidden"
+                        onChange={(e) => {
+                          const f = e.target.files?.[0];
+                          if (!f) return;
+                          if (f.size > 5 * 1024 * 1024) {
+                            showToast("Diagram must be under 5MB", "error");
+                            return;
+                          }
+                          setCreateExplImageFile(f);
+                          const r = new FileReader();
+                          r.onload = (ev) =>
+                            setCreateExplImagePreview(ev.target.result);
+                          r.readAsDataURL(f);
+                        }}
+                      />
+                    </label>
+                  )}
+                </div>
                 <div className="flex gap-3 pt-2">
                   <button
                     type="submit"
@@ -2922,6 +2992,58 @@ export default function QuestionManagementPage() {
                           const r = new FileReader();
                           r.onload = (ev) =>
                             setEditImagePreview(ev.target.result);
+                          r.readAsDataURL(f);
+                        }}
+                      />
+                    </label>
+                  )}
+                </div>
+                {/* Explanation diagram (optional) */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Explanation Diagram (Optional) - shown with the feedback
+                  </label>
+                  {editExplImagePreview ? (
+                    <div className="relative inline-block">
+                      <img
+                        src={editExplImagePreview}
+                        alt="Explanation diagram preview"
+                        className="max-h-32 rounded-lg border"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setEditExplImageFile(null);
+                          setEditExplImagePreview(null);
+                          setEditExplImageDeleted(true);
+                        }}
+                        className="absolute -top-2 -right-2 bg-red-500 text-white p-1 rounded-full shadow"
+                      >
+                        <X className="w-3 h-3" />
+                      </button>
+                    </div>
+                  ) : (
+                    <label className="flex items-center gap-2 px-4 py-3 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:border-emerald-400 transition-colors">
+                      <Upload className="w-5 h-5 text-gray-400" />
+                      <span className="text-sm text-gray-500">
+                        Click to upload / replace diagram
+                      </span>
+                      <input
+                        type="file"
+                        accept="image/*"
+                        className="hidden"
+                        onChange={(e) => {
+                          const f = e.target.files?.[0];
+                          if (!f) return;
+                          if (f.size > 5 * 1024 * 1024) {
+                            showToast("Diagram must be under 5MB", "error");
+                            return;
+                          }
+                          setEditExplImageFile(f);
+                          setEditExplImageDeleted(false);
+                          const r = new FileReader();
+                          r.onload = (ev) =>
+                            setEditExplImagePreview(ev.target.result);
                           r.readAsDataURL(f);
                         }}
                       />

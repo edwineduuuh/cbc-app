@@ -139,6 +139,14 @@ class QuestionUpdateView(generics.RetrieveUpdateDestroyAPIView):
         elif 'question_image' in self.request.FILES:
             kwargs['question_image'] = self.request.FILES['question_image']
 
+        if self.request.data.get('delete_explanation_image') in ('true', True, '1'):
+            instance = self.get_object()
+            if instance.explanation_image:
+                instance.explanation_image.delete(save=False)
+            kwargs['explanation_image'] = None
+        elif 'explanation_image' in self.request.FILES:
+            kwargs['explanation_image'] = self.request.FILES['explanation_image']
+
         for letter in ('a', 'b', 'c', 'd'):
             field = f'option_{letter}_image'
             if self.request.data.get(f'delete_{field}') in ('true', True, '1'):

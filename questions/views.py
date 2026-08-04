@@ -1084,10 +1084,18 @@ def _build_detailed_feedback(questions, results, answers, working_images):
             except Exception:
                 pass
 
+        _expl_img_url = None
+        if question.explanation_image:
+            try:
+                _expl_img_url = question.explanation_image.url
+            except Exception:
+                pass
+
         detailed_feedback[str(question.id)] = {
             'question_text':        question.question_text,
             'question_type':        question.question_type,
             'question_image_url':   _img_url,
+            'explanation_image_url': _expl_img_url,
             'option_a':             question.option_a,
             'option_b':             question.option_b,
             'option_c':             question.option_c,
@@ -1391,10 +1399,21 @@ def submit_quiz(request):
                 except Exception:
                     pass
 
+            _expl_img_url2 = None
+            if question.explanation_image:
+                try:
+                    _expl_img_url2 = (
+                        request.build_absolute_uri(question.explanation_image.url)
+                        if request else question.explanation_image.url
+                    )
+                except Exception:
+                    pass
+
             detailed_feedback[str(question.id)] = {
                 'question_text': question.question_text,
                 'question_type': question.question_type,
                 'question_image_url': _img_url2,
+                'explanation_image_url': _expl_img_url2,
                 'option_a': question.option_a,
                 'option_b': question.option_b,
                 'option_c': question.option_c,

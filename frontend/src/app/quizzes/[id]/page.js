@@ -3499,6 +3499,18 @@ export default function QuizTakePage({ params }) {
                     dangerouslySetInnerHTML={{ __html: fbHtml }}
                   />
                 )}
+                {f.explanation_image_url && (
+                  <img
+                    src={f.explanation_image_url}
+                    alt="Explanation diagram"
+                    style={{
+                      maxWidth: "100%",
+                      borderRadius: 10,
+                      marginTop: 10,
+                      display: "block",
+                    }}
+                  />
+                )}
               </div>
             </div>
           );
