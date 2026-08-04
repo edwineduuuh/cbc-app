@@ -2092,9 +2092,12 @@ export default function QuizTakePage({ params }) {
 
   const handleAnswer = useCallback(
     (value) => {
+      // Practice mode: once the answer is being checked or has been checked,
+      // it is locked - the feedback is tied to exactly what was submitted.
+      if (mode === "practice" && (checking || feedbacks[currentIdx])) return;
       setAnswers((prev) => ({ ...prev, [currentIdx]: value }));
     },
-    [currentIdx],
+    [currentIdx, mode, checking, feedbacks],
   );
 
   // Capture current math-field value before navigating away
@@ -2134,6 +2137,9 @@ export default function QuizTakePage({ params }) {
           ? Object.keys(ans).length > 0
           : String(ans).trim() !== "" && String(ans).trim() !== "\\placeholder{}"));
     if (!hasAns) return;
+    // Drop focus so a still-focused textarea/math-field can't take keystrokes
+    // once the input area is locked for checking.
+    if (typeof document !== "undefined") document.activeElement?.blur?.();
     setChecking(true);
     try {
       const res = await fetchWithAuth(`${API}/quizzes/grade-one/`, {
@@ -2370,6 +2376,11 @@ export default function QuizTakePage({ params }) {
   const isTable = currentQ.question_type === "table";
   const isFinancial = currentQ.question_type === "financial_statement";
   const isKiswahili = /kiswahili/i.test(currentQ?.subject_name || "");
+
+  // Practice mode: lock the answer inputs while checking is in flight AND after
+  // feedback has appeared, so the choice/answer can't be changed once committed.
+  const practiceLocked =
+    mode === "practice" && (checking || !!feedbacks[currentIdx]);
 
   // Start screen: pick Practice vs Exam before the quiz (and timer) begins.
   if (quiz && !started) {
@@ -3006,6 +3017,15 @@ export default function QuizTakePage({ params }) {
                 </div>
               )}
 
+              {/* Answer inputs - Practice mode locks them once checking starts */}
+              <div
+                style={{
+                  pointerEvents: practiceLocked ? "none" : "auto",
+                  opacity: practiceLocked ? 0.7 : 1,
+                  transition: "opacity 0.15s ease",
+                }}
+                aria-disabled={practiceLocked}
+              >
               {/* MCQ */}
               {isMCQ && !(currentQ.parts && currentQ.parts.length > 0) && (
                 <div
@@ -3314,6 +3334,7 @@ export default function QuizTakePage({ params }) {
                     const blankNum = parseInt(part.part_label);
 
                     const handlePartAnswer = (value) => {
+                      if (practiceLocked) return;
                       setAnswers((prev) => ({
                         ...prev,
                         [currentIdx]: {
@@ -3441,6 +3462,7 @@ export default function QuizTakePage({ params }) {
                   })}
                 </div>
               )}
+              </div>
             </motion.div>
           </AnimatePresence>
 
