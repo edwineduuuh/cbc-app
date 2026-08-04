@@ -1,4 +1,5 @@
 from rest_framework import generics, status
+from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
@@ -11,7 +12,10 @@ class QuestionPagination(PageNumberPagination):
     max_page_size = 500
 from django.db import transaction
 from .models import Subject, Topic, Question, QuestionPart, Passage, Quiz
-from .serializers import QuestionDetailSerializer, QuizListSerializer, PassageAdminSerializer
+from .serializers import (
+    QuestionDetailSerializer, QuizListSerializer, PassageAdminSerializer,
+    ordered_quiz_questions,
+)
 from .permissions import IsAdminUser, IsAdminOrTeacher
 import csv
 import io
@@ -108,6 +112,40 @@ class QuestionListManageView(generics.ListAPIView):
             queryset = queryset.filter(question_text__icontains=search)
 
         return queryset.order_by('topic__grade', 'topic__subject__name', 'topic__order', 'topic__name', '-created_at')
+
+
+class AdminQuizExportView(APIView):
+    """
+    GET /api/admin/quizzes/<pk>/export/
+    Full quiz with COMPLETE per-question detail - correct answers, marking
+    schemes, explanations and images - for a pre-publish health/credibility
+    check. Unlike the student-facing quiz detail (which hides answers), this is
+    admin-only and returns everything a reviewer needs to see.
+    """
+    permission_classes = [IsAdminOrTeacher]
+
+    def get(self, request, pk):
+        try:
+            quiz = Quiz.objects.select_related('subject', 'topic').get(pk=pk)
+        except Quiz.DoesNotExist:
+            return Response({'error': 'Quiz not found'}, status=status.HTTP_404_NOT_FOUND)
+
+        questions = ordered_quiz_questions(quiz)
+        data = QuestionDetailSerializer(
+            questions, many=True, context={'request': request}
+        ).data
+        return Response({
+            'id':               quiz.id,
+            'title':            quiz.title,
+            'description':      quiz.description,
+            'grade':            quiz.grade,
+            'subject_name':     getattr(quiz.subject, 'name', ''),
+            'quiz_type':        getattr(quiz, 'quiz_type', ''),
+            'duration_minutes': quiz.duration_minutes,
+            'passing_score':    quiz.passing_score,
+            'question_count':   len(data),
+            'questions':        data,
+        })
 
 
 class QuestionUpdateView(generics.RetrieveUpdateDestroyAPIView):

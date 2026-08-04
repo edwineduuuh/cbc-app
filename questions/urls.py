@@ -42,6 +42,7 @@ from .authoring_views import (
     QuestionUpdateView,
     BulkQuestionImportView,
     AdminQuizLibraryView,
+    AdminQuizExportView,
     PassageListCreateView,
     PassageDetailView,
 )
@@ -137,6 +138,7 @@ urlpatterns = [
     # ── Admin - Quizzes ───────────────────────────────────────────
     path('admin/quizzes/', QuizListCreateView.as_view(), name='quiz-list-create'),
     path('admin/quizzes/<int:pk>/', AdminQuizDetailView.as_view(), name='admin-quiz-detail'),
+    path('admin/quizzes/<int:pk>/export/', AdminQuizExportView.as_view(), name='admin-quiz-export'),
     path('admin/quizzes/<int:pk>/publish/', QuizPublishView.as_view(), name='quiz-publish'),
     path('admin/quiz-library/', AdminQuizLibraryView.as_view(), name='admin-quiz-library'),
 

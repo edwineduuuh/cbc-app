@@ -30,6 +30,7 @@ import {
   Layers,
   CheckCircle,
   XCircle,
+  Download,
 } from "lucide-react";
 
 const API =
@@ -37,6 +38,194 @@ const API =
   "https://cbc-backend-production-8bc4.up.railway.app/api";
 const ALLOWED_ROLES = ["teacher", "admin", "superadmin", "school_admin"];
 const GRADES = [4, 5, 6, 7, 8, 9, 10, 11, 12];
+
+// ── Quiz export: build a self-contained review document ──────────────────────
+// Everything a reviewer needs for a pre-publish health check: each question,
+// the correct answer, marking scheme and explanation, with math rendered by
+// KaTeX (loaded from CDN when the file is opened) and a Print/Save-as-PDF button.
+const _esc = (s) =>
+  String(s ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+
+// Question text/explanations may carry intended <u>/<b> and $math$ - keep those
+// but still neutralise script/style so the review doc can't run injected code.
+const _rich = (s) =>
+  String(s ?? "").replace(/<\s*\/?\s*(script|style|iframe)[^>]*>/gi, "");
+
+function _schemeToText(ms) {
+  if (!ms) return "";
+  if (typeof ms === "string") return ms.trim();
+  try {
+    if (Array.isArray(ms?.points)) {
+      return ms.points
+        .map((p) => `• ${p.description || ""}${p.marks ? ` (${p.marks} mk)` : ""}`)
+        .join("\n");
+    }
+    return JSON.stringify(ms, null, 2);
+  } catch {
+    return "";
+  }
+}
+
+function _questionBlockHtml(q, n) {
+  const type = (q.question_type || "").replace(/_/g, " ");
+  const marks = q.max_marks || 1;
+  const letters = ["a", "b", "c", "d"];
+  const isMcqLetter = ["A", "B", "C", "D"].includes(
+    String(q.correct_answer || "").trim().toUpperCase(),
+  );
+  const correctLetter = String(q.correct_answer || "").trim().toUpperCase();
+
+  let opts = "";
+  if (letters.some((l) => q[`option_${l}`] || q[`option_${l}_image_url`])) {
+    opts =
+      '<ol class="opts">' +
+      letters
+        .map((l) => {
+          const text = q[`option_${l}`];
+          const img = q[`option_${l}_image_url`];
+          if (!text && !img) return "";
+          const isCorrect = correctLetter === l.toUpperCase();
+          return `<li class="${isCorrect ? "correct" : ""}"><b>${l.toUpperCase()}.</b> <span>${_rich(text) || ""}</span>${
+            img ? `<br/><img src="${_esc(img)}" alt=""/>` : ""
+          }${isCorrect ? ' <span class="tag ok">✓ correct</span>' : ""}</li>`;
+        })
+        .join("") +
+      "</ol>";
+  }
+
+  // correct answer line for non-letter answers
+  let answerLine = "";
+  if (!isMcqLetter && q.correct_answer) {
+    answerLine = `<div class="ans"><span class="lbl">Correct answer</span><div class="val">${_rich(q.correct_answer)}</div></div>`;
+  } else if (isMcqLetter) {
+    const t = q[`option_${correctLetter.toLowerCase()}`];
+    answerLine = `<div class="ans"><span class="lbl">Correct answer</span><div class="val">${correctLetter}${t ? ` — ${_rich(t)}` : ""}</div></div>`;
+  }
+
+  const scheme = _schemeToText(q.marking_scheme);
+  const schemeHtml = scheme
+    ? `<div class="ans scheme"><span class="lbl">Marking scheme</span><div class="val">${_esc(scheme)}</div></div>`
+    : "";
+  const explHtml = q.explanation
+    ? `<div class="ans expl"><span class="lbl">Explanation</span><div class="val">${_rich(q.explanation)}</div></div>`
+    : "";
+  const explImg = q.explanation_image_url
+    ? `<div class="ans"><span class="lbl">Explanation diagram</span><div class="val"><img src="${_esc(q.explanation_image_url)}" alt=""/></div></div>`
+    : "";
+
+  // multipart parts
+  let partsHtml = "";
+  if (Array.isArray(q.parts) && q.parts.length) {
+    partsHtml =
+      '<div class="parts">' +
+      q.parts
+        .map((p, i) => {
+          const pScheme = _schemeToText(p.marking_scheme);
+          return `<div class="part"><div class="ptext"><b>(${p.part_label || i + 1})</b> ${_rich(p.question_text)}</div>${
+            p.correct_answer
+              ? `<div class="ans"><span class="lbl">Answer</span><div class="val">${_rich(p.correct_answer)}</div></div>`
+              : ""
+          }${
+            pScheme
+              ? `<div class="ans scheme"><span class="lbl">Scheme</span><div class="val">${_esc(pScheme)}</div></div>`
+              : ""
+          }${
+            p.explanation
+              ? `<div class="ans expl"><span class="lbl">Explanation</span><div class="val">${_rich(p.explanation)}</div></div>`
+              : ""
+          }</div>`;
+        })
+        .join("") +
+      "</div>";
+  }
+
+  const passageHtml = q.passage?.content
+    ? `<div class="passage"><span class="lbl">Passage</span><div class="val">${_rich(q.passage.content)}</div></div>`
+    : "";
+
+  return `<section class="q">
+    <div class="qhead">
+      <span class="num">Q${n}</span>
+      <span class="meta">${_esc(type)} · ${marks} mark${marks !== 1 ? "s" : ""} · ${_esc(q.difficulty || "")}</span>
+    </div>
+    ${passageHtml}
+    <div class="qtext">${_rich(q.question_text)}</div>
+    ${q.question_image_url ? `<img class="qimg" src="${_esc(q.question_image_url)}" alt=""/>` : ""}
+    ${opts}
+    ${partsHtml}
+    ${answerLine}
+    ${schemeHtml}
+    ${explHtml}
+    ${explImg}
+  </section>`;
+}
+
+function buildQuizExportHtml(data) {
+  const questions = (data.questions || [])
+    .map((q, i) => _questionBlockHtml(q, i + 1))
+    .join("\n");
+  const now = new Date().toLocaleString();
+  return `<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>${_esc(data.title)} — review</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"/>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: -apple-system, Segoe UI, Roboto, Lato, sans-serif; color: #1a2233; max-width: 820px; margin: 0 auto; padding: 28px 20px 80px; line-height: 1.6; }
+  h1 { font-size: 22px; margin: 0 0 4px; }
+  .sub { color: #667; font-size: 13px; margin-bottom: 20px; }
+  .toolbar { position: sticky; top: 0; background: #fff; padding: 10px 0; border-bottom: 1px solid #e6e8ef; margin-bottom: 18px; display: flex; gap: 10px; align-items: center; }
+  .toolbar button { background: #4f46e5; color: #fff; border: 0; border-radius: 8px; padding: 8px 14px; font-size: 13px; font-weight: 600; cursor: pointer; }
+  .q { border: 1px solid #e6e8ef; border-radius: 12px; padding: 16px 18px; margin-bottom: 16px; }
+  .qhead { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+  .num { background: #eef2ff; color: #4338ca; font-weight: 800; font-size: 13px; padding: 2px 10px; border-radius: 20px; }
+  .meta { color: #7a8095; font-size: 12px; text-transform: capitalize; }
+  .qtext { font-size: 15px; font-weight: 600; white-space: pre-wrap; }
+  .qimg, .val img { max-width: 100%; border-radius: 8px; margin-top: 8px; display: block; }
+  .opts { list-style: none; padding: 0; margin: 12px 0 4px; }
+  .opts li { padding: 8px 12px; border: 1px solid #e6e8ef; border-radius: 8px; margin-bottom: 6px; font-size: 14px; }
+  .opts li.correct { border-color: #16a34a; background: #f0fdf4; }
+  .tag.ok { color: #16a34a; font-weight: 700; font-size: 12px; }
+  .ans { margin-top: 10px; }
+  .lbl { display: inline-block; font-size: 10px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: #6b7280; margin-bottom: 3px; }
+  .val { white-space: pre-wrap; font-size: 14px; }
+  .ans.scheme .val { background: #fafafa; border: 1px solid #eee; border-radius: 8px; padding: 10px 12px; font-family: ui-monospace, monospace; font-size: 13px; }
+  .ans.expl .val { color: #374151; }
+  .passage .val { background: #f8fafc; border: 1px solid #e6e8ef; border-radius: 8px; padding: 10px 12px; font-size: 13px; }
+  .parts { margin-top: 10px; border-left: 3px solid #eef2ff; padding-left: 14px; }
+  .part { margin-bottom: 12px; }
+  .ptext { font-size: 14px; }
+  @media print { .toolbar { display: none; } .q { break-inside: avoid; } body { padding-top: 0; } }
+</style>
+</head><body>
+  <div class="toolbar"><button onclick="window.print()">Print / Save as PDF</button><span class="sub" style="margin:0">Pre-publish review copy</span></div>
+  <h1>${_esc(data.title)}</h1>
+  <div class="sub">Grade ${_esc(data.grade)} · ${_esc(data.subject_name)} · ${_esc((data.quiz_type || "").toString())} · ${data.question_count} questions · ${data.duration_minutes} min · ${data.passing_score}% pass<br/>Exported ${_esc(now)}</div>
+  ${questions}
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+<script>
+  window.addEventListener('load', function () {
+    try {
+      renderMathInElement(document.body, {
+        delimiters: [
+          { left: '$$', right: '$$', display: true },
+          { left: '$', right: '$', display: false },
+          { left: '\\\\(', right: '\\\\)', display: false },
+          { left: '\\\\[', right: '\\\\]', display: true }
+        ],
+        throwOnError: false
+      });
+    } catch (e) {}
+  });
+</script>
+</body></html>`;
+}
 
 const GRADE_COLORS = [
   "from-blue-500 to-blue-600",
@@ -623,6 +812,35 @@ export default function QuizzesManagementPage() {
 // --- Sub-components ---
 
 function QuizCard({ quiz, onDelete, onTogglePublish }) {
+  const [exporting, setExporting] = useState(false);
+
+  const handleExport = async () => {
+    if (exporting) return;
+    setExporting(true);
+    try {
+      const res = await fetchWithAuth(`${API}/admin/quizzes/${quiz.id}/export/`);
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const data = await res.json();
+      const html = buildQuizExportHtml(data);
+      const blob = new Blob([html], { type: "text/html;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      const safe =
+        (data.title || "quiz").replace(/[^\w\- ]+/g, "").trim().slice(0, 60) ||
+        "quiz";
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `Quiz - ${safe}.html`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 2000);
+    } catch {
+      alert("Could not export this quiz. Please try again.");
+    } finally {
+      setExporting(false);
+    }
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 10 }}
@@ -705,6 +923,18 @@ function QuizCard({ quiz, onDelete, onTogglePublish }) {
           >
             <Edit className="w-4 h-4" />
           </Link>
+          <button
+            onClick={handleExport}
+            disabled={exporting}
+            className="p-1.5 text-gray-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-colors disabled:opacity-50"
+            title="Export for review (downloads a printable copy with answers)"
+          >
+            {exporting ? (
+              <Loader2 className="w-4 h-4 animate-spin" />
+            ) : (
+              <Download className="w-4 h-4" />
+            )}
+          </button>
           <button
             onClick={() => onDelete(quiz)}
             className="p-1.5 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
