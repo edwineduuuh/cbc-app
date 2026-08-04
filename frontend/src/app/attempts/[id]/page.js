@@ -93,11 +93,29 @@ function renderMath(text) {
   if (text.includes('class="katex"') || text.includes("class='katex'"))
     return text;
   const withTables = _mdTableToHtml(text);
-  return withTables
+  const rendered = withTables
     .replace(/\$\$([\s\S]+?)\$\$/g, (_, expr) => _katex(expr, true))
     .replace(/\$([\s\S]+?)\$/g, (_, expr) => _katex(expr, false))
     .replace(/\\\[([\s\S]+?)\\\]/g, (_, expr) => _katex(expr, true))
     .replace(/\\\(([\s\S]+?)\\\)/g, (_, expr) => _katex(expr, false));
+  return rendered;
+}
+// Keep the author's paragraphs and line breaks exactly as pasted. Math is
+// already rendered to KaTeX and tables to HTML, so the only newlines left here
+// are prose - a blank line becomes a paragraph gap, a single newline a line
+// break. Also normalises literal "\n" that arrives from AI JSON feedback. Used
+// ONLY for explanation/feedback text, never question text (which may carry
+// incidental hard-wraps that should keep collapsing).
+function _preserveBreaks(html) {
+  if (!html) return "";
+  return html
+    .replace(/\\r\\n|\\n/g, "\n")
+    .replace(/\r\n/g, "\n")
+    .replace(/\n{2,}/g, "<br/><br/>")
+    .replace(/\n/g, "<br/>");
+}
+function renderRich(text) {
+  return _preserveBreaks(renderMath(text || ""));
 }
 function getGradeBand(score, grade) {
   if (!grade) return null;
@@ -704,7 +722,7 @@ function ReportCard({
                         lineHeight: 1.8,
                       }}
                       dangerouslySetInnerHTML={{
-                        __html: item.feedback,
+                        __html: renderRich(item.feedback),
                       }}
                     />
                   </div>
@@ -2142,7 +2160,7 @@ export default function AttemptResultsPage() {
                               {correct ? "✓ Feedback" : "Feedback"}
                             </p>
                             <p style={{ fontSize: 14, color: "var(--text)", lineHeight: 1.7, margin: 0 }}
-                              dangerouslySetInnerHTML={{ __html: item.feedback?.replace(/\\n|\n/g, "<br/>") }}
+                              dangerouslySetInnerHTML={{ __html: renderRich(item.feedback) }}
                             />
                           </div>
                         )}
@@ -2464,12 +2482,7 @@ export default function AttemptResultsPage() {
                                     lineHeight: 1.8,
                                   }}
                                   dangerouslySetInnerHTML={{
-                                    __html: renderMath(
-                                      item.study_tip?.replace(
-                                        /\\n|\n/g,
-                                        "<br/>",
-                                      ) || "",
-                                    ),
+                                    __html: renderRich(item.study_tip),
                                   }}
                                 />
                               </div>

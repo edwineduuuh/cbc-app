@@ -34,6 +34,18 @@ function renderMath(text) {
     .replace(/\$\$([\s\S]+?)\$\$/g, (_, expr) => _katex(expr, true))
     .replace(/\$([\s\S]+?)\$/g,     (_, expr) => _katex(expr, false));
 }
+// Preserve pasted paragraphs/line breaks for explanation & feedback text only.
+function _preserveBreaks(html) {
+  if (!html) return "";
+  return html
+    .replace(/\\r\\n|\\n/g, "\n")
+    .replace(/\r\n/g, "\n")
+    .replace(/\n{2,}/g, "<br/><br/>")
+    .replace(/\n/g, "<br/>");
+}
+function renderRich(text) {
+  return _preserveBreaks(renderMath(text || ""));
+}
 
 /**
  * IMPROVED FEEDBACK DISPLAY
@@ -271,7 +283,7 @@ export default function ImprovedFeedbackDisplay({ attempt, quiz }) {
                     <div className="p-4 bg-white rounded-lg border border-gray-200">
                       <p className="text-sm font-semibold text-gray-600 mb-2">Feedback:</p>
                       <p className="text-base text-gray-700 leading-relaxed"
-                        dangerouslySetInnerHTML={{ __html: renderMath(partResult.feedback).replace(/\n/g, "<br/>") }}
+                        dangerouslySetInnerHTML={{ __html: renderRich(partResult.feedback) }}
                       />
                     </div>
                   )}
@@ -354,7 +366,7 @@ export default function ImprovedFeedbackDisplay({ attempt, quiz }) {
                 <div className="mb-4 p-4 bg-white rounded-lg border border-gray-200">
                   <p className="text-sm font-semibold text-gray-600 mb-2">Feedback:</p>
                   <p className="text-base text-gray-700 leading-relaxed"
-                    dangerouslySetInnerHTML={{ __html: renderMath(questionFeedback.feedback).replace(/\n/g, "<br/>") }}
+                    dangerouslySetInnerHTML={{ __html: renderRich(questionFeedback.feedback) }}
                   />
                 </div>
               )}
@@ -409,7 +421,7 @@ export default function ImprovedFeedbackDisplay({ attempt, quiz }) {
                     <Lightbulb className="w-4 h-4" /> Study Tip:
                   </p>
                   <p className="text-sm text-blue-800 leading-relaxed"
-                    dangerouslySetInnerHTML={{ __html: renderMath(questionFeedback.study_tip) }}
+                    dangerouslySetInnerHTML={{ __html: renderRich(questionFeedback.study_tip) }}
                   />
                 </div>
               )}
