@@ -176,7 +176,7 @@ class Command(BaseCommand):
                  "topics_created": 0, "substrands_created": 0,
                  "substrands_updated": 0, "ambiguous": 0}
         ambiguous_rows, linked_rows, created_rows = [], [], []
-        skipped_subjects = set()
+        skipped_subjects, would_create_subjects = set(), set()
 
         existing_subjects = {s.slug: s for s in Subject.objects.all()}
 
@@ -199,7 +199,9 @@ class Command(BaseCommand):
                         stats["subjects_created"] += 1
                         self.stdout.write(self.style.WARNING(
                             f"  + new Subject: {name} ({subj_slug})"))
-                if dry:
+                if dry and subj_slug not in would_create_subjects:
+                    # Count each learning area once, not once per strand.
+                    would_create_subjects.add(subj_slug)
                     stats["subjects_created"] += 1
                     created_rows.append(("SUBJECT", subj_slug, name, ""))
 

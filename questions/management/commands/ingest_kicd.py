@@ -65,8 +65,15 @@ BLOCKS = [
         r"^suggested\s+(non[- ]formal|resources)|^resources?\b|^nyenzo\b", re.I)),
 ]
 
-SUBSTRAND_CODE = re.compile(r"^\s*(\d+\.\d+(?:\.\d+)?)\s*(.*)$", re.S)
-STRAND_CODE = re.compile(r"^\s*(\d+\.0|\d+\.\d+)?\s*(.*)$", re.S)
+# Tolerate whitespace inside the number: PDF extraction yields "1. 0 Numbers"
+# and "3.1 . Statistics I". Without this the code stays glued to the title and
+# the same strand appears twice ("Numbers" and "1. 0 Numbers").
+SUBSTRAND_CODE = re.compile(r"^\s*(\d+\s*\.\s*\d+(?:\s*\.\s*\d+)?)\s*\.?\s*(.*)$", re.S)
+# Negative lookahead so a three-part sub-strand code ("1.1.1") is not read as
+# the two-part strand code "1.1" with "1" left stranded on the title.
+STRAND_CODE = re.compile(r"^\s*(\d+\s*\.\s*\d+(?!\s*\.\s*\d))?\s*\.?\s*(.*)$", re.S)
+
+
 # "(6 lessons)" in English designs, "(Vipindi 2)" in Kiswahili ones. Tolerates
 # line wrapping inside the brackets and a repeated "lessons lessons" typo that
 # appears in some Grade 10 files.
@@ -82,6 +89,16 @@ STEM_EXPERIENCE = re.compile(
     r"^\s*(?:the\s+learner\s+is\s+guided\s+to|mwanafunzi\s+aelekezwe)\s*:?", re.I)
 # Rubric indicator phrasing, used to spot a headerless continuation page.
 RUBRIC_INDICATOR_LEAD = re.compile(r"^(ability\s+to|uwezo\s+wa)\b", re.I)
+# Text that is an outcome, a value or a competency rather than a strand title.
+# Some designs put these in the strand column; adopting them creates strands
+# named "Kuweza kuchambua hadithi za fasihi simulizi..." or "Exhibits
+# patriotism in conservation of resources".
+NOT_A_TITLE = re.compile(
+    r"^(kuweza\b|kufikia\b|to\s+be\s+able\s+to\b|by\s+the\s+end\b|"
+    r"the\s+learner\b|mwanafunzi\b|"
+    r"(exhibits?|demonstrates?|appreciates?|displays?|observes?|upholds?|"
+    r"embraces?|practi[cs]es?|collaborates?|communicates?)\b)", re.I)
+MAX_TITLE_WORDS = 12
 # A bare column heading. If one of these ends up as a strand or sub-strand
 # name, a header row was read as data and the record must be rejected.
 HEADER_WORD = re.compile(
@@ -97,6 +114,11 @@ BULLET_CHARS = "•∙●○▪■◦‣·⁃�"
 BULLET_RE = re.compile(f"[{BULLET_CHARS}]")
 ENUM = re.compile(
     r"(?:^|\n)\s*(?:[a-z]\)|\([a-z]+\)|[ivx]+\.|[-" + BULLET_CHARS + r"])\s+", re.I)
+
+
+def norm_code(code):
+    """"1. 0" and "1.0" are the same code; store one spelling."""
+    return re.sub(r"\s+", "", code or "")
 
 
 def clean(s):
@@ -167,6 +189,19 @@ def title_from_cell(cell):
         return ""
     head = BULLET_RE.split(text)[0]
     return flatten(head).strip(" •-–:,;.")
+
+
+def plausible_title(name):
+    """Could this be a strand or sub-strand title at all?"""
+    if not name:
+        return False
+    if NOT_A_TITLE.match(name) or RUBRIC_INDICATOR_LEAD.match(name):
+        return False
+    if HEADER_WORD.match(name):
+        return False
+    if len(name.split()) > MAX_TITLE_WORDS:
+        return False
+    return bool(re.search(r"[A-Za-z]{3}", name))
 
 
 def canonical_strand(p, name):
@@ -474,15 +509,18 @@ def parse_substrand_rows(p, rows, idx, page_no):
 
         if strand_cell:
             m = STRAND_CODE.match(strand_cell)
-            p.cur_strand_code = (m.group(1) or "").strip() if m else ""
             # Flatten, do not take the first line: "1.0 Numbers and Algebra"
             # wraps across lines and first-line-only yields just "Numbers".
-            p.cur_strand = canonical_strand(p, title_from_cell(
-                m.group(2) if m else strand_cell))
+            candidate = title_from_cell(m.group(2) if m else strand_cell)
+            # Keep the strand we already have rather than adopting outcome or
+            # values text that happens to sit in this column.
+            if plausible_title(candidate):
+                p.cur_strand_code = norm_code(m.group(1)) if m else ""
+                p.cur_strand = canonical_strand(p, candidate)
 
         if sub_cell:
             m = SUBSTRAND_CODE.match(sub_cell)
-            code = m.group(1) if m else ""
+            code = norm_code(m.group(1)) if m else ""
             rest = m.group(2) if m else sub_cell
             dur = DURATION.search(rest)
             duration = f"{dur.group(1) or dur.group(2)} lessons" if dur else ""
@@ -496,7 +534,8 @@ def parse_substrand_rows(p, rows, idx, page_no):
             # are the bulleted sub-topic list or the tail of a wrapped cell,
             # and treating those as sub-strands invents entries like
             # "equations to real" or "- Application of".
-            if name and (code or p.current() is None or is_title_like(name)):
+            if (name and plausible_title(name)
+                    and (code or p.current() is None or is_title_like(name))):
                 new_substrand(p, code, name, duration, page_no)
                 got = True
 
