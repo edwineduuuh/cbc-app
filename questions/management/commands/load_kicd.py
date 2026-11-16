@@ -81,6 +81,33 @@ SUBJECT_NAMES = {
     "wood-technology": "Wood Technology",
 }
 
+# Misspellings printed in the official designs themselves. Outcomes stay
+# verbatim - they are the thing marking keys quote - but a strand or
+# sub-strand NAME is a heading a teacher prints and hands to a class, so a
+# typo from the source becomes a typo with your logo on it. Corrected here,
+# deliberately, as a short and auditable list rather than a spell-checker.
+SOURCE_TYPOS = {
+    "Entreprenuership": "Entrepreneurship",
+    "Enterpreneurship": "Entrepreneurship",
+    "Measurment": "Measurement",
+    "Enviroment": "Environment",
+    "Comunication": "Communication",
+    "Managment": "Management",
+    "Priciples": "Principles",
+    "Independance": "Independence",
+    "Seperate": "Separate",
+    "Occurence": "Occurrence",
+}
+
+
+def fix_typos(name: str) -> str:
+    """Correct known source misspellings in a heading, preserving case style."""
+    out = name or ""
+    for bad, good in SOURCE_TYPOS.items():
+        out = re.sub(re.escape(bad), good, out, flags=re.I)
+    return out
+
+
 # Words that carry no distinguishing meaning when comparing a hand-typed topic
 # name against a KICD strand name.
 STOP = {"and", "the", "of", "in", "to", "a", "their", "its", "for", "with",
@@ -153,7 +180,8 @@ class Command(BaseCommand):
             if grades and d["grade"] not in grades:
                 continue
             for strand in d.get("strands", []):
-                key = (d["subject"], d["grade"], strand["strand"] or "General")
+                key = (d["subject"], d["grade"],
+                   fix_typos(strand["strand"]) or "General")
                 bucket = tree.setdefault(key, [])
                 if strand.get("assessment_rubric"):
                     rubrics[key] = strand["assessment_rubric"]
@@ -264,7 +292,7 @@ class Command(BaseCommand):
                     stats["substrands_created"] += 1
                     continue
                 obj, made = Substrand.objects.get_or_create(
-                    topic=topic, name=s["name"][:150],
+                    topic=topic, name=fix_typos(s["name"])[:150],
                     defaults={"slug": slugify(s["name"])[:150]},
                 )
                 obj.kicd_code = s.get("kicd_code", "") or ""

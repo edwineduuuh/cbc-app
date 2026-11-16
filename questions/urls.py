@@ -4,6 +4,7 @@ from django.conf.urls.static import static
 from django.db import connection
 from django.http import JsonResponse
 from . import views
+from . import facilitator_views
 
 
 def health(request):
@@ -232,6 +233,12 @@ path('live/bookings/<int:booking_id>/cancel/', cancel_live_booking, name='live-c
 path('motivational/', views.MotivationalContentListView.as_view(), name='motivational-content'),
 path('admin/motivational/', views.MotivationalContentAdminListCreateView.as_view(), name='motivational-admin-list'),
 path('admin/motivational/<int:pk>/', views.MotivationalContentAdminDetailView.as_view(), name='motivational-admin-detail'),
+
+# ── Facilitators Portal (generated from the KICD curriculum designs) ──
+path('facilitator/curriculum/', facilitator_views.curriculum_tree, name='facilitator-curriculum'),
+path('facilitator/assessments/generate/', facilitator_views.generate_assessment_view, name='facilitator-generate-assessment'),
+path('facilitator/library/', facilitator_views.my_library, name='facilitator-library'),
+path('facilitator/library/<int:pk>/', facilitator_views.library_item, name='facilitator-library-item'),
 ]
 
 # Serve media files in development
