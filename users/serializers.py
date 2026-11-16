@@ -42,10 +42,32 @@ class RegisterSerializer(serializers.ModelSerializer):
         fields = ['username', 'email', 'password', 'password2', 'role', 'grade', 'first_name', 'last_name',
                   'parent_name', 'parent_phone', 'parent_email', 'school_name']
 
+    # The only roles anyone may give themselves. ROLE_CHOICES also contains
+    # admin, superadmin and school_admin, and `role` is taken straight from
+    # the request body - without this allow-list, posting
+    # {"role": "superadmin"} to the register endpoint grants it.
+    SELF_SERVICE_ROLES = (User.ROLE_STUDENT, User.ROLE_TEACHER)
+
+    def validate_role(self, value):
+        if value and value not in self.SELF_SERVICE_ROLES:
+            raise serializers.ValidationError(
+                "You can register as a learner or a facilitator. "
+                "Other roles are assigned by an administrator."
+            )
+        return value or User.ROLE_STUDENT
+
     def validate(self, attrs):
         if attrs['password'] != attrs['password2']:
             raise serializers.ValidationError({
                 "password": "Password fields didn't match"
+            })
+        # A learner's grade decides which curriculum they see, so it is
+        # required for them. A facilitator teaches across grades and picks
+        # one per lesson, so requiring it at signup would be meaningless.
+        if attrs.get('role', User.ROLE_STUDENT) == User.ROLE_STUDENT \
+                and not attrs.get('grade'):
+            raise serializers.ValidationError({
+                "grade": "Please select your grade."
             })
         return attrs
 

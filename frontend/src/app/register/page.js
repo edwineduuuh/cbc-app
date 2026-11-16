@@ -11,13 +11,16 @@ import { Suspense } from "react";
 function RegisterPage() {
   const searchParams = useSearchParams();
   const [formData, setFormData] = useState({
+    role: "student",
     first_name: "",
     email: "",
     password: "",
     password2: "",
     grade: "",
     parent_phone: "",
+    school_name: "",
   });
+  const isFacilitator = formData.role === "teacher";
   const [showPassword, setShowPassword] = useState(false);
   const [showPassword2, setShowPassword2] = useState(false);
   const [errors, setErrors] = useState({});
@@ -40,10 +43,16 @@ function RegisterPage() {
     if (!formData.password) newErrors.password = "Password is required";
     if (formData.password.length < 8) newErrors.password = "Minimum 8 characters";
     if (formData.password !== formData.password2) newErrors.password2 = "Passwords don't match";
-    if (!formData.grade) newErrors.grade = "Please select your grade";
-    const rawPhone = formData.parent_phone.replace(/\D/g, "").replace(/^0/, "");
-    if (!rawPhone) newErrors.parent_phone = "Parent phone is required";
-    else if (rawPhone.length !== 9) newErrors.parent_phone = "Enter 9 digits (e.g. 712345678)";
+
+    // A learner's grade decides which curriculum they see, so it is required.
+    // A facilitator teaches across grades and picks one per lesson, and has
+    // no parent to contact - so neither field applies to them.
+    if (!isFacilitator) {
+      if (!formData.grade) newErrors.grade = "Please select your grade";
+      const rawPhone = formData.parent_phone.replace(/\D/g, "").replace(/^0/, "");
+      if (!rawPhone) newErrors.parent_phone = "Parent phone is required";
+      else if (rawPhone.length !== 9) newErrors.parent_phone = "Enter 9 digits (e.g. 712345678)";
+    }
     return newErrors;
   };
 
@@ -61,9 +70,14 @@ function RegisterPage() {
       email: formData.email,
       password: formData.password,
       password2: formData.password2,
-      role: "student",
-      grade: parseInt(formData.grade),
-      parent_phone: "254" + formData.parent_phone.replace(/\D/g, "").replace(/^0/, ""),
+      role: formData.role,
+      ...(isFacilitator
+        ? { school_name: formData.school_name.trim() }
+        : {
+            grade: parseInt(formData.grade),
+            parent_phone:
+              "254" + formData.parent_phone.replace(/\D/g, "").replace(/^0/, ""),
+          }),
     };
 
     const result = await register(userData);
@@ -183,7 +197,7 @@ function RegisterPage() {
                 <div className="mb-6 flex items-center gap-3 bg-teal-50 border-2 border-teal-200 rounded-xl px-5 py-4">
                   <span className="text-2xl"></span>
                   <div>
-                    <p className="font-bold text-teal-800 text-sm">You're enjoying StadiSpace!</p>
+                    <p className="font-bold text-teal-800 text-sm">You&apos;re enjoying StadiSpace!</p>
                     <p className="text-teal-700 text-xs mt-0.5">
                       Create a free account to unlock 3 free quizzes - no payment needed.
                     </p>
@@ -203,6 +217,46 @@ function RegisterPage() {
 
               <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-8">
                 <form onSubmit={handleSubmit} className="space-y-5">
+
+                  {/* Who is signing up. Chosen first, because it decides
+                      which of the fields below even apply. */}
+                  <div>
+                    <label className={labelCls}>I am signing up as *</label>
+                    <div className="grid grid-cols-2 gap-3">
+                      {[
+                        { value: "student", title: "Learner", blurb: "Quizzes, instant marking and progress" },
+                        { value: "teacher", title: "Facilitator", blurb: "Schemes, lesson plans and assessments" },
+                      ].map((opt) => {
+                        const active = formData.role === opt.value;
+                        return (
+                          <button
+                            key={opt.value}
+                            type="button"
+                            onClick={() =>
+                              setFormData((p) => ({ ...p, role: opt.value }))
+                            }
+                            aria-pressed={active}
+                            className={`text-left rounded-xl border p-3 transition-colors ${
+                              active
+                                ? "border-emerald-500 bg-emerald-50 ring-1 ring-emerald-500"
+                                : "border-gray-200 hover:border-gray-300"
+                            }`}
+                          >
+                            <span
+                              className={`block text-sm font-semibold ${
+                                active ? "text-emerald-800" : "text-gray-800"
+                              }`}
+                            >
+                              {opt.title}
+                            </span>
+                            <span className="block text-xs text-gray-500 mt-0.5">
+                              {opt.blurb}
+                            </span>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
 
                   {/* First Name */}
                   <div>
@@ -236,7 +290,26 @@ function RegisterPage() {
                     )}
                   </div>
 
+                  {/* School - facilitators only. They teach across grades,
+                      so a single grade at signup would mean nothing. */}
+                  {isFacilitator && (
+                    <div>
+                      <label className={labelCls}>School (optional)</label>
+                      <input
+                        name="school_name"
+                        value={formData.school_name}
+                        onChange={handleChange}
+                        placeholder="e.g. Kisumu Girls High School"
+                        className={inputCls("school_name")}
+                      />
+                      <p className="mt-1 text-[11px] text-gray-400">
+                        Appears on your schemes of work and lesson plans
+                      </p>
+                    </div>
+                  )}
+
                   {/* Grade */}
+                  {!isFacilitator && (
                   <div>
                     <label className={labelCls}>Grade *</label>
                     <select
@@ -254,8 +327,11 @@ function RegisterPage() {
                       <p className="mt-1 text-xs text-red-500">{errors.grade}</p>
                     )}
                   </div>
+                  )}
 
-                  {/* Parent Phone */}
+                  {/* Parent Phone - learners only; a facilitator has no
+                      parent to send progress updates or receipts to. */}
+                  {!isFacilitator && (
                   <div>
                     <label className={labelCls}>Parent Phone *</label>
                     <div className="flex gap-2">
@@ -285,6 +361,7 @@ function RegisterPage() {
                       For progress updates & M-Pesa payment
                     </p>
                   </div>
+                  )}
 
                   {/* Passwords */}
                   <div className="grid grid-cols-2 gap-4">
