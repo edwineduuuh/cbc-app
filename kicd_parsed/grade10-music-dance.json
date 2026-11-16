@@ -1,0 +1,799 @@
+{
+ "source_pdf": "grade10-music-dance.pdf",
+ "grade": 10,
+ "subject": "music-dance",
+ "general_outcomes": [
+  "By the end of senior secondary school, the learner should be able to:",
+  "Apply relevant knowledge, skills, values and attitudes, to create, perform and analyse Music and dance.",
+  "Appreciate diverse local and global cultures through listening, analysis and performance of Music and Dance.",
+  "Perform Music and Dance from various cultures for self-and cultural expression, and preservation.",
+  "Use available technologies to enhance learning and develop creativity in Music and Dance.",
+  "Apply research and innovation skills in the sustainable utilization of locally available resources for Music and Dance creation, performance and appreciation.",
+  "Relate Music and Dance to other arts and non-art disciplines to make meaningful connections.",
+  "Promote cultural, national, moral and religious values through Music and Dance.",
+  "Develop responsive and responsible global citizenship through involvement in Music and Dance activities from diverse cultures.",
+  "Utilise individual potential in Music and Dance for leisure, self-fulfilment, further education and training, and career growth.",
+  "Address pertinent and contemporary issues in society through Music and Dance activities."
+ ],
+ "strands": [
+  {
+   "strand": "Foundations of Music and Dance",
+   "strand_code": "1.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to describe Music and Dance concepts: -semiquaver -triplet -melodic devices -intervals -setting text to music",
+     "exceeds": "Describes all 8 Music and Dance concepts correctly and elaborately.",
+     "meets": "Describes all 8 Music and Dance concepts correctly.",
+     "approaches": "Describes 4-7 Music and Dance concepts correctly.",
+     "below": "Describes at most 4 Music and Dance concepts correctly."
+    },
+    {
+     "indicator": "Ability to create works of Music and Dance: - 4-bar rhythms incorporating semiquavers - 4-bar rhythms incorporating triplets - Major scales - 8-bar melodies - Set melody to text - Second part to a melody - Props and costumes",
+     "exceeds": "Creates all the 7 works of Music and Dance artistically applying the provided guidelines correctly.",
+     "meets": "Creates all the 7 works of Music and Dance applying the provided guidelines correctly",
+     "approaches": "Creates 3-6 works of Music and Dance applying the provided guidelines.",
+     "below": "Creates at most 2 work(s) of Music and Dance applying the provided guidelines."
+    },
+    {
+     "indicator": "Ability to transpose music: -from treble to bass -from bass to treble -to a given key",
+     "exceeds": "Transposes music with proficiency.",
+     "meets": "Transposes music correctly.",
+     "approaches": "Transposes music with a few errors.",
+     "below": "Transposes music only with assistance."
+    },
+    {
+     "indicator": "Ability to use music notation software to: -navigate software -transcribe music -save music files",
+     "exceeds": "Innovatively uses music notation software.",
+     "meets": "Uses music notation software.",
+     "approaches": "Uses music notation software with few flaws.",
+     "below": "Uses music notation software with many flaws."
+    },
+    {
+     "indicator": "Ability to select multimedia effects",
+     "exceeds": "Creatively selects appropriate multimedia effects",
+     "meets": "Selects appropriate multimedia effects",
+     "approaches": "Selects some appropriate multimedia effects",
+     "below": "Selects multimedia effects"
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "1.1",
+     "name": "Rhythm",
+     "suggested_duration": "11 lessons",
+     "learning_outcomes": [
+      "explain the rhythmic concept of the semiquaver in simple time",
+      "describe the concept of the triplet in simple time",
+      "group notes into beats in simple time",
+      "compose 4-bar rhythms in simple time incorporating semiquavers",
+      "compose 4-bar rhythms in simple time incorporating triplets",
+      "appreciate rhythms composed by self and others."
+     ],
+     "learning_experiences": [
+      "listen to or sing songs in simple time with semiquavers and aurally recognize them in the songs",
+      "use virtual sources responsibly to listen to or sing songs in simple time with triplets and discuss the performance of the triplet",
+      "practice writing rhythms in simple time incorporating semiquavers and triplets with appropriate grouping",
+      "tap and recite rhythms using French rhythm names",
+      "collaboratively discuss factors to consider in creating rhythmic patterns and apply them to create 4-bar rhythms",
+      "compose 4-bar original rhythms in simple time incorporating semiquavers, and triplets",
+      "perform created rhythms in simple time and record using a digital devices, observing responsibility",
+      "share the recorded performances of rhythms with peers for critique."
+     ],
+     "inquiry_questions": [
+      "1. How do triplets feature in simple time?",
+      "2. How can rhythms be created in simple time?"
+     ],
+     "core_competencies": [
+      "Communication and collaboration: The learner speaks clearly while discussing factors to consider in creating rhythmic patterns.",
+      "Critical thinking and problem solving: The learner gains decision making skills to aid in composing rhythmic patterns incorporating the semiquaver and triplets.",
+      "Creativity and imagination: The learner innovatively composes 4-bar original rhythms in simple time incorporating semiquavers and triplets."
+     ],
+     "values": [
+      "Responsibility: The learner makes appropriate use of digital devices while recording and sharing the 4-bar rhythms created.",
+      "Integrity: The learner composes original rhythmic patterns without plagiarism.",
+      "Respect: The learner recognises contributions of others while critiquing each other’s music."
+     ],
+     "pertinent_issues": [
+      "Pertinent and Contemporary Issues (PCIs):",
+      "Cyber security: The learner uses digital devices and online platforms responsibly while researching, recording and sharing improvised rhythmic accompaniment to tunes.",
+      "Personal attributes and talents: The learner uses rhythms learnt to improvise rhythmic accompaniments to simple tunes."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-music-dance.pdf#p13"
+    },
+    {
+     "kicd_code": "1.2",
+     "name": "Melody in Major Keys",
+     "suggested_duration": "11 lessons",
+     "learning_outcomes": [
+      "describe melodic devices used in melody writing",
+      "construct major scales on a staff",
+      "compose an 8-bar melody incorporating melodic devices",
+      "compose an 8-bar melody incorporating articulation marks",
+      "enjoy creating melodies in major keys."
+     ],
+     "learning_experiences": [
+      "listen to or sing simple and familiar tunes in major keys and identify melodic devices used",
+      "construct major scales on the treble and bass staves ascending and descending",
+      "compose 8-bar melodies in simple time incorporating melodic devices with appropriate phrasing",
+      "compose 8-bar melodies in simple time incorporating articulation marks",
+      "sing or play composed melodies",
+      "store composed music in a digital or physical portfolio",
+      "critique melodies composed by self and others."
+     ],
+     "inquiry_questions": [
+      "1. How is melodic interest created in music?",
+      "2. How can unity and variety be achieved in composition?"
+     ],
+     "core_competencies": [
+      "• Communication and collaboration: The learner listens critically and speaks clearly while critiquing melodies written by self and others."
+     ],
+     "values": [
+      "Values:",
+      "Respect: The learner appreciates others’ views when giving and receiving feedback on their compositions.",
+      "Integrity: The learner creates original music without plagiarism.",
+      "Social justice: The learner shares learning resources and ideas with peers when creating music. Pertinent and Contemporary Issues (PCIs):",
+      "Personal attributes and talents: The learner uses techniques learnt in music composition to grow talent",
+      "Cyber security: The learner uses digital apps responsibly."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-music-dance.pdf#p16"
+    },
+    {
+     "kicd_code": "1.3",
+     "name": "Transposition",
+     "suggested_duration": "11 lessons",
+     "learning_outcomes": [
+      "describe intervals in a major scale",
+      "explain the concept of transposition in music",
+      "transpose music to a given interval",
+      "transpose music from the treble to the bass staff",
+      "transpose music from bass to the treble staff",
+      "transpose music to a given key",
+      "value the role of transposition in music."
+     ],
+     "learning_experiences": [
+      "sing or play a major scale and aurally identify various intervals",
+      "listen to melodies sung or played in octaves and identify the lower and higher registers",
+      "sing or play melodies at different pitches higher or lower to distinguish the difference in pitch",
+      "discuss the process of transposing music to a given interval, an octave or a given key",
+      "transpose melodies an octave up or down within the same or to a different stave",
+      "transpose melodies to a given key within the same or to a different stave."
+     ],
+     "inquiry_questions": [
+      "How does transposition aid in music performance?"
+     ],
+     "core_competencies": [
+      "Core competencies to be developed:",
+      "Communication: The learner writes music clearly to effectively pass messages on various topical issues.",
+      "Collaboration: The learner shares information with others while creating music in the minor key.",
+      "Creativity and imagination: The learner comes up with new musical ideas when composing melodies in the minor key.",
+      "Critical thinking and problem solving: the learner reflects and assesses a variety of alterative musical ideas to compose melodies.",
+      "Learning to learn: The learner applies compositional skills and knowledge on digital software to compose and notate music.",
+      "Digital literacy: The learner uses music notation software to compose and playback music. Values:",
+      "Respect: The learner displays humility as they recognize input of every member when giving and receiving feedback on their compositions",
+      "Unity: The learner discusses melody creation processes with others to create new melodies.",
+      "Integrity: The learner creates original music ideas without plagiarism.",
+      "Responsibility: The learner uses digital equipment and materials responsibly.",
+      "Love: The learner shares learning resources with others when creating music.",
+      "Peace: The learner avoids conflict as they give constructive feedback on others’ compositions. Pertinent and Contemporary Issues (PCIs):",
+      "Personal attributes and talents: The learner uses techniques learnt in music composition to grow talent.",
+      "Cyber security: The learner uses digital apps responsibly.",
+      "Self-esteem: The learner believe in themselves as upcoming artistes as they acquire knowledge on melody writing."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-music-dance.pdf#p18"
+    },
+    {
+     "kicd_code": "1.4",
+     "name": "Setting Text to Music",
+     "suggested_duration": "11 lessons",
+     "learning_outcomes": [
+      "outline the process of setting text in Kiswahili to music",
+      "set a melody to text in Kiswahili",
+      "appreciate music composed in Kiswahili by self and others."
+     ],
+     "learning_experiences": [
+      "discuss the process involved in setting text in Kiswahili to music",
+      "read Kiswahili words to establish the accents, natural speech inflections, and intonation",
+      "discuss factors that guide syllabic division and accentuation of text in Kiswahili",
+      "select text in Kiswahili on pertinent and contemporary issues such as: financial literacy, waste management, drug and substance abuse and healthy relationships",
+      "recite the text to establish the text-melody relationships: natural speech inflections, intonation and textual meaning among others",
+      "choose an appropriate time signature, assign note values, identify cadential points and phrases for the selected text",
+      "add appropriate pitches to the syllables while paying attention to word painting, melodic contour, range and overall structure",
+      "write the music composed in staff notation",
+      "perform the song composed before an audience and appraise each other",
+      "record and save the music in a digital or physical portfolio."
+     ],
+     "inquiry_questions": [
+      "1. How are pitches assigned to different words to communicate messages clearly?",
+      "2. How does text dictate composition of a melody?"
+     ],
+     "core_competencies": [
+      "Communication and collaboration: The learner speaks clearly as they discuss factors that guide syllabic division and accentuation of text in Kiswahili",
+      "Creativity and imagination: The learner adds appropriate pitches to the syllables while paying attention to word painting, melodic contour, range and overall structure",
+      "Citizenship: The learner participates in community service by composing music in Kiswahili with messages to sensitize the community members.",
+      "Learning to learn: The learner applies compositional skills on song writing to compose music for given text.",
+      "Digital literacy: The learner uses music notation software to compose and playback music."
+     ],
+     "values": [
+      "Values:"
+     ],
+     "pertinent_issues": [
+      "Pertinent and Contemporary Issues (PCIs):",
+      "Communicable diseases: The learner composes music to sensitize the populace on communicable diseases.",
+      "Waste management: The learner creates text on waste management to sensitize community on environmental cleanliness.",
+      "Healthy relationships: The learners collaborate with each other in group work as they build peaceable relation among each other.",
+      "Financial Literacy: The learner select text in Kiswahili on pertinent and contemporary issues such as: financial literacy."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-music-dance.pdf#p20"
+    },
+    {
+     "kicd_code": "1.5",
+     "name": "Two-Part Harmony",
+     "suggested_duration": "11 lessons",
+     "learning_outcomes": [
+      "outline guidelines for creating two-part harmony",
+      "compose a second part to a 4-bar melody in a major key",
+      "value the role of intervals in harmony."
+     ],
+     "learning_experiences": [
+      "listen to two-part vocal and/or instrumental harmonic passages in major keys to identify guidelines used in two-part harmony",
+      "sing and/or play 2-part harmonic passages in major keys to aurally discriminate the higher and lower parts in the passages",
+      "distinguish harmonic intervals as consonant or dissonant",
+      "add a second part above or below a melody using appropriate consonant intervals",
+      "score two-part harmonic passages on the treble stave with appropriate stemming",
+      "record the 2-part music using a digital devise or a physical portfolio",
+      "appraise each other’s music."
+     ],
+     "inquiry_questions": [
+      "1. What do you consider when adding a second part to an existing melody?",
+      "2. How can intervals be utilized in improvising a second part to a melody?"
+     ],
+     "core_competencies": [
+      "Core competencies to be developed:",
+      "Communication and collaboration: The learner speaks clearly and effectively when describing harmonic intervals.",
+      "Creativity and imagination: The learner comes up with new musical ideas when composing the second part to a 4-bar melody.",
+      "Digital Literacy: The learner uses records the 2-part music using a digital devise. Values:",
+      "Respect: The learner recognizes the input of every member of the team as they participate in group activities involving sounding harmonic intervals.",
+      "Integrity: The learner uses own music ideas without plagiarism.",
+      "Unity: The learner collaborates with others in sounding harmonic intervals in group activities. Pertinent and Contemporary Issues (PCIs)",
+      "Cyber security: The learner uses digital devices responsibly.",
+      "Safety and security: The learner takes precaution while interacting with digital devices.",
+      "Self-esteem: The learner gains confidence as they compose music."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-music-dance.pdf#p23"
+    },
+    {
+     "kicd_code": "1.6",
+     "name": "Music Notation Software",
+     "suggested_duration": "12 lessons",
+     "learning_outcomes": [
+      "identify notation software used in music writing",
+      "navigate selected music notation software",
+      "transcribe music using a music notation software",
+      "save music files for storage",
+      "appreciate music playbacks in midi and audio formats."
+     ],
+     "learning_experiences": [
+      "Learners are guided to:",
+      "watch demos of various music notation software online to distinguish them: (Muse Score, Sibelius First, Noteworthy, Encore, Finale Notepad, Notion, Maestro, among others)",
+      "discuss various notation software and mobile apps used in music notation",
+      "navigate selected music notation software to view music notation tools",
+      "use music notation software to key in music",
+      "edit keyed-in music using a selected music software",
+      "save and convert already keyed in music to midi, print, and audio formats",
+      "share, play back, and appraise own and others’ music in print and audio formats."
+     ],
+     "inquiry_questions": [
+      "1. How is music notation software useful?",
+      "2. How does music notation software facilitate music composition?"
+     ],
+     "core_competencies": [
+      "Core competencies to be developed:",
+      "Collaboration: The learner works with others in groups as they interact with the music notation software.",
+      "Critical thinking: The learner manipulates several functions in music notation software to key and edit created melodies using music notation software.",
+      "Problem solving: The learner uses digital devices to edit and play back music they already created.",
+      "Creativity and imagination: The learner comes up with new ideas while using music notation software to compose music.",
+      "Learning to learn: The learner uses demos as a guide to write music using music notation software.",
+      "Digital literacy: The learner uses music notation software to key in created melodies. Values:",
+      "Respect: The learner recognises the input of others when appraising each other’s music.",
+      "Responsibility: The learner uses the digital devices for the intended purpose.",
+      "Unity: The learner works with others in groups to key in music in music notation software.",
+      "Integrity: The learner uses digital devices observing ethical and legal standards.",
+      "Social justice: The learner critiques each other’s work without exception. Pertinent and Contemporary Issues (PCIs):",
+      "Peer Education: The learner actively contributes to group decisions when keying in and editing music.",
+      "Social cohesion: The learner actively participates in group activities as they manipulate the functions of the music notation software.",
+      "Safety and security: The learner takes precaution when using digital devices powered by electricity."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-music-dance.pdf#p25"
+    },
+    {
+     "kicd_code": "1.7",
+     "name": "Dance Production",
+     "suggested_duration": "12 lessons",
+     "learning_outcomes": [
+      "describe the elements of dance",
+      "improvise props for use in a dance performance",
+      "design costumes based on a dance theme",
+      "describe the concept of choreography in Dance",
+      "select multimedia effects for use in a dance production",
+      "value dance production for economic empowerment."
+     ],
+     "learning_experiences": [
+      "watch a variety of dances and discuss the elements of dance",
+      "source or use available materials to improvise props for use in a dance performance",
+      "choose a dance theme based on a PCI and design an appropriate costume",
+      "watch online or live demonstrations on use of music, lighting and sound effects for use in a dance production",
+      "apply multimedia effects in production of a dance performance during a school event."
+     ],
+     "inquiry_questions": [
+      "1. How can costumes and props be used to communicate the theme in a dance performance?",
+      "2. How can multimedia effects be utilized to enhance dance production?"
+     ],
+     "core_competencies": [
+      "Citizenship: The learner records and plays Kenyan popular music using Digital Audio Applications.",
+      "Digital Literacy: The learner uses digital devices to record and listen to music performances."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-music-dance.pdf#p27"
+    },
+    {
+     "kicd_code": "1.7",
+     "name": "Dance Production",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "• Practical tests"
+     ],
+     "learning_experiences": [
+      "Suggested Learning Resources",
+      "Sheet music",
+      "Resource persons",
+      "Audio/visual recordings of melodies",
+      "Pitching device",
+      "Song books",
+      "Audio visual equipment"
+     ],
+     "inquiry_questions": [
+      "Non-Formal Activities",
+      "Performing Arts address social issues. • School assembly activities – performing, watching, or listening to performances during school assemblies. • School events: performing during events such as parents, prize giving, career and sports day, among others. • Scout/Girl guide activities -participating in the school band by playing musical instruments. • Performing troupes or ensembles-Learner forms small groups for performance"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-music-dance.pdf#p53"
+    }
+   ]
+  },
+  {
+   "strand": "Performing",
+   "strand_code": "2.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to describe features of works of Music and Dance: -characteristics of Kenyan folk songs -performance styles of Western solo songs -sound Kenyan indigenous musical instruments",
+     "exceeds": "Describes all 6 features of works of Music and Dance elaborately.",
+     "meets": "Describes all 6 features of works of Music and Dance.",
+     "approaches": "Describes the 5-3 features of works of Music and Dance.",
+     "below": "Describes 2-1 features of works of Music and Dance."
+    },
+    {
+     "indicator": "Ability to create a 3-5-minute contemporary dance routine based on Kenyan popular music",
+     "exceeds": "Creates a 3-5 minute contemporary dance based on Kenyan popular music artistically.",
+     "meets": "Creates a 3-5 minute contemporary dance based on Kenyan popular music.",
+     "approaches": "Creates a 3-5 minute contemporary dance based on Kenyan popular music leaving out minor aspects.",
+     "below": "Creates a 3-5 minute contemporary dance based on Kenyan popular music leaving out major aspects."
+    },
+    {
+     "indicator": "Ability to perform selected works of Music and Dance applying performance techniques: -a Kenyan folksong",
+     "exceeds": "Performs all 5 Music and Dance works applying appropriate performance techniques and or observing prescribed performance directions with expert precision.",
+     "meets": "Performs all 5 Music and Dance items using appropriate performance techniques and or observing prescribed performance directions.",
+     "approaches": "Performs 4-2 Music and Dance items using appropriate performance techniques and or observing prescribed performance directions.",
+     "below": "Performs 1 or none of the Music and Dance items using appropriate performance techniques and or observing prescribed performance directions."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "2.1",
+     "name": "Kenyan Folk Songs",
+     "suggested_duration": "11 lessons",
+     "learning_outcomes": [
+      "describe the characteristics of Kenyan folk songs",
+      "select a Kenyan folksong for performance",
+      "perform folksongs from Kenyan communities applying performance aspects",
+      "enjoy performing Kenyan folk songs."
+     ],
+     "learning_experiences": [
+      "listen to or watch performances of Kenyan folk songs and discuss the characteristics",
+      "source from virtual or physical spaces to select Kenyan folk songs with appropriate themes and messages from different communities",
+      "source for and select instruments, costumes, props, and artefacts, make-up and décor",
+      "take up different roles in the performance (soloist, instrumentalists, group singers)",
+      "carry out rehearsals observing rehearsal etiquette (draw a rehearsal schedule"
+     ],
+     "inquiry_questions": [
+      "1. How does exposure to various performances influence an individual’s response to folksongs?",
+      "2. Why are Kenyan folk songs important in society?"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-music-dance.pdf#p31"
+    },
+    {
+     "kicd_code": "2.2",
+     "name": "Western Style Solo Songs",
+     "suggested_duration": "11 lessons",
+     "learning_outcomes": [
+      "describe the performance style of selected Western solo songs",
+      "perform a Western style solo song using appropriate performance techniques",
+      "perform a Western style solo song observing prescribed performance directions",
+      "appreciate performing various Western solo songs."
+     ],
+     "learning_experiences": [
+      "listen to or watch live or recorded performances of lieder, arias from operas and oratorios, and solo songs from musicals for familiarization",
+      "discuss the performance practice of Western solo songs such as lieder, arias, folk songs",
+      "review videos of Western solo songs to identify their styles of singing",
+      "execute various vocal styles applied in singing Western solo songs",
+      "select acknowledging the source suitable Western solo songs for performance",
+      "perform selected Western solo songs before a given",
+      "audience, while observing the performance techniques",
+      "use digital devices to record their performances of Western solo songs and upload them to their digital portfolios",
+      "evaluate performances by self and others and respectfully give feedback."
+     ],
+     "inquiry_questions": [
+      "1. How should one prepare to perform a Western solo song 2. Why are vocal techniques important in Western solo songs?"
+     ],
+     "core_competencies": [
+      "Self-efficacy: The learner confidently performs arias and western solo songs before an audience using the techniques learnt.",
+      "Citizenship: The learner performs western solo songs gaining knowledge on other global cultures.",
+      "Learning to learn: The learner identifies challenges in executing performance styles in western solo songs and seeks clarification of how to perform them.",
+      "Digital literacy: The learner utilises digital devices to source for and record performances of Western solo songs."
+     ],
+     "values": [
+      "Respect: The learner appreciates others’ views when giving and receiving feedback on their performances.",
+      "Integrity: The learner acknowledges the source of pieces of music sourced from online platforms and from other musicians for performance.",
+      "Responsibility: The learner uses digital devices for the intended purposes.",
+      "Social justice: The learner gives objective views on peers’ performances.",
+      "Peace: The learner works in harmony with others as they rehearse, perform and critique others’ performances."
+     ],
+     "pertinent_issues": [
+      "• Healthy Relationships: The learner collaborates with others in group work as they discuss, rehearse, perform and critique their performances."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-music-dance.pdf#p33"
+    },
+    {
+     "kicd_code": "2.3",
+     "name": "Kenyan Indigenous Musical Instrument (Solo Performance)",
+     "suggested_duration": "12 lessons",
+     "learning_outcomes": [
+      "explain sound production on a selected Kenyan indigenous musical instrument",
+      "perform music from the cultural idiom of the chosen instrument",
+      "appreciate music played on a selected Kenyan indigenous musical instrument."
+     ],
+     "learning_experiences": [
+      "listen or watch performances involving Kenyan indigenous musical instruments to determine how sound is produced",
+      "familiarise with a selected Kenyan indigenous musical instrument to identify its parts and handling",
+      "search responsibly for videos and watch or interact with resource persons to learn the techniques of tuning, playing and maintaining the instrument",
+      "practice the techniques of tuning of the instrument",
+      "rehearse playing a selected Kenyan indigenous musical instrument to master the playing techniques",
+      "play tunes or rhythmic patterns from the cultural idiom of the chosen instrument using the appropriate playing techniques before an audience",
+      "record and share music with parents, guardians and fellow learners for feedback and upload to a digital portfolio."
+     ],
+     "inquiry_questions": [
+      "1. How can proficiency in solo instrumental playing be developed?",
+      "2. What features of a solo instrument mark its cultural identity?"
+     ],
+     "core_competencies": [
+      "Communication: The learner listens critically and speaks clearly while giving feedback on peers’ performances.",
+      "Creativity and imagination: The learner uses imagination to improvise and play melodies/rhythms on an instrument(s).",
+      "Digital Literacy: The learner interacts with digital devices to search for the techniques of tuning, playing and maintaining various instruments."
+     ],
+     "values": [
+      "Integrity: The learner uses the internet appropriately when searching for tech play.",
+      "Responsibility: The learner uses learning resources with utmost care.",
+      "Respect: The learner respects others’ views during rehearsal sessions of the Western instrument.",
+      "Social Justice: The learner is given an equal opportunity to play tunes from diverse Kenyan communities."
+     ],
+     "pertinent_issues": [
+      "Resource mobilization: The learner sources for music from the internet and other sources for music to play.",
+      "Mentorship: The learner interacts with resource persons to learn the techniques of tuning, playing and maintaining the instruments."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-music-dance.pdf#p36"
+    },
+    {
+     "kicd_code": "2.4",
+     "name": "Western Musical Instruments (Solo Performer)",
+     "suggested_duration": "12 lessons",
+     "learning_outcomes": [
+      "describe the structure of the western solo instrument",
+      "explain the tuning of a selected Western solo musical instrument",
+      "play a selected Western solo musical instrument applying playing techniques",
+      "play a selected Western solo musical instrument observing performance directions",
+      "appreciate music played on Western solo instrument for global awareness."
+     ],
+     "learning_experiences": [
+      "observe pictures or real instruments and identify various parts and their role in the production of sound",
+      "tune or explain the tuning of a selected Western solo instrument",
+      "prepare a rehearsal schedule for practicing techniques earlier learnt on the selected Western solo instrument",
+      "practice playing techniques that are specific to the selected Western solo instrument",
+      "play a variety of solo pieces of music on a selected solo instrument during a school function."
+     ],
+     "inquiry_questions": [
+      "1. Why do instruments sound differently while playing the same pitch?",
+      "2. How is in playing a Western solo instrument proficiency developed?"
+     ],
+     "core_competencies": [
+      "Core competencies to be developed:",
+      "Citizenship: The learner gains skills in playing a solo musical instrument from the rest of the world (western) gaining international awareness.",
+      "Digital Literacy: The learner downloads; watches and listens to professional musicians perform Western instruments.",
+      "Self-Efficacy: The learner confidently executes playing techniques that are specific to the selected Western solo instrument. Values:",
+      "Integrity: The learner uses the internet appropriately when searching for music pieces to play.",
+      "Responsibility: The learner uses instruments and digital devices learning resources with utmost care.",
+      "Respect: The learner respects others’ views during rehearsal sessions of the western instrument. Pertinent and Contemporary Issues (PCIs):",
+      "Resource mobilization: The learner sources for instrumental music from the internet for music to play.",
+      "Problem solving: The learner acquires music reading skills that will help in interpreting scored music."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-music-dance.pdf#p38"
+    },
+    {
+     "kicd_code": "2.5",
+     "name": "Contemporary Dance from Kenya",
+     "suggested_duration": "11 lessons",
+     "learning_outcomes": [
+      "describe the features of a contemporary dance",
+      "create a 3-5-minute contemporary dance routine based on Kenyan popular music",
+      "execute basic performance skills in a dance routine",
+      "perform a 3-5-minute contemporary dance routine applying performance techniques",
+      "appreciate performing a contemporary dance as a means of self-expression."
+     ],
+     "learning_experiences": [
+      "watch real or virtual contemporary dance performances and discuss their features",
+      "brainstorm an idea on a PCI from the community for a dance story",
+      "create milestones for the contemporary dance story",
+      "demonstrate basic performance skills in a dance routine",
+      "select suitable contemporary dance techniques and styles from genres of Kenyan popular music for the routine",
+      "block dance movements and patterns for effective use of time, space, action and energy",
+      "select and use appropriate music for the dance routine",
+      "select and use appropriate costumes, props and make-up for the routine",
+      "rehearse and perform the dance routine in a troupe, to tell a story to an audience."
+     ],
+     "inquiry_questions": [
+      "How can contemporary dance be used to tell a story?"
+     ],
+     "core_competencies": [
+      "Self-efficacy: The learner boosts self-esteem, and self-expression through dance performance.",
+      "Digital literacy: The learner gains skills using technological devices to create search and use music sourced for dance creation.",
+      "Communication and Collaboration: The learner fluently communicates research findings and listens to narratives on societal issues that can be addressed using contemporary dance.",
+      "Creativity and imagination: The learner applies artistic and innovative abilities to choreograph and perform a contemporary dance."
+     ],
+     "values": [
+      "Respect: The learner gains respect for others’ opinions while creating and sharing on dance creation.",
+      "Responsibility: The learner acquires self-discipline when creating contemporary dance within the timeline given.",
+      "Social justice: The learner gains appreciation for modern and contemporary dance styles from diverse cultures and historical periods."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-music-dance.pdf#p40"
+    },
+    {
+     "kicd_code": "2.3",
+     "name": "Kenyan Indigenous Musical Instrument",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "• Written tests"
+     ],
+     "learning_experiences": [
+      "Kenyan Indigenous Musical Instruments",
+      "Resource persons",
+      "Suggested Learning Resources",
+      "• Audio/visual recordings of Kenya Folksongs"
+     ],
+     "inquiry_questions": [
+      "Non-Formal Activities"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-music-dance.pdf#p55"
+    }
+   ]
+  },
+  {
+   "strand": "Critical Appreciation",
+   "strand_code": "3.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to describes 3 aspects of Critical Appreciation in Music and Dance: -performance media -characteristics of music genres -functions of Music and Dance",
+     "exceeds": "Describes all 3 aspects of Critical Appreciation in Music and Dance in detail.",
+     "meets": "Describes all 3 aspects of Critical Appreciation in Music and Dance.",
+     "approaches": "Describes all 2 aspects of Critical Appreciation in Music and Dance.",
+     "below": "Describes 1 or none of the aspects of Critical Appreciation in Music and Dance."
+    },
+    {
+     "indicator": "Ability to analyse 3 works of Music and Dance: - Kenyan Folk Songs - Classical Music (Medieval and Renaissance - Music and Dance in Socio-cultural Context.",
+     "exceeds": "Analyses all the 3 works of Music and Dance elaborately and analytically.",
+     "meets": "Analyses all the 3 works of Music and Dance.",
+     "approaches": "Analyses 2-3 works of Music and Dance.",
+     "below": "Analyses 1 or none of the works of Music and Dance."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "3.1",
+     "name": "Kenyan Folk Songs",
+     "suggested_duration": "11 lessons",
+     "learning_outcomes": [
+      "examine different performance media of Kenyan folk songs",
+      "analyse the styles in selected Kenyan folk songs",
+      "evaluate how the elements of music feature in the performance of a Kenyan folksong",
+      "analyse the role of expressive devices in Kenyan folksongs",
+      "analyse the message communicated in a folk song",
+      "value the essence of performance of",
+      "Kenyan folksongs in society."
+     ],
+     "learning_experiences": [
+      "listen to or watch live or recorded Kenyan traditional folk music with controlled volume and classify performance media",
+      "discuss the role of performance media and the various players in Kenyan folksongs",
+      "identify the styles of Kenyan folksongs performance",
+      "discuss how the elements of music feature in various Kenyan folksongs performances",
+      "listen to or watch performances of Kenyan folksongs and interpret the expressive devices used",
+      "listen to or watch performances of Kenyan",
+      "folksongs and discuss message(s)."
+     ],
+     "inquiry_questions": [
+      "1. What is the essence of analysing folk songs?",
+      "2. How can folksongs be used to address issues in the community?"
+     ],
+     "core_competencies": [
+      "Communication and Collaboration: The learner listens critically to folksongs and speaks clearly as they discuss messages in folksongs.",
+      "Citizenship: The learner listens to folksongs from different Kenyan cultures developing respect and acceptance of heterogeneity.",
+      "Learning to learn: The learner uses research skills to examine the elements of music.",
+      "Digital literacy: The learner uses digital devices to search for music on the internet."
+     ],
+     "values": [
+      "Integrity: The learner uses the internet appropriately when sourcing for folksongs of Kenya.",
+      "Patriotism: The learner is made aware of his or her own culture through exposure to folksongs from Kenya.",
+      "Unity: The learner collaborates with others as they discuss the role of performance media in folksongs.",
+      "Respect: The learner appreciates others’ views as they give personal responses while listening to folksongs."
+     ],
+     "pertinent_issues": [
+      "Pollution: The learner gets sensitised on noise pollution by controlling the volume while listening to folk music.",
+      "Personal Attributes and Talents: The learner is inspired by watching Kenyan folksongs artistes to identify and nurture own talent."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-music-dance.pdf#p45"
+    },
+    {
+     "kicd_code": "3.2",
+     "name": "Classical Music (Medieval and Renaissance)",
+     "suggested_duration": "11 lessons",
+     "learning_outcomes": [
+      "describe the characteristics of music genres in the prescribed periods",
+      "aurally identify music genres in the prescribed period",
+      "appreciate Medieval and Renaissance music through listening and analysis."
+     ],
+     "learning_experiences": [
+      "listen to and discuss the characteristics of music genres in the prescribed periods",
+      "discuss the influences of the characteristic of the period on the features of the music",
+      "responsibly search for, listen to and aurally identify the prescribed music genres of the different periods by outlining the composer and the features of music",
+      "develop informed personal responses to music of the prescribed periods."
+     ],
+     "inquiry_questions": [
+      "1. How does exposure to genres of music from the prescribed period influence an individual’s response to music?",
+      "2. How does the characteristics of a historical period influence the music genre?"
+     ],
+     "core_competencies": [
+      "Communication and Collaboration: The learner listens critically and speaks clearly or writes on themes, messages and characteristics of music genres in the prescribed periods of music.",
+      "Citizenship: The learner appreciates music from different global cultures.",
+      "Digital Literacy: The learner searches for and listens to genres of music from the prescribed periods from online sources."
+     ],
+     "values": [
+      "Values:",
+      "Unity: The learner collaborates with others as they genres of music from different periods.",
+      "Responsibility: The learner makes appropriate use of digital devices when accessing music from the internet",
+      "Respect: The learner recognizes the input of every member of the class as they participate in group activities on genres of music. Pertinent and Contemporary Issues (PCIs)",
+      "Online safety: The learner responsibly uses digital devices to search for genres of music to listen to.",
+      "Self-esteem: The learner gains confidence as they perform music before an audience."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-music-dance.pdf#p47"
+    },
+    {
+     "kicd_code": "3.3",
+     "name": "Music and Dance in Socio-cultural Context",
+     "suggested_duration": "11 lessons",
+     "learning_outcomes": [
+      "explain the functions of Music and Dance in the society",
+      "examine the changing Music and Dance performance practices in different contexts",
+      "value the functions of Music and Dance in society."
+     ],
+     "learning_experiences": [
+      "listen to or watch performances of music in various contexts and discuss its functions",
+      "discuss the changing musical practices in different performance settings",
+      "Suggested Learning Resources"
+     ],
+     "inquiry_questions": [
+      "1. How does music influence the society?",
+      "2. How do various contexts influence music performances?",
+      "Non-Formal Activities"
+     ],
+     "core_competencies": [
+      "Communication and collaboration: The learner works with others and fluently discusses the changing musical practices in different performance settings.",
+      "Critical thinking and problem solving: The learner researches and interprets information on the functions of music and Dance in society."
+     ],
+     "values": [
+      "Values:",
+      "Respect: The learner appreciates different types of music performed for different occasions.",
+      "Unity: The learner works with others to research and discuss the changes in music performance practices.",
+      "Responsibility: The learner handles digital devices conscientiously. Pertinent and Contemporary Issues (PCIs):",
+      "Social Cohesion: The learner works well with others in group performances.",
+      "Stress Management: The learner performs music whose therapeutic nature helps to manage their stress and emotions.",
+      "Life Skills Education: The learner achieves self-esteem as they perform different types of music."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-music-dance.pdf#p49"
+    },
+    {
+     "kicd_code": "3.1",
+     "name": "Kenyan Folksongs",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Field work reports"
+     ],
+     "learning_experiences": [
+      "Audio/visual recordings of folksongs",
+      "Resource person",
+      "Exercise books",
+      "ICT devices",
+      "Internet connectivity"
+     ],
+     "inquiry_questions": [],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-music-dance.pdf#p57"
+    }
+   ]
+  }
+ ]
+}

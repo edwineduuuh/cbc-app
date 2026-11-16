@@ -1,0 +1,519 @@
+{
+ "source_pdf": "grade10-theatre-film.pdf",
+ "grade": 10,
+ "subject": "theatre-film",
+ "general_outcomes": [
+  "1) Create original, workshopped or adapted theatre and film productions grounded in Kenyan cultures to promote nationalism, patriotism and national unity. 2) Perform theatre and film for individual development, self-expression and cultural integration. 3) Use technology to create theatre and film performances to promote social, economic and industry needs for national development. 4) Use theatre and film as instruments of promoting moral and religious values. 5) Appraise theatre and film performances for self-improvement and problem solving in society. 6) Use theatre and film to promote good health and environmental conservation. 7) Appreciate the use of theatre and film in promoting international cooperation and global citizenship. 8) Use theatre and film to promote social equality and responsibility. 9) Apply theatre and film skills to address pertinent and contemporary issues in society."
+ ],
+ "strands": [
+  {
+   "strand": "Creating",
+   "strand_code": "1.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability of the learner to describe the: • elements of playwriting • characteristics of spoken word • poetic elements",
+     "exceeds": "Describes All the 3 aspects of writing in theatre accurately and elaborately.",
+     "meets": "Describes All the 3 aspects of writing in theatre accurately.",
+     "approaches": "Describes 2 or 1 aspects of writing in theatre.",
+     "below": "Describes 1 aspect of writing in theatre with errors."
+    },
+    {
+     "indicator": "Ability of the learner to develop 5 products in writing for theatre: • an appropriate theme, • a 3-act structure play script, • a community engagement story outline, • a character bible for a persona • a spoken word poem",
+     "exceeds": "Develops all the 5 products in writing for theatre with a high level of creativity",
+     "meets": "Develops all the 5 products in writing for theatre.",
+     "approaches": "Develops 3-4 products in writing for theatre.",
+     "below": "Develops less than 3 products in writing for theatre."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "1.1",
+     "name": "Play Writing",
+     "suggested_duration": "25 lessons",
+     "learning_outcomes": [
+      "describe the elements of play writing",
+      "write a three-act structure play based on a Pertinent and Contemporary Issue",
+      "develop a community engagement story addressing a Pertinent and Contemporary Issue",
+      "acknowledge the value of artistic creation in addressing societal issues."
+     ],
+     "learning_experiences": [
+      "read scripts to identify and discuss the elements of play writing (story, plot, character, dramatic style, setting, dialogue, dramatic action)",
+      "watch live or recorded plays to identify a three-act structure",
+      "research to identify a theme based on Pertinent and Contemporary Issues for scripting",
+      "brainstorm to generate a story using characters, dialogue, conflict and setting",
+      "discuss elements of a plot (exposition, rising action, climax, falling action and resolution) for script writing",
+      "write a script using appropriate dramatic language and style such as dialogue, monologue, dramatic irony, suspense and imagery to address the theme developed",
+      "research to identify a PCI for community engagement",
+      "write a story outline based on the PCI for community engagement",
+      "create a reflective logbook/journal (manual or digital)",
+      "make entries in the reflective logbook/journal on experiences of playwriting."
+     ],
+     "inquiry_questions": [
+      "1. Why is Theatre important in Community Engagement?",
+      "2. How does a playwright creatively employ elements of writing a script in theatre?"
+     ],
+     "core_competencies": [
+      "Creativity and Imagination: the learner develops innovativeness through writing original play scripts.",
+      "Communication and Collaboration: the learner develops speaking, listening and writing skills while generating a story for playwriting.",
+      "Citizenship: the learner acquires a sense of nationalism by creating a community engagement story addressing a Pertinent and Contemporary Issue."
+     ],
+     "values": [
+      "Values:",
+      "Respect: the learner develops appreciation of other people’s opinion during brainstorming sessions.",
+      "Responsibility: the learner acquires a sense of duty in addressing a societal issue.",
+      "Social Justice: the learner acquires a sense of fairness when exploring issues affecting society. Pertinent and Contemporary Issues (PCIs):",
+      "Life Skills: the learner develops analytical skills in the process of creating a play.",
+      "Social Cohesion: the learner develops a sense of unity through engaging with the community."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-theatre-film.pdf#p13"
+    },
+    {
+     "kicd_code": "1.2",
+     "name": "Poetry writing",
+     "suggested_duration": "15 lessons",
+     "learning_outcomes": [
+      "describe the characteristics of a spoken word poem",
+      "select a relevant theme for writing a spoken word poem",
+      "develop a character bible for a suitable persona to convey a message in a spoken word poem",
+      "compose a spoken word poem using poetic elements",
+      "value the spoken word poem as a means of self-expression."
+     ],
+     "learning_experiences": [
+      "research to identify the characteristics of a spoken word poem",
+      "read a variety of spoken word poems to help identify how poetic elements (theme, persona, form, and language, word play, rhyme patterns) are used to convey the intended message",
+      "research on relevant issues that affect the society for scripting of spoken word poem",
+      "present research findings to enrich experiences for scripting of spoken word poem",
+      "research to identify elements and components of a character bible (physical and emotional traits, relationship with other characters, character background)",
+      "develop a character bible for a persona with an identity and traits",
+      "to convey the message of the spoken word poem",
+      "write a spoken word poem with a clear theme, persona, language and form, make entries in the reflective logbook/journal (manual or digital) on experiences of poetry writing."
+     ],
+     "inquiry_questions": [
+      "1. How can spoken word poetry be used to address issues affecting society?",
+      "2. Why is spoken word poetry a powerful tool of communication?"
+     ],
+     "core_competencies": [
+      "Creativity and Imagination: the learner acquires innovation skills through writing original poems.",
+      "Communication: the learner develops proficiency in language use when writing poems.",
+      "Learning to Learn: the learner acquires new knowledge and skills relevant for continued learning in the course of poetry writing."
+     ],
+     "values": [
+      "Integrity: the learner develops honesty through creation of own works of poetry.",
+      "Patriotism: the learner develops a sense of love for family, community and the country when writing poetry on societal issues.",
+      "Social Justice: the learner acquires a sense of humaneness by exploring issues affecting the society."
+     ],
+     "pertinent_issues": [
+      "Socio-economic and Environmental Issues: the learner becomes aware of issues affecting society while exploring themes for writing poetry",
+      "Peer Education and Mentorship: the learner acquires leadership and group dynamics skills during peer review."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-theatre-film.pdf#p16"
+    },
+    {
+     "kicd_code": "1.1",
+     "name": "Play Writing 1.2 Poetry writing (Spoken Word)",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Field work reports"
+     ],
+     "learning_experiences": [
+      "Observation checklists",
+      "Portfolio",
+      "Anecdotal records",
+      "Use of checklists",
+      "Exercise books",
+      "ICT devices",
+      "Portfolios",
+      "Rating scale",
+      "Questionnaire",
+      "Audio/visual recordings",
+      "Autocues",
+      "Resource persons",
+      "Suggested Assessment Resources"
+     ],
+     "inquiry_questions": [
+      "Sample poem (sonnet, ballads, narrative, lyric, free verse, spoken word) • Sample plays for example, (Oedipus Rex, the gods are not to blame Kamirithu plays, KNDFF sample films) • Sample films for example, (Lumier brothers, Sembene films, BEKE experiment, Saikati, documentaries, drama, horror, comedy) • Sample Emerging media(for example, social media applications, virtual",
+      "Suggested Learning Materials",
+      "reality, behind the scenes videos) • Sample law and policy documents,"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-theatre-film.pdf#p33"
+    }
+   ]
+  },
+  {
+   "strand": "Producing",
+   "strand_code": "2.0",
+   "assessment_rubric": [],
+   "substrands": [
+    {
+     "kicd_code": "2.1",
+     "name": "Acting",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Question and answer",
+      "Field work reports"
+     ],
+     "learning_experiences": [
+      "Exercise books",
+      "Digital devices",
+      "Observation checklists",
+      "Anecdotal records",
+      "Video of short feature film",
+      "Internet connectivity",
+      "Portfolio",
+      "Observation checklist",
+      "Suggested Assessment Resources",
+      "Use of checklists",
+      "ICT devices",
+      "Portfolios",
+      "Rating scale",
+      "Questionnaire",
+      "Audio/visual recordings",
+      "Autocues",
+      "Resource persons"
+     ],
+     "inquiry_questions": [
+      "Theatre games • Videos on methods of acting • Videos on actor preparation • Videos on voice training • Videos on stunts • Resource person for de-roling (e.g., counsellor, therapist) • Play recordings • Sample films",
+      "Suggested Learning Materials",
+      "Videos of different personnel in film • Videos on set design on stage and on film • Videos on costume design for theatre and film • Camera • Tripod • Lighting equipment • Sound equipment • Editing software • Video recording equipment • Sound recording equipment • Special effect software • Preview arena"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-theatre-film.pdf#p34"
+    }
+   ]
+  },
+  {
+   "strand": "Production",
+   "strand_code": "2.0",
+   "assessment_rubric": [],
+   "substrands": [
+    {
+     "kicd_code": "2.1",
+     "name": "Acting",
+     "suggested_duration": "35 lessons",
+     "learning_outcomes": [
+      "demonstrate the use of theatre games and exercises in preparation for rehearsal and performance",
+      "master the lines in a stage piece for a performance",
+      "perform a selected character role using the actors tools",
+      "appreciate acting as a key component of creative expression."
+     ],
+     "learning_experiences": [
+      "research and identify theatre games and exercises (vocal, physical, mind) used before performances",
+      "participate in various theatre games and exercises",
+      "read the selected script to understand the play",
+      "interpret the script to perform the assigned character role",
+      "watch live or recorded performances to improve acting skills",
+      "commit to memory (memorise) the lines of the assigned character role in the script",
+      "research to identify the actor’s tools (voice, body, imagination)",
+      "perform the assigned character role incorporating the actors tools",
+      "record the play performance for future reference",
+      "give and receive feedback from peers",
+      "de-role from the role played (warm up/down, theatre games, debrief, counselling)",
+      "make entries in the reflective logbook/journal (manual or digital) on experiences of acting."
+     ],
+     "inquiry_questions": [
+      "1. Why is it important to engage in theatre games and exercises before a performance?",
+      "2. How does one effectively portray a character in a theatre performance?"
+     ],
+     "core_competencies": [
+      "Communication and Collaboration: the learner develops verbal and non-verbal communication skills while performing.",
+      "Critical Thinking and Problem Solving: the learner develops focus and coordination through theatre games and exercises.",
+      "Self-efficacy: the learner develops trust, self-confidence and self-esteem while performing before an audience.",
+      "Digital Literacy: the learner develops digital skills while researching and recording performances."
+     ],
+     "values": [
+      "Patriotism: the learner develops a sense of nationhood through acting.",
+      "Respect: the learner shows courtesy to team members and audience during acting.",
+      "Unity: the learner works in collaboration with others during rehearsals and performance."
+     ],
+     "pertinent_issues": [
+      "Global Citizenship: the learner acquires a sense of diverse world views from interacting with performances from other parts of the world.",
+      "Life Skills: the learner acquires negotiation and stress management skills during role play and de-roling."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-theatre-film.pdf#p19"
+    },
+    {
+     "kicd_code": "2.2",
+     "name": "Theatre Directing",
+     "suggested_duration": "35 lessons",
+     "learning_outcomes": [
+      "describe the director’s responsibilities in theatre production",
+      "describe the different types of performance stages",
+      "develop a directorial concept for a stage performance",
+      "create a prompt book for a stage performance",
+      "direct a stage performance using the directorial concept",
+      "appreciate a director’s role in performance."
+     ],
+     "learning_experiences": [
+      "research and identify the duties and responsibilities of a stage director",
+      "watch videos to identify the different types of stages (proscenium, thrust, arena, theatre in the round, found spaces)",
+      "visit an actual or virtual performance space to observe the parts of a stage",
+      "draw and label the different parts of a stage (up stage, mid-stage right, mid-stage left, down stage left, down stage right, centre stage, apron, back stage, left wing, right wing)",
+      "watch a professional director, live or recorded, describing the directorial vision and",
+      "concept for a theatre performance",
+      "identify and apply the directorial vision and concept in play directing",
+      "read samples of prompt books to identify components of a prompt book",
+      "write a prompt book for the selected performance",
+      "block actors on stage for a performance",
+      "rehearse with actors using the script in preparation for performing",
+      "make entries in the reflective logbook/journal (manual or digital) on experiences of directing."
+     ],
+     "inquiry_questions": [
+      "1. How does the type of stage impact a performance?",
+      "2. How does theatre directing enhance an effective performance?"
+     ],
+     "core_competencies": [
+      "Communication: the learner develops self-expression skills by conveying directing ideas and intentions to peers.",
+      "Critical Thinking and Problem Solving: the learner develops analytical skills while relating stage conflicts and resolutions to real life situations.",
+      "Self-Efficacy: the learner is confident enough to lead peers during directing."
+     ],
+     "values": [
+      "Values:",
+      "Integrity: the learner develops a sense of truthfulness while giving feedback to fellow learners during peer review of their work.",
+      "Unity: the learner works in harmony with others in theatre directing. Pertinent and Contemporary Issues (PCIs):",
+      "Peer Education and Mentorship: the learner develops healthy inter and intra-personal relationships while rehearsing with their peers.",
+      "Decision Making Skills: the learner develops analytical and creative thinking skills while directing the performance."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-theatre-film.pdf#p21"
+    },
+    {
+     "kicd_code": "2.3",
+     "name": "Theatre Design",
+     "suggested_duration": "25 lessons",
+     "learning_outcomes": [
+      "describe the components of design in theatre",
+      "design a stage set for performance",
+      "use costumes and make-up in a production",
+      "utilise lighting and sound resources in a stage performance",
+      "appreciate the use of production elements in a performance."
+     ],
+     "learning_experiences": [
+      "watch performances to analyse the components of design in theatre",
+      "scout to identify a space to stage a performance",
+      "sketch the stage floor plan for design planning",
+      "design and set the stage for a performance (backdrop, props, lighting and sound), guide the learner’s to use locally available resources",
+      "select appropriate costumes and make-up (improvise, procure, leverage from other departments and community) for use in a performance",
+      "watch live or recorded performances to identify lighting techniques",
+      "research to identify sound equipment used in theatre production",
+      "research on sound techniques in theatre design",
+      "use available resources to light and produce sound for a theatre performance",
+      "stage play and poetry performances incorporating the elements of production",
+      "run a dress rehearsal incorporating all the elements of production",
+      "record the stage play and poetry performance for future reference",
+      "give and receive feedback from peers on play and poetry production",
+      "make entries in the reflective logbook/journal (manual or digital) on experience of play and poetry production."
+     ],
+     "inquiry_questions": [
+      "1. How does design in theatre enhance production?",
+      "2. Why is it important to prepare designs for a stage performance?"
+     ],
+     "core_competencies": [
+      "Self-efficacy: the learner develops self-awareness and planning skills while engaging in theatre design.",
+      "Creativity and Imagination: the learner acquires artistic skills in making and selecting appropriate props, costume and make-up when designing for theatre production."
+     ],
+     "values": [
+      "Patriotism: the learner appreciates diverse cultures and identities while using props, costumes and make-up in theatre production.",
+      "Responsibility: the learner develops a sense of obligation by handling and caring for theatre equipment.",
+      "Respect: the learner accommodates others’ views on stage design as they work together."
+     ],
+     "pertinent_issues": [
+      "Parental Engagement and Empowerment: the learner engages parents/guardians when mobilising resources for use in theatre design.",
+      "Environmental Issues: the learner gains awareness and skills on the use of material within the immediate environment and how to improvise during design."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-theatre-film.pdf#p24"
+    },
+    {
+     "kicd_code": "",
+     "name": "Describes All the 4 areas of knowledge in production accurately and elaborately",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Describe All the 4 areas of knowledge in production.",
+      "Executes all the 8 skills in production creatively."
+     ],
+     "learning_experiences": [
+      "Describes 2 or 3 areas of knowledge in production.",
+      "Executes 4-7 skills in production with some demonstration of creativity."
+     ],
+     "inquiry_questions": [
+      "Describes less than 2 areas of knowledge in production.",
+      "Executes less than 4 skills in production in a basic or rudimentary manner."
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-theatre-film.pdf#p26"
+    }
+   ]
+  },
+  {
+   "strand": "Theatre and Society",
+   "strand_code": "3.0",
+   "assessment_rubric": [],
+   "substrands": [
+    {
+     "kicd_code": "3.2",
+     "name": "Theatre and Community",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Field work reports"
+     ],
+     "learning_experiences": [
+      "Use of checklists",
+      "Exercise books",
+      "ICT devices",
+      "Portfolios",
+      "Rating scale",
+      "Questionnaire",
+      "Audio/visual recordings",
+      "Autocues",
+      "Resource persons"
+     ],
+     "inquiry_questions": [
+      "Sample theatre and film productions for analysis •"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-theatre-film.pdf#p37"
+    }
+   ]
+  },
+  {
+   "strand": "Theatre, Film and Society",
+   "strand_code": "3.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability of the learner to examine: • criteria for adjudication • role of theatre • principles guiding club management",
+     "exceeds": "Examines All the 3 aspects of theatre in society elaborately.",
+     "meets": "Examines All the 3 aspects of theatre in society.",
+     "approaches": "Examines 2 aspects of theatre in society.",
+     "below": "Examines less than 2 aspects of theatre in society."
+    },
+    {
+     "indicator": "Ability of the learner to execute 4 skills in theatre and society engagement: • adjudication criteria • adjudication of theatrical performance • report writing on the adjudication process • community theatre piece",
+     "exceeds": "Executes 4 skills in theatre and society engagement with a high level of objectivity.",
+     "meets": "Executes 4 skills in theatre and society engagement.",
+     "approaches": "Executes 3-2 skills in theatre and society engagement.",
+     "below": "Executes less than 2 skills in theatre and society engagement."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "3.1",
+     "name": "Theatre Adjudication",
+     "suggested_duration": "20 lessons",
+     "learning_outcomes": [
+      "examine the criteria for adjudicating theatre performances",
+      "develop a criteria for adjudicating theatrical performances",
+      "adjudicate theatrical performances using a criteria",
+      "develop a report on the adjudication process",
+      "appreciate the process of adjudication in adding value to a performance."
+     ],
+     "learning_experiences": [
+      "research on the criteria for adjudicating stage (play and poetry) performances (script, theme, use of voice and body, movement, lighting, sound, costume, make-up, stage set, creativity, originality, improvisation, overall impression)",
+      "develop a criteria for adjudicating a play",
+      "develop a criteria for adjudicating a spoken word",
+      "adjudicate stage plays using the set-out criteria",
+      "adjudicate poetry using the set-out criteria",
+      "write an adjudication report and present it orally to peers for experience sharing",
+      "keep a portfolio of the adjudication reports",
+      "make entries in the reflective logbook/journal (manual or digital) on experiences of adjudication."
+     ],
+     "inquiry_questions": [
+      "1. How important is adjudication to the theatre production process?",
+      "2. Why is it important to have a criteria when adjudicating a stage performance?"
+     ],
+     "core_competencies": [
+      "Critical Thinking and Problem Solving: the learner develops reflective skills while evaluating productions.",
+      "Self-efficacy: the learner develops self-confidence during analysis of theatre.",
+      "Communication: the learner acquires negotiation, speaking and presentation skills while presenting the adjudication report."
+     ],
+     "values": [
+      "Respect: the learner develops communication etiquette while critiquing performances.",
+      "Responsibility: the learner develops a sense of obligation toward group effort when evaluating theatre productions.",
+      "Integrity: the learner appreciates the value of truthful feedback to peers during evaluation."
+     ],
+     "pertinent_issues": [
+      "Life Skills: the learner acquires assertiveness during group presentations and peer evaluation.",
+      "Peer Education and Mentorship: the learner works with peers and mentors whilst evaluating productions."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-theatre-film.pdf#p28"
+    },
+    {
+     "kicd_code": "3.2",
+     "name": "Theatre and Community",
+     "suggested_duration": "25 lessons",
+     "learning_outcomes": [
+      "analyse the role of theatre in society",
+      "analyse principles guiding theatre and Film club management",
+      "execute a community theatre piece addressing a Pertinent and Contemporary Issue",
+      "appreciate the role of management in theatre."
+     ],
+     "learning_experiences": [
+      "research on the role of theatre in the society (entertainment, education, health, advocacy and occupation)",
+      "watch theatrical performances to establish how theatre influences society",
+      "research on the principles guiding theatre and film club management (club constitution, record keeping, resource mobilisation and management, organisation of activities, publicity of club activities)",
+      "interview resource persons to gather information on theatre and film club management",
+      "participate in the management of the theatre and film club in school",
+      "identify the community in which to carry out the community engagement piece (such as school, religious setting, estate, market, school outings, festivals among others)",
+      "identify the found space to stage the community piece",
+      "engage in mobilisation exercise",
+      "perform the community engagement piece",
+      "engage in a feedback session with the community audience and peers",
+      "write a report on the community engagement experience",
+      "make entries in the reflective logbook/journal (manual or digital) on experiences of theatre and film club management.",
+      "Suggested Assessment Resources"
+     ],
+     "inquiry_questions": [
+      "1. How does theatre influence and reflect societal values and issues?",
+      "2. How can we ensure that theatre and film clubs are well managed?",
+      "Suggested Learning Materials"
+     ],
+     "core_competencies": [
+      "Communication and Collaboration: the learner develops presentation skills by writing reports on community engagement and theatre and film club activities.",
+      "Self-efficacy: the learner develops a sense of self-belief through management of club activities.",
+      "Learning to Learn: the learner gains knowledge on management skills for further application."
+     ],
+     "values": [
+      "Responsibility: the learner develops a sense of accountability when managing club activities.",
+      "Patriotism: the learner shows appreciation for diverse Kenyan theatrical texts and performance spaces while interacting with local communities.",
+      "Social Justice: the learner appreciates the role of theatrical performances in highlighting social issues in the community."
+     ],
+     "pertinent_issues": [
+      "Clubs and Societies: the learner develops a sense of leadership and teamwork while managing club activities.",
+      "Social Awareness Skills: the learner establishes effective communications skills while engaging with the community."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-theatre-film.pdf#p30"
+    }
+   ]
+  }
+ ]
+}

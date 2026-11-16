@@ -1,0 +1,552 @@
+{
+ "source_pdf": "grade10-csl.pdf",
+ "grade": 10,
+ "subject": "csl",
+ "general_outcomes": [
+  "By the end of Senior School, the learner should be able to:",
+  "Participate and respond to issues in the community for mutual benefit and learning at the local, national, regional and global levels as a responsible citizen.",
+  "Cultivate respect and appreciation of diversity in communities for harmonious living within the broader community.",
+  "Demonstrate ability to apply life skills, financial literacy skills, use resources prudently and establish sustainable social enterprises for mutual social and economic wellbeing.",
+  "Develop and apply research skills for the transformation of self and community.",
+  "Act with integrity, care for others and contribute to the progress of humanity while upholding desirable values.",
+  "Appreciate the role of Community Service Learning in addressing pertinent and contemporary issues in the community."
+ ],
+ "strands": [
+  {
+   "strand": "Citizenship",
+   "strand_code": "1.0",
+   "assessment_rubric": [],
+   "substrands": [
+    {
+     "kicd_code": "1.1",
+     "name": "Concept of CSL",
+     "suggested_duration": "6 lessons",
+     "learning_outcomes": [
+      "Teacher made tests"
+     ],
+     "learning_experiences": [
+      "Approved textbooks and other printed resources",
+      "TV/video/films/slides/ Internet sources/Radio programmes"
+     ],
+     "inquiry_questions": [],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-csl.pdf#p53"
+    },
+    {
+     "kicd_code": "1.2",
+     "name": "Community Needs",
+     "suggested_duration": "12 lessons",
+     "learning_outcomes": [
+      "Teacher made tests"
+     ],
+     "learning_experiences": [
+      "Approved textbooks and other printed resources",
+      "TV/video/films/slides/ Internet sources/Radio programmes",
+      "Suggested Learning Resources"
+     ],
+     "inquiry_questions": [
+      "Conducting a civic dialogue with community members • Sensitisation meetings with community members on ways of addressing issues affecting them",
+      "Suggested Non-Formal Activities"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-csl.pdf#p53"
+    }
+   ]
+  },
+  {
+   "strand": "Life Skills",
+   "strand_code": "2.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to analyse the importance of positive public-image,",
+     "exceeds": "Comprehensively analyses the importance of positive public-image",
+     "meets": "Analyses the importance of positive public-image",
+     "approaches": "Fairly analyses the importance of positive public-image",
+     "below": "With prompts analyses the importance of positive public-image"
+    },
+    {
+     "indicator": "Ability to apply ways of solving conflicts in the community",
+     "exceeds": "Thoroughly applies ways of solving conflicts in the community",
+     "meets": "Applies ways of solving conflicts in the community",
+     "approaches": "To a certain extent applies ways of solving conflicts in the community",
+     "below": "With assistance applies ways of solving conflicts in the community"
+    },
+    {
+     "indicator": "Ability to make responsible decisions in daily life",
+     "exceeds": "Always make responsible decisions in daily life",
+     "meets": "Makes responsible decisions in daily life",
+     "approaches": "Sometimes makes responsible decisions in daily life",
+     "below": "Rarely makes responsible decisions in daily life"
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "2.1",
+     "name": "Self-Awareness in the Community",
+     "suggested_duration": "4 lessons",
+     "learning_outcomes": [
+      "explain factors that influence public self-awareness",
+      "analyse the importance of positive public-image",
+      "apply public consciousness (mindfulness of others) in day-to-day life",
+      "appreciate my positive public image in the community."
+     ],
+     "learning_experiences": [
+      "use digital or print resources to search and discuss the i) meaning of, and ii) factors that influence ‘public self-awareness’",
+      "discuss the importance of public-image (mannerisms, expressive qualities and decisions) and make presentations in class",
+      "critique (with guidance) selected personalities’ public image against their perceived effectiveness in their roles",
+      "tell stories about themselves to their classmates, then respectively receive feedback about their public image",
+      "share their perceived public image with friends in class and how they can possibly enhance it",
+      "watch appropriate video clips on enhancing public self-images",
+      "• write articles on different personalities in society depicting how their public image has worked for them and present in class.."
+     ],
+     "inquiry_questions": [
+      "1. Why is public self-awareness important?",
+      "2. How can I improve my public self-awareness?"
+     ],
+     "core_competencies": [
+      "Self-efficacy: Learners discuss the importance of public-image (mannerisms, expressive qualities and decisions) and make presentations in class.",
+      "Creativity: Learners write articles on different personalities in society depicting how their public image has worked for them and present in class."
+     ],
+     "values": [
+      "Respect: Learners tell stories about themselves to their classmates, then respectively receive feedback about their public image."
+     ],
+     "pertinent_issues": [
+      "Social Cohesion: Learners share their perceived public image with friends in class and how they can possibly enhance it"
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-csl.pdf#p27"
+    },
+    {
+     "kicd_code": "2.2",
+     "name": "Conflict Resolution",
+     "suggested_duration": "6 lessons",
+     "learning_outcomes": [
+      "explain situations in the community where conflicts might arise in day to day life",
+      "discuss approaches of solving conflicts in the community",
+      "apply strategies of solving conflicts in the community",
+      "appreciate peaceful conflict resolution in the community."
+     ],
+     "learning_experiences": [
+      "brainstorm on the situations of conflicts in the community and share in class",
+      "use digital or print resources to search for ways of solving conflicts in the community",
+      "analyse approaches of solving conflicts in their community for fairness",
+      "watch relevant video clips on methods of solving conflicts in the community",
+      "role play conflict resolution strategies in the class",
+      "reflect on personal conflict resolution experiences and share lessons learned",
+      "document personal experiences on peaceful conflict resolution in the community."
+     ],
+     "inquiry_questions": [
+      "How can I contribute to positive conflict resolution in the community?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Communication: Learners speak clearly as they brainstorm on situations of conflicts in the community and share in class.",
+      "Digital Literacy: Learners use digital devices to watch relevant video clips on methods of solving conflicts in the community Pertinent and Contemporary Issues (PCIs): Peace Education: Learners journalise personal experiences on peaceful conflict resolution in the community. Values:",
+      "Unity: Learners display team spirit brainstorm on situations of conflicts in the community and share in class.",
+      "Social justice: Learners observe fairness as they discuss ways of solving conflicts in their community."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-csl.pdf#p29"
+    },
+    {
+     "kicd_code": "2.3",
+     "name": "Responsible Decision-making",
+     "suggested_duration": "6 lessons",
+     "learning_outcomes": [
+      "describe decision-making process in day-to-day life",
+      "evaluate qualities of responsible decisions",
+      "make responsible decisions in daily life",
+      "appreciate responsible decisions in life."
+     ],
+     "learning_experiences": [
+      "discuss and analyse different decisions in day to day life, in light of decision-making process",
+      "engage a resource person on qualities of responsible decisions",
+      "share experiences encountered on responsible and irresponsible decisions in day-to-day life and how to curb irresponsible decisions",
+      "watch guided video clips showing effects of responsible and irresponsible decisions and critique them",
+      "create and act skits on responsible decisions on pertinent issues in the community.",
+      "role play scenarios, reflect and make responsible decisions",
+      "Suggested learning experiences"
+     ],
+     "inquiry_questions": [
+      "How can I make responsible decisions in life?",
+      "Key Inquiry Questions"
+     ],
+     "core_competencies": [],
+     "values": [
+      "Values:",
+      "Responsibility: Learners accomplish the task of sharing experiences encountered on responsible and irresponsible decisions in day-to-day life",
+      "Unity: Learners collaborate as they create and act skits on responsible decisions on pertinent issues in the community."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-csl.pdf#p31"
+    }
+   ]
+  },
+  {
+   "strand": "Action Research",
+   "strand_code": "3.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to analyse the aspects of action research.",
+     "exceeds": "Analyses the aspects of action research citing relevant examples.",
+     "meets": "Analyses the aspects of action research.",
+     "approaches": "Analyses the aspects of action research but omits minor details."
+    },
+    {
+     "indicator": "Ability to use an action research cycle to address issues in the community.",
+     "exceeds": "Uses the action research cycle to address issues in the community and documents the findings in detail.",
+     "meets": "Uses the action research cycle to address issues in the community.",
+     "approaches": "Uses two aspects of the action research cycle to address issues in the community"
+    },
+    {
+     "indicator": "Ability to use data collection tools to record the characteristics of the problem identified.",
+     "exceeds": "Uses data collection tools to record the characteristics of the problem identified in detail.",
+     "meets": "Uses data collection tools to record the characteristics of the problem identified",
+     "approaches": "Uses 2 data collection tools to record the characteristics of the problem identified"
+    },
+    {
+     "indicator": "Ability to create an implementation plan focusing on the identified solution.",
+     "exceeds": "Creates an implementation plan focusing on the identified solution with illustrations.",
+     "meets": "Creates an implementation plan focusing on the identified solution.",
+     "approaches": "Creates an implementation plan focusing on the identified solution but leaves minor steps."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "3.1",
+     "name": "Introduction to Action Research",
+     "suggested_duration": "8 lessons",
+     "learning_outcomes": [
+      "explain the meaning of action research",
+      "analyse the characteristics of action research",
+      "illustrate the cycle of action research",
+      "use action research cycle to address issues in the community",
+      "appreciate action research in addressing challenges in the community."
+     ],
+     "learning_experiences": [
+      "use digital devices or print materials to find the meaning of action research",
+      "discuss the meaning of action research as it applies in problem solving",
+      "using digital devices or print materials to search for the characteristics of action research (Reflection, continuous, factual, visible, practical and interesting) and illustrate them for class presentation",
+      "illustrate the cycle (plan, act, observe, reflect) of action research and present in class",
+      "brainstorm on the importance of action research while appreciating the diverse perspectives shared",
+      "review case studies on action research projects addressing community issues",
+      "identify and discuss the phases, cycles, and characteristics used in each case study",
+      "collaborate to design a mock action (role play, simulation) research project focused on solving a community issue",
+      "present the project plan to the class, explaining how the characteristics, phases, and cycles of action research are applied",
+      "discuss the importance of action research in solving community issues and share",
+      "listen to a resource person or a podcast or watch a video on how to effectively conduct action research",
+      "create posters to raise awareness about what action research is and its importance in solving community issues",
+      "• reflect on the role of action research in addressing issues in the community",
+      "Suggested learning experiences"
+     ],
+     "inquiry_questions": [
+      "How can you apply action research to address an issue in the community?",
+      "Key Inquiry Questions"
+     ],
+     "core_competencies": [
+      "Critical thinking and problem solving: The learner thinks critically as they analyse case studies to determine the principles, phases and cycles.",
+      "Creativity and Imagination: The learner design a poster to create awareness on what action researches us and its importance in solving community issues.",
+      "Communication and Collaboration: Learner work together with others to design a mock action research and present the action research."
+     ],
+     "values": [
+      "Unity: Learners work as part of a group to model a mock action research where they will display team spirit.",
+      "Responsibility: Learners proactively participate in designing a mock action research as they engage in assigned roles and those of others"
+     ],
+     "pertinent_issues": [
+      "Social Awareness Skill as learners use effective communication during discussions and presentation activities"
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-csl.pdf#p34"
+    },
+    {
+     "kicd_code": "3.2",
+     "name": "Problem identification",
+     "suggested_duration": "10 lessons",
+     "learning_outcomes": [
+      "critique given scenarios to identify the problem in a community",
+      "use data collection tools to record the characteristics of the problem identified",
+      "analyse simple data to determine the nature and extent of the problem",
+      "document and manage data for information dissemination",
+      "appreciate the importance of accurate documentation for effective problem resolution."
+     ],
+     "learning_experiences": [
+      "work in small groups to identify a problem from a scenario by applying problem identification techniques discussed in class",
+      "design and use simple data collection tools to document problems highlighted from the scenario, (observation tools, tally tools, online forms and checklists.)",
+      "conduct simple analysis of the data collected by counting and tallying from the class scenarios",
+      "present their analysed data using varied media including digital devices",
+      "prepare summary reports on observations using various formats and multimedia and present",
+      "manage data collection, handling, organisation analysis and reporting while maintaining integrity",
+      "demonstrate mutual co existence while participating in reflection activities to draw lessons from the class activity",
+      "use digital devices to document and manage the data for sharing. The data can also be stored manually through filing.",
+      "Suggested learning experiences"
+     ],
+     "inquiry_questions": [
+      "How can effective problem identification help in addressing real life issues in the community?",
+      "Key Inquiry Questions"
+     ],
+     "core_competencies": [
+      "Communication and Collaboration: Learners speak engagingly and clearly as they present their analysed data."
+     ],
+     "values": [
+      "Integrity: Learners display honesty in exhibiting integrity in data handling-collection, organisation analysis and reporting"
+     ],
+     "pertinent_issues": [
+      "Social cohesion: Learners demonstrate mutual co-existence while participating in reflection activities to draw lessons from the class activity."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-csl.pdf#p37"
+    },
+    {
+     "kicd_code": "3.3",
+     "name": "Implementation Process",
+     "suggested_duration": "18 lessons",
+     "learning_outcomes": [
+      "identify a viable solution to address a community problem",
+      "create an implementation plan focusing on the identified solution",
+      "implement the plan to address the identified problem",
+      "develop a reflective report on the implemented action",
+      "appreciate the process of",
+      "designing solutions to address challenges in the community."
+     ],
+     "learning_experiences": [
+      "brainstorm on potential solutions to the identified problem within the school community",
+      "accommodate divergent opinions when discussing proposed solutions by evaluating the required time, human and financial resources, scope, and potential impact",
+      "engage in class dialogue, consultation, and voting to determine the most viable solution to the problem",
+      "work in project teams to design a detailed implementation plan (timeline, milestones, resource allocation, personnel responsibilities, reporting templates,)",
+      "carry out the implementation activities in teams by collecting",
+      "data using checklists, observations, tallies, and trend analysis, and by holding reflective meetings to review progress",
+      "conduct reflection activities to review the process, progress and identify areas of improvement",
+      "reflect and link how the activities have enhanced learning to appreciate the benefits of CSL.",
+      "share the reports digitally or in print format (charts, posters, videos, audio visual presentations, the school website, and school social media pages)",
+      "Suggested learning experiences"
+     ],
+     "inquiry_questions": [
+      "How can we implement a comprehensive project plan and ensure continuous improvement through reflective practices?",
+      "Key Inquiry Questions"
+     ],
+     "core_competencies": [
+      "Digital Literacy: Learners use digital devices to share reports using charts, posters, videos, audio visual presentations, the school website, and school social media pages."
+     ],
+     "values": [
+      "Respect: Learners accommodate divergent opinions when discussing each proposed solution.",
+      "Unity: Learners display team spirit while designing a detailed project."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-csl.pdf#p39"
+    }
+   ]
+  },
+  {
+   "strand": "Social Entrepreneurship",
+   "strand_code": "4.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to analyse the concept of resource mobilisation for social enterprise.",
+     "exceeds": "Analyses the concept of resource mobilisation for social enterprise with illustrations.",
+     "meets": "Analyses the concept of resource mobilisation for social enterprise.",
+     "approaches": "Analyses the concept of resource mobilisation for social enterprise but omits minor details.",
+     "below": "Analyses the concept of resource mobilisation for social enterprise but omits major details."
+    },
+    {
+     "indicator": "Ability to develop a low-cost budget for social enterprise development.",
+     "exceeds": "Develops a low-cost budget for social enterprise development with explicit examples.",
+     "meets": "Develops a low-cost budget for social enterprise development.",
+     "approaches": "Develops a low-cost budget for social enterprise development but leaves minor steps.",
+     "below": "Develops a low-cost budget for social enterprise development but leaves major details."
+    },
+    {
+     "indicator": "Ability to develop social enterprise ideas for the community.",
+     "exceeds": "Develops social enterprise ideas for the community in detail.",
+     "meets": "Develops social enterprise ideas for the community.",
+     "approaches": "Develops social enterprise ideas for the community to some extent.",
+     "below": "Develops social enterprise ideas for the community with assistance."
+    },
+    {
+     "indicator": "Ability to develop a low-cost budget for social enterprise development.",
+     "exceeds": "Develops a low-cost budget for social enterprise development with illustrations.",
+     "meets": "Develops a low-cost budget for social enterprise development.",
+     "approaches": "Develops a low-cost budget for social enterprise development but omits most critical steps.",
+     "below": "Develops a low-cost budget for social enterprise development but omits minor critical steps."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "4.1",
+     "name": "Social Entrepreneurship Process",
+     "suggested_duration": "6 lessons",
+     "learning_outcomes": [
+      "distinguish social entrepreneurship from other types of enterprises",
+      "analyse the process of a social enterprise development in the community",
+      "apply appropriate approaches to sensitise the community on the benefits of social enterprises",
+      "appreciate the benefits of social",
+      "enterprise in the community."
+     ],
+     "learning_experiences": [
+      "think-pair-share on the concept of social entrepreneurship and appreciate each other’s ideas (what is a social enterprise, features of social enterprises-people, profit, practice and planet)",
+      "watch a video clip on social entrepreneurship and or invite resource persons to speak about social entrepreneurship",
+      "watch and review video clips on successful social entrepreneurs",
+      "share personal experiences about social enterprise",
+      "search using digital devices or print media on the differences between social enterprise and other enterprises while observing online safety",
+      "brainstorm the differences between social enterprises and other enterprises",
+      "discuss the social enterprise development process (opportunity identification, enterprise planning, resource mobilisation and implementation) while respecting divergent opinions",
+      "research using print media and the internet and make presentations on the benefits of social enterprise for the community",
+      "creatively design, prepare and display materials for sensitising the community on the benefits of social entrepreneurship (posters, charts, flyers, brochures)",
+      "Suggested learning experiences"
+     ],
+     "inquiry_questions": [
+      "How can social entrepreneurship promote the welfare of a community?",
+      "Key Inquiry Questions"
+     ],
+     "core_competencies": [
+      "• Communication and collaboration: Learners speak clearly and engagingly while discussing the benefits of social entrepreneurship in the community"
+     ],
+     "values": [
+      "Values: Respect: Learners respect divergent opinions while discussing the social enterprise development process Pertinent and Contemporary Issues: Online safety: Learners observe online safety while searching using digital devices on the differences between social enterprise and other enterprises"
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-csl.pdf#p43"
+    },
+    {
+     "kicd_code": "4.2",
+     "name": "Opportunity Identification",
+     "suggested_duration": "10 lessons",
+     "learning_outcomes": [
+      "assess the needs of the community for a social enterprise",
+      "develop social enterprise ideas for the community",
+      "select viable social enterprise ideas with the community",
+      "develop genuine interest in social entrepreneurship in addressing community issues."
+     ],
+     "learning_experiences": [
+      "observe the local community to identify community needs for a social enterprise",
+      "prioritise the needs generated to identify opportunities for social enterprise",
+      "brainstorm on the social enterprise opportunities as they speak clearly and engagingly",
+      "discuss the social enterprise opportunities with the community (school or neighbours)",
+      "collaborate with others to observe and interview the community to identify the resources available for the social enterprise opportunity",
+      "critique different social enterprise opportunities presented",
+      "reflect on the social enterprise opportunities critiqued and refine them",
+      "engage in civic responsibility when prioritising and selecting a viable social enterprise opportunity for adoption with the community (school administration and community leaders).",
+      "Suggested learning experiences"
+     ],
+     "inquiry_questions": [
+      "How can I identify social enterprise opportunities in the community?",
+      "Key Inquiry Questions"
+     ],
+     "core_competencies": [
+      "Communication and Collaboration: Learners speak clearly and engagingly as they brainstorm on social enterprise opportunities."
+     ],
+     "values": [
+      "Unity: Learner collaborates with others to observe and interview the community to identify the resources available for the social enterprise opportunity."
+     ],
+     "pertinent_issues": [
+      "Civic responsibility: Learner engages in civic responsibility when prioritising and selecting the viable social enterprise opportunity for adoption with the community."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-csl.pdf#p46"
+    },
+    {
+     "kicd_code": "4.3",
+     "name": "Social Enterprise Planning",
+     "suggested_duration": "12 lessons",
+     "learning_outcomes": [
+      "evaluate the social enterprise planning process",
+      "develop a social enterprise plan for the opportunity identified",
+      "critique a social enterprise plan for refinement",
+      "value planning for social enterprise in the community"
+     ],
+     "learning_experiences": [
+      "brainstorm as a class on the concept of social enterprise planning",
+      "discuss as a class on the process of social enterprise planning",
+      "display team spirit as they develop social enterprise plans using a social enterprise plan template (purpose, product/service, key activities, impact, duties and responsibilities, resources)",
+      "observe social enterprise competitors and strategize on how to improve",
+      "speak clearly when presenting and critiquing different social enterprise plans",
+      "reflect on the social enterprise plans and adjust",
+      "collaborate with others as they identify resources needed for",
+      "implementation of the selected social enterprise plan",
+      "prioritise and select the social enterprise plans (consider low cost, impact and sustainability)",
+      "present the final social enterprise plan to the community for buy-in and input",
+      "revise the social enterprise plan based on the feedback received.",
+      "Suggested learning experiences"
+     ],
+     "inquiry_questions": [
+      "How can I develop a social enterprise plan for the community?",
+      "Key Inquiry Questions"
+     ],
+     "core_competencies": [
+      "Communication and Collaboration: Learners speak clearly when presenting and critiquing different social enterprise plans."
+     ],
+     "values": [
+      "Unity: display team spirit as they develop social enterprise plans using a social enterprise plan template."
+     ],
+     "pertinent_issues": [
+      "Social skills are enhanced as the learner engages in discussions and presentations to their peers and community."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-csl.pdf#p48"
+    },
+    {
+     "kicd_code": "4.4",
+     "name": "Resource Mobilisation",
+     "suggested_duration": "8 lessons",
+     "learning_outcomes": [
+      "analyse the concept of resource mobilisation for social enterprise",
+      "develop a low-cost budget for social enterprise development",
+      "plan for resource gathering for implementation of a social enterprise plan",
+      "recognize the role of resource mobilisation for social enterprise."
+     ],
+     "learning_experiences": [
+      "brainstorm on the concept of resource mobilisation in group (meaning, strategies)",
+      "appreciates diverse opinions as they brainstorm and identify resources needed for implementation of a social enterprise plan",
+      "select resources needed for implementation of the social enterprise plan, list and cost the required resources",
+      "collaborate with others to develop a budget for social enterprise",
+      "use locally available materials to improvise required resources for the social enterprise",
+      "discuss ways of acquiring other resources not locally available (donations, cost",
+      "sharing, income generating activities, partnerships, fund raising, among others)",
+      "map out the stakeholders needed to acquire the resources for a social enterprise",
+      "gather the resources and create an inventory",
+      "discuss ways of managing the acquired resources for the social enterprise plans.",
+      "Suggested Learning Resources"
+     ],
+     "inquiry_questions": [
+      "How do I acquire resources for the establishment of a social enterprise?",
+      "Suggested Non-Formal Activities"
+     ],
+     "core_competencies": [
+      "Creativity and Imagination: Learners explore new ideas when discussing ways of acquiring other resources not locally available."
+     ],
+     "values": [
+      "Respect: Learners appreciate diverse opinions as they brainstorm and identify resources needed for implementation of a social enterprise plan.",
+      "Unity: Learners collaborate with others to develop a budget for social enterprise."
+     ],
+     "pertinent_issues": [
+      "Social awareness skills are enhanced as the learners map out the stakeholders needed to acquire the resource."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-csl.pdf#p50"
+    }
+   ]
+  }
+ ]
+}

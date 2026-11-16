@@ -1,0 +1,1101 @@
+{
+ "source_pdf": "grade10-fasihi-ya-kiswahili.pdf",
+ "grade": 10,
+ "subject": "fasihi-ya-kiswahili",
+ "general_outcomes": [],
+ "strands": [
+  {
+   "strand": "Ushairi",
+   "strand_code": "1.2",
+   "assessment_rubric": [],
+   "substrands": [
+    {
+     "kicd_code": "1.2.1",
+     "name": "Uainishaji wa Mashairi",
+     "suggested_duration": "3 lessons",
+     "learning_outcomes": [
+      "kueleza maana ya ushairi ili kuupambanua",
+      "kujadili sifa za ushairi kama utanzu wa fasihi",
+      "kuchambua sifa za ushairi katika mashairi mbalimbali",
+      "kufafanua dhima ya ushairi katika jamii",
+      "kuchangamkia aina mbalimbali za mashairi katika jamii."
+     ],
+     "learning_experiences": [
+      "kueleza maana ya ushairi",
+      "kutafiti mtandaoni au katika matini andishi sifa za ushairi",
+      "kuwawasilishia wenzake matokeo ya utafiti aliofanya",
+      "kujadili sifa za ushairi",
+      "kuchambua sifa za ushairi katika mashairi",
+      "kufafanua dhima ya ushairi",
+      "kuimba na kukariri mashairi mbalimbali."
+     ],
+     "inquiry_questions": [
+      "1. Ni mambo gani yanayokufanya utambue shairi kama utungo wa fasihi?",
+      "2. Mashairi yana umuhimu gani kwako?"
+     ],
+     "core_competencies": [
+      "Mawasiliano -mwanafunzi anaposhiriki majadiliano na wenzake kuhusu s.",
+      "Ujuzi wa kidijitali -mwanafunzi anapotumia kifaa cha kidjitali kutafiti sifa za ushairi.",
+      "Uwazaji kina -mwanafunzi anapofafanua dhima ya ushairi katika jamii.",
+      "Kujiamini -anapojadili ipasavyo kuhusu sifa za ushairi."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-fasihi-ya-kiswahili.pdf#p17"
+    },
+    {
+     "kicd_code": "2.2.1",
+     "name": "Uchambuzi wa Mashairi Makundi ya Mashairi",
+     "suggested_duration": "4 lessons",
+     "learning_outcomes": [
+      "kueleza maana za ushairi arudhi na ushairi huru ili kuzipambanua",
+      "kujadili sifa za ushairi arudhi na ushairi huru",
+      "kutambua mashairi arudhi na mashairi huru katika matini",
+      "kuchangamkia makundi makuu ya ushairi katika fasihi."
+     ],
+     "learning_experiences": [
+      "kueleza maana ya ushairi arudhi na ushairi huru",
+      "kutafiti mtandaoni au katika matini andishi sifa za ushairi arudhi na ushairi huru",
+      "kujadili sifa za mashairi arudhi na huru",
+      "kulinganisha na kulinganua sifa za ushairi arudhi na ushairi huru",
+      "kutambua mashairi arudhi na huru katika matini mbalimbali."
+     ],
+     "inquiry_questions": [
+      "1. Mashairi uliyowahi kusoma ni ya aina gani?",
+      "2. Mashairi uliyowahi kusoma yana sifa gani?"
+     ],
+     "core_competencies": [
+      "Mawasiliano na ushirikiano: mwanafunzi anaposhiriki kujadili na wenzake sifa za mashairi arudhi na huru.",
+      "Ujuzi wa kidijitali: mwanafunzi anapotumia kifaa cha kidjitali kutafiti sifa za ushairi arudhi na huru.",
+      "Uwazaji kina na utatuzi wa matatizo: mwanafunzi anapotofautisha mashairi arudhi na huru katika matini.",
+      "Kujiamini: mwanafunzi anapojadili ipasavyo kuhusu sifa za mashairi arudhi na huru."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-fasihi-ya-kiswahili.pdf#p23"
+    },
+    {
+     "kicd_code": "3.2.1",
+     "name": "Uchambuzi wa Maudhui na Dhamira",
+     "suggested_duration": "4 lessons",
+     "learning_outcomes": [
+      "kueleza maana za maudhui na dhamira ili kuzibainisha",
+      "kuchambua maudhui na dhamira katika mashairi",
+      "kufurahia kuchambua maudhui na dhamira katika mashairi."
+     ],
+     "learning_experiences": [
+      "kueleza maana ya maudhui na dhamira",
+      "kutafiti mtandaoni au katika matini andishi maana ya maudhui na dhamira",
+      "kuchambua maudhui na dhamira katika mashairi",
+      "kuwasilisha darasani maudhui na dhamira katika mashairi aliyosoma",
+      "kutathmini mawasilisho ya wenzake kuhusu maudhui na dhamira."
+     ],
+     "inquiry_questions": [
+      "1. Mashairi uliyowahi kusoma yana ujumbe gani?",
+      "2. Maudhui na dhamira yanajitokeza vipi katika mashairi?"
+     ],
+     "core_competencies": [
+      "Kujiamini: mwanafunzi anapowasilisha ipasavyo maudhui na dhamira katika mashairi.",
+      "Hamu ya ujifunzaji: mwanafunzi anapotafiti mtandaoni kuhusu maana ya maudhui na dhamira.",
+      "Ujuzi wa kidijitali: mwanafunzi anapotafiti mtandaoni kuhusu maudhui na dhamira."
+     ],
+     "values": [
+      "Heshima: mwanafunzi anapowasikiliza wenzake na kuthamini michango yao katika kuchambua maudhui na dhamira katika mashairi.",
+      "Amani: mwanafunzi anaposhirikiana vizuri na wenzake katika kuchambua maudhui na dhamira katika mashairi."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-fasihi-ya-kiswahili.pdf#p29"
+    },
+    {
+     "kicd_code": "4.2.1",
+     "name": "Uchambuzi wa Maudhui na Dhamira",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "kuchambua maudhui na dhamira katika mashairi",
+      "kulinganisha na kulinganua maudhui na dhamira katika mashairi mbalimbali",
+      "kufurahia maudhui na dhamira katika mashairi."
+     ],
+     "learning_experiences": [
+      "kuchambua maudhui na dhamira katika mashairi",
+      "kulinganisha na kulinganua maudhui na dhamira katika mashairi mbalimbali",
+      "kusoma mashairi mtandaoni na kuchambua maudhui na dhamira yake",
+      "kuwawasilishia wenzake maudhui na dhamira aliyochambua katika matini ya ushairi."
+     ],
+     "inquiry_questions": [
+      "1. Kuna maudhui gani katika mashairi uliyowahi kusoma?",
+      "2. Kuna dhamira gani katika mashairi uliyowahi kusoma?"
+     ],
+     "core_competencies": [
+      "Kujiamini:mwanafunzi anapowasilisha ipasavyo maudhui na dhamira katika mashairi.",
+      "Hamu ya ujifunzaji: mwanafunzi anapotafiti mtandaoni kuhusu maana ya maudhui na dhamira.",
+      "Uwazaji kina na utatuzi wa matatizo: mwanafunzi anapolinganisha na kulinganua maudhui na dhamira katika mashairi.",
+      "Ujuzi wa kidijitali: mwanafunzi anaposoma na kuchambua maudhui na dhamira ya mashairi mtandaoni."
+     ],
+     "values": [
+      "Amani: mwanafunzi anapohusiana vizuri na wenzake wakati wa kuchambua maudhui na dhamira katika mashairi.",
+      "Uwajibikaji: mwanafunzi anapochambua maudhui na dhamira katika mashairi na kutunza kifaa cha kidijitali.",
+      "Heshima: mwanafunzi anapothamini maoni ya wenzake kuhusu maudhui na dhamira."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-fasihi-ya-kiswahili.pdf#p35"
+    },
+    {
+     "kicd_code": "5.2.1",
+     "name": "Uchambuzi wa Mandhari na Wahusika",
+     "suggested_duration": "6 lessons",
+     "learning_outcomes": [
+      "kueleza maana ya mandhari na wahusika katika ushairi",
+      "kujadili aina za mandhari na wahusika katika ushairi",
+      "kujadili umuhimu wa mandhari katika ushairi",
+      "kuchambua mandhari na wahusika katika ushairi",
+      "kuchangamkia mandhari na wahusika katika ushairi."
+     ],
+     "learning_experiences": [
+      "kueleza maana ya mandhari na wahusika katika mashairi",
+      "kujadili aina za mandhari katika mashairi",
+      "kujadili aina za wahusika (nafsineni na nafsinenewa) katika mashairi",
+      "kuchambua mandhari na wahusika katika matini za ushairi",
+      "kuwasilisha uchambuzi wa mandhari na wahusika katika ushairi",
+      "kutafiti vitabuni na mtandaoni kuhusu wahusika na mandhari",
+      "kuwasilisha matokeo ya utafiti kwa wenzake ili wautathmini."
+     ],
+     "inquiry_questions": [
+      "Mandhari yana umuhimu gani katika shairi?"
+     ],
+     "core_competencies": [
+      "Kujiamini: mwanafunzi anapowasilisha uchambuzi wa mandhari na wahusika katika ushairi.",
+      "Mawasiliano na ushirikiano: mwanafunzi anapojadili na wenzake umuhimu wa mandhari.",
+      "Uwazaji kina na utatuzi wa matatizo: mwanafunzi anapochambua mandhari na wahusika katika mashairi."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-fasihi-ya-kiswahili.pdf#p41"
+    },
+    {
+     "kicd_code": "6.2.1",
+     "name": "Uchambuzi wa Muundo",
+     "suggested_duration": "5 lessons",
+     "learning_outcomes": [
+      "kueleza maana ya muundo ili kuupambanua",
+      "kujadili vipengele vya muundo katika mashairi",
+      "kufafanua umuhimu wa vipengele vya muundo katika shairi",
+      "kuchambua mashairi kwa kuzingatia vipengele vya muundo",
+      "kufurahia kuchambua mashairi kwa kuzingatia vipengele vyake."
+     ],
+     "learning_experiences": [
+      "kueleza maana ya muundo",
+      "kujadili vipengele vya muundo katika mashairi",
+      "kuchambua muundo katika mashairi vitabuni au mitandaoni",
+      "kufafanua umuhimu wa vipengele vya muundo katika mashairi mbalimbali",
+      "kutazama video zilizorekodiwa za uchambuzi wa kitaalamu wa mashairi",
+      "kuwarekodi wenzake wakiwasilisha uchambuzi wa mashairi darasani kwa hifadhi ya marejeleo."
+     ],
+     "inquiry_questions": [
+      "Vipengele vya muundo vina umuhimu gani katika shairi?"
+     ],
+     "core_competencies": [
+      "Mawasiliano na ushirikiano: mwanafunzi anapojadili na wenzake kuhusu muundo wa mashairi.",
+      "Uwazaji kina na utatuzi wa matatizo: mwanafunzi anapochambua muundo wa mashairi.",
+      "Ujuzi wa kidijitali: mwanafunzi anapochambua muundo mashairi mitandaoni na kurekodi mawasilisho ya wenzake akitumia vyombo vya kidijitali."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-fasihi-ya-kiswahili.pdf#p47"
+    },
+    {
+     "kicd_code": "7.2.1",
+     "name": "Mtindo -- Tashbihi - Sitiari - Tashihisi",
+     "suggested_duration": "4 lessons",
+     "learning_outcomes": [
+      "kueleza maana ya tashbihi, sitiari na tashihisi kama vipengele vya kimtindo",
+      "kutambua tashbihi, sitiari na tashihisi katika ushairi",
+      "kujadili umuhimu wa tashbihi, sitiari na tashihisi katika ushairi",
+      "kutathmini nafasi ya tashbihi, sitiari na tashihisi katika mashairi",
+      "kufurahia matumizi ya tashbihi, sitiari na tashihisi katika mashairi."
+     ],
+     "learning_experiences": [
+      "kueleza maana ya tashbihi, sitiari na tashihisi kama vipengele vya kimtindo",
+      "kutambua tashbihi, sitiari na tashihisi katika matini za kishairi",
+      "kutafiti mtandaoni au katika matini andishi kuhusu umuhimu wa tashbihi, sitiari na tashihisi katika ushairi",
+      "kujadili matumizi ya tashbihi, sitiari na tashihisi katika mashairi na kuwawasilishia wenzake ili wayatathmini."
+     ],
+     "inquiry_questions": [
+      "Tamathali za usemi zina umuhimu gani katika ushairi?"
+     ],
+     "core_competencies": [
+      "Mawasiliano na ushirikiano: mwanafunzi anapochambua matumizi ya tashbihi, sitiari na tashihisi na wenzake darasani.",
+      "Ujuzi wa kidijitali: mwanafunzi anapotafiti kuhusu tashibihi, sitiari na tashihisi mitandaoni.",
+      "Uwazaji kina na utatuzi wa matatizo: mwanafunzi anapotambua na anapochambua tashbihi,sitiari na tashihisi katika mashairi.",
+      "Hamu ya ujifunzaji: mwanafunzi anapotafiti mtandaoni ili kupata umuhimu wa tashbihi, sitiari na tashihisi."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-fasihi-ya-kiswahili.pdf#p53"
+    },
+    {
+     "kicd_code": "8.2.1",
+     "name": "Mtindo - Misemo - Nahau - Chuku",
+     "suggested_duration": "4 lessons",
+     "learning_outcomes": [
+      "kueleza maana ya misemo, nahau na chuku kama vipengele vya kimtindo",
+      "kutambua misemo, nahau na chuku katika matini za kishairi",
+      "kueleza umuhimu wa misemo, nahau na chuku katika ushairi",
+      "kutathmini nafasi ya misemo, nahau na chuku katika ushairi",
+      "kufurahia matumizi ya misemo, nahau na chuku katika ushairi."
+     ],
+     "learning_experiences": [
+      "kueleza maana ya misemo, nahau na chuku kama vipengele vya kimtindo",
+      "kutambua misemo, nahau na chuku katika matini za kishairi",
+      "kutafiti mtandaoni au matini andishi umuhimu wa misemo, nahau na chuku katika ushairi",
+      "kutathmini nafasi ya misemo, nahau na chuku katika ushairi",
+      "kuchambua matumizi ya misemo, nahau na chuku katika mashairi na kuwawasilishia wenzake ili wayatathmini."
+     ],
+     "inquiry_questions": [
+      "Tamathali za usemi zina nafasi gani katika ushairi?"
+     ],
+     "core_competencies": [
+      "Mawasiliano na ushirikiano: mwanafunzi anapochambua matumizi ya misemo, nahau na chuku na wenzake darasani.",
+      "Ujuzi wa kidijitali: mwanafunzi anapotafiti kuhusu misemo, nahau na chuku mitandaoni."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-fasihi-ya-kiswahili.pdf#p59"
+    },
+    {
+     "kicd_code": "9.2.1",
+     "name": "Uhuru wa Kishairi - Inkisari - Mazida - Tabdila -kuboronga sarufi",
+     "suggested_duration": "5 lessons",
+     "learning_outcomes": [
+      "kueleza maana ya uhuru wa kishairi ili kuipambanua",
+      "kueleza maana ya inkisari, mazida, tabdila na kuboronga sarufi kama vipengele vya uhuru wa kishairi",
+      "kutambua matumizi ya inkisari, mazida, tabdila na kuboronga sarufi katika mashairi",
+      "kujadili umuhimu wa inkisari, mazida, tabdila na kuboronga sarufi katika mashairi",
+      "kufurahia matumizi ya inkisari, mazida, tabdila na kuboronga sarufi katika mashairi."
+     ],
+     "learning_experiences": [
+      "kueleza maana ya uhuru wa kishairi",
+      "kueleza maana ya inkisari, mazida, tabdila na kuboronga sarufi kama vipengele vya uhuru wa kishairi",
+      "kutambua matumizi ya inkisari, mazida, tabdila na kuboronga sarufi katika mashairi",
+      "kujadili umuhimu wa inkisari, mazida, tabdila na kuboronga sarufi katika mashairi",
+      "kutafiti mtandaoni au katika matini andishi kuhusu umuhimu wa inkisari, mazida, tabdila na kuboronga sarufi",
+      "kuwawasilishia wenzake tathmini yake kuhusu inkisari, mazida, tabdila na",
+      "kuboronga sarufi katika mashairi."
+     ],
+     "inquiry_questions": [
+      "1. Uhuru wa kishairi unahusu nini?",
+      "2. Uhuru wa kishairi una nafasi gani katika utunzi wa mashairi?"
+     ],
+     "core_competencies": [
+      "Mawasiliano na ushirikiano: mwanafunzi anaposhirikiana na wenzake kujadili umuhimu wa inkisari, mazida, tabdila na kuboronga sarufi katika ushairi",
+      "Ujuzi wa kidijitali: mwanafunzi anapotumia kifaa cha kidijitali kusakura mtandaoni umuhimu ya inkisari, mazida, tabdila na kuboronga sarufi",
+      "Hamu ya ujifunzaji: mwanafunzi anapofanya utafiti kuhusu matumizi ya inkisari, mazida, tabdila na kuboronga sarufi.",
+      "Uwazaji kina na utatuzi wa matatizo: mwanafunzi anapotathmini matumizi ya inkisari, mazida, tabdila na kuboronga sarufi."
+     ],
+     "values": [
+      "Umoja: mwanafunzi anapohusiana vizuri na wenzake wakati wa kuchambua matumizi ya inkisari, mazida, tabdila na kuboronga sarufi",
+      "Uwajibikaji: mwanafunzi anapochambua matumizi ya inkisari, mazida, tabdila na kuboronga sarufi katika mashairi na kutunza kifaa cha kidijitali.",
+      "Heshima: mwanafunzi anapothamini maoni ya wenzake kuhusu matumizi ya inkisari, mazida, tabdila na kuboronga sarufi katika mashairi."
+     ],
+     "pertinent_issues": [
+      "Masuala anuwai katika mashairi mbalimbali atakayosoma."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-fasihi-ya-kiswahili.pdf#p65"
+    }
+   ]
+  },
+  {
+   "strand": "Bunilizi",
+   "strand_code": "1.3",
+   "assessment_rubric": [
+    {
+     "indicator": "Anachambua kwa kina hadithi za fasihi simulizi kwa kuzingatia vipengele vyake kwa utondoti.",
+     "exceeds": "Anachambua hadithi za fasihi simulizi kwa kuzingatia vipengele vyake.",
+     "meets": "Anachambua hadithi za fasihi simulizi kwa kuzingatia baadhi ya vipengele vyake.",
+     "approaches": "Anachambua hadithi za fasihi simulizi kwa kuzingatia baadhi ya vipengele vyake kwa kuelekezwa."
+    },
+    {
+     "indicator": "Anachanganua kwa kina semi za fasihi simulizi kwa kuzingatia vipengele vyake.",
+     "exceeds": "Anachanganua semi za fasihi simulizi kwa kuzingatia vipengele vyake.",
+     "meets": "Anachanganua semi za fasihi simulizi kwa kuzingatia baadhi ya vipengele vyake.",
+     "approaches": "Anachanganua semi za fasihi simulizi kwa kuzingatia baadhi ya vipengele vyake kwa kusaidiwa."
+    },
+    {
+     "indicator": "Anachambua maigizo ya fasihi simulizi kwa uketo kwa kuzingatia vipengele vyake.",
+     "exceeds": "Anachambua maigizo ya fasihi simulizi kwa kuzingatia vipengele vyake.",
+     "meets": "Anachambua maigizo ya fasihi simulizi kwa kuzingatia baadhi ya vipengele vyake.",
+     "approaches": "Anachambua maigizo ya fasihi simulizi kwa kuzingatia baadhi ya vipengele vyake kwa kuongozwa."
+    },
+    {
+     "indicator": "Kuweza kuchanganua mashairi simulizi kwa kuzingatia vipengele vyake.",
+     "exceeds": "Anachanganua mashairi simulizi kwa utondoti kwa kuzingatia vipengele vyake.",
+     "meets": "Anachanganua mashairi simulizi kwa kuzingatia vipengele vyake.",
+     "approaches": "Anachanganua mashairi simulizi kwa kuzingatia baadhi ya vipengele vyake."
+    },
+    {
+     "indicator": "Kuweza kuchambua mazungumzo ya fasihi simulizi kwa kuzingatia vipengele vyake.",
+     "exceeds": "Anachambua kwa kina mazungumzo ya fasihi simulizi kwa kuzingatia vipengele vyake.",
+     "meets": "Anachambua mazungumzo ya fasihi simulizi kwa kuzingatia vipengele vyake.",
+     "approaches": "Anachambua mazungumzo ya fasihi simulizi kwa kuzingatia baadhi ya vipengele vyake."
+    },
+    {
+     "indicator": "Kuweza kuainisha mashairi kwa kuzingatia vigezo mbalimbali vya uainishaji.",
+     "exceeds": "Anaainisha mashairi kwa kuzingatia vigezo mbalimbali vya uainishaji kwa utondoti.",
+     "meets": "Anaainisha mashairi kwa kuzingatia vigezo mbalimbali vya uainishaji.",
+     "approaches": "Anaainisha mashairi kwa kuzingatia baadhi ya vigezo vya uainishaji."
+    },
+    {
+     "indicator": "Kuweza kuchambua mashairi kwa kuzingatia vipengele mbalimbali vya ushairi.",
+     "exceeds": "Anachambua kwa kina mashairi kwa kuzingatia vipengele mbalimbali vya ushairi.",
+     "meets": "Anachambua mashairi kwa kuzingatia vipengele mbalimbali vya ushairi.",
+     "approaches": "Anachambua mashairi kwa kuzingatia baadhi ya vipengele vya ushairi."
+    },
+    {
+     "indicator": "Kuweza kuchambua vipengele vyote vya bunilizi.",
+     "exceeds": "Anachambua kwa utondoti vipengele vyote vya bunilizi.",
+     "meets": "Anachambua vipengele vyote vya bunilizi.",
+     "approaches": "Anachambua baadhi ya vipengele vya bunilizi."
+    },
+    {
+     "indicator": "Kuweza kutunga bunilizi kwa kuzingatia vipengele na hatua zifaazo.",
+     "exceeds": "Anatunga bunilizi ya kiwango cha juu cha ubunifu kwa kuzingatia vipengele na hatua zifaazo.",
+     "meets": "Anatunga bunilizi kwa kuzingatia vipengele na hatua zifaazo.",
+     "approaches": "Anatunga bunilizi kwa kuzingatia baadhi ya vipengele na hatua zifaazo."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "1.3.1",
+     "name": "Utangulizi wa Bunilizi",
+     "suggested_duration": "6 lessons",
+     "learning_outcomes": [
+      "kueleza maana ya bunilizi ili kuibainisha",
+      "kujadili aina za bunilizi ili kuzibainisha",
+      "kujadili vipengele vya bunilizi",
+      "kuchangamkia usomaji wa bunilizi katika maisha ya kila siku."
+     ],
+     "learning_experiences": [
+      "kueleza maana ya bunilizi",
+      "kujadili aina za bunilizi",
+      "kutafiti maktabani na kusakura mtandaoni ili kubainisha aina za bunilizi",
+      "kuwasilisha matokeo ya utafiti wake kwa wenzake ili wayatolee maoni",
+      "kusilikiliza aina mbalimbali za bunilizi zilizorekodiwa kwenye kinasa sauti",
+      "kupambanua aina mbalimbali za bunilizi",
+      "kushirikiana na wenzake kujadili vipengele vya bunilizi.",
+      "Shughuli za Ujifunzaji Zilizopendekezwa"
+     ],
+     "inquiry_questions": [
+      "1. Ni aina gani za bunilizi ulizowahi kusoma?",
+      "2. Kwa nini ni muhimu kusoma bunilizi?",
+      "Maswali Dadisi Yaliyopendekezwa"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-fasihi-ya-kiswahili.pdf#p19"
+    },
+    {
+     "kicd_code": "2.3.1",
+     "name": "Tamthilia -Maudhui -Dhamira",
+     "suggested_duration": "10 lessons",
+     "learning_outcomes": [
+      "kueleza maana ya maudhui na dhamira katika fasihi",
+      "kujadili maudhui na dhamira katika tamthilia teule",
+      "kuchambua maudhui na dhamira katika tamthilia teule",
+      "kuchangamkia maudhui na dhamira katika tamthilia mbalimbali."
+     ],
+     "learning_experiences": [
+      "kueleza maana ya maudhui katika fasihi",
+      "kutambua maudhui na dhamira mbalimbali katika tamthilia teule",
+      "kujadili na wenzake maudhui na dhamira ya tamthilia teule",
+      "kuwawasilishia wenzake darasani uchambuzi wake kuhusu maudhui",
+      "kuandika maelezo mafupi kuhusu maudhui katika tamthilia teule.",
+      "Shughuli za Ujifunzaji Zilizopendekezwa"
+     ],
+     "inquiry_questions": [
+      "1. Tamthilia ulizowahi kusoma zina ujumbe gani?",
+      "2. Watunzi huchochewa na mambo gani wanapoandika tamthilia?",
+      "Maswali Dadisi Yaliyopendekezwa"
+     ],
+     "core_competencies": [
+      "Mawasiliano na ushirikiano: mwanafunzi anaposhirikiana na wenzake kutambua na kujadili dhamira na maudhui katika tamthilia.",
+      "Kujiamini: mwanafunzi anapowawasilishia wenzake ufupisho wa dhamira na maudhui ili waujadili na kutolea maoni.",
+      "Uwazaji kina: mwanafunzi anapochanganua maudhui na dhamira katika tamthilia na kuwasilishia wenzake."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-fasihi-ya-kiswahili.pdf#p25"
+    },
+    {
+     "kicd_code": "3.3.1",
+     "name": "Tamthilia - Wahusika - Mandhari",
+     "suggested_duration": "10 lessons",
+     "learning_outcomes": [
+      "kueleza maana ya wahusika na mandhari katika tamthilia teule",
+      "kutambua wahusika na mandhari katika tamthilia teule",
+      "kujadili sifa za wahusika katika tamthilia teule",
+      "kueleza umuhimu wa wahusika na mandhari katika tamthilia teule",
+      "kujadili mbinu za usawiri wahusika katika tamthilia teule",
+      "kujadili mafunzo yanayotokana na matendo ya wahusika katika tamthilia",
+      "kuchangamkia nafasi ya wahusika na mandhari katika tamthilia."
+     ],
+     "learning_experiences": [
+      "kueleza maana ya wahusika na dhamira",
+      "kutambua wahusika na mandhari katika tamthilia teule",
+      "kujadili mbinu za usawiri wa wahusika katika tamthilia",
+      "kujadili sifa za wahusika katika tamthilia teule",
+      "kujadili uhalisia wa wahusika katika jamii yake",
+      "kuchanganua umuhimu wa wahusika katika tamthilia teule",
+      "kutafiti mtandaoni au katika matini andishi maelezo kuhusu mandhari na wahusika na kujadili na wenzake",
+      "kutathmini maelezo ya wenzake kuhusu mandhari na wahusika",
+      "kuchambua mandhari katika tamthilia teule.",
+      "Shughuli za Ujifunzaji Zilizopendekezwa"
+     ],
+     "inquiry_questions": [
+      "1. Ni nini humchochea mwandishi wa tamthilia anapoteua wahusika wake?",
+      "2. Mahali na wakati unaorejelewa katika tamthilia huwa na umuhimu gani?",
+      "Swali Dadisi Lililopendekezwa"
+     ],
+     "core_competencies": [
+      "Mawasiliano na ushirikiano: mwanafunzi anapoeleza wenzake kwa ufasaha kuhusu dhana ya mandhari katika tamthilia.",
+      "Hamu ya ujifunzaji: mwanafunzi anapotafiti mtandaoni au katika matini andishi maelezo kuhusu mandhari na wahusika.",
+      "Kujiamini: mwanafunzi anapojadili na wenzake na kuchangia kikamilifu maelezo kuhusu mandhari na kutathmini maelezo yao.",
+      "Ujuzi wa kidijitali: mwanafunzi anaposakura mtandaoni na kusoma maelezo kuhusu mandhari na wahusika katika tamthilia."
+     ],
+     "values": [
+      "Umoja: mwanafunzi anaposhirikiana na wenzake kuchambua mandhari katika tamthilia teule.",
+      "Heshima: mwanafunzi anapotathmini maelezo ya wenzake kuhusu mandhari na wahusika."
+     ],
+     "pertinent_issues": [
+      "Kujiamini: mwanafunzi anapowasilisha maoni yake kuhusu wahusika na mandharikwa wenzake kwa ujasiri."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-fasihi-ya-kiswahili.pdf#p31"
+    },
+    {
+     "kicd_code": "4.3.1",
+     "name": "Tamthilia - Muundo - Mtindo",
+     "suggested_duration": "12 lessons",
+     "learning_outcomes": [
+      "kueleza maana ya muundo na mtindo katika tamthilia",
+      "kutambua vipengele vya muundo na mtindo katika tamthilia",
+      "kujadili vipengele vya muundo na mtindo katika tamthilia teule",
+      "kutathmini nafasi ya vipengele vya muundo na mtindo katika tamthilia teule",
+      "kuchambua tamthilia teule kwa kuzingatia muundo na mtindo wake",
+      "kuonea fahari muundo na mtindo katika tamthilia."
+     ],
+     "learning_experiences": [
+      "kufafanua maana ya muundo na mtindo katika tamthilia",
+      "kufanya utafiti mtandaoni au katika matini andishi kuhusu vipengele vya muundo na mtindo wa tamthilia na kuwawasilishia wenzake",
+      "kuigiza sehemu za tamthilia teule darasani",
+      "kutathmini kazi iliyowasilishwa na wenzake darasani kuhusu vipengele vya muundo na mtindo wa tamthilia",
+      "kutazama video ya mchezo wa kuigiza na kujadili vipengele vya muundo na mtindo",
+      "kujadili vipengele vya muundo na mtindo katika tamthilia teule darasani",
+      "kuchambua tamthilia teule kwa kuzingatia vipengele vya muundo na mtindo",
+      "kutathmini nafasi ya vipengele vya muundo na mtindo katika tamthilia teule.",
+      "Shughuli za Ujifunzaji Zilizopendekezwa"
+     ],
+     "inquiry_questions": [
+      "1. Je, tamthilia huwa na mpangilio gani?",
+      "2. Vipengele vya mtindo na muundo vina umuhimu gani katika tamthilia?",
+      "Swali Dadisi Lililopendekezwa"
+     ],
+     "core_competencies": [
+      "Mawasiliano na ushirikiano: mwanafunzi anapojadili vipengele vya muundo na mtindo wa tamthilia teule akiwa na wenzake.",
+      "Ujuzi wa kidijitali: mwanafunzi anaposakura mtandaoni ili kupata vipengele vya muundo na mtindo. Pia anapotazama mchezo wa kuigiza kwenye mtandao wa You Tube.",
+      "Hamu ya ujifunzaji: mwanafunzi anapotafiti mtandaoni ili kupata vipengele vya muundo na mtindo."
+     ],
+     "values": [
+      "Uwajibikaji: mwanafunzi anapofanya utafiti kwa kusakura mtandao salama ili kupata vipengele vya muundo na mtindo.",
+      "Umoja: mwanafunzi anaposhirikiana na wenzake kujadili vipengele vya muundo na mtindo katika tamthilia teule.",
+      "Heshima: mwanafunzi anapotathmini kazi iliyowasilishwa na wenzake darasani kuhusu vipengele vya muundo na mtindo huku akithamini maoni wa kila mmoja."
+     ],
+     "pertinent_issues": [
+      "Kujiamini: mwanafunzi anapowawasilishia wenzake kwa ujasiri matokeo ya utafiti wake kuhusu vipengele vya muundo na mtindo."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-fasihi-ya-kiswahili.pdf#p37"
+    },
+    {
+     "kicd_code": "5.3.1",
+     "name": "Tamthilia - Muundo - Mtindo",
+     "suggested_duration": "12 lessons",
+     "learning_outcomes": [
+      "kutambua vipengele vya muundo na mtindo katika tamthilia",
+      "kujadili vipengele vya muundo na mtindo katika tamthilia teule",
+      "kutathmini nafasi ya vipengele vya muundo na mtindo katika tamthilia teule",
+      "kuchambua tamthilia teule kwa kuzingatia muundo na mtindo wake",
+      "kuonea fahari muundo na mtindo katika tamthilia."
+     ],
+     "learning_experiences": [
+      "kusoma tamthilia teule na kutambua vipengele vya muundo na mtindo",
+      "kujadili na wenzake vipengele vya muundo na mtindo katika tamthilia teule",
+      "kuwasilisha darasani vipengele vya muundo na mtindo ili wenzake wavitathmini",
+      "kutazama mchezo unaoigizwa kwenye video na kujadili vipengele vya muundo na mtindo",
+      "kuigiza sehemu ya tamthilia ili kubainisha vipengele vya muundo na mtindo.",
+      "Shughuli za Ujifunzaji Zilizopendekezwa"
+     ],
+     "inquiry_questions": [
+      "Kuna tofauti gani kati ya muundo na mtindo wa tamthilia?",
+      "Swali Dadisi Lililopendekezwa"
+     ],
+     "core_competencies": [
+      "Mawasiliano na ushirikiano: mwanafunzi anapojadili vipengele vya muundo na mtindo wa tamthilia teule akiwa na wenzake.",
+      "Kujiamini: mwanafunzi anapoigiza sehemu ya mchezo ili kubainisha muundo na mtindo."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-fasihi-ya-kiswahili.pdf#p43"
+    },
+    {
+     "kicd_code": "6.3.1",
+     "name": "Riwaya - Maudhui - Dhamira",
+     "suggested_duration": "10 lessons",
+     "learning_outcomes": [
+      "kueleza maana ya maudhui na dhamira katika riwaya teule",
+      "kutambua maudhui na dhamira katika riwaya teule",
+      "kueleza namna maudhui yanavyowasilishwa katika riwaya",
+      "kuchanganua maudhui na dhamira katika riwaya teule",
+      "kuchangamkia maudhui na dhamira katika riwaya."
+     ],
+     "learning_experiences": [
+      "kusakura mtandaoni maana ya maudhui na dhamira katika riwaya akiwa na wenzake",
+      "kusoma riwaya teule na kuchambua maudhui na dhamira",
+      "kueleza namna maudhui yanavyowasilishwa katika riwaya",
+      "kuandika maelezo kuhusu maudhui na dhamira katika riwaya aliyosoma na kuyawasilisha kwa wenzake ili wayatathmini.",
+      "Shughuli za Ujifunzaji Zilizopendekezwa"
+     ],
+     "inquiry_questions": [
+      "Je, riwaya huweza kuzungumzia mambo gani?",
+      "Maswali dadisi Yaliyopendekezwa"
+     ],
+     "core_competencies": [
+      "Mawasiliano na ushirikiano: mwanafunzi anapochanganua maudhui na dhamira katika riwaya teule akiwa na wenzake.",
+      "Ujuzi wa kidijitali: mwanafunzi anaposakura mtandaoni ili kupata maana ya maudhui na dhamira.",
+      "Uwazaji kina na utatuzi wa matatizo: mwanafunzi anapotambua maneno maalum yanayotofautisha maudhui na dhamira.",
+      "Hamu ya ujifunzaji: mwanafunzi anapotafiti mtandaoni ili kupata maana ya dhamira na maudhui."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-fasihi-ya-kiswahili.pdf#p49"
+    },
+    {
+     "kicd_code": "7.3.1",
+     "name": "Riwaya - Wahusika - Mandhari",
+     "suggested_duration": "10 lessons",
+     "learning_outcomes": [
+      "kueleza dhana ya wahusika na mandhari katika riwaya",
+      "kujadili usawiri wa wahusika katika riwaya teule",
+      "kueleza umuhimu wa wahusika katika riwaya",
+      "kueleza umuhimu wa mandhari katika riwaya",
+      "kujadili aina za mandhari katika riwaya",
+      "kuchangamkia wahusika na mandhari katika riwaya."
+     ],
+     "learning_experiences": [
+      "kutambua wahusika katika riwaya teule",
+      "kujadili usawiri wa wahusika katika riwaya teule",
+      "kujadili mafunzo yanayotokana na matendo ya wahusika katika riwaya",
+      "kuchanganua umuhimu wa wahusika katika riwaya teule",
+      "kueleza dhana ya mandhari katika riwaya kwa kuzingatia mahali pa tukio, wakati na hali",
+      "kujadili aina za mandhari katika riwaya",
+      "kuchambua mandhari katika riwaya teule na kujadili na wenzake mahali, hali na wakati wa matukio.",
+      "kutafiti mtandaoni au katika matini andishi maelezo kuhusu mandhari na wahusika na kujadili na wenzake",
+      "• kutathmini maelezo ya wenzake kuhusu mandhari na wahusika.",
+      "Shughuli za Ujifunzaji Zilizopendekezwa"
+     ],
+     "inquiry_questions": [
+      "1. Mahali na wakati unaorejelewa katika riwaya huwa na umuhimu gani?",
+      "2. Usawiri wa wahusika una umuhimu gani katika riwaya?",
+      "Swali Dadisi Lililopendekezwa"
+     ],
+     "core_competencies": [
+      "Mawasiliano: mwanafunzi anapoeleza wenzake kwa ufasaha kuhusu dhana ya mandhari katika riwaya.",
+      "Ushirikiano: mwanafunzi anaposhirikiana na wenzake kuchambua mandhari katika riwaya teule.",
+      "Hamu ya ujifunzaji: mwanafunzi anapotafiti mtandaoni au katika matini andishi maelezo kuhusu mandhari na wahusika.",
+      "Kujiamini: mwanafunzi anapojadili na wenzake na kuchangia kikamilifu maelezo kuhusu mandhari na kutathmini maelezo yao.",
+      "Ujuzi wa kidijitali: mwanafunzi anaposakura mtandaoni na kusoma maelezo kuhusu mandhari na wahusika katika riwaya."
+     ],
+     "values": [
+      "Umoja: mwanafunzi anaposhirikiana na wenzake kuchambua mandhari katika riwaya teule.",
+      "Heshima: mwanafunzi anapotathmini maelezo ya wenzake kuhusu mandhari na wahusika huku akithamini mchango wa kila mmoja."
+     ],
+     "pertinent_issues": [
+      "Kujiamini: mwanafunzi anapowasilisha maoni yake kuhusu wahusika na mandhari kwa wenzake kwa ujasiri."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-fasihi-ya-kiswahili.pdf#p55"
+    },
+    {
+     "kicd_code": "8.3.1",
+     "name": "Riwaya - Muundo - Mtindo",
+     "suggested_duration": "8 lessons",
+     "learning_outcomes": [
+      "kueleza maana ya muundo na mtindo katika riwaya",
+      "kujadili vipengele vya muundo na mtindo katika fasihi",
+      "kuchanganua muundo na mtindo katika riwaya",
+      "kuchangamkia muundo na mtindo katika riwaya."
+     ],
+     "learning_experiences": [
+      "kueleza maana ya muundo na mtindo katika riwaya",
+      "kujadili vipengele vya muundo katika riwaya teule darasani akiwa na wenzake",
+      "kufanya utafiti mtandaoni na katika matini andishi kuhusu vipengele vya muundo na mtindo na kuwawasilishia wenzake ili watathmini matokeo yake",
+      "kuandaa uchanganuzi wa muundo na mtindo wa riwaya teule na kuwawasilishia wenzake ili wautolee maoni.",
+      "Shughuli za Ujifunzaji Zilizopendekezwa"
+     ],
+     "inquiry_questions": [
+      "Je, waandishi wa riwaya huyapangaje mawazo yao ili kuwasilisha ujumbe?",
+      "Swali Dadisi Lililopendekezwa"
+     ],
+     "core_competencies": [
+      "Mawasiliano na ushirikiano: mwanafunzi anapojadili vipengele vya muundo na mtindo wa riwaya teule akiwa na wenzake.",
+      "Ujuzi wa kidijitali: mwanafunzi anaposakura mtandaoni ili kupata vipengele vya muundo na mtindo wa riwaya.",
+      "Hamu ya ujifunzaji: mwanafunzi anapotafiti mtandaoni ili kupata vipengele vya muundo na mtindo."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-fasihi-ya-kiswahili.pdf#p61"
+    },
+    {
+     "kicd_code": "9.3.1",
+     "name": "Riwaya - Muundo - Mtindo",
+     "suggested_duration": "8 lessons",
+     "learning_outcomes": [
+      "kutambua vipengele vya muundo na mtindo katika riwaya teule",
+      "kuchanganua vipengele vya muundo na mtindo katika riwaya teule",
+      "kuchangamkia uchanganuzi wa muundo na mtindo katika riwaya."
+     ],
+     "learning_experiences": [
+      "kutambua vipengele vya muundo na mtindo katika riwaya teule",
+      "kusoma riwaya teule na kutambua vipengele vya muundo na mtindo",
+      "kujadili na wenzake vipengele vya muundo na mtindo katika riwaya teule",
+      "kusakura mtandaoni kutazama video au kusoma matini andishi kuhusu vipengele vya muundo na mtindo katika riwaya",
+      "kuwasilisha vipengele vya muundo na mtindo ili wenzake wavitathmini.",
+      "Shughuli za Ujifunzaji Zilizopendekezwa"
+     ],
+     "inquiry_questions": [
+      "Waandishi wa riwaya huwezaje kuzifanya kazi zao kuwa za kuvutia kwa wasomaji?",
+      "Swali Dadisi Lililopendekezwa"
+     ],
+     "core_competencies": [
+      "Mawasiliano na ushirikiano: mwanafunzi anapojadili vipengele vya muundo na mtindo wa riwaya teule akiwa na wenzake.",
+      "Kujiamini: mwanafunzi anapojadili na wenzake kuhusu muundo na mtindo katika riwaya teule",
+      "Hamu ya ujifunzaji: mwanafunzi anapotafiti mtandaoni ili kupata vipengele vya muundo na mtindo."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-fasihi-ya-kiswahili.pdf#p67"
+    },
+    {
+     "kicd_code": "10.3.1",
+     "name": "Utunzi wa mashairi na bunilizi",
+     "suggested_duration": "4 lessons",
+     "learning_outcomes": [
+      "kutambua vipengele vya utunzi wa mashairi na bunilizi ili kuvibainisha",
+      "kupambanua hatua za utunzi wa mashairi na bunilizi ili kuzitambulisha",
+      "kuandika shairi au bunilizi fupi kwa kuzingatia vipengele na hatua za utunzi wa kazi ya fasihi",
+      "kuonea fahari utunzi wa bunilizi katika maisha ya kila siku."
+     ],
+     "learning_experiences": [
+      "kutambua vipengele na hatua za utunzi wa mashairi na bunilizi",
+      "kutafiti katika matini andishi au mtandaoni ili kutambua vipengele vya utunzi wa mashairi na bunilizi",
+      "kuwawasilishia wenzake vipengele na hatua za utunzi wa mashairi na bunilizi alivyotafiti ili wavitathmini",
+      "kuandika shairi au bunilizi fupi kwa kuzingatia vipengele na hatua za utunzi zifaazo",
+      "kusoma shairi au bunilizi fupi aliyotunga ili wenzake waitolee maoni."
+     ],
+     "inquiry_questions": [
+      "Utunzi wa bunilizi una manufaa gani maishani?"
+     ],
+     "core_competencies": [
+      "Mawasiliano na ushirikiano: mwanafunzi anapowasilisha matokeo ya utafiti wake kuhusu vipengele vya uandishi kwa wenzake ili wayatolee maoni.",
+      "Kujiamini: mwanafunzi anapowawasilishia wenzake kwa ufasaha matokeo ya utafiti wake ili wayatolee maoni.",
+      "Ubunifu: mwanafunzi anapoandika aya fupi fupi za makala mbalimbali kwa kuzingatia hatua zifaazo."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-fasihi-ya-kiswahili.pdf#p74"
+    }
+   ]
+  },
+  {
+   "strand": "Fasihi Simulizi",
+   "strand_code": "2.1",
+   "assessment_rubric": [],
+   "substrands": [
+    {
+     "kicd_code": "2.1.1",
+     "name": "Hadithi - Hekaya - Hurafa",
+     "suggested_duration": "4 lessons",
+     "learning_outcomes": [
+      "kueleza maana ya hadithi ili kuibainisha",
+      "kueleza maana ya hekaya na hurafa ili kuzibainisha",
+      "kufafanua sifa za hekaya na hurafa ili kuzipambanua",
+      "kujadili umuhimu wa hekaya na hurafa katika jamii",
+      "kuwasilisha hekaya na hurafa akizingatia vipengele vya uwasilishaji",
+      "kuchangamkia masimulizi ya hekaya na hurafa katika jamii."
+     ],
+     "learning_experiences": [
+      "kueleza maana ya hekaya na hurafa",
+      "kufafanua sifa za hekaya na hurafa",
+      "kushirikiana na wenzake kujadili umuhimu wa hekaya na hurafa",
+      "kujadili vipengele vya uwasilishaji wa hekaya na hurafa",
+      "kumsikiliza mgeni mwalikwa akiwasilisha hekaya na hurafa",
+      "kusikiliza na kutazama hekaya na hurafa zikiwasilishwa mtandaoni",
+      "kuwawasilishia wenzake hekaya na hurafa."
+     ],
+     "inquiry_questions": [
+      "1. Ni aina gani za hadithi za fasihi simulizi unazozijua?",
+      "2. Je, hadithi zina umuhimu gani katika jamii?"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-fasihi-ya-kiswahili.pdf#p21"
+    },
+    {
+     "kicd_code": "3.1.1",
+     "name": "Semi",
+     "suggested_duration": "4 lessons",
+     "learning_outcomes": [
+      "kueleza maana ya semi katika fasihi simulizi",
+      "kufafanua sifa za semi katika fasihi simulizi",
+      "kujadili umuhimu wa semi katika jamii",
+      "kuainisha vipera vya semi ili kuvibainisha",
+      "kufurahia matumizi ya vipera mbalimbali vya semi katika fasihi simulizi."
+     ],
+     "learning_experiences": [
+      "kueleza maana ya semi katika fasihi simulizi",
+      "kutumia vifaa vya kidijitali kusakura aina mbalimbali za semi",
+      "kutambua semi katika tungo za fasihi simulizi",
+      "kueleza sifa za semi katika tungo za fasihi simulizi",
+      "kushirikiana na wenzake kujadili umuhimu wa semi katika fasihi simulizi."
+     ],
+     "inquiry_questions": [
+      "1. Je, unafahamu aina zipi za semi katika fasihi simulizi?",
+      "2. Semi zina manufaa gani katika jamii?"
+     ],
+     "core_competencies": [
+      "Ujuzi wa kidijitali: mwanafunzi anapotumia vifaa vya kidijitali kusakura aina mbalimbali za semi.",
+      "Mawasiliano na ushirikiano: mwanafunzi anaposhirikian na wenzake kujadili umuhimu wa semi katika Fasihi Simulizi.",
+      "Uwazaji kina na utatuzi wa matatizo: mwanafunzi anapotambua sifa za semi katika Fasihi Simulizi."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-fasihi-ya-kiswahili.pdf#p27"
+    },
+    {
+     "kicd_code": "4.1.1",
+     "name": "Ushairi Simulizi",
+     "suggested_duration": "4 lessons",
+     "learning_outcomes": [
+      "kueleza maana ya ushairi simulizi ili kuubainisha",
+      "kufafanua sifa za ushairi simulizi ili kuzipambanua",
+      "kuchambua sifa za ushairi simulizi katika simulizi",
+      "kujadili dhima za ushairi simulizi katika jamii",
+      "kuchangamkia ushairi simulizi katika jamii."
+     ],
+     "learning_experiences": [
+      "kueleza maana ya ushairi simulizi",
+      "kutaja vipera mbalimbali vya ushairi simulizi",
+      "kusoma matini andishi au kusikiliza mashairi yaliyorekodiwa",
+      "kumsikiliza mgeni mwalikwa akiimba au kughani ushairi simulizi na kutambua sifa zinazojitokeza",
+      "kutafiti mtandaoni sifa za ushairi simulizi",
+      "kufafanua sifa za ushairi simulizi",
+      "kuchambua sifa za ushairi simulizi katika simulizi",
+      "kushirikiana na wenzake kujadili umuhimu wa ushairi simulizi."
+     ],
+     "inquiry_questions": [
+      "Kuna umuhimu gani kujifunza ushairi simulizi?"
+     ],
+     "core_competencies": [
+      "Mawasiliano na ushirikiano: mwanafunzi anaposhirikiana na wenzake kujadili umuhimu wa ushairi simulizi.",
+      "Kujiamini: mwanafunzi anapowasilisha vipera mbalimbali vya ushairi simulizi kwa wenzake.",
+      "Ubunifu: mwanafunzi anapowasilisha vipera mbalimbali vya ushairi simulizi."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-fasihi-ya-kiswahili.pdf#p33"
+    },
+    {
+     "kicd_code": "5.1.1",
+     "name": "Mazungumzo",
+     "suggested_duration": "8 lessons",
+     "learning_outcomes": [
+      "kueleza dhana ya mazungumzo katika fasihi simulizi ili kuibanisha",
+      "kufafanua sifa za mazungumzo katika fasihi simulizi",
+      "kujadili dhima ya mazungumzo katika fasihi simulizi",
+      "kujadili sifa za mazungumzo katika matini ya fasihi simulizi",
+      "kupambanua miktadha mbalimbali ya mazungumzo katika fasihi simulizi",
+      "kuchangamkia mazungumzo katika fasihi simulizi."
+     ],
+     "learning_experiences": [
+      "kueleza dhana ya mazungumzo katika fasihi simulizi",
+      "kutaja vipera mbalimbali vya utanzu wa mazungumzo ya fasihi simulizi",
+      "kusikiliza matini za mazungumzo ya fasihi simulizi katika vifaa vya kidijitali",
+      "kufafanua sifa za mazungumzo kutoka kwenye matini alizosikiliza",
+      "kujadili na wenzake sifa za mazungumzo katika matini ya fasihi simulizi",
+      "kuigiza baadhi ya vipera vya mazungumzo",
+      "• kujadili na wenzake umuhimu wa mazungumzo katika fasihi simulizi."
+     ],
+     "inquiry_questions": [
+      "Kuna aina gani za mazungumzo ya fasihi simulizi?"
+     ],
+     "core_competencies": [
+      "Mawasiliano na ushirikiano: mwanafunzi anapojadili vipera mbalimbali vya mazungumzo akiwa na wenzake.",
+      "Uwazaji kina na utatuzi wa matatizo: mwanafunzi anaposikiliza matini mbalimbali yanayohusu mazungumzo kwenye vifaa vya kidijitali."
+     ],
+     "values": [
+      "Heshima: mwanafunzi anapothamini maoni ya wenzake wanapojadiliana kuhusu mazungumzo katika fasihi simulizi.",
+      "Umoja: mwanafunzi anaposhirikiana na wenzake katika shughuli za ujifunzaji akiwa darasani.",
+      "Uwajibikaji anaposikiliza matini mbalimbali kwenye vifaa vya kidijitali."
+     ],
+     "pertinent_issues": [
+      "Stadi za maisha anaposhirikiana na wenzake katika shughuli za ujifunzaji."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-fasihi-ya-kiswahili.pdf#p39"
+    },
+    {
+     "kicd_code": "6.1.1",
+     "name": "Maigizo",
+     "suggested_duration": "6 lessons",
+     "learning_outcomes": [
+      "kueleza dhana ya maigizo ili kuibanisha",
+      "kufafanua sifa za maigizo ili kuzibainisha",
+      "kujadili umuhimu wa maigizo katika jamii",
+      "kuigiza vipera vya maigizo ya fasihi simulizi",
+      "kuchangamkia umuhimu wa maigizo katika jamii yake."
+     ],
+     "learning_experiences": [
+      "kueleza dhana ya maigizo katika fasihi simulizi",
+      "kutazama maigizo kwenye kifaa cha kidijitali",
+      "kufafanua sifa za maigizo kutoka kwenye maigizo aliyotazama",
+      "kujadili na wenzake dhima ya maigizo",
+      "kuchambua maigizo kwa kuzingatia sifa zake",
+      "kujadili vipera mbalimbali vya maigizo katika fasihi simulizi",
+      "kurekodi maigizo katika kifaa cha kidijitali."
+     ],
+     "inquiry_questions": [
+      "Maigizo ya fasihi simulizi yana umuhimu gani?"
+     ],
+     "core_competencies": [
+      "Mawasiliano na ushirikiano:mwanafunzi anaposhirikiana na wenzake kujadiliana kuhusu maigizo.",
+      "Ujuzi wa kidijitali : mwanafunzi anapotumia vifaa vya kidijitali kurekodi maigizo.",
+      "Uraia: mwanafunzi anapojiunza kuhusu umuhimu wa maigizo katika fasihi simulizi."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-fasihi-ya-kiswahili.pdf#p45"
+    },
+    {
+     "kicd_code": "7.1.1",
+     "name": "Hadithi - Ngano za mazimwi - Mighani",
+     "suggested_duration": "4 lessons",
+     "learning_outcomes": [
+      "kueleza maana ya ngano za mazimwi na mighani",
+      "kufafanua sifa za ngano za mazimwi na mighani",
+      "kujadili vipengele vya ngano za mazimwi na mighani",
+      "kujadili umuhimu wa ngano za mazimwi na mighani katika jamii",
+      "kuchanganua ngano za mazimwi na mighani kwa kuzingatia vipengele vyake",
+      "kufurahia masimulizi ya ngano za mazimwi na mighani kutoka jamii mbalimbali."
+     ],
+     "learning_experiences": [
+      "kueleza maana ya ngano za mazimwi na mighani",
+      "kusikiliza masimulizi yaliyorekodiwa kwenye kifaa cha kidijitali kuhusu ngano za mazimwi na mighani",
+      "kufafanua sifa za ngano za mazimwi na mighani",
+      "kusakura mtandaoni kuhusu umuhimu wa ngano za mazimwi na mighani katika jamii",
+      "kutafiti kuhusu ngano za mazimwi na mighani kutoka kwa jamii",
+      "kuwasilisha matokeo ya utafiti wake kwa wenzake ili wayatathmini",
+      "kufanya kazi mradi kuhusu ngano za mazimwi au mighani."
+     ],
+     "inquiry_questions": [
+      "1. Je, ngano zina umuhimu gani katika jamii yako?",
+      "2. Ni mambo gani unayoweza kujifunza kutokana na ngano za mazimwi katika jamii ya sasa?"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-fasihi-ya-kiswahili.pdf#p51"
+    },
+    {
+     "kicd_code": "8.1.1",
+     "name": "Semi - Misemo - Nahau",
+     "suggested_duration": "4 lessons",
+     "learning_outcomes": [
+      "kueleza maana ya misemo na nahau ili kuipambanua",
+      "kutambua misemo na nahau katika matini ya fasihi simulizi",
+      "kujadili vipengele vya misemo na nahau mbalimbali",
+      "kuchanganua misemo na nahau katika matini",
+      "kujadili nafasi ya misemo na nahau katika jamii",
+      "kutumia misemo na nahau katika tungo za fasihi simulizi",
+      "kuchangamkia matumizi ya misemo na nahau katika tungo za fasihi simulizi"
+     ],
+     "learning_experiences": [
+      "kueleza maana ya misemo na nahau",
+      "kutambua misemo na nahau kutoka kwenye tungo simulizi au kifaa cha kidijitali",
+      "kujadili vipengele vya misemo na nahau mbalimbali",
+      "kutumia kifaa cha kidijitali kusakura matumizi ya misemo na nahau katika tungo za fasihi simulizi",
+      "kujadili nafasi ya misemo na nahau katika jamii",
+      "kujadili kwa kushirikiana na wenzake matumizi ya misemo na nahau",
+      "kuwasilisha misemo na nahau katika jamii."
+     ],
+     "inquiry_questions": [
+      "Misemo na nahau zina umuhimu gani katika jamii?"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-fasihi-ya-kiswahili.pdf#p57"
+    },
+    {
+     "kicd_code": "9.1.1",
+     "name": "Ushairi simulizi Nyimbo",
+     "suggested_duration": "4 lessons",
+     "learning_outcomes": [
+      "kueleza maana ya nyimbo kama kipera cha ushairi simulizi",
+      "kujadili aina mbalimbali za nyimbo katika fasihi simulizi ili kuzitofautisha",
+      "kufafanua sifa za nyimbo katika ushairi simulizi",
+      "kujadili dhima za nyimbo katika jamii",
+      "kuchanganua nyimbo kwa kuzingatia sifa zake",
+      "kufurahia nyimbo za aina mbalimbali kutoka jamii tofauti tofauti."
+     ],
+     "learning_experiences": [
+      "kueleza maana ya nyimbo kama kipera cha ushairi simulizi",
+      "kusikiliza nyimbo zilizorekodiwa katika kifaa cha kidijitali ili kufafanua sifa zake",
+      "kutambua aina mbalimbali za nyimbo alizosikiliza katika kifaa cha kidijitali",
+      "kutumia kifaa cha kidijitali kusakura mtandaoni kuhusu dhima ya nyimbo katika jamii",
+      "kufanya utafiti kuhusu aina mbalimbali za nyimbo katika jamii na kuwasilisha matokeo ya utafiti wake kwa wenzakeili wayatathmini",
+      "kuchanganua aina mbalimbali za nyimbo alizopata kutoka jamii yake",
+      "• kuwaimbia wenzake nyimbo za aina mbalimbali."
+     ],
+     "inquiry_questions": [
+      "Je, nyimbo zina umuhimu gani katika jamii?"
+     ],
+     "core_competencies": [
+      "Mawasiliano na ushirikiano: mwanafunzi anaposhirikiana na wenzake kujadili dhima za nyimbo katika jamii.",
+      "Uwazaji kina na utatuzi wa matatizo: mwanafunzi anapochanganua aina mbali mbali za nyimbo kutoka jamii yake.",
+      "Ubunifu: mwanafunzi anapotunga na kuimba nyimbo za aina mbalimbali kutoka jamii yake.",
+      "Ujuzi wa kidijitali: mwanafunzi anapotumia kifaa cha kidijitali kusakura mtandaoni kuhusu dhima za nyimbo katika jamii.",
+      "Hamu ya ujifunzaji: mwanafunzi anapofanya utafiti kuhusu aina mbali mbali za nyimbo kutoka jamii yake.",
+      "Kujiamini: mwanafunzi anapowasilisha matokeo ya utafiti wake kwa wenzake ili wayatathmini."
+     ],
+     "values": [
+      "Uwajibikaji: mwanafunzi anaposakura maeneo salama mtandaoni anapotafiti kuhusu dhima za nyimbo katika jamii yake.",
+      "Heshima: anapoyathamini maoni ya wenzake anapowasilisha matokeo ya utafiti wake.",
+      "Umoja: mwanafunzi anaposhirikiana na wenzake kujadili dhima ya nyimbo katika jamii.",
+      "Uadilifu: mwanafunzi anapozingatia maadili anapofanya utafiti wake."
+     ],
+     "pertinent_issues": [
+      "Uraia: mwanafunzi anapotunga na kuimba nyimbo kutoka jamii tofautitofauti.",
+      "Mshikamano wa kijamii: mwanafunzi anapotunga na kuimba nyimbo kutoka jamii tofautitofauti.",
+      "Usalama mtandaoni: mwanafunzi anaposakura maeneo salama mtandaoni anapotafiti kuhusu dhima za nyimbo katika jamii yake.",
+      "Utambuzi wa tamaduni mbalimbali: mwanafunzi anapotunga na kuimba nyimbo kutoka jamii tofautitofauti."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-fasihi-ya-kiswahili.pdf#p63"
+    },
+    {
+     "kicd_code": "10.1.1",
+     "name": "Ushairi Simulizi - Maghani ya kawaida",
+     "suggested_duration": "6 lessons",
+     "learning_outcomes": [
+      "kueleza maana ya maghani ya kawaida kama kipera cha ushairi simulizi",
+      "kueleza maana ya majigambo, pembezi na tondozi kama aina za maghani ya kawaida",
+      "kueleza sifa za majigambo, pembezi na tondozi kama aina za maghani ya kawaida",
+      "kujadili umuhimu wa majigambo, pembezi na tondozi katika jamii",
+      "kueleza vipengele vya majigambo, pembezi na tondozi kama aina za maghani ya kawaida",
+      "kuchanganua vipengele vya majigambo, pembezi na tondozi katika matini",
+      "kufurahia matumizi ya majigambo, pembezi na tondozi katika miktadha mbalimbali ya kijamii.",
+      "kueleza maana ya lahaja, utohozi na lugha ya kale kama vipengele vya uhuru wa kishairi",
+      "kutambua matumizi ya lahaja, utohozi na lugha ya kale katika mashairi",
+      "kujadili umuhimu wa lahaja, utohozi na lugha ya kale katika mashairi",
+      "kuchambua mashairi kwa kuzingatia matumizi ya lahaja, utohozi na lugha ya kale",
+      "kufurahia matumizi ya lahaja, utohozi na lugha ya kale katika mashairi."
+     ],
+     "learning_experiences": [
+      "kueleza maana ya maghani ya kawaida kama kipera cha ushairi simulizi",
+      "kusakura mtandaoni au kutafiti katika matini andishi kuhusu sifa za majigambo, pembezi na tondozi",
+      "kuwasilisha matokeo ya utafiti wake kwa wenzake ili wayatolee maoni",
+      "kushirikiana na wenzake kujadili umuhimu wa majigambo, pembezi na tondozi katika jamii",
+      "kutafiti kuhusu majigambo, pembezi na tondozi katika jamii yake na kuwasilisha matokeo ya utafiti wake",
+      "kuwawasilishia wenzake majigambo, pembezi au tondozi",
+      "kueleza vipengele vya majigambo, pembezi na tondozi kama aina za maghani ya kawaida",
+      "kuchanganua vipengele vya majigambo, pembezi na tondozi katika matini",
+      "kuwasilisha ripoti ya utafiti wake kwa wenzake.",
+      "kueleza maana ya lahaja, utohozi na lugha ya kale kama vipengele vya uhuru wa kishairi",
+      "kutambua matumizi ya lahaja, utohozi na lugha ya kale katika mashairi",
+      "kutafiti mtandaoni au matini andishi matumizi ya lahaja, utohozi na lugha ya kale katika mashairi",
+      "kujadili umuhimu wa lahaja, utohozi na lugha ya kale katika mashairi",
+      "kuchambua mashairi ili kuonyesha matumizi wa lahaja, utohozi na lugha ya kale."
+     ],
+     "inquiry_questions": [
+      "Je, unafahamu nini kuhusu majigambo, pembezi na tondozi?",
+      "Lahaja, utohozi na lugha ya kale humsaidiaje mtunzi wa shairi?"
+     ],
+     "core_competencies": [
+      "Mawasiliano na ushirikiano: mwanafunzi anaposhirikiana na wenzke kujadili umuhimu wa majigambo, pembezi na tondozi katika jamii.",
+      "Ujuzi wa kidijitali: mwanafunzi anapotumia kifaa cha kidijitali kusakura mtandaoni sifa za majigambo, pembezi na tondozi.",
+      "Hamu ya ujifunzaji: mwanafunzi anapofanya utafiti kuhusu matumizi ya majigambo, pembezi na tondozi.",
+      "Uwazaji kina na utatuzi wa matatizo: mwanafunzi anapoadika ripoti ya utafiti wake.",
+      "Ubunifu: mwanafunzi anapowasilisha ripoti ya utafiti kuhusu matumizi ya majigambo, pembezi na tondozi."
+     ],
+     "values": [
+      "Heshima: mwanafunzi anapothamini maoni ya wenzake wanapojadiliana kuhusu umuhimu wa majigambo,pembezi na tondozi katika jamii.",
+      "Umoja: mwanafunzi anaposhirikiana na wenzake kujadili umuhimu wa majigambo, pembezi na tondozi katika jamii."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-fasihi-ya-kiswahili.pdf#p69"
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,692 @@
+{
+ "source_pdf": "grade9-creative-arts-and-sports.pdf",
+ "grade": 9,
+ "subject": "creative-arts-and-sports",
+ "general_outcomes": [
+  "By the end of Junior School, the learner should be able to:",
+  "Explore individual abilities in Creative Arts and Sports to nurture talent for self-expression and personal development.",
+  "Exhibit positive intrapersonal and interpersonal skills of communication during activities in Creative Arts and Sports.",
+  "Cultivate social values, moral principles in Creative Arts and Sports for peaceful coexistence.",
+  "Manage resources in the physical environment for sustainable development.",
+  "Promote health and wellness through participation in Creative Arts and Sports activities.",
+  "Embrace ethics and etiquette in producing Creative Arts and Sports items to enhance good citizenship",
+  "Participate in Creative Arts and Sports activities to appreciate Kenya's diverse cultures for harmonious coexistence.",
+  "Address Pertinent and Contemporary Issues through Creative Arts and Sports.",
+  "Apply digital skills in learning and production in Creative Arts and Sports."
+ ],
+ "strands": [
+  {
+   "strand": "Foundations of Creative Arts and Sports",
+   "strand_code": "1.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to identify careers in Creative Arts and Sports (Visual Arts, Physical Education and Sports, Music and Theatre)",
+     "exceeds": "Identifies careers in Creative Arts and Sports with details in all the 5 areas",
+     "meets": "Identifies careers in Creative Arts and Sports in all of the 5 areas.",
+     "approaches": "Identifies careers in Creative Arts and Sports in 2-3 areas.",
+     "below": "Identifies very few careers in Creative Arts and Sports in less than 2 areas."
+    },
+    {
+     "indicator": "Ability to describe components of Creative Arts and Sports; basic elements of play;( theme, characters, plot, conflict, resolution, setting, language).",
+     "exceeds": "Describes 9 components of Creative Arts and Sports clearly and with examples .",
+     "meets": "Describes 9 components of Creative Arts and Sports clearly.",
+     "approaches": "Describes 5-8 components of Creative Arts and Sports.",
+     "below": "Describes 4 or less components of Creative Arts and Sports."
+    },
+    {
+     "indicator": "Ability to execute components of Creative Arts and Sports; Components of fitness (power and reaction time), elements of music (pitch, rhythm, dynamics, form and texture)",
+     "exceeds": "Ability to execute 10 components of Creative Arts and Sports in detail.",
+     "meets": "Ability to execute 10 components of Creative Arts and Sports.",
+     "approaches": "Ability to execute 5-9 components of Creative Arts and Sports.",
+     "below": "Ability to execute less than 5 components of Creative Arts and Sports."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "1.1",
+     "name": "Careers in Creative Arts and Sports",
+     "suggested_duration": "4 lessons",
+     "learning_outcomes": [
+      "identify careers in Creative Arts and Sports",
+      "illustrate entrepreneurial opportunities in Creative Arts and Sports",
+      "appreciate careers in Creative Arts and Sports."
+     ],
+     "learning_experiences": [
+      "research, using digital devices or print material, to identify and discuss careers in Creative Arts and Sports",
+      "interact with actual or virtual Creative Arts spaces (theatre, recording studio, festivals, galleries, fine arts studios, workshops, exhibitions, cultural and sports centres) to observe roles performed by the personnel",
+      "watch videos/recording of entrepreneurial opportunities in Creative Arts and Sports",
+      "discuss to identify different entrepreneurial opportunities in Creative Arts and Sports",
+      "acknowledge own and others’ talents and areas of career interest in Creative Arts and Sports."
+     ],
+     "inquiry_questions": [
+      "What are the career opportunities related to Creative Arts and Sports?"
+     ],
+     "core_competencies": [
+      "Core competencies to be developed:",
+      "Communication and collaboration: the learner enhances communication skills during research and collaborates with peers while discussing careers in Creative Arts and Sports.",
+      "Learning to learn: the learner develops research skills as they search and organise information on careers in Creative Arts and Sports. Values:",
+      "Respect: the learner accommodates others opinions as they discuss the different personnel in Creative Arts and Sports in groups.",
+      "Unity: the learner works with others in groups as they search for information on careers and personnel in Creative Arts and Sports.",
+      "Responsibility: the learner uses digital devices appropriately while observing netiquette. Pertinent and Contemporary Issues (PCIs):",
+      "Life Skills education: the learner gains decision making skills as they explore different careers in Creative Arts and Sports, with a view of identifying a career of interest.",
+      "Social cohesion: the learner visits various Creative Arts and Sports spaces to interact with different personnel involved in Performing Arts activities. Link to other Learning areas: Pre-Technical Studies: the learner enhances digital skills as they research careers and develop entrepreneurial skills learnt in business studies and they engage in income-earning performances."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade9-creative-arts-and-sports.pdf#p14"
+    },
+    {
+     "kicd_code": "1.2",
+     "name": "Components of Creative Arts and Sports",
+     "suggested_duration": "8 lessons",
+     "learning_outcomes": [
+      "describe the elements of a play",
+      "perform activities demonstrating the components of fitness",
+      "name pitches on the grand stave",
+      "group music notes 4 in time 4 incorporating note extension",
+      "construct the scale of F major on a staff",
+      "appreciate the basic elements of Creative Arts and sports."
+     ],
+     "learning_experiences": [
+      "watch actual or virtual play performance to identify the elements of a play",
+      "discuss the basic elements of a play",
+      "observe actual or virtual activities of fitness that show power and reaction time in physical fitness",
+      "demonstrate fitness exercises that enhance power and reaction time",
+      "practise activities that enhance power and reaction time using music",
+      "draw the grand stave and name lines and spaces",
+      "draw the piano keyboard and relate to the grand stave",
+      "construct the scale of F major on both treble and bass staff",
+      "write signs for tied and dotted notes on a staff",
+      "play or sing scales F major ascending and descending and their tonic arpeggios",
+      "sight read simple melodies in C, G and F major for aural recognition of basic element of pitch."
+     ],
+     "inquiry_questions": [
+      "1. How does one create harmony pictorial composition?",
+      "2. Why should athletes avoid performance enhancers to develop physical fitness?",
+      "3. Why is note extension important in music notation?"
+     ],
+     "core_competencies": [
+      "Communication and Collaboration: the learner articulates and shares their understanding of various creative arts genres with peers and educators.",
+      "Learning to Learn: the learner engages in independent research to understand the unique aspects of Creative Arts and Sports genres.",
+      "Critical Thinking and Problem Solving: the learner engages in analysis of components and their roles in Creative Arts and Sports."
+     ],
+     "values": [
+      "• Unity: the learner strengthens teamwork as they collaboratively research and do presentations on the components of Creative Arts and Sports."
+     ],
+     "pertinent_issues": [
+      "Mental Health: the learner participates in Creative Arts and Sports performances for fun and enjoyment to promote mental health and wellbeing.",
+      "Identifying and Nurturing of Gifts and Talents: the learner identifies different components of Creative Arts and Sports."
+     ],
+     "links_to_other_areas": [
+      "Mathematics: as the learner interacts with mathematical patterns to create rhythm in music."
+     ],
+     "resources": [],
+     "kicd_source": "grade9-creative-arts-and-sports.pdf#p16"
+    }
+   ]
+  },
+  {
+   "strand": "Creating and Performing",
+   "strand_code": "2.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to describe creating and performing features in Creative Arts and Sports; contemporary dance techniques (leg work, versatility, fall, recovery, and release), elements of a play character, plot, theme, conflict, resolution, language",
+     "exceeds": "Describes all 10 aspects of creating and performing in Creative Arts and Sports accurately citing relevant illustrations.",
+     "meets": "Describes all 10 aspects of creating and performing in Creative Arts and Sports accurately.",
+     "approaches": "Describes 5-9 aspects of creating and performing in Creative Arts and Sports leaving out minor details.",
+     "below": "Describes 4 or less aspects of creating and performing in Creative Arts and Sports leaving out major details."
+    },
+    {
+     "indicator": "Ability to create items in Creative Arts and Sports: (rhythm, melody, mosaic, modelling a dummy trophy, , logo, play, traditional, photography for sceneries, composition, model a vessel, make a frame loom, make a fabric using twill weaving technique.",
+     "exceeds": "Creates the 12 items in Creative Arts and Sports artistically.",
+     "meets": "Creates the 12 items in Creative Arts and Sports.",
+     "approaches": "Creates 7-11 items in Creative Arts and Sports.",
+     "below": "Creates 6 or less items in Creative Arts and Sports."
+    },
+    {
+     "indicator": "Ability to perform skills in Creative Arts and Sports: rhythm creation and notation, triple jump (hop, step and jump), long distance running (start, arm action, pacing, stride and breathing), melody writing, passes in rugby (spin , pop and basic), kicks in rugby (place and drop), descant recorder playing, passes in basketball (overhead, bounce and chest), dribbling in basketball, (high and low), performing a play, take photographs of scenery, swimming/board games",
+     "exceeds": "Performs the 24 skills in Creative Arts and Sports skilfully and/or creatively.",
+     "meets": "Performs the 24 items in Creative Arts and Sports Correctly and/ or accurately",
+     "approaches": "Performs 12-24 items in Creative Arts and Sports with minor flaws and/or inconsistencies.",
+     "below": "Performs 11 or less items in Creative Arts and Sports with flaws and/or inconsistencies."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "2.1",
+     "name": "Drawing and Painting",
+     "suggested_duration": "8 lessons",
+     "learning_outcomes": [
+      "discuss harmony/unity in a picture",
+      "classify analogous colours on a colour wheel for painting",
+      "illustrate a colour gradation strip for colour harmony",
+      "paint a scenery composition to express harmony/unity",
+      "appreciate own and others pictures"
+     ],
+     "learning_experiences": [
+      "observe pictures to review texture and colour; and discuss unity/harmony",
+      "paint a colour wheel to classify analogous colours",
+      "paint line strip using a pair of analogous colours to study colour harmony",
+      "research to sketch a composition inspired by the surrounding; a sea scape or landscape",
+      "paint a thin wash using the brush stroke technique to create a background",
+      "paint the scenery composition to express texture and colour harmony/unity",
+      "collaboratively, display scenery composition in a working portfolio for peer feedback."
+     ],
+     "inquiry_questions": [
+      "1. Why is colour classification important in painting?",
+      "2. How does the colour affect the mood?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Communication and Collaboration: The learner engages in effective communication by describing and discussing and discuss unity/harmony.",
+      "Learning to Learn: The learner actively research/ review on texture and colour; and discuss unity/harmony Values:",
+      "Respect: The learner respects the significance of Visual Arts by valuing the elements and principles as essential components of artistic expression and recognizing the diverse interpretations of art.",
+      "Unity: The learner collaboratively display their scenery composition in a working portfolio for critique. Pertinent and Contemporary Issues PCIs: Life skills: The learner display scenery composition in a working portfolio for peer feedback. Link to other Learning areas: Social Studies: The learner paint the scenery composition inspired by the environment to express texture and colour harmony/unity"
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade9-creative-arts-and-sports.pdf#p19"
+    },
+    {
+     "kicd_code": "2.2",
+     "name": "Rhythm",
+     "suggested_duration": "10 lessons",
+     "learning_outcomes": [
+      "describe the effect of note extension on rhythmic patterns",
+      "compose a four-bar 4 rhythmic pattern in 4 time",
+      "notate four-bar 4 rhythms in time from 4 dictation",
+      "appreciate rhythmic patterns as a means of creating interest in Creative Arts and Sports."
+     ],
+     "learning_experiences": [
+      "listen to, sing or play tunes involving dotted notes to outline effects of note extension in rhythmic patterns, 4",
+      "beat time to familiar tunes in 4 time considering the crochet as principle beat, accented and weak beats",
+      "group notes of given two-bar rhythmic patterns involving 4 dotted notes in time, 4",
+      "orally compose 4-bar rhythmic patterns involving dotted notes and their corresponding rests, in 4 time and write on monotone, 4",
+      "write rhythmic patterns from dictation",
+      "sight read two-bar rhythms 4 involving dotted notes in time 4 using French rhythm names",
+      "play two-part and imitative 4 rhythmic patterns in time, 4 using body percussion and percussion instruments",
+      "improvise rhythmic patterns to given tunes with rhythms 4 involving dotted notes in time, 4",
+      "make a portfolio of all rhythmic patterns explored."
+     ],
+     "inquiry_questions": [
+      "1. How can various note combinations be used to form rhythms in simple time?",
+      "2. How can one improvise accompaniment patterns for Sports?"
+     ],
+     "core_competencies": [
+      "Communication and Collaboration: The learner, through effective communication, articulates and discusses the effect of note extension in rhythmic patterns, with peers.",
+      "Learning to Learn: The learner actively seeks to understand and apply notation conventions to represent rhythm in music.",
+      "Critical Thinking and Problem Solving: The learner creatively solves problems related to achieving the desired solutions on rhythmic structure in creating rhythmic patterns",
+      "Creativity and Imagination: The learner embraces creativity by exploring innovative factors such as unique combinations of beats, or experimental rhythmic elements as they create rhythmic patterns."
+     ],
+     "values": [
+      "Values:",
+      "Unity: the learner in collaborating with others on rhythm composition projects creates a harmonious atmosphere.",
+      "Responsibility: the learner takes responsibility for their part in the ensemble while playing in unison or in two-part music, ensuring a coordinated and responsible musical performance. Pertinent and Contemporary Issues PCIs:",
+      "Ethnic and racial relations: the learner is acquainted with world music by learning notation and music interpretation.",
+      "Health education: the learner gets insight into personal hygiene by cleaning and maintaining the instruments for use in playing rhythmic patterns. Link to other Learning areas:",
+      "Mathematics: is involved in understanding the mathematical aspects of rhythm, such as beats per minute, time signatures, and mathematical relationships between dotted rhythmic elements.",
+      "Integrated Science: Understanding the science of sound helps learners accurately notate rhythms, considering the physical properties of sound."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade9-creative-arts-and-sports.pdf#p21"
+    },
+    {
+     "kicd_code": "2.3",
+     "name": "Athletics and Mosaic",
+     "suggested_duration": "12 lessons",
+     "learning_outcomes": [
+      "describe the phases in Triple jump",
+      "perform Triple jump for skill acquisition",
+      "identify long distance races in athletics",
+      "perform techniques for long distance running",
+      "explore characteristics of mosaic in sample pictures",
+      "create a mosaic pictorial composition inspired by an athletic event",
+      "acknowledge own and others’ efforts in performing Triple jump, skills in long",
+      "distance races and pictorial composition."
+     ],
+     "learning_experiences": [
+      "observe a live or virtual performance of Triple jump to identify the phases",
+      "demonstrate the approach, take off, flight and landing phases in Triple jump",
+      "practise triple jump skills in athletics",
+      "practise technique used in long distance running while observing safety",
+      "observe others’ performance in Triple jump and long distance running skills and give feedback.",
+      "collaboratively, play games or engage in athletic events where the skills and techniques in Triple jump and long distance running",
+      "source for actual and virtual samples of mosaic work to",
+      "analyse characteristics with focus on; mono media and spacing of materials",
+      "collect and prepare materials and tools for creating a mosaic focusing on material, support, and adhesive",
+      "sketched based on the theme “athletics” on the support",
+      "collaboratively, make the mosaic composition with emphasis on; spacing of materials and colour contrast (material vs support)",
+      "display and talk about own and others' mosaic composition and athletic skills."
+     ],
+     "inquiry_questions": [
+      "1. How has long distance running benefitted Kenya?",
+      "2. Why is it important to follow the phases of jumping in triple jump?",
+      "3. How can mosaic pictorial composition be used to improve the environment?"
+     ],
+     "core_competencies": [
+      "Learning to Learn: the learner gains knowledge performing Triple jump and long distance running skills and gives feedback to enhance confidence.",
+      "Self-efficacy: the learner shows confidence in taking up new challenges and believes in performing new skills in athletics.",
+      "Critical Thinking and Problem Solving: learners make decisions and decide on the skill to apply at a particular phase while running long distance.",
+      "Creativity and Imagination: the learner creates an artistic themed mosaic composition for describing the long distance races.",
+      "Citizenship: the learner searches and makes a mosaic of Kenyan long distance athletes."
+     ],
+     "values": [
+      "Values:",
+      "Love: the learner shows love for the country as they identify and appreciate a Kenyan athlete and make a mosaic composition.",
+      "Responsibility: the learner cares for self and others, as they participate in skills for long distance running and triple jump while observing safety. Pertinent and Contemporary Issues (PCIs):",
+      "Social Cohesion-the learner engages in various creative arts and sports activities, appreciating the diverse cultures and values from different communities to enhance social cohesion.",
+      "Citizenship: learner appreciates Kenyan athletes as they create mosaic compositions of their favourite Kenyan athletes. Link to other learning areas:",
+      "English: language skills are applied when the learner discusses different techniques in long-distance races, enhancing their ability to express ideas clearly.",
+      "Mathematics: Analysing the pacing, speed, and strategies involved in long-distance races incorporates mathematical concepts into the learning process.",
+      "Pre-Technical Studies: the learner interacts with digital devices when searching Kenyan athletes."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade9-creative-arts-and-sports.pdf#p24"
+    },
+    {
+     "kicd_code": "2.4",
+     "name": "Melody",
+     "suggested_duration": "10 lessons",
+     "learning_outcomes": [
+      "describe the use of variation in composing a melody",
+      "compose a four-bar melody in F Major and 4 time, 4",
+      "notate four-bar, 4 melodies in time, 4",
+      "perform melodies in F 4 major and time, 4",
+      "value the use of melody in Creative Arts and Sports."
+     ],
+     "learning_experiences": [
+      "sing familiar tunes and discuss how variation has been achieved in the different phrases of the melody",
+      "perform the scale of F major and its tonic arpeggio",
+      "write a 2-bar answering phrase in F major which is a variation of the given 4 opening phrase in time, 4",
+      "improvise 2-bar opening phrases with variation in pitches to given answering 4 phrases in time and F major, 4",
+      "create a four-bar melody in F major and 4 in time with varied phrases observing 4 integrity",
+      "add phrase marks to the four-bar composed melodies indicating dynamics as loud for one phrase and soft for the other",
+      "sight read the melodies composed by self and others",
+      "listen to melodies written by self and others and give feedback."
+     ],
+     "inquiry_questions": [
+      "How can a melody be made interesting?"
+     ],
+     "core_competencies": [
+      "Creativity and Imagination: The learner explores innovative techniques to create variation in melodies.",
+      "Learning to Learn: The learner applies knowledge gained from earlier grades on the process of melody composition.",
+      "Communication and Collaboration: The learner communicates with peers as they discuss how variation has been achieved in the different phrases of the melody"
+     ],
+     "values": [
+      "Unity: The learner collaborates with others in discussions about variation techniques in melody writing.",
+      "Responsibility: The learner ensures accuracy and clarity in representing melodies, taking responsibility for conveying musical ideas effectively.",
+      "Integrity: The learner strives to be true to their artistic vision, avoiding plagiarism and embracing originality in the creation of melodies."
+     ],
+     "pertinent_issues": [
+      "Moral Education: The learner sings familiar songs with messages on values as they discuss how variation has been achieved in the different phrases of the melody"
+     ],
+     "links_to_other_areas": [
+      "Mathematics: The learner is involved in understanding the mathematical aspects of rhythm, such as beats per bar, time signatures, and mathematical relationships between different melodic elements.",
+      "Integrated Science: The learner accurately notates melodies, considering the physical properties of sound."
+     ],
+     "resources": [],
+     "kicd_source": "grade9-creative-arts-and-sports.pdf#p27"
+    },
+    {
+     "kicd_code": "2.5",
+     "name": "Rugby",
+     "suggested_duration": "10 lessons",
+     "learning_outcomes": [
+      "distinguish passes in Rugby",
+      "perform passing skills in Rugby",
+      "perform kick techniques in Rugby",
+      "value own and others' efforts in applying passing and kicking skills for enjoyment."
+     ],
+     "learning_experiences": [
+      "watch a live, or virtual Rugby game to identify passes and kicks",
+      "demonstrate passing skills in Rugby",
+      "practise the spin, pop and basic passes in Rugby",
+      "demonstrate kicking skills in Rugby",
+      "practise the drop and place kick techniques in Rugby",
+      "use the skills of passing and kicking to play a modified game in Rugby while observing the rules of the game and safety."
+     ],
+     "inquiry_questions": [
+      "What are the best ways to advance a ball in a game of Rugby?"
+     ],
+     "core_competencies": [
+      "Communication and Collaboration: The learner communicates effectively by understanding and articulating the various types of passes in Rugby.",
+      "Digital Literacy: the learner interacts with digital devices to observe virtual performances in Rugby, to enhance appropriate use of technology."
+     ],
+     "values": [
+      "Values:",
+      "Integrity: The learner upholds a high standard of integrity by respecting the rules of the game and engaging in skill acquisition with honesty and transparency.",
+      "Unity: The learner actively collaborates with teammates, emphasising unity in executing passing drills to achieve collective skill acquisition. Pertinent and Contemporary Issues (PCIs):",
+      "Health promotion issues-the learner enhances health and wellbeing while engaging in Rugby games to reduce the chances of lifestyle diseases.",
+      "Life skills -the learner develops the skill of coping with emotions when they play a modified Rugby game safely. Link to other learning areas:",
+      "Integrated Science: Exploring the science behind different kicking techniques incorporates principles of force, motion, and anatomy.",
+      "English: language skills are utilised when learners communicate and distinguish types of passes in Rugby, enhancing their ability to express ideas clearly."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade9-creative-arts-and-sports.pdf#p29"
+    },
+    {
+     "kicd_code": "2.6",
+     "name": "Photography",
+     "suggested_duration": "8 lessons",
+     "learning_outcomes": [
+      "identify different viewpoints in photography",
+      "take photographs of a scenery in viewpoint for showcase",
+      "present the photographs for appreciation."
+     ],
+     "learning_experiences": [
+      "observe virtual and /or actual samples of photographs to analyse the bird’s, normal and worm’s viewpoints",
+      "research/take a field walk to explore and identify scenic point in the surroundings",
+      "take photographs inspired by the environment to showcase beautiful scenes in our country (Kenya) focusing on; varied scene and viewpoints",
+      "select and store the photographs in an E folder to make a still/slide presentation",
+      "make a presentation for own reflection and peer feedback in a just manner."
+     ],
+     "inquiry_questions": [
+      "Which are the ethical issues to consider in photography?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Citizenship: learner visit their surroundings to take photographs to showcase beautiful scenes in our country (Kenya).",
+      "Creativity and Imagination: learner evaluates and selects photograph, considering different viewpoints and perspectives, and makes informed decisions during the editing process. Values: Respect: learner present their photographs and give feedback in a just manner.. Pertinent and Contemporary Issues (PCIs): Environmental Awareness: learner appreciate beautiful environment as they take a field walk to explore and identify scenic point in the surroundings Link to other learning areas: Social Studies: Understanding the geographical and environmental aspects of different viewpoints in landscape photography."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade9-creative-arts-and-sports.pdf#p31"
+    },
+    {
+     "kicd_code": "2.7",
+     "name": "Descant Recorder",
+     "suggested_duration": "10 lessons",
+     "learning_outcomes": [
+      "identify the fingering of notes in the scale of F major",
+      "play the scale of F major from staff notation on a descant recorder",
+      "perform a solo piece in F major on a descant recorder, applying correct playing techniques",
+      "value playing music on the descant recorder."
+     ],
+     "learning_experiences": [
+      "read, and interpret fingering charts to play the notes of F major scale",
+      "play the scale of F Major ascending and descending on staff notation",
+      "play simple melodies in the scale of F major on staff notation",
+      "watch actual or virtual instrumental tutorials to demonstrate and explain techniques of pinching on a descant recorder",
+      "explore actual or virtual demonstrations of playing techniques of descant recorder to explain performance directions for dynamics crescendo and diminuendo, 4",
+      "play simple melodies in time, and in 4 F major observing performance directions for dynamics",
+      "use digital devices responsibly to record performances for future reference."
+     ],
+     "inquiry_questions": [
+      "What is the importance of applying technique when playing instrumental music?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Self-Efficacy: The learner confidently reads and interprets fingering charts as they play the notes of F major scale.",
+      "Creativity and Imagination: The learner plays simple melodies in 4 4 time, and in F major observing performance directions for dynamics. Values:",
+      "Responsibility: The learner acquires self-discipline as they use digital devices to record performances for future reference.",
+      "Social justice: The learner and peers share roles fairly in executing musical duties towards playing the descant recorder. Pertinent and Contemporary Issues (PCIs):",
+      "Safety and security: The learner observes safety as they clean and play instruments.",
+      "Self-awareness: The learner identifies skills they are good at and connect them with their talents in instrumental playing. Link to other Learning areas:",
+      "Integrated Science: The learner understands the science of sound production to enhance comprehension of playing techniques, especially regarding the impact on the quality of sound.",
+      "Pre-technical and Business Studies: The learner acquires concepts and procedures for understanding technical aspects in assembling, playing, caring for and maintaining the Descant Recorder they play."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade9-creative-arts-and-sports.pdf#p33"
+    },
+    {
+     "kicd_code": "2.8",
+     "name": "Play",
+     "suggested_duration": "12 lessons",
+     "learning_outcomes": [
+      "describe the format of a play script",
+      "create a one act play addressing a societal issue",
+      "act a role in a play performance",
+      "recognise play performance as a channel of addressing societal issues."
+     ],
+     "learning_experiences": [
+      "read a sample play to identify the format of a script",
+      "brainstorm, in groups, an idea for a short play",
+      "create a short play script using the play elements",
+      "select relevant prop(s), costumes and music for the play performance",
+      "perform vocal and physical warm up activities in preparation for play performance",
+      "rehearse a role in the play (paying attention to use of voice, body, movement, space, use of props, music, and costume)",
+      "perform a role in a play performance before an audience",
+      "record experiences in a journal."
+     ],
+     "inquiry_questions": [
+      "1. How can a play performance be made believable to an audience?",
+      "2. Why is it important to decorate props to be used for performance?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Communication: the learner speaks clearly during class discussions and when acting in a play.",
+      "Collaboration: the learner participates in group activities when creating and performing in a play",
+      "Creativity and Imagination: the learner sharpens observation skills of the environment to note challenges in society and to experiment with new ideas for addressing these challenges using play performance. Critical thinking and problem solving: the learner develops problem identification skills and conflict resolution mechanisms when creating and performing a play.",
+      "Citizenship: the learner develops a sense of civic mindedness and social awareness in creating and performing plays which address societal concerns.",
+      "Digital literacy: the learner interacts with digital devices when selecting and using music for the play performance. Values:",
+      "Responsibility: the learner develops skills of self-drive, accountability and determination while creating and performing a play.",
+      "Social Justice: the learner fosters fairness and justice while working in groups and through creation of fictional works.",
+      "Peace: the learner works in harmony with others during rehearsal and performance sessions.",
+      "Integrity: the learner is equipped with the value of honesty through the creation of own original works devoid of plagiarism. Pertinent and Contemporary Issues (PCIs):",
+      "Learner support programmes: the learner identifies and nurtures talent in acting or any other role in play performance.",
+      "Life skills education: the learner gains self-esteem and assertiveness while performing on stage.",
+      "Citizenship Education: the learner uses the play performance space to create awareness about societal issues. Link to other Learning areas:",
+      "English and Kiswahili: the learner takes part in class discussions using these languages as media for communication.",
+      "Pre-technical Studies: the learner uses computer literacy skills to manipulate digital gadgets in play creation and performance.",
+      "Religious Studies: the learner performs plays which advocate for social and moral values in society."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade9-creative-arts-and-sports.pdf#p35"
+    },
+    {
+     "kicd_code": "2.9",
+     "name": "Basketball and Logo Design",
+     "suggested_duration": "12 lessons",
+     "learning_outcomes": [
+      "perform passes in Basketball for skill acquisition",
+      "execute dribbling in Basketball for skill acquisition",
+      "design logo for a Basketball team",
+      "appreciate each other’s skills in Basketball game"
+     ],
+     "learning_experiences": [
+      "watch a live or virtual Basketball game and identify the passing and dribbling skills in Basketball",
+      "demonstrate the overhead, bounce and chest passes in Basketball",
+      "demonstrate high and low dribbling in Basketball",
+      "practise passing and dribbling skills while observing safety",
+      "research to examine actual or virtual samples of a logo",
+      "design a logo for a basketball team, name/letter combination",
+      "apply the skills learnt in Basketball in a mini-Basketball game in teams displaying the team logos",
+      "display the logo around the basketball pitch for appreciation."
+     ],
+     "inquiry_questions": [
+      "1. How can a poster be made an effective means of communicating?",
+      "2. Why is it important to combine passing and dribbling in Basketball?"
+     ],
+     "core_competencies": [
+      "Core Competencies:",
+      "Critical Thinking and Problem Solving: the learner assesses defensive strategies, anticipates opponents' moves, and adapts their dribbling techniques accordingly, showcasing critical thinking skills.",
+      "Creativity and Imagination: the learner creates an identification logo for the basketball teams.",
+      "Communication and Collaboration: the learner communicates and shares ideas on the different basketball passes when practising different basketball passes. Values:",
+      "Unity: the learner values the contributions of each team member, recognizing that unity enhances overall team performance.",
+      "Integrity: the learner exhibits integrity by following the rules and ethical guidelines of the game. They prioritise fair play and honesty during skill acquisition, ensuring that their progress aligns with principles of integrity. Pertinent and Contemporary Issues PCIS:",
+      "Health promotion issues: as the learner gains physical fitness through games for prevention of lifestyle diseases",
+      "Safety and Security: as learners observes safety measures during mini games and handling sharp tools while trimming and fixing the posters. Link to other learning areas: Mathematics: Dribbling involves quick calculations of distances and angles. The learner applies mathematical concepts to determine the most efficient paths and angles during dribbling, reinforcing practical mathematical application."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade9-creative-arts-and-sports.pdf#p37"
+    },
+    {
+     "kicd_code": "2.10",
+     "name": "Indigenous Kenyan Crafts",
+     "suggested_duration": "10 lessons",
+     "learning_outcomes": [
+      "describe coil techniques in pottery",
+      "model a vessel using coil method",
+      "make a frame loom for weaving",
+      "make a fabric using 2/1 twill weaving technique",
+      "display and critique own and others’ woven articles."
+     ],
+     "learning_experiences": [
+      "study pottery items from actual and virtual sources and analyse coil technique",
+      "source clay and prepare clay by removing impurities, drying, kneading and wedging",
+      "make coils of uniform thickness",
+      "join clay coils to form a vessel",
+      "smoothen the inside",
+      "decorate the slightly dry vessel by incising and dry under shade.",
+      "collaboratively fire the completely dry vessel using an open pit kiln",
+      "explore actual and virtual resources to study making a frame loom and 2/1 twill weaves",
+      "collaboratively, make a wooden mitre joint frame loom, (equal spacing of nails).",
+      "secure the warps on the loom and interlace the wefts using 2/1 twill techniques to weave a fabric",
+      "display and talk about own and peers’ articles."
+     ],
+     "inquiry_questions": [
+      "1. Why is clay the preferred material for pottery?",
+      "2. How is a fabric woven?"
+     ],
+     "core_competencies": [
+      "Creativity and Imagination: the learner makes a fabric using 2/1 twill weaving technique",
+      "communication and collaboration: the learner collaboratively fires the bone dry vessel using an open pit kiln.",
+      "Self-efficacy: the learner displays and talk about own and peers’ articles."
+     ],
+     "values": [
+      "Respect: the learner gains respect for others’ opinions while creating and sharing own and peers’ articles.",
+      "Responsibility: the learner acquires self-discipline when making a wooden mitre joint frame loom.",
+      "Patriotism: the learner gains appreciation for Indigenous Kenyan Crafts through interaction with pottery items from actual and virtual sources."
+     ],
+     "pertinent_issues": [
+      "Hygiene and safety: the learner fires the bone dry vessel using an open pit kiln observing safety.",
+      "Environmental conservation: the learner sources clay and prepares clay responsibly."
+     ],
+     "links_to_other_areas": [
+      "Agriculture: the learner sources clay thus understanding types of soils ."
+     ],
+     "resources": [],
+     "kicd_source": "grade9-creative-arts-and-sports.pdf#p39"
+    },
+    {
+     "kicd_code": "2.11.1",
+     "name": "Swimming",
+     "suggested_duration": "10 lessons",
+     "learning_outcomes": [
+      "describe the body position in standing dive and butterfly stroke in swimming",
+      "perform a standing dive in swimming",
+      "perform the butterfly stroke in swimming",
+      "appreciate swimming as a life skill."
+     ],
+     "learning_experiences": [
+      "watch a live or virtual demonstration to identify the standing dive and butterfly stroke",
+      "demonstrate the phases of standing dive",
+      "practise standing dive while observing safety",
+      "demonstrate the phases of butterfly stroke",
+      "practise the butterfly stroke while observing safety and coordination",
+      "• practise combination of standing dive and butterfly stroke."
+     ],
+     "inquiry_questions": [
+      "1. How can swimming skills be performed safely?",
+      "2. Why is synchrony important in butterfly stroke?"
+     ],
+     "core_competencies": [
+      "Self-Efficacy: the learner develops confidence through mastery and performing skills in swimming.",
+      "Learning to Learn: the learner is exposed to research and inquiry in swimming skills.",
+      "Communication and Collaboration; the learner works in a group to practise different swimming skills."
+     ],
+     "values": [
+      "Unity: the learner works in a team as they play during swimming.",
+      "Responsibility: the learner Handles the swimming equipment with care and keeps them well after use.",
+      "Respect: the learner takes turns to demonstrate the skills in swimming."
+     ],
+     "pertinent_issues": [
+      "Lifestyle diseases: physical fitness is attained during swimming",
+      "Safety and security: enhanced as the learner wears suitable swimming clothing and ensures that the pool area is safe.",
+      "Self-awareness: the learner is able to identify suitable skills and applies them in swimming."
+     ],
+     "links_to_other_areas": [
+      "Agriculture: use of water for swimming and learning survival skills during swimming activities raises awareness of water conservation, connecting the learning outcomes to agricultural concepts related to resource management.",
+      "English and Kiswahili: the learner enhances language skills as they describe body positions in swimming in both English and Kiswahili."
+     ],
+     "resources": [],
+     "kicd_source": "grade9-creative-arts-and-sports.pdf#p41"
+    },
+    {
+     "kicd_code": "2.11.2",
+     "name": "Kenyan Indigenous Games (Optional) Board games",
+     "suggested_duration": "10 lessons",
+     "learning_outcomes": [
+      "identify types of indigenous board games played in Kenya",
+      "perform different indigenous board games",
+      "perform indigenous board games to background music for enjoyment",
+      "appreciate the role played by indigenous board games for mental health.",
+      "analyse a play performance",
+      "examine ethical practices in sports",
+      "analyse a solo vocal piece of music",
+      "critique exhibited artworks for inspiration",
+      "appreciate the role of analysis in adding value to Creative Arts and Sports."
+     ],
+     "learning_experiences": [
+      "watch a virtual or live demonstration of indigenous board games and identify the skills observed in the games",
+      "demonstrate indigenous board game skills while observing safety",
+      "practice skills in different indigenous board games while observing safety",
+      "play games using different indigenous board games with background musical rhythm.",
+      "research on the criteria for evaluating a play",
+      "analyse a given play performance to evaluate theme, setting, conflict, resolution, use of voice, use of body movement, internalisation, audience involvement, props, costume, overall impression",
+      "discuss ethical issues in Sports (Anti-doping)",
+      "research on how to analyse a solo vocal piece of music",
+      "listen to and analyse a solo vocal piece of music",
+      "visit an actual or virtual galleries to see and analyse artworks",
+      "create a catalogue of the exhibited artworks",
+      "discuss to reflect on the work of art for inspiration and",
+      "mentorship",
+      "discuss ethical issues in Creative Arts."
+     ],
+     "inquiry_questions": [
+      "1. How do indigenous board games enhance mental relaxation?",
+      "2. Why are board games considered an indigenous game?",
+      "1. Why is analysis an important skill in Creative Arts and Sports?",
+      "2. How can analysis of creative arts and sports enhance creativity?"
+     ],
+     "core_competencies": [
+      "Core competency to be developed:",
+      "Communication and Collaboration: the learner works with others in indigenous board games.",
+      "Learning to Learn: the learner acquires and masters skills in indigenous board games. Values:",
+      "Responsibility: the learner takes on different roles during indigenous board games.",
+      "Unity: the learner works with others in indigenous board games. Pertinent and Contemporary Issues (PCIs):",
+      "Safety: the learner observes safety rules when playing indigenous board games.",
+      "Health and Fitness: the learner improves fitness through indigenous board games for a healthy lifestyle. Link to other learning areas: Mathematics: the learner keeps counting during indigenous board games.",
+      "Self-Efficacy: the learner gains confidence in their ability to evaluate and appreciate diverse forms of artistic expression as they apply their knowledge and skills to assess the artistic merits of visual representations in these arts.",
+      "Citizenship: the learner exhibits cultural citizenship by exploring and understanding the cultural context and significance of the folk song."
+     ],
+     "values": [
+      "Unity: Through collaborative efforts in understanding diverse perspectives, the learner contributes to a sense of unity within the learning community.",
+      "Integrity: The learner approaches the evaluation task with integrity, ensuring honest and principled assessments that contribute to the ethical critique of artistic expression."
+     ],
+     "pertinent_issues": [
+      "Life Skills: the learner develops analytical and creative thinking as they discuss and critique the Creative Arts and Sports areas.",
+      "Learner Support Programmes: the learner exercises fair play as they critique and give honest opinions respectfully of their own and other’s displayed disciplines."
+     ],
+     "links_to_other_areas": [
+      "English and Kiswahili: language skills are essential in articulating and expressing thoughts when examining and discussing criteria for Creative Arts and Sports evaluation.",
+      "Social Studies: perspectives can be applied to understand the historical, cultural, and societal context of the solo vocal song and its significance within the community"
+     ],
+     "resources": [],
+     "kicd_source": "grade9-creative-arts-and-sports.pdf#p43"
+    }
+   ]
+  }
+ ]
+}

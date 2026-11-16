@@ -1,0 +1,539 @@
+{
+ "source_pdf": "grade8-agriculture-nutrition.pdf",
+ "grade": 8,
+ "subject": "agriculture-nutrition",
+ "general_outcomes": [
+  "By end of Junior School, the learner should be able to:",
+  "Participate actively in agricultural and household activities in conservation of resources.",
+  "Use scarce resources through innovative practices to contribute towards food and nutrition security.",
+  "Engage in food production processes for self-sustainability, health and economic development.",
+  "Adopt personal and environmental hygiene practices for healthy living.",
+  "Apply the use of appropriate production techniques, innovative technologies, digital and media resources to enhance sustainable agricultural and household practices.",
+  "Appreciate agricultural and household skills as a worthy niche for hobby, career development, further education and training."
+ ],
+ "strands": [
+  {
+   "strand": "Conservation of Resources",
+   "strand_code": "1.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to describe conservation measures on environmental resources: (soil erosion control by cultural methods; and water conservation through harvesting and storage).",
+     "exceeds": "The learner can describe conservation measures with clearly referenced details.",
+     "meets": "The learner can describe conservation measures with clear details.",
+     "approaches": "The learner can describe conservation measures with some few unclear details.",
+     "below": "The learner can describe conservation measures with a lot of unclear details."
+    },
+    {
+     "indicator": "Ability to carry out conservation measures on environmental resources: (soil erosion control by cultural methods; and water conservation through harvesting and storage).",
+     "exceeds": "The learner can identify site that require conservation, applicable measure, assemble requirements, carry out a sustainable conservation activity.",
+     "meets": "The learner can identify site that require conservation, applicable measure, assemble requirements, carry out the conservation activity.",
+     "approaches": "The learner can identify site that require conservation, applicable measure, assemble requirements for the activity.",
+     "below": "The learner can identify site that require conservation and applicable conservation measure."
+    },
+    {
+     "indicator": "Ability to exhibit responsibility in conserving soil and water resources: (dependable in areas of",
+     "exceeds": "The learner exhibits four indicators of responsibility in the conservation environmental",
+     "meets": "The learner exhibits three indicators of responsibility in the conservation environmental",
+     "approaches": "The learner exhibits two indicators of responsibility in the conservation environmental",
+     "below": "The learner exhibits less than two indicators of responsibility in the conservation environmental resources."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "1.1",
+     "name": "Soil Conservation Measures",
+     "suggested_duration": "10 lessons",
+     "learning_outcomes": [
+      "describe methods of soil conservation in agricultural environment",
+      "carry out soil conservation activities in the environment",
+      "demonstrate caring attitude towards soil in the environment."
+     ],
+     "learning_experiences": [
+      "Learners are guided to:",
+      "search and share information on methods of soil conservation (strip cropping, grassed water ways, stone lines, trash lines, soil bunds) using digital devices and print media.",
+      "explore the school environment and carry out activities on soil conservation in the school such as strip cropping, grassed water ways, stone lines, trash lines and soil bunds.",
+      "construct a farm model using materials such as cartons, cardboards, soil and papier-mache for displaying soil conservation measures on a farm."
+     ],
+     "inquiry_questions": [
+      "How can we conserve soil in the environment?"
+     ],
+     "core_competencies": [
+      "Creativity and imagination: observation skills as learners demonstrate methods of soil conservation using a farm model."
+     ],
+     "values": [
+      "Unity: collaboration with others while working in teams to construct a farm model."
+     ],
+     "pertinent_issues": [
+      "Pertinent and contemporary issues: Environmental awareness as learners conserve soil from erosion. Link to other learning areas: Learners relate construction of a farm model with conservation structures using artistic skills learnt in Creative Arts and Sports."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade8-agriculture-nutrition.pdf#p13"
+    },
+    {
+     "kicd_code": "1.2",
+     "name": "Water Harvesting and Storage",
+     "suggested_duration": "9 lessons",
+     "learning_outcomes": [
+      "discuss ways of storing harvested water for domestic use",
+      "take part in harvesting and storing water in the school for domestic use",
+      "show responsibility in harvesting and storing water for domestic use."
+     ],
+     "learning_experiences": [
+      "Learners are guided to:",
+      "search and share information in groups, on how harvested water can be stored for domestic purposes, using methods such as shallow water pans, water ponds and suitable water containers.",
+      "initiate measures of their choice towards water harvesting and storage in the school.",
+      "make class presentations on possible initiatives and maintenance practices that can be made to harvest and store rain water and surface runoff in the school environment.",
+      "resources."
+     ],
+     "inquiry_questions": [
+      "How can we harvest and store water for domestic purposes?"
+     ],
+     "core_competencies": [
+      "Critical thinking and problem solving: open-mindedness and creativity skills as learners analyse and initiate water harvesting and storage measures."
+     ],
+     "values": [
+      "Responsibility: learners undertake assigned roles while participating in water harvesting and storage initiatives in the school."
+     ],
+     "pertinent_issues": [
+      "Environmental conservation as learners harvest and store rainwater in the school environment."
+     ],
+     "links_to_other_areas": [
+      "Learners relate water harvesting and storage to conservation of the community environment learnt in Social Studies."
+     ],
+     "resources": [],
+     "kicd_source": "grade8-agriculture-nutrition.pdf#p15"
+    }
+   ]
+  },
+  {
+   "strand": "Food Production Processes",
+   "strand_code": "2.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to explain the aspects of food production processes: (kitchen and backyard gardening, rearing poultry in a fold, pest and disease control in vegetables, preparation of fish and poultry, preserving milk and meat, cooking a balanced meal).",
+     "exceeds": "The learner can explain eight food production processes.",
+     "meets": "The learner can explain six to seven food production processes.",
+     "approaches": "The learner can explain three to five food production processes.",
+     "below": "The learner can explain less than three food production processes."
+    },
+    {
+     "indicator": "Ability to carry out various food production processes: (kitchen and backyard gardening, rearing poultry in a fold, pest and disease control in vegetables, preparation of fish and poultry, preserving milk and meat, cooking a balanced meal).",
+     "exceeds": "The learner can carry out eight food production processes.",
+     "meets": "The learner can carry out six to seven food production processes.",
+     "approaches": "The learner can carry out three to five food production processes.",
+     "below": "The learner can carry out less than three food production processes."
+    },
+    {
+     "indicator": "Ability to exhibit integrity in carrying out the various food production processes: (adherence to ethical procedures, use of resources prudently, is honest and accountable in allocated tasks).",
+     "exceeds": "The learner exhibits four indicators of integrity in carrying out food production processes.",
+     "meets": "The learner exhibits three indicators of integrity in carrying out food production processes.",
+     "approaches": "The learner exhibits two indicators of integrity in carrying out food production processes.",
+     "below": "The learner exhibits less than two indicators of integrity in carrying out food production processes."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "2.1",
+     "name": "Kitchen and Backyard Gardening",
+     "suggested_duration": "9 lessons",
+     "learning_outcomes": [
+      "explain the role of kitchen and backyard garden in food production",
+      "establish a kitchen and backyard garden for food production",
+      "adopt the use of kitchen and backyard garden for food production."
+     ],
+     "learning_experiences": [
+      "Learners are guided to:",
+      "use digital and print resource to search for the roles of kitchen and backyard garden in food production such as production of fresh healthy foods, saving money and readily accessible food.",
+      "prepare a kitchen or backyard garden and plant various crops such as vegetables, herbs and spices.",
+      "take care of the crops established in the kitchen and backyard garden to adopt their use in food production."
+     ],
+     "inquiry_questions": [
+      "How does kitchen garden contribute to food production?"
+     ],
+     "core_competencies": [
+      "Critical thinking and problem solving: evaluation and decision skills as the learners establish a kitchen or a backyard garden for food production."
+     ],
+     "values": [
+      "Unity: collaboration with others while learners establish a kitchen or backyard garden."
+     ],
+     "pertinent_issues": [
+      "Poverty eradication as learners establish their garden to grow own foods."
+     ],
+     "links_to_other_areas": [
+      "Learners relate growing of own food in kitchen and backyard garden to financial literacy skills learnt in Pre-Technical Studies."
+     ],
+     "resources": [],
+     "kicd_source": "grade8-agriculture-nutrition.pdf#p18"
+    },
+    {
+     "kicd_code": "2.2",
+     "name": "Poultry Rearing in a Fold",
+     "suggested_duration": "11 lessons",
+     "learning_outcomes": [
+      "describe a fold in poultry rearing",
+      "construct a fold for rearing poultry",
+      "rear poultry in a fold",
+      "show responsibility in rearing of poultry."
+     ],
+     "learning_experiences": [
+      "Learner is guided to:",
+      "search and observe video clips or images on poultry folds and share experiences on how poultry folds look like.",
+      "use locally available materials such as reused and recycled wires, plastic and wood materials to construct a poultry fold.",
+      "conduct a project: learners to rear poultry of their choice in a fold unit to practise moving of the folds, feeding, watering, sanitation, protection from predators and harsh weather."
+     ],
+     "inquiry_questions": [
+      "How can we rear poultry in a fold for food production?"
+     ],
+     "core_competencies": [
+      "Creativity and imagination: networking skills as learners undertake group task and gain new perspective on how to construct a poultry fold."
+     ],
+     "values": [
+      "Responsibility: carrying out assigned tasks in the project for construction of a poultry fold."
+     ],
+     "pertinent_issues": [
+      "Financial literacy as learners recycle and reuse materials to save on costs in construction of a poultry fold."
+     ],
+     "links_to_other_areas": [
+      "Learners relate dimensions of a poultry fold to measurements in Mathematics."
+     ],
+     "resources": [],
+     "kicd_source": "grade8-agriculture-nutrition.pdf#p19"
+    },
+    {
+     "kicd_code": "2.3",
+     "name": "Crop Pest and Disease Control",
+     "suggested_duration": "10 lessons",
+     "learning_outcomes": [
+      "identify vegetable crops attacked by pests and diseases",
+      "control pests and diseases on vegetable crops",
+      "acknowledge importance of controlling pests and diseases in vegetable production."
+     ],
+     "learning_experiences": [
+      "Learners are guided to:",
+      "take a field excursion to observe and identify vegetable crops that are attacked by pests (punctured leaves, cut-off seedlings, curling leaves) and the common sites where the pests are found.",
+      "take a field excursion to a vegetable garden, observe and identify vegetable crops affected by disease (wilting plants, black and brown spots and rotting of plant parts).",
+      "control pests on vegetables using methods such as handpicking, removing affected crop parts, uprooting heavily affected crops and applying natural pesticides such as ash.",
+      "control diseases on vegetables using methods such as removing affected parts and uprooting heavily affected crops.",
+      "discuss and make presentations on importance of controlling crop pests",
+      "and diseases in vegetable production."
+     ],
+     "inquiry_questions": [
+      "1. How can we identify vegetable crops attacked by pests and diseases?",
+      "2. How can we control pests and diseases affecting crops?"
+     ],
+     "core_competencies": [
+      "Learning to learn: learners carry out research during field excursion to identify vegetable crop pests and diseases."
+     ],
+     "values": [
+      "Respect: accommodating diverse opinions while learners discuss and make presentations on the importance of controlling pests and diseases in vegetable crops."
+     ],
+     "pertinent_issues": [
+      "Disaster risk reduction as learners control pests and diseases to prevent outbreaks."
+     ],
+     "links_to_other_areas": [
+      "Learners relate control of pest and diseases in crops to farming for economic activities learnt in Social Studies."
+     ],
+     "resources": [],
+     "kicd_source": "grade8-agriculture-nutrition.pdf#p20"
+    },
+    {
+     "kicd_code": "2.4",
+     "name": "Preparation of Animal Products",
+     "suggested_duration": "9 lessons",
+     "learning_outcomes": [
+      "explain the importance of processing fish and dressing poultry carcass.",
+      "process fresh fish for various purposes",
+      "dress poultry carcass for various purposes.",
+      "uphold ethical and safety practices in preparation of animal products."
+     ],
+     "learning_experiences": [
+      "Learners are guided to:",
+      "discuss to share experiences on the importance of processing fish and dressing poultry.",
+      "process fresh fish through scaling, gutting, cleaning, salting, and frying.",
+      "dress poultry carcass (beheading, defeathering, removal of offal, cleaning) for various uses.",
+      "make presentations to create awareness on ethical issues (humane killing and handling while slaughtering) and safety practices in preparation of animal products."
+     ],
+     "inquiry_questions": [
+      "1. How can we process fresh fish?",
+      "2. How can we dress poultry carcass?"
+     ],
+     "core_competencies": [
+      "Learning to learn: collaborative working as learners undertake processing of fish and poultry."
+     ],
+     "values": [
+      "Integrity: application of ethical procedures in the processing of fish and poultry."
+     ],
+     "pertinent_issues": [
+      "Animal welfare: learners practise humane killing of poultry during slaughtering."
+     ],
+     "links_to_other_areas": [
+      "Learners relate the parts removed in fish and poultry to knowledge of parts of fish and birds learnt in Integrated Science."
+     ],
+     "resources": [],
+     "kicd_source": "grade8-agriculture-nutrition.pdf#p22"
+    },
+    {
+     "kicd_code": "2.5",
+     "name": "Preserving animal products",
+     "suggested_duration": "9 lessons",
+     "learning_outcomes": [
+      "explain the importance of preserving milk and meat at household level",
+      "preserve meat to prolong shelf life at household level",
+      "preserve milk to prolong shelf life at household level.",
+      "Embrace the use of various methods to preserve animal products at household level."
+     ],
+     "learning_experiences": [
+      "Learners are guided to:",
+      "search for information from digital and print resources, discuss and share experiences on the importance of preserving milk and meat at household level.",
+      "preserve milk through methods such as boiling, fermenting and home cooling techniques.",
+      "preserve meat through methods such as salting, boiling, drying and smoking.",
+      "Make presentations to promote applicable methods of preserving animal products to embrace their use household level."
+     ],
+     "inquiry_questions": [
+      "How can we preserve milk and meat at household level?"
+     ],
+     "core_competencies": [
+      "Digital literacy: interacting with digital technology as learners search for information on milk and meat preservation."
+     ],
+     "values": [
+      "Integrity: honesty in the process of preserving meat and milk using ethically acceptable procedures."
+     ],
+     "pertinent_issues": [
+      "Food hygiene as learners ensure use of clean equipment and appropriate environment in the preservation of meat and milk."
+     ],
+     "links_to_other_areas": [
+      "Link to other learning areas: Learners relate preservation of meat and milk to basic principles of preservation learnt in Integrated Science."
+     ],
+     "resources": [],
+     "kicd_source": "grade8-agriculture-nutrition.pdf#p23"
+    },
+    {
+     "kicd_code": "2.6",
+     "name": "Cooking: Preparing a Balanced Meal",
+     "suggested_duration": "11 lessons",
+     "learning_outcomes": [
+      "explain factors to consider in preparing a balanced meal",
+      "prepare a balanced meal for healthy living",
+      "use various styles to present the meal",
+      "adopt the use of a balanced meal in day to day life."
+     ],
+     "learning_experiences": [
+      "Learners are guided to:",
+      "discuss and share experiences on factors to consider in preparing a balanced meal such as age, health status, occasion and gender.",
+      "plan and cook a balanced meal that include proteins, carbohydrate, vitamins and minerals.",
+      "serve the balanced meal using appropriate serving styles such as family or blue plate to present the meal.",
+      "make various menus on balanced meal and present in class."
+     ],
+     "inquiry_questions": [
+      "How can we prepare a balanced meal for healthy living?"
+     ],
+     "core_competencies": [
+      "Creativity and imagination: networking skills as learners share new ideas that inspire creative thinking in preparing and presenting meals."
+     ],
+     "values": [
+      "Integrity: prudent use of resources in the preparation of balanced meal."
+     ],
+     "pertinent_issues": [
+      "Health promotion as learners adopt the use of balanced meal in day to day life."
+     ],
+     "links_to_other_areas": [
+      "Learners relate consumption of balanced meal to prevention of lifestyle diseases learnt in Integrated Science."
+     ],
+     "resources": [],
+     "kicd_source": "grade8-agriculture-nutrition.pdf#p25"
+    }
+   ]
+  },
+  {
+   "strand": "Hygiene Practices",
+   "strand_code": "3.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to explain routine cleaning practices of a kitchen.",
+     "exceeds": "The learner explains routine cleaning practices of a kitchen with elaborate details.",
+     "meets": "The learner explains routine cleaning practices of a kitchen.",
+     "approaches": "The learner explains routine cleaning practices of a kitchen with some details that require clarity.",
+     "below": "The learner explains routine cleaning practices of a kitchen with some details that require clarity and correction for accuracy."
+    },
+    {
+     "indicator": "Ability to carry out routine cleaning of kitchen to maintain hygiene: (daily, weekly and special).",
+     "exceeds": "The learner can carry out three routine cleaning procedures of the kitchen to maintain hygiene.",
+     "meets": "The learner can carry out two routine cleaning procedures of the kitchen to maintain hygiene.",
+     "approaches": "The learner can carry out one routine cleaning procedures of the kitchen to maintain hygiene.",
+     "below": "The learner can partially carry out a routine cleaning procedures of the kitchen to maintain hygiene."
+    },
+    {
+     "indicator": "Ability to shows responsibility while cleaning the kitchen: (engages in assigned roles, cares for kitchen surfaces, observes safety, offers leadership in cleaning).",
+     "exceeds": "The learner shows four aspects of responsibility while cleaning the kitchen.",
+     "meets": "The learner shows three aspects of responsibility while cleaning the kitchen.",
+     "approaches": "The learner two aspects of responsibility while cleaning the kitchen.",
+     "below": "The learner shows less than two aspects of responsibility while cleaning the kitchen."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "3.1",
+     "name": "Cleaning the Kitchen",
+     "suggested_duration": "9 lessons",
+     "learning_outcomes": [
+      "explain the routine cleaning practices of a kitchen",
+      "carry out cleaning of a kitchen to maintain hygiene",
+      "appreciate the importance of a clean kitchen for healthy living."
+     ],
+     "learning_experiences": [
+      "Learners are guided to:",
+      "share experiences on routine cleaning of the kitchen (daily, weekly, special cleaning).",
+      "clean the kitchen to maintain hygiene applying (daily, weekly and special cleaning).",
+      "Make discussions and presentations on the importance of a clean kitchen for healthy living."
+     ],
+     "inquiry_questions": [
+      "How can daily, weekly and special cleaning enhance hygiene in the kitchen?"
+     ],
+     "core_competencies": [
+      "Learning to learn: organizing own learning as learners apply appropriate procedures in cleaning the kitchen."
+     ],
+     "values": [
+      "Responsibility: engaging in assigned roles when cleaning the kitchen to maintain hygiene."
+     ],
+     "pertinent_issues": [
+      "Health promotion as learners maintain hygiene by cleaning the kitchen."
+     ],
+     "links_to_other_areas": [
+      "Learners relate cleaning the kitchen to prevent contamination of food to concepts of disease prevention learnt in Integrated Science."
+     ],
+     "resources": [],
+     "kicd_source": "grade8-agriculture-nutrition.pdf#p27"
+    }
+   ]
+  },
+  {
+   "strand": "Production Techniques",
+   "strand_code": "4.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to describe various production techniques at household level. (construction of household items using seams, constructing animal waterer, using ICT support services).",
+     "exceeds": "The learner can describe three production techniques.",
+     "meets": "The learner can describe two production techniques.",
+     "approaches": "The learner can describe one production technique.",
+     "below": "The learner can partially describe a production technique."
+    },
+    {
+     "indicator": "Ability to carry out various production techniques at household level. (construction of household items using seams, constructing animal waterer, using ICT support services).",
+     "exceeds": "The learner can carry out three production techniques.",
+     "meets": "The learner can carry out two production techniques.",
+     "approaches": "The learner can carry out one production technique.",
+     "below": "The learner can partially carry out a production technique."
+    },
+    {
+     "indicator": "Ability to exhibits integrity in the use of production techniques: (prudent use of resources, adherence to ethical procedures, is accountable in the allocated task and self-disciplined).",
+     "exceeds": "The learner exhibits four indicators of integrity in the use of production techniques.",
+     "meets": "The learner exhibits three indicators of integrity in the use of production techniques.",
+     "approaches": "The learner exhibits two indicators of integrity in the use of production techniques.",
+     "below": "The learner exhibits one indicator of integrity in the use of production techniques."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "4.1",
+     "name": "Sewing Skills: Constructing Household Items",
+     "suggested_duration": "14 lessons",
+     "learning_outcomes": [
+      "identify types of seams used in making household items",
+      "make samples of seams on a piece of cloth",
+      "construct a household item using seams",
+      "appreciate the use of seam in making household items"
+     ],
+     "learning_experiences": [
+      "Learners are guided to:",
+      "search for information on different types of seams used in making household items (open and plain seams).",
+      "make samples of open and plain seams on a piece of cloth using hand sewing.",
+      "make a simple household article such as lap bag, work bag, pillow case, cushion cover using plain or open seams.",
+      "display samples of household items they make to appreciate the use of seams in making household items."
+     ],
+     "inquiry_questions": [
+      "How can a household item be made using seams?"
+     ],
+     "core_competencies": [
+      "Creativity and imagination: experimenting skills as learners construct household items using seams."
+     ],
+     "values": [
+      "Responsibility: undertaking assigned roles as the learners construct household items using seams."
+     ],
+     "pertinent_issues": [
+      "Safety for self and others as learners use sharp tools in construction of household items using seams."
+     ],
+     "links_to_other_areas": [
+      "Learners relate construction of household items using seams to artistic skills (pattern work) learnt in Creative Arts and Sports."
+     ],
+     "resources": [],
+     "kicd_source": "grade8-agriculture-nutrition.pdf#p29"
+    },
+    {
+     "kicd_code": "4.2",
+     "name": "Constructing Innovative Animal Waterer",
+     "suggested_duration": "10 lessons",
+     "learning_outcomes": [
+      "explain challenges with animal waterers used in the community",
+      "design and construct an innovative waterer for water conservation",
+      "appreciate use of innovative waterers in animal rearing."
+     ],
+     "learning_experiences": [
+      "Learners are guided to:",
+      "visit animal rearing households, identify challenges of animal waterers and make presentations to explain the challenges of the existing waterers.",
+      "search for information from digital and print media on innovative waterers, design and construct a waterer for small domestic animal to solve the identified problem using locally available materials.",
+      "use the constructed innovative waterer to test functionality, make adjustments and provide water to target animal either at home, in the school or selected household to appreciate use of innovative waterers."
+     ],
+     "inquiry_questions": [
+      "How can we make an innovative waterer for small domestic animals?"
+     ],
+     "core_competencies": [
+      "Critical thinking and problem solving: reflection skills as learners develop innovative waterers for domestic animals."
+     ],
+     "values": [
+      "Social justice: fairness as learners carry out allocated tasks in construction of innovative animal waterer."
+     ],
+     "pertinent_issues": [
+      "Pertinent and contemporary issues: Environmental awareness as learners use and reuse available materials in construction of animal waterer. Link to other learning areas: Learners relate designing and construction of innovative waterer to drawing and designing skills learnt in Pre-technical studies."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade8-agriculture-nutrition.pdf#p30"
+    },
+    {
+     "kicd_code": "4.3",
+     "name": "ICT Support Services",
+     "suggested_duration": "9 lessons",
+     "learning_outcomes": [
+      "describe support services that can be accessed through use of ICT",
+      "access support services using ICT",
+      "show responsibility in use of ICT in accessing support services."
+     ],
+     "learning_experiences": [
+      "Learner is guided to:",
+      "discuss and share experiences on how ICT can be used to access supplies and information for appropriate decision making.",
+      "access online platforms for ICT support services such as weather forecast, veterinary services, supply services, extension services, market information and banking services, catering services, cleaning services.",
+      "discuss and adhere to responsible use of ICT platforms by observing ethical and security considerations."
+     ],
+     "inquiry_questions": [
+      "How can we access support services using ICT?"
+     ],
+     "core_competencies": [
+      "Digital literacy: digital citizenship skills as learners access online platform for ICT support services."
+     ],
+     "values": [
+      "Integrity: ethical use of online support services."
+     ],
+     "pertinent_issues": [
+      "Cyber security as learners observe online security guideline to prevent cyber attacks."
+     ],
+     "links_to_other_areas": [
+      "Learners relate the access of ICT support services to digital technology skills learnt in Pre-technical Studies."
+     ],
+     "resources": [],
+     "kicd_source": "grade8-agriculture-nutrition.pdf#p32"
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,991 @@
+{
+ "source_pdf": "grade5-islamic-religious-education.pdf",
+ "grade": 5,
+ "subject": "islamic-religious-education",
+ "general_outcomes": [
+  "Recite, read and memorise the selected surah to enhance interaction with the Qur’an as a primary source of guidance.",
+  "Deduce lessons from the selected surah and apply them in their daily life.",
+  "Appreciate and emulate the practices of the Prophet (S.AW.) as the a role model.",
+  "Develop awareness and appreciation of Pillars of Iman as the foundation of Islam.",
+  "Demonstrate interest in and positive attitude towards performance of acts of Ibadah(worship) appropriately.",
+  "Acquire Islamic values to grow as a responsible and ethical citizen.",
+  "Apply Islamic teachings to guide individuals to make positive contribution to social and economaic develelopments in the society",
+  "Appreciate Islamic history as a basis for culture and civilization for peaceful coexistence"
+ ],
+ "strands": [
+  {
+   "strand": "Qur’an",
+   "strand_code": "1.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to read, recite and give basic meaning of the verses of the selected surah.",
+     "exceeds": "Reads, recites and explains the meaning of all the verses of the selected surah and put in practice.",
+     "meets": "Reads, recites and explains the meaning of all the verses of the selected surah.",
+     "approaches": "Reads, recites, and explains the meaning of the verses of the selected surah with minor challenges",
+     "below": "Reads, recites and explains the meaning of a few verses of the selected surah with major challenges."
+    },
+    {
+     "indicator": "Ability to deduce lessons from the selected surah.",
+     "exceeds": "Deduces lessons from the selected surah and applies them in life.",
+     "meets": "Deduces lessons from the selected surahs.",
+     "approaches": "Deduces lessons from the selected Surah but omits minor details",
+     "below": "Deduces lessons from the selected surah but omits major details"
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "1.1",
+     "name": "Selected Surah",
+     "suggested_duration": "16 lessons",
+     "learning_outcomes": [
+      "read the selected surahs for spiritual nourishment",
+      "recite the selected surahs for devotional activities",
+      "outline the basic meaning of the selected surahs",
+      "deduce lessons from the selected surah",
+      "appreciate the Qur’an as the first source of guidance."
+     ],
+     "learning_experiences": [
+      "listen to the teacher/resource person/digital device on the recitation of the selected surah",
+      "recite the selected surahs after the teacher/peer/or from a digital devices",
+      "read the selected surahs from a digital device/mus-haf/charts",
+      "practise pronunciation through listening to digital devices",
+      "recite the selected surahs severally to enhance memorisation",
+      "listen to the basic meaning of the selected surahs from digital devices and make notes",
+      "discuss the different ways of applying the teachings and lessons learnt from the selected surahs."
+     ],
+     "inquiry_questions": [
+      "1. Why is it important to recite the Qur’an?",
+      "2. What lessons do we learn from the selected surahs?"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade5-islamic-religious-education.pdf#p13"
+    }
+   ]
+  },
+  {
+   "strand": "Hadith",
+   "strand_code": "2.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to read and explain the teachings of the Hadith of the Prophet (S.A.W)",
+     "exceeds": "Reads and explains the teachings of the Hadith of the Prophet (S.A.W) comprehensively",
+     "meets": "Reads and explains the teachings of the Hadith of the Prophet (S.A.W)",
+     "approaches": "Reads and explains the teachings of the Hadith of the Prophet (S.A.W). with minor challenges",
+     "below": "Reads and explains the teachings of the Hadith of the Prophet (S.A.W) with major challenges."
+    },
+    {
+     "indicator": "Ability to deduce lessons from the selected Hadiths of the Prophet (S.A.W) and apply the Hadith in daily life",
+     "exceeds": "Deduces lessons from the selected Hadiths of the Prophet (S.A.W) and applies their teachings in daily life and encourages others to do the same",
+     "meets": "Deduces lessons from the selected Hadiths of the Prophet (S.A.W) and applies their teachings in daily life.",
+     "approaches": "Deduces lessons from the selected Hadith of the Prophet (S.A.W) and applies their teachings in daily life with few omissions",
+     "below": "Deduces lessons from the selected Hadith of the Prophet (S.A.W) and applies their teachings in daily life with many omissions."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "2.1",
+     "name": "Hadith on good Behaviour",
+     "suggested_duration": "3 lessons",
+     "learning_outcomes": [
+      "identify examples of good behaviour from the selected Hadith for character building",
+      "discuss the significance of the selected Hadith in shaping the character of a Muslim",
+      "apply good behaviour in day-to-day life",
+      "appreciate the teachings of the Hadith by applying them in day-to-day life."
+     ],
+     "learning_experiences": [
+      "read from chart/digital devices the Hadith on good behaviour: “Fear Allah wherever you are and follow up a bad deed with a good deed, it will wipe it out. And behave well towards other people.” (Al-Tirmidhi)",
+      "identify good behaviour mentioned in the Hadith and present in plenary",
+      "discuss the teachings and relevance of the Hadith in their daily life",
+      "role-play acts showing good behaviour mentioned in the Hadith."
+     ],
+     "inquiry_questions": [
+      "1. Why should one behave well?",
+      "2. What actions show that you fear Allah?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Communication and collaboration: the skill of listening and teamwork is enhanced as learners discuss the teachings and relevance of the Hadith in their daily life.",
+      "Learning to learn: the skill of sharing learnt knowledge is enhanced as learners identify good behaviour mentioned in the Hadith. Values: Respect: acceptance and appreciating diverse opinions through group discussion on the teachings and relevance of the Hadith in their daily life. Pertinent and Contemporary Issues (PCIs):",
+      "Skills of knowing and living with others",
+      "Self-esteem: skills of knowing and living with self.",
+      "Social cohesion: by treating others well. Links to other Learning Areas: Languages: Arabic and English as they read and explain the meaning of the Hadith."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade5-islamic-religious-education.pdf#p15"
+    },
+    {
+     "kicd_code": "2.2",
+     "name": "Hadith on Greetings",
+     "suggested_duration": "3 lessons",
+     "learning_outcomes": [
+      "assess the importance of Islamic greetings in the life of a Muslim",
+      "practise Islamic greetings to promote love and unity in the society",
+      "appreciate the use of Islamic greetings in bringing harmony in the society."
+     ],
+     "learning_experiences": [
+      "read the following Hadith on greetings: “.... Shall I inform you of something which, if you do, you will love one another? Promote greetings (salaam) amongst yourselves.” (Muslim)",
+      "watch/listen to Islamic greetings from digital devices",
+      "demonstrate Islamic greetings, in pairs",
+      "discuss the importance of Islamic greetings in the life of a Muslim and make summary notes",
+      "search online and sing Qasida on Islamic greetings",
+      "practise Islamic greetings to promote love and unity as learners come to class/school."
+     ],
+     "inquiry_questions": [
+      "Why should a Muslim use Islamic greeting?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Communication and collaboration: the skill of teamwork is enhanced through group discussion on the importance of Islamic greetings.",
+      "Digital literacy: the skill of interacting with digital technology as learners search online to access Qasida on Islamic greetings. Values: Love is enhanced as they demonstrate Islamic greetings, in pairs, and friendship is developed. PCIs: Social cohesion through the practice of Islamic greetings to promote love and unity as learners come to class/school. Links to other Learning Areas: Creative Arts as learners listen and sing Qasida on Islamic greetings."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade5-islamic-religious-education.pdf#p17"
+    },
+    {
+     "kicd_code": "2.3",
+     "name": "Hadith on Knowledge",
+     "suggested_duration": "3 lessons",
+     "learning_outcomes": [
+      "read the Hadith as a source of reference in seeking knowledge",
+      "assess the importance of seeking knowledge for the benefit of this world and the Hereafter",
+      "appreciate the teachings of the Hadith by working hard in school."
+     ],
+     "learning_experiences": [
+      "read from a chart/digital devices the Hadith on knowledge: “Seeking knowledge is obligatory upon every Muslim.” (Al-Tirmidhi)",
+      "search online the importance of seeking knowledge and present it in class",
+      "discuss ways of improving academic performance in school",
+      "role-play acts on the importance of seeking knowledge in the Muslim society."
+     ],
+     "inquiry_questions": [
+      "1. Why is it important to seek knowledge in Islam?",
+      "2. What challenges may hinder one from acquiring education?"
+     ],
+     "core_competencies": [
+      "Critical thinking and problem solving: the skill of interpretation and inference as learners proactively discuss ways of improving academic performance in their school.",
+      "Digital literacy: the skill of interacting with digital literacy as leaners search online for information on the importance of seeking knowledge to accomplish the task.",
+      "Creativity and imagination: the skill of networking as learners role-play acts on the importance of seeking knowledge in the Muslim society."
+     ],
+     "values": [
+      "Values: Responsibility as learner engages in assigned roles and duties while role-playing acts on the importance of seeking knowledge as a Muslim. Pertinent and Contemporary Issues (PCIs): Citizenship: Human rights as learners role-play acts on the importance of seeking knowledge as a Muslim. Links to other Learning Areas: Social Studies, which has aspects of rights to education"
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade5-islamic-religious-education.pdf#p19"
+    },
+    {
+     "kicd_code": "2.4",
+     "name": "Hadith on Gratitude",
+     "suggested_duration": "3 lessons",
+     "learning_outcomes": [
+      "read the Hadith on gratitude for character formation",
+      "practise gratitude in day-to-day life",
+      "appreciate the teachings of the Hadith by exercising gratitude."
+     ],
+     "learning_experiences": [
+      "The learners are guided to:",
+      "read from a chart/digital device the Hadith on gratitude: “Whoever is never thankful to people is never thankful to Allah.” (Al-Tirmithi)",
+      "discuss the lessons learnt from the Hadith and make class presentations",
+      "dramatise ways that show gratitude."
+     ],
+     "inquiry_questions": [
+      "Why should one be grateful to other people?"
+     ],
+     "core_competencies": [
+      "Communication and collaboration: the skills of listening, speaking and teamwork as learners discuss the lessons learnt from the Hadith and make class presentations.",
+      "Creativity and Imagination: skill of networking as learners dramatise ways that show gratitude."
+     ],
+     "values": [
+      "Unity as learners work together to dramatise ways that show gratitude."
+     ],
+     "pertinent_issues": [
+      "Life skills education as learners dramatise ways that show gratitude."
+     ],
+     "links_to_other_areas": [
+      "Social Studies as learners read the Hadith and find there is some aspect of gratitude in life skills."
+     ],
+     "resources": [],
+     "kicd_source": "grade5-islamic-religious-education.pdf#p21"
+    }
+   ]
+  },
+  {
+   "strand": "Pillars of Iman",
+   "strand_code": "3.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to outline attributes of Allah with their corresponding meaning",
+     "exceeds": "Outlines all the six attributes of Allah with their corresponding meaning comprehensively.",
+     "meets": "Outlines all the six attributes of Allah with their corresponding meaning.",
+     "approaches": "Outlines four to five attributes of Allah with their corresponding meaning.",
+     "below": "Outlines less than three attributes of Allah and struggles to give their corresponding meaning."
+    },
+    {
+     "indicator": "Ability to mention the pillars of Iman, explain significance of the belief in the angels",
+     "exceeds": "Mentions all the six pillars of Iman and explains the significance of belief in angels exhaustively.",
+     "meets": "Mentions all the six pillars of Iman and explains the significance of belief in angels.",
+     "approaches": "Mentions all the pillars of Iman but has minor challenges when explaining the significance of belief in the angels.",
+     "below": "Mentions the pillars of Iman and has challenges explaining the significance of belief in angels."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "3.1",
+     "name": "Belief in Allah 3.1.1 Attributes of Allah",
+     "suggested_duration": "5 lessons",
+     "learning_outcomes": [
+      "outline the attributes of Allah and their corresponding meaning",
+      "assess the importance of the attributes of Allah",
+      "use the attributes of Allah while making dua (supplication)",
+      "appreciate the unique attributes of Allah as part of Islamic faith."
+     ],
+     "learning_experiences": [
+      "The learner guided to:",
+      "listen to the recitation of the attributes of Allah from a digital device",
+      "match the attributes of Allah with corresponding meaning using flash cards",
+      "discuss the importance of the attributes of Allah and make notes",
+      "use the attributes of Allah while making dua",
+      "sing qasida on the attributes of Allah."
+     ],
+     "inquiry_questions": [
+      "1. What lessons are learnt from the attributes of Allah?",
+      "2. Why should one use the attributes of Allah while making dua (supplications)?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Creativity and imagination: the skill of networking is enhanced as learners match the attributes of Allah with corresponding meaning using flash cards.",
+      "Communication and collaboration: the skill of listening, speaking and teamwork as learners discuss the importance of the attributes of Allah and make notes. Values: Love as learners work in groups, share materials and information. Pertinent and Contemporary Issues (PCIs): Self-esteem when matching the attributes of Allah with their meaning. Links to other Learning Areas: Creative Arts as learners sing qasida using attributes of Allah."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade5-islamic-religious-education.pdf#p23"
+    },
+    {
+     "kicd_code": "3.2",
+     "name": "Belief in Angels 3.2.1 Characteristics of angels",
+     "suggested_duration": "3 lessons",
+     "learning_outcomes": [
+      "state the characteristics of angels to strengthen their iman",
+      "assess the significance of the belief in angels in the life of a Muslim",
+      "differentiate between angels and human beings to appreciate Allah’s creation",
+      "appreciate the belief in angels as a pillar of iman."
+     ],
+     "learning_experiences": [
+      "search for information on the characteristics of angels from digital devices/books/resource persons and present in class",
+      "brainstorm on the significance of belief in angels and make notes",
+      "Role-play different situations that depict obedience to Allah’s commands (obeying parents, teachers, elders, school rules)",
+      "read a verse from the Qur’an on the obedience of angels on Allah’s commands (Q66: 6)."
+     ],
+     "inquiry_questions": [
+      "1. What is the significance of believing in angels?",
+      "2. How can Muslims show obedience to Allah?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Communication and collaboration: the skills of listening, speaking, writing and teamwork developed as learners brainstorm on the significance of belief in angels and make notes.",
+      "Creativity and imagination: the skill of networking as learners role-play different situations that depict obedience to Allah’s commands. Values: Responsibility as learners role-play different situations that depict obedience to Allah’s commands. Pertinent and Contemporary Issues (PCIs): Positive discipline as learners obeys the commands of Allah. Links to other Learning Areas: Social Studies as the learner role-play different situations that depict obedience to Allah’s commands (obeying parents, teachers, elders, school rules)."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade5-islamic-religious-education.pdf#p25"
+    },
+    {
+     "kicd_code": "3.3",
+     "name": "Belief in Prophets 3.3.1 Qualities of Prophets",
+     "suggested_duration": "3 lessons",
+     "learning_outcomes": [
+      "explain the qualities of prophets for character formation",
+      "apply values learnt from the qualities of prophets in their daily lives",
+      "appreciate belief in Allah’s prophets by emulating the qualities of prophets."
+     ],
+     "learning_experiences": [
+      "search for information on the qualities of prophets from digital, devices/books/resource persons and display in class",
+      "narrate a story of any prophet that shows these qualities",
+      "role-play situations that demonstrate values learnt from the qualities of the prophets (e.g. honesty, obedience, patience)",
+      "discuss how the qualities of the prophets learnt can be applied in school situation."
+     ],
+     "inquiry_questions": [
+      "1. How can qualities of the prophets be applied in daily life?",
+      "2. Why are prophets regarded as role models?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Self-efficacy: the skill of effective communication is developed as learners narrate a story of any prophet that shows these qualities.",
+      "Creativity and imagination: the skill of networking is developed as learners role-play situations that demonstrate values learnt from the qualities of the prophets. Values: Integrity as leaners emulate and role-play situations that demonstrate values learnt from the qualities of the prophets. Pertinent and Contemporary Issues (PCIs): Self-esteem: learners emulate and role-play situations that demonstrate values learnt from the qualities of the prophets. Links to other Learning Areas: Social Studies as learners role-play situations that demonstrate values learnt from the qualities of the Prophets (e.g. honesty, obedience, patience) and are able to relate to the values in Life Skills."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade5-islamic-religious-education.pdf#p27"
+    },
+    {
+     "kicd_code": "3.3.2",
+     "name": "Miracles of Prophets",
+     "suggested_duration": "6 lessons",
+     "learning_outcomes": [
+      "identify the miracles performed by the selected prophets to strengthen their iman (faith)",
+      "explain the lessons learnt from the miracles of the selected prophets",
+      "appreciate the miracles of the selected prophets to build their reliance on Allah."
+     ],
+     "learning_experiences": [
+      "match/listen to stories of the miracles of the selected prophets from digital devices and make notes.",
+      "deduce lessons from the miracles of the selected prophets and present in class",
+      "match the name of the prophets with miracles performed using flash cards",
+      "draw, colour and display items related to the miracles of the selected prophet."
+     ],
+     "inquiry_questions": [
+      "1. What is a miracle?",
+      "2. Why did prophets perform miracles?"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade5-islamic-religious-education.pdf#p29"
+    }
+   ]
+  },
+  {
+   "strand": "Devotional Acts",
+   "strand_code": "4.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to perform qabliyah, baadiya, witr and taraweeh",
+     "exceeds": "Performs qabliyah, baadiya, witr and taraweeh consistently",
+     "meets": "Performs qabliyah, baadiya, witr and taraweeh",
+     "approaches": "Performs qabliyah, baadiya, witr and taraweeh with a few mix-ups",
+     "below": "Performs qabliyah, baadiya, witr and taraweeh with many mix-ups"
+    },
+    {
+     "indicator": "Ability to state conditions of saum and nullifiers of swalah and saum",
+     "exceeds": "States conditions of saum and nullifiers of swalah and saum comprehensively",
+     "meets": "States conditions of saum and nullifiers of swalah and saum",
+     "approaches": "States conditions of saum and nullifiers of swalah and saum but leaves out few details",
+     "below": "States conditions of saum and nullifiers of swalah and saum but leaves out many details"
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "4.1",
+     "name": "Nullifiers of Swalah",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "outline the nullifiers of swalah to safeguard its validity",
+      "perform swalah correctly to earn thawab from Allah",
+      "differentiate between nullifiers of swalah and wudhu to perfect ibadah",
+      "appreciate performance of swalah by avoiding its nullifiers."
+     ],
+     "learning_experiences": [
+      "brainstorm on the nullifiers of swalah and present in class",
+      "role-play some of the observable nullifiers of swalah (e.g. walking, eating, drinking, jumping)",
+      "match and sort the nullifiers of swalah and wudhu using flash cards",
+      "demonstrate the correct performance of swalah."
+     ],
+     "inquiry_questions": [
+      "Why should one safeguard swalah?"
+     ],
+     "core_competencies": [
+      "Creativity and imagination: the skill of experimenting is enhanced as learners role-play some of the observable nullifiers of swalah (e.g. walking, eating, drinking, jumping)",
+      "Self-efficacy: effective communication skills enhanced as learners demonstrate the correct performance of swalah."
+     ],
+     "values": [
+      "Responsibility as each takes duties and roles during role-playing some of the observable nullifiers of swalah."
+     ],
+     "pertinent_issues": [
+      "Health: personal hygiene as learners maintain cleanliness for prayers"
+     ],
+     "links_to_other_areas": [
+      "Agriculture as learners observe and maintain cleanliness."
+     ],
+     "resources": [],
+     "kicd_source": "grade5-islamic-religious-education.pdf#p31"
+    },
+    {
+     "kicd_code": "4.2",
+     "name": "Sunnah (Optional) Prayers Qabliyah and Ba'diyah",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "assess the significance of performing sunnah prayers in the life of a Muslim",
+      "perform Qabliyah and Ba’diyah prayers to earn rewards from Allah",
+      "appreciate the performance of Qabliyah and Ba’diyah to emulate the sunnah of the Prophet (S.A.W.)."
+     ],
+     "learning_experiences": [
+      "discuss sunnah prayers performed before and after fardh prayers and display in class using charts",
+      "match/fill gaps using digital devices/charts/pocket boards the number of raakat for Qabliyah and Ba’diyah for each fardh prayer",
+      "brainstorm on the importance of observing Qabliyah and Ba’diyah and write notes",
+      "perform Qabliyah and Ba’diyah prayers."
+     ],
+     "inquiry_questions": [
+      "Why should a Muslim perform Qabliya and Ba’diyah?"
+     ],
+     "core_competencies": [
+      "Digital literacy: the skill of interacting with technology as learners match/fill gaps using digital devices",
+      "Communication and collaboration: the skills of listening, speaking and teamwork enhanced as learners discuss sunnah prayers performed before and after fardh prayers while writing them on a chart."
+     ],
+     "values": [
+      "Unity as learners discuss sunnah prayers performed before and after fardh prayers and display in class using charts."
+     ],
+     "pertinent_issues": [
+      "Life skills: tolerance during discussion and respecting others’ opinions in group work."
+     ],
+     "links_to_other_areas": [
+      "Mathematics as the learner counts the number of Qabliya and Ba’diyah in each of the fardh prayers and their total in a day and relate the concept of addition."
+     ],
+     "resources": [],
+     "kicd_source": "grade5-islamic-religious-education.pdf#p32"
+    },
+    {
+     "kicd_code": "4.2.2",
+     "name": "Taraweeh and Witr",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "assess the significance of performing Taraweeh and witr prayers in the life of a Muslim",
+      "perform swalatul Taraweeh and witr for spiritual nourishment",
+      "appreciate the performance of Taraweeh and witr prayers to earn thawab",
+      "develop a habit of performing Taraweeh and witr prayers to earn blessing of Allah."
+     ],
+     "learning_experiences": [
+      "watch a video on the performance of swalatul Taraweeh and witr through digital devices and discuss the procedure of performing the prayer",
+      "demonstrate/role-play swalatul Taraweeh and witr in class",
+      "discuss the importance of performing swalatul Taraweeh and witr and present in class",
+      "keep personal logs for a week on how they perform Taraweeh/witr prayers."
+     ],
+     "inquiry_questions": [
+      "What is the significance of performing swalatul Taraweeh and witr?"
+     ],
+     "core_competencies": [
+      "Communication and collaboration: the skills of listening, speaking and teamwork enhanced as learners discuss the importance of performing swalatul Taraweeh and witr and present in class",
+      "Self-efficacy: the skill of executing a task is enhanced as learners demonstrate/role-play swalatul Taraweeh and witr in class."
+     ],
+     "values": [
+      "Responsibility as learners take roles to demonstrate swalatul Taraweeh and witr in class."
+     ],
+     "pertinent_issues": [
+      "Self-esteem when demonstrating swalatul Taraweeh and witr in class."
+     ],
+     "links_to_other_areas": [
+      "Learners able to relate to concept of even and odd number in mathematics as they demonstrate swalatul Taraweeh and witr."
+     ],
+     "resources": [],
+     "kicd_source": "grade5-islamic-religious-education.pdf#p33"
+    },
+    {
+     "kicd_code": "4.3",
+     "name": "Swadaqah (Charity)",
+     "suggested_duration": "3 lessons",
+     "learning_outcomes": [
+      "identify forms of swadaqah for character development",
+      "demonstrate different acts of swadaqah to earn rewards",
+      "assess the benefits of practising acts of swadaqah in society",
+      "appreciate the different forms of swadaqah in their daily life."
+     ],
+     "learning_experiences": [
+      "get pictures from digital devices/print media on forms of swadaqah and display them in class",
+      "discuss the different forms of swadaqah, in pairs/groups, as per the teachings of the Prophet (s.a.w) (such as feeding an animal, removing an obstacle/harmful from the path/roads, sharing with others)",
+      "participate in charitable activities (clean-up exercise, visit to children’s home, tree planting)",
+      "discuss the benefits of giving charity and make class presentation."
+     ],
+     "inquiry_questions": [
+      "1.What acts of swadaqah do Muslims perform?",
+      "2.What are the benefits of practising swadaqah?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Communication and collaboration: the skills of listening, speaking and teamwork enhanced as learners discuss the benefits of giving charity and making class presentation.",
+      "Leaning to learn: the skill of working collaboratively as learners participate in charitable activities (clean-up exercise, visit to children’s home, tree planting). Values: Responsibility is enhanced as learners get pictures from digital devices/print media on forms of swadaqah and display them in class. Pertinent and Contemporary Issues (PCIs): Empathy as learners participate in charitable activities (clean up exercise, visit to children’s home, tree planting) Links to other Learning Areas: Creative Arts as learners get pictures from digital devices/print media on forms of swadaqah and display them in class."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade5-islamic-religious-education.pdf#p34"
+    },
+    {
+     "kicd_code": "4.4",
+     "name": "Saum",
+     "suggested_duration": "4 lessons",
+     "learning_outcomes": [
+      "outline the conditions for saum as a requirement for its validity",
+      "apply the virtues acquired from observing saum in day-to-day life",
+      "appreciate observing saum as an act of ibadah."
+     ],
+     "learning_experiences": [
+      "discuss the conditions for saum and present in class",
+      "brainstorm on the virtues learnt from saum (patience, honesty, self-control, empathy, generosity) and display on charts."
+     ],
+     "inquiry_questions": [
+      "1. What virtues do Muslims learn from fasting?",
+      "2. What is the significance of fasting?"
+     ],
+     "core_competencies": [
+      "Communication and collaboration: the skills of speaking, listening, writing and teamwork as learners brainstorm on the virtues learnt from saum (patience, honesty, self-control, empathy, generosity etc.) and display on charts."
+     ],
+     "values": [
+      "Respect is inculcated during group discussion through appreciating diverse opinions."
+     ],
+     "pertinent_issues": [
+      "Social cohesion through the application of the virtue of generosity."
+     ],
+     "links_to_other_areas": [
+      "Agriculture as learners discuss the benefits of fasting."
+     ],
+     "resources": [],
+     "kicd_source": "grade5-islamic-religious-education.pdf#p36"
+    },
+    {
+     "kicd_code": "4.4.1",
+     "name": "Nullifiers of Saum (fasting)",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "identify the nullifiers of saum to safeguard the validity of saum",
+      "practise saum as a pillar of Islam",
+      "appreciate fasting as a means of gaining taqwa (piety)."
+     ],
+     "learning_experiences": [
+      "discuss the nullifiers of saum and make presentation in class",
+      "sort nullifiers of saum from conditions of saum on flash cards",
+      "brainstorm on rules and regulations of saum and make class presentation."
+     ],
+     "inquiry_questions": [
+      "1. Why should Muslims observe rules and regulation when fasting?",
+      "2. What virtues do Muslims learn from fasting?"
+     ],
+     "core_competencies": [
+      "Critical thinking and problem solving: the skill of creativity as learners sort nullifiers of saum from conditions of saum on flash cards.",
+      "Communication and collaboration: the skills of listening, speaking and teamwork enhanced as learners discuss the nullifiers of saum and make presentation in class."
+     ],
+     "values": [
+      "Respect is inculcated during group discussion as learners appreciate diverse opinions."
+     ],
+     "pertinent_issues": [
+      "Empathy as leaners observe saum by thinking about the learners/people who don’t have food."
+     ],
+     "links_to_other_areas": [
+      "Languages: Arabic and English as learners acquire new vocabularies as they discuss the nullifiers of saum."
+     ],
+     "resources": [],
+     "kicd_source": "grade5-islamic-religious-education.pdf#p37"
+    }
+   ]
+  },
+  {
+   "strand": "Akhlaq (Moral Teachings)",
+   "strand_code": "5.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to practise generosity and use social media positively",
+     "exceeds": "Practises generosity and uses social media positively consistently",
+     "meets": "Practises generosity and uses social media positively",
+     "approaches": "Practises generosity and uses social media positively sometimes",
+     "below": "Has challenges practising generosity and using social media positively even when prompted"
+    },
+    {
+     "indicator": "Ability to describe the evils of gambling",
+     "exceeds": "Describes the evils of gambling correctly and cites examples",
+     "meets": "Describe the evils of gambling correctly",
+     "approaches": "Describes the evils of gambling but leaves out minor details",
+     "below": "Describes the evils of gambling but leaves out major details"
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "5.1",
+     "name": "Virtues Generosity",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "assess the importance of practising generosity in the life of a Muslim",
+      "practise generosity as a virtue for character formation",
+      "appreciate the virtue of generosity as a means of earning rewards from Allah."
+     ],
+     "learning_experiences": [
+      "narrate short stories portraying generosity",
+      "watch/listen to a story on generosity and deduce the teachings",
+      "discuss the importance of observing generosity, and present in class",
+      "participate in activities that involve practising generosity",
+      "role-play activities that encourage generosity."
+     ],
+     "inquiry_questions": [
+      "1. Why should a Muslim practise generosity?",
+      "2. When should a Muslim practise generosity?"
+     ],
+     "core_competencies": [
+      "Citizenship: enhanced as learners participate in activities that involve practising generosity.",
+      "Self-efficacy: skill of sharing learnt knowledge is enhanced as learners narrate short stories portraying generosity.",
+      "Creativity and innovation: the skill of networking is enhanced as learners role-play activities that encourage generosity."
+     ],
+     "values": [
+      "Rresponsibility as learners participate in activities that involve practising generosity."
+     ],
+     "pertinent_issues": [
+      "Social cohesion: as learners participate in activities that involve practising generosity"
+     ],
+     "links_to_other_areas": [
+      "Creative Arts as learners role-play activities that encourage generosity."
+     ],
+     "resources": [],
+     "kicd_source": "grade5-islamic-religious-education.pdf#p39"
+    },
+    {
+     "kicd_code": "5.2",
+     "name": "Effects of Social Media",
+     "suggested_duration": "3 lessons",
+     "learning_outcomes": [
+      "explain the positive and negative effects of social media on the youth",
+      "describe ways of using social media to facilitate learning",
+      "use social media responsibly to benefit self and others."
+     ],
+     "learning_experiences": [
+      "debate on the positive and negative effects of social media",
+      "discuss how to use social media responsibly and present in class",
+      "demonstrate how to use social media to facilitate learning using a digital device."
+     ],
+     "inquiry_questions": [
+      "1. How can one use social media positively?",
+      "2. How can social media enhance learning?"
+     ],
+     "core_competencies": [
+      "Communication and collaboration: the skill of listening and speaking enhanced as learners debate on the positive and negative effects of social media.",
+      "Digital literacy: the skill of interacting with technology as learners demonstrate how to use social media to facilitate learning."
+     ],
+     "values": [
+      "Responsibility as the learners take different roles to demonstrate how to use social media to facilitate learning."
+     ],
+     "pertinent_issues": [
+      "Self-esteem through positive use of social media."
+     ],
+     "links_to_other_areas": [
+      "Science and Technology as they cover content on social media."
+     ],
+     "resources": [],
+     "kicd_source": "grade5-islamic-religious-education.pdf#p40"
+    },
+    {
+     "kicd_code": "5.3",
+     "name": "Prohibitions in Islam Evils of Gambling",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "explain the evils of gambling to promote responsible citizenship",
+      "describe ways of discouraging gambling in society",
+      "appreciate the prohibition of gambling by working hard for halaal (legal) earning."
+     ],
+     "learning_experiences": [
+      "discuss the effects of gambling and present in class (loss of property, family breakdown)",
+      "role-play the effects of gambling",
+      "brainstorm on ways of discouraging gambling in society and display on a chart."
+     ],
+     "inquiry_questions": [
+      "1. What are the effects of participating in gambling?",
+      "2. Why is gambling forbidden in Islam?"
+     ],
+     "core_competencies": [
+      "Communication and collaboration: the skills of listening, speaking, writing and teamwork as learners discuss the effects of gambling and present in class (loss of property, family breakdown).",
+      "Critical thinking and problem solving: the skill of decision making is enhanced as learners brainstorm on ways of discouraging gambling in society and display on a chart."
+     ],
+     "values": [
+      "Patriotism as learners brainstorm on ways of discouraging gambling in society and display a chart on the same."
+     ],
+     "pertinent_issues": [
+      "Financial literacy as learners discuss the effects of gambling and present in class."
+     ],
+     "links_to_other_areas": [
+      "The concept of resource management in Social Studies."
+     ],
+     "resources": [],
+     "kicd_source": "grade5-islamic-religious-education.pdf#p41"
+    },
+    {
+     "kicd_code": "5.5",
+     "name": "Dua (Supplication s) Dua On Increase In Knowledge",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "recite the selected dua to attain beneficial knowledge",
+      "assess the importance of the dua of seeking knowledge",
+      "apply the dua in day-to-day life",
+      "appreciate the act of supplication as a form of Ibadah (act of worship)."
+     ],
+     "learning_experiences": [
+      "listen and recite the following dua from a digital device/teacher, “Oh Allah make what you teach me beneficial, teach me what is beneficial, and increase me in knowledge”",
+      "recite the dua every morning before start of class",
+      "brainstorm on the importance of reciting dua and write notes."
+     ],
+     "inquiry_questions": [
+      "What is the importance of reciting dua always?"
+     ],
+     "core_competencies": [
+      "Communication: the skills of listening, speaking and teamwork enhanced as learners brainstorm on the importance of making dua."
+     ],
+     "values": [
+      "Respect for others by appreciating diverse opinions during brainstorming on the importance of dua."
+     ],
+     "pertinent_issues": [
+      "Self-esteem through reciting of the dua every morning before start of class."
+     ],
+     "links_to_other_areas": [
+      "Learners are able to relate to reading skills in English and Kiswahili as they recite the dua (supplication)."
+     ],
+     "resources": [],
+     "kicd_source": "grade5-islamic-religious-education.pdf#p42"
+    }
+   ]
+  },
+  {
+   "strand": "Muamalat (Social Relations)",
+   "strand_code": "6.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to demonstrate awareness of different relationships and application of Islamic teachings in interactions with others.",
+     "exceeds": "Demonstrates awareness of different relationships and interactions and consistently applies the teachings of Islam in his/her interactions with others.",
+     "meets": "Demonstrates awareness of different relationships and applies the teachings of Islam in his/her interactions with others.",
+     "approaches": "Demonstrates awareness of different relationships and applies the teachings of Islam in his/her interactions with others but leaves out few details.",
+     "below": "Has challenges demonstrating awareness of different relationships and applying the teachings of Islam in his/her interactions with others but leaves out many details."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "6.1",
+     "name": "Etiquette of Islamic Wedding Celebrations",
+     "suggested_duration": "3 lessons",
+     "learning_outcomes": [
+      "describe the etiquette to be observed during Islamic wedding celebrations",
+      "outline unislamic activities that take place during wedding celebrations",
+      "appreciate Islamic wedding celebrations as part of Islamic heritage."
+     ],
+     "learning_experiences": [
+      "brainstorm on a wedding celebration they have attended and note down what they observed/experienced",
+      "watch an Islamic wedding celebration from a digital device and the etiquette observed",
+      "sort the Islamic and unislamic activities performed during wedding celebrations using flash cards",
+      "role-play the etiquette to be observed during the wedding celebration (such as appropriate dressing, gender separation, avoiding Israaf and music)"
+     ],
+     "inquiry_questions": [
+      "What is the Islamic etiquette that guides wedding celebrations?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Communication and Collaboration: as learners brainstorm on a wedding celebration they have attended and note down what they observed/experienced.",
+      "Creativity and imagination: the skill of networking is enhanced as learners role-play the etiquette to be observed during the celebration. Values: Respect as learners brainstorm on a wedding celebration they have attended and note down what they observed/experienced. Pertinent and Contemporary Issues (PCIs): Responsibility as leaners role play the etiquette to be observed during the celebration and engages in assigned roles and duties. Links to other Learning Areas: Social Studies: as they brainstorm on the experiences they have encountered during wedding celebrations, which is a concept in Social Studies"
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade5-islamic-religious-education.pdf#p44"
+    },
+    {
+     "kicd_code": "6.2",
+     "name": "Rights of Neighbours",
+     "suggested_duration": "3 lessons",
+     "learning_outcomes": [
+      "outline the rights of neighbours for harmonious living",
+      "uphold the rights of neighbours as an act of ibadah",
+      "appreciate the rights of neighbours as an obligatory act upon a Muslim."
+     ],
+     "learning_experiences": [
+      "search the rights of neighbours in Islam using digital devices/print media and make notes",
+      "discuss the significance of treating neighbours well and display on a chart",
+      "dramatise the right way of treating neighbours",
+      "search for Hadith on the rights of neighbours and deduce lessons from it using digital devices/ books/resource persons."
+     ],
+     "inquiry_questions": [
+      "1. How should Muslims relate with neighbours?",
+      "2. What is the significance of upholding good neighbourliness?"
+     ],
+     "core_competencies": [
+      "Communication and collaboration: the skills of listening, speaking and teamwork enhanced as learners discuss the significance of treating neighbours well and display on a chart.",
+      "Creativity and imagination: the skill of networking is enhanced as learners dramatise the right way of treating neighbours."
+     ],
+     "values": [
+      "Love: caring for others as they dramatise the correct way of treating neighbours."
+     ],
+     "pertinent_issues": [
+      "Interpersonal relations as they role-play/watch/ discuss, in groups, the rights of neighbours."
+     ],
+     "links_to_other_areas": [
+      "Social Studies as learners search for the rights of neighbours."
+     ],
+     "resources": [],
+     "kicd_source": "grade5-islamic-religious-education.pdf#p46"
+    },
+    {
+     "kicd_code": "6.3",
+     "name": "Islamic Rules on Buying and Selling",
+     "suggested_duration": "3 lessons",
+     "learning_outcomes": [
+      "outline the Islamic rules on buying and selling to promote a healthy business society",
+      "state the benefits of observing the Islamic rules on buying and selling",
+      "appreciate Islamic etiquette on the rules and regulations of buying and selling to earn rewards from Allah (Q83: 1-6)."
+     ],
+     "learning_experiences": [
+      "discuss Islamic rules on buying and selling and make oral presentation",
+      "discuss the benefits of observing Islamic rules and regulations on buying and selling",
+      "search Hadith on buying and selling and write notes on lessons learnt using digital devices/books/resource persons",
+      "role-play the Islamic rules and regulations on buying and selling",
+      "name commodities that they have bought from the market",
+      "undertake a project of creating a shop corner by collecting items, write a price list and a list of Islamic rules to be observed."
+     ],
+     "inquiry_questions": [
+      "1. What should Muslims avoid while buying and selling?",
+      "2. What are Islamic teachings on buying and selling?"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade5-islamic-religious-education.pdf#p47"
+    }
+   ]
+  },
+  {
+   "strand": "History of Islam",
+   "strand_code": "7.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to narrate events and apply lessons from Islamic Historical events in life",
+     "exceeds": "Narrates events in Islamic History and applies lessons from Islamic historical events in life comprehensively.",
+     "meets": "Narrates events and applies lessons from Islamic historical events in life.",
+     "approaches": "Narrates events in Islamic History and applies lessons from Islamic historical events in life with minor challenges.",
+     "below": "Narrate events in Islamic History and has difficulties in applying lessons from Islamic historical events in life."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "7.1",
+     "name": "Al-Isra wal Miraj",
+     "suggested_duration": "3 lessons",
+     "learning_outcomes": [
+      "describe the Prophet’s Night Journey to Heaven for spiritual nourishment.",
+      "assess the significance of al-Isra wal Miraj in the life of a Muslim.",
+      "appreciate al-Isra wal Miraj as an important event in the history of Islam."
+     ],
+     "learning_experiences": [
+      "watch a video on al-Isra wal Miraj from a digital device",
+      "discuss the events of al-Isra wal Miraj",
+      "discuss the importance of al-Isra wal Miraj",
+      "discuss the major gift given to Prophet (S.A.W) during al-Isra wal Miraj journey."
+     ],
+     "inquiry_questions": [
+      "What lessons do you learn from the Prophet’s journey?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Digital literacy: the skill of interacting with digital technology as learners watch audio-visual clip on al-Isra wal Miraj from a digital device.",
+      "Communication and collaboration: the skill of listening, speaking and writing as learners discuss the importance of al-Isra wal Miraj, in pairs or in groups, and write the points in their notebook.",
+      "Self-efficacy: the skill of effective communication is enhanced as learners read from reference material on the events of al-Isra wal Miraj, individually, and narrates it in class. Values: Responsibility enhanced as learners discuss the major gift given to Prophet (S.A.W) during al-Isra wal Miraj journey, in pairs/groups, and present in class Pertinent and Contemporary Issues (PCIs): Self-esteem as learners narrates the Prophet’s miraculous journey to heaven. Links to other Learning Areas: Social Studies as learners discuss the means of transport used by the Prophet during the event."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade5-islamic-religious-education.pdf#p49"
+    },
+    {
+     "kicd_code": "7.2",
+     "name": "Pledges of Aqabah",
+     "suggested_duration": "3 lessons",
+     "learning_outcomes": [
+      "describe the events that led to the signing of the pledges of Aqabah",
+      "state the terms of the pledges of Aqabah",
+      "appreciate the pledges of Aqabah as a base for the migration of Muslims in Madina."
+     ],
+     "learning_experiences": [
+      "discuss the events that led to the signing of the pledges of Aqabah and present in class",
+      "watch a video on the pledges of Aqaba from a digital device and write the terms",
+      "search for the terms of the pledges of Aqabah from books/digital device and note them down in their books."
+     ],
+     "inquiry_questions": [
+      "How did Muslims benefit from the pledges of Aqabah?"
+     ],
+     "core_competencies": [
+      "Communication and collaboration: through discussions, in groups, on the events that led to the signing of the pledges of Aqabah."
+     ],
+     "values": [
+      "Responsibility enhanced as learners take turns to discuss the events that led to the signing of the pledges of Aqabah."
+     ],
+     "pertinent_issues": [
+      "Conflict resolution and negotiation as they discuss, in groups, the events that led to the signing of the pledges of Aqabah."
+     ],
+     "links_to_other_areas": [
+      "The concept of signing agreements is covered and is related to Social Studies."
+     ],
+     "resources": [],
+     "kicd_source": "grade5-islamic-religious-education.pdf#p51"
+    },
+    {
+     "kicd_code": "7.3",
+     "name": "Hijra to Madina",
+     "suggested_duration": "3 lessons",
+     "learning_outcomes": [
+      "narrate the events on the Prophet’s migration to Madina",
+      "assess the significance of the Prophet (S.A.W)’s journey to Madina",
+      "appreciate the Prophet (S.A.W.)’s journey to Madina as a milestone in Islamic History."
+     ],
+     "learning_experiences": [
+      "listen/watch a story on the Prophet (S.A.W.)’s migration to Madina from a digital device/teacher",
+      "braistorm reasons for Prophet’s migration to Madina and write notes",
+      "discuss the major events that took place during the Prophet (S.A.W.)’s migration to Madina (e.g. the Prophet (S.A.W) leaving Ali in his house, departure with Abubakar, at cave Thaur, the incident of Suraqah, reception in Madina)",
+      "sing a Qasida of welcoming the Prophet (S.A.W) i.e Talaal Badru ‘alaynaa",
+      "discuss the significance of Hijra and make short note (such as end of persecution, unity of the Ummah, beginning of the Islamic calendar) and present in class"
+     ],
+     "inquiry_questions": [
+      "1. Why did the Prophet (S.A.W.) migrate to Madina?",
+      "2. Why is Hijra important to Muslims?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Communication and collaboration: the skills of listening, speaking, writing and teamwork enhanced as learners discuss the major events that took place during the Prophet (S.A.W.)’s migration to Madina (e.g the Prophet (S.A.W) leaving Ali in his house, departure with Abubakar, at cave Thaur, the incident of Suraqah, reception in Madina).",
+      "Creativity and imagination: the skill of networking is enhanced as learners sing a Qasida of welcoming the Prophet (S.A.W) i.e Talaal Badru ‘alaynaa. Values: Patriotism: citizenship as learners discuss the significance of Hijra and make short notes (e.g. end of persecution, unity of the Ummah, beginning of the Islamic calendar). Pertinent and Contemporary Issues (PCIs): Leadership as they discuss the role played by Prophet Muhammad in Madina. Links to other Learning Areas: As learners discuss the migration from Makkah to Madina, they are able to relate to movement of people in Social Studies."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade5-islamic-religious-education.pdf#p52"
+    },
+    {
+     "kicd_code": "7.5",
+     "name": "Constitution of Madina",
+     "suggested_duration": "3 lessons",
+     "learning_outcomes": [
+      "outline the terms of Madina constitution",
+      "assess the importance of Madina constitution to the history of Islam",
+      "describe the role played by the Ansar in the settlement of Muhajirun in Madina",
+      "develop a desire to maintain Islamic brotherhood as per the teachings of Islam."
+     ],
+     "learning_experiences": [
+      "brainstorm on the terms of Madina constitution, and present on a manilla paper",
+      "discuss the importance of Madina constitution to the people of Madina and in the history of Islam and present in class",
+      "listen/watch a story on how united the Muhajirun and the Ansar were from a digital device/resource person",
+      "discuss the role played by the Ansar in settling the Muhajirun (such as shared their wealth, assisted them in integration and settlement), and write notes",
+      "discuss the lessons learnt from the spirit of brotherhood established by the Prophet (S.A.W) (Muslims must be united, assist one another) and present in class."
+     ],
+     "inquiry_questions": [
+      "1. Why is the Madina constitution important to history of Islam?",
+      "2. What role did the Ansar play in the settlement of the Muhajirun?"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade5-islamic-religious-education.pdf#p54"
+    }
+   ]
+  }
+ ]
+}

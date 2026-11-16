@@ -1,0 +1,463 @@
+{
+ "source_pdf": "grade10-biology.pdf",
+ "grade": 10,
+ "subject": "biology",
+ "general_outcomes": [],
+ "strands": [
+  {
+   "strand": "Cell Biology and Biodiversity",
+   "strand_code": "1.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to relate fields of study in Biology to career opportunities",
+     "exceeds": "Correctly and precisely relates all fields of study in Biology to the respective career opportunities",
+     "meets": "Correctly relates all fields of study in Biology to career opportunities",
+     "approaches": "Relates most fields of study in Biology to career opportunities",
+     "below": "Relates a few fields of study in Biology to career opportunities"
+    },
+    {
+     "indicator": "Ability to illustrate the light and dark stages of photosynthesis",
+     "exceeds": "Accurately illustrates the light and dark stages of photosynthesis",
+     "meets": "Illustrates the light and dark stages of photosynthesis",
+     "approaches": "Partly illustrates the light and dark stages of photosynthesis",
+     "below": "Partly illustrates the light and dark stages of photosynthesis with prompts"
+    },
+    {
+     "indicator": "Ability to relate the structures of the plant transport system to their functions",
+     "exceeds": "Comprehensively relates the structures of the plant transport system to their functions",
+     "meets": "Relates the structures of the plant transport system to their functions",
+     "approaches": "Relates some structures of the plant transport system to their functions",
+     "below": "Relates some structures of the plant transport system to their functions with difficulty"
+    },
+    {
+     "indicator": "Ability to describe the mechanism of opening and closing of stomata in plants",
+     "exceeds": "Comprehensively describes the mechanism of opening and closing of stomata in plants",
+     "meets": "Correctly describes all the mechanism of opening and closing of stomata in plants",
+     "approaches": "Partially describes the mechanism of opening and closing of stomata in plants",
+     "below": "Partially describes the mechanism of opening and closing of stomata in plants with prompts"
+    },
+    {
+     "indicator": "Ability to describe the economic importance of anaerobic respiration",
+     "exceeds": "Correctly describes the economic importance of anaerobic respiration citing examples",
+     "meets": "Correctly describes the economic importance of anaerobic respiration",
+     "approaches": "Describes some of the economic importance of anaerobic respiration",
+     "below": "Describes some of the economic importance of anaerobic respiration with difficulty"
+    },
+    {
+     "indicator": "Ability to describe the process of aerobic and anaerobic respiration",
+     "exceeds": "Comprehensively describes the process of aerobic and anaerobic respiration using illustrations",
+     "meets": "Describes the process of aerobic and anaerobic respiration",
+     "approaches": "Partially describes the process of aerobic and anaerobic respiration",
+     "below": "Partially describes the process of aerobic and anaerobic respiration with prompts"
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "1.1",
+     "name": "Introduction to Biology",
+     "suggested_duration": "6 lessons",
+     "learning_outcomes": [
+      "explain the application of Biology in everyday life",
+      "relate fields of study in Biology to career opportunities",
+      "Illustrate the careers related to fields of study in Biology",
+      "appreciate the importance of Biology in everyday life."
+     ],
+     "learning_experiences": [
+      "Learner is guided to:",
+      "search for information on the meaning and application of Biology in everyday life and share with peers",
+      "collaboratively search for information from print and non-print media on fields of study in Biology (include Botany, Zoology, Taxonomy, Anatomy, Physiology, Ecology, Biochemistry, Biotechnology, Genetics, Parasitology, Microbiology, Entomology) and relate them to career opportunities",
+      "discuss the factors that influences career choices (include interest, ability). Reinforce on those that should not (gender, culture, disability, environment and stereotypes)"
+     ],
+     "inquiry_questions": [],
+     "core_competencies": [
+      "Imagination and Creativity: The learner visualizes prospective fields and careers related to Biology using flash cards as well as designing career wheels to illustrate the same.",
+      "Self-efficacy: The learner develops a sense of self-awareness while discussing the factors that influence career choices."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-biology.pdf#p13"
+    },
+    {
+     "kicd_code": "1.2",
+     "name": "Specimen Collection and Preservation",
+     "suggested_duration": "14 lessons",
+     "learning_outcomes": [
+      "identify apparatus and materials used for collecting, processing and preserving specimens",
+      "collect, process and preserve specimens for biological studies using improvised and conventional apparatus",
+      "appreciate the importance of collecting, processing and preserving specimens in Biology."
+     ],
+     "learning_experiences": [
+      "Learner is guided to:",
+      "in groups search for information on apparatus and materials for collecting specimens, (such as pooter/aspirator, pitfall trap, soapy water, pair of forceps, sweep net/aerial net, light traps, Tullgren funnel, envelopes for butterflies, labels, pencils or permanent ink pens, tracing paper, hand lens, knife/ pair of secateurs, collecting bags labels, hand gloves, digger)",
+      "improvise apparatus from locally available materials and use them for collecting, processing and preserving specimens",
+      "make a herbarium to preserve specimens (pressing, drying, mounting, labeling to include",
+      "common/local name and locality, storage and protection)",
+      "collect small animals using appropriate apparatus (such as pooter/aspirator, pitfall trap, forceps, sweep net/aerial net, light traps, Tullgren funnel, bait trap)",
+      "search for information on preservatives used in preservation of specimens and discuss with peers",
+      "process and preserve animal specimens (sorting, mounting on soft boards, ethanol/wet preservation, labeling). Project Carry out a project on collecting, processing and preserving biological specimens (include discussion on financial literacy",
+      "components such as planning, budgeting, specimen collection, recording). Learner keeps a portfolio to document progress of the project and make presentations."
+     ],
+     "inquiry_questions": [
+      "How are specimens collected and preserved?"
+     ],
+     "core_competencies": [
+      "Critical Thinking and Problem Solving: The learner improvises apparatus from locally available material and uses them for collecting, processing and preserving specimens to address the shortage in their school.",
+      "Self-efficacy: The learner gains self-esteem and confidence while successfully collecting, processing and preserving biological specimens."
+     ],
+     "values": [
+      "Unity: The learner collaborates with peers while searching for information on apparatus and materials for collecting specimens.",
+      "Integrity: The learner enhances honesty while carrying out the project and keeping a portfolio to document the progress of the project."
+     ],
+     "pertinent_issues": [
+      "Safety and Security: The learner observes safety precautions while collecting, processing and preserving biological specimens.",
+      "Environmental conservation: The learner conserves the environment while collecting specimens."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-biology.pdf#p15"
+    },
+    {
+     "kicd_code": "1.3",
+     "name": "Cell Structure and Specialization",
+     "suggested_duration": "30 lessons",
+     "learning_outcomes": [
+      "differentiate between light and electron microscope as used in the study of cell structure",
+      "describe the structure and functions of plant and animal cells as observed in an electron microscope",
+      "prepare temporary slides for observation and estimation of cell size using a light microscope",
+      "relate the structures of specialized cells in plants and animals to their functions",
+      "appreciate the cell as the basic unit of life."
+     ],
+     "learning_experiences": [
+      "Learner is guided to:",
+      "search for information sing print and non-print media on structural and functional differences between light and electron microscope, (include the concept of resolution and magnification)",
+      "carry out experiments on the procedures in preparation of specimen slides for observation on a light microscope, (sectioning, staining, mounting and fixation)",
+      "prepare temporary slides and use them under light microscope to estimate the cell sizes (use onion bulbs, kales or young herbaceous stems and leaves; avoid use of human specimen)",
+      "use photomicrographs/charts to compare the structure of plant and animal cells as seen under electron microscope",
+      "draw and label the structure of plant and animal cells as seen under electron microscope, share with peers",
+      "model the structure of plant and animal cells as seen under electron microscope",
+      "discuss the on specialized cells in plants and animals, and relate them to their function (include root hair cells, palisade cells, guard cells, pollen grains; muscle cells, nerve cells, blood cells, reproductive cells)and share with peers",
+      "observe photomicrographs/ permanent slides of specialized plant and",
+      "animal cells, draw and label",
+      "discuss levels of organization in an organism (organelles, cells, tissues, organs and organ systems)."
+     ],
+     "inquiry_questions": [
+      "1. Why do plant and animal cells differ?",
+      "2. How are cells specialized?"
+     ],
+     "core_competencies": [
+      "Communication and Collaboration: The learner cooperates and shares information in groups as they use photomicrographs to compare the structure of plant and animal cells as seen under electron microscope.",
+      "Digital Literacy: The learner gains digital literacy while searching for information on structural and functional differences between light and electron microscope."
+     ],
+     "values": [
+      "Respect: The learner demonstrates tolerance, respecting peers during the group discussion on the use of photomicrographs to compare the structure of plant and animal cells as seen under electron microscope.",
+      "Responsibility: The learner searches for information from appropriate internet sites on the structural and functional differences between light and electron microscope."
+     ],
+     "pertinent_issues": [
+      "Safety and Security: The learner observes safety precautions while modeling the structure of plant and animal cells as seen under electron microscope.",
+      "Waste Management: The learner appropriately disposes of the waste materials generated from modeling the structure of plant and animal cells as seen under electron microscope."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-biology.pdf#p18"
+    },
+    {
+     "kicd_code": "1.4",
+     "name": "Chemicals of Life",
+     "suggested_duration": "28 lessons",
+     "learning_outcomes": [
+      "describe the composition, properties and functions of the chemicals of life in organisms",
+      "investigate the presence of carbohydrates, lipids, proteins and vitamin C in food substances",
+      "investigate the presence of enzymes in living tissues",
+      "determine factors affecting enzymatic reactions in cells",
+      "appreciate the importance of chemical components in cells."
+     ],
+     "learning_experiences": [
+      "Learner is guide to:",
+      "search for information on the composition, properties and functions of the chemical components in cells, and discuss with peers (carbohydrates, proteins, lipids, enzymes, vitamins, water and mineral salts) and share. Exclude chemical structure for all; omit composition for enzymes, vitamins and mineral salts",
+      "carry out experiments to test for the presence of carbohydrates, lipids, proteins and vitamin C in food substances (include locally available food substances)",
+      "carry out experiments to investigate the presence of catalase enzymes in living tissues",
+      "carry out experiments to determine factors affecting enzymatic activities and discuss with peers",
+      "(pH, temperature, substrate and enzyme concentration)",
+      "examine packaging labels of common food products, appreciate the quality, quantity, and safety of the chemical components indicated (preservatives, colourings and expiry)."
+     ],
+     "inquiry_questions": [
+      "1. How are chemicals important in cells?",
+      "2. How is the presence of chemicals of life determined?"
+     ],
+     "core_competencies": [
+      "Critical thinking and Problem Solving: The learner analyzes and makes inferences while carrying out food tests on the various food Suggested s.",
+      "Learning to Learn: The learner examines packaging labels of common food products, appreciates the quality, quantity and safety of the chemical components indicated."
+     ],
+     "values": [
+      "Love: The learner shares resources and ideas with others while carrying out experiments to determine factors affecting enzymatic activities.",
+      "Unity: The learner collaborates with others while carrying out experiments to investigate the presence of catalase enzymes in living tissues."
+     ],
+     "pertinent_issues": [
+      "Safety and Security: The learner observes safety precautions while carrying out experiments on chemicals of life.",
+      "Life Skills: The learner makes preferential decisions about purchasing various food products after examining packaging labels of common food products."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-biology.pdf#p21"
+    },
+    {
+     "kicd_code": "2.1",
+     "name": "Nutrition",
+     "suggested_duration": "12 lessons",
+     "learning_outcomes": [
+      "describe types of nutrition in plants",
+      "relate the structure of the chloroplast to its function in plant cells",
+      "illustrate the light and dark stages of photosynthesis in plants",
+      "appreciate the significance of photosynthesis in nature."
+     ],
+     "learning_experiences": [
+      "Learner is guided to:",
+      "search for information on different types of nutrition in plants and share with peers",
+      "discuss the structure of chloroplast in relation to its function",
+      "watch animations/video clips on the process of photosynthesis and discuss",
+      "in groups use illustrations to show reactions during the light and dark stages of photosynthesis (flow charts, animations, equations)"
+     ],
+     "inquiry_questions": [
+      "How do plants obtain food?"
+     ],
+     "core_competencies": [
+      "Self-Efficacy: The learner performs assigned tasks while using illustrations to show reactions of the light and dark stages of photosynthesis.",
+      "Digital literacy: The learner manipulates digital devices as they search for information and watch animations on the process of photosynthesis."
+     ],
+     "values": [
+      "Value",
+      "Unity: The learner cooperates with peers during the searching of information and group discussions on the process of photosynthesis.",
+      "Respect: The learner displays patience while listening to peers during the discussion on the structure of chloroplast in relation to its function. Pertinent and Contemporary Issues",
+      "Environmental Conservation: The learner appreciates the need to conserve the environment while watching animations/video clips on the process of photosynthesis.",
+      "Safety and Security: The learner responsibly uses the internet while searching for information on different types of nutrition in plants."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-biology.pdf#p24"
+    },
+    {
+     "kicd_code": "2.2",
+     "name": "Transport",
+     "suggested_duration": "18 lessons",
+     "learning_outcomes": [
+      "relate structures of the plant transport system to their functions in plants",
+      "illustrate the arrangement of vascular tissues in monocotyledonous and dicotyledonous plants",
+      "demonstrate the uptake of water and mineral salts from the roots to the leaves",
+      "demonstrate factors that affect the rate of transpiration in plants",
+      "describe the translocation of manufactured food in plants",
+      "appreciate the significance of transport in plants."
+     ],
+     "learning_experiences": [
+      "Learner is guided to:",
+      "discuss the structures of external parts of a plant in relation to functions (roots, stems and leaves)",
+      "use a microscope/hand lens to observe and draw cross-sections of monocotyledonous and dicotyledonous roots and stems; identify the similarities and differences",
+      "search for information on mechanisms of water and mineral salt uptake in plants and discuss with peers (include: root pressure, capillarity, transpiration pull)",
+      "carry out experiments to demonstrate uptake of water in plants using locally available materials (such as transparent bags, dye/ink experiment) and report findings to peers (where",
+      "possible, observe exudation, guttation, and root pressure)",
+      "use digital devices to search for animations on uptake of water and mineral salts and translocation of manufactured food from the leaves; share with peers",
+      "search for information from available resources on structural and environmental factors that affect the rate of transpiration and share with peers",
+      "carry out experiments to demonstrate factors that affect the rate of transpiration (use locally available materials like improvised fan, transparent polythene bags, light/heat bulbs)",
+      "carry out a bark ringing/girdling experiment to demonstrate evidence of translocation (to be done",
+      "responsibly at home or school)."
+     ],
+     "inquiry_questions": [
+      "How are materials transported in plants?"
+     ],
+     "core_competencies": [
+      "Critical Thinking and Problem Solving: The learner objectively analyses results of the bark ringing/girdling experiment to demonstrate evidence of translocation.",
+      "Imagination and Creativity: The learner seeks clarification from others while carrying out the experiment to demonstrate the mechanisms of water and mineral salt uptake."
+     ],
+     "values": [
+      "Responsibility: The learner takes care of trees during the bark ringing/girdling experiment to observe translocation in plants.",
+      "Integrity: The learner displays honesty and truthfulness while reporting their findings on the mechanism of translocation of manufactured food from the leaves."
+     ],
+     "pertinent_issues": [
+      "Environmental Conservation: The learner responsibly bark-rings or girdles trees to observe translocation.",
+      "Safety and Security: The learner observes safety precautions while taking nature walks and making observations on the differences between monocotyledonous and dicotyledonous plants."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-biology.pdf#p26"
+    },
+    {
+     "kicd_code": "2.3",
+     "name": "Gaseous Exchange and Respiration",
+     "suggested_duration": "22 lessons",
+     "learning_outcomes": [
+      "relate the structure of gaseous exchange sites in plants to their function",
+      "describe the mechanism of opening and closing of stomata in plants",
+      "investigate aerobic and anaerobic respiration in living organisms",
+      "explain the economic importance of anaerobic respiration in nature",
+      "appreciate the significance of gaseous exchange and respiration to",
+      "plants and the environment."
+     ],
+     "learning_experiences": [
+      "Learner is guide to:",
+      "search for information on the meaning of gaseous exchange and its significance to plants and the environment; discuss with peers",
+      "collect fresh leaves, stems and roots of plants or use photomicrographs to observe sites of gaseous exchange (cuticle, lenticel, stomata, and pneumatophores); share with peers",
+      "discuss the adaptations of gaseous exchange sites in plants to their to function (include aquatic and terrestrial environment)",
+      "search for information on mechanism of opening and closing of the stomata; discuss with peers (include photosynthetic theory, starch -",
+      "sugar interconversion theory and potassium ions theory)",
+      "where possible, use digital devices to search for animations showing the mechanism of opening and closing of stomata and discuss with peer",
+      "carry out experiments to compare the number, size and distribution of stomata on surfaces of leaves from different habitats",
+      "search for information on the process of respiration and share with peers",
+      "carry out experiments to distinguish aerobic and anaerobic respiration",
+      "discuss the economic importance of anaerobic respiration and share with peers. Project: Carry out a project on fermentation using locally available materials",
+      "(biogas production, porridge, silage, liquid manure or baking)."
+     ],
+     "inquiry_questions": [
+      "1. Why is gaseous exchange important to plants?",
+      "2. How is respiration useful to plants?"
+     ],
+     "core_competencies": [
+      "Communication and Collaboration: The learner cooperates with others while discussing theories explaining the mechanism of opening and closing of stomata.",
+      "Learning to Learn: The learner applies the information acquired on the economic importance of anaerobic respiration to carry out the project."
+     ],
+     "values": [
+      "Responsibility: The learner appropriately disposes of the products of fermentation .",
+      "Social justice: The learner ensures equity, equality and gender balance in distribution of learning resources during group activities."
+     ],
+     "pertinent_issues": [
+      "Waste Management: The learner disposes waste products from the experiments responsibly.",
+      "Financial Literacy: The learner applies knowledge from anaerobic respiration to make fermentation products for sale."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-biology.pdf#p29"
+    },
+    {
+     "kicd_code": "3.1",
+     "name": "Nutrition",
+     "suggested_duration": "12 lessons",
+     "learning_outcomes": [
+      "relate the structure of mouthparts of insects to their functions",
+      "illustrate mouthparts in different insects",
+      "relate the structure of beaks of birds to their functions",
+      "appreciate diversity in feeding modes of insects and birds."
+     ],
+     "learning_experiences": [
+      "Learner is guided to:",
+      "collect fresh specimens of locust/grasshopper/cockroach. Observe the mouthparts using a hand lens or dissecting microscope, discuss with peers and draw",
+      "search for information on mouthparts of locust/ grasshopper/ cockroach (biting and chewing), mosquito (piercing and sucking), butterfly/moth (siphoning), tsetse fly",
+      "and share with peers",
+      "watch animations/videos; study illustrations and photographs/photomicrographs of mouthparts of different insects and discuss how the mouthparts are related to the mode of feeding",
+      "in groups observe images/animations/charts of beaks of birds showing different modes of feeding (include grains/seeds",
+      "nectar, fish, flesh, filter feeders, multipurpose, wood chippers, insect eaters, fruit eaters). Discuss how the beaks are adapted to the mode of feeding",
+      "undertake a nature walk to observe different birds and their feeding habits. Write a short report on the observed birds."
+     ],
+     "inquiry_questions": [
+      "How do insects and birds feed?"
+     ],
+     "core_competencies": [
+      "Communication and collaboration: The learner cooperates with others while collecting fresh specimens of insects to observe their mouthparts.",
+      "Digital literacy: The learner uses digital devices to access and watch animations/videos on mouth parts of different insects and beaks of birds."
+     ],
+     "values": [
+      "Responsibility: The learner diligently observes safety precautions as they collect fresh specimens of insects to observe their mouthparts.",
+      "Social justice: The learner promotes equity, equality and gender consideration in distribution of learning resources as well as assigning responsibilities during group activities."
+     ],
+     "pertinent_issues": [
+      "Environmental conservation: The learner conserves biodiversity by collecting only the required number of insect specimens.",
+      "Safety and security: The learner observes safety precautions while undertaking nature walk to observe different birds and their feeding habits."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-biology.pdf#p33"
+    },
+    {
+     "kicd_code": "3.2",
+     "name": "Transport",
+     "suggested_duration": "14 lessons",
+     "learning_outcomes": [
+      "explain the importance of transport in animals",
+      "illustrate structure of the transport systems in insects, fish, amphibians, reptiles and mammals",
+      "describe the pumping mechanism of the mammalian heart",
+      "describe the human lymphatic and immune systems, and blood clotting mechanism",
+      "explain the ABO and rhesus factor blood grouping systems in humans",
+      "appreciate the diversity of transport systems in animals."
+     ],
+     "learning_experiences": [
+      "Learner is guided to:",
+      "search and discuss information on the meaning and importance of transport systems in animals",
+      "search and discuss information on the structures of transport in insects, fish and amphibians, reptiles and mammals",
+      "search for information from available sources and resources on different transport systems in animals (open and closed, single and double circulatory systems), iIllustrate the systems and share",
+      "study illustrations/ photographs and where",
+      "possible watch animations illustrating transport systems in fish, insects, amphibians, reptiles and mammals",
+      "make drawings illustrating the transport system in fish, insects and amphibians and peer-assess each other’s work",
+      "watch animations illustrating the human lymphatic system and the pumping mechanism of a mammalian heart",
+      "dissect a small mammal to observe and draw parts of the transport system. .watch animations illustrating the mechanism of blood clotting",
+      "prepare charts illustrating blood donor-recipient compatibility",
+      "visit a health facility and discuss the ABO and",
+      "rhesus blood grouping with a resource person."
+     ],
+     "inquiry_questions": [
+      "1. Why is transport important in animals?",
+      "2. How do transport systems in animals differ?"
+     ],
+     "core_competencies": [
+      "Critical thinking and problem solving: The learner analyzes the compatibility of blood donor and recipient for safe transfusion of blood.",
+      "Self-efficacy: The learner exhibits confidence and self-esteem during dissection of a small mammal to examine the transport system."
+     ],
+     "values": [
+      "Love: The learner respects others while searching and discussing information on the transport system of mammals.",
+      "Peace: The learner displays tolerance towards other group members while carrying out the dissection of mammals."
+     ],
+     "pertinent_issues": [
+      "Animal welfare: The learner handles animals humanely during dissection of animals.",
+      "Life skills: The learner applies peaceful conflict resolution skills while managing dynamics in their groups during the practical activities."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-biology.pdf#p35"
+    },
+    {
+     "kicd_code": "3.3",
+     "name": "Gaseous Exchange and Respiration",
+     "suggested_duration": "24 lessons",
+     "learning_outcomes": [
+      "explain the general characteristics of respiratory surfaces in animals",
+      "describe the structure and adaptations of respiratory structures in animals",
+      "describe the mechanism of gaseous exchange in humans",
+      "describe the process of aerobic and anaerobic respiration",
+      "calculate the respiratory quotient for different foods",
+      "appreciate the importance of gaseous exchange and respiration in animals."
+     ],
+     "learning_experiences": [
+      "Learner is guide to:",
+      "search and discuss information on characteristics of the respiratory surfaces of animals",
+      "observe and discuss images /photomicrographs of structure and adaptations of respiratory surfaces of animals (insects-tracheal system, respiratory siphons and tracheal gills), fish (gills), amphibians (lungs, buccal cavity and skin), birds (lungs) and mammals (lungs)",
+      "collect locusts/ /grasshoppers from the local environment /or use photographs/illustrations and make observations of gaseous exchange structures (spiracles) and draw. Discuss the adaptations of gaseous exchange sites and structures to their habitat",
+      "use fresh specimen /preserved /video/ animations/charts to observe gaseous exchange structures in bony",
+      "fish, make labeled drawings and present",
+      "dissect a small mammal, observe and draw the gaseous exchange structures",
+      "make models to demonstrate inhalation and exhalation in humans",
+      "carry out experiments on aerobic and anaerobic respiration",
+      "engage in a physical activity and check their breathing rate",
+      "search for information on factors affecting energy requirements in humans and calculate respiratory quotient for various foods with peers."
+     ],
+     "inquiry_questions": [
+      "1. How does gaseous exchange occur in animals?",
+      "2. Why is respiration important to animals?"
+     ],
+     "core_competencies": [
+      "Communication and collaboration: The learner listens keenly to group members and speaks clearly to share information during group activities.",
+      "Learning to learn: The learner develops relationships while sharing information with group members."
+     ],
+     "values": [
+      "• Respect: The learner is considerate of others opinions while working together in groups discussing the adaptations of respiratory sites and structures."
+     ],
+     "pertinent_issues": [
+      "Social awareness skills: The learner communicates effectively to peers while working in groups.",
+      "Animal welfare: The learner handles the animals humanely during the practical and project activities."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-biology.pdf#p38"
+    }
+   ]
+  }
+ ]
+}

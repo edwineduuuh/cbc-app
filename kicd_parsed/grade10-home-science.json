@@ -1,0 +1,711 @@
+{
+ "source_pdf": "grade10-home-science.pdf",
+ "grade": 10,
+ "subject": "home-science",
+ "general_outcomes": [
+  "Apply knowledge on nutritive value of food to prevent and manage nutritional deficiency diseases and disorders for healthy living.",
+  "Utilise knowledge, skills and attitudes in meal planning, preparation, cooking, presentation and preservation of food for a healthy life.",
+  "Exploit individual talents in food preparation, cooking and service for leisure, self-fulfillment and entrepreneurship.",
+  "Develop skills for proper care of the home, care and maintenance of clothes and household articles in day-to-day life.",
+  "Apply principles of consumer education for family financial management",
+  "Choose fabrics for various uses based on their different characteristics.",
+  "Apply various techniques in drafting and grading basic pattern blocks for constructing garments.",
+  "Construct garments using various clothing construction techniques.",
+  "Appreciate Home science as a subject and the role it plays in improving the life of an individual, family and the nation."
+ ],
+ "strands": [
+  {
+   "strand": "Foods and Nutrition",
+   "strand_code": "1.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to examine careers associated with foods and nutrition",
+     "exceeds": "examine careers associated with foods and nutrition",
+     "meets": "examines careers associated with foods and nutrition",
+     "approaches": "examine careers associated with foods and nutrition",
+     "below": "examine careers associated with foods and nutrition"
+    },
+    {
+     "indicator": "Ability to use and care for kitchen tools and equipment used in food production,",
+     "exceeds": "Applies four ways of using and caring for kitchen tools and equipment used in food production (handling, cleaning, storage, maintenance) correctly",
+     "meets": "Applies three ways of using and caring for kitchen tools and equipment used in food production (handling, cleaning, storage, maintenance)",
+     "approaches": "Applies two ways of using and caring for kitchen tools and equipment used in food production (handling, cleaning, storage, maintenance)",
+     "below": "Applies less than two ways of using and caring for kitchen tools and equipment used in food production (handling, cleaning, storage, maintenance) with observable areas for correction"
+    },
+    {
+     "indicator": "Ability to apply hygiene practices when handling food",
+     "exceeds": "applies hygiene practices when handling food with observable attention to details.",
+     "meets": "applies hygiene practices when handling food.",
+     "approaches": "applies hygiene practices when handling food with some observable areas for correction",
+     "below": "applies hygiene practices when handling food with many observable areas for correction"
+    },
+    {
+     "indicator": "Ability to cook food using different methods",
+     "exceeds": "Demonstrates three aspects while cooking food using different methods (procedure, safety, quality results)",
+     "meets": "Demonstrates three aspects while cooking food using different methods",
+     "approaches": "Demonstrates two aspects while cook food using different methods (procedure,",
+     "below": "Demonstrates less than two aspects cook food using different methods (procedure, safety, quality"
+    },
+    {
+     "indicator": "Ability to plan meals from different food groups for proper nutrition",
+     "exceeds": "Plans meals from different food groups for proper nutrition to include five aspects of a balanced meal (energy giving, body building, protective, including roughage, liquid) with observable attention to details.",
+     "meets": "plans meals from different food groups for proper nutrition to include three aspects of a balanced meal (energy giving, body building, protective, including roughage, liquid)",
+     "approaches": "plans meals from different food groups for proper nutrition to include two aspects of a balanced meal (energy giving, body building, protective, including roughage, liquid)",
+     "below": "plans meals from different food groups for proper nutrition to include less than two aspects of a balanced meal (energy giving, body building, protective, including roughage, liquid) with corrections to be made"
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "1.1",
+     "name": "Overview of Foods and Nutrition",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "explain the importance of foods and nutrition as an area of study in Home Science",
+      "identify careers related to foods and nutrition",
+      "appreciate the role of foods and nutrition in our day-to-day life."
+     ],
+     "learning_experiences": [
+      "discuss the importance of foods and nutrition as an area of study in Home Science",
+      "use digital and print resources to search for information on various career opportunities related to foods and nutrition",
+      "Participate in career talks in Clubs and Societies with peers, design a career wheel and mount it on the classroom wall."
+     ],
+     "inquiry_questions": [
+      "How can the knowledge of foods and nutrition inform career opportunities?"
+     ],
+     "core_competencies": [
+      "Learners display team work and are able to speak clearly and effectively while discussing the significance of foods and nutrition learnt in Home science.",
+      "Creativity and imagination: The Learner undertake tasks that show ability to use imagination to generate new ideas as they design a career wheel."
+     ],
+     "values": [
+      "Respect: learner recognizes and respects the input of every member of the team as they discuss on the significance of foods and nutrition."
+     ],
+     "pertinent_issues": [
+      "Career guidance: Learners participate in career talks with peers to make informed decisions on their career pathway."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-home-science.pdf#p13"
+    },
+    {
+     "kicd_code": "1.2",
+     "name": "Kitchen Layouts and Equipment",
+     "suggested_duration": "14 lessons",
+     "learning_outcomes": [
+      "analyse kitchen layouts in the home",
+      "describe tools and equipment used in the kitchen",
+      "care for tools and equipment used in the kitchen",
+      "appreciate the importance of different layouts, tools and equipment in the kitchen."
+     ],
+     "learning_experiences": [
+      "discuss and illustrate kitchen layouts used in the home (L-shaped, U-shaped, Corridor, One wall, Island)",
+      "brainstorm on factors to consider when choosing kitchen layouts, tools and equipment",
+      "observe pictures or realia to identify and classify kitchen tools and equipment",
+      "care for tools and equipment used in the kitchen (use, clean and store), according to their materials (glass, wood, plastic, melamine, metals, earthenware)",
+      "improvise kitchen tools and equipment using safe and locally available materials"
+     ],
+     "inquiry_questions": [
+      "1. How does a good kitchen layout enhance efficiency when working in the kitchen?",
+      "2. How do kitchen tools and equipment enhance effectiveness when working in the kitchen?"
+     ],
+     "core_competencies": [
+      "Learning to learn: The learner reflects on their own work while sketching different kitchen layouts, and as they improvise kitchen equipment."
+     ],
+     "values": [
+      "Values:",
+      "Responsibility: The learner cares for own equipment and those of others as they carry out cleaning and storage of the kitchen equipment.",
+      "Unity: Learners promote teamwork as they carry out group tasks during research on materials used to make kitchen tools and equipment. Pertinent and Contemporary Issues (PCIs): Health education: Learners promote health when caring for kitchen tools and equipment through cleaning."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-home-science.pdf#p14"
+    },
+    {
+     "kicd_code": "1.3",
+     "name": "Food Hygiene and safety",
+     "suggested_duration": "8 lessons",
+     "learning_outcomes": [
+      "explain the importance of hygiene and safety when handling food",
+      "differentiate between food spoilage and poisoning when handling food",
+      "apply hygiene practices when handling food",
+      "adopt high hygiene standards when handling food."
+     ],
+     "learning_experiences": [
+      "discuss the importance of food hygiene and safety when handling food",
+      "use digital and print resources to search for the difference between food spoilage and poisoning (meaning, causes, signs, and prevention) then share findings with peers Note: (causes; chemicals, micro-organisms, poor storage, poor handling of food, pests and insects; signs; change in colour, change in texture, unpleasant smell, undesirable taste)",
+      "observe spoilt food and identify signs of spoilage",
+      "practise hygiene when handling food."
+     ],
+     "inquiry_questions": [
+      "1. Why is food spoilage and poisoning a concern when handling food?",
+      "2. How can we adopt safe habits and proper hygiene when handling food?"
+     ],
+     "core_competencies": [
+      "Critical thinking and problem solving: the learner evaluates and makes decisions on prevention of food spoilage through proper food handling."
+     ],
+     "values": [
+      "Values: Integrity: the learner applies laid down food hygiene procedures when handling food to promote safety. Pertinent and Contemporary Issues (PCIs): Health education: Learners promote health as they observe food hygiene practices and safety."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-home-science.pdf#p16"
+    },
+    {
+     "kicd_code": "1.4",
+     "name": "Methods of Cooking",
+     "suggested_duration": "14 lessons",
+     "learning_outcomes": [
+      "classify methods of cooking food",
+      "cook food using different methods",
+      "adopt use of different methods of cooking food."
+     ],
+     "learning_experiences": [
+      "discuss reasons for cooking food and present in class",
+      "use digital and print resources to search on the categories of methods of cooking, general rules, advantages and disadvantages. (moist heat; boiling, stewing, steaming, poaching, frying, dry heat; roasting, grilling, baking)",
+      "prepare (cleaning, blending, kneading, mixing, cutting; chopping, slicing, peeling grating and dicing) and cook food using the different methods",
+      "observe safety while preparing and cooking food using the different methods."
+     ],
+     "inquiry_questions": [
+      "Why is knowledge on methods of cooking important?"
+     ],
+     "core_competencies": [
+      "Self-efficacy: Learners show a concerted attention to detail as they apply the knowledge of cooking methods to prepare food items.",
+      "Digital literacy: Learners use digital devices to effectively accomplish own tasks when they research on categories of cooking."
+     ],
+     "values": [
+      "Values:",
+      "Unity: Learners promote team work as they collaborate in accomplishing assigned tasks.",
+      "Integrity: Learners use resources well as they cook food using the different cooking. Pertinent and Contemporary Issues (PCIs):",
+      "Health education: Learners are sensitised on health and nutrition issues as they discuss in groups reasons for cooking food and present in class.",
+      "Safety: learners observe safety measures as they prepare and cook food."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-home-science.pdf#p18"
+    },
+    {
+     "kicd_code": "1.5",
+     "name": "Nutritive Value of Foods",
+     "suggested_duration": "12 lessons",
+     "learning_outcomes": [
+      "Classify food nutrients according to the food groups",
+      "analyse the role of food nutrients in the body",
+      "plan meals from different food groups for proper nutrition",
+      "appreciate different foods from various food groups."
+     ],
+     "learning_experiences": [
+      "discuss and make presentations on classification of food nutrients (carbohydrates, proteins, vitamins, fats, mineral salts), their sources and functions and group them (energy giving, protective, body building, Including dietary fibre and water)",
+      "search for information from digital or print media, discuss with a resource person on fortification and enrichment of foods in improvement of nutritional value (meaning, reasons for, relevant examples), then write reports",
+      "search for information from digital media, print materials on nutritional deficiencies and disorders (causes, prevention and management of nutritional deficiencies,)",
+      "• formulate meal plans using locally available foods to address nutritional deficiencies and disorders."
+     ],
+     "inquiry_questions": [
+      "1. How does knowledge on food nutrients promote healthy eating habits?",
+      "2. why does the food you choose to eat affect your health?"
+     ],
+     "core_competencies": [
+      "Communication and collaboration: Learners display writing skills as they research and write a report on food nutrients",
+      "Learning to learn: as learners carry out research on classes, functions and sources of food nutrients, and as they engage with the resource person."
+     ],
+     "values": [
+      "Patriotism: learners display awareness of their culture as they appreciate use of locally available foods when cooking",
+      "Social justice: learners promote social justice as they share learning resources during research, and during cooking of meals.",
+      "Unity: Learners promote teamwork and unity as they carry out group tasks on research and cooking of food."
+     ],
+     "pertinent_issues": [
+      "Health education: the learner gains knowledge in health and recognise the importance of food nutrients in prevention of nutritional deficiency diseases."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-home-science.pdf#p20"
+    }
+   ]
+  },
+  {
+   "strand": "Home Management",
+   "strand_code": "2.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to practice appropriate personal hygiene during puberty.",
+     "exceeds": "The learner always practices personal hygiene and keeps a journal on the same.",
+     "meets": "The learner always practices personal hygiene.",
+     "approaches": "The learner practices personal hygiene sometimes.",
+     "below": "The learner has to be reminded to practice personal hygiene."
+    },
+    {
+     "indicator": "Ability to carry our First Aid for various injuries at home",
+     "exceeds": "The learner is able to carry out First Aid for various injuries at home and mentor others",
+     "meets": "The learner is able to carry out First Aid for various injuries at home",
+     "approaches": "The learner is able to carry out First Aid for some injuries at home",
+     "below": "The is able to carry out First Aid for injuries at home with assistance"
+    },
+    {
+     "indicator": "Ability to describe various methods of housing the family",
+     "exceeds": "The learner is able to describe various methods of housing the family and give examples",
+     "meets": "The learner is able to describe various methods of housing the family",
+     "approaches": "The learner is able to describe some methods of housing the family",
+     "below": "The learner is able to describe some methods of housing the family with assistance"
+    },
+    {
+     "indicator": "Ability to clean various surfaces using appropriate methods",
+     "exceeds": "The learner is able to clean various surfaces using appropriate methods",
+     "meets": "The learner is able to clean various surfaces using appropriate methods",
+     "approaches": "The learner is able to clean various surfaces but sometimes fails to",
+     "below": "The learner requires support to clean various surfaces using appropriate methods"
+    },
+    {
+     "indicator": "Ability to manage solid waste appropriately in the home",
+     "exceeds": "The learner is able to appropriately manage all solid and liquid waste in the home",
+     "meets": "The learner is able to appropriately manage all solid waste in the home",
+     "approaches": "The learner is able to appropriately manage some solid waste in the home",
+     "below": "The learner requires assistance to appropriately manage solid waste in the home"
+    },
+    {
+     "indicator": "Ability to classify detergents and agents used in laundry work",
+     "exceeds": "The learner is able to classify detergents and agents used in laundry work, citing relevant examples",
+     "meets": "The learner is able to classify detergents and agents used in laundry work",
+     "approaches": "The learner is able to classify some detergents and agents used in laundry work",
+     "below": "The learner is able to classify detergents and agents used in laundry work with support"
+    },
+    {
+     "indicator": "Ability to apply knowledge on consumer awareness in day-to-day-life",
+     "exceeds": "The learner is able to apply knowledge on consumer awareness in day-to-day life and to sensitise others",
+     "meets": "The learner is able apply knowledge on consumer awareness in day-to-day-life",
+     "approaches": "The learner is able apply some knowledge on consumer awareness in day-to-day-life",
+     "below": "The learner requires assistance to apply knowledge on consumer awareness in day-to-day-life"
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "2.1",
+     "name": "Hygiene During Puberty",
+     "suggested_duration": "4 lessons",
+     "learning_outcomes": [
+      "explain personal hygiene practices during puberty",
+      "apply personal hygiene practices during puberty",
+      "appreciate importance of personal hygiene during puberty"
+     ],
+     "learning_experiences": [
+      "review the changes that occur in boys and girls during puberty (Physical, Hormonal and Emotional)",
+      "search for information on personal hygiene practices during puberty (boys and girls)",
+      "discuss measures for managing menstrual hygiene (grooming, handling dignity kits, discomfort during menstruation)",
+      "maintain a log on personal hygiene practices carried out during puberty"
+     ],
+     "inquiry_questions": [
+      "How can we maintain hygiene during puberty?"
+     ],
+     "core_competencies": [
+      "Communication and Collaboration: Learner speaks clearly when discussing the changes that occur in boys and girls during puberty",
+      "Self-efficacy : The learner documents their success in carrying out hygiene practices by preparing and maintaining a log"
+     ],
+     "values": [
+      "• Unity: Learner cooperates with others as they discuss measures for managing menstrual hygiene"
+     ],
+     "pertinent_issues": [
+      "Pertinent and Contemporary Issues (PCIs): Self-awareness: Learner become aware of themselves as they discuss the changes that occur in boys and girls during puberty"
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-home-science.pdf#p24"
+    },
+    {
+     "kicd_code": "2.2",
+     "name": "Safety in the Home",
+     "suggested_duration": "14 lessons",
+     "learning_outcomes": [
+      "explain causes of accidents and injuries at home",
+      "describe contents of the First Aid kit",
+      "carry out First Aid for various injuries at home",
+      "Appreciate the importance of observing safety measures at home."
+     ],
+     "learning_experiences": [
+      "Share experiences on causes of accidents and injuries that occur at home (Include preventive measures)",
+      "Search for the information on contents of the First Aid kit and their uses",
+      "Simulate First Aid for various injuries at home using an improvised or conventional kit(burns, scalds, cuts and bruises, fractures, fainting, Sprains, drowning, Chocking Suffocation)",
+      "safely dispose of used first aid materials"
+     ],
+     "inquiry_questions": [
+      "How can we ensure safety in the home?"
+     ],
+     "core_competencies": [
+      "Digital literacy: Learner uses digital devices to search for information on the contents of the First Aid kit",
+      "Critical thinking and problem solving: Learners evaluate and make decisions on First Aid items to improvise using locally available materials."
+     ],
+     "values": [
+      "Integrity: Learners utilizes resources prudently when improvising the First Aid kit using locally available materials",
+      "Love: Learners portrays a caring attitude when carrying out First Aid for various injuries at home"
+     ],
+     "pertinent_issues": [
+      "Pertinent and Contemporary Issues (PCIs):",
+      "First Aid: The learner is made aware of how to carry out First Aid for various injuries",
+      "Waste Management: The learner disposes used First Aid materials appropriately"
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-home-science.pdf#p26"
+    },
+    {
+     "kicd_code": "2.3",
+     "name": "Housing the Family",
+     "suggested_duration": "5 lessons",
+     "learning_outcomes": [
+      "explain reasons for housing the family",
+      "categorise houses found in the community",
+      "describe methods of housing the family",
+      "relate rooms to their functions in the house",
+      "appreciate room interrelationship when housing the family."
+     ],
+     "learning_experiences": [
+      "deliberate on reasons for housing the family",
+      "discuss and make or draw models of different types of houses in the community using suitable locally available materials (traditional and modern)",
+      "Discuss methods of housing the family (building, buying, renting) factors to consider, advantages and disadvantages",
+      "watch video clips or use print resources on functions of different rooms in the house and their interrelationship",
+      "illustrate the interrelationship of rooms in the house"
+     ],
+     "inquiry_questions": [
+      "1. What does housing the family entail?",
+      "2. Why is room interrelationship in the house important?"
+     ],
+     "core_competencies": [
+      "Creativity and Imagination: Learner designs and prepares models of different types of houses in the community",
+      "Citizenship: Learner exhibits cultural awareness as they prepare models of traditional and modern houses."
+     ],
+     "values": [
+      "Values:",
+      "Respect: Learner understands and appreciates diversity in cultures as they model of different houses",
+      "Patriotism: Learner is aware of their own culture as they discuss the types of houses in their community Pertinent and Contemporary Issues (PCIs): Cultural awareness: The learners are made aware of their cultures as they discuss and make models of different types houses"
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-home-science.pdf#p28"
+    },
+    {
+     "kicd_code": "2.4",
+     "name": "Cleaning the House",
+     "suggested_duration": "14 lessons",
+     "learning_outcomes": [
+      "explain reasons for cleaning the house",
+      "identify materials and equipment used in cleaning the house",
+      "manage waste in the home",
+      "clean different areas in the house using appropriate methods",
+      "appreciate living in a clean house"
+     ],
+     "learning_experiences": [
+      "discuss and present in class the reasons for cleaning the house (removal of loose and fixed dirt)",
+      "search for information on materials and equipment used for cleaning the house -type, choice, use and care (such as brooms, duster, dustpan, brushes, mops, basins, buckets, vacuum cleaner, squeegee)",
+      "practise various methods of managing waste water in the home",
+      "improvise cleaning equipment and materials using locally available materials",
+      "use, clean and and care for cleaning materials and equipment",
+      "• clean different areas using daily, weekly and special cleaning methods (living room, dining room, bedroom, toilets/latrines, bathrooms/bath shelters, store/granary) using appropriate methods (sweeping, wiping, dusting, scrubbing, moping)"
+     ],
+     "inquiry_questions": [
+      "1. How can we care for our house?",
+      "2. How does the type of dirt and choice of cleaning materials and equipment influence method of cleaning the house?"
+     ],
+     "core_competencies": [
+      "Communication and Collaboration: learner speaks clearly as they discuss and present in class reasons for cleaning the home",
+      "Learning to learn: Learner reflects on their own work after cleaning surfaces within the school using appropriate methods"
+     ],
+     "values": [
+      "Integrity: Learner applies laid down procedures when cleaning different surfaces within the school using appropriate methods",
+      "Social justice: learners share cleaning materials and tools equitably when cleaning different surfaces within the school"
+     ],
+     "pertinent_issues": [
+      "Environmental conservation : Learner uses waste materials to make cleaning equipment and materials"
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-home-science.pdf#p30"
+    },
+    {
+     "kicd_code": "2.5",
+     "name": "Laundry work",
+     "suggested_duration": "12 lessons",
+     "learning_outcomes": [
+      "classify detergents and agents and used in laundry work",
+      "describe the use of tools and equipment in laundry work",
+      "explain the processes used in laundry work",
+      "launder personal items following correct procedures",
+      "embrace importance of laundry work in day to-day-life."
+     ],
+     "learning_experiences": [
+      "search for information and classify laundry detergents (soaps and soapless detergents) and agents (water; soft and hard, fabric conditioners, bleaches, stain removers, stiffeners, laundry blue, organic solvents)",
+      "observe pictures or watch video clips and discuss the use of laundry work tools and equipment (classification, choice, use, care, safety precautions)",
+      "practise the use and care for tools and equipment used in laundry work.",
+      "practice laundering of personal items using the appropriate processes."
+     ],
+     "inquiry_questions": [
+      "1. How does the quality of a laundry detergent and agent affect laundry work?",
+      "2. Why is laundry work important?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Digital literacy: learner uses digital devices to search for information on the use of laundry work tools and equipment.",
+      "Self-efficacy: Learner practises the use and care of laundry work tools and equipment Values:",
+      "Peace: learner respects others’ opinions when discussing the use of laundry work tools and equipment",
+      "Responsibility: Learner engages in assigned roles practise the use and care for tools and equipment used in laundry work. Pertinent and Contemporary Issues (PCIs): Safety: Learner observes safety precautions when practising the use and care of laundry tools and equipment"
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-home-science.pdf#p32"
+    },
+    {
+     "kicd_code": "2.6",
+     "name": "Consumer Education",
+     "suggested_duration": "4 lessons",
+     "learning_outcomes": [
+      "explain the importance of consumer education in relation to Home Science",
+      "analyse aspects of consumer awareness in consumer education",
+      "apply knowledge on consumer awareness in day-to-day life",
+      "Appreciate importance of consumer education in day-to-day life."
+     ],
+     "learning_experiences": [
+      "Discuss importance of consumer education in relation to Home Science",
+      "Search for information from print and digital media on aspects of consumer awareness in consumer education (consumer rights and responsibilities, sources of consumer information, wise buying of goods and services)",
+      "role play on aspects of consumer education such as wise buying of goods and services"
+     ],
+     "inquiry_questions": [
+      "How can knowledge on consumer education be applied in life?"
+     ],
+     "core_competencies": [
+      "Self-efficacy: learner exhibits confidence when role playing on aspects of consumer education.",
+      "Learning to learn: learner organizes their own learning as they search for information on aspects of consumer awareness in consumer education"
+     ],
+     "values": [
+      "Unity: learner displays team spirit as they role play on aspects of consumer education",
+      "Respect: learner appreciates diverse opinions when discuss importance of consumer education in relation to Home Science"
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-home-science.pdf#p34"
+    }
+   ]
+  },
+  {
+   "strand": "Clothing and Textiles",
+   "strand_code": "3.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to use, care for and store different sewing tools",
+     "exceeds": "Confidently and correctly uses, cares for and stores different sewing tools",
+     "meets": "Correctly uses, cares for and stores different sewing tools",
+     "approaches": "Correctly uses, cares for and stores some sewing tools",
+     "below": "Needs assistance to use, care for and store different sewing tools"
+    },
+    {
+     "indicator": "Ability to analyse the characteristics of different textile fibres used for household articles",
+     "exceeds": "Comprehensively analyses the characteristics of different textile fibres used for household articles",
+     "meets": "Correctly analyses the characteristics of different textile fibres used for household articles",
+     "approaches": "Correctly analyses the characteristics of some textile fibres used for household articles",
+     "below": "Needs assistance to analyse the characteristics of different textile fibres used for household articles"
+    },
+    {
+     "indicator": "Ability to make samples of seams and management of fullness",
+     "exceeds": "Accurately makes samples of seams and management of fullness while observing safety and appropriate disposal of waste when stitching",
+     "meets": "Correctly makes samples of seams and management of fullness while observing safety and appropriate disposal of waste when stitching",
+     "approaches": "Correctly makes some samples of seams and management of fullness while observing safety and appropriate disposal of waste when stitching",
+     "below": "With guidance attempts to make samples of seams and management of fullness while observing safety and appropriate disposal of waste when stitching"
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "3.1",
+     "name": "Sewing Tools, Equipment and Materials",
+     "suggested_duration": "11 lessons",
+     "learning_outcomes": [
+      "classify sewing tools, equipment and materials",
+      "select sewing tools, equipment and materials",
+      "use, care for and store different sewing tools, equipment and materials",
+      "appreciate the use and care of sewing tools, equipment and materials"
+     ],
+     "learning_experiences": [
+      "Learner is guided to:",
+      "Search for information from print and digital media and classify sewing tools, equipment and materials (cutting, marking, sewing, measuring, finishing, storage) Note: the sewing machine should be covered in reference to parts, use, faults and remedies, care and storage",
+      "Search, brainstorm and present findings on factors to consider when selecting sewing tools, equipment and materials",
+      "Visit shops that sell tools, equipment and materials used for sewing and identify the basic needlework items",
+      "Share experiences, search and explore information on the use, care and storage of different sewing tools, equipment and materials"
+     ],
+     "inquiry_questions": [
+      "How would you best maintain sewing tools, equipment and materials?"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-home-science.pdf#p37"
+    },
+    {
+     "kicd_code": "3.2",
+     "name": "Textile Fibres",
+     "suggested_duration": "12 lessons",
+     "learning_outcomes": [
+      "identify sources of textile fibres",
+      "carry out identification of different textile fibres used for household articles",
+      "analyse the characteristics of different textile fibres used for household articles",
+      "examine the use of different textile fibres used in the home",
+      "appreciate different textile fibres used at home",
+      "classify stitches used in clothing construction",
+      "make samples of stitches used in clothing construction",
+      "appreciate the use of stitches in clothing construction."
+     ],
+     "learning_experiences": [
+      "search for information on the meaning of terms (such as: textiles, fibres, strand, yarn)",
+      "study pictures and charts on classification of textile fibres and draw the classification table",
+      "Animal -wool, silk",
+      "Plant – cotton, linen",
+      "Regenerated -viscose rayon",
+      "Synthetic -acrylic, polyester",
+      "study charts, pictures or watch video clips, brainstorm on methods of identifying textile fibres. Discuss and present findings in class",
+      "carry out the identification processes using microscopic, physical, burning test, chemical test",
+      "practice safety when carrying out the identification processes in the home science laboratory",
+      "use, care and storage of needlework tools and equipment while in a Home Science laboratory",
+      "bring samples of fabrics from home to identify their characteristics (strength, elasticity, durability, absorbency and appearance)",
+      "collect textile fibres and mount in a folder (the folder to have name of fibre, sources identification process, uses and characteristics of the fibre)",
+      "brainstorm on the meaning of a stitch",
+      "search for information from print media, electronic devices, discuss with peers and on the general rules for working stitches",
+      "search for information from print media, electronic devices, discuss with peers and present information on types of stitches -temporary; marking and tacking -permanent; (includes joining neatening stitches and decorative stitches)",
+      "watch video clips on the procedure of working different types of stitches discuss with peers and present in class",
+      "make samples of stitches and mount in a folder",
+      "practice safety and appropriate disposal of clippings and chippings from the fabrics and threads when stitching"
+     ],
+     "inquiry_questions": [
+      "How do the different characteristics of fibres affect the use of the fabric?",
+      "1. How do different stitches affect the quality and durability of a garment?",
+      "2. How can stitches be creatively used in clothing construction?"
+     ],
+     "core_competencies": [
+      "Digital Literacy: will be enhanced when learners Use digital learning platforms for continuous learning and development",
+      "Learning to Learn: as they share what they have learnt and present their findings in class on textiles",
+      "Core competencies to be developed:",
+      "Self-efficacy: when clearly describing the procedure followed when working the stitches and giving focused feedback",
+      "Communication and collaboration when participating actively in working out stitches and encouraging others to contribute",
+      "Digital literacy when searching for information from electronic devices Values:",
+      "Unity: by appreciating efforts of others when working the stitches",
+      "Respect: when understanding and appreciating views from others during group tasks Pertinent and Contemporary Issues (PCIs):",
+      "Socio-economic and environmental issues: by tactfully managing waste accrued from the clippings and chippings from the fabrics and threads",
+      "Safety: when practicing safety measures in the workshop"
+     ],
+     "values": [
+      "Unity: as they work together and strive to achieve common goals during group activities",
+      "Responsibility: as learner engages in assigned roles and duties"
+     ],
+     "pertinent_issues": [
+      "Environmental conservation by promoting growing of plants like cotton, linen and rearing of animals in order to produce natural textile fibres"
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-home-science.pdf#p39"
+    },
+    {
+     "kicd_code": "3.4",
+     "name": "Clothing Construction Processes",
+     "suggested_duration": "12 lessons",
+     "learning_outcomes": [
+      "identify types of seams used in clothing construction",
+      "make samples of seams used in clothing construction",
+      "evaluate qualities of a seam in clothing construction",
+      "embrace the use of seams in clothing construction."
+     ],
+     "learning_experiences": [
+      "brainstorm on the meaning of a seam",
+      "search for information from print media, electronic devices, discuss with peers and present in class (open, French, overlaid and double stitched seams)",
+      "watch video clips or demonstrations from the teacher on the procedure of working different types of seams, write notes, make samples and mount in a folder",
+      "peer assess the samples of seams made, critique and present in class",
+      "practice safety and appropriate disposal of clippings and chippings from the fabrics and threads when stitching"
+     ],
+     "inquiry_questions": [
+      "1. How can seams be creatively used in clothing construction?",
+      "2. What factors influence the choice of seam in clothing construction?"
+     ],
+     "core_competencies": [
+      "Learning to learn: when reflecting on their own work and adjust accordingly",
+      "Digital literacy: when searching for information from the internet by use of digital devices"
+     ],
+     "values": [
+      "Values:",
+      "Love: when sharing the limited resources in the workshop",
+      "Responsibility: when observing care of tools and equipment Pertinent and Contemporary Issues (PCIs):",
+      "Socio economic and environmental issues: environmental conservation when disposing scraps of fabrics and threads appropriately",
+      "Life skills: analytical and critical thinking when following procedures of making seams"
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-home-science.pdf#p43"
+    },
+    {
+     "kicd_code": "3.5",
+     "name": "Clothing Construction Processes",
+     "suggested_duration": "18 lessons",
+     "learning_outcomes": [
+      "identify types of management of fullness used in clothing construction",
+      "make samples of management of fullness used in clothing construction",
+      "examine qualities of different methods of managing fullness in clothing construction",
+      "construct a simple garment using methods of managing fullness",
+      "embrace the use of management of fullness in clothing construction."
+     ],
+     "learning_experiences": [
+      "brainstorm on the meaning of management of fullness",
+      "search for information from print media, electronic devices, discuss with peers on the general rules on management of fullness and present in class (pleats, gathers, darts, elastic, easing)",
+      "watch video clips or demonstrations from the teacher on the procedure of working different types of management of fullness, write notes, make samples and mount in a folder",
+      "peer assess the samples made, critique and present in class",
+      "choose and constructs a simple garment( skirt",
+      "short, night dress, among others)",
+      "practice safety and appropriate disposal of clippings and chippings from the fabrics and threads when stitching"
+     ],
+     "inquiry_questions": [
+      "1. How does the choice of fabric influence the management of fullness in clothing construction?",
+      "2. What factors influence the management of fullness in clothing construction?"
+     ],
+     "core_competencies": [
+      "Self-efficacy: when clearly describing the procedure followed when working the stitches and giving focused feedback",
+      "Learning to learn – when the learner prioritizes tasks well by having a learning plan during the working of management of fullness"
+     ],
+     "values": [
+      "Unity: by appreciating efforts of others when working the stitches",
+      "Respect: when understanding and appreciating views from others during group tasks"
+     ],
+     "pertinent_issues": [
+      "Socio-economic and environmental issues: by tactfully managing waste accrued from the fabrics and threads",
+      "Safety: when practicing safety measures in the workshop"
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-home-science.pdf#p45"
+    },
+    {
+     "kicd_code": "",
+     "name": "Suggested Assessment Methods",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Digital resources Print materials (charts, reference books) Cooking tools and equipment Cleaning equipment and materials Selected foodstuffs General environment for space/ Home science lab",
+      "Digital devices and print reference materials. General environment for space/rooms to carry out cleaning. Selected cleaning tools and equipment First aid kit Laundry detergents and agents",
+      "Home science laboratory, Samples of selected sewing tools, equipment and materials, Resource persons, video clips, charts and pictures, shops that sell tools, equipment and materials used for sewing",
+      "Resource persons, digital devices, relevant video clips, charts and pictures Realia (Plant -cotton and linen, Animal -wool and silk, Other natural textile fibres -sisal, bamboo, hyacinth, banana), relevant textbooks, household articles that have blended natural textile fibres, equipment and materials for identifying natural textile fibres (for; microscopic, physical, burning test, chemical test), realia (staple yarns, filament yarns), natural textile fibres (sisal, banana, cotton), scrap book Realia (tools, equipment and materials used in clothing construction, samples of woven, knitted and crocheted items), pictures and digital devices, relevant textbooks, charts, video clips, resource person"
+     ],
+     "learning_experiences": [
+      "Suggested Non-Formal Activities",
+      "Learners to conduct school community awareness on nutritive value of foods using existing formal interaction forums. Learners to participate in clubs and societies to talk of careers in foods and nutrition",
+      "Learners to use existing school forums to display skills and products of the various learning experiences to extend knowledge and create awareness to the school community. Learners to use existing school forums to sensitize the school community on hygiene practices.",
+      "Learners to explore on textile fibres using digital devices, pictures and real samples of fibres Learners to show case their creativity in making of samples",
+      "of stitches, seams and control of fullness and display to peers/ exhibitions"
+     ],
+     "inquiry_questions": [],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-home-science.pdf#p48"
+    }
+   ]
+  }
+ ]
+}

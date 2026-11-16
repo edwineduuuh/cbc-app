@@ -1,0 +1,415 @@
+{
+ "source_pdf": "grade4-science-and-technology.pdf",
+ "grade": 4,
+ "subject": "science-and-technology",
+ "general_outcomes": [
+  "Interact with the environment for learning and sustainable development.",
+  "Apply digital literacy skills appropriately for communication, learning and enjoyment.",
+  "Appreciate the contribution of science and technology in the provision of innovative solutions.",
+  "Use scientific knowledge to observe and explain the natural world.",
+  "Make functional discoveries that impact individuals and the wider society.",
+  "Use innovative approaches as well as critical thinking and problem-solving skills to stimulate scientific inquiry, at the local, national and global levels for lifelong learning."
+ ],
+ "strands": [
+  {
+   "strand": "Living Things and their Environment",
+   "strand_code": "1.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to identify characteristics of plants and animals.",
+     "exceeds": "The learner accurately identifies all characteristics in plants and animals giving illustrations.",
+     "meets": "The learner accurately identifies all characteristics of plants and animals.",
+     "approaches": "The learner accurately identifies most of the characteristics of plants and animals.",
+     "below": "The learner identifies a few characteristics of either plants or animals."
+    },
+    {
+     "indicator": "Ability to describe functions of external parts of a plant.",
+     "exceeds": "The learner correctly and comprehensively describes functions of external parts of a plant.,",
+     "meets": "The learner correctly describes functions of external parts of a plant.",
+     "approaches": "The learner partially describes functions of external parts of a plant.",
+     "below": "The learner describes functions of external parts of a plant with prompt."
+    },
+    {
+     "indicator": "Ability to identify parts of the human digestive system.",
+     "exceeds": "The learner identifies all parts of the human digestive system correctly giving illustrations.",
+     "meets": "The learner identifies all parts of the human digestive system correctly.",
+     "approaches": "The learner identifies most parts of the human digestive system.",
+     "below": "The learner identifies a few parts of the human digestive system."
+    },
+    {
+     "indicator": "Ability to develop a plan of maintaining a healthy human digestive system.",
+     "exceeds": "The learner correctly and innovatively develops a plan of maintaining a healthy human digestive system.",
+     "meets": "The learner correctly develops a plan of maintaining a healthy human digestive system.",
+     "approaches": "The learner partially develops a plan of maintaining a healthy human digestive system.",
+     "below": "The learner develops a plan of maintaining a healthy human digestive system given hints."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "",
+     "name": "Plants",
+     "suggested_duration": "12 lessons",
+     "learning_outcomes": [
+      "identify characteristics of plants as living things",
+      "describe functions of external parts of plants",
+      "appreciate the need to care for plants."
+     ],
+     "learning_experiences": [
+      "search for information from print and non-print materials on characteristics of plants as living things and discuss with peers",
+      "take a walk in the school compound and adjacent environment to observe, discuss and record evidence that plants: grow, reproduce, remove waste, respond to changes in their environment and die Note: observes safety while handling different types of plants",
+      "observe young plants/seedlings, draw and label their parts and share with peers (roots, stems and leaves)",
+      "discuss the functions of external parts of plants and share with peers",
+      "use digital applications to draw, paint and label external parts of a plant."
+     ],
+     "inquiry_questions": [
+      "Why are plants grouped as living things?"
+     ],
+     "core_competencies": [
+      "Communication and Collaboration: The learner develops speaking and listening skills as they discuss the functions of external parts of plants. Digital literacy: The learner develops manipulative skills as they interact with digital media to draw, paint and label external parts of a plant."
+     ],
+     "values": [
+      "Values: Unity: The learner cooperates in taking turns while they observe young plants/seedlings, draw and label their parts and share with peers. Respect: The learner listens to and appreciates others’ opinions during discussions on the characteristics of plants. Pertinent and Contemporary Issues (PCIs): Safety and Security: The learner observes safety while handling different types of plants as they take a walk in the school compound and adjacent environment to observe, discuss and record characteristics of plants as living things. Link to Other Learning Areas: Agriculture and Nutrition: The learner uses information on characteristics of plants as living things in the study of different types of crops."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade4-science-and-technology.pdf#p14"
+    },
+    {
+     "kicd_code": "1.2",
+     "name": "Animals",
+     "suggested_duration": "12 lessons",
+     "learning_outcomes": [
+      "identify the characteristics of animals as living things",
+      "distinguish vertebrates from invertebrates in the environment",
+      "appreciate the need to care for animals."
+     ],
+     "learning_experiences": [
+      "take a walk in the school compound and adjacent environment to observe, discuss and record evidence that animals: feed, grow, breathe, reproduce, remove waste, move, respond to changes in their environment and die",
+      "search for information from print and non-print materials on characteristics of animals as living things and discuss the findings with peers",
+      "search for information from print and non-print materials on main differences between vertebrates and invertebrates and share with peers",
+      "take a walk in the school compound and immediate environment to identify vertebrates and invertebrates in their locality. Note: Learners observe safety precautions and take care of animals during the learning activities.",
+      "Project: Learners are guided to make a portfolio of vertebrates and invertebrates."
+     ],
+     "inquiry_questions": [
+      "Why are animals grouped as living things?"
+     ],
+     "core_competencies": [
+      "Communication and collaboration: The learner contributes to group decision making by participating actively as they discuss characteristics of animals as living things. Creativity and Imagination: The learner discovers new ways of solving problems of keeping records as they design and make a portfolio of vertebrates and invertebrates."
+     ],
+     "values": [
+      "Responsibility: The learner takes care of the different materials they use as they search for information from print and non-print materials on main differences between vertebrates and invertebrates and share with peers. Respect: The learner appreciates divergent ideas from peers as they discuss their findings on characteristics of animals as living things."
+     ],
+     "pertinent_issues": [
+      "Animal welfare: The learner takes care of animals during the learning activities. Safety and security: The learner observes safety when handling animals."
+     ],
+     "links_to_other_areas": [
+      "Agriculture and Nutrition: The learner uses the information on characteristics of animals as living things in the study of livestock."
+     ],
+     "resources": [],
+     "kicd_source": "grade4-science-and-technology.pdf#p16"
+    },
+    {
+     "kicd_code": "",
+     "name": "Human Digestive System",
+     "suggested_duration": "16 lessons",
+     "learning_outcomes": [
+      "identify parts of the human digestive system",
+      "develop a plan of maintaining a healthy human digestive system",
+      "appreciate the importance of a healthy human digestive system."
+     ],
+     "learning_experiences": [
+      "use print and non-print material to observe and identify parts of the human digestive system",
+      "draw and label the human digestive system",
+      "discuss symptoms of an unhealthy digestive system, record and share with peers",
+      "collaboratively discuss and develop a plan on ways of maintaining a healthy digestive system",
+      "use interactive platforms or digital images to illustrate the human digestive system."
+     ],
+     "inquiry_questions": [
+      "1. What makes up the digestive system?",
+      "2. How is a healthy digestive system maintained?"
+     ],
+     "core_competencies": [
+      "Learning to learn: The learner reflects on ways of maintaining a healthy digestive system as they develop a plan on ways of maintaining a healthy digestive system."
+     ],
+     "values": [
+      "Values: Unity: The learner strives to achieve a common goal of maintaining a healthy digestive system as they discuss and develop a plan on ways of maintaining a healthy digestive system. Respect: The learner appreciates others’ opinions while discussing the symptoms of an unhealthy digestive system. Pertinent and Contemporary Issues (PCIs): Health issues: The learner practices how to observe and maintain healthy digestive system such as dental hygiene, regular deworming and healthy eating as they plan on ways of maintaining a healthy digestive system. Link to Other Learning Areas: Agriculture and Nutrition: The learner studies ways of maintaining a healthy digestive system in personal hygiene and hygienic handling of food."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade4-science-and-technology.pdf#p18"
+    }
+   ]
+  },
+  {
+   "strand": "Matter",
+   "strand_code": "2.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to describe the properties of the three states of matter.",
+     "exceeds": "The learner describes the properties of the three states of matter correctly, giving examples from the locality.",
+     "meets": "The learner describes the properties of the three states of matter correctly.",
+     "approaches": "The learner describes the properties of two of the three states of matter correctly.",
+     "below": "The learner describes the properties of one of the three states of matter correctly."
+    },
+    {
+     "indicator": "Ability to manage solid waste in the environment.",
+     "exceeds": "The learner manages solid waste in the environment properly and actively engages in promoting reuse, reduce, recycle activities.",
+     "meets": "The learner manages solid waste in the environment properly.",
+     "approaches": "The learner partially manages solid waste in the environment.",
+     "below": "The learner manages solid waste in the environment with help."
+    },
+    {
+     "indicator": "Ability to outline the importance of conserving water at home and school.",
+     "exceeds": "The learner outlines the importance of conserving water at home and school giving examples from the locality.",
+     "meets": "The learner outlines the importance of conserving water at home and school.",
+     "approaches": "The learner outlines a few the importance of conserving water at home and school.",
+     "below": "The learner outlines the importance of conserving water at home or school with prompt."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "2.1",
+     "name": "Properties of Matter",
+     "suggested_duration": "14 lessons",
+     "learning_outcomes": [
+      "categorise substances in the environment into the three states of matter",
+      "describe the properties of the three states of matter",
+      "appreciate the importance of the different states of matter in day-to-day life."
+     ],
+     "learning_experiences": [
+      "brainstorm on the meaning of matter and identify its different states",
+      "collect and group different substances from the environment into the three states of matter collaboratively",
+      "carry out activities to demonstrate the properties of the three states of matter with peers",
+      "discuss the importance of the different states of matter in day-to-day life",
+      "use digital or print media to search for more information on the characteristics of the three states of matter."
+     ],
+     "inquiry_questions": [
+      "What are the properties of matter?"
+     ],
+     "core_competencies": [
+      "Communication and collaboration: The learner shares different roles as they works with peers to collect and group different substances from the environment into the three states of matter and carry out activities that show properties of matter. Digital literacy: The learner develops digital manipulative skills as they interact with digital technology to observe the properties of the three states of matter."
+     ],
+     "values": [
+      "Values: Unity: The learner shares available resources amicably as they carry out activities to demonstrate the properties of the three states of matter with peers. Pertinent and Contemporary Issues (PCIs): Heath issues -preventive health: The learner practices preventive health measures such as avoiding blowing air into the same balloon with others as they carry out activities to demonstrate the properties of the three states of matter with peers. Link to Other Learning Area: Mathematics: The learner uses the knowledge of properties of matter to measure the volume and mass of different substances."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade4-science-and-technology.pdf#p21"
+    },
+    {
+     "kicd_code": "2.2",
+     "name": "Management of Solid Waste",
+     "suggested_duration": "16 lessons",
+     "learning_outcomes": [
+      "classify solid waste into decomposable and non-decomposable",
+      "describe the dangers of solid waste to the environment",
+      "apply appropriate methods to manage solid waste in the environment",
+      "appreciate the need for proper management of solid waste in the"
+     ],
+     "learning_experiences": [
+      "walk around the school compound and its environment to identify solid waste in the environment",
+      "discuss with peers the meaning of decomposable and non-decomposable solid waste",
+      "collect solid waste in the school, sort and classify them into decomposing and non-decomposing",
+      "discuss the dangers of solid waste to the environment and present in class",
+      "discuss methods of managing different types of waste in their environment (To include Re-using, Recycling and Reducing), Hint: Include common waste in school and environment such as kitchen, animal waste, plastics, e-waste, metals and glasses",
+      "practice observe proper safety measures in solid waste",
+      "management",
+      "use digital or print media to search for more information on ways of managing different types of solid waste. Projects: 1. Learners to make dustbins for safe disposal of waste at home and in school using locally available materials, 2. Make toys or ornaments from solid waste."
+     ],
+     "inquiry_questions": [
+      "How is solid waste dangerous to the environment?"
+     ],
+     "core_competencies": [
+      "Critical thinking and problem solving: The learner reflects and practices good ways of managing different types of waste in their environment as they collect solid waste in the school, sort and classify them into decomposing and non-decomposing. Learning to learn: The learner explores ways of making dustbins, toys or ornaments from locally available materials"
+     ],
+     "values": [
+      "Responsibility: The learner plays different roles from other peers as they use locally available materials to make dustbins, toys and ornaments. Patriotism: The learner practices carrying out community service activities as they collect solid waste in the school, sort and classify them into decomposing and non-decomposing."
+     ],
+     "pertinent_issues": [
+      "Health issues: The learner learns about preventive health measures as they discuss the dangers of solid waste to the environment and presents in class. Socio-economic issues; environmental education: The learner discusses ways of managing different types of solid waste in their environment and generate outcome out of the locally available waste by making dustbins, toys and ornaments."
+     ],
+     "links_to_other_areas": [
+      "Creative arts: The learner uses knowledge on management of solid waste to make ornaments and dustbins."
+     ],
+     "resources": [],
+     "kicd_source": "grade4-science-and-technology.pdf#p23"
+    },
+    {
+     "kicd_code": "2.3",
+     "name": "Water Conservation",
+     "suggested_duration": "12 lessons",
+     "learning_outcomes": [
+      "explain the meaning of water conservation in the environment",
+      "describe methods of conserving water at home and school",
+      "outline the importance of conserving water at home and school",
+      "develop interest in conserving water at home and school."
+     ],
+     "learning_experiences": [
+      "brainstorm on how water is wasted at home and school",
+      "discuss with peers the meaning of water conservation",
+      "explore their locality and observe how water is conserved",
+      "discuss with peers ways of conserving water.",
+      "discuss the importance of conserving water",
+      "practise responsible use of water at home and school. Project: Prepare posters to sensitise the community (school and home) on the importance of water conservation."
+     ],
+     "inquiry_questions": [
+      "Why is it important to conserve water?"
+     ],
+     "core_competencies": [
+      "Critical thinking and Problem Solving: The learner practises responsible use of water at home and school as they explore their locality and observe how water is conserved with peers. Citizenship: The learner identifies water wastage as a problem affecting society and sensitises the community on the importance of water conservation."
+     ],
+     "values": [
+      "Values Integrity: The learner practices how use available water sparingly as they explore their locality and observe how water is conserved. Pertinent and Contemporary Issues (PCIs): Socio-economic issues; financial literacy: The learner learns how to reduce cost of water by reducing water wastage as they explore their locality and observe how water is conserved. Link to Other Learning Area: Agriculture and Nutrition: The learner uses knowledge of appropriate water conservation practices in irrigation such as adopting drip irrigation and mulching."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade4-science-and-technology.pdf#p25"
+    }
+   ]
+  },
+  {
+   "strand": "Force and Energy",
+   "strand_code": "3.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to demonstrate the effects of force on objects in nature.",
+     "exceeds": "The learner demonstrates the effects of force on objects in nature correctly and helps others.",
+     "meets": "The learner demonstrates the effects of force on objects in nature correctly.",
+     "approaches": "The learner partially demonstrates the effects of force on objects in nature correctly.",
+     "below": "The learner demonstrates the effects of force on objects in nature even, given hints."
+    },
+    {
+     "indicator": "Ability to identify the sources of light in nature.",
+     "exceeds": "The learner identifies the sources of light in nature correctly and exhaustively.",
+     "meets": "The learner identifies the sources of light in nature correctly.",
+     "approaches": "The learner identifies some of the sources of light in nature correctly.",
+     "below": "The learner struggles to identify the sources of light in nature even with hints."
+    },
+    {
+     "indicator": "Ability to explain the uses of light in day-to-day life.",
+     "exceeds": "The learner correctly and comprehensively explains the uses of light in day-to-day life correctly and comprehensively.",
+     "meets": "The learner explains the uses of light in day-to-day life correctly.",
+     "approaches": "The learner explains most of the uses of light in day-to-day life correctly.",
+     "below": "The learner explains a few uses of light in day-to-day life even."
+    },
+    {
+     "indicator": "Ability to demonstrate uses of heat in day-to-day life.",
+     "exceeds": "The learner demonstrates uses of heat in day-to-day life correctly and helps others.",
+     "meets": "The learner demonstrates uses of heat in day-to-day life correctly.",
+     "approaches": "The learner demonstrates most of the uses of heat in day-to-day life correctly.",
+     "below": "The learner demonstrates a few uses of heat in day-to-day life even with help."
+    },
+    {
+     "indicator": "Ability to describe safety measures when using heat.",
+     "exceeds": "The learner describes safety measures when using heat correctly and comprehensively.",
+     "meets": "The learner describes safety measures when using heat correctly.",
+     "approaches": "The learner describes most of the safety measures when using heat correctly.",
+     "below": "The learner describes a few safety measures when using heat correctly even with help."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "3.1",
+     "name": "Force and its Effect",
+     "suggested_duration": "12 lessons",
+     "learning_outcomes": [
+      "describe types of forces in nature",
+      "demonstrate the effects of force on objects in nature",
+      "describe the uses of force in daily life",
+      "appreciate the importance of force in day-to-day life."
+     ],
+     "learning_experiences": [
+      "The leaner is guided to:",
+      "brainstorm on the meaning of the term force as used in science",
+      "carry out activities that demonstrate the existence of force of gravity and force of friction in nature",
+      "carry out activities to demonstrate the effects of force on objects",
+      "use digital or print media to search for, observe and discuss uses of force in day-to-day life",
+      "discuss with peers ways of minimising friction between moving objects (smoothening surfaces, greasing, oiling, use of rollers, ball bearings)",
+      "discuss the applications of force of friction and force of gravity in day-to-day life."
+     ],
+     "inquiry_questions": [
+      "How does force affect objects?"
+     ],
+     "core_competencies": [
+      "Learning to learn: The learner acquires digital manipulative skills as they use digital devices to search for uses of force in day-to-day life Communication and collaboration: The learner develops speaking and listening skills as they discuss ways of minimising friction between moving bodies."
+     ],
+     "values": [
+      "Values: Love: The learner cares for one another by avoiding inflicting pain on each other or safely uses available materials as they work with peers to carry out activities that demonstrate the existence of force of gravity and force of friction in nature. Unity: The learner practices taking turns in carrying out certain tasks as they carry out activities that demonstrate the existence of force of gravity and force of friction in nature. Pertinent and Contemporary Issues (PCIs): Citizenship: The learner exercises leadership as they work in groups while discussing the application of force of friction and force of gravity in day-to-day life. Link to Other Learning Area: Agriculture and Nutrition: The learner relates the concepts of force of friction in maintenance farm tools and equipment."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade4-science-and-technology.pdf#p28"
+    },
+    {
+     "kicd_code": "3.2",
+     "name": "Light",
+     "suggested_duration": "14 lessons",
+     "learning_outcomes": [
+      "identify the sources of light in nature",
+      "describe ways of lighting a house in day-to-day life",
+      "explain the uses of light in day-to-day life",
+      "appreciate the applications of light in day-to-day life."
+     ],
+     "learning_experiences": [
+      "brainstorm on the meaning of light",
+      "carry out activities to categorise the sources of light in day-to-day life as natural or artificial",
+      "discuss with peers the ways of lighting a house",
+      "use digital or print media to search for information on sources and uses of light in nature",
+      "discuss with peers the applications of light in day-to-day life."
+     ],
+     "inquiry_questions": [
+      "Why is light important in day-to-day life?"
+     ],
+     "core_competencies": [
+      "Digital literacy: The learner acquires digital manipulative skills as they interact with technology to search for sources and uses of light in nature. Communication and Collaboration: The learner contributes to group decision making as they discuss with peers the ways of lighting a house."
+     ],
+     "values": [
+      "Values: Respect: The learner exercises patience with others opinions as they discuss the applications of light in day-to-day life. Pertinent and Contemporary Issues (PCIs): Citizenship education: The learner reflects and recorgnise the uses of light for safety and security as they discuss the importance of light. Links to other Learning areas: Pre-technical Studies: The learner seeks alternative cost-effective ways of lighting a house as they discuss ways of lighting a house."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade4-science-and-technology.pdf#p30"
+    },
+    {
+     "kicd_code": "3.3",
+     "name": "Heat",
+     "suggested_duration": "12 lessons",
+     "learning_outcomes": [
+      "identify sources of heat in nature",
+      "demonstrate uses of heat in day-to-day life",
+      "describe safety measures to observe when using heat",
+      "appreciate the importance of heat in day-to-day life."
+     ],
+     "learning_experiences": [
+      "The leaner is guided to:",
+      "use digital or print media to search for the meaning of heat",
+      "discuss with peers the sources of heat in nature",
+      "carry out activities to demonstrate the uses of heat in day-to-day life",
+      "discuss safety measures when using heat",
+      "use digital or print media to search for information on safety measures and practices necessary when using heat",
+      "discuss the importance of heat in nature. Project: Use locally available materials to make kitchen gloves."
+     ],
+     "inquiry_questions": [
+      "1. What are the safety measures observed when using heat?"
+     ],
+     "core_competencies": [
+      "Learning to learn: The learner gets new information on safety measures as they digital or print media to search for information on safety measures and practices necessary when using heat. Digital literacy: The learner develops digital manipulative skills when interacting with digital media to search for safety measures and practices necessary when using heat."
+     ],
+     "values": [
+      "Values: Unity: The learner practices sharing available resources amicably as they carry out activities to demonstrate the uses of heat in day-to-day life. Pertinent and Contemporary Issues (PCIs): Socio-Economic Issues: The learner exercises safety and security as they carry out activities to demonstrate the uses of heat in day-to-day life. Link to Other Learning Area: Agriculture and Nutrition: The learner uses knowledge of heat in hatching of chicks, pest control and cooking utensils."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade4-science-and-technology.pdf#p32"
+    }
+   ]
+  }
+ ]
+}

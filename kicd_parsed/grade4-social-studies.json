@@ -1,0 +1,845 @@
+{
+ "source_pdf": "grade4-social-studies.pdf",
+ "grade": 4,
+ "subject": "social-studies",
+ "general_outcomes": [
+  "By the end of Middle School, the learner should be able to:",
+  "explore the environment for learning and enjoyment.",
+  "demonstrate desirable values, attitudes and practices for sustainable social interactions.",
+  "develop appropriate organizational, practical and technological competencies for problem solving.",
+  "understand and appreciate Human Rights and civic responsibility for attainment of social justice.",
+  "apply acquired competencies in solving environmental challenges for sustainable development.",
+  "understand the System of Governance in Kenya and be willing to participate in its processes.",
+  "participate in Community Service Learning to manage pertinent and contemporary issues in society effectively.",
+  "respect and appreciate cultural and human diversity to promote cohesion and integration."
+ ],
+ "strands": [
+  {
+   "strand": "Natural and Built Environments",
+   "strand_code": "1.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to use the four cardinal points to give direction of places",
+     "exceeds": "Leaner uses the four cardinal points to give direction of places with illustrations",
+     "meets": "Learner uses the four cardinal points to give direction of places",
+     "approaches": "Learner uses 2-3 cardinal points to give direction of places",
+     "below": "Learner uses less than 2 cardinal points to give direction of places"
+    },
+    {
+     "indicator": "Ability to identify the main physical features in the county",
+     "exceeds": "Learner identifies the main physical features in the county with illustrations",
+     "meets": "Learner identifies the main physical features in the county",
+     "approaches": "Learner identifies some of the main physical features in the county",
+     "below": "Learner has challenges identifying the main physical features in the county"
+    },
+    {
+     "indicator": "Ability to explain how the four seasons influence human activities in the county",
+     "exceeds": "Learner explains how the four seasons influence human activities in the county with examples",
+     "meets": "Learner explains how the four seasons influence human activities in the county",
+     "approaches": "Learner explains how 2-3 seasons influence human activities in the county",
+     "below": "Learner explains how less than 2 seasons influence human activities in the county"
+    },
+    {
+     "indicator": "Ability to explain the importance of the main historic built environments in the county",
+     "exceeds": "Learner explains the importance of the main historic built environments in the county with examples.",
+     "meets": "Learner explains the importance of the main historic built environments in the county",
+     "approaches": "Learner explains the importance of some of the main historic built environments in the county",
+     "below": "Learner struggles to explain the importance of the main historic built environments in the county"
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "1.1",
+     "name": "Compass Direction",
+     "suggested_duration": "6 lessons",
+     "learning_outcomes": [
+      "identify the four cardinal points of a compass",
+      "use the four cardinal points to give directions on a map",
+      "appreciate the use of four cardinal points in everyday life."
+     ],
+     "learning_experiences": [
+      "brainstorm the four cardinal points of a compass",
+      "draw and label the four cardinal points, practise giving directions to places using the four cardinal points",
+      "use the four compass points to show direction on the interactive map to enrich the mapping skills.",
+      "play computer games on the compass direction for enjoyment."
+     ],
+     "inquiry_questions": [
+      "How can we show direction of places?"
+     ],
+     "core_competencies": [
+      "Digital Literacy: Learners interact with digital devices as they play computer games on compass direction for enjoyment.",
+      "Learning to learn: Learners develop relationships as they share resources and practise giving direction of places using the four cardinal points."
+     ],
+     "values": [
+      "Values:",
+      "Unity: Learners cooperate as they practise giving direction of places using the four cardinal points.",
+      "Respect: Learners show patience as they play computer games on compass direction for enjoyment. Pertinent and Contemporary Issues (PCIs): Creative Thinking: Learners participate in creative games as they play computer games on compass direction for enjoyment. Links to other Learning Areas: Learners use Creative Arts skills as they draw and label the four cardinal points."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade4-social-studies.pdf#p13"
+    },
+    {
+     "kicd_code": "1.2",
+     "name": "Location and size of the County",
+     "suggested_duration": "5 lessons",
+     "learning_outcomes": [
+      "identify sub-counties in the county",
+      "locate the county in relation to neighbouring counties",
+      "estimate the size of the county in relation to neighbouring counties",
+      "acknowledge the location and size of the county."
+     ],
+     "learning_experiences": [
+      "brainstorm and list sub-counties in their county",
+      "use relevant print or digital resources to identify the location of the county in relation to neighbouring counties",
+      "discuss the size of the county in relation to the neighbouring counties",
+      "sketch, colour, and display the map of the county in class",
+      "play games on the location of the county in relation to neighbouring counties."
+     ],
+     "inquiry_questions": [
+      "Why is it important to learn the size and location of a county?"
+     ],
+     "core_competencies": [
+      "Digital Literacy: Learners develop simple games as they play games on the location of the county in relation to the neighbouring counties",
+      "Learning to learn: Learners search for the location and size of their county"
+     ],
+     "values": [
+      "Values: Responsibility: Learners engage in assigned roles and duties as they discuss the size of the county in relation to the neighbouring counties Pertinent and Contemporary Issues (PCIs):",
+      "Problem Solving: Learners play creative games as they locate the county in relation to the neigbouring counties",
+      "Effective Communication: Learners brainstorm to identify sub-counties in their county. Links to other Learning Areas: English: Learners apply listening and speaking skills as they discuss in groups the size of the county in relation to the neigbouring counties"
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade4-social-studies.pdf#p15"
+    },
+    {
+     "kicd_code": "1.3",
+     "name": "Physical features in the County",
+     "suggested_duration": "5 lessons",
+     "learning_outcomes": [
+      "identify the main physical features in the county",
+      "state the importance of the main physical features in the county",
+      "illustrate the main physical features in the county",
+      "appreciate the main physical features in the county."
+     ],
+     "learning_experiences": [
+      "brainstorm the main physical features in the county, sketch the main physical features in the county",
+      "draw or take photographs of the main physical features in the county",
+      "outline the importance of the main physical features in the county and share the discussion points in class",
+      "display pictures or models of the main physical features in the county in class",
+      "find out from parents or guardians the main physical features in the county and share."
+     ],
+     "inquiry_questions": [
+      "Which physical features are found in your county?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Citizenship: Learners identify the main physical features in their county.",
+      "Learning to: Learners find out from parents or guardians the physical features in the county and share Values: Social Justice: Learners accord equal opportunities in sharing responsibilities as they outline the importance of the main physical features in the county and share the discussion points in class. Pertinent and Contemporary Issues (PCIs):",
+      "Self-Awareness: Learners appreciate each other’s abilities as they draw some of the main physical features in the county. Links to other Learning Areas:",
+      "English: Learners use speaking skills as they discuss in groups the importance of the main physical features in the county in class."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade4-social-studies.pdf#p17"
+    },
+    {
+     "kicd_code": "1.4",
+     "name": "Seasons in the County",
+     "suggested_duration": "4 lessons",
+     "learning_outcomes": [
+      "identify the four seasons experienced in the county",
+      "explain how the four seasons influence human activities in the county",
+      "explore how rainy weather affects road safety in the county",
+      "model weather charts of seasons in the county",
+      "appreciate the different seasons experienced in the county."
+     ],
+     "learning_experiences": [
+      "brainstorm about seasons experienced in the county",
+      "use print or digital resources to identify seasons experienced in the county",
+      "engage a resource person to find out how seasons influence human activities in the county",
+      "discuss ways in which rainy weather affects safety of road users",
+      "draw weather charts of seasons in the county",
+      "observe and record in charts human activities associated with different seasons.",
+      "sing songs about seasons experienced in the county"
+     ],
+     "inquiry_questions": [
+      "How do seasons influence human activities in the county?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Collaboration: Learners develop relationships as they brainstorm about seasons experienced in the county.",
+      "Digital Literacy: Learners use print or digital resources to identify seasons experienced in the county. Values:",
+      "Respect: Learners appreciate diverse opinions as they brainstorm about seasons experienced in the county.",
+      "Patriotism: Learners sing songs about seasons experienced in the county, Pertinent and Contemporary Issues (PCIs): Safety and security: Learners discuss precautions to take during the different seasons experienced in the county (Hot, cold, dry and rainy season). Links to other Learning Areas: Agriculture: Learners explain how different seasons influence human activities in the county."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade4-social-studies.pdf#p19"
+    },
+    {
+     "kicd_code": "1.5",
+     "name": "Historic Built Environments in the County",
+     "suggested_duration": "5 lessons",
+     "learning_outcomes": [
+      "identify the main historic built environments in the county",
+      "explain the importance of the main historic built environments in the county",
+      "participate in conservation activities of the historic built environments within the county",
+      "appreciate historic built environments in the county."
+     ],
+     "learning_experiences": [
+      "brainstorm and share the main historic built environments in the county",
+      "use print or digital resources to identify historic built environments in the county",
+      "visit some of the historic, built environments within the locality (take photographs, audio tape conversations on the environments or take notes)",
+      "engage a resource person to discuss the importance of the historic built environment in the county",
+      "participate in conserving historic built",
+      "environments in the locality as service learning (collecting litter, sweeping)."
+     ],
+     "inquiry_questions": [
+      "How can we care for the historic built environments in our county?"
+     ],
+     "core_competencies": [
+      "Critical thinking and problem solving: Learners participate in conserving historic built environments in the locality (collecting litter, sweeping).",
+      "Self-efficacy: Learners engage resource person to discuss the importance of historic built environments within the county."
+     ],
+     "values": [
+      "Unity: Learners participate in conserving historic built environments in the locality as service learning (collecting litter, sweeping).",
+      "Responsibility: Learners understands and appreciates the resource person as they discuss the importance of the historic built environment in the county"
+     ],
+     "pertinent_issues": [
+      "Environmental issues: Learners respect others' views/feelings as they visit some of the historic built environments in the locality (take photographs, audio tape conversations on the environments or take notes)."
+     ],
+     "links_to_other_areas": [
+      "Learners use Creative Arts skills to create a picture booklet on the historic built environments."
+     ],
+     "resources": [],
+     "kicd_source": "grade4-social-studies.pdf#p21"
+    }
+   ]
+  },
+  {
+   "strand": "People and Population",
+   "strand_code": "2.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to explain the benefits of interdependence of people in the county.",
+     "exceeds": "Learner explains the benefits of interdependence of people in the county with examples.",
+     "meets": "Learner explains the benefits of inter-dependence of people in the county.",
+     "approaches": "Leaner explains some of the benefits of interdependence of people in the county.",
+     "below": "Learner struggles to explain the benefits of interdependence of people in the county."
+    },
+    {
+     "indicator": "Ability to describe patterns of population distribution in the county.",
+     "exceeds": "Learner describes patterns of population distribution in the county with illustrations.",
+     "meets": "Learner describes patterns of population distribution in the county.",
+     "approaches": "Learner describes some patterns of population distribution in the county.",
+     "below": "Learner struggles to describe patterns of population distribution in the county."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "2.1",
+     "name": "Interdependence of people",
+     "suggested_duration": "6 lessons",
+     "learning_outcomes": [
+      "identify ways in which people depend on each other in the county",
+      "explain the benefits of interdependence of people in the county",
+      "use chart to illustrate the benefits of interdependence people",
+      "appreciate the interdependence of people in the County."
+     ],
+     "learning_experiences": [
+      "brainstorm in class the ways in which people depend on each other in the county",
+      "use print or digital resources to identify ways in which people depend on each other in the county",
+      "draw a chart on benefits of interdependence among the people",
+      "role-play interdependence of people in the community",
+      "recite a poem about the importance of interdependence of people",
+      "find out from parents or guardians about the importance of interdependence of people and report back."
+     ],
+     "inquiry_questions": [
+      "1. How do people in the county depend on each other?",
+      "2. Why should we support each other in the county?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Citizenship: Learners explain the benefits of interdependence of people in the county.",
+      "Creativity and imagination: Learners role-play the interdependence of people in the county. Values: Social justice: Learners discuss benefits of interdependence among people in the county Pertinent and Contemporary Issues (PCIs):",
+      "Social cohesion: Learners identify ways in which people depend on each other in the county.",
+      "Social cohesion: Learners respect others’ views/feelings as they work to create a chart on benefits of interdependence among people. Links to other Learning Areas:",
+      "English: Learners develop communication skills as they recite a poem about the importance of interdependence of people.",
+      "Religious Education: Learners explain the importance of interdependence."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade4-social-studies.pdf#p24"
+    },
+    {
+     "kicd_code": "2.2",
+     "name": "Population Distribution",
+     "suggested_duration": "5 lessons",
+     "learning_outcomes": [
+      "describe patterns of population distribution in the county",
+      "illustrate the patterns of population distribution in the county",
+      "appreciate population distribution in the county."
+     ],
+     "learning_experiences": [
+      "brainstorm what is population distribution",
+      "use a digital or print map of the county to identify the patterns of population, distribution in the county",
+      "explain the patterns of population distribution in the county",
+      "use the map of the county to plot patterns of population distribution",
+      "draw a map of the county showing population distribution",
+      "display the map of the county in the appropriate learning corner."
+     ],
+     "inquiry_questions": [
+      "How is population spread out in the county?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Digital Literacy: Learners use a digital or print map of the county to identify the patterns of population distribution.",
+      "Learning to Learn: Learners develop relationships as they share diagrams of the patterns of population distribution in class. Values:",
+      "Responsibility: Learners develop self-drive as they share the diagrams of the patterns of population distribution in class.",
+      "Integrity: Learners have self-discipline as they use a digital or print map of the county to identify the patterns of population distribution. Pertinent and Contemporary Issues (PCIs):",
+      "Critical thinking and problem solving: Learners ask challenging questions as they share the diagrams of the patterns of population distribution in class.",
+      "Effective Communication: Learners use appropriate communication channel as they discuss population distribution in the county. Links to other Learning Areas:",
+      "Learners apply listening and speaking skills as they discuss population distribution in the county.",
+      "Learners apply Creative Arts skills as they draw a map of the county showing population distribution."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade4-social-studies.pdf#p26"
+    }
+   ]
+  },
+  {
+   "strand": "Social Organisations",
+   "strand_code": "3.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to identify the six aspects of traditional culture in the county",
+     "exceeds": "Learner identifies all the six aspects of traditional culture in the county with examples",
+     "meets": "Learner identifies all the six aspects of traditional culture in the county",
+     "approaches": "Learner identifies 3-5 of the aspects of traditional culture in the county",
+     "below": "Learner identifies less than 3 aspects of traditional culture in the county."
+    },
+    {
+     "indicator": "Ability to describe aspects of traditional culture in the county",
+     "exceeds": "Learner describes the aspects of traditional culture in the county with examples",
+     "meets": "Learner describes the aspects of traditional culture in the county",
+     "approaches": "Leaner describes some of the aspects of traditional culture in the county",
+     "below": "Learner struggles to describes the aspects of traditional culture in the county"
+    },
+    {
+     "indicator": "Ability to narrate the history of the school",
+     "exceeds": "Learner narrates the history of the school, highlighting significant events in the history of the school",
+     "meets": "Learner narrates the history of the school",
+     "approaches": "Learner narrates the history of the school omitting some details",
+     "below": "Learner struggles to narrate the history of the school"
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "3.1",
+     "name": "Aspects of Traditional Culture in the County",
+     "suggested_duration": "4 lessons",
+     "learning_outcomes": [
+      "identify aspects of traditional culture in the county",
+      "illustrate aspects of traditional culture practised in the county",
+      "appreciate the importance of traditional culture in the county."
+     ],
+     "learning_experiences": [
+      "brainstorm aspects of traditional culture in the county",
+      "describe aspects of traditional culture in the county",
+      "discuss the importance of traditional culture in the county",
+      "collect and record aspects of traditional culture practised in the community (pictures, songs, artefacts, dress, food, paintings, tools)",
+      "showcase different aspects of traditional culture practised in the community."
+     ],
+     "inquiry_questions": [
+      "Why is culture important?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Creativity and imagination: Learners showcase different aspects of traditional culture practised in the community.",
+      "Citizenship: Learners collect and record aspects of traditional culture practised in the community. Values: Respect: Learners recognise different aspects of traditional culture in their county. Pertinent and Contemporary Issues (PCIs): Self-Awareness: Learners appreciate individual uniqueness as they describe aspects of traditional culture in their county. Links to other Learning Areas:",
+      "Creative Arts: Learners will apply skills drawn from showcasing different aspects of traditional culture practised in the community in Creative Arts."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade4-social-studies.pdf#p29"
+    },
+    {
+     "kicd_code": "3.2",
+     "name": "The School",
+     "suggested_duration": "3 lessons",
+     "learning_outcomes": [
+      "narrate the history of the school",
+      "explain the values of the school",
+      "recite the school motto",
+      "desire to obey the school rules."
+     ],
+     "learning_experiences": [
+      "gather information on the history of the school from relevant personnel and share in class",
+      "discuss the history of the school with others in class",
+      "use digital or print resources to find out the school values",
+      "develop a poster on the school values",
+      "develop a poster on the school motto and display it in class",
+      "make a gallery walk and peer assess."
+     ],
+     "inquiry_questions": [
+      "Why is it important to maintain discipline in school?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Communication and collaboration: Learners recite the school motto",
+      "Citizenship: Learners gather information on the history of the school from the school administration and share in class Values: Integrity: Learners exhibit discipline as they display, make a gallery walk and peer assess. Pertinent and Contemporary Issues (PCIs): Social cohesion: Learners develop charts to explain the school values Links to other Learning Areas: Creative arts: Learners apply graphic designing in Creative Arts in the designing of school motto and rules"
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade4-social-studies.pdf#p31"
+    }
+   ]
+  },
+  {
+   "strand": "Economic Activities",
+   "strand_code": "4.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to explain the importance of economic activities carried out in the county",
+     "exceeds": "Learner explains the importance of economic activities carried out in the county with examples",
+     "meets": "Learner explains the importance of economic activities carried out in the county",
+     "approaches": "Learner explains the importance of economic activities carried out in the county leaving out some details",
+     "below": "Learner struggles to explain the importance of economic activities carried out in the county"
+    },
+    {
+     "indicator": "Ability to identify industries in the county",
+     "exceeds": "Learner identifies industries in the county with examples",
+     "meets": "Learner identifies industries in the county",
+     "approaches": "Learner identifies some industries in the county",
+     "below": "Leaner struggles to identify industries in the county"
+    },
+    {
+     "indicator": "Ability to identify the projects that can be initiated at school",
+     "exceeds": "Learner identifies projects that can be initiated at school with examples",
+     "meets": "Learner identifies the projects that can be initiated at school",
+     "approaches": "Learner identifies some of the projects that can be initiated at school",
+     "below": "Learner can hardly identify the projects that can be initiated at school"
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "4.2",
+     "name": "Industries in the County",
+     "suggested_duration": "6 lessons",
+     "learning_outcomes": [
+      "identify industries in the county",
+      "explain the benefits of industries in the county",
+      "locate industries in the county",
+      "recognise the role of industries in the county."
+     ],
+     "learning_experiences": [
+      "share the industries in the county",
+      "discuss the benefits of industries in the county",
+      "locate industries in the county",
+      "visit an industry to learn its benefits in the county",
+      "create a poster of the industry visited and display in class",
+      "Compose poems on the benefits of industries in the county."
+     ],
+     "inquiry_questions": [
+      "How can a county benefit from its industries?"
+     ],
+     "core_competencies": [
+      "Creativity: Learners create a poster of the industry visited and display in class"
+     ],
+     "values": [
+      "Patriotism: Learners portray citizenship as they visit an industry to learn about its benefits in the county.",
+      "Integrity: Learners develop honesty as they utilise resources prudently while creating a poster of the industry visited and displaying in class"
+     ],
+     "pertinent_issues": [
+      "Safety: Learners exercise caution as they visit an industry to learn its benefits in the county."
+     ],
+     "links_to_other_areas": [
+      "Science and Technology: Learners explain benefits of industries in the county"
+     ],
+     "resources": [],
+     "kicd_source": "grade4-social-studies.pdf#p36"
+    },
+    {
+     "kicd_code": "4.3",
+     "name": "Enterprise Project at School",
+     "suggested_duration": "7 lessons",
+     "learning_outcomes": [
+      "identify the projects that can be initiated at school",
+      "participate in initiating an enterprise project at school",
+      "uphold ethics and collective efforts in managing enterprise projects at school."
+     ],
+     "learning_experiences": [
+      "brainstorm enterprise projects that can be undertaken at school",
+      "plan and undertake a viable enterprise project at school",
+      "design personal protective equipment for safety on the roads using locally available materials",
+      "participate in the initiation and management of the enterprise project in the school",
+      "share responsibilities on the planned enterprise project",
+      "discuss ethical practices to be observed in managing",
+      "the enterprise project",
+      "showcase the school project."
+     ],
+     "inquiry_questions": [
+      "How are enterprise projects managed in school?"
+     ],
+     "core_competencies": [
+      "Communication and collaboration: Learners share responsibilities on the planned enterprise",
+      "Creativity and imagination: Learners identify a viable project enterprise at school"
+     ],
+     "values": [
+      "Responsibility: Learners engage in the assigned roles and duties as they undertake the enterprise project at school and evaluate its success",
+      "Integrity: Learners develop accountability as they participate in the initiation and management of the enterprise project in the school"
+     ],
+     "pertinent_issues": [
+      "Creative and critical thinking: Learners undertake the enterprise project at school and showcase the outcomes."
+     ],
+     "links_to_other_areas": [
+      "Mathematics: Learners plan and undertake a viable enterprise project at school."
+     ],
+     "resources": [],
+     "kicd_source": "grade4-social-studies.pdf#p37"
+    }
+   ]
+  },
+  {
+   "strand": "Resources and Economic Activities",
+   "strand_code": "4.0",
+   "assessment_rubric": [],
+   "substrands": [
+    {
+     "kicd_code": "4.1",
+     "name": "Economic activities in the County",
+     "suggested_duration": "4 lessons",
+     "learning_outcomes": [
+      "Explore the main resources found in the county",
+      "identify the main economic activities carried out in the county",
+      "explain the importance of economic activities carried out in the county",
+      "participate in economic activities in the locality",
+      "appreciate the economic activities in the county."
+     ],
+     "learning_experiences": [
+      "brainstorm on the economic activities in the county",
+      "make posters on the economic activities carried out in the county",
+      "discuss the importance of economic activities in the county",
+      "participate in appropriate economic activities in the locality",
+      "create and recite poems or songs on the economic activities in their county."
+     ],
+     "inquiry_questions": [
+      "How can we conserve the resources found in the county?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Collaboration: Learners participate in appropriate economic activities in the locality.",
+      "Learning to Learn: Learners shares ideas and make posters on the economic activities carried out in the county Values: Patriotism: Learners participate in the economic activities in the locality Pertinent and Contemporary Issues (PCIs): Creative and critical thinking: Learners create and recite poems or songs on the economic activities in their county Links to other Learning Areas:",
+      "Agriculture: learners participate in economic activities",
+      "Pre-technical Studies: Learners identify the importance of economic activities"
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade4-social-studies.pdf#p34"
+    }
+   ]
+  },
+  {
+   "strand": "Citizenship and Governance in Kenya",
+   "strand_code": "5.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to identify qualities of good citizenship in school",
+     "exceeds": "Learner identifies qualities of good citizenship in school with examples",
+     "meets": "Learner identifies qualities of good citizens in school",
+     "approaches": "Learner identifies some qualities of good citizens in school",
+     "below": "Learner has challenges identifying the qualities of good citizens in school"
+    },
+    {
+     "indicator": "Ability to develop strategies of living in peace with others in school",
+     "exceeds": "Learner develops strategies of living in peace with others in school citing with examples",
+     "meets": "Learner develops strategies of living in peace with others in school",
+     "approaches": "Learner develops some strategies of living in peace with others in school",
+     "below": "Learner has challenges developing strategies of living in peace with others in school"
+    },
+    {
+     "indicator": "Ability to explain effects of the seven forms of child abuse in the community",
+     "exceeds": "Learner explains effects of the seven forms of child abuse in the community with examples",
+     "meets": "Learner explains effects of the seven forms of child abuse in the community",
+     "approaches": "Learner explains effects of 4-6 forms of child abuse in the community",
+     "below": "Learner explains effects of less than 4 forms of child abuse in the community"
+    },
+    {
+     "indicator": "Ability to identify democratic processes in school",
+     "exceeds": "Learner identifies democratic processes in school with examples",
+     "meets": "Learner identifies democratic processes in school",
+     "approaches": "Learner identifies some democratic processes in school",
+     "below": "Learner has challenges identifying democratic processes in school"
+    },
+    {
+     "indicator": "Ability to describe the functions of the Children’s Government in school",
+     "exceeds": "Learner describes the functions of the Children’s Government in school with examples",
+     "meets": "Learner describes the functions of the Children’s Government in school",
+     "approaches": "Learner describes some functions of the Children’s Government in school",
+     "below": "Learner has challenges describing the functions of the Children’s Government in school"
+    },
+    {
+     "indicator": "Ability to demonstrate qualities of good leadership in the community.",
+     "exceeds": "Learner demonstrates qualities of good leadership in the community with examples",
+     "meets": "Learner demonstrates qualities of good leadership in the community",
+     "approaches": "Learner demonstrates some qualities of good leadership in the community",
+     "below": "Learner has challenges demonstrating qualities of good leadership in the community"
+    },
+    {
+     "indicator": "Ability to explain the roles of a member of county assembly",
+     "exceeds": "Learner explains the roles of a member of county assembly with examples",
+     "meets": "Learner explains the roles of a member of county assembly",
+     "approaches": "Learner explains some roles of a member of county assembly",
+     "below": "Learner has challenges explaining the roles of a member of county assembly"
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "5.1",
+     "name": "Good Citizenship in School",
+     "suggested_duration": "4 lessons",
+     "learning_outcomes": [
+      "identify qualities of a good citizen in school",
+      "develop qualities of good citizenship in school",
+      "appreciate qualities of good citizenship in school."
+     ],
+     "learning_experiences": [
+      "brainstorm qualities of a good citizen in school",
+      "use digital or print resources to identify qualities of a good citizen in school",
+      "role-play qualities of a good citizen in a school",
+      "engage a role model in the community and discuss good citizenship",
+      "design a poster with qualities of a good citizen in school",
+      "write an essay on qualities of a good citizen and share in class."
+     ],
+     "inquiry_questions": [
+      "How can we demonstrate good citizenship in school?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed: Citizenship: Learners role-play qualities of a good citizen in school Values: Unity: Learners design a poster with qualities of a good citizen in school Pertinent and Contemporary Issues (PCIs): Social cohesion: Learners develop harmonious coexistence as they discuss how to become a good citizen in school Links to other Learning Areas: English: Learners apply writing skills as they write an essay on a good digital citizen (using technology in a positive way) and share the essays in class."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade4-social-studies.pdf#p40"
+    },
+    {
+     "kicd_code": "5.2",
+     "name": "Peace",
+     "suggested_duration": "4 lessons",
+     "learning_outcomes": [
+      "identify factors that promote peace in school",
+      "develop strategies of living in peace with others in school",
+      "desire to uphold peace in school."
+     ],
+     "learning_experiences": [
+      "discuss factors that promote peace in school",
+      "create messages on strategies of living in peace with others in school",
+      "use digital or print resources to find out examples of peace activities undertaken in schools (peace gardens/nature trails, peace corners, peace competition essays)",
+      "design posters with peace-building messages",
+      "participate in peacebuilding activities",
+      "find out from parents and guardians how they can uphold peace."
+     ],
+     "inquiry_questions": [
+      "1. How can we live in peace with others in school?",
+      "2. Why is it important to plan for a peacebuilding activity in school?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Critical thinking: Learners create messages on strategies of living in peace with others in school.",
+      "Problem solving: Learners participate in peace building activities in school. Values:",
+      "Patriotism: Learners design posters with peacebuilding messages",
+      "Peace: Learners show respect as they participate in peacebuilding activities Pertinent and Contemporary Issues (PCIs): Coping with emotions: Learners identify factors that promote peace in school Links to other Learning Areas: Religious Education: Learners apply religious concept of peace as they discuss ways of promoting peace in school"
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade4-social-studies.pdf#p42"
+    },
+    {
+     "kicd_code": "5.3",
+     "name": "Child Rights",
+     "suggested_duration": "4 lessons",
+     "learning_outcomes": [
+      "outline forms of child abuse in the community",
+      "explain the causes of child abuse in the community.",
+      "explain effects of child abuse in the community",
+      "desire to promote child rights and responsibilities in the school."
+     ],
+     "learning_experiences": [
+      "brainstorm forms of child abuse in the community",
+      "use digital or print resources to find out the causes of child abuse in the community",
+      "discuss effects of child abuse in the community",
+      "design posters on the effects of child abuse in the community",
+      "sing songs and recite poems on the protection of self and others from child abuse in the community",
+      "create awareness on use of authorised school transport practices to peers",
+      "participate in activities that promote child rights in the school."
+     ],
+     "inquiry_questions": [
+      "1. How can harmful cultural practices violate child rights in the community?",
+      "2. How can we protect ourselves from child abuse?"
+     ],
+     "core_competencies": [
+      "Core Competencies: Self-Efficacy: Learners participate in activities that promote child rights in the school Values: Responsibility: Learners design posters on the effects of child abuse in the community, Pertinent and Contemporary Issues (PCIs): Gender Issues: Learners identify the causes of child abuse in the community. Links to other Learning Areas: Religious Education: Learners participate in activities that promote child rights in the school."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade4-social-studies.pdf#p44"
+    },
+    {
+     "kicd_code": "5.4",
+     "name": "Democracy in school",
+     "suggested_duration": "3 lessons",
+     "learning_outcomes": [
+      "identify democratic processes in the school",
+      "explain the benefits of democracy in school",
+      "practise democratic elements in school",
+      "appreciate democratic practices in school."
+     ],
+     "learning_experiences": [
+      "brainstorm democratic processes in school",
+      "prepare a chart showing the democratic processes in the school",
+      "discuss benefits of democracy in school",
+      "prepare posters with benefits of democracy in school",
+      "carry out a mock election of leaders in class",
+      "engage a resource person to learn the elements of democratic practices in school."
+     ],
+     "inquiry_questions": [
+      "1. How can we practise democracy in school?",
+      "2. Why is democracy important in a school?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed: Learning to learn: Learners prepare a chart showing the democratic processes in the school, Values: Unity: Learners develop inclusivity and respect others’ opinions as they discuss benefits of democracy in school. Pertinent and Contemporary Issues (PCIs): Social cohesion: Learners develop harmonious coexistence as they carry out a mock election of leaders in class Links to other Learning Areas: Creative Arts: Learners prepare posters with the benefits of democracy in school"
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade4-social-studies.pdf#p47"
+    },
+    {
+     "kicd_code": "5.5",
+     "name": "Children’s Government in school",
+     "suggested_duration": "4 lessons",
+     "learning_outcomes": [
+      "explain the composition of Children’s Government in school",
+      "describe the functions of the Children’s Government in school",
+      "participate in Children’s Government in school",
+      "respect Children’s Government in school."
+     ],
+     "learning_experiences": [
+      "brainstorm the composition of Children’s Government in school",
+      "write the structure of the Children’s Government",
+      "share experiences in groups on functions of Children’s Government in school",
+      "role-play the functions of Children’s Government",
+      "write a composition on ways of participating in Children’s Government in school",
+      "simulate the Children’s Government in session in school",
+      "share on how to respect Children’s Government."
+     ],
+     "inquiry_questions": [
+      "1. Why is it important to have a Children's Government in school?",
+      "2. How can we support Children’s Government in school?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Citizenship: citizenship is developed as learners simulate the Children’s Government in session in school",
+      "Collaboration: Learners share experiences on functions of Children’s Government in school. Values:",
+      "Integrity: Learners simulate the Children’s Government in session in school",
+      "Social Justice: Learners accord privileges without favour as they role-play the functions of Children’s Government Pertinent and Contemporary Issues (PCIs): Governance: Learners describe the functions of Children’s Government in school Links to other Learning Areas: Learners apply writing skills as they write a composition on ways of supporting Children’s Government in school."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade4-social-studies.pdf#p49"
+    },
+    {
+     "kicd_code": "5.6",
+     "name": "Community Leadership",
+     "suggested_duration": "5 lessons",
+     "learning_outcomes": [
+      "identify leaders in the community",
+      "explain the duties of leaders in the community",
+      "demonstrate qualities of good leadership in the community",
+      "appreciate good leadership in the community."
+     ],
+     "learning_experiences": [
+      "name leaders in the community",
+      "discuss duties of community leaders and make class presentation",
+      "engage a resource person to discuss the qualities of a good community leader and report",
+      "role-play qualities of good leadership in the community",
+      "design and display a poster with qualities of good leadership in the community",
+      "Compose songs on good leadership in the community."
+     ],
+     "inquiry_questions": [
+      "Why is it important for leaders to have good qualities?"
+     ],
+     "core_competencies": [
+      "Core Competencies:",
+      "Creativity: Learners design and display a poster with qualities of good leadership in the community",
+      "Learning to learn: Learners engage a resource person to discuss the qualities of a good community leader and report. Values: Integrity: Learners role-play qualities of good leadership in the community. Pertinent and Contemporary Issues (PCIs):",
+      "Leadership: Learners engage a resource person to discuss the qualities of a good community leader and report. Links to other Learning Areas:",
+      "Creative Arts as they design and display a poster with qualities of good leadership in the community."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade4-social-studies.pdf#p51"
+    },
+    {
+     "kicd_code": "5.7",
+     "name": "The County Governments in Kenya",
+     "suggested_duration": "6 lessons",
+     "learning_outcomes": [
+      "identify the structure of county government",
+      "explain the duties of County Governor in Kenya",
+      "explain the roles of a member of county assembly",
+      "appreciate the County Government in Kenya."
+     ],
+     "learning_experiences": [
+      "brainstorm the leaders of county government in Kenya",
+      "outline the structure of the county government",
+      "draw the structure of the county assembly in Kenya",
+      "discuss the duties of the governor and a member of the county assembly",
+      "watch video clips or visit county government offices to learn administrative structure."
+     ],
+     "inquiry_questions": [
+      "1. Why is a county government important in Kenya?",
+      "2. What are the duties of ward and village administrators?"
+     ],
+     "core_competencies": [
+      "Core Competencies: Learning to Learn: Learners engage a resource person to discuss duties of the governor and the roles of a member of county assembly Values: Respect: Learners understand and appreciate leaders as they discuss in groups the roles of members of the county assembly",
+      "Pertinent and Contemporary Issues (PCIs): Governance: Learners learn the structure of county government and discuss the duties of the governor and members of the county assembly, Links to other Learning Areas: Creative Arts: as learners draw the structure of the county government"
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade4-social-studies.pdf#p53"
+    }
+   ]
+  }
+ ]
+}

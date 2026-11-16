@@ -1,0 +1,780 @@
+{
+ "source_pdf": "grade10-sports-recreation.pdf",
+ "grade": 10,
+ "subject": "sports-recreation",
+ "general_outcomes": [
+  "By the end of senior school, the learner should be able to:",
+  "Utilise technology to effectively create, analyse, store data, and communicate in sports and recreation.",
+  "Conduct scientific inquiry in sports and recreation for problem solving.",
+  "Undertake analysis in sports and recreation in order to interpret data and apply in different sporting contexts.",
+  "Demonstrate refined skills and techniques in sports for enjoyment, personal development and career growth.",
+  "Integrate ethical principles and values in physical activities for health and wellbeing.",
+  "Display abilities and competencies to organise, administer and manage different sports and recreation activities for promotion of healthy lifestyle.",
+  "Utilise sports and recreation programmes for environmental conservation and sustainability.",
+  "Exhibit appreciation of local and global cultural diversity through sports for harmonious co-existence,",
+  "Apply knowledge and understanding of pertinent and contemporary issues in sports and recreation programmes."
+ ],
+ "strands": [
+  {
+   "strand": "OFFICIATING",
+   "strand_code": "",
+   "assessment_rubric": [],
+   "substrands": [
+    {
+     "kicd_code": "3.1",
+     "name": "Principles of00 Officiating",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Field marking materials and equipment (White wash, strings, measuring tapes, containers/marking trolley, pegs)",
+      "virtual and digital devices",
+      "first aid kit",
+      "Athletics equipment (commercial/improvised)"
+     ],
+     "learning_experiences": [
+      "Oral questions.",
+      "Observation",
+      "Practical assessment.",
+      "Checklist.",
+      "Portfolio",
+      "Journals"
+     ],
+     "inquiry_questions": [
+      "Field trips to sports facilities • Apprenticeship- Guidance from resource persons • Clubs and societies- Sports clubs, • Career guidance -guidance on careers in sports • Watch live athletics meets through internet search and library research. • Participate in athletics activities in and out of school."
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-sports-recreation.pdf#p51"
+    },
+    {
+     "kicd_code": "3.2",
+     "name": "Responsibilities of Technical and Meet officials",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Field marking materials and equipment (White wash, strings, measuring tapes, containers/marking trolley, pegs)",
+      "virtual and digital devices",
+      "first aid kit",
+      "Resource persons Athletics equipment (commercial/improvised)"
+     ],
+     "learning_experiences": [
+      "Oral questions.",
+      "Observation",
+      "Practical assessment.",
+      "Checklist.",
+      "Portfolio",
+      "Journals"
+     ],
+     "inquiry_questions": [
+      "Field trips to sports facilities • Apprenticeship- Guidance from resource persons • Clubs and societies- Sports clubs, • Career guidance -guidance on careers in sports • Watch live athletics meets through internet search and library research. • Participate in athletics activities in and out of school."
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-sports-recreation.pdf#p52"
+    }
+   ]
+  },
+  {
+   "strand": "Health And Fitness",
+   "strand_code": "1.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to perform dynamic and static stretches within the 4 aspects of performance: • Form, • Range of motion, • Fluid movement, • Balance",
+     "exceeds": "Performs all 4 aspects of dynamic and static stretches.",
+     "meets": "Performs all 4 aspects of dynamic and static stretches with precision.",
+     "approaches": "Performs 2-3 aspects of dynamic and static stretches with precision.",
+     "below": "Performs less than 2 of dynamic and static stretches with precision."
+    },
+    {
+     "indicator": "Ability to perform muscular strength and Muscular endurance activities within the 4 aspects of performance: • Form, • Range of motion, • Fluid movement, • Balance",
+     "exceeds": "performs all 4 aspects of muscular strength and Muscular endurance activities accurately",
+     "meets": "Performs all 4 aspects of muscular strength and Muscular endurance activities correctly.",
+     "approaches": "Performs 2-3 aspects of muscular strength and Muscular endurance activities correctly.",
+     "below": "Performs less than 2 aspects of muscular strength and Muscular endurance activities correctly"
+    },
+    {
+     "indicator": "Ability to perform cardiovascular activities for good health. • Low impact, • High impact, • Sports and recreation activities, • Group fitness and interval training",
+     "exceeds": "Performs all 4 cardiovascular activities accurately",
+     "meets": "Performs all 4 cardiovascular activities correctly.",
+     "approaches": "Performs 2-3 cardiovascular activities correctly.",
+     "below": "Performs less than 2 cardiovascular activities correctly."
+    },
+    {
+     "indicator": "Ability to perform activities with correct posture. • Sitting • Walking, • Running • Jumping, • Throwing • Kicking",
+     "exceeds": "Performs all 6 activities with correct posture accurately.",
+     "meets": "Performs all 6 activities with correct posture",
+     "approaches": "Performs 3-5 activities with correct posture",
+     "below": "Performs less than 3 activities with correct posture"
+    },
+    {
+     "indicator": "Ability to perform recreation activities for fun and enjoyment, • Engagement • Participation • Competence, • Enjoyment • Interaction with Others • Creativity and improvisation • Safety and Responsibility",
+     "exceeds": "Performs a recreation activity while factoring in all 7 criteria accurately",
+     "meets": "Performs a recreation activity while factoring in all 7 criteria",
+     "approaches": "Performs a recreation activity while factoring in 6-4 criteria",
+     "below": "Performs a recreation activity while factoring in less than 3 criteria"
+    },
+    {
+     "indicator": "Ability to design a training programme in sports and recreation that incorporates overload and progression. • Frequency, • Intensity, • Time • Type",
+     "exceeds": "Designs a training programme in sports and recreation that incorporates all 4 FITT aspects in overload and progression expertly",
+     "meets": "Designs a training programme in sports and recreation that incorporates all 4 FITT aspects in overload and progression correctly.",
+     "approaches": "Designs a training programme in sports and recreation that incorporates 3 FITT aspects in overload and progression correctly.",
+     "below": "Designs a training programme in sports and recreation that incorporates less than 2 FITT aspects in overload and progression correctly."
+    },
+    {
+     "indicator": "Ability to create a matrix that links injuries with the specific causes in sports. • soft tissue • joint injuries • bones injuries • overuse injuries",
+     "exceeds": "Creates a matrix that links all 4 injury classifications with their specific causes in sports accurately citing relevant examples",
+     "meets": "Creates a matrix that links all 4 injury classifications with their specific causes in sports accurately",
+     "approaches": "creates a matrix that links few injuries 2-3 with the specific causes in sports",
+     "below": "creates a matrix that links less than 2 injuries to specific causes in sports with assistance"
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "1.1",
+     "name": "Flexibility 10 lessons",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "compare static and dynamic stretches as performed in physical activities",
+      "perform dynamic and static stretches for improved flexibility and health",
+      "appreciate the dynamic and static stretches in enhancing flexibility during sports and recreation."
+     ],
+     "learning_experiences": [
+      "view live demonstrations/watch video s or pictures to identify dynamic and static stretches",
+      "discuss the observations on dynamic and static stretches",
+      "demonstrate dynamic and static stretches",
+      "practise dynamic and static stretches with or without apparatus safely.",
+      "play games to enhance flexibility",
+      "critique each other's demonstration of dynamic and static stretches."
+     ],
+     "inquiry_questions": [
+      "1. How does flexibility improve performance in sports and recreation?",
+      "2. Why are dynamic stretches performed in sports and recreation?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Creativity and imagination: Experimenting: The learner experiments with ideas to test whether they work when playing games to enhance flexibility.",
+      "Digital literacy: Interacting with digital technology: The learner uses digital technology to accomplish own tasks when watching videos or pictures to identify dynamic and static stretches",
+      "Self-efficacy: Task management: The learner demonstrates the ability to manage tasks during demonstration of dynamic and static stretches. Values:",
+      "Unity: Cooperation: The learner displays team spirit as they discuss the observations on dynamic and static stretches",
+      "Social Justice: Equity: The learner fosters fairness and justice among peers as they critique each other's demonstration of dynamic and static stretches. Pertinent and Contemporary Issues (PCI’s):",
+      "Health promotion Issues: Prevention of non-communicable diseases: The learner adopts healthy practices when performing dynamic and static stretches for good health.",
+      "Life skills: Self-Esteem: The learner develops self-esteem when demonstrating dynamic and static stretches."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-sports-recreation.pdf#p13"
+    },
+    {
+     "kicd_code": "1.2",
+     "name": "Muscular Strength and Muscular Endurance 10 lessons",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "distinguish muscular strength and muscular endurance components of health and fitness",
+      "perform muscular strength and muscular endurance activities for improved performance",
+      "develop interest in performing muscular endurance and strength activities while appreciating each others’ efforts."
+     ],
+     "learning_experiences": [
+      "use different media to research and watch muscular strength and muscular endurance activities",
+      "discuss findings to differentiate muscular strength and muscular endurance activities",
+      "improvise weights for muscular strength and muscular endurance activities using locally available materials",
+      "demonstrate muscular endurance and muscular strength activities using the improvised weights and/or own body weight",
+      "practise mini-games that develop muscular strength and muscular endurance while",
+      "observing safety and support each other.",
+      "appraise each other's efforts."
+     ],
+     "inquiry_questions": [
+      "1. Why is muscular endurance and muscular strength important in performing daily activities?",
+      "2. How is muscular endurance and muscular strength inter-related?"
+     ],
+     "core_competencies": [
+      "Critical thinking and problem solving: Research skills: The learner finds extra information when using different media to research and watch muscular strength and muscular endurance activities",
+      "Communication and Collaboration: Teamwork: The learner contributes to group decision making when discussing findings to differentiate muscular strength and muscular endurance activities."
+     ],
+     "values": [
+      "Responsibility: Diligence: The learner engages in assigned roles and duties when guided to improvise weights for muscular strength and muscular endurance activities using locally available materials",
+      "Social justice: Cooperation: The learner advocates for harmonious relationships in society when supporting others as they practise mini-games that develop muscular strength and muscular endurance."
+     ],
+     "pertinent_issues": [
+      "Environmental issues: Environmental Conservation: The learner conserves the environment through reusing and recycling locally available materials to improvise exercise weights.",
+      "Socio-economic issues: Safety and security: The learner observes safety while engaging in muscular strength and muscular endurance activities."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-sports-recreation.pdf#p15"
+    },
+    {
+     "kicd_code": "1.3",
+     "name": "Cardiovascular endurance 10 lessons",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "examine cardiovascular endurance component of health and fitness",
+      "perform cardiovascular activities for good health",
+      "appreciate cardiovascular endurance as a component of good health ."
+     ],
+     "learning_experiences": [
+      "Use varied media or real events to research and watch cardiovascular endurance activities",
+      "make presentation on cardiovasc ular endurance activities",
+      "demonstrate cardiovascular endurance exercises",
+      "practise physical exercises that enhance cardiovascular endurance",
+      "play games that require endurance while observing safety."
+     ],
+     "inquiry_questions": [
+      "1. What are the benefits of cardiovascular endurance?",
+      "2. How does cardiovascular endurance promote performance in sports?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Learning to learn: Learn independently: The learner carries out research and plans tasks when playing games that require endurance while observing safety.",
+      "Digital literacy: Interacting with digital technology: The learner uses digital technology to accomplish own tasks when manipulating digital devices to conduct research on cardiovascular endurance activities Values:",
+      "Peace: Love: The learner has respect for diversity when playing with peers games that require endurance.",
+      "Integrity: Accountability: The learner is committed to duty when playing games that require endurance while observing safety. Pertinent and Contemporary Issues (PCI’s): Life skills: Self-awareness: The learner observes safety as he or she plays games that require endurance while observing safety."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-sports-recreation.pdf#p17"
+    },
+    {
+     "kicd_code": "1.4",
+     "name": "Posture for performance/ movement 10 lessons",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "distinguish the correct and defective posture in sitting, walking, running, jumping, throwing and kicking in sports",
+      "analyse the impact of posture on performance in physical activity",
+      "perform movements related to sitting, walking, running, jumping, throwing and kicking for sports performance using the correct posture",
+      "adopt correct posture while executing movements in sitting, walking, running, jumping, throwing and kicking in sports",
+      "appreciate correct posture to avoid injuries."
+     ],
+     "learning_experiences": [
+      "use print or digital resources to research on correct posture and defective posture in sitting, walking, running, jumping, throwing and kicking",
+      "brainstorm on the impact of various postural positions in sitting, walking, running, jumping, throwing and kicking",
+      "demonstrate movements related to sitting, walking, running, jumping, throwing and kicking",
+      "identify postural defects and perform corrective exercises",
+      "play mini-games that promote correct posture related to sitting, walking, running, jumping, throwing",
+      "and kicking for fun and enjoyment."
+     ],
+     "inquiry_questions": [
+      "1. How does exercise correct postural defects?",
+      "2. Why should an athlete adopt correct posture during performance?"
+     ],
+     "core_competencies": [
+      "Critical thinking and Problem solving: Interpretation and inference: The learner explores problems by creating different possible solutions as they brainstorm on the impact of various postural positions in sitting, walking, running, jumping, throwing and kicking.",
+      "Self-efficacy: Self-awareness: The learner manages tasks when demonstrating movements related to sitting, walking, running, jumping, throwing and kicking."
+     ],
+     "values": [
+      "Unity: Cooperation: The learner displays team spirit when playing mini-games that promote correct posture related to sitting, walking, running, jumping, throwing and kicking.",
+      "Responsibility: Self drive: The learner engages in assigned roles and duties when demonstrates movements related to sitting, walking, running, jumping, throwing and kicking"
+     ],
+     "pertinent_issues": [
+      "Social economic issues: Safety and security: The learner adopts correct posture while executing movements in sitting, walking, running, jumping, throwing and kicking in sports to avoid injuries."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-sports-recreation.pdf#p19"
+    },
+    {
+     "kicd_code": "1.5",
+     "name": "Recreation and wellness 10 lessons Dimensions physical, intellectual, emotional, spiritual, social, mental",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "outline the role of exercise on individual health and wellness",
+      "analyse the dimensions of recreation and wellness",
+      "perform recreation activities for fun and enjoyment",
+      "acknowledge the benefits of recreation activities for health and wellness."
+     ],
+     "learning_experiences": [
+      "discuss the role of exercise on individual health and wellness",
+      "research and discuss on the dimensions of wellness",
+      "practise different activities that enhance fun and relaxation",
+      "share feedback on the benefits gained from recreation activities over a period of time."
+     ],
+     "inquiry_questions": [
+      "1. How do recreation activities foster health and wellness?",
+      "2. How do dimensions of wellness improve the quality of life?"
+     ],
+     "core_competencies": [
+      "Learning to learn: Develop relationships: The learner shares what they have learnt and shares feedback on the benefits gained over a period of time.",
+      "Digital literacy: Interacting with digital technology: The learner uses digital technology to accomplish own tasks when manipulating digital devices to research dimensions of wellness"
+     ],
+     "values": [
+      "• Love: Empathy: The learner portrays a caring attitude as share feedback on the benefits gained from recreation activities."
+     ],
+     "pertinent_issues": [
+      "Pertinent and Contemporary Issues (PCI’s):",
+      "Life skills: Self -management skills: The learner engages in recreational activities that promote physical, intellectual, emotional, spiritual, social and mental wellness.",
+      "Health promotion: Non-communicable diseases: The learner engages in recreational activities that promote health and wellness."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-sports-recreation.pdf#p21"
+    },
+    {
+     "kicd_code": "1.6",
+     "name": "Injuries in sports",
+     "suggested_duration": "10 lessons",
+     "learning_outcomes": [
+      "classify the sports injuries commonly sustained by athletes create a matrix that links injuries with the specific causes in sports, evaluate the strategies employed by athletes to avoid injuries while participating in sports, embrace safety precautions while engaging in sports and recreation activities."
+     ],
+     "learning_experiences": [
+      "research on classification of common sports injuries discuss and present findings of research on classification of sports injuries, draw a matrix relating types of sports injuries with their causes, identify strategies used by athletes to play safely and avoid injuries, demonstrate safe play while engaging in sports."
+     ],
+     "inquiry_questions": [
+      "Which injuries are commonly sustained by athletes in sports?",
+      "How do we prevent injuries in sports?"
+     ],
+     "core_competencies": [
+      "Communication and collaboration: Teamwork: The learner recognises the value of others’ ideas as they discuss and present findings of research on classification of sports injuries.",
+      "Self-efficacy: Self-awareness: The learner manages tasks while demonstrating safe play while engaging in sports."
+     ],
+     "values": [
+      "Responsibility: Accountability: The learner observes safety precautions while playing safe when engaging in sports.",
+      "Peace: Responsibility: The learner respects self and others as they discuss and present findings of research on classification of sports injuries."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-sports-recreation.pdf#p23"
+    },
+    {
+     "kicd_code": "1.6",
+     "name": "Injuries in sports",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Books/manuals on sports injuries"
+     ],
+     "learning_experiences": [
+      "Oral questions.",
+      "Observation",
+      "Practical assessment.",
+      "Checklist.",
+      "Portfolio",
+      "Journals"
+     ],
+     "inquiry_questions": [
+      "Field trips to sports facilities • Apprenticeship- Guidance from resource persons • Clubs and societies- Sports clubs, • Career guidance -guidance on careers in sports • Watch live fitness programme meets through internet search and library research. • Participate in athletics activities in and out of school."
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-sports-recreation.pdf#p48"
+    }
+   ]
+  },
+  {
+   "strand": "COACHING (ATHLETICS)",
+   "strand_code": "2.0",
+   "assessment_rubric": [],
+   "substrands": [
+    {
+     "kicd_code": "2.1",
+     "name": "SPRINTS",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "-Starting blocks -Stop watch -Signal flags",
+      "-whistle -wooden clapper"
+     ],
+     "learning_experiences": [
+      "Oral questions.",
+      "Observation",
+      "Practical assessment.",
+      "Checklist",
+      "Portfolio",
+      "Journals"
+     ],
+     "inquiry_questions": [
+      "Participate in fitness and wellness activities in school • Reading Newspaper sports column",
+      "watch value –based sports channels at home • Visit regional athletic championship"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-sports-recreation.pdf#p48"
+    },
+    {
+     "kicd_code": "2.2",
+     "name": "LONG JUMP",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "-Tape measure -Flags[red,white] -Rake. -Jembe. -landing area/ sand pit --Score sheets. -pen, board, saw, dust, sand,white wash. -whistle"
+     ],
+     "learning_experiences": [
+      "Oral questions.",
+      "Observation",
+      "Practical assessment.",
+      "Checklist.",
+      "Portfolio.",
+      "Journals"
+     ],
+     "inquiry_questions": [
+      "Participate in fitness and wellness activities in school • Reading Newspaper sports column • watch value –based sports channels at home • Visit regional athletic championship"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-sports-recreation.pdf#p49"
+    },
+    {
+     "kicd_code": "2.3",
+     "name": "JAVELIN",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "-Javelin -White Wash -Tape measure -Sawdust -Pen -Signal flags -Score sheet",
+      "Field hard surface -Whistle"
+     ],
+     "learning_experiences": [
+      "Oral questions.",
+      "Observation",
+      "Practical assessment.",
+      "Checklist.",
+      "Portfolio",
+      "Journals"
+     ],
+     "inquiry_questions": [
+      "Participate in fitness and wellness activities in school • Reading Newspaper sports column • watch value –based sports channels at home • Visit regional athletic championship"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-sports-recreation.pdf#p49"
+    },
+    {
+     "kicd_code": "2.4",
+     "name": "SHOT PUT",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Marking agent (lime, ash, saw dust)"
+     ],
+     "learning_experiences": [
+      "Oral questions Observation Practical assessment Checklist Portfolio"
+     ],
+     "inquiry_questions": [
+      "Participate in fitness and wellness activities in school • Reading newspaper sports column • watch value –based sports channels at home • Visit regional athletic championship"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-sports-recreation.pdf#p50"
+    }
+   ]
+  },
+  {
+   "strand": "Coaching",
+   "strand_code": "2.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to perform the role of a coach in a team during school competitions. (Teach, lead, mentor, facilitate, organise)",
+     "exceeds": "Accurately performs all 5 coaching roles correctly and with ease.",
+     "meets": "Perform all 5 coaching roles successfully.",
+     "approaches": "Performs 3-4 coaching roles successfully.",
+     "below": "Performs only 2 or less of the coaching roles successfully."
+    },
+    {
+     "indicator": "Ability to improvise varied equipment and facilities for use in sports and recreation; (creativity, critical thinking, collaboration and communication)",
+     "exceeds": "Creatively Meets all 4 criteria for improvisation of equipment and facilities for use in Sports and recreation.",
+     "meets": "Meets all 4 criteria for improvisation of equipment and facilities for use in Sports and recreation.",
+     "approaches": "Meets 2-3 criteria for improvisation of equipment and facilities for use in Sports and recreation.",
+     "below": "Meets 1 criteria for improvisation of equipment and facilities for use in Sports and recreation."
+    },
+    {
+     "indicator": "Ability to perform technical and tactical skills in track and field events for mastery, (Technical: Running Jumping Throwing Tactical: Running tactics, Jumping Tactics Throwing tactics.)",
+     "exceeds": "Performs all 6 technical and tactical areas in track and field events excellently.",
+     "meets": "Performs all 6 technical and tactical skills in track and field events correctly.",
+     "approaches": "Performs 3-5 technical and tactical skills in track and field events correctly.",
+     "below": "Performs 2 or less technical and tactical skill in track and field events correctly."
+    },
+    {
+     "indicator": "Ability design a programme for body conditioning in athletics, (design structure, relevance, choice of activities, assessment tools)",
+     "exceeds": "Designs a program with all 4 components creatively.",
+     "meets": "Designs a program with all 4 components correctly.",
+     "approaches": "Designs a program with 3-2 correct components.",
+     "below": "Designs a program with less than 2 correct components."
+    },
+    {
+     "indicator": "Ability to design a checklist to detect and identify talent in Athletics. (performance history, attitude, physical attributes, physical fitness, technical skills)",
+     "exceeds": "Designs a checklist to detect and identify talent in Athletics incorporating all the 5 aspects expertly.",
+     "meets": "Designs a checklist to detect and identify talent in Athletics incorporating all the 5 aspects correctly.",
+     "approaches": "Designs a checklist to detect and identify talent in Athletics incorporating 2-4 aspects correctly.",
+     "below": "Designs a checklist to detect and identify talent in Athletics incorporating less than 2 aspects correctly."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "2.1",
+     "name": "Introduction to Coaching 20 lessons",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "examine the concept of coaching in games and sports",
+      "evaluate the qualities of a coach in games and sports",
+      "Create a checklist to appraise the relationship between the coach and athlete in enhancing sports",
+      "Coach a team during school competitions",
+      "appreciate coaching in games and sports."
+     ],
+     "learning_experiences": [
+      "use different media to observe the concept of coaching in games and sports",
+      "discuss the qualities of a coach in games and sports (organised, knowledgeable, supportive, punctual, disciplined and empathetic).",
+      "create a coach-athlete checklist for the appraisal of the relationship.",
+      "use different media and/or watch live sports/games and observe the role played by the coach",
+      "appraise the coach-athlete relationship using the checklist created and share feedback",
+      "• identify a team in the school and apply coaching skills during athletic training."
+     ],
+     "inquiry_questions": [
+      "1. How can coach performance be analysed in a coaching session?",
+      "2. Why is feedback necessary in a coaching session?"
+     ],
+     "core_competencies": [
+      "Communication and Collaboration: speaking: The learner speaks engagingly by using facts and examples to support points when participating in discussion on the qualities of a coach in games and sports.",
+      "Self-efficacy: self-awareness: The learner manages tasks when identifying a team in the school and applying coaching skills during athletic training.",
+      "Critical thinking and problem solving: Evaluation and decision making: The learner takes time to understand the problem while observing a team coach, and provides feedback on a coaching session."
+     ],
+     "values": [
+      "Responsibility: Self-drive: The learner offers leadership and guidance to others when identifying a team in the school and applying coaching skills during athletic training.",
+      "Social justice: equity: The learner fosters fairness and justice among peers when appraising the coach-athlete relationship using the checklist created and sharing feedback."
+     ],
+     "pertinent_issues": [
+      "Citizenship Education: Good governance: The learner demonstrates leadership skills when identifying a team in the school and applying coaching skills during athletic training.",
+      "Life skills: Self-management: The learner displays awareness of own ability by creating a coach-athlete checklist for the appraisal of the relationship."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-sports-recreation.pdf#p28"
+    },
+    {
+     "kicd_code": "2.2",
+     "name": "Improvisation of equipment and facilities 20 lessons",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "evaluate varied equipment and facilities for use in sports and recreation",
+      "determine materials required for improvisation of sports and recreation equipment and facilities",
+      "improvise varied equipment and facilities for use in sports and recreation",
+      "embrace the improvisation of equipment and facilities for self-",
+      "sufficiency in sports and recreation ."
+     ],
+     "learning_experiences": [],
+     "inquiry_questions": [
+      "1. Why is improvisation of facilities and equipment necessary in sports and recreation?",
+      "2. What are the considerations when selecting materials for improvisation of facilities and equipment necessary in sports and recreation?"
+     ],
+     "core_competencies": [
+      "Digital literacy: Interacting with digital technology: The learner uses digital technology to effectively accomplish own tasks using digital devices to evaluate varied equipment and facilities for use in sports and recreation",
+      "Citizenship: Active community life skills: The learner displays responsibility to own community as they participate in the cleaning of the environment after improvisation of equipment.",
+      "Creativity and imagination: Experimenting: The learner experiments with ideas to test and see if the ideas work when improvising varied sports and recreation equipment and facilities while observing safety measures."
+     ],
+     "values": [
+      "Respect: Acceptance: The learner understands and appreciates others as he or she shows appreciation for others' effort when displaying created equipment and facilities.",
+      "Patriotism: Citizenship: The learner shows awareness of own responsibilities in the society as he or she participates in the cleaning of the environment after the improvisation of equipment."
+     ],
+     "pertinent_issues": [
+      "Socio-economic issues: Environmental conservation: The learner contributes to efforts to conserve the environment when improvising equipment and facilities, using recyclable and reusable materials.",
+      "Citizenship: Social cohesion: The learner appreciates others efforts when observing displayed improvised equipment and facilities."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-sports-recreation.pdf#p30"
+    },
+    {
+     "kicd_code": "2.3",
+     "name": "Technical and Tactical skills (Athletics) 20 lessons",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Analyse technical and tactical skills in track and field events",
+      "Apply technical and tactical skills in track and field events for mastery",
+      "appreciate technical and tactical skills applied in track and field events."
+     ],
+     "learning_experiences": [
+      "use different media to research the differences between technical and tactical skills in track and field events",
+      "watch live or video training sessions of a coach and critique the technical and tactical skills observed",
+      "demonstrate technical and tactical skills in track and field events",
+      "practise technical and tactical skills in execution of track and field events",
+      "develop technical and tactical skills for the school athletic team."
+     ],
+     "inquiry_questions": [
+      "1. What are the stages of technical skill development in track and field events?",
+      "2. How do technical and tactical skills enhance performance in track and field events?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Self-efficacy: Self-awareness skills: The learner can manage tasks when demonstrating technical and tactical drills in track and field events",
+      "Learning to learn: Reflect on own: The learner reflects on what they have learnt and adjusts accordingly during practice of technical and tactical skills in execution of track and field events.",
+      "Digital Literacy: Interacting with technology: The learner uses digital technology to accomplish own tasks when watching live or video training sessions of a coach and critique the technical and tactical skills observed. Values:",
+      "Respect: Open-mindedness: The learner understands and appreciates others when watching training sessions of a coach and gives constructive feedback on the technical and tactical skills observed.",
+      "Responsibility: Self-drive: The learner proactively solves problems during practice technical and tactical skills in the execution of track and field events. Pertinent and Contemporary Issues (PCIs): Life Skills: Self-Management Skills: The learner develops self-esteem during demonstration of technical and tactical drills in track and field events."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-sports-recreation.pdf#p32"
+    },
+    {
+     "kicd_code": "2.4",
+     "name": "Body Conditioning (Athletics) 20 lessons",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "analyse the concept of body conditioning for performance in athletics",
+      "design a programme for body conditioning for school athletes",
+      "perform suitable activities for body conditioning",
+      "evaluate body condition of athletes after the conditioning programme",
+      "acknowledge the concept of body conditioning in enhancing athletics performance."
+     ],
+     "learning_experiences": [
+      "use different media to explore and discuss the concept of body conditioning in athletics",
+      "prepare a programme for body conditioning for athletes",
+      "use suitable activities for athletes to practise body conditioning activities.",
+      "use suitable tools to assess the body condition of athletes after the training programme and provide constructive feedback."
+     ],
+     "inquiry_questions": [
+      "1. What should be considered in designing a conditioning programme in athletics?",
+      "2. How does body conditioning enhance performance in athletics?"
+     ],
+     "core_competencies": [
+      "Critical thinking and problem solving: Interpretation and Inference: The learner explores problems by creating different possible solutions when preparing a programme for body conditioning for athletes.",
+      "Communication and collaboration: Teamwork: The learner recognises the value of others’ ideas as they discuss the concept of body conditioning for performance in athletics."
+     ],
+     "values": [
+      "Values:",
+      "Integrity: Honesty: The learner fosters fairness and justice among peers when observing peers performing conditioning drills and gives constructive feedback.",
+      "Responsibility: Excellence: The learner engages in assigned roles when using suitable activities for athletes to practise body conditioning activities Pertinent and Contemporary Issues (PCIs): Life Skills: Social Awareness Skills: The learner adapts effective communication skills by giving constructive feedback on observations made as peers perform conditioning drills."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-sports-recreation.pdf#p34"
+    },
+    {
+     "kicd_code": "2.5",
+     "name": "Talent Detection and Identification 20 lessons",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "distinguish talent detection and identification in Athletics, b)design a checklist for detection and identification of athletics talent among peers in school",
+      "utilize the checklist to detect and identify athletics talent among peers in school",
+      "Acknowledge talent detection and identification in Athletics."
+     ],
+     "learning_experiences": [],
+     "inquiry_questions": [
+      "1. How is talent detected and identified in Athletics?",
+      "2. Why is talent detection and identification necessary in Athletics?"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-sports-recreation.pdf#p36"
+    }
+   ]
+  },
+  {
+   "strand": "Officiating in Athletics",
+   "strand_code": "3.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to mark the track and field events areas; -gathers correct materials for marking, -selects suitable colours, -uses correct dimensions, -marks accurately,-marks neatly, -cleans the space after marking",
+     "exceeds": "Marks the track and field event areas with all six indicators met expertly and accurately.",
+     "meets": "Marks the track and field event areas, with all six indicators met accurately.",
+     "approaches": "Marks the track and field event areas with 5-3 indicators are met.",
+     "below": "Marks the track and field event areas with less than 3 indicators met."
+    },
+    {
+     "indicator": "Application of rules in officiating -gather safe equipment for use, -ensures equipment meets the required standards, -organises the participants, -ensures orderliness of the activity, -correctly records time/ measurements, -correctly enters scores in the recording sheet, -coordinates",
+     "exceeds": "Applies all 8 indicators when officiating expertly and correctly.",
+     "meets": "Applies the 8 indicators of rules when officiating correctly .",
+     "approaches": "Applies 4-7 indicators of the rules when officiating correctly.",
+     "below": "applies 3 or less indicators of the rules when officiating correctly."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "3.1",
+     "name": "Principles of officiating 10 lessons",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "interpret the principles of officiating in athletics",
+      "assess the equipment and facilities in athletics for correct dimensions, standards and safety",
+      "Appreciate the use of safe facilities and equipment in officiating events in athletics."
+     ],
+     "learning_experiences": [
+      "use digital media to identify and discuss the principles of officiating in Athletics: (discipline, enthusiasm, dedication and conflict resolution)",
+      "visit school and/or community athletics facility to critique the equipment and markings of the track and field event areas",
+      "select the right material for marking the athletic event areas",
+      "undertake different roles when collaboratively marking the track and field event areas in the school playgrounds.",
+      "• engage in officiating school athletic events while observing safety."
+     ],
+     "inquiry_questions": [
+      "1. What are the best materials to use for clear markings of track and field event areas in Athletics?",
+      "2. How can the Athletics facilities and equipment be safe for use?"
+     ],
+     "core_competencies": [
+      "Communication and collaboration: Teamwork: The learner recognises the value of others’ ideas as they undertake different roles when collaboratively marking the track and field event areas in the school playgrounds.",
+      "Digital literacy: Interacting with digital technology: The learner uses digital technology to effectively accomplish own tasks when manipulating digital devices to learn about the principles of officiating athletics.",
+      "Critical thinking and problem solving: Evaluation and decision making: The learner explores complex problems when critiquing the equipment and markings of the track and field event areas."
+     ],
+     "values": [
+      "Responsibility: Accountability: The learner engages in assigned roles when engaging in officiating school athletic events while observing safety.",
+      "Unity: Cooperation: The learner displays team spirit when undertaking different roles during collaboratively marking the track and field event areas in the school playgrounds."
+     ],
+     "pertinent_issues": [
+      "Life skills: Social awareness skills: The learner participates in group discussion and working together when marking the track and field events areas.",
+      "Environmental issues: Environmental conservation: The learner demonstrates positive attitudes towards environmental conservation selecting the right material for marking the event areas."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-sports-recreation.pdf#p40"
+    },
+    {
+     "kicd_code": "3.2",
+     "name": "Responsibilities of Technical and Meet officials 10 lessons",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "distinguish between technical and meet officials in athletics",
+      "discuss qualities of officials in Athletics",
+      "analyse duties and responsibilities of technical and meet officials in Athletics",
+      "execute the role of technical and meet officials during athletic events",
+      "appreciate the role officiating during athletic events."
+     ],
+     "learning_experiences": [
+      "use different media to research and tabulate the differences between technical and meet officials",
+      "identify and present the qualities of technical and meet officials (dedication, punctuality, integrity, respect)",
+      "discuss the duties of meet officials and technical officials",
+      "use appropriate signals to officiate track and field events.",
+      "Suggested Assessment"
+     ],
+     "inquiry_questions": [
+      "1.Why is integrity important in officiating events in Athletics?",
+      "2. How does the use of signals enhance officiating of Athletics events?",
+      "Suggested Non-Formal Activities"
+     ],
+     "core_competencies": [
+      "Core Competencies:",
+      "Learning to learn: Learn independently: The learner demonstrates acquisition and application of skills by using appropriate signals to officiate track and field events",
+      "Communication and collaboration: Teamwork: The learner recognises the value of others’ ideas as they discuss and analyse duties and responsibilities of officials.",
+      "Digital literacy: Interacting with digital technology: The learner uses digital technology to effectively accomplish tasks when manipulating digital devices to research the differences between technical and meet officials. Values:",
+      "Unity: Cooperation: The learner displays team spirit as they discuss qualities of technical and meet officials",
+      "Integrity: Fairness: The learner applies laid down procedure when doing things when officiating by umpiring and judging track and field events. Pertinent and Contemporary Issues (PCI’s): Life skills: Social awareness skills: The learner demonstrates effective communication skills when discussing qualities of track and field event officials."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-sports-recreation.pdf#p42"
+    }
+   ]
+  }
+ ]
+}

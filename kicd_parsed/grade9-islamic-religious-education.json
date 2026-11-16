@@ -1,0 +1,959 @@
+{
+ "source_pdf": "grade9-islamic-religious-education.pdf",
+ "grade": 9,
+ "subject": "islamic-religious-education",
+ "general_outcomes": [
+  "Appreciate the Qur’an as the primary source of guidance.",
+  "Deduce lessons from the selected Surah and Hadith, and apply them appropriately in daily life.",
+  "Appreciate and emulate the practises of the Prophet (S.A.W.) as the best role model.",
+  "Develop awareness and appreciation of the Pillars of Iman as the foundation of Islam.",
+  "Demonstrate interest and positive attitude towards performance of acts of Ibadah (worship).",
+  "Acquire Islamic values that will enable them act as responsible and ethical citizens",
+  "Apply Islamic teachings to guide individuals to make positive contribution to social, political and economic developments in the society.",
+  "Appreciate Islamic History as a basis for dynamic culture and civilisation for peaceful co-existence."
+ ],
+ "strands": [
+  {
+   "strand": "Levels Indicators",
+   "strand_code": "",
+   "assessment_rubric": [],
+   "substrands": [
+    {
+     "kicd_code": "",
+     "name": "Exceeds Expectations",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Describes the factors and explains the effects of the spread of Islam in Kenya correctly.",
+      "Assesses the factors, challenges and significance of unity of Muslims correctly."
+     ],
+     "learning_experiences": [
+      "Approaches Expectations",
+      "Describes the factors and explains the effects of the spread of Islam in Kenya but omits few details.",
+      "Assesses the factors, challenges and significance of unity of Muslims but omits few details."
+     ],
+     "inquiry_questions": [
+      "Below Expectations",
+      "Describes the factors and explains the effects of the spread of Islam in Kenya but omits significant details.",
+      "Assesses the factors, challenges and significance of unity of Muslims but omits significant details."
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade9-islamic-religious-education.pdf#p55"
+    },
+    {
+     "kicd_code": "",
+     "name": "Examines the role played and challenges",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Examines the role played and challenges",
+      "facing Muslim Institutions correctly."
+     ],
+     "learning_experiences": [
+      "Examines the role played and challenges",
+      "facing Muslim Institutions with minor gaps."
+     ],
+     "inquiry_questions": [
+      "Examines the role played and challenges",
+      "facing Muslim Institutions with major gaps."
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade9-islamic-religious-education.pdf#p55"
+    }
+   ]
+  },
+  {
+   "strand": "Qur’an",
+   "strand_code": "1.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to describe the miraculous nature and explain the language and style of the Qur’an.",
+     "exceeds": "Describes the miraculous nature and explains the language and style of the Qur’an correctly and comprehensively.",
+     "meets": "Describes the miraculous nature and explains the language and style of the Qur’an correctly.",
+     "approaches": "Describes the miraculous nature and explains the language and style of the Qur’an but leaves out few details.",
+     "below": "Describes the miraculous nature and explains the language and style of the Qur’an but leaves out significant details."
+    },
+    {
+     "indicator": "Ability to read, explain, deduce and apply the lessons of Surah al-Hujurat.",
+     "exceeds": "Reads, explains, deduces and applies the lessons of Surah al-Hujurat correctly and consistently.",
+     "meets": "Reads, explains deduces and applies the lessons of Surah al-Hujurat correctly.",
+     "approaches": "Reads, explain, deduces and applies the lessons of Surah al-Hujurat with few omissions.",
+     "below": "Reads, explains and deduces the lessons of Surah al-Hujurat with significant omissions."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "1.1",
+     "name": "Ulum al-Qur’an",
+     "suggested_duration": "7 lessons",
+     "learning_outcomes": [
+      "describe the miraculous nature of the Qur’an to strengthen iman",
+      "explain the language of the Qur’an for better understanding",
+      "identify different styles of the Qur’an for better understanding",
+      "appreciate the miraculous nature of the Qur’an as a divine scripture."
+     ],
+     "learning_experiences": [
+      "research online/read from available reference materials on the characteristics of a miracle and make notes",
+      "discuss the miraculous nature of the Qur’an and present on charts/PowerPoint",
+      "research online/read from available reference materials on the language of the Qur’an and make class presentations",
+      "identify different styles of the Qur’an in the Qur’anic text and make notes."
+     ],
+     "inquiry_questions": [
+      "1. Why is the Qur’an considered a miracle?",
+      "2. How does the language and style of the Qur’an help in its interpretation?"
+     ],
+     "core_competencies": [
+      "Critical thinking and problem solving: The skill of interpretation and inference is enhanced as learners discuss the miraculous nature of the Qur’an in groups.",
+      "Digital literacy: the skill of interacting with digital devices is enhanced when learners research online on the language of the Qur’an.",
+      "Communication and collaboration: the skills of teamwork, speaking and listening are enhanced when learners discuss the miraculous nature of the Qur’an in groups and make class presentations."
+     ],
+     "values": [
+      "Values:",
+      "Responsibility is enhanced as learners research online/read from available reference materials on the language of the Qur’an and make class presentations.",
+      "Respect is enhanced as learners discuss the miraculous nature of the Qur’an in groups. Pertinent and Contemporary Issues: Social cohesion as learners discuss the miraculous nature of the Qur’an in groups. Link to other subjects:",
+      "Arabic as learners research online on the language of the Qur’an.",
+      "English as learners identify different styles from the Qur’anic text and make notes."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade9-islamic-religious-education.pdf#p13"
+    },
+    {
+     "kicd_code": "1.2",
+     "name": "Selected Chapter Surah al-Hujurat (Q 49)",
+     "suggested_duration": "5 lessons",
+     "learning_outcomes": [
+      "read Surah al-Hujurat (Q 49) correctly for spiritual nourishment",
+      "explain the meaning of the verses of Surah al-Hujurat for better understanding",
+      "deduce lessons from Surah al-Hujurat for application in daily life",
+      "apply the teachings of Surah al-Hujurat in their daily life",
+      "treasure the teachings from Surah al-Hujurat as a guide in relationships."
+     ],
+     "learning_experiences": [
+      "read Surah al-Hujurat (Q 49)",
+      "discuss the meaning of the verses of Surah al-Hujurat in pairs and make class presentations",
+      "research on the teachings of Surah al-Hujurat and make class presentations",
+      "discuss the lessons from Surah al-Hujurat and make notes",
+      "role-play the teachings/lessons from Surah al-Hujurat."
+     ],
+     "inquiry_questions": [
+      "1. What do Muslims learn from Surah al-Hujurat?",
+      "2. How can Muslims use Surah al-Hujurat to enhance peace in the community?"
+     ],
+     "core_competencies": [
+      "Citizenship: The skill of socio-cultural sensitivity and awareness is enhanced as learners research on the teachings of Surah al-Hujurat.",
+      "Communication and collaboration: Listening and speaking skills are enhanced as learners discuss the lessons from Surah al-Hujurat in groups.",
+      "Learning to learn: the skill of research is enhanced when learners research on the teachings of Surah al-Hujurat and make class presentations."
+     ],
+     "values": [
+      "Values:",
+      "Respect is enhanced through discussing the meaning of the verses of Surah al-Hujurat in pairs and make class presentations.",
+      "Social justice is enhanced as learners discuss the lessons from Surah al-Hujurat in groups. Pertinent and Contemporary Issues:",
+      "Ethnic and racial relations is enhanced as learners research on the teachings of Surah al-Hujurat.",
+      "Social Cohesion is enhanced as learners discuss the lessons from Surah al-Hujurat in groups and make notes. Link to other subjects:",
+      "English as learners explain the meaning of the Surah in English.",
+      "Arabic enhanced as learners read Surah al-Hujurat."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade9-islamic-religious-education.pdf#p15"
+    }
+   ]
+  },
+  {
+   "strand": "Hadith",
+   "strand_code": "2.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to explain the reasons for classification, the process of collection and compilation of Hadith.",
+     "exceeds": "Explains the reasons for classification, the process of collection and compilation of Hadith correctly and comprehensively.",
+     "meets": "Explains the reasons for classification, the process of collection and compilation of Hadith correctly.",
+     "approaches": "Explains the reasons for classification, the process of collection and compilation of Hadith correctly but leaves out few details.",
+     "below": "Explains the reasons for classification, the process of collection and compilation of Hadith correctly but leaves out significant details."
+    },
+    {
+     "indicator": "Ability to deduce lessons from the selected Hadith.",
+     "exceeds": "Deduces lessons from the selected Hadith correctly and comprehensively.",
+     "meets": "Deduces lessons from the selected Hadith correctly.",
+     "approaches": "Deduces lessons from the selected Hadith omitting minor details.",
+     "below": "Deduces lessons from the selected Hadith omitting major details."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "2.1",
+     "name": "Ulum al-Hadith",
+     "suggested_duration": "10 lessons",
+     "learning_outcomes": [
+      "identify the six authentic Books of Hadith as a source of guidance",
+      "describe the characteristics of different classes of Hadith (sahih, hasan and dhaif) to differentiate between authentic and unauthentic Hadith",
+      "explain reasons for the classification of Hadith for authenticity",
+      "explain factors that necessitated the collection and compilation of Hadith during the period of Tabi'in and Tabi’i -Tabi’in as a measure of preservation",
+      "describe the process of collection and compilation of Hadith during the period of the Tabi'in",
+      "and Tabi’i -Tabi’in to authenticate Hadith",
+      "appreciate the collection and compilation of Hadith as a source of Islamic sharia."
+     ],
+     "learning_experiences": [
+      "identify six authentic Books of Hadith and share them in class",
+      "discuss the reasons for the classification of Hadith in groups and make notes",
+      "search for the characteristics of different classes of Hadith (sahih, hasan and dhaif) and presentation in class",
+      "research on the factors that necessitated the collection and compilation of Hadith during the Tabi’in and Tabi’i -Tabi’in and make class presentations",
+      "discuss the process of collection and compilation of Hadith during the period of the Tabi’in and Tabi’i -",
+      "Tabi’in and present on charts/PowerPoint."
+     ],
+     "inquiry_questions": [
+      "1. Why was it important to collect and compile Hadith?",
+      "2. Why is Hadith classified?"
+     ],
+     "core_competencies": [
+      "Critical thinking and problem solving: the skill of research is enhanced through research on the factors that necessitated the collection and compilation of Hadith during the Tabi'in and Tabi'i -Tabi’in.",
+      "Self-efficacy: the skill of effective communication is enhanced as learners search for the characteristics of different classes of Hadith (sahih, hasan and dhaif) and present in class.",
+      "Communication and collaboration: the skill of teamwork is enhanced when learners discuss the process of collection and compilation of Hadith during the period of the Tabi'in and Tabi'i -Tabi’in and present on charts/PowerPoint."
+     ],
+     "values": [
+      "Integrity is enhanced as learners actively participate in group discussions on the reasons for the classification of Hadith."
+     ],
+     "pertinent_issues": [
+      "Integrity is enhanced as learners actively participate in group discussions on the reasons for the classification of Hadith."
+     ],
+     "links_to_other_areas": [
+      "English as learners research on the factors that necessitated the collection and compilation of Hadith during the Tabi'in and Tabi'i -Tabi’in and make class presentations."
+     ],
+     "resources": [],
+     "kicd_source": "grade9-islamic-religious-education.pdf#p18"
+    },
+    {
+     "kicd_code": "2.2",
+     "name": "Selected Hadith",
+     "suggested_duration": "8 lessons",
+     "learning_outcomes": [
+      "deduce lessons from the Hadith on unity and avoidance of ill motives among Muslims",
+      "explain the relevance of the Hadith on unity and avoidance of ill motives in the life of a Muslim",
+      "practise the teachings from the Hadith on unity and avoidance of ill motives in daily life",
+      "honour Hadith as the second source of law and spiritual guidance."
+     ],
+     "learning_experiences": [
+      "• discuss the lessons derived from: Hadith on unity “The similitude of believers with regard to mutual love, affection, fellow-feeling is that of one body; when any limb of it aches, the whole body aches, because of sleeplessness and fever.” (Muslim), Hadith on avoidance of ill motives “Beware of suspicion, for suspicion is the worst of false tales, and do not look for others’ faults, and do not spy on one another, and do not practise Najsh (to offer high price for something, in order to allure a person who is interested in it), and do not be jealous of one another and do not hate one another, and do not desert (stop talking to) one another. And O, Allah’s",
+      "worshipers! Be brothers!”",
+      "and make a class presentation",
+      "explain the relevance of the selected Hadith in the life of a Muslim and make notes",
+      "role-play situations where Muslims can display unity in the community",
+      "dramatise the effects of ill-motives in the community."
+     ],
+     "inquiry_questions": [
+      "1. Why is the unity of Muslims important?",
+      "2. Why should Muslims avoid ill motives?"
+     ],
+     "core_competencies": [
+      "Learning to learn: The skill of sharing learnt knowledge is enhanced as learners discuss the lessons derived from the selected Hadith in groups.",
+      "Creativity and imagination: the skill of making connections is enhanced when learners explain the relevance of the selected Hadith in the life of a Muslim and make notes.",
+      "Communication and collaboration: the skill of teamwork is enhanced as learners dramatise the effects of ill motives."
+     ],
+     "values": [
+      "Unity is enhanced when learners discuss the lessons derived from the Hadith on unity in groups.",
+      "Love enhanced as learners discuss the lessons derived from the Hadith on unity in groups."
+     ],
+     "pertinent_issues": [
+      "Social cohesion is enhanced as learners role-play the importance of unity in the community.",
+      "Peace education is enhanced as learners role-play the importance of unity in the community."
+     ],
+     "links_to_other_areas": [
+      "Social Studies is enhanced as learners role-play the importance of unity in the community."
+     ],
+     "resources": [],
+     "kicd_source": "grade9-islamic-religious-education.pdf#p20"
+    }
+   ]
+  },
+  {
+   "strand": "Pillars of Iman",
+   "strand_code": "3.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to describe the events of the Day of Judgement and assess the significance of believing in the Day of Judgement.",
+     "exceeds": "Describes the events of the Day of Judgement t and assess the significance of believing in the day of judgement.",
+     "meets": "Describes the events of the Day of Judgement and assess the significance of believing in the day of judgement.",
+     "approaches": "Describes the events of the Day of Judgement and assess the significance of believing in the day of judgement.",
+     "below": "Describes the events of the Day of Judgement and assess the significance of believing in the day of judgement."
+    },
+    {
+     "indicator": "Ability to describe the effects of believing in Qadar and Qadha.",
+     "exceeds": "Describes the effects of believing in Qadar and Qadha correctly and comprehensively.",
+     "meets": "Describes the effects of believing in Qadar and Qadha correctly.",
+     "approaches": "Describes the effects of believing in Qadar and Qadha leaving out a few details.",
+     "below": "Describes the effects of believing in Qadar and Qadha leaving out a many details."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "3.1",
+     "name": "Belief in the Last Day (Day of Judgement)",
+     "suggested_duration": "5 lessons",
+     "learning_outcomes": [
+      "describe the events of the Last Day for accountability",
+      "explain the significance of believing in the Last Day for spiritual nourishment",
+      "exercise righteousness in preparation for the Last Day",
+      "desire to lead a righteous life to earn Allah (S.W.T.)’s blessings."
+     ],
+     "learning_experiences": [
+      "discuss the events of the Last Day (resurrection, gathering, record of deeds, scale of deeds, accounting, intercession, siraat, paradise, and hellfire), in groups, make charts and display",
+      "research online/from available reference materials on the significance of believing in the Last Day and make notes",
+      "discuss deeds leading to righteousness in groups and make class presentation."
+     ],
+     "inquiry_questions": [
+      "Why is it important for Muslims to believe in the Last Day?"
+     ],
+     "core_competencies": [
+      "Self-efficacy: the skill of self-awareness and planning is enhanced as learners research on the significance of believing in the Last Day.",
+      "Digital literacy: the skill of interacting with digital devices is enhanced as learners research online/from available reference materials on the significance of believing in the Last Day."
+     ],
+     "values": [
+      "Values: Responsibility is enhanced as learners research on the effects of believing in the Last Day. Pertinent and Contemporary Issues: Integrity is enhanced as learners research online on the significance of believing in the Last Day as accountability is required on that day."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade9-islamic-religious-education.pdf#p23"
+    },
+    {
+     "kicd_code": "3.2",
+     "name": "Belief in Qadar",
+     "suggested_duration": "4 lessons",
+     "learning_outcomes": [
+      "describe the effects of believing in Qadar and Qadha as a pillar of Iman",
+      "assess the significance of believing in Qadar and Qadha for spiritual nourishment",
+      "appreciate belief in Qadar and Qadha to accept the Will of Allah."
+     ],
+     "learning_experiences": [
+      "discuss the effects of believing in Qadar and Qadha in groups and make class presentations",
+      "discuss the significance of believing in Qadar and Qadha in groups and present on charts/PowerPoint",
+      "dramatise acceptance of Qadar and Qadha."
+     ],
+     "inquiry_questions": [
+      "Why should Muslims believe in Qadar and Qadha?"
+     ],
+     "core_competencies": [
+      "Learning to learn: the skill of sharing learnt knowledge enhanced as learners discuss the effects of believing in Qadar and Qadha in groups and make class presentations.",
+      "Communication and collaboration: listening and speaking skills enhanced as learners discuss the effects of believing in Qadar and Qadha in groups and make class presentations.",
+      "Critical thinking and problem solving: enhanced as learners discuss the effects of believing in Qadar and Qadha in groups and make class presentations"
+     ],
+     "values": [
+      "Unity is enhanced as learners discuss the significance of believing in Qadar and Qadha in groups and present on charts/PowerPoint."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade9-islamic-religious-education.pdf#p25"
+    }
+   ]
+  },
+  {
+   "strand": "Devotional Acts",
+   "strand_code": "4.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to explain the purpose and assess the relevance of Islamic Shariah.",
+     "exceeds": "Explains the purpose and assesses the relevance of Islamic Shariah comprehensively.",
+     "meets": "Explains the purpose and assesses the relevance of Islamic Shariah.",
+     "approaches": "Explains the purpose and assesses the relevance of Islamic Shariah but leaves out a few details.",
+     "below": "Explains the purpose and assesses the relevance of Islamic Shariah but leaves out significant details."
+    },
+    {
+     "indicator": "Ability to state the conditions and assess the significance of tawbah.",
+     "exceeds": "States the conditions and assesses the significance of tawbah correctly and exhaustively.",
+     "meets": "States the conditions and assesses the significance of tawbah correctly.",
+     "approaches": "States the conditions and assesses the significance of tawbah with minor errors.",
+     "below": "States the conditions and assesses the significance of tawbah with major errors."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "4.1",
+     "name": "Shariah (Islamic law)",
+     "suggested_duration": "6 lessons",
+     "learning_outcomes": [
+      "explain the purpose of Islamic Shariah (Maqasid al-Shariah) as a guide for Muslims",
+      "assess the relevance of Islamic Shariah in the contemporary world",
+      "describe the categories of legal acts in Islamic Shariah as a means of upholding divine guidance",
+      "apply Islamic Shariah in day-to-day life",
+      "acknowledge Shariah as a source of divine guidance."
+     ],
+     "learning_experiences": [
+      "research on the objectives/purpose of Islamic Shariah (protection of life, property, intellect, religion, and dignity) and present on charts/audio-visual devices",
+      "describe the categories of legal acts in Islamic Shariah in pairs and make a class presentation",
+      "discuss the relevance of Islamic Shariah in the modern world and make class presentation",
+      "using digital devices/available reference materials, search for the categories of legal acts in Islam and make notes."
+     ],
+     "inquiry_questions": [
+      "1. What is the objective of maqasid Shariah?",
+      "2. How do legal acts guide Muslims?"
+     ],
+     "core_competencies": [
+      "• Communication and collaboration: Listening and speaking skills enhanced as learners discuss the categories of legal acts in Islamic Shariah in pairs and make a class presentation."
+     ],
+     "values": [
+      "Values: Unity as learners discuss the categories of legal acts in Islamic Shariah in pairs. Pertinent and Contemporary Issues: Patriotism and good governance enhanced as learners discuss the categories of legal acts in Islamic Shariah in pairs. Link to other subjects: Social Studies: enhanced as learners research on the objectives/purpose of the Islamic shariah."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade9-islamic-religious-education.pdf#p27"
+    },
+    {
+     "kicd_code": "4.2",
+     "name": "Tawbah (Repentance)",
+     "suggested_duration": "5 lessons",
+     "learning_outcomes": [
+      "state the conditions of tawbah as a basis for forgiveness from Allah (S.W.T.)",
+      "assess the significance of tawbah in the life of a Muslim",
+      "practise actions that lead to tawbah as a way of purifying one from sins",
+      "appreciate the virtue of tawbah as a condition for success in this life and the Hereafter."
+     ],
+     "learning_experiences": [
+      "brainstorm on the conditions for tawbah and present them on a chart",
+      "discuss the significance of tawbah (Q25:70, Q39:53) in pairs/groups and make class presentation",
+      "dramatize ways of seeking forgiveness from Allah (S.W.T.)",
+      "search for Hadith on tawbah online or from available reference materials individually/ in pairs/groups and draw lessons from them."
+     ],
+     "inquiry_questions": [
+      "1. Why should a Muslim seek repentance from Allah (S.W.T.)?",
+      "2. How should Muslims seek repentance from Allah (S.W.T.)?"
+     ],
+     "core_competencies": [
+      "Digital literacy enhanced as learners search for the Hadith on Tawbah online",
+      "Communication and collaboration enhanced as learners discuss the significance of tawbah (Q25:70, Q39:53) and make class presentation",
+      "Creativity and Imagination enhanced as learners dramatise ways of seeking forgiveness from Allah (S.W.T.)"
+     ],
+     "values": [
+      "Responsibility enhanced as learners take responsibility for their actions and seek forgiveness from Allah (S.W.T.)."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade9-islamic-religious-education.pdf#p29"
+    }
+   ]
+  },
+  {
+   "strand": "Akhlaq (Moral Teachings)",
+   "strand_code": "5.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to explain the Islamic teachings and describe ways in which Muslims can practise modesty, contentment and trustworthiness.",
+     "exceeds": "Explains the Islamic teachings and describes ways in which Muslims can practise modesty, contentment and trustworthiness correctly and comprehensively.",
+     "meets": "Explains the Islamic teachings and describes ways in which Muslims can practise modesty, contentment and trustworthiness correctly.",
+     "approaches": "Explains the Islamic teachings and describes ways in which Muslims can practise modesty, contentment and trustworthiness omitting minor details.",
+     "below": "Explains the Islamic teachings and describes ways in which Muslims can practise modesty, contentment and trustworthiness omitting major details."
+    },
+    {
+     "indicator": "Ability to describe the effects of Zina, justify the reasons behind its prohibition and explain the Islamic measures of curbing it.",
+     "exceeds": "Describes the effects of Zina, justifies the reasons behind its prohibition and explains the Islamic measures of curbing it correctly and exhaustively.",
+     "meets": "Describes the effects of Zina, justifies the reasons behind its prohibition and explains the Islamic measures of curbing it correctly.",
+     "approaches": "Describes the effects of Zina, justifies the reasons behind its prohibition and explains the Islamic measures of curbing it with few mix ups.",
+     "below": "Describes the effects of Zina, justifies the reasons behind its prohibition and explains the Islamic measures of curbing it with many mix ups."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "5.1",
+     "name": "Virtues in Islam",
+     "suggested_duration": "9 lessons",
+     "learning_outcomes": [
+      "explain Islamic teachings on observing modesty, contentment and trustworthiness in fulfilment of Allah (S.W.T.)’s commandments",
+      "describe ways in which Muslims can practise modesty, contentment and trustworthiness as part of faith",
+      "assess the significance of observing modesty, contentment and trustworthiness in upholding Islamic morality in the society",
+      "practise modesty, contentment, and trustworthiness in day-to-day life to earn rewards from Allah (S.W.T.)",
+      "value modesty, contentment and trustworthiness for a morally upright society."
+     ],
+     "learning_experiences": [
+      "discuss the Islamic teachings on modesty, contentment and trustworthiness in groups and make class presentations",
+      "share ways in which Muslims practise modesty, contentment and trustworthiness and make posters",
+      "research on the significance of modesty, contentment and trustworthiness and make notes",
+      "dramatise acts depicting modesty, contentment and trustworthiness in the society."
+     ],
+     "inquiry_questions": [
+      "1. Why is it important for Muslims to practise virtues?",
+      "2. How can a Muslim student exercise contentment in his life?"
+     ],
+     "core_competencies": [
+      "Creativity and imagination: the skill of networking is enhanced as learners dramatise acts depicting modesty, contentment and trustworthiness.",
+      "Communication and collaboration: the skills of listening and speaking are enhanced as learners discuss the Islamic teachings on modesty, contentment and trustworthiness in groups and make class presentations.",
+      "Learning to learn: the skill of working collaboratively is enhanced when learners dramatise acts depicting modesty, contentment, and trustworthiness in the society."
+     ],
+     "values": [
+      "Responsibility: enhanced as learners share ways in which Muslims practise modesty, humility and trustworthiness and make posters",
+      "Integrity: enhanced as learners research on the significance of modesty, contentment and trustworthiness"
+     ],
+     "pertinent_issues": [
+      "Social cohesion: enhanced as learners discuss the Islamic teachings on modesty, contentment and trustworthiness in groups and make class presentations."
+     ],
+     "links_to_other_areas": [
+      "Social Studies as learners research on the significance of modesty, contentment and trustworthiness."
+     ],
+     "resources": [],
+     "kicd_source": "grade9-islamic-religious-education.pdf#p31"
+    },
+    {
+     "kicd_code": "5.2",
+     "name": "Significance of Islamic Morality",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "assess the significance of Islamic morality in promoting righteousness",
+      "practise Islamic morality to earn Allah’s rewards",
+      "uphold Islamic morality as a way of promoting an upright society."
+     ],
+     "learning_experiences": [
+      "research online/from available reference materials on the significance of Islamic morality and make notes",
+      "dramatise acts depicting Islamic morality and deduce lessons."
+     ],
+     "inquiry_questions": [
+      "Why is it important to uphold Islamic morality?"
+     ],
+     "core_competencies": [
+      "Digital literacy: the skill of interacting with digital devices is enhanced as learners use digital devices to research on the significance of morality and make notes.",
+      "Creativity and imagination: the skill of networking is enhanced as learners dramatise acts on Islamic morality and deduce lessons.",
+      "Self-efficacy: the skill of effective communication is enhanced as learners dramatise acts of Islamic morality and deduce lessons."
+     ],
+     "values": [
+      "Respect: enhanced as learners dramatise acts depicting Islamic morality and deduce lessons.",
+      "Unity: as learners dramatise acts depicting Islamic morality."
+     ],
+     "pertinent_issues": [
+      "Social cohesion is enhanced as learners dramatise acts on Islamic morality."
+     ],
+     "links_to_other_areas": [
+      "Social Studies enhanced as learners use digital devices to research on the significance of morality."
+     ],
+     "resources": [],
+     "kicd_source": "grade9-islamic-religious-education.pdf#p33"
+    },
+    {
+     "kicd_code": "5.3",
+     "name": "Prohibitions in Islam Zina (fornication and adultery)",
+     "suggested_duration": "6 lessons",
+     "learning_outcomes": [
+      "describe the effects of Zina on the community",
+      "justify the reasons behind the prohibition of Zina for a morally upright society",
+      "explain the Islamic measures of curbing Zina for a morally upright society",
+      "appreciate the prohibition of Zina for a healthy society."
+     ],
+     "learning_experiences": [
+      "discuss the effects of Zina in groups and present on charts/PowerPoints",
+      "watch video clips/read on the effects of Zina (unwanted pregnancies, HIV and AIDS, Sexually Transmitted Diseases, family break-ups) and deduce lessons",
+      "research on the rationale behind the prohibition of Zina and make notes",
+      "discuss the Islamic measures of curbing Zina in pairs and make class presentations",
+      "listen to a resource person giving a talk on sexually transmitted diseases and infections",
+      "prepare posters on the effects of zina in the society in groups and display."
+     ],
+     "inquiry_questions": [
+      "1. Why is Zina prohibited in Islam?",
+      "2. How can a Muslim discourage Zina in the society?"
+     ],
+     "core_competencies": [
+      "Digital literacy: The skill of interacting with digital devices is enhanced as learners use digital devices to research on the rationale behind the prohibition of Zina and make notes.",
+      "Critical thinking and problem-solving: the skill of research is enhanced as learners research on the rationale behind the prohibition of Zina."
+     ],
+     "values": [
+      "Values: Responsibility: enhanced as learners discuss the effects of Zina in groups and present on charts/PowerPoints. Pertinent and Contemporary Issues: Health-related Issues: enhanced as learners watch video clips on the effects of Zina (unwanted pregnancies, HIV and AIDS, family break-ups) and deduce the lesson. Link to other subjects:",
+      "Social Studies: as learners watch video clips on the effects of Zina (unwanted pregnancies, HIV and AIDS, family break-ups) and deduce the lesson.",
+      "Integrated Science: as learners discuss the effects of Zina in groups and present on charts/PowerPoints."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade9-islamic-religious-education.pdf#p34"
+    }
+   ]
+  },
+  {
+   "strand": "Muamalat (Social Relations)",
+   "strand_code": "6.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to describe causes and effects of domestic violence.",
+     "exceeds": "Describes causes and effects of domestic violence comprehensively.",
+     "meets": "Describes causes and effects of domestic violence.",
+     "approaches": "Describes causes and effects of domestic violence with few omissions.",
+     "below": "Describes causes and effects of domestic violence with significant omissions."
+    },
+    {
+     "indicator": "Ability to state the reasons, conditions and significance of polygamy.",
+     "exceeds": "States the reasons, conditions and significance of polygamy correctly.",
+     "meets": "States the reasons, conditions and significance of polygamy.",
+     "approaches": "States the reasons, conditions and significance of polygamy but leaves out few details.",
+     "below": "States the reasons, conditions and significance of polygamy but leaves out significant details."
+    },
+    {
+     "indicator": "Ability to identify the rules of iddah and child custody and assess the significance of Islamic rules on iddah and child custody.",
+     "exceeds": "Identify the rules of iddah and child custody and assess the significance of Islamic rules on iddah and child custody correctly and comprehensive.",
+     "meets": "Identify the rules of iddah and child custody and assess the significance of Islamic rules on iddah and child custody correctly.",
+     "approaches": "Identify the rules of iddah and child custody and assess the significance of Islamic rules on iddah and child custody with few omissions.",
+     "below": "Identify the rules of iddah and child custody and assess the significance of Islamic rules on iddah and child custody with significant omissions."
+    },
+    {
+     "indicator": "Ability to explain the rules of borrowing and lending money and the role of",
+     "exceeds": "Explains the rules of borrowing and lending money and the role of consumer protection agencies correctly and exhaustively.",
+     "meets": "Explains the rules of borrowing and lending money and the role of consumer protection agencies correctly.",
+     "approaches": "Explains the rules of borrowing and lending money and the role of consumer protection agencies but leaves out few details.",
+     "below": "Explains the rules of borrowing and lending money and the role of consumer protection agencies but leaves out significant details."
+    },
+    {
+     "indicator": "Ability to identify the rules of Jihad, explain the causes and effects of terrorism and extremism.",
+     "exceeds": "Identifies the rules of Jihad, explains the causes and effects of terrorism and extremism correctly and comprehensively.",
+     "meets": "Identifies the rules of Jihad, explains the causes and effects of terrorism and extremism correctly.",
+     "approaches": "Identifies the rules of Jihad, explains the causes and effects of terrorism and extremism omitting a minor details.",
+     "below": "Identifies the rules of Jihad, explains the causes and effects of terrorism and extremism omitting major details."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "6.1",
+     "name": "Domestic violence",
+     "suggested_duration": "6 lessons",
+     "learning_outcomes": [
+      "explain the causes of domestic violence to settle family conflicts",
+      "explain the effects of domestic violence on the family",
+      "describe measures to curb domestic violence in the family",
+      "embrace measures proposed by Islam to curb domestic violence."
+     ],
+     "learning_experiences": [
+      "discuss the causes of domestic violence in groups and present in class",
+      "discuss the effects of domestic violence in groups and present on charts/PowerPoint",
+      "watch video clips/read about the effects of domestic violence and make notes",
+      "research on the measures of curbing domestic violence and make notes",
+      "prepare a skit condemning domestic violence."
+     ],
+     "inquiry_questions": [
+      "1. What are the causes of domestic violence?",
+      "2. How does domestic violence hinder social harmony?"
+     ],
+     "core_competencies": [
+      "Digital literacy: the skill of interacting with digital technology through researching on the measures of curbing domestic violence.",
+      "Learning to learn: the skill of carrying out research enhanced as learners research on the measures of curbing domestic violence.",
+      "Critical thinking and problem-solving: the skill of explanation enhanced as learners research and explain the measures of curbing domestic violence."
+     ],
+     "values": [
+      "Values:",
+      "Peace is enhanced through research on the measures of curbing domestic violence and making notes.",
+      "Social Justice is enhanced through research on the measures of curbing domestic violence. Pertinent and Contemporary Issues:",
+      "Social-Cohesion is enhanced as learners research on the measures of curbing domestic violence.",
+      "Gender education is enhanced as learners discuss the causes of domestic violence. Link to other subjects: Social Studies as learners discuss the effects of domestic violence in groups."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade9-islamic-religious-education.pdf#p37"
+    },
+    {
+     "kicd_code": "6.2",
+     "name": "Iddah",
+     "suggested_duration": "5 lessons",
+     "learning_outcomes": [
+      "describe the iddah for a divorcee and a widow in Islam to foster obedience to divine guidance",
+      "explain the rationale for observing iddah as an act of ibadah",
+      "state the rules of iddah as a means of safeguarding its validity",
+      "assess the importance of iddah to the divorced and widowed Muslim woman",
+      "appreciate iddah as an act of ibadah."
+     ],
+     "learning_experiences": [
+      "search for information on the iddah for a divorcee and a widow in Islam and share in class",
+      "describe the rationale for iddah in groups and present in class",
+      "discuss the rules of iddah in pairs and present them on charts",
+      "discuss the importance of iddah in groups and make a class presentation",
+      "listen to a resource person giving a talk on the importance of observing Iddah in Islam."
+     ],
+     "inquiry_questions": [
+      "What is the wisdom behind Iddah?"
+     ],
+     "core_competencies": [
+      "Communication and collaboration: the skill of decision-making is enhanced as learners discuss the importance of iddah.",
+      "Learning to learn: the skill of working collaboratively enhanced as learners discuss the importance of iddah in groups and make a class presentation."
+     ],
+     "values": [
+      "Values:",
+      "Social Justice is enhanced as learners describe the rationale for iddah",
+      "Respect is enhanced as learners describe the rationale for iddah in groups and present in class Pertinent and Contemporary Issues: Gender education is enhanced as learners discuss the importance of iddah Link to other subjects Social Studies is enhanced as learners discuss the importance of iddah"
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade9-islamic-religious-education.pdf#p39"
+    },
+    {
+     "kicd_code": "6.3",
+     "name": "Child custody",
+     "suggested_duration": "4 lessons",
+     "learning_outcomes": [
+      "identify the Islamic rules on child custody to safeguard the child’s rights",
+      "assess the significance of Islamic rules on child custody",
+      "appreciate Islamic teachings on child custody as a means of fostering family bond."
+     ],
+     "learning_experiences": [
+      "research online/available reference materials on the Islamic rules on child custody in groups and make notes",
+      "discuss the significance of Islamic rules on child custody in groups and present in class."
+     ],
+     "inquiry_questions": [
+      "What are the rules that guide child custody in Islam?"
+     ],
+     "core_competencies": [
+      "Digital literacy: the skill of interacting with digital technology is enhanced as the learners research online on the Islamic rules that guide child custody in groups and make class presentations using PowerPoint.",
+      "Communication and collaboration: the skill of teamwork is enhanced as learners research on Islamic rules that guide child custody in groups and present in class."
+     ],
+     "values": [
+      "Respect is enhanced as learners research online on the Islamic rules that guide child custody in groups and make class presentations using PowerPoint."
+     ],
+     "pertinent_issues": [
+      "Child’s rights, childcare and protection are enhanced as learners research online on the Islamic rules that guide child custody in groups."
+     ],
+     "links_to_other_areas": [
+      "Social Studies as learners research online on the Islamic rules that guide child custody in groups."
+     ],
+     "resources": [],
+     "kicd_source": "grade9-islamic-religious-education.pdf#p41"
+    },
+    {
+     "kicd_code": "6.4",
+     "name": "Polygamy in Islam",
+     "suggested_duration": "6 lessons",
+     "learning_outcomes": [
+      "explain the reasons for polygamy in Islam for social stability",
+      "justify the reasons for the Prophet’s multiple marriages",
+      "state the conditions for polygamy in Islam",
+      "assess the significance of polygamy in Islam",
+      "appreciate the Islamic concept of polygamy as a social remedy to safeguard human dignity."
+     ],
+     "learning_experiences": [
+      "discuss the reasons for polygamy in Islam in groups and present them on charts/PowerPoint devices",
+      "discuss the reasons why the Prophet (S.A.W.) married more than one wife in groups and present in class",
+      "research on the conditions for polygamy in Islam in pairs and make notes",
+      "brainstorm on the significance of polygamy in Islam in groups and present in class",
+      "listen to a resource person giving a talk on the significance of polygamy and make notes."
+     ],
+     "inquiry_questions": [
+      "What is the rationale for polygamy in Islam?"
+     ],
+     "core_competencies": [
+      "Communication and collaboration: Listening and speaking skills are enhanced as learners discuss the reasons for polygamy in Islam in groups and present on charts/PowerPoint devices.",
+      "Self-efficacy: the skill of effective communication is enhanced as learners discuss the reasons for polygamy in groups and present in class."
+     ],
+     "values": [
+      "Values: Social Justice: enhanced as learners discuss the reasons for polygamy in Islam in groups and present on charts/audio-visual devices. Pertinent and Contemporary Issues: Social cohesion: enhanced as learners research on the conditions for polygamy in Islam, in pairs. Link to other subjects: Social Studies as learners discuss the reasons for polygamy in Islam in groups."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade9-islamic-religious-education.pdf#p42"
+    },
+    {
+     "kicd_code": "6.5",
+     "name": "Trade and Finance in Islam",
+     "suggested_duration": "6 lessons",
+     "learning_outcomes": [
+      "explain the Islamic rules on borrowing and lending money",
+      "practise Islamic teachings on borrowing and lending money to earn rewards from Allah (S.W.T.)",
+      "describe the role of consumer protection agencies to enhance integrity",
+      "appreciate the Islamic concept of borrowing and lending money as a means of safeguarding equity in the society."
+     ],
+     "learning_experiences": [
+      "discuss the rules of borrowing and lending money in groups and make a class presentation",
+      "visit an Islamic financial institution to learn more about borrowing and lending money and make notes",
+      "listen to a resource person from consumer protection agencies to enlighten on consumer rights with regards to borrowing and lending money",
+      "role play borrowing and lending money while observing the rules."
+     ],
+     "inquiry_questions": [
+      "Why should Muslims observe the rules of borrowing and lending money?"
+     ],
+     "core_competencies": [
+      "Learning to learn: the skill of seeking advice on information and support enhanced as learners visit an Islamic financial institution to learn more about borrowing and lending money.",
+      "Communication and collaboration: the skills of listening and speaking enhanced when learners discuss the rules of borrowing and lending money in groups and make a class presentation."
+     ],
+     "values": [
+      "Values:",
+      "Integrity is enhanced as learners research on the rules of borrowing and lending money.",
+      "Responsibility is enhanced as learners discuss the rules of borrowing and lending money in groups. Pertinent and Contemporary Issues:",
+      "Integrity as learners research on the rules of borrowing and lending money.",
+      "Financial Literacy as learners visit an Islamic financial institution to learn more about borrowing and lending money and make notes and listen to a resource person from consumer protection agencies on consumer rights with regards to borrowing and lending money. Link to other subjects: Pre-Technical Studies as learners research on the rules of borrowing and lending money and listening to a resource person from consumer protection agencies."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade9-islamic-religious-education.pdf#p44"
+    },
+    {
+     "kicd_code": "6.6",
+     "name": "Contemporary Issues",
+     "suggested_duration": "6 lessons",
+     "learning_outcomes": [
+      "identify the rules of Jihad in Islam for correct interpretation",
+      "explain the causes of terrorism and extremism in the society",
+      "explain the effects of terrorism and extremism on the society",
+      "describes the measures to curb terrorism and extremism for peaceful co-existence",
+      "acknowledge Islamic teachings on Jihad as a guide to harmonious co-existence."
+     ],
+     "learning_experiences": [
+      "identify the rules of Jihad in Islam in groups and share in class",
+      "listen to a resource person giving a talk on the correct interpretation of Jihad and make notes",
+      "research online/available reference materials on the causes of terrorism and extremism and make notes",
+      "research online/available reference materials on the effects of terrorism and present in class",
+      "brainstorm on the measures of curbing terrorism and extremism and make class presentations",
+      "• listen to a resource person giving a talk on the measures to curb terrorism and extremism."
+     ],
+     "inquiry_questions": [
+      "1. What are the effects of terrorism and extremism?",
+      "2. How can terrorism and extremism be curbed?"
+     ],
+     "core_competencies": [
+      "Citizenship: Global awareness skills are enhanced as learners research on the effects of terrorism and extremism.",
+      "Communication and collaboration: the skill of listening and speaking as learners brainstorm on the measures of curbing terrorism and extremism and make class presentations.",
+      "Critical thinking and problem-solving: the skill of open-mindedness and creativity is enhanced as learners brainstorm on the measures of curbing terrorism and extremism and make class presentations."
+     ],
+     "values": [
+      "Peace is enhanced through discussion on the rules of Jihad in Islam in groups and share in class.",
+      "Patriotism is enhanced as learners brainstorm on the measures of curbing terrorism and extremism and make class presentations."
+     ],
+     "pertinent_issues": [
+      "Safety and security education: as learners use digital devices to search for the effects and measures of curbing terrorism and extremism.",
+      "Peace education: as learners brainstorm on the measures of curbing terrorism and extremism and make class presentations."
+     ],
+     "links_to_other_areas": [
+      "Social Studies as learners research on the effects of terrorism and extremism."
+     ],
+     "resources": [],
+     "kicd_source": "grade9-islamic-religious-education.pdf#p46"
+    }
+   ]
+  },
+  {
+   "strand": "Islamic Heritage and Civilisation",
+   "strand_code": "7.0",
+   "assessment_rubric": [],
+   "substrands": [
+    {
+     "kicd_code": "7.1",
+     "name": "Islam in Kenya",
+     "suggested_duration": "7 lessons",
+     "learning_outcomes": [
+      "describe the factors that facilitated the spread of Islam in Kenya",
+      "explain the effects of the contact between the early Muslims and the natives as a factor of civilisation",
+      "examine the challenges faced by the early Muslims in the propagation of Islam",
+      "appreciate the contribution of Islam to the development of culture in Kenya."
+     ],
+     "learning_experiences": [
+      "describe the factors that led to the spread of Islam in Kenya (Coast, Western, Central, and North Eastern) in groups and present on charts/PowerPoint",
+      "research on the effects of the contact between the early Muslims and the natives and make notes",
+      "watch video clips on the effects of the contact between the early Muslims and the natives",
+      "model old architectural designs of mosques, doors, mats, wudhu vessels, and sandals",
+      "modelling activities adorning the Islamic cultural mode of dressing introduced by the Arabs",
+      "• research online/read from available reference materials on the challenges faced by the early Muslims as they propagated Islam and present in class."
+     ],
+     "inquiry_questions": [
+      "1. What factors facilitated the spread of Islam in Kenya?",
+      "2. What was the impact of the contact between the early Muslims and the natives?"
+     ],
+     "core_competencies": [
+      "Learning to learn: the skill of carrying out research enhanced as learners seek information on the effects of the contact between the early Muslims and the natives.",
+      "Communication and collaboration: the skill of listening, speaking and teamwork is enhanced as learners discuss the factors that led to the spread of Islam in Kenya.",
+      "Self-efficacy: the skill of effective communication enhanced as learners research online/read from available reference materials on the challenges faced by the early Muslims as they propagated Islam and share in class.",
+      "Creativity and imagination: the skill of networking is enhanced as learners model old architectural designs of mosques, doors, mats, wudhu vessels and sandals."
+     ],
+     "values": [
+      "Unity enhanced as learners discuss the factors that led to the spread of Islam in Kenya (Coast, Western, Central, and North Eastern) in groups.",
+      "Responsibility enhanced as learners research on the effects of the contact between the early Muslims and the natives."
+     ],
+     "pertinent_issues": [
+      "Ethnic and racial relations enhanced as learners research on the effects of the contact between the early Muslims and the natives."
+     ],
+     "links_to_other_areas": [
+      "Social Studies as learners discuss the factors that led to the spread of Islam in Kenya (Coast, Western, Central, and North Eastern) in groups."
+     ],
+     "resources": [],
+     "kicd_source": "grade9-islamic-religious-education.pdf#p50"
+    },
+    {
+     "kicd_code": "7.2",
+     "name": "Unity of Muslims",
+     "suggested_duration": "4 lessons",
+     "learning_outcomes": [
+      "explain the factors that would enhance unity of Muslims in Kenya",
+      "describe the challenges that undermine the unity of Muslims in Kenya",
+      "assess the significance of unity of Muslims for harmonious co-existence",
+      "practise acts that foster unity among Muslims",
+      "appreciate unity of Muslims to enhance brotherhood."
+     ],
+     "learning_experiences": [
+      "research online/read from available reference materials on the factors that enhance unity of Muslims in Kenya and make class presentations",
+      "describe the challenges that undermine the unity of Muslims in groups and make notes",
+      "listen to a talk from a resource person on the significance of the unity of Muslims and make notes",
+      "dramatise acts that foster unity among Muslims."
+     ],
+     "inquiry_questions": [
+      "1. Why is the unity of Muslims important?",
+      "2. What hinders the unity of Muslims?"
+     ],
+     "core_competencies": [
+      "Self-efficacy: the skill of effective communication enhanced as learners discuss the challenges that undermine the unity of Muslims in groups.",
+      "Citizenship: the skill of national and cultural identity enhanced as learners research online/read on the factors that enhance unity of Muslims.",
+      "Creativity and imagination: the skill of networking enhanced as learners dramatise acts that foster unity among Muslims."
+     ],
+     "values": [
+      "Values:",
+      "Unity enhanced as learners dramatise acts that foster unity among Muslims.",
+      "Responsibility enhanced as learners listen to a talk from a resource person on the significance of unity of Muslims and make notes. Pertinent and Contemporary Issues:",
+      "Social cohesion as learners research online on the factors that enhance unity of Muslims.",
+      "Patriotism as learners dramatise acts that foster unity among Muslims. Link to other subjects: Social Studies as learners research online on the factors that enhance unity of Muslims."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade9-islamic-religious-education.pdf#p52"
+    },
+    {
+     "kicd_code": "7.3",
+     "name": "Muslim Institutions",
+     "suggested_duration": "9 lessons",
+     "learning_outcomes": [
+      "describe the role of mosques, madrasa and Muslim NGOs in the preservation of Islamic heritage",
+      "examine the challenges facing the Muslim institutions",
+      "propose possible solutions to the challenges facing Muslim institutions",
+      "recognise the role played by mosques, madrasa and Muslim NGOs in preserving Islamic values."
+     ],
+     "learning_experiences": [
+      "research on the role of mosques, madrasa and Muslim NGOs and present on charts/audio-visual devices",
+      "listen to a resource person giving a talk on the role of mosque and madrasa in preserving Islamic values",
+      "watch video clips on the role of mosques, madrasa and Muslim NGOs in the community",
+      "visit a mosque/madrasa and write on their functions",
+      "discuss the challenges facing Muslim institutions in groups and present in class",
+      "brainstorm on possible solutions to the challenges facing Muslim institutions in groups and present in class."
+     ],
+     "inquiry_questions": [
+      "Why are mosques and madrasa important to the Muslim community?"
+     ],
+     "core_competencies": [
+      "Digital literacy: the skills of interacting with digital technology when learners research on the role of mosques and madrasa and present on charts/audio-visual devices.",
+      "Learning to learn: the skill of seeking advice, information and support as learners visit a mosque/madrasa and make notes on the roles of the mosques and madrasa."
+     ],
+     "values": [
+      "Unity enhanced as learners research on the roles of mosques and madrasa.",
+      "Respect is enhanced as learners visit a mosque/madrasa and make notes on their functions."
+     ],
+     "pertinent_issues": [
+      "Social cohesions enhanced as learners research on the role of a mosque and madrasa."
+     ],
+     "links_to_other_areas": [
+      "Social Studies as learners research on the roles of mosques, madrasa and Muslim NGOs which is related to the spread of Islam and Christianity in East Africa"
+     ],
+     "resources": [],
+     "kicd_source": "grade9-islamic-religious-education.pdf#p54"
+    }
+   ]
+  }
+ ]
+}

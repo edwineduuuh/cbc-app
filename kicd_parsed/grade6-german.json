@@ -1,0 +1,1843 @@
+{
+ "source_pdf": "grade6-german.pdf",
+ "grade": 6,
+ "subject": "german",
+ "general_outcomes": [
+  "Communicate appropriately using verbal and or non-verbal modes in a variety of contexts.",
+  "Demonstrate mastery of number concepts to solve problems in day to day life",
+  "Demonstrate social skills, moral and religious values for positive contribution to society",
+  "Develop one’s interests and talents for personal fulfilment",
+  "Make informed decisions as local and global citizens of a diverse, democratic society in an interdependent world.",
+  "Explore, manipulate, manage and conserve the environment effectively for learning and sustainable development",
+  "Acquire digital literacy skills for learning and enjoyment.",
+  "Appreciate the country’s rich, diverse cultural heritage for harmonious living Essence Statement for Foreign Languages Kenya is part of the international community and therefore the learner shall be given an opportunity to learn foreign languages in addition to the national, official and indigenous languages. These foreign languages include: Arabic, French, German and Mandarin. The Learner is expected to acquire the four language skills: listening, speaking, reading and writing at a basic level in a non-formal curriculum. This will give the learner an opportunity to acquire language competencies in experiential, innovative and flexible programs. Foreign languages learning at this level is guided by social-constructivism and environmental theories. Learning of these languages will promote international consciousness and appreciation of one’s own and other cultures. The learner will transit to senior school having acquired basic proficiency equivalent to A1/YCT2 Subject"
+ ],
+ "strands": [
+  {
+   "strand": "Listening and Speaking (3 sessions)",
+   "strand_code": "1.0",
+   "assessment_rubric": [],
+   "substrands": [
+    {
+     "kicd_code": "1.1",
+     "name": "Phonological awareness (pronunciation, articulation) 1.2 Selective Listening 1.3 Imitative speaking",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "pair themselves with their peers",
+      "introduce oneself and their peers",
+      "find out about their peers’ ages",
+      "listen to audio texts of people introducing themselves and saying their ages (z.B. Ich heiße /Ich ___ bin /Mein Name ist ; Ich bin ___ __ Jahre alt), ___",
+      "imitate and introduce themselves to peers",
+      "listen/watch audio-visual text of people introducing others using name",
+      "and age (z.B. Das ist ; Er/sie ist ___ Jahre alt), ___",
+      "imitate and introduce their peers",
+      "listen/watch an extended greetings and introduction texts",
+      "simulate greetings and introduction using the phrases: Guten Tag/Morgen; Ich heiße ; wie geht’s?; Gut, ____ danke, usw."
+     ],
+     "learning_experiences": [
+      "What do you do in order to listen carefully and respond appropriately?",
+      "Key Inquiry Question(s)"
+     ],
+     "inquiry_questions": [],
+     "core_competencies": [
+      "Communication and collaboration: Learner develops the skill of listening keenly and actively as s/he simulates greetings and introduction using appropriate phrases."
+     ],
+     "values": [
+      "Respect: Learner observes etiquette as s/he works with peers in pairs to introduce each other and find out about others."
+     ],
+     "pertinent_issues": [
+      "Citizenship: Learner develops awareness for the role of greetings and introduction in maintaining social cohesion."
+     ],
+     "links_to_other_areas": [
+      "Learner relates the concept of greetings, self-and others’ introduction with similar concept in the indigenous and foreign languages and language activities learning areas."
+     ],
+     "resources": [],
+     "kicd_source": "grade6-german.pdf#p63"
+    }
+   ]
+  },
+  {
+   "strand": "Listening and speaking",
+   "strand_code": "1.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to articulate and pronounce words (Phonological Awareness)",
+     "exceeds": "Speaks with an almost perfect/error-free pronunciation and articulation. Makes an exerted effort to sound like a native speaker. The speech is clear and the responses are logical and very easy to follow.",
+     "meets": "Speaks in an appropriate pronunciation and articulation. Speech is clear and the response is logical and easy to follow.",
+     "approaches": "Speaks with minimal hesitation, some errors in pronunciation and articulation. Meaning can easily be guessed from the responses Responses are slightly difficult to follow.",
+     "below": "Speaks with pronunciation and articulation containing grave errors. Speech lacks clear sequence and is inaudible. Meaning can barely be derived from the responses and is difficult to follow."
+    },
+    {
+     "indicator": "Ability to identify general information from given texts (Listening for Gist)",
+     "exceeds": "Interprets all questions in context. Responds to all questions appropriately. Uses appropriate and varied vocabulary in tasks. Undertakes more than the required tasks appropriately.",
+     "meets": "Interprets the given tasks in context. Responds to the given tasks appropriately. Uses the appropriate vocabulary in response to questions.",
+     "approaches": "Interprets most of the given questions in context. Responds to most of the given questions appropriately. Uses most of the acquired vocabulary in response to questions.",
+     "below": "Interprets some of the given questions in context. Responds to some of the given questions appropriately. Uses some of the acquired vocabulary in response to questions. Exhibits lack of understanding of the"
+    },
+    {
+     "indicator": "Ability to imitate speech (Imitative Speaking)",
+     "exceeds": "Uses a variety of non-verbal cues: appropriate facial expressions, body postures, gestures, pauses, poise Uses appropriate verbal cues: stress patterns, intonation Maintains meaningful eye contact at all times Speaks with confidence.",
+     "meets": "Uses non-verbal cues appropriately: facial expressions, body postures and gestures. Uses verbal cues appropriately: stress patterns, intonation Maintains meaningful eye contact Speaks with confidence.",
+     "approaches": "Uses most of the non-verbal cues appropriately. Uses most of the verbal cues appropriately. Maintains eye contact some of the times Speaks with minimal prompting.",
+     "below": "Uses some of the non-verbal cues appropriately. Uses some of the verbal cues appropriately. Maintains eye contact some of the times Requires prompting to speak."
+    },
+    {
+     "indicator": "Ability to identify selective information (Selective Listening)",
+     "exceeds": "Interprets all questions in context. Responds to all questions appropriately. Uses appropriate and varied vocabulary in tasks. Undertakes more than the required tasks appropriately.",
+     "meets": "Interprets the given tasks in context. Responds to the given tasks appropriately. Uses the appropriate vocabulary in response to questions.",
+     "approaches": "Interprets most of the given questions in context. Responds to most of the given questions appropriately. Uses most of the acquired vocabulary in response to questions.",
+     "below": "Interprets some of the given questions in context. Responds to some of the given questions appropriately. Uses some of the acquired vocabulary in response to questions. Exhibits lack of understanding of the questions or does not respond to questions at all."
+    },
+    {
+     "indicator": "Ability to articulate and pronounce words (Phonological Awareness)",
+     "exceeds": "Speaks with an almost perfect/error-free pronunciation and articulation. Makes an exerted effort to sound like a native speaker. The speech is clear and the responses are logical and very easy to follow.",
+     "meets": "Speaks in an appropriate pronunciation and articulation. Speech is clear and the response is logical and easy to follow.",
+     "approaches": "Speaks with minimal hesitation, some errors in pronunciation and articulation. Meaning can easily be guessed from the responses Responses are slightly difficult to follow.",
+     "below": "Speaks with pronunciation and articulation containing grave errors. Speech lacks clear sequence and is inaudible. Meaning can barely be derived from the responses and is difficult to follow."
+    },
+    {
+     "indicator": "Ability to identify general information from given texts (Listening for Gist)",
+     "exceeds": "Interprets all questions in context. Responds to all questions appropriately. Uses appropriate and varied vocabulary in tasks. Undertakes more than the required tasks appropriately.",
+     "meets": "Interprets the given tasks in context. Responds to the given tasks appropriately. Uses the appropriate vocabulary in response to questions.",
+     "approaches": "Interprets most of the given questions in context. Responds to most of the given questions appropriately. Uses most of the acquired vocabulary in response to questions.",
+     "below": "Interprets some of the given questions in context. Responds to some of the given questions appropriately. Uses some of the acquired vocabulary in response to questions. Exhibits lack of understanding of the questions or does not respond to questions at all."
+    },
+    {
+     "indicator": "Ability to imitate speech (Imitative Speaking)",
+     "exceeds": "Uses a variety of non-verbal cues: appropriate facial expressions, body postures, gestures, pauses, poise Uses appropriate verbal cues: stress patterns, intonation Maintains meaningful eye contact at all times Speaks with confidence.",
+     "meets": "Uses non-verbal cues appropriately: facial expressions, body postures and gestures. Uses verbal cues appropriately: stress patterns, intonation Maintains meaningful eye contact Speaks with confidence.",
+     "approaches": "Uses most of the non-verbal cues appropriately. Uses most of the verbal cues appropriately. Maintains eye contact some of the times Speaks with minimal prompting.",
+     "below": "Uses some of the non-verbal cues appropriately. Uses some of the verbal cues appropriately. Maintains eye contact some of the times Requires prompting to speak."
+    },
+    {
+     "indicator": "Ability to identify selective information (Selective Listening)",
+     "exceeds": "Interprets all questions in context. Responds to all questions appropriately. Uses appropriate and varied vocabulary in tasks. Undertakes more than the required tasks appropriately.",
+     "meets": "Interprets the given tasks in context. Responds to the given tasks appropriately. Uses the appropriate vocabulary in response to questions.",
+     "approaches": "Interprets most of the given questions in context. Responds to most of the given questions appropriately. Uses most of the acquired vocabulary in response to questions.",
+     "below": "Interprets some of the given questions in context. Responds to some of the given questions appropriately. Uses some of the acquired vocabulary in response to questions. Exhibits lack of understanding of the questions or does not respond to questions at all."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "1.5",
+     "name": "Phonological awareness Imitative speaking (3 Sessions)",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "articulate words for fluency b)speak words imitatively for communication",
+      "appreciate the role articulation plays in language."
+     ],
+     "learning_experiences": [
+      "Learner is guided to:",
+      "listen to songs on birthdays and sing along",
+      "listen to short, simple texts on birthdays and repeat what is said",
+      "watch short videos on birthdays and answer given questions",
+      "recite short poems on birthdays",
+      "listen to tongue twisters on birthdays and repeat them",
+      "take videos talking about own birthdays and activities undertaken and share with peers",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "Why is proper pronunciation important?",
+      "Key Inquiry Question(s)"
+     ],
+     "core_competencies": [
+      "Creativity and imagination: Learner develops skills of speaking engagingly as they take videos talking about own birthdays and activities undertaken and share with peers."
+     ],
+     "values": [
+      "Love: Learner demonstrates caring for self by making brief presentations on own birthdays."
+     ],
+     "pertinent_issues": [
+      "Life skills: Learner develops awareness of healthy intrapersonal relationship as they make brief presentations on own birthdays."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade6-german.pdf#p15"
+    },
+    {
+     "kicd_code": "1.6",
+     "name": "Listening for gist Imitative speaking",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "identify general information for comprehension b)speak words imitatively for communication",
+      "appreciate the role imitation plays in language"
+     ],
+     "learning_experiences": [
+      "Learner is guided to:",
+      "watch a video on food items and repeat after",
+      "listen to a brief text on food items and read along with peers",
+      "listen to songs on food items and sing along",
+      "listen to tongue twisters on food items and repeat them",
+      "listen to texts on food items and match them to given pictures",
+      "recite poems on food items with peers",
+      "make videos on food items at home and share with peers",
+      "discuss the healthy and unhealthy foods with peers",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "How does imitation help us learn a new language?",
+      "Key Inquiry Question(s)"
+     ],
+     "core_competencies": [
+      "Digital literacy: Learner develops skills of creating with technology by making videos of food items at home and presenting them to peers."
+     ],
+     "values": [
+      "Unity: Learner demonstrates team spirit as they recite poems on food items with peers."
+     ],
+     "pertinent_issues": [
+      "Health promotion issues: Learner develops awareness of healthy eating habits as they discuss healthy and unhealthy foods with peers."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade6-german.pdf#p16"
+    },
+    {
+     "kicd_code": "1.7",
+     "name": "Phonological awareness Imitative speaking (3 Sessions)",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "pronounce words for fluency b)speak imitatively for communication",
+      "appreciate the role vocabulary plays in language"
+     ],
+     "learning_experiences": [
+      "Learner is guided to:",
+      "watch a video on body parts and read along",
+      "play the naming game in pairs (was ist das?-das ist mein(e)........)",
+      "listen to an audio text mentioning body parts and match pictures to the mentioned parts",
+      "sing \"head, shoulders, knees and toes...\"in"
+     ],
+     "inquiry_questions": [
+      "How do we ensure we pronounce words correctly?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed: Communication and Collaboration: Learner develops teamwork skills as they sing \"head, shoulders, knees and toes...\"in German with peers, make videos and share in plenary. Digital literacy: Learner acquires the skills of creating with technology as they as they sing \"head, shoulders, knees and toes...\"in German with peers, make videos and share in plenary. Values: Unity: Learner works collaboratively as they as they sing \"head, shoulders, knees and toes...\"in German with peers, make videos and share in plenary. Pertinent and Contemporary Issues (PCI’s) Health promotion issues (Healthy functioning of the body): The learner develops an awareness of healthy functioning of the body as as they sing \"head, shoulders, knees and toes...\"in German with peers, make videos and share in plenary. 1.0 LISTENING AND SPEAKING Theme 8: Weather and Environment Strand Sub Strand Specific Learning Outcomes Suggested Learning Experiences Key Inquiry Question(s)"
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade6-german.pdf#p18"
+    },
+    {
+     "kicd_code": "1.8",
+     "name": "Phonological awareness Listening for gist (3 Sessions)",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "identify general information for comprehension",
+      "pronounce words for fluency c)appreciate the role fluency plays in communication."
+     ],
+     "learning_experiences": [
+      "Learner is guided to:",
+      "watch a video on features of the weather and repeat after",
+      "listen to songs on weather features and sing along",
+      "listen to tongue twisters on weather features and repeat",
+      "listen to simple short poems on weather features and recite them in groups",
+      "listen to audio/ audio visual texts on weather and match to given pictures",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "How do we become fluent in a language?",
+      "Key Inquiry Question(s)"
+     ],
+     "core_competencies": [
+      "Communication and Collaboration: Learner develops skills of speaking clearly and effectively as they listen to simple short poems on weather features and recite them in groups"
+     ],
+     "values": [
+      "Unity: Learner works collaboratively as they listen to simple short poems on weather features and recite them in groups."
+     ],
+     "pertinent_issues": [
+      "Environmental education: Learner enhances their knowledge on environmental education as they discuss matters related to the weather."
+     ],
+     "links_to_other_areas": [
+      "Learner links their knowledge of weather and weather patterns in social studies to this sub strand."
+     ],
+     "resources": [],
+     "kicd_source": "grade6-german.pdf#p20"
+    },
+    {
+     "kicd_code": "1.9",
+     "name": "Listening for gist Imitative speaking (3 Sessions)",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "identify general information from listening texts for comprehension b)speak imitatively for communication",
+      "appreciate the role articulation plays in language"
+     ],
+     "learning_experiences": [
+      "Learner is guided to:",
+      "watch a video on various rooms in a home and underline key words zB Wohnzimmer, Schlafzimmer, Garten usw",
+      "listen to texts on the home and answer given questions",
+      "mime activities related to various rooms in the house and the peers guess which room it is (das ist im Wohnzimmer/Sclafzimmer ...usw) while observing the rules of turn taking",
+      "discuss how to keep various rooms of the house safe from disaster (auf Englisch)",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "How do we ensure we get the main ideas from a listening text?",
+      "Key Inquiry Question(s)"
+     ],
+     "core_competencies": [
+      "Self efficacy: Learner demonstrates their knowledge of home surrounding as they mime activities related to various rooms in the house and the peers guess which room it is (das ist im Wohnzimmer/Sclafzimmer...usw)"
+     ],
+     "values": [
+      "Respect: Learner respects the set norms of interaction as they mime activities related to various rooms in the house and the peers guess which room it is (das ist im Wohnzimmer/Sclafzimmer...usw) while observing the rules of turn taking."
+     ],
+     "pertinent_issues": [
+      "Disaster risk reduction: Learner develops awareness of safety measures in the home as they discuss how to keep various rooms of the house safe from disaster (auf Englisch)"
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade6-german.pdf#p21"
+    },
+    {
+     "kicd_code": "1.4",
+     "name": "Phonological awareness (pronunciation, articulation) 1.5 Listening for gist 1.6 Imitative speaking",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Learner is guided to:",
+      "count up to 100",
+      "imitate numbers said in an audio text",
+      "compare how numbers 20-100 are spoken in their various languages",
+      "discuss the differences in counting numbers above 20 in various languages",
+      "listen/watch audio-visual texts on people talking about their family members (z.B. Das ist mein Vater/meine Mutter. Er/sie ist fünfzig Jahre alt.)",
+      "imitate spoken texts about people talking about ages",
+      "ask peers about their families (z.B. Wie alt bist du? Wie alt ist dein/e Vater/Mutter? usw)."
+     ],
+     "learning_experiences": [
+      "How can one wrong pronunciation impair understanding?",
+      "Key Inquiry Question(s)"
+     ],
+     "inquiry_questions": [],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade6-german.pdf#p65"
+    },
+    {
+     "kicd_code": "1.7",
+     "name": "Phonological awareness",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Learner is guided to:",
+      "mention all the facilities in the school",
+      "discuss the functions of the facilities",
+      "listen to audio texts about school facilities",
+      "speak aloud the various school facilities",
+      "play an oral matching game where one person says a word (an aspect of the facility) and the partner guesses the facility (z.B. lesen - Bibliothek; spielen/Fußball – Sportplatz, usw)",
+      "play a guessing game where one mimes what s/he wants to do and the others tell him/her where to go",
+      "listen and imitate people talking about going to different places in a school setting."
+     ],
+     "learning_experiences": [
+      "What is the best way to learn new vocabulary?",
+      "Key Inquiry Question(s)"
+     ],
+     "inquiry_questions": [],
+     "core_competencies": [
+      "Creativity and imagination: Learner develops the skill of communication and self-expression when s/he plays a matching/guessing game."
+     ],
+     "values": [
+      "Responsibility: Learner demonstrates excellence by creatively engaging in the assigned roles during the guessing game."
+     ],
+     "pertinent_issues": [
+      "Safety and Security: Learner develops an awareness for safety in the class and school environment as they discuss the functions of the school facilities."
+     ],
+     "links_to_other_areas": [
+      "Learner relates his/her surroundings (the school) with content learned in Environmental Activities, Creative Arts and Creative Activities in the school."
+     ],
+     "resources": [],
+     "kicd_source": "grade6-german.pdf#p66"
+    },
+    {
+     "kicd_code": "1.10",
+     "name": "Phonological awareness (pronunciation, articulation) 1.11 Selective Listening 1.12 Imitative speaking",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Learner is guided to:",
+      "say aloud the months of the year",
+      "say which months of the year are important to them and why",
+      "discuss what seasons they have in their region",
+      "discuss when they have school holidays",
+      "listen to audio of peers talking about when they have their school holidays",
+      "listen to audio about people talking about holidays",
+      "• listen and imitate how words about holidays are pronounced (z.B. Weihnachten, Ostern, Schulferien, Osterferien, usw)."
+     ],
+     "learning_experiences": [
+      "Why is it important to imitate new words during listening?"
+     ],
+     "inquiry_questions": [],
+     "core_competencies": [
+      "Learning to learn: Learner develops the skill of developing relationships when s/he talks about which months are important to him/her and why."
+     ],
+     "values": [
+      "Respect: Learner demonstrates the value of acceptance when s/he appreciates diverse opinions when s/he talks about which months are important with peers."
+     ],
+     "pertinent_issues": [
+      "Life skills: Learner develops awareness for assertiveness when s/he says which months of the year are important to him/her and why."
+     ],
+     "links_to_other_areas": [
+      "Learner associates the concepts of time; (date, months, seasons etc.) with similar concepts and themes found in Mathematical Activities Language Activities, Indigenous Languages and Foreign Languages (French, Arabic), Social Studies and Agriculture and Nutrition."
+     ],
+     "resources": [],
+     "kicd_source": "grade6-german.pdf#p68"
+    },
+    {
+     "kicd_code": "1.13",
+     "name": "Phonological awareness (pronunciation, articulation) 1.14 Selective Listening 1.15 Imitative speaking",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "identify specific information from given texts",
+      "employ correct structures for communication",
+      "appreciate the importance of imitative speaking in language learning."
+     ],
+     "learning_experiences": [
+      "Learner is guided to:",
+      "talk about what they like doing",
+      "compare favourite activities with peers",
+      "listen to background sounds of various activities and identify them",
+      "pantomime favourite activities in pairs/groups",
+      "listen to audio texts of peers talking about their like and dislikes",
+      "speak to peers about favourite activities using the word gern (z.B. Ich spiele gern Fußball; ich lese gern, etc)",
+      "speak to peers about activities they don’t like doing using nicht gern (z.B. Ich schwimme nicht gern; ich spiele nicht gern Fußball, etc.)",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "How does awareness for sounds influence language learning?",
+      "Key Inquiry Question(s)"
+     ],
+     "core_competencies": [
+      "Communication and collaboration: Learner develops the skill of speaking effectively when s/he speaks about likes and dislikes using appropriate language, expression and gestures."
+     ],
+     "values": [
+      "Values:"
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade6-german.pdf#p70"
+    },
+    {
+     "kicd_code": "1.16",
+     "name": "Phonological awareness (pronunciation, articulation)",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "identify structures for communication"
+     ],
+     "learning_experiences": [
+      "Learner is guided to:",
+      "list various foods from different mealtimes"
+     ],
+     "inquiry_questions": [
+      "What do you do get information from a listening text?"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade6-german.pdf#p71"
+    },
+    {
+     "kicd_code": "1.17",
+     "name": "Listening for information 1.18 Imitative speaking",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "use acquired structures for communication",
+      "demonstrate appreciation for structures in language learning."
+     ],
+     "learning_experiences": [
+      "talk to peers about favourite foods",
+      "talk about favourite flavours",
+      "listen to/watch recorded audio/video about various foods",
+      "listen and imitate sounds (z.B. suß, salzig, schmecken, usw)",
+      "listen to people talking about their favourite foods (z.B. Was isst du gern? Ich esse gern Brot; usw)",
+      "talk about favourite foods with peers in pairs.",
+      "listen to people describing various foods (z.B. Der Kuchen ist suß; Die Suppe ist salzig; usw)",
+      "talk about various flavours of foods to peers.",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "Key Inquiry Question(s)"
+     ],
+     "core_competencies": [
+      "Communication and collaboration: Learner develops the skill of speaking adaptively as s/he talks about various food flavours with peers."
+     ],
+     "values": [
+      "Respect: Learner develops awareness for open-mindedness and appreciation for diverse opinions as s/he talks to peers about favourite foods and flavours."
+     ],
+     "pertinent_issues": [
+      "Health education – healthy eating habits: Learner develops an awareness for healthy eating habits when s/he listen to people talking about their favourite foods."
+     ],
+     "links_to_other_areas": [
+      "Learner links the expressions of likes and dislikes when they talk about their food preferences with activities they engage in in the learning areas of Agriculture and Nutrition, Creative Arts and Creative Activities."
+     ],
+     "resources": [],
+     "kicd_source": "grade6-german.pdf#p72"
+    },
+    {
+     "kicd_code": "1.19",
+     "name": "Oral expression 1.20 Active listening 1.21 Interactive speaking",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "identify language structures for appropriate oral expression",
+      "employ appropriate language structures in interactive situations",
+      "appreciate the role of active listening in communicative interactions."
+     ],
+     "learning_experiences": [
+      "Learner is guided to:",
+      "discuss what they do routinely throughout the day",
+      "discuss with peers how one talks about personal grooming activities",
+      "listen to audio about people talking about grooming activities",
+      "talk about own grooming activities in pairs",
+      "talk to peers about grooming activities (z.B. Ich putze mir die Zähne/Ich kämme mir die Haare/Ich wasche mir die Hände, etc.)",
+      "ask peers about grooming activities (z.B. Was machst du um 7 Uhr?)",
+      "mime a grooming activity and the rest guess.",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "How can one listen actively?",
+      "Key Inquiry Question(s)"
+     ],
+     "core_competencies": [
+      "Learning to learn: Learner develops the skill of learning independently as s/he discusses with peers about how one talks about personal grooming activities."
+     ],
+     "values": [
+      "Responsibility: Learner demonstrates awareness to take care of own body as s/he discuss grooming activities."
+     ],
+     "pertinent_issues": [
+      "Personal hygiene: Learner appreciates the need for good grooming in personal hygiene."
+     ],
+     "links_to_other_areas": [
+      "Learner relates the topics of grooming one’s body and talking about their health status with content learned in Environmental Activities, Religious Studies, Social Studies and Science & Technology."
+     ],
+     "resources": [],
+     "kicd_source": "grade6-german.pdf#p73"
+    },
+    {
+     "kicd_code": "1.22",
+     "name": "Oral expression 1.23 Active listening 1.24 Interactive speaking",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "relate concepts in given contexts",
+      "employ oral expression strategies for communication",
+      "appreciate interactive speaking skills in everyday communication."
+     ],
+     "learning_experiences": [
+      "Learner is guided to:",
+      "talk about favourite weather in pairs",
+      "discuss weather conditions in pairs/groups",
+      "listen to simple texts on weather conditions",
+      "listen to a simplified weather forecast",
+      "listen and take note of weather-related terms",
+      "talk about the weather (z.B. Es scheint/regnet, Es ist warm in Kisumu/Es ist kalt in Nyeri, usw)",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "How does one describe type of day’s weather condition?",
+      "Key Inquiry Question(s)"
+     ],
+     "core_competencies": [
+      "Creativity and imagination: Learner develops the skill of making observations as they relate weather conditions to places."
+     ],
+     "values": [
+      "Respect: Learner demonstrates awareness for acceptance as s/he understands and appreciates others as they talk about favourite weather."
+     ],
+     "pertinent_issues": [
+      "Care of the environment: Learner develops an awareness for the need to conserve the environment when s/he discusses weather conditions with peers."
+     ],
+     "links_to_other_areas": [
+      "Learner relates the concepts of weather and weather conditions with those in the learning areas of Social Studies, Environmental Activities, Agriculture and Nutrition, Creative Arts, Creative Activities, etc."
+     ],
+     "resources": [],
+     "kicd_source": "grade6-german.pdf#p75"
+    },
+    {
+     "kicd_code": "1.25",
+     "name": "Oral expression 1.26 Active listening 1.27 Interactive speaking",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "identify information for communication",
+      "use oral expressions appropriately in given contexts",
+      "appreciate the need to listen actively in communicative contexts."
+     ],
+     "learning_experiences": [
+      "Learner is guided to:",
+      "name facilities found in school",
+      "name items found within the school in pairs/groups",
+      "listen to a text about facilities and items found in a school",
+      "discuss where the facilities and items are found in the school",
+      "listen to audio about people talking about where items are located in the classroom (z.B. Wo liegt das",
+      "Deutschbuch? Das Deutschbuch liegt auf dem Stuhl, usw)",
+      "ask peers about the location of classroom items",
+      "listen to audio texts about people talking about facilities in the school (z.B. Wo ist das Klo? Das Klo ist hinter dem Lehrerzimmer, usw)",
+      "ask each other about where facilities are located in the school.",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "What words do you use to denote the location of things?",
+      "Key Inquiry Question(s)"
+     ],
+     "core_competencies": [
+      "Self-efficacy: Learner develops the skill of knowing my school and home as s/he identifies and talks about facilities and items within the school."
+     ],
+     "values": [
+      "Responsibility: Learner demonstrates awareness for accountability as s/he maps out facilities in the school with peers."
+     ],
+     "pertinent_issues": [
+      "Social cohesion: Learner develops a sense of belonging and pride in his/her school when s/he discusses where the facilities and items are found in the school."
+     ],
+     "links_to_other_areas": [
+      "Learner relates his/her surroundings (the school) and facilities therein with content learned in Environmental Activities and Creative Activities, Science and Technology, Creative Arts, Agriculture and Nutrition."
+     ],
+     "resources": [],
+     "kicd_source": "grade6-german.pdf#p76"
+    }
+   ]
+  },
+  {
+   "strand": "Reading",
+   "strand_code": "2.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to read aloud (Reading Aloud)",
+     "exceeds": "Reads clearly and loudly with appropriate rhythm, stress and intonation. Pronounces all the words in the passage correctly and with the appropriate tempo. Groups all the words in logical lexical units throughout.",
+     "meets": "Reads clearly and loudly. Pronounces the words correctly. Groups the words logically when reading.",
+     "approaches": "Reads clearly and loudly most of the time. Pronounces most of the words correctly. Groups most of the words logically when reading.",
+     "below": "Reads given words, but requires prompting to be clear and audible. Pronounces some of the words correctly. Has difficulty grouping the words logically when reading."
+    },
+    {
+     "indicator": "Ability to read given texts appropriately (Guided Reading)",
+     "exceeds": "The voice carries appropriate inflection (rising and falling) and the tone changes to capture the mood of the text throughout.",
+     "meets": "The voice carries appropriate inflection (rising and falling) and the tone changes to capture the mood of the text.",
+     "approaches": "The voice sometimes carries appropriate inflection and the tone sometimes changes to capture the mood of the text. Monotone is common.",
+     "below": "The voice is monotone throughout and carries no inflection and the tone does not change to carry the mood of the text."
+    },
+    {
+     "indicator": "Ability to read aloud (Reading Aloud)",
+     "exceeds": "Reads clearly and loudly with appropriate rhythm, stress and intonation.",
+     "meets": "Reads clearly and loudly. Pronounces the words correctly.",
+     "approaches": "Reads clearly and loudly most of the time. Pronounces most of the words correctly.",
+     "below": "Reads given words, but requires prompting to be clear and audible."
+    },
+    {
+     "indicator": "Ability to read given texts appropriately (Guided Reading)",
+     "exceeds": "The voice carries appropriate inflection (rising and falling) and the tone changes to capture the mood of the text throughout. The voice uses varied but appropriate pitch (loudness and softness) throughout. Uses varied and appropriate facial expressions throughout.",
+     "meets": "The voice carries appropriate inflection (rising and falling) and the tone changes to capture the mood of the text. The voice uses appropriate pitch (loudness and softness). Uses appropriate facial expressions.",
+     "approaches": "The voice sometimes carries appropriate inflection and the tone sometimes changes to capture the mood of the text. Monotone is common. Uses facial expressions most of the time.",
+     "below": "The voice is monotone throughout and carries no inflection and the tone does not change to carry the mood of the text."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "2.1",
+     "name": "Reading Aloud (Decoding)",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "identify German sound patterns for learning",
+      "read texts aloud for fluency",
+      "appreciate the importance of turn taking in communication.."
+     ],
+     "learning_experiences": [
+      "Learner is guided to:",
+      "read out greetings in the various indigenous languages they know",
+      "listen to basic greetings (Hallo, Guten Morgen, Guten Tag, Guten Abend) from a variety of sources, e.g. the teacher, recorded audio/video etc and read along",
+      "match basic greetings to the given pictures and read them aloud in turns while observing set social norms",
+      "read out aloud letters of the alphabet as they listen to them being read out from a variety of sources",
+      "read out their names using acquired vocabulary (zB M-I-CH-AE-L)",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "Why is reading important?",
+      "Key Inquiry Question(s)"
+     ],
+     "core_competencies": [
+      "Citizenship: Learner develops active community skills as they read out greetings in the various indigenous languages they know."
+     ],
+     "values": [
+      "Values:"
+     ],
+     "pertinent_issues": [
+      "Learners develop socio-cultural sensitivity and awareness as they read out greetings in the various indigenous languages they know."
+     ],
+     "links_to_other_areas": [
+      "Learning is linked to people of Kenya in Social studies and greetings in other languages."
+     ],
+     "resources": [],
+     "kicd_source": "grade6-german.pdf#p25"
+    },
+    {
+     "kicd_code": "2.3",
+     "name": "Reading for comprehension (2 Sessions)",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "identify information from texts for comprehension",
+      "extract basic information from short, simple texts for comprehension",
+      "recognize the value of reading texts in learning"
+     ],
+     "learning_experiences": [
+      "read simple texts on home, rooms and furniture and match to given pictures",
+      "watch video on home, rooms and furniture and read along the household items",
+      "locate given household items in different rooms of the house from given texts and read them aloud in plenary",
+      "read simple poems on home",
+      "search for and read out hidden household items in a puzzle in pairs",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "Why do you love reading?",
+      "Key Inquiry Question(s)"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:"
+     ],
+     "values": [
+      "Unity: Learner works collaboratively with peers as they search for and read out hidden household items in a puzzle in pairs."
+     ],
+     "pertinent_issues": [
+      "Safety and Security: Learner interacts with texts on safety in the home."
+     ],
+     "links_to_other_areas": [
+      "The learner links the concept of safety in the home to the same in agriculture and nutrition."
+     ],
+     "resources": [],
+     "kicd_source": "grade6-german.pdf#p28"
+    },
+    {
+     "kicd_code": "2.4",
+     "name": "Reading aloud",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "recognise basic punctuation marks for fluency",
+      "read words aloud for fluency",
+      "appreciate the role punctuation plays in reading"
+     ],
+     "learning_experiences": [
+      "Learner is guided to:",
+      "read along to a song about days of the week",
+      "(z.B. Kinderlied \"Wochentage\" https://www.heilpaeda gogik-info.de/kinder-lieder/2573-wochentage.html)",
+      "read out tongue twisters to peers for feedback (z.B. Am zehnten zehnten zehn Uhr zehn zogen zehn zahme Ziegen zehn Zentner Zucker zum Zoo.)",
+      "read aloud simple poems on days of the week",
+      "read aloud and discuss with peers what they do during the week",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "What do you like reading?",
+      "Key Inquiry Question(s)"
+     ],
+     "core_competencies": [
+      "Communication and Collaboration: Learner develops skills of speaking clearly and effectively as they read aloud simple poems on days of the week."
+     ],
+     "values": [
+      "Values:"
+     ],
+     "pertinent_issues": [
+      "Peer Pressure: Learner develops awareness of how to handle peer pressure as they read aloud and discuss with peers what they do during the week."
+     ],
+     "links_to_other_areas": [
+      "Learner links the concept of peer pressure to the concept of decision making in social studies (lifeskills)."
+     ],
+     "resources": [],
+     "kicd_source": "grade6-german.pdf#p29"
+    },
+    {
+     "kicd_code": "2.5",
+     "name": "Guided reading",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "identify information from reading texts",
+      "read texts for comprehension",
+      "appreciate the role punctuation plays in reading"
+     ],
+     "learning_experiences": [
+      "Learner is guided to:",
+      "read along to songs on birthdays and sing along",
+      "read short, simple texts on birthdays and answer given questions",
+      "read short poems on birthdays and present them with peers",
+      "read tongue twisters on birthdays with peers in turns and observe rules of engagement",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "What do you love reading?",
+      "Key Inquiry Question(s )"
+     ],
+     "core_competencies": [
+      "Communication and collaboration: Learner enhances their teamwork skills as they read tongue twisters on birthdays with peers in turns and observe rules of engagement."
+     ],
+     "values": [
+      "Unity: Learner enhances their skills of working collaboratively as they read tongue twisters on birthdays with peers in turns and observe rules of engagement."
+     ],
+     "pertinent_issues": [
+      "Life skills: Learner enhances their inter-personal skills as they read tongue twisters on birthdays with peers in turns and observe rules of engagement."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade6-german.pdf#p31"
+    },
+    {
+     "kicd_code": "2.6",
+     "name": "Reading for Comprehension",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "recognise vocabulary for comprehension b)read out words with the correct pronunciation c)read texts for enjoyment"
+     ],
+     "learning_experiences": [
+      "Learner is guided to: -read out a list of healthy and unhealthy foods they like -read charts with pictures of food items and their names in German. -match pictures of food items with their names and read them out loud -work in groups to come up with and name food mashes, salads and cocktails and read their names out loud.e.g Banareis(Banane +Reis),Orapf(Orangen+Apfel),Colm il(Cola+Milch",
+      "-read Brief simple texts on food items and answer a few simple comprehension questions."
+     ],
+     "inquiry_questions": [
+      "When do you read?"
+     ],
+     "core_competencies": [
+      "Creativity and imagination Learners demonstrate the skills of exploration and coming up with unique and new ideas when they come up with food mashes salads and cocktails."
+     ],
+     "values": [
+      "Respect Learners demonstrate open mindedness when they come up with food mashes, salads and cocktails in groups."
+     ],
+     "pertinent_issues": [
+      "Learners develop awareness of healthy eating when they list healthy and unhealthy food items."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade6-german.pdf#p33"
+    },
+    {
+     "kicd_code": "2.1",
+     "name": "Reading aloud 2.2Guided reading 2.3 Reading for comprehensi on",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "recognise specific vocabulary for comprehension b)read out words aloud with the correct pronunciation c)read texts for enjoyment"
+     ],
+     "learning_experiences": [
+      "Learner is guided to: -read out the body parts song in groups -match pictures of body parts with their names and read the names out loud -read simple brief poems/texts on body parts and answer a few simple comprehension questions",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "What do you like reading?",
+      "Key Inquiry Question(s )"
+     ],
+     "core_competencies": [
+      "Self-efficacy Learners demonstrate the skill of sharing who they are by naming their body parts."
+     ],
+     "values": [
+      "Love Learners demonstrate caring for self when they name their body parts."
+     ],
+     "pertinent_issues": [
+      "Learners learn to know and live with themselves."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade6-german.pdf#p35"
+    },
+    {
+     "kicd_code": "2.1",
+     "name": "Reading aloud 2.2Guided reading 2.3Reading for comprehensi on",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "recognise basic consonant-vowel /diphthong sound combination patterns fluency",
+      "extract basic information from brief, simple texts for comprehension",
+      "brief simple texts for enjoyment"
+     ],
+     "learning_experiences": [
+      "Learner is guided to: -read a chart with the illustrations of weather features and their names out loud -match pictures of weather features with their names and read them out loud",
+      "-read simple brief texts on weather features and answer a few simple comprehension questions -take photos of weather features label them in groups and present them to peers",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "Why do you read?",
+      "Key Inquiry Question(s )"
+     ],
+     "core_competencies": [
+      "Digital literacy Learners demonstrate the skill of creating new content with technology when they take photos of the weather features, label them and present them to peers."
+     ],
+     "values": [
+      "Unity Learners demonstrate cooperation as they take photos of the weather features, label them and present them to peers in groups."
+     ],
+     "pertinent_issues": [
+      "Learners develop environmental awareness when they name weather features."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade6-german.pdf#p36"
+    },
+    {
+     "kicd_code": "2.1",
+     "name": "Reading aloud 2.2Guided reading 2.3Reading for comprehensi on",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "recognise basic punctuation marks for fluency",
+      "extract basic information from short simple texts c)read short simple texts for enjoyment"
+     ],
+     "learning_experiences": [
+      "Learner is guided to: -read labeled charts with members of the nuclear family in various rooms carrying out simple actions specific to those rooms.E.g Mutter kocht in der Küche. -read Brief simple texts in groups and answer a few simple comprehension questions",
+      "-sketch illustrations of different times of the day and write down the specific greetings for those times -write down dialogues on greetings and present them to peers -write each other greetings through SMSes",
+      "Key Inquiry Question(s)"
+     ],
+     "inquiry_questions": [
+      "What do you read?"
+     ],
+     "core_competencies": [
+      "Communication and Collaboration Learners demonstrate the skill of contributing to group decision making when they read short simple texts in groups and answer a few simple comprehension questions.",
+      "Communication and Collaboration Learners demonstrate the skill of contributing to group decision making by writing dialogues on greetings in pairs. Digital literacy: Learners demonstrate the skill of creating new digital content with technology when they write each other greetings through SMSes"
+     ],
+     "values": [
+      "Unity",
+      "Unity Learners demonstrate cooperation by writing dialogues on greetings and presenting them to peers."
+     ],
+     "pertinent_issues": [
+      "Learners get to know and appreciate self and others when they write down as many greetings as they can from around the country"
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade6-german.pdf#p38"
+    },
+    {
+     "kicd_code": "2.1",
+     "name": "Reading aloud (decoding). 2.2 Guided reading",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "identify information from given texts",
+      "extract information from given texts for communication",
+      "appreciate the value of greetings in fostering respect."
+     ],
+     "learning_experiences": [
+      "Learner is guided to:",
+      "read simple dialogues in pairs",
+      "read and simulate simple greetings and introductions",
+      "read numbers up to 100",
+      "match pictures to the correct texts",
+      "find out about their peers’ ages",
+      "rearrange cut up jumbled pieces of paper to make simple sentences",
+      "bring flash cards in order and read",
+      "read short texts of people talking about their family members.",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "What do you need to be able to read texts aloud?",
+      "Why is it important to read texts aloud?",
+      "Key Inquiry Question(s)"
+     ],
+     "core_competencies": [
+      "Self-efficacy: Learner develops the skill of knowing who s/he is when s/he works with peers to introduce each other."
+     ],
+     "values": [
+      "Respect: Learner observes etiquette as s/he works with peers in pairs to introduce each other and find out about others."
+     ],
+     "pertinent_issues": [
+      "Citizenship: Learner develops awareness for the role of greetings and introduction in maintaining social cohesion."
+     ],
+     "links_to_other_areas": [
+      "Learner relates the concept of greetings, self-and others’ introduction with similar concept in the indigenous and foreign languages and language activities learning areas."
+     ],
+     "resources": [],
+     "kicd_source": "grade6-german.pdf#p80"
+    },
+    {
+     "kicd_code": "2.7",
+     "name": "Reading Aloud 2.8 Guided Reading",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "identify information from given texts",
+      "use learnt structures for fluency",
+      "appreciate the need for short texts in language learning."
+     ],
+     "learning_experiences": [
+      "Learner is guided to:",
+      "read the months of the year out loud",
+      "read short texts on what seasons they have in their region",
+      "read short texts of peers talking about when they have their school holidays",
+      "read along to an audio text of people talking about holidays",
+      "read along and imitate how words about holidays are pronounced (z.B. Weihnachten, Ostern, Schulferien, Osterferien, usw)",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "What is good reading?",
+      "Key Inquiry Question(s)"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:"
+     ],
+     "values": [
+      "Respect: Learner demonstrates the value of acceptance when s/he appreciates diverse opinions when s/he talks about which months are important with peers."
+     ],
+     "pertinent_issues": [
+      "Life skills: Learner develops awareness for empathy when s/he reads short texts on what seasons they have in their region."
+     ],
+     "links_to_other_areas": [
+      "Learner associates the concepts of time; (date, months, seasons etc.) with similar concepts and themes found in Mathematical Activities Language Activities, Indigenous Languages and Foreign Languages (French, Arabic), Social Studies and Agriculture and Nutrition."
+     ],
+     "resources": [],
+     "kicd_source": "grade6-german.pdf#p84"
+    },
+    {
+     "kicd_code": "2.9",
+     "name": "Reading aloud 2.10 Guided reading",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "identify appropriate language structures from given texts",
+      "read aloud given texts fluently",
+      "appreciate the importance of guided writing in language learning"
+     ],
+     "learning_experiences": [
+      "Learner is guided to:",
+      "read short and simple profiles of people talking about their likes and dislike",
+      "read a list of activities and indicate whether they like them or not using Emojis/ thumbs-up/down",
+      "read aloud activities provided on flash cards and mimic",
+      "read simple sentences with the language structures (z.B. Ich spiele gern Fußball; ich lese gern, usw)",
+      "read short texts from peers about activities they don’t like doing using nicht gern (z.B. Ich schwimme nicht gern; ich spiele nicht gern Fußball, usw).",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "What steps do you take before you start reading a text?",
+      "Key Inquiry Question(s)"
+     ],
+     "core_competencies": [
+      "Creativity and Imagination: Learner develops the skill of communication and self-expression when s/he reads aloud activities provided on flash cards and mimics them."
+     ],
+     "values": [
+      "Unity: Learner demonstrates awareness for the value of cooperation and displays team spirit when s/he pantomimes favourite activities in pairs/groups."
+     ],
+     "pertinent_issues": [
+      "Peer pressure: Learner develops awareness for peer pressure as s/he read a list of activities and indicate whether s/he like them or not using Emojis/ thumbs-up/down."
+     ],
+     "links_to_other_areas": [
+      "Learner links the expressions of likes and dislikes when talking about their favourite sporting activities with activities they engage in; e.g. favourite food and drinks in Agriculture and Nutrition; favourite sporting activities in Creative Arts; favourite music, song etc; in Creative Activities."
+     ],
+     "resources": [],
+     "kicd_source": "grade6-german.pdf#p85"
+    },
+    {
+     "kicd_code": "2.11",
+     "name": "Reading aloud 2.12 Guided reading",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "identify appropriate vocabulary, phrases and language structures in texts",
+      "read aloud with correct pronunciation, intonation and tempo for communication",
+      "demonstrate appreciation for structures in language learning."
+     ],
+     "learning_experiences": [
+      "Learner is guided to:",
+      "read a list of various foods from different mealtimes",
+      "read short texts from peers about favourite foods (z.B. Was isst du gern? Ich esse gern Brot; usw)",
+      "read along to audio texts (z.B. suß, salzig, schmecken, usw)",
+      "read about people describing various foods (z.B. Der Kuchen ist suß; Die Suppe ist salzig; usw)",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "Why is knowledge of language structures important during reading?",
+      "Key Inquiry Question(s)"
+     ],
+     "core_competencies": [
+      "Communication and collaboration: Learner develops the skill of speaking clearly as s/he reads along to audio texts."
+     ],
+     "values": [
+      "Respect: Learner develops awareness for open-mindedness and appreciation for diverse opinions as s/he talks to peers about favourite foods and flavours."
+     ],
+     "pertinent_issues": [
+      "Health education – healthy eating habits: Learner develops an awareness for healthy eating habits when s/he reads short texts from peers about their favourite foods."
+     ],
+     "links_to_other_areas": [
+      "Learner links the expressions of likes and dislikes when they talk about their food preferences with activities they engage in in the learning areas of Agriculture and Nutrition, Creative Arts and Creative Activities."
+     ],
+     "resources": [],
+     "kicd_source": "grade6-german.pdf#p87"
+    },
+    {
+     "kicd_code": "2.13",
+     "name": "Reading aloud 2.14 Guided reading",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "identify language structures for appropriate expression",
+      "read selected texts for comprehension",
+      "appreciate the role of guided reading in developing reading skills"
+     ],
+     "learning_experiences": [
+      "Learner is guided to:",
+      "read short texts about people talking about grooming activities",
+      "read along to audio texts of people talking about grooming and activities",
+      "read texts about grooming activities (z.B. Ich putze mir die Zähne/ich kämme mir die Haare/Ich wasche mir die Hände, was machst du um 7 Uhr? usw)",
+      "• read flash cards, mime the grooming activity indicated and the rest guess"
+     ],
+     "inquiry_questions": [
+      "How can one maximise guided reading to develop reading skill?"
+     ],
+     "core_competencies": [
+      "Creativity and imagination: Learner develops the skill of communication and self-expression as s/he reads and mimes grooming activities to peers."
+     ],
+     "values": [
+      "Responsibility: Learner demonstrates awareness to take care of own body as s/he discuss grooming activities."
+     ],
+     "pertinent_issues": [
+      "Personal hygiene: Learner appreciates the need for good grooming in personal hygiene."
+     ],
+     "links_to_other_areas": [
+      "Learner relates the topics of grooming one’s body and talking about their health status with content learned in Environmental Activities, Religious Studies, Social Studies and Science and Technology."
+     ],
+     "resources": [],
+     "kicd_source": "grade6-german.pdf#p88"
+    },
+    {
+     "kicd_code": "2.15",
+     "name": "Reading aloud 2.16 Guided reading",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "identify vocabulary for communication",
+      "employ provided structures in guided reading",
+      "appreciate reading aloud skills in language learning."
+     ],
+     "learning_experiences": [
+      "Learner is guided to:",
+      "discuss weather conditions in pairs/groups",
+      "read simple texts on weather conditions",
+      "read a simplified weather forecast",
+      "listen and read along to weather-related terms",
+      "read about describing the weather (z.B. Es scheint/regnet, Es ist warm in Kisumu/Es ist kalt in Nyeri, usw)",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "What do you do to read aloud texts fluently?",
+      "Key Inquiry Question(s)"
+     ],
+     "core_competencies": [
+      "Communication and collaboration: Learner develops the skill of listening critically to show awareness of tone and language as s/he listens and reads along to weather related terms."
+     ],
+     "values": [
+      "Respect: Learner demonstrates awareness for acceptance as s/he understands and appreciates others as they talk about favourite weather."
+     ],
+     "pertinent_issues": [
+      "Care of the environment: Learner develops an awareness for the need to conserve the environment when s/he discusses weather conditions with peers."
+     ],
+     "links_to_other_areas": [
+      "Learner relates the concepts of weather and weather conditions with those in the learning areas of Social Studies, Environmental Activities, Agriculture and Nutrition, Creative Arts, Creative Activities, etc."
+     ],
+     "resources": [],
+     "kicd_source": "grade6-german.pdf#p90"
+    },
+    {
+     "kicd_code": "2.17",
+     "name": "Reading Aloud 2.18 Guided Reading",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "identify specific language structure in given contexts",
+      "read aloud texts correctly using provided structures",
+      "appreciate the role of language structures in denoting location of items and things."
+     ],
+     "learning_experiences": [
+      "Learner is guided to:",
+      "read a simple text about facilities and items found in a school",
+      "discuss where the facilities and items are found in the school",
+      "read simple texts of people talking about where items are located in the classroom (z.B. Wo liegt das Deutschbuch? Das Deutschbuch liegt auf dem Stuhl, usw)",
+      "read simple texts of people talking about facilities in the school (z.B. Wo ist das Klo? Das Klo ist hinter dem Lehrerzimmer, usw)",
+      "read texts about items in the classroom and locate them with peers.",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "Why is usage of correct vocabulary important during reading?",
+      "Key Inquiry Question(s)"
+     ],
+     "core_competencies": [
+      "Communication and collaboration: The learner develops the skill of contributing to group making decision as s/he reads texts about items in the classroom and locates them with peers."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade6-german.pdf#p91"
+    }
+   ]
+  },
+  {
+   "strand": "Reading (2 Sessions)",
+   "strand_code": "2.0",
+   "assessment_rubric": [],
+   "substrands": [
+    {
+     "kicd_code": "2.2",
+     "name": "Guided reading",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "identify basic punctuation marks for fluency",
+      "read sentences for fluency",
+      "appreciate the importance of punctuation to reading"
+     ],
+     "learning_experiences": [
+      "read texts on members of the family and answer given questions",
+      "read short poems/songs on family",
+      "read tongue twisters related to family (z.B. Montags macht mir meine muntere Mutter mittags meistens Mus.)",
+      "• read descriptions of members of the nuclear family to peers in a guessing game (z.B Wer ist das...? Das ist mein Vater)",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "Why are punctuation marks important?",
+      "Key Inquiry Question(s)"
+     ],
+     "core_competencies": [
+      "Self-efficacy: Learner demonstrates knowledge of his/ her family as they read descriptions of members of the nuclear family to peers in a guessing game (z.B Wer ist das...? Das ist mein Vater)."
+     ],
+     "values": [
+      "Love: Learner demonstrates his/ her love of their family as they read descriptions of members of the nuclear family to peers in a guessing game (z.B Wer ist das...? Das ist mein Vater)."
+     ],
+     "pertinent_issues": [
+      "Social cohesion: Learner develops an awareness of healthy family dynamics as they read descriptions of members of the nuclear family to peers in a guessing game (z.B Wer ist das...? Das ist mein Vater).."
+     ],
+     "links_to_other_areas": [
+      "Learner links their learning of healthy family dynamics to family life learnt in religious education."
+     ],
+     "resources": [],
+     "kicd_source": "grade6-german.pdf#p26"
+    },
+    {
+     "kicd_code": "2.3",
+     "name": "Guided reading 2.4 Skimming",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "identify language features in given texts",
+      "read texts correctly using acquired phonemes",
+      "appreciate the value of language structures in communication."
+     ],
+     "learning_experiences": [
+      "Learner is guided to:",
+      "read numbers up to 100",
+      "read along to numbers being counted",
+      "compare how numbers 20-100 are read in their various languages",
+      "discuss the differences in counting numbers above 20 in various languages",
+      "read short texts on people talking about their family members (z.B. Das ist mein Vater/meine Mutter. Er/sie ist fünfzig Jahre alt.)",
+      "read short texts about people talking about ages (z.B. Wie alt bist du? Wie alt ist dein Vater/deine Mutter? usw)"
+     ],
+     "inquiry_questions": [
+      "What do you do to get information from a text when reading?"
+     ],
+     "core_competencies": [
+      "Communication and collaboration: Learner develops the skills of speaking clearly and effectively when s/he reads short texts on greetings and introduction."
+     ],
+     "values": [
+      "Unity: Learner demonstrates awareness for the value of cooperation as s/he collaborates with peers in talking about family."
+     ],
+     "pertinent_issues": [
+      "Life skills: The learner appreciates relationships as s/he reads about family members."
+     ],
+     "links_to_other_areas": [
+      "Learner connects knowledge and skills of numbers, counting, calculation and saying one’s age with same knowledge and skills in Language Activities, Mathematical Activities, Indigenous Languages and Foreign Languages; etc."
+     ],
+     "resources": [],
+     "kicd_source": "grade6-german.pdf#p81"
+    }
+   ]
+  },
+  {
+   "strand": "Reading (2 session)",
+   "strand_code": "2.0",
+   "assessment_rubric": [],
+   "substrands": [
+    {
+     "kicd_code": "2.5",
+     "name": "Reading aloud 2.6 Guided reading",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "identify language features in given texts",
+      "read texts aloud for articulation",
+      "appreciate the value of language structures in communication."
+     ],
+     "learning_experiences": [
+      "Learner is guided to:",
+      "read aloud texts on school facilities",
+      "read brief texts on functions of school facilities (z.B. lesen - Bibliothek; spielen/Fußball – Sportplatz, usw)",
+      "read along to audio texts about school facilities",
+      "read to a peer who matches a given picture to a school facility",
+      "play bingo to match flash cards to school facilities",
+      "search out hidden facilities in a word-search.",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "What do you pay attention to when reading a text aloud?",
+      "Key Inquiry Question(s)"
+     ],
+     "core_competencies": [
+      "Creativity and imagination: Learner develops the skill of communication and self-expression when s/he plays a matching/guessing game."
+     ],
+     "values": [
+      "Responsibility: Learner demonstrates excellence by creatively engaging in the assigned roles during the guessing game."
+     ],
+     "pertinent_issues": [
+      "Safety and Security: Learner develops an awareness for safety in the class and school environment as they read brief texts on the functions of the school facilities."
+     ],
+     "links_to_other_areas": [
+      "Learner relates his/her surroundings (the school) with content learned in Environmental Activities, Creative Arts and Creative Activities in the school."
+     ],
+     "resources": [],
+     "kicd_source": "grade6-german.pdf#p83"
+    }
+   ]
+  },
+  {
+   "strand": "(1 session)",
+   "strand_code": "3.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to write texts (Guided Writing)",
+     "exceeds": "Uses varied and appropriate structures, punctuation marks, spelling and capitalization. Constructs sentences without any errors at all. Makes use of subject-verb agreement appropriately and with variations. Uses varied and appropriate choice of words and a wide range of vocabulary.",
+     "meets": "Uses appropriate structures, punctuation marks, spelling and capitalization. Constructs correct sentences. Makes use of subject-verb agreement appropriately. Uses appropriate choice of words and vocabulary. Uses expressions appropriately.",
+     "approaches": "Uses most of the given structures, punctuation marks, spelling and capitalization appropriately. Constructs most of the required sentences correctly. Uses subject-verb agreement appropriately most of the time. Uses most of the given words and vocabulary appropriately.",
+     "below": "Uses some of the given structures, punctuation marks, spelling and capitalization appropriately. Constructs some of the required sentences correctly. Uses subject-verb agreement appropriately some of the time. Uses some of the given words and vocabulary appropriately."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "3.1",
+     "name": "Guided writing",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "-sketch and label a portrait of members of their nuclear family -to write down a list of the members in their nuclear family -unscramble scrambled up names of nuclear family members. -fill crossword puzzles on nuclear family members -fill in blank spaces in incomplete texts on nuclear family members"
+     ],
+     "learning_experiences": [
+      "What do you like writing?",
+      "Key Inquiry Question(s)"
+     ],
+     "inquiry_questions": [],
+     "core_competencies": [
+      "Self efficacy Learners demonstrate the skill of sharing who they are when they write down a list of the members of their nuclear family. Creativity and imagination: Learners demonstrate imagination and originality when they sketch and label a portrait of members of their nuclear family."
+     ],
+     "values": [
+      "Love Learners demonstrate caring when they write down a list of members of their nuclear family."
+     ],
+     "pertinent_issues": [
+      "Learners develop awareness of healthy filial relationships when they list members of their nuclear family."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade6-german.pdf#p42"
+    },
+    {
+     "kicd_code": "",
+     "name": "Guided writing",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "-sketch and label the floor plan of their dream house in groups and\"furnish\"it with household items they desire."
+     ],
+     "learning_experiences": [
+      "Why do you write?",
+      "Key Inquiry Question(s)"
+     ],
+     "inquiry_questions": [],
+     "core_competencies": [
+      "creativity and imagination Learners demonstrate the skills of exploration and coming up with unique and new ideas ideas when they sketch and label a floor plan of their dream house in groups and \"furnish\" it with household items they desire."
+     ],
+     "values": [
+      "Unity Learners strive to achieve a common goal when they sketch a floor plan of their dream house in groups and \"furnish\" it household items they desire."
+     ],
+     "pertinent_issues": [
+      "Learners develop awareness of safety and security in the home when they sketch a floor plan of their dream house in groups and furnish it with household items they desire"
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade6-german.pdf#p43"
+    },
+    {
+     "kicd_code": "3.1",
+     "name": "Guided writing",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "-write down a simple menu Frühstück:Kakao und Mandazi",
+      "Mittagessen:Githeri und Orangensaft Abendessen: Ugali und Sukuma Wiki -create and write down healthy food mashes, salads and cocktails in groups.e.g Kafftee(Kafftee+Tee),Avoma(Avocado+Mango),Kartoug (Kartoffeln+Ugali) -search for food items in a word search -fill in a crossword puzzle with food items"
+     ],
+     "learning_experiences": [
+      "What do you write outside school",
+      "Key Inquiry Question(s)"
+     ],
+     "inquiry_questions": [],
+     "core_competencies": [
+      "Creativity and imagination Learners demonstrate the skills of exploration and coming up with unique and new ideas when they come up with food mashes, salads and cocktails."
+     ],
+     "values": [
+      "Unity Learners strive to achieve common goals when they come up with food mashes, salads and cocktails in groups."
+     ],
+     "pertinent_issues": [
+      "Learners develop awareness of proper nutrition when they come up with healthy food mashes, salads and cocktails in groups."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade6-german.pdf#p47"
+    },
+    {
+     "kicd_code": "3.1",
+     "name": "Guided writing",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "-work in pairs, sketch each other's silhouettes and label the body parts -search for body parts in a word search -fill in a crossword puzzle with body parts"
+     ],
+     "learning_experiences": [
+      "Why do you write?",
+      "Key Inquiry Question(s)"
+     ],
+     "inquiry_questions": [],
+     "core_competencies": [
+      "Creativity and imagination Learners demonstrate the skills of exploration and coming up with unique and new ideas when they sketch each others silhouettes and label the body parts."
+     ],
+     "values": [
+      "Unity Learners strive to achieve common goals when they work in pairs to sketch each others silhouettes and label the body parts"
+     ],
+     "pertinent_issues": [
+      "Learners develop self worth when they sketch each other's silhouettes and label the body parts."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade6-german.pdf#p49"
+    },
+    {
+     "kicd_code": "3.1",
+     "name": "Guided writing",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "-sketch weather features and label them in groups -find weather features in a word search",
+      "-fill in a crossword puzzle with weather features"
+     ],
+     "learning_experiences": [
+      "Why do you write?",
+      "Key Inquiry Question(s)"
+     ],
+     "inquiry_questions": [],
+     "core_competencies": [
+      "creativity and imagination Learners demonstrate the skills of exploration and coming up with unique and new ideas when they sketch weather features and label them in groups."
+     ],
+     "values": [
+      "Unity Learners strive to achieve a common goal as they sketch and label weather features in groups"
+     ],
+     "pertinent_issues": [
+      "Learners develop environmental awareness when they sketch weather features and label them in groups."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade6-german.pdf#p50"
+    },
+    {
+     "kicd_code": "3.1",
+     "name": "Guided writing",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "-sketch homes as mazes in groups with the various rooms with specific household items being the destinations.The various groups then exchange mazes and each group then \"finds\"the various household items in the new mazes"
+     ],
+     "learning_experiences": [
+      "Why do you write?"
+     ],
+     "inquiry_questions": [],
+     "core_competencies": [
+      "Creativity and imagination Learners demonstrate the skills of exploration and coming up with unique and new ideas when they sketch homes as mazes."
+     ],
+     "values": [
+      "Unity Learners strive to achieve a common goal when they sketch homes as mazes in groups."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade6-german.pdf#p52"
+    },
+    {
+     "kicd_code": "",
+     "name": "Uses a variety of expressions",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Uses most of the given expressions appropriately."
+     ],
+     "learning_experiences": [
+      "Uses some of the given expressions appropriately.",
+      "Key Inquiry Question(s)"
+     ],
+     "inquiry_questions": [],
+     "core_competencies": [
+      "core competencies, Pertinent and Contemporary Issues (PCIs), values, and assessment rubric. It is my hope that all Government agencies and other stakeholders in Education will use the designs to plan for effective and efficient implementation of the CBC. HON. EZEKIEL OMBAKI MACHOGU, CBS CABINET SECRETARY, MINISTRY OF EDUCATION",
+      "core competencies, namely: Communication and Collaboration, Critical Thinking and Problem Solving, Creativity and Imagination, Citizenship, Digital Literacy, Learning to Learn and Self-efficacy. The curriculum designs provide suggestions for interactive and differentiated learning experiences linked to the various sub strands and the other aspects of the CBC. They also offer several suggested learning resources and a variety of assessment techniques. It is expected that the designs will guide teachers to effectively facilitate learners to attain the expected learning outcomes for Grade 6 and prepare them for smooth transition to Junior School. Furthermore, it is my hope that teachers will use the designs to make learning interesting, exciting and enjoyable. DR. BELIO KIPSANG’, CBS PRINCIPAL SECRETARY STATE DEPARTMENT FOR BASIC EDUCATION MINISTRY OF EDUCATION"
+     ],
+     "values": [
+      "values Education should promote acquisition of national values as enshrined in the Constitution. It should be geared towards developing a self-disciplined and ethical citizen with sound moral and religious values. 5. Promote social equity and responsibility Education should promote social equity and responsibility. It should provide inclusive and equitable access to quality and differentiated education; including learners with special educational needs and disabilities. Education should also provide the learner with opportunities for shared responsibility and accountability through service learning. 6. Promote respect for and development of Kenya’s rich and varied cultures Education should instil in the learner appreciation of Kenya’s rich and diverse cultural heritage. The learner should value own and respect other people’s culture as well as embrace positive cultural practices in a dynamic society. 7. Promote international consciousness and foster positive attitudes towards other nations Kenya is part of the interdependent network of diverse peoples and nations. Education should therefore enable the learner to respect, appreciate and participate in the opportunities within the international community. Education should also facilitate the learner to operate within the international community with full knowledge of the obligations, responsibilities, rights and benefits that this membership entails. 8. Good health and environmental protection Education should inculcate in the learner the value of physical and psychological well-being for self and others. It should promote environmental preservation and conservation, including animal welfare for sustainable development.",
+      "Communicate appropriately using verbal and or non-verbal modes in a variety of contexts.",
+      "Demonstrate mastery of number concepts to solve problems in day to day life",
+      "Demonstrate social skills, moral and religious values for positive contribution to society",
+      "Develop one’s interests and talents for personal fulfilment",
+      "Make informed decisions as local and global citizens of a diverse, democratic society in an interdependent world.",
+      "Explore, manipulate, manage and conserve the environment effectively for learning and sustainable development",
+      "Acquire digital literacy skills for learning and enjoyment.",
+      "Appreciate the country’s rich, diverse cultural heritage for harmonious living Essence Statement for Foreign Languages Kenya is part of the international community and therefore the learner shall be given an opportunity to learn foreign languages in addition to the national, official and indigenous languages. These foreign languages include: Arabic, French, German and Mandarin. The Learner is expected to"
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade6-german.pdf#p54"
+    }
+   ]
+  },
+  {
+   "strand": "Writing (1 Session)",
+   "strand_code": "3.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to write texts (Guided Writing)",
+     "exceeds": "Uses varied and appropriate structures, punctuation marks, spelling and capitalization. Constructs sentences without any errors at all. Makes use of subject-verb agreement appropriately and with variations. Uses varied and appropriate choice of words and a wide range of vocabulary. Uses a variety of expressions.",
+     "meets": "Uses appropriate structures, punctuation marks, spelling and capitalization. Constructs correct sentences. Makes use of subject-verb agreement appropriately. Uses appropriate choice of words and vocabulary. Uses expressions appropriately.",
+     "approaches": "Uses most of the given structures, punctuation marks, spelling and capitalization appropriately. Constructs most of the required sentences correctly. Uses subject-verb agreement appropriately most of the time. Uses most of the given words and vocabulary appropriately. Uses most of the given expressions appropriately.",
+     "below": "Uses some of the given structures, punctuation marks, spelling and capitalization appropriately. Constructs some of the required sentences correctly. Uses subject-verb agreement appropriately some of the time. Uses some of the given words and vocabulary appropriately. Uses some of the given expressions appropriately."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "3.1",
+     "name": "Guided writing",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "-unscramble scrambled up names of the days of the week -search for days of the week in a word search -fill in a crossword puzzle with days of the week -do a Rückendiktat in pairs"
+     ],
+     "learning_experiences": [
+      "What do you enjoy writing?",
+      "Key Inquiry Question(s)"
+     ],
+     "inquiry_questions": [],
+     "core_competencies": [
+      "Communication and Collaboration Learners demonstrate the skill of contributing to group decision making by doing the Rückendiktat in pairs."
+     ],
+     "values": [
+      "Unity Learners strive to achieve a common goal by working in pairs to do a Rückendiktat"
+     ],
+     "pertinent_issues": [
+      "Learners develop time consciousness they write about days of the week"
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade6-german.pdf#p45"
+    },
+    {
+     "kicd_code": "3.1",
+     "name": "Guided writing",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "-to write down the activities they would like to carry out On their birthday.eg Ich möchte tanzen. -compose Elfchen about own birthday"
+     ],
+     "learning_experiences": [
+      "Why do you write?",
+      "Key Inquiry Question(s)"
+     ],
+     "inquiry_questions": [],
+     "core_competencies": [
+      "Creativity and imagination Learners demonstrate the skills of exploration and coming up with unique and new ideas as they compose Elfchen on birthday activities."
+     ],
+     "values": [
+      "Love Learners demonstrate caring for self when by writing down what they would like to do on their birthday."
+     ],
+     "pertinent_issues": [
+      "Learners develop awareness of healthy intrapersonal relationship when they write down what they would like to do on their birthdays."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade6-german.pdf#p46"
+    },
+    {
+     "kicd_code": "3.1",
+     "name": "Functional writing",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "identify parts of a sentence for communication",
+      "produce short texts using appropriate register and language structures",
+      "appreciate the role of writing skills for communication."
+     ],
+     "learning_experiences": [
+      "make a profile with name and age",
+      "write short texts to introduce themselves (z.B. Ich heiße /ich bin /Mein Name ist ; _____ _____ _____ ich bin Jahre alt) ____",
+      "write profiles of peers (z.B. Das ist ; Er/sie ist ___ Jahre alt), ___",
+      "fill in cloze tests.",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "Why do you write?",
+      "Key Inquiry Question(s)"
+     ],
+     "core_competencies": [
+      "Self-efficacy: Learner develops the skill of knowing who s/he is when s/he makes own and peers’ profiles."
+     ],
+     "values": [
+      "Respect: Learner observes etiquette as s/he works with peers in pairs to introduce each other and find out about others."
+     ],
+     "pertinent_issues": [
+      "Citizenship: Learner develops awareness for the role of greetings and introduction in maintaining social cohesion."
+     ],
+     "links_to_other_areas": [
+      "Learner relates the concept of greetings, self-and others’ introduction with similar concept in the indigenous and foreign languages and language activities learning areas."
+     ],
+     "resources": [],
+     "kicd_source": "grade6-german.pdf#p94"
+    },
+    {
+     "kicd_code": "3.2",
+     "name": "Functional writing",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "identify language features in given texts",
+      "write texts using acquired lexemes",
+      "appreciate correct writing skills in communication"
+     ],
+     "learning_experiences": [
+      "Learner is guided to:",
+      "write numbers up to 100",
+      "compare how numbers 20-100 are written in their various languages",
+      "discuss the differences in writing numbers above 20 in various languages",
+      "write down number being dictated",
+      "write short texts about their family members (z.B. Das ist mein Vater/meine Mutter. Er/sie"
+     ],
+     "inquiry_questions": [
+      "Why is it important to write texts correctly?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed: Communication and collaboration: Learner develops the skills of writing clearly and correctly when s/he writes down number being dictated. Values: Unity: Learner demonstrates awareness for the value of cooperation as s/he collaborates with peers in talking about family. Pertinent and Contemporary Issues (PCI’s): Life skills: The learner appreciates relationships as s/he reads about family members. Link to other learning areas: Learner connects knowledge and skills of numbers, counting, calculation and saying one’s age with same knowledge and skills in Language Activities, Mathematical Activities, Indigenous Languages and Foreign Languages; etc. WRITING Theme 3: My Surroundings (My School) Strand Sub Strand Specific Learning Outcomes Suggested Learning Experiences Key Inquiry Question(s)"
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade6-german.pdf#p95"
+    },
+    {
+     "kicd_code": "3.3",
+     "name": "Guided writing",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "identify language features in given texts",
+      "write texts using the acquired vocabulary and language structures",
+      "appreciate the value of language structures in communication"
+     ],
+     "learning_experiences": [
+      "Learner is guided to:",
+      "list names of facilities",
+      "match activities and facilities",
+      "listen to audio texts about school facilities and note them down",
+      "listen to a dictation about school facilities and note them down",
+      "find hidden words in a word-search and write them down.",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "Why is vocabulary important when writing?",
+      "Key Inquiry Question(s)"
+     ],
+     "core_competencies": [
+      "Creativity and imagination: Learner develops the skill of making connection when s/he finds hidden words in a word-search and writes them down."
+     ],
+     "values": [
+      "Responsibility: Learner demonstrates excellence by creatively engaging in the assigned roles during the guessing game."
+     ],
+     "pertinent_issues": [
+      "Safety and Security: Learner develops an awareness for safety in the class and school environment as they listen a dictation about school facilities."
+     ],
+     "links_to_other_areas": [
+      "Learner relates his/her surroundings (the school) with content learned in Environmental Activities, Creative Arts and Creative Activities in the school."
+     ],
+     "resources": [],
+     "kicd_source": "grade6-german.pdf#p97"
+    },
+    {
+     "kicd_code": "3.4",
+     "name": "Creative writing",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "identify language features in given texts",
+      "write texts using the acquired, vocabulary and language structures",
+      "appreciate the value of language structures in communication."
+     ],
+     "learning_experiences": [
+      "Learner is guided to:",
+      "write down the months of the year out loud",
+      "note down which months of the year are important to them and why",
+      "write short texts about when they have their school holidays",
+      "note down months of the year from dictation",
+      "listen to audio text and note down when the people talking have holidays.",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "How best can you improve your writing skills?",
+      "Key Inquiry Question(s)"
+     ],
+     "core_competencies": [
+      "Communication and collaboration: Learner develops the skills of writing clearly and correctly when s/he writes down number being dictated."
+     ],
+     "values": [
+      "Respect: Learner demonstrates the value of acceptance when s/he appreciates diverse opinions when s/he talks about which months are important with peers."
+     ],
+     "pertinent_issues": [
+      "Life skills: Learner develops awareness for assertiveness when s/he note down which months of the year are important to him/her and why."
+     ],
+     "links_to_other_areas": [
+      "Learner associates the concepts of time; (date, months, seasons etc.) with similar concepts and themes found in Mathematical Activities Language Activities, Indigenous Languages and Foreign Languages (French, Arabic), Social Studies and Agriculture and Nutrition."
+     ],
+     "resources": [],
+     "kicd_source": "grade6-german.pdf#p98"
+    },
+    {
+     "kicd_code": "3.5",
+     "name": "Guided writing",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "identify appropriate language structures from given texts",
+      "write texts using the acquired vocabulary and language structures",
+      "appreciate the importance of guided writing in language learning."
+     ],
+     "learning_experiences": [
+      "Learner is guided to:",
+      "write what they like/dislike",
+      "indicate which activities they like/dislike using Emojis/ thumbs-up/down",
+      "write favourite activities on flash cards and share with peers",
+      "write simple texts on what they like using gern (z.B. Ich spiele gern Fußball; Ich lese gern, usw.)",
+      "write short texts and share with peers about activities they don’t like doing using nicht gern"
+     ],
+     "inquiry_questions": [
+      "What do you do that shows you are careful when writing?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed: Communication and collaboration: Learner develops the skill of writing sentences when s/he writes short texts about likes and dislikes using appropriate language structure. Values: Unity: Learner demonstrates awareness for the value of cooperation and displays team spirit when s/he pantomimes favourite activities in pairs/groups. Pertinent and Contemporary Issues (PCI’s): Peer pressure: Learner develops awareness for peer pressure as s/he indicate which activities s/he likes/dislikes using Emojis/ thumbs-up/down. Link to other learning areas: Learner links the expressions of likes and dislikes when talking about their favourite sporting activities with activities they engage in; e.g. favourite food and drinks in Agriculture and Nutrition; favourite sporting activities in Creative Arts; favourite music, song etc; in Creative Activities. WRITING Theme 6: Foods and drinks (Food preferences) Strand Sub Strand Specific Learning Outcomes Suggested Learning Experiences Key Inquiry Question(s)"
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade6-german.pdf#p99"
+    },
+    {
+     "kicd_code": "3.6",
+     "name": "Functional writing",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "identify appropriate vocabulary, phrases and language structures in texts",
+      "write texts using appropriate vocabulary, phrases and language structures.",
+      "appreciate the need for correct vocabulary in communication"
+     ],
+     "learning_experiences": [
+      "Learner is guided to:",
+      "write a list of various foods from different mealtimes",
+      "write short texts about favourite foods (z.B. Was isst du gern? Ich esse gern Brot; usw)",
+      "listen to a dictation and write the words down (z.B. suß, salzig, schmecken, usw)",
+      "write brief descriptions of food (z.B. Der Kuchen ist suß; Die Suppe ist salzig; usw)",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "Why is language structure important when writing?",
+      "Key Inquiry Question(s)"
+     ],
+     "core_competencies": [
+      "Communication and collaboration: Learner develops the skill of speaking adaptively as s/he talks about various food flavours with peers."
+     ],
+     "values": [
+      "Respect: Learner develops awareness for open-mindedness and appreciation for diverse opinions as s/he talks to peers about favourite foods and flavours."
+     ],
+     "pertinent_issues": [
+      "Health education – healthy eating habits: Learner develops an awareness for healthy eating habits when s/he writes short texts about favourite foods."
+     ],
+     "links_to_other_areas": [
+      "Learner links the expressions of likes and dislikes when they talk about their food preferences with activities they engage in in the learning areas of Agriculture and Nutrition, Creative Arts and Creative Activities."
+     ],
+     "resources": [],
+     "kicd_source": "grade6-german.pdf#p101"
+    },
+    {
+     "kicd_code": "3.7",
+     "name": "Creative writing",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "identify appropriate vocabulary, phrases and language structures in texts",
+      "write texts using appropriate vocabulary, phrases and language structures",
+      "appreciate the role of clear instructions in writing tasks."
+     ],
+     "learning_experiences": [
+      "Learner is guided to:",
+      "write short texts about people talking about grooming activities",
+      "write down grooming activities from a dictation",
+      "write short texts about grooming activities (z.B. Ich putze mir die Zähne/Ich kämme mir die Haare/Ich wasche mir die Hände, Was machst du um 7 Uhr? usw)",
+      "write an activity on a flash card, have a peer mime it for the rest",
+      "fill in cloze tests.",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "What do need to write vocabulary and sentences correctly?",
+      "Key Inquiry Question(s)"
+     ],
+     "core_competencies": [
+      "Communication and collaboration: Learner develops the skill of writing clearly and correctly as s/he writes an activity on a flash card for a peer to mime."
+     ],
+     "values": [
+      "Responsibility: Learner demonstrates awareness to take care of own body as s/he discuss grooming activities."
+     ],
+     "pertinent_issues": [
+      "Personal hygiene: Learner appreciates the need for good grooming in personal hygiene."
+     ],
+     "links_to_other_areas": [
+      "Learner relates the topics of grooming one’s body and talking about their health status with content learned in Environmental Activities, Religious Studies, Social Studies and Science and Technology."
+     ],
+     "resources": [],
+     "kicd_source": "grade6-german.pdf#p102"
+    },
+    {
+     "kicd_code": "3.8",
+     "name": "Functional writing",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "identify vocabulary and language structures in given texts",
+      "use provided structures for writing",
+      "appreciate the need for vocabulary in communication"
+     ],
+     "learning_experiences": [
+      "Learner is guided to:",
+      "discuss weather conditions in their areas in pairs/groups",
+      "write simple texts on weather conditions in their areas",
+      "write a simplified weather forecast for their areas",
+      "listen and write weather-related terms from a dictation (z.B. Es scheint/regnet, usw.; Kisumu ist warm/Nyeri ist kalt, usw)",
+      "fill in cloze tests.",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "What vocabulary do you need to describe the day?",
+      "Key Inquiry Question(s)"
+     ],
+     "core_competencies": [
+      "Learning to learn: The learner develops the skill of carrying out investigations when s/he writes a simplified weather forecast for his/her area."
+     ],
+     "values": [
+      "Respect: Learner demonstrates awareness for acceptance as s/he understands and appreciates others as they talk about favourite weather."
+     ],
+     "pertinent_issues": [
+      "Care of the environment: Learner develops an awareness for the need to conserve the environment when s/he discusses weather conditions with peers."
+     ],
+     "links_to_other_areas": [
+      "Learner relates the concepts of weather and weather conditions with those in the learning areas of Social Studies, Environmental Activities, Agriculture and Nutrition, Creative Arts, Creative Activities, etc."
+     ],
+     "resources": [],
+     "kicd_source": "grade6-german.pdf#p103"
+    },
+    {
+     "kicd_code": "3.9",
+     "name": "Guided writing",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "identify language structure in given contexts",
+      "use provided structures for writing",
+      "appreciate the role of language structures in denoting location of items and things"
+     ],
+     "learning_experiences": [
+      "Learner is guided to:",
+      "write a list of facilities and items found in a school",
+      "write items found on the classroom as dictated",
+      "write facilities found in the school as dictated",
+      "write short texts about where items are located in the classroom (z.B. Wo liegt das Deutschbuch? Das Deutschbuch liegt auf dem Stuhl, usw)",
+      "write short texts about facilities in the school (z.B. Wo ist das Klo? Das Klo ist hinter dem Lehrerzimmer, usw)",
+      "write a simple treasure guide to find items in the classroom/school."
+     ],
+     "inquiry_questions": [
+      "What words do you use to denote the location of things?"
+     ],
+     "core_competencies": [
+      "Communication and Collaboration: The learner develops the skill of writing sentences as s/he writes a simple treasure guide to find items in the classroom/school."
+     ],
+     "values": [
+      "Responsibility: Learner demonstrates awareness for accountability as s/he maps out facilities in the school with peers."
+     ],
+     "pertinent_issues": [
+      "Social cohesion: Learner develops a sense of belonging and pride in his/her school when s/he discusses where the facilities and items are found in the school."
+     ],
+     "links_to_other_areas": [
+      "Learner relates his/her surroundings (the school) and facilities therein with content learned in Environmental Activities and Creative Activities, Science and Technology, Creative Arts, Agriculture and Nutrition."
+     ],
+     "resources": [],
+     "kicd_source": "grade6-german.pdf#p104"
+    }
+   ]
+  }
+ ]
+}

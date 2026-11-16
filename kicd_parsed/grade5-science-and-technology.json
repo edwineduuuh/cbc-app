@@ -1,0 +1,385 @@
+{
+ "source_pdf": "grade5-science-and-technology.pdf",
+ "grade": 5,
+ "subject": "science-and-technology",
+ "general_outcomes": [
+  "Interact with the environment for learning and sustainable development.",
+  "Apply digital literacy skills appropriately for communication, learning and enjoyment.",
+  "Appreciate the contribution of science and technology in the provision of innovative solutions.",
+  "Use scientific knowledge to observe and explain the natural world.",
+  "Make functional discoveries that impact individuals and the wider society.",
+  "Use innovative approaches as well as critical thinking and problem solving skills to stimulate scientific inquiry, at the local, national and global levels for lifelong learning."
+ ],
+ "strands": [
+  {
+   "strand": "Living Things and their Environment",
+   "strand_code": "1.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to describe functions of parts of a flower.",
+     "exceeds": "The learner describes functions of all parts of a flower, giving illustration(s).",
+     "meets": "The learner describes functions of all parts of a flower.",
+     "approaches": "The learner describes functions of most parts of a flower.",
+     "below": "The learner describes functions of a few parts of a flower."
+    },
+    {
+     "indicator": "Ability to classify vertebrates into their main groups.",
+     "exceeds": "The learner classifies vertebrates into their main groups correctly, giving examples from the locality.",
+     "meets": "The learner classifies vertebrates into their main groups correctly.",
+     "approaches": "The learner classifies most of the vertebrates into their main groups correctly.",
+     "below": "The learner classifies a few vertebrates into their main groups."
+    },
+    {
+     "indicator": "Ability to describe the functions of main parts of the human breathing system.",
+     "exceeds": "The learner describes the functions of main parts of the human breathing system correctly and comprehensively",
+     "meets": "The learner describes the functions of main parts of the human breathing system correctly.",
+     "approaches": "The learner describes the functions of main parts of the human breathing system partially.",
+     "below": "The learner describes the functions of main parts of the human breathing system, with prompt."
+    },
+    {
+     "indicator": "Ability to outline the symptoms and prevention measures for common conditions and diseases of the breathing system.",
+     "exceeds": "The learner outlines all the symptoms and prevention measures for common conditions and diseases of the breathing system correctly and exhaustively.",
+     "meets": "The learner outlines all the symptoms and prevention measures for common conditions and diseases of the breathing system correctly.",
+     "approaches": "The learner outlines most of the symptoms and prevention measures for common conditions and diseases of the breathing system correctly.",
+     "below": "The learner outlines a few symptoms and prevention measures for common conditions and diseases of the breathing system correctly even with assistance."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "1.1",
+     "name": "Classification of Plants",
+     "suggested_duration": "14 lessons",
+     "learning_outcomes": [
+      "classify plants into flowering and non-flowering",
+      "describe functions of parts of a flower",
+      "outline the importance of flowers in nature",
+      "appreciate the importance of flowers in nature."
+     ],
+     "learning_experiences": [
+      "use print and non-print materials to search for images of flowering and non-flowering plants and share",
+      "take a walk in their locality to observe, identify and categorise plants into flowering and non-flowering",
+      "draw a flower and label parts",
+      "discuss functions of parts of a flower and share with peers",
+      "discuss the importance of flowers in nature with peers",
+      "use digital applications to draw, paint and label flowers. Note: Learners are guided on precautions to take when handling plants as they study flowering and non-flowering plants."
+     ],
+     "inquiry_questions": [
+      "How are plants classified?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed: Creativity and imagination: The learner reflects and draw accurate images as they draw a flower and label parts. Digital literacy: The learner acquire digital manipulative skills as they use digital applications to draw, paint and label flowers. Values: Unity: The learner appreciates sharing of the available resources amicably as they draw a flower and label parts. Pertinent and Contemporary Issues (PCIs): Environmental Conservation: The learner conserves the environment by not destroying plants as they observing, identifying and categorising plants into flowering and non-flowering in their natural habitat. Link to Other Learning Areas: Creative Arts: The use of digital applications to draw, paint and label flowers is linked to drawing and painting in Creative Arts."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade5-science-and-technology.pdf#p14"
+    },
+    {
+     "kicd_code": "",
+     "name": "Vertebrates",
+     "suggested_duration": "16 lessons",
+     "learning_outcomes": [
+      "describe general characteristics of vertebrates",
+      "classify vertebrates into their main groups",
+      "appreciate the importance of vertebrates in the environment."
+     ],
+     "learning_experiences": [
+      "Learners is guided to:",
+      "search for information from print and non-print material on the general characteristics of vertebrates and share with peers",
+      "explore the school compound and adjacent environment to observe and identify characteristics of vertebrates",
+      "discuss with peers the characteristics of different groups of vertebrates, study their main characteristics. Note: The learners are guided to observe safety precautions when handling different animals. Project: making a portfolio of different categories of vertebrates in their locality."
+     ],
+     "inquiry_questions": [
+      "What are the key features of vertebrates?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed: Communication and collaboration: The learner acquires speaking and listening skills as they contribute in the discussions on main characteristics of vertebrates. Creativity and Imagination: The learner acquires manipulative skills as they skilfully designs and develops a portfolio on vertebrates. Values: Responsibility: The learner observes safety precautions when handling different animals. Pertinent and Contemporary Issues (PCIs): Safety and security: The learner observes necessary precautions while handling animals. Link to Other Learning Areas: Agriculture and Nutrition: The learner links information on characteristics of animals as living things is linked to the study of livestock in Agriculture. Creative Arts: Making of a portfolio of different categories of vertebrates is linked to designing in Creative Arts"
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade5-science-and-technology.pdf#p16"
+    },
+    {
+     "kicd_code": "1.2",
+     "name": "The Human Breathing System",
+     "suggested_duration": "18 lessons",
+     "learning_outcomes": [
+      "identify the main parts of the human breathing system",
+      "describe the functions of parts of the human breathing system",
+      "coutline the symptoms and prevention measures for common conditions and diseases of the breathing system",
+      "appreciate the need for maintaining a healthy breathing system."
+     ],
+     "learning_experiences": [
+      "Learners is guided to",
+      "use print and non-print material to identify the human breathing system",
+      "draw the human breathing system and label the main parts",
+      "use print or non-print media to search for information on the functions of main parts of the human breathing system and share with peers",
+      "discuss symptoms and prevention of common conditions and diseases that affect the human breathing system and share",
+      "use simulation or digital images to illustrate major parts of the human breathing system. Project: Learners are guided to make models of the human breathing system using locally available materials."
+     ],
+     "inquiry_questions": [
+      "1. What makes up the human breathing system?",
+      "2. What enhances a healthy breathing system?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed: Creativity and Imagination: The learner reflects on appropriate images as they design different ways of modelling the human breathing system using locally available material. Digital literacy: The learner acquires digital manipulative skills as they use simulations or digital images to illustrate major parts of the human breathing system. Values: Love: The learner develop caring attitude towards self and others’ health as they discuss symptoms and prevention of common conditions and diseases that affect the human breathing system. Responsibility: The learner shows accountability in protecting self and others as they study prevention of common conditions and diseases that affect the human breathing system. Pertinent and Contemporary Issues (PCIs): Preventive health and communicable diseases: The learner learns how to take prevent diseases as they discuss symptoms and prevention of common conditions and diseases that affect the human breathing system. Link to Other Learning Areas: Agriculture and Nutrition: The information on symptoms and prevention of common conditions and diseases that affect the human breathing system is linked to personal hygiene in Agriculture and Nutrition."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade5-science-and-technology.pdf#p18"
+    }
+   ]
+  },
+  {
+   "strand": "Matter",
+   "strand_code": "2.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to classify mixtures as homogeneous or heterogeneous.",
+     "exceeds": "The learner classifies mixtures as homogeneous or heterogeneous correctly, giving examples from the locality.",
+     "meets": "The learner classifies mixtures as homogeneous or heterogeneous correctly.",
+     "approaches": "The learner classifies most of the mixtures as homogeneous or heterogeneous correctly.",
+     "below": "The learner classifies a few mixtures as homogeneous or heterogeneous correctly."
+    },
+    {
+     "indicator": "Ability to apply appropriate methods of separating heterogeneous mixtures.",
+     "exceeds": "The learner applies all appropriate methods of separating heterogeneous mixtures correctly, giving illustration.",
+     "meets": "The learner applies all appropriate methods of separating heterogeneous mixtures correctly.",
+     "approaches": "The learner applies most of the appropriate methods of separating heterogeneous mixtures correctly.",
+     "below": "The learner applies a few appropriate methods of separating heterogeneous mixtures with prompt."
+    },
+    {
+     "indicator": "Ability to identify methods of reducing water pollution in the water sources.",
+     "exceeds": "The learner identifies all methods of reducing water pollution in water sources correctly, giving examples from the locality.",
+     "meets": "The learner identifies all methods of reducing water pollution in the water sources correctly.",
+     "approaches": "The learner identifies most of the methods of reducing water pollution in water sources correctly.",
+     "below": "The learner identifies a few methods of reducing water pollution in water sources correctly."
+    },
+    {
+     "indicator": "Ability to apply appropriate methods of water treatment.",
+     "exceeds": "The learner applies all appropriate methods of water treatment correctly and systematically.",
+     "meets": "The learner applies all appropriate methods of water treatment correctly.",
+     "approaches": "The learner applies most of the appropriate methods of water treatment correctly.",
+     "below": "The learner applies a few appropriate methods of water treatment correctly."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "2.1",
+     "name": "Mixtures",
+     "suggested_duration": "14 lessons",
+     "learning_outcomes": [
+      "classify mixtures as homogeneous or heterogeneous",
+      "apply appropriate methods to separate heterogeneous mixtures",
+      "outline the applications of separating mixtures in day-to-day life",
+      "appreciate different methods of separating mixtures in day-to-day life."
+     ],
+     "learning_experiences": [
+      "brainstorm on the meaning of a mixture, give examples at home and school",
+      "carry out activities to categorise mixtures as homogeneous (uniform) and heterogeneous (non-uniform)",
+      "carry out activities to separate heterogeneous mixtures",
+      "carry out activities to demonstrate ways of separating mixtures in day-to-day life."
+     ],
+     "inquiry_questions": [
+      "What are the applications of mixture separation in day-to-day life?"
+     ],
+     "core_competencies": [
+      "Critical thinking and imagination: The learner acquires reflects on the best ways of separating different mixtures as they carry out activities to demonstrate ways of separating mixtures. Learning to learn: The learner learns new methods separating mixtures through their own experiences as they carry out activities with peers to separate different types of mixtures."
+     ],
+     "values": [
+      "Values: Social justice: The learner gives others equal opportunities in sharing responsibilities as they carry out activities to separate heterogeneous mixtures. Pertinent and Contemporary Issues (PCIs): Health Issues: The learner learns how to separate mixtures to remove impurities in cleaning of water for domestic usage as they carry out activities to demonstrate ways of separating mixtures. Link to other subjects: Agriculture and Nutrition: The learner applies the knowledge on separating mixtures in agricultural processes like straining milk, winnowing grains and straining honey."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade5-science-and-technology.pdf#p21"
+    },
+    {
+     "kicd_code": "2.2",
+     "name": "Water Pollution",
+     "suggested_duration": "18 lessons",
+     "learning_outcomes": [
+      "identify water pollutants in the water sources",
+      "outline the effects of water pollution in day-to-day life",
+      "identify methods of reducing water pollution in the water sources",
+      "apply appropriate methods of water treatment",
+      "advocate for safe water sources in the locality."
+     ],
+     "learning_experiences": [
+      "brainstorm on water pollutants in water sources",
+      "discuss with peers the effects of water pollution in day-to-day life",
+      "discuss with peers the different methods of reducing water pollution",
+      "observe safety measures when working in a water-polluted environment (Example: practise use of gumboots and gloves)",
+      "carry out activities to demonstrate methods of water treatment",
+      "use visual aids or digital devices to identify water pollutants and their effects in day-to-day life. Project: Learners to make functional water filters using locally available materials."
+     ],
+     "inquiry_questions": [
+      "What are the dangers of water pollution?"
+     ],
+     "core_competencies": [
+      "Core competencies to be developed: Creativity and imagination: The learner reflects and comes up with new ideas in making functional water filters using locally available materials. Values: Responsibility: The learner practices being responsible in playing different role as they carry out activities to demonstrate methods of water treatment Peace: The learner learns how to share available materials amicably as they carry out activities to demonstrate methods of water treatment. Pertinent and Contemporary Issues (PCIs): Health Issues: The learner practices health preventive measures on water born diseases as they carry out activities to demonstrate basic methods of water treatment. Link to other Learning areas: Agriculture and Nutrition: knowledge and skills on ways of reducing pollutants are used to obtain clean water for domestic use in Agriculture and Nutrition."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade5-science-and-technology.pdf#p23"
+    }
+   ]
+  },
+  {
+   "strand": "Force and Energy",
+   "strand_code": "3.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to classify objects as floating or sinking in water.",
+     "exceeds": "The learner classifies all objects as floating or sinking in water correctly and consistently.",
+     "meets": "The learner classifies all objects as floating or sinking in water correctly.",
+     "approaches": "The learner classifies most objects as floating and sinking in water correctly.",
+     "below": "The classifies a few objects as floating and sinking in water correctly."
+    },
+    {
+     "indicator": "Ability to explain applications of floating and sinking",
+     "exceeds": "The learner explains all applications of floating and sinking correctly and comprehensively.",
+     "meets": "The learner explains all applications of floating and sinking correctly.",
+     "approaches": "The learner explains most applications of floating and sinking correctly.",
+     "below": "The learner explains a few applications of floating and sinking correctly."
+    },
+    {
+     "indicator": "Ability to identify sources of sound in nature.",
+     "exceeds": "The learner identifies all sources of sound correctly, giving examples from the locality.",
+     "meets": "The learner all identifies sources of sound correctly.",
+     "approaches": "The learner identifies most sources of sound correctly.",
+     "below": "The learner identifies a few sources of sound correctly."
+    },
+    {
+     "indicator": "Ability to describe effects of loud sound in day-to-day life.",
+     "exceeds": "The learner describes effects of loud sound correctly and comprehensively.",
+     "meets": "The learner describes effects of loud sound correctly.",
+     "approaches": "The learner describes most effects of loud sound partially.",
+     "below": "The learner describes effects of loud sound, with prompt."
+    },
+    {
+     "indicator": "Ability to demonstrate the modes of heat transfer in nature.",
+     "exceeds": "The learner demonstrates the three modes of heat transfer correctly and innovatively.",
+     "meets": "The learner demonstrates the three modes of heat transfer correctly.",
+     "approaches": "The learner demonstrates two of the modes of heat transfer correctly.",
+     "below": "The learner to demonstrates one of the modes of heat correctly"
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "3.1",
+     "name": "Floating and Sinking",
+     "suggested_duration": "14 lessons",
+     "learning_outcomes": [
+      "classify objects as floating or sinking in water",
+      "identify factors that affect floating and sinking of objects in water",
+      "explain applications of floating and sinking in day-to-day life",
+      "appreciate the use of floaters as life savers."
+     ],
+     "learning_experiences": [
+      "carry out activities using different objects to demonstrate floating and sinking in water (use dry wood, stone, metals, plastic, cork, buoy & feathers)",
+      "carry out activities to classify objects into those that float and those that sink in water",
+      "carry out activities to show how shape, weight and size affect floating and sinking of objects in water (normal bottle tops, crushed bottle tops, same quantity of plasticine in different shapes, containers of same size and weight; one filled with sand and the other one feathers or cotton wool",
+      "discuss with peers the applications of floating and sinking in day-to-day life (swimming, diving, use of lifesavers, water transport, floods, drowning, surfing)",
+      "use digital or print media to search for: effects of flooding and the use of floaters as life savers. Project: Learners to make lifesaving floaters from locally available materials."
+     ],
+     "inquiry_questions": [
+      "1. Why do some materials float and others sink?",
+      "2. How are floaters useful in day-to-day life?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed: Communication and Collaboration: The learner acquires spirit of teamwork while carrying out activities to observe and classify objects into those that float and those that sink in water. Critical thinking and problem solving: The learner explores a variety of locally available materials that can be used to make lifesaving floaters as they Values: Integrity: The learner gives honest observations and records real results while carrying out activities to classify objects into those that float or sink in water. Responsibility: The learner plays different roles as they carry out activities to make lifesaving floaters from locally available materials. Pertinent and Contemporary Issues (PCIs): Disaster Risk Reduction: The learner learns how to contribute in water lifesaving strategies as they carry out activities to make lifesaving floaters from locally available materials. Link to Other Learning Areas: Agriculture and Nutrition: The learner relates the concept of floating and sinking to fish farming and irrigation in Agriculture and Nutrition."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade5-science-and-technology.pdf#p26"
+    },
+    {
+     "kicd_code": "3.2",
+     "name": "Sound Energy",
+     "suggested_duration": "14 lessons",
+     "learning_outcomes": [
+      "identify sources of sound in nature",
+      "demonstrate the movement of sound in nature",
+      "describe effects of loud sound in day-to-day life",
+      "appreciate the role of sound in day-to-day life."
+     ],
+     "learning_experiences": [
+      "carry out activities to identify sources of sound",
+      "carry out an activity to demonstrate that sound travels in all directions from a source (listening to a loud sound from a common speaker from different directions and around corners)",
+      "carry out an activity to demonstrate reflection of sound; echo (use of two tubes placed alongside a wall, a cliff, a large hall, a forest, a valley, between tall buildings)",
+      "discuss with peers the effects of loud sound in the environment",
+      "use digital or print media to search for the effects of loud sound in day-to-day life",
+      "discuss the role of the government in addressing sound pollution.",
+      "Project 1: Learners to make a sound-producing instrument from locally available materials (for example: bell, drum, guitar, wind instruments, etc.). Project 2: Create a sound game using Scratch"
+     ],
+     "inquiry_questions": [
+      "1. How is sound produced?",
+      "2. What are the effects of loud sound?"
+     ],
+     "core_competencies": [
+      "Creativity and Imagination: The learner experiments different ways of making sound-producing instruments using locally available materials. Digital literacy: The learner acquires digital manipulative skills as they use appropriate digital technology to create and add sound effects using the \"Sound\" blocks in Scratch."
+     ],
+     "values": [
+      "Responsibility: The learner learns how to minimise the effects of loud sound in the environment as they discuss with peers the effects of loud sound in the environment."
+     ],
+     "pertinent_issues": [
+      "Citizenship: The learner acquires awareness on human rights and responsibilities as they discuss the role of the government in addressing sound pollution. Socio-Economic Issues: The learner creates awareness on sound pollution as they discuss with peers the effects of loud sound in the environment."
+     ],
+     "links_to_other_areas": [
+      "Creative Arts: The learner relates the concept of sources of sound to making musical instruments."
+     ],
+     "resources": [],
+     "kicd_source": "grade5-science-and-technology.pdf#p28"
+    },
+    {
+     "kicd_code": "3.3",
+     "name": "Heat transfer",
+     "suggested_duration": "12 lessons",
+     "learning_outcomes": [
+      "demonstrate the modes of heat transfer in nature",
+      "classify conductors of heat into good or poor conductors",
+      "explain the uses of heat transfer in day-to-day life",
+      "acknowledge safety precautions when handling heat."
+     ],
+     "learning_experiences": [
+      "brainstorm on the meanings of the terms conduction, convection and radiation as used in heat transfer",
+      "perform experiments to demonstrate the modes of heat transfer",
+      "carry out experiments to identify good and poor conductors of heat",
+      "discuss with peers applications of heat transfer in day-to-day life (cooking, melting, freezing, maintaining body temperature, insulation)",
+      "use digital or print media to search for applications of heat transfer in day-to-day life",
+      "discuss with peers safety precautions when handling heat",
+      "discuss with peers various ways of responding to fire emergencies.",
+      "Project 1: Learners to make oven gloves using locally available materials. Project 2: Learners to make a fireless cooker."
+     ],
+     "inquiry_questions": [
+      "How is heat transferred through materials in nature?"
+     ],
+     "core_competencies": [
+      "Self-efficacy: The learner displays self-confidence as they perform experiments to demonstrate the modes of heat transfer."
+     ],
+     "values": [
+      "Social justice: The learner practices sharing of resources equitably as they perform experiments to identify good and poor conductors of heat."
+     ],
+     "pertinent_issues": [
+      "Social-Economic Issues: The learner exercises fire emergency response measures as they discuss various ways of responding to fire emergencies."
+     ],
+     "links_to_other_areas": [
+      "Agriculture and Nutrition: The learner links the concept of heat transfer in choosing of appropriate material for knitting the oven gloves."
+     ],
+     "resources": [],
+     "kicd_source": "grade5-science-and-technology.pdf#p30"
+    }
+   ]
+  }
+ ]
+}

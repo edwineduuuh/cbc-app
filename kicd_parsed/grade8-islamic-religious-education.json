@@ -1,0 +1,821 @@
+{
+ "source_pdf": "grade8-islamic-religious-education.pdf",
+ "grade": 8,
+ "subject": "islamic-religious-education",
+ "general_outcomes": [],
+ "strands": [
+  {
+   "strand": "Qur’an",
+   "strand_code": "1.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to read the selected verses and explain their meaning",
+     "exceeds": "Reads the selected verses, explains their meaning correctly and puts into practice",
+     "meets": "Reads the selected verses and explains their meaning correctly",
+     "approaches": "Reads the selected verses and explains their meaning with minor mix ups",
+     "below": "Reads the selected verses and explains their meaning with major mix ups"
+    },
+    {
+     "indicator": "Ability to explain and apply the teachings of the selected verses",
+     "exceeds": "Explains and applies the teachings of the selected verses consistently and correctly",
+     "meets": "Explains and applies the teachings of the selected verses correctly",
+     "approaches": "Explains and applies the teachings of the selected verses with minor inconsistently",
+     "below": "Explains and applies the teachings of the selected verses with major inconsistently"
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "1.1",
+     "name": "Modes of preservation of the Qur’an",
+     "suggested_duration": "4 lessons",
+     "learning_outcomes": [
+      "By the end of the sub-strand, the",
+      "describe the modes of",
+      "preservation of the Qur’an",
+      "during the time of the",
+      "Prophet (S.A.W.), the Rightly",
+      "Guided Caliphs and presently",
+      "recite chapters/verses of the",
+      "Qur’an as a means of",
+      "assess the importance of",
+      "preserving the Qur’an to",
+      "safeguard its authenticity",
+      "cherish the Qur’an as a guide"
+     ],
+     "learning_experiences": [],
+     "inquiry_questions": [],
+     "core_competencies": [],
+     "values": [
+      "Values: Respect through respecting others’ opinions as they discuss the significance of preserving the Qur’an Pertinent and Contemporary Issues: Social cohesion enhanced as learners discuss the significance of preserving the Qur’an in groups"
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade8-islamic-religious-education.pdf#p13"
+    },
+    {
+     "kicd_code": "1.2",
+     "name": "Divisions of the Qur’an",
+     "suggested_duration": "6 lessons",
+     "learning_outcomes": [
+      "explain the divisions of the Qur’an for easy referencing",
+      "identify the divisions of the Qur’an to facilitate the reading of the Qur’an",
+      "describe the characteristics of Makkan and Madinan Surahs to ease learning",
+      "appreciate the division of the Qur’an for ease of recitation."
+     ],
+     "learning_experiences": [
+      "discuss the divisions of the",
+      "Qur’an and make charts and display, identify the divisions of the",
+      "Qur’an from a Mus’ haf in groups and make notes, research online/from",
+      "available reference materials on the characteristics of Makkan and Madinan surahs and make a class presentation."
+     ],
+     "inquiry_questions": [
+      "How do the divisions of the Qur’an help in studying it?"
+     ],
+     "core_competencies": [
+      "Communication and collaboration: the skills of teamwork, listening and speaking effectively are developed through group discussions and presentation."
+     ],
+     "values": [
+      "Unity is enhanced as learners discuss the divisions of the Qur’an in groups.",
+      "Respect enhanced as learners respect each other’s views during group discussions."
+     ],
+     "pertinent_issues": [
+      "Social awareness skill: learners develop effective communication skills when they discuss the divisions of the Qur’an in groups and make a class presentation."
+     ],
+     "links_to_other_areas": [
+      "Link to other subjects English: the learner will develop effective communication skills when they discuss the divisions of the Qur’an in groups and make a class presentation which is related to communication skills in English"
+     ],
+     "resources": [],
+     "kicd_source": "grade8-islamic-religious-education.pdf#p15"
+    },
+    {
+     "kicd_code": "1.3",
+     "name": "Selected verses (Al-Luqman 12-19)",
+     "suggested_duration": "8 lessons",
+     "learning_outcomes": [
+      "read the selected verses correctly for spiritual nourishment",
+      "explain the meaning of the selected verses to ease application",
+      "explain the teachings of the selected verses for character building",
+      "apply the teachings of the selected verses in their daily lives",
+      "appreciate the teachings of the selected verses as sourced from the Quran."
+     ],
+     "learning_experiences": [
+      "read the selected verses from the Qur’an",
+      "write the selected verses together with their meaning on charts in groups and display",
+      "discuss the meaning of the selected verses and make class presentations",
+      "research online/from available reference materials on the teachings of the selected verses, deduce lessons and make notes",
+      "listen to a resource person explaining the lessons from the selected verses and make notes",
+      "role-play the teachings/lessons from the selected verses."
+     ],
+     "inquiry_questions": [
+      "How can the teachings of the verses reform the society?"
+     ],
+     "core_competencies": [
+      "Critical thinking and problem solving: the skill of interpretation and inference is enhanced when learners research online on the teachings of the selected verses, deduce lessons and make notes.",
+      "Communication and collaboration enhanced during discussions on the meaning of the selected verses in groups.",
+      "Digital literacy: the skill of interacting with digital technology is achieved when researching on the teachings of the selected verses, deducing lessons and making notes."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade8-islamic-religious-education.pdf#p17"
+    }
+   ]
+  },
+  {
+   "strand": "Hadith",
+   "strand_code": "2.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to describe the factors that led to the development of Hadith during the time of the Prophet (S.A.W.) and the Rightly Guided Caliphs.",
+     "exceeds": "Describes the factors that led to the development of Hadith during the time of the Prophet (S.A.W.) and the Rightly Guided Caliphs correctly and arranges them chronologically.",
+     "meets": "Describes the factors that led to the development of Hadith during the time of the Prophet (S.A.W.) and the Rightly Guided Caliphs correctly.",
+     "approaches": "Describes factors that led to the development of Hadith during the time of the Prophet (S.A.W.) and the Rightly Guided Caliphs but omits minor details.",
+     "below": "Describes factors that led to the development of Hadith during the time of the Prophet (S.A.W.) and the Rightly Guided Caliphs but omits major details."
+    },
+    {
+     "indicator": "Ability to explain the methods used by the Prophet (S.A.W.) to teach Hadith.",
+     "exceeds": "Explains the methods used by the Prophet (S.A.W.) to teach Hadith correctly and cites examples.",
+     "meets": "Explains the methods used by the Prophet (S.A.W.) to teach Hadith correctly.",
+     "approaches": "Explains the methods used by the Prophet (S.A.W.) to teach Hadith but omits minor details.",
+     "below": "Explains the methods used by the Prophet (S.A.W.) to teach Hadith but omits significant details."
+    },
+    {
+     "indicator": "Ability to deduce lessons learnt and explain the relevance of the selected Hadith.",
+     "exceeds": "Deduces the lessons learnt and explains the relevance of the selected Hadith correctly citing examples.",
+     "meets": "Deduces the lessons learnt and explains the relevance of the selected Hadith correctly",
+     "approaches": "Deduces the lessons learnt and explains the relevance of the selected Hadith omitting minor details.",
+     "below": "Deduces the lessons learnt and explains the relevance of the selected Hadith omitting major details. ."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "2.1",
+     "name": "Ulum al-Hadith",
+     "suggested_duration": "7 lessons",
+     "learning_outcomes": [
+      "describe the factors that led to the development of Hadith during the time of the Prophet (S.A.W.) and the Rightly Guided Caliphs",
+      "explain the methods used by the Prophet (S.A.W.) to teach Hadith",
+      "apply the methods used by the Prophet (S.A.W.) to teach Hadith",
+      "value Hadith as a primary source of guidance."
+     ],
+     "learning_experiences": [
+      "research online/from available reference materials on the factors that led to the growth and development of Hadith during the time of the Prophet (S.A.W.) and the Rightly Guided Caliphs and make a class presentation",
+      "discuss the development of Hadith during the time of the Prophet (S.A.W.) and the Rightly Guided Caliphs in groups and write notes",
+      "brainstorm on the methods used by the Prophet (S.A.W.) to teach Hadith and share in class",
+      "role-play the methods used by the Prophet (S.A.W.) to teach Hadith."
+     ],
+     "inquiry_questions": [
+      "1. What role did the Prophet (S.A.W.) play in the development of Hadith?",
+      "2. Why is it important for a Muslim to learn Ulum al-Hadith?"
+     ],
+     "core_competencies": [
+      "• Communication and collaboration: listening and teamwork skills enhanced as learners discuss the development of Hadith during the Prophet (S.A.W.) and Rightly Guided Caliphs’ time in groups."
+     ],
+     "values": [
+      "Values:",
+      "Integrity enhanced as learners’ research online on the factors that led to the growth and development of Hadith during the Prophet (S.A.W) and the Rightly Guided Caliphs’ time.",
+      "Love for the Prophet (S.A.W.) as learners role-play the methods used by the Prophet (S.A.W.)) to teach Hadith. Pertinent and Contemporary Issues: Good governance is enhanced as learners role-play the methods used by the Prophet (S.A.W.) to teach Hadith. Link to other subjects: English as learners brainstorm on the methods used by the Prophet (S.A.W.) to teach Hadith and share in class."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade8-islamic-religious-education.pdf#p19"
+    },
+    {
+     "kicd_code": "",
+     "name": "Selected Hadith",
+     "suggested_duration": "6 lessons",
+     "learning_outcomes": [
+      "deduce the lessons learnt from the Hadith on accountability and respect for authority for character building",
+      "explain the relevance of the Hadith on accountability and respect for authority in the life of a Muslim",
+      "practise the teachings of the Hadith on accountability and respect for authority in daily life",
+      "appreciate Hadith as the second source of sharia."
+     ],
+     "learning_experiences": [
+      "• read the selected Hadith, derive lessons and make class presentations Hadith on accountability: “The feet of a servant will not move on the Day of Resurrection until he is asked about four matters: his lifetime and how he used it, his youth and how he exhausted it, his wealth and how he earned it and spent it, and his knowledge and how he acted upon it.” (At-Tirmidhi) Hadith on respect for authority: \"Listening to and obeying the leader is an obligation upon a Muslim, whether he likes it or dislikes it, as long as he is not commanded to disobey Allah (S.W.T.). If he is commanded to disobey Allah (S.W.T.), there is no listening or obedience.” (Bukhari and Muslim)",
+      "discuss the relevance of the selected Hadith in the life of a Muslim and make notes",
+      "role-play respect for authority within and outside the school."
+     ],
+     "inquiry_questions": [
+      "1. Why is intention important in Islam?",
+      "2. Why should Muslims respect authority?"
+     ],
+     "core_competencies": [
+      "Self-efficacy: Self-awareness skill is enhanced as learners role-play respect for authority within and outside the school.",
+      "Citizenship: enhanced through the acquisition of social and civic skills when learners role-play respect for authority within and outside the school.",
+      "Learning to learn: the skill of working collaboratively enhanced as learners role-play respect for authority within and outside the school."
+     ],
+     "values": [
+      "Patriotism: enhanced through reading the selected Hadith and deriving lessons.",
+      "Respect: enhanced as learners derive lessons from the selected Hadith and make class presentations.",
+      "Patriotism: enhanced as learners role-play respect for authority within and outside the school."
+     ],
+     "pertinent_issues": [
+      "Good governance is enhanced through role-playing respect for authority within and outside the school."
+     ],
+     "links_to_other_areas": [
+      "Social Studies and Life Skills as learners’ role-play respect for authority within and outside the school.",
+      "Creative Arts as learners role-play respect for authority within and outside the school."
+     ],
+     "resources": [],
+     "kicd_source": "grade8-islamic-religious-education.pdf#p21"
+    }
+   ]
+  },
+  {
+   "strand": "Pillars of Iman",
+   "strand_code": "3.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to identify the revealed scriptures and their similarities.",
+     "exceeds": "Identifies the revealed scriptures and their similarities correctly and comprehensively.",
+     "meets": "Identifies the revealed scriptures and their similarities correctly.",
+     "approaches": "Identifies the revealed scriptures and their similarities with a few mix ups.",
+     "below": "Identifies the revealed scriptures and their similarities with many mix ups."
+    },
+    {
+     "indicator": "Ability to describe the qualities of Ulul Azm prophets and narrate their stories.",
+     "exceeds": "Describes the qualities of Ulul Azm prophets and narrates their stories correctly and comprehensively",
+     "meets": "Describes the qualities of Ulul Azm prophets and narrates their stories correctly",
+     "approaches": "Describes the qualities of Ulul Azm prophets and narrates their stories omitting minor details",
+     "below": "Describes the qualities of Ulul Azm prophets and narrates their stories omitting major details"
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "3.1",
+     "name": "Belief in revealed scriptures",
+     "suggested_duration": "7 lessons",
+     "learning_outcomes": [
+      "identify the revealed scriptures to strengthen their Iman",
+      "assess the importance of believing in the revealed scriptures as a pillar of Iman",
+      "explain the reasons for the revelation of the revealed scriptures as a guide for mankind",
+      "identify the similarities in the revealed scriptures for religious tolerance",
+      "describe ways of showing respect for the revealed scriptures to promote religious tolerance",
+      "practise tolerance towards people of other faiths for peaceful co-existence",
+      "acknowledge the revealed scriptures as part of faith."
+     ],
+     "learning_experiences": [
+      "identify the revealed scriptures in pairs and present them on charts",
+      "research on the importance of believing in the revealed scriptures and present in class",
+      "brainstorm on the reasons for the revelation of the revealed scriptures in groups and make notes",
+      "identify the similarities in the revealed scriptures and make class presentations",
+      "discuss ways of handling revealed scriptures and how to show tolerance towards people of other faiths and make notes."
+     ],
+     "inquiry_questions": [
+      "1. How can Muslims practise religious tolerance?",
+      "2. Why does mankind need revealed scriptures?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Citizenship: socio-cultural sensitivity and awareness skill enhanced through discussion on ways of handling revealed scriptures and showing tolerance towards people of other faiths.",
+      "Communication and collaboration: the skill of listening and teamwork is enhanced when learners brainstorm on the reasons for the revelation of the revealed scriptures in groups and make notes.",
+      "Learning to learn: the skill of sharing learned knowledge enhanced when learners research on the importance of believing in the revealed scriptures and present on charts/PowerPoint. Values:",
+      "Respect enhanced through discussion on ways of handling revealed scriptures and showing tolerance towards people of other faiths.",
+      "Unity is enhanced as learners identify the similarities between the revealed scriptures and make a class presentation. Pertinent and Contemporary Issues:",
+      "Social cohesion is enhanced as learners discuss ways of handling revealed scriptures and showing tolerance towards people of other faiths.",
+      "Analytical thinking skills-critical thinking skill is enhanced as learners identify the similarities in the revealed scriptures and make a class presentation. Link to other subjects Social Studies and Life Skills as learners discuss ways of handling revealed scriptures and showing tolerance towards people of other faiths."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade8-islamic-religious-education.pdf#p24"
+    },
+    {
+     "kicd_code": "3.2",
+     "name": "Ulul-Azm Prophets",
+     "suggested_duration": "5 lessons",
+     "learning_outcomes": [
+      "describe the qualities of Ulul-Azm Prophets for emulation",
+      "narrate the stories of Nabii Musa (A.S.) and Issa (A.S.) for spiritual nourishment",
+      "apply the teachings from the stories of Nabii Musa (A.S.) and Issa (A.S.) for character building",
+      "Appreciate the Ulul-Azm Prophets as role models."
+     ],
+     "learning_experiences": [
+      "research on the qualities of Ulul-Azm Prophets and present on charts/powerpoint",
+      "watch video clips on/read the stories of Nabii Musa (A.S.) and Issa (A.S.) and make notes",
+      "narrate the stories of Nabii Musa (A.S.) and Issa (A.S.) and make notes."
+     ],
+     "inquiry_questions": [
+      "What lessons do Muslims learn from the Ulul-Azm Prophets?"
+     ],
+     "core_competencies": [
+      "Digital literacy: The skill of interacting with digital devices is heightened when learners research on the qualities of Ulul-Azm Prophets and present them on PowerPoint.",
+      "Self-efficacy: The skill of effective communication is enhanced when they narrate the stories of Nabii Musa (A.S.) and Issa (A.S.).",
+      "Creativity and imagination: the skill of making observations is enhanced when learners dramatise the stories of Nabii Musa (A.S.) and Issa (A.S.)."
+     ],
+     "values": [
+      "Social Justice is enhanced as learners narrate stories of Nabii Musa (A.S.) and Issa (A.S.).",
+      "Responsibility is enhanced as learners research on the qualities of Ulul-Azm Prophets and present them on charts/PowerPoint."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade8-islamic-religious-education.pdf#p26"
+    }
+   ]
+  },
+  {
+   "strand": "Devotional Acts",
+   "strand_code": "4.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to describe how swalatul Istisqaa and swalatul Istikhara are performed",
+     "exceeds": "Describes how swalatul Istisqaa and swalatul Istikhara are performed correctly and consistently",
+     "meets": "Describes how swalatul Istisqaa and swalatul Istikhara are performed correctly",
+     "approaches": "Describes how swalatul Istisqaa and swalatul Istikhara are performed with minor inconsistencies",
+     "below": "Describes how swalatul Istisqaa and swalatul Istikhara are performed with major inconsistencies"
+    },
+    {
+     "indicator": "Ability to assess the significance of performing swalatul Istisqaa and swalatul Istikhara",
+     "exceeds": "Assesses the significance of performing swalatul Istisqaa and swalatul Istikhara correctly and consistently",
+     "meets": "Assesses the significance of performing swalatul Istisqaa and swalatul Istikhara correctly",
+     "approaches": "Assesses the significance of performing swalatul Istisqaa and swalatul Istikhara with minor inconsistencies",
+     "below": "Assesses the significance of performing swalatul Istisqaa and swalatul Istikhara with major inconsistencies"
+    },
+    {
+     "indicator": "Ability to describe the sequence of Hajj",
+     "exceeds": "Describes the sequence of Hajj correctly and consistently",
+     "meets": "Describes the sequence of Hajj correctly",
+     "approaches": "Describes the sequence of Hajj with a few mix ups",
+     "below": "Describes the sequence of Hajj with many mix ups"
+    },
+    {
+     "indicator": "Ability to describe the fardh, wajib and sunnah rites of Hajj and Umrah",
+     "exceeds": "Describes the fardh, wajib and sunnah rites of Hajj and Umrah correctly and comprehensively",
+     "meets": "Describes the fardh, wajib and sunnah rites of Hajj and Umrah correctly",
+     "approaches": "Describes the fardh, wajib and sunnah rites of Hajj and Umrah omitting minor details",
+     "below": "Describes the fardh, wajib and sunnah rites of Hajj and Umrah omitting major details"
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "4.1",
+     "name": "Prayers on special occasions",
+     "suggested_duration": "5 lessons",
+     "learning_outcomes": [
+      "describe how swalatul Istisqaa and swalatul Istikhara are performed to earn Allah (S.W.T.)’s blessings",
+      "assess the significance of performing swalatul Istisqaa and swalatul Istikhara to seek Allah (S.W.T.)’s bounties",
+      "perform swalatul Istisqaa and swalatul Istikhara in the correct way",
+      "embrace the performance of swalatul Istisqaa and swalatul Istikhara as a way of fulfilling Allah (S.W.T.)’s command."
+     ],
+     "learning_experiences": [
+      "watch video clips/read on how swalatul Istisqaa and swalatul Istikhara are performed and make notes",
+      "research on the significance of performing swalatul Istisqaa and swalatul Istikhara and present on charts/PowerPoint",
+      "demonstrate the performance of swalatul Istisqaa and swalatul Istikhara."
+     ],
+     "inquiry_questions": [
+      "Why do Muslims perform prayers on special occasions?"
+     ],
+     "core_competencies": [
+      "Self-efficacy: self-awareness skill enhanced as learners demonstrate the performance of swalatul Istisqaa and swalatul Istikhara.",
+      "Digital literacy: the skill of interacting with digital devices is enhanced as learners research on the significance of performing swalatul Istisqaa and swalatul Istikhara and present on PowerPoint."
+     ],
+     "values": [
+      "Values:",
+      "Unity is enhanced through the demonstration on the performance of swalatul Istisqaa and swalatul Istikhara.",
+      "Responsibility is heightened through research on the significance of performing swalatul Istisqaa and swalatul Istikhara and presenting it on PowerPoint. Pertinent and Contemporary Issues: Environmental education is enhanced through demonstration of the performance of swalatul Istisqaa and swalatul Istikhara. Link to Other Subjects: English as learners converse in English in demonstrating the performance of swalatul Istisqaa and swalatul Istikhara."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade8-islamic-religious-education.pdf#p28"
+    },
+    {
+     "kicd_code": "4.2",
+     "name": "Hajj and Umrah",
+     "suggested_duration": "7 lessons",
+     "learning_outcomes": [
+      "describe the sequence of Hajj for its validity",
+      "explain the fardh, wajib and sunnah rites of Hajj to classify them",
+      "describe the rites of Umrah for ease of performance",
+      "assess the significance of Hajj as a pillar of Islam",
+      "acknowledge the performance of Hajj and Umrah as a commandment from Allah (S.W.T.)."
+     ],
+     "learning_experiences": [
+      "watch video clips/read from available reference materials on the sequence of Hajj and make class presentations",
+      "make a model of the Kaaba and demonstrate the performance of tawaf",
+      "research on fardh, wajib and sunnah rites of Hajj and present on charts/PowerPoint",
+      "discuss the rites of Umrah in groups and present in class",
+      "research on the significance of Hajj and make notes."
+     ],
+     "inquiry_questions": [
+      "1. How is Hajj/Umrah performed?",
+      "2. Why do Muslims perform Hajj/ Umrah?"
+     ],
+     "core_competencies": [
+      "Self-efficacy: Self-awareness and planning skills enhanced as learners demonstrate the sequence of Hajj.",
+      "Learning to Learn: the skill of carrying out research enhanced as learners research on fardh, wajib and sunnah rites of Hajj and present on charts/PowerPoint.",
+      "Communication and collaboration: the skills of listening and teamwork are enhanced as learners discuss the rites of Umrah in groups and present in class."
+     ],
+     "values": [
+      "Unity is enhanced when discussing the rites of Umrah in groups and presenting in class.",
+      "Responsibility is enhanced as learners make a model of the Kaaba and demonstrate the sequence of Hajj."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade8-islamic-religious-education.pdf#p30"
+    }
+   ]
+  },
+  {
+   "strand": "Akhlaq (Moral Teachings)",
+   "strand_code": "5.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to describe ways of commanding good and forbidding evil and assess their significance",
+     "exceeds": "Describes ways of commanding good and forbidding evil and assesses their significance correctly and comprehensively",
+     "meets": "Describes ways of commanding good and forbidding evil and assesses their significance correctly",
+     "approaches": "Describes ways of commanding good and forbidding evil and assesses their significance but leave out few details",
+     "below": "Describes ways of commanding good and forbidding evil correctly and assesses their significance but leaves out significant details"
+    },
+    {
+     "indicator": "Ability to explain the teachings of fulfilling promise and anger management and assess the significance of fulfilling a promise and managing anger",
+     "exceeds": "Explains the teachings of fulfilling promise and anger management and assesses the significance of fulfilling a promise and managing anger correctly and comprehensively",
+     "meets": "Explains the teachings of fulfilling promise and anger management and assesses the significance of fulfilling a promise and managing anger correctly",
+     "approaches": "Explains the teachings of fulfilling promise and anger management and assesses the significance of fulfilling a promise and managing anger omitting minor details",
+     "below": "Explains the teachings of fulfilling promise, anger management and assesses the significance of fulfilling a promise and managing anger omitting major details"
+    },
+    {
+     "indicator": "Ability to describe the causes and effects of deviant sexual behaviour",
+     "exceeds": "Describes the causes and effects of deviant sexual behaviour correctly and comprehensively",
+     "meets": "Describes the causes and effects of deviant sexual behaviour correctly",
+     "approaches": "Describes the causes and effects of deviant sexual behaviour with a few mix-ups",
+     "below": "Describes the causes and effects of deviant sexual behaviour with many mix-ups"
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "5.1",
+     "name": "Commanding good and forbidding evil",
+     "suggested_duration": "6 lessons",
+     "learning_outcomes": [
+      "describe ways of commanding good and forbidding evil as a way of fulfilling Allah (S.W.T.)’s commandment",
+      "assess the significance of commanding good and forbidding evil to promote righteousness",
+      "apply wisdom in commanding good and forbidding evil",
+      "value commanding good and forbidding evil as a way of promoting a morally upright society."
+     ],
+     "learning_experiences": [
+      "discuss ways of commanding good and forbidding evil in groups and present on charts/PowerPoint",
+      "research on the significance of commanding good and forbidding evil and make notes",
+      "discuss ways of commanding good and forbidding evil and present in class",
+      "role-play the best ways of commanding good and forbidding evil."
+     ],
+     "inquiry_questions": [
+      "1. Why should a Muslim command good and forbid evil?",
+      "2. How can today’s Muslims command good and forbid evil?"
+     ],
+     "core_competencies": [
+      "Communication and collaboration: the skill of teamwork is enhanced as learners research on the significance of commanding good and forbidding evil and make presentations.",
+      "Creativity and imagination: the skill of networking enhanced through dramatization of the best ways of commanding good and forbidding evil."
+     ],
+     "values": [
+      "Values:",
+      "Peace is enhanced through discussing ways of commanding good and forbidding evil in groups and presenting on charts/PowerPoint.",
+      "Social justice is enhanced through discussing ways of commanding good and forbidding evil in groups and presenting on charts/PowerPoint.",
+      "Unity is enhanced through discussing ways of commanding good and forbidding evil. Pertinent and Contemporary Issues:",
+      "Peace education is enhanced as learners discuss ways of commanding good and forbidding evil peacefully.",
+      "Patriotism is enhanced as learners research on the significance of commanding good and forbidding evil. Link to other subjects",
+      "Social Studies and Life Skills Education enhanced as learners discuss ways of commanding good and forbidding evil in groups.",
+      "Creative Arts and Sports as learners dramatize the best ways of commanding good and forbidding evil."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade8-islamic-religious-education.pdf#p32"
+    },
+    {
+     "kicd_code": "5.2",
+     "name": "Virtues in Islam",
+     "suggested_duration": "6 lessons",
+     "learning_outcomes": [
+      "explain the teachings on fulfilment of promise and anger management according to the sunnah of the Prophet (S.A.W.)",
+      "describe ways in which Muslims can manage anger for harmonious co-existence in the society",
+      "assess the significance of fulfilling promise and managing anger in shaping the character of a Muslim",
+      "practise fulfilment of promise and anger management as commanded in Islam",
+      "appreciate fulfilment of promise and anger management as virtues in Islam."
+     ],
+     "learning_experiences": [
+      "discuss the Islamic teachings on fulfilment of promise and anger management in groups and make class presentations",
+      "share on PowerPoint/charts/online platforms ways in which Muslims can manage anger according to the teaching of the Prophet (S.A.W.)",
+      "research on the significance of fulfilment of promise and anger management and make notes",
+      "role-play acts depicting fulfilment of promise and anger management in the society."
+     ],
+     "inquiry_questions": [
+      "1. How can Muslims manage anger?",
+      "2. Why should Muslims fulfil promises?"
+     ],
+     "core_competencies": [
+      "• Self-efficacy: personal skills enhanced as learners discuss the Islamic teachings on fulfilment of promise and anger management and make class presentations."
+     ],
+     "values": [
+      "Values:",
+      "Peace is enhanced as learners research on the significance of fulfilment of promise and anger management and make notes.",
+      "Unity is enhanced as learners discuss the Islamic teachings on fulfilment of promise and anger management in groups and makes class presentations.",
+      "Social justice is enhanced as learners role-play acts depicting fulfilment of promise and anger management in the society. Pertinent and Contemporary Issues:",
+      "Social cohesion is enhanced as learners role-play acts depicting fulfilment of promise and anger management in the society.",
+      "Self-management skills -coping with emotions as learners role-play acts depicting fulfilment of promise and anger management in society. Link to other subjects: Social Studies and Life Skills Education is enhanced as learners research on the significance of fulfilment of promise and anger management."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade8-islamic-religious-education.pdf#p34"
+    },
+    {
+     "kicd_code": "5.3",
+     "name": "Prohibitions in Islam",
+     "suggested_duration": "16 lessons",
+     "learning_outcomes": [
+      "explain the causes of deviant sexual behaviour to safeguard oneself",
+      "describe the effects of deviant sexual behaviour in the society",
+      "explain the rationale for the prohibition of deviant sexual behaviour in Islam",
+      "appreciate the rationale for the prohibition of deviant sexual behaviour."
+     ],
+     "learning_experiences": [
+      "identify deviant sexual behaviour (incest, bestiality, prostitution, and homosexuality) and make notes",
+      "research on the causes of deviant sexual behaviour (incest, bestiality, prostitution, and homosexuality) and make notes",
+      "discuss the effects of deviant sexual behaviour (incest, bestiality, prostitution, and homosexuality) in the society in groups and present on charts/PowerPoint",
+      "watch video clips on the effects of deviant sexual behaviour (incest, bestiality, prostitution, and homosexuality) and make notes",
+      "listen to a resource person explaining the causes, effects",
+      "and rationale for the prohibition of deviant sexual behaviour",
+      "research on the rationale for the prohibition of deviant sexual behaviour and make class presentations",
+      "Suggest ways of curbing deviant sexual behaviour in groups and make class presentations."
+     ],
+     "inquiry_questions": [
+      "1. What causes deviant sexual behaviour in the society?",
+      "2. What is the rationale for the prohibition of deviant sexual behaviour in Islam?"
+     ],
+     "core_competencies": [
+      "Self-efficacy: the skill of effective communication enhanced as learners discuss the effects of deviant sexual behaviour in the society in groups, and present on charts/PowerPoint.",
+      "Communication and collaboration: teamwork is enhanced as learners contribute to the discussion on the effects of deviant sexual behaviour in the society.",
+      "Learning to learn: the skill of research enhanced as learners research on the causes of deviant sexual behaviour and make notes."
+     ],
+     "values": [
+      "Responsibility is enhanced as learners research on the rationale for the prohibition of deviant sexual behaviour."
+     ],
+     "pertinent_issues": [
+      "Awareness on health-related issues such as HIV and AIDS is enhanced as learners discuss the effects of deviant sexual behaviour in the society."
+     ],
+     "links_to_other_areas": [
+      "Social studies and Life Skills Education as learners discuss the effects of deviant sexual behaviour in the society."
+     ],
+     "resources": [],
+     "kicd_source": "grade8-islamic-religious-education.pdf#p36"
+    }
+   ]
+  },
+  {
+   "strand": "Muamalat (Social Relations)",
+   "strand_code": "6.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to identify causes of conflict in marriage and describe the mechanism of conflict resolution in marriage",
+     "exceeds": "Identifies causes of conflict in marriage and describes the mechanism of conflict resolution in marriage with illustrations",
+     "meets": "Identifies causes of conflict in marriage and describes the mechanism of conflict resolution in marriage correctly",
+     "approaches": "Identifies causes of conflict in marriage and describes some mechanism of conflict resolution in marriage with a few mix-up",
+     "below": "Identifies causes of conflict in marriage but describes the mechanism of conflict resolution in marriage with major mix-up"
+    },
+    {
+     "indicator": "Ability to explain at-Talaq and Khul’u types of divorce and the effects of divorce",
+     "exceeds": "Explains at-Talaq and Khul’u types of divorce and the effects of divorce correctly and comprehensively",
+     "meets": "Explains at-Talaq and Khul’u types of divorce and the effects of divorce correctly",
+     "approaches": "Explains at-Talaq and Khul’u types of divorce and the effects of divorce leaving out few details",
+     "below": "Explains at-Talaq and Khul’u types of divorce and the effects of divorce leaving out significant details"
+    },
+    {
+     "indicator": "Ability to examine the rules of agreements and contracts and assess their significance",
+     "exceeds": "Examines the rules of agreements and contracts and assesses their significance correctly and cites examples",
+     "meets": "Examines the rules of agreements and contracts and assesses their significance correctly",
+     "approaches": "Examines the rules of agreements and contracts and assesses their significance omitting few details",
+     "below": "Examines the rules of agreements and contracts and assesses their significance of agreements and contracts omitting significant details"
+    },
+    {
+     "indicator": "Ability to describe ways in which human rights are",
+     "exceeds": "Describes ways in which human rights are upheld in Islam and",
+     "meets": "Describes ways in which human rights are upheld in Islam and",
+     "approaches": "Describes ways in which human rights are upheld in Islam",
+     "below": "Describes ways in which human rights are upheld in Islam and assesses the"
+    },
+    {
+     "indicator": "upheld in Islam and assess the significance of safeguarding them",
+     "exceeds": "assesses the significance of safeguarding them correctly and comprehensively",
+     "meets": "assesses the significance of safeguarding them correctly",
+     "approaches": "and assesses the significance of safeguarding them omitting few details",
+     "below": "significance of safeguarding them omitting many details"
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "6.1",
+     "name": "Divorce",
+     "suggested_duration": "4 lessons",
+     "learning_outcomes": [
+      "identify the causes of conflicts in marriage",
+      "describe the mechanism of conflict resolution in marriage",
+      "appreciate the mechanism of conflict resolution in marriage."
+     ],
+     "learning_experiences": [
+      "research on the causes of conflicts in marriage and make notes",
+      "discuss the steps of conflict resolution in marriage with illustrations from the Qur’an and Hadith in groups and make a class presentation",
+      "dramatise conflict resolution mechanisms in marriage."
+     ],
+     "inquiry_questions": [
+      "1. What causes conflicts in marriage?",
+      "2. How can Muslims reduce conflicts in marriage?"
+     ],
+     "core_competencies": [
+      "Critical thinking and problem solving: the skill of interpretation and inference enhanced as learners identify the causes of conflicts and the steps in conflict resolution in marriage.",
+      "Creativity and imagination: the skill of making connections enhanced as learners dramatise conflict resolution mechanisms in marriage.",
+      "Learning to learn: the skill of sharing learned knowledge enhanced as learners discuss the steps of conflict resolution in marriage with illustrations from the Qur’an and Hadith in groups, and make class presentations."
+     ],
+     "values": [
+      "Peace is enhanced as learners research on the causes of conflicts in marriage and make notes.",
+      "Love is enhanced through discussions on the steps of conflict resolution in marriage."
+     ],
+     "pertinent_issues": [
+      "Peace education and social cohesion are enhanced as learners discuss the steps of conflict resolution in marriage."
+     ],
+     "links_to_other_areas": [
+      "Link to other subjects:",
+      "Social Studies and Life Skills as learners discuss the steps of conflict resolution in marriage.",
+      "Creative Arts and Sports as learners dramatise the steps of conflict resolution in marriage."
+     ],
+     "resources": [],
+     "kicd_source": "grade8-islamic-religious-education.pdf#p39"
+    },
+    {
+     "kicd_code": "6.2",
+     "name": "Types of divorce",
+     "suggested_duration": "5 lessons",
+     "learning_outcomes": [
+      "explain at-Talaq and Khul’u types of divorce as provided in the Quran and Hadith",
+      "describe the steps involved in at-Talaq and Khul’u according to Islamic teachings",
+      "explain the effects of divorce in society",
+      "acknowledge divorce as the last resort in marital conflicts."
+     ],
+     "learning_experiences": [
+      "research on at-Talaq and Khul’u types of divorce and make a class presentation",
+      "discuss the steps involved in at-Talaq and Khul’u according to Islamic teachings in groups and present on charts/power points",
+      "listen to a resource person (kadhi/imam) giving a talk on the steps involved in at-Talaq and Khul’u",
+      "research on the effects of divorce and make notes."
+     ],
+     "inquiry_questions": [
+      "1. What are the reasons for khul’u’?",
+      "2. What are the effects of talaq?"
+     ],
+     "core_competencies": [
+      "Learning to learn: enhanced as learners learn independently through listening to a resource person (kadhi/imam) on the steps involved in at-Talaq and Khul’u.",
+      "Communication and collaboration: enhanced as learners speak effectively and engagingly when discussing the steps involved in at-Talaq and Khul’u.",
+      "Critical thinking and problem solving: the skill of interpretation and inferences enhanced as learners listen to a resource person (kadhi/imam) on the steps involved in at-Talaq and Khul’u."
+     ],
+     "values": [
+      "• Social justice is enhanced as learners discuss the steps involved in at-Talaq and Khul’u."
+     ],
+     "pertinent_issues": [
+      "Pertinent and Contemporary Issues: Social cohesion is enhanced as learners discuss the steps involved in at-Talaq and Khul’u. Link to other subjects: Social Studies and Life Skills as learners discuss the mechanisms of conflict resolutions."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade8-islamic-religious-education.pdf#p41"
+    },
+    {
+     "kicd_code": "6.3",
+     "name": "Trade and Finance in Islam",
+     "suggested_duration": "6 lessons",
+     "learning_outcomes": [
+      "examine the rules on agreements and contracts according to Islamic teachings",
+      "assess the significance of agreements and contracts in Islam",
+      "practise the rules of agreement and contracts in trade and finance",
+      "appreciate Islamic rules on agreements and contracts."
+     ],
+     "learning_experiences": [
+      "discuss the rules on agreements and contracts according to Islamic teachings (Q2:282) in groups and present on charts/PowerPoint",
+      "research using digital devices/available reference materials on the significance of agreements and contracts and make notes",
+      "dramatise the rules of agreements and contracts",
+      "discuss the importance of consumer awareness in relation to making agreements and contracts in groups and present in class."
+     ],
+     "inquiry_questions": [
+      "Why are agreements and contracts used in business transactions?"
+     ],
+     "core_competencies": [
+      "Creativity and imagination: the skill of experimenting with different ideas enhanced as learners dramatise the rules of agreements and contracts.",
+      "Digital literacy: the skill of interacting with digital technology enhanced as learners research on the significance of agreements and contracts.",
+      "Citizenship: the skill of initiating and entrepreneurship enhanced as learners discuss the rules on agreements and contracts according to the Islamic teachings (Q2:282) in groups and present in class."
+     ],
+     "values": [
+      "Values: Integrity is enhanced as learners discuss the rules on agreements and contracts. Pertinent and Contemporary Issues:",
+      "Integrity enhanced as learners discuss the rules on agreements and contracts.",
+      "Financial Literacy enhanced as learners discuss the importance of consumer awareness in relation to agreements and contracts. Link to other subjects Pre -Technical Studies as learners research on the significance of agreements and contracts."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade8-islamic-religious-education.pdf#p43"
+    },
+    {
+     "kicd_code": "6.4",
+     "name": "Human Rights",
+     "suggested_duration": "6 lessons",
+     "learning_outcomes": [
+      "describe ways in which human rights are upheld in Islam",
+      "assess the significance of safeguarding human rights",
+      "practise human rights in their day-to-day life",
+      "appreciate human rights as an avenue for justice."
+     ],
+     "learning_experiences": [
+      "research on human rights in groups and make notes",
+      "watch video clips/read/make photo collections on human rights violations and deduce lessons",
+      "discuss the significance of human rights in groups and present on charts/PowerPoint",
+      "research online/collect information from available resources on the role played by government consumer protection agencies (Kenya Bureau of Standards, Competition Authority of Kenya, Central Bank of Kenya, Retirement Benefits Authority of Kenya) in pairs/groups and present on posters/charts",
+      "role-play ways in which economic human rights are",
+      "violated and how to counter them."
+     ],
+     "inquiry_questions": [
+      "1. How can a Muslim advocate for human rights in the 21st century?",
+      "2. What are the benefits of observing human rights?"
+     ],
+     "core_competencies": [
+      "Citizenship: Socio-cultural sensitivity and awareness skills enhanced as learners research on human rights.",
+      "Communication and collaboration: the skills of speaking and listening are enhanced as learners discuss the significance of human rights in groups and present on charts/PowerPoint.",
+      "Learning to learn: the skill of sharing learnt knowledge is enhanced as learners research online/from available resources on the role played by consumer protection agencies (KEBS, CAK, CBK, RBA) in pairs/groups and present on posters/charts."
+     ],
+     "values": [
+      "Social Justice is enhanced as learners research on human rights in groups and make notes.",
+      "Responsibility is enhanced as learners role-play ways in which human rights are violated."
+     ],
+     "pertinent_issues": [
+      "Safety and security education is enhanced as learners watch video clips on human rights violation and deduce lessons.",
+      "Financial Literacy is enhanced as learners discuss the role played by consumer protection agencies in upholding economic rights."
+     ],
+     "links_to_other_areas": [
+      "Social Studies and Pre-Technical Studies are enhanced as learners share on the significance of human rights."
+     ],
+     "resources": [],
+     "kicd_source": "grade8-islamic-religious-education.pdf#p45"
+    }
+   ]
+  },
+  {
+   "strand": "Islamic Heritage and Civilisation",
+   "strand_code": "7.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to describe the administrative features, examine the challenges faced and explain the social, political and economic reforms of the Rightly Guided Caliphs",
+     "exceeds": "Describes the administrative features, examines the challenges faced and explains the social, political and economic reforms of the Rightly Guided Caliphs correctly and comprehensively",
+     "meets": "Describes the administrative features, examines the challenges faced and explains the social, political and economic reforms of the Rightly Guided Caliphs correctly",
+     "approaches": "Describes the administrative features, examines the challenges faced and explains the social, political and economic reforms of the Rightly Guided Caliphs but leaves out few details",
+     "below": "Describes the administrative features, examines the challenges faced and explains the social, political and economic reforms of the Rightly Guided Caliphs but leaves out significant details"
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "7.1",
+     "name": "The Rightly Guided Caliphs",
+     "suggested_duration": "16 lessons",
+     "learning_outcomes": [
+      "describe the administrative features of the Rightly Guided Caliphs as role models in leadership",
+      "examine the challenges faced by the Rightly Guided Caliphs",
+      "explain the social, political and economic reforms of the Rightly Guided Caliphs to appreciate their contribution to Islam",
+      "emulate the character of the Rightly Guided Caliphs to earn",
+      "rewards from Allah (S.W.T.)",
+      "appreciate the role of the Rightly Guided Caliphs in Islamic heritage."
+     ],
+     "learning_experiences": [
+      "research on the administrative features of Caliphs Abubakar (R.A.), Umar (R.A.), Uthman (R.A.) and Ali (R.A.) in pairs/groups and make a class presentation",
+      "discuss the challenges faced by Caliphs Abubakar (R.A.), Uthman (R.A.), Umar (R.A.) and Ali (R.A.) and make notes",
+      "research on the reforms of Caliphs Abubakar (R.A.), Uthman (R.A.), Umar (R.A.) and Ali (R.A.) and present on charts/PowerPoint",
+      "research online/from available reference materials on the socio-economic reforms introduced by the Rightly Guided Caliphs (R.A.) during their reigns (quality of goods and services, quantity, safety, scarcity, overpricing, counterfeit, terms and conditions",
+      "standardisation marks of quality, product ingredients and expiry dates) and present in class",
+      "discuss Islamic market competitions as introduced by the rightly guided Caliphs in groups and present in class."
+     ],
+     "inquiry_questions": [
+      "1. What do Muslims learn from the challenges faced by the Rightly Guided Caliphs?",
+      "2. How do Muslims benefit from the leadership of Rightly Guided Caliphs?"
+     ],
+     "core_competencies": [
+      "Citizenship: Social and civic skills enhanced as learners research on the reforms of Caliphs Abubakar (R.A.), Uthman (R.A.), Umar (R.A.), and Ali (R.A.) and present on charts/PowerPoint.",
+      "Learning to learn: the skill of research is enhanced as learners research on the administrative features of Caliphs Abubakar (R.A.), Umar (R.A.), Uthman (R.A.), and Ali (R.A.) in pairs and make class presentations.",
+      "Self-efficacy: the skill of effective communication enhanced as learners discuss Islamic market competitions in groups and present in class."
+     ],
+     "values": [
+      "Social Justice is enhanced as learners research online/from available reference materials on the economic reforms introduced by Caliph Umar (R.A.) during his reign and present in class.",
+      "Patriotism is enhanced as learners research on the administrative features of Caliphs Abubakar (R.A.), Umar (R.A.), Uthman (R.A.) and Ali (R.A.)."
+     ],
+     "pertinent_issues": [
+      "Patriotism and good governance as learners research on the reforms of Caliphs Abubakar (R.A.), Uthman (R.A.), Umar (R.A.) and Ali (R.A.).",
+      "Financial literacy as learners discuss Islamic market competitions in groups and present in class."
+     ],
+     "links_to_other_areas": [
+      "Pre-Technical Studies as learners discuss Islamic market competitions in groups and present in class."
+     ],
+     "resources": [],
+     "kicd_source": "grade8-islamic-religious-education.pdf#p49"
+    }
+   ]
+  }
+ ]
+}

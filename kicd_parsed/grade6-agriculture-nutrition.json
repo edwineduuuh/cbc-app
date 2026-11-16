@@ -1,0 +1,482 @@
+{
+ "source_pdf": "grade6-agriculture-nutrition.pdf",
+ "grade": 6,
+ "subject": "agriculture-nutrition",
+ "general_outcomes": [
+  "By the end of the Primary Education, the learner should be able to:",
+  "Participate actively in agricultural and household activities in conservation of resources.",
+  "Use scarce resources through innovative practices to contribute towards food and nutrition security.",
+  "Engage in food production processes for self-sustainability, health and economic development.",
+  "Adopt personal and environmental hygiene practices for healthy living.",
+  "Apply the use of appropriate production techniques, innovative technologies, digital and media resources to enhance sustainable agricultural and household practices.",
+  "Appreciate agricultural and household skills as a worthy niche for hobby, career development, further education and training."
+ ],
+ "strands": [
+  {
+   "strand": "Conservation of Resources",
+   "strand_code": "1.0",
+   "assessment_rubric": [],
+   "substrands": [
+    {
+     "kicd_code": "1.1",
+     "name": "Controlling Soil Erosion",
+     "suggested_duration": "11 lessons",
+     "learning_outcomes": [
+      "Describe types of soil erosion in the environment",
+      "Control soil erosion in the environment",
+      "Appreciate importance of conserving soil."
+     ],
+     "learning_experiences": [
+      "Learners are guided to:",
+      "Watch video clip or photographs or visit to observe types of soil erosion.",
+      "Demonstrate how to control various types of soil erosion (gulley, rill, splash and sheet erosion).",
+      "Discuss and make class presentations on importance of controlling soil erosion to conserve soil in their environment.",
+      "Develop problem solving skills while demonstrating soil erosion control; patriotism as they show concern for environmental conservation in the community"
+     ],
+     "inquiry_questions": [
+      "How does erosion control conserve the environment?"
+     ],
+     "core_competencies": [
+      "Critical thinking and problem solving: evaluation and decision making skills as learners explore appropriate ways of controlling soil erosion."
+     ],
+     "values": [
+      "Responsibility: proactively solving problems by taking appropriate measures to control soil erosion."
+     ],
+     "pertinent_issues": [
+      "Environmental awareness as learners undertake control of soil erosion in the school environment."
+     ],
+     "links_to_other_areas": [
+      "Link to other subjects: Learners relate control of soil erosion to knowledge on conservation of natural resources learnt in Social Studies."
+     ],
+     "resources": [],
+     "kicd_source": "grade6-agriculture-nutrition.pdf#p10"
+    },
+    {
+     "kicd_code": "1.2",
+     "name": "Conserving Water: Seedbeds",
+     "suggested_duration": "11 lessons",
+     "learning_outcomes": [
+      "Identify types of seedbeds that conserve soil moisture",
+      "Prepare different types of seedbeds that conserve soil moisture",
+      "Appreciate importance of conserving moisture in a seedbed to increase chances of plants growth."
+     ],
+     "learning_experiences": [
+      "Learners are guided to:",
+      "Watch video clips, photographs, visit sites or on various types of seedbeds that conserve moisture such as sunken bed, moisture bed, and shallow pits.",
+      "Prepare seedbeds that conserve moisture (sunken seedbed and shallow pit).",
+      "Utilize the sunken seedbed and shallow pits to appreciate the importance moisture conservation.",
+      "Develop problem solving skills as they conserve soil moisture; value of social justice while sharing tasks; and awareness that water is a scarce resource in the environment"
+     ],
+     "inquiry_questions": [
+      "How can we prepare a seedbed to conserve moisture?"
+     ],
+     "core_competencies": [
+      "Critical thinking and problem solving: open mindedness and creativity as learners look for possibilities for conserving soil moisture."
+     ],
+     "values": [
+      "Social justice: fairness and justice as learners share tasks and responsibilities in preparation of seedbeds."
+     ],
+     "pertinent_issues": [
+      "Conservation of resources as learners conserve water through preparation of water conserving seedbeds."
+     ],
+     "links_to_other_areas": [
+      "Learners relate conservation of soil moisture to farming activities learnt in social studies."
+     ],
+     "resources": [],
+     "kicd_source": "grade6-agriculture-nutrition.pdf#p12"
+    },
+    {
+     "kicd_code": "1.3",
+     "name": "Conserving wild animals: Using Physical Deterrents",
+     "suggested_duration": "10 lessons",
+     "learning_outcomes": [
+      "Identify deterrents that can keep off from crop and domestic animals",
+      "Establish deterrents to keep off wild animals from destroying crops and domestic animals",
+      "Acknowledge the importance of deterrents in conserving wild animals in safeguarding crops and domestic animals."
+     ],
+     "learning_experiences": [
+      "Learners are guided to:",
+      "Search for information on physical deterrents search such as mesh fences, thorny fences, safe traps, innovative lights, innovative sounds, and deflectors.",
+      "Select and establish a deterrent applicable in their local context.",
+      "Discuss with a resource person on the use of physical deterrents to acknowledge the importance of conserving wild animals in safeguarding crops and domestic animals.",
+      "Develop creativity skills in determining an applicable deterrent to solve animal menace; compassion and care for the wild animals; and skills for animal protection to conserve biodiversity."
+     ],
+     "inquiry_questions": [
+      "How can wild animals be kept away from crops and domestic animals?"
+     ],
+     "core_competencies": [
+      "Creativity and imagination: exploration skills as learners seek new ideas to establish physical deterrents against wild animals that destroy crops and domestic animals."
+     ],
+     "values": [
+      "Patriotism: consciousness of social and moral duties to conserve wild animals and promote biodiversity."
+     ],
+     "pertinent_issues": [
+      "Protection of biodiversity against extinction by deterring them without killing them."
+     ],
+     "links_to_other_areas": [
+      "Learners relate conservation of wild animals through use of deterrents to knowledge on importance of wildlife learnt in social studies."
+     ],
+     "resources": [],
+     "kicd_source": "grade6-agriculture-nutrition.pdf#p13"
+    },
+    {
+     "kicd_code": "",
+     "name": "Exceeds expectation",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Describes three ways (soil erosion control, water conserving seedbed, physical deterrents to control wild animals) of conserving resources.",
+      "Carries out conservation of resources using three ways (soil erosion control, water",
+      "conserving seedbed, physical deterrents to control wild animals).",
+      "Exhibits three indicators of patriotism (effort to serve school community, obey group norms, aware of own responsibility) in conserving resources."
+     ],
+     "learning_experiences": [
+      "Approaches expectation",
+      "Describes at least two ways (soil erosion control, water conserving seedbed, physical deterrents to control wild animals) of conserving resources.",
+      "Carries out conservation of resources using at least two ways (soil erosion control, water conserving seedbed, physical",
+      "deterrents to control wild animals).",
+      "Exhibits at least two indicators of patriotism (effort to serve school community, obey group norms, aware of own responsibility) in conserving resources."
+     ],
+     "inquiry_questions": [
+      "Below expectation",
+      "Describes less than two ways (soil erosion control, water conserving seedbed, physical deterrents to control wild animals) of conserving resources.",
+      "Carries out conservation of resources using less two ways (soil erosion control, water conserving seedbed, physical",
+      "deterrents to control wild animals).",
+      "Exhibits less than two indicators of patriotism (effort to serve school community, obey group norms, aware of own responsibility) in conserving resources."
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade6-agriculture-nutrition.pdf#p14"
+    }
+   ]
+  },
+  {
+   "strand": "Food Production Processes",
+   "strand_code": "2.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to describe food production processes",
+     "exceeds": "Describes three food production processes (rearing domestic animals, preserving fruits and vegetables, cooking by stewing and baking foods) with illustrative details.",
+     "meets": "Describes three food production processes (rearing domestic animals, preserving fruits and vegetables, cooking by stewing and baking foods).",
+     "approaches": "Describes two food production processes (rearing domestic animals, preserving fruits and vegetables, cooking by stewing and baking foods).",
+     "below": "Describes less than two food production processes (rearing domestic animals, preserving fruits and vegetables, cooking by stewing and baking foods)."
+    },
+    {
+     "indicator": "Ability to carry out",
+     "exceeds": "Carries out conservation of resources using three ways (soil erosion control, water conserving seedbed, physical deterrents to control wild animals) through both conventional and innovative practices.",
+     "meets": "Carries out conservation of resources using three ways (soil erosion control, water conserving seedbed, physical deterrents to control wild animals).",
+     "approaches": "Carries out conservation of resources using at least two ways (soil erosion control, water conserving seedbed, physical deterrents to control wild animals).",
+     "below": "Carries out conservation of resources using less two ways (soil erosion control, water conserving seedbed, physical deterrents to control wild animals)."
+    },
+    {
+     "indicator": "Exhibits patriotism in conservation of resources.",
+     "exceeds": "Exhibits more than three indicators of patriotism (effort to serve school community, obey group norms, aware of own responsibility) in conserving resources.",
+     "meets": "Exhibits three indicators of patriotism (effort to serve school community, obey group norms, aware of own responsibility) in conserving resources.",
+     "approaches": "Exhibits at least two indicators of patriotism (effort to serve school community, obey group norms, aware of own responsibility) in conserving resources.",
+     "below": "Exhibits less than two indicators of patriotism (effort to serve school community, obey group norms, aware of own responsibility) in conserving resources."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "2.1",
+     "name": "Rearing Small Domestic Animals",
+     "suggested_duration": "12 lessons",
+     "learning_outcomes": [
+      "Explain routine practices in rearing of small domestic animals",
+      "Rear small domestic animals used as sources of food",
+      "Embrace the rearing of small domestic animals used as sources of food."
+     ],
+     "learning_experiences": [
+      "Learners are guided to:",
+      "Share experiences on routine practices in rearing of small domestic animals.",
+      "Rear small domestic animal such as rabbits and guinnea pig to practice routine practices such as housing, feeding, watering, sanitation and parasite control.",
+      "Develop self-realization and confidence as they rear small domestic animals; integrity in fair allocation of resources and tasks; and observe animal welfare while handling the animals in the rearing project."
+     ],
+     "inquiry_questions": [
+      "How does rearing of animal contribute to food production?"
+     ],
+     "core_competencies": [
+      "Self-efficacy: self-realization and confidence as learners rear small domestic animals such as rabbits for food production."
+     ],
+     "values": [
+      "Integrity: fairness in allocation of resources and tasks in the project for rearing small domestic animals."
+     ],
+     "pertinent_issues": [
+      "Animal welfare in the handling and caring for small domestic animals."
+     ],
+     "links_to_other_areas": [
+      "Learners relate rearing of small domestic animals to knowledge of farming as a socio-economic activity learnt in social studies."
+     ],
+     "resources": [],
+     "kicd_source": "grade6-agriculture-nutrition.pdf#p16"
+    },
+    {
+     "kicd_code": "2.2",
+     "name": "Preserving Crop Products: Fruits and Vegetables",
+     "suggested_duration": "11 lessons",
+     "learning_outcomes": [
+      "Describe how to preserve and store fruits and vegetables at home",
+      "Preserve fruits and vegetables using drying method",
+      "Adopt preservation and storage of fruits and vegetables to reduce food wastage."
+     ],
+     "learning_experiences": [
+      "Learners are guided to:",
+      "Watch video clips or listen to resource person and share experiences on how to preserve fruits and vegetables using sun-drying methods.",
+      "Preserve fruits or vegetables using drying method.",
+      "Adopt preservation and storage of fruits and vegetables at home to reduce food wastage.",
+      "Develop problem solving skills as they preserve fruits and vegetables to reduce wastage; integrity by observing hygienic and safe methods of preservation; and food security as a social concern to ensure constant supply of fruits and vegetables."
+     ],
+     "inquiry_questions": [
+      "How does preservation of fruits and vegetables enhance food security?"
+     ],
+     "core_competencies": [
+      "Critical thinking and problem solving: evaluation and decision making skills as learners explore ways of preserving fruits and vegetables to prevent spoilage."
+     ],
+     "values": [
+      "Integrity: choosing to do the right thing and being honest by observing ethical, hygienic and safe methods of preserving fruits and vegetables."
+     ],
+     "pertinent_issues": [
+      "Food and nutrition security as learners preserve fruits and vegetables to avoid spoilage."
+     ],
+     "links_to_other_areas": [
+      "Link to other subjects: Learners relate the preserved parts of fruits and vegetables to the parts of plant learnt in science and technology."
+     ],
+     "resources": [],
+     "kicd_source": "grade6-agriculture-nutrition.pdf#p17"
+    },
+    {
+     "kicd_code": "2.3",
+     "name": "Stewing and Baking Food",
+     "suggested_duration": "13 lessons",
+     "learning_outcomes": [
+      "Describe stewing and baking as methods of cooking",
+      "Cook food using stewing and baking methods",
+      "Embrace stewing and baking in food production."
+     ],
+     "learning_experiences": [
+      "Learners are guided to:",
+      "Watch video clip or demonstration on stewing and baking methods of cooking.",
+      "Cook and serve foods prepared through stewing and baking (rubbing-in method).",
+      "Develop learning to learn while working cautiously to stewing and baking processes; responsibility by following cooking steps; and observe safety measures while working with fire and steam."
+     ],
+     "inquiry_questions": [
+      "1. How can we cook foods using baking methods?",
+      "2. How can we cook foods using stewing methods?"
+     ],
+     "core_competencies": [
+      "Learning to learn: reflection of own learning to apply stewing and baking of foods."
+     ],
+     "values": [
+      "Integrity: prudent use of resources and application of laid down procedure in stewing and baking foods."
+     ],
+     "pertinent_issues": [
+      "Safety of self and others while working with fire and steam in cooking foods."
+     ],
+     "links_to_other_areas": [
+      "Learners relate measuring of ingredients for baking to measurement of weights learnt in Mathematics."
+     ],
+     "resources": [],
+     "kicd_source": "grade6-agriculture-nutrition.pdf#p19"
+    }
+   ]
+  },
+  {
+   "strand": "Hygiene Practices",
+   "strand_code": "3.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to describe hygiene practices that enhance appearance.",
+     "exceeds": "Describes two hygiene practices (body cleanliness and stain removal) with elaborate details.",
+     "meets": "Describes two hygiene practices (body cleanliness and stain removal) that enhance appearance.",
+     "approaches": "Describes one hygiene practice (body cleanliness and stain removal) that enhance appearance.",
+     "below": "Partially describes hygiene practices (body cleanliness and stain removal) that enhance appearance."
+    },
+    {
+     "indicator": "Ability to apply hygiene practices that enhance appearance",
+     "exceeds": "Applies two hygiene practices (body cleanliness and stain removal) with attention to details.",
+     "meets": "Applies two hygiene practices (body cleanliness and stain removal) that enhance appearance.",
+     "approaches": "Applies one hygiene practice (body cleanliness or stain removal) that enhance appearance.",
+     "below": "Applies one hygiene practice (body cleanliness or stain removal) with specific guidance."
+    },
+    {
+     "indicator": "Ability to demonstrate responsibility in applying hygiene practices that enhance appearance.",
+     "exceeds": "Demonstrates three aspects of responsibility (care for own items, proactively solve problems and respecting other person’s items) while practicing hygiene and shows qualities of leadership in tasks.",
+     "meets": "Demonstrates three aspects of responsibility (care for own items, proactively solve problems and respecting other person’s items) while practicing hygiene.",
+     "approaches": "Demonstrates two aspects of responsibility (care for own items, proactively solve problems and respecting other person’s items) while practicing hygiene.",
+     "below": "Demonstrates less than two aspects of responsibility (care for own items, proactively solve problems and respecting other person’s items) while practicing hygiene."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "3.1",
+     "name": "Body Cleanliness",
+     "suggested_duration": "9 lessons",
+     "learning_outcomes": [
+      "Describe practices that enhance body cleanliness as habits",
+      "Adopt body cleanliness as a health routine.",
+      "Recognize importance of body cleanliness as a healthy habit."
+     ],
+     "learning_experiences": [
+      "Learners are guided to:",
+      "Discuss and share experiences on body cleanliness practices (managing sweat, acnes and pimples, menstrual hygiene and care of pubic parts) that enhance personal hygiene.",
+      "Embrace applicable good routines that suit their body cleanliness",
+      "Discuss the importance of body cleanliness as a healthy habit.",
+      "Develop self-confidence while maintaining personal cleanliness; tolerance for others while appreciating their differences; and promote preventive health by adopting body cleanliness practices."
+     ],
+     "inquiry_questions": [
+      "How does body cleanliness enhance personal hygiene?"
+     ],
+     "core_competencies": [
+      "Self-efficacy: self-confidence skills while learners maintain personal cleanliness as a health habit."
+     ],
+     "values": [
+      "Peace: tolerance for others while learners appreciate their personal and preferential differences relating to body cleanliness."
+     ],
+     "pertinent_issues": [
+      "Personal hygiene as learners adopt body cleanliness practices."
+     ],
+     "links_to_other_areas": [
+      "Learners relate body cleanliness as a healthy habit to knowledge of growth and development learnt in science and technology."
+     ],
+     "resources": [],
+     "kicd_source": "grade6-agriculture-nutrition.pdf#p21"
+    },
+    {
+     "kicd_code": "3.2",
+     "name": "Laundry: Stain Removal",
+     "suggested_duration": "12 lessons",
+     "learning_outcomes": [
+      "Identify common stains on clothing and household articles",
+      "Remove common stains from clothing and household articles",
+      "Adopt stain removal for personal hygiene."
+     ],
+     "learning_experiences": [
+      "Learners are guided to:",
+      "Use digital resources and sample articles to identify common stains (blood and grass) on clothing and household articles.",
+      "Carry out removal of common stains (blood and grass) on clothing and household articles.",
+      "Practise and adopt stain removal for personal hygiene.",
+      "Demonstrate learning to learn as they adopt different ways of removing stains; responsibility as they take care of their clothes; and personal hygiene as they maintain cleanliness.",
+      "Suggested learning experiences"
+     ],
+     "inquiry_questions": [
+      "How does stain removal enhance personal hygiene?",
+      "Suggested key inquiry questions"
+     ],
+     "core_competencies": [
+      "Learning to learn: researching skills as learners identify and use different ways of removing stains."
+     ],
+     "values": [
+      "Responsibility: proactive engagement skills by removing stains to maintain cleanliness."
+     ],
+     "pertinent_issues": [
+      "Personal hygiene as learners maintain cleanliness by removing stains from their clothes."
+     ],
+     "links_to_other_areas": [
+      "Link to other subjects:"
+     ],
+     "resources": [],
+     "kicd_source": "grade6-agriculture-nutrition.pdf#p22"
+    }
+   ]
+  },
+  {
+   "strand": "Production Techniques",
+   "strand_code": "4.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to explain production techniques.",
+     "exceeds": "Explains two production techniques (crocheting in construction of clothing and construction of moist bed garden) with illustrative details.",
+     "meets": "Explains two production techniques (crocheting in construction of clothing and construction of moist bed garden).",
+     "approaches": "Explains one production techniques (crocheting in construction of clothing and construction of moist bed garden).",
+     "below": "Explains production techniques (crocheting in construction of clothing and construction of moist bed garden) with partial details."
+    },
+    {
+     "indicator": "Ability to use production techniques.",
+     "exceeds": "Uses two production techniques (item making by crocheting and construction of moist bed garden) with creative and innovative approaches.",
+     "meets": "Uses two production techniques (item making by crocheting and construction of moist bed garden).",
+     "approaches": "Uses one production technique (item making by crocheting and construction of moist bed garden).",
+     "below": "Uses production techniques (item making by crocheting and construction of moist bed garden) with outputs that require improvement."
+    },
+    {
+     "indicator": "Ability to demonstrate integrity in production.",
+     "exceeds": "Demonstrates more than three aspects of integrity (applies expected procedure, prudently uses resources and",
+     "meets": "Demonstrates three aspects of integrity (applies expected procedure, prudently uses resources and shows honesty) in the",
+     "approaches": "Demonstrates two aspects of integrity (applies expected procedure, prudently uses resources and shows honesty) in the production techniques.",
+     "below": "Demonstrates less than two aspects of integrity (applies expected procedure, prudently uses resources and shows"
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "4.1",
+     "name": "Crocheting of PPEs",
+     "suggested_duration": "16 lessons",
+     "learning_outcomes": [
+      "Identify crocheting stitches in making household article.",
+      "Use crocheting stitches to make a household article",
+      "Adopt use of crocheting stiches in making household articles."
+     ],
+     "learning_experiences": [
+      "Learners are guided to:",
+      "Observe a demonstration by resource person, video clip or photographs to identify crocheting stitches (single and double crochet stitches) in making household article.",
+      "Use (single or double crochet stitches) to make articles such as personal protective equipment, mat, cleaning rug, and surface wipers.",
+      "Adopt use of crocheting stiches in making household articles used in their daily routines.",
+      "Develop creativity skills as they construct items using crocheting skills, integrity in the prudent use of resources; and financial literacy as they reduce expenses by constructing personal protective equipment.",
+      "Suggested learning experiences"
+     ],
+     "inquiry_questions": [
+      "How can crocheting solve daily problems?",
+      "Suggested key inquiry questions"
+     ],
+     "core_competencies": [
+      "Creativity and imagination: originality skills as learners develop crocheted PPE."
+     ],
+     "values": [
+      "Integrity: prudent use of resources as the learners make household articles using crocheting stitches."
+     ],
+     "pertinent_issues": [
+      "Pertinent and contemporary issues:"
+     ],
+     "links_to_other_areas": [
+      "Learners relate construction of PPEs by use of crocheting to artistic skills learnt in creative art."
+     ],
+     "resources": [],
+     "kicd_source": "grade6-agriculture-nutrition.pdf#p24"
+    },
+    {
+     "kicd_code": "4.2",
+     "name": "Constructing Moist Bed Garden",
+     "suggested_duration": "15 lessons",
+     "learning_outcomes": [
+      "Explain the meaning of moist bed garden",
+      "Construct a moist bed garden for growing a selected crop",
+      "Embrace the use of moist bed garden in growing crops."
+     ],
+     "learning_experiences": [
+      "Learners are guided to:",
+      "Search and share information on the meaning of moist bed garden.",
+      "Construct a moist bed (sunken or raised moist bed) using locally available materials.",
+      "Establish and grow a crop of their choice on a moist bed garden.",
+      "Develop communication skills as they search and share information on moist bed garden; respect while sharing the information; and environmental conservation skills by reusing locally available materials to construct moist bed gardens."
+     ],
+     "inquiry_questions": [
+      "How can construct a moist bed gardens to grow crops?"
+     ],
+     "core_competencies": [
+      "Communication and collaboration: team work as learners share information on moist bed garden."
+     ],
+     "values": [
+      "Respect: appreciation of diverse opinion as learners share information on moist bed garden."
+     ],
+     "pertinent_issues": [
+      "Environmental conservation as learners use locally available materials to construct moist bed garden."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade6-agriculture-nutrition.pdf#p25"
+    }
+   ]
+  }
+ ]
+}

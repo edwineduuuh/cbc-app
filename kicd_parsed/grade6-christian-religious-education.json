@@ -1,0 +1,1045 @@
+{
+ "source_pdf": "grade6-christian-religious-education.pdf",
+ "grade": 6,
+ "subject": "christian-religious-education",
+ "general_outcomes": [
+  "Demonstrate an awareness of God as a loving father and sole Creator by following His teachings.",
+  "Recognize the Bible as a Holy Book by respecting it and living by its teachings.",
+  "Apply the teachings of Jesus Christ in his/her interaction with others to form harmonious relationships.",
+  "Utilise Christian values and principles to make informed moral decisions in day-to-day life.",
+  "Recognise the role of the church in transforming the lives of both young and old people in the society.",
+  "Utilise digital devices and social media platforms appropriately for responsible living.",
+  "Desire to be God fearing Christians who are spiritually, intellectually and morally sound."
+ ],
+ "strands": [
+  {
+   "strand": "Creation",
+   "strand_code": "1.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to explain the teachings of the Bible on the use of talents/abilities",
+     "exceeds": "Explains the teachings of the Bible on the use of talents and abilities and cites relevant examples",
+     "meets": "Explains the teaching of the Bible on the use of talents and abilities",
+     "approaches": "Explains some teachings of the Bible on the use of talents and abilities",
+     "below": "Explains the teaching of the Bible on the use of talents and abilities with assistance"
+    },
+    {
+     "indicator": "Ability to discuss reasons for discouraging early marriages in the society today",
+     "exceeds": "Discusses reasons for discouraging early marriages in the society today in details",
+     "meets": "Discusses reasons for discouraging early marriages in the society today",
+     "approaches": "Discusses reasons for discouraging early marriages in the society today but omits minor details",
+     "below": "Discusses reasons for discouraging early marriages in the society today but omits major details"
+    },
+    {
+     "indicator": "Ability to explain biblical teachings on good use of leisure",
+     "exceeds": "Explains biblical teachings on good use of leisure citing relevant examples",
+     "meets": "Explains biblical teachings on good use of leisure",
+     "approaches": "Partially explains biblical teachings on good use of leisure",
+     "below": "Explains biblical teachings on good use of leisure when prompted"
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "1.2",
+     "name": "Marriage and Family",
+     "suggested_duration": "4 lessons",
+     "learning_outcomes": [
+      "explain the biblical teachings on marriage and family",
+      "discuss the negative results of early marriage",
+      "identify values needed to avoid early marriage",
+      "desire to uphold Christian values to avoid early marriage."
+     ],
+     "learning_experiences": [
+      "brainstorm on the meaning of the word, ‘marriage ’",
+      "share experiences of how they relate with other members of their families",
+      "use a digital device or a chart to write messages on how families should relate with each other",
+      "in groups, role play how a Christian family should relate with each other",
+      "in pairs, read Genesis 2:21-24 and discuss what the Bible teaches about marriage",
+      "discuss collaboratively why early marriages should be discouraged in the society today",
+      "list values that young people should uphold to avoid early marriage",
+      "• develop posters with messages discouraging early marriages"
+     ],
+     "inquiry_questions": [
+      "Why is marriage an important institution?"
+     ],
+     "core_competencies": [
+      "Communication and collaboration: the skill of teamwork is enhanced as learners work collaboratively to write messages discouraging early marriages.",
+      "Digital literacy: the skill of connecting and using technology is exhibited as learners use digital devices to write messages on how families should relate with each other."
+     ],
+     "values": [
+      "Unity is nurtured as learners discuss in small groups why early marriages should be discouraged in the society today."
+     ],
+     "pertinent_issues": [
+      "Social cohesion: living together in harmony is enhanced as learners brainstorm on the meaning of marriage.",
+      "Children rights and Human Sexuality: human rights/children rights are enhanced as learners recognise that early marriages are an abuse for human rights."
+     ],
+     "links_to_other_areas": [
+      "English: reading skills are enhanced as learners read, discuss and write messages discouraging early marriages today.",
+      "Science and Technology: learners use digital devices to write messages on how families should relate with each other."
+     ],
+     "resources": [],
+     "kicd_source": "grade6-christian-religious-education.pdf#p17"
+    },
+    {
+     "kicd_code": "1.3",
+     "name": "Leisure",
+     "suggested_duration": "4 lessons",
+     "learning_outcomes": [
+      "describe the biblical teaching on God’s rest",
+      "explain biblical teachings on good use of leisure",
+      "describe how youths misuse leisure time today",
+      "identify values needed for appropriate use of leisure time",
+      "desire to use leisure time responsibly."
+     ],
+     "learning_experiences": [
+      "brainstorm on the meaning of the word, ‘leisure.’",
+      "share with a classmate how they use their leisure time",
+      "list different activities they do during their leisure time",
+      "read Genesis 2:1-3 and state why God rested",
+      "read 1Timothy 5:13 and state the importance of leisure time",
+      "list ways in which youths misuse leisure time today",
+      "list values which can help youths to use leisure time well",
+      "write a reflection journal on positive ways of spending leisure time."
+     ],
+     "inquiry_questions": [
+      "How can youths avoid misuse of leisure time?"
+     ],
+     "core_competencies": [
+      "Learning to learn: the skill of reflection on own learning is enhanced as learners write a reflection journal on positive ways of spending leisure time.",
+      "Communication and collaboration: the skill of speaking clearly and effectively is enhanced as learners discuss values"
+     ],
+     "values": [
+      "Values:",
+      "Patriotism: learners dedicate their leisure time on carrying out positive activities in the society.",
+      "Integrity: learner displays honesty as one of the values which can help them use leisure time appropriately. Links to other learning areas:",
+      "English: reading skills are enhanced as learners read the Bible and outline the importance of leisure time."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade6-christian-religious-education.pdf#p19"
+    }
+   ]
+  },
+  {
+   "strand": "Creation Talents and Abilities",
+   "strand_code": "1.0",
+   "assessment_rubric": [],
+   "substrands": [
+    {
+     "kicd_code": "1.1",
+     "name": "My purpose",
+     "suggested_duration": "4 lessons",
+     "learning_outcomes": [
+      "discuss how they use their God given talents and abilities",
+      "explain biblical teachings on the use of talents and abilities",
+      "identify values required to nurture talents and abilities",
+      "utilise God given talents and abilities to serve others."
+     ],
+     "learning_experiences": [
+      "list the different talents and abilities they possess",
+      "discuss how they use their God given talents and abilities",
+      "participate in different activities to nurture their talents and abilities",
+      "in turns read Exodus 31:3 and share what they have learnt",
+      "read Romans 12:4 and discuss lessons learnt",
+      "list values that can help them develop and sustain their God given talents and abilities",
+      "use their God given talents and abilities to serve others",
+      "compose a poem on, ‘how I use my talents and abilities.’"
+     ],
+     "inquiry_questions": [
+      "How do you use your God given talents and abilities?"
+     ],
+     "core_competencies": [
+      "• Communication and collaboration: the skill of speaking clearly and effectively is portrayed as learners discuss how they"
+     ],
+     "values": [
+      "Values:",
+      "Responsibility: is nurtured as learners take up assigned roles and duties to serve others.",
+      "Unity: is enhanced as learners discuss in pairs how they use their talents and abilities. Pertinent and Contemporary Issues:",
+      "Social cohesion is portrayed as learners role play use of different talents and abilities in serving others. Links to other learning areas:",
+      "English: communication skills are enhanced as learners read and participate in class discussions.",
+      "Creative Arts: creative skills are applied as learners compose a poem on ‘‘how I use my talents and abilities.’"
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade6-christian-religious-education.pdf#p15"
+    }
+   ]
+  },
+  {
+   "strand": "The Bible",
+   "strand_code": "2.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to name three authors who wrote the Bible",
+     "exceeds": "Identifies more than three authors who wrote the Bible",
+     "meets": "Identifies three authors who wrote the Bible",
+     "approaches": "Identifies two authors who wrote the Bible",
+     "below": "Identifies one author who wrote the Bible"
+    },
+    {
+     "indicator": "Ability list the Ten Commandments and their importance",
+     "exceeds": "Lists the Ten Commandments and their importance in details",
+     "meets": "Lists the Ten Commandments and their importance",
+     "approaches": "Lists the Ten Commandments and their importance but leaves minor details",
+     "below": "Lists the Ten Commandments and their importance but leaves major details"
+    },
+    {
+     "indicator": "Ability to outline lessons learnt from the Bible stories",
+     "exceeds": "In details outlines lessons learnt from the Bible stories",
+     "meets": "Outlines lessons learnt from the Bible stories",
+     "approaches": "Outlines lessons learnt from the Bible stories but omits minor details",
+     "below": "Outlines lessons learnt from the Bible stories but omits major details"
+    },
+    {
+     "indicator": "Ability to identify values learnt from the Bible stories",
+     "exceeds": "Constantly identifies values learnt from the Bible stories",
+     "meets": "Identifies values learnt from the Bible stories",
+     "approaches": "Sometimes identifies values learnt from the Bible stories",
+     "below": "Identifies values learnt from the Bible stories when prompted"
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "2.1",
+     "name": "Inspired Word of God",
+     "suggested_duration": "4 lessons",
+     "learning_outcomes": [
+      "explain why the Bible is the inspired word of God",
+      "name three authors who wrote the bible",
+      "discuss reasons that led to translation of the Bible into local languages",
+      "outline the advantages of translating the Bible into local languages",
+      "read the Bible always to get spiritual nourishment."
+     ],
+     "learning_experiences": [
+      "brainstorm on the meaning of , ‘Bible is the inspired word of God.’",
+      "compose and sing a song on ‘the Bible as an inspired Word of God ’",
+      "read 2 Timothy 3:16-17 and explain the meaning of the text",
+      "name authors who were inspired to write the Old and New Testament",
+      "use digital devices to search for reasons that led to translation of the Bible to local languages",
+      "identify the advantages of translating the Bible into local languages"
+     ],
+     "inquiry_questions": [
+      "Why is the Bible different from other books?"
+     ],
+     "core_competencies": [
+      "Communication and collaboration: the skill of team work is enhanced as learners in groups identify the advantages of the translation of the Bible into local languages.",
+      "Imagination and creativity: the skill of originality is enhanced as learners compose and sing a song on ‘the Bible as an inspired Word.",
+      "Digital literacy: the skill of interacting with digital technology is enhanced as learners use digital devices to perform"
+     ],
+     "values": [
+      "Values: Respect: learners accept and appreciate opinions of others as they discuss in groups the advantages of translating the Bible into local languages . Link to other learning areas:",
+      "Creative Arts: creative skills are applied as learners compose and sing a song on, ‘the Bible as an inspired Word.’",
+      "Science and technology skills are applied as learners use digital devices to search for reasons that led to translation of the Bible into local languages."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade6-christian-religious-education.pdf#p22"
+    },
+    {
+     "kicd_code": "2.2",
+     "name": "The Ten Commandments",
+     "suggested_duration": "4 lessons",
+     "learning_outcomes": [
+      "outline the Ten Commandments and their importance",
+      "identify values and life skills found in the Ten commandments",
+      "outline lessons learnt from the Ten Commandments",
+      "appreciate the importance of obeying the Ten Commandments."
+     ],
+     "learning_experiences": [
+      "team up to brainstorm on the meaning of the word, ‘Commandment’",
+      "read Exodus 20:3-17 and list the Ten commandments",
+      "discuss how the Ten commandments help Christians live well with God and others",
+      "discuss with peers the values and life skills found in the ten commandments",
+      "discuss lessons learnt from the Ten Commandments",
+      "design a poster or a chart and write the Ten Commandments; display the chart at the CRE learning corner",
+      "watch a video clip of Moses and the Ten Commandments e"
+     ],
+     "inquiry_questions": [
+      "Why should you obey the Ten Commandments?"
+     ],
+     "core_competencies": [
+      "Core Competences to be developed:"
+     ],
+     "values": [
+      "Values:",
+      "Peace: learners learn to live in harmony with others as guided by the Ten Commandments.",
+      "Love: learners learn to love God, self and neighbour.",
+      "Respect: learners learn how to honour God by obeying His commandments. Links to other learning areas:",
+      "English: communication skills are enhanced as learners compose and recite poems about the Ten Commandments.",
+      "Social Studies skills are enhanced through the concept of human rights and good neighbourhood."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade6-christian-religious-education.pdf#p24"
+    },
+    {
+     "kicd_code": "2.3",
+     "name": "Bible Stories Samson defeats the Philistines 4 lessons",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "retell the story of Samson as guided by the scriptures",
+      "outline ways Christians depend on God to overcome challenges in life",
+      "list lessons learnt from the story of Samson",
+      "depend on God in day-to-day life."
+     ],
+     "learning_experiences": [
+      "team up to read Judges 15:14-17 and retell the story",
+      "retell how God gave Samson power to defeat his enemies",
+      "list ways Christians depend on God’s power to overcome daily challenges",
+      "Work with peers to list lessons learnt from the story of Samson",
+      "compose a poem on the importance of depending on God."
+     ],
+     "inquiry_questions": [
+      "Why should you depend on God?"
+     ],
+     "core_competencies": [
+      "Communication and collaboration: the skill of speaking clearly and effectively is enhanced as learners discuss how Christians depend on God’s power.",
+      "Learning to learn: the skill of self-discipline is enhanced as learners work collaboratively to read the scriptures.",
+      "Creativity and imagination: the skill of communication and self-expression is enhanced as learners creatively express their ideas by composing a poem on the importance of depending on God’s power"
+     ],
+     "values": [
+      "Values:"
+     ],
+     "pertinent_issues": [
+      "Safety and security: is enhanced as learners become aware of their safety and learn how to depend on God for protection"
+     ],
+     "links_to_other_areas": [
+      "Links to other learning areas:",
+      "English: reading skills are enhanced as learners read and retell the story of Samson.",
+      "Creative Arts: creative skills are applied as learners compose a poem on the importance of depending on God’s power."
+     ],
+     "resources": [],
+     "kicd_source": "grade6-christian-religious-education.pdf#p26"
+    },
+    {
+     "kicd_code": "2.4",
+     "name": "Faith in God Elisha",
+     "suggested_duration": "4 lessons",
+     "learning_outcomes": [
+      "describe how Elisha recovered the axe-head",
+      "exercise faith in God to overcome challenges in life",
+      "trust in God’s power when faced with challenges."
+     ],
+     "learning_experiences": [
+      "in pairs brainstorm on challenges they experience in life and how they deal with them",
+      "read 2 Kings 6:1-7 and retell the story",
+      "use a digital device to watch a video clip about the story",
+      "discuss ways they exercise faith in God to overcome challenges in life."
+     ],
+     "inquiry_questions": [
+      "How did Elisha recover the axe head?"
+     ],
+     "core_competencies": [
+      "Learning to learn: the skill of reflection on own learning is enhanced as learners brainstorm on challenges they experience in life and how they deal with them",
+      "Digital literacy: the skill of interacting with digital technology is enhanced as learners use digital devices to watch a video clip based on the story."
+     ],
+     "values": [
+      "Unity: learners cooperate as they discuss and participate in various tasks.",
+      "Love: learners learn to portray a caring attitude towards others just like what Elisha did by retrieving the axe-head."
+     ],
+     "pertinent_issues": [
+      "Empathy: is enhanced as learners learn how Elisha helped the prophet to retrieve the axe head from water."
+     ],
+     "links_to_other_areas": [
+      "Links to other learning areas:",
+      "Agriculture skills are enhanced as learners learn how to use farm equipment’s.",
+      "Science and Technology skills are applied as learners use digital devices to perform tasks."
+     ],
+     "resources": [],
+     "kicd_source": "grade6-christian-religious-education.pdf#p28"
+    },
+    {
+     "kicd_code": "2.5",
+     "name": "Jacob Wrestles an Angel",
+     "suggested_duration": "4 lessons",
+     "learning_outcomes": [
+      "narrate the story of Jacob as guided by the scriptures",
+      "outline lessons learnt from the story of Jacob",
+      "identify values learnt from the story of Jacob",
+      "emulate Jacob by being persistent in prayer."
+     ],
+     "learning_experiences": [
+      "in turns read Genesis 32:22-30 and retell the story",
+      "watch a video clip on Jacob wrestling with God",
+      "role play the story of Jacob wrestling with God",
+      "brainstorm on the meaning of, ‘ persistence in prayer.’",
+      "discuss lessons learnt from the story",
+      "say how to apply lessons learnt in their lives",
+      "compose and say a prayer to God."
+     ],
+     "inquiry_questions": [
+      "Why is it good to pray always?"
+     ],
+     "core_competencies": [
+      "Communication and collaboration: the skill of teamwork is enhanced as learners role play the story of Jacob wrestling with God.",
+      "Creativity and imagination: the skill of originality is enhanced as learners compose and sing a song on being persistent in prayer.",
+      "Digital literacy: the skill of digital citizenship is enhanced as learners use digital devices to watch a video clip about Jacob wrestling with God."
+     ],
+     "values": [
+      "Values",
+      "Responsibility: learners learn to be persistent in prayers as portrayed by Jacob.",
+      "Unity: unity is enhanced as learners role play the story of Jacob wrestling with God Links to other learning areas:",
+      "Creative Arts: creative skills are exhibited as learners compose and sing a song on being persistent in prayers.",
+      "Science and Technology skills are applied as learners watch a video clip on Jacob wrestling with God.",
+      "English: reading skills are enhanced as learners take turns to read the Bible."
+     ],
+     "pertinent_issues": [
+      "Social cohesion: is enhanced as they learn the importance of having guiding values in life as they discuss the story of Jacob."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade6-christian-religious-education.pdf#p30"
+    }
+   ]
+  },
+  {
+   "strand": "Life of Jesus Christ",
+   "strand_code": "3.0",
+   "assessment_rubric": [],
+   "substrands": [
+    {
+     "kicd_code": "3.6",
+     "name": "The Hidden Treasure",
+     "suggested_duration": "5 lessons",
+     "learning_outcomes": [
+      "retell the parable of the hidden treasure",
+      "outline lessons learnt from the parable of the hidden treasure",
+      "be partakers of the kingdom of God by committing their lives to Christ."
+     ],
+     "learning_experiences": [
+      "define the meaning of the word, ‘treasure.’",
+      "state what they treasure most in their lives",
+      "brainstorm on the value of the Kingdom of God, Why is it so Valuable?.’",
+      "read in pairs Matthew 13: 44-46 and retell the parable of the hidden treasure",
+      "outline lessons learnt from the parable of the hidden treasure",
+      "role play the parable of the hidden treasure",
+      "brainstorm on how they can be part of the kingdom of God",
+      "share how they respond to the call of salvation in their lives",
+      "share with peers the value of the kingdom of God",
+      "compose and sing a song about how valuable the Kingdom of God is."
+     ],
+     "inquiry_questions": [
+      "Why is the kingdom of God compared to a hidden treasure?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Self-efficacy: the skill of knowing self is enhanced as learners in small groups share what they value in life.",
+      "Critical thinking and problem solving: the skill of active listening and communication is enhanced as learners follow simple instructions and as they share how they respond to the call of salvation in their lives. Pertinent and Contemporary Issues: Social cohesion: is enhanced as learners work together in groups and share about the kingdom of God with peers. Values: Unity: learners display team spirit as they perform different tasks in pairs and groups and respect each other’s opinion. Link to other learning areas:",
+      "English: speaking skills are enhanced as learner’s brainstorm and discuss in groups on what they value most in their lives.",
+      "Creative Arts: creative skills are applied as learners compose and sing a song about the value of the Kingdom of God."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade6-christian-religious-education.pdf#p43"
+    }
+   ]
+  },
+  {
+   "strand": "The Life of Jesus Christ",
+   "strand_code": "3.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to describe the call of the first disciples",
+     "exceeds": "Describes the call of the first disciples in details",
+     "meets": "Describes the call of the first disciples",
+     "approaches": "Describes the call of the first disciples but omits minor details",
+     "below": "Describe the call of the first disciples but omits major details"
+    },
+    {
+     "indicator": "Ability to outline lessons learnt from the Bible stories",
+     "exceeds": "Outlines lessons learnt from the Bible stories and cites relevant examples",
+     "meets": "Outlines lessons learnt from the Bible stories",
+     "approaches": "Partially outlines lessons learnt from the Bible stories",
+     "below": "Outlines lessons learnt from the Bible stories with consistent guidance"
+    },
+    {
+     "indicator": "Ability to apply lessons learnt from the Bible stories in day-to-day life",
+     "exceeds": "Constantly applies lessons learnt from the Bible stories in day-to-day life",
+     "meets": "Applies lessons learnt from the Bible stories in day-to-day life",
+     "approaches": "Sometimes applies lessons learnt from the Bible stories in day-to-day life",
+     "below": "Applies lessons learnt from the Bible stories in day-to-day life when prompted"
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "3.1",
+     "name": "The Call of Disciples",
+     "suggested_duration": "4 lessons",
+     "learning_outcomes": [
+      "retell the call of the first disciples as guided by the scriptures",
+      "state how different people are called to serve God today",
+      "serve God in his or her daily life to grow spiritually."
+     ],
+     "learning_experiences": [
+      "discuss in small groups different roles they play in Church and share in class",
+      "in turns read Mark 1:16- 20 and retell the call of the first disciples",
+      "watch a video clip on the call of the first disciples",
+      "role play the call of the first disciples",
+      "compose and sing a song on the call of the first four disciples",
+      "say how people are called to serve God today",
+      "share with peers activities they do in church as service to God"
+     ],
+     "inquiry_questions": [
+      "How did the disciples respond to the call of Jesus Christ?"
+     ],
+     "core_competencies": [
+      "Digital literacy: the skill of digital citizenship is enhanced as learners watch a video clip on the call of the first disciples.",
+      "Critical thinking and problem solving: active listening and communication skills are enhanced as learners follow simple instructions.",
+      "Self-efficacy: the skill of knowing self is enhanced as learners share with others the different activities they perform in church."
+     ],
+     "values": [
+      "Values:",
+      "Responsibility: learners work diligently in assigned roles and duties in the church.",
+      "Unity: learners display team spirit as they role play the call of the first disciples. Links to learning areas:",
+      "Creative Arts: creative skills are applied as learners compose and sing a song on the call of the first disciples.",
+      "English language: speaking skills are enhanced as learners retell the call of the first disciples."
+     ],
+     "pertinent_issues": [
+      "Human rights and responsibilities: is enhanced as learners participate in different activities at home, school and in church."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade6-christian-religious-education.pdf#p33"
+    },
+    {
+     "kicd_code": "3.2",
+     "name": "The Temptations of Jesus Christ",
+     "suggested_duration": "5 lessons",
+     "learning_outcomes": [
+      "narrate how Jesus was tempted in the wilderness",
+      "identify temptations they face as young people today",
+      "desire to overcome temptations in day-to-day life."
+     ],
+     "learning_experiences": [
+      "in pairs brainstorm on the temptations they face in their daily lives",
+      "read Luke 4:1-13 and describe t e m p t a t i o n s f a c e d b y C h r i s t",
+      "discuss how Jesus Christ overcame the temptations He faced in the wilderness",
+      "watch a video clip on how Jesus was tempted in the wilderness",
+      "in pairs, list the temptations they are likely to face as young people today",
+      "team up to discuss how they overcome temptations and share in class"
+     ],
+     "inquiry_questions": [
+      "1. How did Jesus overcome the temptations He faced in the wilderness?",
+      "2. How do you overcome temptations as a young person?"
+     ],
+     "core_competencies": [
+      "Learning to learn: the skill of reflection on own learning is enhanced as learners brainstorm in pairs temptations they face in day-to-day life.",
+      "Communication and collaboration: the skill of speaking clearly and effectively is enhanced as learners discuss in small groups how Jesus Christ responded to the temptations He faced in the wilderness."
+     ],
+     "values": [
+      "Values:",
+      "Responsibility: learners learn to be resilient as they proactively overcome temptations.",
+      "Unity: learners cooperate with others as they discuss in small groups how Jesus Christ overcame temptations. Links to other learning areas:",
+      "Science and Technology skills are applied as learners watch a video clip about Jesus’ temptations in the wilderness.",
+      "English language: reading skills are enhanced as learners read Luke 4:1-13 and retell the story."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade6-christian-religious-education.pdf#p35"
+    },
+    {
+     "kicd_code": "3.3",
+     "name": "Miracles of Jesus Christ (The Roman Officer’s servant)",
+     "suggested_duration": "4 lessons",
+     "learning_outcomes": [
+      "narrate the healing of the Roman officer’s servant",
+      "discuss lessons learnt from the healing of the Roman officer’s servant",
+      "emulate Christ’s example by praying for the sick ."
+     ],
+     "learning_experiences": [
+      "brainstorm on the importance of praying for the sick",
+      "read Matthew 8:5-13 and narrate the miracle",
+      "list lessons learnt from the healing of the Roman officer’s servant",
+      "watch a video clip on the healing of the Roman officer’s servant",
+      "role play the healing of the Roman officer’s servant",
+      "share experiences on how they prayed for a sick person."
+     ],
+     "inquiry_questions": [
+      "How did the Roman officer demonstrate faith in God?"
+     ],
+     "core_competencies": [
+      "Communication and collaboration: the skill of teamwork is enhanced as learners’ role play the miracle of healing the Roman Officer’s servant.",
+      "Learning to learn: the skill of developing relationships is enhanced as learners share what they learnt from the healing of the Roman officer’s servant."
+     ],
+     "values": [
+      "• Social justice: learners portray equity as they foster inclusivity and non-discrimination as shown by the Roman officer"
+     ],
+     "pertinent_issues": [
+      "• Health promotion issues: is enhanced as learners learn about the healing of the Roman officer’s servant."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade6-christian-religious-education.pdf#p37"
+    },
+    {
+     "kicd_code": "3.4",
+     "name": "Miracle of Healing",
+     "suggested_duration": "4 lessons",
+     "learning_outcomes": [
+      "describe the miracle of healing the bleeding woman",
+      "identify different ways the church and government helps the sick in the society",
+      "outline lessons learnt from the miracle of healing the bleeding woman",
+      "appreciate the healing power of Jesus Christ in their lives."
+     ],
+     "learning_experiences": [
+      "brainstorm on what they do when they are sick",
+      "in turns read, Luke 8:43- 48 and retell the miracle",
+      "discuss different ways the church and government is helping the sick and share in class",
+      "discuss lessons learnt from the healing of the bleeding woman",
+      "compose and sing a song about God’s healing power."
+     ],
+     "inquiry_questions": [
+      "How did the bleeding woman portray faith in God?"
+     ],
+     "core_competencies": [
+      "Communication and collaboration: the skill of speaking clearly and effectively is enhanced as learners discuss ways the church and government is helping the sick in the society.",
+      "Creativity and imagination: the skill of originality is enhanced as learners compose and sing a song about God’s healing power."
+     ],
+     "values": [
+      "Integrity: learners display honesty as learnt from the healing of the bleeding woman.",
+      "Love: learners demonstrate a caring attitude towards sick people in the society as demonstrated by Jesus Christ."
+     ],
+     "pertinent_issues": [
+      "Health promotion issues are enhanced as learners learn the importance of being in good health."
+     ],
+     "links_to_other_areas": [
+      "Links to other learning areas:",
+      "Creative Arts: creative skills are applied as learners compose and sing songs.",
+      "English: Communication skills are enhanced as learners read Luke 8:43- 48 and retell the miracle."
+     ],
+     "resources": [],
+     "kicd_source": "grade6-christian-religious-education.pdf#p39"
+    },
+    {
+     "kicd_code": "3.5",
+     "name": "Raising Lazarus from the Dead",
+     "suggested_duration": "4 lessons",
+     "learning_outcomes": [
+      "describe the miracle of Raising Lazarus from the dead",
+      "outline lessons learnt from the miracle of raising Lazarus from the dead",
+      "appreciate God’s power over sickness and death."
+     ],
+     "learning_experiences": [
+      "share how they show empathy to those who have lost family members or friends",
+      "discuss how they cope with grief if they lose a close family member or a relative",
+      "in pairs read John 11:32-45 and retell the miracle of raising Lazarus from the dead",
+      "outline lessons learnt from raising Lazarus from the dead",
+      "compose a poem on ‘God’s power over sickness and death’."
+     ],
+     "inquiry_questions": [
+      "Why did Jesus say that Lazarus was only asleep?"
+     ],
+     "core_competencies": [
+      "Learning to learn: the skill of reflection on own learning is enhanced as learners share experiences of how they show empathy to others.",
+      "Creativity and imagination: the skill of originality is enhanced as learners compose a poem on, ‘God’s power over sickness and death’"
+     ],
+     "values": [
+      "• Love is portrayed as they learn to grief with those who have lost loved ones.",
+      "value human dignity as portrayed by Jesus Christ when He raised Lazarus from the dead. Links to other learning areas: Social Studies skills are enhanced as learners discuss how to show empathy to those who have lost loved ones."
+     ],
+     "pertinent_issues": [
+      "Social cohesion: is enhanced as learners show empathy to those who have lost their loved ones."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade6-christian-religious-education.pdf#p41"
+    },
+    {
+     "kicd_code": "3.7",
+     "name": "The Rich man and Lazarus",
+     "suggested_duration": "4 lessons",
+     "learning_outcomes": [
+      "describe the parable of the rich man and Lazarus",
+      "discuss lessons learnt from the parable of the rich man and Lazarus",
+      "live responsibly as God fearing Christians ."
+     ],
+     "learning_experiences": [
+      "in groups search from the internet, how Christians use their resources to help people in need",
+      "in turns read Luke 16: 19-31 and retell the parable",
+      "watch a video clip on the rich man and Lazarus",
+      "outline lessons learnt from the parable of the rich man and Lazarus",
+      "role play the parable of the rich man and Lazarus and summarise key points."
+     ],
+     "inquiry_questions": [
+      "How should Christians use their wealth?"
+     ],
+     "core_competencies": [
+      "Learning to learn: the skill of developing relations is exhibited as learners in groups share what they have learnt from the parable of the rich man and Lazarus.",
+      "Digital literacy: the skill of connecting using technology is enhanced as learners connect to and use the internet to find for the necessary information."
+     ],
+     "values": [
+      "Values:",
+      "Love: learners share and use their resources to support one another.",
+      "Respect: learners’ value human dignity as they help those in need. Link to other learning Areas:",
+      "Science and Technology skills are applied as learners use digital devices to search for information from the internet.",
+      "Creative Arts: creative skills are applied as learners role play the parable of the rich man and Lazarus."
+     ],
+     "pertinent_issues": [
+      "Mental health: is enhanced as learners learn how they should relate and cater for the wellbeing of each other."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade6-christian-religious-education.pdf#p45"
+    }
+   ]
+  },
+  {
+   "strand": "The Church",
+   "strand_code": "4.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to outline the teachings in the Apostles’ creed",
+     "exceeds": "With appropriate examples, outlines the teachings in the Apostles’ creed",
+     "meets": "Outlines the teachings in the Apostles’ creed",
+     "approaches": "Partly outlines the teachings in the Apostles’ creed",
+     "below": "Outlines the teachings in the Apostles’ creed with consistent guidance"
+    },
+    {
+     "indicator": "Ability to identify the values from the teachings of Apostle Paul",
+     "exceeds": "Exhaustively identifies values from the teachings of Apostle Paul",
+     "meets": "Identifies values from the teachings of Apostle Paul",
+     "approaches": "Partly identifies values from the teachings of Apostle Paul",
+     "below": "Attempts to identify values from the teachings of Apostle"
+    },
+    {
+     "indicator": "Ability to describe ways in which church unity fosters peaceful co-existence",
+     "exceeds": "Describes ways in which church unity fosters peaceful co-existence using illustrations",
+     "meets": "Describes ways in which church unity fosters peaceful co-existence",
+     "approaches": "Partly describes ways in which church unity fosters peaceful co-existence",
+     "below": "Describe ways in which church unity fosters peaceful co-existence when prompted"
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "4.1",
+     "name": "Apostles’ Creed",
+     "suggested_duration": "4 lessons",
+     "learning_outcomes": [
+      "recite the Apostles’ creed to affirm their faith in Christ",
+      "outline the teachings outlined in the Apostle’s Creed",
+      "discuss the importance of the Creed to Christians today",
+      "list the three persons of the Holy Trinity",
+      "recognise the value of the Holy Trinity in their lives."
+     ],
+     "learning_experiences": [
+      "recite the Apostle’s creed",
+      "write the meaning of Apostles’ Creed on charts and display them in the CRE learning corner",
+      "summarise the teachings outlined in the Apostle’s creed",
+      "state the importance of the Apostles creed to Christians today",
+      "mention the three persons of the Holy Trinity",
+      "compose and sing a song related to Holy Trinity."
+     ],
+     "inquiry_questions": [
+      "Why is the Apostles’ Creed important to the Christian faith?"
+     ],
+     "core_competencies": [
+      "Communication and collaboration: the skill of speaking clearly and effectively is exhibited as learners discuss the teachings found in the Apostles’ Creed.",
+      "Learning to learn: the skill of developing relationships is enhanced as learners brainstorm in pairs the importance of the Creed to Christians today."
+     ],
+     "values": [
+      "Values: Unity is nurtured as learners cooperate during group discussions. Links to other learning areas:",
+      "English Language: communication skills are enhanced as learners recite the Apostles’ Creed.",
+      "Creative Arts: creative skills are applied as learners compose and sing a song related to the Holy Trinity"
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade6-christian-religious-education.pdf#p48"
+    },
+    {
+     "kicd_code": "4.2",
+     "name": "Standing firm in Faith (Apostle Paul)",
+     "suggested_duration": "4 lessons",
+     "learning_outcomes": [
+      "describe the suffering faced by the Apostles according to 2 Corinthians 6:3-7",
+      "identify values/virtues in the life of Apostle Paul",
+      "apply values from the life of Apostle Paul in day-to-day life",
+      "stand firm in the Christian faith in the face of persecution."
+     ],
+     "learning_experiences": [
+      "brainstorm on how Christians are persecuted in the society today",
+      "in turns read 2 Corinthians 6:3-7 and write down the main points in their exercise books",
+      "outline values/virtues in the life of Apostle Paul",
+      "practice values learnt from the life of Apostle Paul in daily life",
+      "compose and sing relevant songs on standing firm in the Christian faith."
+     ],
+     "inquiry_questions": [
+      "Why should Christians stand firm in their faith in God?"
+     ],
+     "core_competencies": [
+      "Creativity and imagination: the skill of coming up with unique and new ideas is exhibited as learners compose and sing relevant songs on standing firm in the Christian faith."
+     ],
+     "values": [
+      "Unity: learners cooperate as they discuss in pairs values learnt from the teachings of Apostle Paul."
+     ],
+     "pertinent_issues": [
+      "Peace education: is nurtured as learners outline values learnt from the life of Apostle Paul."
+     ],
+     "links_to_other_areas": [
+      "Links to other learning areas:",
+      "English: communication skills are enhanced as learners brainstorm on how Christians are persecuted in the society today.",
+      "Creative Arts: creative skills are applied as learners compose and sing relevant songs on standing firm in the Christian faith."
+     ],
+     "resources": [],
+     "kicd_source": "grade6-christian-religious-education.pdf#p50"
+    },
+    {
+     "kicd_code": "4.3",
+     "name": "Church Unity",
+     "suggested_duration": "5 lessons",
+     "learning_outcomes": [
+      "explain the meaning of Church unity",
+      "explain the biblical teachings on Church unity",
+      "describe ways in which Church unity fosters harmonious living",
+      "desire to live harmoniously with each other."
+     ],
+     "learning_experiences": [
+      "Learners are guided to:",
+      "in pairs list the different churches in their communities",
+      "brainstorm in small groups the meaning of Church unity and share with the class",
+      "read in turns; Matthew 16:18, Galatians 3:28 and 1Corithians 12:12 and note key points on Church unity",
+      "discuss in small groups biblical teachings on Christian unity",
+      "discuss in pairs how Christian unity is demonstrated at school and in their communities",
+      "identify ways in which different churches work together",
+      "watch a video clip on churches working together",
+      "compose and sing a song on Christian unity."
+     ],
+     "inquiry_questions": [
+      "Why is Church unity important?"
+     ],
+     "core_competencies": [
+      "Digital literacy: the skill of digital citizenship is exhibited as learners watch a video clip on churches working together.",
+      "Communication and collaboration: the skill of teamwork is portrayed as learners discuss how Christian unity is demonstrated at school and in the community."
+     ],
+     "values": [
+      "Values: Social justice: learners cooperate as they discuss how Christian unity is demonstrated at school and in the community. Link to other learning areas:",
+      "English: communication skills are enhanced as learners read, brainstorm and discuss various concepts.",
+      "Creative Arts: creative arts skills are applied as learners compose and sing songs related to concepts taught.",
+      "Science and Technology skills are enhanced as learners use digital devices to perform various tasks."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade6-christian-religious-education.pdf#p52"
+    }
+   ]
+  },
+  {
+   "strand": "Christian Living",
+   "strand_code": "5.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to outline the causes of irresponsible sexual behaviour among the youth",
+     "exceeds": "Outlines the causes of irresponsible sexual behaviour among the youth and cites relevant examples",
+     "meets": "Outlines the causes of irresponsible sexual behaviour among the youth",
+     "approaches": "Outlines some causes of irresponsible sexual behaviour among the youth",
+     "below": "Outline the causes of irresponsible sexual behaviour among the youth when prompted"
+    },
+    {
+     "indicator": "Ability to discuss appropriate skills required to overcome irresponsible sexual behaviour",
+     "exceeds": "Discusses appropriate skills required to overcome irresponsible sexual behavior and cites relevant examples",
+     "meets": "Discusses appropriate skills required to overcome irresponsible sexual behaviour",
+     "approaches": "Partially discusses appropriate skills required to overcome irresponsible sexual behaviour",
+     "below": "Discusses appropriate skills required to overcome irresponsible sexual behaviour with guidance"
+    },
+    {
+     "indicator": "Ability to identify practices that violate the right to life",
+     "exceeds": "With appropriate examples, identifies practices that violate the right to life",
+     "meets": "Identifies practices that violate the right to life",
+     "approaches": "Identifies some practices that violate the right to life",
+     "below": "Makes effort to identify practices that violate right to life"
+    },
+    {
+     "indicator": "Ability to outline the effects of violation of the right to life",
+     "exceeds": "Outlines the effects of violation of the right to life in details",
+     "meets": "Outlines the effects of violation of the right to life",
+     "approaches": "Outlines the effects of violation of the right to life for a human being but omits minor details",
+     "below": "Outlines the effects of violation of the right to life but omits major details"
+    },
+    {
+     "indicator": "Ability to explain Christian teachings on the dangers of alcohol, drugs and substance abuse",
+     "exceeds": "Explains Christian teachings on the dangers of alcohol, drugs and substance abuse and cites relevant examples",
+     "meets": "Explains Christian teachings on the dangers of alcohol, drugs and substance abuse",
+     "approaches": "Partly explains Christian teachings on the dangers of alcohol, drugs and substance abuse",
+     "below": "Explains Christian teachings on dangers of alcohol, drugs and substance abuse with consistent guidance"
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "5.1",
+     "name": "Friendship Formation",
+     "suggested_duration": "6 lessons",
+     "learning_outcomes": [
+      "discuss the importance of having good friends",
+      "outline biblical teachings on friendship formation",
+      "desire to walk with morally upright friends."
+     ],
+     "learning_experiences": [
+      "state qualities to consider in choosing good friends",
+      "buzz on how to avoid bad company and negative peer influence",
+      "brain storm on how to choose good friends",
+      "discuss the importance of having good friends",
+      "read 1Corithians 15:33 , Proverbs 13:20-21 and Proverbs 16:28-29 ; discuss lessons learnt and make notes.",
+      "Brainstorm on the topic; ‘how to avoid negative peer influence.’"
+     ],
+     "inquiry_questions": [
+      "Why is it important to have good friends?"
+     ],
+     "core_competencies": [
+      "Communication and collaboration: the skill of communicating clearly and effectively is exhibited as learners discuss the importance of having good friends.",
+      "Digital literacy: the skill of connecting using technology is enhanced as learners brainstorm on the topic ‘‘how to avoid negative peer influence’"
+     ],
+     "values": [
+      "Values:"
+     ],
+     "pertinent_issues": [
+      "Social cohesion is nurtured as learners learn to live in harmony with each other by avoiding negative peer influence."
+     ],
+     "links_to_other_areas": [
+      "Link to other learning areas:",
+      "English: speaking skills are enhanced as learners read the Bible verses and compose poems.",
+      "Science and Technology skills are applied as learners use digital devices to compose a poem."
+     ],
+     "resources": [],
+     "kicd_source": "grade6-christian-religious-education.pdf#p55"
+    },
+    {
+     "kicd_code": "5.2",
+     "name": "Human Sexuality",
+     "suggested_duration": "7 lessons",
+     "learning_outcomes": [
+      "describe biblical teachings on responsible sexual behavior",
+      "outline the causes of irresponsible sexual behaviour among the youth",
+      "identify values and life skills required to avoid irresponsible sexual behaviour",
+      "appreciate his or her body as the temple of the Holy Spirit."
+     ],
+     "learning_experiences": [
+      "in small groups list physical and emotional changes that boys and girls experience during adolescence",
+      "discuss how to cope with the changes in their bodies during adolescence",
+      "in turns read 1 Corinthians, 6: 18-20, 2 Timothy 2: 22, James 1:14-16; in groups outline lessons learnt and make notes",
+      "list some irresponsible sexual behaviour that youths engage in and how to avoid them",
+      "in small groups discuss the causes of irresponsible sexual behaviour",
+      "discuss values and life skills required to avoid irresponsible sexual behavior.",
+      "compose a poem on, ‘My body is the Temple of the Holy Spirit.’"
+     ],
+     "inquiry_questions": [
+      "How can you avoid irresponsible Sexual behaviour?"
+     ],
+     "core_competencies": [
+      "Core Competences to be developed:",
+      "Learning to learn: the skill of developing relationships is enhanced as learners live responsibly and avoid irresponsible sexual behaviour.",
+      "Self-efficacy: the skill of expressing self is portrayed as learners make a decision to avoid irresponsible sexual behaviour. Pertinent and Contemporary Issues: Human sexuality –morality: is nurtured as learners discuss values and life skills required to avoid irresponsible sexual behavior Values:",
+      "Peace: learners care and respect self and others by not engaging in irresponsible sexual behaviour",
+      "Unity: learner cooperate with others as they list in groups irresponsible sexual behaviours that youths engage in and how to avoid such behaviours. Links to other learning areas:",
+      "English: reading skills are enhanced as learners read the Bible.",
+      "Science and Technology skills are applied as learners use digital devices to search the internet on the causes of irresponsible sexual behaviour."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade6-christian-religious-education.pdf#p57"
+    },
+    {
+     "kicd_code": "5.3",
+     "name": "Sanctity of Life",
+     "suggested_duration": "4 lessons",
+     "learning_outcomes": [
+      "identify practices that violate the right to life in the society today",
+      "outline the effects of violation of the right to life",
+      "explain Christian teachings on sanctity of life",
+      "list virtues that young people should practice to protect life",
+      "acknowledge that life is a gift from God."
+     ],
+     "learning_experiences": [
+      "team up to outline practices which violate the right to life in today’s society",
+      "debate on the topic, ‘The effects of violating the right to life’",
+      "read Exodus 20:13, Mathew 5:21-26 and write lessons learnt in their exercise books",
+      "say why they should observe road safety rules",
+      "role play; observing road safety rules while crossing the road.",
+      "discuss in small groups virtues required to maintain sanctity of life",
+      "compose a poem to thank God for the gift of life"
+     ],
+     "inquiry_questions": [
+      "How can you uphold the sanctity of life?"
+     ],
+     "core_competencies": [
+      "Communication and collaboration: the skill of speaking engagingly is exhibited as learners debate in two groups the ‘effects of violating the right to life.’",
+      "Creativity and imagination: the skill of originality is portrayed as learner compose a poem thanking God for the gift of life."
+     ],
+     "values": [
+      "Values:",
+      "Respect is nurtured as learners portray a caring attitude towards self and others.",
+      "Responsibility is exhibited as learners make a decision to uphold the sanctity of life.",
+      "Love is inculcated as learners honour God’s commandment to respect the right to life Links to other learning areas:",
+      "English: communication skills are enhanced as learners debate on the topic, ‘ The effects of violating the right to life’",
+      "Social Studies skills are enhanced as learners learn about the right to life"
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade6-christian-religious-education.pdf#p59"
+    },
+    {
+     "kicd_code": "5.4",
+     "name": "Alcohol, drugs and Substance abuse",
+     "suggested_duration": "4 lessons",
+     "learning_outcomes": [
+      "explain Christian teachings on the dangers of alcohol, drugs and substance abuse",
+      "outline strategies used by Christians to prevent alcohol, drugs and substance abuse",
+      "analyse the measures taken by government agencies to fight drug trafficking and abuse",
+      "utilize Christian values and life skills to avoid alcohol, drugs and substance abuse."
+     ],
+     "learning_experiences": [
+      "brainstorm in groups, tricks used to trap young people into alcohol, drugs and substance abuse",
+      "brainstorm on the dangers of using and abusing alcohol and drugs",
+      "in pairs read Ephesians 5:18, Hosea 4:11 and discuss Christian teachings on the dangers of alcohol, drugs and substance abuse",
+      "discuss strategies used by Christians to prevent alcohol, drugs, and substance abuse",
+      "in pairs discuss measures taken by government agencies to fight drug trafficking and abuse",
+      "discuss values and life skills required to avoid alcohol, drugs and substance abuse."
+     ],
+     "inquiry_questions": [
+      "1. Why do young people abuse alcohol and drugs?",
+      "2. How can you avoid alcohol, drugs and substance abuse?"
+     ],
+     "core_competencies": [
+      "Self-efficacy: the skill of exhibiting responsibility is demonstrated as learners choose to do what is right by avoiding alcohol, drugs and substance abuse.",
+      "Learning to learn: the skill of sharing what they have learnt is exhibited as they discuss strategies used by Christians to prevent alcohol, drugs and substance abuse.",
+      "Communication: the skill of active listening and communication is demonstrated as they discuss values and life skills needed",
+      "core competencies, values and specific learning areas skills for the CSL activity",
+      "Identify resources required for the activity (locally available materials)",
+      "Stagger the activities across the term (Set dates and time for the activities)",
+      "Communicate to learners, parents/caregivers/guardians, school administration, teachers and other relevant stakeholders in the school community",
+      "Identify and develop assessment tools 2. Implementation CSL Activity",
+      "Assigning roles to learners.",
+      "Ensure every learner actively participates in the activity",
+      "Observe learners as they carry out the CSL activity and record feedback.",
+      "Use an appropriate assessment tool to assess both the process and the product (Assess learner’s work from the beginning to the end product)",
+      "Assess the targeted core competencies, values and subject skills.",
+      "core competencies and the nurturing of various values. The teacher is expected to vary the core competencies and values emphasised in the activity yearly. Assessment of the CSL Activity Assessment of the integrated CSL activity will focus on 3 components namely: skills from various learning areas applied in carrying out the activity, and core competencies and values demonstrated. Assessment should focus on both the process and end product of the CSL activity. The teacher will assess learners in groups using various tools such as an observation schedule, checklist or rating scale or any other appropriate tool."
+     ],
+     "values": [
+      "Values:",
+      "Responsibility is nurtured as they say No! to alcohol, drug and substance abuse.",
+      "Integrity is portrayed as they stand firm against the use of alcohol, drug and substance abuse.",
+      "Respect is demonstrated as they care for their bodies by avoiding harmful substances. Links to other Learning Areas:",
+      "English: communication skills are enhanced as learners discuss and debate on various concepts.",
+      "Social Studies skills are enhanced as learners learn about human rights and responsibilities.",
+      "Agriculture and Nutrition skills are enhanced as learners learn the negative effects of abusing alcohol and drugs."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade6-christian-religious-education.pdf#p61"
+    }
+   ]
+  }
+ ]
+}

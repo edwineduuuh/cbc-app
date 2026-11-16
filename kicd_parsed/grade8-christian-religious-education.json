@@ -1,0 +1,1119 @@
+{
+ "source_pdf": "grade8-christian-religious-education.pdf",
+ "grade": 8,
+ "subject": "christian-religious-education",
+ "general_outcomes": [
+  "By the end of Junior School, the learner should be able to:",
+  "Describe God’s plan of salvation after the fall of man at the Garden of Eden.",
+  "Analyse Biblical teachings to acquire knowledge, skills, values, and attitudes to enable them make informed moral decisions.",
+  "Apply the teachings of Jesus Christ in their interaction with others to form harmonious relationships.",
+  "Take part in different activities both in church and the community as guided by the word of God.",
+  "Apply Christian morals values, life skills and attitudes in their daily interactions to overcome the challenges they face as young people.",
+  "Utilise research and digital literacy skills effectively and appropriately for acquisition and application of knowledge in different learning contexts."
+ ],
+ "strands": [
+  {
+   "strand": "Creation",
+   "strand_code": "1.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to analyse causes of sin today.",
+     "exceeds": "Learner analyses causes of sin today exhaustively.",
+     "meets": "Learner analyse the causes of sin today.",
+     "approaches": "Learner analyses causes of sin today but leaves out some information.",
+     "below": "Learner analyses causes of sin today but leaves out major information."
+    },
+    {
+     "indicator": "Ability to discuss moral values and life skills needed to overcome temptations.",
+     "exceeds": "Learner discusses moral values and life skills needed to overcome temptations in details.",
+     "meets": "Learner discusses moral values and life skills needed to overcome temptations.",
+     "approaches": "Learner discusses moral values and life skills needed to overcome temptations but omits minor details.",
+     "below": "Learner discusses moral values and life skills needed to overcome temptations but leaves omits major details."
+    },
+    {
+     "indicator": "Ability to describe how God demonstrated His love to humankind after the fall.",
+     "exceeds": "Learner describes how God demonstrated His love to humankind after the fall exhaustively.",
+     "meets": "Learner describes how God demonstrated His love to humankind after the fall.",
+     "approaches": "Learner describes how God demonstrated His love to humankind after the fall but leaves out some information.",
+     "below": "Learner describes how God demonstrated His love to humankind after the fall but leaves out a lot of information."
+    },
+    {
+     "indicator": "Ability to take part in sharing the love of God with others.",
+     "exceeds": "Learner constantly takes part in sharing the love of God with others.",
+     "meets": "Learner takes part in sharing the love of God with others.",
+     "approaches": "Learner sometimes takes part in sharing the love of God with others.",
+     "below": "Learner takes part in sharing the love of God with others but with consistent guidance."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "1.1",
+     "name": "Origin and Consequences of Sin",
+     "suggested_duration": "6 lessons",
+     "learning_outcomes": [
+      "explain the origin of sin from the scriptures provided",
+      "examine the consequences of sin after the fall of man",
+      "analyse the causes of sin today",
+      "identify moral values and life skills needed to overcome temptations",
+      "pray to God to overcome temptations in day-to-day life."
+     ],
+     "learning_experiences": [
+      "define the term, sin from the biblical perspective",
+      "read Genesis 3:1-13 and write short notes on the origin of sin",
+      "read Genesis 3: 14-19, 23, 4:6-12, Genesis 11:1-9 and make notes on the consequences of sin",
+      "list the sins young people are likely to commit today",
+      "discuss the causes of sin among young people today",
+      "brainstorm on how to overcome sin, temptations and tempting situations as a young person",
+      "brainstorm on moral values and life skills needed to overcome temptations",
+      "write the moral values and life skills on charts and display them in class",
+      "make a prayer to God every day for",
+      "grace to overcome temptations",
+      "repent whenever you fall into temptations as guided by 1John 1:9",
+      "write 1John 1:9 on flashcards and meditate on it."
+     ],
+     "inquiry_questions": [
+      "Why is it important to consider the consequences of something before acting?"
+     ],
+     "core_competencies": [
+      "Communication and Collaboration: The skills of teamwork and communicating effectively are enhanced as learners brainstorm on how to overcome temptations.",
+      "Learning to learn: The skill of working collaboratively is exhibited as learners brainstorm on moral values and life skills needed to overcome temptations."
+     ],
+     "values": [
+      "Responsibility: The learners decide to avoid sin, temptations and tempting places.",
+      "Respect: The learners accommodate each other’s views and take turns to read the Bible."
+     ],
+     "pertinent_issues": [
+      "Decision-making: The learners, in pairs, buzz on how to overcome sin, temptations and tempting situations.",
+      "Spiritual development: The learners make a prayer to God every day for grace to overcome temptations. They also meditate on 1 John 1:9."
+     ],
+     "links_to_other_areas": [
+      "English: The learners read, debate, brainstorm and communicate effectively as they share personal experiences.",
+      "Social Studies: The learners brainstorm on moral values and life skills needed to overcome temptations."
+     ],
+     "resources": [],
+     "kicd_source": "grade8-christian-religious-education.pdf#p14"
+    },
+    {
+     "kicd_code": "1.2",
+     "name": "God’s Plan for Redemption",
+     "suggested_duration": "6 lessons",
+     "learning_outcomes": [
+      "describe how God demonstrated love to humankind after the fall of man",
+      "examine how God’s plan of salvation is fulfilled through Jesus Christ",
+      "explain the importance of redemption after the fall of man",
+      "take part in sharing the love of God with others",
+      "appreciate God’s saving grace in their day-to-day life."
+     ],
+     "learning_experiences": [
+      "buzz on the meaning of the word, ‘redemption’ and share with the class",
+      "brainstorm on how God demonstrated his love after the fall of mankind",
+      "in turns read the following scriptures on God’s salvation plan; Genesis 3:15; Genesis 12:1-3, Isaiah 53:5-12, Isaiah 63:5, Galatians 1:3-5, Colossians 1:13-15, 2 Peter 3:9",
+      "write sensitisation or awareness messages on charts or using a digital device on God’s love and plan of salvation to mankind based on John 3:16",
+      "in groups, discuss the importance of redemption and make a presentation in class",
+      "take part in sharing God’s love through evangelization and acts of mercy at school and in the community",
+      "read Ephesians 1:7 and reflect on God’s saving grace."
+     ],
+     "inquiry_questions": [
+      "Why is God’s redemptive plan important to human kind?"
+     ],
+     "core_competencies": [
+      "Core competencies to be developed:",
+      "Digital literacy: The skill of using digital platforms is exhibited as learners write sensitisation or awareness messages using a digital device.",
+      "Learning to learn: The skill of shared knowledge is portrayed as learners brainstorm how God demonstrated his love after the fall of man. Pertinent and contemporary issues(PCIs):",
+      "Analytical thinking: The learners, in groups, discuss the importance of salvation to Christians today.",
+      "Effective communication: The learners take part in sharing God’s love through evangelization. Values:",
+      "Love: The learners take part in sharing God’s love by engaging in acts of mercy.",
+      "Unity: The learners perform different activities and assignments in groups. Link to other subjects:",
+      "Social Studies: The learners demonstrate social cohesion by helping the needy.",
+      "English language: The learners read the Bible and make presentations in class."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade8-christian-religious-education.pdf#p16"
+    }
+   ]
+  },
+  {
+   "strand": "The Bible",
+   "strand_code": "2.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to describe the background to the call of Abraham.",
+     "exceeds": "Learner describes the background to the call of Abraham in details.",
+     "meets": "Learner describes the background to the call of Abraham.",
+     "approaches": "Learner describes the background to the call of Abraham but omits minor details.",
+     "below": "Learner describes the background to the call of Abraham but omits major details."
+    },
+    {
+     "indicator": "Ability to examine eight ways that Abraham demonstrated faith in God.",
+     "exceeds": "Learner examines eight ways that Abraham demonstrated faith in God and cites relevant examples.",
+     "meets": "Learner examines eight ways that Abraham demonstrated faith in God.",
+     "approaches": "Learner examines seven to four ways that Abraham demonstrated faith in God.",
+     "below": "Learner examines three to one way that Abraham demonstrated faith in God."
+    },
+    {
+     "indicator": "Ability to apply faith in different situations.",
+     "exceeds": "Learner Constantly applies faith in different situations.",
+     "meets": "Learner applies faith in different situations.",
+     "approaches": "Learner sometimes applies faith in different situations.",
+     "below": "Learner applies faith in different situations with consistent guidance."
+    },
+    {
+     "indicator": "Ability to elaborate six promises made by God to Abraham.",
+     "exceeds": "Learner elaborates six promises made by God to Abraham using illustrations.",
+     "meets": "Learner elaborates six promises made by God to Abraham.",
+     "approaches": "Learner elaborates five to three promises made by God to Abraham.",
+     "below": "Learner elaborates two to one promise made by God to Abraham."
+    },
+    {
+     "indicator": "Ability to apply God’s promises in daily life.",
+     "exceeds": "Learner applies God’s promises in daily life and shares real life experiences.",
+     "meets": "Learner applies God’s promises in daily life.",
+     "approaches": "Learner makes effort to apply God’s promises in daily life.",
+     "below": "Learner applies God’s promises in daily life with consistent guidance."
+    },
+    {
+     "indicator": "Ability to identify six covenants in modern life and their importance.",
+     "exceeds": "Learner identifies six covenants in modern life and their importance and cites relevant examples.",
+     "meets": "Learner identifies six covenants in modern life and their importance.",
+     "approaches": "Learner identifies five to three covenants in modern life and their importance.",
+     "below": "Learner identifies two to one covenant in modern life and their importance."
+    },
+    {
+     "indicator": "Ability to evaluate six characteristics of ungodly covenants.",
+     "exceeds": "Learner evaluates six characteristics of ungodly covenants using illustrations.",
+     "meets": "Learner evaluates six characteristics of ungodly covenants.",
+     "approaches": "Learner evaluates five to three characteristics of ungodly covenants.",
+     "below": "Learner evaluates two to one characteristic of ungodly covenants."
+    },
+    {
+     "indicator": "Ability to discuss the importance of God’s covenant with Abraham.",
+     "exceeds": "Learner discusses the importance of God’s covenant with Abraham in details.",
+     "meets": "Learner discusses the importance of God’s covenant with Abraham.",
+     "approaches": "Learner discusses the importance of God’s covenant with Abraham but omits some details.",
+     "below": "Learner discusses the importance of God’s covenant with Abraham but omits major details."
+    },
+    {
+     "indicator": "Ability to deduce five lessons learnt from the failures of King Saul.",
+     "exceeds": "Learner deduces five lessons learnt from the failures of King Saul and cites relevant examples.",
+     "meets": "Learner deduces five lessons learnt from the failures of King Saul.",
+     "approaches": "Learner deduces four to three lessons learnt from the failures of King Saul.",
+     "below": "Learner deduces two to one lesson learnt from the failures of King Saul."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "2.1",
+     "name": "Faith and God’s Promises",
+     "suggested_duration": "6 lessons",
+     "learning_outcomes": [
+      "describe the background to the call of Abraham",
+      "examine ways Abraham demonstrated faith in God",
+      "apply faith in different situations as exemplified by Abraham",
+      "elaborate the promises made by God to Abraham",
+      "explain the importance of God’s promises to Christians today",
+      "apply God’s promises in their daily lives."
+     ],
+     "learning_experiences": [
+      "read Genesis 11:24-32 and Genesis 12:1 and summarise key points",
+      "brainstorm and share with the class the meaning of the word, ‘faith.’",
+      "share experiences of how they exercise faith in God",
+      "read Hebrews 11:1-6 and write lessons learnt in their exercise books",
+      "brainstorm on how Abraham demonstrated faith in God",
+      "in turns, read and discuss Genesis 12:1-3, 15:1-6; 17:23-26, 21:1-7 and 22:1-14",
+      "team-up to role-play how God tested Abraham’s faith in Genesis 22 1-19",
+      "journal on how they exercise faith in God in daily life",
+      "brainstorm on the meaning of the word, ‘Promise.’",
+      "read Genesis 12: 2-3, 15:1- 6, 17:1-",
+      "8, 17:15-18 and outline the promises made by God to Abraham for presentation in class",
+      "discuss the importance of God’s promises to Christians today",
+      "brainstorm on how they should apply God’s promises in their day-to-day lives"
+     ],
+     "inquiry_questions": [
+      "How do you apply God’s promises in your daily life?"
+     ],
+     "core_competencies": [
+      "Learning to learn: The skill of working collaboratively is portrayed as learners brainstorm and work in groups.",
+      "Communication: The skill of writing is demonstrated as learners journal how they exercise faith in God daily."
+     ],
+     "values": [
+      "Unity: The learners work collaboratively in groups and accommodate each other’s views.",
+      "Responsibility: The learners perform and complete assigned tasks as on time."
+     ],
+     "pertinent_issues": [
+      "Social awareness skills-effective communication: The learners share experiences of how they exercise faith in God.",
+      "Spiritual development: The learners brainstorm on how to apply God’s promises in their day-to-day lives."
+     ],
+     "links_to_other_areas": [
+      "Pre-technical Studies: The learners read Hebrews 11: 1-6 and use a digital device to make notes.",
+      "English: The learners communicate effectively as they make presentations in class."
+     ],
+     "resources": [],
+     "kicd_source": "grade8-christian-religious-education.pdf#p19"
+    },
+    {
+     "kicd_code": "2.2",
+     "name": "Abrahamic Covenant",
+     "suggested_duration": "6 lessons",
+     "learning_outcomes": [
+      "identify covenants in modern life and their importance",
+      "elaborate the covenant made by God to Abraham",
+      "explain the importance of God’s covenant with Abraham",
+      "outline the importance of circumcision to Abraham and his descendants",
+      "evaluate characteristics of ungodly covenants today",
+      "establish how to discern ungodly covenants as guided by the word of God",
+      "desire to trust in God at all times."
+     ],
+     "learning_experiences": [
+      "brainstorm on the meaning of the word, covenant, and share findings in class",
+      "identify modern covenants and their importance",
+      "read and discuss Genesis 15:1-18 and make a presentation using PowerPoint slides or charts",
+      "watch a video clip on God’s covenant with Abraham",
+      "explain the importance of God’s covenant to Abraham",
+      "read Genesis 17:1- 14 and make notes",
+      "discuss the importance of circumcision to Abraham and his descendants",
+      "buzz on characteristics of ungodly covenants today",
+      "search or read scriptures on how to distinguish between Godly from ungodly covenants",
+      "read James 4:7, Mathew 4: 8-10, 1Peter 5:8-9, Mathew 7:15-20 and discuss how to resist or discern ungodly covenants",
+      "buzz on how to apply faith in difficult situations and make summary notes."
+     ],
+     "inquiry_questions": [
+      "Why is Abrahamic covenant important to Christians today?"
+     ],
+     "core_competencies": [
+      "Digital literacy: The skill of using digital technology is enhanced as learners make PowerPoint presentations or watch a video clip on God’s covenant with Abraham.",
+      "Critical thinking and Problem-solving: The skill of creating solutions to complex problems is portrayed as learners buzz on how to apply faith in difficult situations."
+     ],
+     "values": [
+      "Respect: The learners respect each other’s views as they take turns to read, discuss and share experiences.",
+      "Responsibility: The learners perform and complete assignments on time."
+     ],
+     "pertinent_issues": [
+      "Problem-solving skills: The learners buzz on how to apply faith in difficult situations.",
+      "Group dynamics: The learners discuss, debate and brainstorm in groups."
+     ],
+     "links_to_other_areas": [
+      "Pre-technical Studies: The learners make a PowerPoint presentation or watch a video on God’s covenant with Abraham.",
+      "English: The learners read Biblical texts and communicate effectively."
+     ],
+     "resources": [],
+     "kicd_source": "grade8-christian-religious-education.pdf#p21"
+    },
+    {
+     "kicd_code": "2.3",
+     "name": "Leadership in Israel: Saul",
+     "suggested_duration": "6 lessons",
+     "learning_outcomes": [
+      "discuss reasons for kingship in Israel",
+      "examine reasons against kingship in Israel",
+      "evaluate King Saul’s failures and the consequences",
+      "deduce lessons learnt from the failures of King Saul",
+      "desire to be a God-fearing leader at school and in church."
+     ],
+     "learning_experiences": [
+      "brainstorm in small groups reasons why the Israelites demanded for a king",
+      "read 1Samuel 8:1-9 and make short notes",
+      "conduct an internet or library research on reasons against kingship in Israel",
+      "read 1 Samuel 8:10-20 and outline reasons against kingship in Israel",
+      "read and discuss king Saul’s failures and the consequences; 1Samuel 13:8-14, 15:7-25",
+      "discuss lessons learnt from the failures of King Saul",
+      "journal how they exercise leadership qualities at school and in church."
+     ],
+     "inquiry_questions": [
+      "Why did King Saul fail in his leadership?"
+     ],
+     "core_competencies": [
+      "Core competencies to be developed:",
+      "Self-efficacy: Personal skills are demonstrated as learners obey God’s law.",
+      "Digital literacy: The skill of using digital devices is portrayed as learners use the internet to research on reasons against kingship in Israel. Pertinent and contemporary issues (PCIs):",
+      "Positive behaviour change: The learners decide to obey God’s instructions.",
+      "Citizenship education-integrity: The learners apply lessons learnt from King Saul’s failures by doing the will of God /following His instructions. Values:",
+      "Integrity: The learners follow God’s instructions by doing the right thing even when no one is watching.",
+      "Responsibility: The learners journal how they exercise leadership qualities at school and in church. Link to other subjects:",
+      "Pre-technical Studies: The learners conduct an internet search on reasons against kingship in Israel.",
+      "English: The learners debate, brainstorm and read various Bible texts n turns."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade8-christian-religious-education.pdf#p23"
+    }
+   ]
+  },
+  {
+   "strand": "Miracles of Jesus Christ",
+   "strand_code": "3.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to describe the three miracles performed by Jesus Christ.",
+     "exceeds": "Learner describes three miracles performed by Jesus Christ illustratively.",
+     "meets": "Learner describes three miracles performed by Jesus Christ.",
+     "approaches": "Learner describes two miracles performed by Jesus Christ.",
+     "below": "Learner describes only one miracles performed by Jesus Christ."
+    },
+    {
+     "indicator": "Ability to apply lessons learnt from the miracles of Jesus Christ in daily life.",
+     "exceeds": "Learner applies lessons learnt from the miracles of Jesus Christ in daily life and share real life experiences.",
+     "meets": "Learner applies lessons learnt from the miracles of Jesus Christ in daily life.",
+     "approaches": "Learner makes some effort to apply lessons learnt from the miracles of Jesus Christ in daily life.",
+     "below": "Learner applies lessons learnt from the miracles of Jesus Christ daily life when prompted."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "3.1",
+     "name": "Healing of Blind Bartimaeus",
+     "suggested_duration": "7 lessons",
+     "learning_outcomes": [
+      "describe the healing of blind Bartimaeus",
+      "discuss lessons learnt from the healing of blind Bartimaeus",
+      "apply lessons learnt when faced with health challenges",
+      "desire to depend on God when faced with challenges."
+     ],
+     "learning_experiences": [
+      "brainstorm on different sicknesses or challenges they face as youths",
+      "discuss how they involve God when faced with challenges",
+      "read Mark 10:46-52 and retell the miracle",
+      "discuss lessons learnt from the healing of blind Bartimaeus and share findings with the class",
+      "share personal experiences of how they applied faith in difficult situations",
+      "write and say a prayer on healing",
+      "in groups, visit people who are sick or those having challenges within the school to encourage and pray for them."
+     ],
+     "inquiry_questions": [
+      "How does the healing of blind Bartimaeus build your faith in God?"
+     ],
+     "core_competencies": [
+      "Core competencies to be developed:",
+      "Communication and Collaboration: The skills of listening, speaking and teamwork are enhanced as learners brainstorm and discuss in groups.",
+      "Self-efficacy: The skill of task execution is portrayed as learners compose a prayer on healing and recite it in class. Pertinent and contemporary issues (PCIs): Health promotion issues - Non-communicable diseases: The learners elaborate the healing of blind Bartimaeus. Values:",
+      "Love: The learners in groups, visit the sick or those facing different challenges to encourage and pray for them. Link to other subjects:",
+      "English: The learners communicate effectively by reading, brainstorming and discussing various concepts.",
+      "Social Studies: The learners visit the sick or people experiencing different challenges in the school to encourage and pray for them."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade8-christian-religious-education.pdf#p27"
+    },
+    {
+     "kicd_code": "3.2",
+     "name": "Calming the Storm",
+     "suggested_duration": "7 lessons",
+     "learning_outcomes": [
+      "describe the miracle of calming the storm",
+      "outline lessons learnt from the miracle of calming the storm",
+      "identify the challenges they face in daily life",
+      "apply lessons learnt to overcome the challenges they face as youths",
+      "desire to depend on God when faced with challenges."
+     ],
+     "learning_experiences": [
+      "brainstorm on the meaning of the word, storm",
+      "share experiences of challenging situations they have faced either as individuals or family and how they can be overcome",
+      "read Mark 4:35-41 or watch a movie on calming the storm",
+      "outline lessons learnt from the miracle of calming the storm and make notes",
+      "choose a challenging situation affecting young people and role-play it in class (the role-play should also include solutions)",
+      "compose and sing a song about, overcoming the storms of life",
+      "write a personal journal on how they depend on God in their daily lives",
+      "read and meditate on Psalms 91:1-6."
+     ],
+     "inquiry_questions": [
+      "How does the miracle of calming the storm relate to challenges facing people today?"
+     ],
+     "core_competencies": [
+      "Core competencies to be developed:",
+      "Creativity and Imagination: The skill of making connections is enhanced as learners role-play a challenging situation affecting young people today.",
+      "Self-efficacy: The skill of self-awareness is demonstrated as learners discuss instances they faced challenging situations and how they overcame. Pertinent and contemporary issues (PCIs):",
+      "Problem-solving skills: The learners role-play a challenging situation and come up with solutions.",
+      "Self-awareness: The learners write a personal journal on how they depend on God in their day-to-day life. Values:",
+      "Integrity: The learners write a personal journal on how they depend on God in their daily lives",
+      "Unity: The learners work together to complete different tasks/assignments. Link to other subjects:",
+      "Creative Arts and Sports: The learners role-play or compose and sing a song on overcoming the storms of life.",
+      "Pre-technical Studies: The learners watch a movie on the miracle of calming the storm."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade8-christian-religious-education.pdf#p29"
+    },
+    {
+     "kicd_code": "3.3",
+     "name": "Healing of the Paralytic",
+     "suggested_duration": "7 lessons",
+     "learning_outcomes": [
+      "describe the healing of the paralytic",
+      "outline lessons learnt from the healing of the paralytic",
+      "examine the Pharisees’ opposition to the healing of the paralytic",
+      "apply lessons learnt from the miracle in daily life",
+      "appreciate God’s power over sickness and disease."
+     ],
+     "learning_experiences": [
+      "brainstorm on the meaning of the word, paralysis",
+      "read and discuss Luke 5:17-26 and make a presentation in class using charts, posters or Power Point slides",
+      "discuss lessons learnt from the healing of the paralytic and make notes",
+      "watch a movie on the healing of the paralytic",
+      "buzz on the meaning of the word, blasphemy",
+      "brainstorm on reasons why the Pharisees accused Jesus Christ of blasphemy",
+      "share personal experiences on occasions, they prayed to God for healing",
+      "write a personal reflection journal on occasions when God answered their prayers.",
+      "read, write on flashcards and meditate on Isaiah 53:4-5."
+     ],
+     "inquiry_questions": [
+      "How does the healing of the paralytic build your faith in God?"
+     ],
+     "core_competencies": [
+      "Core competencies to be developed:",
+      "Digital literacy: The skill of using digital learning platforms is enhanced as learners watch a movie on the healing of the paralytic.",
+      "Self-efficacy: The skill of self-awareness is portrayed as learners write a personal reflection journal on occasions when God answered their prayers. Pertinent and contemporary issues (PCIs):",
+      "Effective communication: The learners share personal experiences on instances when they prayed to God for healing.",
+      "Self-awareness: The learner writes a reflection journal on occasions when God answered their prayers. Values:",
+      "Respect: The learners take turns as they discuss and brainstorm on various activities.",
+      "Unity: The learners work in groups as they discuss, read various Bible texts and watch a movie on the healing of the paralytic. Link to other subjects:",
+      "Integrated Science: The learners brainstorm on the meaning of paralysis.",
+      "English: The learners read various Bible texts and make presentations in class."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade8-christian-religious-education.pdf#p31"
+    }
+   ]
+  },
+  {
+   "strand": "Teachings of Jesus Christ",
+   "strand_code": "4.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to discuss the importance of prayer.",
+     "exceeds": "Learner discusses the importance of prayer in details.",
+     "meets": "Learner discusses the importance of prayer.",
+     "approaches": "Learner discusses the importance of prayer leaving minor details.",
+     "below": "Learner discusses the importance of prayer leaving major details."
+    },
+    {
+     "indicator": "Ability to demonstrate love by praying for all people as taught by Jesus Christ.",
+     "exceeds": "Learner constantly demonstrates love by praying for all people as taught by Jesus Christ.",
+     "meets": "Learner demonstrates love by praying for all people as taught by Jesus Christ",
+     "approaches": "Learner demonstrates love by praying for friends only.",
+     "below": "Learner demonstrates love by praying for friends only when prompted."
+    },
+    {
+     "indicator": "Ability to describe the parable of the lost sheep.",
+     "exceeds": "Learner describes the parable of the lost sheep in details.",
+     "meets": "Learner describes the parable of the lost sheep.",
+     "approaches": "Learner describes the parable of the lost sheep but leaves out minor details.",
+     "below": "Learner describes the parable of the lost sheep but omits major details."
+    },
+    {
+     "indicator": "Ability to take part in reaching out to the lost through mission work.",
+     "exceeds": "Learner constantly takes part in reaching out to the lost through mission work.",
+     "meets": "Learner takes part in reaching out to the lost through mission work.",
+     "approaches": "Learner sometimes takes part in reaching out to the lost through mission work.",
+     "below": "Learner takes part in reaching out to the lost through mission work when prompted."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "4.1",
+     "name": "Teachings on Prayer",
+     "suggested_duration": "7 lessons",
+     "learning_outcomes": [
+      "outline the importance of prayer in the life of a Christian",
+      "discuss the importance of having faith when they pray to God",
+      "demonstrate love by praying for all people",
+      "apply lessons learnt by praying persistently",
+      "exercise faith whenever they pray to God."
+     ],
+     "learning_experiences": [
+      "share with peers how they pray to God in their daily lives",
+      "brainstorm on the importance of having faith in God whenever they pray",
+      "read Mark 11:22–24 and share how to pray by faith",
+      "read, Matthew 5:44-45 and share instances they prayed for both friends and enemies",
+      "read Matthew 6:5-8 and outline the main teachings",
+      "perform a skit or a role play based on Matthew 6:5-8",
+      "journal their day-to-day prayer life experiences."
+     ],
+     "inquiry_questions": [
+      "How do you apply the teachings of Jesus Christ in your day-to-day life?"
+     ],
+     "core_competencies": [
+      "Core competencies to be developed:",
+      "Communication and Collaboration: The skills of speaking, listening and teamwork are portrayed as learners’ brainstorm on the importance of having faith in God.",
+      "Self-efficacy: The skill of task execution is exhibited as learners share personal experiences of how they pray to God in their daily lives. Pertinent and contemporary issues (PCIs):",
+      "Spiritual development: The learners’ journal their day-to-day prayer life experiences.",
+      "Healthy relationships: The learners share instances they prayed for both friends and enemies. Values:",
+      "Respect: The learners demonstrate respect for one another as they take turns to talk/accommodate each other’s views.",
+      "Responsibility: The learners take responsibility for their daily tasks or assignments and pray daily.",
+      "Love: The learners pray for both friends and enemies as outlined in Matthew 5:44-45. Link to other Subjects",
+      "Pre-technical Studies: The learners use PowerPoint slides to make presentations.",
+      "English: The learners read, brainstorm, share experiences and journal their day-to-day prayer life experiences."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade8-christian-religious-education.pdf#p34"
+    },
+    {
+     "kicd_code": "4.2",
+     "name": "The Lost Sheep",
+     "suggested_duration": "7 lessons",
+     "learning_outcomes": [
+      "describe the parable of the lost sheep",
+      "take part in reaching out to the lost through evangelism",
+      "exemplify God’s love by serving all people."
+     ],
+     "learning_experiences": [
+      "brainstorm on God’s love for the sinner",
+      "read Luke 15:1-7 and make notes on the parable of the lost sheep",
+      "outline lessons learnt from the parable of the lost sheep",
+      "role-play the parable of the lost sheep",
+      "describe how they respond to God’s saving grace",
+      "brainstorm on how to reach out to the sinner",
+      "organise a class visit to the less fortunate, give them various items; as a way of sharing God’s love with them",
+      "participate in evangelising to the lost through church mission work or youth outreach programmes",
+      "compose and sing a song on God’s love for the lost."
+     ],
+     "inquiry_questions": [
+      "How does the parable of the lost sheep portray God’s love for the sinner?"
+     ],
+     "core_competencies": [
+      "Core competencies to be developed:",
+      "Citizenship: Active community skills are demonstrated as learners organise a class visit to the less fortunate and donate items.",
+      "Creativity and Imagination: The skill of making connections is exhibited as learners undertake a task to compose and sing a song on God’s love for the lost. Pertinent and contemporary issues (PCIs):",
+      "Social cohesion: The learners in groups, outline lessons learnt from the parable of the lost sheep and reach out to the lost/sinner.",
+      "Roles sharing: The learners perform different roles as they dramatize the parable of the lost sheep. Values:",
+      "Love: The learners demonstrate the love of God by reaching out to the lost/sinner.",
+      "Respect: The learners take turns to read various Bible texts and appreciate each other’s opinions during class discussions. Link to other subjects:",
+      "Creative Arts and Sports: The learners role-play the parable of the lost sheep.",
+      "English: The learners brainstorm on how to reach out to the lost/sinner."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade8-christian-religious-education.pdf#p36"
+    }
+   ]
+  },
+  {
+   "strand": "The Church",
+   "strand_code": "5.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to describe the outpouring of the Holy Spirit on the day of Pentecost",
+     "exceeds": "Learner describes the outpouring of the Holy Spirit on the day of Pentecost in details.",
+     "meets": "Learner describes the outpouring of the Holy Spirit on the day of Pentecost.",
+     "approaches": "Learner describes the outpouring of the Holy Spirit on the day of Pentecost but omits minor details.",
+     "below": "Learner describes the outpouring of the Holy Spirit on the day of Pentecost but omits major details."
+    },
+    {
+     "indicator": "Ability to analyses six ways Christians exemplify the fruit of the Holy Spirit.",
+     "exceeds": "Learner analyses six ways Christians exemplify the fruit of the Holy Spirit and uses illustrations.",
+     "meets": "Learner analyses six ways Christians exemplify the fruit of the Holy Spirit.",
+     "approaches": "Learner analyses five to three ways Christians exemplify the fruit of the Holy Spirit.",
+     "below": "Learner analyse two to one way Christians exemplify the fruit of the Holy Spirit."
+    },
+    {
+     "indicator": "Ability to describe six roles played by the church in caring for the needy.",
+     "exceeds": "Learner describes six roles played by the church in caring for the needy and cites relevant examples.",
+     "meets": "Learner describes six roles played by the church in caring for the needy.",
+     "approaches": "Learner describes five to three roles played by the church in caring for the needy.",
+     "below": "Learner describes two to one role played by the church in caring for the needy."
+    },
+    {
+     "indicator": "Ability to take part in a community service activity in the school neighbourhood.",
+     "exceeds": "Learner constantly takes part in several community service activities in the school neighbourhood.",
+     "meets": "Learner takes part in a community service activity in the school neighbourhood.",
+     "approaches": "Learner sometimes takes part in a community service activity in the school neighbourhood.",
+     "below": "Learner attempts to take part in a community service activity in the school neighbourhood."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "5.1",
+     "name": "The Holy Spirit",
+     "suggested_duration": "7 lessons",
+     "learning_outcomes": [
+      "describe the outpouring of the Holy Spirit on the day of Pentecost",
+      "analyse ways Christians exemplify the fruit of the Holy Spirit",
+      "take part in church activities to foster responsibility",
+      "explain the importance of participating in Church activities",
+      "desire to be guided by the Holy Spirit in daily life."
+     ],
+     "learning_experiences": [
+      "brainstorm on the meaning of ‘the Day of Pentecost.’",
+      "share what they know about the day of Pentecost",
+      "read Acts 2: 1-11 and make notes",
+      "download and watch a video on the day of Pentecost",
+      "use a digital device or a chart to write key points on the day of Pentecost",
+      "read Galatians 5: 22-23 and list the fruit of the Holy Spirit on flashcards",
+      "sort the flashcards according to the fruit they practise",
+      "write a reflection journal on how they practise the fruit of the Holy Spirit",
+      "conduct a buzz session and list the activities they do in the church",
+      "outline the importance of participating in church activities",
+      "share experiences on how they depend on the guidance of the Holy Spirit."
+     ],
+     "inquiry_questions": [
+      "Why should you depend on the Holy Spirit?"
+     ],
+     "core_competencies": [
+      "Core competencies to be developed:",
+      "Digital literacy: The skill of using digital technology is enhanced as learners download and watch a video about the day of Pentecost.",
+      "Citizenship: The skill of appropriate interaction with the community is enhanced as learners take part in church activities or mission work. Values:",
+      "Love: The learners exercise the fruit of love in their day-to-day lives by living harmoniously with others.",
+      "Responsibility: The learners participate in church activities or mission work. Pertinent and contemporary issues (PCIs):",
+      "Information technology: The learners use a digital device to write key points on the day of Pentecost.",
+      "Spiritual development: The learners participate in church activities or mission work. Link to other subjects:",
+      "Pre-technical Studies: The learners use a digital device to watch and download a video on the day of Pentecost.",
+      "English: The learners read Bible texts and communicate effectively during discussions or buzz sessions."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade8-christian-religious-education.pdf#p39"
+    },
+    {
+     "kicd_code": "5.2",
+     "name": "Acts of Compassion",
+     "suggested_duration": "7 lessons",
+     "learning_outcomes": [
+      "describe the role of the church in helping the needy",
+      "list the needy/those who should be helped; Leviticus 19:32-33 & Psalms 82:3",
+      "relate acts of compassion itemised in Matthew 25:31-40",
+      "establish those who will inherit the kingdom of God; Matthew 25:34-40",
+      "distinguish unrighteous acts specified in Matthew 25:41-46",
+      "take part in a community service activity in the school neighbourhood",
+      "desire to participate in acts of charity."
+     ],
+     "learning_experiences": [
+      "brainstorm and list people with diverse needs in the community",
+      "share experiences on occasions they helped the needy",
+      "discuss ways Christians care and help the needy in the society",
+      "explain the role of the church in helping the needy/destitute",
+      "collect pictures of people showing acts of compassion, make a collage and display it in class",
+      "read Leviticus 19:32-33 and Psalms 82:3 and list categories of people mentioned",
+      "how should you treat the people listed in Leviticus 19:32-33 and Psalms 82:3",
+      "outline acts of compassion listed in Matthew 25:31-40",
+      "who will inherit the Kingdom of God according to Matthew 25:34-40",
+      "write Matthew 25:40 on a chart and display it in class",
+      "write, Matthew 25:40 on a flash card and meditate on it",
+      "who are the unrighteous according to Matthew 25:41-46",
+      "role play Mathew 25:31-46",
+      "as a class, organise a visit to the less fortunate, write a detailed report of your visitation, activities done, and lessons learnt and present it in hard copy or PowerPoint slides",
+      "list acts of charity they will participate in as individuals or as a group",
+      "compose a poem on helping the needy/ destitute."
+     ],
+     "inquiry_questions": [
+      "Why should you participate in Acts of Compassion?"
+     ],
+     "core_competencies": [
+      "Digital literacy: The skill of interacting with digital technology is exhibited as learners write a report using digital devices.",
+      "Critical thinking and Problem-solving: The skill of research is demonstrated as learners identify a need in the community and provide a solution.",
+      "Learning to learn: The skill of working collaboratively is portrayed as learners visit the needy or the less fortunate and offer help."
+     ],
+     "values": [
+      "Respect: The learners appreciate the needy and the vulnerable members of the society.",
+      "Love: The learners participate in offering services to the needy and vulnerable members of the society.",
+      "Responsibility: The learners show care and concern to the needy by visiting them and offering different services to them."
+     ],
+     "pertinent_issues": [
+      "Pertinent and contemporary issues (PCIs):",
+      "Empathy: The learners identify a place (e.g. a hospital, a children’s home or home for the elderly), analyse the needs of the people and organise a community service activity.",
+      "Healthy inter and intra-personal relationships: The learners respect and care for the elderly members in their families, the church or in the community.",
+      "Skills building-helping people with special needs: The learners show love and concern for people with special needs by visiting and attending to their needs. Link to other subjects:",
+      "Pre-technical Studies: The learners use digital devices to make PowerPoint presentations/slides.",
+      "Social Studies: The learners in the company of the teacher or guardian identify and respond to the needs of the vulnerable and destitute in the community."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade8-christian-religious-education.pdf#p41"
+    }
+   ]
+  },
+  {
+   "strand": "Christian Living Today",
+   "strand_code": "6.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to identify six causes of conflicts in families today.",
+     "exceeds": "Learner identifies six causes of conflicts in families today and cites relevant examples.",
+     "meets": "Learner identifies six causes of conflicts in families today.",
+     "approaches": "Learner identifies five to three causes of conflicts in families today.",
+     "below": "Learner identifies two to one cause of conflict in families today."
+    },
+    {
+     "indicator": "Ability to evaluate causes of teenage pregnancy today.",
+     "exceeds": "Learner evaluates causes of teenage pregnancy today in details.",
+     "meets": "Learner evaluates causes of teenage pregnancy today.",
+     "approaches": "Learner evaluates causes of teenage pregnancy today but omits minor details.",
+     "below": "Learner evaluates causes of teenage pregnancies today but omits major details."
+    },
+    {
+     "indicator": "Ability to examine eight consequences of engaging in irresponsible sexual behaviour.",
+     "exceeds": "Learner examines eight consequences of engaging in irresponsible sexual behaviour and cites relevant examples.",
+     "meets": "Learner examines eight consequences of engaging in irresponsible sexual behaviour.",
+     "approaches": "Learner examines seven to four consequences of engaging in irresponsible sexual behaviour.",
+     "below": "Learner examines three to one consequence of engaging in irresponsible sexual behaviour."
+    },
+    {
+     "indicator": "Ability to discuss how the right to life is violated today.",
+     "exceeds": "Learner discusses how the right to life is violated today in details.",
+     "meets": "Learner discusses how the right to life is violated today.",
+     "approaches": "Learner discusses how the right to life is violated today but omits minor information.",
+     "below": "Learner briefly discusses how the right to life is violated today but omits major information."
+    },
+    {
+     "indicator": "Ability to analyse eight consequences of violating the right to life.",
+     "exceeds": "Learner analyses eight consequences of violating the right to life using relevant examples.",
+     "meets": "Learner analyses eight consequences of violating the right to life.",
+     "approaches": "Learner analyses seven to four consequences of violating the right to life.",
+     "below": "Learner analyses three to one consequence of violating the right to life."
+    },
+    {
+     "indicator": "Ability to identify six causes of bullying at school and in the community.",
+     "exceeds": "Learner identifies six causes of bullying at school and in the community using illustrations.",
+     "meets": "Learner identifies six causes of bullying at school and in the community.",
+     "approaches": "Learner identifies five to three causes of bullying at school and in the community.",
+     "below": "Learner identifies two to one cause of bullying at school and in the community."
+    },
+    {
+     "indicator": "Ability to model the value of love in their interaction with others.",
+     "exceeds": "Learner constantly models the value of love in their interaction with others.",
+     "meets": "Learner models the value of love in their interaction with others.",
+     "approaches": "Learner sometimes models the value of love in their interaction with others.",
+     "below": "Learner models the value of love in their interaction with others but with consistent guidance."
+    },
+    {
+     "indicator": "Ability to identify reasons that lead to misuse of leisure among youths.",
+     "exceeds": "Learner identifies reasons that lead to misuse of leisure among youths in details.",
+     "meets": "Learner identifies reasons that lead to misuse of leisure among youths.",
+     "approaches": "Learner identifies reasons that lead to misuse of leisure among youths but omits some information.",
+     "below": "Learner identifies reasons which lead to misuse of leisure among youths but omits a lot of information."
+    },
+    {
+     "indicator": "Ability to analyse eight consequences of misusing leisure time.",
+     "exceeds": "Learner analyses eight consequences of misusing leisure and guides peers on proper use of leisure.",
+     "meets": "Learner analyses eight consequences of misusing leisure time.",
+     "approaches": "Learner analyses eight to four consequences of misusing leisure.",
+     "below": "Learner analyses three to one consequence of misusing leisure time."
+    },
+    {
+     "indicator": "Ability to examine ways of using leisure time constructively.",
+     "exceeds": "Learner examines ways of using leisure time constructively in details.",
+     "meets": "Learner examines ways of using leisure time constructively.",
+     "approaches": "Learner examines ways of using leisure time constructively but omits minor details.",
+     "below": "Learner examines ways of using leisure time constructively but omits major details."
+    },
+    {
+     "indicator": "Ability to identify their God-given talents, gifts and abilities.",
+     "exceeds": "Learner identifies their God-given talents, gifts and abilities with ease.",
+     "meets": "Learner identifies their God-given talents, gifts and abilities.",
+     "approaches": "Learner identifies some of their God-given talents, gifts and abilities.",
+     "below": "Learner identifies their God-given talents, gifts and abilities with guidance."
+    },
+    {
+     "indicator": "Ability to originate an income-generating enterprise.",
+     "exceeds": "Learner originates several income-generating enterprises and saves money.",
+     "meets": "Learner originates an income-generating enterprise.",
+     "approaches": "Learner makes effort to originate an income-generating enterprise.",
+     "below": "Learner originates an income-generating enterprise with assistance."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "6.1",
+     "name": "Family Relationships",
+     "suggested_duration": "6 lessons",
+     "learning_outcomes": [
+      "outline roles played by different family members",
+      "identify practices which depict healthy family relationships",
+      "outline causes of conflicts in families today",
+      "propose solutions to conflicts facing families today",
+      "describe ways children should relate to their parents",
+      "list five values needed to live harmoniously with family members",
+      "utilize the values listed in their interaction with family members."
+     ],
+     "learning_experiences": [
+      "brainstorm on the responsibilities of parents, children and other members of the family",
+      "discuss how a healthy family should live",
+      "debate on the causes of conflicts in families today",
+      "discuss how peer pressure can cause conflict in families today",
+      "find out ways to overcome peer influence/rebellion against parents",
+      "research on other possible solutions to family conflicts",
+      "read Ephesians 6:1-4, Exodus 20:12, Colossians 3:20 and state how they should treat their parents",
+      "write the promise given in Exodus 20:12 on a flash card and recite it",
+      "list five values needed to live harmoniously with family members",
+      "journal how they apply the values listed to ensure family unity",
+      "share the journal with their parents or guardians."
+     ],
+     "inquiry_questions": [
+      "How do you relate with your family members?"
+     ],
+     "core_competencies": [
+      "Communication and Collaboration: The skills of listening, speaking and teamwork are enhanced as learners discuss and brainstorm in groups.",
+      "Learning to learn: The skill of sharing learnt knowledge is exhibited as learner’s debate on; causes of conflicts in families today."
+     ],
+     "values": [
+      "Unity: In groups, learners suggest solutions to family conflicts.",
+      "Responsibility: The learners brainstorm on their responsibilities in the family set up."
+     ],
+     "pertinent_issues": [
+      "Peer pressure resistance: The learners discuss how peer pressure can cause family conflicts and suggest ways to overcome peer influence or rebellion against parents.",
+      "Problem-solving skills: The learners in groups, suggest solutions to family conflicts."
+     ],
+     "links_to_other_areas": [
+      "Social Studies: The learners in groups, suggest ways to overcome peer influence or rebellion against parents.",
+      "English: The learners journal how they apply the values listed to ensure family unity."
+     ],
+     "resources": [],
+     "kicd_source": "grade8-christian-religious-education.pdf#p45"
+    },
+    {
+     "kicd_code": "6.2",
+     "name": "Human Sexuality: Responsible Sexual Behaviour",
+     "suggested_duration": "7 lessons",
+     "learning_outcomes": [
+      "identify forms of sexual abuse and how to avoid or overcome abuse",
+      "evaluate causes of teenage pregnancies today",
+      "examine the consequences of engaging in irresponsible sexual behaviour",
+      "discuss values and life skills needed to avoid irresponsible sexual behaviour",
+      "choose to live responsibly as guided by the word of God",
+      "respect their bodies by living a morally upright life ."
+     ],
+     "learning_experiences": [
+      "discuss the meaning of human sexuality and share findings in class",
+      "research on forms of sexual abuse and make presentations using PowerPoint slides or charts",
+      "list places or settings they should avoid for their own safety",
+      "discuss ways and where to report cases of sexual abuse",
+      "listen and ask a child protection officer (CPO) question(s) on what to do in case of defilement",
+      "outline the causes of early pregnancies among teenage girls and make a presentation in class",
+      "brainstorm and list forms of irresponsible sexual behaviour",
+      "buzz on the consequences of engaging in irresponsible sexual behaviour",
+      "read, recite and write on flashcards; 1Thessalonians 4:3-6, Romans 12:1-2 and 1 Corinthians 6:18-20",
+      "brainstorm and list values and life skills needed to avoid irresponsible sexual behaviour",
+      "write and share sensitisation messages on the importance of not engaging in irresponsible sexual behaviour (they may pin the messages on the school notice board or hang them on the classroom wall)",
+      "debate on the topic, ‘Overcoming peer pressure as a youth’",
+      "pray and depend on God to overcome temptations",
+      "read, meditate and apply 1Peter 2:11 in their lives."
+     ],
+     "inquiry_questions": [
+      "Why should you live responsibly as a youth?"
+     ],
+     "core_competencies": [
+      "Self-efficacy: The skill of self-awareness is exhibited as learners appreciate their body as the temple of the Holy Spirit and avoid irresponsible sexual behaviour.",
+      "Critical thinking and Problem-solving: The skill of problem-solving is demonstrated as learners write sensitisation messages and debate on how to overcome negative peer influence."
+     ],
+     "values": [
+      "Values:",
+      "Integrity: The learners make a moral decision on abstinence by not engaging in irresponsible sexual behaviour.",
+      "Responsibility: The learners are accountable for their own actions and are accountable to God since their bodies are the temple of the Holy Spirit, therefore avoid/overcome irresponsible sexual behaviour. Link to other subjects:",
+      "Social Studies: The learners as patriotic citizens avoid premarital sex because of the negative consequences associated with it.",
+      "English: The learners debate on the topic, ‘overcoming negative peer pressure.’"
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade8-christian-religious-education.pdf#p47"
+    },
+    {
+     "kicd_code": "6.3",
+     "name": "Sacredness of life",
+     "suggested_duration": "7 lessons",
+     "learning_outcomes": [
+      "explain the meaning of sacredness of life",
+      "elaborate sacredness of life from the scriptures provided",
+      "discuss how the right to life is violated today",
+      "evaluate causes of suicide in today’s society",
+      "examine causes of abortion among teenage girls",
+      "analyse the consequences of violating the right to life",
+      "compile values and life skills needed to uphold sacredness of life."
+     ],
+     "learning_experiences": [
+      "brainstorm on the meaning of sacredness of life",
+      "read, Genesis 4:10-11, Genesis 9:6, Exodus 20:13, Deuteronomy 18:10, , Proverbs 6:16-17 & Matthew 6:25 and summarise key points on sacredness of life on a chart",
+      "explain why killing is morally wrong",
+      "discuss how the right to life is violated today",
+      "brainstorm on reasons which cause some youths to commit suicide",
+      "discuss the negative effects of suicide to an individual and the family",
+      "jointly list the causes of abortion among teenage girls today",
+      "team up to discuss why abortion is a sin; Psalms 139:13-16, Jeremiah 1:5",
+      "debate on the consequences of abortion to an individual and the family",
+      "brainstorm on values and life skills needed to uphold the sacredness of life",
+      "compose a song on how safe road use can preserve life",
+      "sing the song at the school assembly to sensitise other learners on safe road use",
+      "engage a resource person on how to overcome stress that may lead to violation of life."
+     ],
+     "inquiry_questions": [
+      "How do you uphold sacredness of life?"
+     ],
+     "core_competencies": [
+      "Citizenship: The skill of sensitivity and awareness is demonstrated as learners’ respect and uphold sacredness of life.",
+      "Learning to learn: The skill of information and support is portrayed as learners brainstorm on the meaning of sacredness of life/ discuss biblical teachings on sacredness of life."
+     ],
+     "values": [
+      "Responsibility: The learners discuss how to overcome/avoid taking one’s life or other people's lives.",
+      "Social justice: The learners acquire skills and values needed to uphold and respect the sacredness of life.",
+      "Integrity: The learners decide to do what is morally right by protecting and upholding the right to life."
+     ],
+     "pertinent_issues": [
+      "Human /Children rights: The learners protect and appreciate the sacredness of life.",
+      "Self-awareness: The learners in pairs, discuss the negative effects of suicide on an individual and the family.",
+      "Coping with stress: The learners learn about values and life skills needed to cope with stress to avoid taking one’s life."
+     ],
+     "links_to_other_areas": [
+      "Social Studies: The learners discuss and brainstorm on Human rights/ right to life.",
+      "English: The learners engage/interview a resource person on how to uphold sacredness of life."
+     ],
+     "resources": [],
+     "kicd_source": "grade8-christian-religious-education.pdf#p50"
+    },
+    {
+     "kicd_code": "6.4",
+     "name": "Bullying",
+     "suggested_duration": "7 lessons",
+     "learning_outcomes": [
+      "identify causes of bullying at school and in the community",
+      "analyse the effects of bullying on an individual and the family",
+      "outline values needed to co-exist peacefully from the scriptures provided",
+      "model the value of love in their interaction with others."
+     ],
+     "learning_experiences": [
+      "brainstorm on the meaning of the term, bullying",
+      "list types of bullying",
+      "in pairs answer the questions; have you ever been bulled? How did it affect your self-esteem?",
+      "discuss why young people bully or dislike others",
+      "debate on the topic; bullying is morally wrong and unacceptable",
+      "buzz on where and whom to report to in case you are bullied",
+      "discuss the negative results of bullying on the individual and family",
+      "brainstorm on values needed to co-exist peacefully with others",
+      "read 1 John 3:15, I Peter 3:8, Roman 14:19, Proverbs 22:10, and list the values drawn from the scriptures",
+      "discuss how the values you have listed can enhance peaceful co-existence",
+      "share sensitisation messages on the effects of bullying and how to live peacefully with others, (this can be presented to the school during assembly time)",
+      "journal their resolve to avoid bullying as guided by the scriptures."
+     ],
+     "inquiry_questions": [
+      "Why is bullying unacceptable?"
+     ],
+     "core_competencies": [
+      "Communication and Collaboration: The skill of teamwork is enhanced as learners brainstorm in groups, and share experiences on the negative effects of bullying.",
+      "Self-efficacy: Personal skills are portrayed as learners develop a positive attitude towards self and others to overcome bullying."
+     ],
+     "values": [
+      "Love: The learners appreciate others despite their racial, ethnic or religious background this enhances harmonious co-existence.",
+      "Peace: The learners avoid hurting others and resolve conflicts amicably."
+     ],
+     "pertinent_issues": [
+      "Counselling services -Positive behaviour change: The learners are guided on the negative effects of bullying others and the need for peaceful co-existence.",
+      "Peer education and Mentorship-Healthy inter and intra-personal relationships: The learners co-exist harmoniously by respecting each other/loving others as guided by the Bible."
+     ],
+     "links_to_other_areas": [
+      "English: The learners brainstorm, read, and discuss the need for harmonious co-existence and the negative effects of bullying.",
+      "Pre-technical Studies: The learners use a digital device to write sensitisation messages on the negative effects of bullying.",
+      "Social Studies: The learners apply values and life skills in their interaction with others to form harmonious relationships."
+     ],
+     "resources": [],
+     "kicd_source": "grade8-christian-religious-education.pdf#p52"
+    },
+    {
+     "kicd_code": "6.5",
+     "name": "Work Talents, Gifts and Abilities",
+     "suggested_duration": "7 lessons",
+     "learning_outcomes": [
+      "identify their God-given talents, gifts and abilities",
+      "take part in different activities to nurture their talents",
+      "describe the parable of the talents in Matthew 25:14-30",
+      "discuss lessons learnt from the parable of the talents",
+      "apply lessons learnt from the parable of talents in daily life",
+      "originate an income-generating enterprise to enhance financial literacy skills",
+      "demonstrate accountability by saving money from the enterprise",
+      "utilize their God given talents, gifts and abilities to serve others."
+     ],
+     "learning_experiences": [
+      "brainstorm on what they enjoy doing while at home, school and in the community",
+      "share experiences of the talents, gifts and unique abilities they possess",
+      "read and recite James 1:17, Romans 11:29 and appreciate God as the giver of unique gifts, talents and abilities",
+      "showcase the gifts, abilities and talents they possess ( for example; they can role-play, dramatise a play or a Bible story, draw, sing, paint, compose and recite poems)",
+      "participate in various activities or competitions such as (drawing, painting, singing, knitting, cooking, sports, acting, preaching) and write a report for presentation in class",
+      "retell the parable of the talents; Matthew 25:14-30 and make notes",
+      "outline lessons learnt from the parable of the talents and make a presentation in class",
+      "buzz on how they will apply lessons learnt from the parable of the talents in their daily lives",
+      "brainstorm on income-generating ideas they can invest in as young people",
+      "start a project at home or school and report its performance monthly",
+      "save money from the project or business and keep records",
+      "participate in acts of mercy as a way of giving back to the society"
+     ],
+     "inquiry_questions": [
+      "1. How do you discover your talents, gifts and abilities?",
+      "2. How do you use your God-given talents, gifts and abilities?"
+     ],
+     "core_competencies": [
+      "Creativity and Imagination: The skill of testing ideas is exhibited as learners come up with an income-generating project and save money from the business/enterprise.",
+      "Self-efficacy: Personal skills are displayed as learners showcase the gifts/abilities/talents they possess (they can role-play, dramatise a play or Bible story, draw, sing, or compose and recite poems)."
+     ],
+     "values": [
+      "Values:",
+      "Responsibility: The learners are accountable and engage actively in assigned roles and duties.",
+      "Patriotism: The learners are aware of their duties and responsibilities hence they nurture and develop their talents by participating in various activities. Links to other subjects:",
+      "Pre-technical Studies: The learners engage in an income-generating activity and outline ways of saving money from the project/enterprise.",
+      "Social Studies: The learners participate in an activity that is beneficial to the community."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade8-christian-religious-education.pdf#p54"
+    },
+    {
+     "kicd_code": "6.6",
+     "name": "Leisure",
+     "suggested_duration": "7 lessons",
+     "learning_outcomes": [
+      "explain how they spend their leisure time",
+      "identify reasons for misuse of leisure among youths",
+      "analyse the consequences of misusing leisure",
+      "examine ways of using leisure time constructively",
+      "utilize leisure time appropriately as guided by the scriptures",
+      "compile values and life skills needed for proper use of leisure time",
+      "value leisure time and use it constructively."
+     ],
+     "learning_experiences": [
+      "brainstorm on the meaning of the word, ‘leisure.’",
+      "share experiences of how they spend their free time",
+      "debate on why and how youths misuse leisure today",
+      "discuss the negative results of misusing leisure time",
+      "discuss and make notes on constructive ways of using their free time/leisure",
+      "design posters/charts on positive ways of using leisure time and display it in class or on the school notice board",
+      "read Exodus 20:11, 1 Corinthians 10:23, 1 Corinthians 10:31, Philippians 4:8; outline lessons learnt on good use of free time/leisure",
+      "list values and life skills needed to use leisure time appropriately",
+      "journal how they will apply the values and life skills in daily life to avoid misuse of leisure."
+     ],
+     "inquiry_questions": [
+      "How do you spend your leisure?"
+     ],
+     "core_competencies": [
+      "Core competencies to be developed:",
+      "Self-efficacy: The skill of self-awareness is demonstrated since learners are confident about their capabilities to use leisure time appropriately.",
+      "Communication and Collaboration: The skill of teamwork is enhanced as learners in groups discuss and make notes on constructive ways of using their free time. Pertinent and contemporary issues (PCIs):",
+      "Self-awareness: The learner’s journal how they will apply the values and life skills acquired to avoid misuse of leisure.",
+      "Peer pressure resistance: The learners resist negative peer influence by not engaging in vices such as alcohol, drug and substance abuse. Values:",
+      "Responsibility: The learners are accountable and use their leisure time appropriately.",
+      "Unity: The learners in groups, discuss the negative results of misusing leisure. Link to other subjects:",
+      "Creative Arts and Sports: The learners participate in activities or competitions that nurture their talents, gifts and abilities.",
+      "Social Studies: The learners outline values and life skills needed to use leisure time appropriately."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade8-christian-religious-education.pdf#p57"
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,1386 @@
+{
+ "source_pdf": "grade10-literature-in-english.pdf",
+ "grade": 10,
+ "subject": "literature-in-english",
+ "general_outcomes": [],
+ "strands": [
+  {
+   "strand": "Oral Literature",
+   "strand_code": "1.0",
+   "assessment_rubric": [],
+   "substrands": [
+    {
+     "kicd_code": "1.1",
+     "name": "Introduction to Oral Literature",
+     "suggested_duration": "4 lessons",
+     "learning_outcomes": [
+      "identify genres of oral literature for information",
+      "analyse the features of oral literature from a variety of oral literature genres",
+      "discuss the functions of oral literature for comprehension",
+      "appreciate the importance of oral literature in daily life."
+     ],
+     "learning_experiences": [
+      "search online or offline for the meaning of oral literature",
+      "listen to a recording on genres of oral literature and take notes",
+      "summarise the features of oral literature",
+      "peer review each other’s work for correctness",
+      "brainstorm on the functions of oral literature",
+      "present the functions of oral literature through a mind map."
+     ],
+     "inquiry_questions": [
+      "Why is oral literature important in the society?"
+     ],
+     "core_competencies": [
+      "Communication and Collaboration: This is advanced as the learner engages in teamwork to research and share information obtained from online and offline sources on the meaning of oral literature.",
+      "Learning to learn: This is enhanced as the learner reflects on their own work when peer reviewing each other’s work for correctness"
+     ],
+     "values": [
+      "Values:",
+      "Responsibility: This is diligence is promoted as the learner searches for information online and offline.",
+      "Unity: This is nurtured while the learner strives to achieve a common goal as they collaborate to work. Pertinent and Contemporary Issues (PCIs): Socio economic issues: This is nurtured as the learners cohesively works as they search for information on the meaning and features of oral literature."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-literature-in-english.pdf#p13"
+    },
+    {
+     "kicd_code": "2.1.1",
+     "name": "Oral Narratives",
+     "suggested_duration": "4 lessons",
+     "learning_outcomes": [
+      "identify features of oral narratives from given narratives",
+      "analyse features of different oral narratives for literary analysis",
+      "discuss the functions of oral narratives for critical analysis",
+      "appreciate the importance of oral narratives in the society."
+     ],
+     "learning_experiences": [
+      "watch a narration of an oral narrative from a video and discuss the meaning and features of oral narratives",
+      "narrate an oral narrative to the class for peer review",
+      "collaborate to identify the oral features in the narrative",
+      "search online or offline for features of oral narratives and present the findings in class",
+      "identify features of oral narratives from print and electronic sources for presentation in class",
+      "collaborate to discuss the lessons drawn from the narratives."
+     ],
+     "inquiry_questions": [
+      "Why is it important to study oral narratives?"
+     ],
+     "core_competencies": [
+      "Communication and collaboration: This is enhanced as the learner engages to identify the oral features of oral narratives",
+      "Critical thinking and problem solving: This is advanced when the learner explores lessons from oral narratives and identifies the features of oral narratives."
+     ],
+     "values": [
+      "Values:",
+      "Social justice: This is developed as the learner shares moral lessons drawn from oral narratives",
+      "Peace: This is fostered as the learner harmoniously works with others. Pertinent and Contemporary Issues (PCIs): Learner support programmes: This is fostered as the learner draws lessons and identifies features of oral narratives."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-literature-in-english.pdf#p21"
+    },
+    {
+     "kicd_code": "3.1.1",
+     "name": "Appreciation of Songs/ oral poetry",
+     "suggested_duration": "4 lessons",
+     "learning_outcomes": [
+      "identify the features of songs for literary analysis",
+      "analyse the performance of a lullaby for literary appreciation",
+      "appreciate the value of songs in the society."
+     ],
+     "learning_experiences": [
+      "listen to an oral song from an audio or online source",
+      "collaborate to discuss the features of the song and share their findings in class",
+      "search online or offline for features of songs and present their findings on charts",
+      "team up to sing common lullabies",
+      "listen to or watch a lullaby and discuss its verbal and non-verbal characteristics",
+      "present their responses in class for peer review",
+      "summarise their responses and display for peer review."
+     ],
+     "inquiry_questions": [
+      "Why do people sing songs?"
+     ],
+     "core_competencies": [
+      "Digital literacy: This is promoted as the learner interacts with digital technology while searching for features of songs from online sources.",
+      "Learning to learn: This is nurtured as the learner carries out investigations to build on their own learning experiences on features and subject matter of songs and lullabies."
+     ],
+     "values": [
+      "Unity: This is developed as the learner works with others to search and present findings on songs and lullabies.",
+      "Love: This is nurtured as the learner displays trustworthiness while working with others to achieve a common goal."
+     ],
+     "pertinent_issues": [
+      "Citizenship: This is enhanced as the learner interacts with information on lullabies about child care and protection."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-literature-in-english.pdf#p29"
+    },
+    {
+     "kicd_code": "5.1.1",
+     "name": "Oral Narratives",
+     "suggested_duration": "4 lessons",
+     "learning_outcomes": [
+      "identify the features of trickster narratives for literary appreciation",
+      "analyse the structure and moral lessons of trickster narratives for critical analysis",
+      "use verbal and non-verbal cues to perform trickster narrative for literary analysis",
+      "appreciate the importance of trickster narratives in society."
+     ],
+     "learning_experiences": [
+      "collaborate to search online or offline for features of trickster narratives",
+      "present their findings in class for peer review",
+      "read trickster narratives and team up to discuss their structural elements for information",
+      "narrate trickster narrative using verbal and non-verbal cues for peer review",
+      "critically examine the moral lessons learnt from the trickster narratives and share with peers for feedback",
+      "collaborate to analyse the lessons drawn from the trickster narratives and their practical application in real life situation ."
+     ],
+     "inquiry_questions": [
+      "How do trickster narratives help in shaping morality in society?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:"
+     ],
+     "values": [
+      "Values:",
+      "Unity: This is enhanced as the learner collaborates with others to search for the features of trickster narratives. Respect: This is fostered as the learner appreciates diverse opinions during group activities. Pertinent and Contemporary Issues (PCIs): Citizenship: This is enhanced as the learner participates in presentations, and group discussions on trickster narratives"
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-literature-in-english.pdf#p39"
+    },
+    {
+     "kicd_code": "6.1.1",
+     "name": "Oral Song/ Poetry",
+     "suggested_duration": "4 lessons",
+     "learning_outcomes": [
+      "Identify the structure and features of play songs and lullabies for literary appreciation",
+      "analyse the functions of play songs and lullabies for literary analysis",
+      "evaluate the importance of play songs and lullabies in the society",
+      "appreciate the role of songs in oral tradition."
+     ],
+     "learning_experiences": [
+      "brainstorm on the play songs and lullabies that they have heard or sang in the past and present them in class",
+      "collaborate to discuss the structure and features of play songs and lullabies songs and share with peers",
+      "listen to or watch a play song and a lullabies",
+      "collaborate to discuss the subject matter and share their responses",
+      "collaborate to discuss the importance of play songs and lullabies."
+     ],
+     "inquiry_questions": [
+      "1. How do play songs help in social cohesion in the society?",
+      "2. How do the lullabies portray family relationships?"
+     ],
+     "core_competencies": [
+      "Communication and collaboration: This is enhanced as the learner brainstorms, sings and engages in various activities with the peers.",
+      "Learning to learn: This is developed as the learner shares songs and engages in group activities in and outside classroom."
+     ],
+     "values": [
+      "Respect: This is nurtured as the learner appreciates the contribution of peers during discussions and presentations.",
+      "Love: This is enhanced as the learner shares responses from discussion on the importance of play songs and lullabies."
+     ],
+     "pertinent_issues": [
+      "Social economic issues: This is propagated as the learner sings or watches play songs and lullabies with diverse social and economic themes."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-literature-in-english.pdf#p48"
+    },
+    {
+     "kicd_code": "7.1.1",
+     "name": "Appreciation of Modern forms of oral literature",
+     "suggested_duration": "4 lessons",
+     "learning_outcomes": [
+      "Identify the features of modern forms of oral literature for literary analysis",
+      "discuss qualities of a good story teller for literary appreciation",
+      "analyse elements of modern forms of oral literature literary appreciation",
+      "evaluate performance techniques in modern forms of oral literature for critical analysis",
+      "acknowledge the evolving nature of oral literature for literary appreciation."
+     ],
+     "learning_experiences": [
+      "watch a performance of various forms of modern oral literature and brainstorm on verbal and non-verbal features",
+      "search online or offline sources for features of the modern forms of oral literature and present their findings in class",
+      "brainstorm on the qualities of a good story teller and share with peers",
+      "collaborate and watch the performance of any of the modern forms of oral literature and identify their elements",
+      "summarise the features of the modern forms of oral literature in a chart and display it on the classroom wall."
+     ],
+     "inquiry_questions": [
+      "How have forms of oral literature changed over time?"
+     ],
+     "core_competencies": [
+      "• Learning to learn: This is nurtured as the learner searches on features of contemporary forms of oral literature."
+     ],
+     "values": [
+      "Values:",
+      "Respect: This is enhanced as the learner appreciates the opinions of peers during discussions.",
+      "Peace: This is advanced as the learner respects the contributions of others during group activities. Pertinent and Contemporary Issues (PCIs): Social-economic issues: This is nurtured as the learner identifies contemporary forms of oral literature as opportunities of wealth creation."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-literature-in-english.pdf#p52"
+    },
+    {
+     "kicd_code": "8.1.1",
+     "name": "Songs/Oral Poetry",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "identify the features of initiation songs for information",
+      "analyse the functions of a given initiation song",
+      "perform a given initiation song for effective communication",
+      "acknowledge the worth of initiation songs in promoting culture."
+     ],
+     "learning_experiences": [
+      "listen to initiation songs and identify their features",
+      "search online or offline for features and functions of initiation songs and present their findings",
+      "read a given initiation song and collaborate to discuss its features and functions",
+      "collaborate to perform the given initiation song",
+      "review each other’s performances.",
+      "record their performances or perform the initiation song to the rest of the school.",
+      "discuss the values in the memoir"
+     ],
+     "inquiry_questions": [
+      "How do the initiation songs propagate culture?"
+     ],
+     "core_competencies": [
+      "Creativity and imagination: This is enhanced as the learner performs a work song with peers.",
+      "Learning to learn: This is developed as the learner shares their responses on features and functions of initiation songs."
+     ],
+     "values": [
+      "Unity: This is enhanced as the learner works with others to discuss and perform initiation songs.",
+      "Responsibility: This is advanced as the learner strives to perfect on their own performance of the initiation songs."
+     ],
+     "pertinent_issues": [
+      "Socio-economic issues: This is developed as the learner collaborates with the others to performs an initiation song."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-literature-in-english.pdf#p59"
+    },
+    {
+     "kicd_code": "9.1.1",
+     "name": "Oral literature fieldwork (project on short forms)",
+     "suggested_duration": "4 lessons",
+     "learning_outcomes": [
+      "explain the preparation process for fieldwork",
+      "discuss the objectives of fieldwork",
+      "evaluate methods of data collection in fieldwork",
+      "explain ethical considerations in fieldwork",
+      "conduct fieldwork research on short forms for literary appreciation",
+      "appreciate the value of fieldwork in research."
+     ],
+     "learning_experiences": [
+      "brainstorm on the preparation process for fieldwork, and present their findings",
+      "team up to explore methods, objectives, and ethical considerations in fieldwork.",
+      "collaborate to summarise the information in a graphic organiser and display in the classroom for peer review",
+      "collaborate to discuss the value of fieldwork",
+      "conduct a field work research on short forms.as an extended learning activity",
+      "share their findings with peers."
+     ],
+     "inquiry_questions": [
+      "Why is fieldwork important in oral literature?"
+     ],
+     "core_competencies": [
+      "Communication and collaboration: This is enhanced as the learner works together with others to brainstorm on the preparation process for fieldwork and present their findings.",
+      "Self-efficacy: This is enhanced as the learner analyses and justifies their strengths and weaknesses while exploring methods, objectives, and ethical considerations in fieldwork."
+     ],
+     "values": [
+      "Values:",
+      "Unity: This is enhanced as the learner collaborates harmoniously with others to summarise the information in a graphic organiser and display in the classroom for peer review.",
+      "Respect: This is developed as the learner positively regards others with dignity as they review each other's work. Pertinent and Contemporary Issues (PCIs): Citizenship: This is nurtured as the learner enhances integrity as they discuss life lessons and values in the memoirs and emulate them."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-literature-in-english.pdf#p63"
+    }
+   ]
+  },
+  {
+   "strand": "Poetry",
+   "strand_code": "1.2",
+   "assessment_rubric": [],
+   "substrands": [
+    {
+     "kicd_code": "1.2.1",
+     "name": "Appreciating Poetry",
+     "suggested_duration": "4 lessons",
+     "learning_outcomes": [
+      "identify the elements of a poem from Kenya for comprehension",
+      "analyse the elements of a poem, from Kenya for comprehension",
+      "acknowledge the importance of elements of poetry when analysing poems."
+     ],
+     "learning_experiences": [
+      "brainstorm on the meaning of poetry and the elements of poems from Kenya",
+      "search for elements of poems from online or offline sources and peer review",
+      "Present the findings to the class",
+      "collaborate to discuss the elements of a poem from Kenya",
+      "make notes on the elements of a poem from Kenya on environmental conservation."
+     ],
+     "inquiry_questions": [
+      "Why do we study poetry?"
+     ],
+     "core_competencies": [
+      "Communication and collaboration: This is enhanced as the learner speak clearly and effectively while searching for the meaning and elements of poetry.",
+      "Digital literacy: This is promoted as the learner searches for the meaning and elements of poetry from online sources."
+     ],
+     "values": [
+      "Unity: This is developed as the learner works with others during discussions.",
+      "Respect: This is promoted as the learner listens to others during group discussions."
+     ],
+     "pertinent_issues": [
+      "Pertinent and Contemporary Issues (PCIs):",
+      "Socio economic issues: This is developed while the learner makes notes on the elements of a poem from Kenya on environmental conservation.",
+      "Social cohesion: This is displayed as the learner cooperates with others to undertake tasks."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-literature-in-english.pdf#p15"
+    },
+    {
+     "kicd_code": "2.2.1",
+     "name": "Appreciation of Poetry",
+     "suggested_duration": "10 lessons",
+     "learning_outcomes": [
+      "identify the characteristics of free verse, blank verse, sonnet, narrative poems and sonnet from given poems",
+      "analyse the structure and subject matter of a free verse, blank verse, sonnet, narrative poems and sonnets for literary appreciation",
+      "perform different types of poems for enjoyment",
+      "acknowledge the place of poems in the society."
+     ],
+     "learning_experiences": [
+      "search online or offline for the meaning of free verse, blank verse, sonnet, narrative poems and sonnet",
+      "share their findings in class",
+      "read and recite free verse, blank verse, sonnet and narrative poems",
+      "collaborate to discuss their characteristics and subject matter",
+      "summarise the characteristics and structure of verse, blank verse, sonnet and narrative poems in charts and display them in class",
+      "collaborate to perform different types of poems and present their performances in class and out of class forums."
+     ],
+     "inquiry_questions": [
+      "1. How are poems classified?",
+      "2. How can we make the performance of poems enjoyable?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Critical thinking and problem solving: This is enhanced as the learner explores characteristics and subject matter of different types of poems.",
+      "Learning to learn: This is promoted when the learner reflects on own work as they discuss and share information on different types of poems. Values: Unity: This is developed when the learner cooperates with others to perform different types of poems and presents their performances in class. Pertinent and Contemporary Issues (PCIs): Citizenship education: This is enhanced as the learner shares their findings in class to promotes social cohesion."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-literature-in-english.pdf#p23"
+    },
+    {
+     "kicd_code": "3.2.1",
+     "name": "Appreciation of Poetry",
+     "suggested_duration": "4 lessons",
+     "learning_outcomes": [
+      "explain the process involved in writing of a poem",
+      "create a poem on a given topic",
+      "appreciate writing of poetry for effective communication."
+     ],
+     "learning_experiences": [
+      "search online or offline for the steps involved in the writing of a poem and present their findings in class",
+      "identify a topic in poetry",
+      "brainstorm for ideas, images and phrases related to the topic they have identified",
+      "create the structure of the poem",
+      "determine the style to use in the poem",
+      "draft a poem on environmental education and climate change",
+      "revise and edit the poem for coherence and clarity",
+      "choose the title",
+      "share the poem for constructive feedback and make necessary adjustments",
+      "display the poem on the classroom noticeboard or e-portfolio."
+     ],
+     "inquiry_questions": [
+      "1. How can one become a good poet?",
+      "2. How can you tell whether a poem is well written?"
+     ],
+     "core_competencies": [
+      "Communication and Collaboration: This is enhanced as the learner brainstorms for ideas, images and phrases related to the topic they have identified",
+      "Self-efficacy: This is promoted as the learner plans and creates a poem and shares with peers."
+     ],
+     "values": [
+      "Values:",
+      "Respect: This is fostered as the learner appreciates the poems of peers and develops human dignity.",
+      "Integrity: This is enhanced as the learner assesses peer’s work objectively. Pertinent and Contemporary Issues (PCIs): Social economic issues: This is enhanced as the learner writes poems on environmental education and climate change."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-literature-in-english.pdf#p30"
+    },
+    {
+     "kicd_code": "",
+     "name": "Appreciation of Poetry",
+     "suggested_duration": "6 lessons",
+     "learning_outcomes": [
+      "recognise sound patterns in a given poem",
+      "relate the sound patterns in a poem to the subject matter",
+      "appreciate the importance of poetry for life long learning."
+     ],
+     "learning_experiences": [
+      "search online or offline for sound patterns and present their findings in class",
+      "describe the sound patterns",
+      "read or recite a poem and identify the sound patterns and share with peers",
+      "listen to an audio or video and discuss the sound patterns employed",
+      "collaborate to recite a poem that has sound patterns during a school open day",
+      "discuss the significance of sound patterns in a poem.",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "How do sound patterns promote enjoyment of poetry?",
+      "Key Inquiry Question(s)"
+     ],
+     "core_competencies": [
+      "Communication and collaboration: This is enhanced as the learner contributes to group decision making by acknowledging each other’s contribution during discussions.",
+      "Learning to learn: This is nurtured as the learner searches for sound patterns in poetry and discusses their significance in a poem."
+     ],
+     "values": [
+      "Peace: This is fostered as the learner shows respect and care for self and others during group activities.",
+      "Integrity: This is enhanced as the learner displays self-discipline during recitation of the poem with sound patterns and group discussion."
+     ],
+     "pertinent_issues": [
+      "Socio awareness: This is developed as the learner reads and recites a poem that has sound patterns for effective communication."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-literature-in-english.pdf#p38"
+    },
+    {
+     "kicd_code": "",
+     "name": "Appreciation of Poetry",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "describe sound patterns in a poem for critical appreciation",
+      "analyse sound patterns in a poem for literary analysis",
+      "relate the sound patterns in a poem to the subject matter for literary criticism.",
+      "acknowledge the importance of poetry lifelong learning."
+     ],
+     "learning_experiences": [
+      "search online or offline for the meaning of sound patterns and present findings in class",
+      "recite a poem and collaborate to identify the sound patterns and share with peers",
+      "collaborate to recite a poem that has the sound patterns for a club activity",
+      "discuss the significance of sound patterns in a poetry and display your findings in class",
+      "create a poem on mental health."
+     ],
+     "inquiry_questions": [
+      "How do the sound patterns in poetry contribute to fluency when reciting a poem?"
+     ],
+     "core_competencies": [
+      "Digital Literacy: This is advanced as the learner uses digital skills to search for information online.",
+      "Communication and collaboration: This is enhanced as the learner contributes to group decision making as they share their findings with their peers"
+     ],
+     "values": [
+      "Respect: This is promoted as the learner uses polite forms in communication to share their findings with peers.",
+      "Integrity: This is enhanced as the learner displays self-discipline during reciting of the poem with sound patterns and group discussion."
+     ],
+     "pertinent_issues": [
+      "Health promotion: This is developed as the learner reads and recites a poem on mental health that has sound patterns."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-literature-in-english.pdf#p42"
+    },
+    {
+     "kicd_code": "",
+     "name": "Appreciation of Poetry",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "describe sound patterns in a poem for critical appreciation",
+      "analyse sound patterns in a poem for literary analysis",
+      "relate the sound patterns in a poem to the subject matter for literary criticism.",
+      "acknowledge the importance of poetry lifelong learning."
+     ],
+     "learning_experiences": [
+      "search online or offline for the meaning of sound patterns and present findings in class",
+      "recite a poem and collaborate to identify the sound patterns and share with peers",
+      "collaborate to recite a poem that has the sound patterns for a club activity",
+      "discuss the significance of sound patterns in a poetry and display your findings in class",
+      "create a poem on mental health."
+     ],
+     "inquiry_questions": [
+      "How do the sound patterns in poetry contribute to fluency when reciting a poem?"
+     ],
+     "core_competencies": [
+      "Digital Literacy: This is advanced as the learner uses digital skills to search for information online.",
+      "Communication and collaboration: This is enhanced as the learner contributes to group decision making as they share their findings with their peers"
+     ],
+     "values": [
+      "Respect: This is promoted as the learner uses polite forms in communication to share their findings with peers.",
+      "Integrity: This is enhanced as the learner displays self-discipline during reciting of the poem with sound patterns and group discussion."
+     ],
+     "pertinent_issues": [
+      "Health promotion: This is developed as the learner reads and recites a poem on mental health that has sound patterns."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-literature-in-english.pdf#p43"
+    },
+    {
+     "kicd_code": "6.2.1",
+     "name": "Appreciation of Poetry",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "discuss repetition, refrain and chorus in a poem for critical analysis",
+      "analyse repetition, refrain and chorus in a poem for literary appreciation",
+      "acknowledge the importance of poetry for lifelong learning."
+     ],
+     "learning_experiences": [
+      "search online or offline for examples of repetition, refrain and chorus in poetry and present their findings in class",
+      "read a poem and collaborate to identify the repetition, refrain and chorus for analysis",
+      "share their findings with their peers",
+      "collaborate to recite a poem that has sound patterns for appreciation",
+      "discuss the significance of repetition, refrain and chorus in a poem for literary analysis."
+     ],
+     "inquiry_questions": [
+      "How do sound patterns promote enjoyment while reciting a poem?"
+     ],
+     "core_competencies": [
+      "Communication and collaboration: This is enhanced as the learner contributes to group decision making by acknowledging each other’s contribution during discussions.",
+      "Learning to learn: This is nurtured as the learner searches independently and discusses the significance of repetition, refrain and chorus in a poem for literary analysis."
+     ],
+     "values": [
+      "Peace: This is nurtured as the learner shows respect for self and others during group activities.",
+      "Integrity: This is enhanced as the learner participates in reciting a poem with sound patterns."
+     ],
+     "pertinent_issues": [
+      "Social awareness: This is developed as the learner participates in discussions with peers."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-literature-in-english.pdf#p49"
+    },
+    {
+     "kicd_code": "7.2.1",
+     "name": "Appreciation of Poetry",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "examine subject matter in poems from Kenya for literary analysis",
+      "analyse subject matter in poems from Kenya for literary appreciation",
+      "acknowledge the importance of subject matter in poems from Kenya for literary appreciation."
+     ],
+     "learning_experiences": [
+      "brainstorm on subject matter in poetry and share with peers",
+      "read or recite a given poem and collaborate to describe the subject matter for analysis",
+      "share their findings with their peers",
+      "present elements of subject matter in poetry in a flow chart for literary analysis",
+      "discuss the significance of subject matter in poems from Kenya for literary appreciation."
+     ],
+     "inquiry_questions": [
+      "How do themes in poems from Kenya capture our shared experiences?"
+     ],
+     "core_competencies": [
+      "Communication and collaboration: This is enhanced as the learner works with peers to describe the subject matter in poems from Kenya for analysis.",
+      "Learning to learn: This is inculcated as the learner discusses the significance of subject matter in poems from Kenya for literary appreciation."
+     ],
+     "values": [
+      "Unity: This is nurtured as the learner brainstorms on subject matter in poetry and shares with peers harmoniously.",
+      "Integrity: This is enhanced as the learner shares their findings with their peers."
+     ],
+     "pertinent_issues": [
+      "Citizenship Education: This is developed as the learner discusses the significance of subject matter in poems from Kenya for literary appreciation."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-literature-in-english.pdf#p54"
+    },
+    {
+     "kicd_code": "8.2.1",
+     "name": "Appreciation of Poetry",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "examine imagery in a given poem for literary analysis",
+      "analyse imagery in a given poem for literary appreciation",
+      "acknowledge the importance of imagery for literary appreciation."
+     ],
+     "learning_experiences": [
+      "brainstorm on imagery in poetry and share with peers",
+      "search the meaning of imagery from print and non-print sources",
+      "read a poem and collaborate with peers to identify similes and metaphors for literary analysis",
+      "share their findings with their peers",
+      "collaborate and use imagery to write a poem for literary analysis",
+      "discuss the significance of imagery in a given poem for literary appreciation."
+     ],
+     "inquiry_questions": [
+      "How does the use of imagery promote imagination and creativity in writing poems?"
+     ],
+     "core_competencies": [
+      "Critical thinking and Problem Solving: This is enhanced as the learner collaborates and uses imagery to write a poem for literary analysis.",
+      "Learning to learn: This is nurtured as the learner discusses the significance of imagery in a poem for literary appreciation."
+     ],
+     "values": [
+      "Peace: This is advanced as the learner shows respect for self and others during brainstorms on imagery in poetry and share with peers.",
+      "Integrity: This is enhanced as the learner displays honesty as they collaborate with peers to identify similes and metaphors for literary analysis"
+     ],
+     "pertinent_issues": [
+      "Social Cohesion: This is developed as the learner collaborates and uses imagery to write a poem for literary analysis."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-literature-in-english.pdf#p60"
+    },
+    {
+     "kicd_code": "9.2.1",
+     "name": "Appreciation of Poetry (Poems from Kenya)",
+     "suggested_duration": "4 lessons",
+     "learning_outcomes": [
+      "examine subject matter in poems from Kenya for literary analysis",
+      "analyse themes in a variety of poems from Kenya for literary appreciation",
+      "acknowledge the significance of subject matter in poems from Kenya for literary appreciation."
+     ],
+     "learning_experiences": [
+      "brainstorm on subject matter in poems from Kenya and share with peers",
+      "read a poem and collaborate to describe the subject matter for peer correction",
+      "search a variety of poems from Kenya on different themes and discuss them in class with peers",
+      "recite poems on environment and love and analyse their themes",
+      "share their findings with their peers",
+      "discuss the significance of subject matter in poems from Kenya for literary appreciation"
+     ],
+     "inquiry_questions": [
+      "Why is it important to study a variety of themes in poetry?"
+     ],
+     "core_competencies": [
+      "Communication and collaboration: This is enhanced as the learner collaborate to describe the subject matter in poems from Kenya.",
+      "Learning to learn: This is inculcated as the learner recites poems on environment and love and analyse their themes."
+     ],
+     "values": [
+      "unity: This is nurtured as the learner brainstorms on subject matter in poetry and shares with peers harmoniously.",
+      "Self-efficacy: This is enhanced when the learner recites poems on environment and love and analyse their themes."
+     ],
+     "pertinent_issues": [
+      "• Citizenship Education: This is developed as the learners searches a variety of poems from Kenya on different themes and discuss them in class with peers."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-literature-in-english.pdf#p65"
+    }
+   ]
+  },
+  {
+   "strand": "Fiction and Non-Fiction",
+   "strand_code": "1.3",
+   "assessment_rubric": [],
+   "substrands": [
+    {
+     "kicd_code": "1.3.1",
+     "name": "Fiction (Novel from Kenya)",
+     "suggested_duration": "5 lessons",
+     "learning_outcomes": [
+      "explain the features of prose fiction for knowledge",
+      "examine the elements of history in prose fiction in Kenya",
+      "critically analyse a novel from Kenya",
+      "appreciate how history has shaped the features of prose fiction in Kenya."
+     ],
+     "learning_experiences": [
+      "team up with peers to search for features of prose fiction from Kenya from online and offline sources and present their answers in class",
+      "make a presentation outlining the features of prose fiction from Kenya for peer review",
+      "discuss with peers to identify elements of history from prose fiction in Kenya",
+      "summarise their findings in a tree diagram",
+      "collaborate to write a synopsis of the novel",
+      "team up to chronologically arrange the events in the prose fiction from Kenya, in a flow chart",
+      "• share their work with peers for feedback."
+     ],
+     "inquiry_questions": [
+      "How has history influenced prose fiction in Kenya?"
+     ],
+     "core_competencies": [
+      "Creativity and imagination: This is nurtured as the learner collaborates to write a synopsis of the novel.",
+      "Self-efficacy: This is enhanced as the learner shares their work with peers for feedback."
+     ],
+     "values": [
+      "Respect: This is inculcated as the learner appreciates the contributions of the others during discussions and peer review.",
+      "Unity: This is enhanced as the learner collaborates with others to arrange the events in the prose fiction chronologically."
+     ],
+     "pertinent_issues": [
+      "Patriotism: This is enhanced as the learner teams up with peers to identify elements of history from prose fiction in Kenya."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-literature-in-english.pdf#p17"
+    },
+    {
+     "kicd_code": "1.3.2",
+     "name": "Non-fiction (Non-Fiction from Kenya)",
+     "suggested_duration": "4 lessons",
+     "learning_outcomes": [
+      "explain the features of non-fiction for literary appreciation",
+      "categorise non-fiction prose for critical analysis",
+      "appreciate the significance of non-fiction for lifelong learning."
+     ],
+     "learning_experiences": [
+      "discuss the meaning of non-fiction and share with peers",
+      "team up to collect samples of non-fiction prose for discussion in class",
+      "search for features of non-fiction from online and offline sources and make presentations in class",
+      "collaborate to categorise non-fiction prose for peer review",
+      "share their findings with peers for feedback."
+     ],
+     "inquiry_questions": [
+      "How does the knowledge of non-fiction prose help to nurture literary skills?"
+     ],
+     "core_competencies": [
+      "Digital literacy: This is promoted as the learner uses appropriate digital technology to effectively search for the information online and offline.",
+      "Learning to learn: This is enhanced as the learner works collaboratively to share information and support from peers."
+     ],
+     "values": [
+      "Values:"
+     ],
+     "pertinent_issues": [
+      "Pertinent and Contemporary Issues (PCIs): Patriotism: This is promoted as the learner teams up with peers to collect samples of non-fiction prose."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-literature-in-english.pdf#p19"
+    },
+    {
+     "kicd_code": "2.3.2",
+     "name": "Non-Fiction: Personal Journal",
+     "suggested_duration": "8 lessons",
+     "learning_outcomes": [
+      "identify the structure of a personal journal for critical analysis",
+      "analyse the content and style of a personal journal for literary appreciation",
+      "write an entry of a personal journal from personal experiences",
+      "appreciate the value of life writing for effective communication."
+     ],
+     "learning_experiences": [
+      "brainstorm on the meaning of life-writing and present their findings in class",
+      "work jointly to conduct an online search on characteristics of personal journals",
+      "discuss the structure of a personal journal and present their findings on a mind map",
+      "read a sample personal journal and discuss the content, language and style",
+      "make an entry of a personal journal from personal experiences",
+      "share their work with peers and peer review for correctness",
+      "• organize their neatly written and reviewed work in a portfolio."
+     ],
+     "inquiry_questions": [
+      "Why is it important to keep journals?"
+     ],
+     "core_competencies": [
+      "Digital literacy: This is advanced as the learner is able to use technology and apply digital skills when conducting an online search on characteristics of personal journals.",
+      "Critical thinking and Problem solving: This is nurtured as the learner analyses concepts by logical reasoning when discussing the structure of a personal journal and presenting their findings on a mind map."
+     ],
+     "values": [
+      "Unity: This is promoted as the learner cooperates with peers to brainstorm on the meaning of life-writing and presents their findings in class.",
+      "Responsibility: This is enhanced as the learner exhibits accountability to accept input when sharing their work with peers to peer reviewing for correctness."
+     ],
+     "pertinent_issues": [
+      "Self-awareness: This is addressed as the learner expresses their thoughts, ideas and experiences when making entries to prepare a personal journal."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-literature-in-english.pdf#p27"
+    },
+    {
+     "kicd_code": "3.3.2",
+     "name": "Non- Fiction: (Autobiography from Kenya)",
+     "suggested_duration": "4 lessons",
+     "learning_outcomes": [
+      "explain the structure of an autobiography for comprehension",
+      "analyse the main ideas addressed in an autobiography for lifelong learning",
+      "write their own life story for self-reflection",
+      "acknowledge the value of writing for personal growth."
+     ],
+     "learning_experiences": [
+      "conduct a reading session to read an autobiography from Kenya",
+      "work jointly to summarise the structure of the autobiography on a graphic organiser and display on the classroom noticeboard",
+      "team up with peers to brainstorm on the main ideas and pertinent and contemporary issues brought out in the autobiography",
+      "search from online or offline sources for information on the process of writing an autobiography",
+      "write a section of their own life story by following the process outlined: -reflect on their life -outline their story -begin with a catchy introduction -decide whether to use a chronological or thematic structure -detail key life events",
+      "-share their thoughts, feelings and insights -highlight achievements and challenges -incorporate dialogue -show growth and change -conclusion",
+      "share their draft autobiography sections with peers for review",
+      "organize their reviewed fair copies in a portfolio."
+     ],
+     "inquiry_questions": [
+      "Why do people write their own life stories?"
+     ],
+     "core_competencies": [
+      "Creativity and Imagination: This is nurtured as the learner adapts new ideas that inspire creativity as they write a section of their own life story by following the process outlined.",
+      "Citizenship : This is inculcated as the learner teams up with peers to develop a constructive dialogue when brainstorming on the main ideas and pertinent and contemporary issues brought out in the autobiography."
+     ],
+     "values": [
+      "Peace: This is enhanced as the learner displays tolerance with peers when working jointly to summarise the structure of the autobiography on a graphic organiser and display on the classroom noticeboard.",
+      "Respect: This is enhanced as the learner accommodates diverse opinions from peers when brainstorming on the main ideas and pertinent and contemporary issues brought out in the autobiography."
+     ],
+     "pertinent_issues": [
+      "Nationalism: This is promoted as the learner interacts with autobiographies on Kenyan personalities and appreciates their journeys through life."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-literature-in-english.pdf#p34"
+    },
+    {
+     "kicd_code": "6.3.1",
+     "name": "Fiction (Anthology of short stories from Kenya and East Africa)",
+     "suggested_duration": "8 lessons",
+     "learning_outcomes": [
+      "explain the features of a short story for literary appreciation",
+      "interpret the elements of history and culture in the short story in Kenya for lifelong learning",
+      "appreciate how history and culture have shaped the short story in Kenya."
+     ],
+     "learning_experiences": [
+      "search for features of short stories from Kenya from online and offline sources and present their findings to the class",
+      "collaborate to discuss the features of the short stories from Kenya and peer review",
+      "team up with peers to identify elements of history from short stories in Kenya",
+      "summarise their findings using graphic organisers."
+     ],
+     "inquiry_questions": [
+      "How has history and culture influenced the short story in Kenya?"
+     ],
+     "core_competencies": [
+      "Creativity and imagination: This is nurtured as the learner collaborates and use their imagination to summarise their findings using graphic organisers.",
+      "Digital literacy: This is developed as the learner searches for features of the short stories from Kenya from online or offline sources and present their findings to the class."
+     ],
+     "values": [
+      "Social justice: This is inculcated as the learner appreciates the contributions of the others during discussions and peer review.",
+      "Unity: This is enhanced as the learner collaborates with others to undertake tasks."
+     ],
+     "pertinent_issues": [
+      "Citizenship: This is enhanced as the learner observes equity and non-discrimination while identifying elements of history from the short stories in Kenya."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-literature-in-english.pdf#p50"
+    }
+   ]
+  },
+  {
+   "strand": "Fiction and Non Fiction",
+   "strand_code": "2.3",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to analyse features of different genres of oral literature",
+     "exceeds": "analyses all the features of different genres of oral literature and provides a variety of precise illustrations",
+     "meets": "analyses all the features of different genres of oral literature and provides correct illustrations",
+     "approaches": "analyses the features of oral literature and provides some correct illustrations",
+     "below": "analyses of features of oral literature and provides some illustrations with assistance"
+    },
+    {
+     "indicator": "Ability to evaluate functions of oral literature",
+     "exceeds": "evaluates functions of oral literature exhaustively and provides consistent correct illustrations",
+     "meets": "evaluates functions of oral literature and provides correct illustrations",
+     "approaches": "evaluates functions of oral literature and provides some correct illustrations",
+     "below": "evaluates functions of oral literature and provides some correct illustrations with assistance"
+    },
+    {
+     "indicator": "Ability to extract moral lessons from narratives",
+     "exceeds": "extracts moral lessons from narratives and provides a variety of precise illustrations",
+     "meets": "extracts moral lessons from narratives and provides correct illustrations",
+     "approaches": "extracts moral lessons from narratives and provides some precise illustrations",
+     "below": "extracts moral lessons from narratives and provides some correct"
+    },
+    {
+     "indicator": "Ability to explain and evaluate different methods of data collection",
+     "exceeds": "explains and evaluates all the methods of data collection and provides a variety of precise illustrations",
+     "meets": "explains and evaluates all the methods of data collection and provides illustrations",
+     "approaches": "explains and evaluates some methods of data collection and provides illustrations",
+     "below": "explains and evaluates some methods of data collection and provides illustrations with assistance"
+    },
+    {
+     "indicator": "Ability to recognise sound patterns in poems",
+     "exceeds": "recognises sound patterns in poems and provides a variety of precise illustrations",
+     "meets": "recognises sound patterns in poems and provides illustrations",
+     "approaches": "recognises sound patterns in poems and provides some illustrations",
+     "below": "recognises sound patterns in poems and provides illustrations with assistance"
+    },
+    {
+     "indicator": "Ability to use precise words to describe attitude",
+     "exceeds": "uses precise words to describe attitude and consistently provides accurate illustrations.",
+     "meets": "uses precise words to describe attitude and provides illustrations.",
+     "approaches": "uses some precise words to describe attitude and provides illustrations.",
+     "below": "uses some precise words to describe attitude and provides illustrations with difficulty."
+    },
+    {
+     "indicator": "Ability to analyse subject matter in poems",
+     "exceeds": "analyses subject matter in poems and provides a variety of accurate illustrations.",
+     "meets": "analyses subject matter in poems and provides accurate illustrations.",
+     "approaches": "analyses subject matter in poems and provides some accurate illustrations.",
+     "below": "analyses subject matter in poems and provides some accurate illustrations with assistance."
+    },
+    {
+     "indicator": "Ability to explain the process of writing poems",
+     "exceeds": "explains the process of writing a poem and provides a variety of illustrations with precision.",
+     "meets": "explains the process of writing a poem and provides illustrations with precision.",
+     "approaches": "explains the process of writing a poem and provides some illustrations with precision.",
+     "below": "explains the process of writing a poem and provides some illustrations with difficulty."
+    },
+    {
+     "indicator": "characters, language, style, and themes",
+     "exceeds": "themes, and provides variety of illustrations with precision.",
+     "meets": "themes, and provides illustrations with precision.",
+     "approaches": "themes, and provides some illustrations with precision.",
+     "below": "themes, and provides some illustrations with assistance."
+    },
+    {
+     "indicator": "Ability to analyse features of plays",
+     "exceeds": "analyses all the features of different plays and provides a variety of precise illustrations.",
+     "meets": "analyses all the features of different plays and provides precise illustrations.",
+     "approaches": "analyses all the features of different plays and provides some precise illustrations.",
+     "below": "analyses some of the features of different plays and provides some illustrations with assistance."
+    },
+    {
+     "indicator": "Ability to explain features of short stories",
+     "exceeds": "explains features of short stories and provides variety of precise illustrations.",
+     "meets": "explains features of short stories and provides precise illustrations.",
+     "approaches": "explains features of short stories and provides some precise illustrations.",
+     "below": "explains features of short stories and provides some precise illustrations with assistance."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "2.3.1",
+     "name": "Fiction (Novel from Kenya)",
+     "suggested_duration": "12 lessons",
+     "learning_outcomes": [
+      "identify characters and their traits from the set novel",
+      "analyse themes, characters, and characterisation in the novel",
+      "relate the novel to the culture of Kenya.",
+      "appreciate the value of the novel for life-long learning."
+     ],
+     "learning_experiences": [
+      "read the set novel and collaborate to write down the sequence of events",
+      "identify the characters in the novel and collaborate to discuss their traits",
+      "relate the cultural elements in the novel to the culture in Kenya in and share with peers",
+      "collaborate to discuss the themes in the novel and present their findings",
+      "link the characters to real life and draw lessons",
+      "collaborate to summarise the characters and themes in a graphic organiser and place it on the classroom noticeboard."
+     ],
+     "inquiry_questions": [
+      "Why should one read a novel?"
+     ],
+     "core_competencies": [
+      "• Critical thinking and problem solving: This is enhanced as the learner makes the interpretation and inference while exploring character traits and thematic concerns and draws lessons from them."
+     ],
+     "values": [
+      "Values:",
+      "Social justice: This is enhanced as the learner engages in harmonious relationships in the discussion.",
+      "Respect: This is nurtured as the learner experiences acceptance and appreciates different characters in the novel. Pertinent and Contemporary Issues (PCIs): Social awareness skills: This is enhanced as the learner collaborates with peers to discuss thematic concerns in the novel."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-literature-in-english.pdf#p25"
+    },
+    {
+     "kicd_code": "3.3.1",
+     "name": "Fiction (Novel from Kenya)",
+     "suggested_duration": "8 lessons",
+     "learning_outcomes": [
+      "identify the language and style in the novel for literary appreciation",
+      "analyse the language and style in the novel for critical analysis",
+      "relate language use in the novel to values for life-long learning",
+      "appreciate the value of the novel for life-long learning."
+     ],
+     "learning_experiences": [
+      "read the novel and discuss the language and style for peer review",
+      "search online or offline for stylistic devices and language use and share in class",
+      "collaborate to discuss and present their findings for peer review",
+      "link the language use to real life concerns and draw moral lessons",
+      "collaborate to summarise language use and stylistic devices in a graphic organiser and place it on the classroom noticeboard for peer review."
+     ],
+     "inquiry_questions": [
+      "Why is style important in reading a novel?"
+     ],
+     "core_competencies": [
+      "Critical thinking and problem solving: This is enhanced as the learner makes the interpretation and inference while exploring thematic concerns and draws lessons from them.",
+      "Citizenship: This is nurtured when cultural and national identity skills are fostered as the learner interacts with thematic concerns derived from the Kenyan setting."
+     ],
+     "values": [
+      "Values:",
+      "Social justice: This is enhanced as the learner engages in harmonious relationships in the discussion.",
+      "Integrity : This is nurtured as the learner experiences acceptance and appreciates different use of language and style for moral lessons in the novel. Pertinent and Contemporary Issues (PCIs): Citizenship skills: This is enhanced as the learner collaborates to promote social cohesion while they discuss language and style and present to the class."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-literature-in-english.pdf#p32"
+    },
+    {
+     "kicd_code": "5.3.1",
+     "name": "Fiction",
+     "suggested_duration": "8 lessons",
+     "learning_outcomes": [
+      "Identify the setting, plot, characters and their traits in the set play",
+      "analyse the themes, language and style in the set play",
+      "relate the characters, and thematic concerns to real life",
+      "acknowledge the value of the play in highlighting societal concerns."
+     ],
+     "learning_experiences": [
+      "collaborate to read the set play",
+      "discuss the setting and sequence of events in the play",
+      "role play a section of the play",
+      "identify the characters in the set play and collaborate to discuss their traits",
+      "discuss the relationships among the characters in the play",
+      "search online or offline for the meaning of the word theme and present their findings in class",
+      "collaborate to discuss and illustrate the themes in the play and share their responses in class",
+      "discuss how the characters and themes apply in real life and share their responses",
+      "search on stylistic devices found in play and present their findings in class",
+      "collaborate to identify the language and stylistic devices used in the play and share with peers",
+      "• summarise the stylistic devices found in the play and peer review."
+     ],
+     "inquiry_questions": [
+      "Why should one read a play?"
+     ],
+     "core_competencies": [
+      "Communication and collaboration: This is enhanced as the learner contributes to group discussion and actively participates in the reading, role playing and discussions concerning the set play.",
+      "Learning to learn: This is promoted as the learner independently identifies characters, themes, language and stylistic devices used in the play."
+     ],
+     "values": [
+      "Respect: This is nurtured as the learner appreciates the opinions of others during group discussions.",
+      "Patriotism: This is enhanced as the learner displays awareness of their own responsibilities in the society and relates characters in the play with real life."
+     ],
+     "pertinent_issues": [
+      "Citizenship: This is promoted as the learner embraces leadership and good governance skills as they discuss thematic concerns in the play"
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-literature-in-english.pdf#p44"
+    },
+    {
+     "kicd_code": "5.3.2",
+     "name": "Non fiction (Autobiography from Kenya)",
+     "suggested_duration": "4 lessons",
+     "learning_outcomes": [
+      "Explain the use of language and style for literary appreciation",
+      "analyse language and style in the autobiography for literary analysis",
+      "relate the autobiography to the culture of Kenya for lifelong learning",
+      "acknowledge the value of autobiography for lifelong learning."
+     ],
+     "learning_experiences": [
+      "read an autobiography from a given text",
+      "collaborate and brainstorm on the language use and style and present their findings",
+      "search responsibly online or offline information on language and style in autobiography",
+      "collaborate to summarise the information in a graphic organiser and display on the classroom noticeboard for peer review",
+      "collaborate to discuss the values in the autobiography and emulate them."
+     ],
+     "inquiry_questions": [
+      "Why is language and style important in an autobiography?"
+     ],
+     "core_competencies": [
+      "Creativity and Imagination: This is enhanced as the learner links values in the autobiography to their own life.",
+      "Self-efficacy: This is nurtured as the learner analyses and justifies their strengths and weaknesses while discussing and emulating the values in the autobiography."
+     ],
+     "values": [
+      "Unity: This is promoted as the learner collaborates harmoniously with others to brainstorm on the language use and style and present their findings",
+      "Respect: This is developed as the learner positively regards others with dignity as they review each other's work.",
+      "values in the autobiography and emulate them."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-literature-in-english.pdf#p46"
+    },
+    {
+     "kicd_code": "6.3.2",
+     "name": "Non-fiction (Memoir Kenya)",
+     "suggested_duration": "4 lessons",
+     "learning_outcomes": [
+      "explain features of a memoir for literary appreciation",
+      "study the structure of a memoir for literary analysis",
+      "analyse the content of a memoir for literary appreciation",
+      "acknowledge the values in a memoir for lifelong learning."
+     ],
+     "learning_experiences": [
+      "read a memoir from a given text",
+      "collaborate and brainstorm on features of a memoir and present their findings",
+      "search online or offline information on structure and content of memoirs",
+      "collaborate to summarise the information in a graphic organiser and display in the classroom for peer review",
+      "collaborate to discuss the values in memoirs and emulate them."
+     ],
+     "inquiry_questions": [
+      "How do memoirs influence the development of values in our society?"
+     ],
+     "core_competencies": [
+      "Creativity and Imagination: This is enhanced as the learner links values in the memoir to their own life.",
+      "Self-efficacy: This is enhanced as the learner analyses and justifies their strengths and weaknesses while discussing and emulating the values in the memoir."
+     ],
+     "values": [
+      "Unity: This is enhanced as the learner collaborates harmoniously with others to brainstorm on features of a memoir and present their findings.",
+      "Respect: This is developed as the learner positively regards others with dignity as they review each other's work."
+     ],
+     "pertinent_issues": [
+      "Citizenship: This is nurtured as the learner enhances integrity as they discuss the values in the memoir and emulate them."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-literature-in-english.pdf#p51"
+    },
+    {
+     "kicd_code": "7.3.1",
+     "name": "Fiction (Anthology of short story from Kenya)",
+     "suggested_duration": "8 lessons",
+     "learning_outcomes": [
+      "identify the setting and plot of the short story for literary appreciation",
+      "analyse the themes, characters, and characterisation, language and style for critical analysis",
+      "appreciate the value of the short story for life-long learning."
+     ],
+     "learning_experiences": [
+      "read the short story and discuss the setting for peer review",
+      "team up to write down the sequence of events",
+      "identify the characters in the short story and collaborate to discuss their traits",
+      "practise hot seating for various characters",
+      "collaborate to discuss the themes in the short story and present their findings",
+      "link the characters to real life and draw lessons",
+      "collaborate to summarise the characters and themes in a graphic organiser and place it in the classroom."
+     ],
+     "inquiry_questions": [
+      "1. How do themes in short stories reflect our society?",
+      "2. How do characters in short stories influence our lives?"
+     ],
+     "core_competencies": [
+      "Critical thinking and problem solving: This is enhanced as the learner makes the interpretation and inference while exploring character traits and thematic concerns and draws lessons from them.",
+      "Citizenship: This is nurtured when cultural and national identity skills are fostered as the learner interacts with thematic concerns derived from the Kenyan setting."
+     ],
+     "values": [
+      "Values:",
+      "Social justice: This is enhanced as the learner engages in harmonious relationships in the discussion.",
+      "Respect: This is nurtured as the learner experiences acceptance and appreciates different characters in the short story. Pertinent and Contemporary Issues (PCIs): Social awareness skills: This is enhanced as the learner collaborates with peers to summarise thematic concerns in the short story."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-literature-in-english.pdf#p55"
+    },
+    {
+     "kicd_code": "7.3.2",
+     "name": "Non-fiction (Memoirs from Kenya)",
+     "suggested_duration": "4 lessons",
+     "learning_outcomes": [
+      "explain the use of language and style in a memoir for literary analysis",
+      "discuss themes in a memoir for literary analysis",
+      "analyse language and style in a memoir for literary appreciation",
+      "relate the memoir to the culture of Kenya for lifelong learning",
+      "acknowledge the values in a memoir for lifelong learning."
+     ],
+     "learning_experiences": [
+      "read a memoir from a given text",
+      "collaborate and brainstorm on the language use and style in memoirs and present their findings",
+      "search online or offline information on language and style in memoirs",
+      "collaborate to summarise the information in a graphic organiser and display on the classroom noticeboard for peer review",
+      "team up to explore themes in memoirs.",
+      "collaborate to discuss the values in the memoirs and emulate them"
+     ],
+     "inquiry_questions": [
+      "Why is language and style relevant in a memoir?"
+     ],
+     "core_competencies": [
+      "Creativity and Imagination: This is enhanced as the learner links values in the memoir to their own life.",
+      "Self-efficacy: This is enhanced as the learner analyses and justifies their strengths and weaknesses while discussing and emulating the values in the memoir."
+     ],
+     "values": [
+      "• Unity: This is enhanced as the learner collaborates harmoniously with others to brainstorm on the themes, language use and style and present their findings"
+     ],
+     "pertinent_issues": [
+      "Pertinent and Contemporary Issues (PCIs): Citizenship: This is nurtured as the learner enhances integrity as they emulate them."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-literature-in-english.pdf#p57"
+    },
+    {
+     "kicd_code": "8.3.1",
+     "name": "Fiction",
+     "suggested_duration": "8 lessons",
+     "learning_outcomes": [
+      "identify the techniques in the play for performance for literary analysis",
+      "act a play employing performance techniques for literary appreciation",
+      "appreciate the performance of the play for literary analysis."
+     ],
+     "learning_experiences": [
+      "search online or offline for performance techniques and present their findings for peer review",
+      "collaborate and watch a live or video performance of a play and discuss the performance techniques",
+      "perform an act or a scene of a play and critique the performance techniques",
+      "summarise the performance techniques."
+     ],
+     "inquiry_questions": [
+      "Why are performance techniques important in a play?"
+     ],
+     "core_competencies": [
+      "Learning to learn: This is enhanced as the learner independently searches on performance techniques.",
+      "Creativity and imagination: This is cultivated as the learner performs an act or a scene of a play."
+     ],
+     "values": [
+      "Respect: This is enhanced as the learner appreciates the opinions of peers during the performance.",
+      "Peace: This is developed as the learner harmoniously respects the contributions of others during group discussions."
+     ],
+     "pertinent_issues": [
+      "Social Cohesion: This is developed as the learner collaborates and watches a live or video performance of a play and discusses the performance techniques."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-literature-in-english.pdf#p61"
+    },
+    {
+     "kicd_code": "8.3.2",
+     "name": "Non-fiction (Memoir-Kenya)",
+     "suggested_duration": "4 lessons",
+     "learning_outcomes": [
+      "explain personal experiences and memories that are contained in memoirs",
+      "analyse settings in a memoir for literary appreciation",
+      "discuss life lessons and values in a memoir for information",
+      "appreciate a memoir for lifelong learning."
+     ],
+     "learning_experiences": [
+      "brainstorm on personal experiences and memories contained in memoirs and present their findings",
+      "collaborate to summarise the information in a graphic organiser and display in the classroom for peer review",
+      "team up to explore settings in memoirs.",
+      "discuss life lessons and values in the memoirs and emulate them.",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "How can life lessons and values in memoirs enrich our lives?",
+      "Key Inquiry Question(s)"
+     ],
+     "core_competencies": [
+      "Creativity and Imagination: This is enhanced as the learner link life lessons and values to their own life.",
+      "Self-efficacy: This is enhanced as the learner analyses and justifies their strengths and weaknesses while brainstorming on personal experiences and memories contained in memoirs and present their findings."
+     ],
+     "values": [
+      "Unity: This is enhanced as the learner collaborates harmoniously with others to summarise the information in a graphic organiser and displays in the classroom for peer review.",
+      "Respect: This is developed as the learner positively regards others with dignity as they review each other's work."
+     ],
+     "pertinent_issues": [
+      "Pertinent and Contemporary Issues (PCIs):"
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-literature-in-english.pdf#p62"
+    },
+    {
+     "kicd_code": "9.3.1",
+     "name": "Fiction (Anthology of short story from Kenya)",
+     "suggested_duration": "8 lessons",
+     "learning_outcomes": [
+      "identify the themes in short stories for literary appreciation",
+      "analyse language and style in short stories for critical analysis",
+      "relate thematic concerns in short stories to values for life-long learning",
+      "appreciate the values in short stories for life-long learning."
+     ],
+     "learning_experiences": [
+      "read a short story and discuss the themes for peer review",
+      "search online or offline for thematic concerns in short stories and share in class",
+      "collaborate to discuss themes in short stories and present their findings for peer review",
+      "link themes to real life concerns and draw moral lessons",
+      "collaborate to summarise themes in a graphic organiser and place it in the classroom for peer review."
+     ],
+     "inquiry_questions": [
+      "Why do we study short stories in literature?"
+     ],
+     "core_competencies": [
+      "Critical thinking and problem solving: This is enhanced as the learner makes the interpretation and inference while exploring thematic concerns and draws lessons from them.",
+      "Citizenship: This is nurtured when cultural and national identity skills are fostered as the learner interacts with thematic concerns derived from the Kenyan setting."
+     ],
+     "values": [
+      "• Social justice: This is enhanced as the learner engages in harmonious relationships in the discussion."
+     ],
+     "pertinent_issues": [
+      "Pertinent and Contemporary Issues (PCIs): Citizenship skills: This is enhanced as the learner collaborates to promote social cohesion while discussing thematic concerns and presenting to the class"
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-literature-in-english.pdf#p66"
+    },
+    {
+     "kicd_code": "9.3.2",
+     "name": "Non-fiction prose (Literary/narrati ve Journalism)",
+     "suggested_duration": "4 lessons",
+     "learning_outcomes": [
+      "explain the form and features of literary journalism for literary appreciation",
+      "discuss form, features and language in literary journalism for literary analysis",
+      "analyse the subject matter of literary journalism for literary appreciation",
+      "appreciate the importance of literary journalism for lifelong learning.",
+      "Pictures and photographs",
+      "Digital course books",
+      "Digital story books",
+      "Electronic and digital devices",
+      "Electronic or online dictionaries",
+      "Video clips and educative movies",
+      "Other web resources",
+      "Locally available materials to make customised cultural objects"
+     ],
+     "learning_experiences": [
+      "read a story from a magazine or newspaper",
+      "collaborate to identify the form and features of literary journalism",
+      "search online or offline for form and features of literary journalism and present their findings in class",
+      "summarise their findings in a chart and display in class",
+      "read a newspaper report or story and collaborate to identify the subject matter",
+      "search online and offline for the subject matter in literary journalism and share their findings",
+      "write a story based on a true account",
+      "collaborate to peer review the story for the features and subject matter",
+      "make the necessary corrections and publish it for a school magazine or local periodical.",
+      "Participating in debating sessions to enhance listening and speaking for effective communication",
+      "Participation in poetry recitations during music and drama festivals",
+      "Interclass or club debating contests",
+      "Participate in music festivals to hone creativity and communication skills.",
+      "Collecting different forms of oral literature from their community",
+      "Showcasing short plays, conversational poems or choral verses within or out of school",
+      "Writing clubs, journalism clubs, and compiling literary works for the school magazine to nurture writing talent.",
+      "Discussing poems in non-formal groups like debating clubs and book clubs",
+      "Showcasing short plays, conversational poems or",
+      "choral verses within or out of school",
+      "Discussing books in non-formal groups like debating clubs and book clubs",
+      "Participate in music and drama festivals to hone creativity and communication skills."
+     ],
+     "inquiry_questions": [
+      "How can literary journalism promote life long learning?"
+     ],
+     "core_competencies": [
+      "Critical thinking and problem solving: This is enhanced as the learner searches for information to write stories based on a true account.",
+      "Learning to learn: This is developed when the learner seeks information on literary journalism and takes part in peer review of the stories for the correct form and features"
+     ],
+     "values": [
+      "Responsibility: This is achieved when the learner seeks information from online and offline sources to write stories based on a true account."
+     ],
+     "pertinent_issues": [
+      "Citizenship skills: This is enhanced as the learner collaborates to identify the form and features of literary journalism"
+     ],
+     "links_to_other_areas": [],
+     "resources": [
+      "Suggested Non-Formal Activities"
+     ],
+     "kicd_source": "grade10-literature-in-english.pdf#p68"
+    }
+   ]
+  },
+  {
+   "strand": "Appreciating Oral Literature",
+   "strand_code": "4.1",
+   "assessment_rubric": [],
+   "substrands": [
+    {
+     "kicd_code": "4.1.1",
+     "name": "Appreciation of Short forms of oral literature",
+     "suggested_duration": "4 lessons",
+     "learning_outcomes": [
+      "Identify the features of short forms of oral literature for literary appreciation",
+      "analyse types and functions of short forms of oral literature for literary analysis",
+      "create short forms of oral literature for effective performance",
+      "appreciate the roles of short forms of oral literature in the society."
+     ],
+     "learning_experiences": [
+      "brainstorm on the types of short forms of oral literature",
+      "collaborate to search for the meanings of short forms of oral literature and present their findings in class",
+      "read a variety of short forms and collaborate to identify the features in them",
+      "search for features of short forms from print and non-print sources, and share their points",
+      "read the short forms of oral literature aloud individually and collectively then identify their features",
+      "collaborate to discuss their functions",
+      "collaborate and create the short forms of oral literature, conduct peer review and perform them in class",
+      "display the short forms of oral literature in a portfolio."
+     ],
+     "inquiry_questions": [
+      "How do the short forms of oral literature help in enhancing creativity and imagination?"
+     ],
+     "core_competencies": [
+      "Critical thinking and problem solving: This is enhanced as learners work to create, review and perform short forms of oral literature for peer review.",
+      "Citizenship: This is developed as the learner engages with others to discuss various aspects of short forms of oral literature."
+     ],
+     "values": [
+      "Social justice: This is enhanced as the learner harmoniously interacts with peers to create, review and perform short forms of oral literature",
+      "Integrity: This is fostered as the learner chooses to practise self-discipline during the discussion, creation and performance of short forms of oral literature."
+     ],
+     "pertinent_issues": [
+      "Citizenship: This is enhanced as the learner collaborates with others during discussions to create the short forms of oral literature."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-literature-in-english.pdf#p36"
+    }
+   ]
+  }
+ ]
+}

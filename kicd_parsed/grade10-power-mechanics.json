@@ -1,0 +1,946 @@
+{
+ "source_pdf": "grade10-power-mechanics.pdf",
+ "grade": 10,
+ "subject": "power-mechanics",
+ "general_outcomes": [
+  "By the end of Senior School, the learner should be able to:",
+  "Attain a firm foundation for career growth, further training and education in power mechanics related areas of study",
+  "Utilise acquired power mechanics competencies to service and repair vehicle systems",
+  "Apply acquired drawing skills to interpret and communicate engineering designs using information and communication technology where applicable.",
+  "Relate positively with members of the society during visits to work environment",
+  "Use acquired knowledge to identify business opportunities related to power mechanics",
+  "Appreciate the place of power mechanics in day-to-day life"
+ ],
+ "strands": [
+  {
+   "strand": "Fundamentals of Power Mechanics",
+   "strand_code": "1.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to describe power mechanics as a learning area",
+     "exceeds": "Comprehensively describes power mechanics as a learning area mentioning citing examples",
+     "meets": "Describes power mechanics as a learning area",
+     "approaches": "Describes power mechanics as a learning area leaving out few key words",
+     "below": "Describes power mechanics as a learning area leaving out many key words"
+    },
+    {
+     "indicator": "Ability to describe trends in the historical developments of the automobile",
+     "exceeds": "Comprehensively describes describe trends in the historical developments of the automobile",
+     "meets": "Describes trends in the historical developments of the automobile",
+     "approaches": "Describes trends in the historical developments of the automobile leaving out few key words",
+     "below": "Describes trends in the historical developments of the automobile leaving out many key words"
+    },
+    {
+     "indicator": "Ability to sketch a layout of main areas in power mechanics workshop,",
+     "exceeds": "Skillfully sketches a layout of the main areas in power mechanics workshop",
+     "meets": "Sketches a layout of the main areas in power mechanics workshop",
+     "approaches": "Sketches a layout of the main areas in power mechanics workshop skipping few areas",
+     "below": "Sketches a layout of the main areas in power mechanics workshop skipping many areas"
+    },
+    {
+     "indicator": "Ability to practice safe use of personal protective equipment (PPE) in power mechanic workshop,",
+     "exceeds": "Skillfully practices safe use of personal protective equipment (PPE) in power mechanic workshop,",
+     "meets": "Practices safe use of personal protective equipment (PPE) in power mechanic workshop,",
+     "approaches": "Practices safe use of most of the personal protective equipment (PPE) in power mechanic workshop skipping few steps",
+     "below": "Practices use of only a few of the personal protective equipment (PPE) in power mechanic workshop skipping many steps"
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "1.1",
+     "name": "Overview of Power Mechanics as a learning area",
+     "suggested_duration": "10 lessons",
+     "learning_outcomes": [
+      "describe power mechanics as a learning area",
+      "identify career opportunities in power mechanics field",
+      "evaluate activities related to power mechanics in the locality",
+      "acknowledge the importance of power mechanics as a learning area."
+     ],
+     "learning_experiences": [
+      "use online or print resources to search for information on definition and scope of power mechanics as a learning area",
+      "brainstorm on career opportunities within power mechanics field",
+      "explore the local community environment to identify activities related to power mechanics",
+      "brainstorm on the importance of power mechanics as a learning area",
+      "engage a resource person on the importance of power mechanics as a learning area.",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "How is power mechanics important in day to day life?",
+      "Suggested Suggested Key Inquiry Questions"
+     ],
+     "core_competencies": [
+      "Learning to learn: as the learner uses print resources to search for information on definition and scope of power mechanics as a learning area.",
+      "Communication and collaboration: while the learner brainstorms with peers on career opportunities within power mechanics field.",
+      "Self-efficacy: as the learner successfully identifies career opportunities related to power mechanics.",
+      "Digital literacy: as the learner uses online resources to search for information on definition and scope of power mechanics as a learning area.",
+      "Citizenship: as learner explores the local community environment and identify activities related to power mechanics."
+     ],
+     "values": [
+      "Unity: as the learner works with peers in groups.",
+      "Respect: as the learner accommodates other members’ opinion while discussing."
+     ],
+     "pertinent_issues": [
+      "Decision making: as the learner explores the local community environment and identify activities related to power mechanics.",
+      "Career guidance: as learners brainstorms and list career opportunities related to power mechanics."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-power-mechanics.pdf#p12"
+    },
+    {
+     "kicd_code": "1.2",
+     "name": "Evolution of an automobile",
+     "suggested_duration": "10 lessons",
+     "learning_outcomes": [
+      "explain the evolution of the automobile in the globally",
+      "describe trends in the historical developments of the automobile",
+      "explore the importance of innovation in automobile development",
+      "appreciate the importance of the evolution of the automobile."
+     ],
+     "learning_experiences": [
+      "Brainstorm on evolution of the automobile globally",
+      "Use digital or print resources to search for information on the history of the automobile",
+      "Use online resources and print media to search on key trends in the historical developments of the automobile",
+      "Discuss with peers the importance of innovation in automobile development",
+      "• Reflect on the importance of the evolution of the automobile.",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "How has technology advancement affected power mechanic?",
+      "Suggested Suggested Key Inquiry Questions"
+     ],
+     "core_competencies": [
+      "Critical thinking: as the learner brainstorm on evolution of the automobile in society.",
+      "Communication and collaboration: as the learner discuss with peers the importance of innovation in automobile development.",
+      "Self-efficacy: as the learner articulates their views during the discussion.",
+      "Digital literacy: as the learner uses online resources to search for information on trends in automobile development."
+     ],
+     "values": [
+      "Unity: as the learner works with peers as a group while discussing.",
+      "Respect: as the learner accommodates other members’ opinion in the discussion on the importance of innovation in automobile development."
+     ],
+     "pertinent_issues": [
+      "• Assertiveness: as the learner engages in discussion with peers on the importance of innovation in automobile development."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-power-mechanics.pdf#p14"
+    },
+    {
+     "kicd_code": "1.3",
+     "name": "Power Mechanics workshop layout",
+     "suggested_duration": "12 lessons",
+     "learning_outcomes": [
+      "identify main areas in power mechanics workshop",
+      "sketch a layout of main areas in power mechanics workshop",
+      "explore the importance of the workshop areas in power mechanics",
+      "appreciate the importance of the workshop layout in power mechanics."
+     ],
+     "learning_experiences": [
+      "use online resources and print media to search for information on the main areas of power mechanics workshop (storage, working, work benches, office, passage ways among others)",
+      "brainstorm on the main areas of a power mechanic workshop",
+      "locate the main areas of power mechanics and their purposes",
+      "make illustrations of standard power mechanics workshop",
+      "use online resources and print media to search on the importance of the workshop areas in power mechanics",
+      "discuss with peers the importance of the workshop areas in power mechanics",
+      "reflect on the importance of the evolution of the automobile.",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "Why is a power mechanics workshop layout important?",
+      "Suggested Suggested Key Inquiry Questions"
+     ],
+     "core_competencies": [
+      "Critical thinking and problem solving: as the learner locates the main areas of a power mechanic workshop.",
+      "Communication and collaboration: as the learner discusses the importance of the workshop areas in power mechanics.",
+      "Self-efficacy: as the learner eloquently airs their views while discussing.",
+      "Digital literacy: as the learner uses online resources to search for information on the main areas of a power mechanic workshop."
+     ],
+     "values": [
+      "Unity: as the learner works harmoniously with peers in groups.",
+      "Respect: as the learner accommodates other members’ opinion."
+     ],
+     "pertinent_issues": [
+      "Assertiveness: as the learner engages in discussions.",
+      "Decision making: as the learner locates the main areas of power mechanics and their purposes.",
+      "Cyber security: as learners uses online resources to search for information on the main areas of a power mechanic workshop."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-power-mechanics.pdf#p17"
+    },
+    {
+     "kicd_code": "1.4",
+     "name": "General workshop rules and regulations",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "describe general safety rules and regulations in",
+      "power mechanics workshop",
+      "interpret workshop safety signs used in power mechanics environment",
+      "practice safe use of personal protective equipment (PPE) in power mechanics workshop",
+      "appreciate the need for safety while working in power mechanics work environment.",
+      "describe diagonal scale used in drawing",
+      "construct diagonal scale used in drawing",
+      "interpret diagonal scale used in drawing",
+      "appreciate the application of diagonal scale in real life.",
+      "define a locus as used in drawing",
+      "describe types of locus used in drawing",
+      "construct different types of locus used in technical drawing",
+      "construct the locus of link mechanisms relevant to power mechanics.",
+      "appreciate the application of loci in power mechanics",
+      "describe the methods of constructing tangents in drawing",
+      "construct a tangent to a circle from a point",
+      "construct external tangent to two circles",
+      "construct interior tangent to two circles",
+      "appreciate the importance of tangency in drawing."
+     ],
+     "learning_experiences": [
+      "• brainstorm with peers the general safety rules and",
+      "regulations in power mechanics work environment",
+      "use digital and print resources to search for information on safety rules and regulations in power mechanics workshop",
+      "watch a video to expound on workshop safety signs (prohibitive signs, warning signs)",
+      "use online resources and print media to search on use personal protective equipment",
+      "according to work environment rules and regulations",
+      "use personal protective equipment (PPE) according to work environment rules and regulations.",
+      "use online resources and print media to search for information on diagonal scale",
+      "discuss the procedure of drawing diagonal scale",
+      "practise drawing diagonal scale",
+      "brainstorm on the interpretation of diagonal scale used in drawing",
+      "discuss how scales are used in real life.",
+      "use online resources and print media to search for the definition of locus of a point",
+      "use online resources and print media to search for the description of types of loci",
+      "practice drawing types of locus (ellipse, cycloid, involute, parabola, hyperbola)",
+      "discuss the procedure of drawing the locus of a mechanism",
+      "practise drawing the locus of a point on a mechanism (3-link and 2-link)",
+      "discuss on the application of loci in power mechanics.",
+      "use online resources and print media to search for information on tangency as used in drawing",
+      "discuss with peers on the methods of constructing tangents",
+      "practise drawing a tangent to a circle from a point outside the circle",
+      "practise drawing external tangent to two circles (equal circles, unequal circles)",
+      "practise drawing an internal tangent to two circles (equal circles, unequal circles)",
+      "discuss on the importance of tangency in drawing."
+     ],
+     "inquiry_questions": [
+      "Why is safety important in power mechanic",
+      "work environment?",
+      "Why are scales important in real life?",
+      "1. How is loci used in real life situation?",
+      "2. How are skills on loci applied in power mechanics?",
+      "Where is tangency applied in real life situation?"
+     ],
+     "core_competencies": [
+      "Critical thinking and problem solving: as the learner brainstorms with peers the general work environment rules and regulations.",
+      "Self-efficacy: as the learner confidently presents their views in the discussion with peers on general safety rules and regulations in power mechanics work environment.",
+      "Critical thinking and problem solving: as the learner draws diagonal scale.",
+      "Self-efficacy: as the learner successfully draws diagonal scale.",
+      "Digital literacy: as the learner uses online resources to search for information on diagonal scales.",
+      "Critical thinking and problem solving: when the learner draws the locus of a point on a given mechanism.",
+      "Communication and collaboration: as the learner discusses the procedure of drawing the locus of a mechanism",
+      "Self-efficacy: as the learner successfully constructs different loci.",
+      "Digital literacy: as the learner uses online resources to search for information on types of loci.",
+      "Critical thinking and problem solving: as the learner draws interior and external tangents.",
+      "Communication and collaboration: as the learner discusses on the importance of tangency in drawing.",
+      "Self-efficacy: as the learner successfully draws tangents.",
+      "Digital literacy: as the learner interacts with online resources to search for information on tangents."
+     ],
+     "values": [
+      "Values:",
+      "Unity: as the learner works with peers in groups.",
+      "Responsibility: As the learner uses personal protective equipment (PPE) according to work environment rules and regulations.",
+      "Respect: as the learner accommodates other members’ opinion.",
+      "Respect: as the learner accommodates other members’ opinion while discussing.",
+      "as the learner Unity: as the learner works with peers in groups while discussing the applications of loci in power mechanics.",
+      "Respect: accommodates other members’ opinion during discussion.",
+      "Unity: as the learner works with peers in groups",
+      "Respect: as the learner accommodates other members’ opinion while discussing"
+     ],
+     "pertinent_issues": [
+      "Decision making: as the learner draws diagonal and plain scale.",
+      "Career guidance: when learners brainstorms on how diagonal scale is applied in real life."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-power-mechanics.pdf#p18"
+    }
+   ]
+  },
+  {
+   "strand": "Fundamentals of power mechanics technology",
+   "strand_code": "1.0",
+   "assessment_rubric": [],
+   "substrands": [
+    {
+     "kicd_code": "1.1",
+     "name": "Overview of Power Mechanics as a learning area",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Question and answer"
+     ],
+     "learning_experiences": [
+      "Manilla paper and marker pens to write definition of power mechanics, video clips on activities related to power mechanics."
+     ],
+     "inquiry_questions": [
+      "Learners to visit workplace in the locality to observe activities related to power mechanics"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-power-mechanics.pdf#p46"
+    },
+    {
+     "kicd_code": "1.2",
+     "name": "Evolution of automobile",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Question and answer"
+     ],
+     "learning_experiences": [
+      "Pictures on the evolution of automobile, Visual aids and Print media on key trends in the historical developments of the automobile"
+     ],
+     "inquiry_questions": [
+      "Explore the locality to observe trends in automobile development"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-power-mechanics.pdf#p46"
+    },
+    {
+     "kicd_code": "1.3",
+     "name": "Power mechanics workshop layout",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Question and answer"
+     ],
+     "learning_experiences": [
+      "Pictures and plans on power mechanics workshop layout",
+      "drawing papers, pencils and rulers to draw simple workshop layouts"
+     ],
+     "inquiry_questions": [
+      "Visit the local workplace/workshops to conduct sensitization on",
+      "the need for good workshop layout"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-power-mechanics.pdf#p46"
+    },
+    {
+     "kicd_code": "1.4",
+     "name": "General workshop rules and regulations",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Question and answer",
+      "Observe learners as they write down general safety regulations",
+      "Observe learners as they develop diagonal scales",
+      "• Observe learners as they develop various types of loci",
+      "Observe learners as they construct various types of tangents",
+      "Observe learners as they blend lines and circles"
+     ],
+     "learning_experiences": [
+      "Manilla paper and marker pens to write the general workshop rules and regulations",
+      "Visual aids on diagonal scales, drawing paper and drawing set to draw diagonal scales",
+      "Drawing paper and drawing equipment to draw ellipse, cycloid, involute",
+      "parabola and hyperbola locus",
+      "Drawing paper and drawing set for drawing tangents. Charts with illustrations on types of tangents",
+      "Drawing paper and drawing set to draw blended lines and curves, charts with illustrations on blended lines and curves"
+     ],
+     "inquiry_questions": [
+      "Visit garage within the locality to develop flash cards on general workshop safety regulations",
+      "Learners to explore the community and identify applications of diagonal scales in real life",
+      "Learners to engage workers in various workplaces within the community on uses of loci",
+      "Learners to engage a resource person on the application of tangency in power mechanics",
+      "Learners to identify and list items at home or in the community that were designed using knowledge of blending of lines and curves"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-power-mechanics.pdf#p47"
+    }
+   ]
+  },
+  {
+   "strand": "Related Drawing",
+   "strand_code": "2.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to describe diagonal scale used in drawing",
+     "exceeds": "Comprehensively describes diagonal scale used in drawing",
+     "meets": "Describes diagonal scale used in drawing",
+     "approaches": "Describes diagonal scale used in drawing leaving key words",
+     "below": "Describes diagonal scale used in drawing with assistance"
+    },
+    {
+     "indicator": "Ability to construct different types of locus used in technical drawing",
+     "exceeds": "Accurately Constructs different types of locus used in technical drawing",
+     "meets": "Constructs different types of locus used in technical drawing",
+     "approaches": "Partially Constructs different types of locus used in technical drawing",
+     "below": "Constructs different types of locus used in technical drawing with prompts"
+    },
+    {
+     "indicator": "Ability to construct interior tangent to two circles,",
+     "exceeds": "Accurately constructs interior tangent to two circles,",
+     "meets": "Constructs interior tangent to two circles,",
+     "approaches": "Partially constructs interior tangent to two circles,",
+     "below": "Constructs interior tangent to two circles with assistance"
+    },
+    {
+     "indicator": "Ability to construct arc (s) that blend two circles.",
+     "exceeds": "Neatly constructs arc (s) that blend two circles.",
+     "meets": "Constructs arc (s) that blend two circles.",
+     "approaches": "Partially constructs arc (s) that blend two circles.",
+     "below": "Constructs arc (s) that blend two circles with assistance."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "2.4",
+     "name": "Blending of lines and curves",
+     "suggested_duration": "16 lessons",
+     "learning_outcomes": [
+      "describe blending of lines and arcs as used in drawing",
+      "construct arcs that blend lines",
+      "construct arcs that blend two circles",
+      "use blending to construct given shapes",
+      "appreciate the application of blending in power mechanics."
+     ],
+     "learning_experiences": [
+      "use online or print resources to search for information on blending of lines and arcs",
+      "blend a curve and a line (two straight lines, straight line and circle)",
+      "blend two equal circles (internal and external)",
+      "construct different shapes using blending",
+      "brainstorm on the applications of blending of lines and curves in power mechanics."
+     ],
+     "inquiry_questions": [
+      "1. Why is blending of lines and curves important in drawing?",
+      "2. How is blending of lines and curves applied in real life?"
+     ],
+     "core_competencies": [
+      "Critical thinking and problem solving: as the learner brainstorms on the applications of blending of lines and curves in power mechanics.",
+      "Self-efficacy: as the learner successfully applies the skills to draw different diagrams.",
+      "Digital literacy: as the learner uses online resources to search for information on blending of lines and curves."
+     ],
+     "values": [],
+     "pertinent_issues": [
+      "Decision making: as the learner selects the correct method of blending arcs and lines.",
+      "Career guidance: when learners brainstorms on how blending of lines and curves is applied in real life."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-power-mechanics.pdf#p27"
+    }
+   ]
+  },
+  {
+   "strand": "Vehicle Systems",
+   "strand_code": "3.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to interpret specification on the tire side walls.",
+     "exceeds": "Comprehensively interprets the tire specification",
+     "meets": "Interprets specification on the tire side walls.",
+     "approaches": "Interprets specification leaving out few key specification",
+     "below": "Interprets leaving out most of the key specification"
+    },
+    {
+     "indicator": "Ability to sketch different types of vehicle body",
+     "exceeds": "Neatly Sketches all types of vehicle body",
+     "meets": "Sketches all types of vehicle body",
+     "approaches": "Sketches types of vehicle body but leaving a few body types",
+     "below": "Sketches few vehicle body types"
+    },
+    {
+     "indicator": "Ability to illustrate different types of frame sections for vehicle chassis",
+     "exceeds": "Illustrates types of frame sections for vehicle chassis in details",
+     "meets": "Illustrates types of frame sections for vehicle chassis",
+     "approaches": "Illustrates types of frame sections for vehicle chassis leaving few details",
+     "below": "Illustrates types of frame sections for vehicle chassis leaving many details"
+    },
+    {
+     "indicator": "Ability to use appropriate tools to perform various riveting processes while joining",
+     "exceeds": "Proficiently uses appropriate tool to perform various riveting processes while joining",
+     "meets": "Uses appropriate tool to perform various riveting processes while joining",
+     "approaches": "Uses appropriate tool to perform various riveting processes while joining leaving out few steps.",
+     "below": "Uses appropriate tool to perform various riveting processes while joining leaving out many steps."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "3.1",
+     "name": "Road wheels",
+     "suggested_duration": "10 lessons",
+     "learning_outcomes": [
+      "explain the functions of wheels in a vehicle",
+      "identify types of tires used in vehicles",
+      "illustrate types of ply orientation used on vehicle tires",
+      "interpret specifications on tire side walls",
+      "appreciate the role of tires in vehicle operations."
+     ],
+     "learning_experiences": [
+      "use digital and print materials to search for information on functions of wheels in vehicle",
+      "brainstorm on the types of tires (tube and tubeless)",
+      "sketch types of tire ply orientations (radial, cross ply)",
+      "use digital or print resources to search for information on tires specification and their interpretation l (size, width, tire type, aspect ratio, load capacity, speed)"
+     ],
+     "inquiry_questions": [
+      "Why is it important to study about road wheels?"
+     ],
+     "core_competencies": [
+      "Learning to learn: as the learner makes reference to digital and print materials while searching for information on vehicle road wheels.",
+      "Communication and collaboration: as the learner discusses.",
+      "Digital literacy: as the learner interacts with digital devices while searching for information functions of tires."
+     ],
+     "values": [
+      "Values:",
+      "Unity: as the learner brainstorms with peers to search for types of tire.",
+      "Respect: as the learner accommodates peers’ opinions as they discuss tire types."
+     ],
+     "pertinent_issues": [
+      "• Social cohesion: as the learner discuss in groups when searching for information on tire type."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-power-mechanics.pdf#p29"
+    },
+    {
+     "kicd_code": "3.2",
+     "name": "Vehicle body",
+     "suggested_duration": "14 lessons",
+     "learning_outcomes": [
+      "describe functions of a body in a vehicle",
+      "explain types of body used in vehicles",
+      "identify interior body parts of a vehicle",
+      "illustrate exterior body parts of a vehicle",
+      "appreciate the importance of bodies in vehicle."
+     ],
+     "learning_experiences": [
+      "brainstorm on the functions of vehicle body",
+      "use digital and print materials to search for information on vehicle body types (salon, station wagon, convertible, van, pickup and bus)",
+      "visit the locality to explore on different interior parts of a vehicle (seats, floor, roof, doors, handles, seats, dashboard)",
+      "use visual aids to search for information on exterior vehicle body parts (bumpers, fenders, roofs, bonnet, sills, door, boot, side wings)."
+     ],
+     "inquiry_questions": [
+      "Why is it important to learn about vehicle bodies?"
+     ],
+     "core_competencies": [
+      "Learning to learn: as the learner makes reference to print and digital resources while searching for information on vehicle body.",
+      "Communication and collaboration: as the learner discusses about exterior body parts.",
+      "Digital literacy: as the learner uses online resources to search for vehicle body types."
+     ],
+     "values": [
+      "Values:",
+      "Unity: as the learner brainstorms with peers on exterior body parts.",
+      "Respect: as the learner accommodates peers’ ideas and opinions as they discuss in groups.",
+      "Responsibility: as the learner contributes in group discussions while identifying exterior body parts."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-power-mechanics.pdf#p31"
+    },
+    {
+     "kicd_code": "3.3",
+     "name": "Chassis",
+     "suggested_duration": "10 lessons",
+     "learning_outcomes": [
+      "describe types of chassis used on vehicles",
+      "explain the functions of chassis in a vehicle",
+      "illustrate types of frame used in construction of vehicle chassis",
+      "appreciate the role of vehicle chassis."
+     ],
+     "learning_experiences": [
+      "use print resources to search for types of chassis used in vehicles (separate, integral",
+      "visit the locality to identify types of chassis",
+      "discuss with peers the functions of chassis in a vehicle",
+      "sketch different types of frames used in construction of vehicle chassis (tube, channel, box, flat)."
+     ],
+     "inquiry_questions": [
+      "Why is it important to have a chassis in a vehicle body?"
+     ],
+     "core_competencies": [
+      "Learning to learn: as the learner visits the locality to identify types of chassis.",
+      "Self-efficacy: as the learner correctly sketches different types of frames used in construction of vehicle chassis."
+     ],
+     "values": [
+      "Unity: as the learner brainstorms with peers about the function of chassis.",
+      "Respect: as the learner accommodates peers’ ideas and opinions as they discuss in groups the functions of chassis."
+     ],
+     "pertinent_issues": [
+      "Analytical thinking: as the learner visits the locality to identifying different chassis."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-power-mechanics.pdf#p33"
+    },
+    {
+     "kicd_code": "3.4",
+     "name": "Vehicle body joining processes",
+     "suggested_duration": "16 lessons",
+     "learning_outcomes": [
+      "describe threaded fasteners used in vehicle body joining",
+      "illustrate locking devices uses in vehicle body",
+      "illustrate riveting as applied in vehicle body",
+      "perform joining process on vehicle body parts using adhesive",
+      "acknowledge the role of joining processes in vehicle body."
+     ],
+     "learning_experiences": [
+      "use online resources and print media to search for information on threaded fasteners used in vehicle body joining (bolts and nuts, screws)",
+      "visit the locality to identify joining processes used in vehicles",
+      "the use online and print media to search for the information locking devices (cotter pin, circlip and split pin)",
+      "the use online and print media to search information on riveting process, riveting tools, application of riveting as applied in vehicle body",
+      "carryout joining process on vehicle body parts using adhesive",
+      "use online resources to search for information on definition of the terms used in adhesives (adhesive, bond, cohesion)."
+     ],
+     "inquiry_questions": [
+      "How is joining processes applied in vehicle body?"
+     ],
+     "core_competencies": [
+      "Core competencies to be developed:",
+      "Digital literacy: as the learner uses online resources to search for information on the definition of terms used in adhesives.",
+      "Self-efficacy: as the Lerner successfully carries out joining process on vehicle body parts using adhesive.",
+      "Learning to learn: as the learner uses online resources to search for information on definition of the terms used in adhesives. Pertinent and Contemporary Issues (PCIs):",
+      "Analytical thinking: as the learner carries out joining process on vehicle body parts using adhesive.",
+      "social cohesion: as the learner interacts with members of the community while visiting to identify joining processes used in vehicles. Values:",
+      "responsibility: as the learner carries out joining process on vehicle body parts using adhesive.",
+      "Respect: as the learner behaves positively while they visit the locality to identify joining processes used in vehicles."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-power-mechanics.pdf#p34"
+    },
+    {
+     "kicd_code": "3.1",
+     "name": "Road wheels",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Question and answer"
+     ],
+     "learning_experiences": [
+      "Pictures on road wheels, Used vehicle tires with specifications on the tire walls"
+     ],
+     "inquiry_questions": [
+      "Visit parking areas in the locality and identify the various types of tires used in vehicles"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-power-mechanics.pdf#p48"
+    },
+    {
+     "kicd_code": "3.2",
+     "name": "Vehicle body",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Question and answer"
+     ],
+     "learning_experiences": [
+      "Vehicles in garages and parking areas"
+     ],
+     "inquiry_questions": [
+      "Visit parking areas or garages in the locality and identify the various",
+      "types of vehicle body designs"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-power-mechanics.pdf#p48"
+    },
+    {
+     "kicd_code": "3.3",
+     "name": "Vehicle chassis",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Question and answer"
+     ],
+     "learning_experiences": [
+      "Pictures of various types of vehicle chassis"
+     ],
+     "inquiry_questions": [
+      "Visit vehicle garages in the locality to identify vehicle chassis types"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-power-mechanics.pdf#p49"
+    },
+    {
+     "kicd_code": "3.4",
+     "name": "Vehicle body Joining processes",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Question and answer"
+     ],
+     "learning_experiences": [
+      "Vehicle garages where minor vehicle joining processes are performed Resource person the use of body hand tools in performing joining processes on vehicle body"
+     ],
+     "inquiry_questions": [
+      "Participate in performing basic vehicle body joining processes in workplaces within the locality"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-power-mechanics.pdf#p49"
+    }
+   ]
+  },
+  {
+   "strand": "Engines",
+   "strand_code": "4.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to calculate the capacity of an engine",
+     "exceeds": "Calculates the capacity of an engine and interprets the readings",
+     "meets": "Calculates the capacity of an engine",
+     "approaches": "Calculates the capacity of an engine with few errors",
+     "below": "Calculates the capacity of an engine with prompts"
+    },
+    {
+     "indicator": "Ability to illustrate the layout external combustion engines",
+     "exceeds": "Illustrates the layout external combustion engines and labels the components",
+     "meets": "Illustrates the layout external combustion engines",
+     "approaches": "Illustrates the layout external combustion engines leaving out few components",
+     "below": "Illustrates the layout external combustion engines with assistance"
+    },
+    {
+     "indicator": "Ability to categorize engines according to given classes",
+     "exceeds": "Categorizes engines according to given classes and gives examples",
+     "meets": "Categorizes engines according to given classes",
+     "approaches": "Partially categorizes engines according to given classes",
+     "below": "Categorizes engines according to given classes with prompts"
+    },
+    {
+     "indicator": "Ability to perform measurements on engine components",
+     "exceeds": "Perform measurements on engine components and interprets the findings",
+     "meets": "Performs measurements on engine components",
+     "approaches": "Perform measurements on engine components leaving some measurements",
+     "below": "Perform measurements on engine components with assistance"
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "4.1",
+     "name": "Introduction to Engines",
+     "suggested_duration": "10 lessons",
+     "learning_outcomes": [
+      "define an engine as used in power mechanics",
+      "identify uses of engines in day-to-day life",
+      "explain terminologies used in engines",
+      "calculate the capacity of a given engine",
+      "appreciate the importance of engines in day to-day-life."
+     ],
+     "learning_experiences": [
+      "use online or print resources to search for definitions of an engine as used in power mechanics",
+      "discuss with peers the definitions of an engine as used in power mechanics",
+      "use digital or print media to explore the uses of engines in day-to-day life",
+      "brainstorm on the terminologies used in engines",
+      "use online or print resources to search for information on engine terminologies (bore, stroke, capacity, horse power, TDC, BDC)",
+      "carry out measurement and calculation to determine capacity of an engine using bore and stroke."
+     ],
+     "inquiry_questions": [
+      "How are engines used in our day-to-day life?"
+     ],
+     "core_competencies": [
+      "• Critical Thinking: as the learner brainstorms the meaning of the terminologies used in an engine."
+     ],
+     "values": [
+      "Values:",
+      "Unity: as the learner works with peers in groups as a team.",
+      "Respect: as the learner accommodates other members’ opinion while discussing on definitions of engine terminologies."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-power-mechanics.pdf#p37"
+    },
+    {
+     "kicd_code": "4.2",
+     "name": "Types of Engines",
+     "suggested_duration": "12 lessons",
+     "learning_outcomes": [
+      "explain the types of engines according to the combustion process",
+      "illustrate the layout of external combustion engines",
+      "differentiate internal and external combustion engines",
+      "appreciate the types of engines basing on the process of combustion."
+     ],
+     "learning_experiences": [
+      "discuss with peers the types of engines according to the process of combustion (external combustion and internal combustion)",
+      "use digital or print media to search for information on the types of engines in relation to the process of combustion",
+      "draw the layout of an external combustion engine",
+      "distinguish between internal and external combustion engines (in relation to source of power, size, components and efficiency)."
+     ],
+     "inquiry_questions": [
+      "Why is the study of types of engines important?"
+     ],
+     "core_competencies": [
+      "Learning to Learn: when the learner uses digital or print media to search for information on the types of engines in relation to the process of combustion.",
+      "Communication and Collaboration: as the learner discusses with peers the types of engines in relation to the process of combustion.",
+      "Self-Efficacy: while the learner successfully draws the layout of an external combustion engine."
+     ],
+     "values": [
+      "Values:",
+      "Unity: as the learner works with peers in harmony.",
+      "Respect: as the learner accommodates other members’ opinion during discussions."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-power-mechanics.pdf#p39"
+    },
+    {
+     "kicd_code": "4.3",
+     "name": "Classifications of Engines",
+     "suggested_duration": "8 lessons",
+     "learning_outcomes": [
+      "explain methods of classifying engines in power mechanics",
+      "categorize given engines into different classes",
+      "value the different classes of engines."
+     ],
+     "learning_experiences": [
+      "use digital or print media to search for information on the methods of classifying engines",
+      "discuss with peers the methods of classifying engines (type of combustion, type of fuel used, number of cylinders, layout/orientation of cylinders, cycle of operation, reciprocating and motion of engine-reciprocating and rotary)",
+      "sketch the various classes of engines",
+      "practise classifying engines according to given classes."
+     ],
+     "inquiry_questions": [
+      "Why is classification of engines important?"
+     ],
+     "core_competencies": [
+      "Learning to Learn: when the learner uses digital or print media to search for information on the methods of classifying engines",
+      "Communication and Collaboration: as the learner discusses with peers the methods of classifying engines.",
+      "Self-Efficacy: while the learner successfully classifies engines according to given classes."
+     ],
+     "values": [
+      "Values:",
+      "Unity: as the learner works with peers in harmony.",
+      "Respect: as the learner accommodates other members’ opinion during discussions."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-power-mechanics.pdf#p41"
+    },
+    {
+     "kicd_code": "4.4",
+     "name": "Engine components",
+     "suggested_duration": "16 lessons",
+     "learning_outcomes": [
+      "identify components of an engine",
+      "sketch components of an engine",
+      "describe functions of components of an engine",
+      "perform measurements on engine components",
+      "appreciate the need for engine components."
+     ],
+     "learning_experiences": [
+      "use online and print resources search for information on components of an engine",
+      "use regalia, visual aids or print resources to identify engine components crankshaft, camshaft, piston, connecting rod, valves, cylinder block, sump, rocker arms, cylinder head, rocker cover)",
+      "illustrate components of an engine (crankshaft, camshaft, piston, connecting rod, valves, cylinder block)",
+      "brainstorm on the functions of engine components",
+      "discuss with peers the function of engine components",
+      "use appropriate instruments to carry out measurements on engine components (journal, cylinder bore and clearances, piston ring gap).",
+      "Suggested Learning Resources"
+     ],
+     "inquiry_questions": [
+      "1. What are the main components of an internal combustion engine?",
+      "2. What are the key functions of internal combustion engine parts?",
+      "Non formal Activities"
+     ],
+     "core_competencies": [
+      "Core competencies to be Developed:",
+      "Learning to Learn: when the learner uses online resources to search for information on components of an engine.",
+      "Communication and Collaboration: as the learner discusses with peers the function of engine components.",
+      "Self-Efficacy: while the learner successfully uses appropriate instruments to carry out measurements on engine components. Pertinent and Contemporary Issues (PCIs):",
+      "Assertiveness: as the learner acquires skills of defending their position during brainstorming.",
+      "Discipline: as the learner respectfully works with peers during discussions. Values:",
+      "Unity: as the learner works with peers in harmony.",
+      "Respect: as the learner accommodates other members’ opinion during discussions."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-power-mechanics.pdf#p43"
+    },
+    {
+     "kicd_code": "4.1",
+     "name": "Introduction to engines",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Question and answer"
+     ],
+     "learning_experiences": [
+      "Pictures or video clips on general engine terminologies, basic measuring tools for measuring engine parameters"
+     ],
+     "inquiry_questions": [
+      "Develop charts on engine definition and engine terminologies,"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-power-mechanics.pdf#p49"
+    },
+    {
+     "kicd_code": "4.2",
+     "name": "Types of engines",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "• Question and answer"
+     ],
+     "learning_experiences": [
+      "Pictures, sketched illustration on",
+      "engine construction and orientation Used sectioned engines"
+     ],
+     "inquiry_questions": [
+      "Visit workplaces in the community to identify",
+      "types of engines used in day-to-day life"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-power-mechanics.pdf#p49"
+    },
+    {
+     "kicd_code": "4.3",
+     "name": "Classification of engines",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Question and answer"
+     ],
+     "learning_experiences": [
+      "Pictures or videos on different classification of engines, engine technology text books Used engines sectioned and with most of the components"
+     ],
+     "inquiry_questions": [
+      "Visit workplaces in the community to observe types of engines classified using various parameters"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-power-mechanics.pdf#p50"
+    }
+   ]
+  }
+ ]
+}

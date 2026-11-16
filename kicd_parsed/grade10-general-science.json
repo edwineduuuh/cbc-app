@@ -1,0 +1,861 @@
+{
+ "source_pdf": "grade10-general-science.pdf",
+ "grade": 10,
+ "subject": "general-science",
+ "general_outcomes": [
+  "Relate General Science to technology and society to enhance the learners’ appreciation of the environment.",
+  "Select and use appropriate instruments to carry out basic science process skills to discover and explain the order of the environment.",
+  "Apply basic research and scientific skills to manipulate the environment and solve human problems.",
+  "Develop capacity for critical thinking through basic scientific skills and research in addressing pertinent & contemporary issues affecting the society.",
+  "Apply scientific skills for enhancement of innovations and entrepreneurial skills for development.",
+  "Use relevant skills and values to promote local and global citizenship for harmonious coexistence and appreciation of biodiversity.",
+  "Acquire adequate knowledge, skills and attitudes to enhance exploitation of individual talents for leisure, self -fulfilment, career growth and for further education and training.",
+  "Apply acquired knowledge, skills and attitudes for effective communication and utilisation of information in scientific advancement."
+ ],
+ "strands": [
+  {
+   "strand": "Introduction to General Science",
+   "strand_code": "1.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to explain the meaning of General science as a learning area.",
+     "exceeds": "Comprehensively explains the meaning of General science giving all the branches of General Science.",
+     "meets": "Explains the meaning of General science giving the branches of General Science.",
+     "approaches": "Explains the meaning of General science but misses some key points or identifies one branch of General Science.",
+     "below": "With prompts, explains the meaning of General science."
+    },
+    {
+     "indicator": "Ability to outline the importance of General science in human life, environment and technology.",
+     "exceeds": "Correctly outlines the importance of General science in human life, environment and technology, giving some examples from the locality.",
+     "meets": "Correctly outlines the importance of General science in human life, environment and technology.",
+     "approaches": "Correctly outlines some of the importance of General science in human life, environment and technology.",
+     "below": "With prompt, to outline some of the importance of General science in human life, environment and technology."
+    },
+    {
+     "indicator": "Ability to relate General science to career opportunities beyond senior school.",
+     "exceeds": "Correctly relates General science to career opportunities beyond senior school, giving examples to such career opportunities.",
+     "meets": "Correctly relates General science to career opportunities beyond senior school.",
+     "approaches": "Correctly relates General science to some career opportunities beyond senior school.",
+     "below": "With prompts, related General science to some career opportunities beyond senior school."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "",
+     "name": "Introduction to General Science",
+     "suggested_duration": "4 lessons",
+     "learning_outcomes": [
+      "explain the meaning of General Science as a learning area",
+      "discuss the branches of General Science",
+      "outline the importance of General Science in life, environment and technology",
+      "identify career opportunities related to General Science",
+      "analyse the principle of inference in science education",
+      "appreciate the importance of General Science in day to day living."
+     ],
+     "learning_experiences": [
+      "find out the meaning of general science from a resource person or the internet",
+      "brainstorm on the main branches of General Science and share with peers",
+      "use available digital and/or print media to search for information on main branches of General Science (Biology, Chemistry and Physics)",
+      "consult teachers or parents on the importance of General Science in relation to human life, environment, technology",
+      "use available digital and print media to search for information",
+      "on career opportunities related to General Science",
+      "draw a chart on careers related to General Science and identify with a particular career path of own interest",
+      "explore the process of collecting evidence for drawing inferences in science education (methods of collecting and analysing data)."
+     ],
+     "inquiry_questions": [
+      "How is General Science useful in daily life?"
+     ],
+     "core_competencies": [
+      "Self-efficacy: as the learner designs and presents charts on career opportunities related to General Science and identifies a particular career path of own interest.",
+      "Digital literacy: as the learner uses digital media to search for relevant information on the importance of General Science using digital devices.",
+      "Citizenship: as the learner seeks for information concerning local and international career opportunities related to General Science that help improve lives of members of the community."
+     ],
+     "values": [
+      "Respect: as the learner appreciates others’ opinions as they discuss the importance of general science in day to day life.",
+      "Responsibility: as the learner uses digital devices appropriately to search for information on the career opportunities related to General Science."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-general-science.pdf#p13"
+    }
+   ]
+  },
+  {
+   "strand": "Living Things and Environment",
+   "strand_code": "2.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to describe the plant and animal cell under an electron microscope",
+     "exceeds": "Comprehensively and accurately describes the plant and animal cell under an electron microscope",
+     "meets": "Accurately describes the plant and animal cell under an electron microscope",
+     "approaches": "Partially describes the plant and animal cell under an electron microscope,",
+     "below": "Describes the plant and animal cell under an electron microscope, with assistance"
+    },
+    {
+     "indicator": "Ability to relate the respiratory quotient to the type of substrate and respiration in living things",
+     "exceeds": "Comprehensively and accurately relate the respiratory quotient to the type of substrate and respiration in living things",
+     "meets": "Accurately relates the respiratory quotient to the type of substrate and respiration in living things",
+     "approaches": "Partially relates the respiratory quotient to the type of substrate and respiration in living things",
+     "below": "Relates the respiratory quotient to the type of substrate and respiration in living things with hints"
+    },
+    {
+     "indicator": "Ability to investigate factors affecting transpiration",
+     "exceeds": "Distinctly and clearly investigate all factors affecting transpiration",
+     "meets": "Clearly investigate all factors affecting transpiration",
+     "approaches": "Investigate some factors affecting transpiration",
+     "below": "Investigate factors affecting transpiration with prompts"
+    },
+    {
+     "indicator": "Ability to determine the conditions",
+     "exceeds": "Comprehensively and accurately determine the conditions",
+     "meets": "Accurately determine the conditions",
+     "approaches": "Partially determine the conditions necessary for germination",
+     "below": "Determine the conditions necessary for"
+    },
+    {
+     "indicator": "necessary for germination",
+     "exceeds": "necessary for germination",
+     "meets": "necessary for germination",
+     "approaches": "",
+     "below": "germination, with hints"
+    },
+    {
+     "indicator": "Ability to perform experiment on test for reducing sugars as per the following procedure: 1. Put about 2 cm3 of test solution in a test tube 2. Add an equal amount of benedict's solution and mix 3. Place the test tube with the mixture in a hot water bath for a few minutes 4. Observe and record all the colour changes",
+     "exceeds": "Systematically and accurately follow all the steps in the procedure",
+     "meets": "Accurately follows the procedure",
+     "approaches": "Partially follow the procedure",
+     "below": "Follow the procedure with assistance"
+    },
+    {
+     "indicator": "Ability to explain modes of transmission of microorganisms in human beings",
+     "exceeds": "Comprehensively and accurately explains modes of transmission of microorganisms in human beings",
+     "meets": "Accurately explains modes of transmission of microorganisms in human beings",
+     "approaches": "Partially explains modes of transmission of microorganisms in human beings",
+     "below": "Explain modes of transmission of microorganisms in human beings with assistance"
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "2.1",
+     "name": "The Cell",
+     "suggested_duration": "6 lessons",
+     "learning_outcomes": [
+      "explain the differences between light and electron microscopes.",
+      "describe the plant and animal cell under an electron microscope",
+      "compare plant and animal cell structures under light and electron microscope",
+      "explain the functions of the components of",
+      "plant and animal cells",
+      "construct a concept map of the levels of cell organisation",
+      "appreciate the function of the cell as a basic unit of life."
+     ],
+     "learning_experiences": [
+      "discuss with peers the differences between light and electron microscopes.",
+      "Use print or non-print media to search for the structures of plant and animal cells under electron microscope",
+      "observe photomicrographs of plant and animal cells under electron microscope to identify the components of the cells",
+      "discuss with peers the functions of components of the animal and plant cells",
+      "draw and label the structures of animal and plant cells",
+      "under the electron microscope",
+      "make a chart showing levels of cell organisation (organelles, cells, tissues, organs, organ systems and organisms). Project Use locally available materials to make a model of a plant and/or an animal cell."
+     ],
+     "inquiry_questions": [
+      "What makes up an organism?"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-general-science.pdf#p17"
+    },
+    {
+     "kicd_code": "2.2",
+     "name": "Nutrition in Animals",
+     "suggested_duration": "10 lessons",
+     "learning_outcomes": [
+      "describe digestion of different types of food in each region of the digestive system",
+      "explain the adaptations of parts of the human digestive system",
+      "Perform experiments to determine presence of different nutrients in food.",
+      "appreciate the role of different parts of the digestive system"
+     ],
+     "learning_experiences": [
+      "search for information on digestion of different types of food in each region of the digestive system",
+      "Watch animation or simulation of digestion of food along the alimentary canal",
+      "discuss the adaptations of parts of the human digestive system to their functions",
+      "Search for information from print and non-print materials on the enzymes used to breakdown each type of food at different regions of the digestive system and share with peers",
+      "carry out experiments on food tests in groups and share in the plenary.",
+      "Project Make a model of the human digestive system using locally available materials."
+     ],
+     "inquiry_questions": [
+      "What is the importance of breaking down food?"
+     ],
+     "core_competencies": [
+      "Digital literacy: the learner searches for information from the internet on the enzymes used to breakdown each type of food at different regions of the digestive system.",
+      "Creativity and Imagination: as the learner uses locally available materials to make a model of the human digestive system."
+     ],
+     "values": [
+      "Respect: Learner is considerate of others’ opinion while discussing the adaptations of the human digestive system.",
+      "Peace and Unity is promoted as the learner works harmoniously as they carry out experiments on food tests."
+     ],
+     "pertinent_issues": [
+      "Learner support programmes: Peer education and mentorship; Learner develops leadership skills as they work in groups.",
+      "Safety and security: Learner observes safety precautions as they carry out experiments on food tests."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-general-science.pdf#p19"
+    },
+    {
+     "kicd_code": "2.3",
+     "name": "Transport in plants",
+     "suggested_duration": "12 lessons",
+     "learning_outcomes": [
+      "describe transport in plants",
+      "investigate factors affecting transpiration",
+      "describe the significance of transpiration in sustainability of plant life",
+      "appreciate the role of transport in plants."
+     ],
+     "learning_experiences": [
+      "use digital devices or print media to search for information on transport in plants (translocation, absorption of water and mineral salts)",
+      "observe plant specimen to identify tissues responsible for transport in plants",
+      "discuss with peers how absorption of water and mineral salts in plants take place",
+      "carry out experiments in groups to investigate factors affecting transpiration in plants (structural aspect of the plant and environmental factors)",
+      "carry out experiment(s) to investigate translocation in plants",
+      "discuss with peers the necessity of transport in plants",
+      "• sensitise the community on the importance of transport in plants to sustain plant growth."
+     ],
+     "inquiry_questions": [
+      "1. Why is transport important in plants?",
+      "2. How do plants absorb water?"
+     ],
+     "core_competencies": [
+      "Communication and collaboration: as the learner shares information gathered on transport in plants with others.",
+      "Learning to learn: as the learner reflects on experiments on factors affecting transpiration in plants."
+     ],
+     "values": [
+      "Respect: is enhanced as the learner discusses with peers in harmony how absorption of water and mineral salts in plants take place.",
+      "Patriotism: is enhanced as the learner utilises the knowledge on transport in plants to sustain plant growth in the locality.",
+      "Responsibility: as the learner engages in assigned roles while working with others in the process of learning such as investigation of factors affecting transpiration.",
+      "Peace and Unity: as the learner works harmoniously with others as they carry out tasks and practical activities."
+     ],
+     "pertinent_issues": [
+      "Safety and security: Learner observes safety precautions as they carry out experiments in groups to investigate factors affecting transpiration in plants."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-general-science.pdf#p21"
+    },
+    {
+     "kicd_code": "2.4",
+     "name": "Respiration",
+     "suggested_duration": "6 lessons",
+     "learning_outcomes": [
+      "explain the meaning respiration in living things",
+      "describe aerobic and anaerobic respiration in living things",
+      "relate the respiratory quotient to the type of substrate and respiration in living things",
+      "explain factors affecting respiration in living things",
+      "describe economic importance of anaerobic respiration",
+      "acknowledge the significance of respiration in living things."
+     ],
+     "learning_experiences": [
+      "discuss with peers the meaning of respiration",
+      "discuss with peers the difference between aerobic and anaerobic respiration in living things and present in plenary",
+      "use print or non-print media to search for information on effects of anaerobic respiration",
+      "carry out activities to investigate anaerobic respiration in living organisms (fermentation using yeast cells)",
+      "calculate the Respiratory Quotient to determine the type of substrate and type of respiration in living things",
+      "discuss with peers factors affecting respiration in living things",
+      "• discuss in groups, the economic importance of anaerobic respiration in living things and share in plenary. Project Carry out a project that utilises the concept of anaerobic respiration (exclude brewing)."
+     ],
+     "inquiry_questions": [
+      "How is aerobic and anaerobic respiration important in a society’s economy?"
+     ],
+     "core_competencies": [
+      "Communication and collaboration: as the learner discusses with peers in a group factors affecting energy requirements in human beings.",
+      "Learning to learn: as the learner carries out activities to investigate anaerobic respiration in living organisms."
+     ],
+     "values": [
+      "Respect: as the learner considers others' opinion while working on practical activities in groups such as fermentation.",
+      "Responsibility: as the learner carries out activities to investigate anaerobic respiration in living organisms."
+     ],
+     "pertinent_issues": [
+      "Financial literacy: as the learner undertakes the project on economic importance of anaerobic respiration.",
+      "Life skills and human sexuality is enhanced as the learner becomes aware of varying energy requirements in human beings."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-general-science.pdf#p23"
+    },
+    {
+     "kicd_code": "2.5",
+     "name": "Plant growth and development",
+     "suggested_duration": "10 lessons",
+     "learning_outcomes": [
+      "explain the meaning of growth and development in plants",
+      "describe the causes of seed dormancy",
+      "determine the conditions necessary for germination",
+      "differentiate between epigeal and hypogeal germination",
+      "distinguish between primary and secondary growth",
+      "describe the role of growth hormones",
+      "appreciate the concept of growth and development in plants."
+     ],
+     "learning_experiences": [
+      "use digital or print media to search for differences between growth and development in plants",
+      "discuss in groups causes of seed dormancy and",
+      "search for information on how to break seed dormancy and share with peers",
+      "carry out experiments with peers to investigate conditions necessary for germination",
+      "carry out experiments to investigate epigeal and hypogeal germination",
+      "Discuss with peers the differences between primary and secondary growth",
+      "• use print and non-print media to search for information on the role of growth hormones in plants."
+     ],
+     "inquiry_questions": [
+      "What brings about growth in plants?"
+     ],
+     "core_competencies": [
+      "Communication and collaboration: the learner shares information gathered on differences between growth and development.",
+      "Self-efficacy: the learner demonstrates confidence as they share information on seed dormancy.",
+      "Learning to learn: the learner reflects on the experiments on conditions necessary for germination."
+     ],
+     "values": [
+      "Respect: Learner is considerate of others’ opinion while working on practical activities to investigate epigeal and hypogeal germination.",
+      "Responsibility: Learner engages in assigned roles while working with others in the process of learning such as investigating conditions necessary for germination."
+     ],
+     "pertinent_issues": [
+      "Learner support programmes: Peer education and mentorship; Learner develops leadership skills as they work in groups.",
+      "Cyber security: as the learner observes online security as they search for information on growth and development."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-general-science.pdf#p25"
+    },
+    {
+     "kicd_code": "2.6",
+     "name": "Microorganisms",
+     "suggested_duration": "14 lessons",
+     "learning_outcomes": [
+      "identify microorganisms that affect human beings",
+      "explain modes of transmission of microorganisms in human beings",
+      "identify types of infections caused by microorganisms in human beings",
+      "Describe methods of control and prevention of infections caused by microorganism",
+      "Explain the economic importance of microorganisms",
+      "Appreciate the effect of microorganisms in day to day life"
+     ],
+     "learning_experiences": [
+      "discuss types of microorganisms that affect human beings",
+      "Use digital or print media to search for information on the modes transmission of microorganisms in human beings",
+      "use digital or print media to search for information on infections caused by microorganisms in human beings",
+      "relate the methods of control and prevention of microorganisms to their mode of transmission",
+      "In groups, discuss economic importance of",
+      "microorganisms and share in plenary"
+     ],
+     "inquiry_questions": [
+      "How are micro-organisms important in day to day life?"
+     ],
+     "core_competencies": [
+      "Digital literacy: The learner uses digital devices to search for information on microorganism infections, control and prevention.",
+      "Communication and collaboration: Learner shares information gathered on types of microorganism infections, control and prevention."
+     ],
+     "values": [
+      "Respect is promoted as the learner becomes considerate of others’ opinion while discussing methods of controlling and preventing microorganism infections."
+     ],
+     "pertinent_issues": [
+      "Life skills and human sexuality: Problem solving skills; Learner uses knowledge gained to solve problems as they discuss control and prevention of infections caused by microorganisms.",
+      "Learner support programmes: Peer education and mentorship; Learner develops leadership skills as they work in groups."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-general-science.pdf#p27"
+    }
+   ]
+  },
+  {
+   "strand": "Matter and Chemical Reactions",
+   "strand_code": "3.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to classify the 20 elements into groups and periods of the periodic table.",
+     "exceeds": "Classifies all the 20 elements into groups and periods of the periodic table.",
+     "meets": "Classifies more than 15 elements into groups and periods of the periodic table.",
+     "approaches": "Classifies at least 10 elements into groups and periods of the periodic table.",
+     "below": "Classifies less than 5 elements into groups and periods of the periodic table."
+    },
+    {
+     "indicator": "Ability to outline the uses of elements of the periodic table",
+     "exceeds": "Exhaustively outlines the uses of elements of the periodic table",
+     "meets": "Outlines the uses of elements of the periodic table",
+     "approaches": "Outlines some uses of elements of the periodic table",
+     "below": "Outlines the uses of a few elements of the periodic table"
+    },
+    {
+     "indicator": "Ability to describe the relationship between the bond types and the physical properties of elements and compounds",
+     "exceeds": "Clearly describes the relationship between the bond types and the physical properties of elements and compounds, with illustrations",
+     "meets": "Clearly describes the relationship between the bond types and the physical properties of elements and compounds",
+     "approaches": "Makes an effort to describe the relationship between the bond types and the physical properties of elements and compounds",
+     "below": "Describes the relationship between the bond types and the physical properties of elements and compounds, with hints"
+    },
+    {
+     "indicator": "Ability to identify products of chemical reactions of acids and bases",
+     "exceeds": "Identifies all products of chemical reactions of acids and bases, with ease",
+     "meets": "Identifies most products of chemical reactions of acids and bases",
+     "approaches": "Identifies some products of chemical reactions of acids and bases",
+     "below": "Identifies some products of chemical reactions of acids and bases, with prompts"
+    },
+    {
+     "indicator": "Ability to explain factors that influence the rate of reactions in both biological and chemical process",
+     "exceeds": "Comprehensively explains all factors that influence the rate of reactions in both biological and chemical process",
+     "meets": "Explains all factors that influence the rate of reactions in both biological and chemical process",
+     "approaches": "Explains some factors that influence the rate of reactions in both biological and chemical process",
+     "below": "Explains a few factors that influence the rate of reactions in both biological and chemical process with prompts"
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "3.1",
+     "name": "The periodic table",
+     "suggested_duration": "12 lessons",
+     "learning_outcomes": [
+      "examine electron arrangement of an atom of an element to identify the period and group the element belongs",
+      "classify elements into groups and periods of the periodic table",
+      "explain the stability and electron affinity of atoms of elements",
+      "describe ion formation for the first 20 elements of the periodic table",
+      "formulate chemical formula of compounds using valencies of elements and radicals",
+      "appreciate the importance of the structure of the atom in the development of the periodic table."
+     ],
+     "learning_experiences": [
+      "carry out activities to review the concepts of the structure of an atom, atomic number, mass number and the electron arrangement of atoms of selected elements",
+      "arrange the first 20 elements using similarities in their electron arrangements",
+      "discuss with peers the order adopted in developing the periodic table (the periodic law)",
+      "discuss with peers in a group how atoms of elements acquire stability (losing or gaining electrons) relating to the atom’s ability to attain the",
+      "positive or negative charge (cations and anions)",
+      "draw dot (.) and cross (x) diagrams to illustrate ion formation for the first 20 elements of the periodic table",
+      "discuss with peers on how to determine the valency and oxidation numbers of elements and radicals (ammonium ion, sulphate, nitrate, hydroxide, carbonate, phosphate, hydrogen carbonate, sulphite and nitrite)",
+      "watch animations and simulations on ion formation and atomicity of gases using digital devices. Project Model the periodic table for the first 20 elements using locally available materials."
+     ],
+     "inquiry_questions": [
+      "1. Why is electron arrangement significant?",
+      "2. How are elements arranged in the periodic table?"
+     ],
+     "core_competencies": [
+      "Core competencies to be developed:",
+      "Communication and Collaboration: as the learner discusses with peers in a group how to determine valency and oxidation numbers of elements and radicals.",
+      "Critical Thinking and Problem Solving: as the learner sorts and arranges the first twenty elements of the periodic table according to their similarities.",
+      "Creativity and Imagination: as the learner models the periodic table for the first twenty elements using locally available materials. Values:",
+      "Respect: as the learner recognises and respects the input of every group member as they discuss how to determine the valency and oxidation numbers of elements and radicals.",
+      "Unity: as the learner takes turns in playing roles when drawing dot (.) and cross (x) diagrams to illustrate ion formation for atoms of elements of the periodic table.",
+      "Responsibility: as the learner uses digital devices appropriately to watch simulations and animations onion formation. Pertinent and Contemporary Issues (PCIs)",
+      "Life skills; Problem solving skills: as the learner arranges the first twenty elements of the periodic table into groups and periods.",
+      "Life skills; Financial literacy: as the learner uses locally available materials as a way of minimising the expenses when modelling the periodic table of elements."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-general-science.pdf#p32"
+    },
+    {
+     "kicd_code": "3.2",
+     "name": "Chemical Families",
+     "suggested_duration": "8 lessons",
+     "learning_outcomes": [
+      "identify chemical families in the periodic table",
+      "classify elements of the periodic table into their chemical families",
+      "describe the physical and chemical properties of selected elements of the periodic table",
+      "explain the unreactive nature of the noble gases",
+      "outline the uses of elements of the periodic table",
+      "acknowledge the uses of the elements of the",
+      "periodic table in day to day life."
+     ],
+     "learning_experiences": [
+      "find out the names assigned to various categories of elements in the periodic table (alkali, alkaline earth metals, halogens, noble gases and transition metals)",
+      "sort and group the first twenty elements of the periodic table into their families (include copper, iron, zinc, lead for transition elements)",
+      "carry out activities to investigate physical properties of alkali metals, alkaline earth metals, halogens, noble gases and transition metals",
+      "observe safety when carrying out activities to investigate",
+      "properties of elements of the periodic table",
+      "carry out activities to investigate the reaction of sodium, magnesium and chlorine with air (oxygen), water and dilute acids where applicable (write balanced chemical equations for the reactions)",
+      "discuss with peers the properties of elements of the periodic table in relation to their uses",
+      "discuss with peers the unreactive nature of noble gases and how they are suited for their applications in day to day life",
+      "use available digital and print media to search for information on transition elements and their uses"
+     ],
+     "inquiry_questions": [
+      "How are elements suited for their use in day to day life?"
+     ],
+     "core_competencies": [
+      "Core competencies to be developed:",
+      "Communication and collaboration: as the learner carries out activities to investigate the reaction of sodium, magnesium and chlorine with air.",
+      "Digital literacy: as the learner uses available digital and print media to search for information on transition elements and their uses. Values:",
+      "Respect: as the learner participate with peers in harmony in contests of writing balanced chemical equations for simple reactions.",
+      "Unity: as the learner harmoniously participates in a contest of writing the formulae of compounds from the constituent elements using valencies. Pertinent and Contemporary Issues (PCIs) Safety and security: as the learner observes safety precautions as they carry out activities to investigate properties of elements of the periodic table"
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-general-science.pdf#p35"
+    },
+    {
+     "kicd_code": "3.3",
+     "name": "Chemical bonding",
+     "suggested_duration": "14 lessons",
+     "learning_outcomes": [
+      "identify the types of bonds formed by elements",
+      "illustrate chemical bonding in common compounds",
+      "distinguish structures of elements and compounds formed by bonding",
+      "describe the relationship between the bond types and the physical properties of elements and compounds",
+      "select appropriate materials for use based",
+      "on their bond type and structure",
+      "reflect on the appropriateness of substances in day to day life based on their bond types and structures."
+     ],
+     "learning_experiences": [
+      "discuss with peers the role of valence electrons in bond formation",
+      "Search for information from the Internet or other available resources on the types of bonds formed by elements",
+      "manipulate available digital devices to watch simulations on formation of chemical bonds",
+      "discuss with peers the formation of different types of chemical bonds (ionic, covalent, dative-covalent, hydrogen and metallic)",
+      "use dots (.) and crosses (x) to illustrate chemical bonding for selected molecules and compounds",
+      "• carry out activities to",
+      "demonstrate physical",
+      "properties of different",
+      "elements and compounds",
+      "(melting point, boiling point",
+      "solubility, electrical and",
+      "thermal conductivity)",
+      "• observe safety precautions",
+      "when carrying out activities to",
+      "investigate properties of",
+      "• discuss with peers the",
+      "relationship between bond",
+      "types and physical properties",
+      "of different structures (giant",
+      "ionic, simple molecular, giant",
+      "atomic and giant metallic)",
+      "• explore with peers the uses of",
+      "based on their bond types and",
+      "structures (diamond, graphite",
+      "and Aluminium).",
+      "Project work",
+      "Model structures of molecules and compounds using locally available resources."
+     ],
+     "inquiry_questions": [
+      "How do bond types relate to physical properties of compounds?"
+     ],
+     "core_competencies": [
+      "Digital literacy: the learner manipulates digital devices to watch simulations on formation of chemical bonds.",
+      "Creativity and imagination: as the learner undertakes a project of modelling ball and stick ionic and covalent structures of selected molecules using locally available resources."
+     ],
+     "values": [
+      "Respect: as the learner recognises and appreciates the input of every group member when discussing the relationship between bond types and physical properties of different structures.",
+      "Responsibility: as the learner carefully uses digital devices to watch animations and simulations on formation of different bond types."
+     ],
+     "pertinent_issues": [
+      "Safety and Security: as the learner observes safety precautions when carrying out activities to investigate properties of elements and compounds.",
+      "Financial Literacy: as the learner gains knowledge on making informed decisions on savings by exploring and selecting appropriate elements and compounds for use based on their bond types and structures."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-general-science.pdf#p38"
+    },
+    {
+     "kicd_code": "3.4",
+     "name": "Acids, Bases and Salts",
+     "suggested_duration": "12 lessons",
+     "learning_outcomes": [
+      "By the end of the sub",
+      "distinguish acids and",
+      "bases using the",
+      "and pH chart",
+      "explain the role of",
+      "acids and bases in",
+      "identify products of",
+      "chemical reactions of",
+      "acids and bases",
+      "according to their",
+      "exposed to air",
+      "of salts in real life",
+      "advocate for proper usage of salts in day to day life."
+     ],
+     "learning_experiences": [
+      "discuss with peers the meaning of acids and bases (limited to the presence of hydrogen ions and hydroxide ions for acids and bases respectively)",
+      "test acidic and basic substances in the environment using the universal indicator and pH chart to determine their strengths (bleaching agents, vinegar, salts, soda, juices, water, wood ash, antacids)",
+      "discuss with peers the functions of acids and bases in simple biological processes (digestion, respiration)",
+      "carry out experiments and present findings on chemical properties of dilute acids and bases (reaction of acids with bases, acids with carbonates and metals)",
+      "carry out experiments to investigate the behaviour of salts when exposed",
+      "• discuss with peers the meaning of",
+      "acids and bases (limited to the",
+      "presence of hydrogen ions and",
+      "hydroxide ions for acids and bases",
+      "respectively)",
+      "• test acidic and basic substances in",
+      "the environment using the universal",
+      "indicator and pH chart to determine",
+      "their strengths (bleaching agents",
+      "vinegar, salts, soda, juices, water",
+      "wood ash, antacids)",
+      "• discuss with peers the functions of",
+      "acids and bases in simple biological",
+      "processes (digestion, respiration)",
+      "• carry out experiments and present",
+      "findings on chemical properties of",
+      "dilute acids and bases (reaction of",
+      "acids with bases, acids with",
+      "carbonates and metals)",
+      "• carry out experiments to investigate",
+      "the behaviour of salts when exposed",
+      "to air (hygroscopic, deliquescent and efflorescent salts)",
+      "listen attentively to peers when discussing the various applications of salts (Agriculture, food industry, medicine, laundry)",
+      "discuss with peers the effect of salts to the environment (eutrophication, soil and air pollution)",
+      "use available digital and print media to search for information on the applications of salts in day to day life and present in plenary."
+     ],
+     "inquiry_questions": [
+      "1. Why are salts important in day to day life?",
+      "2. How do salts behave when exposed to air?"
+     ],
+     "core_competencies": [
+      "Communication and collaboration: as the learner listens attentively to peers giving ideas when discussing the various applications of salts.",
+      "Self-efficacy: as the learner carries out experiments and present findings on chemical properties of dilute acids and bases.",
+      "Digital literacy: as the learner uses digital devices to search for information on the applications of salts in day to day life."
+     ],
+     "values": [
+      "• Responsibility: as the learner carefully uses digital devices to search for information and presents in plenary the various applications of salts in day to day life."
+     ],
+     "pertinent_issues": [
+      "Pertinent and Contemporary Issues (PCIs):",
+      "Socio-economic and Environmental education: as the learner discusses the effect of salts on the environment.",
+      "Safety and security: as the learner carry out experiments and present findings on chemical properties of dilute acids and bases"
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-general-science.pdf#p41"
+    },
+    {
+     "kicd_code": "3.5",
+     "name": "Rates of Reactions",
+     "suggested_duration": "12 lessons",
+     "learning_outcomes": [
+      "describe rate of chemical reactions",
+      "perform experiments involving the rate of chemical reactions",
+      "explain factors that influence the rate of reactions in both biological and chemical process",
+      "account for the efficiency of chemical reactions in industrial processes",
+      "appreciate the significance of manipulating factors affecting chemical reactions in nature."
+     ],
+     "learning_experiences": [
+      "discuss with peers the meaning of the rate of a chemical reaction",
+      "carry out simple experiments to investigate the rate of chemical reactions",
+      "carry out experiments to investigate factors that affect the rate of reactions (biological and chemical)",
+      "discuss with peers the factors that affect the rate of a reactions in both biological and chemical processes",
+      "discuss with peers the importance of maintaining optimum conditions industrial processes",
+      "brainstorm on the efficiency and safety of the Haber process (recycling of materials, optimum",
+      "conditions and safety on the environment)",
+      "use available digital devices and print media to search for information on the importance of optimum conditions in industrial processes"
+     ],
+     "inquiry_questions": [
+      "How do various factors affect the rate of reactions?"
+     ],
+     "core_competencies": [
+      "Communication and collaboration: as the learner discusses with peers the factors that affect the rate of a chemical reaction",
+      "Digital literacy: as the learner uses digital devices and print media to search for information on the importance of optimum conditions in industrial processes."
+     ],
+     "values": [
+      "Responsibility: as the earner carefully uses digital devices to search for information on the importance of optimum conditions in industrial processes.",
+      "Respect: as the learner respects each other’s opinion while discussing with peers in a group the importance of efficient industrial processes."
+     ],
+     "pertinent_issues": [
+      "Socio-economic and Safety and security: as the learner observes safety precautions while carrying out simple experiments to investigate the rate of a chemical reaction."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-general-science.pdf#p44"
+    }
+   ]
+  },
+  {
+   "strand": "General Physics",
+   "strand_code": "4.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to apply the turning effect of force in real life situations",
+     "exceeds": "Applies the turning effect of force in real life situations giving appropriate examples",
+     "meets": "Applies the turning effect of force in real life situations",
+     "approaches": "Applies the turning effect of force in a few real life situations",
+     "below": "Applies the turning effect of force in a few real life situations with prompts"
+    },
+    {
+     "indicator": "Ability to perform experiments on free fall to determine the force of gravity as per the following guidelines: 1. Measure a reasonable height h above the ground, 2. From the height h, drop a stone from rest and immediately start the stopwatch, 3. Record in a table the height and the time taken for the fall 4. Repeat steps 1 to 3 for two more",
+     "exceeds": "Performs experiments on free fall to determine the force of gravity following all guidelines procedurally and arrives at the correct value of g",
+     "meets": "Performs experiments on free fall to determine the force of gravity following all guidelines",
+     "approaches": "Performs experiments on free fall to determine the force of gravity following the guidelines but missing some steps",
+     "below": "Performs experiments on free fall to determine the force of gravity following guidelines but is assisted in almost every step"
+    },
+    {
+     "indicator": "Ability to apply the properties of waves in real life situations",
+     "exceeds": "Applies the properties of waves in real life situations giving appropriate examples",
+     "meets": "Applies the properties of waves in real life situations",
+     "approaches": "Applies some of the properties of waves in real life situations",
+     "below": "Applies some of the properties of waves in real life situations with prompts"
+    },
+    {
+     "indicator": "Ability to experiment on electromagnetic induction using the following procedure: 1. Using a sensitive galvanometer, a straight copper conductor, a U-shaped magnet and",
+     "exceeds": "Experiments electromagnetic induction following all the procedures stepwise and draws all the expected conclusions with further explanations",
+     "meets": "Experiments electromagnetic induction following all the procedures stepwise and draws expected conclusions",
+     "approaches": "Experiments electromagnetic induction following all the procedures and draws some of the expected conclusions",
+     "below": "Experiments electromagnetic induction following all the procedures and is assisted in every step to draw conclusions"
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "4.1",
+     "name": "Turning effect of force",
+     "suggested_duration": "11 lessons",
+     "learning_outcomes": [
+      "determine moments of a force at a point",
+      "calculate the moments of anti-parallel forces using a formula",
+      "apply the turning effect of force in real life situations",
+      "appreciate the importance of the turning effect of force in everyday life."
+     ],
+     "learning_experiences": [
+      "use digital devices and/or print media to search for information on moments of a force at a point",
+      "watch animations and simulations on moments of anti-parallel forces from the internet and present in a plenary",
+      "demonstrate the principle of moments by balancing a metre rule",
+      "solve numerical problems involving both moments of a force and moments of anti-parallel forces",
+      "walk around the school in groups to identify where turning effect of force is applied",
+      "watch video clips on how the concept of turning effect of force is applied in real life situations",
+      "• discuss with peers other instances where the turning effect of force can be utilised."
+     ],
+     "inquiry_questions": [
+      "How is the turning effect of force important in daily life?"
+     ],
+     "core_competencies": [
+      "Critical thinking and problem solving as the learner solves numerical problems involving both moments of a force and moments of anti-parallel forces.",
+      "Digital literacy as the learner interacts with digital technology as they search for information on moments of a force at a point and moments of anti-parallel forces."
+     ],
+     "values": [
+      "Integrity: The learner displays honesty while using digital devices to search for information on moments of a force at a point and moments of anti-parallel forces.",
+      "Respect: The learner respects others opinions while discussing with peers on the examples involving turning effect of force in daily life."
+     ],
+     "pertinent_issues": [
+      "Life skills and values: The learner appreciates the need of increasing the effort distance in making the turning effect of force better."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-general-science.pdf#p48"
+    },
+    {
+     "kicd_code": "4.2",
+     "name": "Linear motion with constant acceleration",
+     "suggested_duration": "16 lessons",
+     "learning_outcomes": [
+      "explain terms used in linear motion",
+      "calculate variables of motion using equations of linear motion",
+      "carry out experiments on the effect of gravity on bodies under free fall",
+      "appreciate the significance of linear motion and free fall in real life."
+     ],
+     "learning_experiences": [
+      "discuss with their peers the meaning and differences between the terms used in linear motion",
+      "use digital devices/print media to search for the equations of linear motion",
+      "solve numerical problems in linear motion with constant acceleration using equations of linear motion",
+      "discuss with peers the applications of linear motion in real life and present in plenary",
+      "drop objects from a certain height to observe the increase in speed of the objects and infer the effect of gravity on the objects",
+      "observe safety measures when dropping objects to experiment the effect of gravity on objects",
+      "discuss with peers the safety measures put in real life situations to minimise fatal injuries resulting from free fall concept",
+      "do individual assignments on examples of bodies under free fall motion and present the findings in a group discussion."
+     ],
+     "inquiry_questions": [
+      "1. Why do we learn linear motion?",
+      "2. How is free fall motion important in real life?",
+      "3. What are the dangers of free fall in our day to life?"
+     ],
+     "core_competencies": [
+      "Communication and collaboration: the learner works with peers to discuss and present in plenary the application of linear motion in real life.",
+      "Learning to learn as the learner does individual assignments on examples of bodies under free fall motion and presents the findings in a group discussion."
+     ],
+     "values": [
+      "Peace: The learner displays tolerance and calmness as they discuss and present in plenary the application of linear motion in real life.",
+      "Unity: The learner displays cooperation, collaborates with others while dropping objects to experiment the effect of gravity."
+     ],
+     "pertinent_issues": [
+      "Safety and security: The learner observes safety measures when dropping objects to experiment the effect of gravity on objects."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-general-science.pdf#p50"
+    },
+    {
+     "kicd_code": "4.3",
+     "name": "Waves",
+     "suggested_duration": "18 lessons",
+     "learning_outcomes": [
+      "explain the terms used in waves",
+      "interpret the wave equation as used in science",
+      "calculate the wave characteristics using the wave equation",
+      "demonstrate the effects of properties of waves in real life",
+      "appreciate the applications of properties of waves in real life.",
+      "waves in real life."
+     ],
+     "learning_experiences": [
+      "search from the internet/print media/non-print media, the definition of terms used in waves and properties of waves",
+      "discuss in peers the wave equation",
+      "solve numerical problems on wave characteristics using the wave equation",
+      "carry out experiments to investigate reflection of sound waves using the echo method",
+      "watch video clips from YouTube on refraction of sound waves both during the day and night and illustrate the concept diagrammatically in class",
+      "carry out experiments to establish that sound waves can be heard round a corner"
+     ],
+     "inquiry_questions": [
+      "1. How are waves applicable in our day-to-day life?",
+      "2. How do waves affect our environment?"
+     ],
+     "core_competencies": [
+      "Learning to learn: as the learner searches the applications of reflection, refraction and diffraction of waves.",
+      "Digital literacy: as the learner searches from the internet/print media/nonprint media, the definition of terms used in waves and properties of waves."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-general-science.pdf#p52"
+    },
+    {
+     "kicd_code": "4.4",
+     "name": "Magnetism and electromagnetic induction",
+     "suggested_duration": "15 lessons",
+     "learning_outcomes": [
+      "describe the methods of magnetization and demagnetization in soft iron",
+      "describe the magnetic field patterns around a magnet",
+      "describe induced e.m.f",
+      "perform an experiment on electromagnetic induction",
+      "explain factors affecting the magnitude of induced e.m.f",
+      "appreciate the applications of",
+      "electromagnetic induction in day-to-day life."
+     ],
+     "learning_experiences": [
+      "carry out experiments on magnetization and demagnetization soft iron (electrical, induction, hammering and stroking)",
+      "discuss the observations made in the methods to determine the most suitable method of magnetization",
+      "carry out experiments on demagnetization (electrical, hammering and heating)",
+      "search from the internet (or any other available resources), the direction of magnetic fields",
+      "draw the magnetic field patterns around a magnet",
+      "discuss with peers the meaning of the term induced e.m.f",
+      "carry out an experiment to demonstrate electromagnetic induction using a U-shaped magnet, galvanometer and a straight conductor",
+      "use available digital and print media to search for information on the factors affecting the magnitude of induced e.m.f",
+      "discuss in groups ways that electromagnetic induction can be applied in day-to-day living. Project Design and make a simple electric bell using locally available materials."
+     ],
+     "inquiry_questions": [
+      "1. How is the study of electromagnetic induction important in our daily life?",
+      "2. How can electromagnetic induction generate income for a country?"
+     ],
+     "core_competencies": [
+      "Creativity and imagination: as the learner designs and carries out an experiment on electromagnetic induction.",
+      "Learning to learn: as the learner carries out experiments of magnetising a magnetic material and demagnetizing a magnet.",
+      "Digital literacy: as the learner uses available digital media (or any other available resources) to search for information on the factors affecting the magnitude of induced e.m.f."
+     ],
+     "values": [
+      "Values:",
+      "Unity: as the learner is assigned various roles in carrying out experiments to demonstrate electromagnetic induction.",
+      "Responsibility: as the learner takes care of the apparatus (U-shaped magnet, galvanometer and straight conductors) while carrying out experiments on electromagnetic induction. Pertinent and Contemporary Issues:",
+      "Financial literacy: as the learner acquires information that through electromagnetic induction, electricity can be produced thereby generating a source of income.",
+      "Life skills: as the learner explains the methods of magnetization and demagnetization."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-general-science.pdf#p54"
+    }
+   ]
+  }
+ ]
+}

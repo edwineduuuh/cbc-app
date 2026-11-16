@@ -1,0 +1,1299 @@
+{
+ "source_pdf": "grade10-physical-education.pdf",
+ "grade": 10,
+ "subject": "physical-education",
+ "general_outcomes": [
+  "Use technology appropriately to learn and enhance mastery of skills in physical activity.",
+  "Develop suitable physical activity skills to prevent or overcome challenges associated with personal health and wellness.",
+  "Engage actively in physical activities in and out of school to enhance knowledge, skills and attitudes in Physical Education.",
+  "Develop individual talent for leisure, enjoyment and self-fulfilment.",
+  "Apply physical fitness concepts, practises and attitudes that contribute to a healthy active lifestyle.",
+  "Demonstrate responsibility to the environment for own and others’ safety during participation in physical activities.",
+  "Demonstrate desirable behaviour and commitment towards improvement of personal life, community, nation and the world.",
+  "Appreciate and respect individual differences while engaging in physical activity and sports."
+ ],
+ "strands": [
+  {
+   "strand": "Ball Games",
+   "strand_code": "1.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to perform the skills in Football • lofted kick • ( stance, ball contact, follow through) • marking (Positioning, anticipation, concentration) • dodging • (Feinting, faking, turning, speed) • Goalkeeping (quick reaction, dives, positioning, Catching, punching)",
+     "exceeds": "Performs the 4 skills of Football using all aspects of the skill correctly and consistently.",
+     "meets": "Performs the 4 skills of Football using all aspects of the skill correctly.",
+     "approaches": "Performs at least 3 skills of Football using all aspects of the skill correctly.",
+     "below": "Performs less than 3 skills of Football using all aspects of the skill correctly."
+    },
+    {
+     "indicator": "Ability to perform passing in Netball • Flip pass (stance, grip, release, follow through)",
+     "exceeds": "Performs the 2 passes in Netball using all the aspects correctly and consistently",
+     "meets": "Performs the 2 passes in Netball using all the aspects correctly",
+     "approaches": "Performs the 2 passes in Netball while missing some aspects of the skills.",
+     "below": "Performs less than 2 passes in Netball."
+    },
+    {
+     "indicator": "Ability to execute Setting in volleyball using the correct • stance, • contact, • release, • follow through",
+     "exceeds": "Executes the skill of setting in volleyball using all the aspects correctly always",
+     "meets": "Executes the skill of setting in volleyball using all the aspects correctly",
+     "approaches": "Executes the skill of setting in volleyball with at least 2 to 3 aspects correctly",
+     "below": "Executes the skill of setting in volleyball with at least 1 aspect correctly"
+    },
+    {
+     "indicator": "Ability to perform the skills of handball Sidestep • stance, • footwork, • speed • follow through Goalkeeping • stance • movement • blocking",
+     "exceeds": "Executes the skill of Handball using all the aspects correctly always",
+     "meets": "Executes the skill of Handball using all the aspects correctly",
+     "approaches": "Executes the skill of Handball using at 2 to 3 aspects correctly",
+     "below": "Executes the skill of Handball using 1-2 aspects correctly"
+    },
+    {
+     "indicator": "Ability to execute shooting in Basketball using Set shot • stance, • grip • release • follow through layup shot • Approach • Stepping • Release • follow through, jump shot • stance, • grip • release • follow through",
+     "exceeds": "Executes shooting in Basketball using the 3 skills consistently",
+     "meets": "Executes shooting in Basketball using the 3 skills correctly",
+     "approaches": "Executes shooting in Basketball using at least 2 skills correctly",
+     "below": "Executes shooting in Basketball using at least 1 skill correctly"
+    },
+    {
+     "indicator": "Ability to perform skills in Rugby Dodging Marking Grubber kick",
+     "exceeds": "Performs the three skills in Rugby using all the aspects correctly and consistently",
+     "meets": "Performs the three skills in Rugby using all the aspects correctly",
+     "approaches": "Performs 2 skills in Rugby using all the aspects correctly",
+     "below": "Performs 1 skill in Rugby using all the aspects correctly"
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "1.1",
+     "name": "Football",
+     "suggested_duration": "10 lessons",
+     "learning_outcomes": [
+      "identify the facility and equipment used in a game of Football",
+      "perform lofted pass in Football for skill mastery",
+      "execute marking and dodging in Football for skill acquisition",
+      "perform goalkeeping in Football for skill mastery",
+      "value playing Football for enjoyment."
+     ],
+     "learning_experiences": [
+      "observe pictures / real facility /charts or search and watch a live/ videos of Football facility to identify facility and equipment used in Football",
+      "engage in marking Football playing field and improvising equipment for use in playing football.",
+      "observe virtual or live performances of Football to note the execution of lofted pass, goal keeping, marking, and dodging",
+      "demonstrate stance, contact, follow through techniques in the execution of lofted pass",
+      "demonstrate positioning, anticipation, techniques of effective marking",
+      "demonstrate Feinting, faking, turning accelerating and decelerating in dodging",
+      "demonstrate, quick reactions, dives, positioning, catching, and punching in goalkeeping skills",
+      "practice marking and dodging in Football with peers",
+      "play mini Football games applying lofted pass, goalkeeping, marking and dodging skills while observing safety and rules of the game",
+      "reflects on their own abilities and share feedback with peers."
+     ],
+     "inquiry_questions": [
+      "1. Why is marking and dodging essential when playing Football?",
+      "2. How does the equipment and skills of Football make it a popular game?"
+     ],
+     "core_competencies": [
+      "Digital Literacy: as the learner searches and watches videos on Football to identify various facilities and equipment.",
+      "Critical Thinking and Problem Solving: as the learner makes decisions on how to dodge opponents during play and strategize when marking opponents.",
+      "Self-Efficacy: as the learner displays mastery of football skills of goalkeeping, dodging, marking and kicking."
+     ],
+     "values": [
+      "Unity: as the learner collaborates with peers in mini games of Football",
+      "Responsibility: as the learner observes rules while playing Football and cares for equipment and facility..",
+      "Respect: as the learner appreciates rules, and cares for self and others during play."
+     ],
+     "pertinent_issues": [
+      "Pertinent and Contemporary Issues (PCIs):",
+      "Health promotion: as the learner develops healthy practices that help reduce lifestyle diseases when participating in Football activities.",
+      "Socio-economic issues: as the learner observes online safety while searching for information on facilities online."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-physical-education.pdf#p12"
+    },
+    {
+     "kicd_code": "1.2",
+     "name": "Netball",
+     "suggested_duration": "10 lessons",
+     "learning_outcomes": [
+      "identify facility and equipment for use in Netball game",
+      "execute flip pass and side pass in Netball for skill acquisition",
+      "appreciate basic rules while playing Netball for enjoyment."
+     ],
+     "learning_experiences": [
+      "observe a live or recorded Netball match and observe the equipment",
+      "take turns to demonstrate the stance, grip, release and follow through in flip pass",
+      "demonstrate the stance, timing, release and accuracy in side pass while observing safety",
+      "practise combination of flip pass and side pass while observing basic rules of Netball and safety",
+      "play mini Netball games applying the skill of flip pass and",
+      "side pass while observing safety",
+      "observe and give feedback on others' performance in playing Netball."
+     ],
+     "inquiry_questions": [
+      "1. Why is passing a necessary skill in Netball?",
+      "2. How can equipment for Netball be improvised?"
+     ],
+     "core_competencies": [
+      "Citizenship: as the learner recognises own ability in practising flip and side pass in Netball.",
+      "Learning to Learn: as the learner seeks advice and more information from the teachers and peers to improve on the skills learned."
+     ],
+     "values": [
+      "Unity: learner takes turns in demonstrating the stance, grip, release and follow through in flip pass in Netball.",
+      "Responsibility: as the learner observes safety and cares for the equipment.",
+      "Integrity: as the learner follows the rules of Netball."
+     ],
+     "pertinent_issues": [
+      "Safety: is enhanced as learners apply basic rules to ensure safety of self and others during play.",
+      "Coping with emotions: as the learner copes with emotions during different playing situations in a mini Netball game."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-physical-education.pdf#p15"
+    },
+    {
+     "kicd_code": "1.3",
+     "name": "Volleyball",
+     "suggested_duration": "10 lessons",
+     "learning_outcomes": [
+      "identify facilities and equipment used in the game of Volleyball",
+      "execute setting in Volleyball game for skill mastery",
+      "embrace sportsmanship, while playing Volleyball game."
+     ],
+     "learning_experiences": [
+      "observe live or search and watch virtual Volleyball games to familiarise with facilities, equipment and setting in Volleyball",
+      "improvise facilities and equipment to use in playing Volleyball with peers",
+      "demonstrate the correct stance, arms and finger placement, release and follow through for setting in Volleyball",
+      "practice with peers setting skill in Volleyball",
+      "practise high set, back set, and quick set in Volleyball",
+      "play mini Volleyball games while observing rules and safety",
+      "appraise self and others performance in executing",
+      "Volleyball skills and talk about it."
+     ],
+     "inquiry_questions": [
+      "1. How can Volleyball equipment improvised?",
+      "2. How does setting skill contribute to offensive play in Volleyball?"
+     ],
+     "core_competencies": [
+      "Communication and collaboration: as the learner contributes to the appraisal, discussion and gives feedback on the performance of Volleyball skill.",
+      "Self-efficacy: as the learner analyses and justifies their strengths and areas of improvement while appraising self and others performance of skills in Volleyball.",
+      "Digital Literacy: as the learner searches and watches videos of Volleyball."
+     ],
+     "values": [
+      "Responsibility: as the learner cares for facilities and equipment used in practising skills in Volleyball.",
+      "Social justice: as the learner accord others equal opportunity to participate in practising the skills in a mini Volleyball games."
+     ],
+     "pertinent_issues": [
+      "Health promotion: as the learner develops fitness when playing Volleyball games.",
+      "Safety and Security: as the learner observes rules while playing a mini Volleyball games."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-physical-education.pdf#p17"
+    },
+    {
+     "kicd_code": "1.4",
+     "name": "Handball",
+     "suggested_duration": "10 lessons",
+     "learning_outcomes": [
+      "describe facilities and equipment used in Handball",
+      "perform sidestep in Handball for skill mastery",
+      "perform goalkeeping in Handball for skill mastery",
+      "appreciate playing Handball in promoting health and fitness."
+     ],
+     "learning_experiences": [
+      "search and observe videos/pictures/charts or watch live Handball games to identify and familiarize with facilities and equipment and sidestep skill",
+      "take turns to demonstrate the stance, footwork, speed and follow through in side step techniques in Handball with peers",
+      "demonstrate the stance, movement and blocking skills of goalkeeping in Handball",
+      "practise the techniques of performing sidestep in Handball",
+      "collaboratively, play mini Handball games applying techniques in side step and goalkeeping while observing safety",
+      "talk about playing Handball promotes fitness and health."
+     ],
+     "inquiry_questions": [
+      "1. Why is side step important in Handball?",
+      "2. How is safety enhanced in playing Handball?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Self-efficacy: as the learner identifies their strengths and areas of improvement while practising skills in Handball.",
+      "Creativity and Imagination as learners gives critiques and suggest new ideas when performing the side step in Handball. Values:",
+      "Responsibility: as the learner follows the rules when playing the mini game of Handball.",
+      "Social justice: as the learner embraces fair play, equity in sharing resources and responsibilities, while participating in Handball. Pertinent and Contemporary Issues PCIs):",
+      "Health promotion issues: as the learner enhances mental health while participating in the game of Handball.",
+      "Safety issues: as the learner develops safety practices as they observe rules when participating in Handball game."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-physical-education.pdf#p19"
+    },
+    {
+     "kicd_code": "1.5",
+     "name": "Basketball",
+     "suggested_duration": "10 lessons",
+     "learning_outcomes": [
+      "describe facility and equipment used in Basketball",
+      "execute shooting in Basketball for skill acquisition",
+      "acknowledge own and others’ effort while performing the skills of shooting in Basketball."
+     ],
+     "learning_experiences": [
+      "search and observe videos/pictures/charts or watch live Basketball games to identify and familiarize with facilities and equipment",
+      "demonstrate the stance, grip, release and follow through in set shot",
+      "demonstrate approach, stepping, release and follow through in layup shot",
+      "Demonstrate stance, grip, release and follow through in jump shot",
+      "Practise the skills of shooting using set shot, layup shot, and jump shot in Basketball with peers",
+      "Use the skills of shooting in a mini Basketball games, while observing safety",
+      "Observe own and others performance in executing the skills of Basketball and give feedback."
+     ],
+     "inquiry_questions": [
+      "1. How can a player improve their shooting efficiency?",
+      "2. How can shot selection affect performance in Basketball?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Communication and Collaboration: as the learner engages each other during a mini Basketball game.",
+      "Learning to learn: as the learner actively seeks to acquire the new skills of Basketball, and continuously develops the skills to enhance their participation in the Basketball game. Values:",
+      "Respect: as the learner demonstrates respect for others, equipment, trainers and the game while they practise shooting by taking turns.",
+      "Unity: as the learner actively collaborates with the others while they practise the skills by playing Basketball. Pertinent and Contemporary Issues (PCIs):",
+      "Health promotion: as the learner engages in constructive use of leisure time while practising the skills of Basketball for fitness.",
+      "Life skills: as the learner develops vital inter and intra personal skills while they practise the skills of Basketball."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-physical-education.pdf#p21"
+    },
+    {
+     "kicd_code": "1.6",
+     "name": "Rugby",
+     "suggested_duration": "10 lessons",
+     "learning_outcomes": [
+      "identify the playing zones of a Rugby pitch and equipment in Rugby",
+      "perform dodging and marking in Rugby for skill mastery.",
+      "perform a grubber kick in Rugby for skill acquisition",
+      "appreciate safety rules while playing Rugby."
+     ],
+     "learning_experiences": [
+      "Watch video clips/ pictures / charts of a Rugby pitch and identify equipment used in playing Rugby",
+      "demonstrate the skill of dodging and marking in Rugby with peers while observing safety",
+      "practise the skill of dodging and marking in Rugby with peers while observing safety",
+      "demonstrate the grubber kick with peers",
+      "practise the grubber kick focussing on body position, release, contact and follow through with peers",
+      "collaboratively, play mini Rugby games applying the skills of dodging, marking and grubber kick while observing safety rules",
+      "• observe each other’s performance and give feedback"
+     ],
+     "inquiry_questions": [
+      "1. How has the Rugby game improved Kenya’s visibility on the globe?",
+      "2. 2. How can values learnt in school be enhanced by the game of Rugby?"
+     ],
+     "core_competencies": [
+      "Communication and collaboration: as the learner effectively participates in groups decision making when giving feedback.",
+      "Digital literacy: as the learner manipulates digital devices to observe the playing zones of a Rugby pitch and equipment for Rugby.",
+      "Creativity and imagination: as the learner explores different ways of dodging and marking to apply while playing Rugby."
+     ],
+     "values": [
+      "Integrity: as the learner commits to duty and roles assigned while practising skills in Rugby.",
+      "Unity: as the learner collaborates with others while playing with others.",
+      "Responsibility: as the learner observes the safety of self and others while playing together."
+     ],
+     "pertinent_issues": [
+      "Health promotion: as the learner reduces chances of non-communicable diseases while playing Rugby.",
+      "Life Skill: as the learner enhances ability to cope with others while playing Rugby."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-physical-education.pdf#p23"
+    },
+    {
+     "kicd_code": "1.1",
+     "name": "Football",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Marked Football field/ open space Balls Goal posts Nets Saw dust /Ash uniform Whistle bibs Markers/cones"
+     ],
+     "learning_experiences": [
+      "Observation (observation schedule, checklist) Project work Oral questions Portfolio"
+     ],
+     "inquiry_questions": [
+      "School Football club School Football team-interclass/school competitions"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-physical-education.pdf#p64"
+    },
+    {
+     "kicd_code": "1.2",
+     "name": "Netball",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "-Balls, playing Nets, bibs, goal posts, player uniform, arm bands, sawdust, Whitewash, score sheets, bench, tables, pens, playing field, whistle."
+     ],
+     "learning_experiences": [
+      "-Observation -Checklist. -Portfolio. -Oral questions. -Practical assessment"
+     ],
+     "inquiry_questions": [
+      "-Watch live matches. -Watch TV channels on sports."
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-physical-education.pdf#p64"
+    },
+    {
+     "kicd_code": "1.3",
+     "name": "Volleyball",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "-Net -Posts -Whistle",
+      "-Open space/ play ground -strings -antennae"
+     ],
+     "learning_experiences": [
+      "Checklist -journals -practical assessment",
+      "Suggested Assessment",
+      "-projects -oral questions -Portfolio -observation-"
+     ],
+     "inquiry_questions": [
+      "Volleyball tournament",
+      "Suggested Non-Formal Activities",
+      "National league competition for volleyball -visit to volleyball gymnasium"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-physical-education.pdf#p64"
+    },
+    {
+     "kicd_code": "1.4",
+     "name": "Handball",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Handball field / Open space",
+      "Marking agent (lime, ash, saw dust) -Field markers",
+      "Handball goal -whistle -Groin guard"
+     ],
+     "learning_experiences": [
+      "Oral questions",
+      "Observation",
+      "Practical assessment",
+      "Checklist",
+      "Portfolio",
+      "Profiles"
+     ],
+     "inquiry_questions": [
+      "Handball championships - Stadia visits - Watching video clips - Internet searches"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-physical-education.pdf#p65"
+    },
+    {
+     "kicd_code": "1.5",
+     "name": "Basketball",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Basketball court/Open hard space",
+      "Marking agent (lime, ash, saw dust) -balls",
+      "Posts and Rings"
+     ],
+     "learning_experiences": [
+      "Oral questions",
+      "Observation",
+      "Practical assessment",
+      "Checklist",
+      "Portfolio",
+      "Suggested Assessment"
+     ],
+     "inquiry_questions": [
+      "Basketball championships - Charts - Stadia visits - Watching video clips - Internet searches",
+      "Suggested Non-Formal Activities"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-physical-education.pdf#p65"
+    },
+    {
+     "kicd_code": "1.6",
+     "name": "Rugby",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Rugby pitch /Open space",
+      "Marking agent (lime, ash, saw dust)",
+      "Score cards -whistle -tackle bags"
+     ],
+     "learning_experiences": [
+      "Oral questions",
+      "Observation",
+      "Practical assessment",
+      "Checklist",
+      "Portfolio"
+     ],
+     "inquiry_questions": [
+      "Rugby championships - Stadia visits - Watching video clips - Internet searches"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-physical-education.pdf#p66"
+    }
+   ]
+  },
+  {
+   "strand": "Athletics",
+   "strand_code": "2.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to perform skills in Sprints using the all the aspects Starts • Bunch • medium • elongated Acceleration • body position, • leg action • arm action) Finish -dip • Body alignment • Arm action",
+     "exceeds": "Performs the 3 skills in athletics using all the aspects correctly and consistently",
+     "meets": "Performs the 3 skills in athletics using all the aspects correctly",
+     "approaches": "Performs 2 out of 3 skills in athletics using all the aspects correctly",
+     "below": "Performs 1 out of 3 skill in athletics using all the aspects correctly"
+    },
+    {
+     "indicator": "Ability to perform the Long jump using all the phases • Approach • Take off",
+     "exceeds": "Performs long jump using the 4 phases correctly and consistently",
+     "meets": "Performs long jump using the 4 phases correctly",
+     "approaches": "Performs long jump using 3 phases correctly",
+     "below": "Performs long jump using less than 3 phases correctly"
+    },
+    {
+     "indicator": "Ability to perform the Javelin throw using all the phases: • grip, • carry, • approach, • crossover, • release • follow through",
+     "exceeds": "Performs the javelin throw using the 6 phases correctly and consistently",
+     "meets": "Performs the javelin throw using the 6 phases correctly",
+     "approaches": "Performs the javelin throw using the 4-5 of the phases correctly",
+     "below": "Performs the javelin throw using the less than 43 phases correctly"
+    },
+    {
+     "indicator": "Ability to put the shot using the spin and O'Brien styles Spin style • grip, • stance, • rotation, • release",
+     "exceeds": "Performs the Shot put using all the phases of the 2 styles correctly and consistently",
+     "meets": "Performs the Shot put using all the phases of the 2 styles correctly",
+     "approaches": "Performs the Shot put using all the phases of the 2 styles with minor flaws",
+     "below": "Performs the Shot put using all the phases of the 2 styles with major flaws"
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "2.1",
+     "name": "Sprints",
+     "suggested_duration": "10 lessons",
+     "learning_outcomes": [
+      "perform the sprint starts in athletics for skill mastery",
+      "execute the running and finishing techniques in sprints for skill mastery",
+      "appreciate the different sprints starts in Athletics."
+     ],
+     "learning_experiences": [
+      "observe live or virtual performances of sprint races, while keenly observing the sprint start of bunch, medium and elongated starts",
+      "demonstrate the bunch start in sprints",
+      "demonstrate medium start in sprints",
+      "demonstrate elongated start in sprint",
+      "demonstrate the body position, leg and arm action, during acceleration in a sprint race",
+      "demonstrate the body position, leg and arm action, during a dip finish in a sprint race",
+      "take turns to practise the bunch, medium and elongated starts with peers",
+      "participate in sprint races applying the starts and the running skills while observing safety",
+      "Observe and give feedback on each other’s performance as they practise the starts and running skills."
+     ],
+     "inquiry_questions": [
+      "1. Why is it crucial to accelerate and maintain body alignment during sprints?",
+      "2. Why is participating in sprinting events beneficial in Kenya?"
+     ],
+     "core_competencies": [
+      "Learning to learn: as the learner practise the skills of starts and running in turn and learn from peers.",
+      "Communication and collaboration: as the learner contribute to group decision making during discussions and feedback sessions as they review their performance in sprinting.",
+      "Self-efficacy: as the learner demonstrates confidence while performing starts for sprints, running and finishing techniques."
+     ],
+     "values": [
+      "Respect: as the learner observes the rules while participating in sprints.",
+      "Unity: as the learner takes turn to practise sprints.",
+      "Integrity: as the learner observes rules during sprints."
+     ],
+     "pertinent_issues": [
+      "Life skills: as the learner builds self-esteem as they acquire running skills that are of use in daily life.",
+      "Safety and security: as the learner observes safety rules while performing sprints and avoid injuries."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-physical-education.pdf#p29"
+    },
+    {
+     "kicd_code": "2.2",
+     "name": "Long jump",
+     "suggested_duration": "10 lessons",
+     "learning_outcomes": [
+      "describe the equipment and facility used in Long jump",
+      "perform the Long jump techniques for skill mastery",
+      "value safety rules while performing Long jump for enjoyment."
+     ],
+     "learning_experiences": [
+      "observe pictures or real Long jump facilities and take note of the equipment used",
+      "search and watch video clips or live demonstration of Long jump",
+      "demonstrate the hang and hitch kick techniques following the approach, take off, flight, landing and recovery phases in Long jump while observing safety",
+      "practise the hang and hitch kick techniques by following the phases of approach, take off, flight, landing and recovery in Long jump while using the runway",
+      "collaboratively, play a mini Long Jump games while",
+      "applying the techniques learnt",
+      "share feedback on own and others’ performance in Long jump."
+     ],
+     "inquiry_questions": [
+      "1. How does Long jump phases assist in the development of skills?",
+      "2. How is safety enhanced in Long jump?"
+     ],
+     "core_competencies": [
+      "Communication and collaboration: as the learner brainstorms and shares feedback on phases of performing Long jump.",
+      "Self -Efficacy: as the learner performs Long jump skills successfully."
+     ],
+     "values": [
+      "Love: as the learner cares and observes safety while practising the techniques in Long jump.",
+      "Social justice: as the learner accords equal chances to peers while practising Long jump techniques."
+     ],
+     "pertinent_issues": [
+      "Health promotion issues: as the learners develops healthy lifestyles to reduce the chances of non-communicable diseases by participating in Long jump.",
+      "Life skills: as the learner develops self-esteem by demonstrating the skills learnt."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-physical-education.pdf#p31"
+    },
+    {
+     "kicd_code": "2.3",
+     "name": "Javelin Throw",
+     "suggested_duration": "10 lessons",
+     "learning_outcomes": [
+      "identify Javelin throwing sector for orientation",
+      "perform the Javelin throw for mastery of skills",
+      "Acknowledge the importance of Javelin skills."
+     ],
+     "learning_experiences": [
+      "observe pictures or real Javelin throwing sector and to familiarise with the facility and equipment, techniques and safety",
+      "use digital devices to search and watch videos on Javelin throw",
+      "demonstrate the grip, carriage, approach, cross over, release and follow through in Javelin throw while observing safety",
+      "practise Javelin throw following the phases: grip, carriage approach, cross over, release and follow through",
+      "acknowledge own and others' Javelin throwing skills."
+     ],
+     "inquiry_questions": [
+      "1. How has Javelin throwing benefited the athletes?",
+      "2. How can safety be enhanced in Javelin throw?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed",
+      "Self –efficacy: as the learner is able to demonstrate Javelin throwing techniques.",
+      "Digital Literacy: as the learner uses digital devices to search and watch videos of Javelin throw. Values",
+      "Responsibility: as the learner observes the rules to avoid the injuries when executing the javelin throw.",
+      "Respect: as the learner interacts and appreciate others during Javelin throw.",
+      "Unity: as the learner shares the available resources while performing Javelin throw. Pertinent and Contemporary Issues (PCIs)",
+      "Citizenship education: as the learners interact with peers during Javelin throw.",
+      "Safety in class and school environment: as learners exercise caution while practising the Javelin throw."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-physical-education.pdf#p33"
+    },
+    {
+     "kicd_code": "2.4",
+     "name": "Shot Put",
+     "suggested_duration": "10 lessons",
+     "learning_outcomes": [
+      "identify Shot put sector and equipment for orientation",
+      "perform the styles of putting a shot in Athletics for skill development",
+      "value the skills of putting a shot in Athletics."
+     ],
+     "learning_experiences": [
+      "search and watch a video clip/chart/live demonstration of putting the shot while noting the O'brien and Spin techniques",
+      "demonstrate the correct grip, stance, glide, swing, release and recovery in O’Brien style in Shot Put while observing safety",
+      "demonstrate the correct grip, stance, rotation, release and recovery in spin style in Shot Put while observing safety",
+      "practise O’Brien style and Spin style while observing safety",
+      "collaborate with others in mini Shot Put games applying O’Brien and Spin style while observing safety rules.",
+      "appraise own and others performance while giving feedback."
+     ],
+     "inquiry_questions": [
+      "1. How does the skill of Shot Put improve health?",
+      "2. Why is training to become better in Shot put key?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed",
+      "Learning to learn: as the learner practises and achieves success in different techniques of putting the Shot.",
+      "Communication and collaboration: as the learner appraises own and others’ performance of Shot put. Values",
+      "Love: as the learner works together and shows concern for each other’s safety.",
+      "Peace: as the learner follows laid down procedures while performing the Shot Put with others. Pertinent and Contemporary Issues (PCIs)",
+      "Health Promotion: as the learner improves in physical fitness by participating in Shot Put thereby reducing chances of getting non communicable diseases.",
+      "Citizenship Education: as the learner respects the rights of others while participating in Shot put."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-physical-education.pdf#p35"
+    },
+    {
+     "kicd_code": "2.1",
+     "name": "Sprints",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "-Starting blocks Marking agent (lime, ash, saw dust) -Stop watch -Signal flags -whistle -wooden clapper/ starters"
+     ],
+     "learning_experiences": [
+      "-Practical assessment -projects -journals -portfolio -Observation checklist -Practical assessment School"
+     ],
+     "inquiry_questions": [
+      "-fitness and wellness Centre -real Newspaper sports column -watch value –based sports channels at home Visit regional athletic championship Athletics team"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-physical-education.pdf#p66"
+    },
+    {
+     "kicd_code": "2.2",
+     "name": "Long Jump",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "-Tape measure -Flags[red, white] -Rake / Jembe. -landing area/ sand pit",
+      "Marking agent (lime, ash, saw dust) -take off board, -whistle"
+     ],
+     "learning_experiences": [
+      "-Oral questions. -Observation -Practical assessment. -Checklist.",
+      "Suggested Assessment",
+      "-Portfolio."
+     ],
+     "inquiry_questions": [
+      "Attend an athletics championship. -environmental awareness.",
+      "Suggested Non-Formal Activities",
+      "-School Athletics team"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-physical-education.pdf#p66"
+    },
+    {
+     "kicd_code": "2.3",
+     "name": "Javelin",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "-Javelin -Tape measure",
+      "Marking agent (lime, ash, saw dust) -Signal flags",
+      "Field hard surface -Whistle"
+     ],
+     "learning_experiences": [
+      "-Checklist -Journals -Portfolios -observation -Oral questions -projects -Practical assessment"
+     ],
+     "inquiry_questions": [
+      "-Visit Athletics regional competition championship - Wellness and Fitness Centre -Sports mini competition -School Athletics team"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-physical-education.pdf#p67"
+    },
+    {
+     "kicd_code": "2.4",
+     "name": "Shot Put",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Marking agent (lime, ash, saw dust)",
+      "Tape Measure -whistle"
+     ],
+     "learning_experiences": [
+      "Oral questions Observation Practical assessment Checklist Portfolio"
+     ],
+     "inquiry_questions": [
+      "Athletics championships Stadia visits Watching video clips Internet searches -School Athletics team"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-physical-education.pdf#p67"
+    }
+   ]
+  },
+  {
+   "strand": "Optional Sports",
+   "strand_code": "3.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to perform skills in Hockey, Dribbling • single • Double Passing • Flick • scoop Hitting and stopping • flat • reverse",
+     "exceeds": "Performs all 6 skills in Hockey correctly and consistently",
+     "meets": "Performs all 6 skills in Hockey correctly",
+     "approaches": "Performs 3 skills in Hockey correctly",
+     "below": "Performs less than 3 skills in Hockey correctly"
+    },
+    {
+     "indicator": "Ability to perform skills in Swimming for skill mastery. • Front crawl • Backstroke • Turns (open) • Turn (tumble) • water games",
+     "exceeds": "Performs all 5 skills in swimming correctly and consistently.",
+     "meets": "Performs 5 skills in swimming correctly.",
+     "approaches": "Performs 3-4 skills in swimming correctly.",
+     "below": "Performs less than 3 skills in swimming correctly."
+    },
+    {
+     "indicator": "Ability to perform hitting in Baseball5 • stance, • toss, • swing, • contact • follow through",
+     "exceeds": "Performs hitting in Baseball5 using all the 5 aspects correctly and consistently",
+     "meets": "Performs hitting in Baseball5 using all the 5 aspects correctly",
+     "approaches": "Performs hitting in Baseball5 3-4 aspects correctly",
+     "below": "Performs hitting in Baseball5 using less than 3 aspects correctly"
+    },
+    {
+     "indicator": "Ability to perform the skill soft ball using all the aspects Batting • Grip • Stance • Swing • follow through) Pitching • Stance • Grip • Swing • Release • follow through",
+     "exceeds": "Performs the skills of Soft ball using all the aspects correctly and consistently",
+     "meets": "Performs the skills of Soft ball using all the aspects correctly",
+     "approaches": "Performs the skills of Soft ball using all the aspects with minor flaws",
+     "below": "Performs the skills of Soft ball using all the aspects major flaws"
+    },
+    {
+     "indicator": "Ability to perform skills in Baseball 5s Hitting • Stance • toss, • Contact • follow through",
+     "exceeds": "Performs the skills of Baseball5 using all the aspects correctly and consistently",
+     "meets": "Performs the skills of Baseball5 using all the aspects correctly",
+     "approaches": "Performs the skills of Baseball5 using all the aspects with minor flaws",
+     "below": "Performs the skills of Baseball5 using all the aspects with major flaws"
+    },
+    {
+     "indicator": "Ability to execute Batting skills in cricket Cover drive, • stance • footwork • Contact • follow through Hook shot, • stance • footwork • Contact • follow through Lofted shot • stance • footwork • Contact • follow through",
+     "exceeds": "Performs the skills of batting in cricket using all aspects correctly and consistently",
+     "meets": "Performs the skills of batting in cricket using all aspects correctly",
+     "approaches": "Performs the skills of batting in cricket using all aspects with minor flaws",
+     "below": "Performs the skills of batting in cricket using all aspects with major fla"
+    },
+    {
+     "indicator": "Ability to perform Table Tennis skills Forehand and backhand drive • Grip • stance, • Contact • follow through) Push shot • Grip • stance, • Contact • follow through)",
+     "exceeds": "Performs the skills of Table tennis using all the aspects correctly and always",
+     "meets": "Performs the skills of Table tennis using all the aspects correctly",
+     "approaches": "Performs the skills of Table tennis using all the aspects with minor flaws",
+     "below": "Performs the skills of Table tennis using all the aspects with major flaws"
+    },
+    {
+     "indicator": "Ability to perform Tennis skills Forehand drive • Grip • stance, • Contact • follow through) Backhand drive Grip • stance, • Contact • follow through)",
+     "exceeds": "Performs the skills of Tennis using all the aspects correctly and consistently",
+     "meets": "Performs the skills of Tennis using all the aspects correctly",
+     "approaches": "Performs the skills of Tennis using all the aspects with minor flaws",
+     "below": "Performs the skills of Tennis using all the aspects with major flaws"
+    },
+    {
+     "indicator": "Ability to perform Badminton skills Forehand clear • grip • stance • contact • follow through Backhand clear • grip",
+     "exceeds": "Performs the skills of Badminton using all the aspects correctly and always",
+     "meets": "Performs the skills of Badminton using all the aspects correctly",
+     "approaches": "Performs the skills of Badminton using all the aspects with minor flaws",
+     "below": "Performs the skills of Badminton using all the aspects with major flaws"
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "3.1",
+     "name": "Hockey",
+     "suggested_duration": "10 lessons",
+     "learning_outcomes": [
+      "describe the facility and equipment used in Hockey",
+      "perform dribbling in Hockey for skill acquisition",
+      "execute passing skills in Hockey for skill acquisition",
+      "perform hitting and stopping in hockey for skill acquisition",
+      "appreciate the skills learnt in Hockey for enjoyment"
+     ],
+     "learning_experiences": [
+      "observe actual / pictures/ charts of facility and equipment for Hockey",
+      "use digital device or a live game and observe dribbling, passing, hitting and stopping skills in hockey",
+      "demonstrate single and double",
+      "practise Single and double dribble",
+      "demonstrate passing skills in Hockey using the push, drive and sweep",
+      "Practise passing skills in Hockey using the push, drive and sweep",
+      "demonstrate hitting and stopping using the flat and reverse stick in Hockey",
+      "practise hitting and stopping in Hockey",
+      "apply the combined skills of dribbling, passing, hitting and stopping skills in playing mini Hockey games",
+      "acknowledge own and others efforts in Hockey."
+     ],
+     "inquiry_questions": [
+      "1. How do the skills in Hockey effect on offensive and defensive play?",
+      "2. Why is teamwork important in Hockey?"
+     ],
+     "core_competencies": [
+      "Creativity and Imagination: as the learner uses the skills learnt to manoeuvre in a Hockey game.",
+      "Digital Literacy: as the learner uses digital devices to observe the skills and record a match.",
+      "Collaboration and communication: as the learner engages with others while learning the skills of Hockey."
+     ],
+     "values": [
+      "Responsibility: as the learner takes care of equipment and observes safety throughout the game.",
+      "Integrity: as the learner follows the rules of Hockey during mini games.",
+      "Unity: as the learner takes turns and shares equipment while practising and playing mini Hockey games."
+     ],
+     "pertinent_issues": [
+      "Non-communicable disease: as the learner improves general health by taking part in Hockey game to develop fitness.",
+      "Safety and Security: as the learner searches videos on Hockey uses the internet in a safe way.",
+      "Social awareness skills: as the learner employs non-conflict methods to resolve disputes during Hockey games."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-physical-education.pdf#p41"
+    },
+    {
+     "kicd_code": "3.2",
+     "name": "Swimming",
+     "suggested_duration": "10 lessons",
+     "learning_outcomes": [
+      "describe the swimming facility and equipment for skill acquisition",
+      "perform front crawl stroke and backstroke for skill mastery, (c ) execute the turns for front crawl and backstroke for skill mastery",
+      "play water games using front crawl and backstroke skills",
+      "appreciate the skills in swimming as life skills."
+     ],
+     "learning_experiences": [
+      "observe an actual swimming pool or a video and describe the facility and equipment and classify them",
+      "observe live or virtual demonstration of front crawl and backstroke skills",
+      "demonstrate body position, leg, arm and breathing action in front crawl",
+      "demonstrate body position, leg, arm and breathing action in backstroke",
+      "demonstrate open and tumble turns for front crawl and backstroke",
+      "practise open and tumble turns for front crawl and backstroke while observing safety",
+      "practise a combination of front crawl and backstroke skills while observing safety",
+      "use backstroke and front crawl skills to play aqua volleyball and aqua aerobics",
+      "appraise own and peers' performance and share feedback."
+     ],
+     "inquiry_questions": [
+      "1. Why is front crawl preferred for long distance swimming?",
+      "2. How can backstroke be used for life saving?"
+     ],
+     "core_competencies": [
+      "Critical thinking and Problem solving: as the learner creates effective strategies for improving their performance in aqua Volleyball.",
+      "Creativity and Imagination: as the learner applies individual style in front crawl and backstroke skills to improve performance.",
+      "Self efficacy: as the learner's mastery of front crawl and backstroke skills improve."
+     ],
+     "values": [
+      "Responsibility: as the learner observes care for the equipment used around the pool.",
+      "Love: as the learner shares equipment and facility with peers.",
+      "Social Justice: as the learner waits their turn when performing skills.",
+      "Unity: as the learner works harmoniously with others in all tasks."
+     ],
+     "pertinent_issues": [
+      "Safety and Security: as the learner uses safety equipment in Swimming.",
+      "Peace Education-ways of promoting peace: as the learner interacts with peers as they participate in swimming."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-physical-education.pdf#p44"
+    },
+    {
+     "kicd_code": "3.3",
+     "name": "Softball",
+     "suggested_duration": "10 lessons",
+     "learning_outcomes": [
+      "execute batting in Soft ball for skill acquisition.",
+      "execute pitching in Soft ball for skill acquisition.",
+      "embrace sportsmanship in Softball game."
+     ],
+     "learning_experiences": [
+      "The learner to be guided to:",
+      "search videos on softball or watch a live game noting batting and pitching skills",
+      "demonstrate grip, stance, swing and follow through in batting, while observing safety",
+      "demonstrate the stance, grip, swing, release and follow through in pitching",
+      "practise batting and pitching skills in Softball",
+      "apply the skills of batting and pitching in a mini-game of Softball.",
+      "share feedback with peers on their performance in batting and pitching skills."
+     ],
+     "inquiry_questions": [
+      "1. How can skills in softball be enhanced?",
+      "2. How can playing Softball contribute to mental health?"
+     ],
+     "core_competencies": [
+      "Critical Thinking and problem solving: as the learner explores options of batting and pitching in softball mini games.",
+      "Self-efficacy: as the learner applies pitching and batting skills in a mini Soft ball game."
+     ],
+     "values": [
+      "Social Justice: as the learner practises fair treatment of each other while playing Softball game.",
+      "Integrity: as the learner follows rules of Softball."
+     ],
+     "pertinent_issues": [
+      "Pertinent and Contemporary Issues (PCIs)",
+      "Health promotion: as the learners participate in softball activities to enhance fitness and prevent non-communicable diseases.",
+      "Life Skills: as the learner demonstrate self-awareness during interaction with peers while playing Softball."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-physical-education.pdf#p47"
+    },
+    {
+     "kicd_code": "3.4",
+     "name": "Baseball5",
+     "suggested_duration": "10 lessons",
+     "learning_outcomes": [
+      "Describe the facility and equipment in Baseball5",
+      "perform hitting in Baseball5 for skill development.",
+      "apply the hitting and skills in a mini game",
+      "Appreciate the skills learnt in Baseball5."
+     ],
+     "learning_experiences": [
+      "use digital devices to search and observe the facility and equipment used in Bbaseball5 or observe live Baseball5 match",
+      "demonstrate the stance, toss, swing, contact and follow through, when hitting in Baseball5 while observing safety",
+      "practise hitting in Baseball5 game while observing safety",
+      "apply hitting skill in Baseball5 mini game while observing safety",
+      "appreciate own and others' effort in the Baseball5 game."
+     ],
+     "inquiry_questions": [
+      "1. How can the skills in Baseball5 be used in the community?",
+      "2. How does participation in Baseball5 enhance physical development?"
+     ],
+     "core_competencies": [
+      "Creativity and Imagination: as the learner uses the skills learnt to manoeuvre in the game.",
+      "Digital Literacy: as the learner uses digital devices to search and observe the skills, facility and equipment.",
+      "Collaboration and communication: as the learner engages with others while learning the skills Baseball5."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-physical-education.pdf#p49"
+    },
+    {
+     "kicd_code": "3.5",
+     "name": "Cricket",
+     "suggested_duration": "10 lessons",
+     "learning_outcomes": [
+      "describe the facility and equipment in Cricket",
+      "Execute batting in Cricket for skill acquisition",
+      "appreciate own and others effort in performing the skills of batting"
+     ],
+     "learning_experiences": [
+      "search and observe actual or virtual performance of Cricket to identify, facility and equipment, and skills",
+      "demonstrate the cover drive technique of batting using the stance, footwork, contact and follow through while observing safety",
+      "demonstrate the hook shot technique of batting using the stance, footwork, contact and follow through while observing safety",
+      "demonstrate lofted shot technique of batting using the stance, footwork, contact and follow through while observing safety",
+      "practise the skills of batting",
+      "use the skills of batting to play a conditioned game of Cricket while observing safety",
+      "observe others and give feedback on execution of batting skills."
+     ],
+     "inquiry_questions": [
+      "1. How can the use of technology enhance batting skills?",
+      "2. How does playing cricket promote individual development?"
+     ],
+     "core_competencies": [
+      "Creativity and imagination: as the learner adapts and adjusts batting skills to match the changing conditions of bowling in a Cricket game.",
+      "Self efficacy: as the learner develops confidence by mastering the batting skills."
+     ],
+     "values": [
+      "Responsibility: as the learner develops accountability by participating and taking care of equipment.",
+      "Integrity: as the learner follows the guidelines and instructions and rules during practice."
+     ],
+     "pertinent_issues": [
+      "Safety and Security: as the learner creates a safe environment and uses the equipment appropriately, while practising and playing.",
+      "Health promotion: as the learner engages in practise and playing the game of cricket as a way of enhancing physical fitness."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-physical-education.pdf#p51"
+    },
+    {
+     "kicd_code": "3.6",
+     "name": "Table Tennis",
+     "suggested_duration": "10 lessons",
+     "learning_outcomes": [
+      "describe facilities and equipment used for Table Tennis",
+      "perform forehand and backhand drives for skill development",
+      "execute a push shot for skill mastery",
+      "appreciate the role of Table in fitness."
+     ],
+     "learning_experiences": [
+      "search and observe pictures/charts or virtual pictures of Table Tennis facilities and equipment",
+      "use digital devices to search and watch video clips on Table Tennis skills of forehand and backhand drive and push shot",
+      "improvise Table Tennis table and bat using locally available materials",
+      "demonstrate the grip, stance, contact and follow through in forehand and backhand drives",
+      "practise forehand and backhand drive in Table Tennis with peers while observing safety",
+      "demonstrate push shot",
+      "practise push shot while observing safety",
+      "Play a Table Tennis mini game by applying the skills learnt while observing safety",
+      "Appraise and share feedback on own and others’ performance of Table tennis skills."
+     ],
+     "inquiry_questions": [
+      "1. How is Table Tennis beneficial to the health of the learner?",
+      "2. How can improvisation in Table tennis be done?"
+     ],
+     "core_competencies": [
+      "Creativity and imagination: as the learner improvises Table Tennis table and bat.",
+      "Communication and collaboration: as the learner contributes to group decision making during improvisation of Table Tennis table and bat.",
+      "Digital literacy: learner uses digital gadgets while searching and watching video clips on Table Tennis equipment and skills."
+     ],
+     "values": [
+      "Responsibility: as the learner observes safety precautions when performing Table Tennis skills.",
+      "Social justice: as the learner uses Table Tennis facilities and equipment in turns."
+     ],
+     "pertinent_issues": [
+      "Safety in class and school environments: as the learner performs Table Tennis skills while observing safety.",
+      "Self-esteem: as the learner performs Table Tennis skills successfully."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-physical-education.pdf#p55"
+    },
+    {
+     "kicd_code": "3.7",
+     "name": "Tennis",
+     "suggested_duration": "10 lessons",
+     "learning_outcomes": [
+      "identify facility and equipment used for Tennis",
+      "perform forehand and backhand drives for skill development",
+      "acknowledge the role of Tennis skills in playing Tennis game."
+     ],
+     "learning_experiences": [
+      "search and observe pictures/charts or virtual pictures of Tennis facility and equipment",
+      "use digital devices search and watch video clips on Tennis skills",
+      "improvise a field and practise Tennis",
+      "demonstrate the grip, stance, contact and follow through in forehand and backhand drive",
+      "practise forehand and backhand drive Tennis skills while observing safety",
+      "apply forehand and backhand drive in Tennis mini games",
+      "• appraise own and others performance of the Tennis skills."
+     ],
+     "inquiry_questions": [
+      "1. How can mastering of Tennis skills be beneficial to the learner?",
+      "2. How has Tennis put Kenya on the world map?"
+     ],
+     "core_competencies": [
+      "Creativity and imagination: as the learner use imagination to generate new ideas in improvising existing surfaces as Tennis court.",
+      "Self-efficacy: as the learner shares their goals and plans with peers in acquiring skills in Tennis."
+     ],
+     "values": [
+      "Unity: as the learner takes turns in activities when using Tennis facilities and equipment.",
+      "Respect: as the learner appreciates others opinions in improvising a Tennis court."
+     ],
+     "pertinent_issues": [
+      "Safety and Security: as the learner follows Tennis rules and observes safety during activities.",
+      "Equity and non-discrimination: as the learner shares Tennis facilities and equipment with peers."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-physical-education.pdf#p57"
+    },
+    {
+     "kicd_code": "3.8",
+     "name": "Badminton",
+     "suggested_duration": "10 lessons",
+     "learning_outcomes": [
+      "execute the forehand and backhand clear for skill acquisition",
+      "execute the forehand and backhand drop for skill acquisition",
+      "appreciate Badminton skills in playing for enjoyment."
+     ],
+     "learning_experiences": [
+      "observe real or virtual performance of badminton skills of forehand clear, backhand clear and drop",
+      "demonstrate the forehand and backhand clear following the stance, swing and follow through",
+      "demonstrate forehand and backhand drop using the stance, swing and follow through",
+      "practise forehand and back hand shots",
+      "use the forehand and backhand clear, forehand and backhand drop strokes in playing mini Badminton games.",
+      "observe and discuss others' performance of the skills and share feedback.",
+      "Suggested Assessment"
+     ],
+     "inquiry_questions": [
+      "1. How can analysis of shots help improve the accuracy of Badminton shots?",
+      "2. How does the grip affect the execution of Badminton shots?",
+      "Suggested Non-Formal Activities"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed",
+      "Learning to learn: as the practises and applies forehand and backhand strokes in Badminton.",
+      "Self -Efficacy: as the learner develops self-esteem through mastery and showcasing of the skills learned in Badminton. Values",
+      "Social Justice: as the learner appreciates diverse culture, by learning to play Badminton with learners from different backgrounds.",
+      "Integrity: as the learner develops the sense of accountability and honesty and fairness when participating in a Badminton game. Pertinent and Contemporary Issues (PCIs)",
+      "Health promotion: as the learner enhances mental health by participating in Badminton, which provides a productive and constructive use of leisure time.",
+      "Safety and Security: as the learner observes rules and regulations of Badminton game."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-physical-education.pdf#p59"
+    },
+    {
+     "kicd_code": "3.1",
+     "name": "Hockey",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "-Hockey stick, Hockey balls -player face mask -player hand glove",
+      "-shin guard / pad -uniform -mouth guard -Goalkeepers kit -Field / open space -markers -bibs -Whistle -stop watch"
+     ],
+     "learning_experiences": [
+      "Oral questions. -Observation -Practical assessment.",
+      "Suggested Assessment",
+      "-Checklist. -rating scale"
+     ],
+     "inquiry_questions": [
+      "Hockey championships -Hockey School Team - Stadia visits",
+      "Suggested Non-Formal Activities",
+      "Watching video clips - Internet searches -live matches -internal matches"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-physical-education.pdf#p67"
+    },
+    {
+     "kicd_code": "3.2",
+     "name": "Swimming",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Swimming pool access and safety measures",
+      "Swimming instructor or lifeguard",
+      "Swim gear/swim suits, goggles",
+      "Floaters and buoys -shooting rings and goals balls -whistle -stop watch"
+     ],
+     "learning_experiences": [
+      "Oral questions",
+      "Observation",
+      "Practical assessment",
+      "Checklist",
+      "Portfolio"
+     ],
+     "inquiry_questions": [
+      "Charts - Swimming galas championships - Pool visits - Watching video clips - Internet searches"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-physical-education.pdf#p68"
+    },
+    {
+     "kicd_code": "3.3",
+     "name": "Softball",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "-Court[Diamond] -Bats, Whitewash",
+      "-Balls, chest pads -Mitts, gloves",
+      "Marking agent (lime, ash, saw dust) -whistle"
+     ],
+     "learning_experiences": [
+      "-Observation -Checklist.",
+      "Suggested Assessment",
+      "-Portfolio. -Oral questions. -Practical assessment."
+     ],
+     "inquiry_questions": [
+      "-Watch TV channels on sports.",
+      "Suggested Non-Formal Activities",
+      "-Watch live matches."
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-physical-education.pdf#p68"
+    },
+    {
+     "kicd_code": "3.4",
+     "name": "Baseball5",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "-Open pace/Court[Diamond] -Marking agent/Whitewash/ash/saw dust/Water paints/tape/ash -Balls -Water paints. -Whistle"
+     ],
+     "learning_experiences": [
+      "-Observation -Checklist. -Portfolio. -Oral questions. -Practical assessment."
+     ],
+     "inquiry_questions": [
+      "-Watch TV channels on sports. -Watch live matches, - Internet search -School Baseball 5s Team -live matches"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-physical-education.pdf#p69"
+    },
+    {
+     "kicd_code": "3.5",
+     "name": "Cricket",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Batting pads, batting gloves, bat, cricket balls, helmet, wicket keeper gloves, wicket keepers pads, cricket pitch, stumps, bails, chest guard, groin guard, thigh guard, elbow guard"
+     ],
+     "learning_experiences": [
+      "Observation (observation schedule, checklist) Project work Oral questions Portfolio"
+     ],
+     "inquiry_questions": [
+      "cricket competitions and tournaments within the school and with other schools"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-physical-education.pdf#p69"
+    },
+    {
+     "kicd_code": "3.6",
+     "name": "Table Tennis",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Table Tennis court Table Tennis balls Table Tennis bats"
+     ],
+     "learning_experiences": [
+      "Observation (observation schedule, checklist) Project work",
+      "Suggested Assessment",
+      "Oral questions Portfolio"
+     ],
+     "inquiry_questions": [
+      "School Table Tennis club",
+      "Suggested Non-Formal Activities",
+      "School Table Tennis team-interclass/school competitions"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-physical-education.pdf#p69"
+    },
+    {
+     "kicd_code": "3.7",
+     "name": "Tennis",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Tennis court Tennis rackets Tennis balls Open space Posts, Net Marking agent (lime, ash, saw dust)"
+     ],
+     "learning_experiences": [
+      "Observation (observation schedule, checklist) Project work Oral questions Portfolio"
+     ],
+     "inquiry_questions": [
+      "School Tennis club School Tennis team-interclass/school completions"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-physical-education.pdf#p70"
+    },
+    {
+     "kicd_code": "3.8",
+     "name": "Badminton",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Badminton racquets, badminton shuttles, nets badminton courts"
+     ],
+     "learning_experiences": [
+      "Observation (observation schedule, checklist) Project work Oral questions Portfolio"
+     ],
+     "inquiry_questions": [
+      "school tournaments and competitions School Badminton team Stadia visit"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-physical-education.pdf#p70"
+    }
+   ]
+  }
+ ]
+}

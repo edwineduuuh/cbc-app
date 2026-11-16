@@ -51,8 +51,9 @@ H_STRAND = re.compile(r"\bstrand\b|\bmada\b", re.I)
 H_OUTCOMES = re.compile(r"specific\s+learning\s+outcomes?|matokeo\s+maalum", re.I)
 H_EXPERIENCES = re.compile(r"learning\s+experiences?|shughuli\s+za\s+ujifunzaji", re.I)
 H_INQUIRY = re.compile(r"inquiry\s+question|(swali|maswali)\s+dadisi", re.I)
-H_RUBRIC = re.compile(r"exceed\w*\s+expectation|kuzidisha\s+matarajio", re.I)
-H_INDICATOR = re.compile(r"level|indicator|vigezo", re.I)
+H_RUBRIC = re.compile(
+    r"exceed\w*\s+expectation|kuzidisha\s+matarajio|\bviwango\b", re.I)
+H_INDICATOR = re.compile(r"level|indicator|vigezo|viwango", re.I)
 
 BLOCKS = [
     ("core_competencies", re.compile(r"^core\s+competenc|^umilisi\b", re.I)),
@@ -88,7 +89,13 @@ STEM_OUTCOME = re.compile(
 STEM_EXPERIENCE = re.compile(
     r"^\s*(?:the\s+learner\s+is\s+guided\s+to|mwanafunzi\s+aelekezwe)\s*:?", re.I)
 # Rubric indicator phrasing, used to spot a headerless continuation page.
-RUBRIC_INDICATOR_LEAD = re.compile(r"^(ability\s+to|uwezo\s+wa)\b", re.I)
+# English designs phrase indicators "Ability to ...". Kiswahili designs use a
+# third-person verb instead - "Anasoma vifungu...", "Anatambua vipengele..." -
+# which no English-only pattern catches. Sub-strand titles are nouns or
+# gerunds (Kusikiliza, Sarufi), never "Ana-" verbs, so this is safe to treat
+# as a rubric signal.
+RUBRIC_INDICATOR_LEAD = re.compile(
+    r"^(ability\s+to|uwezo\s+wa|ana[a-z]{3,}\b)", re.I)
 # Text that is an outcome, a value or a competency rather than a strand title.
 # Some designs put these in the strand column; adopting them creates strands
 # named "Kuweza kuchambua hadithi za fasihi simulizi..." or "Exhibits
@@ -107,7 +114,10 @@ HEADER_WORD = re.compile(
     r"(suggested\s+)?key\s+inquiry\s+questions?|inquiry\s+questions?|"
     r"level\s+indicators?|indicators?|s/?no|"
     r"mada(\s+ndogo)?|matokeo(\s+maalum)?|shughuli(\s+za\s+ujifunzaji)?|"
-    r"(swali|maswali)\s+dadisi|vigezo)\s*:?\s*$", re.I)
+    r"(swali|maswali)\s+dadisi|vigezo|viwango(\s+vigezo)?|"
+    # Kiswahili rubric column headings and the assessment-methods caption.
+    r"(kuzidisha|kufikia|kukaribia|chini\s+ya)\s+matarajio|"
+    r"mapendekezo\s+ya\s+mbinu[\w\s]*|nyenzo)\s*:?\s*$", re.I)
 
 
 BULLET_CHARS = "•∙●○▪■◦‣·⁃�"

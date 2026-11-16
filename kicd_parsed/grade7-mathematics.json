@@ -1,0 +1,1083 @@
+{
+ "source_pdf": "grade7-mathematics.pdf",
+ "grade": 7,
+ "subject": "mathematics",
+ "general_outcomes": [
+  "By the end of the Junior Secondary School, the learner should be able to:",
+  "demonstrate mastery of number concepts by working out problems in day-to-day life",
+  "represent and apply algebraic expressions in different ways",
+  "apply measurement skills to find solutions to problems in a variety of contexts",
+  "use money and carry out financial transactions in real-life situations",
+  "generate geometrical shapes and describe spatial relationships in different contexts",
+  "collect and organise data to inform and solve problems in real-life situations",
+  "develop logical thinking, reasoning, communication, and application skills through a mathematical approach to problem-solving",
+  "apply mathematical ideas and concepts to other learning areas or subjects and in real-life contexts.",
+  "develop confidence and interest in mathematics for further training and enjoyment."
+ ],
+ "strands": [
+  {
+   "strand": "Numbers",
+   "strand_code": "1.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to use place value and total value of digits up to hundreds of millions and decimals.",
+     "exceeds": "The learner uses place value and total value of digits up to hundreds of millions and decimals correctly and systematically.",
+     "meets": "The learner uses place value and total value of digits up to hundreds of millions and decimals correctly.",
+     "approaches": "The learner uses place value or total value of digits up to hundreds of millions or decimals correctly.",
+     "below": "The learner uses place value or total value of digits up to millions."
+    },
+    {
+     "indicator": "Ability to read and write numbers in symbols up to hundreds of millions and in words up to millions.",
+     "exceeds": "The learner reads and writes numbers in symbols up to hundreds of millions and in words up to millions correctly and proficiently.",
+     "meets": "The learner reads and writes numbers in symbols up to hundreds of millions and in words up to millions correctly.",
+     "approaches": "The learner reads or writes numbers in symbols up to hundreds of millions or in words up to millions correctly.",
+     "below": "The learner reads or writes numbers in symbols up to millions or in words up to hundreds."
+    },
+    {
+     "indicator": "Ability to classify natural numbers as even, odd, and prime.",
+     "exceeds": "The learner classifies natural numbers as even, odd, and prime systematically and accurately.",
+     "meets": "The learner classifies natural numbers as even, odd, and prime accurately.",
+     "approaches": "The learner classifies natural numbers as even or odd or prime accurately.",
+     "below": "The learner classifies natural numbers as even or odd."
+    },
+    {
+     "indicator": "Ability to apply all of the basic operations of whole numbers up to hundreds of millions (addition, subtraction, multiplication, and",
+     "exceeds": "The learner applies all of the basic operations of whole numbers up to hundreds of millions accurately and proficiently.",
+     "meets": "The learner applies all of the operations of whole numbers up to hundreds of millions accurately.",
+     "approaches": "The learner applies any 3 of the basic operations of whole numbers up to hundreds of millions partially accurately.",
+     "below": "The learner applies any 2 of the basic operations of whole numbers up to millions."
+    },
+    {
+     "indicator": "Ability to identify and create number sequences.",
+     "exceeds": "The learner identifies and creates number sequences correctly and consistently.",
+     "meets": "The learner identifies and creates number sequences correctly.",
+     "approaches": "The learner identifies or creates number sequences correctly.",
+     "below": "The learner identifies number sequences correctly."
+    },
+    {
+     "indicator": "Ability to test the divisibility of numbers by 2, 3, 4, 5, 6, 8, 9, 10 and 11.",
+     "exceeds": "The learner tests the divisibility of numbers by 2, 3, 4, 5, 6, 8, 9, 10, and 11 accurately and systematically.",
+     "meets": "The learner tests the divisibility of numbers by 2, 3, 4, 5, 6, 8, 9, 10, and 11 accurately.",
+     "approaches": "The learner tests the divisibility of most numbers by any 5 of 2, 3, 4, 5, 6, 8, 9, 10, or 11 accurately.",
+     "below": "The learner tests the divisibility of a few numbers by any 4 of 2, 3, 4, 5, 6, 8, 9, 10, or 11."
+    },
+    {
+     "indicator": "Ability to express composite numbers as a product of prime factors.",
+     "exceeds": "The learner expresses composite numbers as a product of prime factors correctly and writes the answer in power form.",
+     "meets": "The learner expresses composite numbers as a product of prime factors correctly.",
+     "approaches": "The learner expresses most of the composite numbers as a product of prime factors correctly.",
+     "below": "The learner expresses a few of the composite numbers as a product of the prime factors."
+    },
+    {
+     "indicator": "Ability to work out and apply the Greatest Common Divisor (GCD) and the Least Common Multiples (LCM) of numbers by factor method.",
+     "exceeds": "The learner works out and applies the Greatest Common Divisor (GCD) and the Least Common Multiples (LCM) of numbers by factor method correctly and systematically.",
+     "meets": "The learner works out and applies the Greatest Common Divisor (GCD) and the Least Common Multiples (LCM) of numbers by factor method correctly.",
+     "approaches": "The learner works out or applies the Greatest Common Divisor (GCD) and the Least Common Multiples (LCM) of numbers by factor method correctly.",
+     "below": "The learner works out or applies the Greatest Common Divisor (GCD) or the Least Common Multiples (LCM) of numbers by factor method."
+    },
+    {
+     "indicator": "Ability to add, subtract, and multiply fractions.",
+     "exceeds": "The learner adds, subtracts, and multiplies fractions correctly and systematically.",
+     "meets": "The learner adds, subtracts, and multiplies fractions correctly.",
+     "approaches": "The learner adds, subtracts, or multiplies fractions correctly.",
+     "below": "The learner adds or subtracts fractions."
+    },
+    {
+     "indicator": "Ability to determine the reciprocals of fractions and divide fractions.",
+     "exceeds": "The learner determines the reciprocals of fractions and divides fractions correctly and systematically.",
+     "meets": "The learner determines the reciprocals of fractions and divides fractions correctly.",
+     "approaches": "The learner determines the reciprocals of fractions or divides fractions correctly.",
+     "below": "The learner determines the reciprocals of fractions."
+    },
+    {
+     "indicator": "Ability to multiply and divide decimals by a whole number and by a decimal.",
+     "exceeds": "The learner multiplies and divides decimals by a whole number and by a decimal correctly and systematically.",
+     "meets": "The learner multiplies and divides decimals by a whole number and by a decimal correctly.",
+     "approaches": "The learner multiplies or divides decimals by a whole number or by a decimal correctly.",
+     "below": "The learner multiplies or divides decimals by a whole number."
+    },
+    {
+     "indicator": "Ability to determine the squares and square roots of whole numbers, fractions, and decimals.",
+     "exceeds": "The learner determines the squares and square roots of whole numbers, fractions, and decimals correctly and systematically.",
+     "meets": "The learner determines the squares and square roots of whole numbers, fractions, and decimals correctly.",
+     "approaches": "The learner determines the squares or square roots of whole numbers, fractions, or decimals correctly.",
+     "below": "The learner determines the squares and square roots of whole numbers."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "1.1",
+     "name": "Whole Numbers",
+     "suggested_duration": "20 lessons",
+     "learning_outcomes": [
+      "use place value and total value of digits up to hundreds of millions in real-life",
+      "read and write numbers in symbols up to hundreds of millions in real-life situations",
+      "read and write numbers in words up to millions for fluency",
+      "round off numbers up to the nearest hundreds of millions in real-life situations",
+      "classify natural numbers as even, odd, and prime in different situations",
+      "apply operations of whole numbers in real-life",
+      "identify number sequences in different situations",
+      "create number sequence for playing number games",
+      "appreciate the use of whole numbers in real-life situations."
+     ],
+     "learning_experiences": [
+      "identify and write place value and total value of digits using place value apparatus",
+      "read and write numbers in symbols on number cards or charts",
+      "read and write numbers in words on number cards or charts and practise writing dummy cheques for different sums of money",
+      "work in teams to prepare and use place value charts to round off numbers",
+      "play a number game, make number cards, sort and classify numbers according to those that are even, odd, or prime",
+      "work out or perform 2, 3, or more combined operations in the correct order using digital",
+      "devices",
+      "identify the number patterns to work out number sequences",
+      "play games of creating number puzzles that involve number sequences using IT devices or other materials."
+     ],
+     "inquiry_questions": [
+      "1. Why do we write numbers in words and/or symbols?",
+      "2. Where do we write numbers in words or symbols?"
+     ],
+     "core_competencies": [
+      "Communication and Collaboration: speaking, listening and team-work as the learner works together with others to prepare and use place value charts to round off numbers.",
+      "Critical thinking and Problem-solving: interpretation and inference as the learner works together with others to identify number patterns.",
+      "Creativity and Imagination: making observations as the learner plays games of creating number puzzles that involve number sequences."
+     ],
+     "values": [
+      "Respect: as the learner works in teams and plays number games.",
+      "Unity: as the learner works towards achieving set goals of making number puzzles.",
+      "Peace: as the learner shares different roles in playing games."
+     ],
+     "pertinent_issues": [
+      "Financial Literacy: as the learner practices writing dummy cheques for different sums of money.",
+      "Self-esteem: as the learner creates number puzzles that involve number sequences."
+     ],
+     "links_to_other_areas": [
+      "Languages: language skills are enhanced as the learner writes numbers in words."
+     ],
+     "resources": [],
+     "kicd_source": "grade7-mathematics.pdf#p13"
+    },
+    {
+     "kicd_code": "1.2",
+     "name": "Factors",
+     "suggested_duration": "7 lessons",
+     "learning_outcomes": [
+      "test divisibility of numbers by 2, 3, 4, 5, 6, 8, 9,10 and 11 in different situations",
+      "express composite numbers as a product of prime factors in different situations",
+      "work out the Greatest Common Divisor",
+      "and the Least Common Multiples",
+      "of numbers by factor method in different situations",
+      "apply the Greatest Common Divisor",
+      "reflect on the use of factors in real-life situations."
+     ],
+     "learning_experiences": [
+      "determine divisibility of numbers using regrouping and divisibility rule worksheets",
+      "write factors of composite numbers by factorisation, factor tree, factor rainbow in charts, colour charts or cards using locally available materials",
+      "use factors to determine the LCM and the GCD using number cards or charts",
+      "use IT to access factors of numbers including songs/poems or games on divisibility tests",
+      "work out application questions and solve problems relating to the GCD and the LCM in real-life situations.",
+      "• determine the GCD and LCM of numbers using IT to perform exercises on factors such as matching activities or games."
+     ],
+     "inquiry_questions": [
+      "1. Where do we use factors in day-to-day activities?",
+      "2. How do we use factors in day-to day activities?",
+      "3. How do we apply the GCD and the LCM in day-to-day activities?"
+     ],
+     "core_competencies": [
+      "Creativity and Imagination: as the learner works to create songs and poems on divisibility tests.",
+      "Critical thinking and Problem-solving: as the learner applies the GCD and the LCM in solving real-life problems."
+     ],
+     "values": [
+      "Unity: as the learner sings together or solves puzzles on factors.",
+      "Respect for self and others: as the learner works to write factors of composite numbers using a factor tree."
+     ],
+     "pertinent_issues": [
+      "Self-awareness: as the learner works in teams to create songs and poems on divisibility tests."
+     ],
+     "links_to_other_areas": [
+      "Agriculture: as the learner applies LCM or GCD as they plan for the smallest or largest containers for measuring different substances."
+     ],
+     "resources": [],
+     "kicd_source": "grade7-mathematics.pdf#p15"
+    },
+    {
+     "kicd_code": "1.3",
+     "name": "Fractions",
+     "suggested_duration": "9 lessons",
+     "learning_outcomes": [
+      "compare fractions in different situations",
+      "add fractions in different situations",
+      "subtract fractions in different situations",
+      "multiply fractions by a whole number, fraction, and a mixed number in real-life situations",
+      "identify the reciprocals of fractions in different situations",
+      "divide fractions by a whole number, fraction, and a mixed fraction in real-life situations",
+      "divide a whole number by fractions in different situations",
+      "identify number sequences involving fractions in different situations",
+      "create number sequences",
+      "involving fractions for playing number games",
+      "recognise the use of fractions in real-life situations."
+     ],
+     "learning_experiences": [
+      "discuss and arrange fractions in increasing and decreasing order using different strategies",
+      "arrange fractions in ascending or descending order using fraction cards",
+      "add and subtract fractions in cut-outs, cards, charts, and concrete objects",
+      "multiply and divide fractions in cut-outs, cards, charts, and models",
+      "use flip cards to discuss reciprocals",
+      "play games of creating number puzzles that involve fractions number sequences using IT devices or other materials",
+      "create a fraction sequence game that can be used for play and learning",
+      "• use IT devices to work out operations of fractions."
+     ],
+     "inquiry_questions": [
+      "1. How do we use fractions in daily activities?",
+      "2. Where do we use fractions in daily activities?"
+     ],
+     "core_competencies": [
+      "Creativity and Imagination: as the learner creates puzzles involving fractions.",
+      "Critical thinking and Problem-solving: as the learner applies fractions using cut-outs, cards, charts, and models from local resources."
+     ],
+     "values": [
+      "Social Justice: as the learner shares cards and charts fairly to multiply and divide fractions.",
+      "Responsibility: as the learner performs multiplication and division of fractions using play or IT resources."
+     ],
+     "pertinent_issues": [
+      "Citizenship: as the learner carries out the division of fractions, which implies sharing of resources.",
+      "Social Cohesion: as the learner shares items at home and outside school using fractions."
+     ],
+     "links_to_other_areas": [
+      "Agriculture: as the learner gives fractional portions of animal feeds or in food production."
+     ],
+     "resources": [],
+     "kicd_source": "grade7-mathematics.pdf#p17"
+    },
+    {
+     "kicd_code": "1.4",
+     "name": "Decimals",
+     "suggested_duration": "6 lessons",
+     "learning_outcomes": [
+      "identify the place value and the total value of digits in decimals in real-life",
+      "multiply decimals by a whole number and by a decimal in real-life situations",
+      "divide decimals by a whole number and by a decimal in real-life situations",
+      "recognise the use of decimals in real-life situations."
+     ],
+     "learning_experiences": [
+      "discuss, state, and use the place value and the total value of decimals using place value apparatus and worksheets",
+      "multiply and divide decimals using cut-outs, cards, charts, and models",
+      "use calculators and other IT devices to work out operations of decimals.",
+      "play games involving multiplication and division of decimals."
+     ],
+     "inquiry_questions": [
+      "1. Where are decimals applicable in real-life?",
+      "2. How do you use decimals in daily activities?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Critical thinking and Problem-solving: as the learner identifies and uses the place value and the total value of decimals using place value apparatus and worksheets.",
+      "Digital Literacy: as the learner uses IT devices to learn more about decimals. Values",
+      "Unity: as the learner works together to multiply and divide decimals using cut-outs, cards, charts, and models.",
+      "Responsibility: as the learner performs multiplication and division of decimals and takes care of cards, charts, and models. Pertinent and Contemporary Issues (PCIs) Safety: is enhanced as the learner makes paper cut-outs or other materials and models. Link to other Learning Areas Learner relates quantities expressed in decimal forms in measurement as learnt from different concepts in Integrated Science."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade7-mathematics.pdf#p19"
+    },
+    {
+     "kicd_code": "1.5",
+     "name": "Squares and Square Roots",
+     "suggested_duration": "5 lessons",
+     "learning_outcomes": [
+      "determine the squares of whole numbers, fractions, and decimals by multiplication in different situations",
+      "determine the square roots of whole numbers, fractions, and decimals of perfect squares in different situations",
+      "appreciate the use of squares and square roots in real-life situations."
+     ],
+     "learning_experiences": [
+      "work out squares of numbers using: o grids and charts o long multiplication method o using calculators",
+      "work out square roots of numbers using: o factors method o division method o calculators",
+      "use IT devices to play games involving squares and square roots."
+     ],
+     "inquiry_questions": [
+      "1. Where do we apply squares and square roots in daily activities?",
+      "2. How do we apply squares and square roots in daily activities?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Critical thinking and Problem-solving: reflection as the learner uses grid squares and charts to find squares and square roots of numbers.",
+      "Digital Literacy: interacting with technologies as the learner uses IT devices to work out squares and square roots of numbers. Values",
+      "Respect: as the learner appreciates each other’s contribution in using grids and charts",
+      "Unity: as the learner shares and works out the factors of numbers to get the square roots of numbers. Pertinent and Contemporary Issues (PCIs) Environmental Education: as the learner considers the shapes of different objects in the school compound especially the ones that are squares. Link to other Learning Areas: Pre-Technical Studies: in areas such as carpentry and technical drawing contribute to squares and roots of numbers."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade7-mathematics.pdf#p21"
+    }
+   ]
+  },
+  {
+   "strand": "Algebra",
+   "strand_code": "2.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to form and simplify algebraic expressions.",
+     "exceeds": "The learner forms and simplifies algebraic expressions correctly and proficiently.",
+     "meets": "The learner forms and simplifies algebraic expressions correctly.",
+     "approaches": "The learner forms or simplifies algebraic expressions correctly.",
+     "below": "The learner forms algebraic expressions."
+    },
+    {
+     "indicator": "Ability to form, solve, and apply linear equations in one unknown.",
+     "exceeds": "The learner forms, solves, and applies linear equations in one unknown accurately and systematically.",
+     "meets": "The learner forms, solves, and applies linear equations in one unknown accurately.",
+     "approaches": "The learner forms, solves, or applies linear equations in one unknown accurately.",
+     "below": "The learner forms linear equations in one unknown accurately."
+    },
+    {
+     "indicator": "Ability to apply inequality symbols to inequality statements, form simple and compound linear inequalities in one unknown and illustrate inequalities on a number line.",
+     "exceeds": "The learner applies inequality symbols to inequality statements, forms simple and compound linear inequalities in one unknown, and illustrates inequalities on a number line correctly and systematically.",
+     "meets": "The learner applies inequality symbols to inequality statements, forms simple and compound linear inequalities in one unknown, and illustrates inequalities on a number line correctly.",
+     "approaches": "The learner applies inequality symbols to inequality statements, forms simple or compound linear inequalities in one unknown, or illustrates inequality on a number line correctly.",
+     "below": "The learner applies inequality symbols to inequality statements, and forms simple or compound linear inequalities in one unknown partially correctly."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "2.1",
+     "name": "Algebraic Expressions",
+     "suggested_duration": "5 lessons",
+     "learning_outcomes": [
+      "form algebraic expressions from real-life situations",
+      "form algebraic expressions from simple algebraic statements in real-life situations",
+      "simplify algebraic expressions in real-life situations",
+      "appreciate the use of algebraic expressions in real-life."
+     ],
+     "learning_experiences": [
+      "discuss and classify objects in their immediate environment according to given attributes such as similarities or differences",
+      "discuss how to form algebraic expressions from the classified objects",
+      "read and interpret algebraic statements to form algebraic expressions",
+      "discuss how to simplify algebraic expressions from the classified objects",
+      "use IT to work out exercises and activities in algebra or drag-and-drop activities to group similar objects."
+     ],
+     "inquiry_questions": [
+      "How do we use algebraic expressions in daily activities?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Communication and Collaboration: speaking, listening, and teamwork as the learner discusses on the formation of algebraic expressions.",
+      "Critical thinking and Problem-solving: interpretation and inference as the learner factorises algebraic expressions. Values:",
+      "Unity: as the learner classifies or groups similar objects during the discussions.",
+      "Respect: as the learner appreciates each other’s contribution while discussing and forming algebraic expressions. Pertinent and Contemporary Issues (PCIs):",
+      "Environmental Education: as the learner classifies objects from the environment.",
+      "Friendship formation: as the learner discusses on formation of algebraic expressions. Link to other Learning Areas Languages: enhances learner’s interpreting skills for statements to form algebraic expressions."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade7-mathematics.pdf#p26"
+    },
+    {
+     "kicd_code": "2.2",
+     "name": "Linear Equations",
+     "suggested_duration": "6 lessons",
+     "learning_outcomes": [
+      "form linear equations in one unknown in different situations",
+      "solve linear equations in one unknown in different situations",
+      "apply linear equations in one unknown to real-life situations",
+      "reflect on the use of linear equations in real-life situations."
+     ],
+     "learning_experiences": [
+      "role play activities involving equations with one unknown for example weighing using beam balance. Also, dramatise shopping activities.",
+      "discuss how to form and solve linear equations generated from role play activities",
+      "use IT devices or other resources to form and solve linear equations."
+     ],
+     "inquiry_questions": [
+      "1. How do we use linear equations in real-life?",
+      "2. Why do we use linear equations in real-life?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Communication and Collaboration: speaking, listening and teamwork as the learner role plays activities involving equations in one unknown.",
+      "Self-efficacy: self-awareness skills as the learner carries out weighing using beam balance and role play different activities.",
+      "Learning to learn: organising own learning as the learner applies linear equations in real-life. Values",
+      "Integrity as the learner shares resources as per the given equation (conditions).",
+      "Responsibility: as the learner uses a given letter in the equation to represent an item. Pertinent and Contemporary Issues (PCIs): Self-esteem as the learner participates in role-play activities like weighing and shopping that will lead to equations in one unknown. Link to other Learning Areas Pre-Technical Studies: as the learner uses IT devices in forming and solving equations."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade7-mathematics.pdf#p28"
+    },
+    {
+     "kicd_code": "2.3",
+     "name": "Linear Inequalities",
+     "suggested_duration": "8 lessons",
+     "learning_outcomes": [
+      "apply inequality symbols to inequality statements in learning situations",
+      "form simple linear inequalities in one unknown in different situations",
+      "illustrate simple inequalities on a number line",
+      "form compound inequality statements in one unknown in different situations",
+      "illustrate compound inequalities in one unknown on a number line",
+      "appreciate the use of linear inequalities in real-life."
+     ],
+     "learning_experiences": [
+      "use inequality cards to complete simple inequality statements using symbols",
+      "use inequality cards/objects to form simple linear inequalities with one unknown",
+      "draw and represent simple inequality statements on a number line",
+      "use inequality cards to complete compound inequality statements. Have examples that may involve gender such as the number of boys and girls in class",
+      "draw and represent compound inequality statements on a number line",
+      "use IT devices in graphing tools to present solutions to inequalities."
+     ],
+     "inquiry_questions": [
+      "1. How do we use linear inequalities in real-life?",
+      "2. Why do we use linear inequalities in real-life?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed",
+      "Communication and Collaboration: as the learner discusses how to form linear inequalities.",
+      "Creativity and Imagination: as the learner draws and represents inequality statements on a number line. Values Integrity: as the learner observes and adheres to the conditions of the given inequalities. Pertinent and Contemporary Issues (PCIs) Gender Equality: gender representation for inclusivity, for example, number of boys and girls in a class or school. Link to other Learning Areas Language: enhances learner’s skills to form linear inequalities from different situations in statement form."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade7-mathematics.pdf#p30"
+    }
+   ]
+  },
+  {
+   "strand": "Measurements",
+   "strand_code": "3.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to identify and apply the Pythagorean relationship.",
+     "exceeds": "The learner identifies and applies the Pythagorean relationship correctly and proficiently.",
+     "meets": "The learner identifies and applies the Pythagorean relationship correctly.",
+     "approaches": "The learner identifies or applies the Pythagorean relationship correctly.",
+     "below": "The learner identifies the Pythagorean relationship partially correctly."
+    },
+    {
+     "indicator": "Ability to convert units of length and performs operations involving length.",
+     "exceeds": "The learner converts units of length and performs operations involving length accurately and systematically.",
+     "meets": "Converts units of length and performs operations involving length accurately.",
+     "approaches": "Converts units of length or performs operations involving length accurately.",
+     "below": "Converts units of length accurately."
+    },
+    {
+     "indicator": "Ability to work out the perimeter of plane figures, circumference of circles and area of rectangles, parallelograms, rhombus, trapezium, and circles.",
+     "exceeds": "The learner works out the perimeter of plane figures, circumference of circles and area of rectangles, parallelograms, rhombus, trapezium, and circles accurately and systematically.",
+     "meets": "The learner works out the perimeter of plane figures, circumference of circles and area of rectangles, parallelograms, rhombus, trapezium and circles accurately.",
+     "approaches": "The learner works out the perimeter of plane figures or circumference of circles and area of any 3 of rectangles, parallelograms, rhombus, trapezium or circles accurately.",
+     "below": "The learner works out the perimeter of plane figures or circumference of circles and area of any 2 of rectangles, parallelograms, rhombus, trapezium or circles accurately."
+    },
+    {
+     "indicator": "Ability to work out the volume of cubes, cuboids,",
+     "exceeds": "The learner works out the volume of cubes, cuboids, and cylinders",
+     "meets": "The learner works out the volume of cubes, cuboids, and",
+     "approaches": "The learner works out the volume of any 2 of; cubes, cuboids, or cylinders",
+     "below": "The learner works out the volume of any 1 of; cubes, or cuboids"
+    },
+    {
+     "indicator": "and cylinders.",
+     "exceeds": "accurately and systematically.",
+     "meets": "cylinders accurately.",
+     "approaches": "accurately.",
+     "below": "accurately."
+    },
+    {
+     "indicator": "Ability to identify the relationship between cm3, m3 and litres, relate volume to capacity, and work out the capacity of containers.",
+     "exceeds": "The learner identifies the relationship between cm3, m3 and litres, relates volume to capacity, and works out the capacity of containers accurately and proficiently.",
+     "meets": "The learner identifies the relationship between cm3, m3 and litres, relates volume to capacity, and works out the capacity of containers accurately.",
+     "approaches": "The learner identifies the relationship between cm3, m3 or litres, or relates volume to capacity or works out the capacity of containers accurately.",
+     "below": "The learner identifies the relationship in any 2 of; cm3, m3 or litres accurately."
+    },
+    {
+     "indicator": "Ability to work out speed in km/h and m/s.",
+     "exceeds": "The learner works out speed in Km/h and m/s accurately and systematically.",
+     "meets": "The learner works out speed in Km/h and m/s accurately.",
+     "approaches": "The learner works out speed in Km/h or m/s accurately.",
+     "below": "The learner works out speed in Km/h partially accurately."
+    },
+    {
+     "indicator": "Ability to identify and convert units of measuring temperature from degrees Celsius to Kelvin and vice-versa.",
+     "exceeds": "The learner identifies and converts units of measuring temperature from degrees Celsius to Kelvin and vice-versa accurately and systematically.",
+     "meets": "The learner identifies and converts units of measuring temperature from degrees Celsius to Kelvin and vice-versa accurately.",
+     "approaches": "The learner identifies or converts units of measuring temperature from degrees Celsius to Kelvin or vice-versa accurately.",
+     "below": "The learner identifies units of measuring temperature as degrees Celsius and Kelvin accurately."
+    },
+    {
+     "indicator": "Ability to work out temperature in degrees Celsius and Kelvin.",
+     "exceeds": "The learner works out temperature in degree Celsius and Kelvin accurately and proficiently.",
+     "meets": "The learner works out temperature in degree Celsius and Kelvin accurately.",
+     "approaches": "The learner works out temperature in degree Celsius or Kelvin accurately.",
+     "below": "The learner works out temperature in degree Celsius partially accurately."
+    },
+    {
+     "indicator": "Ability to work out profit, loss, discount, and commission.",
+     "exceeds": "The learner works out profit, loss, discount, and commission correctly and proficiently.",
+     "meets": "The learner works out profit, loss, discount, and commission correctly.",
+     "approaches": "The learner works out any 3 of; profit, loss, discount, or commission correctly.",
+     "below": "The learner works out any 2 of; profit, loss, discount, or commission correctly."
+    },
+    {
+     "indicator": "Ability to calculate percentage profit, loss, discount and commission.",
+     "exceeds": "The learner calculates percentage profit, loss, discount and commission accurately and systematically.",
+     "meets": "The learner calculates percentage profit, loss, discount and commission accurately.",
+     "approaches": "The learner calculates any 3 of; percentage profit, loss, discount or commission accurately.",
+     "below": "The learner calculates any 2 of; percentage profit, loss, discount or commission accurately."
+    },
+    {
+     "indicator": "Ability to interpret and prepare bills.",
+     "exceeds": "The learner interprets and prepares bills correctly and logically.",
+     "meets": "The learner interprets and prepares bills correctly.",
+     "approaches": "The learner interprets or prepares bills correctly.",
+     "below": "The learner interprets bills partially correctly."
+    },
+    {
+     "indicator": "Ability to identify and work out postal charges and mobile money services.",
+     "exceeds": "The learner identifies and works out postal charges and mobile money services accurately and systematically.",
+     "meets": "The learner identifies and works out postal charges and mobile money services accurately.",
+     "approaches": "The learner identifies or works out postal charges or mobile money services accurately.",
+     "below": "The learner identifies or works out postal charges or mobile money services partially accurately."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "3.1",
+     "name": "Pythagorean Relationship",
+     "suggested_duration": "4 lessons",
+     "learning_outcomes": [
+      "recognise the sides of a right-angled triangle in different situations",
+      "identify Pythagorean relationships in different situations",
+      "apply Pythagorean relationship to real-life situations",
+      "promote the use of Pythagoras Theorem in real-life situations."
+     ],
+     "learning_experiences": [
+      "draw and represent practical cases of right-angled triangles of an object leaning on a wall at different positions and recognise the sides as the hypotenuse the height and the base. For example, a ladder leaning on a wall.",
+      "do a variety of activities for example, counting squares on different sides of a 3, 4, 5 right angled-triangle, establish the Pythagorean relationship and practise using other right angled-triangles",
+      "work out exercises related to the Pythagorean relationship",
+      "create Pythagorean relationship puzzles",
+      "use IT devices and other resources to explore the use of Pythagorean relationships in daily life."
+     ],
+     "inquiry_questions": [
+      "How do we use Pythagorean relationships in real-life situations?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed",
+      "Critical thinking and Problem-solving: as the learner identifies Pythagorean relationships in different situations such as a leaning ladder or staircase.",
+      "Creativity and Imagination: as the learner creates Pythagorean relationship puzzles.",
+      "Learning to Learn: as the learner applies Pythagorean relationships in real-life situations. Values",
+      "Unity: as the learner carries out various activities together, such as creating Pythagorean relationship puzzles.",
+      "Respect: as the learner appreciates each other’s opinions when identifying and applying Pythagorean relationships in real-life situations. Pertinent and Contemporary Issues (PCIs)",
+      "Peer Education: as the learner works with peers to establish the Pythagorean relationship.",
+      "Safety as the learner takes care when using the ladder to do various activities related to the Pythagorean relationship. Link to other learning areas: Pre-Technical Studies: technical drawing, building construction or surveying enhances the concept of Pythagorean relationship."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade7-mathematics.pdf#p33"
+    },
+    {
+     "kicd_code": "3.2",
+     "name": "Length",
+     "suggested_duration": "6 lessons",
+     "learning_outcomes": [
+      "convert units of length from one form to another involving cm, dm, m, Dm, Hm in learning situations",
+      "perform operations involving units of length in different situations",
+      "work out the perimeter of plane figures in different situations",
+      "work out the circumference of circles in different situations",
+      "promote the use of length in real-life situations."
+     ],
+     "learning_experiences": [
+      "generate conversion tables involving cm, dm, m, Dm, Hm",
+      "carry out different operations involving length",
+      "watch videos on correct procedures for measuring length and working out perimeter",
+      "use appropriate measuring tools to measure the length of various objects.",
+      "measure and work out perimeter of different plane figures including combined shapes.",
+      "measure the circumference and diameter of different circular objects and establish the relationship between circumference and",
+      "diameter which is Pi.",
+      "use Pi to practise working out the circumference of circles and can use IT devices for calculations."
+     ],
+     "inquiry_questions": [
+      "1. Why do we use different units of measuring length?",
+      "2. How do we measure the perimeter of different objects?"
+     ],
+     "core_competencies": [
+      "Communication and Collaboration: as the learner works with peers when measuring the lengths of various objects and also as they discuss the relationship between circumference and diameter.",
+      "Self-efficacy: as the learner practices different operations using length.",
+      "Critical thinking and Problem-solving: as the learner relates circumference to diameter."
+     ],
+     "values": [
+      "Integrity: as the learner carries out the activities and gives the correct measurement.",
+      "Unity: as the learner works together in measuring the lengths of various objects."
+     ],
+     "pertinent_issues": [
+      "Social Cohesion: as the learner works with peers in measuring the lengths of various objects.",
+      "Safety: as the learner handles different instruments for measuring length.",
+      "Global Citizenship: as the learner appreciates units of measurement especially the SI units of length."
+     ],
+     "links_to_other_areas": [
+      "Integrated Science: as the learner uses units of measuring length as used in Science."
+     ],
+     "resources": [],
+     "kicd_source": "grade7-mathematics.pdf#p35"
+    },
+    {
+     "kicd_code": "3.3",
+     "name": "Area",
+     "suggested_duration": "8 lessons",
+     "learning_outcomes": [
+      "identify the relationship between square metre (m2) and hectares as units of measuring area",
+      "work out the area of a rectangle, parallelogram, rhombus, and trapezium in different situations",
+      "work out the area of circles in different situations",
+      "calculate the area of borders and combined shapes in real-life situations",
+      "recognize the use of area in real-life situations."
+     ],
+     "learning_experiences": [
+      "generate conversion tables involving square metres and hectares as units of measuring area",
+      "use cut-outs to find the area of plane figures",
+      "watch videos on how to cut-out a circle into small sectors to demonstrate how to derive the formula for the area of a circle",
+      "cut out a circle into small sectors and rearrange it to form a rectangle to derive the formula for the area of a circle",
+      "practise cutting out the plane figures of combined shapes into different shapes to work out the area."
+     ],
+     "inquiry_questions": [
+      "1. What are plane figures?",
+      "2. How do we work out the areas of plane figures?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Critical thinking and Problem-solving: as the learner cuts out the circle into small sectors, joining them to create a rectangle and generate a formula for getting the area of a circle.",
+      "Creativity and Imagination: as the learner combines different shapes to make patterns.",
+      "Self-efficacy: as the learner demonstrates how to derive the formula for the area of a circle. Values",
+      "Responsibility: as the learner cuts out the small sectors of the circle and joins them up to form a rectangle.",
+      "Integrity: as the learner works out exact areas of different shapes.",
+      "Unity: as the learner works in a team and shares tasks in measuring the area. PCIs",
+      "Safety: as the learner carefully handles different instruments/tools to make cut-outs of different materials.",
+      "Environmental Education: as the learner uses locally available materials in measuring the area of different surfaces. Link to other Learning Areas:",
+      "Creative Arts & Sports: as the learner combines different shapes to make patterns.",
+      "Integrated Science: as the learner relates area to friction and pressure on a surface."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade7-mathematics.pdf#p37"
+    },
+    {
+     "kicd_code": "3.4",
+     "name": "Volume and Capacity",
+     "suggested_duration": "8 lessons",
+     "learning_outcomes": [
+      "identify metre cube (m3 ) as a unit of volume in measurements",
+      "convert metre cube (m3) into centimeter cube (cm3) and vice versa in different situations",
+      "work out the volume of cubes, cuboids, and cylinders in different situations",
+      "identify the relationship between cm3, m3 and litres in real-life situations",
+      "relate volume to capacity in real-life situations",
+      "work out the capacity of containers in real-life situations",
+      "promote the use of volume and capacity in real-life situations."
+     ],
+     "learning_experiences": [
+      "make a cube of sides 1 metre using locally available materials",
+      "discuss and work out the conversions of cm cube (cm3) to m cube (m3) and vice versa",
+      "collect labeled containers of different volume and capacity from the environment",
+      "generate conversion tables of volume and capacity",
+      "create models of cubes, cuboids, and cylinders which they will use to work out volume",
+      "watch videos on volume and capacity"
+     ],
+     "inquiry_questions": [
+      "1. Where do we use volume and capacity in daily activities?",
+      "2. Why do we measure volume?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Critical thinking and Problem-solving: as the learner creates a conversion table of units of volume.",
+      "Creativity and Imagination: as the learner creates models of cubes and cuboids. Values",
+      "Responsibility: as the learner works with peers and share different tasks in making models.",
+      "Peace: as the learner discusses and makes models for different volumes and capacities. Pertinent and Contemporary Issues (PCIs)",
+      "Environmental Education: as the learner uses big and small containers of different volumes from locally available resources.",
+      "Safety: as the learner carefully makes models of cubes and cuboids. Link to other learning areas:",
+      "Pre-Technical Studies: as the learner creates models of cubes and cuboids.",
+      "Integrated Science: as the learner works out the volume of different substances."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade7-mathematics.pdf#p39"
+    },
+    {
+     "kicd_code": "3.5",
+     "name": "Time, Distance, and Speed",
+     "suggested_duration": "8 lessons",
+     "learning_outcomes": [
+      "identify units of measuring time in real-life situations",
+      "convert units of time from one form to another in learning situations",
+      "convert units of measuring distance in learning situations",
+      "identify speed as distance covered per unit time in different situations",
+      "work out speed in km/h and m/s in real-life situations",
+      "convert units of speed from kilometers per hour (Km/h) to meters per second (m/s) and vice versa in real-life",
+      "reflect on the use of time, distance, and speed in real-life situations"
+     ],
+     "learning_experiences": [
+      "use analog or digital clock to tell time in hours, minutes, and seconds and discuss the units of time",
+      "create a conversion table on units of time",
+      "discuss and estimate distances between two or more points and convert distances in Km to meters and vice versa",
+      "engage in activities that involve distance and time such as track events to relate time, distance, and speed",
+      "discuss how long they take to travel from home to school, discuss the aspects of distance, and time taken to get to school",
+      "practise calculating speed in",
+      "km/h or m/s",
+      "read and interpret a road sign on speed",
+      "identify and discuss the importance of speed limiters to ensure road safety",
+      "play digital games involving racing or watch marathons."
+     ],
+     "inquiry_questions": [
+      "1. Why do we relate distance, time and speed?",
+      "2. What is the importance of speed in daily activities?"
+     ],
+     "core_competencies": [
+      "Critical thinking and Problem-solving: as the learner creates conversion tables relate and determine distance, time, and speed.",
+      "Self-efficacy: as the learner observes punctuality in attending to different activities."
+     ],
+     "values": [
+      "Patriotism: as the learner observes road safety rules including speed limits for crossing the roads.",
+      "Integrity: as the learner observes punctuality and work out correct distances."
+     ],
+     "pertinent_issues": [
+      "Disaster Risk Reduction (DRR) and Safety: as the learner observes safety in roads and machines in relation to speed."
+     ],
+     "links_to_other_areas": [
+      "Integrated Science: as the learner observes time as they carry out different experiments or activities."
+     ],
+     "resources": [],
+     "kicd_source": "grade7-mathematics.pdf#p41"
+    },
+    {
+     "kicd_code": "3.6",
+     "name": "Temperature",
+     "suggested_duration": "6 lessons",
+     "learning_outcomes": [
+      "describe the temperature conditions of the immediate environment as either warm, hot or cold",
+      "compare temperature using hotter, warmer, colder and same as in different situations",
+      "identify units of measuring temperature as degrees Celsius and Kelvin in different situations",
+      "convert units of measuring temperature from degree Celsius to Kelvin and vice-versa",
+      "work out temperature in degrees Celsius and Kelvin in real-life situations",
+      "use IT devices or other",
+      "resources to read temperature conditions of different places",
+      "recognise temperature changes in the environment."
+     ],
+     "learning_experiences": [
+      "move to the field, observe the temperature in the environment, and discuss the temperature conditions as either warm, hot or cold",
+      "discuss and test the temperature of different substances using arbitrary methods like touching, cold, warm, or hot water (exercise caution when dealing with hot substances)",
+      "identify and use tools for measuring temperature, for example, thermometers that are in degrees Celsius.",
+      "work out conversions of temperature from degrees Celsius to Kelvin and vice versa",
+      "• practise using IT devices or other resources to determine the temperature of different places in degrees Celsius and Kelvin."
+     ],
+     "inquiry_questions": [
+      "1. How does temperature affect our everyday lives?",
+      "2. How do we measure temperature?"
+     ],
+     "core_competencies": [
+      "Communication and Collaboration: as the learner works with peers and uses tools for measuring temperature.",
+      "Digital Literacy: interacting with technology as the learner determines the temperature of different places using digital devices."
+     ],
+     "values": [
+      "Responsibility: as the learner handles tools of measuring temperature.",
+      "Integrity: as the learner gives correct measurements of temperature."
+     ],
+     "pertinent_issues": [
+      "Self-awareness: as the learner takes their body temperatures that is an indicator of health status.",
+      "Safety: as the learner works together with others and exercises caution when dealing with hot substances."
+     ],
+     "links_to_other_areas": [
+      "Integrated Science: as the learner considers their body temperatures to establish their health status and dress appropriately.",
+      "Social studies: as the learner considers different climatic temperature changes."
+     ],
+     "resources": [],
+     "kicd_source": "grade7-mathematics.pdf#p43"
+    },
+    {
+     "kicd_code": "3.7",
+     "name": "Money",
+     "suggested_duration": "12 lessons",
+     "learning_outcomes": [
+      "work out profit and loss in real-life situations",
+      "calculate the percentage profit and loss in different situations",
+      "calculate discount and percentage discount of different goods and services",
+      "calculate commission and percentage commission in real-life situations",
+      "interpret bills at home",
+      "prepare bills in real-life situations",
+      "work out postal charges in real-life situations",
+      "identify mobile money services for different",
+      "work out mobile money transactions in real-life situations",
+      "use IT devices or other resources to learn more about money transactions",
+      "recognise the use of money in day-to-day activities."
+     ],
+     "learning_experiences": [
+      "role play shopping and selling activities involving profit, loss, discount and commission",
+      "work out profit and loss involving different activities and settings",
+      "work out the percentage profit/loss from the role play activities",
+      "work out discount and percentage discount from model shopping activities",
+      "work out commission and percentage commission from the role play activities",
+      "identify different types of bills and read the components of bills",
+      "prepare bills for different items and expenses",
+      "visit a post office to gather information on postal services and charges",
+      "work out postal charges of different services",
+      "discuss and identify mobile money services",
+      "work out mobile money transactions, for example, in sending or receiving money, credit, and savings",
+      "generate bills, pay for goods and services, and other online transactions using IT devices."
+     ],
+     "inquiry_questions": [
+      "1. Why do we use money in daily activities?",
+      "2. What considerations would we make when buying or selling?",
+      "3. What is involved in mobile money transactions?"
+     ],
+     "core_competencies": [
+      "Critical thinking and Problem-solving: as the learner works out discounts, commissions, and mobile money as well as postal charges and bills.",
+      "Communication and Collaboration: as the learner role plays on negotiating for discounts and commissions.",
+      "Citizenship: as the learner works out discounts, commissions, and mobile money in Kenyan currency.",
+      "Self-efficacy: as the learner role plays on negotiating for discounts and commissions."
+     ],
+     "values": [
+      "Values:",
+      "Patriotism: as the learner role plays and works out paying bills in Kenyan currency.",
+      "Integrity: as the learner pays bills and appreciates the use of money. Pertinent and Contemporary Issues (PCIs):",
+      "Financial Literacy: as the learner works out any discounts, commissions, and mobile money as well as postal charges and bills.",
+      "Decision-making: as the learner uses money to pay bills and postal charges. Link to other Learning Areas:",
+      "Pre-Technical Studies: as the learner works out bills, discounts, commissions and postal charges.",
+      "Languages: as the learner gathers information on postal services and charges."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade7-mathematics.pdf#p45"
+    }
+   ]
+  },
+  {
+   "strand": "Geometry",
+   "strand_code": "4.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to relate and solve angles on a straight line, at a point, and on a transversal.",
+     "exceeds": "The learner relates and solves angles on a straight line, at a point, and on a transversal accurately and systematically.",
+     "meets": "The learner relates and solves angles on a straight line, at a point, and on a transversal accurately.",
+     "approaches": "The learner relates or solves angles on a straight line, at a point, or on a transversal accurately.",
+     "below": "The learner relates angles on a straight line, at a point, or on a transversal accurately."
+    },
+    {
+     "indicator": "Ability to identify angle properties of polygons up to hexagons.",
+     "exceeds": "The learner identifies angle properties of polygons up to hexagons accurately and gives explanations.",
+     "meets": "The learner identifies angle properties of polygons up to hexagons accurately.",
+     "approaches": "The learner identifies angle properties of polygons up to pentagon accurately.",
+     "below": "The learner identifies angle properties of quadrilaterals accurately."
+    },
+    {
+     "indicator": "Ability to solve angles and sides of polygons up to hexagons.",
+     "exceeds": "The learner solves angles and sides of polygons up to hexagons accurately and systematically.",
+     "meets": "The learner solves angles and sides of polygons up to hexagons accurately.",
+     "approaches": "The learner solves angles or sides of polygons up to pentagon accurately.",
+     "below": "The learner solves angles or sides of quadrilaterals accurately."
+    },
+    {
+     "indicator": "Ability to measure, bisect, and construct 900, 600, 450 300 and other angles that are multiples of 7.50 using a ruler and a pair of compasses only.",
+     "exceeds": "The learner measures, bisects, and constructs 900, 600, 450, 300 and other angles that are multiples of 7.50 using a ruler and a pair of compasses accurately and systematically.",
+     "meets": "The learner measures, bisects, and constructs 900, 600, 450, 300 and other angles that are multiples of 7.50 using a ruler and a pair of compasses accurately.",
+     "approaches": "The learner measures, bisects, or constructs 900, 600, 450, 300 using a ruler and a pair of compasses accurately.",
+     "below": "The learner measures, bisects, or constructs 900, 600, 450 using a ruler and a pair of compasses accurately."
+    },
+    {
+     "indicator": "Ability to construct different triangles and circles using a ruler and a pair of compasses only.",
+     "exceeds": "The learner constructs different triangles and circles using a ruler and a pair of compasses accurately and systematically.",
+     "meets": "The learner constructs different triangles and circles using a ruler and a pair of compasses accurately.",
+     "approaches": "The learner constructs different triangles or circles using a ruler and a pair of compasses accurately.",
+     "below": "The learner constructs different triangles or circles using a ruler and a pair of compasses partially accurately."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "4.1",
+     "name": "Angles",
+     "suggested_duration": "8 lessons",
+     "learning_outcomes": [
+      "relate different types of angles on a straight line in real-life situations",
+      "solve angles at a point in learning situations",
+      "relate angles on a transversal in different situations",
+      "solve angles in a parallelogram in different situations",
+      "identify angle properties of polygons up to hexagons in different situations",
+      "relate interior angles, exterior angles, and the number of sides of a polygon up to hexagons in different situations",
+      "solve angles and sides of polygons up to hexagons in learning situations",
+      "reflect on the use of angles in objects within the environment."
+     ],
+     "learning_experiences": [
+      "discuss positions of objects in the immediate environment in relation to angles",
+      "draw straight lines with different angles, measure, and relate them.",
+      "draw different angles at a point, measure, relate, and work out angles at point",
+      "draw transversals, measure and relate angles in a transversal",
+      "draw parallelograms, measure and relate various angles in a parallelogram",
+      "use cut-outs or drawings of different polygons up to hexagon, measure the interior angles, and relate to",
+      "the number of right angles",
+      "use cut-outs or drawings of different polygons up to hexagon, measure interior and exterior angles and relate to the number of sides",
+      "work out angles and sides in different polygons up to hexagon",
+      "draw angles at a point and in parallelograms using IT devices or other resources."
+     ],
+     "inquiry_questions": [
+      "1. What are angles?",
+      "2. Where do we use angles in real-life situations?"
+     ],
+     "core_competencies": [
+      "Communication and Collaboration: as the learner discusses the positions of objects in the immediate environment in relation to angles.",
+      "Critical thinking and Problem-solving: as the learner draws, measures, and relates angles."
+     ],
+     "values": [
+      "Responsibility: as the learner explores positions of objects in the immediate environment in relation to angles.",
+      "Unity: as the learner works with peers to use cut-outs or drawings of different polygons up to hexagons."
+     ],
+     "pertinent_issues": [
+      "Safety: as the learner works carefully use cut-outs or drawings of different polygons up to hexagon."
+     ],
+     "links_to_other_areas": [
+      "Pre-Technical Studies: as the learner uses cut-outs or drawings of different polygons up to hexagons, or drawings."
+     ],
+     "resources": [],
+     "kicd_source": "grade7-mathematics.pdf#p51"
+    },
+    {
+     "kicd_code": "4.2",
+     "name": "Geometrical Constructions",
+     "suggested_duration": "12 lessons",
+     "learning_outcomes": [
+      "measure different angles in learning situations",
+      "bisect angles using a ruler and a pair of compasses only in learning situations",
+      "construct 900, 450 600, 300 and other angles that are multiples of 7.50 using a ruler and a pair of compasses only in learning situations",
+      "construct different triangles using a ruler and a pair of compasses only in different situations",
+      "construct circles using a ruler and a pair of compasses only in different situations",
+      "recognise use of geometric constructions of different shapes in objects."
+     ],
+     "learning_experiences": [
+      "draw and measure different angles",
+      "draw and bisect different angles",
+      "construct 900, 450 600, 300 including 1200, 1050 and practise drawing angles that are multiples of 7.50 using a pair of compasses and rulers",
+      "construct triangles using a pair of compasses and rulers",
+      "construct circles using a pair of compasses and rulers",
+      "use IT devices on graphics to draw angles and circles, watch videos of bisecting angles and constructing angles and circles."
+     ],
+     "inquiry_questions": [
+      "1. Where do we use geometric constructions in real-life situations?",
+      "2. Why do we use geometric constructions?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Creativity and Imagination: as the learner constructs angles, triangles, and circles.",
+      "Digital Literacy: as the learner uses IT tools to learn more about the construction of angles, triangles and circles. Values",
+      "Responsibility: as the learner uses geometrical instruments for the construction of angles and circles.",
+      "Unity: as the learner works together with others to draw and measure different angles. Pertinent and Contemporary Issues (PCIs) Safety: as the learner uses geometrical instruments such as a pair of compasses and dividers. Link to other Learning Areas Creative Arts and Sports: as the learner constructs angles, triangles, and circles which can be used to make geometrical patterns."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade7-mathematics.pdf#p53"
+    }
+   ]
+  },
+  {
+   "strand": "Data Handling and Probability",
+   "strand_code": "5.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to collect data and draw a frequency distribution table of data.",
+     "exceeds": "The learner collects data and draws a frequency distribution table of data accurately and systematically.",
+     "meets": "The learner collects data and draws a frequency distribution table of data accurately.",
+     "approaches": "The learner collects data or draws a frequency distribution table of data accurately.",
+     "below": "The learner collects data or draws a frequency distribution table of data partially accurately."
+    },
+    {
+     "indicator": "Ability to determine a suitable scale for graphs and draw Pictographs and Bar Graphs of data.",
+     "exceeds": "The learner determines a suitable scale for graphs and draws Pictographs and Bar Graphs of data accurately and systematically.",
+     "meets": "The learner determines a suitable scale for graphs and draws Pictographs and Bar Graphs of data accurately.",
+     "approaches": "The learner determines a suitable scale for graphs or draws Pictographs or Bar Graphs of data accurately.",
+     "below": "The learner determines a suitable scale for graphs or draws Pictographs of data accurately."
+    },
+    {
+     "indicator": "Ability to interpret data from pictographs and Bar Graphs.",
+     "exceeds": "The learner interprets data from pictographs and Bar Graphs concisely.",
+     "meets": "The learner interprets data from pictographs and Bar Graphs correctly.",
+     "approaches": "The learner interprets data from pictographs or Bar Graphs correctly.",
+     "below": "The learner interprets data from pictographs correctly."
+    },
+    {
+     "indicator": "Ability to draw and interpret Pie Charts of data.",
+     "exceeds": "The learner draws and interprets Pie Charts of data precisely.",
+     "meets": "The learner draws and interprets Pie Charts of data accurately.",
+     "approaches": "The learner draws or interprets Pie Charts of data accurately.",
+     "below": "The learner draws Pie Charts of data partially accurately."
+    },
+    {
+     "indicator": "Ability to draw line graphs and interpret travel graphs.",
+     "exceeds": "The learner draws line graph and Interprets travel graphs accurately and systematically.",
+     "meets": "The learner draws line graph and Interprets travel graphs accurately.",
+     "approaches": "The learner draws line graph or Interprets travel graphs accurately.",
+     "below": "The learner draws line graph or Interprets travel graphs partially accurately."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "5.1",
+     "name": "Data Handling",
+     "suggested_duration": "10 lessons",
+     "learning_outcomes": [
+      "state the meaning of data in a learning situation",
+      "collect data from different situations",
+      "draw frequency distribution table of data from different sources",
+      "determine a suitable scale for graphs of data from different situations",
+      "draw pictographs of data from real-life situations",
+      "draw bar graphs of data from different sources",
+      "interpret bar graphs of data from real-life situations",
+      "draw pie charts of data from real-life situations",
+      "interpret pie charts of data",
+      "from real-life situations",
+      "draw a line graph of data from different situations.",
+      "interpret travel graphs from real-life situations",
+      "promote the use of data in real-life situations."
+     ],
+     "learning_experiences": [
+      "discuss, collect, and organise data from immediate environment",
+      "tally and represent the data in frequency tables",
+      "discuss and come up with a suitable scale to represent data in graphs",
+      "discuss and use a suitable scale to draw pictographs from data",
+      "discuss and use a suitable scale to draw bar graphs from data",
+      "discuss and interpret bar graphs of data",
+      "discuss and represent data on pie charts",
+      "discuss and interpret pie charts of data",
+      "use a suitable scale to represent and interpret data from line graphs",
+      "discuss and interpret travel graphs from real-life situations",
+      "draw pie charts and pictographs, and read data from bar graphs using IT devices or watch videos relating to data."
+     ],
+     "inquiry_questions": [
+      "1. Why do we collect data?",
+      "2. How do we represent data?",
+      "3. How do we interpret data?"
+     ],
+     "core_competencies": [
+      "Creativity and Imagination: as the learner represents data in the form of pie charts and pictograms.",
+      "Critical thinking and Problem-solving: as the learner interprets data from bar graphs, pictograms, and pie charts."
+     ],
+     "values": [
+      "Responsibility: as the learner collects and presents data in pictograms that may involve different resources.",
+      "Peace: as the learner works with peers to collect and represent data in graphs."
+     ],
+     "pertinent_issues": [
+      "Decision-making: as the learner presents data that can be used to make informed decisions."
+     ],
+     "links_to_other_areas": [
+      "Creative Arts and Sports: as the learner draws pictographs and pie charts.",
+      "Social Studies: as the learner presents data in pie charts and pictographs that may involve populations."
+     ],
+     "resources": [],
+     "kicd_source": "grade7-mathematics.pdf#p57"
+    }
+   ]
+  }
+ ]
+}

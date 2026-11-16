@@ -1,0 +1,901 @@
+{
+ "source_pdf": "grade10-electrical-technology.pdf",
+ "grade": 10,
+ "subject": "electrical-technology",
+ "general_outcomes": [
+  "By the end of Senior School, the learner should be able to:",
+  "Observe personal safety, safety of tools, equipment and machines in the practice of electrical engineering works.",
+  "Analyse, design, and construct electric circuits.",
+  "Troubleshoot and fix faults in electrical and electronic systems.",
+  "Apply appropriate communication skills across varied settings and audiences in interpretation of Electrical Engineering works.",
+  "Practise good citizenship in waste management and ethical use of electronic and electrical technology.",
+  "Adhere to the established standards and regulations in Electrical Technology to uphold professional and ethical practices.",
+  "Utilise acquired skills, knowledge and attitude for career growth and further education and training in electrical engineering.",
+  "Appreciate electrical technology in the socio-economic development of the country."
+ ],
+ "strands": [
+  {
+   "strand": "Fundamentals of Electrical Technology",
+   "strand_code": "1.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to describe the properties of components used in DC circuits.",
+     "exceeds": "Describes the properties of components used in DC circuits with examples",
+     "meets": "Describes the properties of components used in DC circuits.",
+     "approaches": "Partly describes the properties of components used in DC circuits.",
+     "below": "Describes the properties of components used in DC circuits with assistance"
+    },
+    {
+     "indicator": "Ability to apply circuit laws to evaluate electrical quantities in a DC circuit.",
+     "exceeds": "Precisely applies circuit laws to evaluate electrical quantities in a DC circuit.",
+     "meets": "Applies circuit laws to evaluate electrical quantities in a DC circuit.",
+     "approaches": "Partially applies circuit laws to evaluate electrical quantities in a DC circuit.",
+     "below": "Applies circuit laws to evaluate electrical quantities in a DC circuit with assistance"
+    },
+    {
+     "indicator": "Ability to Construct DC circuits in a workplace",
+     "exceeds": "Correctly constructs DC circuits in a workplace",
+     "meets": "Constructs DC circuits in a workplace",
+     "approaches": "Partly constructs DC circuits in a workplace",
+     "below": "Constructs DC circuits in a workplace with assistance"
+    },
+    {
+     "indicator": "Ability to analyse DC electric circuits in a workplace",
+     "exceeds": "Analyse DC electric circuits in a workplace in detail",
+     "meets": "Analyses DC electric circuits in a workplace",
+     "approaches": "Partly analyses DC electric circuits in a workplace",
+     "below": "Analyses DC electric circuits in a workplace with assistance"
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "1.0",
+     "name": "Introduction to Electrical Technology",
+     "suggested_duration": "10 lessons",
+     "learning_outcomes": [
+      "explain the importance of electrical technology in society",
+      "identify career opportunities in the electrical technology field",
+      "apply safety regulations while carrying out electrical tasks",
+      "explain the roles of stakeholders in application of electrical safety",
+      "embrace electrical technology as a career in society."
+     ],
+     "learning_experiences": [
+      "discuss the importance of electrical technology in society; use digital or print media to search for information on the uses of electricity in day to day life",
+      "brainstorm with peers and present the job/career opportunities available in the electrical technology field",
+      "use digital or print resources to search for information on safety rules and regulations in an electrical technology workplace, role play on safety regulations while carrying out tasks (personal protective equipment, storage of tools, cleanliness of tools)",
+      "discuss with peers the roles of workers, employers and government agencies in application of electrical safety in the workplace",
+      "brainstorm with peers and make presentations on the career opportunities in electrical technology field, Engage with a resources person as he/she explains the career opportunities in electrical technology field, Visit a local electrical technology workplace for career opportunities in electrical technology."
+     ],
+     "inquiry_questions": [
+      "1. Why is the study of electrical technology important in society?",
+      "2. How is electricity utilised in various applications?"
+     ],
+     "core_competencies": [
+      "Communication and collaboration: learner develops speaking and listening skills when engaging with a resource person explaining the career opportunities in the electrical technology field",
+      "Digital literacy: learner interacts with and manipulates digital devices to search for information on the fundamental concepts of electrical technology",
+      "Self-efficacy: effective communication skills are developed as the learner discusses the roles of workers, employers and government agencies in application of electrical safety in the workplace"
+     ],
+     "values": [
+      "Values:",
+      "Respect: learner appreciates diverse opinions as they discuss on the job/career opportunities available in the electrical technology field",
+      "Love: learner cares for others to avoid injury as they role play on safety regulations while carrying out electrical tasks. Pertinent and Contemporary Issues (PCIs): Disaster risk reduction and management : learner acquires skills to mitigate risks related to safety when role playing on safety regulations while carrying out electrical tasks"
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-electrical-technology.pdf#p13"
+    },
+    {
+     "kicd_code": "1.2",
+     "name": "D.C Circuits",
+     "suggested_duration": "16 lessons",
+     "learning_outcomes": [
+      "describe the properties of resistors in DC circuits",
+      "analyse DC circuit using circuit laws",
+      "construct resistor networks in DC circuits",
+      "troubleshoot DC circuits in electrical appliances",
+      "appreciate the practical application of DC circuits in day to day life."
+     ],
+     "learning_experiences": [
+      "use digital and print media to search for information on the properties of resistors",
+      "perform an experiments on resistive circuits to determine the relationships between voltage and current in a circuit using Ohm’ law and Kirchhoff’s laws",
+      "use electrical components to construct series and parallel resistor networks in DC circuits",
+      "use measuring and test instruments to trace faults in DC circuits (open circuit, short circuit, faulty components, dry joints, loose terminals)",
+      "brainstorm with peers and make presentations on the different practical applications of DC circuits in day to day",
+      "life. (Home automation and car safety applications)"
+     ],
+     "inquiry_questions": [
+      "1. How do DC electric circuits work?",
+      "2. What are the applications of DC circuits in day to day life?"
+     ],
+     "core_competencies": [
+      "Creativity and imagination: learner chooses electrical components to construct series and parallel resistor networks in DC circuits.",
+      "Learning to learn: learner searches for information on the properties of resistors.",
+      "Critical thinking: learner use measuring and test instruments to trace faults in DC circuits."
+     ],
+     "values": [
+      "Respect: learners appreciate diverse opinions as they brainstorm with peers on the different practical applications of DC circuits in day to day life.",
+      "Unity: learners develop positive relationships as they interact and share responsibilities while performing experiments in groups.",
+      "Responsibility: learners care for materials and equipment as they perform experiments."
+     ],
+     "pertinent_issues": [
+      "Safety and Security: Learners observe safety as they perform experiments in groups to determine electrical quantities",
+      "Self-esteem: Learners develop confidence as they make presentations on the different practical applications of DC circuits in day to day life",
+      "Disaster Risk Reduction: as learners brainstorm with peers and make presentations on the different practical applications of DC circuits in safe road use applications."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-electrical-technology.pdf#p16"
+    },
+    {
+     "kicd_code": "1.3",
+     "name": "Capacitors and Capacitance",
+     "suggested_duration": "8 lessons",
+     "learning_outcomes": [
+      "describe the principle of operation of a capacitor in an electric circuit",
+      "explain the characteristics of capacitive circuits",
+      "select appropriate capacitors for use in a given application in electric circuits",
+      "analyse series and parallel connection of capacitors in electric circuits",
+      "appreciate the importance of capacitors in electrical appliances."
+     ],
+     "learning_experiences": [
+      "use digital and print media to search for information on the principle of operation of a capacitor",
+      "carry out an experiment using a capacitor and resistor setup to verify the characteristic of capacitors(voltage-time and current-time)",
+      "use datasheets to choose suitable capacitors to construct resistor-capacitor circuits",
+      "perform calculations to determine total capacitance in series and parallel capacitor circuits",
+      "brainstorm with peers and make presentations on the importance of capacitors in electrical appliances( Charge storage in motor control and",
+      "Timer circuits in operation of traffic lights)"
+     ],
+     "inquiry_questions": [
+      "1. How do capacitors work?",
+      "2. Why are capacitor important in electrical technology?"
+     ],
+     "core_competencies": [
+      "Critical thinking and problem solving: as the learner interprets and makes inference when performing experiments to verify the characteristic of capacitors",
+      "Communication and collaboration: as the learner speaks influentially while brainstorming with peers and making presentations on the importance of capacitors in electrical appliances.",
+      "Digital literacy: as the learner access learning material while using digital and print media to search for information on the principle of operation of a capacitor."
+     ],
+     "values": [
+      "Respect: as the learner exercises patience as they select appropriate capacitors for a given application in electric circuits.",
+      "Responsibility: as the learner takes care of tools and measurement instruments while performing experiments in groups to verify the relationship between voltage and current in capacitive circuits."
+     ],
+     "pertinent_issues": [
+      "Analytical thinking: as the learner perform calculations to determine capacitance connected in series and parallel in electric circuits",
+      "Socio-economic and environmental issues: learners exercise safety in the laboratory while performing experiments in groups to verify the relationship between voltage and current in capacitive circuits."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-electrical-technology.pdf#p18"
+    },
+    {
+     "kicd_code": "1.4",
+     "name": "Cells and Batteries",
+     "suggested_duration": "10 lessons",
+     "learning_outcomes": [
+      "describe the principle of operation of a simple cell",
+      "connect series and parallel battery arrays in a circuit",
+      "conduct battery charging procedure for a secondary battery",
+      "perform maintenance procedures for cells and batteries for appliances",
+      "appreciate the importance of safe disposal of cells and batteries."
+     ],
+     "learning_experiences": [
+      "use digital and print media to search for information on operation of a simple cell",
+      "perform experiments to measure total voltage of battery arrays (series and parallel connections)",
+      "carry out tasks on battery charging procedure for a secondary battery",
+      "carry out maintenance on cells and batteries (terminals cleaning, water level maintenance, proper storage, prevention against overcharging and undercharging)",
+      "safely handle hazardous materials used in batteries."
+     ],
+     "inquiry_questions": [
+      "1. How do cells and batteries work?",
+      "2. How are different types of batteries applied in various fields?"
+     ],
+     "core_competencies": [
+      "Critical thinking and problem solving: learner makes critical observation while carrying out maintenance on cells and batteries",
+      "Citizenship: leaner contributes to a better world through safe handling hazardous materials used in batteries"
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-electrical-technology.pdf#p20"
+    },
+    {
+     "kicd_code": "1.1",
+     "name": "Introduction to Electrical Technology",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Observation of learning activities."
+     ],
+     "learning_experiences": [
+      "Career brochures",
+      "Digital devices for searching information on career",
+      "Career resource person",
+      "First aid kit",
+      "Assorted electrical PPEs",
+      "Drawing boards",
+      "TEE squares",
+      "Draughtsman's set",
+      "Set squares 30 – 60, 45"
+     ],
+     "inquiry_questions": [
+      "Invite industry professionals to talk about their work, current technologies, and career paths in electrical technology Pair students with mentors from the industry who can provide guidance on projects and career advice"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-electrical-technology.pdf#p43"
+    },
+    {
+     "kicd_code": "1.2",
+     "name": "D.C Electric Circuit",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Observation of learning activities"
+     ],
+     "learning_experiences": [
+      "Cells",
+      "Connecting wires",
+      "Ammeters and voltmeters",
+      "Assorted resistors",
+      "Assorted bulbs",
+      "Potentiometers",
+      "Rheostats",
+      "Video clips on"
+     ],
+     "inquiry_questions": [
+      "Organize workshops where students can build simple circuits, solder components, and work on small practical circuits"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-electrical-technology.pdf#p43"
+    },
+    {
+     "kicd_code": "1.3",
+     "name": "Capacitors and Capacitance",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Observation of learning activities",
+      "• Written tests"
+     ],
+     "learning_experiences": [
+      "Assorted sample capacitors",
+      "Ammeters and voltmeters",
+      "Potentiometers",
+      "Rheostats",
+      "Simulation Software"
+     ],
+     "inquiry_questions": [
+      "Use digital devices and online simulators that allow students to test",
+      "capacitive circuits in a virtual environment"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-electrical-technology.pdf#p43"
+    },
+    {
+     "kicd_code": "1.4",
+     "name": "Cells and Batteries",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Observation of nursery management practices or harvesting activities"
+     ],
+     "learning_experiences": [
+      "Sample Cells and batteries",
+      "Assorted Bulbs",
+      "Connecting wires"
+     ],
+     "inquiry_questions": [
+      "Participate in maintenance of cells and batteries at home and the community cleaning"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-electrical-technology.pdf#p44"
+    }
+   ]
+  },
+  {
+   "strand": "Electrical Machines",
+   "strand_code": "2.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to explain the principle of operation of coil-based measuring instruments.",
+     "exceeds": "Precisely explains the principle of operation of coil-based measuring instruments",
+     "meets": "Explains the principle of operation of coil-based measuring instruments",
+     "approaches": "Partially describes the principle of operation of coil-based measuring instruments",
+     "below": "Hardly describes the principle of operation of coil-based measuring instruments"
+    },
+    {
+     "indicator": "Ability to modify coil based measuring instruments to measure current and voltage",
+     "exceeds": "Comprehensively applies safety rules and regulations while handling electrical tools, machines and",
+     "meets": "Applies safety rules and regulations while handling electrical tools, machines and equipment in a workplace",
+     "approaches": "Sometimes applies safety rules and regulations while handling electrical tools, machines and",
+     "below": "Rarely applies safety rules and regulations while handling electrical tools, machines and equipment in a"
+    },
+    {
+     "indicator": "Ability to calibrate coil based measuring instruments for accurate measurement.",
+     "exceeds": "Appropriately calibrates coil-based measuring instruments for accurate measurement.",
+     "meets": "Calibrates coil-based measuring instruments for accurate measurement.",
+     "approaches": "Calibrates some coil-based measuring instruments for accurate measurement.",
+     "below": "Hardly calibrates coil-based measuring instruments for accurate measurement."
+    },
+    {
+     "indicator": "Ability to compute quantities in coil-based measuring instruments",
+     "exceeds": "Appropriately computes quantities in coil-based measuring instruments",
+     "meets": "Computes quantities in coil-based measuring instruments",
+     "approaches": "Computes some quantities in coil-based measuring instruments",
+     "below": "Hardly computes quantities in coil-based measuring instruments"
+    },
+    {
+     "indicator": "Ability to measure electrical quantities using calibrated measuring instruments",
+     "exceeds": "Appropriately measures electrical quantities using calibrated measuring instruments",
+     "meets": "Measures electrical quantities using calibrated measuring instruments",
+     "approaches": "Measure some electrical quantities using calibrated measuring instruments",
+     "below": "Hardly measures electrical quantities using calibrated measuring instruments"
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "2.1",
+     "name": "Magnetism",
+     "suggested_duration": "14 lessons",
+     "learning_outcomes": [
+      "explain the magnetic properties of materials",
+      "perform magnetization and demagnetization procedures of magnetic materials",
+      "draw magnetic field patterns around a magnet",
+      "care for magnets used in equipment at a workplace",
+      "appreciate application of magnets in day-to-day life."
+     ],
+     "learning_experiences": [
+      "use digital or print media to search for information on magnetic properties of materials",
+      "carry out experiments on magnetization and demagnetization of magnetic materials",
+      "conduct experiments to verify magnetic field patterns around bar, U-shape, ring or disc shaped magnet - (using iron filling, compass, magnetometer, ferrofluids)",
+      "appropriately store magnets in the workplace (using magnetic keepers, storing in N-S direction).",
+      "brainstorm with peers and make presentations on the",
+      "application of magnets in day-today life."
+     ],
+     "inquiry_questions": [
+      "1. What causes magnetism?",
+      "2. Why are magnets made in different shapes?"
+     ],
+     "core_competencies": [
+      "Digital literacy: learner develops digital skills when interacting and manipulating digital devices to search for information on magnetic properties of materials",
+      "Self-efficacy: learner acquires effective communication skills when presenting findings on the application of magnets in day-today life."
+     ],
+     "values": [
+      "Responsibility: learner exercises accountability in applying appropriate methods of storing magnets in the workplace.",
+      "Unity: learner cooperates with others when conducting experiments to verify magnetic field lines around a magnet."
+     ],
+     "pertinent_issues": [
+      "Personal safety and security: learner demonstrates basic safety habits as they safely carry out experiments in group on magnetization and demagnetization of magnetic materials."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-electrical-technology.pdf#p22"
+    },
+    {
+     "kicd_code": "2.2",
+     "name": "Electro-magnetism",
+     "suggested_duration": "15 lessons",
+     "learning_outcomes": [
+      "explain the principle of electromagnetism in electrical technology",
+      "establish the magnetic field pattern of a current carrying conductor",
+      "construct a solenoid for a given application",
+      "construct an electromagnetic device for a given application",
+      "troubleshoot electromagnetic circuit in an appliance",
+      "appreciate the importance of electromagnetism in electrical devices and machines"
+     ],
+     "learning_experiences": [
+      "use digital or print media to search for information on principle of electromagnetism in electrical technology",
+      "demonstrate the magnetic field pattern of a current carrying conductor (straight wire and coil) using screw rule, right-hand grip rule)",
+      "using locally available materials to construct and test solenoid of varying parameters (coil turns, current, core material and coil length)",
+      "using locally available materials to construct electromagnetic device for different applications (electric bell, relay, magnetic pick up)",
+      "Use measuring and testing equipment to trace faults in electromagnetic circuits (open",
+      "circuit, short circuit, loose connections)",
+      "Brainstorm with peers on the importance and application of electromagnetism in real life."
+     ],
+     "inquiry_questions": [
+      "1. How are electromagn ets made?",
+      "2. Why is it preferable to use an electromagn et and not a permanent magnet?"
+     ],
+     "core_competencies": [
+      "Digital literacy: as learner uses digital devices to search for information on principle of electromagnetism in electrical technology",
+      "Learning to learn: as learner explores with peers to establish the magnetic field pattern of a current carrying conductor",
+      "Creativity and imagination: as learner constructs and tests a solenoid using locally available materials"
+     ],
+     "values": [
+      "Responsibility: learner care for digital devices as he/she searches for information on principle of electromagnetism in electrical technology",
+      "Respect: learner embraces others opinion as they discuss with peers the operation of electromagnetic devices and machines",
+      "Unity: learner collaborate with peers as they construct and test solenoid using locally available materials"
+     ],
+     "pertinent_issues": [
+      "Safety: learner observes online safety as they use internet responsibly to search for information on principle of electromagnetism in electrical technology",
+      "Self-awareness: learner discovers his/her ability as they construct and test solenoid using locally available materials",
+      "Environment and Technology: learner reuses locally available materials to construct solenoid"
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-electrical-technology.pdf#p24"
+    },
+    {
+     "kicd_code": "2.3",
+     "name": "Measuring Instruments",
+     "suggested_duration": "14 lessons",
+     "learning_outcomes": [
+      "explain the principle of operation of coil-based measuring instruments",
+      "compute resistance values for ‘shunts and multipliers’ of coil-based measuring instruments",
+      "calibrate coil based measuring instruments to ensure accuracy of measured quantities",
+      "select a suitable scale for measuring a specified electrical quantity",
+      "recognise the importance of electrical measuring instruments."
+     ],
+     "learning_experiences": [
+      "use digital and print media to search for information on the principle of operation of coil-based measuring instruments, perform calculations for extending range to convert coil-based instruments to measure voltage or current",
+      "Perform calibration tasks on measuring instruments (zero calibration, fine-tuning, range calibration)",
+      "carry out measurement of electrical quantities using calibrated measuring instruments",
+      "brainstorm with peers on the importance of coil based instruments in day to day life and make presentation."
+     ],
+     "inquiry_questions": [
+      "1. How does a measuring instrument work?",
+      "2. How are measuring instruments calibrated?"
+     ],
+     "core_competencies": [
+      "• Digital literacy: learner interact with digital devices while searching for information on the principle of operation of coil-based measuring instruments."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-electrical-technology.pdf#p26"
+    },
+    {
+     "kicd_code": "2.1",
+     "name": "Magnetism",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Observation of learning activities"
+     ],
+     "learning_experiences": [
+      "Magnetism Kits",
+      "Assorted Permanent bar magnets",
+      "Ferromagnetic and non-magnetic materials",
+      "Magnetic compass"
+     ],
+     "inquiry_questions": [
+      "Learners observe and record the effects of magnetic fields on various objects and materials, like placing magnets near electronic devices or observing how magnetic fields affect real world activities"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-electrical-technology.pdf#p44"
+    },
+    {
+     "kicd_code": "2.2",
+     "name": "Electromag netism",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Observation of learning activities"
+     ],
+     "learning_experiences": [
+      "Bars of Magnetic materials Bar magnets Solenoids Cells Cell holders"
+     ],
+     "inquiry_questions": [
+      "Learners make their own magnetic compasses using simple materials like needles, cork, and water, and explore how they work."
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-electrical-technology.pdf#p44"
+    },
+    {
+     "kicd_code": "2.3",
+     "name": "Measuring Instruments",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Observation of learning activities"
+     ],
+     "learning_experiences": [
+      "Multimeters Ammeters Ohmmeters Voltmeters Digital devices Model circuits"
+     ],
+     "inquiry_questions": [
+      "Learners get involved in practical activities that benefit the community, such as electrical fault finding and helping with electrical repairs at home and in the community."
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-electrical-technology.pdf#p45"
+    }
+   ]
+  },
+  {
+   "strand": "Electrical Installation",
+   "strand_code": "3.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to identify circuit protective devices for an electrical installation.",
+     "exceeds": "Precisely and correctly identifies circuit protective devices for an electrical installation.",
+     "meets": "Correctly identifies circuit protective devices for an electrical installation.",
+     "approaches": "Somewhat identifies circuit protective devices for an electrical installation.",
+     "below": "Identify circuit protective devices for an electrical installation."
+    },
+    {
+     "indicator": "Ability to describe the functions of control equipment at the consumer’s intake point.",
+     "exceeds": "Comprehensively and correctly describes the functions of control equipment at the consumer’s intake point.",
+     "meets": "Correctly describes the functions of control equipment at the consumer’s intake point.",
+     "approaches": "Partially describe the functions of control equipment at the consumer’s intake point.",
+     "below": "Partially describes the functions of control equipment at the consumer’s intake point."
+    },
+    {
+     "indicator": "Ability to install equipment at the consumer’s intake point in the correct sequence.",
+     "exceeds": "Precisely and correctly install equipment at the consumer’s intake point in the correct sequence.",
+     "meets": "Correctly installs equipment at the consumer’s intake point in the correct sequence.",
+     "approaches": "Installs equipment at the consumer’s intake point in the correct sequence.",
+     "below": "With assistance install equipment at the consumer’s intake point in the correct sequence."
+    },
+    {
+     "indicator": "Ability to prepare consumer earthing point according to guiding regulations in a building.",
+     "exceeds": "Correctly prepares consumer earthing point according to guiding regulations in a building.",
+     "meets": "Prepares consumer earthing point according to guiding regulations in a building.",
+     "approaches": "Partially prepares consumer earthing point according to guiding regulations in a building.",
+     "below": "With assistance prepares consumer earthing point according to guiding regulations in a building"
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "3.1",
+     "name": "Generation, Transmission and Distribution of Electricity",
+     "suggested_duration": "14 lessons",
+     "learning_outcomes": [
+      "describe methods of generation of electrical energy",
+      "explain the functions of components in the electrical power transmission network",
+      "draw a 3-phase 4 wire distribution circuit of a power line",
+      "model an electric power Grid network",
+      "appreciate the importance of a grid system in a country."
+     ],
+     "learning_experiences": [
+      "use digital or print media to search for information on methods of generation of electrical power and present findings to peers",
+      "use print or audio visual media search for information on the functions of components of a power transmission system",
+      "use locally available materials to model a 3-phase 4 wire distribution circuit in power lines.(phase symmetry and voltages -line to line and line to neutral)",
+      "create a model of electric power grid network using locally available materials",
+      "discuss with peers the importance of a grid system in a country."
+     ],
+     "inquiry_questions": [
+      "1. How is electricity generated and transmitted to the consumer?",
+      "2. What is the importance of a power grid?"
+     ],
+     "core_competencies": [
+      "Core competencies to be developed:",
+      "Citizenship: learner demonstrates critical inventive thinking when using locally available materials to model a 3-phase 4 wire distribution circuit in power lines.",
+      "Digital Literacy: Learner uses digital devices to effectively access audio visual media to illustrate the functions of components of a power transmission system. Values: Responsibility as the learner creates a model of electric power grid network using locally available materials. Pertinent and Contemporary Issues (PCIs): Safety and security: as a learner discusses with peers the importance of a grid system in a country."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-electrical-technology.pdf#p29"
+    },
+    {
+     "kicd_code": "3.2",
+     "name": "Equipment at Consumers intake point",
+     "suggested_duration": "12 lessons",
+     "learning_outcomes": [
+      "identify equipment at consumers electrical power intake point",
+      "describe the functions of control equipment at the consumer’s intake point",
+      "install control equipment at the consumer’s intake point in the correct sequence",
+      "prepare consumer earthing point according to guiding regulations in a building",
+      "appreciate the importance of the control equipment at the consumer intake point."
+     ],
+     "learning_experiences": [
+      "use digital devices or print media, to search for information on the equipment at the consumer’s electrical power intake point",
+      "visit a consumer intake point within a building or watch a video to identify the functions of equipment used in the supply of electricity to a consumer (isolation switch, meter, circuit breaker, cartridge fuse)",
+      "use workshop materials and tools to install of equipment at the consumer’s intake point in the correct sequence, (isolation switch, meter, main switch, cartridge fuse, consumer control unit)",
+      "use appropriate hand tools to excavate and drive in and/or bury an earth electrode at an",
+      "appropriate building location and connect to the installation",
+      "discuss with peers about on the importance of equipment at the consumer intake point."
+     ],
+     "inquiry_questions": [
+      "1. How is electrical power controlled at the intake point?",
+      "2. Why does input equipment at the intake point follow a certain sequence of connection?"
+     ],
+     "core_competencies": [
+      "Communication and collaboration: learner speak clearly and effectively using appropriate language, expression and gestures as they discuss about the importance of equipment at the consumer intake point",
+      "Critical thinking and problem solving: learner demonstrate ability to follow instructions to complete a task while installing earth electrode",
+      "Learning to learn: learner reflect on their own work of installation of equipment at the consumer’s intake point in the correct sequence and adjust accordingly"
+     ],
+     "values": [
+      "Unity: learner works harmoniously with peers as they install earth electrode",
+      "Responsibility: learner takes care of hand tools used for installation of equipment at the consumer’s intake point",
+      "Peace: learner cordially engages with peers as they discuss about the importance of equipment at the consumer intake point"
+     ],
+     "pertinent_issues": [
+      "Safety and Security: learner observe electrical rules and regulations as they perform installation works",
+      "Waste management: learner practices environmental conservation as they properly dispose wastes after an electrical installation works"
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-electrical-technology.pdf#p31"
+    },
+    {
+     "kicd_code": "3.3",
+     "name": "Final Circuits",
+     "suggested_duration": "20 lessons",
+     "learning_outcomes": [
+      "describe the final circuits in an electrical installation",
+      "interpret an electrical diagram according to established standards",
+      "prepare a list of tools and materials required for a final circuit installation task",
+      "install final circuits in an electrical installation work according to regulations",
+      "value the need for final circuits in an installation"
+     ],
+     "learning_experiences": [
+      "use digital devices or print media to search for information on the final circuits in an electrical installation (lighting, power, cooker, bell, heating)",
+      "use drawing materials and equipment to draw electrical wiring diagrams (layout, circuit)",
+      "compile a list of tools and materials for use in a final circuit installation task (bill of material, tools requisition form)",
+      "carry out installation and testing of final circuits in a workstation (utmost 3 switches, and 2 lamps/bells)",
+      "discuss with peers the need for final installation circuits and make presentations."
+     ],
+     "inquiry_questions": [
+      "1. How are final circuits connected?",
+      "2. Why are final circuits important?"
+     ],
+     "core_competencies": [
+      "Communication and collaboration: as the learner contributes to group decision making while he/she participates in discussions with peers on the need for final installation circuits and make presentations.",
+      "Critical thinking and problem-solving: as the learner interpret and makes inference while carryout installation and testing of final circuits in a workstation.",
+      "Creativity and imagination: as the learner undertakes imagination to generate new ideas while use drawing materials and equipment to draw electrical wiring diagrams"
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-electrical-technology.pdf#p33"
+    },
+    {
+     "kicd_code": "3.1",
+     "name": "Generation, Transmissio n and Distribution of Electricity",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Observation of learning activities"
+     ],
+     "learning_experiences": [
+      "Conduits Domestic installation cables of varied size"
+     ],
+     "inquiry_questions": [
+      "Learners visit local power plants, electrical substations, or factories."
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-electrical-technology.pdf#p45"
+    },
+    {
+     "kicd_code": "3.2",
+     "name": "Equipment at the Intake Point",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Observation of learning activities"
+     ],
+     "learning_experiences": [
+      "Assortment of switches SPST, SPDT, DPST, DPDT"
+     ],
+     "inquiry_questions": [
+      "Learners visit local domestic houses to observe equipment at the intake point"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-electrical-technology.pdf#p45"
+    },
+    {
+     "kicd_code": "3.3",
+     "name": "Final Circuits",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Observation of practical"
+     ],
+     "learning_experiences": [
+      "Combination pliers Cable stripper Vice grip Assorted hammers Mallet (plastic head) Cable puller wire"
+     ],
+     "inquiry_questions": [
+      "Students work on projects that solve real-world problems, like improving home electrical systems."
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-electrical-technology.pdf#p45"
+    }
+   ]
+  },
+  {
+   "strand": "Electronics",
+   "strand_code": "4.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to explain the characteristics of semiconductor materials,",
+     "exceeds": "Comprehensively and accurately explains the characteristics of semiconductor materials,",
+     "meets": "Accurately explains the characteristics of semiconductor materials,",
+     "approaches": "Partially explains the characteristics of semiconductor materials,",
+     "below": "Can explain the characteristics of semiconductor materials,"
+    },
+    {
+     "indicator": "Ability to describe the doping process in semiconductors",
+     "exceeds": "Comprehensively and accurately describes the doping process in semiconductors",
+     "meets": "Accurately describes the doping process in semiconductors",
+     "approaches": "Partially describes the doping process in semiconductors",
+     "below": "Can describe the doping process in semiconductors"
+    },
+    {
+     "indicator": "Ability to simulate covalent bonding in extrinsic semiconductors",
+     "exceeds": "Accurately and consistently describe the doping process in semiconductors",
+     "meets": "Accurately describe the doping process in semiconductors",
+     "approaches": "Can describe the doping process in semiconductors",
+     "below": "Can describe the doping process in semiconductors"
+    },
+    {
+     "indicator": "Ability to illustrate formation of a PN junction semiconductor",
+     "exceeds": "Precisely and accurately illustrate formation of a PN junction semiconductor",
+     "meets": "Accurately illustrate formation of a PN junction semiconductor",
+     "approaches": "Partially illustrate formation of a PN junction semiconductor",
+     "below": "Can illustrate formation of a PN junction semiconductor"
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "4.1",
+     "name": "Semiconductor Theory",
+     "suggested_duration": "15 lessons",
+     "learning_outcomes": [
+      "explain the characteristics of semiconductor materials",
+      "describe the doping process in semiconductors",
+      "simulate covalent bonding in extrinsic semiconductors",
+      "illustrate formation of a PN junction of a semiconductor",
+      "appreciate the importance of electronic materials in electronic engineering."
+     ],
+     "learning_experiences": [
+      "use digital and print media to search for information on characteristics of semiconductor materials (atomic structure, intrinsic, extrinsic and conductivity)",
+      "use audio visual and printed resources to search for information on the doping process of semiconductors",
+      "use role playing to simulate covalent bonding of P-type and N-type semiconductors (holes, electrons)",
+      "create a model of PN junction using locally available materials",
+      "watch videos on formation of depletion layer in a PN junction",
+      "brainstorm with peers on the importance of doping in electronics."
+     ],
+     "inquiry_questions": [
+      "1. How does a semiconductor material conduct electricity?",
+      "2. How is doping in semiconductors achieved?"
+     ],
+     "core_competencies": [
+      "Communication and collaboration: learner acquires listening and speaking skills as they discuss the atomic structure of semiconductor, donor and acceptor elements in the periodic table.",
+      "Creativity and imagination: learner acquires innovative skills as they use locally available materials to create a model of covalent bonding of P-type and N-type semiconductors."
+     ],
+     "values": [
+      "Respect: learners appreciate diverse opinions as they brainstorm with peers on the importance of doping in electronics."
+     ],
+     "pertinent_issues": [
+      "Disaster risk reduction and management: learner acquires skills to mitigate risks related to safety when role playing to simulate covalent bonding of P-type and N-type semiconductors."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-electrical-technology.pdf#p36"
+    },
+    {
+     "kicd_code": "4.2",
+     "name": "Semiconduc tor Diodes",
+     "suggested_duration": "16 lessons",
+     "learning_outcomes": [
+      "describe the operation of a semiconductor diode",
+      "explain the current – voltage characteristics of semiconductor diodes",
+      "construct diode circuits for use in a workplace",
+      "Troubleshoot diode circuits in electrical appliances",
+      "appreciate the importance of semiconductor diodes in day to day life."
+     ],
+     "learning_experiences": [
+      "use digital and print media to search for information on the principle of operation of semiconductor diode (Forward biasing, reverse biasing, electron-hole recombination)",
+      "perform experiments using a diode, power supply, voltmeter and ammeter to establish the voltage -current characteristics of diodes",
+      "assemble and test diode circuits for different applications (rectification, regulation, display, switching)",
+      "Use measuring and test equipment to trace faults in diode circuits (short circuit, open circuit, faulty diodes)",
+      "brainstorm with peers on the types of diodes and their application in home and public transport systems (LEDs, Zener, power diodes, infrared, signal)",
+      "use diode based concepts to design domestic and public transport safety",
+      "solutions. (Smart traffic lights and sensors for pedestrian crossings)."
+     ],
+     "inquiry_questions": [
+      "1.How does a semiconductor diode work?",
+      "2.How are diodes selected for use in a given circuit?"
+     ],
+     "core_competencies": [
+      "Critical thinking and problem solving: learner explores different options while constructing diode circuits for different applications",
+      "Communication and collaboration: learner demonstrates teamwork while contributing to group discussion on applications of the different types of diodes and make presentations"
+     ],
+     "values": [
+      "Love: learner respects others opinions while discussing and making presentations on the applications of the different types of diodes",
+      "Social justice: learners accord each other equal opportunities in sharing responsibilities while constructing and testing diode circuits for different applications",
+      "Integrity: learner displays honesty search and presenting factual information on the principle of operation of semiconductor diode"
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-electrical-technology.pdf#p38"
+    },
+    {
+     "kicd_code": "4.3",
+     "name": "Transistor",
+     "suggested_duration": "16 lessons",
+     "learning_outcomes": [
+      "describe the operation of semiconductor transistors",
+      "verify the voltage versus current characteristic of transistors",
+      "select an appropriate transistor for a given application",
+      "construct transistor circuits in a workplace",
+      "appreciate the importance of transistors in electronics."
+     ],
+     "learning_experiences": [
+      "use digital or print media to search for information on construction and operation of Bipolar Junction Transistor (BJT) and Field Effect Transistor (FET)",
+      "perform experiments to measure transistor voltage and current and plot the transistor voltage versus current DC characteristics",
+      "brainstorm with peers on the types of transistors and their applications in electronics (BJT, FET)",
+      "assemble and test a transistor switching circuit",
+      "discuss with peers on the applications of the different types of",
+      "transistors and make presentations.",
+      "Suggested learning resources"
+     ],
+     "inquiry_questions": [
+      "1. How does a transistor operate in an electronic circuit?",
+      "2. Why are transistors important in electronics?",
+      "Suggested non-formal activities"
+     ],
+     "core_competencies": [
+      "Critical thinking and problem-solving: learner interprets and makes inference while performing experiments to measure transistor voltage and current for use in plotting the transistor voltage versus current DC characteristics.",
+      "Digital literacy: learner accesses information while searching for information on construction and operation of Bipolar Junction transistor (BJT) and Field effect transistor (FET).",
+      "Learning to learn: learner carries out investigation while assembling and testing a transistor switching circuit."
+     ],
+     "values": [
+      "Responsibilities: as the learner exercises laboratory safety while experiments to measure transistor voltage and current for use in plotting the transistor voltage versus current DC characteristics.",
+      "Integrity: as the learner applies laid down procedure while assembling and testing transistor switching circuit."
+     ],
+     "pertinent_issues": [
+      "Life Skills: as the learner interact with each other while discussing on the applications of the different types of transistors and make presentations"
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-electrical-technology.pdf#p40"
+    },
+    {
+     "kicd_code": "4.1",
+     "name": "Semiconduc tor Theory",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Observation of learning activities"
+     ],
+     "learning_experiences": [
+      "Semiconductor Kits Rectifier Diodes Zener Diodes Light Emitting Diodes Light Dependent Resistor Simulation Software"
+     ],
+     "inquiry_questions": [
+      "Utilise online circuit simulators to model and analyze semiconductor circuits. This allows students to experiment with different circuit designs without the need for physical components."
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-electrical-technology.pdf#p46"
+    }
+   ]
+  }
+ ]
+}

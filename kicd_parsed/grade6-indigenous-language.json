@@ -1,0 +1,773 @@
+{
+ "source_pdf": "grade6-indigenous-language.pdf",
+ "grade": 6,
+ "subject": "indigenous-language",
+ "general_outcomes": [
+  "1) Respond appropriately to a variety of communication in the indigenous language. 2) Express themselves confidently and appropriately in a variety of social contexts. 3) Comprehend information in different contexts in the indigenous language. 4) Read texts accurately and fluently with comprehension. 5) Write legibly in different formats to express a variety of ideas and opinions. 6) Enjoy communicating using a variety of cultural language strategies."
+ ],
+ "strands": [
+  {
+   "strand": "READING",
+   "strand_code": "2.2",
+   "assessment_rubric": [],
+   "substrands": [
+    {
+     "kicd_code": "2.2.1",
+     "name": "Reading fluency",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "explain the meaning of intonation and pause in reading for expression",
+      "read texts using the right intonation and pause for expression",
+      "desire to apply reading strategies on texts for fluency."
+     ],
+     "learning_experiences": [
+      "brainstorm the meaning of intonation with peers",
+      "listen to an audio recording based on the theme and identify instances of pauses",
+      "search for texts from print and non-print sources on the theme and read",
+      "practice reading with correct intonation and pause with peers",
+      "role play news item based on the theme using the right intonation",
+      "look for newspaper cuttings, and skim through to get general ideas",
+      "Scan for vocabulary based on the theme from the newspaper cuttings.",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "1. Why is it important to read using the right intonation and pause?",
+      "2. Why is it important to conserve the environment?",
+      "Key Inquiry Question(s)"
+     ],
+     "core_competencies": [
+      "• Communication is enhanced effectively as the learner reads texts about the theme fluently with correct intonation and pause."
+     ],
+     "values": [
+      "Responsibility is promoted as the learner perform diligently roles assigned to them as they work collaboratively.",
+      "Love is enhanced as the learner assists and guides peers to read texts fluently with correct intonation and pause."
+     ],
+     "pertinent_issues": [
+      "Health issues are promoted as the learner reads texts to acquire and share information on clean environment."
+     ],
+     "links_to_other_areas": [
+      "The learner is able to relate the concepts about environmental conservation to the content learnt in Integrated Science."
+     ],
+     "resources": [],
+     "kicd_source": "grade6-indigenous-language.pdf#p14"
+    },
+    {
+     "kicd_code": "3.2.1",
+     "name": "Reading to acquire information",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "identify proverbs, riddles and sayings in passages for information",
+      "paraphrase proverbs and sayings in texts for information",
+      "appreciate using proverbs, sayings and riddles in reading for information."
+     ],
+     "learning_experiences": [
+      "collect proverbs, riddles and sayings from the community",
+      "role play a riddling session based on the theme",
+      "collaborate to compose songs using proverbs and wise sayings",
+      "sing songs for the other learners in class",
+      "paraphrase sentences using proverbs and wise sayings based on the theme",
+      "read a variety of composition from a digital device with peers and talk about the introduction, body and conclusion",
+      "complete an open ended composition with peers.",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "1. Why is disaster awareness important?",
+      "2. Why value proverb, riddles and wise saying in reading?",
+      "Key Inquiry Question(s)"
+     ],
+     "core_competencies": [
+      "identify main parts of a composition for expression",
+      "write a composition in a logical sequence for effective communication",
+      "develop a desire to write a composition in a logical The learner is guided to:",
+      "discuss main parts of a composition collaboratively",
+      "read and rearrange the sentences to form a meaningful paragraph",
+      "observe pictures and write a composition collaboratively",
+      "prove read compositions and correct mistakes, 1. How do we sequence ideas in paragraphs? 2. What does a composition entail?",
+      "Creativity and imagination is developed as the learner collaborates with peers to write short paragraphs in sequence.",
+      "Digital literacy is enhanced as the learner uses digital devices to read and talk about parts of compositions."
+     ],
+     "values": [
+      "Responsibility is promoted as the learner owns up own mistakes committed as they write composition and purpose to correct.",
+      "Respect is enhanced as the learner appreciates ideas of peers as they discuss main parts of a composition."
+     ],
+     "pertinent_issues": [
+      "Social economic issues such as prevention of losses are promoted as the learn takes initiative to mitigate disasters through awareness raising."
+     ],
+     "links_to_other_areas": [
+      "The learner can relate and apply composition-writing skills to their writing of texts in English and Kiswahili."
+     ],
+     "resources": [],
+     "kicd_source": "grade6-indigenous-language.pdf#p18"
+    },
+    {
+     "kicd_code": "4.2.1",
+     "name": "Extensive reading",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "identify various text reading strategies for information",
+      "apply various reading strategies(prediction, visualizing) in reading texts for information",
+      "recognize the importance of using strategies for extensive reading."
+     ],
+     "learning_experiences": [
+      "The learners is guided to:",
+      "brainstorm various reading strategies with peers",
+      "search from print and non-print sources for reading material related to the themes",
+      "apply the reading strategies(prediction, visualizing) to read the materials",
+      "find passages on the theme using digital devices",
+      "create a collection of thematic vocabulary from the passage",
+      "organise a collection of thematic vocabulary in a portfolio.",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "Why are reading strategies important?",
+      "Key Inquiry Question(S)"
+     ],
+     "core_competencies": [
+      "• Creativity and imagination is promoted as the learner brainstorms various reading strategies and creates a collection of thematic vocabulary from passages."
+     ],
+     "values": [
+      "Unity is promoted as the learner works harmoniously with peers to make a collection of thematic vocabulary.",
+      "Responsibility is enhanced as the learner uses digital devices to find passages on the theme without diverting to inappropriate sites."
+     ],
+     "pertinent_issues": [
+      "• Peer education and mentorship is promoted as learners get to learn on how to overcome peer pressure."
+     ],
+     "links_to_other_areas": [
+      "The learner is able to relate the concept of peer influence to their learning in Religious Education."
+     ],
+     "resources": [],
+     "kicd_source": "grade6-indigenous-language.pdf#p22"
+    },
+    {
+     "kicd_code": "5.2.1",
+     "name": "Reading to acquire information",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "identify the adverbs of degree and time in a text for comprehension",
+      "infer the meaning of vocabulary from texts for information",
+      "appreciate reading varied texts to acquire information.",
+      "identify aspects of creative language in texts based on the theme for fluency",
+      "appreciate creativity and handwriting in effective communication"
+     ],
+     "learning_experiences": [
+      "search for passages from print and non-print sources based on the theme",
+      "identify adverbs of degree and time from the passages read",
+      "read the adverbs of degree aloud to peers",
+      "collects adverts from the community and identify the vocabulary",
+      "infer the meaning of the vocabulary from",
+      "read sample compositions online and offline to identify creative language",
+      "write a creative composition neatly and legibly",
+      "use digital devices to create own collections of proverbs, similes, sayings and metaphors",
+      "participate in a competition of writing words and sentences neatly with peers.",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "How are adverts important in communication?",
+      "Key Inquiry Question(S)"
+     ],
+     "core_competencies": [
+      "write texts based on the theme neatly, legibly and in good handwriting for effective communication, The learner is guided to:",
+      "copy alphabets, words and sentences in charts in good handwriting with peers",
+      "discuss the use of creative language in writing: proverbs, metaphors, saying and similes, How do we develop good handwriting?",
+      "Communication is developed as the learner composes own compositions creatively neatly and in good handwriting.",
+      "Self-efficacy is cultivated as the learner confidently uses digital devices to create own collections of creative language items."
+     ],
+     "values": [
+      "Unity is cultivated as the learner collaborates with peers to search for creative language items offline and online.",
+      "Responsibility is developed as the learner takes own initiative to create own collections of language creative items."
+     ],
+     "pertinent_issues": [
+      "Career guidance and development is enhanced as learners get exposed to content on farming for crop production."
+     ],
+     "links_to_other_areas": [
+      "The learner is able to apply the concept of good handwriting and creative language in their writing activities in English."
+     ],
+     "resources": [],
+     "kicd_source": "grade6-indigenous-language.pdf#p26"
+    },
+    {
+     "kicd_code": "6.2.1",
+     "name": "Reading fluency",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "differentiate intonation, pace and speed in reading for self-expression",
+      "read a text in the correct intonation, pace and speed for self-expression",
+      "enjoy reading various texts in the correct intonation, pace and speed."
+     ],
+     "learning_experiences": [
+      "The learners is guided to:",
+      "brainstorm on intonation, pace and speed",
+      "watch a video recording of a conversation on the theme",
+      "observe the use of intonation, pace and speed in conversation",
+      "collect texts from print and non-print sources based on the theme",
+      "take turns to read the texts with correct intonation, pace and speed.",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "Why do you use correct intonation, pace and speed in reading?",
+      "Key Inquiry Question(S)"
+     ],
+     "core_competencies": [
+      "Communication and collaboration is enhanced as the learner takes turns in collecting texts from print and non-print sources based on the theme.",
+      "Digital literacy is enhanced as the learner watches a video recording of a conversation on the theme."
+     ],
+     "values": [
+      "Love is developed as the learner collects texts from print and non-print sources based on the theme in groups.",
+      "Respect is enhanced as the learner take turns to read the texts with correct intonation, pace and speed."
+     ],
+     "pertinent_issues": [
+      "Inter-ethnic cohesion and empathy is promoted as the learner accommodates others irrespective of their disabilities."
+     ],
+     "links_to_other_areas": [
+      "The learner is able to learn the concept of farm tools and crop production to the economic activities learnt in Social Studies."
+     ],
+     "resources": [],
+     "kicd_source": "grade6-indigenous-language.pdf#p30"
+    },
+    {
+     "kicd_code": "8.2.1",
+     "name": "Reading to acquire information: Note Making",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "identify adverbial phrases in text for information",
+      "summarize key information from a text for information",
+      "appreciate the role of making summary in reading."
+     ],
+     "learning_experiences": [
+      "listen to an audio recording on the theme",
+      "identify adverbial phrases in the audio recording",
+      "read the identified adverbial phrases to the other learners in class",
+      "use digital devices to search for information on the theme",
+      "summarize the key information from the text",
+      "read the summarized key information in class for peer review.",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "Why do we make notes?",
+      "Key Inquiry Question(S)"
+     ],
+     "core_competencies": [
+      "Communication and collaboration is enhanced as the learner listens to audio recording on the theme.",
+      "Self-efficacy is enhanced as the learner uses digital devices with confidence to search for information from the internet."
+     ],
+     "values": [
+      "Unity is promoted as the learner works harmoniously in groups identifying adverbial phrases.",
+      "Responsibility is promoted as the learner uses digital devices to search for information on the theme without diverting to inappropriate sites."
+     ],
+     "pertinent_issues": [
+      "Digital literacy is promoted as the learner manipulates and uses digital devices to search for information on the theme."
+     ],
+     "links_to_other_areas": [
+      "The learner is able to relate and apply note-making skills to their learning in the English language."
+     ],
+     "resources": [],
+     "kicd_source": "grade6-indigenous-language.pdf#p37"
+    },
+    {
+     "kicd_code": "9.2.1",
+     "name": "Reading to acquire information: Note Making",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "identify adverbial phrases in text for information",
+      "summarize key information from a text for information",
+      "appreciate the role of making summary in reading."
+     ],
+     "learning_experiences": [
+      "listen to an audio recording on the theme",
+      "identify adverbial phrases in the audio recording",
+      "read the identified adverbial phrases to the other learners in class",
+      "use digital devices to search for information on the theme",
+      "summarize the key information from the text",
+      "read the summarized key information in class for peer review.",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "Why do we make notes?",
+      "Key Inquiry Question(S)"
+     ],
+     "core_competencies": [
+      "Communication and collaboration is enhanced as the learner listens to audio recording on the theme and read the adverbial phrases aloud.",
+      "Digital literacy is enhanced as the learner uses digital devices to search for information from the internet."
+     ],
+     "values": [
+      "Unity is promoted as the learner works harmoniously with peers while identifying adverbial phrases.",
+      "Responsibility is promoted as the learner uses digital devices to search for information on the theme without diverting to inappropriate sites."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [
+      "The learner is able to relate the concept of nationalism to the learning of similar concepts in Social Studies."
+     ],
+     "resources": [],
+     "kicd_source": "grade6-indigenous-language.pdf#p41"
+    }
+   ]
+  },
+  {
+   "strand": "WRITING",
+   "strand_code": "2.3",
+   "assessment_rubric": [],
+   "substrands": [
+    {
+     "kicd_code": "2.3.1",
+     "name": "Writing using a variety of sentence structures",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "identify imperatives from a written text based on the theme for comprehension",
+      "use punctuation marks in a written text for",
+      "enjoy writing ideas in logical sequence and neat handwriting"
+     ],
+     "learning_experiences": [
+      "The learners is guided to:",
+      "practice presenting ideas in logical sequence and neat handwriting",
+      "discuss environmental conservation with peers",
+      "write sentences on environmental conservation using imperatives correctly",
+      "work with peers to write ideas based on the theme in logical sequence",
+      "take turns to assess each other’s work",
+      "collaborate and use digital devices to create short passages on the theme using imperatives and write them.",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "1. How do you organise ideas logically in texts?",
+      "2. Why is punctuation important?",
+      "Key Inquiry Question(S)"
+     ],
+     "core_competencies": [
+      "Collaboration is promoted as the learner works harmoniously with peers to create short passages using imperatives.",
+      "Learning to learn is nurtured as the learner assesses their peers' work and make necessary corrections for improvement."
+     ],
+     "values": [
+      "Unity is cultivated as the learner is able to cooperate with peers to discuss topics on environment conservation.",
+      "Respect is developed as the learner appreciates the ideas from their peers as they assess each other’s work."
+     ],
+     "pertinent_issues": [
+      "Digital literacy is promoted as the learner manipulates digital devices to create short passages using imperatives."
+     ],
+     "links_to_other_areas": [
+      "The learner is able to relate the concepts on environmental conservation to the teaching of similar content in Social Studies."
+     ],
+     "resources": [],
+     "kicd_source": "grade6-indigenous-language.pdf#p15"
+    },
+    {
+     "kicd_code": "4.3.1",
+     "name": "Creative writing-Handwriting and fluency",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "identify features of a topical essay for comprehension",
+      "write topical essays creatively for expression and information",
+      "value the importance of",
+      "writing a topical essay for communication ."
+     ],
+     "learning_experiences": [
+      "identify personal experiences based on the theme and share with peers",
+      "discuss features of topical essays collaboratively",
+      "practice writing short essays based on the theme",
+      "find text with the use of a digital device based on the theme",
+      "use pictures cut outs to develop a",
+      "topical essay",
+      "engage peers to analyse sample topical essays",
+      "work with peers to write and present a topical essay.",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "1. What is a topical essay?",
+      "2. How is creativity developed?",
+      "Key Inquiry Question(S)"
+     ],
+     "core_competencies": [
+      "Creativity and imagination are promoted as the learner views picture cut outs and uses them to compose a topical essay.",
+      "Self -efficacy is nurtured as the learner gains confidence to compose and present own topical essays in class."
+     ],
+     "values": [
+      "Unity is developed as the learner cooperates with peers to analyse and give feedback on sample topical essays.",
+      "Love is cultivated as the learner embraces the aspect of living together as they collaborate to write essays."
+     ],
+     "pertinent_issues": [
+      "Peace education is enhanced as the learner is exposed to content on living together and influencing each other positively."
+     ],
+     "links_to_other_areas": [
+      "The learner is able to relate and apply the knowledge acquired on topical essays to English and Kiswahili."
+     ],
+     "resources": [],
+     "kicd_source": "grade6-indigenous-language.pdf#p23"
+    },
+    {
+     "kicd_code": "6.3.1",
+     "name": "Creative writing",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "identify stanza and rhythms in a poem for information",
+      "compose a poem for comprehension",
+      "enjoy indigenous poetry for lifelong learning."
+     ],
+     "learning_experiences": [
+      "identify aspects of poetry such as stanzas and rhythms",
+      "compose simple poems and present to the class",
+      "search for poems from online platforms and copy them",
+      "recite simple poems",
+      "brainstorm on ideas incorporated when composing a poem",
+      "read a variety of poems.",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "Why do we compose poems?",
+      "Key Inquiry Question(S)"
+     ],
+     "core_competencies": [
+      "Creativity and imagination as the learner composes and recites poems.",
+      "Digital literacy is enhanced as the learner uses digital devices from online sources."
+     ],
+     "values": [
+      "Respect is enhanced as the learner takes into consideration the ideas presented by other members and incorporates them when composing a poem.",
+      "Integrity is promoted as the learner uses technology to access information on poems related to the theme without visiting inappropriate sites."
+     ],
+     "pertinent_issues": [
+      "• Self-esteem is developed as the learner composes different poems and presents them meticulously in class."
+     ],
+     "links_to_other_areas": [
+      "The learner is able to apply the concept of poetry acquired to the learning of Kiswahili language."
+     ],
+     "resources": [],
+     "kicd_source": "grade6-indigenous-language.pdf#p31"
+    },
+    {
+     "kicd_code": "8.3.1",
+     "name": "Functional writing-Formal letter",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "identify components used in writing a formal letter for effective communication",
+      "express self through formal letters accurately and coherently in varied contexts for effective communication",
+      "appreciate the use of formal letters to communicate in real life situations.",
+      "theme for comprehension",
+      "desire to express self clearly using verbs and adverbs for effective communication."
+     ],
+     "learning_experiences": [
+      "look at a collection of sample letters and read, online or offline",
+      "discuss the various components of formal letters",
+      "prepare and display a chart showing the structure and the components of a formal letter",
+      "choose a topic from those given by the teacher and write a formal letter",
+      "read their own letters aloud and make corrections",
+      "write formal letters to teachers, parents and community leaders and post them",
+      "play a digital language game to create and respond to instructions for classroom activities",
+      "pick cards from a basket containing verbs and match with their corresponding adverbs",
+      "compose and sing songs using adverbs related to the theme."
+     ],
+     "inquiry_questions": [
+      "Why do we write letters?"
+     ],
+     "core_competencies": [
+      "identify verbs and adverbs in an oral paragraph based on the theme",
+      "respond to instructions related to the The learner is guided to:",
+      "listen to a recorded paragraph on the theme and identify verbs and adverbs",
+      "participate in a game to listen and respond to instructions promptly using adverbs and verbs, How do we use verbs and adverbs to give instructions?",
+      "Self-efficacy is developed as the learner participates in a game to listen and responds to instructions with confidence.",
+      "Digital literacy is acquired as the learner uses digital devices to play language games on listening to and responding to instructions."
+     ],
+     "values": [
+      "Unity is enhanced as the learner harmoniously plays digital language games in groups.",
+      "Respect is developed as the learner learns the importance of responding to instructions appropriately."
+     ],
+     "pertinent_issues": [
+      "Positive ethnic and racial relations are enhanced as the learner derives lessons on nationalism from the songs composed."
+     ],
+     "links_to_other_areas": [
+      "The learner is able to relate the concept of instructions, verbs and adverbs with the learning in Kiswahili language."
+     ],
+     "resources": [],
+     "kicd_source": "grade6-indigenous-language.pdf#p38"
+    },
+    {
+     "kicd_code": "9.3.1",
+     "name": "Functional Writing-Apology letter",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "identify key elements of an apology letter as used in various contexts of communication",
+      "write an apology letter to seek forgiveness and reconciliation for coexistence",
+      "appreciate the use of letters in written communication and reconciliation in varied contexts."
+     ],
+     "learning_experiences": [
+      "discuss the format of writing a formal letter",
+      "search samples of apology letters from digital platforms and discuss",
+      "engage in a role play on how to ask for forgiveness",
+      "write an apology letter individually and exchange them for peer review."
+     ],
+     "inquiry_questions": [
+      "Why do we write apology letters?"
+     ],
+     "core_competencies": [
+      "Critical thinking and problem solving is enhanced as the learner writes apology letters to ask for forgiveness.",
+      "Communication and collaboration is acquired as the learner discusses samples of apology letters got from digital devices, in groups."
+     ],
+     "values": [
+      "Values:",
+      "Respect is enhanced as the learner open-mindedly shares their work for peer review and give suggestions for improvement.",
+      "Peace is acquired as the learner demonstrates peaceful co-existence amongst themselves in class. Pertinent and Contemporary Issues (PCIs): Inter-ethnic relations and peace is achieved as the learner practices the act of asking for forgiveness from one another during role play. Link to other learning areas: The learner can relate the concept of letter writing to the learning of writing strands in the English language."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade6-indigenous-language.pdf#p42"
+    }
+   ]
+  },
+  {
+   "strand": "LISTENING AND SPEAKING",
+   "strand_code": "3.1",
+   "assessment_rubric": [],
+   "substrands": [
+    {
+     "kicd_code": "3.1.1",
+     "name": "Listening Comprehension",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "recognise adjectives from an oral text accurately for comprehension",
+      "use adjectives correctly in conversations related to the theme for effective communication",
+      "enjoy using adjectives to make inferences in varied communication contexts"
+     ],
+     "learning_experiences": [
+      "identify adjectives in an oral text and use them to make sentences",
+      "make inferences of vocabulary related to the theme from a listening text",
+      "listen to sentences containing adjectives from digital devices and say them aloud",
+      "complete sentences, by filling in gaps with appropriate prepositions from the choices given",
+      "brainstorm together the various adjectives on colour, shape and size of objects",
+      "play preposition games from a digital device for pleasures",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "How do we describe objects?",
+      "Key Inquiry Question(S)"
+     ],
+     "core_competencies": [
+      "Communication is developed as the learner identifies and constructs sentences using a variety of adjectives correctly.",
+      "Digital literacy is nurtured as the learner uses digital devices to listen, watch and play digital games on prepositions."
+     ],
+     "values": [
+      "Love is enhanced as the learner harmoniously enjoys playing preposition games with peers.",
+      "Responsibility is cultivated as the learner takes up various roles during class activities."
+     ],
+     "pertinent_issues": [
+      "Climate change resilience is enhanced as the learner is exposed to content and understanding of their roles in managing disasters in their community ."
+     ],
+     "links_to_other_areas": [
+      "The learner can relate the knowledge on disaster management to other learning areas like Social Studies and Integrated Science."
+     ],
+     "resources": [],
+     "kicd_source": "grade6-indigenous-language.pdf#p17"
+    },
+    {
+     "kicd_code": "4.1.1",
+     "name": "Self-expression-Pronunciation of words and phrases",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "identify punctuation marks used in words and phrases for articulation and self -expression",
+      "use correct pronunciation and pause in words, sentences and phrases for self-expression",
+      "appreciate punctuation in accurate pronunciation of words for self-expression."
+     ],
+     "learning_experiences": [
+      "read sentences in a short paragraph while applying correct pronunciation of words and phrases",
+      "discuss different punctuation marks and how they affect pronunciation and pause in phrases",
+      "practice observing the use of full stop, exclamation mark and question mark in sentences collaboratively",
+      "say and combine sounds in words with peers",
+      "record themselves reading phrases aloud",
+      "use offline and online dictionaries to pronounce words and phrases.",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "Why is it important to observe punctuation marks in self-expression?",
+      "Key Inquiry Question(S)"
+     ],
+     "core_competencies": [
+      "Communication is developed as the learner pronounces words, sentences and phrases accurately in a variety of contexts.",
+      "Self-efficacy is enhanced as the learner discusses various punctuation marks and how they affect pronunciation of words, sentences and phrases."
+     ],
+     "values": [
+      "Respect is acquired as the learner appreciates each other’s opinion during group discussion.",
+      "Love is developed as the learner assists peers to acquire good pronunciation of words, phrases and sentences."
+     ],
+     "pertinent_issues": [
+      "Internet safety is promoted as the learner acquires responsible online behaviour as they use online dictionaries to learn pronunciation."
+     ],
+     "links_to_other_areas": [
+      "The learner can apply the concept of pronunciation to their learning in the English Learning area."
+     ],
+     "resources": [],
+     "kicd_source": "grade6-indigenous-language.pdf#p21"
+    },
+    {
+     "kicd_code": "5.1.1",
+     "name": "Giving directions",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "write words with correct spelling for accuracy",
+      "construct correct sentences to give directions for information",
+      "value correct spelling in written texts for effective communication."
+     ],
+     "learning_experiences": [
+      "listen to a text related to the theme and based on directions related to the farm",
+      "create jumbled up letters to make words",
+      "write correct words from a dictation",
+      "organise words to make sentences",
+      "fish word cards and make sentences from the word",
+      "describe and give direction to a particular place with peers",
+      "play word games and write singular and plural of words.",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "Why are directions important?",
+      "Key Inquiry Question(S)"
+     ],
+     "core_competencies": [
+      "Communication is inculcated as the learner describes direction to a particular place accurately to peers.",
+      "Self-efficacy is promoted as the learner confidently and accurately constructs sentences to give directions."
+     ],
+     "values": [
+      "Unity is enhanced as the learner collaborates with peers as they play word games.",
+      "Respect is cultivated as the learner allows peers to take their turns as they make words and sentences."
+     ],
+     "pertinent_issues": [
+      "Civic education is enhanced as the learner is exposed to content on trade and currencies in their community."
+     ],
+     "links_to_other_areas": [
+      "The learner is able to apply the concept of giving directions to their learning of Map work in Social studies."
+     ],
+     "resources": [],
+     "kicd_source": "grade6-indigenous-language.pdf#p25"
+    },
+    {
+     "kicd_code": "6.1.1",
+     "name": "Listening to give information-Interrogatives",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "identify interrogative sentences from a listening text for comprehension",
+      "use interrogatives appropriately to ask questions based on the theme for information",
+      "take pleasure in using interrogatives in different oral communication contexts."
+     ],
+     "learning_experiences": [
+      "listen and identify interrogative sentences from an oral text",
+      "read aloud different interrogatives from a wall chart and use them to ask question",
+      "observe a sample sentence given by the teacher and make own sentences",
+      "role play using interrogative sentences and giving responses",
+      "play the game of fishing interrogatives from flash cards",
+      "discuss main issues related to theme using interrogative sentences.",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "How do we use different interrogatives?",
+      "Key Inquiry Question(S)"
+     ],
+     "core_competencies": [
+      "Creativity and imagination is developed as the learner creates own sentences during the fishing game and role play.",
+      "Communication and collaboration is developed as the learner uses interrogatives appropriately to ask for information."
+     ],
+     "values": [
+      "Love is cultivated as the learner collaborates and enjoys playing the role play and the interrogative fishing game.",
+      "Social justice is enhanced as the learner discusses various ways of practicing farming of crops to earn a living."
+     ],
+     "pertinent_issues": [
+      "Cultural awareness and cohesion is enhanced as the learner works in groups and interacts with different farming activities unique to diverse localities."
+     ],
+     "links_to_other_areas": [
+      "The learner is able to acquire and relate the content farm tools to the learning in Integrated Science."
+     ],
+     "resources": [],
+     "kicd_source": "grade6-indigenous-language.pdf#p29"
+    },
+    {
+     "kicd_code": "7.1.1",
+     "name": "Socializing and taking action-Debates and Discussions",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "use imperatives in sentences to debate and discuss topics on the theme for self-expressions",
+      "identify debating skills from audio visual content on the theme for comprehension",
+      "appreciate debates and discussions on topics for",
+      "identify aspects of creative language in texts based on the theme for fluency",
+      "appreciate creativity and handwriting in effective communication."
+     ],
+     "learning_experiences": [
+      "make sentences with imperatives",
+      "watch a debate from a video and identify debating skills",
+      "select a topic and debate to support or oppose in class",
+      "listen to peers contributing ideas in a debate and agree or disagree",
+      "read sample compositions online and offline to identify creative language",
+      "write a composition creatively and read aloud in class",
+      "use digital devices to create own collections of proverbs, similes, sayings and metaphors",
+      "participate in a competition of writing words and sentences neatly.",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "1. Which skills do we use to debate?",
+      "2. How do we use imperatives in sentences?",
+      "Key Inquiry Question(S)"
+     ],
+     "core_competencies": [
+      "summarize information in a text based on a theme for comprehension",
+      "read and infer meaning of vocabulary in a text for comprehension",
+      "appreciate the use of reading strategies for The learner is guided to:",
+      "search from print and non-print sources for texts based on the theme",
+      "summarize the key points",
+      "read the points to the class for peer review",
+      "listen to a video recording based on the theme",
+      "identify vocabulary from the Why are careers important?",
+      "write texts based on the theme neatly, legibly and in good handwriting for effective communication, The learner is guided to:",
+      "copy alphabets, words and sentences in charts in good handwriting",
+      "discuss the use of creative language in writing: proverbs, metaphors, saying and similes How do we develop good handwriting?",
+      "Communication and collaboration is developed as the learner composes own compositions creatively.",
+      "Self-efficacy is promoted as the learner uses digital devices to create own collections of creative language items."
+     ],
+     "values": [
+      "Unity is cultivated as the learner collaborates to do tasks offline and online.",
+      "Responsibility is developed as the learner takes initiatives to make their own collections of language creative items."
+     ],
+     "pertinent_issues": [
+      "Digital literacy is developed as the learner uses digital devices to create own collections of creative language items."
+     ],
+     "links_to_other_areas": [
+      "The learner can relate the concept of good handwriting and creative language to writing strands in English."
+     ],
+     "resources": [],
+     "kicd_source": "grade6-indigenous-language.pdf#p32"
+    },
+    {
+     "kicd_code": "8.1.1",
+     "name": "Expressing personal opinions-Direct object",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "use a direct object in oral sentences to describe how to care for digital devices",
+      "make personal opinion on care for digital devices for information",
+      "develop a desire to make personal judgements and opinions appropriately in discussions."
+     ],
+     "learning_experiences": [
+      "listen to a poem and identify lines with direct objects",
+      "make sentences with direct objects and read them aloud",
+      "look at picture cards and use direct objects to make sentences",
+      "read sentences from the board aloud and point at the direct objects correctly",
+      "express self in simple debates on different situations requiring them to make personal opinions",
+      "watch recorded clips to see how direct objects are used in sentences.",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "1. Why is it important to use the direct object to describe activities?",
+      "2. How do we express ourselves to share an opinion?",
+      "Key Inquiry Question(S)"
+     ],
+     "core_competencies": [
+      "Critical thinking and problem solving is developed as the learner uses the direct object in sentences to describe care for digital devices.",
+      "Digital literacy is enhanced as the learner manipulates digital devices to access and listen to information on self-expression."
+     ],
+     "values": [
+      "Unity is enhanced as the learner works in groups and share personal experiences based on the theme.",
+      "Respect is acquired as the learner applies discussion skills such as conceding, space and respecting others opinion in groups."
+     ],
+     "pertinent_issues": [
+      "Financial literacy is acquired as the learner interacts and appreciates the value of technology and digital devices in day-to-day living."
+     ],
+     "links_to_other_areas": [
+      "The learner is able to relate the concept of sentence construction with direct objects to the learning in English language."
+     ],
+     "resources": [],
+     "kicd_source": "grade6-indigenous-language.pdf#p36"
+    }
+   ]
+  }
+ ]
+}

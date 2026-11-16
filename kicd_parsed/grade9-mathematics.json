@@ -1,0 +1,1076 @@
+{
+ "source_pdf": "grade9-mathematics.pdf",
+ "grade": 9,
+ "subject": "mathematics",
+ "general_outcomes": [
+  "1) demonstrate mastery of number concepts by working out problems in day-to-day life 2) represent and apply algebraic expressions in different ways 3) apply measurement skills to find solutions to problems in a variety of contexts 4) use money and carry out financial transactions in real-life situations 5) generate geometrical shapes and describe spatial relationships in different contexts 6) collect and organise data to inform and solve problems in real-life situations 7) develop logical thinking, reasoning, communication, and application skills through a mathematical approach to problem-solving 8) apply mathematical ideas and concepts to other learning areas or subjects and in real-life contexts. 9) develop confidence and interest in mathematics for further training and enjoyment"
+ ],
+ "strands": [
+  {
+   "strand": "Numbers",
+   "strand_code": "1.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to work out combined operations on Integers (addition, subtraction, multiplication, and division).",
+     "exceeds": "The learner works out combined operations on Integers accurately and systematically.",
+     "meets": "The learner works out combined operations on Integers accurately.",
+     "approaches": "The learner works out combined operations of any 3 of the operations on Integers accurately.",
+     "below": "The learner works out combined operations of any 2 of the operations on Integers partially accurately."
+    },
+    {
+     "indicator": "Ability to Work out cubes and cue roots of numbers by multiplication and from mathematical tables.",
+     "exceeds": "The learner works out cubes and cube roots of numbers by multiplication and from mathematical tables accurately and systematically.",
+     "meets": "The learner works out cubes and cube roots of numbers by multiplication and from mathematical tables accurately.",
+     "approaches": "The learner works out cubes or cube roots of numbers by multiplication or from mathematical tables accurately.",
+     "below": "The learner works out cubes or cube roots of numbers by multiplication or from mathematical tables partially accurately."
+    },
+    {
+     "indicator": "Ability to generate and apply the laws of Indices.",
+     "exceeds": "The learner generates and applies the laws of Indices correctly and systematically.",
+     "meets": "The learner generates and applies the laws of Indices correctly.",
+     "approaches": "The learner generates or applies the laws of Indices correctly.",
+     "below": "The learner generates the laws of Indices correctly."
+    },
+    {
+     "indicator": "Ability to relate Powers of 10 to common logarithms.",
+     "exceeds": "The learner relates Powers of 10 to common logarithms Comprehensively.",
+     "meets": "The learner relates Powers of 10 to common logarithms accurately.",
+     "approaches": "The learner relates Powers of 10 to common logarithms partially accurately.",
+     "below": "The learner relates Powers of 10 to common logarithms incompletely."
+    },
+    {
+     "indicator": "Ability to divide quantities into Proportional parts.",
+     "exceeds": "The learner divides quantities into Proportional parts Precisely.",
+     "meets": "The learner divides quantities into Proportional parts correctly.",
+     "approaches": "The learner divides some quantities into Proportional parts correctly.",
+     "below": "The learner divides a few quantities into Proportional parts partially correctly."
+    },
+    {
+     "indicator": "Ability to relate different ratios.",
+     "exceeds": "The learner relates different ratios comprehensively.",
+     "meets": "The learner relates different ratios accurately.",
+     "approaches": "The learner relates different ratios partially accurately.",
+     "below": "The learner relates different ratios incompletely."
+    },
+    {
+     "indicator": "Ability to work out Compound proportions using the ratio method.",
+     "exceeds": "The learner works out Compound proportions using the ratio method Systematically.",
+     "meets": "The learner works out Compound proportions using the ratio method accurately.",
+     "approaches": "The learner works out some Compound proportions using the ratio method accurately.",
+     "below": "The learner works out few Compound proportions using the ratio method partially accurately."
+    },
+    {
+     "indicator": "Ability to calculate rates of work.",
+     "exceeds": "The learner calculates rates of work systematically.",
+     "meets": "The learner calculates rates of work correctly.",
+     "approaches": "The learner calculates rates of work partially correctly.",
+     "below": "The learner calculates rates of work incompletely."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "1.1",
+     "name": "Integers Simple and combined operations on Integers",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "perform basic operations on Integers in different situations",
+      "work out combined operations on Integers in different situations",
+      "apply Integers to real-life situations",
+      "appreciate the use of integers in real-life situations."
+     ],
+     "learning_experiences": [
+      "discuss with peers and work out basic operations on integers using number cards and charts",
+      "play games involving numbers and operations by picking integers and performing all basic operations",
+      "work out combined operations of integers in the correct order",
+      "carry out activities such as reading temperature changes in a thermometer and discussing with peers how to record it. Consider temperatures below zero points and consider cases of use of integers in real life",
+      "use IT tools and other resources such as print to carry out operations on integers",
+      "play creative games that involve integers."
+     ],
+     "inquiry_questions": [
+      "1. How do we carry out operations of integers in real-life situations?",
+      "2. How do we apply integers in daily activities?"
+     ],
+     "core_competencies": [
+      "Critical thinking and Problem-solving: interpretation and inference: as learners work out combined operations of integers in the correct order.",
+      "Learning to Learn: organising own learning as learners carry out activities such as reading temperature changes in a thermometer and discussing how to record it.",
+      "Digital Literacy: interacting with technologies; as learners use IT devices to determine temperature."
+     ],
+     "values": [
+      "Respect: learners work in groups to carry out activities such as reading temperature changes in a thermometer and discuss with peers how to record it.",
+      "Unity: learners work towards achieving common set goals of reading thermometers."
+     ],
+     "pertinent_issues": [
+      "Environmental Education: as learners read temperature changes in a thermometer that tells about the climate."
+     ],
+     "links_to_other_areas": [
+      "Learners discuss using language skills on how to work out combined operations of integers in the correct order."
+     ],
+     "resources": [],
+     "kicd_source": "grade9-mathematics.pdf#p13"
+    },
+    {
+     "kicd_code": "1.2",
+     "name": "Cubes and Cube Roots",
+     "suggested_duration": "5 lessons",
+     "learning_outcomes": [
+      "work out cubes of numbers by multiplication in real-life situations",
+      "determine cubes of numbers from mathematical tables in different situations",
+      "determine cube roots of numbers by factor method in different situations",
+      "determine cube roots of numbers from mathematical tables in different situations",
+      "determine cube and cube roots of numbers using a calculator",
+      "apply cubes and cube roots in real-life situations."
+     ],
+     "learning_experiences": [
+      "use stacks of cubes to demonstrate the concept of cube and cube roots",
+      "demonstrate stacking of cubes",
+      "discuss the volume of a cube, determine both the cube and cube root, and relate the two",
+      "read the cube of numbers from mathematical tables and relate it to cube roots",
+      "use calculators to work out cube and cube roots of numbers."
+     ],
+     "inquiry_questions": [
+      "1. How do we work out the cubes of numbers?",
+      "2. How do we work out the cube roots of numbers?",
+      "3. Where do we apply cubes and cube roots in real-life situations?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Communication and Collaboration: speaking and listening as the learner works with peers to use stacks of cubes to demonstrate the concept of cube and cube roots.",
+      "Imagination and Creativity -open-mindedness and creativity: as the learner determines both the cube and cube root and relates the two. Values: Respect: as the learner appreciates each other’s contribution in the discussions on the volume of cubes. Pertinent and Contemporary Issues (PCIs): Environmental Awareness: the learner uses stacks of cubes to demonstrate the concept of cube and cube roots, related to objects in the environment. Link to other Learning Areas: The learner can relate the concept of volume to derived quantities in integrated science."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade9-mathematics.pdf#p15"
+    },
+    {
+     "kicd_code": "1.3",
+     "name": "Indices and Logarithms",
+     "suggested_duration": "6 lessons",
+     "learning_outcomes": [
+      "express numbers in index form in different situations",
+      "generate the laws of Indices in different situations",
+      "apply the laws of indices in different situations",
+      "relate powers of 10 to common logarithms in different situations",
+      "appreciate the use of indices and logarithms in real-life situations."
+     ],
+     "learning_experiences": [
+      "discuss indices and identify the base",
+      "show the laws of indices using multiplication and division",
+      "use the laws of indices to work out indices",
+      "discuss and relate powers of 10 to common logarithms",
+      "use IT to work out common logarithms or use mathematical tables."
+     ],
+     "inquiry_questions": [
+      "How do we express numbers in powers?"
+     ],
+     "core_competencies": [
+      "Critical thinking and Problem-solving: learner shows the laws of indices using multiplication and division.",
+      "Self-efficacy: learner discusses and relates powers of 10 to common logarithms."
+     ],
+     "values": [
+      "Responsibility: learner takes the roles in turn to lead the teams in discussions on indices.",
+      "Unity: learner measures capacity in groups."
+     ],
+     "pertinent_issues": [
+      "Learner relates self-awareness to his/her ideas as he/she discusses the concept of Indices."
+     ],
+     "links_to_other_areas": [
+      "Learner relates expressing numbers as indices and powers as used in Integrated Science."
+     ],
+     "resources": [],
+     "kicd_source": "grade9-mathematics.pdf#p17"
+    },
+    {
+     "kicd_code": "1.4",
+     "name": "Compound Proportions and Rates of Work",
+     "suggested_duration": "12 lessons",
+     "learning_outcomes": [
+      "divide quantities into proportional parts in real-life situations",
+      "relate different proportional parts in real-life situations",
+      "work out compound proportions using the ratio method in different situations",
+      "calculate rates of work in real-life situations",
+      "appreciate the use of compound proportions and rates of work in real-life situations."
+     ],
+     "learning_experiences": [
+      "discuss and divide quantities into proportional parts and express them as a fraction",
+      "compare and write different ratios",
+      "determine compound proportions using ratios",
+      "work out rates of work",
+      "play games on rates of work using IT devices."
+     ],
+     "inquiry_questions": [
+      "1. What are proportions?",
+      "2. Why do we work fast?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Citizenship -active community life skills: as learner works with peers to discuss and divide quantities into proportional parts and express as a fraction.",
+      "Critical thinking and Problem-solving -interpretation and inference: learner works out rates of work. Values:",
+      "Responsibility: learner commits to working out answers to given tasks on rates.",
+      "Respect: learner works out rates of work cooperatively. Pertinent and Contemporary Issues (PCIs): Self-esteem: as learner devices personal strategies to estimate products in multiplication. Link to other Learning Areas: Agriculture helps learner estimate harvests, seeds or fertilizer during sowing or application as part of rates of work."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade9-mathematics.pdf#p18"
+    }
+   ]
+  },
+  {
+   "strand": "Algebra",
+   "strand_code": "2.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to identify a Matrix and determine the position of items in a matrix",
+     "exceeds": "The learner identifies a Matrix and determines the position of items in a matrix accurately and systematically.",
+     "meets": "The learner identifies a Matrix and determines the position of items in a matrix accurately.",
+     "approaches": "The learner identifies a Matrix and determines the position of some items in a matrix accurately.",
+     "below": "The learner identifies a Matrix and determines the position of few items in a matrix accurately."
+    },
+    {
+     "indicator": "Ability to determine the compatibility of Matrices in addition and subtraction and carry out addition and subtraction of matrices.",
+     "exceeds": "The learner determines the compatibility of Matrices in addition and subtraction and carries out the addition and subtraction of matrices accurately and systematically.",
+     "meets": "The learner determines the compatibility of Matrices in addition and subtraction and carries out the addition and subtraction of matrices accurately.",
+     "approaches": "The learner determines the compatibility of Matrices in addition or subtraction and carries out the addition or subtraction of matrices accurately.",
+     "below": "The learner determines the compatibility of Matrices in addition or subtraction and carries out the addition or subtraction of matrices partially accurately."
+    },
+    {
+     "indicator": "Ability to identify the gradient and determine the gradient of a Straight line from two known points.",
+     "exceeds": "The learner Identifies the gradient and determines the gradient of a Straight line from two known points accurately and systematically.",
+     "meets": "The learner Identifies the gradient and determines the gradient of a Straight line from two known points accurately.",
+     "approaches": "The learner Identifies the gradient or determines the gradient of a Straight line from two known points accurately.",
+     "below": "The learner Identifies the gradient or determines the gradient of a Straight line from two known points partially accurately."
+    },
+    {
+     "indicator": "Ability to determine the equation of a Straight line from a known point and a gradient and express the equation of a",
+     "exceeds": "The learner determines the equation of a Straight line from a known point and a gradient and expresses the equation of a straight line in the form",
+     "meets": "The learner determines the equation of a Straight line from a known point and a gradient and expresses the equation of a",
+     "approaches": "The learner determines the equation of a Straight line from a known point and a gradient or expresses the equation of a",
+     "below": "The learner determines the equation of a Straight line from a known point and a gradient or expresses the equation of a"
+    },
+    {
+     "indicator": "straight line in the form of y = mx+ c.",
+     "exceeds": "of y = mx + c accurately and systematically.",
+     "meets": "straight line in the form of y = mx+ c accurately.",
+     "approaches": "straight line in the form of y = mx+ c accurately.",
+     "below": "straight line in the form of y = mx+ c partially accurately."
+    },
+    {
+     "indicator": "Ability to Interpret the equation y = mx+ c and determine the x and y intercepts of a straight line.",
+     "exceeds": "The learner Interprets the equation y = mx + c and determines the x and y intercepts of a straight line accurately and comprehensively.",
+     "meets": "The learner Interprets the equation y = mx + c and determines the x and y intercepts of a straight line accurately.",
+     "approaches": "The learner Interprets the equation y = mx + c or determines the x or y intercepts of a straight line accurately.",
+     "below": "The learner Interprets the equation y = mx + c or determines the x or y intercepts of a straight line partially accurately."
+    },
+    {
+     "indicator": "Ability to draw the graph of a straight line given the equation, relate and apply gradients of Parallel and perpendicular lines.",
+     "exceeds": "The learner draws the graph of a straight line given the equation, relates and applies gradients of Parallel and perpendicular lines accurately and creatively.",
+     "meets": "The learner draws the graph of a straight line given the equation, relates and applies gradients of Parallel and perpendicular lines accurately.",
+     "approaches": "The learner draws the graph of a straight line given the equation or relates or applies gradients of Parallel or perpendicular lines accurately.",
+     "below": "The learner draws the graph of a straight line given the equation or relates or applies gradients of Parallel lines accurately."
+    },
+    {
+     "indicator": "Ability to solve linear inequality in one unknown and represent linear inequality in one and two unknowns graphically.",
+     "exceeds": "The learner solves linear inequality in one unknown and represents linear inequality in one and two unknowns graphically correctly and systematically.",
+     "meets": "The learner solves linear inequality in one unknown and represents linear inequality in one and two unknowns graphically correctly.",
+     "approaches": "The learner solves linear inequality in one unknown or represents linear inequality in one or two unknowns graphically correctly.",
+     "below": "The learner solves linear inequality in one unknown or represents linear inequality in one unknown graphically correctly."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "2.1",
+     "name": "Matrices",
+     "suggested_duration": "8 lessons",
+     "learning_outcomes": [
+      "identify a matrix in different situations.",
+      "determine the order of a matrix in different situations.",
+      "determine the position of items in a matrix in different situations.",
+      "determine the compatibility of matrices in addition and subtraction.",
+      "carry out addition and subtraction of matrices in real-life situations.",
+      "reflect on the use of matrices in real-life situations."
+     ],
+     "learning_experiences": [
+      "discuss the use of tables such as football league tables, travel schedules, and shopping lists. Count the number of rows and columns in the table, which is a matrix.",
+      "arrange items in rows and columns and discuss how to represent a matrix.",
+      "organise objects in rows and columns and give the order of the matrix in terms of rows and columns (row x column).",
+      "discuss and identify the position of each item or element in terms of row and column.",
+      "discuss and identify matrices that have an equal number of rows and an equal number of columns (same order) for compatibility in addition and subtraction.",
+      "discuss and note what is represented by the rows and what is represented by the columns from two or more matrices to carry out addition or subtraction."
+     ],
+     "inquiry_questions": [
+      "How do we use matrices in real-life situations?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Communication and Collaboration: learner discusses the use of tables to represent matrices.",
+      "Learning to Learn: learner arranges items or elements in rows and columns to form matrices. Values: Integrity: learner appropriately organises objects in rows and columns and gives the order of the matrix. Pertinent and Contemporary Issues:",
+      "Social and economic issues: learner discusses the use of tables such as football league tables and shopping lists.",
+      "Citizenship: learner discusses how to use travel schedules to different places. Link to other Learning Areas: Learner generates tables of results in sports refers to league schedules and relates this to sporting activities in Creative Arts and Sports."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade9-mathematics.pdf#p22"
+    },
+    {
+     "kicd_code": "2.2",
+     "name": "Equations of Straight Lines",
+     "suggested_duration": "15 lessons",
+     "learning_outcomes": [
+      "identify the gradient in real-life situations.",
+      "determine the gradient of a line from two known points.",
+      "determine the equation of a straight line given two points.",
+      "determine the equation of a straight line from a known point and a gradient.",
+      "express the equation of a straight line in the form of y = mx + c",
+      "interpret the equation y = mx+ c in different situations.",
+      "determine the x and y intercepts of a straight line.",
+      "recognize the use of equations of straight lines in real life."
+     ],
+     "learning_experiences": [
+      "discuss steepness concerning gradient from the immediate environment.",
+      "incline a ladder at different positions on the wall to demonstrate change in steepness of gradient. Discuss and compare the positions where the ladder is steeper.",
+      "observe and climb up and down places such as the stairs or hills and relate to gradients.",
+      "work out the equation of a straight line given two points or given a point and a gradient.",
+      "discuss and rewrite the equation of a straight line as y = mx+ c. Explain the variables and constants in the equation.",
+      "work out the value of x when y is zero and the value of y when x is zero."
+     ],
+     "inquiry_questions": [
+      "How do we use gradient or steepness in our daily activities?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Digital Literacy: learner uses digital divices or other resources to explore the steepness or gradient of places.",
+      "Learning to Learn: learner places the ladder at different points on the ground as they discuss and compare steepness. Values: Integrity: learner observes gradient/steepness in staircases in buildings, bridges or ramps. Pertinent and Contemporary Issues: Safety: learner climbs up and down places such as the stairs or hills and relates to gradients. Link to other Learning Areas:",
+      "The learner relates the concept of gradient to making work easier in Integrated Science by use of an inclined plane.",
+      "The learner relates the concepts of parallel and perpendicular lines to technical drawing in Pre-Technical studies."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade9-mathematics.pdf#p24"
+    },
+    {
+     "kicd_code": "2.3",
+     "name": "Linear Inequalities",
+     "suggested_duration": "6 lessons",
+     "learning_outcomes": [
+      "solve linear inequalities in one unknown.",
+      "represent linear inequalities in one unknown graphically.",
+      "represent linear inequality in two unknowns graphically.",
+      "apply linear inequalities to real-life situations.",
+      "reflect on the use of linear inequalities in real life."
+     ],
+     "learning_experiences": [
+      "discuss why sometimes resources are shared unequally.",
+      "discuss simple inequality statements, form and work out the inequalities in one unknown.",
+      "discuss and generate a table of values and draw linear inequalities in one unknown. Indicate and discuss the region that satisfies the inequalities.",
+      "discuss and generate a table of values and draw linear inequalities in two unknowns. Indicate and discuss the region that satisfies the inequalities.",
+      "discuss and work out linear inequalities that involve real-life cases",
+      "use digital devices or other graphing tools to present linear inequalities"
+     ],
+     "inquiry_questions": [
+      "1. How do we represent linear inequalities in graphs?",
+      "2. How do we use linear inequalities in real-life situations?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Digital Literacy: learner uses digital devices resources to present linear inequalities.",
+      "Communication and Collaboration: learner discusses and generates a table of values and draws linear inequalities. Values: Social Justice: learner applies concepts of inequalities and equity in sharing available resources in real-life situations. Pertinent and Contemporary Issues: Citizenship: learner discusses and indicates the regions that satisfy inequalities. Link to other Learning Areas: Social Studies: the learner relates inequality statements that may involve unequal distribution of resources in the community."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade9-mathematics.pdf#p26"
+    }
+   ]
+  },
+  {
+   "strand": "Measurements",
+   "strand_code": "3.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to calculate the Area of a pentagon and a hexagon.",
+     "exceeds": "The learner calculates the area of a pentagon and a hexagon correctly and proficiently.",
+     "meets": "The learner calculates the area of a pentagon and a hexagon correctly",
+     "approaches": "The learner calculates the area of a pentagon or a hexagon correctly",
+     "below": "The learner calculates the area of a pentagon correctly"
+    },
+    {
+     "indicator": "Ability to work out the surface area of a prism and pyramid.",
+     "exceeds": "The learner works out the surface area of a prism and a pyramid accurately and systematically.",
+     "meets": "The learner works out the surface area of a prism and a pyramid accurately",
+     "approaches": "The learner works out the surface area of a prism or a pyramid accurately",
+     "below": "The learner works out the surface area of a prism partially accurately"
+    },
+    {
+     "indicator": "Ability to calculate the area of a sector and segment of a circle.",
+     "exceeds": "The learner calculates the area of a sector and segment of a circle correctly and systematically.",
+     "meets": "The learner calculates the area of a sector and segment of a circle correctly",
+     "approaches": "The learner calculates the area of a sector or segment of a circle correctly",
+     "below": "The learner calculates the area of a sector of a circle correctly"
+    },
+    {
+     "indicator": "Ability to work out the surface area of a cone and a sphere.",
+     "exceeds": "The learner works out the surface area of a cone and a sphere accurately and systematically.",
+     "meets": "The learner works out the surface area of a cone and a sphere accurately.",
+     "approaches": "The learner works out the surface area of a cone or a sphere accurately.",
+     "below": "The learner works out the surface area of a cone accurately."
+    },
+    {
+     "indicator": "Ability to work out the Volume of triangular, rectangular and square-based prisms, and pyramids.",
+     "exceeds": "The learner works out the volume of triangular, rectangular and square-based prisms, and pyramids correctly and systematically.",
+     "meets": "The learner works out the volume of triangular, rectangular and square-based prisms, and pyramids correctly.",
+     "approaches": "The learner works out the volume of triangular, rectangular or square-based prisms, or pyramids correctly.",
+     "below": "The learner works out the volume of a triangular or rectangular-based prism correctly."
+    },
+    {
+     "indicator": "Ability to work out the Volume of a cone, frustum, and sphere.",
+     "exceeds": "The learner works out the volume of a cone, frustum and sphere correctly and systematically.",
+     "meets": "The learner works out the volume of a cone, frustum and sphere correctly.",
+     "approaches": "The learner works out the volume of a cone, frustum or sphere correctly.",
+     "below": "The learner works out the volume of a cone correctly."
+    },
+    {
+     "indicator": "Ability to determine the mass, volume, and density.",
+     "exceeds": "The learner determines mass, volume, and density correctly and systematically.",
+     "meets": "The learner determines mass, volume, and density correctly.",
+     "approaches": "The learner determines mass, volume, or density correctly.",
+     "below": "The learner determines mass or volume correctly."
+    },
+    {
+     "indicator": "Ability to work out speed in Km/h and m/s, velocity, and acceleration.",
+     "exceeds": "The learner works out speed in Km/h and m/s, velocity, and acceleration accurately and systematically.",
+     "meets": "The learner works out speed in Km/h and m/s, velocity and acceleration accurately.",
+     "approaches": "The learner works out speed in Km/h and m/s, velocity or acceleration accurately.",
+     "below": "The learner works out speed in Km/h and m/s accurately."
+    },
+    {
+     "indicator": "Ability to determine the local time of places on the earth along different longitudes.",
+     "exceeds": "The learner determines the local time of places on the earth along different longitudes correctly and systematically.",
+     "meets": "The learner determines the local time of places on the earth along different longitudes correctly.",
+     "approaches": "The learner determines the local time of some places on the earth along different longitudes correctly.",
+     "below": "The learner determines the local time of a few places on the earth along different longitudes partially accurately."
+    },
+    {
+     "indicator": "Ability to identify currencies used in different countries and convert currency from one form to another.",
+     "exceeds": "The learner identifies currencies that are used in different countries and converts currency from one form to another accurately and comprehensively.",
+     "meets": "The learner identifies currencies that are used in different countries and converts currency from one form to another accurately.",
+     "approaches": "The learner identifies currencies that are used in different countries or convert currency from one form to another accurately.",
+     "below": "The learner identifies currencies that are used in different countries accurately."
+    },
+    {
+     "indicator": "Ability to work out import, export, and excise duties and determine Value Added Tax.",
+     "exceeds": "The learner works out import, export, and excise duties and determines Value Added Tax correctly and systematically.",
+     "meets": "The learner works out import, export, and excise duties and determines Value Added Tax correctly.",
+     "approaches": "The learner works out import, export, or excise duties or determines Value Added Tax correctly.",
+     "below": "The learner works out import, export, or excise duties correctly."
+    },
+    {
+     "indicator": "Ability to approximate quantities in measurements and determine errors using estimations and actual measurements of quantities.",
+     "exceeds": "The learner approximates quantities in measurements and determines errors using estimations and actual measurements of quantities accurately and systematically.",
+     "meets": "The learner approximates quantities in measurements and determines errors using estimations and actual measurements of quantities accurately.",
+     "approaches": "The learner approximates quantities in measurements or determines errors using estimations or actual measurements of quantities accurately.",
+     "below": "The learner approximates quantities in measurements or determines errors using estimations accurately."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "3.1",
+     "name": "Area",
+     "suggested_duration": "8 lessons",
+     "learning_outcomes": [
+      "calculate the area of a pentagon and a hexagon in different situations.",
+      "work out the surface area of triangular and rectangular-based prisms.",
+      "work out the surface area of triangular, rectangular, and square-based pyramids.",
+      "calculate the area of a sector and segment of a circle.",
+      "work out the surface area of a cone in real-life situations.",
+      "calculate the surface area of a sphere in real-life situations.",
+      "recognise the use of the area in real-life situations."
+     ],
+     "learning_experiences": [
+      "discuss the properties of regular polygons and use cut outs to work out the area of pentagons and hexagons.",
+      "collect from the environment objects that are spheres, cones/funnels, pyramids, prisms, and frustums.",
+      "discuss and sketch the nets of the solids.",
+      "use models of prisms to work out the surface area of prisms.",
+      "open up the net and draw the faces of a pyramid. Use the relevant formulas of area of plane figures to work out the surface area of the pyramid.",
+      "draw a circle with a sector, a chord and a segment and discuss the relationship and",
+      "make cut outs of a sector and a segment. Determine the area of a sector and a segment.",
+      "open the cone to form a net and determine the curved surface area of a cone. Work out the surface area of a closed and an open cone.",
+      "use relevant formulas to work out the surface area of different sizes of spherical balls.",
+      "use IT or other resources to sketch different models and nets",
+      "explore ethno math; patterns in fabrics, and structures such as pyramids, prisms and circles."
+     ],
+     "inquiry_questions": [
+      "How do we work out the area of different surfaces?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Communication and Collaboration: learner works with peers to discuss the properties of regular polygons and uses cut-outs to work out the area of pentagon and hexagon.",
+      "Creativity and Imagination: learner opens nets of different models and works out surface area. Values: Responsibility: learner takes care and works out surface area using models and open nets of different objects. Pertinent and Contemporary Issues: Patriotism: learner collects objects from the environment, and uses and disposes of them safely. Link to other Learning Areas: Pre-Technical Studies: learner uses models and open nets of different objects to work out surface area."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade9-mathematics.pdf#p30"
+    },
+    {
+     "kicd_code": "3.2",
+     "name": "Volume of Solids",
+     "suggested_duration": "8 lessons",
+     "learning_outcomes": [
+      "work out the volume of triangular and rectangular-based prisms.",
+      "calculate the volume of a triangular, rectangular, and square-based pyramid.",
+      "work out the volume of a cone in real-life situations.",
+      "determine the volume of a frustum in real-life situations.",
+      "calculate the volume of a sphere in real-life situations.",
+      "promote the use of volume and capacity of different containers in real-life situations."
+     ],
+     "learning_experiences": [
+      "collect different containers and objects. This may include prisms, pyramids, cones, funnels, and balls.",
+      "identify and discuss the model of a prism. Using the relevant formulas, determine the volume of a prism.",
+      "use relevant formulae to work out the volume of pyramids and cones.",
+      "identify and work out the volume of models of a pyramid. Cut the pyramid into two parts to get a frustum and a small pyramid and determine the volume of the frustum using the relevant formula.",
+      "Play any games involving different sizes of balls and work",
+      "out the volume of a sphere.",
+      "use IT or other resources to determine the volumes of solids."
+     ],
+     "inquiry_questions": [
+      "1. How do we determine the volume of different solids?",
+      "2. How do we use the volume of solids in real-life situations?"
+     ],
+     "core_competencies": [
+      "Critical thinking and Problem-solving: learner identifies and works out the volume of a frustum from a pyramid.",
+      "Creativity and Imagination: as the learner identifies, discusses, and works out the volume of solids."
+     ],
+     "values": [
+      "Responsibility: learner takes care of the models of pyramids, cones, and spheres.",
+      "Patriotism: learner collects objects from the environment to determine and discuss models/objects for different volumes of solids."
+     ],
+     "pertinent_issues": [
+      "Environmental Education: learner takes care of the environment while collecting the containers and objects.",
+      "Safety: as the learner collects containers and objects cautiously."
+     ],
+     "links_to_other_areas": [
+      "Creative Arts and Sports: learner makes models of pyramids, cones/funnels, and spheres/balls from available materials."
+     ],
+     "resources": [],
+     "kicd_source": "grade9-mathematics.pdf#p33"
+    },
+    {
+     "kicd_code": "3.3",
+     "name": "Mass, Volume, Weight and Density",
+     "suggested_duration": "8 lessons",
+     "learning_outcomes": [
+      "convert units of mass from one form to another in different situations",
+      "relate mass and weight in real-life situations.",
+      "determine mass, volume, and density of different substances",
+      "apply density to real-life situations",
+      "recognise the use of density in daily life."
+     ],
+     "learning_experiences": [
+      "discuss different instruments and tools used in weighing materials or objects and relate them to consumer awareness and protection.",
+      "collect and weigh different materials or objects and change one unit of mass to another.",
+      "discuss the relationship between mass and weight.",
+      "carry out activities relating mass and volume to density using containers or different substances.",
+      "discuss and find the density of different materials or objects.",
+      "work out mass, volume, and density using IT devices or other resources."
+     ],
+     "inquiry_questions": [
+      "How do you weigh materials and objects?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Communication and Collaboration: learner discusses the relationship between mass and weight.",
+      "Creativity and Imagination: learner determines the density of different materials or objects.",
+      "Digital Literacy: as the learner uses IT devices to determine the mass, volume and density of different objects. Values:",
+      "Integrity: learner gives correct masses and weights of different materials and objects.",
+      "Responsibility: learner works and takes care of weighing machines and other resources. Pertinent and Contemporary Issues:",
+      "Education for Sustainable Development (ESD): careers in business such as shopkeeping where weighing tools are used.",
+      "Self-awareness: learner weighs themselves for health purposes. Link to other Learning Areas: Integrated Science: learner uses machines and tools that involve weighing different substances."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade9-mathematics.pdf#p35"
+    },
+    {
+     "kicd_code": "3.4",
+     "name": "Time, Distance and Speed",
+     "suggested_duration": "10 lessons",
+     "learning_outcomes": [
+      "work out speed in km/h and m/s in real-life situations.",
+      "work out average speed in real-life situations.",
+      "determine velocity in real-life situations.",
+      "work out acceleration in real-life situations.",
+      "identify the longitudes on the globe.",
+      "relate longitudes to time on the globe.",
+      "determine the local time of places on the earth along different longitudes.",
+      "appreciate the use of time and distance in real-life situations."
+     ],
+     "learning_experiences": [
+      "engage in activities that will involve measuring distances and time, for example running track events to determine speed.",
+      "discuss and relate distance and time.",
+      "discuss the difference between velocity and speed.",
+      "discuss and determine acceleration from track events in school or community.",
+      "discuss and use maps and models of a globe to work out and relate the time of different places on the earth.",
+      "use IT devices to watch videos on the globe, longitudes, and time zones in different parts of the earth.",
+      "• use other resources such as maps to locate different places (cities) on the earth and discuss time differences."
+     ],
+     "inquiry_questions": [
+      "1. How do we observe speed in daily activities?",
+      "2. Why does time vary in different places of the world?"
+     ],
+     "core_competencies": [
+      "Self-efficacy: learner participates in track events to measure speed.",
+      "Digital Literacy: learner uses IT devices to determine time in different zones in the world.",
+      "Citizenship -global citizenship: learner determines local time in different parts of the world."
+     ],
+     "values": [
+      "Integrity: learner correctly records individual running time during track events and other games.",
+      "Respect: learner adheres to their lanes on track events and other games."
+     ],
+     "pertinent_issues": [
+      "Safety: learner observes safety measures and time during games and sports.",
+      "Education for Sustainable Development (ESD): learner participates and chooses careers in games and sporting activities.",
+      "Self-awareness: learner participates and times themselves in games."
+     ],
+     "links_to_other_areas": [
+      "Integrated Science: learner uses digital devices such as digital clocks to tell time in different zones of the world."
+     ],
+     "resources": [],
+     "kicd_source": "grade9-mathematics.pdf#p37"
+    },
+    {
+     "kicd_code": "3.5",
+     "name": "Money",
+     "suggested_duration": "7 lessons",
+     "learning_outcomes": [
+      "identify currencies that are used in different countries.",
+      "convert currency from one form to another in real-life situations.",
+      "determine export duties charged on goods in real-life situations",
+      "determine import duties charged on goods",
+      "work out excise duty charged on goods and services in real-life situations",
+      "calculate value added tax charged on goods and services",
+      "appreciate the use of money in day-to-day activities."
+     ],
+     "learning_experiences": [
+      "use IT devices or other resources to obtain and compile a collage of currencies from different countries. For example, currencies of East African Countries, US dollars, Euro, Japanese Yen, and Sterling pound.",
+      "work out currency exchange from Kenya Shillings to any other currency and vice versa",
+      "identify currency exchange rates from different sources including daily papers, IT devices, and financial institutions, and relate this to consumer awareness and protection",
+      "discuss and work out the export duties charged on different goods sold to other countries.",
+      "discuss and work out import duties charged on goods given the customs value of the",
+      "goods where customs value is the cost of goods at the point of entry to the country",
+      "discuss and identify local goods that attract excise duty. Determine excise duty of different goods.",
+      "discuss and determine duty on imported goods",
+      "use receipts from shopping or other resources to discuss and work out VAT on local goods and services.",
+      "search and work out VAT of imported goods."
+     ],
+     "inquiry_questions": [
+      "1. Why do we change currencies from one form to another?"
+     ],
+     "core_competencies": [
+      "Global Citizenship: learner discusses different currencies in various countries of the world.",
+      "Digital Literacy: learner uses digital devices to learn about exchange rates for foreign currency."
+     ],
+     "values": [
+      "Integrity: learner accurately works out currency exchange rates.",
+      "Social Cohesion: learner works and appreciates exchange rates for other countries."
+     ],
+     "pertinent_issues": [
+      "Financial Literacy: learner discusses with peers and recognises the currencies used in different countries.",
+      "Education for Sustainable Development (ESD): learner has awareness of career choices in business, imports and exports."
+     ],
+     "links_to_other_areas": [
+      "Pre-Technical Studies: learner works out VAT and currency exchange rates."
+     ],
+     "resources": [],
+     "kicd_source": "grade9-mathematics.pdf#p39"
+    },
+    {
+     "kicd_code": "3.6",
+     "name": "Approximations and Errors",
+     "suggested_duration": "4 lessons",
+     "learning_outcomes": [
+      "approximate quantities in measurements in different situations",
+      "determine errors using estimations and actual measurements of quantities",
+      "determine percentage errors using actual measurements of quantities",
+      "appreciate approximations and errors in real-life situations."
+     ],
+     "learning_experiences": [
+      "carry out activities of measurements of different quantities such as length, area, volume, capacity, and mass using arbitrary units.",
+      "estimate and measure different quantities using appropriate instruments. compare the estimates and the actual measurements and determine the error.",
+      "work out the percentage error from the estimated and the actual measurements",
+      "work out errors using IT devices or other resources and relate this to consumer awareness."
+     ],
+     "inquiry_questions": [
+      "How do we estimate measurements of different quantities?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Creativity and Imagination: learner carries out measurements of different quantities and discusses the error.",
+      "Digital Literacy: learner uses IT devices to compute errors. Values:",
+      "Integrity: learner measures different quantities and minimizes errors.",
+      "Responsibility: learner takes care of tools for measuring different quantities. Pertinent and Contemporary Issues: Safety: learner handles measuring tools with care. Link to other Learning Areas: Integrated Science: learner measures different quantities that may involve errors as they carry out experiments."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade9-mathematics.pdf#p41"
+    }
+   ]
+  },
+  {
+   "strand": "Geometry",
+   "strand_code": "4.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to draw a straight-line graph given an equation, parallel, and perpendicular lines.",
+     "exceeds": "The learner draws a straight-line graph given an equation and parallel, and perpendicular lines accurately and precisely.",
+     "meets": "The learner draws a straight-line graph given an equation, with parallel and perpendicular lines accurately.",
+     "approaches": "The learner draws a straight-line graph given an equation, parallel or perpendicular lines accurately.",
+     "below": "The learner draws a straight-line graph given an equation accurately."
+    },
+    {
+     "indicator": "Ability to relate the gradients of parallel and perpendicular lines.",
+     "exceeds": "The learner relates the gradients of parallel and perpendicular lines correctly and comprehensively.",
+     "meets": "The learner relates the gradients of parallel and perpendicular lines correctly.",
+     "approaches": "The learner relates the gradients of parallel or perpendicular lines correctly.",
+     "below": "The learner relates the gradients of parallel lines correctly."
+    },
+    {
+     "indicator": "Determining the bearing of one point from another and angles of elevation and depression.",
+     "exceeds": "The learner determines the bearing of one point from another and angles of elevation and depression correctly and systematically.",
+     "meets": "The learner determines the bearing of one point from another and angles of elevation and depression correctly.",
+     "approaches": "The learner determines the bearing of one point from another or angles of elevation or depression correctly.",
+     "below": "The learner determines the bearing of one point from another correctly."
+    },
+    {
+     "indicator": "Applying scale drawing in simple surveying.",
+     "exceeds": "The learner applies scale drawing in simple surveying accurately and appropriately.",
+     "meets": "The learner applies scale drawing in simple surveying accurately.",
+     "approaches": "The learner applies scale drawing in simple surveying partially accurately.",
+     "below": "The learner applies scale drawing in simple surveying incompletely."
+    },
+    {
+     "indicator": "Ability to identify Angles and sides of right-angled triangles.",
+     "exceeds": "The learner identifies the angles and sides of right-angled triangles accurately and systematically.",
+     "meets": "The learner identifies the angles and sides of right-angled triangles accurately.",
+     "approaches": "The learner identifies the angles or sides of right-angled triangles accurately.",
+     "below": "The learner identifies the angles of right-angled triangles accurately."
+    },
+    {
+     "indicator": "Ability to determine properties of enlargement, draw similar figures, and determine the linear scale factor of similar figures.",
+     "exceeds": "The learner determines properties of enlargement, draws similar figures, and determines the linear scale factor of similar figures accurately and concisely.",
+     "meets": "The learner determines properties of enlargement, draws similar figures, and determines the linear scale factor of similar figures accurately.",
+     "approaches": "The learner determines properties of enlargement or draws similar figures or determines the linear scale factor of similar figures accurately.",
+     "below": "The learner determines properties of enlargement or draws similar figures accurately."
+    },
+    {
+     "indicator": "Ability to identify Sine, Cosine, and Tangent ratios from a right-angled triangle.",
+     "exceeds": "The learner identifies Sine, Cosine, and Tangent ratios from a right-angled triangle accurately and consistently.",
+     "meets": "The learner identifies Sine, Cosine, and Tangent ratios from a right-angled triangle accurately.",
+     "approaches": "The learner identifies any 2 of the Sine, Cosine, or Tangent ratios from a right-angled triangle accurately",
+     "below": "The learner identifies any one of the Sine, Cosine, or Tangent ratios from a right-angled triangle accurately."
+    },
+    {
+     "indicator": "Ability to read tables of trigonometric ratios and determine trigonometric ratios of acute angles using calculators.",
+     "exceeds": "The learner reads tables of trigonometric ratios and determines trigonometric ratios of acute angles using calculators accurately and fluently.",
+     "meets": "The learner reads tables of trigonometric ratios and determines trigonometric ratios of acute angles using calculators accurately.",
+     "approaches": "The learner reads tables of trigonometric ratios or determines trigonometric ratios of acute angles using calculators accurately.",
+     "below": "The learner reads tables of trigonometric ratios accurately."
+    },
+    {
+     "indicator": "Ability to apply trigonometric ratios to calculate the lengths and angles of right-angled triangles.",
+     "exceeds": "The learner applies trigonometric ratios to calculate the lengths and angles of right-angled triangles accurately and systematically.",
+     "meets": "The learner applies trigonometric ratios to calculate the lengths and angles of right-angled triangles accurately.",
+     "approaches": "The learner applies trigonometric ratios to calculate the lengths or angles of right-angled triangles accurately.",
+     "below": "The learner applies trigonometric ratios to calculate the lengths of right-angled triangles accurately."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "4.1",
+     "name": "Coordinates and Graphs",
+     "suggested_duration": "6 lessons",
+     "learning_outcomes": [
+      "plot out points on a Cartesian plane",
+      "draw a straight-line graph given an equation.",
+      "draw parallel lines on the Cartesian plane.",
+      "relate the gradients of parallel lines.",
+      "draw perpendicular lines on the Cartesian plane.",
+      "relate the gradients of perpendicular lines.",
+      "apply graphs of straight lines in a real-life situation"
+     ],
+     "learning_experiences": [
+      "work with peers and locate the point of intersection of the x-coordinate and the y-coordinates on a Cartesian plane.",
+      "generate a table of values from equation a of a straight line, plot and join the points to form a straight line.",
+      "generate a table of values for each of the given equations, plot and join them to form straight lines on the Cartesian plane",
+      "work out the gradients of each of the lines and compare them to establish their relationship of parallelism.",
+      "generate a table of values for each of the given equations of perpendicular lines, plot and join them to form straight lines on the Cartesian plane",
+      "work out the gradients of each of the lines and compare them to establish the relationship of perpendicular lines."
+     ],
+     "inquiry_questions": [
+      "1. How do we draw graphs of straight lines?",
+      "2. How do we interpret graphs of straight lines?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Communication and Collaboration: learner works with peers to locate the point of intersection of straight lines.",
+      "Critical thinking and Problem-solving: learner generates a table of values. Values: Responsibility: as the learner takes care of graphing instruments and other resources. Pertinent and Contemporary Issues:",
+      "Education for Sustainable Development (ESD): learner generates tables of values and draws graphs of straight lines.",
+      "Safety: as the learner handles graphing instruments with sharp ends. Link to other Learning Areas: Integrated Science: as the learner plots graphs of straight lines of different quantities measured in sciences."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade9-mathematics.pdf#p46"
+    },
+    {
+     "kicd_code": "4.2",
+     "name": "Scale Drawing",
+     "suggested_duration": "14 lessons",
+     "learning_outcomes": [
+      "identify compass and true bearings in real-life situations.",
+      "determine the bearing of a point from another point in real-life situations.",
+      "locate a point using bearing and distance in real-life situations.",
+      "identify angles of elevation in real-life situations.",
+      "determine angles of elevation in different situations.",
+      "identify angles of depression in real-life situations.",
+      "determine angles of depression in different situations.",
+      "apply scale drawing in simple surveying.",
+      "appreciate the use of scale drawing in real-life situations."
+     ],
+     "learning_experiences": [
+      "Leaner is guided to:",
+      "draw and discuss the compass directions and relate to the compass and true North bearings.",
+      "discuss and locate places from different points using bearings.",
+      "discuss and locate a place using bearing and distance. Sketch and use a scale drawing to show the position of places from given points.",
+      "carry out different activities involving angles of elevation, for example, observing different objects or points that are above. Discuss, sketch, and make a scale drawing to determine the angles of elevation.",
+      "carry out different activities involving angles of depression, for example, observing different objects or points that are below.",
+      "discuss, sketch, and make a scale drawing to determine the angles of depression.",
+      "discuss and use scale drawing in simple surveying.",
+      "observe maps or watch videos on bearings and simple surveying."
+     ],
+     "inquiry_questions": [
+      "How do we use scale drawing in real life?"
+     ],
+     "core_competencies": [
+      "Creativity and Imagination: learner sketches and determines angles of elevation and depression.",
+      "Citizenship: learner use scale drawing in simple surveying."
+     ],
+     "values": [
+      "Unity: learner sketches, discusses, and agrees on points in simple surveying.",
+      "Social Cohesion: learner observes maps and watches videos on land surveying."
+     ],
+     "pertinent_issues": [
+      "Learner discusses with others possible Careers in scale drawing and surveying."
+     ],
+     "links_to_other_areas": [
+      "Social Studies help learners to work cooperatively with others to observe maps in surveying and locating bearings."
+     ],
+     "resources": [],
+     "kicd_source": "grade9-mathematics.pdf#p48"
+    },
+    {
+     "kicd_code": "4.3",
+     "name": "Similarity and Enlargement",
+     "suggested_duration": "8 lessons",
+     "learning_outcomes": [
+      "identify similar figures and their properties.",
+      "draw similar figures in different situations.",
+      "determine properties of enlargement of different figures.",
+      "apply properties of enlargement to draw similar objects and their images.",
+      "determine the linear scale factor of similar figures.",
+      "promote the use of similarity and enlargement in real-life situations."
+     ],
+     "learning_experiences": [
+      "collect objects and sort them according to similarity. Discuss and note down the properties of similar objects.",
+      "use properties of similar objects to scale-draw similar figures.",
+      "discuss and identify properties of enlargement.",
+      "use properties of enlargement to represent objects and their images.",
+      "determine the linear relationship of similar figures and objects.",
+      "enlarge objects and figures using IT devices."
+     ],
+     "inquiry_questions": [
+      "1. What are similar objects?",
+      "2. How do we use enlargement in real-life situations?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Critical thinking and Problem-solving: as the learner draws similar and enlarged objects and figures.",
+      "Digital Literacy: as the learner learns and uses digital devices to enlarge objects and figures. Values:",
+      "Responsibility: learner collects similar objects and takes care of them in the learning process.",
+      "Social Cohesion: learner works in groups to draw similar objects and figures. Pertinent and Contemporary Issues: Environmental Education: learner collects similar objects from the environment. Link to other Learning Areas: Pre-Technical Studies: contributes to learner’s scale-drawing skills of similar figures and objects."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade9-mathematics.pdf#p50"
+    },
+    {
+     "kicd_code": "4.4",
+     "name": "Trigonometry",
+     "suggested_duration": "7 lessons",
+     "learning_outcomes": [
+      "identify angles and sides of right-angled triangles in different situations.",
+      "identify Sine, Cosine, and Tangent ratios from a right-angled triangle in different situations.",
+      "read tables of trigonometric ratios for acute angles.",
+      "determine trigonometric ratios of acute angles using calculators",
+      "apply trigonometric ratios to calculate lengths and angles of right-angled triangles in different situations.",
+      "appreciate the use of trigonometric ratios in real-life situations."
+     ],
+     "learning_experiences": [
+      "draw right-angled triangles and recognize angles and sides. Discuss the relationship between angles and sides.",
+      "discuss and relate the trigonometric ratios to angles in a right-angled triangle.",
+      "use trigonometric ratios to determine lengths and angles of right-angled triangles",
+      "use Mathematical tables or IT devices to find trigonometric ratios of given angles."
+     ],
+     "inquiry_questions": [
+      "What is the relationship between angles and sides in a right-angled triangle?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Critical thinking and Problem-solving: learner relates the trigonometric ratios to angles in a right-angled triangle.",
+      "Digital Literacy: as the learner uses tables or calculators to find trigonometric ratios of given angles. Values: Responsibility: learner takes care of digital devices, mathematical tables, and drawing materials. Pertinent and Contemporary Issues: Safety: learner plugs and uses digital devices carefully. Link to other Learning Areas: Pre-Technical Studies: learner draws right-angled triangles and recognizes angles and sides."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade9-mathematics.pdf#p52"
+    }
+   ]
+  },
+  {
+   "strand": "Data Handling and Probability",
+   "strand_code": "5.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to determine appropriate width and draw frequency distribution tables for grouping data.",
+     "exceeds": "The learner determines the appropriate width and draws frequency distribution tables for grouping data accurately and systematically.",
+     "meets": "The learner determines the appropriate width and draws frequency distribution tables for grouping data accurately.",
+     "approaches": "The learner determines the appropriate width or draws frequency distribution tables for grouping data accurately.",
+     "below": "The learner determines the appropriate width for grouping data accurately."
+    },
+    {
+     "indicator": "Ability to determine the modal class, mean, and median of grouped data.",
+     "exceeds": "The learner determines the modal class, mean, and median of grouped data accurately and systematically.",
+     "meets": "The learner determines the modal class, mean, and median of grouped data accurately.",
+     "approaches": "The learner determines the modal class, mean, or median of grouped data accurately.",
+     "below": "The learner determines the modal class or means of grouped data accurately."
+    },
+    {
+     "indicator": "Ability to perform experiments involving equally likely outcomes, determine the range of probability of an event, and identify mutually exclusive events.",
+     "exceeds": "The learner performs experiments involving equally likely outcomes, determines the range of probability of an event, and identifies mutually exclusive events accurately and systematically.",
+     "meets": "The learner performs experiments involving equally likely outcomes, determines the range of probability of an event, and identifies mutually exclusive events accurately.",
+     "approaches": "The learner performs experiments involving equally likely outcomes determines the range of probability of an event, or identifies mutually exclusive events accurately.",
+     "below": "The learner performs experiments involving equally likely outcomes or determines the range of probability of an event accurately."
+    },
+    {
+     "indicator": "Ability to perform experiments of a single chance involving mutually exclusive and independent events.",
+     "exceeds": "The learner performs experiments of a single chance involving mutually exclusive and independent events correctly and systematically.",
+     "meets": "The learner performs experiments of a single chance involving mutually exclusive and independent events correctly.",
+     "approaches": "The learner performs experiments of a single chance involving mutually exclusive or independent events correctly.",
+     "below": "The learner performs experiments of a single chance involving mutually exclusive events correctly."
+    },
+    {
+     "indicator": "Ability to draw a tree diagram for a single outcome.",
+     "exceeds": "The learner draws a tree diagram for a single outcome correctly and precisely.",
+     "meets": "The learner draws a tree diagram for a single outcome correctly.",
+     "approaches": "The learner draws a tree diagram for a single outcome partially correctly.",
+     "below": "The learner draws a tree diagram for a single outcome incompletely."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "5.1",
+     "name": "Data Interpretation (Grouped Data)",
+     "suggested_duration": "6 lessons",
+     "learning_outcomes": [
+      "determine appropriate class width for grouping data.",
+      "draw frequency distribution tables of grouped data",
+      "identify the modal class of grouped data.",
+      "calculate the mean of grouped data from real-life situations.",
+      "determine the median of grouped data from real-life situations.",
+      "appreciate data interpretation in real-life situations."
+     ],
+     "learning_experiences": [
+      "collect data and work out an appropriate class width.",
+      "tally the data and represent it in a frequency distribution table.",
+      "recognize the modal class from a set of grouped data.",
+      "work out the mean from different sets of grouped data.",
+      "use the frequencies to determine the median class of grouped data.",
+      "work out the median from different sets of grouped data.",
+      "use IT devices or other materials to determine the mean and median of grouped data.",
+      "use digital devices or other materials to search for distances from school or home to health facilities using different roads or routes."
+     ],
+     "inquiry_questions": [
+      "How do we interpret data?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Learning to Learn: learner collects, organises, and interprets data.",
+      "Critical thinking and Problem-solving: learner discusses and determines the modal class, mean, and median of grouped data.",
+      "Digital Literacy: as the learner uses IT or other materials to determine the mean and median of grouped data. Values: Respect: as the learner works together with peers to collect data from the immediate environment. Pertinent and Contemporary Issues: Citizenship: learner collects data that may relate to the population. Link to other Learning Areas:",
+      "Integrated Science: learner interprets data related to different organisms and materials.",
+      "The learner relates analysing and interpreting data in different social aspects learnt in Social Studies."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade9-mathematics.pdf#p57"
+    },
+    {
+     "kicd_code": "5.2",
+     "name": "Probability",
+     "suggested_duration": "6 lessons",
+     "learning_outcomes": [
+      "perform experiments involving equal and likely outcomes in different situations.",
+      "determine the range of probability of an event.",
+      "identify mutually exclusive events in real-life situations.",
+      "perform experiments of single chance involving mutually exclusive events",
+      "perform experiments involving independent events in different situations",
+      "draw a tree diagram for a single outcome",
+      "appreciate the probability of events occurring in real-life situations."
+     ],
+     "learning_experiences": [
+      "discuss and carry out experiments on events involving equal and likely outcomes.",
+      "work out the range of probability of different events.",
+      "discuss and carry out experiments involving mutually inclusive events.",
+      "discuss and carry out experiments involving independent events.",
+      "practice representing probability occurrences in a tree diagram.",
+      "use IT devices or other resources to explore more probability."
+     ],
+     "inquiry_questions": [
+      "Why is probability important in real-life situations?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Communication and Collaboration: learner discusses and carries out experiments of events involving equally likely outcomes.",
+      "Critical thinking and Problem-solving: learner carries out experiments involving mutually inclusive events.",
+      "Self-efficacy: learner carries out experiments involving independent events and avoids harmful practices of gambling. Values:",
+      "Responsibility: learner discusses and carries out experiments involving mutually inclusive events.",
+      "Social Cohesion: learner works in groups and practices representing probability occurrences in a tree diagram. Pertinent and Contemporary Issues: Financial Literacy: learners carries out experiments involving independent events and avoid harmful practices of gambling using money. Link to other Learning Areas: Learner works in teams to explore the weather patterns as they have learnt how they affect Agriculture."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade9-mathematics.pdf#p59"
+    }
+   ]
+  }
+ ]
+}

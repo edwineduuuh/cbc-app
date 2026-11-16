@@ -1,0 +1,999 @@
+{
+ "source_pdf": "grade5-mathematics.pdf",
+ "grade": 5,
+ "subject": "mathematics",
+ "general_outcomes": [
+  "Demonstrate mastery of number concepts by working out problems in day-to-day life.",
+  "Apply measurement skills to find solutions to problems in a variety of contexts.",
+  "Apply properties of geometrical shapes and spatial relationships in real life experiences.",
+  "Apply data handling skills to solve problems in day-to-day life.",
+  "Analyze information using algebraic expressions in real life situations.",
+  "Apply mathematical ideas and concepts to other learning areas or learning areas and in real life contexts.",
+  "Develop confidence and interest in mathematics for further learning and enjoyment.",
+  "Develop values and competencies for a cohesive harmonious living in the society.",
+  "Manage pertinent and contemporary issues for enhanced inter-personal relationships."
+ ],
+ "strands": [
+  {
+   "strand": "Numbers",
+   "strand_code": "1.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to use place value and total value of digits up to hundreds of thousands.",
+     "exceeds": "The learner uses place value and total value of digits up to hundreds of thousands correctly and systematically.",
+     "meets": "The learner uses place value and total value of digits up to hundreds of thousands correctly.",
+     "approaches": "The learner uses place value or total value of digits up to hundreds of thousands correctly.",
+     "below": "The learner uses place value or total value of digits less than hundreds of thousands partially correct."
+    },
+    {
+     "indicator": "Ability to read and write numbers up to tens of thousands in symbols and in words.",
+     "exceeds": "The learner reads and writes numbers up to tens of thousands in symbols and in words correctly and proficiently.",
+     "meets": "The learner reads and writes numbers up to tens of thousands in symbols and in words accurately.",
+     "approaches": "The learner reads or writes numbers up to tens of thousands in symbols and in words accurately.",
+     "below": "The learner reads or writes numbers up to tens of thousands in symbols or in words partially correct."
+    },
+    {
+     "indicator": "Ability to order and round off numbers up to tens of thousands.",
+     "exceeds": "The learner orders and rounds off numbers up to 10, 000 systematically and correctly.",
+     "meets": "The learner orders and rounds off numbers up to 10, 000 correctly.",
+     "approaches": "The learner orders or rounds off numbers up to less than 10, 000 correctly.",
+     "below": "The learner orders or rounds off numbers up to less than 10, 000 partially correct.."
+    },
+    {
+     "indicator": "Ability to apply Least Common Multiple (LCM), Highest Common Factor (HCF), Greatest Common Divisor (GCD) and divisibility tests of 2, 5 and 10.",
+     "exceeds": "The learner applies LCM, HCF, GCD and divisibility tests of 2, 5 and 10 correctly and systematically.",
+     "meets": "The learner applies LCM, HCF/GCD and divisibility tests of 2, 5 and 10 correctly.",
+     "approaches": "The learner applies at least three of the following: LCM, HCF, GCD or divisibility tests of 2, 5 and 10 correctly.",
+     "below": "The learner applies one of the following: LCM, HCF, GCD or divisibility tests of 2, 5 and 10 correctly."
+    },
+    {
+     "indicator": "Ability to add up to 6-digit numbers without regrouping and with double regrouping up to a sum of 1,000 000.",
+     "exceeds": "The learner adds up to 6-digit numbers without regrouping and with double regrouping up to a sum of 1,000 000 correctly and systematically.",
+     "meets": "The learner adds up to 6-digit numbers without regrouping and with double regrouping up to a sum of 1,000 000 correctly.",
+     "approaches": "The learner adds up to 6 -digit numbers without regrouping or with double regrouping up to a sum of 1,000 000 correctly.",
+     "below": "The learner adds up to 6-digit numbers without regrouping or with double regrouping up to a sum less than 1,000 000 correctly."
+    },
+    {
+     "indicator": "Ability to create patterns involving addition, subtraction and multiplication.",
+     "exceeds": "The learner creates patterns involving addition, subtraction and multiplication accurately and creatively.",
+     "meets": "The learner creates patterns involving addition, subtraction and multiplication accurately.",
+     "approaches": "The learner creates patterns involving any two of the following: addition, subtraction or multiplication accurately.",
+     "below": "The learner creates patterns involving any one of the following: addition, subtraction or multiplication accurately."
+    },
+    {
+     "indicator": "Ability to subtract up to 6-digit numbers without regrouping and with regrouping.",
+     "exceeds": "The learner subtracts up to 6-digit numbers without regrouping and with regrouping correctly and systematically.",
+     "meets": "The learner subtracts up to 6-digit numbers without regrouping and with regrouping correctly.",
+     "approaches": "The learner subtracts up to 6-digit numbers without regrouping or with regrouping correctly.",
+     "below": "The learner subtracts up to 6-digit numbers without regrouping correctly."
+    },
+    {
+     "indicator": "Ability to Multiply up to a 3-digit number by a 2-digit number.",
+     "exceeds": "The learner multiplies a 3-digit number by a 2-digit number and a single digit; 2 -digit by 2 -digit and a single digit number correctly and systematically.",
+     "meets": "The learner multiplies a 3-digit number by a 2-digit number and a single digit; 2 -digit by 2 -digit and a single digit number correctly.",
+     "approaches": "The learner multiplies a 3-digit number by a 2-digit number or a single digit; 2-digit by 2-digit or a single digit number correctly.",
+     "below": "The learner multiplies a 2-digit number by a 2-digit number or a single digit number correctly."
+    },
+    {
+     "indicator": "Ability to divide up to a 3-digit number by up to a 2-digit number where the dividend is greater than the divisor.",
+     "exceeds": "The learner divides a 3-digit number by a 2-digit number and a single digit; 2-digit by a 2-digit and a single digit number where the dividend is greater than the divisor correctly and systematically.",
+     "meets": "The learner divides a 3-digit number by a 2-digit number and a single digit; 2-digit by a 2-digit and a single digit number where the dividend is greater than the divisor correctly.",
+     "approaches": "The learner divides a 3-digit number by a 2-digit number or a single digit; 2-digit by 2-digit or a single digit number where the dividend is greater than the divisor correctly.",
+     "below": "The learner divides a 2-digit number by a 2-digit number or a single digit number where the dividend is greater than the divisor correctly."
+    },
+    {
+     "indicator": "Ability to perform combined operations involving addition, subtraction, multiplication and division of whole numbers.",
+     "exceeds": "The learner performs combined operations involving addition, subtraction, multiplication and division of whole numbers correctly and systematically.",
+     "meets": "The learner performs combined operations involving addition, subtraction, multiplication and division of whole numbers correctly.",
+     "approaches": "The learner performs combined operations involving addition, subtraction, multiplication or division of whole numbers correctly.",
+     "below": "The learner performs combined operations involving one of the following: addition, subtraction, multiplication and division of whole numbers correctly."
+    },
+    {
+     "indicator": "Ability to use and compare fractions to make decisions.",
+     "exceeds": "The learner uses and compares fractions to make decisions accurately and systematically.",
+     "meets": "The learner uses and compares fractions to make decisions accurately.",
+     "approaches": "The learner uses or compares fractions to make decisions accurately.",
+     "below": "The learner uses fractions accurately."
+    },
+    {
+     "indicator": "Ability to simplify and order fractions with denominators not exceeding 12.",
+     "exceeds": "The learner simplifies and orders fractions with denominators not exceeding 12 accurately and systematically.",
+     "meets": "The learner simplifies and orders fractions with denominators not exceeding 12 accurately.",
+     "approaches": "The learner simplifies or orders fractions with denominators not exceeding 12 accurately.",
+     "below": "The learner simplifies fractions with denominators not exceeding 12 accurately."
+    },
+    {
+     "indicator": "Ability to add and subtract fractions.",
+     "exceeds": "The learner adds and subtracts fractions correctly and systematically.",
+     "meets": "The learner adds and subtracts fractions correctly.",
+     "approaches": "The learner adds or subtracts fractions correctly.",
+     "below": "The learner adds fractions correctly."
+    },
+    {
+     "indicator": "Ability to identify and order decimals up to thousandths.",
+     "exceeds": "The learner identifies and orders decimals up to thousandths accurately and systematically.",
+     "meets": "The learner identifies and orders decimals up to thousandths accurately.",
+     "approaches": "The learner identifies and orders decimals up to hundredths accurately.",
+     "below": "The learner identifies and orders decimals up to tenths accurately."
+    },
+    {
+     "indicator": "Ability to add and subtract decimals up to thousandths.",
+     "exceeds": "The learner adds and subtracts decimals up to thousandths correctly and systematically.",
+     "meets": "The learner adds and subtracts decimals up to thousandths correctly.",
+     "approaches": "The learner adds and subtracts decimals up to hundredths correctly.",
+     "below": "The learner adds and subtracts decimals up to tenths correctly."
+    },
+    {
+     "indicator": "Ability to form and solve simple equations with one unknown involving real life situations.",
+     "exceeds": "The learner forms and solves simple equations with one unknown involving real life situations accurately and systematically.",
+     "meets": "The learner forms and solves simple equations with one unknown involving real life situations accurately.",
+     "approaches": "The learner forms or solves simple equations with one unknown involving real life situations accurately.",
+     "below": "The learner forms simple equations with one unknown involving real life situations accurately."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "1.1",
+     "name": "Whole Numbers",
+     "suggested_duration": "20 lessons",
+     "learning_outcomes": [
+      "use place value and total value of digits up to hundreds of thousands in different situations",
+      "read and write numbers up to tens of thousands in words in different situations",
+      "order numbers up to tens of thousands in different situations",
+      "round off numbers up to tens of thousands to the nearest hundred and thousand in different situations",
+      "apply divisibility tests of 2, 5 and 10 in real-life situations",
+      "determine Highest Common Factor (HCF) and Greatest Common Divisor",
+      "in different situations",
+      "determine Least Common Multiple (LCM) in real-life situations",
+      "appreciate use of whole numbers in real-life situations."
+     ],
+     "learning_experiences": [
+      "identify place value of digits up to hundreds of thousands using place value apparatus or place value charts",
+      "identify total value of digits up to hundreds of thousands using place value charts",
+      "read numbers up to hundreds of thousands in symbols from number charts or cards",
+      "read and write numbers up to tens of thousands in words from number charts or cards",
+      "arrange numbers up to tens of thousands in increasing and decreasing order",
+      "discuss and round off numbers up to tens of thousands to the nearest hundred and thousand using number cards and share with other groups",
+      "carry out the divisibility test for 2, 5 and 10 and come up with divisibility rules",
+      "express numbers in terms of their factors then identify the common factors",
+      "express the multiples of numbers and identify multiples of the common multiples as well as the least common multiples",
+      "play games involving numbers using digital devices or other resources."
+     ],
+     "inquiry_questions": [
+      "1. 1. Where can we use ordering of numbers in real life?",
+      "2. 2. Why should we round off numbers?"
+     ],
+     "core_competencies": [
+      "Critical thinking and problem solving: learner orders and rounds off numbers.",
+      "Learning to learn: learner reads and writes numbers, computing the total values of numbers."
+     ],
+     "values": [
+      "Unity: learner works with peers in identifying factors, divisors and multiples of numbers to enhance unity."
+     ],
+     "pertinent_issues": [
+      "Safety: learner observes safety precautions while handling apparatus for carrying out operations on numbers."
+     ],
+     "links_to_other_areas": [
+      "The learner is able to relate whole numbers to reading and writing numbers symbols and words in languages."
+     ],
+     "resources": [],
+     "kicd_source": "grade5-mathematics.pdf#p13"
+    },
+    {
+     "kicd_code": "1.2",
+     "name": "Addition",
+     "suggested_duration": "6 lessons",
+     "learning_outcomes": [
+      "add up to three 6-digit numbers without regrouping up to a sum not exceeding 1,000,000 in different situations",
+      "add up to two 6-digit numbers with double regrouping with the sum not exceeding 1,000, 000 in different situations",
+      "estimate sum by rounding off the addends to the nearest hundred and thousand in different situations",
+      "create patterns involving the addition of numbers up to a sum of 1,000,000 in real-life situations",
+      "appreciate use of the addition of whole numbers in real-life situations."
+     ],
+     "learning_experiences": [
+      "work out the sum of three 6-digit numbers without regrouping up to 1,000,000 using place charts or any other resource, collaborates with others to work out the sum of two 6-digit numbers with double regrouping with the number not more than 1,000,000 using place value apparatus or any other resource, estimate sums by rounding off the addends to the nearest hundred and thousand, come up with patterns involving addition of numbers up to a sum of 1,000,000, play games involving addition of numbers using digital devices and other resources."
+     ],
+     "inquiry_questions": [
+      "1. 1. How can you estimate the sum of given numbers?",
+      "2. 2. How can you create patterns in addition?"
+     ],
+     "core_competencies": [
+      "Core Competences to be developed:",
+      "Creativity and imagination: learner makes number patterns involving addition.",
+      "Digital literacy: learner uses digital devices and other resources to learn and play games in addition concept development. Values:",
+      "Unity: learner collaborates with others to work out the sum of two 6-digit numbers.",
+      "Responsibility: learner takes roles individually to achieve common solutions in addition of numbers. Pertinent and Contemporary Issues (PCIs) Social cohesion: leaner works with peers in using digital resources for learning the addition of numbers. Link to other learning areas The learner is able to relate the concept of addition to value addition in Agriculture and Nutrition."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade5-mathematics.pdf#p15"
+    },
+    {
+     "kicd_code": "1.3",
+     "name": "Subtraction",
+     "suggested_duration": "6 lessons",
+     "learning_outcomes": [
+      "subtract up to two 6-digit numbers without regrouping in real-life situations",
+      "subtract of up to two 6-digit numbers with regrouping in different situations",
+      "estimate difference by rounding off the minuend and subtrahend to the nearest hundred and thousand in different situations",
+      "perform combined operations involving addition and subtraction in different situations",
+      "create patterns involving subtraction from up to 1,000,000 in different situations",
+      "appreciate subtraction of numbers in real-life situations."
+     ],
+     "learning_experiences": [
+      "work with peers to subtract up to two 6-digit numbers without regrouping using place value apparatus",
+      "discuss and work out subtraction of up to two 6-digit numbers with regrouping using place value apparatus",
+      "team up with peers to estimate difference by rounding off the minuend and subtrahend to the nearest hundred and thousand using a number line",
+      "work out questions involving addition and subtraction",
+      "generate patterns involving subtraction of whole numbers from up to 1,000,000",
+      "play games involving subtraction",
+      "of numbers using digital devices and other resources."
+     ],
+     "inquiry_questions": [
+      "1. 1. How do you estimate difference to the nearest hundred?",
+      "2. 2. How can you create number patterns involving subtraction?"
+     ],
+     "core_competencies": [
+      "Creativity and imagination: learner creates number patterns involving subtraction.",
+      "Self-efficacy: learner reports the group's discussion to others in carrying out the various subtraction skills."
+     ],
+     "values": [
+      "Unity: learner harmoniously works with peers to subtract of up to 6-digit numbers without regrouping using place value apparatus."
+     ],
+     "pertinent_issues": [
+      "Social cohesion: learner carries out the group work in estimation of differences."
+     ],
+     "links_to_other_areas": [
+      "The learner is able to relate the concept of subtraction to the decrease of economic resources in Social Studies."
+     ],
+     "resources": [],
+     "kicd_source": "grade5-mathematics.pdf#p17"
+    },
+    {
+     "kicd_code": "1.4",
+     "name": "Multiplication",
+     "suggested_duration": "6 lessons",
+     "learning_outcomes": [
+      "multiply up to a 3-digit number by up to a 2-digit number in real-life situations",
+      "estimate product by rounding off numbers to the nearest ten in different situations",
+      "make patterns involving multiplication of numbers with product not exceeding 1000 in in different situations",
+      "appreciate use of multiplication in real life."
+     ],
+     "learning_experiences": [
+      "work out multiplication of up to a 3-digit number by up to a 2-digit number using different methods",
+      "round off numbers to the nearest tens then get their product using compatibility of numbers or own strategies",
+      "team up with peers to create patterns involving multiplication of numbers with products not exceeding 1000",
+      "play games involving multiplication of whole numbers using digital devices and other resources."
+     ],
+     "inquiry_questions": [
+      "1. 1. Where can multiplication be used in real life?",
+      "2. 2. How can you form patterns involving multiplication?"
+     ],
+     "core_competencies": [
+      "Core Competences to be developed:",
+      "Communication and collaboration: learner works with peers to make patterns involving multiplication.",
+      "Learning to learn: learner explores other methods of working out products of numbers. Values: Unity: learner teams up with peers to create patterns involving multiplication of numbers with products not exceeding 1000. Pertinent and Contemporary Issues (PCIs): Self-awareness: learner discovers own strategies in multiplication and estimation of products of numbers. Link to other learning areas: The learner is able to relate the concept of multiplication to sowing tiny seeds gardening skills in Agriculture and Nutrition."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade5-mathematics.pdf#p19"
+    },
+    {
+     "kicd_code": "1.5",
+     "name": "Division",
+     "suggested_duration": "6 lessons",
+     "learning_outcomes": [
+      "divide up to a 3-digit number by up to a 2-digit number where the dividend is greater than the divisor in real life",
+      "apply the relationship between multiplication and division in different situations",
+      "divide up to 3-digit number by 1000 in different situations",
+      "estimate quotients by rounding off the dividend and divisor to the nearest ten in real-life situations",
+      "perform combined operations involving addition, subtraction, multiplication and division of whole numbers in different situations",
+      "appreciate use of division of whole numbers in real-life situations."
+     ],
+     "learning_experiences": [
+      "work out division of up to a 3-digit number by up to a 2-digit number where the dividend is greater than the divisor using long and short form",
+      "collaborate to show that multiplication is the opposite of division",
+      "estimate quotients by rounding off the dividend and divisor to the nearest ten",
+      "work out questions involving addition, subtraction, multiplication and division",
+      "create number games and puzzles involving division",
+      "• share digital resources or other resources with peers while playing games involving the division of whole numbers."
+     ],
+     "inquiry_questions": [
+      "1) 1. Where is division used in real life?",
+      "2) 2. How can we estimate quotients?"
+     ],
+     "core_competencies": [
+      "Creativity and Imagination: learner creates number games and puzzles involving division.",
+      "Digital Literacy: learner plays digital games involving divisions."
+     ],
+     "values": [
+      "Social Justice: learner shares digital resources or other resources with peers while playing games involving the division of whole numbers."
+     ],
+     "pertinent_issues": [
+      "Self-esteem: learner discovers strategies of working out division and creates number games and puzzles."
+     ],
+     "links_to_other_areas": [
+      "The learner is able to relate the concept of division to the allocation and sharing in Agriculture."
+     ],
+     "resources": [],
+     "kicd_source": "grade5-mathematics.pdf#p21"
+    },
+    {
+     "kicd_code": "1.6",
+     "name": "Fractions",
+     "suggested_duration": "8 lessons",
+     "learning_outcomes": [
+      "simplify fractions in different situations",
+      "compare fractions in different situations",
+      "order fractions with denominators not exceeding 12 in different situations",
+      "add two fractions with the same denominator in different situations",
+      "subtract two fractions with the same denominator in different situations",
+      "add two fractions with one renaming in different situations",
+      "subtract two fractions with one renaming in different situations",
+      "appreciate the use of fractions in real life."
+     ],
+     "learning_experiences": [
+      "identify equivalent fractions using a fraction board or chart",
+      "represent equivalent fractions using real objects",
+      "use charts or others resources to express fractions in their simplest forms",
+      "arrange given fractions in increasing or decreasing order using different methods",
+      "add fractions with the same denominator using paper cut-outs, real objects or other resources",
+      "subtract two fractions with the same denominator using paper cut-outs, number lines, real objects, or other resources",
+      "carry out addition of two fractions by renaming one fraction using equivalent fractions",
+      "carry out subtraction of two fractions by renaming one fraction using equivalent fractions."
+     ],
+     "inquiry_questions": [
+      "1. 1. Why can we order fractions in real life?",
+      "2. 2. Where are fractions used in real life?"
+     ],
+     "core_competencies": [
+      "Learning to learn: learner orders, compares and simplifies fractions.",
+      "Digital Literacy: learner plays digital games involving fractions."
+     ],
+     "values": [
+      "Responsibility: learner prepares paper cut-outs and collects concrete objects for comparing fractions."
+     ],
+     "pertinent_issues": [
+      "Safety: learner observes safety precautions while collecting concrete objects for learning."
+     ],
+     "links_to_other_areas": [
+      "The learner is able to relate the concept of fractions to mixtures in Science and Technology."
+     ],
+     "resources": [],
+     "kicd_source": "grade5-mathematics.pdf#p23"
+    },
+    {
+     "kicd_code": "1.7",
+     "name": "Decimals",
+     "suggested_duration": "6 lessons",
+     "learning_outcomes": [
+      "identify place value of decimals up to thousandths in different situations",
+      "order decimals up to thousandths in different situations",
+      "add decimals up to thousandths in different situations",
+      "subtract decimals up to thousandths in different situations",
+      "multiply decimal numbers of up to thousandths by 1000 in different situations",
+      "appreciate use of decimals in real-life situations."
+     ],
+     "learning_experiences": [
+      "work out place value of decimals up to thousandths using a place value chart",
+      "order decimals up to thousandths from smallest to largest and from largest to smallest using different methods",
+      "work out addition of decimals up to thousandths using place value apparatus",
+      "subtract decimals up to thousandths using place value apparatus",
+      "collaborate with peers to find information on application of decimals in real-life situations."
+     ],
+     "inquiry_questions": [
+      "1. 1. Where can you use decimals in real life?",
+      "2. 2. What is the importance of ordering decimals?"
+     ],
+     "core_competencies": [
+      "Core Competences to be developed Creativity and Imagination: the learner orders decimals up to thousandths from smallest to largest and from largest to smallest using number cards. Values:",
+      "Unity: learner collaborates with peers to find information on application of decimals in real-life situations",
+      "Social justice: learner shares information on the application of decimals in real-life situations. Pertinent and Contemporary Issues (PCIs): Social cohesion: learner collaborates with peers to find information on application of decimals. Link to other learning areas: The learner is able to relate the concept of decimal numbers to reading quantities of ingredients in Agriculture."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade5-mathematics.pdf#p25"
+    },
+    {
+     "kicd_code": "1.8",
+     "name": "Simple Equations",
+     "suggested_duration": "6 lessons",
+     "learning_outcomes": [
+      "form simple equations with one unknown involving real-life situations",
+      "solve simple equations with one unknown involving real-life situations",
+      "appreciate use of equations in solving problems in real life."
+     ],
+     "learning_experiences": [
+      "discuss and come up with equations with one unknown from daily experiences",
+      "use real objects to form equations with one unknown",
+      "team up with peers to solve equations with one unknown",
+      "use digital devices or other resources to learn more about equations."
+     ],
+     "inquiry_questions": [
+      "Where are equations used in real life?"
+     ],
+     "core_competencies": [
+      "Critical thinking and problem solving: learner forms and solves equations with one unknown.",
+      "Digital literacy: learner uses digital devices or other resources to learn more about equations with one unknown."
+     ],
+     "values": [
+      "Peace: learner harmoniously teams up with peers to solve equations with one unknown."
+     ],
+     "pertinent_issues": [
+      "Safety: learner carefully collects safe concrete objects from the environment to illustrate the formation of simple equations with one unknown."
+     ],
+     "links_to_other_areas": [
+      "The learner is able to relate the concept of equations with one unknown to the concept of marketing goods in Pre-technical Studies."
+     ],
+     "resources": [],
+     "kicd_source": "grade5-mathematics.pdf#p27"
+    }
+   ]
+  },
+  {
+   "strand": "Measurement",
+   "strand_code": "2.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to add, subtract, multiply and divide metres and kilometres by whole numbers.",
+     "exceeds": "The learner adds, subtracts, multiplies and divides metres and kilometres, by whole numbers accurately and systematically.",
+     "meets": "The learner adds, subtracts, multiplies and divides metres and kilometres by whole numbers accurately.",
+     "approaches": "The learner adds, subtracts, multiplies or divides metres or kilometres by whole numbers accurately.",
+     "below": "The learner adds or subtracts metres or kilometres by whole numbers accurately."
+    },
+    {
+     "indicator": "Ability to work out area of rectangles and squares in square centimetres (cm2 )",
+     "exceeds": "The learner works out area of rectangles and squares in square centimeters systematically and accurately.",
+     "meets": "The learner works out area of rectangles and squares in square centimeters accurately.",
+     "approaches": "The learner works out area of rectangles or squares in square centimeters accurately.",
+     "below": "The learner works out area of rectangles or squares partially correctly."
+    },
+    {
+     "indicator": "Ability to work out volume of cuboids and cubes in cubic centimetres (cm3).",
+     "exceeds": "The learner works out volume of cuboids and cubes accurately and systematically.",
+     "meets": "The learner works out volume of cuboids and cubes accurately.",
+     "approaches": "The learner works out volume of cuboids or cubes accurately.",
+     "below": "The learner works out volume of cuboids or cubes partially accurately."
+    },
+    {
+     "indicator": "Ability to estimate and measure capacity in multiples of 5 millilitres.",
+     "exceeds": "The learner estimates and measures capacity in multiples of 5 milliliters accurately and systematically.",
+     "meets": "The learner estimates and measures capacity in multiples of 5 milliliters accurately.",
+     "approaches": "The learner estimates or measures capacity in multiples of 5 milliliters accurately.",
+     "below": "The learner estimates capacity in multiples of 5 milliliters accurately."
+    },
+    {
+     "indicator": "Ability to convert litres to millilitres and millilitres to litres.",
+     "exceeds": "The learner converts litres to millilitres and millilitres to litres systematically and accurately.",
+     "meets": "The learner converts litres to millilitres and millilitres to litres accurately.",
+     "approaches": "The learner converts litres to millilitres or millilitres to litres accurately.",
+     "below": "The learner converts litres to millilitres accurately."
+    },
+    {
+     "indicator": "Ability to add, subtract, multiply and divide litres and millilitres, by whole numbers.",
+     "exceeds": "The learner adds, subtracts, multiplies and divides litres and millilitres by whole numbers systematically and accurately.",
+     "meets": "The learner adds, subtracts, multiplies and divides litres and millilitres by whole numbers accurately.",
+     "approaches": "The learner adds, subtracts, multiplies or divides litres or millilitres by whole numbers accurately.",
+     "below": "The learner adds or subtracts litres or millilitres accurately."
+    },
+    {
+     "indicator": "Ability to add, subtract, multiply and divide grams and kilograms by whole numbers.",
+     "exceeds": "The learner adds, subtracts, multiplies and divides grams and kilograms by whole numbers systematically and accurately.",
+     "meets": "The learner adds, subtracts, multiplies and divides grams and kilograms by whole numbers accurately.",
+     "approaches": "The learner adds, subtracts, multiplies and divides grams or kilograms by whole numbers accurately.",
+     "below": "The learner adds or subtracts grams and kilograms accurately."
+    },
+    {
+     "indicator": "Ability to add, subtract, multiply and divide minutes and seconds by whole numbers.",
+     "exceeds": "The learner adds, subtracts, multiplies and divides minutes and seconds by whole numbers systematically accurately.",
+     "meets": "The learner adds, subtracts, multiplies and divides minutes and seconds by whole numbers accurately.",
+     "approaches": "The learner adds, subtracts, multiplies or divides minutes or seconds by whole numbers accurately.",
+     "below": "The learner adds minutes and seconds accurately."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "2.1",
+     "name": "Length",
+     "suggested_duration": "12 lessons",
+     "learning_outcomes": [
+      "identify the kilometre (km) as a unit of measuring length in real life",
+      "estimate distance in kilometres in real-life situations",
+      "identify the relationship between the kilometre (km) and the metre (m) in different situations",
+      "convert kilometres to metres and metres to kilometres in different situations",
+      "add metres and kilometres in real-life situations",
+      "subtract metres and kilometres in real life situations",
+      "multiply metres and kilometres by whole numbers in real life situations",
+      "divide metres and kilometres by whole numbers in real life situations",
+      "appreciate the use of kilometres and metres in measuring length in real life."
+     ],
+     "learning_experiences": [
+      "discuss the kilometre as a unit of measuring length real life",
+      "team up with peers to estimate distance in kilometres",
+      "work with peers to establish the relationship between the kilometre and metre",
+      "express the distance from kilometres to metres and metres to kilometres",
+      "carry out addition involving distance in kilometres and metres",
+      "carry out subtraction involving distance in kilometres and metres",
+      "carry out multiplication involving distance in kilometres and metres",
+      "carry out division involving distance in kilometres and metres",
+      "use digital devices or other resources to get more information involving length in kilometres and metres."
+     ],
+     "inquiry_questions": [
+      "1. 1. How can you measure distance?",
+      "2. 2. Why should you measure distance?"
+     ],
+     "core_competencies": [
+      "Creativity and Imagination: learner measures distance estimated and compare findings with peers.",
+      "Critical thinking and problem solving: learner establishes the relationship between the kilometre and metre practically."
+     ],
+     "values": [
+      "Integrity: learner measures and honestly records estimated distances practically using ropes and other learning materials.",
+      "Respect: learner takes turn in measuring distance in kilometres practically using ropes."
+     ],
+     "pertinent_issues": [
+      "Safety: learner observes safety precautions while handling measuring instruments."
+     ],
+     "links_to_other_areas": [
+      "The learner is able to relate measurement of length to construction a food preservation equipment in Agriculture."
+     ],
+     "resources": [],
+     "kicd_source": "grade5-mathematics.pdf#p32"
+    },
+    {
+     "kicd_code": "2.2",
+     "name": "Area",
+     "suggested_duration": "6 lessons",
+     "learning_outcomes": [
+      "identify the square centimetre (cm2) as a unit of measuring area in real life",
+      "work out area of rectangles and squares in square centimetres (cm2) in different situations",
+      "appreciate the use of cm2 in working out area in real life."
+     ],
+     "learning_experiences": [
+      "discuss and measure, trace and cut out 1 cm by 1cm units, and refer the area of each as one square centimetre (1cm2)",
+      "cover a given surface using 1-centimetre square cut-outs and count the number of cut-outs to get the area in cm2",
+      "establish the area of rectangles and squares in cm2 as the product of the number 1cm2 units in the row by the number of units in the column, area of rectangle or square = length x width",
+      "team up with peers to play games involving area using multiplication charts."
+     ],
+     "inquiry_questions": [
+      "How can you determine the area of different surfaces?"
+     ],
+     "core_competencies": [
+      "Creativity and imagination: learner uses paper cut-outs in covering plane surfaces to get area in cm2.",
+      "Self-efficacy: learner measures, traces and cuts out 1 cm by 1cm units, and refer the area of each as one square centimetre (1cm2)."
+     ],
+     "values": [
+      "Values: Unity: learner teams up with peers to play games involving area using multiplication charts. Pertinent and Contemporary Issues (PCIs): Environmental awareness: learner covers a given surface from the environment using 1-centimetre square cut-outs and counts the number of cut-outs to get the area in cm2 Link to other learning areas: Learner relates concept of area to planting fields in Agriculture."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade5-mathematics.pdf#p34"
+    },
+    {
+     "kicd_code": "2.3",
+     "name": "Volume",
+     "suggested_duration": "6 lessons",
+     "learning_outcomes": [
+      "identify the cubic centimetre (cm3) as a unit of measuring volume in different situations",
+      "derive the formula for the volume of cuboid as v= l x w x h practically",
+      "work out volume of cuboids in cubic centimetres (cm3) using the formula",
+      "derive the formula for the volume of cube as v= s x s x s practically",
+      "work out volume of cubes in cubic",
+      "centimetres (cm3) using the formula",
+      "appreciate use of cubic centimetres in measuring volume in real life."
+     ],
+     "learning_experiences": [
+      "measure the sides of a 1cm cube and identify it as a unit of measuring volume",
+      "arrange a number of cubes along the length, width and vary the number of layers",
+      "count the number of cubes used in activity above and record",
+      "establish that the total number of cubes represents the volume of the cube or cuboid formed",
+      "count the number of cubes on the length and multiply by the number in the width and the number of layers.",
+      "establish the formula for volume (v) of cuboid as v = l x w x h",
+      "discuss the formula for volume of a cube",
+      "v= s x s x s where, s is the side of a cube",
+      "manipulate cubes and cuboids by flipping around using digital devices or other resources",
+      "work out the volume of cubes and cuboids in cubic centimetres",
+      "use digital devices and other resources to play games involving volumes."
+     ],
+     "inquiry_questions": [
+      "Where is volume applicable in real life?"
+     ],
+     "core_competencies": [
+      "Learning to learn: learner counts the number of cubes on the length and multiply by the number in the width and the number of layers to establish the formula for volume (v) of a cuboid.",
+      "Creativity and imagination: learner counts the number of cubes to establish that the total number of cubes represents the volume of cuboid formed."
+     ],
+     "values": [
+      "Responsibility: learner shows responsibility as they handle the various objects in the environment."
+     ],
+     "pertinent_issues": [
+      "Safety: learner observes safety while handling the various objects in the environment."
+     ],
+     "links_to_other_areas": [
+      "The learner is able to relate concept of volume to construction of innovative watering equipment in Agriculture."
+     ],
+     "resources": [],
+     "kicd_source": "grade5-mathematics.pdf#p36"
+    },
+    {
+     "kicd_code": "2.4",
+     "name": "Capacity",
+     "suggested_duration": "12 lessons",
+     "learning_outcomes": [
+      "identify the millilitre as a unit of measuring capacity in real life",
+      "measure capacity in millilitres in real-life situations",
+      "estimate and measure capacity in millilitres in different situations",
+      "identify the relationship between litres and millilitres in real life",
+      "convert litres to millilitres and millilitres to litres in real-life situations",
+      "add litres and millilitres in real-life situations",
+      "subtract litres and millilitres in real-life situations",
+      "multiply litres and millilitres by whole numbers in real-life situations",
+      "divide litres and millilitres by whole numbers in different situations",
+      "appreciate use of litres and millilitres in measuring capacity in real life."
+     ],
+     "learning_experiences": [
+      "collect safe small containers and read the unit of measurements indicated in them",
+      "use smaller containers with capacity in millilitres to fill bigger containers",
+      "identify containers with capacity of 5 millilitres and use them to fill other containers",
+      "share tasks with peers while filling small containers with water and measure the capacity in millilitres using a container graduated in millilitres",
+      "use digital device or other resources to find the relationship between millilitres and litres",
+      "use a container labelled in millilitres to fill a container labelled in litres and find the relationship",
+      "carry out operations involving addition, subtraction, multiplication and division of litres and millilitres by whole numbers."
+     ],
+     "inquiry_questions": [
+      "Where are litres and millilitres used in day-to-day life?"
+     ],
+     "core_competencies": [
+      "Critical thinking and problem solving: learner converts units of capacity, relate units of capacity and work questions involving capacity."
+     ],
+     "values": [
+      "Responsibility: learner shares tasks with peers while filling small containers with water and measure the capacity in millilitres using a container graduated in millilitres."
+     ],
+     "pertinent_issues": [
+      "Social cohesion: learner works with peers to estimate and measure capacity of different containers using a container graduated in millilitres."
+     ],
+     "links_to_other_areas": [
+      "The learner is able to relate concept of capacity to water conservation in Science and Technology."
+     ],
+     "resources": [],
+     "kicd_source": "grade5-mathematics.pdf#p38"
+    },
+    {
+     "kicd_code": "2.5",
+     "name": "Mass",
+     "suggested_duration": "12 lessons",
+     "learning_outcomes": [
+      "identify the gramme as a unit of measuring mass in real life",
+      "measure mass in grammes in different situations",
+      "estimate and measure mass in grammes in different situations",
+      "identify the relationship between the kilogramme and the gramme in real-life situations",
+      "convert kilogrammes to grammes and grammes to kilogrammes in real-life situations",
+      "add grammes and kilogrammes in real-life situations",
+      "subtract grammes and kilogrammes in real-life situations",
+      "multiply grammes and kilogramme by whole",
+      "numbers in real-life situations",
+      "divide grammes and kilogrammes by whole numbers in real-life situations",
+      "appreciate use of kilogrammes and grammes in measuring mass in real life."
+     ],
+     "learning_experiences": [
+      "identify different small containers with mass labelled grammes",
+      "use a spoon or bottle top scoop sand or soil which is estimated to be about 5 grammes",
+      "use the spoon or the bottle top to fill other container with soil or sand and estimate their masses",
+      "discuss with peers to establish the relationship between the kilogramme and the grammes using a beam balance or electronic weighing machine (1kg = 1000g)",
+      "express various values of mass in kilogrammes to grammes and vice versa",
+      "convert kilogrammes to grammes and grammes to kilogrammes in real life",
+      "determine mass of items in grammes and kilogrammes by addition, subtraction, multiplication and division",
+      "different in different situations",
+      "play games involving mass by measuring mass of different objects or substances using improvised weighing balance."
+     ],
+     "inquiry_questions": [
+      "What is the importance of measuring mass?"
+     ],
+     "core_competencies": [
+      "Communication and collaboration: learner teams up with peers to estimate and measure mass of items in grammes using a beam balance or electronic weighing machine."
+     ],
+     "values": [
+      "Respect: learner teams up with peers to estimate and measure mass of items in grammes using a beam balance or electronic weighing machine."
+     ],
+     "pertinent_issues": [
+      "Social cohesion: learner teams up with peers to estimate and measure mass of items in grammes."
+     ],
+     "links_to_other_areas": [
+      "Learner is able to relate concept of mass to measuring mass in grammes in Science and Technology."
+     ],
+     "resources": [],
+     "kicd_source": "grade5-mathematics.pdf#p40"
+    },
+    {
+     "kicd_code": "2.6",
+     "name": "Time",
+     "suggested_duration": "8 lessons",
+     "learning_outcomes": [
+      "identify the second as a unit of measuring time from a clock",
+      "use digital or analogues clocks to read time in seconds",
+      "identify the relationship between the minute and the second in real-life situations",
+      "convert minutes to seconds and seconds to minutes in real life",
+      "add minutes and seconds with conversion in real-life situations",
+      "subtract minutes and seconds with conversion in real life situations",
+      "multiply minutes and seconds by whole numbers in real-life situations",
+      "divide minutes and seconds by",
+      "whole numbers in real-life situations",
+      "appreciate use of minutes and seconds as units of measuring time in real-life situations."
+     ],
+     "learning_experiences": [
+      "work with peers to identify second hand from a clock",
+      "carry out activities taking 10 seconds",
+      "use digital devices and other resources to tell time from clocks.",
+      "relate the activities to what can be done in one tenth of the time taken to do the activity; the time taken is 1 second",
+      "measure time taken to do various activities in seconds",
+      "establish the relationship between seconds and minute using a clock or",
+      "stop watch, watches",
+      "team up with peers to determine time durations in minutes and seconds using different operations in real-life situations, •"
+     ],
+     "inquiry_questions": [
+      "How can we read and tell time?"
+     ],
+     "core_competencies": [
+      "Learning to learn: learner establishes the relationship between seconds and minute using a clock or stop watch, watches."
+     ],
+     "values": [
+      "Responsibility: learner carefully handles a clock or stopwatch watches while establishing the relationship between seconds and minute."
+     ],
+     "pertinent_issues": [
+      "Social cohesion: learner teams up with peers to determine time durations in minutes and seconds using different operations in real-life situations."
+     ],
+     "links_to_other_areas": [
+      "The learner is able to relate concept of time to change of state of matter due to heating or freezing over time in Science and Technology."
+     ],
+     "resources": [],
+     "kicd_source": "grade5-mathematics.pdf#p42"
+    },
+    {
+     "kicd_code": "2.7",
+     "name": "Money",
+     "suggested_duration": "8 lessons",
+     "learning_outcomes": [
+      "explain the term budget in real-life situations",
+      "identify the importance of a budget in real life",
+      "prepare a budget of up to 5 items used in daily life",
+      "explain meaning of tax and its importance to the government",
+      "identify services provided by banks in real-life situations",
+      "identify factors to consider in order to save money wisely",
+      "appreciate use of budgeting, bank services and payment of taxes in real life."
+     ],
+     "learning_experiences": [
+      "discuss meaning and importance of a budget",
+      "prepare a budget of about 5 items that can be found in the classroom model shop",
+      "discuss meaning and importance of taxes to the governments, and study receipts from sales to identify amount of taxes paid",
+      "discuss provision of loans, safe custody of items, money deposits and withdrawals, savings as services provided by banks",
+      "brainstorm on factors to consider when saving money and share with others",
+      "• use digital devices to learn how to transfer money from one person to another as part of bank services."
+     ],
+     "inquiry_questions": [
+      "1. 1. How do you spend your money?",
+      "2. 2. What is the importance of paying taxes?"
+     ],
+     "core_competencies": [
+      "Communication and collaboration: leaner discuss and shares information about preparation of a shopping budget.",
+      "Learning to learn: learner discusses matters on budgeting, savings, and electronic banking."
+     ],
+     "values": [
+      "Patriotism: learner appreciates importance of taxes to the government of Kenya."
+     ],
+     "pertinent_issues": [
+      "Financial literacy: learner appreciates the importance of budgeting, personal savings and banking services."
+     ],
+     "links_to_other_areas": [
+      "The learner is able to relate concept of money to resources and economic activities in Kenya in Social Studies."
+     ],
+     "resources": [],
+     "kicd_source": "grade5-mathematics.pdf#p44"
+    }
+   ]
+  },
+  {
+   "strand": "Geometry",
+   "strand_code": "3.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to draw horizontal, vertical, perpendicular and parallel lines.",
+     "exceeds": "The learner draws horizontal, vertical, perpendicular and parallel lines accurately and systematically.",
+     "meets": "The learner draws horizontal, vertical, perpendicular and parallel lines accurately.",
+     "approaches": "The learner draws horizontal, vertical, perpendicular or parallel lines accurately.",
+     "below": "The learner draws any two of horizontal, vertical, perpendicular or parallel lines accurately."
+    },
+    {
+     "indicator": "Ability to read and use a protractor as a tool for measuring angles.",
+     "exceeds": "The learner reads and uses protractor as a tool for measuring angles accurately and systematically.",
+     "meets": "The learner reads and uses protractor as a tool for measuring angles accurately.",
+     "approaches": "The learner reads or uses protractor as a tool for measuring angles accurately.",
+     "below": "The learner reads a protractor as a tool for measuring angles accurately."
+    },
+    {
+     "indicator": "Ability to identify the degree and measure angles in degrees.",
+     "exceeds": "The learner identifies the degree and measures angles in degrees accurately and systematically.",
+     "meets": "The learner identifies the degree and measures angles in degrees accurately.",
+     "approaches": "The learner identifies the degree or measures angles in degrees accurately.",
+     "below": "The learner identifies the degree or measure angles in degrees partially accurately."
+    },
+    {
+     "indicator": "Ability to describe 2-D shapes in 3-D objects in the environment.",
+     "exceeds": "The learner describes 2-D shapes in 3-D objects accurately and systematically.",
+     "meets": "The learner describes 2-D shapes in 3-D objects accurately.",
+     "approaches": "The learner describes most 2-D shapes in 3-D objects accurately.",
+     "below": "The learner describes few 2-D shapes in 3-D objects partially accurately."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "3.1",
+     "name": "Lines",
+     "suggested_duration": "4 lessons",
+     "learning_outcomes": [
+      "identify horizontal and vertical lines in different situations",
+      "draw horizontal and vertical lines in different salutations",
+      "identify perpendicular lines in different situations",
+      "draw perpendicular lines in different salutations",
+      "identify parallel lines in different situations",
+      "draw parallel lines in different salutations",
+      "appreciate use of various types of lines in real life."
+     ],
+     "learning_experiences": [
+      "work with peers to identify lines in the classroom and within the environment",
+      "describe lines in the environment and identify them as horizontal and vertical lines, parallel and perpendicular lines",
+      "work with peers to draw and model horizontal and vertical lines, parallel and perpendicular lines",
+      "use digital devices and other resources to draw more lines."
+     ],
+     "inquiry_questions": [
+      "Where are perpendicular lines used?"
+     ],
+     "core_competencies": [
+      "Core Competences to be developed:",
+      "Learning to learn: learner draws different horizontal, vertical, parallel and perpendicular lines.",
+      "Digital literacy: learner uses digital devices to learn more about lines. Values: Unity: learner works with peers to draw and model horizontal and vertical lines, parallel and perpendicular lines. Pertinent and Contemporary Issues (PCIs): Environmental awareness: learner teams up with peers to identify lines in the classroom and within the environment. Link to other learning areas: The learner is able to relate line to sketching and drawing in Creative Arts."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade5-mathematics.pdf#p49"
+    },
+    {
+     "kicd_code": "3.2",
+     "name": "Angles",
+     "suggested_duration": "6 lessons",
+     "learning_outcomes": [
+      "relate a turn to angles in real life",
+      "read angles from protractor in both directions",
+      "use protractor to measure angles in different situations",
+      "measure angles in degrees in different situations",
+      "identify the use of angles in the environment",
+      "appreciate the use of angles in our day-to-day life."
+     ],
+     "learning_experiences": [
+      "make clockwise, quarter and half turn, and relate them to angles in the environment",
+      "discuss the use of angles in the environment",
+      "team up with peers to make a unit angle and use it to measure angles in the environment",
+      "divide a 10o angle into 10 equal parts and identify each part as equal to 1 degree",
+      "measure angles in degrees using a protractor",
+      "work with peers to measure angles in degrees using a protractor and share results with others",
+      "use digital devices and other resources to draw plane figures and learn about angles."
+     ],
+     "inquiry_questions": [
+      "Where are angles used in the environment?"
+     ],
+     "core_competencies": [
+      "Core Competences to be developed:",
+      "Communication and collaboration: learner teams up with peers to make a unit angle and use it to measure angles in the environment.",
+      "Learning to learn: learner measures angles in degrees using a protractor and shares results with others. Values: Responsibility: learner teams up with peers to make a unit angle and uses it to measure angles in the environment. Pertinent and Contemporary Issues (PCIs): Social cohesion: learner works with peers to measure angles in degrees using a protractor and shares results with others. Link to other learning areas: The learner is able to relate line to sketching and drawing in Creative Arts."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade5-mathematics.pdf#p51"
+    },
+    {
+     "kicd_code": "3.3",
+     "name": "Three-Dimension (3-D) Objects",
+     "suggested_duration": "6 lessons",
+     "learning_outcomes": [
+      "describe 3-D objects in the environment",
+      "describe 2-D shapes in 3-D objects in the environment",
+      "appreciate the use of 3-D objects in the environment."
+     ],
+     "learning_experiences": [
+      "share tasks with peers to identify, collect objects and discuss cubes, cuboids, cylinders, spheres and pyramids as 3-D objects in the environment",
+      "watch a video on 3-D objects",
+      "describe 2-D shapes found in 3-D objects and share with other groups",
+      "use digital devices and other resources to draw and learn more about 3-D objects."
+     ],
+     "inquiry_questions": [
+      "Where are 3-D objects used in the environment?"
+     ],
+     "core_competencies": [
+      "Critical thinking and imagination: learner identifies 2-D shapes in 3-D objects in the environment."
+     ],
+     "values": [
+      "Responsibility: learner shares tasks with peers while identifying and collecting 3-D objects in the environment."
+     ],
+     "pertinent_issues": [
+      "Environmental awareness: learner identifies and collects 3-D objects in the environment."
+     ],
+     "links_to_other_areas": [
+      "The learner is able to relate the concept of 3-D objects and 2-D shapes to modelling in Creative Arts."
+     ],
+     "resources": [],
+     "kicd_source": "grade5-mathematics.pdf#p53"
+    }
+   ]
+  },
+  {
+   "strand": "Data Handling",
+   "strand_code": "4.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to collect data, draw tally marks and record data in a table.",
+     "exceeds": "The learner collects data, draws tally marks and records data in a table accurately and systematically.",
+     "meets": "The learner collects data, draws tally marks and records data in a table accurately.",
+     "approaches": "The learner collects data, draws tally marks or records data in a table accurately.",
+     "below": "The learner collects data or draws tally marks data in a table accurately."
+    },
+    {
+     "indicator": "Ability to draw frequency tables, represent and interpret data.",
+     "exceeds": "The learner draws frequency tables, represents and interprets data accurately and systematically.",
+     "meets": "The learner draws frequency tables, represents and interprets data accurately.",
+     "approaches": "The learner draws frequency tables, represents or interprets data accurately",
+     "below": "The learner draws frequency tables or represents data accurately."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "4.1",
+     "name": "Data Representation",
+     "suggested_duration": "6 lessons",
+     "learning_outcomes": [
+      "collect data of about 30 items relating to real-life experiences",
+      "draw a table to record data from real-life situations",
+      "draw tally marks of the collected data",
+      "prepare a frequency table to represent data",
+      "interpret data represented by frequency tables",
+      "appreciate use frequency tables in real life."
+     ],
+     "learning_experiences": [
+      "team up with peers to collect data involving day-to-day experiences such as marks, shoe number, age of learners in a class",
+      "discuss other sources of data such as the number and types of vehicles on a given road near school and home, discuss also number of bicycles or motor cycles",
+      "prepare data collection and recording tools and record data on books or charts",
+      "discuss and draw tally marks for the data",
+      "organise data in a table from real-life situations",
+      "discuss information represented by objects piled vertically",
+      "use digital devices and other resources to learn more on representing data in tables."
+     ],
+     "inquiry_questions": [
+      "Why is representing data in tables important?"
+     ],
+     "core_competencies": [
+      "Learning to learn: learner practises piling items as a form of data organisation.",
+      "Digital literacy: learner uses digital devices and other resources to learn more about frequency tables."
+     ],
+     "values": [
+      "Unity: learner teams up with peers to collect data involving day-to-day experiences."
+     ],
+     "pertinent_issues": [
+      "Safety: learner carefully uses digital devices and other resources to learn more on representing data in tables."
+     ],
+     "links_to_other_areas": [
+      "The learner is able to relate data representation to population distribution in the county in Social Studies."
+     ],
+     "resources": [],
+     "kicd_source": "grade5-mathematics.pdf#p56"
+    }
+   ]
+  }
+ ]
+}

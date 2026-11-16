@@ -1,0 +1,303 @@
+{
+ "source_pdf": "grade8-hindu-religious-education.pdf",
+ "grade": 8,
+ "subject": "hindu-religious-education",
+ "general_outcomes": [],
+ "strands": [
+  {
+   "strand": "Manifestation of Paramatma (Supreme Being)",
+   "strand_code": "1.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to explain the key attributes of the selected Enlightened Beings.",
+     "exceeds": "The learner explains the key attributes of all the four selected Enlightened Beings comprehensively.",
+     "meets": "The learner explains the key attributes of the three selected Enlightened Beings.",
+     "approaches": "The learner explains the key attributes of the two selected Enlightened Beings.",
+     "below": "The learner explains the key attributes of only one of the selected Enlightened Beings."
+    },
+    {
+     "indicator": "Ability to outline the contributions of the Enlightened Beings.",
+     "exceeds": "The learner outlines the contributions of the Enlightened Beings with relevant examples.",
+     "meets": "The learner outlines the contributions of the Enlightened Beings.",
+     "approaches": "The learner outlines some of the contributions of the Enlightened Beings.",
+     "below": "The learner outlines some of the contributions of Enlightened beings only with prompts."
+    },
+    {
+     "indicator": "Ability to analyse the role of Scriptures.",
+     "exceeds": "The learner analyses the role of Scriptures with elaboration.",
+     "meets": "The learner analyses the role of Scriptures correctly.",
+     "approaches": "The learner analyses the role of Scriptures with less detail.",
+     "below": "The learner analyses the role of Scriptures with less details only when prompted."
+    },
+    {
+     "indicator": "Ability to prepare a code of conduct based on Scriptures.",
+     "exceeds": "The learner prepares a code of conduct with detailed illustrations.",
+     "meets": "The learner prepares a code of conduct in detail.",
+     "approaches": "The learner prepares a code of conduct with less details.",
+     "below": "The learner prepares a code of conduct with less details only with motivation."
+    },
+    {
+     "indicator": "Ability to identify the five selected fundamental Principles of Dharma for character formation.",
+     "exceeds": "The learner identifies the five selected fundamental Principles of Dharma with elaborations.",
+     "meets": "The learner identifies four selected fundamental Principles of Dharma.",
+     "approaches": "The learner identifies three fundamental Principles of Dharma.",
+     "below": "The learner identifies only one fundamental Principles of Dharma."
+    },
+    {
+     "indicator": "Ability to dramatize the Principles of Dharma.",
+     "exceeds": "The learner dramatizes the Principles of Dharma creatively and innovatively.",
+     "meets": "The learner dramatizes the Principles of Dharma.",
+     "approaches": "The learner dramatizes the Principles of Dharma leaving out some details.",
+     "below": "The learner dramatizes the Principles of Dharma with mix ups."
+    },
+    {
+     "indicator": "Ability to describe the Buddhist Principles of Dharma for spiritual nourishment.",
+     "exceeds": "The learner describes the Buddhist Principles of Dharma giving examples.",
+     "meets": "The learner describes the Buddhist Principles of Dharma.",
+     "approaches": "The learner describes some of the Buddhist Principles of Dharma.",
+     "below": "The learner describes some of the Buddhist Principles of Dharma only with prompts."
+    },
+    {
+     "indicator": "Ability to interpret the Buddhist Principles of Dharma for character formation.",
+     "exceeds": "The learner interprets the Buddhist Principles of Dharma providing ample supporting details.",
+     "meets": "The learner interprets the Buddhist Principles of Dharma.",
+     "approaches": "The learner interprets the Buddhist Principles of Dharma leaving out some supporting details.",
+     "below": "The learner interprets the Buddhist Principles of Dharma leaving out major supporting details."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "1.1",
+     "name": "Enlightened beings",
+     "suggested_duration": "14 lessons",
+     "learning_outcomes": [
+      "explain key attributes of the selected Enlightened Beings for familiarisation",
+      "outline the contributions of the Enlightened Beings for inspiration in daily life",
+      "participate in activities that reflect the teachings of the Enlightened Beings for individual transformation",
+      "recognize the contributions of",
+      "Enlightened Beings for guidance in life."
+     ],
+     "learning_experiences": [
+      "research on attributes of the specified Enlightened Beings based on their life history using varied digital/digital media with assistive technology /print media/ resource persons",
+      "tabulate or write the attributes and commonalities of the selected Enlightened Beings",
+      "watch or listen to audio visual clips on the life history of the Enlightened Beings",
+      "role play the story of Tirthankar Mallinath: Malli kumari and kings",
+      "explain the events that led to Sri Guru Tegh Bahadur Ji’s entitlement",
+      "write an essay on the implementation of the teachings learnt from the Enlightened Beings",
+      "draw, paint or make a tactual illustration on a life event of an Enlightened Being",
+      "design a catalogue of each Enlightened Being by sticking at least two pieces of poetry/quotes from religious magazines/recorded discourses/personal composition against a relevant portrait of each Enlightened Being",
+      "develop a practical activity to solve a problem in their community applying a specific teaching from the Enlightened Beings.",
+      "listen to stories and recorded audio-visuals on the listed verses from the Scriptures",
+      "discuss with peers how teachings from the Scriptures promote peace and harmony and make a presentation in class",
+      "assist learners with special needs as per their abilities through peer teaching basic concepts from Scriptures in their class.",
+      "• prepare relevant skits based on Scriptural stories depicting Principles of Dharma.",
+      "running while crossing the road, playing on the road",
+      "assist learners with special needs as per their abilities through peer teaching religious practices carried out in a place of worship."
+     ],
+     "inquiry_questions": [
+      "1. Why is it important to learn the attributes of Enlightened Beings?",
+      "2. How can we implement the teachings of Enlightened Beings in our lives?"
+     ],
+     "core_competencies": [
+      "• Critical Thinking and Problem Solving: Learner enhances critical thinking when develops a practical activity in groups to solve a problem in their community applying the teachings from the lives of Enlightened Beings.",
+      "Citizenship: Learner enhances information and communication while discussing the role of Scriptures with peers.",
+      "Digital Literacy: Learner interacts with technology when listens to stories/observe signed stories and watch or listen to recorded audio-visuals on the listed verses from the Scriptures.",
+      "Learning to Learn: Learner shares learnt knowledge while discussing with peers the activities enlisted regarding the practice of Principles of Dharma.",
+      "Creativity and Imagination: Learner will develop networking skills while performing skits based on Principles of Dharma.",
+      "Digital Literacy: Learner enhances digital literacy skills while using digital technology as they explore the Principles of Dharma through digital media.",
+      "Learning to Learn: Learner develops independent learning skills when reads religious Buddhist magazines to identify components of the Buddhist eightfold path.",
+      "Digital Literacy: Learner will enhance digital literacy skills when interacts with technology as they watch/ listen/ observe signed videos on the practice of the eightfold path."
+     ],
+     "values": [
+      "Values:",
+      "Social justice: Learner acquires equity when watches or listens to audio visual clips on the life history of the Enlightened Beings.",
+      "Responsibility: Learner acquires self-drive while watching or listening to audio visual clips on the life history of the Enlightened Beings and implement the teachings responsibly in daily life. Pertinent and Contemporary Issues (PCI’s):",
+      "Human rights and responsibilities: Learner enhances Human rights and responsibilities when explains the events that led to Sri Guru Tegh Bahadur Ji’s entitlement of Hind Kee Chaadhar.",
+      "Positive discipline: Learner inculcates positive discipline in them while watchinbg video clips on the life history of the Enlightened Beings. Link to other Subjects:",
+      "The learner is able to relate the skill of writing on the implementation of the teachings they have learnt from the Enlightened Beings to writing skills learnt in English.",
+      "The learner is able to relate the skill of design a catalogue of each Enlightened Being by sticking at least two pieces of poetry/quotes from religious magazines/recorded discourses/personal composition against a relevant portrait of each Enlightened Being to the creative skills of designing a catalogue learnt in Creative Arts and Sports.",
+      "values?",
+      "Respect: Learner acquires open mindedness while discussing with peers and present their findings in class.",
+      "Peace: Learner instills love and compassion while applying teachings of the Scriptures by living a peaceful and harmonious life.",
+      "Respect: Learner acquires acceptance for self and others when develops tolerance towards other religions.",
+      "Peace: Learner enhances compassion when learns about non-violence.",
+      "Respect: Learner acquires humility when practices right speech, and right action for self and others.",
+      "Integrity: Learner enhances accountability while practicing the Buddhist Principles of Dharma."
+     ],
+     "pertinent_issues": [
+      "Citizenship: Learner enhances global citizenship when learns about religious tolerance.",
+      "Values Based Education: Learner enhances values while getting exposed to the Principles of Dharma.",
+      "Financial Literacy: Learner applies financial literacy when practices the principle of non-stealing and non-attachment.",
+      "Social Awareness Skills: Learner acquires social skills when embraces the components of eightfold path.",
+      "Self-Management Skills: Learner develops management skills when creates a mind map/summarize /list that incorporates activities of the eightfold path and discuss in groups the components that can be exercised in daily life."
+     ],
+     "links_to_other_areas": [
+      "Learner is able to relate to the skills of preparing skits based on Scriptural stories depicting Principles of Dharma to the skills of preparing skits learnt in Creative Arts and Sports.",
+      "Learner is able to relate to skills of creating a mind map/summarise/list that incorporates activities of the eightfold path to skills of creating a mind map/summarise learnt in Creative Arts & Sports."
+     ],
+     "resources": [],
+     "kicd_source": "grade8-hindu-religious-education.pdf#p13"
+    }
+   ]
+  },
+  {
+   "strand": "Religious Practices",
+   "strand_code": "4.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to describe the protocols of religious practices observed in a Sanatan/Hindu Mandir.",
+     "exceeds": "The learner describes the protocols of religious practices observed in a Sanatan/Hindu Mandir providing relevant supporting details.",
+     "meets": "The learner describes the protocols of religious practices observed in a Sanatan/Hindu Mandir.",
+     "approaches": "The learner describes the protocols of religious practices observed in a Sanatan/Hindu Mandir leaving some details.",
+     "below": "The learner describes the protocols of religious practices observed in a Sanatan/Hindu Mandir leaving out major details."
+    },
+    {
+     "indicator": "Ability to model the mandatory religious etiquette for self-esteem.",
+     "exceeds": "The learner models the mandatory religious etiquette creatively and systematically.",
+     "meets": "The learner models the mandatory religious etiquette correctly.",
+     "approaches": "The learner models some of the mandatory religious etiquette.",
+     "below": "The learner models some of the mandatory religious etiquette only with assistance."
+    },
+    {
+     "indicator": "Ability to summarise key events of selected prominent practitioners of Karma Yog.",
+     "exceeds": "The learner summarises key events of selected prominent practitioners of Karma Yog precisely and citing incidents from their lives.",
+     "meets": "The learner summarises key events of selected prominent practitioners of Karma Yog.",
+     "approaches": "The learner summarises key events of two selected prominent practitioners of Karma Yog.",
+     "below": "The learner summarises key events of only one selected prominent practitioner of Karma Yog."
+    },
+    {
+     "indicator": "Ability to implement Karma Yog for self-improvement.",
+     "exceeds": "The learner implements Karma Yog and encourages the peers to follow.",
+     "meets": "The learner implements Karma Yog.",
+     "approaches": "The learner implements Karma Yog leaving out some aspects.",
+     "below": "The learner implements Karma Yog leaving out some key aspects."
+    },
+    {
+     "indicator": "Ability to interpret the significance of religious ceremonies in Jain faith.",
+     "exceeds": "The learner interprets the significance of religious ceremonies in Jain faith citing examples.",
+     "meets": "The learner interprets the significance of religious ceremonies in Jain faith.",
+     "approaches": "The learner interprets the significance of religious ceremonies in Jain faith with minor mix ups.",
+     "below": "The learner interprets the significance of religious ceremonies in Jain faith with major mix ups."
+    },
+    {
+     "indicator": "Ability to model all necessary protocols while participating in the religious ceremonies.",
+     "exceeds": "The learner models all necessary protocols while participating in the religious ceremonies and encourages peers.",
+     "meets": "The learner models all necessary protocols while participating in the religious ceremonies.",
+     "approaches": "The learner models all necessary protocols while participating in the religious ceremonies with minor omissions.",
+     "below": "The learner models all necessary protocols while participating in the religious ceremonies with major omissions."
+    },
+    {
+     "indicator": "Ability to explain Buddhist Sanskaars for familiarity.",
+     "exceeds": "The learner explains Buddhist Sanskaars systematically.",
+     "meets": "The learner explains Buddhist Sanskaars.",
+     "approaches": "The learner explains some of the Buddhist Sanskaars.",
+     "below": "The learner explains some of the Buddhist Sanskaars only with prompts."
+    },
+    {
+     "indicator": "Ability to illustrate the significance of religious ceremonies for self-efficacy.",
+     "exceeds": "The learner illustrates the significance of religious ceremonies creatively.",
+     "meets": "The learner illustrates the significance of religious ceremonies correctly.",
+     "approaches": "The learner illustrates the significance of some of the religious ceremonies.",
+     "below": "The learner illustrates the significance of some of the religious ceremonies only with prompts."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "4.1",
+     "name": "Protocols in Sanatan Dharma",
+     "suggested_duration": "14 lessons",
+     "learning_outcomes": [
+      "describe the protocols of religious practices observed in a Sanatan/Hindu Mandir",
+      "model the mandatory religious etiquette for self-efficacy",
+      "embrace the protocols and etiquette for personal welfare."
+     ],
+     "learning_experiences": [
+      "visit places of worship for the Sanatan Dharma, accompanied by parents/guardians, to observe, record with digital devices / adapted digital devices to present in class the relevance of Arti, its components and significance",
+      "perform the Arti at the end of their presentation, individually or in groups",
+      "write a detailed report on findings from visits to places of worship that include the attitudinal disposition one has while performing the religious practices",
+      "demonstrate the religious practices with peers",
+      "invite resource person to give a talk on the mandatory protocols of",
+      "the religious practices where learners record and take notes",
+      "visit a place of worship to note the etiquettes observed.",
+      "assist learners with special needs as per their abilities through peer teaching to make them understand the religious practices carried out in a place of worship."
+     ],
+     "inquiry_questions": [
+      "Why are protocols important in religious practices?"
+     ],
+     "core_competencies": [
+      "Self-efficacy: Learner enhances self-awareness and planning skills when gets engage in role play the mandatory religious practices in groups.",
+      "Digital literacy: Learner enhances digital skills while manipulating digital devices to conduct and record an interview with resource persons on mandatory protocols in places of worship."
+     ],
+     "values": [
+      "Respect: Learner develops open mindedness when visits a place of worship to note the etiquettes observed."
+     ],
+     "pertinent_issues": [
+      "Citizenship: Learner enhances social cohesion when re-enacts the dos and don’ts of religious etiquette observed at places of worship."
+     ],
+     "links_to_other_areas": [
+      "Learner is able to relate to the skills of role playing the mandatory religious practices to the skills of role playing learnt in Creative Arts & Sports.",
+      "Learner is able to relate to the skills of record using digital devices /digital devices with assistive technology to the skills of using digital devices learnt in Computer Science."
+     ],
+     "resources": [],
+     "kicd_source": "grade8-hindu-religious-education.pdf#p25"
+    },
+    {
+     "kicd_code": "4.2",
+     "name": "Protocols in Jain Dharma Aarti and Mangal Divo",
+     "suggested_duration": "13 lessons",
+     "learning_outcomes": [
+      "describe the protocols observed in a Jain Derasar for recognition",
+      "model the mandatory religious etiquette for self-esteem",
+      "acknowledge the protocols and etiquette for social harmony."
+     ],
+     "learning_experiences": [
+      "visit the Derasar, accompanied by parents/guardians, to record with digital devices / assistive technology and present in class the relevance of the protocols, their components and significance",
+      "perform the protocols at the end of their presentation, individually or with peers",
+      "write a detailed report on findings from visits to places of worship that include the attitudinal disposition one has while performing the religious practices",
+      "invite resource person to give a talk on the mandatory protocols of the religious practices where learners record and take notes",
+      "create a skit and dramatise the dos and don’ts of religious etiquette observed at the Derasar.",
+      "• Undertake selfless service in school and community and assist learners with special needs as per their abilities.",
+      "• read through and discuss in groups a scenario/ case study and pick out instances where any of the three religious ceremonies apply."
+     ],
+     "inquiry_questions": [
+      "Why is it important to learn about the Aarti, Mangal Divo and its significance?"
+     ],
+     "core_competencies": [
+      "• Self-efficacy: Learner enhances self-awareness and planning skills while creating a skit and dramatise the dos and don’ts of religious etiquette observed at the Derasar.",
+      "Communication and Collaboration: Learner enhances listening and teamwork skills while role playing key events of prominent practitioners of Karma Yog.",
+      "Learning to Learn and Critical Thinking: Learner develops self-discipline when makes a list of all the duties/roles in their life, divide them into the roles they like and dislike and prioritise as per importance at home and in school.",
+      "Digital Literacy: Learner interacts with technology when reads key events of prominent practitioners of Karma Yog through digital media/ assistive digital media.",
+      "Self-efficacy: Learner enhances self-awareness and planning skills while using digital devices/digital devices with assistive technology to research in groups on the religious ceremonies to create a PowerPoint presentation/ tactual illustration.",
+      "Digital literacy: Learner interacts with digital technology by using digital devices to research in groups.",
+      "Core Competencies to be developed:",
+      "Self-efficacy: Learner enhances self-awareness and planning skills when participates actively in family functions regarding the Buddhist Sanskaars.",
+      "Digital Literacy: Learner enhances digital technology skills while making a video/participate in making an audio-visual clip and then make a class presentation on Buddhists’ Sanskaars. Values: Responsibility: Learner enhances resilience when makes a video/participate in making an audio-visual clip and then make a class presentation on Buddhists’ Sanskaars. Pertinent and Contemporary Issues (PCI’s):",
+      "Social Cohesion: Learner enhances social skills when participates actively in family functions regarding the Buddhist Sanskaars.",
+      "Financial Literacy: Learner applies financial literacy skills when observes the planning, creation and execution of the Buddhist Sanskaars. Link to other Subjects:",
+      "Learner is able to relate to the skills of singing/signing hymns and verses to the skills of singing/signing hymns learnt in Creative Arts and Sports.",
+      "Learner is able to relate to the skills of using digital devices in making a video/participate in making an audio-visual clip and then make a class presentation on Buddhists’ Sanskaars to the skills of using digital devices to make audio-visual clip learnt in Pre-Technical Studies."
+     ],
+     "values": [
+      "Values: Respect: Learner acquires open mindedness when creates a skit and dramatise the dos and don’ts of religious etiquette observed at the Derasar. Pertinent and Contemporary Issues (PCI’s):",
+      "Citizenship: Learner enhances citizenship when writes a detailed report and presents it with the recording: on their findings from their visit to the Derasar that includes their own attitudes with the people they encounter.",
+      "Financial Literacy: Learner applies financial literacy skills when observes how the Aarti and Mangal Divo rituals are planned and executed. Link to other Subjects: Learner is able to relate to the skills of creating a skit and dramatising the dos and don’ts of religious etiquette observed at the Derasar and perform the Aarti and Mangal Divo at the end of their presentation to the creative skills learnt in Creative Arts and Sports.",
+      "Responsibility: Learner enhances self-drive when commits to selfless services and make a list of all the duties/roles in their life, divide them into the roles they like and dislike and prioritise as per importance at home and in school.",
+      "Responsibility: Learner enhances self-drive when tabulates/writes a list of activities that are performed during religious ceremonies."
+     ],
+     "pertinent_issues": [
+      "Global Citizenship: Learner enhances global citizenship when undertakes selfless service in their school and community.",
+      "Learner Support Programmes: Learner strengthens positive discipline when makes a list of all the duties/roles in their life, divide them into the roles they like and dislike and prioritise as per importance at home and in school.",
+      "Life skills: Learner develops social awareness skills (Empathy, assertiveness, friendship formation, peer pressure resistance, conflict resolution and effective communication) while imagining and creating a story that incorporates at least one of the three jewels through self-evaluation."
+     ],
+     "links_to_other_areas": [
+      "Learner is able to relate to the skills of role playing key events of prominent practitioners of Karma Yog and will develop civic mindedness as they undertake selfless service in their school and community to the skills of role playing learnt in Social Studies.",
+      "Learner is able to relate to the skills of using digital devices to create a PowerPoint presentation/ tactual illustration for discussion to the skills of using digital devices for creating PowerPoint presentation/ tactual illustration to the skills learnt in Pre-Technical Studies.",
+      "Learner is able to relate to the skills of tabulating/writing a list of activities that are performed during religious ceremonies to the skills of tabulating/writing learnt in Mathematics."
+     ],
+     "resources": [],
+     "kicd_source": "grade8-hindu-religious-education.pdf#p27"
+    }
+   ]
+  }
+ ]
+}

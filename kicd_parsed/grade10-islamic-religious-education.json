@@ -1,0 +1,1153 @@
+{
+ "source_pdf": "grade10-islamic-religious-education.pdf",
+ "grade": 10,
+ "subject": "islamic-religious-education",
+ "general_outcomes": [
+  "By the end of Senior Secondary, the learner should be able to:",
+  "develop understanding and apply the teachings of the Qur’an and Hadith for guidance,",
+  "uphold Islamic beliefs and practices, perform devotional acts to fulfil Allah (S.W.T.)’s commandments for holistic human growth and sustainable use of resources,",
+  "develop positive inter-personal relationships guided by Islamic ethos for a harmonious society,",
+  "practise Islamic virtues and morals for an upright society and appreciate religious diversity for tolerance and social cohesion,",
+  "demonstrate understanding and application of Islamic law in maintenance of peace and social order in the society,",
+  "apply Islamic teachings to guide individuals to make positive contribution to social, political and economic developments in the society,"
+ ],
+ "strands": [
+  {
+   "strand": "Islamic History",
+   "strand_code": "",
+   "assessment_rubric": [],
+   "substrands": [
+    {
+     "kicd_code": "",
+     "name": "Islam in East Africa",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "• Written assessment and oral assessment",
+      "portfolio assessment, observation"
+     ],
+     "learning_experiences": [
+      "• Qur’an, books of Hadith, books of History of Islam",
+      "course books, digital devices, reference materials/online sources"
+     ],
+     "inquiry_questions": [
+      "Write an essay on the impact of Islam in Tanzania and Uganda and share on the school",
+      "magazine/ display on notice boards"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-islamic-religious-education.pdf#p74"
+    }
+   ]
+  },
+  {
+   "strand": "and Civilisation",
+   "strand_code": "",
+   "assessment_rubric": [],
+   "substrands": [
+    {
+     "kicd_code": "",
+     "name": "Muslim Scholars",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "• Written assessment and oral assessment, portfolio assessment, observation"
+     ],
+     "learning_experiences": [
+      "• Qur’an, books of Hadith, books of History of Islam, course books, digital devices, reference materials/online sources"
+     ],
+     "inquiry_questions": [
+      "Organise donations from the Islamic society kitty and assist the less fortunate in school • Collect articles written by the scholars and display on notice boards/society/school library"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-islamic-religious-education.pdf#p75"
+    }
+   ]
+  },
+  {
+   "strand": "Study of the Quran and Hadith",
+   "strand_code": "1.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to analyse the circumstances, process and significance of compilation, standardisation and diacriticalisation of the Quran",
+     "exceeds": "Analyses the circumstances, process and significance of compilation, standardisation and diacriticalisation of the Quran correctly and comprehensively",
+     "meets": "Analyses the circumstances, process and significance of compilation, standardisation and diacriticalisation of the Quran correctly",
+     "approaches": "Analyses the circumstances, process and significance of compilation, standardisation and diacriticalisation of the Quran correctly but leaves out few details",
+     "below": "Analyses the circumstances, process and significance of compilation, standardisation and diacriticalisation of the Quran correctly but leaves out major details"
+    },
+    {
+     "indicator": "Ability to explain the characteristics and significance of muhkamat and mutashabihat, and al-‘am and al-khaas Qur’an",
+     "exceeds": "Explains the characteristics and significance of muhkamat and mutashabihat, and al-‘am and al-khaas Qur’an correctly and cites examples",
+     "meets": "Explains the characteristics and significance of muhkamat and mutashabihat, and al-‘am and al-khaas Qur’an correctly",
+     "approaches": "Explains the characteristics and significance of muhkamat and mutashabihat, and al-‘am and al-khaas Qur’an correctly but with few omissions",
+     "below": "Explains the characteristics and significance of muhkamat and mutashabihat, and al-‘am and al-khaas Qur’an correctly but with many omissions"
+    },
+    {
+     "indicator": "Ability to describe kinds and benefits of asbaabu al-nuzuul",
+     "exceeds": "Describes kinds and benefits of asbaabu al-nuzuul accurately and cites examples",
+     "meets": "Describes kinds and benefits of asbaabu al-nuzuul accurately",
+     "approaches": "Describes kinds and benefits of asbaabu al-nuzuul with few omissions",
+     "below": "Describes kinds and benefits of asbaabu al-nuzuul with guidance"
+    },
+    {
+     "indicator": "Ability to explain the meaning and",
+     "exceeds": "Explain the meaning and teachings Surah al-",
+     "meets": "Explain the meaning and teachings Surah",
+     "approaches": "Explain the meaning and teachings Surah al-",
+     "below": "Explains the meaning of the selected verses"
+    },
+    {
+     "indicator": "teachings Surah al-Furqan (Q. 25:61-77)",
+     "exceeds": "Furqan (Q. 25:61-77) correctly and concisely",
+     "meets": "al-Furqan (Q. 25:61-77) correctly",
+     "approaches": "Furqan (Q. 25:61-77) correctly but with some inconsistency",
+     "below": "in Surah al-Furqan (Q. 25:61-77) correctly but with difficulty"
+    },
+    {
+     "indicator": "Ability to describe the qualities of a muhadith and criteria for determining authenticity of hadith",
+     "exceeds": "Describes the qualities of a muhadith and criteria for determining authenticity of hadith correctly and cites examples",
+     "meets": "Describes the qualities of a muhadith and criteria for determining authenticity of hadith correctly",
+     "approaches": "Describes the qualities of a muhadith and criteria for determining authenticity of hadith fairly",
+     "below": "Describes the qualities of a muhadith and criteria for determining authenticity of hadith fairly but with guidance"
+    },
+    {
+     "indicator": "Ability to explain the teachings of the selected Hadith (environment, kinship, brotherhood)",
+     "exceeds": "Explains the teachings of the selected Hadith (environment, kinship, brotherhood) accurately and cites examples",
+     "meets": "Explains the teachings of the selected Hadith (environment, kinship, brotherhood) accurately",
+     "approaches": "Explains the teachings of the selected Hadith (environment, kinship, brotherhood) accurately but leaves out few details",
+     "below": "Explains the teachings of the selected Hadith (environment, kinship, brotherhood) accurately but leaves out many details"
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "1.1",
+     "name": "Compilation and standardisation of the Qur’an",
+     "suggested_duration": "8 lessons",
+     "learning_outcomes": [
+      "analyse the circumstances that led to compilation of the Qur’an during the reign of caliph Abubakar (R.A.)",
+      "examine the circumstances that led to standardisation of the Qur’an during the reign of caliph Uthman (R.A.)",
+      "describe the process of compilation of the Qur’an during the reigns of caliphs Abubakar (R.A.) and Uthman (R.A.)",
+      "explain the significance of compilation and standardisation of the Qur’an as ways of preserving it",
+      "apply the qualities of the compilers of the Qur’an in daily life"
+     ],
+     "learning_experiences": [
+      "research online or from available reference materials on the circumstances of compilation and standardisation of the Qur’an during the reigns of caliphs Abubakar (R.A.) and Uthman (R.A.) and present in class",
+      "discuss on the process of compilation and standardisation of the Qur’an during the reigns of caliphs Abubakar (R.A.) and Uthman (R.A.) in groups and present in class",
+      "brainstorm in groups on the significance of compiling the Qur’an and write notes",
+      "demonstrate the qualities of the compilers of the Qur’an (trustworthiness, record"
+     ],
+     "inquiry_questions": [
+      "What are the benefits of compilation of the Qur’an?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Digital Literacy: The skills of connecting using digital technology and interacting with digital technology are enhanced as learners research online on the circumstances of compilation of the Qur’an during the reigns of caliphs Abubakar (R.A.) and Uthman (R.A.) and present in class.",
+      "Communication and Collaboration: The skills of listening, speaking, writing and team work are developed as learners work in pairs or small groups as they brainstorm on the significance of compilation of the Qur’an and make notes.",
+      "Learning to learn: The skill of sharing learnt knowledge as learners’ research online or from available resources on the circumstances of compilation of the Qur’an during the reigns of caliphs Abubakar (R.A.) and Uthman (R.A.) and present in class.",
+      "Creativity and imagination: The skill of networking is enhanced as learners demonstrate the qualities of the compilers of the Qur’an. Values:",
+      "Responsibility: Accountability is enhanced as learners demonstrate the qualities of the compilers of the Qur’an.",
+      "Respect: Etiquette is enhanced as learners respect each other’s opinion as they brainstorm in groups on the significance of compiling the Qur’an and write notes.",
+      "Unity: Cooperation is enhanced as learners work in pairs or groups as they discuss the significance of compilation of the Qur’an. Pertinent and Contemporary Issues: Life Skills: Assertiveness as they demonstrate the qualities of the compilers of the Qur’an."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-islamic-religious-education.pdf#p13"
+    },
+    {
+     "kicd_code": "1.4",
+     "name": "Diacriticalisation of the Qur’an",
+     "suggested_duration": "3 lessons",
+     "learning_outcomes": [
+      "examine the circumstances that led to diacriticalisation of the Qur’an for correct recitation",
+      "assess the significance of diacriticalisation of the Qur’an for ease of reading",
+      "read the Qur’an with correct articulation",
+      "acknowledge the process of diacriticalisation of the Qur’an as a way of perfecting recitation."
+     ],
+     "learning_experiences": [
+      "research online or from available reference materials the circumstances that led to diacriticalisation of the Qur’an (vowelling marks – tashkil and diacritical marks-i’jam) and present in class",
+      "brainstorm on the significance of diacriticalisation of the Qur’an, prepare a chart and present in class",
+      "prepare a chart with Qur’an verses with diacritical marks and corresponding verses without and display in class",
+      "read Qur’an verses with diacritical marks and corresponding verses without them."
+     ],
+     "inquiry_questions": [
+      "Why is diacriticalisation of the Qur’an important?"
+     ],
+     "core_competencies": [
+      "• Communication and Collaboration: The skills of listening, speaking and writing are enhanced as learners brainstorm on the significance of diacriticalisation of the Qur’an and prepare charts."
+     ],
+     "values": [
+      "Values:",
+      "Respect: Open mindedness is enhanced as learners respect each other’s opinion while brainstorming in groups on the significance of diacriticalisation of the Qur’an, prepare a chart and present in class.",
+      "Unity: Cooperation is attained as learners work together to prepare a chart with Quranic verses, with diacritical marks and corresponding verses without.",
+      "Responsibility: Accountability is realised as learners brainstorm on the significance of diacriticalisation of the Qur’an, prepare charts and present in class. Pertinent and Contemporary Issues: Life skills: Self-esteem as learners work together to prepare a chart with Quranic verses, with diacritical marks and corresponding verses."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-islamic-religious-education.pdf#p15"
+    },
+    {
+     "kicd_code": "1.5",
+     "name": "Types of verses",
+     "suggested_duration": "8 lessons",
+     "learning_outcomes": [
+      "outline the characteristics of muhkamat and mutashabihat, and al-‘am and al-khaas, verses for correct interpretation of the Qur’an",
+      "explain the significance of muhkamat and mutashabihat, al-‘am and al-khaas, for correct interpretation of the Qur’an",
+      "categorise verses that are muhkamat and mutashabihat, al-‘am and al-khaas, for ease of interpretation",
+      "appreciate the types of verses for better understanding of the Qur’an."
+     ],
+     "learning_experiences": [
+      "research online or from available reference materials on the characteristics of muhkamat and mutashabihat, al-‘am and al-khaas verses and make notes",
+      "discuss the significance of muhkamat and mutashabihat, al-‘am and al-khaas verses in small groups and make class presentations",
+      "tabulate at least three muhkamat and mutashabihat, al-‘am and al-khaas verses and display in class."
+     ],
+     "inquiry_questions": [
+      "Why is it important to have the knowledge of the different types of verses?"
+     ],
+     "core_competencies": [
+      "Digital Literacy: The skills of connecting using digital technology and interacting with digital technology are enhanced as learners research online or from available reference materials on the characteristics of muhkamat and mutashabihat, al-‘am and al-khaas verses .",
+      "Critical Thinking and Problem Solving: The skill of researching is enhanced as learners research online or from available reference materials on the characteristics of muhkamat and mutashabihat verses."
+     ],
+     "values": [
+      "Values:",
+      "Responsibility: Accountability is enhanced as learners take turns when making class presentations on the significance of muhkamat and mutashabihat, al-‘am and al-khaas, verses.",
+      "Respect: Etiquette is enhanced as learners respect each other’s opinion as they discuss the significance of muhkamat and mutashabihat, al-‘am and al-khaas, verses in small groups and make class presentations. Pertinent and Contemporary Issues: Life Skills: The skill of analytical thinking is enhanced as learners distinguish types of verses"
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-islamic-religious-education.pdf#p17"
+    },
+    {
+     "kicd_code": "1.6",
+     "name": "Asbabu al-nuzuul (reasons for revelation)",
+     "suggested_duration": "5 lessons",
+     "learning_outcomes": [
+      "describe the kinds of asbaabu al-nuzuul for easy application of the Qur’an",
+      "assess the benefits of asbaabu al-nuzuul for easy understanding of the Qur’an",
+      "appreciate the role of Asbaabu al-nuzuul in the interpretation the Qur’an."
+     ],
+     "learning_experiences": [
+      "discuss the kinds of asbaabu al-nuzuul (revelation in response to an event or a general situation, revelation in response to a particular question that has been asked by someone and revelation for other reasons, known or not known to us) and make notes",
+      "search online or from available reference materials on the benefits asbaabu al-nuzuul and present in class",
+      "watch an audio-visual material of a resource person talking on kinds of asbaabu al-nuzuul."
+     ],
+     "inquiry_questions": [
+      "Why is the knowledge of asbaabu al-nuzuul important to a Muslim?"
+     ],
+     "core_competencies": [
+      "Digital Literacy: The skills of interacting with technology and connecting using digital technology are enhanced as learners search online or from available reference materials on the benefits asbaabu al-nuzuul.",
+      "Communication and Collaboration: The skills of listening, speaking, writing and team work are enhanced as learners discuss in small groups the benefits of asbaabu al-nuzuul and make notes.",
+      "Learning to Learn: The skill of organising own learning is enhanced as learners make a presentation on the benefits of asbaabu al-nuzuul."
+     ],
+     "values": [
+      "Values:",
+      "Responsibility: Accountability is enhanced as learners search online or from available reference materials on the benefits asbaabu al-nuzuul and present in class.",
+      "Respect: Etiquette is enhanced as learners respect each other’s opinion as they discuss the kinds of asbaabu al-nuzuul. Pertinent and Contemporary Issues: Parental Empowerment and Engagement: Resource mobilisation and utilization are enhanced as learners listen to a resource person giving a talk on kinds of asbaabu al-nuzuul."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-islamic-religious-education.pdf#p19"
+    },
+    {
+     "kicd_code": "1.5",
+     "name": "Selected verses Surah al-Furqan (Q. 25:61-77)",
+     "suggested_duration": "11 lessons",
+     "learning_outcomes": [
+      "explain the meaning of the selected verses in Surah al-Furqan (Q. 25:61-77) for better understanding",
+      "describe the qualities of the servants of Allah (S.W.T.) as mentioned in Surah al-Furqan (Q. 25: 61-77)",
+      "examine the teachings of the selected verses in Surah al-Furqan (Q. 25:61-77) for character building",
+      "apply the lessons learnt from the selected verses in Surah al-Furqan (Q. 25:61-77) in their day-to-day lives",
+      "acknowledge the role of the selected verses in Surah al-Furqan (Q. 25:61-77) for character formation."
+     ],
+     "learning_experiences": [
+      "use a translated text of the Quran to extract the meaning of the selected verses in Surah al-Furqan (Q. 25:61-77)and make notes",
+      "listen to /watch an audio-visual clip from a digital device on the selected verses in Surah al-Furqan (Q. 25:61-77)and their corresponding meaning and make notes",
+      "discuss the qualities of the servants of Allah as mentioned in Surah al-Furqan (Q. 25:61-77)in small groups and present in class",
+      "listen to a resource person on the teachings of the selected verses in Surah al-Furqan (Q. 25:61-77)and make notes",
+      "dramatise the lessons learnt from the selected verses in Surah al-Furqan (Q. 25:61-77) (humility in walking, moderation in spending, modesty in speech, non-beneficial confrontation, bearing false witness",
+      "sexual morality) and make summary notes."
+     ],
+     "inquiry_questions": [
+      "1. What lessons do Muslims learn from the selected verses?",
+      "2. How can a Muslim exemplify the qualities mentioned in the selected verses?"
+     ],
+     "core_competencies": [
+      "Digital Literacy: The skills of interacting with technology and connecting using digital technology are enhanced as learners search online for the meaning of the selected verses in Surah al-Furqan (Q. 25:61-77).",
+      "Creativity and Imagination: The skill of networking is enhanced as learners dramatise the lessons learnt from the selected verses in Surah al-Furqan (Q. 25:61-77) (humility in walking, moderation in spending, modesty in speech, non-beneficial confrontation, bearing false witness).",
+      "Communication and Collaboration: The skills of listening, speaking, writing and teamwork are enhanced as learners brainstorm on the teachings of the selected verses in Surah al-Furqan (Q. 25:61-77) in small groups and present in class.",
+      "Learning to Learn: The skill of working collaboratively is enhanced as learners dramatise the lessons learnt from the selected verses in Surah al-Furqan (Q. 25:61-77) (humility in walking, moderate in spending, modesty in speech, non-beneficial confrontation, bearing false witness).",
+      "Citizenship: Social and civic skills are enhanced as the learners dramatise the lessons learnt from the selected verses in Surah al-Furqan (Q. 25:61-77) (humility in walking, moderation in spending, modesty in speech, non-beneficial confrontation, bearing false witness)."
+     ],
+     "values": [
+      "Respect: Etiquette enhanced as leaners tolerate each other’s opinions while discussing in small groups the qualities of the servants of Allah (S.W.T.) as mentioned in Surah al-Furqan (Q. 25:61-77) and present in class.",
+      "Peace: Responsibility is realised as learners dramatise the lessons learnt from the selected verses in Surah al-Furqan (Q. 25:61-77) (humility in walking, moderate in spending, modesty in speech, non-beneficial confrontation, bearing false witness)."
+     ],
+     "pertinent_issues": [
+      "Life skills: Self-management skills is realised as learners dramatise the lessons learnt from the selected verses in Surah al-Furqan (Q. 25:61-77) (humility in walking, moderation in spending, modesty in speech, non-beneficial confrontation, bearing false witness, sexual morality)."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-islamic-religious-education.pdf#p21"
+    },
+    {
+     "kicd_code": "1.7",
+     "name": "Ulum al-Hadith Isnad Matn",
+     "suggested_duration": "5 lessons",
+     "learning_outcomes": [
+      "describe the qualities of a Muhaddith for reliability.",
+      "describe the criteria used to determine the authenticity of hadith based on isnad and matn.",
+      "appreciate the classification of Hadith for proper application in day-to-day life."
+     ],
+     "learning_experiences": [
+      "brainstorm on the qualities of a Muhaddith and present in class",
+      "search online or from available reference materials on criteria used to determine the authenticity of hadith based on isnad and matn and make notes",
+      "prepare a chart on the criteria used to determine the authenticity of hadith"
+     ],
+     "inquiry_questions": [
+      "What test are applied to determine the authenticity of hadith?"
+     ],
+     "core_competencies": [
+      "Communication and collaboration: The skills of listening, speaking, writing and teamwork is enhanced brainstorm on the qualities of a Muhaddith and present in class.",
+      "Digital literacy: The skills of connecting using technology and interacting with technology enhanced as learners search online on criteria used to determine the authenticity of hadith."
+     ],
+     "values": [
+      "Unity: Cooperation enhanced as learners brainstorm on the qualities of a Muhaddith and present in class."
+     ],
+     "pertinent_issues": [
+      "Life skills: The skill of assertiveness enhanced as learners prepare a chart on the criteria used to determine the authenticity of hadith."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-islamic-religious-education.pdf#p23"
+    },
+    {
+     "kicd_code": "1.7",
+     "name": "Selected Hadith",
+     "suggested_duration": "12 lessons",
+     "learning_outcomes": [
+      "explain the teachings of the selected Hadith (environment, kinship, brotherhood) for character building",
+      "examine ways in which Muslims can apply the lessons learnt from the selected Hadith (environment, kinship, brotherhood) in day-to-day life",
+      "appreciate the role of the selected Hadith in character formation."
+     ],
+     "learning_experiences": [
+      "• read the selected Hadith, Hadith on environment Abu Said al- Khudri (R.A.) reported that the Prophet (S.A.W.) said, “The world is sweet and green and verily Allah (S.W.) is going to install you as vicegerents in it in order to see how you act...” (Muslim) Hadith on kinship Anas Ibn Malik (R.A.) said, I heard Allah (S.W.)'s Messenger (S.A.W.) saying, “Whoever would like his provision in this world to be increased and his life span to be extended let him uphold the ties of kinship.” (Bukhari and Muslim) Hadith on brotherhood An-Nu’man ibn Bashir reported that the Prophet (S.A.W.) said, “The parable of the believers in their affection, mercy, and compassion for each other is that of a body. When any limb aches, the whole",
+      "body reacts with sleeplessness and fever.”",
+      "• derive teachings and make class presentation",
+      "brainstorm on the lessons derived from the selected Hadith in small groups and make notes",
+      "compose a qasida/poem on the benefits of conserving the environment/ maintaining ties of kinship/ promoting brotherhood and sing/recite",
+      "watch a video clip on ways of conserving the environment and make notes",
+      "role play on how to care for the environment and make summary notes",
+      "brainstorm on ways in which Muslims can promote brotherhood and make class presentation",
+      "dramatise ways of promoting kinship and make summary notes."
+     ],
+     "inquiry_questions": [
+      "1. How can one conserve the environment?",
+      "2. Why is it important to maintain ties of kinship?",
+      "3. How can Muslims uphold brotherhood?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Citizenship: The skill of social cultural sensitivity and awareness enhanced as learners dramatise ways of promoting kinship.",
+      "Critical Thinking and Problem Solving: The skill of open-mindedness and creativity enhanced as learners brainstorm on ways in which Muslims can promote brotherhood and make class presentation.",
+      "Communication and collaboration: The skills of listening, speaking, writing and teamwork are enhanced as learners discuss the lessons of the selected Hadith in small groups and make notes.",
+      "Learning to learn: Sharing learnt knowledge as learners role play on how to care for the environment.",
+      "Creativity and imagination: The skill of networking is enhanced as learners compose a qasida/poem on the benefits of conserving the environment/maintaining ties of kinship/promoting brotherhood and sing/recite. Values:",
+      "Patriotism: Enhanced as learners role play how to care for the environment.",
+      "Love: Enhanced as learners brainstorm on ways in which Muslims can promote brotherhood",
+      "Responsibility: Enhanced as learners assume roles while dramatising ways of promoting kinship Pertinent and Contemporary Issues: Social Economic and Environmental Issues: The skill of environmental conservation enhanced as learners role play ways of caring for the environment"
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-islamic-religious-education.pdf#p24"
+    }
+   ]
+  },
+  {
+   "strand": "Fiqh and Muamalat",
+   "strand_code": "2.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to describe conditions for, performance of and perform swalatul Jum’ah and swalatul Idd",
+     "exceeds": "Correctly and systematically describes conditions for, performance of and perform swalatul Jum’ah and swalatul Idd",
+     "meets": "Correctly describes conditions for, performance of and perform swalatul Jum’ah and swalatul Idd",
+     "approaches": "Correctly describes conditions for, performance of and perform swalatul Jum’ah and swalatul Idd leaving out minor details",
+     "below": "Correctly describes conditions for, performance of and perform swalatul Jum’ah and swalatul Idd leaving out major details"
+    },
+    {
+     "indicator": "Ability to describe and demonstrate the funeral rites (ghusul, kafan, swalah and dafan)",
+     "exceeds": "Describes and demonstrates the four funeral rites (ghusul, kafan, swalah and dafan) correctly and systematically",
+     "meets": "Describes and demonstrates the four funeral rites (ghusul, kafan, swalah and dafan) correctly",
+     "approaches": "Describes and demonstrates 2-3 funeral rites (ghusul, kafan, swalah and dafan)",
+     "below": "Describes and demonstrates 0-1 funeral rites (ghusul, kafan, swalah and dafan)"
+    },
+    {
+     "indicator": "Ability to describe the collection, calculation distribution and significance of zakat",
+     "exceeds": "Describes the collection, calculation distribution and significance of zakat correctly and comprehensively",
+     "meets": "Describes the collection, calculation distribution and significance of zakat correctly",
+     "approaches": "Describes the collection, calculation distribution and significance of zakat but leaves out few details",
+     "below": "Describes the collection, calculation distribution and significance of zakat but leaves out few details"
+    },
+    {
+     "indicator": "Ability to explain the types, causes of divorce and propose",
+     "exceeds": "Explains the types, causes of divorce and propose possible to",
+     "meets": "Explains the types, causes of divorce and propose possible to",
+     "approaches": "Explains the types, causes of divorce and propose possible to",
+     "below": "Explains the types, causes of divorce and propose possible to"
+    },
+    {
+     "indicator": "possible to minimise divorce",
+     "exceeds": "minimise divorce correctly and creatively",
+     "meets": "minimise divorce correctly",
+     "approaches": "minimise divorce but omits few details",
+     "below": "minimise divorce but omits many details"
+    },
+    {
+     "indicator": "Ability to describe, features of good governance, qualities of a leader and significance of leadership",
+     "exceeds": "describes, features of good governance, qualities of a leader and significance of leadership correctly and comprehensively",
+     "meets": "describes, features of good governance, qualities of a leader and significance of leadership correctly",
+     "approaches": "describes, features of good governance, qualities of a leader and significance of leadership with few omissions",
+     "below": "describes, features of good governance, qualities of a leader and significance of leadership with major omissions"
+    },
+    {
+     "indicator": "Ability to explain the etiquette of da’wa, qualities of da’i and significance of da’wa",
+     "exceeds": "explains the etiquette of da’wa, qualities of da’i and significance of da’wa correctly and cites examples",
+     "meets": "explains the etiquette of da’wa, qualities of da’i and significance of da’wa correctly",
+     "approaches": "explain the etiquette of da’wa, qualities of da’i and significance of da’wa with minor omissions",
+     "below": "explain the etiquette of da’wa, qualities of da’i and significance of da’wa with major omissions"
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "2.1",
+     "name": "Prayers on special occasions",
+     "suggested_duration": "8 lessons",
+     "learning_outcomes": [
+      "explain the conditions of swalatul Jum’a and swalatul Idd for their validity",
+      "assess the significance of swalatul Jum’a and swalatul Idd for socio-spiritual development",
+      "describe the performance of swalatul Jum’a and swalatul Idd for spiritual nourishment",
+      "perform swalatul Jum’a and swalatul Idd to earn Allah (S.W.T.)’s rewards",
+      "appreciate swalatul Jum’a and swalatul Idd as",
+      "important events in the Islamic calendar."
+     ],
+     "learning_experiences": [
+      "search online or on available reference materials for the conditions of swalatul Jum’a and swalatul Idd and make notes",
+      "brainstorm on the significance of swalatul Jum’a and swalatul Idd in groups and make class presentations",
+      "search and watch video clips on the performance of swalatul Jum’a and swalatul Idd and make summary notes",
+      "prepare a sample khutba for both Jum’a and Idd prayers and role play in class",
+      "search online or on available reference materials the features of swalatul Jum’a and swalatul Idd and simulate in class",
+      "demonstrate the performance of swalatul Jum’a and swalatul Idd with consideration of fardh and sunnah acts",
+      "create a video clip on the performance of swalatul Jum’a and swalatul Idd and share on social media."
+     ],
+     "inquiry_questions": [
+      "1. Why is it important to perform swalatul Jum’a and swalatul Idd?",
+      "2. How can a Muslim prepare for swalatul Jum’a and swalatul Idd?"
+     ],
+     "core_competencies": [
+      "Learning to Learn: Sharing learnt knowledge enhanced as learners demonstrate the performance of swalatul Jum’a and swalatul Idd with consideration of fardh and sunnah acts",
+      "Communication and Collaboration: The skills of listening, speaking, writing and teamwork enhanced as learners brainstorm on the significance of swalatul Jum’a and swalatul Idd in groups and make class presentations",
+      "Digital literacy: The skills of creating with digital technology and connecting with technology enhanced as learners create a video clip on the performance of swalatul Jum’a and swalatul Idd and share on social media",
+      "Self-efficacy: Effective communication skill enhanced as learners prepare a sample khutba for both Jum’a and Idd prayers and role play in class"
+     ],
+     "values": [
+      "Responsibility: Enhanced as learners brainstorm on the significance of swalatul Jum’a and swalatul Idd in groups and make class presentations",
+      "Respect: Enhanced as learners respect each other’s views as they brainstorm on the significance of swalatul Jum’a and swalatul Idd in groups and make class presentations",
+      "Unity: Enhanced as learners brainstorm on the significance of swalatul Jum’a and swalatul Idd in groups and make class presentations"
+     ],
+     "pertinent_issues": [
+      "Pertinent and Contemporary Issues: Life Skills: Self-esteem enhanced as learners create video clips on the performance of swalatul Jum’a and swalatul Idd and share on social media and creative thinking enhanced as learners prepare a sample khutba for both Jum’a and Idd prayers and role play in class"
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-islamic-religious-education.pdf#p29"
+    },
+    {
+     "kicd_code": "2.2",
+     "name": "Funeral Rites",
+     "suggested_duration": "8 lessons",
+     "learning_outcomes": [
+      "describe the funeral rites (ghusul, kafan, swalah and dafan) of the deceased as a collective obligation of Muslims",
+      "assess the importance of funeral rites (ghusul, kafan, swalah and dafan) as a communal obligation (fardh Kifayah)",
+      "demonstrate the funeral rites (ghusul, kafan, swalah and dafan) of the deceased",
+      "acknowledge funeral rites as a sign of respect for the deceased."
+     ],
+     "learning_experiences": [
+      "search online or on available reference materials the rites of the deceased (ghusul, kafan, swalah and dafan) and make notes",
+      "search online for a video clip on the funeral rites of the deceased (ghusul, kafan, swalah and dafan) and make summary notes",
+      "buzz on the importance of funeral rites (ghusul, kafan, swalah and dafan) in groups and make class presentation",
+      "observe a resource person demonstrate the funeral rites of the deceased (ghusul, kafan, swalah and dafan) and replicate",
+      "simulate ghusl, cut and stitch the kafan, shroud a model and role play a funeral prayer",
+      "model a grave using locally available materials and simulate dafan."
+     ],
+     "inquiry_questions": [
+      "What is the importance of performing funeral rites?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Learning to Learn: The skill of seeking advice, information and support enhanced as learners observe a resource person demonstrate funeral rites of the deceased (ghusul, kafan, swalah and dafan) and replicate.",
+      "Critical Thinking and Problem Solving: The skill of active listening and communication enhanced as learners observe a resource person demonstrate the funeral rites of the deceased (ghusul, kafan, swalah and dafan) and replicate.",
+      "Digital Literacy: The skill of interacting with digital technology and connecting with technology enhanced as learners search online for a video clip on funeral rites of the deceased (ghusul, kafan, swalah and dafan) and make summary notes.",
+      "Creativity and Imagination: The skill of networking enhanced as learners simulate ghusl, cut and stitch the kafan, shroud a model and role play a funeral prayer. Values: Responsibility: Accountability enhanced as learners watch a video clip on the funeral rites of the deceased (ghusul, kafan, swalah and dafan) and make class presentation. Pertinent and Contemporary Issues: Life Skills: Critical thinking enhanced as learners demonstrate the funeral rites of the deceased (ghusul, kafan, swalah and dafan) and modelling a grave using locally available materials and simulate dafan."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-islamic-religious-education.pdf#p32"
+    },
+    {
+     "kicd_code": "2.3",
+     "name": "Administration of Zakat",
+     "suggested_duration": "10 lessons",
+     "learning_outcomes": [
+      "assess the collection and distribution of zakat in Kenya",
+      "examine the challenges in the administration of zakat in Kenya",
+      "explain the significance of zakat for socio-economic growth",
+      "calculate the amount of zakat payable on various items using the nisab and rate",
+      "appreciate the importance of collection and distribution of zakat for economic development."
+     ],
+     "learning_experiences": [
+      "search online or on available reference materials on the collection and distribution of zakat in Kenya and make notes",
+      "brainstorm on the challenges in the administration of zakat in Kenya in groups and present in class",
+      "discuss the measures that can be put in place to address the challenges of zakat collection and distribution in groups and present in class",
+      "listen to a resource person giving a talk on the significance of zakat for socio-economic growth and make notes",
+      "calculate the amount of zakat payable on various",
+      "items using the nisab and rate in groups, make charts and display."
+     ],
+     "inquiry_questions": [
+      "1. Why do Muslims pay zakat?",
+      "2. What are the challenges encountered in the administration of zakat?"
+     ],
+     "core_competencies": [
+      "Learning to Learn: The skill of working collaboratively enhanced as learners brainstorm on the challenges in the administration of zakat in Kenya in groups and present in class.",
+      "Communication and Collaboration: The skills of listening, speaking, writing and teamwork enhanced as learners calculate the amount of zakat on various items using the nisab and rate in groups, make charts and display.",
+      "Critical Thinking and Problem Solving: Interpretation and inference enhanced as learners discuss the measures that can be put in place to address the challenges of zakat collection and distribution in groups and present in class.",
+      "Digital literacy: Interacting with digital technology and connecting with technology enhanced as learners search online on the collection and distribution of zakat in Kenya and make notes."
+     ],
+     "values": [
+      "Responsibility: Accountability is realised enhanced as learners brainstorm on the challenges in the administration of zakat in Kenya in groups and present in class.",
+      "Respect: Etiquette enhanced as learners brainstorm on the challenges in the administration of zakat in Kenya in groups and present in class.",
+      "Unity: Cooperation enhanced as learners brainstorm on the challenges in the administration of zakat in Kenya in groups and present in class."
+     ],
+     "pertinent_issues": [
+      "Life Skills: Self-esteem enhanced as learners calculate the amount of zakat on various items using the nisab and rate in groups, make charts and display."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-islamic-religious-education.pdf#p34"
+    },
+    {
+     "kicd_code": "2.4",
+     "name": "Types of Divorce",
+     "suggested_duration": "7 lessons",
+     "learning_outcomes": [
+      "explain the types of divorce (li’an, mubarat, faskh nikah) as a means of peaceful conflict resolution in marriage",
+      "examine the causes of li’an, mubarat, faskh nikah as a way of minimising the rate of divorce in the society",
+      "propose possible solutions to minimise li’an, mubarat, faskh nikah for the stability of marriage",
+      "acknowledge divorce as a means of promoting harmony in the society."
+     ],
+     "learning_experiences": [
+      "search online or on available reference materials for the types of divorce (li’an, mubarat, faskh nikah) and make notes",
+      "search and watch video clips on a talk on the types of divorce (li’an, mubarat, faskh nikah) and write an essay",
+      "discuss the differences between li’an, mubarat and faskh nikah, make charts and present in class",
+      "brainstorm on the causes of li’an, mubarat, faskh nikah in groups and present in class",
+      "debate on the possible solutions to minimise li’an, mubarat, faskh nikah in groups and present in class",
+      "listen to a resource person give a talk on the causes of li’an, mubarat, faskh nikah and make summary notes."
+     ],
+     "inquiry_questions": [
+      "How can divorce rates be reduced in the society?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Digital Literacy: The skills of interacting with digital technology and connecting with technology enhanced as learners search online the types of divorce (li’an, mubarat, faskh nikah).",
+      "Communication and Collaboration: The skills of listening, speaking, writing and teamwork enhanced as learners brainstorm on the causes of li’an, mubarat, faskh nikah in groups and present in class.",
+      "Learning to learn: The skill of seeking advice enhanced as learners listen to a resource person give a talk on the causes of li’an, mubarat, faskh nikah and make summary notes.",
+      "Creativity and Imagination: The skill of networking enhanced as learners debate on the possible solutions to minimise li’an, mubarat, faskh nikah in groups and present in class. Values:",
+      "Responsibility: Enhanced as learners brainstorm on the causes of li’an, mubarat, faskh nikah in groups and present in class.",
+      "Respect: Enhanced as learners respect each other’s opinion as they brainstorm on the causes of li’an, mubarat, faskh nikah in groups and present in class.",
+      "Unity: Enhanced as learners brainstorm on the causes of li’an, mubarat, faskh nikah in groups and present in class. Pertinent and Contemporary Issues:",
+      "Resource mobilisation and utilisation: Enhanced as learners listen to a resource person give a talk on the causes of li’an, mubarat, faskh nikah and make summary notes.",
+      "Life skills: Self-esteem enhanced as learners brainstorm on the causes of li’an, mubarat, faskh nikah in groups and present in class as well as debating on the possible solutions to minimise li’an, mubarat, faskh nikah in groups and present in class."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-islamic-religious-education.pdf#p36"
+    },
+    {
+     "kicd_code": "2.5",
+     "name": "Care for widows",
+     "suggested_duration": "4 lessons",
+     "learning_outcomes": [
+      "describe the Islamic teachings on the care for widows to safe guard their dignity",
+      "examine challenges facing widows in the society",
+      "propose solutions to alleviate the challenges faced by widows in the society",
+      "appreciate the Islamic teachings on the treatment of widows."
+     ],
+     "learning_experiences": [
+      "search online or on available reference materials for the Islamic teachings on treatment of widows and make notes",
+      "listen to resource person giving a talk on Islamic teachings on the treatment of widow and discuss the challenges facing widows in the society and make short notes",
+      "discuss the challenges facing widows in the society and present in class."
+     ],
+     "inquiry_questions": [
+      "Why is it important to care for widows?"
+     ],
+     "core_competencies": [
+      "Digital Literacy: The skills of interacting with digital technology and connecting with technology enhanced as learners search online search online or on available reference materials for the Islamic teachings on treatment of widows",
+      "Communication and Collaboration: The skills of listening, speaking, writing and teamwork enhanced as learners discuss the challenges facing widows in the society and present in class",
+      "Learning to learn: The skill of seeking advice enhanced as learners listen to resource person giving a talk on Islamic teachings on the treatment of widow and discuss the challenges facing widows in the society and make summary notes"
+     ],
+     "values": [
+      "Responsibility: Accountability enhanced as learners search online or on available reference materials for the Islamic teachings on treatment of widows.",
+      "Respect: Etiquette enhanced as learners listen to the resource person during presentation."
+     ],
+     "pertinent_issues": [
+      "Pertinent and Contemporary Issues: Gender equity and inclusion: Enhanced as learners listen to a resource person give a talk listen to resource person giving a talk on Islamic teachings on the treatment of widow."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-islamic-religious-education.pdf#p38"
+    },
+    {
+     "kicd_code": "2.6",
+     "name": "Governance in Islam Leadership in Islam",
+     "suggested_duration": "10 lessons",
+     "learning_outcomes": [
+      "describe the features of governance in Islam (shura, accountability, justice and participation)",
+      "describe the qualities of a leader according to Islamic teachings",
+      "assess the significance of leadership in Islam in promoting good governance",
+      "apply the principles of good leadership in day-to-day life",
+      "value good leadership in the community."
+     ],
+     "learning_experiences": [
+      "discuss distinctive features of governance in Islam shura, accountability, justice and participation) and present in class",
+      "search online or on available reference materials for the qualities of a leader and make notes",
+      "search online or on available reference materials for the significance of leadership in Islam and make class presentation",
+      "dramatise the qualities of a good leader seeking Muslim Society/ Students Council leader’s position in school by applying the principles of good governance",
+      "listen to a resource person give a talk on the significance of good leadership",
+      "prepare charts on the qualities of a good leader and display."
+     ],
+     "inquiry_questions": [
+      "1. What are the qualities of a good leader?",
+      "2. Why is good leadership important in the society?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Digital Literacy: The skills of interacting with digital technology and connecting with technology enhanced as learners search online for the qualities of a leader and make notes.",
+      "Communication and Collaboration: The skills of listening, speaking, writing and teamwork enhanced as learners search online or on available reference materials the significance of leadership in Islam and make class presentation.",
+      "Self-efficacy: Effective communication skills enhanced as learners dramatise the qualities of a good leader seeking position by applying the principles of good governance.",
+      "Citizenship: Social and civic skills enhanced as learners dramatise the qualities of a good leader seeking position by applying the principles of good governance.",
+      "Creativity and imagination: The skill of networking enhanced as learners dramatise the qualities of a good leader seeking position by applying the principles of good governance. Values:",
+      "Integrity: Honesty, discipline, transparency, fairness, accountability, consistency, reliability and humility are enhanced as learners dramatise the qualities of a good leader seeking position by applying the principles of good governance.",
+      "Patriotism: Citizenship enhanced as learners dramatise the qualities of a good leader seeking position by applying the principles of good governance. Pertinent and Contemporary Issues: Life skill: Self-esteem enhanced as learners dramatise the qualities of a good leader seeking position by applying the principles of good governance."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-islamic-religious-education.pdf#p40"
+    },
+    {
+     "kicd_code": "2.7",
+     "name": "Labour Relations in Islam",
+     "suggested_duration": "5 lessons",
+     "learning_outcomes": [
+      "explain the conditions for a valid labour contract according to Islam",
+      "examine the rights of employer and employee in Islam for conducive working environment",
+      "suggest mechanisms of resolving disputes between employer and employee in Islam",
+      "appreciate the importance of having good relationship between employer and employee."
+     ],
+     "learning_experiences": [
+      "search online or on available reference materials on the conditions for a governing labour contract, make notes and present in class",
+      "carry out a project on the rights of employer and employee and make class presentation",
+      "listen to a resource person giving a talk on suggest mechanisms of resolving disputes between employer and employee in Islam and make notes",
+      "dramatise relationship between employer and employee",
+      "compose a spoken word on conditions for a valid labour contract according to Islam",
+      "design a model contract of employment and display in class."
+     ],
+     "inquiry_questions": [
+      "1. Why is it important to have good labour relations in work place?"
+     ],
+     "core_competencies": [
+      "Digital Literacy: The skills of interacting with digital technology and connecting with technology enhanced as learners search online or on available reference materials on the conditions for a governing labour contract.",
+      "Critical Thinking and Problem Solving: The skills of evaluation and decision making enhanced as learners listen to a resource person giving a talk on suggest mechanisms of resolving disputes between employer and employee in Islam."
+     ],
+     "values": [
+      "Values:",
+      "Responsibility: Accountability enhanced as learners carry out a project on the rights of employer and employee.",
+      "Respect: Human dignity enhanced as learners carry out a project on the rights of employer and employee.",
+      "Unity: cooperation, fairness and non-discrimination enhanced as learners work collaboratively dramatise relationship between employer and employee. Pertinent and Contemporary Issues: Citizenship education: Protection from inhuman treatment and punishment"
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-islamic-religious-education.pdf#p42"
+    },
+    {
+     "kicd_code": "2.8",
+     "name": "Ethics of",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "describe the etiquette of da’wa for peaceful, propagation of Islam",
+      "explain the qualities of a da’i (propagator) for effective propagation of Islam",
+      "assess the significance of da’wa as an act of ibaadah",
+      "practise da’wa in day-to-day life to earn Allah (S.W.T.)’s rewards",
+      "appreciate da’wa as a way of reforming the society.",
+      "examine the rationale for the prohibition of certain foods and drinks (carrion, blood, pork, animals dedicated to other than Allah (S.W.T.) for maintenance of good health",
+      "explain the benefits of adopting healthy eating habits as a way of preventing lifestyle diseases",
+      "describe the etiquette of slaughtering as a way of upholding the sunnah",
+      "adopt healthy eating habits in day-to-day life."
+     ],
+     "learning_experiences": [
+      "search online or on available reference materials for the etiquette of da’wa and make notes",
+      "discuss ways of conducting da’wa peacefully and present in class",
+      "discuss effective ways of using media platforms in da’wa activities",
+      "brainstorm on the qualities of a da’i and present on a chart",
+      "role play the qualities of a da’I",
+      "search online or on available reference materials the significance of da’wa and make summary notes",
+      "dramatise da’wa activities in class/school setting, record and share on social media",
+      "prepare short da’wa messages, record/take photos and share on social media.",
+      "identify the prohibited foods and drinks in their locality in groups and present in class",
+      "brainstorm on the rationale for the prohibition of certain foods and drinks and make class presentation",
+      "search online or on available reference materials the prohibited foods and drinks and make notes",
+      "watch a video of a resource person giving a talk on the effects of prohibited foods and unhealthy eating habits and make notes",
+      "discuss the benefits of good eating habits in groups and present in class",
+      "collect pictures on prohibited foods and drinks, make charts and display",
+      "search online and watch a video clip on the Islamic etiquette of",
+      "slaughtering and make class presentations",
+      "brainstorm on the measures to be adopted in promoting healthy eating habits and make charts and display."
+     ],
+     "inquiry_questions": [
+      "1. How can one carry out da’wa effectively?",
+      "2. What are the benefits of da’wa?",
+      "3. How can social media be used to conduct da’wa?",
+      "1. Why should Muslims observe the etiquette of slaughtering animals?",
+      "2. What are the benefits of eating healthy?"
+     ],
+     "core_competencies": [
+      "• Digital Literacy: The skills of interacting with digital technology and connecting with technology enhanced as learners search online for the etiquette of da’wa.",
+      "Digital Literacy: The skills of interacting with digital technology and connecting with technology enhanced as learners search online on the prohibited foods and drinks and make notes",
+      "Critical Thinking and Problem Solving: The skill of explanation is enhanced as learners brainstorm on the measures to be adopted in promoting healthy eating habits and make charts",
+      "Communication and Collaboration: The skills of listening, speaking, writing and teamwork are enhanced as learners discuss the benefits of good eating habits in groups and present in class",
+      "Self-efficacy: Effective communication skill is enhanced as learners search online, watch a video clip on Islamic etiquette of slaughtering and make class presentations",
+      "Learning to learn: The skill of seeking advice, information and support is enhanced as learners listen to a resource person giving a talk on the effects of prohibited foods and unhealthy eating habits and make notes"
+     ],
+     "values": [
+      "Values:",
+      "Responsibility: Accountability enhanced as learners brainstorm on the qualities of a da’i and present on a chart.",
+      "Respect: Etiquette enhanced as learners respect each other’s opinions as they brainstorm on the qualities of a da’i and present on a chart.",
+      "Unity: Cooperation enhanced as learners dramatise da’wa activities in class/school setting, record and share on social media. Pertinent and Contemporary Issues: Life skills: The skill of self-esteem enhanced as learners dramatise da’wa activities in class/school setting, record and share on social media.",
+      "Responsibility: Accountability enhanced as learners take part in the discussion on the benefits of good eating habits in groups and present in class",
+      "Respect: Etiquette enhanced as learners respect each other’s opinions during group discussion",
+      "Unity: cooperation enhanced as learners brainstorm on measures to be adopted in promoting healthy eating habits and make charts",
+      "Love: Compassion enhanced as learners work in groups without acrimony while searching online and watch a video clip on Islamic etiquette of slaughtering and make class presentations"
+     ],
+     "pertinent_issues": [
+      "Pertinent and Contemporary Issues:",
+      "Health promotion issues: Non-communicable diseases and drug abuse prevention enhanced as learners discuss and adopt the benefits of healthy eating habits and brainstorm on the rationale for the prohibition of certain foods and drinks",
+      "Life Skills: Animal welfare promoted as learners search online and watch a video clip on Islamic etiquette of slaughtering and make class presentations"
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-islamic-religious-education.pdf#p44"
+    },
+    {
+     "kicd_code": "",
+     "name": "Ethics of da’wa",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "• Written assessment oral assessments, observation, portfolio",
+      "• Written assessment and oral assessment, portfolio assessment, observation",
+      "Written assessment and oral assessments, observation, portfolio"
+     ],
+     "learning_experiences": [
+      "• Quran, books of Hadith, books of fiqh, course books, digital devices, reference materials/online sources",
+      "• Qur’an, books on Hadith, course books, digital devices, reference materials/online sources",
+      "Quran, books of Hadith, course books, digital devices, reference materials/online sources"
+     ],
+     "inquiry_questions": [
+      "Implement the ethics of da’wa during Muslim societies meetings • Write an essay on the ethics of da’wa and display on notice boards",
+      "Write an essay on animals whose consumption has been prohibited and display on the notice board • Invite a resource person to give a talk on healthy eating habits during assembly, clubs and societies meetings etc. • Give a talk on the importance of practising healthy eating habits during the assembly, clubs and societies meetings etc. • Learners volunteer to slaughter animals when the need arises",
+      "Visit a nearby abattoir (slaughterhouse) and learn the etiquette of slaughtering",
+      "Model Islamic mode of dress during Talent Show • Write an essay on the rationale for upholding Islamic mode of dress and display on the notice board • Dramatise manners of walking during Talent Day and Muslim societies meetings • Dramatise on the dangers of kibr and hasad during inter house drama competitions/Parents Day etc."
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-islamic-religious-education.pdf#p73"
+    }
+   ]
+  },
+  {
+   "strand": "Akhlaq",
+   "strand_code": "3.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to examine the rationale for the prohibition of certain foods and drinks, benefits of adopting healthy eating habits and etiquette of slaughtering",
+     "exceeds": "Examines the rationale for the prohibition of certain foods and drinks, benefits of adopting healthy eating habits and etiquette of slaughtering accurately and cites examples",
+     "meets": "Examines the rationale for the prohibition of certain foods and drinks, benefits of adopting healthy eating habits and etiquette of slaughtering accurately",
+     "approaches": "Examines the rationale for the prohibition of certain foods and drinks, benefits of adopting healthy eating habits and etiquette of slaughtering but omits few details",
+     "below": "Examines the rationale for the prohibition of certain foods and drinks, benefits of adopting healthy eating habits and etiquette of slaughtering but omits many details"
+    },
+    {
+     "indicator": "Ability to explain rules on clothing and adornment and the rationale for Islamic code of dressing",
+     "exceeds": "",
+     "meets": "Explains rules on clothing and adornment and the rationale for Islamic code of dressing correctly",
+     "approaches": "Explains rules on clothing and adornment and the rationale for Islamic code of dressing with few omissions",
+     "below": "Explains rules on clothing and adornment and the rationale for Islamic code of dressing with many omissions"
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "3.2",
+     "name": "Virtues: Islamic clothing and adornment",
+     "suggested_duration": "5 lessons",
+     "learning_outcomes": [
+      "explain the rules and regulations governing clothing and adornment in Islam",
+      "assess the rationale for the Islamic code of dressing and adornment as a basis for safeguarding modesty",
+      "practise the Islamic code of dressing and adornment in day-to-day life",
+      "appreciate the Islamic code of dress as an act of ibaadah."
+     ],
+     "learning_experiences": [
+      "search online or on available reference materials the rules and regulations governing clothing and adornment (tattooing, beautification surgery, wigs) in Islam and present in class",
+      "distinguish between male and female code of dressing and adornment, make charts and display",
+      "brainstorm on the purpose of clothing and adornment in Islam and make notes",
+      "Search online or on available reference materials the rationale for the Islamic code of dressing and make class presentation",
+      "model Islamic clothing and adornment take pictures and put in portfolio",
+      "draw/cut out different types of Islamic dress and display."
+     ],
+     "inquiry_questions": [
+      "1. Why should a Muslim observe the Islamic clothing and adornment?",
+      "2. How can the Muslim youth promote Islamic identity through dress?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Digital Literacy: The skills of interacting with digital technology and connecting with technology enhanced as learners search online or on available reference materials the rules and regulations governing dressing and adornment in Islam and present in class.",
+      "Communication and Collaboration: The skills of listening, speaking, writing and teamwork enhanced as learners brainstorming on the purpose of dressing in Islam and make notes.",
+      "Learning to learn: the skill of sharing learnt knowledge enhanced as learners model Islamic dress, take pictures and share on social media.",
+      "Self-efficacy: Effective communication skill enhanced as learners search online or on available reference materials the rules and regulations governing dressing in Islam and present in class. Creativity and imagination: The skill of making observations enhanced as learners draw different types of Islamic dress and display. Values:",
+      "Responsibility: Accountability enhanced as learners model Islamic dress, take pictures and share on social media. Respect: Etiquette enhanced as learners brainstorm on the purpose of dressing in Islam and make notes. Pertinent and Contemporary Issues: Human Sexuality: Male-female gender issues enhanced as learners search online or on available reference materials the rationale for the Islamic code of dress and make class presentation."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-islamic-religious-education.pdf#p51"
+    },
+    {
+     "kicd_code": "3.3",
+     "name": "Virtues: manners of walking",
+     "suggested_duration": "5 lessons",
+     "learning_outcomes": [
+      "describe the Islamic manners of walking to uphold Islamic teachings",
+      "assess the significance of Islamic manners of walking to promote civility",
+      "practise the Islamic manners of walking in day-to-day life",
+      "recognise the Islamic manners of walking as part of Islamic ethics."
+     ],
+     "learning_experiences": [
+      "search online or on available reference materials the Islamic manners of walking and make notes",
+      "demonstrate the Islamic manners of walking, record a short video and share on social media",
+      "dramatise the manners to be observed while walking and make a chart distinguishing the positive and negative aspects respectively",
+      "brainstorm on the significance of Islamic manners of walking in groups and present in class."
+     ],
+     "inquiry_questions": [
+      "Why is it important to uphold the Islamic manners of walking?"
+     ],
+     "core_competencies": [
+      "Digital Literacy: The skills of interacting with digital technology and connecting with technology enhanced as learners search online on the Islamic manners of walking and make notes.",
+      "Communication and Collaboration: The skills of listening, speaking, writing and teamwork enhanced as learners brainstorm on the significance of Islamic manners of walking in groups and present in class.",
+      "Learning to learn: the skill of working collaboratively enhanced as learners dramatise the manners to be observed while walking and make a chart distinguishing the positive and negative aspects respectively.",
+      "Creativity and imagination: The skill of networking enhanced as learners dramatise the manners to be observed while walking and make a chart distinguishing the positive and negative aspects respectively."
+     ],
+     "values": [
+      "Values:",
+      "Responsibility: Accountability enhanced as learners brainstorm on the significance of Islamic manners of walking in groups and present in class.",
+      "Respect: Etiquette enhanced as learners respect each other’s opinion during group discussions.",
+      "Unity: Cooperation enhanced as learners brainstorm on the significance of Islamic manners of walking in groups and present in class. Pertinent and Contemporary Issues: Safety and security: Responsible road use enhanced as learners demonstrate the Islamic manners of walking"
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-islamic-religious-education.pdf#p53"
+    },
+    {
+     "kicd_code": "3.4",
+     "name": "Virtues: honesty",
+     "suggested_duration": "5 lessons",
+     "learning_outcomes": [
+      "explain the Islamic teachings on honesty for character formation",
+      "describe ways in which honesty is manifested in the society (home, work, school, business)",
+      "assess the significance of upholding honesty in shaping the society",
+      "practise honesty in day-to-day life",
+      "acknowledge the role of honesty in promoting an ethical society."
+     ],
+     "learning_experiences": [
+      "search online or on available reference materials the Islamic teachings on honesty and make notes",
+      "research on ways in which honesty is manifested (home, work, school, business) and make class presentation",
+      "dramatise acts depicting honesty in society (home, work, school, business) and make summary notes",
+      "discuss the significance of upholding honesty in groups, make charts and present in class",
+      "Write a short essay on your personal encounter on honesty and present in class",
+      "Role play acts depicting honesty, record and share on social media platforms."
+     ],
+     "inquiry_questions": [
+      "1. How can one uphold honesty in the society?",
+      "2. Why should one uphold honesty?"
+     ],
+     "core_competencies": [
+      "Digital Literacy: The skills of interacting with digital technology and connecting with technology enhanced as learners search online on the Islamic teachings on honesty and make notes.",
+      "Communication and Collaboration: The skills of listening, speaking, writing and teamwork enhanced as learners discuss on the significance of upholding honesty in groups and present on charts as well as writing a short essay on personal encounters on honesty and present in class."
+     ],
+     "values": [
+      "Values:",
+      "Responsibility: Accountability enhanced as learners discuss on the significance of upholding honesty in groups and present on charts.",
+      "Respect: Etiquette enhanced as learners respect each other’s opinion during group discussions.",
+      "Integrity: Discipline enhanced as learners dramatise acts depicting honesty.",
+      "Unity: Cooperation enhanced as learners discuss on the significance of upholding honesty in groups, make charts and display in class. Pertinent and Contemporary Issues: Life skills: Self-esteem enhanced as learners dramatise acts depicting honesty."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-islamic-religious-education.pdf#p55"
+    },
+    {
+     "kicd_code": "3.5",
+     "name": "Prohibitions in Islam",
+     "suggested_duration": "8 lessons",
+     "learning_outcomes": [
+      "explain the causes of hasad",
+      "and kibr (pride) for self-management",
+      "examine the effects of hasad and kibr to promote precautionary morality",
+      "describe the measures of curbing hasad and kibr for a morally healthy society",
+      "appreciate the prohibition of hasad and kibr for harmonious coexistence."
+     ],
+     "learning_experiences": [
+      "research on the causes of hasad and kibr and make notes",
+      "discuss the effects of hasad and kibr in the society in groups and present on charts/Power Points",
+      "brainstorm on the possible measures of curbing hasad and kibr and present on charts",
+      "compose and recite a poem on the dangers of hasad and kibr in groups",
+      "act short skits on hasad and kibr, record and share on social media."
+     ],
+     "inquiry_questions": [
+      "1. What are the causes of hasad and kibr in the society?",
+      "2. Why is hasad and kibr prohibited in Islam?"
+     ],
+     "core_competencies": [
+      "Digital Literacy: The skills of interacting with digital technology and connecting with technology enhanced as learners act short skits on hasad and kibr, record and share on social media.",
+      "Communication and Collaboration: The skills of listening, speaking, writing and teamwork enhanced as learners discuss in groups the effects of hasad and kibr in the society and present on charts/Power Points.",
+      "Learning to learn: The skill of working collaboratively enhanced as learners brainstorm on the possible measures of curbing hasad and kibr and present on charts.",
+      "Creativity and imagination: The skill of networking enhanced as learners act short skits on hasad and kibr, record and share on social media as well as composing and reciting poems on the effects of hasad and kibr in groups."
+     ],
+     "values": [
+      "Values:",
+      "Responsibility: Resilience enhanced as learners brainstorm on the possible measures of curbing hasad and kibr and present on charts.",
+      "Respect: Open-mindedness enhanced as learners brainstorm on the possible measures of curbing hasad and kibr and present on charts.",
+      "Unity: Cooperation enhanced as learners brainstorm on the measures of curbing hasad and kibr and present on charts. Pertinent and Contemporary Issues: Life skills: Analytical thinking skill enhanced as learners brainstorm on the possible measures of curbing hasad and kibr and present on charts as well as compose and recite a poem on the dangers of hasad and kibr in groups."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-islamic-religious-education.pdf#p57"
+    },
+    {
+     "kicd_code": "",
+     "name": "Care for orphans",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "• Written assessment oral assessments, observation, portfolio"
+     ],
+     "learning_experiences": [
+      "• Quran, books of Hadith, books of fiqh, course books, digital devices, reference materials/online sources"
+     ],
+     "inquiry_questions": [
+      "Organise donations and hand over to the club patrons for orphans to be given during the clubs and Muslim societies meetings"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-islamic-religious-education.pdf#p74"
+    }
+   ]
+  },
+  {
+   "strand": "Islamic History and Civilisation",
+   "strand_code": "4.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to explain factors that led to the rise and the contributions of Muawiya ibn Abu Sufyan, Abdulmalik ibn Marwan and, Umar ibn Abdulaziz to the development of Islam.",
+     "exceeds": "Explains factors that led to the rise and the contributions of Muawiya ibn Abu Sufyan, Abdulmalik ibn Marwan and, Umar ibn Abdulaziz to the development of Islam correctly with relevant examples",
+     "meets": "Explains factors that led to the rise and the contributions of Muawiya ibn Abu Sufyan, Abdulmalik ibn Marwan and, Umar ibn Abdulaziz to the development of Islam correctly",
+     "approaches": "Explains factors that led to the rise and the contributions of Muawiya ibn Abu Sufyan, Abdulmalik ibn Marwan and, Umar ibn Abdulaziz to the development of Islam leaving out few details",
+     "below": "Explains factors that led to the rise and the contributions of Muawiya ibn Abu Sufyan, Abdulmalik ibn Marwan and, Umar ibn Abdulaziz to the development of Islam leaving out many details"
+    },
+    {
+     "indicator": "Ability to examine the achievements of and the factors that led to the decline of the Umayyad",
+     "exceeds": "Examines the achievements of and the factors that led to the decline of the Umayyad Dynasty correctly and comprehensively",
+     "meets": "Examines the achievements of and the factors that led to the decline of the Umayyad Dynasty correctly",
+     "approaches": "Examines the achievements of and the factors that led to the decline of the Umayyad Dynasty with some minor mistakes",
+     "below": "Examines the achievements of and the factors that led to the decline of the Umayyad Dynasty with major mistakes"
+    },
+    {
+     "indicator": "Ability to explain the factors that led to the spread of Islam and assess the social, political and economic impact in Tanzania and Uganda",
+     "exceeds": "Explains the factors that led to the spread of Islam and assess the social, political and economic impact in Tanzania and Uganda correctly and comprehensively",
+     "meets": "Explain the factors that led to the spread of Islam and assess the social, political and economic impact in Tanzania and Uganda correctly",
+     "approaches": "Explain the factors that led to the spread of Islam and assess the social, political and economic impact in Tanzania and Uganda but omits few details",
+     "below": "Explain the factors that led to the spread of Islam and assess the social, political and economic impact in Tanzania and Uganda but omits many details"
+    },
+    {
+     "indicator": "Ability to examine the challenges facing Muslims in Tanzania and Uganda, and propose possible solutions",
+     "exceeds": "Examines the challenges facing Muslims in Tanzania and Uganda, and propose possible solutions accurately with relevant illustrations",
+     "meets": "Examines the challenges facing Muslims in Tanzania and Uganda, and propose possible solutions accurately",
+     "approaches": "Examines the challenges facing Muslims in Tanzania and Uganda, and propose possible solutions with little support",
+     "below": "Examines the challenges facing Muslims in Tanzania and Uganda, and propose possible solutions with significant support"
+    },
+    {
+     "indicator": "Ability to examine the contributions of Sheikh Abdallah Saleh Al-Farsy and",
+     "exceeds": "Examines the contributions of Sheikh Abdallah Saleh Al-Farsy and Aisha Lemu",
+     "meets": "Examines the contributions of Sheikh Abdallah Saleh Al-Farsy and",
+     "approaches": "Examines the contributions of Sheikh Abdallah Saleh Al-Farsy and Aisha Lemu and deduce lessons learnt",
+     "below": "Examines the contributions of Sheikh Abdallah Saleh Al-Farsy and Aisha Lemu"
+    },
+    {
+     "indicator": "Aisha Lemu and deduce lessons learnt from their biographies",
+     "exceeds": "and deduce lessons learnt from their biographies correctly and comprehensively",
+     "meets": "Aisha Lemu and deduce lessons learnt from their biographies correctly",
+     "approaches": "from their biographies with little assistance",
+     "below": "and deduce lessons learnt from their biographies with significant assistance"
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "4.1",
+     "name": "Muslim",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "explain the factors that led to the rise of the Umayyad Dynasty for correct understanding of Islamic history",
+      "assess the contributions of Muawiya ibn Abu Sufyan, Abdulmalik ibn Marwan and, Umar ibn Abdulaziz to the development of Islam",
+      "examine the achievements of the Umayyad Dynasty",
+      "describe factors that led to the decline of the Umayyad Dynasty",
+      "appreciate the role played by the Umayyad Dynasty in the development of Islamic heritage."
+     ],
+     "learning_experiences": [
+      "search online or from available reference materials on the factors that led to the spread to the rise of the Umayyad Dynasty and make notes",
+      "search online or from available reference materials the contributions of Muawiya ibn Abu Sufyan, Abdulmalik ibn Marwan, Umar ibn Abdulaziz and make class/power point presentation",
+      "brainstorm on the achievements of the Umayyad Dynasty and present in class",
+      "search online for maps of the territorial rule of, draw on a chart a Umayyad Dynasty and display in class"
+     ],
+     "inquiry_questions": [
+      "What are the achievements of Umayyad Dynasty?"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-islamic-religious-education.pdf#p61"
+    },
+    {
+     "kicd_code": "4.2",
+     "name": "Islam in Tanzania and Uganda",
+     "suggested_duration": "18 lessons",
+     "learning_outcomes": [
+      "explain the factors that led to the spread of Islam in Tanzania and Uganda up to the 19th century",
+      "assess the social, political and economic impacts of Islam in Tanzania and Uganda",
+      "examine the challenges facing Muslims in Tanzania and Uganda in the 21st century",
+      "propose possible solutions to the challenges facing Muslims in Tanzania and Uganda",
+      "appreciate the role of Islam in Africa as a heritage."
+     ],
+     "learning_experiences": [
+      "search online or on available reference materials the factors that led to the spread of Islam in Tanzania and Uganda up to the 19th century and make notes",
+      "brainstorm on the social, political and economic impacts of Islam in Tanzania and Uganda and present in class",
+      "research on the challenges facing Muslims Tanzania and Uganda in the 21st century and make summary notes",
+      "discuss possible solutions to address the challenges facing Muslims in Africa (social, political and economic) in groups, make charts and display in class",
+      "search online or on available reference materials for demographic maps in Tanzania, Uganda, on"
+     ],
+     "inquiry_questions": [
+      "1. What challenges are Muslims facing in East Africa?",
+      "2. What are the possible solutions to the challenges Muslims face in East Africa?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Digital Literacy: The skills of interacting with digital technology and connecting with technology enhanced as learners search online for the factors that led to the spread of Tanzania and Uganda up to the 19th century and make notes.",
+      "Communication and Collaboration: The skills of listening, speaking, writing and teamwork enhanced as learners brainstorm on the social, political and economic impacts of Islam Tanzania and Uganda,) and present in class.",
+      "Learning to learn: The skill of carrying out research enhanced as learners research on the challenges facing the Muslims in Africa Tanzania and Ugandan the 21st century and make summary notes.",
+      "Citizenship: Global awareness skills as learners search online or on available reference materials for demographic maps in Tanzania and Uganda, on Muslims, make summary notes and present in class. Values:",
+      "Responsibility: Accountability enhanced as learners contribute while brainstorming on the social, political and economic impacts of Islam Tanzania and Uganda and present in class.",
+      "Respect: Etiquette enhanced as learners respect each other’s opinions during group discussion as they brainstorm on the social, political and economic impacts of Islam Tanzania and Uganda and present in class.",
+      "Unity: Cooperation enhanced as learners discuss the solutions to address the challenges facing Muslims Tanzania and Uganda (social, political and economic) in groups, make charts and display in class. Pertinent and Contemporary Issues: Life skills: Assertiveness enhanced as learners brainstorm on the social, political and economic impacts of Islam in Africa Tanzania and Uganda and present in class."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-islamic-religious-education.pdf#p63"
+    },
+    {
+     "kicd_code": "4.3",
+     "name": "Muslim scholars",
+     "suggested_duration": "8 lessons",
+     "learning_outcomes": [
+      "examine the contributions of Sheikh Abdallah Saleh Al-Farsy (1912-1982) and Aisha Lemu (1940-2019) to the development of Islamic heritage",
+      "assess the lessons learnt from the biographies of Sheikh Abdallah Saleh Al-Farsy and Aisha Lemu (early life, educational background, contributions and achievements) for role modelling",
+      "apply the lessons learnt from the biographies of Sheikh Abdallah Saleh Al-Farsy and Aisha Lemu in day-to-day life",
+      "acknowledge the role played by Sheikh Abdallah Saleh Al-Farsy and Aisha Lemu in reforming the society.",
+      "Written assessment, oral assessment, observation, portfolio",
+      "Written assessment, oral assessment, portfolio",
+      "Written assessment oral tests",
+      "written assessment, oral assessment, observation, portfolio"
+     ],
+     "learning_experiences": [
+      "search online or on available reference materials the contributions of Sheikh Abdallah Saleh Al-Farsy (1912-1982) and Aisha Lemu (1940-2019) and make class presentations",
+      "research on the biographies of Sheikh Abdallah Saleh Al-Farsy and Aisha Lemu (early life, educational background, contributions and achievements), make summary notes and present in class",
+      "brainstorm on the lessons learnt from the biographies of Sheikh Abdallah Saleh Al-Farsy and Aisha Lemu and present in class",
+      "discuss possible ways of emulating Sheikh Abdallah Saleh Al-Farsy and Aisha Lemu in groups, make notes and present in class.",
+      "Suggested Resources",
+      "The Qur’an, charts, course books, digital devices, reference materials, resource persons/online sources",
+      "The Qur’an, charts, course books, digital devices, reference materials/online sources",
+      "Books of Hadith, course books, charts, digital devices, reference materials/online sources Books on Hadith, course books, digital devices, reference materials/online sources",
+      "Quran, charts, course books, digital devices, reference materials/online sources",
+      "Quran, charts, a resource person, white piece of cloth/newspapers/flip chart papers (kafan), needle, thread, jerry can, water, incense, soap, gloves, scissors, dolls, cotton wool, carton boxes/clay (for modelling the grave/bier), course books, digital devices, reference",
+      "materials/online sources"
+     ],
+     "inquiry_questions": [
+      "What lessons can Muslims learn from Sheikh Abdallah Saleh Al-Farsy and Aisha Lemu?",
+      "Suggested Non-Formal Activities",
+      "Invite a resource person to discuss methods of preserving manuscripts • Develop ways of preserving the Qur’an e.g., lawh, paper plates, Apps, Qur’anic murals etc. • Prepare posters on the benefits of tajweed and display in strategic places • Organise Qur’an recitation competition in school • Organise sessions where peers teach each other the Quran in school • Learners share information on the teachings/lessons from the selected verses during AGMs, clubs and societies meetings, assembly etc. • Share with their peers on categories of Hadith during Muslim societies meetings",
+      "Share with peers on the importance of care for the environment using the Hadith on environment during Environment Day • Plant and care for trees in school • Organise clean-up activities on the environment • Beautify the school environment using recycled materials such as plastic bottles, tires etc. • Dramatise on brotherhood on AGM Day and during Muslim societies meetings • Write an essay on the importance of upholding kinship and share on the school magazine, social media, notice board, talking walls etc. • Organise Inter House/Inter Class activities to promote brotherhood",
+      "Organise school-based families to promote brotherhood/mentorship • Display a Hadith on environment and brotherhood on a signage in school",
+      "Write essays on the significance of swalatul-Jum’a and swalatul Idd and share on social media • Visit a nearby mosque and perform swalatul-Jum’a and swalatul Idd • Demonstrate funeral rites to their peers during the clubs and Muslim societies meetings • Compose a spoken word/qasida/poem on funeral rites and recite on AGMs, Talent Day and Muslim societies meetings • Perform swalatul janazah in the event of bereavement"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Digital Literacy: The skills of interacting with digital technology and connecting with technology enhanced as learners search online the contributions of Sheikh Abdallah Saleh Al-Farsy (1912-1982) and Aisha Lemu (1940-2019) and make class presentations.",
+      "Communication and Collaboration: The skills of listening, speaking, writing and teamwork enhanced as learners brainstorm on the lessons learnt from the biographies of Sheikh Abdallah Saleh Al-Farsy and Aisha Lemu in groups and present in class.",
+      "Learning to learn: The skill of working collaboratively enhanced as learners discuss possible ways of emulating Sheikh Abdallah Saleh Al-Farsy and Aisha Lemu in groups and make charts.",
+      "Self-efficacy: Effective communication skills enhanced as learners brainstorm on the lessons learnt from the biographies of Sheikh Abdallah Saleh Al-Farsy and Aisha Lemu in groups and present in class. Values:",
+      "Responsibility: Accountability enhanced as learners discuss possible ways of emulating Sheikh Abdallah Saleh Al-Farsy and Aisha Lemu and make charts.",
+      "Unity: Cooperation enhanced as learners discuss the possible ways of emulating Sheikh Abdallah Saleh Al-Farsy and Aisha Lemu in groups and make charts.",
+      "Respect: Enhanced as learners respect each other’s opinion as they discuss possible ways of emulating Sheikh Abdallah Saleh Al-Farsy and Aisha Lemu in groups and make charts. Pertinent and Contemporary Issues: Life skills: Assertiveness enhanced as learners brainstorm on the lessons learnt from the biographies of Sheikh Abdallah Saleh Al-Farsy and Aisha Lemu in groups and present in class."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-islamic-religious-education.pdf#p65"
+    }
+   ]
+  }
+ ]
+}

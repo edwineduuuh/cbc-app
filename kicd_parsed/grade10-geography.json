@@ -1,0 +1,710 @@
+{
+ "source_pdf": "grade10-geography.pdf",
+ "grade": 10,
+ "subject": "geography",
+ "general_outcomes": [
+  "By the end of Senior Secondary, the learner should be able to:",
+  "Demonstrate an understanding of the relationship between Geography and other disciplines for career development",
+  "Apply appropriate geographical knowledge, skills, values and attitudes as a basis for technological and industrial development",
+  "Manage and conserve the physical and human environments for socio-economic development",
+  "Appreciate the interdependence between the Earth’s systems and processes for environmental sustainability",
+  "Use individual talents and geographical skills for self-reliance and spatial interactions at local, national, regional and global levels"
+ ],
+ "strands": [
+  {
+   "strand": "Practical Geography",
+   "strand_code": "1.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to analyse the branches of Geography for in-depth understanding of the subject",
+     "exceeds": "Analyses the branches of Geography for in-depth understanding of the subject with examples",
+     "meets": "Analyses the branches of Geography for in-depth understanding of the subject",
+     "approaches": "Analyses branches of Geography for in-depth understanding of the subject omitting minor details",
+     "below": "Analyses the branches of Geography for in-depth understanding of the subject omitting major details."
+    },
+    {
+     "indicator": "Ability to interpret relief, drainage and vegetation on topographical maps for resource mapping",
+     "exceeds": "Interprets relief, drainage and vegetation on topographical maps for resource mapping comprehensively",
+     "meets": "Interprets relief, drainage, and vegetation on topographical maps for resource mapping",
+     "approaches": "Interprets relief, drainage and vegetation on topographical maps for resource mapping with minor errors",
+     "below": "Interprets relief, drainage, and vegetation on topographical maps for resource mapping with major errors"
+    },
+    {
+     "indicator": "Ability to draw sketch sections from topographical maps for interpreting relief",
+     "exceeds": "Draws sketch sections from topographical maps for interpreting relief creatively",
+     "meets": "Draws sketch sections from topographical maps for interpreting relief",
+     "approaches": "Draws sketch sections from topographical maps for interpreting relief with minor errors",
+     "below": "Draws sketch sections from topographical maps for interpreting relief with major errors"
+    },
+    {
+     "indicator": "Ability to examine the",
+     "exceeds": "Examines methods of",
+     "meets": "Examines methods of",
+     "approaches": "Examines methods of",
+     "below": "Examines methods of"
+    },
+    {
+     "indicator": "methods of data collection, analysis and presentation in geographical studies",
+     "exceeds": "data collection, analysis and presentation in geographical studies with examples",
+     "meets": "data collection, analysis and presentation in geographical studies",
+     "approaches": "data collection, analysis and presentation in geographical studies with minor errors",
+     "below": "data collection, analysis and presentation in geographical studies with major errors"
+    },
+    {
+     "indicator": "Ability to collect, analyse, interpret and present statistical data in a Geographical phenomenon",
+     "exceeds": "Collects, analyses, interprets and presents statistical data in a Geographical phenomenon with examples",
+     "meets": "Collects, analyses, interprets and presents statistical data in a Geographical phenomenon",
+     "approaches": "Collects, analyses, interprets and presents statistical data in a Geographical phenomenon omitting minor details",
+     "below": "Collects, analyses, interprets and presents statistical data in a Geographical phenomenon omitting major details"
+    },
+    {
+     "indicator": "Ability to describe components of GIS as used in geo-referencing information",
+     "exceeds": "Describes components of GIS as used in geo-referencing information exhaustively",
+     "meets": "Describes components of GIS as used in geo-referencing information",
+     "approaches": "Describes components of GIS as used in geo-referencing information omitting minor details",
+     "below": "Describes components of GIS as used in geo-referencing information omitting major details"
+    },
+    {
+     "indicator": "Ability to apply GIS in locating the position of the school",
+     "exceeds": "Applies GIS in locating the position of the school creatively",
+     "meets": "Applies GIS in locating the position of the school",
+     "approaches": "Applies GIS in locating the position of the school with minor errors",
+     "below": "Applies GIS in locating the position of the school with major errors"
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "1.1",
+     "name": "Introduction to Geography",
+     "suggested_duration": "08 lessons",
+     "learning_outcomes": [
+      "analyse the branches of Geography for in-depth understanding of the subject",
+      "examine the importance of studying Geography for sustainable development",
+      "explore the relationship between Geography and other disciplines for identification of career pathways",
+      "select possible careers from branches of Geography in the society",
+      "appreciate the significance of Geography in day-to-today life."
+     ],
+     "learning_experiences": [
+      "Brainstorm on the meaning and branches of Geography and make class presentations",
+      "Use print or digital resources to establish the importance of studying Geography and write notes",
+      "Discuss the relationship between Geography and other disciplines and present in class",
+      "Engage with resource person on meaning of career, factors to consider in choosing a career and careers related to Geography and take notes.",
+      "Create posters on careers related to Geography and display in school",
+      "Engage in work shadowing on a",
+      "possible career in Geography and share experiences in class.",
+      "Conduct a digital or library research on the significance of Geography in day-to-today life and make class presentations",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "How does the study of Geography impact on peoples lives?",
+      "Suggested Key Inquiry Question(s)"
+     ],
+     "core_competencies": [
+      "Communication and Collaboration: The skill of effective communication as the learner discusses the relationship between Geography and other disciplines and presents in class",
+      "Critical Thinking: The skill of interpretation and inference as the learner brainstorms on the meaning and branches of Geography",
+      "Creativity and Imagination: The skill of making connections as the learner creates posters on careers related to Geography"
+     ],
+     "values": [
+      "Unity: Learner cooperates as they discuss in groups the relationship between Geography and other disciplines and makes class presentations",
+      "Responsibility: Learner remains accountable as they use digital resources to establish the importance of studying Geography"
+     ],
+     "pertinent_issues": [
+      "Self-Awareness: Learner engages in work shadowing on a possible career in Geography and shares experiences in class",
+      "Creative Thinking: Learner creates a poster on careers related to Geography and displays in school"
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-geography.pdf#p13"
+    },
+    {
+     "kicd_code": "1.1",
+     "name": "Map Reading and Interpretation",
+     "suggested_duration": "13 lessons",
+     "learning_outcomes": [
+      "illustrate the various methods of representing relief on topographical maps",
+      "interpret relief, drainage and vegetation on topographical maps for resource mapping",
+      "draw sketch sections from topographical maps for interpreting relief",
+      "appreciate the use of map reading and interpretation skills for national development."
+     ],
+     "learning_experiences": [
+      "Brainstorm on meaning and types of maps and share in class",
+      "Use print or digital resources to research on the various methods of representing relief, drainage and vegetation on topographical maps and draw sketches",
+      "Discuss how relief, drainage and vegetation are interpreted on topographical maps and make class presentations",
+      "Watch video clips on relief, drainage, and vegetation and take notes",
+      "Draw sketch sections from topographical maps and display in class.",
+      "Use relief, drainage and vegetation on topographic maps to identify various economic activities that can be undertaken in a given area."
+     ],
+     "inquiry_questions": [
+      "How do we read and interpret topographical maps?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Self-Efficacy: The skill of self-awareness and planning as the learner draws sketch sections from topographical maps and display in class",
+      "Digital Literacy: The skill of interacting with technology as the learner watches video clips on relief, drainage, and vegetation and take notes",
+      "Critical Thinking: The skill of interpretation and inference as the learner discusses how relief, drainage and vegetation are interpreted on topographical maps and make class presentations Values:",
+      "Unity: Learner strives to achieve a common goal as they use print or digital resources to research on the various methods of representing relief on topographical maps and draws sketches",
+      "Respect: Learner respects diverse opinions as they discuss how relief, drainage and vegetation are interpreted on topographical maps and makes class presentations",
+      "Responsibility: Learner takes care of digital devices as they watch video clips on relief, drainage and vegetation Pertinent and Contemporary Issues (PCIs):",
+      "Self-Awareness: Learner draws sketch sections from topographical maps and displays in class",
+      "Environmental Education: Learner discusses relief, drainage, and vegetation on topographical maps",
+      "Online Safety: Learner watches video clips on relief, drainage and vegetation"
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-geography.pdf#p15"
+    },
+    {
+     "kicd_code": "1.2",
+     "name": "Statistical Methods",
+     "suggested_duration": "12 lessons",
+     "learning_outcomes": [
+      "analyse the importance of statistics in Geography",
+      "explore the limitations of statistics in explaining geographical facts",
+      "examine the methods of data collection, analysis and presentation in geographical studies",
+      "collect, analyse, interpret and present statistical data on a Geographical phenomenon",
+      "appreciate the importance of statistics in day-to-day life."
+     ],
+     "learning_experiences": [
+      "Brainstorm on the importance of statistics in Geography and share in class",
+      "Conduct library research on the limitations of using statistics in explaining geographical facts and write notes",
+      "Role play the methods of data collection in Geography",
+      "Discuss methods of data analysis (measures of central tendency), presentation (Combined bar and line graphs, Comparative/group /multiple bar graphs) and interpretation and make presentations in class",
+      "Carry out research within the school on a selected geographical topic (collect data, analyse, interpret, present the data) and write a report",
+      "Use digital resources to make presentations in class on the research",
+      "findings"
+     ],
+     "inquiry_questions": [
+      "How do we use statistics in day-to-day life?"
+     ],
+     "core_competencies": [
+      "Critical Thinking and Problem Solving: The skill of research as the learner conducts library research on the limitations of statistics in explaining geographical facts and writes notes",
+      "Creativity and Imagination: The skill of asking questions as the learner role plays the methods of data collection",
+      "Learning to Learn: The skill of investigation as the learner carries out research within the school on a selected geographical topic"
+     ],
+     "values": [
+      "Integrity: Learner exhibits honesty as they carry out research within the school on a selected geographical topic",
+      "Respect: Learner expresses patience as they brainstorm on the importance of statistics in Geography and makes presentation in class"
+     ],
+     "pertinent_issues": [
+      "Critical Thinking: Learner discusses the methods of data analysis and interpretation and makes presentation in class",
+      "Social Cohesion: Learner works with others as they brainstorm on the importance of statistics in Geography"
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-geography.pdf#p17"
+    },
+    {
+     "kicd_code": "1.4",
+     "name": "Geographic Information Systems (GIS)",
+     "suggested_duration": "13 lessons",
+     "learning_outcomes": [
+      "explain Geographic Information Systems (GIS), Global Positioning System",
+      "and Remote Sensing",
+      "as geospatial technologies",
+      "describe components of GIS as used in geo-referencing information",
+      "examine the importance of GIS in geographical studies",
+      "apply GIS in locating key features in the locality",
+      "acknowledge the importance of GIS in day-to-day life."
+     ],
+     "learning_experiences": [
+      "Brainstorm on GIS, GPS and RS as geospatial technologies and present in class",
+      "Discuss the components of GIS (data, software, hardware, users and methods) and present in class",
+      "Use print or digital resources to research on the importance of GIS in geographical studies and write notes",
+      "Convert geographic coordinates (from decimal degrees to degrees, minutes and seconds) and present in class",
+      "Use digital resources to locate points on the earth’s surface and peer evaluate",
+      "Create posters on the importance of GIS in geographical studies and display in school"
+     ],
+     "inquiry_questions": [
+      "How is geospatial technology useful to humans?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Learning to Learn: The skill of sharing learnt knowledge as the learner converts geographic coordinates and present in class",
+      "Digital Literacy: The skill of interacting with technology as the learner uses digital resources to locate points on the earth’s surface Values:",
+      "Responsibility: Learner offers leadership and guidance to others as they use print or digital resources to research on the importance of GIS in geographical studies",
+      "Respect: Learner displays open-mindedness as they discuss the components of GIS Pertinent and Contemporary Issues (PCIs):",
+      "Social Cohesion: Learner works with others as they discuss the components of GIS",
+      "Critical Thinking: Learner creates a poster on the importance of GIS in geographical studies",
+      "Self-Awareness: Learner uses digital resources to locate points on the earth’s surface"
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-geography.pdf#p19"
+    }
+   ]
+  },
+  {
+   "strand": "Natural Systems and Processes",
+   "strand_code": "2.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to examine the classification of rocks according to mode of formation and age",
+     "exceeds": "Examines the classification of rocks according to mode of formation and age giving examples",
+     "meets": "Examines the classification of rocks according to mode of formation and age",
+     "approaches": "Examines some classification of rocks according to mode of formation and age omitting minor details",
+     "below": "Examines the classification of rocks according to mode of formation and age omitting major details"
+    },
+    {
+     "indicator": "Ability to describe the distribution of rocks in Kenya",
+     "exceeds": "Describes the distribution of rocks in Kenya with illustrations",
+     "meets": "Describes the distribution of rocks in Kenya",
+     "approaches": "Describes the distribution of rocks in Kenya with minor errors",
+     "below": "Describes the distribution of rocks in Kenya with major errors"
+    },
+    {
+     "indicator": "Ability to explore the types of movements within the earth",
+     "exceeds": "Explores the types of movements within the Earth with illustrations",
+     "meets": "Explores the types of movements within the Earth",
+     "approaches": "Explores the types of movements within the Earth with minor omissions",
+     "below": "Explores the types of movements within the Earth with major omissions"
+    },
+    {
+     "indicator": "Ability to examine the theory of Continental Drift to account for the present-day positions of continents",
+     "exceeds": "Examines the theory of Continental Drift to account for the present-day positions of continents with illustrations",
+     "meets": "Examines the theory of Continental Drift to account for the present-day positions of continents",
+     "approaches": "Examines the theory of Continental Drift to account for the present-day positions of continents with minor errors",
+     "below": "Examines the theory of Continental Drift to account for the present-day positions of continents with major errors"
+    },
+    {
+     "indicator": "Ability to distinguish the types of folds resulting from tectonic",
+     "exceeds": "Distinguishes the types of folds resulting from tectonic forces with",
+     "meets": "Distinguishes the types of folds resulting from tectonic forces",
+     "approaches": "Distinguishes the types of folds resulting from tectonic forces omitting",
+     "below": "Distinguishes the types of folds resulting from tectonic forces omitting"
+    },
+    {
+     "indicator": "forces",
+     "exceeds": "illustrations",
+     "meets": "",
+     "approaches": "minor details",
+     "below": "major details"
+    },
+    {
+     "indicator": "Ability to analyse the significance of folding and the resultant features",
+     "exceeds": "Analyses the significance of folding and the resultant features giving examples",
+     "meets": "Analyses the significance of folding and the resultant features",
+     "approaches": "Analyses the significance of folding and the resultant features omitting minor details",
+     "below": "Analyses the significance of folding and the resultant features omitting major details"
+    },
+    {
+     "indicator": "Ability to investigate the causes of vulcanicity on Earth",
+     "exceeds": "Investigates the causes of vulcanicity on Earth exhaustively",
+     "meets": "Investigates the causes of vulcanicity on Earth",
+     "approaches": "Investigates the causes of vulcanicity on Earth omitting minor details",
+     "below": "Investigates the causes of vulcanicity on Earth omitting major details"
+    },
+    {
+     "indicator": "Ability to describe features resulting from vulcanicity in the world",
+     "exceeds": "Describes features resulting from vulcanicity in the world with examples",
+     "meets": "Describes features resulting from vulcanicity in the world",
+     "approaches": "Describes features resulting from vulcanicity in the world with minor errors",
+     "below": "Describes features resulting from vulcanicity in the world with major errors"
+    },
+    {
+     "indicator": "Ability to illustrate the distribution of earthquake zones in the world",
+     "exceeds": "Illustrates the distribution of earthquake zones in the world creatively",
+     "meets": "Illustrates the distribution of earthquake zones in the world",
+     "approaches": "Illustrates the distribution of earthquake zones in the world omitting minor details",
+     "below": "Illustrates the distribution of earthquake zones in the world omitting major details"
+    },
+    {
+     "indicator": "Ability to investigate the effects of earthquakes on the environment",
+     "exceeds": "Investigates the effects of earthquakes on the environment exhaustively",
+     "meets": "Investigates the effects of earthquakes on the environment",
+     "approaches": "Investigates the effects of earthquakes on the environment omitting minor details",
+     "below": "Investigates the effects of earthquakes on the environment omitting major details"
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "2.1",
+     "name": "Rocks",
+     "suggested_duration": "18 lessons",
+     "learning_outcomes": [
+      "examine the classification of rocks according to the mode of formation and age",
+      "describe the distribution of rocks in Kenya",
+      "analyse the significance of rocks in Kenya",
+      "sample rock types in your locality",
+      "appreciate the significance of rocks in Kenya."
+     ],
+     "learning_experiences": [
+      "Brainstorm the meaning of rocks and share in class",
+      "Use print or digital resources to establish the classification of rocks (according to mode of formation and age), download images and display in class",
+      "Discuss the characteristics of rocks (igneous, metamorphic and sedimentary) and make presentations in class",
+      "Draw a sketch map of Kenya showing the distribution of rocks and display strategically in the school",
+      "Carry out library research on the significance of rocks in Kenya and write an essay",
+      "Carry out field study on rocks within the local environment, collect, classify and display the samples in class",
+      "• Make a collage showing the distribution of rocks in Kenya and display in class"
+     ],
+     "inquiry_questions": [
+      "Why are there different types of rocks?"
+     ],
+     "core_competencies": [
+      "Creativity and Imagination: The skill of making connections as the learner makes a collage showing the distribution of rocks in Kenya and displays in class",
+      "Learning to Learn: The skill of investigation as the learner carries out library research on the significance of rocks in Kenya",
+      "Citizenship: The skill of national and cultural identity as the learner draws sketch maps of Kenya showing the distribution of rocks"
+     ],
+     "values": [
+      "Patriotism: Learner shows citizenship as they draw sketch maps of Kenya showing the distribution of rocks",
+      "Unity: Learner embraces each other as they carry out field study on rocks within the local environment"
+     ],
+     "pertinent_issues": [
+      "Environmental Education: Learner discusses the characteristics of rocks and make presentations in class",
+      "Safety in class and school environment: Learner carries out field study on rocks within the local environment, collects, classifies and display the samples in class",
+      "First Aid: Learner carries out field study on rocks within the local environment."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-geography.pdf#p23"
+    },
+    {
+     "kicd_code": "2.2",
+     "name": "Folding",
+     "suggested_duration": "12 lessons",
+     "learning_outcomes": [
+      "distinguish the types of folds resulting from tectonic forces",
+      "describe the resultant features of folding on the Earth’s surface",
+      "analyse the significance of folding and the resultant features",
+      "illustrate the distribution of fold mountains in the world",
+      "appreciate the influence of folding and the resultant features on human activities."
+     ],
+     "learning_experiences": [
+      "Brainstorm on the meaning of folding and share in class",
+      "Discuss types of folds resulting from tectonic forces and make presentations in class",
+      "Use print or digital resources to research on the resultant features of folding on the Earth’s surface and make notes",
+      "Draw sketches of the resultant features of folding on the Earth’s surface and display in class",
+      "Model resultant features of folding on the Earth’s surface and display in class",
+      "Draw a world map showing the distribution of fold mountains and display in class",
+      "Debate on the significance of folding and the resultant features"
+     ],
+     "inquiry_questions": [
+      "How does folding influence our day-to-day life?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Citizenship: The skill of global awareness as the learner draws the world map showing the distribution of fold mountains",
+      "Creativity and Imagination: The skill of making connections as the learner draws sketches of resultant features of folding on the Earth’s surface Values:",
+      "Unity: Learner portrays team spirit as they take turns when brainstorming on the meaning of folding",
+      "Respect: Learner displays humility as they discuss on types of folds resulting from tectonic forces Pertinent and Contemporary Issues (PCIs):",
+      "Environmental Education: Learner discusses on the types of folds resulting from tectonic forces",
+      "Creativity: Learner draws the world map showing the distribution of fold mountains and display in class",
+      "Assertiveness: Learner debates on the significance of folding and the resultant features"
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-geography.pdf#p25"
+    },
+    {
+     "kicd_code": "2.3",
+     "name": "Vulcanicity",
+     "suggested_duration": "13 lessons",
+     "learning_outcomes": [
+      "investigate the causes of vulcanicity in the Earth",
+      "describe features resulting from vulcanic activities in the world",
+      "illustrate the global distribution of features due to vulcanicity",
+      "examine the significance of vulcanicity on human activities",
+      "acknowledge the effects of vulcanicity on the environment."
+     ],
+     "learning_experiences": [
+      "Brainstorm on the meaning and causes of vulcanicity in Earth and make notes",
+      "Use print or digital resources to research on features resulting from vulcanicity in the world and make presentations in class",
+      "Draw the intrusive features resulting from vulcanicity in the world and display in class",
+      "Model the extrusive features resulting from vulcanicity in the world and display in class",
+      "Watch video clips on volcanic activities and take notes",
+      "Simulate the eruption of volcanic features",
+      "Create posters of volcanic features and display in the school compound",
+      "Make a collage on distribution of volcanic features in Kenya and display",
+      "in class",
+      "Engage a resource person on volcanicity disaster preparedness and management strategies and take notes"
+     ],
+     "inquiry_questions": [
+      "Why study vulcanicity?"
+     ],
+     "core_competencies": [
+      "Self-Efficacy: The skill of self-awareness as the learner creates a poster of volcanic features and displays in the school compound",
+      "Learning to Learn: The skill of working collaboratively as the learner simulates the eruption of volcanic features",
+      "Digital Literacy: The skill of interacting with digital technology as the learner uses digital resources to research on features resulting from vulcanicity in the world"
+     ],
+     "values": [
+      "Peace: Learner exhibits tolerance as they make collage on the distribution of volcanic features in the world",
+      "Integrity: Learner portrays self-discipline as they use digital resources to research on features resulting from vulcanicity in the world"
+     ],
+     "pertinent_issues": [
+      "Environmental Education: Learner creates a poster of volcanic features and display in the school compound",
+      "Creative Thinking: Learner makes a collage on the distribution of volcanic features in the world"
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-geography.pdf#p27"
+    },
+    {
+     "kicd_code": "2.4",
+     "name": "Earthquakes",
+     "suggested_duration": "10 lessons",
+     "learning_outcomes": [
+      "examine causes of earthquakes on Earth",
+      "illustrate the distribution of earthquake zones in the world",
+      "investigate the effects of earthquakes on the environment",
+      "design disaster preparedness and management strategies for coping with effects of earthquakes",
+      "appreciate the understanding of earthquakes for disaster preparedness and management."
+     ],
+     "learning_experiences": [
+      "Brainstorm on the meaning, types and causes of earthquakes in the world and share in class",
+      "Draw a world map showing the distribution of earthquake zones and display in class",
+      "Discuss the scales used in measurement of earthquakes (Ritcher and Mercalli) and present in class",
+      "Watch video clips on the effects of earthquakes on the environment and take notes",
+      "Engage a resource person on disaster preparedness and management strategies and take notes",
+      "Make communication messages on disaster preparedness and management strategies and display in the school compound"
+     ],
+     "inquiry_questions": [
+      "Why are earthquakes of concern to humans?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Digital Literacy: The skill of interacting with technology as the learner watches video clips on the effects of earthquakes on the environment",
+      "Creativity and Imagination: The skill of making connections as the learner draws world maps showing the distribution of earthquake zones and displays in class Values:",
+      "Unity: Learner displays team spirit as they brainstorm on the meaning, types and causes of earthquakes in the world",
+      "Respect: Learner displays etiquette as they interact with a resource person on disaster preparedness and management strategies Pertinent and Contemporary Issues (PCIs):",
+      "Environmental Education: Learner watches video clips on the effects of earthquakes on the environment and takes notes",
+      "Self-Esteem: Learner draws world maps showing the distribution of earthquake zones"
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-geography.pdf#p29"
+    }
+   ]
+  },
+  {
+   "strand": "Human and Economic Activities",
+   "strand_code": "3.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to explore the types of agriculture in the world",
+     "exceeds": "Explores the types of agriculture in the world with examples",
+     "meets": "Explores the types of agriculture in the world",
+     "approaches": "Explores the types of agriculture in the world omitting minor details",
+     "below": "Explores the types of agriculture in the world omitting major details"
+    },
+    {
+     "indicator": "Ability to explain the importance of agriculture in the society",
+     "exceeds": "Explains the importance of agriculture in the society exhaustively",
+     "meets": "Explains the importance of agriculture in the society",
+     "approaches": "Explains the importance of agriculture in the society with minor details",
+     "below": "Explains the importance of agriculture in the society with major details"
+    },
+    {
+     "indicator": "Ability to describe the methods used in extraction of minerals in the world",
+     "exceeds": "Describes the methods used in extraction of minerals in the world with illustrations",
+     "meets": "Describes the methods used in extraction of minerals in the world",
+     "approaches": "Describes the methods used in extraction of minerals in the world omitting minor errors",
+     "below": "Describes the methods used in extraction of minerals in the world omitting major errors"
+    },
+    {
+     "indicator": "Ability to explore the mining of limestone in Kenya diamond in Botswana and iron ore in Australia",
+     "exceeds": "Explores the mining of limestone in Kenya, diamond in Botswana and iron ore in Australia exhaustively",
+     "meets": "Explores the mining of limestone in Kenya, diamond in Botswana and iron ore in Australia",
+     "approaches": "Explores the mining of limestone in Kenya, diamond in Botswana and iron ore in Australia with minor omissions",
+     "below": "Explores the mining of limestone in Kenya, diamond in Botswana and iron ore in Australia with major omissions"
+    },
+    {
+     "indicator": "Ability to examine the types and sources of energy for domestic and industrial use",
+     "exceeds": "Examines the types and sources of energy for domestic and industrial use giving examples",
+     "meets": "Examines the types and sources of energy for domestic and industrial use",
+     "approaches": "Examines the types and sources of energy for domestic and industrial use with minor errors",
+     "below": "Examines the types and sources of energy for domestic and industrial use with major errors"
+    },
+    {
+     "indicator": "Ability to explore the types of industries in the world",
+     "exceeds": "Explores the types of industries in the world giving examples",
+     "meets": "Explores the types of industries in the world",
+     "approaches": "Explores the types of industries in the world but omits minor details",
+     "below": "Explores the types of industries in the world but omits major details"
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "3.1",
+     "name": "Agriculture",
+     "suggested_duration": "15 lessons",
+     "learning_outcomes": [
+      "explore types of agriculture in the world",
+      "explain the importance of agriculture in the society",
+      "analyse the trends in agriculture in Africa",
+      "examine challenges facing agriculture in Kenya",
+      "design strategies towards enhancing agricultural productivity in Kenya",
+      "appreciate the role of agriculture towards food security in Kenya."
+     ],
+     "learning_experiences": [
+      "Brainstorm on the types of agriculture in the world (subsistence, commercial, urban agriculture) and present in class",
+      "Engage a resource person on the importance of agriculture in the society",
+      "Use print or digital resources to research on trends in agriculture in Africa",
+      "Watch video clips on urban agriculture and hydroponics and take notes",
+      "Develop communication messages on challenges facing agriculture in Kenya",
+      "Conduct a field study within the locality on strategies for enhancing agricultural productivity",
+      "Create posters on possible strategies towards enhancing agricultural productivity in Kenya"
+     ],
+     "inquiry_questions": [
+      "How is the future of agriculture in Kenya?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Learning to Learn: The skill of carrying out research as the learner conducts a field study within the locality on strategies for enhancing agricultural productivity",
+      "Citizenship: The skill of active community life skills as the learner conducts a field study within the locality on strategies for enhancing agricultural productivity Values:",
+      "Social justice: Learner accords privileges to others without favour as they engage a resource person on the importance of agriculture in the society",
+      "Patriotism: Learner displays dedication as they create posters on possible strategies towards enhancing agricultural productivity in Kenya Pertinent and Contemporary Issues (PCIs):",
+      "Social cohesion: Learner conducts a field study within the locality on strategies for enhancing agricultural productivity",
+      "Assertiveness: Learner engages a resource person on the importance of agriculture in the society"
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-geography.pdf#p33"
+    },
+    {
+     "kicd_code": "3.2",
+     "name": "Mining",
+     "suggested_duration": "20 lessons",
+     "learning_outcomes": [
+      "examine the factors influencing occurrence and exploitation of minerals",
+      "describe the methods used in extraction of minerals in the world",
+      "explore the mining of limestone in Kenya, diamond in Botswana and iron ore in Australia",
+      "analyse the effects of mining on the environment and possible solutions",
+      "apply statistical skills to establish trends in mineral production in East Africa",
+      "recognize the significance of minerals to the economy of Kenya."
+     ],
+     "learning_experiences": [
+      "Brainstorm on the meaning of minerals and mining and share in class",
+      "Carry out library research to establish occurrence of minerals and make notes",
+      "Discuss the factors influencing occurrence and exploitation of minerals and present in class",
+      "Use print or digital resources to research on methods used in extraction of minerals and make notes",
+      "Watch video clips on methods used in extraction of minerals and take notes",
+      "Watch documentaries on mining of limestone in Kenya, diamond in Botswana, and iron ore in Australia and take notes",
+      "Write an article on the effects of mining on environment and possible solutions and publish",
+      "Create communication messages on the importance of rehabilitating mining",
+      "sites and display on the school noticeboards"
+     ],
+     "inquiry_questions": [
+      "How can we exploit minerals sustainably?"
+     ],
+     "core_competencies": [
+      "Citizenship: The skill of global awareness as the learner watches documentaries on mining of limestone in Kenya, diamond in Botswana and iron ore in Australia",
+      "Digital Literacy: The skill of interacting with technology as the leaner uses digital resources to research on methods used in extraction of minerals",
+      "Communication and Collaboration: The skill of writing as the learner writes an article on the effects of mining on environment and possible solutions and publishes"
+     ],
+     "values": [
+      "Unity: Learner works together to create communication messages on the importance of rehabilitating mining sites",
+      "Respect: Learner respects opinions of others as they discuss factors influencing occurrence and exploitation of minerals and presents in class"
+     ],
+     "pertinent_issues": [
+      "Self-Awareness: Learner confidently creates communication messages on the importance of rehabilitating mining sites and displays in the school noticeboards",
+      "Environmental Education: Learner participates in writing an article on the effects of mining on environment and possible solutions and publishes"
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-geography.pdf#p35"
+    },
+    {
+     "kicd_code": "3.3",
+     "name": "Energy",
+     "suggested_duration": "20 lessons",
+     "learning_outcomes": [
+      "examine the types and sources of energy for domestic and industrial use",
+      "analyse the development of renewable energy in Kenya and the selected countries",
+      "explore the significance of renewable energy on socio-economic development",
+      "manage and conserve energy in the community",
+      "appreciate sustainable use of energy for socio-economic development."
+     ],
+     "learning_experiences": [
+      "Brainstorm on the meaning of energy and share in class",
+      "Carry out library research on the types and sources of energy and make notes",
+      "Watch video clips on the development of renewable energy in Kenya and the selected countries (Hydroelectric power in Uganda, Geothermal energy in Italy, Solar energy in Vietnam and Wind energy in Spain) and take notes",
+      "Discuss the development of renewable energy in Kenya and the selected countries and make notes",
+      "Use print or digital resources to research on the significance of renewable energy on socio-economic development and make presentations in class",
+      "Develop communication messages on management and conservation of renewable energy and display strategically",
+      "in the school",
+      "Carry out a field study on renewable energy within the locality and write a report",
+      "Develop posters on consumers’ rights related to renewable energy production and consumption and display in the school",
+      "Make energy-saving devices using locally available materials and showcase in the school"
+     ],
+     "inquiry_questions": [
+      "Why renewable energy?"
+     ],
+     "core_competencies": [
+      "Critical Thinking and Problem Solving: The skill of open-mindedness as the learner develops energy-saving devices using locally available materials",
+      "Learning to Learn: The skill of carrying out research as the learner carries out a field study on energy within the locality",
+      "Citizenship: The skill of global awareness as the learner watches video clips on development of renewable energy in Kenya and the selected countries"
+     ],
+     "values": [
+      "Unity: Learner cooperates as they carry out field study on energy within the locality and write a report",
+      "Responsibility: Learner takes safety precautions as they make energy-saving devices using locally available materials and showcase in the school"
+     ],
+     "pertinent_issues": [
+      "Pertinent and Contemporary Issues (PCIs):",
+      "Financial Literacy: Learner makes energy-saving devices using locally available materials",
+      "Environmental education: Learner carries out field study on renewable energy within the locality and writes a report",
+      "Safety and security: Learner carries out a field study on renewable energy within the locality"
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-geography.pdf#p37"
+    },
+    {
+     "kicd_code": "3.4",
+     "name": "Industry",
+     "suggested_duration": "20 lessons",
+     "learning_outcomes": [
+      "explore the types of industries in the world",
+      "establish the factors influencing location and development of industries in the world",
+      "analyse the development of industries in Kenya and the selected countries",
+      "examine the challenges facing industries and possible solutions in Kenya",
+      "model a cottage industry in the school",
+      "acknowledge the significance of industries in the society."
+     ],
+     "learning_experiences": [
+      "Brainstorm on industry and industrialization and share in class",
+      "Discuss the types of industries in the world and present in class",
+      "Use print or digital resources to research on factors influencing location and development of industries in the world and make notes",
+      "Draw a map of Kenya showing the location of major industries and display in class",
+      "Debate on the significance of industries in Kenya and write a report",
+      "Engage a resource person on problems facing industries and their solutions in Kenya and take notes",
+      "Watch video clips on Jua Kali industries in Kenya (including cultural), cottage industries in India and car manufacturing in Japan and take notes",
+      "Discuss development of Jua Kali industries in Kenya (including cultural), cottage industries in India and car manufacturing in Japan and present in class",
+      "Write a request for establishing a cottage industry and model the industry in the school",
+      "Write an article on the problems associated with industrialization and their possible solutions in Kenya and publish",
+      "Carry out field study on effects of industries on environment (pollution, informal settlements among others) and write a report",
+      "Create a portfolio on effects of industries on environment and display in the school",
+      "Develop communication messages on consumer concerns on development of industries",
+      "Suggested Learning Resources"
+     ],
+     "inquiry_questions": [
+      "What is the status and prospects of industrialization in Kenya?",
+      "Non-Formal Activities"
+     ],
+     "core_competencies": [
+      "• Critical Thinking and Problem Solving: The skill of open-mindedness as the learner writes a request and models a cottage"
+     ],
+     "values": [
+      "Values:",
+      "Social Justice: Learner has freedom as they develop communication messages on consumer concerns about development of industries",
+      "Patriotism: Learner exhibits culture awareness as they write a request for establishing a cottage industry and models the industry in the school Pertinent and Contemporary Issues (PCIs):",
+      "Financial Literacy: Learner writes a request for establishing a cottage industry and model the industry in the school",
+      "Consumer Education: Learner develops communication messages on consumer concerns on development of industries"
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-geography.pdf#p40"
+    }
+   ]
+  }
+ ]
+}

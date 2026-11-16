@@ -1,0 +1,329 @@
+{
+ "source_pdf": "grade4-hindu-religious-education.pdf",
+ "grade": 4,
+ "subject": "hindu-religious-education",
+ "general_outcomes": [],
+ "strands": [
+  {
+   "strand": "Creation",
+   "strand_code": "",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to state water bodies that are considered sacred as mentioned in the Scriptures to strengthen faith.",
+     "exceeds": "States water bodies that are considered sacred as mentioned in the Scriptures consistently.",
+     "meets": "States water bodies that are considered sacred as mentioned in the Scriptures.",
+     "approaches": "States water bodies that are considered sacred as mentioned in the Scriptures with inconsistencies.",
+     "below": "States some water bodies that are considered sacred as mentioned in the Scriptures with guidance."
+    },
+    {
+     "indicator": "Ability to identify the role of water in our daily lives.",
+     "exceeds": "Identifies the role of water in our daily lives precisely.",
+     "meets": "Identifies the role of water in our daily lives.",
+     "approaches": "Identifies the role of water in our daily lives leaving some details.",
+     "below": "Identifies the role of water in our daily lives with prompts."
+    },
+    {
+     "indicator": "Ability to specify the roles of plants that are considered sacred in each faith for religious activities.",
+     "exceeds": "Specifies the roles of all plants that are considered sacred in each faith correctly.",
+     "meets": "Specifies the roles of plants that are considered sacred in each faith.",
+     "approaches": "Specifies the roles of some plants that are considered sacred in each faith.",
+     "below": "Specifies the roles of some plants that are considered sacred in each faith with assistance."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "",
+     "name": "Panchmahabhoot",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Self and peer review Oral questioning Projects Portfolio Observations Written work Presentations of artwork"
+     ],
+     "learning_experiences": [
+      "Digital resources (Authenticated Online) Library Magazines Artwork Resource persons Tactile illustrations"
+     ],
+     "inquiry_questions": [
+      "Visit to places of Worship and community centres Interact with Community service activities Role play"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade4-hindu-religious-education.pdf#p38"
+    }
+   ]
+  },
+  {
+   "strand": "Manifestations of Supreme Beings (Paramatma)",
+   "strand_code": "",
+   "assessment_rubric": [],
+   "substrands": [
+    {
+     "kicd_code": "",
+     "name": "Enlightened Beings",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Self and peer review Oral questioning Projects Portfolio Observations Written work Presentations of artwork"
+     ],
+     "learning_experiences": [
+      "Digital resources (Authenticated Online) Library Magazines Artwork Resource persons Tactile illustrations"
+     ],
+     "inquiry_questions": [
+      "Visit to places of Worship and community centres Interact with Community service activities Role play"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade4-hindu-religious-education.pdf#p38"
+    }
+   ]
+  },
+  {
+   "strand": "Principles of Dharma",
+   "strand_code": "",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to identify Principles of Dharma according to Sanatan/Vedic for familiarization",
+     "exceeds": "Identifies Principles of Dharma according to Sanatan/Vedic consistently.",
+     "meets": "Identifies Principles of Dharma according to Sanatan/Vedic.",
+     "approaches": "Identifies Principles of Dharma according to Sanatan/Vedic with inconsistencies.",
+     "below": "Identifies Principles of Dharma according to Sanatan/Vedic with guidance."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "",
+     "name": "Principles of Sanatan/Vedic Dharma",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Self and peer review Oral questioning Projects Portfolio Observations Written work Presentations of games"
+     ],
+     "learning_experiences": [
+      "Parents as resource persons Library Magazines Scriptural stories Tactile illustrations"
+     ],
+     "inquiry_questions": [
+      "Visiting to places of worship Visiting animal shelter Visiting elderly homes Visiting orphanages Dramatization"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade4-hindu-religious-education.pdf#p40"
+    }
+   ]
+  },
+  {
+   "strand": "Sadachaar",
+   "strand_code": "",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to state the importance of integrity in their daily lives for righteous living",
+     "exceeds": "States the importance of integrity in their daily lives clearly and confidently.",
+     "meets": "States the importance of integrity in their daily lives.",
+     "approaches": "States the importance of integrity in their daily lives with less confidence.",
+     "below": "States the importance of integrity in their daily lives with assistance."
+    },
+    {
+     "indicator": "Ability to identify elements of integrity among peers and society for inspiration.",
+     "exceeds": "Identifies elements of integrity among peers and society precisely.",
+     "meets": "Identifies elements of integrity among peers and society.",
+     "approaches": "Identifies some elements of integrity among peers and society.",
+     "below": "Identifies some elements of integrity among peers and society with prompts."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "",
+     "name": "Moral stories",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Self and peer review Oral questioning Projects Portfolio Observations Written work Presentations of games"
+     ],
+     "learning_experiences": [
+      "Parents as resource persons Library Magazines Scriptural stories Tactile illustrations"
+     ],
+     "inquiry_questions": [
+      "Visiting to places of worship Visiting animal shelter Visiting elderly homes Visiting orphanages Dramatization"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade4-hindu-religious-education.pdf#p39"
+    }
+   ]
+  },
+  {
+   "strand": "Scriptures",
+   "strand_code": "",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to explain the lessons learnt from the Scriptures for inspiration.",
+     "exceeds": "Explains the lessons learnt from the Scriptures comprehensively.",
+     "meets": "Explains the lessons learnt from the Scriptures.",
+     "approaches": "Explains the lessons learnt from the Scriptures fairly.",
+     "below": "Explains the lessons of the Scriptures with guidance."
+    },
+    {
+     "indicator": "Ability to apply the teachings of the Scriptures for righteous living.",
+     "exceeds": "Applies the teachings of the Scriptures consistently.",
+     "meets": "Applies the teachings of the Scriptures.",
+     "approaches": "Applies some of the teachings of the Scriptures.",
+     "below": "Applies some of the teachings of the Scriptures with motivation."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "",
+     "name": "Essence of Scriptures",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Self and peer review Oral questioning Projects Portfolio Observations Written work Presentations of artwork Audio//Video recordings’ presentation"
+     ],
+     "learning_experiences": [
+      "Resource persons Digital media Library Magazines Scriptures Tactile illustrations"
+     ],
+     "inquiry_questions": [
+      "Visit to places of worship Discussing with parents Skit performances"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade4-hindu-religious-education.pdf#p38"
+    }
+   ]
+  },
+  {
+   "strand": "Utsav (Festivals)",
+   "strand_code": "",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to identify the rites and rituals during the celebration of different festivals.",
+     "exceeds": "Identifies the rites and rituals appropriately.",
+     "meets": "Identifies the rites and rituals.",
+     "approaches": "Identifies some of the rites and rituals.",
+     "below": "Identifies some of the rites and rituals with prompts."
+    },
+    {
+     "indicator": "Ability to relate the days of the week with the corresponding planets for preservation of tradition",
+     "exceeds": "Relates the days of the week with the corresponding planets correctly.",
+     "meets": "Relates the days of the week with the corresponding planets.",
+     "approaches": "Relates the days of the week with some of the corresponding planets.",
+     "below": "Relates the days of the week with some of the corresponding planets with guidance."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "",
+     "name": "Religious and Social festivals",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Oral questioning Projects Portfolio Observations Written work Quiz Presentation of tabulated work Photograph presentations Self and peer review"
+     ],
+     "learning_experiences": [
+      "Digital devices Resource persons Library Tactile illustrations Magazines"
+     ],
+     "inquiry_questions": [
+      "Visiting to places of worship Photographing Recording videos"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade4-hindu-religious-education.pdf#p40"
+    }
+   ]
+  },
+  {
+   "strand": "Worship",
+   "strand_code": "",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to recite prayers for understanding the meanings to deepen the faith",
+     "exceeds": "Recites prayers with correct annotations.",
+     "meets": "Recites prayers.",
+     "approaches": "Recites some prayers.",
+     "below": "Recites some prayers with guidance."
+    },
+    {
+     "indicator": "Ability to identify prayers performed for different occasions for familiarisation",
+     "exceeds": "Identifies prayers performed for different occasions correctly.",
+     "meets": "Identifies prayers performed for different occasions.",
+     "approaches": "Identifies prayers performed for some different occasions.",
+     "below": "Identifies prayers performed for some different occasions with prompts."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "",
+     "name": "Sanatan Prayers",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Self and peer review Oral questioning Projects Portfolio Observations Written work Presentations of games"
+     ],
+     "learning_experiences": [
+      "Parents as resource persons Library Magazines Scriptural stories Tactile illustrations"
+     ],
+     "inquiry_questions": [
+      "Visiting to places of worship Visiting animal shelter Visiting elderly homes Visiting orphanages Dramatization"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade4-hindu-religious-education.pdf#p39"
+    }
+   ]
+  },
+  {
+   "strand": "Yoga",
+   "strand_code": "",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to name the types of Pranaayam for familiarisation",
+     "exceeds": "Names the types of Pranaayam consistently.",
+     "meets": "Names the types of Pranaayam.",
+     "approaches": "Names the types of Pranaayam with inconsistencies.",
+     "below": "Names the types of Pranaayam with assistance."
+    },
+    {
+     "indicator": "Ability to display simple body postures for physical fitness",
+     "exceeds": "Displays simple body postures with precision.",
+     "meets": "Displays simple body postures.",
+     "approaches": "Displays some simple body postures.",
+     "below": "Displays some simple body postures with guidance."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "",
+     "name": "Pranayams and Asanas",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Self and peer review Oral questioning Projects Portfolio Observations Written work Presentations of games"
+     ],
+     "learning_experiences": [
+      "Parents as resource persons Library Magazines Scriptural stories Tactile illustrations"
+     ],
+     "inquiry_questions": [
+      "Visiting to places of worship Visiting animal shelter Visiting elderly homes Visiting orphanages Dramatization"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade4-hindu-religious-education.pdf#p39"
+    }
+   ]
+  }
+ ]
+}

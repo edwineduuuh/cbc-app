@@ -1,0 +1,486 @@
+{
+ "source_pdf": "grade5-agriculture-nutrition.pdf",
+ "grade": 5,
+ "subject": "agriculture-nutrition",
+ "general_outcomes": [
+  "By the end of Upper Primary school, the learner should be able to:",
+  "Participate actively in agricultural and household activities in conservation of resources.",
+  "Use scarce resources through innovative practices to contribute towards food and nutrition security.",
+  "Engage in food production processes for self-sustainability, health and economic development."
+ ],
+ "strands": [
+  {
+   "strand": "Conservation of Resources",
+   "strand_code": "1.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to describe conservation of resources",
+     "exceeds": "Describes conservation of three resources (soil, water and wild animals) with exemplary details.",
+     "meets": "Describes conservation of three resources (soil, water and wild animals).",
+     "approaches": "Describes conservation of two resources (soil, water and wild animals).",
+     "below": "Describes conservation of less than two resources (soil, water and wild animals)."
+    },
+    {
+     "indicator": "Ability to conserve resources",
+     "exceeds": "Applies contextually applicable measures to conserve resources (soil, water and wild animals) with some practices that are innovative.",
+     "meets": "Applies suitable measures to conserve resources (soil, water and wild animals).",
+     "approaches": "Applies measures to conserve resources (soil, water and wild animals) with some practices that require improvements.",
+     "below": "Applies measures to conserve resources (soil, water and wild animals) with some practices that require corrections for suitability."
+    },
+    {
+     "indicator": "Ability to show responsibility in conservation of resources",
+     "exceeds": "Shows leadership, personal initiative and dutifulness in undertaking tasks in conservation of resources (soil, water, and wild animals).",
+     "meets": "Shows personal initiative and dutifulness in undertaking tasks in conservation of resources (soil, water and wild animals).",
+     "approaches": "Shows dutifulness in undertaking tasks in conservation of resources (soil, water and wild animals).",
+     "below": "Requires prompt to undertake tasks in conservation of resources (soil, water and wild animals)."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "1.1",
+     "name": "Soil Conservation",
+     "suggested_duration": "8 lessons",
+     "learning_outcomes": [
+      "Identify sites for soil improvement in the school or community",
+      "Construct organic waste pit for soil improvement",
+      "Demonstrate use of plant remains for soil improvement."
+     ],
+     "learning_experiences": [
+      "Learners are guided to:",
+      "Discuss and identify sites in the school or community that have poor soil for crop growth.",
+      "Construct a pit, a site or a structure for damping plant residue and suitable food remains and organic kitchen wastes in school.",
+      "Plant crop in a residue pit to observe and appreciate soil improvement from accumulated organic wastes.",
+      "Develop observation skills as they identify appropriate site; value of unity as they work to construct the pit; and environmental awareness while recycling organic wastes in the pit method to improve the soil."
+     ],
+     "inquiry_questions": [
+      "How can we improve the soil using suitable organic wastes?"
+     ],
+     "core_competencies": [
+      "Critical thinking and problem solving: observation skills as learners identify appropriate sites for soil improvement."
+     ],
+     "values": [
+      "Unity: collaborative skills as learners construct organic waste pit for soil improvement."
+     ],
+     "pertinent_issues": [
+      "Environmental conservation as learners recycle organic wastes through the organic waste pit."
+     ],
+     "links_to_other_areas": [
+      "Learners relate the construction and use of organic waste pit to waste management skills learnt in Science and Technology"
+     ],
+     "resources": [],
+     "kicd_source": "grade5-agriculture-nutrition.pdf#p10"
+    },
+    {
+     "kicd_code": "1.2",
+     "name": "Water Conservation",
+     "suggested_duration": "9 lessons",
+     "learning_outcomes": [
+      "Identify ways of conserving water for household gardening",
+      "Practice water conservation within the school or community",
+      "Appreciate importance of conserving water in the community."
+     ],
+     "learning_experiences": [
+      "Learners are guided to:",
+      "Use devices or other resources to search for information on ways of water conservation such as mulching, cover cropping and shading in kitchen and backyard gardening.",
+      "Make presentations to share experiences on importance of conserving water (mulching, cover cropping and shading) in kitchen and backyard gardening activities.",
+      "Practice various ways of conserving water in farming (Mulching, shading, cover cropping) within the school.",
+      "In groups learners to experiment on mulching (mulch some crops and leave others un-mulched and compare moisture conservation).",
+      "Develop learning to learn by engaging in self-driven task of water conservation; responsible use of devices to search for",
+      "information; and environmental awareness as they sustain available soil water."
+     ],
+     "inquiry_questions": [
+      "How can we conserve soil water in household gardening practices?"
+     ],
+     "core_competencies": [
+      "Leaning to learn: learning independently as learners engage in self-driven tasks for water conservation."
+     ],
+     "values": [
+      "Integrity: taking personal responsibility in the use of digital devices while searching for information on water conservation."
+     ],
+     "pertinent_issues": [
+      "Environmental awareness as the learners conserve soil moisture through gardening practices."
+     ],
+     "links_to_other_areas": [
+      "Learners relate water conservation to knowledge on natural resources in the environment learnt in Social Studies."
+     ],
+     "resources": [],
+     "kicd_source": "grade5-agriculture-nutrition.pdf#p11"
+    },
+    {
+     "kicd_code": "1.3",
+     "name": "Conserving Wild Animals",
+     "suggested_duration": "6 lessons",
+     "learning_outcomes": [
+      "Identify ways of repelling wild animals to avoid damage of property",
+      "Repel wild animals to avoid destruction of property",
+      "Appreciate importance of living better with wild animals."
+     ],
+     "learning_experiences": [
+      "Learners are guided to:",
+      "Watch video clips or listen to a resource person on safe ways of repelling wild animals (such as use of smoke, smells) to avoid damage on property (crops and domestic animals) and live better with wild animals.",
+      "Innovate safe ways of repelling small wild animals (smoke, use of smell repellant or any other).",
+      "Develop critical thinking skills to solve the problem of destruction of property; demonstrate value of patriotism as they care the environment by conserving biodiversity."
+     ],
+     "inquiry_questions": [
+      "How can we repel wild animals to avoid destruction of property?"
+     ],
+     "core_competencies": [
+      "Critical thinking and problem solving: evaluation and decision making skill as learners explore ways of solving destruction of property by wild animals."
+     ],
+     "values": [
+      "Patriotism: learners show love for the environment by conserving animal diversity."
+     ],
+     "pertinent_issues": [
+      "Conservation of biodiversity as learners appreciate cultural heritage in their community."
+     ],
+     "links_to_other_areas": [
+      "Learners relate conservation of wild animals to conservation of natural resources learnt in Social Studies."
+     ],
+     "resources": [],
+     "kicd_source": "grade5-agriculture-nutrition.pdf#p13"
+    }
+   ]
+  },
+  {
+   "strand": "Food Production Processes",
+   "strand_code": "2.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to describe food production processes",
+     "exceeds": "Describe four food production processes (growing vegetables, use of domestic animals, preservation of cereals and pulses, cooking by frying) in exceptionally elaborate details.",
+     "meets": "Describe four food production processes (growing vegetables, use of domestic animals, preservation of cereals and pulses, cooking by frying).",
+     "approaches": "Describe two to three food production processes (growing vegetables, use of domestic animals, preservation of cereals and pulses, cooking by frying).",
+     "below": "Describe less than two food production processes (growing vegetables, use of domestic animals, preservation of cereals and pulses, cooking by frying)."
+    },
+    {
+     "indicator": "Ability to apply food production processes at household level.",
+     "exceeds": "Applies four food production processes at household level using creative and innovative approaches.",
+     "meets": "Applies four food production processes at household level.",
+     "approaches": "Applies two to three food production processes at household level.",
+     "below": "Applies less than two food production processes at household level."
+    },
+    {
+     "indicator": "Ability to portray integrity in food",
+     "exceeds": "Portrays more than three indicators of integrity in the allocated tasks of food production processes.",
+     "meets": "Portrays three indicators of integrity (commitment to tasks, is honest and",
+     "approaches": "Portrays two indicators of integrity (commitment to tasks, is honest and accountable) in the",
+     "below": "Portrays less than two indicators of integrity (commitment to tasks, is honest and accountable)"
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "2.1",
+     "name": "Growing Vegetables",
+     "suggested_duration": "9 lessons",
+     "learning_outcomes": [
+      "Identify gardening practices for vegetables",
+      "Establish a nursery bed for vegetables",
+      "Grow vegetable crop after transplanting",
+      "Appreciate the importance of vegetables in provision healthy meals diet."
+     ],
+     "learning_experiences": [
+      "Learners are guided to:",
+      "Brainstorm and share experiences on gardening practices of vegetables in a nursery bed.",
+      "Prepare a nursery bed (container or ground nursery), sow vegetable seed and take care of the seedling.",
+      "Make class presentations importance of growing vegetables as a source of food for animals and humans.",
+      "Develop self-efficacy in producing their own vegetable foods; demonstrate the value of social justice in sharing of tasks; and financial literacy skills by reducing daily vegetable purchases.",
+      "Suggested learning experiences"
+     ],
+     "inquiry_questions": [
+      "How does growing vegetables contribute to food production?",
+      "Suggested key inquiry questions"
+     ],
+     "core_competencies": [
+      "Self-efficacy: self-drive as learners undertake projects to grow vegetable crops."
+     ],
+     "values": [
+      "Social justice: learners foster fairness in sharing and undertaking of duties in the vegetable production project."
+     ],
+     "pertinent_issues": [
+      "Financial literacy as the learners appreciate saving on cost at school or family level by growing own vegetables."
+     ],
+     "links_to_other_areas": [
+      "Link to other subjects:"
+     ],
+     "resources": [],
+     "kicd_source": "grade5-agriculture-nutrition.pdf#p15"
+    },
+    {
+     "kicd_code": "2.2",
+     "name": "Uses of Domestic Animals",
+     "suggested_duration": "8 lessons",
+     "learning_outcomes": [
+      "Identify uses of various domestic animals in food production",
+      "Relate various domestic animals to their uses",
+      "Appreciate the importance of domestic animals in food production."
+     ],
+     "learning_experiences": [
+      "Learners are guided to:",
+      "Brainstorm and share experiences on the uses of domestic animals in food production (bees, rabbits, camels, fish, pigs, donkeys, dogs and cats).",
+      "Match domestic animals to their uses.",
+      "Make class presentations on importance of domestic animals in food production while relating contributions of all the scoped animals.",
+      "Develop communication skills as they present the uses of domestic animals; demonstrate patriotism as they appreciate diversity of animals in the country; and appreciate importance of animals in food security.",
+      "Suggested learning experiences"
+     ],
+     "inquiry_questions": [
+      "How are domestic animals important in food production?",
+      "Suggested key inquiry questions"
+     ],
+     "core_competencies": [
+      "Communication and collaboration: speaking clearly and effectively as learners make presentations on uses of domestic animals in food production."
+     ],
+     "values": [
+      "Patriotism: appreciating own culture by recognizing diversity of domestic animals reared in the country."
+     ],
+     "pertinent_issues": [
+      "Food and nutrition security as the learners appreciate the direct and indirect uses of domestic animals in food production."
+     ],
+     "links_to_other_areas": [
+      "Link to other subjects:"
+     ],
+     "resources": [],
+     "kicd_source": "grade5-agriculture-nutrition.pdf#p16"
+    },
+    {
+     "kicd_code": "2.3",
+     "name": "Preservation of Cereals and Pulses",
+     "suggested_duration": "10 lessons",
+     "learning_outcomes": [
+      "Describe methods of preserving cereals and pulses the locality",
+      "Preserve cereals and pulses for food security",
+      "Appreciate the importance of preserving cereals and pulses for food security."
+     ],
+     "learning_experiences": [
+      "Learners are guided to:",
+      "Brainstorm and share experiences on methods of preserving and storing cereals and pulses (such as sun drying, use of ashes, use of airtight containers) at household level.",
+      "Preserve and store cereals and pulses using methods such as sun drying, use of ash and airtight containers.",
+      "Make class presentations to share experiences on importance of preserving and storing cereals and pulses.",
+      "Develop critical thinking skills to solve the problem of food spoilage; value of unity as learners make class presentations; and food security awareness in preserving foods."
+     ],
+     "inquiry_questions": [
+      "How does preservation and storage of cereals and pulses enhance food security?"
+     ],
+     "core_competencies": [
+      "Critical thinking and problem solving: exploring ways of preserving and storing cereals and pulses to prevent spoilage."
+     ],
+     "values": [
+      "Unity: taking turns while undertaking tasks in preservation of cereals and pulses."
+     ],
+     "pertinent_issues": [
+      "Food and nutrition security as learners preserve available cereals and pulses to prevent food wastage and spoilage."
+     ],
+     "links_to_other_areas": [
+      "Learners relate skills in preservation of cereals and pulses to farming activities in the community learnt in Social Studies."
+     ],
+     "resources": [],
+     "kicd_source": "grade5-agriculture-nutrition.pdf#p17"
+    },
+    {
+     "kicd_code": "2.4",
+     "name": "Food Nutrients",
+     "suggested_duration": "10 lessons",
+     "learning_outcomes": [
+      "Explain functions of food nutrients in the body",
+      "Categorize foods based on their major nutrients",
+      "Identify nutritional diseases and disorders associated with poor eating habits",
+      "Appreciate the importance of various nutrients in the body."
+     ],
+     "learning_experiences": [
+      "Learners are guided to:",
+      "Search and share information on functions of food nutrients (carbohydrates, vitamins, proteins, fats).",
+      "Use real food materials, photographs, to categorize foods based on their major nutrients (protein rich foods, carbohydrates rich foods, vitamins and minerals rich foods).",
+      "Make class presentations on the importance of various nutrients in the body.",
+      "Use print and digital devices to search for information on various nutritional diseases and disorders such as kwashiorkor, marasmus, goiter and anaemia.",
+      "Develop digital literacy as they search for information on nutrients; value of unity as they make presentations; and health promotion awareness skills as they learn about the importance of nutrients in the body.",
+      "Suggested learning experiences"
+     ],
+     "inquiry_questions": [
+      "Why is the knowledge of food nutrients important in food production?",
+      "Suggested key inquiry questions"
+     ],
+     "core_competencies": [
+      "Digital literacy: interaction with digital technologies while searching for information on food nutrients."
+     ],
+     "values": [
+      "Unity: respect of each other’s opinions while making presentations on importance of nutrients in the body."
+     ],
+     "pertinent_issues": [
+      "Health promotion as learners learn the importance of food nutrients in the body."
+     ],
+     "links_to_other_areas": [
+      "Learners relate food nutrients to prevention of non-communicable diseases learnt in Science and Technology."
+     ],
+     "resources": [],
+     "kicd_source": "grade5-agriculture-nutrition.pdf#p18"
+    },
+    {
+     "kicd_code": "2.5",
+     "name": "Dry Fat Frying and Deep Frying",
+     "suggested_duration": "9 lessons",
+     "learning_outcomes": [
+      "Describe dry fat frying and deep frying as methods of cooking",
+      "Cook food using dry fat frying and deep frying methods",
+      "Embrace dry fat frying and deep frying in food production."
+     ],
+     "learning_experiences": [
+      "Learners are guided to:",
+      "Watch video clip or demonstration on dry fat frying and deep frying methods of cooking.",
+      "Cook and serve dry fried and deep fried foods.",
+      "Develop learning to learn while working cautiously to carry out dry frying and deep frying; responsibility while following the cooking steps; and observe safety measures while working with fire and fats.",
+      "Suggested learning experiences"
+     ],
+     "inquiry_questions": [
+      "How can we cook foods using dry fat frying and deep frying methods?",
+      "Suggested key inquiry questions"
+     ],
+     "core_competencies": [
+      "Learning to learn: self-discipline as learners work cautiously to fry foods.",
+      "Core competencies: Self-efficacy: identification of self as learners develop good grooming habits. Values:"
+     ],
+     "values": [
+      "Responsibility: observing safety as learners handle hot fats and equipment in frying foods."
+     ],
+     "pertinent_issues": [
+      "Pertinent and contemporary issues:",
+      "Health promotion as learners adopt preventive health practices through good grooming habits."
+     ],
+     "links_to_other_areas": [
+      "Learners relate good grooming habits to self-discovery learnt in Social Studies."
+     ],
+     "resources": [],
+     "kicd_source": "grade5-agriculture-nutrition.pdf#p19"
+    }
+   ]
+  },
+  {
+   "strand": "Hygiene Practices",
+   "strand_code": "3.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to exhibit responsibility in hygiene practices",
+     "exceeds": "Exhibits more than three aspects of responsibility in hygiene practices.",
+     "meets": "Exhibits three aspects of responsibility (care for self, own property and others, observes safety and is self-directed) in hygiene practices.",
+     "approaches": "Exhibits two aspects of responsibility (care for self, own property and others, observes safety and is self-directed) in hygiene practices.",
+     "below": "Exhibits less than two aspects of responsibility (care for self, own property and others, observes safety and is self-directed) in hygiene practices."
+    },
+    {
+     "indicator": "Ability to apply various production techniques",
+     "exceeds": "Applies various production techniques (repairing a garment, constructing vertical and horizontal garden) to develop a useable and aesthetically appealing output.",
+     "meets": "Applies various production techniques (repairing a garment, constructing vertical and horizontal garden) to develop a useable output.",
+     "approaches": "Applies various production techniques (repairing a garment, constructing vertical and horizontal garden) to develop a partially useable output.",
+     "below": "Applies various production techniques (repairing a garment, constructing vertical and horizontal garden) to develop an output that require correction to be useable."
+    },
+    {
+     "indicator": "Ability to exhibit unity in carrying out various production techniques.",
+     "exceeds": "Exhibits more than three aspects of unity (team spirit, shares available resources and collaborates with others) in various production techniques.",
+     "meets": "Exhibits three aspects of unity (team spirit, shares available resources and collaborates with others) in various production techniques.",
+     "approaches": "Exhibits two aspects of unity (team spirit, shares available resources and collaborates with others) in various production techniques.",
+     "below": "Exhibits less than two aspects of unity (team spirit, shares available resources and collaborates with others) in various production techniques."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "3.2",
+     "name": "Home Hygiene",
+     "suggested_duration": "9 lessons",
+     "learning_outcomes": [
+      "Identify surfaces made from different materials in home environment",
+      "Clean different types of surfaces in the home environment",
+      "Appreciate living in a clean home environment to promote healthy living."
+     ],
+     "learning_experiences": [
+      "Learners are guided to:",
+      "Discuss and share experiences on surfaces made from different materials such as glass, wooden, earthen floors, cemented and tiled.",
+      "Clean different types of surfaces such as glass, wooden, earthen floors, cemented and tiled.",
+      "Develop listening and speaking skills while brainstorming; unity while cleaning surfaces; and observe safety while they take personal care in the cleaning activity.",
+      "Suggested learning experiences"
+     ],
+     "inquiry_questions": [
+      "How do you clean surfaces made from different materials?",
+      "Suggested key inquiry questions"
+     ],
+     "core_competencies": [
+      "Communication and collaboration: listening and speaking skills using facts to support opinions in brainstorming on home hygiene."
+     ],
+     "values": [
+      "Unity: taking turns in activities while learners participate in cleaning surfaces."
+     ],
+     "pertinent_issues": [
+      "Safety of self and others while learners clean surfaces at home."
+     ],
+     "links_to_other_areas": [
+      "Learners relate cleaning of surfaces to prevention of contamination and prevention of spreading communicable diseases learnt in Science and Technology."
+     ],
+     "resources": [],
+     "kicd_source": "grade5-agriculture-nutrition.pdf#p22"
+    },
+    {
+     "kicd_code": "3.3",
+     "name": "Laundering Cotton Item",
+     "suggested_duration": "10 lessons",
+     "learning_outcomes": [
+      "Describe how to launder a cotton item",
+      "Launder a cotton item for personal hygiene",
+      "Appreciate importance of laundry work for hygiene purposes."
+     ],
+     "learning_experiences": [
+      "Learners are guided to:",
+      "Watch a clip or observe a demonstration on how to launder a cotton item (white and fast coloured cotton).",
+      "Launder a white and fast coloured cotton item.",
+      "Practice laundering of white and fast coloured items at home to appreciate the importance of laundry work for personal hygiene.",
+      "Develop learning to learn as they adopt learnt skills to launder personal items; responsibility while taking care of the personal items; and promote hygiene by maintaining cleanliness."
+     ],
+     "inquiry_questions": [
+      "How does laundering cotton items promote hygiene?"
+     ],
+     "core_competencies": [
+      "Core Competencies:"
+     ],
+     "values": [
+      "Responsibility: taking care of personal items in the laundering of cotton items."
+     ],
+     "pertinent_issues": [
+      "Personal hygiene as they clean cotton items to promote health."
+     ],
+     "links_to_other_areas": [
+      "Learners relate personal hygiene to communicable diseases learnt in science and technology."
+     ],
+     "resources": [],
+     "kicd_source": "grade5-agriculture-nutrition.pdf#p23"
+    },
+    {
+     "kicd_code": "",
+     "name": "Exceeds expectation",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Describes three hygiene practices (good grooming, home hygiene, laundering items) as daily health habit.",
+      "Carry out three hygiene practices (good grooming, home hygiene, laundering items) as daily health habit."
+     ],
+     "learning_experiences": [
+      "Approaches expectation",
+      "Describes two hygiene practices (good grooming, home hygiene, laundering items) as daily health habit.",
+      "Carry out two hygiene practices (good grooming, home hygiene, laundering items) as daily health habit."
+     ],
+     "inquiry_questions": [
+      "Below expectation",
+      "Describes less than two hygiene practices (good grooming, home hygiene, laundering items) as daily health habit.",
+      "Carry out less than two hygiene practices (good grooming, home hygiene, laundering items) as daily health habit."
+     ],
+     "core_competencies": [
+      "Distinguish between horizontal and vertical innovative gardening",
+      "Construct vertical and horizontal",
+      "Learners watch or observe stimulus materials (video clips, pictures, and photographs) on innovative gardening practices showing various crops in innovative gardens (vertical and horizontal gardens).",
+      "Learners to use sacks, plastic bottles, walls, plastic pipes among others to construct vertical and horizontal gardens for growing crops. How can gardening be done on vertical and horizontal spaces?",
+      "Core competencies: Creativity and imagination: designing and assembling skills as learners innovate vertical and horizontal gardens. Values: Unity: team spirit as learners take turns in constructing vertical and horizontal garden. Pertinent and contemporary issues: Environmental awareness as learners learn how to utilize limited spaces through use of vertical and horizontal gardens. Link to other subjects:",
+      "Learners relate designing structures and use of craft tools to skills learnt in creative arts. Assessment rubric Indicator Exceeds expectation Meets expectation Approaches expectation Below expectation Ability to explain various production techniques Explain various production techniques (repair of garments, construction of vertical and horizontal gardens) with Explain various production techniques (repair of garments, construction of vertical and horizontal gardens) Explain various production techniques (repair of garments, construction of vertical and horizontal gardens) Explain various production techniques (repair of garments, construction of vertical and horizontal gardens)"
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade5-agriculture-nutrition.pdf#p24"
+    }
+   ]
+  }
+ ]
+}

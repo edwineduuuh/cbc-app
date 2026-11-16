@@ -1,0 +1,1123 @@
+{
+ "source_pdf": "grade10-history-and-citizenship.pdf",
+ "grade": 10,
+ "subject": "history-and-citizenship",
+ "general_outcomes": [],
+ "strands": [
+  {
+   "strand": "Themes in Kenyan History and Citizenship",
+   "strand_code": "1.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to discuss the causes and effects of migration, settlement and expansion of the linguistic groups.",
+     "exceeds": "Learner discusses the causes and effects of migration, settlement and expansion of the linguistic groups in detail.",
+     "meets": "Learner discusses the causes and effects of migration, settlement and expansion of the linguistic groups",
+     "approaches": "Learner discusses the causes and effects of migration, settlement and expansion of the linguistic groups leaving out some details",
+     "below": "Learner discusses the causes and effects of migration, settlement and expansion of the linguistic groups leaving out many details."
+    },
+    {
+     "indicator": "Ability to trace the migration routes and settlement areas of the linguistic groups in Kenya.",
+     "exceeds": "Learner traces the migration routes and settlement areas of the linguistic groups in Kenya in details",
+     "meets": "Learner traces the migration routes and settlement areas of the linguistic groups in Kenya.",
+     "approaches": "Learner traces the migration routes and settlement areas of the linguistic groups in Kenya omitting minor details.",
+     "below": "Learner traces the migration routes and settlement areas of the linguistic groups in Kenya omitting major details."
+    },
+    {
+     "indicator": "Ability to analyse major political developments in Kenya since Independence",
+     "exceeds": "Learner analysis major political developments in Kenya since Independence giving all details.",
+     "meets": "Learner analysis major political developments in Kenya since Independence",
+     "approaches": "Learner analysis major political developments in Kenya since Independence omitting some details.",
+     "below": "Learner analysis major political developments in Kenya since Independence omitting all details"
+    },
+    {
+     "indicator": "Ability to discuss the major political",
+     "exceeds": "Learner discusses all major political challenges since",
+     "meets": "Learner discusses the major political",
+     "approaches": "Learner discusses the major political challenges since",
+     "below": "Learner discusses the major political challenges since"
+    },
+    {
+     "indicator": "challenges since independence;",
+     "exceeds": "independence exhaustively",
+     "meets": "challenges since independence;",
+     "approaches": "independence leaving out some information.",
+     "below": "independence leaving out important information."
+    },
+    {
+     "indicator": "Ability to categorises the public resources",
+     "exceeds": "Learner categorises all public resources citing their examples",
+     "meets": "Learner categorises the public resources",
+     "approaches": "Learner categorises some the public resources",
+     "below": "Learner categorises few public resources"
+    },
+    {
+     "indicator": "Ability to analyse the importance of public resources for posterity",
+     "exceeds": "Learner analyses the importance of public resources for posterity with illustration",
+     "meets": "Learner analyses the importance of public resources for posterity",
+     "approaches": "Learner analyses the importance of public resources for posterity leaves out minor details.",
+     "below": "Learner analyses the importance of public resources for posterity leaves most details"
+    },
+    {
+     "indicator": "Ability to develop strategies for sustainable utilization of public resources",
+     "exceeds": "Learner develops strategies for sustainable utilization of public resources citing examples",
+     "meets": "Learner develops strategies for sustainable utilization of public resources",
+     "approaches": "Learner develops strategies for sustainable utilization of public resources while omits some",
+     "below": "Learner develop strategies for sustainable utilization of public resources omits the major ones"
+    },
+    {
+     "indicator": "Ability to identify the guidelines governing elections in Kenya",
+     "exceeds": "Learner identifies all the guidelines governing elections in Kenya",
+     "meets": "Learner identifies most of the guidelines governing elections in Kenya",
+     "approaches": "Learner identifies some of the guidelines governing elections in Kenya",
+     "below": "Learner identifies very few the guidelines governing elections in Kenya"
+    },
+    {
+     "indicator": "Ability to describe the roles and functions of IEBC in Kenya;",
+     "exceeds": "Learner describes all the roles and functions of IEBC in Kenya;",
+     "meets": "Learner describes most of the roles and functions of IEBC in Kenya;",
+     "approaches": "Learner describes some of the roles and functions of IEBC in Kenya;",
+     "below": "Learner describes small extent of the roles and functions of IEBC in Kenya;"
+    },
+    {
+     "indicator": "Ability to elaborate the electoral processes in Kenya,",
+     "exceeds": "Learner elaborates the electoral processes in Kenya in details",
+     "meets": "Elaborates the electoral processes in Kenya,",
+     "approaches": "Elaborates to some extent the electoral processes in Kenya,",
+     "below": "Elaborates to a limited extent the electoral processes in Kenya,"
+    },
+    {
+     "indicator": "Learner to discuss the importance of national integration",
+     "exceeds": "Learner discusses the importance of national integration with examples",
+     "meets": "learner discusses the importance of national integration",
+     "approaches": "Learner to discuss most importance of national integration",
+     "below": "Learner to discuss some importance of national integration"
+    },
+    {
+     "indicator": "Learner to explain the components of national integration",
+     "exceeds": "Learner explain all the components of national integration with illustrations",
+     "meets": "Learner to explain the components of national integration",
+     "approaches": "Learner to explain most of the components of national integration",
+     "below": "Learner to explain some of the components of national integration"
+    },
+    {
+     "indicator": "Ability illustrate factors that limit national integration",
+     "exceeds": "learner illustrates all factors that limit national integration and suggest remedies",
+     "meets": "learner illustrates factors that limit national integration",
+     "approaches": "learner illustrates most factors that limit national integration",
+     "below": "Learner illustrate some factors that limit national integration"
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "1.2",
+     "name": "Establishment of colonial rule",
+     "suggested_duration": "12 lessons",
+     "learning_outcomes": [
+      "examine the reasons for the establishment of colonial rule",
+      "evaluate the methods applied by the British in the establishment of colonial rule in Kenya",
+      "discuss the process of establishment of colonial rule in Kenya",
+      "apply lesson learnt from the process of establishment of colonial rule in Kenya",
+      "desire to maintain independence and unity in Kenya"
+     ],
+     "learning_experiences": [
+      "use digital devices or print materials to research on reasons for the establishment of colonial rule in Kenya and present in class",
+      "roleplay the methods used by the British in the establishment of colonial rule.",
+      "watch a documentary on establishment of colonial rule Kenya and make notes",
+      "develop a chart on the process of establishment of colonial rule and share in class",
+      "identify situations in the school where the best practices from the process of colonial establishment can be applied by learners",
+      "• develop communication messages on independence and unity and display ."
+     ],
+     "inquiry_questions": [
+      "1. How can we maintain independence in daily lives?",
+      "2. Why was wrong for the British to impose their rule on Africans in Kenya?"
+     ],
+     "core_competencies": [
+      "Digital literacy: skill of interacting with technology is developed as the learner uses digital devices or print materials to research on reasons for the establishment of colonial rule in Kenya and present in class",
+      "Self-efficacy: skill of effective communication as the learner Roleplay the methods used by the British in the establishment of colonial rule."
+     ],
+     "values": [
+      "Unity: cooperation as the learner works with others to role play or develop a documentary",
+      "Responsibility: diligence as the learner role play and develop communication messages"
+     ],
+     "pertinent_issues": [
+      "Safety and security: Online safety as they use digital devices",
+      "Learners enhance effective communication as they prepare communication messages and sharing"
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-history-and-citizenship.pdf#p16"
+    },
+    {
+     "kicd_code": "1.3",
+     "name": "The Constitution of Kenya(2010)",
+     "suggested_duration": "8 lessons",
+     "learning_outcomes": [
+      "categorise the type of public resources in Kenya",
+      "analyse the importance of public resources for posterity",
+      "develop strategies for sustainable utilisation of public resources",
+      "advocate for efficient use of public resources for an ethical society",
+      "desire to support efficient use of public resources to",
+      "promote ethical practices."
+     ],
+     "learning_experiences": [
+      "The learner is guided to:",
+      "identify to categorise types of public resources",
+      "use print and non-print media to categorise public, resources and make presents in class",
+      "watch a video clip on the importance efficient use of public resources, and discuss in class",
+      "engage with a resource person to give a talk on how to design strategies for sustainable utilization of public resources and present points in class",
+      "conduct a debate on advocacy for efficient use of public resources for an ethical society",
+      "design charts/posters/songs to support efficient use of public",
+      "resources to promote ethical practices."
+     ],
+     "inquiry_questions": [
+      "1. What are the challenges faced in ensuring efficient utilisation of public resources?",
+      "2. How can public resources be protected and preserved?"
+     ],
+     "core_competencies": [
+      "Communication and collaboration: Listening skills as the learner watch a video clip on the importance of public resources, and discuss in class",
+      "Learning to learn : skill of working collaboratively as the learner engage with a resource person to design strategies for sustainable utilization of public resources."
+     ],
+     "values": [
+      "Patriotism: Citizenship as the learner participates in a debate on advocacy for efficient use of public resources for an ethical society",
+      "Responsibility: diligence as the learner uses print and non-print media to categorise public resources."
+     ],
+     "pertinent_issues": [
+      "Citizenship Education: Civic responsibility as the learner takes part in a debate on advocacy for efficient use of public resources for an ethical society"
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-history-and-citizenship.pdf#p18"
+    },
+    {
+     "kicd_code": "1.4",
+     "name": "Political developments and challenges since independence",
+     "suggested_duration": "10 lessons",
+     "learning_outcomes": [
+      "analyse major political developments in Kenya since Independence",
+      "discuss the major political challenges since independence",
+      "propose possible solutions to the major political challenges",
+      "develop activities that promote peaceful political environments in Kenya",
+      "embrace peaceful coexistence for harmonious living ."
+     ],
+     "learning_experiences": [
+      "use digital or print resources to establish major political developments in Kenya since independence",
+      "(Establishment of a Republic status, merger of KANU and KADU, Sessional paper No 10 of 1965, Repeal of section 2A of the constitution, promulgation of the 2010 constitution) and present in class",
+      "engage with resource person to find out major political challenges since independence (political assassinations, attempted coups, post-election violence, negative ethnicity) and write summary points",
+      "Hold discussions on possible solutions to political challenges",
+      "participate in activities in the community to promote conducive political environment",
+      "compose and sing a song on the importance of harmonious living."
+     ],
+     "inquiry_questions": [
+      "1. How can you participate in political developments in your community?",
+      "2. What solutions can you provide for challenges facing our society?"
+     ],
+     "core_competencies": [
+      "Critical thinking and problem solving: Active listening and communication skill as the learner participates in a debate on possible solutions to political challenges",
+      "Citizenship: Active community life skills as the learner Participates in activities in the community to promote political development ."
+     ],
+     "values": [
+      "Patriotism: Citizenship as the learner debates on possible solutions to political challenges.",
+      "Social justice: Equity as the learner investigates major political challenges since independence."
+     ],
+     "pertinent_issues": [
+      "Citizenship Education - National values and principles of governance a learner discuss possible solutions to political challenges"
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-history-and-citizenship.pdf#p20"
+    },
+    {
+     "kicd_code": "1.5",
+     "name": "Elections in Kenya",
+     "suggested_duration": "15 lessons",
+     "learning_outcomes": [
+      "identify the guidelines governing elections in Kenya",
+      "describe the roles and functions of IEBC in Kenya",
+      "elaborate the electoral processes in Kenya",
+      "enumerate measures taken by IEBC in curbing election malpractices in management of elections",
+      "appreciate the roles and functions of IEBC in Kenya."
+     ],
+     "learning_experiences": [
+      "use print and non print materials to search for the guidelines governing elections in Kenya",
+      "brainstorm on the roles and functions of IEBC in Kenya",
+      "use charts/posters to enumerate the roles and functions of IEBC in Kenya",
+      "role play the electoral processes in your school, present in class the electoral processes in Kenya",
+      "engage with a resource person to find out the measures taken by IEBC in curbing election malpractices in management of elections",
+      "design messages on the roles and functions of IEBC in Kenya and display in class."
+     ],
+     "inquiry_questions": [
+      "1. Why are elections important?",
+      "2. Which values can citizens embrace to avoid election malpractices?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Citizenship: social and civic skills as the learner role play electoral process in their school",
+      "Creativity and imagination: Making observations as the learner design messages on the roles and functions of IEBC in Kenya and display in class Values:",
+      "Unity: cooperation as the learner role play the electoral processes in your school",
+      "Social justice: Equity as the learner engages with a resource person to find out the measures taken by IEBC in curbing election malpractices in management of elections. Pertinent and Contemporary Issues (PCIs): Citizenship Education:",
+      "Good governance as the learner uses print and non print materials to search for the guidelines governing elections in Kenya",
+      "Promotion of social cohesion as learner engages with a resource person to find out the measures taken by IEBC in curbing election malpractices in management of elections."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-history-and-citizenship.pdf#p22"
+    },
+    {
+     "kicd_code": "1.6",
+     "name": "National integration",
+     "suggested_duration": "8 lessons",
+     "learning_outcomes": [
+      "discuss the importance of national integration",
+      "explain the components of national integration",
+      "Examine factors that limit national integration",
+      "Demonstrate ways of enhancing national integration",
+      "acknowledge the importance of national unity."
+     ],
+     "learning_experiences": [
+      "Brainstorm on the importance of national integration and present in class",
+      "use digital or print resources to find out the components of national integration and discuss",
+      "Use the library to research on factors that limit national integration and write notes",
+      "identify and participate in ways that enhance national integration in school",
+      "Develop communication messages for promotion of peaceful co-existence and post in school",
+      "Write an essay on the importance of national unity to peaceful coexistence ."
+     ],
+     "inquiry_questions": [
+      "How can you enhance national integration?"
+     ],
+     "core_competencies": [
+      "• Communication and collaboration: Speaking skill as a learner takes part in brainstorming on the importance of national integration and present in class"
+     ],
+     "values": [
+      "Values:",
+      "Patriotism: citizenship as the learner shares on factors enhancing coexistence as fellow citizens.",
+      "Unity :cooperation as the learner develops communication messages for promotion of peaceful coexistence . Pertinent and Contemporary Issues (PCIs): Citizenship Education - Good governance: ethnic/racial relations and diversities as the learner brainstorm on the importance of national integration."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-history-and-citizenship.pdf#p24"
+    }
+   ]
+  },
+  {
+   "strand": "Themes in African History and Citizenship",
+   "strand_code": "2.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to describe the factors which led to transition from migratory to sedentary lifestyle by early humans;",
+     "exceeds": "Learner describes all factors which led to transition from migratory to sedentary lifestyle by early humans;",
+     "meets": "Learner describes of the factors which led to transition from migratory to sedentary lifestyle by early humans;",
+     "approaches": "Learner describes the factors which led to transition from migratory to sedentary lifestyle by early humans leaving out some factors.",
+     "below": "Learner describes the factors which led to transition from migratory to sedentary lifestyle by early humans leaving out major factors"
+    },
+    {
+     "indicator": "Ability to analyse advancements that took place during the Neolithic revolution;",
+     "exceeds": "Learner analysis advancements that took place during the Neolithic revolution",
+     "meets": "Learner analysis advancements that took place during the",
+     "approaches": "Learner analysis advancements that took place during the Neolithic revolution",
+     "below": "Learner analysis advancements that took place during the Neolithic revolution"
+    },
+    {
+     "indicator": "Ability to examine the contributions of Neolithic revolution to the modern society;",
+     "exceeds": "Learner examines the major contributions of Neolithic revolution to the modern society",
+     "meets": "Learner examines most of the contributions of Neolithic revolution to the modern society;",
+     "approaches": "Learner examines the contributions of Neolithic revolution to the modern society leaving out some details",
+     "below": "Learner examines the contributions of Neolithic revolution to the modern society leaving out major details"
+    },
+    {
+     "indicator": "Ability to classify the characteristics of contemporary pastoralism in reference to selected communities in Africa;",
+     "exceeds": "Learner classifies all the characteristics of contemporary pastoralism in reference to selected communities in Africa;",
+     "meets": "Learner classifies major the characteristics of contemporary pastoralism in reference to selected communities in Africa;",
+     "approaches": "Learner classifies some the characteristics of contemporary pastoralism in reference to selected communities in Africa ;",
+     "below": "Learner classifies limited the characteristics of contemporary pastoralism in reference to selected communities in Africa;"
+    },
+    {
+     "indicator": "Ability to propose solutions to challenges facing contemporary pastoralism in Africa",
+     "exceeds": "Learner proposes solutions to challenges facing contemporary pastoralism in Africa in detail.",
+     "meets": "Learner proposes most of solutions to challenges facing contemporary pastoralism in Africa",
+     "approaches": "Learner proposes solutions to challenges facing contemporary pastoralism in Africa omitting some solutions",
+     "below": "Learner proposes solutions to challenges facing contemporary pastoralism in Africa omitting major solutions"
+    },
+    {
+     "indicator": "Ability examine the development of selected early civilizations in Africa",
+     "exceeds": "learner examines the development of selected early civilizations in Africa with much details",
+     "meets": "learner examines the development of selected early civilizations in Africa",
+     "approaches": "learner examines the development of some selected early civilizations in Africa",
+     "below": "learner examines the development of few selected early civilizations in Africa"
+    },
+    {
+     "indicator": "Ability to locate the selected early civilizations",
+     "exceeds": "Learner locates all the selected early civilizations with detailed descriptions",
+     "meets": "Learner locates the selected early civilizations",
+     "approaches": "Learner locates some selected early civilizations",
+     "below": "Learner locates a few of the selected early civilizations"
+    },
+    {
+     "indicator": "Ability to analyse the contribution of ancient African civilizations to modern society",
+     "exceeds": "Learner analysis the contribution of ancient African civilizations to modern society with examples",
+     "meets": "Learner analysis the contribution of ancient African civilizations to modern society",
+     "approaches": "Learner analysis the contribution of some ancient African civilizations to modern society with",
+     "below": "Learner analysis the contribution of a few ancient African civilizations to modern society"
+    },
+    {
+     "indicator": "Ability to discuss the significance of the Berlin conference in relation to scramble for and partition of Africa;",
+     "exceeds": "Learner discusses the significance of the Berlin conference in relation to scramble for and partition of Africa giving all details",
+     "meets": "Learner discusses the significance of the Berlin conference in relation to scramble for and partition of Africa.",
+     "approaches": "Learner discusses the significance of the Berlin conference in relation to scramble for and partition of Africa leaving minor details.",
+     "below": "Learner discusses the significance of the Berlin conference in relation to scramble for and partition of Africa leaving out most details."
+    },
+    {
+     "indicator": "Ability to evaluate how key players determined the colonization of Africa;",
+     "exceeds": "Learner evaluates how all the key players determined the colonization of Africa;",
+     "meets": "Learner evaluates how key players determined the colonization of Africa;",
+     "approaches": "Learner evaluates how some key players determined the colonization of Africa.",
+     "below": "Learner evaluates how a key player determined the colonization of Africa."
+    },
+    {
+     "indicator": "Ability to discern the extent to which different reasons influenced colonisation of Africa.",
+     "exceeds": "Learner discern the extent to which all the different reasons influenced colonisation of Africa.",
+     "meets": "Learner discern the extent to which different reasons influenced colonisation of Africa.",
+     "approaches": "Learner discern the extent to which some different reasons influenced colonisation of Africa.",
+     "below": "Learner discern the extent to which one of the different reasons influenced colonisation of Africa."
+    },
+    {
+     "indicator": "Ability to justify why it was inevitable to end colonialization of Africa to promote a sense of nationalism",
+     "exceeds": "Learner justifies in details why it was inevitable to end colonialization of Africa to promote a sense of nationalism",
+     "meets": "Learner justifies why it was inevitable to end colonialization of Africa to promote a sense of nationalism",
+     "approaches": "Learner justifies some why it was inevitable to end colonialization of Africa to promote a sense of nationalism",
+     "below": "Learner justifies why it was inevitable to end colonialization of Africa to promote a sense of nationalism"
+    },
+    {
+     "indicator": "Ability to draw lessons from key leaders who contributed to nationalism in African countries,",
+     "exceeds": "Learner draws lessons from key leaders who contributed to nationalism in African countries in varied contexts.",
+     "meets": "Learner draws lessons from key leaders who contributed to nationalism in African countries,",
+     "approaches": "Learner draws some lessons from key leaders who contributed to nationalism in African countries,",
+     "below": "Learner draws very few lessons from key leaders who contributed to nationalism in African countries,"
+    },
+    {
+     "indicator": "Ability to illustrate best practices that have been adopted by African nations to strengthen nationalism,",
+     "exceeds": "Learner illustrates best practices that have been adopted by African nations to strengthen nationalism in details,",
+     "meets": "Learner illustrates best practices that have been adopted by African nations to strengthen nationalism.",
+     "approaches": "Learner illustrates best practices that have been adopted by African nations to strengthen nationalism omitting some details.",
+     "below": "Learner illustrates best practices that have been adopted by African nations to strengthen nationalism omitting most details."
+    },
+    {
+     "indicator": "Ability demonstrate the best practices of modern African Nationalism in daily interactions",
+     "exceeds": "Learner demonstrates the best practices of modern African Nationalism in daily interactions with ease",
+     "meets": "Learner demonstrates the best practices of modern African Nationalism in daily interactions",
+     "approaches": "Learner demonstrates most best practices of modern African Nationalism in daily interactions",
+     "below": "Learner demonstrates some best practices of modern African Nationalism in daily interactions"
+    },
+    {
+     "indicator": "Ability to explore how the global wars affected Africa;",
+     "exceeds": "Learner explores all major ways how the global wars affected Africa;",
+     "meets": "Learner explores ways how the global wars affected Africa;",
+     "approaches": "Learner explores some of the ways how the global wars affected Africa;",
+     "below": "Learner explores very ways how the global wars affected Africa;"
+    },
+    {
+     "indicator": "Ability to apply lessons learnt from the global wars for posterity;",
+     "exceeds": "Learner applies positive and negative lessons learnt from the global wars for posterity;",
+     "meets": "Learner applies most positive and negative lessons learnt from the global wars for posterity;",
+     "approaches": "Learner applies some lessons learnt from the global wars for posterity.",
+     "below": "Learner applies limited lessons learnt from the global wars for posterity."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "2.1",
+     "name": "Human Developments in Africa",
+     "suggested_duration": "10 lessons",
+     "learning_outcomes": [
+      "explain the factors that led to transition from migratory to sedentary lifestyle by early humans",
+      "analyse advancements that took place during the Neolithic revolution",
+      "examine the contributions of Neolithic revolution to the modern society",
+      "classify the characteristics of pastoralism in reference to selected communities in Africa",
+      "propose solutions to challenges facing contemporary pastoralism in Africa",
+      "recognise the advancements that took place during the Neolithic revolution."
+     ],
+     "learning_experiences": [
+      "use digital/print materials to the factors which led to transition from migratory to sedentary lifestyle by early humans and summary main points",
+      "brainstorm the meaning of Neolithic revolution, discuss advancements that took place during the Neolithic revolution and present using power point/locally available resources",
+      "carry out a search using online or print or human resources to establish the contributions of Neolithic revolution to the modern society and share in class",
+      "investigate the characteristics of pastoralism in reference to selected communities in Africa(Maasai and Fulani) and report the findings",
+      "design charts/posters to develop solutions to challenges facing contemporary pastoralism in Africa",
+      "debate on the advancements that took place during the Neolithic revolution."
+     ],
+     "inquiry_questions": [
+      "1. How did daily life change due to shifting from a nomadic lifestyle to a sedentary life?",
+      "2. Which factors influenced pastoralism in the pre-colonial period?"
+     ],
+     "core_competencies": [
+      "Digital literacy: interacting with technology skills as the learner carry out a search using online or print or human resources to establish the contributions of Neolithic revolution to the modern society and share in class",
+      "Critical thinking and problem: Open-mindedness and creativity skill as the learner design charts/posters to develop solutions to challenges facing contemporary pastoralism in Africa",
+      "Learning to learn: working collaboratively skill as the learner debate further on the advancements that took place during the Neolithic revolution."
+     ],
+     "values": [
+      "Values:",
+      "Responsibility: Diligence as a learner carries out a search using online or print or human resources to establish the contributions of Neolithic revolution to the modern society and share in class",
+      "Patriotism: Dedication as the learner designs charts/posters to develop solutions to challenges facing contemporary pastoralism in Africa; Pertinent and Contemporary Issues (PCIs): Social -Economic and environmental issues:",
+      "Environment conservation as the learner designs charts/posters to develop solutions to challenges facing contemporary pastoralism in Africa.",
+      "Online safety as the learner carries out a search using online or print or human resources to establish the contributions of Neolithic revolution to the modern society and share in class."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-history-and-citizenship.pdf#p29"
+    },
+    {
+     "kicd_code": "2.3",
+     "name": "Colonization of Africa",
+     "suggested_duration": "10 lessons",
+     "learning_outcomes": [
+      "discuss the significance of the Berlin conference in relation to scramble for and partition of Africa",
+      "evaluate how key players determined the colonization of Africa",
+      "discern the extent to which different reasons influenced colonisation of Africa",
+      "justify why it was inevitable to end colonialization of Africa to promote a sense of nationalism",
+      "appreciate the justification of the end of colonization of Africa to",
+      "promote a sense of nationalism."
+     ],
+     "learning_experiences": [
+      "research on the significance of the Berlin conference in relation to scramble for and partition of Africa and present a summary",
+      "engage with a resource person to identify key players and explain how they determined the colonisation of Africa",
+      "use print and non print materials establish the extent to which economic and political reasons influenced colonization of Africa; display in class",
+      "debate on justification for an end colonialization of Africa",
+      "• compose poems/messages on justification to the end of colonization of Africa.",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "1. How did Otto Von Bismarck fast-track the process towards scramble for and partition of Africa?",
+      "2. Why was colonialism unfair to Africans?",
+      "Suggested Key Inquiry Question(s)"
+     ],
+     "core_competencies": [
+      "Critical Thinking and problem: Active listening and communication skill as the learner debate on justification for an end colonialization of Africa",
+      "Communication and collaboration: team work skill as the learner work together to compose poems/messages on justification to end of colonization of Africa"
+     ],
+     "values": [
+      "Social justice-: Equity as the learner appreciates the need for inclusivity and fairness through debate on the justification for end of colonization.",
+      "Unity: Cooperation as a learner appreciates the compose poems/messages on justification to end of colonization of Africa to promote a sense of nationalism."
+     ],
+     "pertinent_issues": [
+      "Citizenship Education : equity and non-discrimination as the learner discuss why colonialism was unfair treatment to the African."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-history-and-citizenship.pdf#p33"
+    },
+    {
+     "kicd_code": "2.4",
+     "name": "Modern Nationalism in Africa",
+     "suggested_duration": "10 lessons",
+     "learning_outcomes": [
+      "explore factors that have influenced nationalism in Africa",
+      "draw lessons from key leaders who contributed to nationalism in African countries",
+      "illustrate best practices that have been adopted by African nations strengthen nationalism",
+      "acknowledge modern African Nationalism in development of modern African states."
+     ],
+     "learning_experiences": [
+      "use digital/printed media to establish factors that have contributed modern nationalism in Africa and write notes",
+      "discuss lessons learnt from key leaders who contributed to nationalism (Thomas Sankara,Desmond Tutu,Julius Nyerere,Anwar Sadat) in African countries",
+      "engage a resource person to give a talk on the best practices that have been adopted by African nations strengthen nationalism",
+      "use charts/posters to illustrate best practices that have been adopted by African nations",
+      "strengthen nationalism and share in class",
+      "Document/prepare a video on best practices on modern Nationalism visible within the school/environment and share."
+     ],
+     "inquiry_questions": [
+      "How can you advance modern nationalism?"
+     ],
+     "core_competencies": [
+      "Learning to learn: Sharing learnt knowledge as the learner discuss lessons learnt from key leaders who contributed to nationalism",
+      "Digital literacy: Interacting with technology as the learner search for information on modern nationalism."
+     ],
+     "values": [
+      "Patriotism: Citizenship as the learner demonstrates the best practices of modern African Nationalism in daily interactions",
+      "Unity :Cooperation as the learner brainstorm aspects of modern nationalism in Africa."
+     ],
+     "pertinent_issues": [
+      "Social -economic and environmental issues",
+      "Safety and security. as learner brainstorm aspects of modern nationalism in Africa",
+      "Non -violent conflict resolution as the learner discuss challenges facing modern African nationalism",
+      "Ethical/racial relations and diversities as a learner demonstrates best practices of modern African Nationalism in daily interactions"
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-history-and-citizenship.pdf#p35"
+    },
+    {
+     "kicd_code": "2.5",
+     "name": "Global wars on Africa",
+     "suggested_duration": "8 lessons",
+     "learning_outcomes": [
+      "Explore how the global wars affected Africa",
+      "Apply lessons learnt from the global wars for posterity",
+      "Desire to discourage global wars for sustainable peace"
+     ],
+     "learning_experiences": [
+      "Brainstorm examples of global wars",
+      "Research using digital devices, or locally available resources the economic, social and political effects of global wars on Africa (World 1 and 2), Cold war, Gulf war, Russia and Ukraine); Present findings in class",
+      "Share experiences on strategies of avoiding negative lessons learnt from global wars",
+      "Design on charts/ posters ways of discouraging negative lessons learnt from the global wars",
+      "Compose songs/ poems on discouraging global wars for sustainable peace."
+     ],
+     "inquiry_questions": [
+      "Which strategies can UN applies to discourage global wars?"
+     ],
+     "core_competencies": [
+      "• Learning to learn: skill of Working collaboratively as the learners research using digital devices, or locally available resources the economic, social and political effects of global wars on Africa (World 1 and 2), Cold war, Gulf war, Russia and Ukraine); Present findings in class"
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-history-and-citizenship.pdf#p37"
+    }
+   ]
+  },
+  {
+   "strand": "Themes in East African History and Citizenship",
+   "strand_code": "2.0",
+   "assessment_rubric": [],
+   "substrands": [
+    {
+     "kicd_code": "2.2",
+     "name": "African Civilizations up to 19th century (Wanga,Buganda And Nyamwezi )",
+     "suggested_duration": "10 lessons",
+     "learning_outcomes": [
+      "examine the development of selected early civilizations in Africa",
+      "analyse the importance of ancient African civilizations to modern society",
+      "apply the best practices from the early civilizations",
+      "appreciate contributions of early civilizations."
+     ],
+     "learning_experiences": [
+      "brainstorm on the development of selected early civilizations",
+      "discuss on contributions of early civilizations to the modern society and present using charts",
+      "participate in carrying out activities that promote best practices in the society",
+      "document the contributions in a journal/school magazine"
+     ],
+     "inquiry_questions": [
+      "How do the early civilizations differ from the current leadership structure?"
+     ],
+     "core_competencies": [
+      "Citizenship: Global awareness skills as a learner discuss on contributions of early civilizations",
+      "Learning to learn: Organizing own learning as a learner document the contributions in a journal/school magazine"
+     ],
+     "values": [
+      "Respect: sharing information as a learner discuss on contributions of early civilizations to the modern society",
+      "Unity : cooperation a learner participates in carrying out activities that promote best practices in the society."
+     ],
+     "pertinent_issues": [
+      "Good Governance -as the learner brainstorm on the development of selected early civilizations"
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-history-and-citizenship.pdf#p32"
+    }
+   ]
+  },
+  {
+   "strand": "International themes",
+   "strand_code": "3.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to illustrate key areas in global governance",
+     "exceeds": "Learner illustrates key areas in global governance using different contexts",
+     "meets": "Learner illustrates key areas in global governance",
+     "approaches": "Learner illustrates key areas in global governance using some different contexts.",
+     "below": "Learner illustrate key areas in global governance using minimal contexts."
+    },
+    {
+     "indicator": "Ability to examine the importance of global governance",
+     "exceeds": "Learner examines the importance of global governance in details",
+     "meets": "Learner examines the good importance of global governance",
+     "approaches": "Learner examine the importance of global governance and omits some details",
+     "below": "Learner examines the importance of global governance and omits major details."
+    },
+    {
+     "indicator": "Ability to explore emerging issues and possible opportunities in global governance",
+     "exceeds": "Learner explores emerging issues and possible opportunities in global governance in varied contexts.",
+     "meets": "Learner explores emerging issues and possible opportunities in global governance",
+     "approaches": "Learner explores some emerging issues and possible opportunities in global governance",
+     "below": "Learner explores very few emerging issues and possible opportunities in global governance"
+    },
+    {
+     "indicator": "Ability to compare the factors that led to industrial revolution in Britain and USA,",
+     "exceeds": "Learner compares all the factors that led to industrial revolution in Britain and USA",
+     "meets": "Learner compares the factors that led to industrial revolution in Britain and USA.",
+     "approaches": "Learner compares the factors that led to industrial revolution in Britain and USA omitting some factors.",
+     "below": "Learner compares the factors that led to industrial revolution in Britain and USA omitting most factors."
+    },
+    {
+     "indicator": "Ability to discuss impacts of the 1st industrial revolution on Africa,",
+     "exceeds": "Learner discusses impacts of the 1st industrial revolution on Africa in a variety of context",
+     "meets": "Learner discusses impacts of the 1st industrial revolution on Africa.",
+     "approaches": "Learner discusses impacts of the 1st industrial revolution on Africa omitting some context.",
+     "below": "Learner discusses impacts of the 1st industrial revolution on Africa leaving out major context."
+    },
+    {
+     "indicator": "Ability to appraise measures taken to address the impact of 1st industrial revolution on Africa,",
+     "exceeds": "Learner appraises measures taken to address the impact of 1st industrial revolution on Africa in details",
+     "meets": "Learner appraises measures taken to address the impact of 1st industrial revolution on Africa",
+     "approaches": "Learner appraises measures taken to address the impact of 1st industrial revolution on Africa leaving out some context",
+     "below": "Learner appraises measures taken to address the impact of 1st industrial revolution on Africa leaving out most context"
+    },
+    {
+     "indicator": "Ability to appraise measures taken to address the impact of 1st industrial revolution on Africa,",
+     "exceeds": "Learner appraises measures taken to address the impact of 1st industrial revolution on Africa in details",
+     "meets": "Learner appraises measures taken to address the impact of 1st industrial revolution on Africa",
+     "approaches": "Learner appraises measures taken to address the impact of 1st industrial revolution on Africa leaving out some context",
+     "below": "Learner appraises measures taken to address the impact of 1st industrial revolution on Africa leaving out most context"
+    },
+    {
+     "indicator": "Ability to enumerate the significance of different types of",
+     "exceeds": "The learner enumerates the significance of different types of international",
+     "meets": "The learner enumerates the significance of different types of",
+     "approaches": "The learner numerates the significance of different types of",
+     "below": "The learner enumerates the significance of different types of international"
+    },
+    {
+     "indicator": "international organisations;",
+     "exceeds": "organisations citing all examples.",
+     "meets": "international organisations.",
+     "approaches": "international organisations omitting some examples",
+     "below": "organisations omitting most examples"
+    },
+    {
+     "indicator": "Ability to examine factors that strengthen ties among commonwealth countries;",
+     "exceeds": "The learner examines all factors that strengthen ties among commonwealth countries.",
+     "meets": "The learner examines factors that strengthen ties among commonwealth countries.",
+     "approaches": "The learner examines some factors that strengthen ties among commonwealth countries;",
+     "below": "The learner examines very few factors that strengthen ties among commonwealth countries;"
+    },
+    {
+     "indicator": "Ability to classify the causes of the French revolutions",
+     "exceeds": "Learner classifies the causes of the French revolutions and explains",
+     "meets": "Learner classifies the causes of the French revolutions",
+     "approaches": "Learner classifies most of the causes of the French revolutions",
+     "below": "Learner classifies some of the causes of the French revolutions"
+    },
+    {
+     "indicator": "Ability to explain the significance of the French revolution to world economies",
+     "exceeds": "learner explains the significance of the French revolution to world economies and gives examples",
+     "meets": "learner explains the significance of the French revolution to world economies",
+     "approaches": "learner explains some significance of the French revolution to world economies",
+     "below": "learner explains a few significance of the French revolution to world economies"
+    },
+    {
+     "indicator": "Ability to demonstrate the best practices from",
+     "exceeds": "Learner demonstrates the best practices from the French revolution in",
+     "meets": "Learner demonstrates the best practices from",
+     "approaches": "Learner demonstrates most of the best practices",
+     "below": "Learner demonstrates some of the best practices from the"
+    },
+    {
+     "indicator": "the French revolution in daily interactions",
+     "exceeds": "daily interactions with ease.",
+     "meets": "the French revolution in daily interactions",
+     "approaches": "from the French revolution in daily interactions",
+     "below": "French revolution in daily interactions"
+    },
+    {
+     "indicator": "Ability to discuss various forms of slavery and servitude in the modern world.",
+     "exceeds": "Learner discusses all forms of slavery and servitude in the modern world, giving detailed examples .",
+     "meets": "Learner discusses forms of slavery and servitude in the modern world",
+     "approaches": "Learner discuss forms of slavery and servitude in the modern world omitting some examples",
+     "below": "Learner discusses forms of slavery and servitude in the modern world omitting most examples"
+    },
+    {
+     "indicator": "Ability to assess the factors that cause slavery and servitude in the modern world.",
+     "exceeds": "Learner assess the factors that cause slavery and servitude in the modern world citing specific incidences.",
+     "meets": "Learner assess the factors that cause slavery and servitude in the modern world.",
+     "approaches": "Learner assess some factors that cause slavery and servitude in the modern world.",
+     "below": "Learner assess a few factor that cause slavery and servitude in the modern world."
+    },
+    {
+     "indicator": "Ability to illustrate ways in which governments and civil society collaborate to end slavery and servitude in the society today,",
+     "exceeds": "Learner illustrates ways in which governments and civil society collaborate to end slavery and servitude in the society today, giving major points.",
+     "meets": "Learner illustrates ways in which governments and civil society collaborate to end slavery and servitude in society today.",
+     "approaches": "Learner illustrates ways in which governments and civil society collaborate to end slavery and servitude in the society",
+     "below": "Learner illustrates ways in which governments and civil society collaborate to end slavery and servitude in the society today omitting example major points"
+    },
+    {
+     "indicator": "Ability to elaborate roles of abolitionists movements in the modern society,",
+     "exceeds": "Learner elaborates in detail roles of abolitionists movements in the modern society,",
+     "meets": "Learner elaborates roles of abolitionists movements in the modern society,",
+     "approaches": "Learner elaborates some roles of abolitionists movements in the modern society,",
+     "below": "Learner elaborates few roles of abolitionists movements in the modern society,"
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "3.1",
+     "name": "Great revolutions - French",
+     "suggested_duration": "8 lessons",
+     "learning_outcomes": [
+      "classify the causes of the French revolutions",
+      "explain the significance of the French revolution to world economies",
+      "design the best practices from the French revolution in daily interactions",
+      "appreciate the significance of the French revolution to the world economies today."
+     ],
+     "learning_experiences": [
+      "brainstorm on the classification of causes of the French revolution",
+      "use the library resources find out the significance of the French revolution and present in class",
+      "investigate using locally available resources to identify the best practices from the French revolution and share findings in class",
+      "write an essay on the significance of the French revolution in society today."
+     ],
+     "inquiry_questions": [
+      "What lessons do we learn from the French revolution?"
+     ],
+     "core_competencies": [
+      "Learning to learn: carrying out research skill as the learner finds out the significance of the French revolution. a Citizenship as the learners identify best practices to do their responsibilities as citizens."
+     ],
+     "values": [
+      "Values:",
+      "Social Justice: freedom as the learners discuss how the lowly in society received their rights.",
+      "Responsibility:Self drive as the learner carries out their various responsibilities in researching. Pertinent and Contemporary Issues (PCIs): Citizenship Education - Equity and non discrimination as learner appreciate the need to share the resources we have with one another."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-history-and-citizenship.pdf#p43"
+    },
+    {
+     "kicd_code": "3.2",
+     "name": "International organisations",
+     "suggested_duration": "8 lessons",
+     "learning_outcomes": [
+      "enumerate the significance of different types of international organisations",
+      "examine factors that strengthen ties among commonwealth countries",
+      "illustrate opportunities and challenges facing commonwealth nations",
+      "appreciate the significance of different types of international organisations."
+     ],
+     "learning_experiences": [
+      "brainstorm the significance of different types of international organisations and exchange ideas",
+      "discuss the factors that strengthen ties among commonwealth countries and use charts to present summary points",
+      "carry out a research using print or digital materials to find out opportunities and challenges facing commonwealth nations",
+      "create messages for sharing in different forums on the significance of different types of international organisations."
+     ],
+     "inquiry_questions": [
+      "1. Why are key values important for sustainable relations among commonwealth nations?",
+      "2. Which activities can promote strong ties in international organisations?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Learning to learn-the skill of sharing learnt knowledge as the learner discuss the factors that strengthen ties among commonwealth countries and use charts to present summary points",
+      "Critical thinking and problem solving as the learner will develop skill of analysis when carrying out research using print or digital materials to find out opportunities and challenges facing modern commonwealth nations. Values:",
+      "Unity: cooperation as the learner brainstorms with others on the factors that strengthen ties among commonwealth countries",
+      "Respect: international consciousness as the learner composes messages for sharing in different forums on the significance of different types of international organisations. Pertinent and Contemporary Issues (PCIs) Citizenship Education: Promoting Social cohesion as the learner expresses the important finding strategies for opportunities and challenges facing modern commonwealth nations"
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-history-and-citizenship.pdf#p45"
+    },
+    {
+     "kicd_code": "3.2",
+     "name": "Modern Slavery and Servitude",
+     "suggested_duration": "10 lessons",
+     "learning_outcomes": [
+      "discuss various forms of slavery and servitude in the modern world",
+      "assess the factors that cause slavery and servitude in the modern world",
+      "illustrate ways in which governments and civil society collaborate to end slavery and servitude in the society today",
+      "elaborate the roles of abolitionists movements in the modern society",
+      "appreciate the need to free the world from slavery and servitude."
+     ],
+     "learning_experiences": [
+      "brainstorm on the difference between slavery and servitude and present in class.",
+      "Use the library to research on various forms of slavery and servitude and share in class",
+      "use digital device discuss on factors causing slavery and servitude in the modern world",
+      "engage with a resource person to establish ways in which governments and civil society collaborate to end slavery and servitude",
+      "debate on the roles of abolitionists movements",
+      "in the modern society and exchange views",
+      "compose a song/poem and sing/recite on the need to free the world from slavery and servitude."
+     ],
+     "inquiry_questions": [
+      "What can you do to end slavery and servitude in the world?"
+     ],
+     "core_competencies": [
+      "Critical thinking and Problem solving: the skill of Interpretation and inference as learner research on possible solutions to end slavery and servitude",
+      "Self-Efficacy: Skill of effective communication skills as learner write an essay on possible solutions to end slavery and servitude"
+     ],
+     "values": [
+      "Respect: Human dignity as the learner appreciates the need to end slavery and servitude."
+     ],
+     "pertinent_issues": [
+      "Social awareness skills as the learner compose a song/poem and sing/recite on possible solutions to end slavery and servitude and sing in school."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-history-and-citizenship.pdf#p47"
+    },
+    {
+     "kicd_code": "3.4",
+     "name": "Global Governance",
+     "suggested_duration": "10 lessons",
+     "learning_outcomes": [
+      "identify the guiding principles for global governance for a sustainable society",
+      "illustrate key areas in global governance that guarantee a stable global trends",
+      "examine the importance of global governance",
+      "explore emerging issues and possible opportunities in global governance",
+      "recognise the importance of good global governance."
+     ],
+     "learning_experiences": [
+      "role play the guiding principles of global governance",
+      "prepare slogans on key areas in global governance and display in main points",
+      "use digital or print media to research on the importance of global governance and share",
+      "engage with a resource person to find out the emerging issues and opportunities in global governance (environmental, technological, political, economic and social)and present the findings",
+      "• compose a poem and recite on the importance of good global governance"
+     ],
+     "inquiry_questions": [
+      "1.Which activities are significant in promoting global governance?",
+      "2.What is the role of UN in fostering global governance?"
+     ],
+     "core_competencies": [
+      "Communication and collaboration as the learner acquire skills of interaction through role play ton he guiding principles of global governance",
+      "Learning to learn as the learner acquires skills of sharing new information as they prepare slogans on key areas in global governance and display"
+     ],
+     "values": [
+      "Responsibility: determination as the learner carefully uses digital or print media to research on the importance of global governance and share",
+      "Respect: open mindedness as the learner participates in engaging with a resource person to find out the emerging issues and opportunities in global governance ( environmental, technological, political, economic and social)and present the findings."
+     ],
+     "pertinent_issues": [
+      "Citizenship Education",
+      "Good governance as the learner acquires attributes of good governance through role play on the guiding principles of global governance",
+      "Prevention of global warming as the learner compose a poem and recite on the importance of good global governance"
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-history-and-citizenship.pdf#p49"
+    },
+    {
+     "kicd_code": "3.5",
+     "name": "The 1ST Industrial revolution",
+     "suggested_duration": "8 lessons",
+     "learning_outcomes": [
+      "compare the factors that led to industrial revolution in Britain and USA",
+      "discuss impacts of the 1st industrial revolution on Africa",
+      "appraise measures taken to address the impact of 1st industrial revolution on Africa",
+      "recognize the measures taken by the Africans to address the impact of 1st industrial revolution on Africa."
+     ],
+     "learning_experiences": [
+      "brainstorm briefly, the characteristics of industrial revolution",
+      "discuss the factors that led to 1st industrial revolution in Britain and USA",
+      "use digital or print media to research on impacts (positive and negative social, economic and political) of the 1st industrial revolution on Africa",
+      "watch a video clip or a documentary on measures taken to address the impact of 1st industrial revolution on Africa then discuss in class",
+      "compose songs/poems/ messages to elaborate on",
+      "measures taken to address the impact of 1st industrial revolution on Africa then discuss in class",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "1. How did the 1st industrial revolution underdeveloped Africa?",
+      "2. How did the 1st industrial revolution contribute to colonization in Africa?",
+      "Suggested Key Inquiry Question(s)"
+     ],
+     "core_competencies": [
+      "Self-efficacy: Effective communication skills the learner discuss the factors that led to 1st industrial revolution in Britain and USA",
+      "Creativity and imagination: making observations as the learner generates new ideas through composing songs/poems/ messages to elaborate on measures taken to address the impact of the 1st industrial revolution on Africa."
+     ],
+     "values": [
+      "Responsibility: Self-drive as the learner engage in assigned roles and duties by composing songs/poems/ messages to elaborate on measures taken to address the impact of 1st industrial revolution on Africa then discuss in class",
+      "Unity: cooperation as the learner displays team spirit as they discuss the factors that led to 1st industrial revolution in Britain and USA"
+     ],
+     "pertinent_issues": [
+      "Citizenship Education - Equity and non-discrimination: As the learner search for information on the social impact of the 1st industrial revolution"
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-history-and-citizenship.pdf#p51"
+    }
+   ]
+  },
+  {
+   "strand": "Contemporary Themes",
+   "strand_code": "4.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to identify national activities that contribute to peace in Kenya for harmonious living.",
+     "exceeds": "Learner identifies varies national activities that contribute peace in Kenya",
+     "meets": "Learner identifies national activities that contribute to peace in Kenya.",
+     "approaches": "Learner identifies some national activities that contribute to peace in Kenya for harmonious living.",
+     "below": "Learner identifies national activities that contribute to peace in Kenya for harmonious living."
+    },
+    {
+     "indicator": "Ability to examine ways in which the Constitution (2010) strives to prevent conflicts in Kenya;",
+     "exceeds": "Learner examines ways in which the Constitution (2010) strives to prevent conflicts in Kenya in detail.",
+     "meets": "Examines ways in which the Constitution (2010) strives to prevent conflicts in Kenya;",
+     "approaches": "Examine s some ways in which the Constitution (2010) strives to prevent conflicts in Kenya;",
+     "below": "Examine a way in which the Constitution (2010) strives to prevent conflicts in Kenya;"
+    },
+    {
+     "indicator": "Ability to deduce incidences where the constitution has been applied to foster peace and curb conflicts in a community.",
+     "exceeds": "Deduces incidences where the constitution has been applied to foster peace and curb conflicts giving all examples.",
+     "meets": "Deduces incidences where the constitution has been applied to foster peace and curb conflicts.",
+     "approaches": "Deduce some incidences where the constitution has been applied to foster peace and curb conflicts.",
+     "below": "Deduce very few incidences where the constitution has been applied to foster peace and curb conflicts."
+    },
+    {
+     "indicator": "The ability to trace the technological advancements in the",
+     "exceeds": "Learner traces the technological advancements in the",
+     "meets": "Learner traces the technological advancements in the",
+     "approaches": "Learner traces most technological advancements in the",
+     "below": "Learner trace the technological advancements in the"
+    },
+    {
+     "indicator": "4th Industrial revolution",
+     "exceeds": "4th industrial revolution giving examples",
+     "meets": "4th industrial revolution",
+     "approaches": "4th industrial revolution",
+     "below": "4th industrial revolution omitting generations"
+    },
+    {
+     "indicator": "The ability to explore the technological advancements in the 4th industrial revolution",
+     "exceeds": "explores the technological advancements in the 4th Industrial revolution giving examples",
+     "meets": "explores the technological advancements in the 4th industrial revolution",
+     "approaches": "explores most technological advancements in the4th industrial revolution",
+     "below": "explores some technological advancements in the industrial revolution"
+    },
+    {
+     "indicator": "The ability to analyse the role of information and communication technology in the 4th Industrial revolution",
+     "exceeds": "analyses the role of information and communication technology in the 4th Industrial revolution in all aspects with detailed description",
+     "meets": "analyses the role of information and communication technology in the 4th Industrial revolution in all aspects",
+     "approaches": "analyses the role of information and communication technology in the 4th Industrial revolution in most aspects",
+     "below": "analyses the role of information and communication technology in the 4th Industrial revolution in some aspects"
+    },
+    {
+     "indicator": "Ability to identify historical injustice in the society that promote inequality and discrimination",
+     "exceeds": "Identifies all historical injustice with explanations in the society that promote inequality and discrimination",
+     "meets": "Identifies historical injustice in the society that promote inequality and discrimination",
+     "approaches": "Identifies some historical injustice in the society that promote inequality and discrimination",
+     "below": "Identifies very few historical injustices in the society that promote inequality and discrimination"
+    },
+    {
+     "indicator": "Ability to develop measures that promote equity and non-discrimination in the society",
+     "exceeds": "Develops all measures that promote equity and non-discrimination in the society",
+     "meets": "Develops measures that promote equity and non-discrimination in the society",
+     "approaches": "Develops some measures that promote equity and non-discrimination in the society",
+     "below": "Develops a few measures that promote equity and non-discrimination in the society."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "4.1",
+     "name": "Peace and Conflict transformations in Kenya",
+     "suggested_duration": "8 lessons",
+     "learning_outcomes": [
+      "identify national activities that contribute peace in Kenya for harmonious living.",
+      "examine ways in which the Constitution (2010) strives to prevent conflicts in Kenya",
+      "deduce incidences where the constitution has been applied to foster peace and curb conflicts in a community",
+      "desire to uphold peace and curb conflicts in Kenya."
+     ],
+     "learning_experiences": [
+      "hold a discussion to identify national activities that are used to promote peace in Kenya and share in class",
+      "engage a resource person/watch a documentary/watch a video clip on ways in which the Constitution (2010) strives to prevent conflicts in Kenya",
+      "research on incidences where the constitution has been applied to foster peace and curb conflicts in a community and summarise main points on charts/posters",
+      "• role play how to uphold peace and curb conflicts in Kenya in different situation."
+     ],
+     "inquiry_questions": [
+      "1. What are the benefits of a peaceful nation?",
+      "2. How do you promote peace and conflict transformation in the community?"
+     ],
+     "core_competencies": [
+      "Critical thinking and problem solving: active listening and communication skill as the learner participates hold a discussion to identify national activities that are used to promote peace in Kenya and share in class",
+      "Communication and collaboration: Listening skill as the learner engage a resource person on ways in which the Constitution (2010) strives to prevent conflicts in Kenya"
+     ],
+     "values": [
+      "Responsibility: Diligence as the learner researches on incidences where the constitution has been applied to foster peace and curb conflicts in a community and summarise main points on charts/posters",
+      "Respect : as the learner shares information through role play how to uphold peace and curb conflicts in Kenya in different situation."
+     ],
+     "pertinent_issues": [
+      "Citizenship Education",
+      "Social cohesion as the learner holds a discussion to identify national activities that are used to promote peace in Kenya and share in class",
+      "Peace education: as the learner acquires attributes of promoting peace through engaging a resource person/watch a documentary/watch a video clip on ways in which the Constitution (2010) strives to prevent conflicts in Kenya"
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-history-and-citizenship.pdf#p58"
+    },
+    {
+     "kicd_code": "4.2",
+     "name": "The 4th industrial and technologies revolution",
+     "suggested_duration": "9 lessons",
+     "learning_outcomes": [
+      "trace the technological advancements in the 4th generation",
+      "analyse the role of information and communication technology in the 4th generation",
+      "discuss the impact of technology in the 4th generation",
+      "exploit the opportunities provided by the 4Th Industrial revolution for promotion of growth and sustainability in the society",
+      "appreciate the importance of technology in life"
+     ],
+     "learning_experiences": [
+      "use digital or print resources to trace the technological advancements in the 4th Industrial revolution and share in class",
+      "engage a resource person in a discussion on the role of ICT in the 4th Industrial revolution",
+      "debate on the impact of technology in the 4th Industrial revolution in Africa",
+      "create an online platform that can enhance communication, financial interactions and sharing of ideas within the school community",
+      "• Create a gallery in class to showcase the technological advancements in the society"
+     ],
+     "inquiry_questions": [
+      "1. What are the benefits of the 4th generation technologies?",
+      "2. How has technology revolutional acquisition of historical information?"
+     ],
+     "core_competencies": [
+      "Critical and problem solving: The skill of active listening and communication as the learner debate on the impact",
+      "Digital Literacy: The skill of creating using Technology skills as the learner create an online platform"
+     ],
+     "values": [
+      "Respect: Open mindedness as the learner debate on the impact of Technology",
+      "Integrity : Accountability as the learner create the online platform"
+     ],
+     "pertinent_issues": [
+      "Safety and security; online safety as the learner create and interact on the online platform",
+      "Financial literacy as the learner engage in financial interactions on the online platform"
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-history-and-citizenship.pdf#p60"
+    },
+    {
+     "kicd_code": "4.3",
+     "name": "Equity and non-discrimination",
+     "suggested_duration": "8 lessons",
+     "learning_outcomes": [
+      "analyse factors that promote equity and non-discrimination in the society",
+      "identify historical injustice in the society that promote inequality and discrimination",
+      "develop measures that promote equity and non-discrimination in the society",
+      "desire to promote equity and non-discrimination in the society"
+     ],
+     "learning_experiences": [
+      "Learner is guided to:",
+      "discuss the factors that promote equity and non-discrimination and present in class",
+      "use print or digital resources to research on historical injustice in the society that promote inequality and discrimination and write a report",
+      "use flashcards/charts to develop measures that promote equity and discrimination in the society and display them in class",
+      "involve learners to participate on activities that curb inequity and",
+      "discrimination in the society",
+      "Suggested Learning Resources"
+     ],
+     "inquiry_questions": [
+      "How can we eradicate inequality and discrimination in society?",
+      "Non formal activities"
+     ],
+     "core_competencies": [
+      "Critical Thinking and Problem Solving: researching skill as the learner use print or digital resources to research on historical injustice in the society that promote inequality and discrimination and write a report",
+      "Communication and Collaboration: teamwork skill the learner brainstorm the factors that promote equity and non-discrimination and present in class"
+     ],
+     "values": [
+      "Respect: patience as the learner brainstorm the factors that promote equity and non-discrimination and present in class appreciating each other’s opinion",
+      "Unity: inclusion as the learner use flashcards/charts to develop measures that promote equity and discrimination in the society and display them in class"
+     ],
+     "pertinent_issues": [
+      "Social-economic and environmental issues",
+      "Online safety: as the learner use digital resources to research on historical injustice in the society that promote inequality and discrimination. Citizenship Education",
+      "Social cohesion: as the learner participate on activities that curb inequality and discrimination in the society"
+     ],
+     "links_to_other_areas": [],
+     "resources": [
+      "RESOURCES AND NON FORMAL ACTIVITIES"
+     ],
+     "kicd_source": "grade10-history-and-citizenship.pdf#p62"
+    }
+   ]
+  }
+ ]
+}

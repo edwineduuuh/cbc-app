@@ -1,0 +1,679 @@
+{
+ "source_pdf": "grade10-physics.pdf",
+ "grade": 10,
+ "subject": "physics",
+ "general_outcomes": [
+  "Relate Physics to technology and society to enhance the learner’s appreciation of the physical environment.",
+  "Develop science process skills among learners through the use of appropriate instruments as they discover and explain the order of the physical environment.",
+  "Apply basic research and scientific skills to manipulate the environment and solve human problems.",
+  "Develop capacity for critical thinking through basic scientific skills and research in addressing pertinent & contemporary issues affecting the society.",
+  "Apply the principles of Physics for enhancement of innovations and entrepreneurial skills for development.",
+  "Use relevant skills and values to promote local and global citizenship for harmonious coexistence and appreciation of diversity in people.",
+  "Acquire adequate knowledge, skills, values and attitudes to enhance exploitation of individual talents for leisure, self -fulfillment, career growth, and for further education and training.",
+  "Apply acquired knowledge, skills, values, and attitudes for effective communication and utilization of information in technological advancement."
+ ],
+ "strands": [
+  {
+   "strand": "Mechanics and Thermal Physics",
+   "strand_code": "1.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to explain the importance of Physics and possible career opportunities related to it.",
+     "exceeds": "Correctly and extensively explains the importance of Physics and possible career opportunities related to it.",
+     "meets": "Correctly explains the importance of Physics and possible career opportunities related to it.",
+     "approaches": "Partially explains the importance of Physics and possible career opportunities related to it.",
+     "below": "Explains the importance of Physics and some career opportunities related to it with hints."
+    },
+    {
+     "indicator": "Ability to determine pressure in solids and fluids .",
+     "exceeds": "Correctly and consistently determines pressure in solids and fluids.",
+     "meets": "Correctly determines pressure in solids and fluids.",
+     "approaches": "Partially determines pressure in solids and fluids.",
+     "below": "Determines pressure in solids and fluids with prompts."
+    },
+    {
+     "indicator": "Ability to explain the applications of pressure in solids and fluids.",
+     "exceeds": "Correctly and comprehensively explains the applications of pressure in solids and fluids.",
+     "meets": "Correctly explains the applications of pressure in solids and fluids.",
+     "approaches": "Partially explains the applications of pressure.",
+     "below": "Explains the applications of pressure in solids and fluids with cues."
+    },
+    {
+     "indicator": "Ability to determine tensile stress, strain and Young’s modulus in materials.",
+     "exceeds": "Correctly and systematically determines tensile stress, strain and Young’s modulus in materials",
+     "meets": "Correctly determines tensile stress, strain and Young’s modulus in materials.",
+     "approaches": "Determines tensile stress, strain and Young’s modulus in materials omitting some steps.",
+     "below": "Determines tensile stress, strain and Young’s modulus in materials with cues."
+    },
+    {
+     "indicator": "Ability to describe the applications of mechanical properties of materials.",
+     "exceeds": "Correctly and extensively describes the applications of mechanical properties of materials.",
+     "meets": "Correctly describes the applications of mechanical properties of materials.",
+     "approaches": "Partially describes the applications of mechanical properties of materials",
+     "below": "Describes the applications of mechanical properties of materials with prompt."
+    },
+    {
+     "indicator": "Ability to investigate thermal expansion and contraction in solids and fluids.",
+     "exceeds": "Correctly and systematically investigates thermal expansion and contraction in solids",
+     "meets": "Correctly investigates thermal expansion and contraction in solids and fluids.",
+     "approaches": "Investigates thermal expansion and contraction in solids and fluids, leaving out some steps.",
+     "below": "Investigates thermal expansion and contraction in solids and fluids with help."
+    },
+    {
+     "indicator": "Ability to describe applications of thermal expansion and contraction in solids and fluids.",
+     "exceeds": "Correctly and comprehensively describes applications of thermal expansion and contraction in solids and fluids.",
+     "meets": "Correctly describes applications of thermal expansion and contraction in solids and fluids.",
+     "approaches": "Partially describes applications of thermal expansion and contraction in solids and fluids.",
+     "below": "Describes applications of thermal expansion and contraction in solids and fluids with prompt."
+    },
+    {
+     "indicator": "Ability to verify the principle of moments in turning of objects",
+     "exceeds": "Correctly and systematically verifies the principle of moments in turning of objects.",
+     "meets": "Correctly verifies the principle of moments in turning of objects.",
+     "approaches": "Verifies the principle of moments in turning of objects omitting some steps.",
+     "below": "Verifies the principle of moments in turning of objects with prompt."
+    },
+    {
+     "indicator": "Ability to describe the applications of moments and stability in day to day life.",
+     "exceeds": "Correctly and comprehensively describes the applications of moments and stability in day to day life.",
+     "meets": "Correctly describes the applications of moments and stability in day to day life.",
+     "approaches": "Partially describes the applications of moments and stability in day to day life.",
+     "below": "Describes the applications of moments and stability in day to day life with prompt."
+    },
+    {
+     "indicator": "Ability to demonstrate the transformation of mechanical energy using simple apparatus",
+     "exceeds": "Correctly and systematically demonstrates the transformation of mechanical energy",
+     "meets": "Correctly demonstrates the transformation of mechanical energy using simple",
+     "approaches": "Demonstrates the transformation of mechanical energy using simple apparatus omitting",
+     "below": "Demonstrates the transformation of mechanical energy using simple apparatus, with"
+    },
+    {
+     "indicator": "Ability to describe applications of simple machines in making work easier.",
+     "exceeds": "Correctly and comprehensively describes applications of simple machines in making work easier.",
+     "meets": "Correctly describes applications of simple machines in making work easier.",
+     "approaches": "Partially describes applications of simple machines in making work easier.",
+     "below": "Describes applications of simple machines in making work easier with cues."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "1.1",
+     "name": "Introduction to Physics",
+     "suggested_duration": "6 lessons",
+     "learning_outcomes": [
+      "explain Physics as a body of knowledge in science",
+      "describe the branches of Physics as a field of study",
+      "outline the importance of physics in day-to-day life",
+      "relate Physics to other fields of study",
+      "identify possible career opportunities in the field of Physics",
+      "importance of Physics in day-to-day life."
+     ],
+     "learning_experiences": [
+      "work with others to search for the meaning of Physics as a branch of science",
+      "discuss with peers the main branches of Physics",
+      "discuss with peers the importance of Physics in day-to-day life and share the findings with the class",
+      "discuss with peers the relationship of Physics with other fields of study",
+      "engage resource person(s) or use print",
+      "or non-print media to search for information on career opportunities in the field of Physics",
+      "design, produce and present career charts highlighting areas related to Physics."
+     ],
+     "inquiry_questions": [
+      "How is Physics relevant in day to day life?"
+     ],
+     "core_competencies": [
+      "Communication and collaboration: the teamwork is embraced as the learner participates and contributes to the group decisions while discussing the main branches of Physics and its importance in day to day life.",
+      "Learning to learn: the learner practices the sharing of learnt knowledge as engaging the resource person(s) in searching for information on career opportunities in the field of Physics.",
+      "Digital literacy: the learner interacts with digital technology by use of digital devices to effectively accomplish the task of searching for information on career opportunities in the field of Physics."
+     ],
+     "values": [
+      "Responsibility: the learner play different roles as they are designing, producing and presenting career charts and highlighting areas related to Physics.",
+      "Respect: the learner demonstrates open mindedness as they appreciate diverse opinions while presenting their discussion findings on the importance of Physics in day-to-day life and related career opportunities."
+     ],
+     "pertinent_issues": [
+      "Pertinent and Contemporary Issues (PCIs): Gender Disparity: the learner deals with myths and misconceptions about Physics as they engage resource persons or use print or non-print media to search for information on career opportunities in the field of Physics."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-physics.pdf#p13"
+    },
+    {
+     "kicd_code": "1.2",
+     "name": "Pressure",
+     "suggested_duration": "25 lessons",
+     "learning_outcomes": [
+      "describe atmospheric pressure as used in physics",
+      "demonstrate the existence of atmospheric pressure in nature",
+      "investigate factors affecting pressure in fluids",
+      "apply the equation P = ghto determine pressure in fluids",
+      "demonstrate transmission of pressure in fluids",
+      "applications of atmospheric pressure and transmission of pressure in fluids in day-to-day life."
+     ],
+     "learning_experiences": [
+      "discuss with peers the meaning of atmospheric pressure.",
+      "carry out activities to demonstrate the existence of atmospheric pressure in nature",
+      "carry out activities to investigate and demonstrate factors affecting pressure in fluids",
+      "carry out experiments to derive and use the equation P = ghto determine pressure in fluid",
+      "discuss with peers the transmission of pressure in fluid",
+      "carry out activities to demonstrate the principle of transmission of pressure in fluids and relate with the fluid pressure formula",
+      "discuss with peers the applications of atmospheric pressure and transmission of pressure in fluids in day-to-day life",
+      "use print or non-print media to search for more information on the applications of atmospheric pressure and transmission of pressure in fluids in day-to-day life."
+     ],
+     "inquiry_questions": [
+      "How does density of fluid, acceleration due to gravity and depth below the free surface affect pressure in fluid?"
+     ],
+     "core_competencies": [
+      "Core competencies to be developed",
+      "Communication and collaboration: the learner develops speaking and listening skill as they applications of atmospheric pressure and transmission of pressure in fluids.",
+      "Digital Literacy: the learner s manipulation skills as the use digital media to search for more information on the applications of atmospheric pressure and transmission of pressure in fluids. Values",
+      "Love: the learners practice the virtue of sharing as they share resource and avoid inflicting pain on others while carrying out activities to demonstrate the existence of atmospheric pressure in nature.",
+      "Respect: the learner acquires skills in respecting diverse opinions as they discuss the transmission of pressure in fluid Pertinent and Contemporary Issues (PCIs): Environmental Issues:",
+      "Climate change: the learner relates the effect of atmospheric pressure on climate change as they discuss as. Social-Economic Issues",
+      "General History of Africa (GHA): as the learner examines the applications of pressure in water transport due to change in wind patterns which facilitated Indian Ocean and Trans-Atlantic Trade."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-physics.pdf#p16"
+    },
+    {
+     "kicd_code": "1.3",
+     "name": "Mechanical Properties of Materials",
+     "suggested_duration": "10 lessons",
+     "learning_outcomes": [
+      "explain the mechanical properties of materials",
+      "demonstrate the mechanical properties of materials",
+      "determine the tensile stress and strain using mathematical formulae",
+      "describe applications of mechanical properties of materials",
+      "appreciate the importance of",
+      "knowledge on mechanical properties of materials in day to day life."
+     ],
+     "learning_experiences": [
+      "discuss with peers the mechanical properties of locally available materials",
+      "carry out activities to demonstrate the mechanical properties (ductility, malleability, elasticity, brittleness, strength, hardness, stiffness and any other relevant and appropriate property) of locally available materials",
+      "carry out activities to determine the relationship between",
+      "tensile force and extension to illustrate mechanical properties of materials: constant of elasticity, tensile stress, breaking stress, tensile strain and modulus of elasticity as used in different materials",
+      "use digital devices to search for industrial applications of various mechanical properties of materials",
+      "use mathematical relationships to determine tensile stress, tensile strain and modulus of elasticity of materials. Stress=F/A",
+      "Strain =∆L/Lo Y = stress/strain"
+     ],
+     "inquiry_questions": [
+      "1. Why does a string snap easily as compared to a spring?",
+      "2. Why is it important to study the mechanical properties of materials?"
+     ],
+     "core_competencies": [
+      "Communication and collaboration: the learner develops the speaking skill as they speak clearly and effectively while performing activities with peers to demonstrate the mechanical properties of locally available materials.",
+      "Critical thinking and problem solving: the learner develops the skill of interpretation and inference as they explore problems by creating different possible solutions and their pros and cons while using mathematical relationships to determine tensile stress, tensile strain and modulus of elasticity of materials."
+     ],
+     "values": [
+      "Responsibility: the learners shows accountability as they take care of apparatus used to perform experiments while determining the constant of elasticity, tensile stress, tensile strain and modulus of elasticity of material.",
+      "Respect: the learner shows etiquette as they display humility during group discussions on mechanical properties of materials and their relevance in day-to-day life.",
+      "Integrity: the learner develops honesty skills as they as the learner present genuine results that reflect the actual findings and observations of group discussions and practical activities on mechanical properties of materials."
+     ],
+     "pertinent_issues": [
+      "Socio-economic and environmental issues; the learner acquires safety and security skills as they appreciate the importance and application of mechanical properties of materials in making informed choices of materials for specific purposes."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-physics.pdf#p19"
+    },
+    {
+     "kicd_code": "1.4",
+     "name": "Temperature and Thermal Expansion",
+     "suggested_duration": "10 lessons",
+     "learning_outcomes": [
+      "explain the meaning of temperature as used in thermal physics",
+      "measure temperature using different technologies",
+      "investigate thermal expansion and contraction in solids and fluids",
+      "describe applications of thermal expansion in solids and fluids",
+      "appreciate the applications of thermal expansion in day-to-day life."
+     ],
+     "learning_experiences": [],
+     "inquiry_questions": [
+      "1. Why is the lid of a sufuria made wider?",
+      "2. Why does a glass bottle break when the water in it freezes?"
+     ],
+     "core_competencies": [
+      "Citizenship: the learner develops ethical digital citizenship skills as they access search and use internet based services when searching for more information from the print or non-print media on the applications of thermal expansion",
+      "Digital literacy: the learner develops the skill of interacting with digital technology as they use digital te technology to effectively accomplish own tasks as they search for information from the print or digital media on the applications of thermal expansion and measurement of temperature"
+     ],
+     "values": [
+      "Peace: the learner shows love by respecting diversity as they respect others and their opinions while discussing applications of thermal expansion in day-to-day life.",
+      "Patriotism: the learner shows dedication by being conscious of their social and moral duties as they carry out activities to demonstrate thermal expansion and contraction in solids and determine linear expansivity of metals"
+     ],
+     "pertinent_issues": [
+      "Socio-economic and environmental issues: the learner acquires safety and security skills by being keen on fire safety while performing experiments to demonstrate thermal expansion and contraction in fluids"
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-physics.pdf#p22"
+    },
+    {
+     "kicd_code": "1.5",
+     "name": "Moments and equilibrium",
+     "suggested_duration": "15 lessons",
+     "learning_outcomes": [
+      "determine the center of gravity of regular and irregular objects",
+      "identify the states of equilibrium in bodies",
+      "determine moment of force about a point",
+      "verify the principle of moments in turning of objects",
+      "describe torque and couple in turning objects",
+      "appreciate the applications of moments and stability in day to day life."
+     ],
+     "learning_experiences": [
+      "design and carry out activities to determine the position of centre of gravity of regular and irregular objects.",
+      "Carry out activities to demonstrate the stability, instability and neutral states of equilibrium of objects.",
+      "discuss the meaning of moments of a force",
+      "carry out activities to demonstrate the turning effect of forces about point.",
+      "carry out activities to demonstrate moment about two points of support",
+      "Carry out activities to demonstrate and determine resolution of forces",
+      "carry out activities to demonstrate torque and couple",
+      "use mathematical relationships to determine centre of gravity and moments.",
+      "carry out activities to investigate the factors that affect stability of objects.",
+      "use print or non-print media to search for the applications of torque, couples and stability of bodies"
+     ],
+     "inquiry_questions": [
+      "How does the stability of bodies affect the designs of their structures?"
+     ],
+     "core_competencies": [
+      "• Creativity and Imaginations: The learner develops the skill of making observations as they discover fresh ways of doing things by observing the world around them while carrying out activities to demonstrate torque and couple"
+     ],
+     "values": [
+      "Values",
+      "Unity: as the learner shows fairness by displaying team spirit while designing and carrying out activities to determine the position of centre of gravity of regular and irregular objects.",
+      "Integrity: the learner is transparent by displaying honesty while presenting genuine results as they design and carry out activities to determine the position of centre of gravity of regular and irregular objects. Pertinent and contemporary issues (PCIs) Socio-economic and environmental issues: the learner develops safety and security skills as they become conscious of road safety while carrying out activities to investigate the factors that affect stability of objects."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-physics.pdf#p26"
+    },
+    {
+     "kicd_code": "1.6",
+     "name": "Energy, Work, Power and Machines",
+     "suggested_duration": "18 lessons",
+     "learning_outcomes": [
+      "explain the meaning of energy, work and power in relation to machines",
+      "demonstrate the transformation of mechanical energy using simple apparatus",
+      "describe applications of simple machines in making work easier",
+      "appreciate the applications of machines in day-to-day life."
+     ],
+     "learning_experiences": [
+      "discuss with peers and explain the meaning of the terms (energy, work, power and machines) as used in physics",
+      "carry out activities to demonstrate the concepts of energy, work, power and machines",
+      "perform experiments to demonstrate mechanical energy transformations and forms of potential energy (potential energy to kinetic energy and back",
+      "gravitational potential energy and elastic potential energy)",
+      "discuss in groups, mechanical energy transformations and forms of potential energy (potential energy to kinetic energy and back, gravitational potential energy and elastic potential energy)",
+      "apply mathematical relationships to deduce numerical tasks involving kinetic energy, potential energy, work, power, mechanical advantage, velocity ratio and efficiency of simple machin",
+      "demonstrate the law of conservation of mechanical energy (using a swinging pendulum, ball thrown",
+      "upwards, a catapult, bow & arrow)",
+      "use print or non-print media to search for information on the transformations of mechanical energy and applications of various simple machines in day-to-day life (Levers, inclined plane, pulleys, wheel and axle, gears, hydraulic lift, pulley belt, screw)",
+      "use print or non-print media to search for information on the use of simple machines in the construction of treadmills, elevators, escalators among others.",
+      "work with others and use locally available materials to",
+      "construct various simple machines."
+     ],
+     "inquiry_questions": [
+      "How do machines make work easier?"
+     ],
+     "core_competencies": [
+      "Communication and collaboration: the learner develops teamwork skills as they recognize the value of others ideas while discussing with peers and explain the meaning of the terms used in Physics.",
+      "Critical thinking and problem solving: the learner develops the evaluation and decision making skill while they explore complex problems by identifying when there are no technical solutions as they solves problems involving energy, work done, power and machines in day-to-day life (velocity ratio, mechanical advantage & efficiency)",
+      "Core competencies to be developed:",
+      "Learning to learn: the learner acquires the skill of sharing learnt knowledge as they reflect on their own work while performing experiments with peers to demonstrate wave properties, sketch wave patterns and make presentation",
+      "Self-efficacy: the learn develops leadership skills while ordering and prioritizing tasks as they perform experiments to demonstrate formation and properties of stationary waves, citing their respective applications and associated numerical relationships in modes of vibration"
+     ],
+     "values": [
+      "Love: the learner shares information with others by portraying a caring attitude while working with others to construct simple machines",
+      "Responsibility: as the learner shows accountability by caring for own property and those of others while performing experiments to demonstrate mechanical energy transformations and forms of potential energy",
+      "Values",
+      "Social Justice: The learners shows cooperation while according each other equal opportunities in sharing responsibilities while performing experiments with peers to demonstrate wave properties, sketch wave patterns and make presentation",
+      "Patriotism: The learner shows dedication by being conscious of their social and moral duties while using print or non-print media to search for information on the behavior of sound waves from an approaching and receding ambulance or music from moving vehicles and discuss the variations in the frequencies of sound heard to describe Doppler’s effect Pertinent and Contemporary Issues (PCIs): Socio-economic and environmental education: The learner acquires environmental conservation skills as they prevent pollution by noise while performing experiments to demonstrate formation and properties of stationary waves, citing their respective applications and associated numerical relationships in modes of vibration"
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-physics.pdf#p29"
+    }
+   ]
+  },
+  {
+   "strand": "Waves and Optics",
+   "strand_code": "2.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to describe the formation, properties and effects of waves.",
+     "exceeds": "Correctly and extensively describes the formation, properties and effects of waves",
+     "meets": "Correctly describes the formation, properties and effects of waves",
+     "approaches": "Partially describes the formation, properties and effects of waves",
+     "below": "Describes the formation, properties and effects of waves with prompt."
+    },
+    {
+     "indicator": "Ability to illustrate how radionuclides attain their stability using nuclear equations.",
+     "exceeds": "Correctly illustrates how radionuclides attain their stability using nuclear equations,",
+     "meets": "Correctly illustrates how radionuclides attain their stability using nuclear equations,",
+     "approaches": "Partially illustrates how radionuclides attain their stability using nuclear equations,",
+     "below": "illustrates how radionuclides attain their stability using nuclear equations with hints,"
+    },
+    {
+     "indicator": "Ability to describe the industrial applications and safety precautions of radioactivity in real life.",
+     "exceeds": "Correctly and comprehensively describes the industrial applications and safety precautions of radioactivity in real life.",
+     "meets": "Correctly describes the industrial applications and safety precautions of radioactivity in real life.",
+     "approaches": "Partially describes the industrial applications and safety precautions of radioactivity in real life.",
+     "below": "Describes the industrial applications and safety precautions of radioactivity in real life with prompt."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "2.2",
+     "name": "Radioactivity and Stability of Isotopes",
+     "suggested_duration": "24 lessons",
+     "learning_outcomes": [
+      "explain the terminologies used in radioactivity",
+      "identify the types and properties of radioactive emissions in nature",
+      "illustrate how radionuclides attain their stability using nuclear equations",
+      "demonstrate the detection of radioactive emissions in nature",
+      "determine the half-life (t ) of common 1/2 radioactive elements",
+      "appreciate the applications and safety precautions of radioactivity in real life"
+     ],
+     "learning_experiences": [
+      "search and discuss with peers the meaning of terms used in radioactivity (nuclear stability, radioactivity, half-life, nuclide, nucleotides, radioactive decay radioisotope, background radiation)",
+      "discuss with peers the types and properties of radiations (nature, electrical charge, relative mass, absorption, velocity, ionizing power, effect in electric and magnetic fields)",
+      "make charts that illustrate properties of radioactive radiations (penetration power, ionizing effect, behavior in electric and magnetic fields)",
+      "discuss with peers and write nuclear equations to illustrate how radionuclides attain stability",
+      "use charts showing chain reactions to identify different radioactive emissions and write resultant nuclear equations (a uranium nuclide natural decay series)",
+      "search, discuss in groups and present findings on safety precautions when",
+      "handling and disposing radioactive substances",
+      "work in groups to demonstrate the detection of radioactive emissions by photographic emulsion/plate, cloud chamber, leaf electroscope, Geiger muller using print and non-print media",
+      "carry out activities with peers to demonstrate half-life (t1/2) (timing running water from a burette)",
+      "use data sourced from print or non-print media, to determine the half-life of common radioactive elements using formula",
+      "• and graphical method (decay curve)",
+      "discuss with peers qualitative treatment of nuclear fission and fusion (mention nuclear reactions as a source of energy NB: Nuclear reactions are different from chemical reactions).",
+      "search from print and non-print media, applications of radioactivity in day-to-day life (chemistry, medicine, industry, carbon dating and agriculture) and dangers (safety in hospitals",
+      "pollution e.g. the Chernobyl disaster)"
+     ],
+     "inquiry_questions": [
+      "1. How is radioactivity important in day to day life?",
+      "2. What are the risks of exposure to radiation?"
+     ],
+     "core_competencies": [
+      "Imagination and Creativity: the learner develops the skill of making connections by finding hidden patterns between different ideas while making charts that illustrate properties of radioactive radiations",
+      "Self-efficacy: the learner develops self-awareness and planning skill as they demonstrate task management while searching and discussing in groups safety precautions when handling radioactive substances"
+     ],
+     "values": [
+      "Respect: as the learner shows acceptance as they understand and appreciates others when searching, discussing in groups and presenting findings on safety precautions when handling radioactive substances",
+      "Peace: as the learner shows care by avoiding to hurt others while working in groups to demonstrate the detection of radioactive emissions"
+     ],
+     "pertinent_issues": [
+      "Citizenship education: the learner acquires peace education skills as way of promoting peace while searching from print and non-print media, on applications of radioactivity",
+      "Socio-Economic and Environmental issues: the learner demonstrates environmental conservation awareness as they search, discuss in groups and present findings on safety precautions when handling and disposing radioactive substances"
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-physics.pdf#p40"
+    }
+   ]
+  },
+  {
+   "strand": "Electricity and Magnetism",
+   "strand_code": "3.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to explain the charging and uses of an electroscope",
+     "exceeds": "Correctly and comprehensively explains the charging and uses of an electroscope.",
+     "meets": "Correctly explains the charging and uses of an electroscope.",
+     "approaches": "Partially explains the charging and uses of an electroscope.",
+     "below": "Explains the charging and uses of an electroscope with hints."
+    },
+    {
+     "indicator": "Ability to describe applications of electrostatic charges.",
+     "exceeds": "Correctly and extensively describes applications of electrostatic charges.",
+     "meets": "Correctly describes applications of electrostatic charges.",
+     "approaches": "Partially describes applications of electrostatic charges.",
+     "below": "describes applications of electrostatic charges with prompt."
+    },
+    {
+     "indicator": "Ability to determine resistance using different methods and resistivity of a conductor.",
+     "exceeds": "Correctly and consistently determines resistance using different methods and resistivity of a conductor. .",
+     "meets": "Correctly determines resistance using different methods and resistivity of a conductor. .",
+     "approaches": "Partially determines resistance using different methods and resistivity of a conductor..",
+     "below": "Determines resistance using different methods and resistivity of a conductor, with hints ."
+    },
+    {
+     "indicator": "Ability to describe the applications of current electricity in day to day life.",
+     "exceeds": "Correctly and extensively describes the applications of current electricity in day to day life",
+     "meets": "Correctly describes the applications of current electricity in day to day life.",
+     "approaches": "Partially describes the applications of current electricity in day to day life.",
+     "below": "Describes the applications of current electricity in day to day life with cues."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "3.1",
+     "name": "Electrostatics",
+     "suggested_duration": "10 lessons",
+     "learning_outcomes": [
+      "explain the origin of charges in a material",
+      "describe methods of charging a conductor",
+      "illustrate charge distribution on conductors of various shapes",
+      "explain functions of the various parts of an electroscope.",
+      "illustrate charging of an electroscope",
+      "appreciate uses of an electroscope and applications of static charges in day to day life."
+     ],
+     "learning_experiences": [
+      "Discuss with peers the origin of charges on materials, (atom, nucleus, neutrons, protons and electrons), SI unit of charge and the law of electrostatics",
+      "perform experiments to demonstrate the generation of static charges on bodies (through rubbing)",
+      "discuss with peers on various ways of charging a conductor (contact, induction and separation) while sketching the distribution of charges",
+      "Describe the features and functions, charging and discharging/earthing of a leaf electroscope (contact and induction)",
+      "construct a simple leaf electroscope using locally available materials",
+      "perform experiments to verify the uses of an electroscope in electrostatics (testing for presence, type, and quantity of charge as well conduction and insulation properties of materials)",
+      "use print and non-print media to investigate the distribution of charges on metallic conductors (spherical, wedge shaped, pear shaped and sharp conductor among others)",
+      "engage resource persons or use print and non-print media to find out the applications of electrostatics and real life effects of electrostatics (spray gun, photocopiers, finger",
+      "printing, electrostatic precipitators, lightning and associated safety measures and many more)"
+     ],
+     "inquiry_questions": [
+      "1. How do lightning arrestors work?",
+      "2. How do materials get charged?"
+     ],
+     "core_competencies": [
+      "Learning to learn: the learner develops the skill of organizing their own learning by learning independently as they construct a simple leaf electroscope using locally available materials.",
+      "Self efficacy: the learner develops the skill of effective communication by executing tasks while performing experiments to verify the uses of an electroscope in electrostatics"
+     ],
+     "values": [
+      "Responsibility: the learner shows self-drive as they engage in assigned roles and duties while constructing a simple leaf electroscope.",
+      "Love: the learner shows care by respecting others during group discussions with peers on the origin of charges on materials."
+     ],
+     "pertinent_issues": [
+      "Socio-economic and environmental education",
+      "Safety and Security: the learner shows awareness of safety in the class and school environment as they engage resource persons or use print and non-print media to find out the applications of electrostatics and real life effects of electrostatics."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-physics.pdf#p46"
+    },
+    {
+     "kicd_code": "3.2",
+     "name": "Current Electricity",
+     "suggested_duration": "18 lessons",
+     "learning_outcomes": [
+      "explain the terminologies used in current electricity",
+      "verify the relationships:",
+      "V=IR, E=I(R+r) as used in current electricity",
+      "determine the resistance and resistivity of various conductors using different methods",
+      "determine effective resistance of various resistor networks.",
+      "determine the relationship of potential difference",
+      "and current to power, as used in heating effect of an electric current.",
+      "appreciate the applications of current electricity in day to day life."
+     ],
+     "learning_experiences": [
+      "discuss the meaning of current, potential difference, electromotive force and internal resistance as used in current electricity",
+      "perform an experiment to investigate the relationship between potential difference and current through a conductor and draw the requisite graphs to verify Ohm's law",
+      "perform an experiment to investigate the relationship between e.m.f., potential difference, current, resistance through a conductor and internal",
+      "resistance of a cell draw the requisite graphs.",
+      "derive the mathematical relationship between emf, potential difference, electric current, resistance, internal resistance and use it to solve numerical tasks.",
+      "carry out an experiment to classify the types of resistors as either ohmic or non ohmic",
+      "perform experiments with peers to investigate the factors affecting resistance of ohmic resistors (temperature,length, cross-section area and type)",
+      "perform experiments to determine resistance using various methods (resistor colour codes, ammeter-voltmeter method",
+      "wheatstone bridge and the metre bridge,resistor networks)",
+      "carry out experiments to determine the relationship of potential difference and current to power (P=VI)",
+      "discuss in groups the applications of heating effect of electric current (potential difference, current, resistance, time) and classify them as either ohmic or non ohmic.",
+      "search for information pertaining to the importance of resistors in day-to-day life from available sources and resources"
+     ],
+     "inquiry_questions": [
+      "1. How is current electricity applicable in our day to day life?",
+      "2. Why are resistors used in electrical circuits?"
+     ],
+     "core_competencies": [
+      "Core competencies to be developed",
+      "Critical thinking and Problem Solving:the learner develops the evaluation and decision making skill while they explore complex problems while deriving the mathematical relationship between emf, potential difference, electric current, resistance and use it to solve related problems",
+      "Learning to learn: the learner develops the skill of carrying out research as they learn independently while performing an experiment to investigate the relationship between potential difference and current through a conductor and draw the requisite graphs Values",
+      "Responsibility: as the learner takes accountability as they care for own property and those of others while performing experiments with peers to investigate the factors affecting resistance of ohmic resistors",
+      "Respect: the learner acquires communication etiquette by displaying humility during discussions and practical sessions Pertinent and Contemporary Issues (PCIs): Socio-Economic and Environmental Issues",
+      "Safety and security: the learner appreciates safety in the laboratory and the applications of electricity as they perform experiments to determine resistance using various methods."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-physics.pdf#p49"
+    },
+    {
+     "kicd_code": "3.3",
+     "name": "Introduction to electronics",
+     "suggested_duration": "6 lessons",
+     "learning_outcomes": [
+      "explain the meaning of insulator, conductor, semiconductor, and superconductor",
+      "distinguish between insulators, conductors, semiconductors and superconductors",
+      "investigate the electrical behavior of conductors, semiconductors and insulators with varying temperatures",
+      "explain intrinsic and extrinsic",
+      "semiconductors as used in physics",
+      "explain the formation of n-type and p-type semiconductors from intrinsic semiconductors",
+      "describe the applications of conductors, semiconductors, insulators and superconductors in day-to-day life",
+      "appreciate the applications of conductors, semiconductors, insulators and superconductors in day-to-day life"
+     ],
+     "learning_experiences": [
+      "discuss with peers the meaning of insulator, conductor, semiconductor, and superconductors",
+      "perform an experiment to investigate the electrical behavior of conductors, semiconductors, and insulators with varying temperatures.",
+      "use diagrams to distinguish between conductors, semiconductors and insulators using energy band theory.",
+      "discuss the meaning of intrinsic and extrinsic semiconductors",
+      "use print and non print devices to search for information on the formation of p-type and n-type semiconductors",
+      "discuss with peers the applications of conductors, semiconductors, insulators and superconductors in day-to-day life",
+      "search for information on applications of conductors, semiconductors, insulators and superconductors from relevant sources and resources"
+     ],
+     "inquiry_questions": [
+      "1. How does temperature affect the resistance of conductors and semiconductor s?",
+      "2. What is the significance of semiconductor s in day-to-day life?"
+     ],
+     "core_competencies": [
+      "Core competencies to be developed:",
+      "Critical thinking and problem solving: the learners demonstrate the skill of explanation as they analyze complex problems by using logical reasoning and creating and testing hypothesis as they perform an experiment to investigate the electrical behavior of conductors, semiconductors and insulators with varying temperatures",
+      "Digital literacy: the learner interacts with digital technology as they dismantle and assemble parts of digital devices while performing an experiment to investigate the electrical behavior of conductors, semiconductors, and insulators with varying temperatures. Values:",
+      "Social Justice: The learner demonstrates equity by according equal opportunities when sharing responsibilities while searching for information on applications of conductors, semiconductors, insulators and superconductors from relevant sources and resources",
+      "Unity : the learner ensures inclusion by collaborating with others as the learner works in a group to perform an experiment to investigate the electrical behavior of conductors, semiconductors and insulators Pertinent and Contemporary Issues (PCIs) Citizenship education: The learner acquires good governance abilities by applying integrity and principles of leadership as they work together to search for information on applications of conductors, semiconductors, insulators and superconductors from relevant sources and resources"
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-physics.pdf#p53"
+    }
+   ]
+  },
+  {
+   "strand": "Environmental and Space Physics",
+   "strand_code": "4.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to describe the impact of climate change in the environment.",
+     "exceeds": "Correctly and extensively describes the impact of climate change in the environment.",
+     "meets": "Correctly describes the impact of climate change in the environment.",
+     "approaches": "Partially describes the impact of climate change in the environment.",
+     "below": "Describes the impact of climate change in the environment with prompt."
+    },
+    {
+     "indicator": "Ability to explain the evolution of astrophysics and space exploration in space Physics.",
+     "exceeds": "Correctly and comprehensively explains the evolution of astrophysics and space exploration in space Physics.",
+     "meets": "Correctly explains the evolution of astrophysics and space exploration in space Physics.",
+     "approaches": "Partially explains the evolution of astrophysics and space exploration in space Physics.",
+     "below": "The evolution of astrophysics and space exploration in space Physics with hints."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "4.1",
+     "name": "Greenhouse Effect and Climate Change",
+     "suggested_duration": "5 lessons",
+     "learning_outcomes": [
+      "explain the Greenhouse effect and climate change in the environment",
+      "outline the factors leading to greenhouse effect in the environment",
+      "explain the effect of ozone layer on climate change",
+      "describe the mitigating factors against climate change in the environment",
+      "appreciate the impact of climate change on the environment."
+     ],
+     "learning_experiences": [
+      "discuss with peers the meaning of greenhouse effect and climate change and the terminologies associated (,Greenhouse gases, global warming, Ozone Layer)",
+      "discuss the factors leading to greenhouse effect (Use examples such as; temperatures within the greenhouse, cars packed with closed windows in the sun to describe the greenhouse effect)",
+      "demonstrate, with peers, the effects of climate change in the immediate environment (level of water in the lakes, volume of rivers, vegetation change, change in weather",
+      "patterns and changes in land use)",
+      "discuss the role of human activities in escalating environmental degradation",
+      "using reference materials, resource persons or digital materials, outline mitigating factors against climate change",
+      "use print and non print media to search for information that describes the greenhouse effect, global warming, ozone layer, and climate change."
+     ],
+     "inquiry_questions": [
+      "1. How do human actions impact climate change?",
+      "2. How does ozone layer depletion threaten our environment?"
+     ],
+     "core_competencies": [
+      "Communication and collaboration: the learner develops the speaking skill as they speak clearly and effectively while discussing with peers the meaning of terminologies used in greenhouse effect and climate change",
+      "Critical thinking and problem solving: the learner develops open mindedness and creativity skills while they explore complex problems as they research and use reference materials, resource persons or digital materials, outline mitigating factors against climate change"
+     ],
+     "values": [
+      "Values:",
+      "Peace: the learner demonstrates care as they respect diversity during discussions on terminologies used in greenhouse effect and climate change.",
+      "Unity: the learner illustrates cooperation as they collaborate with others, while demonstrating the effects of climate change in the immediate environment Pertinent and Contemporary Issues (PCIs): Socioeconomic and environmental education: The learner develops awareness on global warming as they use print and non print media to search for information that describes the greenhouse effect, global warming, ozone layer, and climate change."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-physics.pdf#p57"
+    },
+    {
+     "kicd_code": "4.2",
+     "name": "Introduction to Space Physics",
+     "suggested_duration": "6 lessons",
+     "learning_outcomes": [
+      "describe the big bang theory of the origin of the universe",
+      "classify celestial bodies in the universe",
+      "outline the evolution of astrophysics and space exploration, in space physics",
+      "explain the motion of planets around the sun",
+      "appreciate the careers in space exploration."
+     ],
+     "learning_experiences": [
+      "discuss the big bang theory on the origin of the universe (Big bang theory)",
+      "Use digital media to observe the celestial bodies, methods of space exploration and planetary motion.",
+      "Model the planetary motion",
+      "Discuss methods of exploring the universe",
+      "• Discuss the careers available in Astrophysics and space exploration"
+     ],
+     "inquiry_questions": [
+      "1. How was the universe / earth formed?",
+      "2. How do we benefit from Astrophysics?"
+     ],
+     "core_competencies": [
+      "Core competencies to be developed:",
+      "Creativity and Imagination: the learner develops skills of making connections by finding hidden patterns between different ideas as they come up with ways of modeling planetary motion.",
+      "Digital literacy: the learner develops the skill of interacting with digital technology they use digital technology to accomplish own tasks to search for information and media on methods of space exploration and planetary motion Values to be developed",
+      "Integrity: the learner demonstrates fairness as they utilize the available resources prudently while modeling the planetary motion.",
+      "Love: the learner demonstrates self-sacrifice by putting the interest of others before own as they use digital media to observe the celestial bodies, methods of space exploration and planetary motion Pertinent and Contemporary Issues (PCIs)",
+      "Life skills moral education and Human sexuality education",
+      "Self-management skills: the learners develops self-awareness as they discuss the big bang theory on the origin of the universe (Big bang theory)"
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-physics.pdf#p60"
+    }
+   ]
+  }
+ ]
+}

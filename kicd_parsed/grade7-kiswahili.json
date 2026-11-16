@@ -1,0 +1,2246 @@
+{
+ "source_pdf": "grade7-kiswahili.pdf",
+ "grade": 7,
+ "subject": "kiswahili",
+ "general_outcomes": [],
+ "strands": [
+  {
+   "strand": "Kusikiliza na Kuzungumza",
+   "strand_code": "1.1",
+   "assessment_rubric": [],
+   "substrands": [
+    {
+     "kicd_code": "1.1.1",
+     "name": "Kusikiliza na Kujibu Mazungumzo",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "kutambua vipengele vya kuzingatia katika usikilizaji wa mazungumzo",
+      "kutambua vipengele vya kuzingatia katika kujibu mazungumzo",
+      "kutumia vipengele vifaavyo katika kusikiliza na kujibu mazungumzo",
+      "kuchangamkia kushiriki mazungumzo katika miktadha mbalimbali."
+     ],
+     "learning_experiences": [
+      "kutambua vipengele vya kuzingatia katika kusikiliza mazungumzo",
+      "kutambua vipengele vya kuzingatia katika kujibu mazungumzo",
+      "kusikiliza mazungumzo kuhusu suala lengwa katika kifaa cha kidijitali huku akizingatia vipengele vya kuboresha usikilizaji wa mazungumzo",
+      "kusikiliza na kujibu mazungumzo ipasavyo",
+      "kuigiza mazungumzo (k.v. ya simu) kuhusu suala lengwa kwa kuzingatia vipengele vifaavyo vya kusikiliza na kujibu mazungumzo",
+      "• kushiriki mazungumzo na mzazi au mlezi kuhusu suala lengwa kwa kuzingatia vipengele vifaavyo vya kusikiliza na kujibu mazungumzo."
+     ],
+     "inquiry_questions": [
+      "1. Je, unaposikiliza mazungumzo unapaswa kuzingatia nini ili kupata ujumbe unaowasilishwa?",
+      "2. Unazingatia nini unapomjibu mtu katika mazungumzo?"
+     ],
+     "core_competencies": [
+      "Mawasiliano na ushirikiano: mwanafunzi anaposhirikiana na wenzake na kuchangia ipasavyo katika shughuli za ujifunzaji kuhusu kusikiliza na kujibu mazungumzo.",
+      "Ujuzi wa kidijitali: mwanafunzi anapotumia vifaa vya kidijitali kusikilizia mazungumzo mbalimbali na kutambua vipengele vya kusikiliza na kuzungumza vilivyozingatiwa.",
+      "Kujiamini: mwanafunzi anaposikiliza mazungumzo na kuyajibu ipasavyo bila woga. Pia anapochangia katika shughuli ya kikundi."
+     ],
+     "values": [
+      "Heshima: mwanafunzi anapoheshimu maoni ya wenzake katika shughuli za ujifunzaji. Pia anapoheshimu zamu ya wenzake katika mazungumzo.",
+      "Uwajibikaji: mwanafunzi anapotunza vifaa vya kidijitali anavyotumia katika mazungumzo.",
+      "Umoja: mwanafunzi anaposhiriki na kuchangia katika shughuli za ujifunzaji."
+     ],
+     "pertinent_issues": [
+      "Usafi wa kibinafsi: mwanafunzi anaposikiliza, kushiriki na kuigiza mazungumzo kuhusu suala lengwa."
+     ],
+     "links_to_other_areas": [
+      "Mwanafunzi anaweza kuhusisha dhana ya kusikiliza na kujibu mazungumzo aliyojifunza katika somo la Kiswahili na ujifunzaji wa dhana hiyo katika somo la English.",
+      "Mwanafunzi anaweza kuhusisha suala la usafi wa kibinafsi na yale amejifunza kuhusu suala hilo katika somo la Integrated Science na Agriculture."
+     ],
+     "resources": [],
+     "kicd_source": "grade7-kiswahili.pdf#p18"
+    },
+    {
+     "kicd_code": "2.1.1",
+     "name": "Kusikiliza kwa Kina Sauti /dh/ na /th/",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "kutambua sauti /dh/ na /th/ katika silabi na maneno",
+      "kutamka sauti /dh/ na /th/ ipasavyo katika silabi na maneno",
+      "kutumia maneno yenye sauti /dh/ na /th/ katika sentensi ili kuyatofautisha kimaana",
+      "kuonea fahari matamshi bora ya sauti /dh/ na /th/ katika mazungumzo."
+     ],
+     "learning_experiences": [
+      "kutambua sauti /dh/ na /th/ katika silabi na maneno",
+      "kutambua maneno yenye sauti /dh/ na /th/ yakitamkwa na mwalimu, mgeni mwalikwa au katika kifaa cha kidijitali na kuyatamka ipasavyo",
+      "kutumia maneno yenye sauti /dh/ na /th/ kwenye sentensi ili kuyatofautisha kimaana",
+      "kusikiliza sentensi zilizotungwa na wenzake na kutoa maoni yake kuhusu jinsi maneno yenye sauti /dh/ na /th/ yalivyotumiwa",
+      "kuunda vitanzandimi vinavyotumia sauti /dh/ na /th/ daftarini mwake au kwenye kifaa cha kidijitali",
+      "kusoma vitanzandimi alivyounda akizingatia matamshi bora ya sauti /dh/ na /th/ huku wenzake wakisikiliza ili wamtolee maoni",
+      "kumsomea mzazi au mlezi wake kifungu kuhusu suala lengwa akizingatia matamshi bora ya sauti /dh/ na /th/."
+     ],
+     "inquiry_questions": [
+      "Ni maneno yepi unayoyajua yaliyo na sauti /dh/ na /th/?"
+     ],
+     "core_competencies": [
+      "Mawasiliano na ushirikiano: mwanafunzi anaposhiriki na kuchangia katika shughuli za ujifunzaji.",
+      "Ujuzi wa kidijitali: mwanafunzi anapotumia vifaa vya kidijitali katika kuunda na kusikiliza vitanzandimi vyenye sauti /dh/ na /th/.",
+      "Ubunifu: mwanafunzi anapounda vitanzandimi vyenye maana akitumia maneno yenye sauti /dh/ na /th/ na kuvitamka ipasavyo katika kikundi.",
+      "Kujiamini: mwanafunzi anapotamka ipasavyo sauti /dh/ na /th/ katika silabi na maneno na kuunda vitanzandimi kwa kutumia maneno yenye sauti /dh/ na /th/."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade7-kiswahili.pdf#p26"
+    },
+    {
+     "kicd_code": "3.1.1",
+     "name": "Tanzu za Fasihi",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "kueleza maana ya fasihi ili kuipambanua",
+      "kujadili sifa za tanzu za fasihi",
+      "kutambua aina za tungo za fasihi simulizi na fasihi andishi katika matini",
+      "kuwasilisha utungo wa fasihi anaoujua",
+      "kufurahia kushiriki katika uwasilishaji wa fasihi simulizi na fasihi andishi ili kujenga ufasaha wa lugha na fasihi."
+     ],
+     "learning_experiences": [
+      "kutafiti na kueleza maana ya fasihi katika jamii",
+      "kutambua tanzu za fasihi na kuzitofautisha",
+      "kujadili na wenzake sifa za fasihi simulizi na fasihi andishi",
+      "kutambua tungo za fasihi simulizi na fasihi andishi kutoka simulizi za moja kwa moja au kwenye matini za kidijitali",
+      "kuwasilisha darasani utungo wa fasihi anaoujua (k.v. hadithi za wanyama) ili wenzake wausikilize na kumtolea maoni",
+      "• kushiriki na mzazi au mlezi wake kutafiti kuhusu tanzu za fasihi simulizi na andishi katika jamii yake."
+     ],
+     "inquiry_questions": [
+      "Fasihi inahusika na mambo gani katika jamii?"
+     ],
+     "core_competencies": [
+      "Mawasiliano na ushirikiano: mwanafunzi anaposhirikiana na wenzake na kuchangia katika kazi ya kikundi.",
+      "Ujuzi wa kidijitali: mwanafunzi anapotumia vifaa vya kidijitali kujifunza sifa za fasihi simulizi na andishi.",
+      "Hamu ya ujifunzaji: mwanafunzi anaposhirikiana na mzazi au mlezi kutambua tanzu za fasihi simulizi na andishi katika jamii yake."
+     ],
+     "values": [
+      "Upendo: mwanafunzi anapowapa wenzake nafasi ya kujieleza.",
+      "Umoja: mwanafunzi anaposhirikiana na wenzake katika kazi ya kikundi.",
+      "Uraia: mwanafunzi anapothamini tungo za fasihi simulizi katika jamii."
+     ],
+     "pertinent_issues": [
+      "Uhuru wa wanyama: mwanafunzi anaposimulia tungo na kutilia maanani uhuru wa wanyama."
+     ],
+     "links_to_other_areas": [
+      "Mwanafunzi anaweza kuhusisha tanzu za fasihi simulizi na andishi katika somo la Kiswahili na yale amejifunza kuhusu tanzu hizo katika somo la English.",
+      "Mwanafunzi anaweza kuhusisha suala la utunzaji wa wanyama na yale amejifunza kuhusu suala hilo katika somo la Social Studies na Agriculture."
+     ],
+     "resources": [],
+     "kicd_source": "grade7-kiswahili.pdf#p35"
+    },
+    {
+     "kicd_code": "4.1.1",
+     "name": "Nyimbo",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "kueleza maana ya nyimbo za watoto na bembelezi",
+      "kujadili sifa za nyimbo za watoto na bembelezi",
+      "kujadili mitindo ya uwasilishaji wa nyimbo za watoto na bembelezi",
+      "kuwasilisha nyimbo za watoto na bembelezi kwa kuzingatia uwasilishaji ufaao",
+      "kuchangamkia uwasilishaji wa nyimbo za watoto na bembelezi ili kukuza ubunifu."
+     ],
+     "learning_experiences": [
+      "kueleza maana ya nyimbo za watoto na bembelezi",
+      "kutafiti vitabuni au mtandaoni kuhusu sifa za nyimbo za watoto na bembelezi",
+      "kuwasilisha matokeo ya utafiti wake kwa wenzake ili waweze kujadili sifa hizo",
+      "kusikiliza nyimbo za watoto na bembelezi kutoka kwa mwalimu, mgeni mwalikwa au kifaa cha kidijitali",
+      "kushirikiana na wenzake kujadili mitindo ya uwasilishaji wa nyimbo za watoto na bembelezi",
+      "(k.v. urudiaji wa sauti, maneno na vifungu vya maneno, uchezeshaji wa viungo vya mwili,) katika nyimbo walizosikiliza",
+      "kuimba nyimbo za watoto na bembelezi kwa kuzingatia mitindo mbalimbali ya uwasilishaji",
+      "kutunga nyimbo nyepesi za watoto na bembelezi na kuziwasilisha kwa kutumia mitindo ifaayo",
+      "kuimba wimbo wa watoto na bembelezi akiwa na mzazi au mlezi wake na kujadili ujumbe katika nyimbo hizo."
+     ],
+     "inquiry_questions": [
+      "1. Je, ni nyimbo gani za watoto unazozijua katika jamii yako?",
+      "2. Unapomwimbia mtoto bembelezi, unazingatia nini ili apate kulala?"
+     ],
+     "core_competencies": [
+      "Ujuzi wa kidijitali: mwanafunzi anapotumia vifaa vya kidijitali kusikiliza nyimbo mbalimbali za watoto na bembelezi.",
+      "Kujiamini: mwanafunzi anapoimba na kuwasilisha nyimbo. Pia anapochangia ifaavyo katika shughuli za kikundi.",
+      "Hamu ya ujifunzaji: mwanafunzi anaposhirikiana na mzazi au mlezi wake kuimba nyimbo za watoto na bembelezi."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade7-kiswahili.pdf#p43"
+    },
+    {
+     "kicd_code": "5.1.1",
+     "name": "Mazungumzo Mahususi",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "kutambua maamkuzi na maagano ya nyakati mbalimbali za siku",
+      "kutambua majibu ya maamkuzi na maagano ya nyakati mbalimbali za siku",
+      "kutambua maamkuzi yanayotumiwa na makundi mbalimbali ya kijamii pamoja na majibu ya maamkuzi hayo",
+      "kutumia maamkuzi na maagano mwafaka katika miktadha mbalimbali",
+      "kujenga mazoea ya kutumia maamkuzi na maagano mwafaka katika maisha ya kila siku ili kufanikisha mahusiano."
+     ],
+     "learning_experiences": [
+      "kutambua, katika mazungumzo, kapu maneno, kadi maneno au matini mbalimbali, maamkuzi pamoja na majibu ya maamkuzi hayo (k.v. habari za asubuhi: njema/nzuri, sabalkheri: aheri) na maagano pamoja na majibu ya maagano hayo (k.v. kwaheri: ya kuonana, alamsiki: binuru) yanayotumiwa katika miktadha anuwai",
+      "kutambua maamkuzi mwafaka kwa kuzingatia mahusiano ya kijamii na",
+      "maagano mwafaka kulingana na nyakati za siku",
+      "kusikiliza mazungumzo kuhusu suala lengwa katika kifaa cha kidijitali na kutaja maamkuzi na maagano yaliyotumiwa",
+      "kuigiza mazungumzo kwa kuzingatia maamkuzi na maagano mwafaka",
+      "kushiriki mazungumzo na mzazi au mlezi wake kwa kuzingatia maamkuzi na maagano mwafaka."
+     ],
+     "inquiry_questions": [
+      "1. Je, ni maamkuzi na maagano gani yanayotumiwa katika jamii yako?",
+      "2. Kwa nini ni muhimu kujua maamkuzi na maagano mbalimbali?"
+     ],
+     "core_competencies": [
+      "Mawasiliano na ushirikiano: mwanafunzi anapoigiza mazungumzo na wenzake kwa kuzingatia maamkuzi na maagano yafaayo.",
+      "Ujuzi wa kidijitali: mwanafunzi anapotumia vifaa vya kidijitali kusikiliza maamkuzi na maagano mbalimbali.",
+      "Kujiamini: mwanafunzi anaposhiriki mazungumzo na kutumia maamkuzi na maagano kwa ukakamavu."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade7-kiswahili.pdf#p54"
+    },
+    {
+     "kicd_code": "6.1.1",
+     "name": "Kusikiliza kwa Kufasiri",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "kueleza kwa usahihi masuala yanayozungumziwa katika matini ya kusikiliza",
+      "kufasiri habari katika matini ya kusikiliza",
+      "kueleza maana ya msamiati kama ulivyotumika katika matini ya kusikiliza",
+      "kutabiri kitakachotokea katika matini kwa kurejelea vidokezo katika matini ya kusikiliza",
+      "kufurahia kufasiri matini za kusikiliza ili",
+      "kukuza stadi ya kusikiliza."
+     ],
+     "learning_experiences": [
+      "kusikiliza matini kuhusu suala lengwa kutoka kwa mwalimu au kifaa cha kidijitali",
+      "kufasiri habari katika matini aliyosikiliza",
+      "kueleza maana ya msamiati wa suala lengwa kama ulivyotumika katika habari aliyosikiliza",
+      "kutabiri kitakachotokea katika matini kwa kurejelea vidokezo (k.v. picha, kichwa/anwani na toni ya mzungumzaji) vilivyopo katika matini",
+      "• kushirikiana na mzazi au mlezi kusikiliza na kuchanganua habari katika matini za aina mbalimbali kuhusu suala lengwa."
+     ],
+     "inquiry_questions": [
+      "Je, ni mambo gani utakayozingatia katika kuchanganua habari uliyosikiliza?"
+     ],
+     "core_competencies": [
+      "Mawasiliano na ushirikiano: mwanafunzi anapoeleza kwa ufasaha masuala yanayozungumziwa katika matini aliyosikiliza.",
+      "Ujuzi wa kidijitali: mwanafunzi anapotumia ipasavyo vifaa vya kidijitali kama vile simu, redio, kipakatalishi au runinga kusikiliza matini.",
+      "Uwazaji kina na utatuzi wa matatizo: mwanafunzi anapotabiri kitakachotokea katika matini aliyosikiliza."
+     ],
+     "values": [
+      "Heshima: mwanafunzi anapoheshimu maoni ya wenzake katika kazi ya kikundi.",
+      "Upendo: mwanafunzi anapowapa wenzake nafasi ya kushiriki katika shughuli za kikundi.",
+      "Uwajibikaji: mwanafunzi anapojitolea kuchukua nafasi mbalimbali katika shughuli za kikundi na kutunza vifaa vya kidijitali anavyotumia.",
+      "Umoja: mwanafunzi anaposhirikiana na wengine katika shughuli za kikundi."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade7-kiswahili.pdf#p64"
+    },
+    {
+     "kicd_code": "7.1.1",
+     "name": "Kusikiliza kwa Ufahamu Ufahamu wa kusikiliza",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "kutambua ujumbe katika ufahamu wa kusikiliza",
+      "kueleza maana ya msamiati ulio katika ufahamu wa kusikiliza",
+      "kufasiri ujumbe kutokana na ufahamu wa kusikiliza",
+      "kuchangamkia kushiriki katika kusikiliza kwa ufahamu ili kukuza stadi ya kusikiliza kwa ufahamu."
+     ],
+     "learning_experiences": [
+      "kutambua ujumbe wa suala lengwa uliotumiwa katika ufahamu wa kusikiliza kutoka kwa mwalimu, mgeni mwalikwa au kwenye kifaa cha kidijitali",
+      "kueleza maana za msamiati wa suala lengwa kama ulivyotumiwa katika kauli au sentensi zilizosemwa",
+      "kusikiliza kauli au vifungu vya sentensi kuhusu suala lengwa kutoka kwa mwalimu au mgeni mwalikwa na kufasiri ujumbe katika kauli au sentensi hizo",
+      "kushirikiana na mzazi au mlezi kusikiliza ufahamu",
+      "kuhusu suala lengwa kutoka kwa kifaa cha kidijitali na kutambua maana ya msamiati na ujumbe muhimu."
+     ],
+     "inquiry_questions": [
+      "Je, kusikiliza kwa ufahamu kuna faida zipi?"
+     ],
+     "core_competencies": [
+      "Mawasiliano na ushirikiano: mwanafunzi anaposhiriki katika kujadili kuhusu vipengele vya kuzingatia katika kusikiliza kwa ufahamu.",
+      "Ujuzi wa kidijitali: mwanafunzi anapotumia vifaa vya kidijitali kusikiliza kauli na sentensi na kujibu.",
+      "Ubunifu: mwanafunzi anaposikiliza na kusema upya alichoambiwa. Pia anapofasiri wazo kuu.",
+      "Uwazaji kina na utatuzi wa matatizo: mwanafunzi anapofasiri ujumbe kutokana na ufahamu wa kusikiliza."
+     ],
+     "values": [
+      "Heshima: mwanafunzi anapoheshimu maoni ya wenzake katika shughuli za kikundi. Pia anapoheshimu zamu ya wenzake katika mazungumzo.",
+      "Upendo: mwanafunzi anapowasikiliza wasemaji kwa makini. Pia anapowapa wanafunzi wenzake zamu ya kuzungumza.",
+      "Uwajibikaji: mwanafunzi anapotunza vifaa vya kidijitali anavyotumia katika mazungumzo.",
+      "Umoja: mwanafunzi anaposhiriki katika shughuli ya kikundi."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade7-kiswahili.pdf#p74"
+    },
+    {
+     "kicd_code": "8.1.1",
+     "name": "Kuzungumza ili Kupasha Habari",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "kueleza maana ya kuzungumza ili kupasha habari ili kutofautisha na aina nyingine za uzungumzaji",
+      "kutambua aina za uzungumzaji wa kupasha habari",
+      "kujadili vipengele vya kuzingatia katika kuzungumza ili kupasha habari",
+      "kupasha habari kwa kutumia vipengele vifaavyo",
+      "kuchangamkia kupasha habari mbalimbali ili kufanikisha mawasiliano."
+     ],
+     "learning_experiences": [
+      "kueleza maana ya kuzungumza ili kupasha habari",
+      "kujadili na wenzake aina za uzungumzaji wa kupasha habari katika jamii yake",
+      "kusikiliza aina mbalimbali za uzungumzaji kutoka kwa mwalimu, mgeni mwalikwa, wanafunzi wenzake au vifaa vya kidijitali",
+      "kutambua uzungumzaji wa kupasha habari kutoka kwenye aina za uzungumzaji alizosikiliza",
+      "kujadili vipengele vya kuzingatia katika kuzungumza ili kupasha habari",
+      "kusikiliza uzungumzaji wa kupasha habari ukitolewa na",
+      "mwalimu, mgeni mwalikwa au katika vifaa vya kidijitali na kutathmini kama umetumia vipengele vifaavyo vya kuzungumza ili kupasha habari",
+      "kushiriki katika uzungumzaji wa kupasha habari kuhusu suala lengwa akitumia vipengele vifaavyo vya mazungumzo ya kupasha habari",
+      "kushiriki katika mazungumzo na mzazi au mlezi wake kuhusu suala lengwa huku akitumia vipengele vifaavyo vya kupasha habari."
+     ],
+     "inquiry_questions": [
+      "1. Je, uzungumzaji wa kupasha habari hutolewa katika miktadha gani ya jamii yako?",
+      "2. Je, utatumia mikakati gani ili kuwapasha wanajamii habari kuhusu mambo mbalimbali?"
+     ],
+     "core_competencies": [
+      "Mawasiliano na ushirikiano: mwanafunzi anaposhiriki katika kikundi kujadili aina za uzungumzaji wa kupasha habari katika jamii yake. Pia anapowaeleza wenzake kuhusu vipengele vya kuzingatia ili kufanikisha mawasiliano.",
+      "Kujiamini: mwanafunzi anaposhiriki katika uzungumzaji ili kupasha habari kuhusu suala lengwa.",
+      "Hamu ya ujifunzaji: mwanafunzi anaposhiriki na mzazi au mlezi wake katika uzungumzaji ili kupasha habari kuhusu suala lengwa."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade7-kiswahili.pdf#p83"
+    },
+    {
+     "kicd_code": "9.1.1",
+     "name": "Kusikiliza kwa Kina Sauti: /d/ na /nd/",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "kutambua sauti /d/ na /nd/ katika silabi na maneno",
+      "kutamka sauti /d/ na /nd/ ipasavyo ili kuzitofautisha kimatamshi katika silabi na maneno",
+      "kuchangamkia matamshi bora ya sauti /d/ na /nd/ katika mazungumzo ya kawaida ili kufanikisha mawasiliano."
+     ],
+     "learning_experiences": [
+      "kutambua sauti /d/ na /nd/ katika silabi na maneno (k.v. doa/ndoa; duni/nduni; dugu/ndugu)",
+      "kutafuta maneno yenye sauti /d/ na /nd/ katika matini andishi na za kidijitali na kuyatamka ipasavyo",
+      "kusikiliza wenzake wakitamka maneno yenye sauti /d/ na /nd/ na kuwatolea maoni kwa heshima",
+      "kutunga vitanzandimi vinavyotumia sauti /d/ na /nd/ na kujirekodi kwa kutumia kifaa cha kidijitali",
+      "kusikiliza vitanzandimi alivyovirekodi ili kuvitathmini",
+      "kusikiliza vitanzandimi vinavyotumia sauti /d/ na /nd/ katika kifaa cha kidijitali",
+      "kuhakiki matamshi ya sauti /d/ na /nd/ kama zilivyotumiwa katika vitanzandimi alivyovisikiliza",
+      "kushiriki mazungumzo na mzazi au mlezi wake kwa kuzingatia matamshi bora ya sauti /d/na /nd/."
+     ],
+     "inquiry_questions": [
+      "Ni maneno yepi unayoyajua yaliyo na sauti /d/ na /nd/?"
+     ],
+     "core_competencies": [
+      "Mawasiliano na ushirikiano: mwanafunzi anaposhiriki katika mazungumzo na kutamka sauti /d/ na /nd/ ipasavyo.",
+      "Ujuzi wa kidijitali: mwanafunzi anapotumia vifaa vya kidijitali katika kusikiliza vitanzandimi vyenye sauti lengwa.",
+      "Ubunifu: mwanafunzi anapotafuta maneno yenye sauti lengwa na kuyatamka ipasavyo.",
+      "Kujiamini: mwanafunzi anapotamka ipasavyo sauti lengwa na anapochangia katika kazi ya kikundi.",
+      "Hamu ya ujifunzaji: mwanafunzi anaposhiriki mazungumzo na mzazi au mlezi kwa kuzingatia matamshi bora ya sauti lengwa."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade7-kiswahili.pdf#p94"
+    },
+    {
+     "kicd_code": "10.1.1",
+     "name": "Nyimbo",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "kueleza maana ya nyimbo za kazi na za dini ili kuzibainisha",
+      "kutambua mazingira ambapo nyimbo za kazi na za dini huimbwa",
+      "kueleza ujumbe katika nyimbo za kazi na za dini",
+      "kuwasilisha nyimbo za kazi na za dini kwa kuzingatia hisia na ishara za mwili",
+      "kuchangamkia nyimbo za kazi na za dini kama vipera vya fasihi simulizi."
+     ],
+     "learning_experiences": [
+      "kusikiliza kielelezo cha wimbo wa kazi na wa dini kutoka kwa mwalimu, mgeni mwalikwa au kifaa cha kidijitali",
+      "kueleza maana ya nyimbo za kazi na za dini ili kuzibainisha",
+      "kutambua mazingira ambapo nyimbo za kazi na za dini huimbwa",
+      "kueleza ujumbe katika nyimbo za kazi na za dini",
+      "kuwasilisha nyimbo za kazi na za dini kuzingatia hisia na ishara",
+      "kujirekodi akiimba nyimbo za kazi na za dini kwa kutumia vifaa vya kidijitali na kusikiliza akiwa na wenzake."
+     ],
+     "inquiry_questions": [
+      "1. Je, unajua nyimbo zipi katika jamii yako?",
+      "2. Je, nyimbo za kazi na za dini zinatofautianaje?"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade7-kiswahili.pdf#p104"
+    },
+    {
+     "kicd_code": "11.1.1",
+     "name": "Kuzungumza kwa Kuambatanisha na Vitendo/Ishara",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "kueleza maana ya kuzungumza kwa kuambatani-sha na vitendo au ishara",
+      "kutambua umuhimu wa kuzungumza kwa kuambatanisha na vitendo au ishara",
+      "kujadili vitendo au ishara vya kuambatanisha na mazungumzo",
+      "kutoa mazungumzo kwa kuyaambatanisha na vitendo au ishara zifaazo",
+      "kujenga mazoea ya kuzungumza kwa kuambatanisha na vitendo au ishara ili kufanikisha mawasiliano."
+     ],
+     "learning_experiences": [
+      "kueleza maana ya kuzungumza kwa kuambatanisha na vitendo",
+      "kutambua umuhimu wa kuzungumza kwa kuambatanisha na vitendo au ishara (k.v. kumwelekeza mtu njia na kueleza jinsi ya kutayarisha chakula)",
+      "kuigiza jinsi ya kuzungumza kwa kuambatanisha na vitendo",
+      "kushiriki na wenzake katika kikundi kusikiliza au kutazama mazungumzo",
+      "yanayoambatanisha vitendo au ishara kutoka kwa mwalimu, mgeni mwalikwa au kwenye vifaa vya kidijitali",
+      "kujadili vitendo au ishara za kuambatanisha na mazungumzo",
+      "kusikiliza au kutazama mazungumzo yanayoambatana na vitendo au ishara kuhusu suala lengwa na kubainisha vipengele vya kuzungumza kwa aina hii vilivyozingatiwa",
+      "kuwasilisha mazungumzo yanayoambatana na vitendo au ishara kuhusu suala lengwa",
+      "kwa kuzingatia vitendo au ishara zifaazo",
+      "kushiriki na mzazi au mlezi wake katika kuzungumza kwa kuambatanisha na vitendo au ishara kuhusu suala lengwa."
+     ],
+     "inquiry_questions": [
+      "1. Ni vitendo gani tunatumia tunapozungumza?",
+      "2. Kuna umuhimu gani wa kutumia vitendo tunapozungumza?"
+     ],
+     "core_competencies": [
+      "Mawasiliano na ushirikiano: mwanafunzi anapotumia lugha nyepesi kuwaelimisha wenzake kuhusu majukumu ya watoto huku akiambatanisha na vitendo au ishara.",
+      "Uwazaji kina na utatuzi wa matatizo: mwanafunzi anaposhiriki katika kuzungumza kwa kuambatanisha na vitendo na kufafanua namna ya kutekeleza jambo fulani.",
+      "Ubunifu: mwanafunzi anapowasilisha mazungumzo kuhusu suala lengwa kwa kutumia mbinu zifaazo za kufanikisha mazungumzo.",
+      "Kujiamini: mwanafunzi anapojadili na wenzake vipengele vya kuzingatia katika kuzungumza na kuambatanisha na vitendo katika kikundi."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade7-kiswahili.pdf#p112"
+    },
+    {
+     "kicd_code": "12.1.1",
+     "name": "Kusikiliza kwa Makini",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "kutambua hoja muhimu katika habari aliyosikiliza",
+      "kuwasilisha hoja muhimu katika habari",
+      "kujenga mazoea ya kutambua hoja katika habari anayosikiliza ili kuimarisha usikilizaji wa makini."
+     ],
+     "learning_experiences": [
+      "kutambua hoja muhimu katika habari aliyosikiliza kuhusu suala lengwa",
+      "kusikiliza habari kuhusu suala lengwa na kutaja hoja muhimu kwa maneno machache",
+      "kutafiti mtandaoni kuhusu suala lengwa na kuwawasilishia wenzake hoja muhimu kuhusu suala hilo kwa maneno machache",
+      "kumsomea mzazi au mlezi habari kuhusu suala lengwa na kushirikiana kutambua hoja muhimu."
+     ],
+     "inquiry_questions": [
+      "Kwa nini ni muhimu kutambua hoja katika habari uliyosikiliza?"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade7-kiswahili.pdf#p122"
+    },
+    {
+     "kicd_code": "13.1.1",
+     "name": "Wahusika katika Nyimbo",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "kutambua wahusika katika wimbo",
+      "kuchambua wahusika katika wimbo",
+      "kueleza mafunzo kutokana na wahusika katika wimbo",
+      "kufurahia kushiriki katika uchanganuzi wa wahusika katika nyimbo."
+     ],
+     "learning_experiences": [
+      "kusikiliza wimbo na kutambua wahusika katika wimbo huo (k.v. mwimbaji, hadhira lengwa na wahusika wengine kwenye wimbo)",
+      "kuchambua wahusika katika wimbo aliousikiliza",
+      "kusikiliza na kuimba wimbo katika vifaa vya kidijitali kuhusu suala lengwa akiwa na wenzake huku akichukua nafasi mbalimbali (k.v. mwimbaji au hadhira)",
+      "kusikiliza wimbo katika vifaa vya kidijitali na kueleza mafunzo kutokana na wahusika katika wimbo huo",
+      "kutunga wimbo kuhusu mada lengwa na kuwawasilishia",
+      "wenzake ili kuchanganua wahusika",
+      "kushirikiana na mzazi au mlezi kuchanganua wahusika katika nyimbo mbalimbali kutoka kwa jamii yake."
+     ],
+     "inquiry_questions": [
+      "Je, wahusika katika wimbo wana majukumu gani?"
+     ],
+     "core_competencies": [
+      "Mawasiliano na ushirikiano: mwanafunzi anaposhirikiana na wenzake katika kikundi na kuchambua wahusika kwa njia wazi akiwa na wenzake.",
+      "Ujuzi wa kidijitali: mwanafunzi anapotumia vifaa vya kidijitali kusikilizia nyimbo.",
+      "Ubunifu: mwanafunzi anapotunga wimbo kuhusu suala lengwa na kuwawasilishia wenzake.",
+      "Uwazaji kina na utatuzi wa matatizo: mwanafunzi anapochanganua wahusika na nafasi zao katika wimbo.",
+      "Kujiamini: mwanafunzi anapowawasilishia wenzake wimbo alioutunga."
+     ],
+     "values": [
+      "Heshima: mwanafunzi anapoheshimu maoni ya wenzake katika kazi ya kikundi.",
+      "Upendo: mwanafunzi anaposhiriki katika shughuli za ujifunzaji darasani na katika kikundi.",
+      "Uwajibikaji: mwanafunzi anapojitolea kuchukua nafasi mbalimbali katika shughuli za kikundi na kutunza vifaa vya kidijitali anavyotumia.",
+      "Umoja: mwanafunzi anaposhirikiana na wenzake katika shughuli za kikundi."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade7-kiswahili.pdf#p131"
+    },
+    {
+     "kicd_code": "14.1.1",
+     "name": "Lugha katika Nyimbo",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "kutambua vipengele vya lugha vinavyotumika katika nyimbo",
+      "kujadili umuhimu wa vipengele vya lugha vinavyotumika katika nyimbo teule",
+      "kuonea fahari uchanganuzi wa lugha katika nyimbo kama utungo wa fasihi simulizi."
+     ],
+     "learning_experiences": [
+      "kutambua vipengele vya lugha kwa kusikiliza nyimbo kuhusu suala lengwa kutoka kwa mwalimu, kwenye maandishi (k.v. vitabu na chati) au vifaa vya kidijitali",
+      "kujadili umuhimu wa vipengele vya lugha vilivyotumika katika nyimbo alizozisikiliza",
+      "kutunga wimbo unaohusiana na suala lengwa akizingatia vipengele vya lugha katika nyimbo",
+      "kushirikiana na mzazi au mlezi wake kusikiliza nyimbo katika jamii yake na kutambua vipengele vya lugha katika nyimbo."
+     ],
+     "inquiry_questions": [
+      "1. Nyimbo hutumia vipengele gani vya lugha?",
+      "2. Kutumia vipengele mbalimbali vya lugha katika wimbo kuna umuhimu gani?"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade7-kiswahili.pdf#p140"
+    },
+    {
+     "kicd_code": "15.1.1",
+     "name": "Kusikiliza Habari na Kujibu",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "kutambua masuala katika matini aliyosikiliza",
+      "kutambua msamiati wa suala lengwa katika matini aliyosikiliza",
+      "kutabiri yatakayotokea katika matini kutokana na vidokezo alivyosikia katika habari",
+      "kueleza maana za msamiati wa suala lengwa kama ulivyotumiwa katika matini aliyosikiliza",
+      "kuchangamkia kushiriki katika kusikiliza kwa",
+      "ufahamu ili kukuza stadi ya kusikiliza."
+     ],
+     "learning_experiences": [
+      "kutambua masuala yanayoshughulikiwa katika matini kuhusu suala lengwa",
+      "kutambua msamiati wa suala lengwa uliotumiwa katika matini alizosikiliza kutoka kwenye kifaa cha kidijitali, mwalimu au mgeni mwalikwa",
+      "kutabiri kitakachotokea au atakachofanya mhusika kutoka kwenye matini aliyosikiliza kwa kuzingatia vidokezo (k.v. anwani na picha) anavyopatana navyo katika usikilizaji",
+      "kueleza maana za msamiati wa suala lengwa kama ulivyotumiwa katika matini aliyosikiliza",
+      "kusikiliza matini kuhusu suala lengwa kutoka kwa mwalimu au mgeni mwalikwa na kufasiri wazo kuu katika habari hiyo",
+      "kusikiliza habari kwenye vifaa vya kidijitali (k.v. kinasasauti) kuhusu suala lengwa na kutaja masuala yanayoshughulikiwa",
+      "kushirikiana na mzazi au mlezi kutafiti kwenye tovuti salama kuhusu maadili ya mtu binafsi na kutambua suala kuu au masuala makuu katika matini."
+     ],
+     "inquiry_questions": [
+      "Je, ni mambo gani yanayokuelekeza kufasiri suala muhimu katika habari unayosikiliza?"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade7-kiswahili.pdf#p150"
+    }
+   ]
+  },
+  {
+   "strand": "Kusoma",
+   "strand_code": "1.2",
+   "assessment_rubric": [],
+   "substrands": [
+    {
+     "kicd_code": "1.2.1",
+     "name": "Kusoma kwa Ufahamu Kifungu cha simulizi",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "kudondoa habari mahususi katika kifungu cha simulizi",
+      "kupanga matukio yanavyofuatana katika kifungu cha simulizi",
+      "kufanya utabiri na ufasiri kutokana na kifungu cha simulizi",
+      "kueleza msamiati katika kifungu cha simulizi",
+      "kuchangamkia kusoma vifungu",
+      "vya simulizi ili kukuza uelewa wa habari."
+     ],
+     "learning_experiences": [
+      "kusoma kifungu cha simulizi kwenye kitabu au kifaa cha kidijitali",
+      "kudondoa habari mahususi (k.v. nani, nini, wapi, lini) katika kifungu cha simulizi",
+      "kupanga matukio yanavyofuatana katika kifungu cha simulizi",
+      "kufanya utabiri na ufasiri kutokana na kifungu cha simulizi alichosoma",
+      "kueleza msamiati (k.v. maneno na nahau) katika kifungu cha simulizi na kuueleza kwa kutumia kamusi",
+      "kusoma vifungu vya simulizi mtandaoni au kwenye vitabu kuhusu suala lengwa (usafi wa kibinafsi) kisha atambue na kueleza maana za msamiati huo",
+      "kulingana na muktadha wa matumizi",
+      "kumsomea mzazi au mlezi sentensi kuhusu usafi wa kibinafsi kisha kumuelezea maana za msamiati wa suala husika kimuktadha."
+     ],
+     "inquiry_questions": [
+      "1. Kwa nini tunasoma ufahamu?",
+      "2. Je, ni mambo gani yanayoweza kukusaidia kuelewa kifungu cha simulizi?"
+     ],
+     "core_competencies": [
+      "Mawasiliano na ushirikiano: mwanafunzi anaposhirikiana na wenzake katika shughuli za kudondoa habari mahususi.",
+      "Uwazaji kina na utatuzi wa matatizo: mwanafunzi anapobashiri na kufasiri kutokana na kifungu cha ufahamu.",
+      "Ujuzi wa kidijitali: mwanafunzi anaposakura mtandaoni na kusoma vifungu kuhusu suala lengwa."
+     ],
+     "values": [
+      "Heshima: mwanafunzi anapoheshimu maoni ya wenzake katika shughuli za ujifunzaji.",
+      "Upendo: mwanafunzi anapowapa wenzake nafasi ya kushiriki katika shughuli za ujifunzaji katika kikundi.",
+      "Umoja: mwanafunzi anaposhiriki na kuchangia katika shughuli za ujifunzaji akiwa na wenzake."
+     ],
+     "pertinent_issues": [
+      "Usafi wa kibinafsi: mwanafunzi anaposoma matini kuhusu suala lengwa na kuzingatia ujumbe."
+     ],
+     "links_to_other_areas": [
+      "Mwanafunzi anaweza kuhusisha stadi ya kusoma kifungu cha simulizi na ujifunzaji wa stadi hiyo katika somo la English.",
+      "Mwanafunzi anaweza kuhusisha suala la usafi wa kibinafsi na yale amejifunza kuhusu suala hilo katika somo la Integrated Science na Agriculture."
+     ],
+     "resources": [],
+     "kicd_source": "grade7-kiswahili.pdf#p20"
+    },
+    {
+     "kicd_code": "2.2.1",
+     "name": "Kusoma kwa Mapana Matini ya kujichagulia",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "kueleza ujumbe wa matini aliyosoma",
+      "kutambua msamiati uliotumiwa katika matini ya kujichagulia",
+      "kutumia ipasavyo msamiati uliotumiwa katika matini aliyosoma",
+      "kujenga mazoea ya kusoma matini za miktadha mbalimbali ili kupanua mawanda ya fikra."
+     ],
+     "learning_experiences": [
+      "kueleza ujumbe wa matini aliyoisoma (andishi au ya kidijitali)",
+      "kurekodi ujumbe wa matini aliyoisoma katika kijitabu chake kwa marejeleo ya baadaye",
+      "kutambua msamiati uliotumiwa katika matini ya kujichagulia",
+      "kutumia kamusi kutafuta maana za maneno asiyoyajua",
+      "kujenga rekodi ya msamiati aliojifunza katika kitabu",
+      "kutunga sentensi akitumia msamiati katika matini aliyoisoma",
+      "kusakura mtandaoni na kujichagulia matini ya ziada kisha aisome na kumweleza mzazi au mlezi wake ujumbe wa matini hiyo."
+     ],
+     "inquiry_questions": [
+      "1. Unapenda kusoma matini za aina gani?",
+      "2. Unazingatia nini unapochagua matini ya kujisomea?"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade7-kiswahili.pdf#p29"
+    },
+    {
+     "kicd_code": "3.2.1",
+     "name": "Kusoma kwa Kina Novela",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "kueleza maana ya novela ili kuipambanua",
+      "kujadili sifa za novela kama utanzu wa fasihi andishi",
+      "kuchangamkia usomaji wa novela ili kukuza stadi ya kusoma."
+     ],
+     "learning_experiences": [
+      "kutafiti na kueleza maana ya novela",
+      "kutafiti maktabani au mtandaoni kuhusu sifa za novela (k.v. wahusika wachache na maudhui machache)",
+      "kuwasilisha utafiti wake darasani ili wenzake wamtolee maoni",
+      "kusoma novela iliyoteuliwa na mwalimu na kutambua sifa zake",
+      "kumsomea mzazi au mlezi sifa za novela aliyosoma."
+     ],
+     "inquiry_questions": [
+      "Unawezaje kutofautisha novela na tungo nyingine za fasihi andishi?"
+     ],
+     "core_competencies": [
+      "Mawasiliano na ushirikiano: mwanafunzi anapochangia katika shughuli za kikundi kwa kutumia lugha fasaha.",
+      "Hamu ya ujifunzaji: mwanafunzi anapofanya utafiti maktabani au mtandaoni kuhusu maana na sifa za novela. Pia anaposoma tafiti za wenzake na kuzitolea maoni.",
+      "Kujiamini: mwanafunzi anapowawasilishia wenzake utafiti wake kuhusu sifa za novela."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade7-kiswahili.pdf#p37"
+    },
+    {
+     "kicd_code": "4.2.1",
+     "name": "Kusoma kwa Ufasaha",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "kusoma kifungu kwa kuzingatia matamshi bora",
+      "kusoma kifungu kwa kasi ifaayo",
+      "kusoma kifungu kwa kutumia sauti ipasavyo",
+      "kusoma kifungu kwa kuambatanisha ishara zifaazo",
+      "kuridhia kusoma makala kwa kuzingatia vipengele vinavyofanikisha mawasiliano."
+     ],
+     "learning_experiences": [
+      "kujadiliana na wenzake vipengele vya kuzingatia katika kusoma makala kwa ufasaha",
+      "kutazama vielelezo vya video za watu wanaosoma makala (k.v. hotuba na habari) kwa ufasaha",
+      "kusoma kifungu kuhusu suala lengwa katika matini andishi au ya kidijitali akizingatia matamshi bora",
+      "kusoma kifungu kuhusu suala lengwa kwa kuzingatia kasi ifaayo (maneno sahihi yasiyopungua 90 kwa dakika)",
+      "kusoma kifungu akizingatia sauti ifaayo (k.v. kiwango cha sauti na kiimbo)",
+      "kusoma kifungu kwa kuambatanisha ishara zifaazo panapofaa (k.v. ishara za uso na mikono)",
+      "kusoma mbele ya wenzake kazi yake ili wamtolee maoni",
+      "kumsomea mzazi au mlezi makala akizingatia vipengele vya usomaji bora."
+     ],
+     "inquiry_questions": [
+      "Unazingatia nini ili kusoma makala kwa ufasaha?"
+     ],
+     "core_competencies": [
+      "Mawasiliano na ushirikiano: mwanafunzi anapofanikiwa kusoma makala kwa ufasaha na anapojadiliana na wenzake katika kikundi kuhusu vipengele vya kimsingi vya kusoma kwa ufasaha.",
+      "Kujiamini: mwanafunzi anaposoma kifungu kwa ufasaha.",
+      "Ubunifu: mwanafunzi anapotumia ishara zifaazo wakati wa kusoma kifungu.",
+      "Hamu ya ujifunzaji: mwanafunzi anaposhiriki katika shughuli ya kusoma anakuza hamu ya ujifunzaji."
+     ],
+     "values": [
+      "Heshima: mwanafunzi anapoheshimu maoni ya wenzake katika kazi ya kikundi wanapojadili vipengele vya usomaji bora.",
+      "Upendo: mwanafunzi anapowapa wenzake nafasi ya kushiriki katika mjadala wakati wa shughuli ya ujifunzaji katika kikundi.",
+      "Uwajibikaji: mwanafunzi anapojitolea kuwasomea wenzake kifungu.",
+      "Umoja: mwanafunzi anapotangamana na wenzake katika kikundi kujadili vipengele vya usomaji bora."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade7-kiswahili.pdf#p46"
+    },
+    {
+     "kicd_code": "5.2.1",
+     "name": "Kusoma kwa Ufahamu",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "kudondoa habari mahususi katika kifungu cha ufahamu",
+      "kueleza habari za kifungu cha ufahamu kwa ufupi",
+      "kueleza maana ya msamiati kulingana na muktadha wa kifungu cha ufahamu",
+      "kuchangamkia kusoma kwa ufahamu ili kukuza uelewa wa habari."
+     ],
+     "learning_experiences": [
+      "kudondoa habari mahususi (k.v. nani, nini, wapi, lini) katika kifungu cha ufahamu",
+      "kutambua msamiati wa suala lengwa katika kifungu cha ufahamu na kuueleza kwa kutumia kamusi",
+      "kuandika habari za kifungu cha ufahamu kwa ufupi",
+      "kuwawasilishia wenzake kazi yake ili wamtolee maoni",
+      "kumsomea mzazi au mlezi kifungu cha ufahamu na kisha kujibu maswali."
+     ],
+     "inquiry_questions": [
+      "Unazingatia nini unapodondoa habari mahususi katika kifungu cha ufahamu?"
+     ],
+     "core_competencies": [
+      "Mawasiliano na ushirikiano: mwanafunzi anaposhirikiana na wenzake kusoma kifungu.",
+      "Kujiamini: mwanafunzi anapofaulu kusoma na kudondoa habari katika kifungu.",
+      "Ubunifu: mwanafunzi anaposoma kwa ufasaha na kubainisha ujumbe katika kifungu na kukiandika kwa ufupi.",
+      "Hamu ya ujifunzaji: mwanafunzi anaposakura na kusoma makala mbalimbali ya suala lengwa."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade7-kiswahili.pdf#p57"
+    },
+    {
+     "kicd_code": "6.2.1",
+     "name": "Kusoma kwa Kina Novela",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "kueleza dhana za maudhui na dhamira katika fasihi",
+      "kujadili maudhui katika novela",
+      "kujadili dhamira katika novela",
+      "kutoa muhtasari wa dhamira na maudhui kuhusu novela",
+      "kujenga mazoea ya usomaji wa kazi za fasihi katika maisha ya kila siku."
+     ],
+     "learning_experiences": [
+      "kueleza maana ya maudhui katika fasihi",
+      "kutambua maudhui mbalimbali katika novela iliyoteuliwa na mwalimu",
+      "kujadili maudhui ya novela iliyoteuliwa na mwalimu",
+      "kuwawasilishia wenzake darasani uchambuzi wake kuhusu maudhui ili waitolee maoni",
+      "kuandika maelezo mafupi kuhusu maudhui katika novela aliyosoma",
+      "kushirikiana na mzazi au mlezi kusoma chapisho la novela au kutoka mtandaoni na kutambua ujumbe wake",
+      "kueleza maana ya dhamira katika fasihi",
+      "kutambua dhamira ya novela iliyoteuliwa na mwalimu",
+      "kuandika maelezo mafupi kuhusu dhamira ya novela iliyoteuliwa na mwalimu",
+      "kuwawasilishia wenzake darasani uchambuzi wake kuhusu dhamira",
+      "kumsomea mzazi au mlezi novela iliyochapishwa au kutoka mtandaoni na kutambua dhamira yake."
+     ],
+     "inquiry_questions": [
+      "Vitabu vya fasihi ulivyowahi kusoma vinazungumzia nini?"
+     ],
+     "core_competencies": [
+      "Mawasiliano na ushirikiano: mwanafunzi anaposhiriki katika shughuli za ujifunzaji kuhusu maudhui na dhamira kwenye novela akiwa na wenzake.",
+      "Kujiamini: mwanafunzi anapowawasilishia wenzake ufupisho wa maudhui na dhamira ili waujadili na kutoa maoni.",
+      "Hamu ya ujifunzaji: mwanafunzi anapochambua maudhui na dhamira katika novela na kushirikiana na mzazi au mlezi katika uchambuzi."
+     ],
+     "values": [
+      "Heshima: mwanafunzi anapoheshimu maoni ya wenzake wanapotambua na kujadili maudhui na dhamira kwenye novela katika kikundi.",
+      "Upendo: mwanafunzi anapotoa maoni kuhusu uwasilishaji wa wengine ili kuwarekebisha na kuwahimiza.",
+      "Umoja: mwanafunzi anapotagusana na wengine katika kikundi ili kutambua na kujadili maudhui na dhamira kwenye novela."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade7-kiswahili.pdf#p67"
+    },
+    {
+     "kicd_code": "7.2.1",
+     "name": "Ufupisho",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "kueleza maana ya ufupisho ili kuupambanua",
+      "kutambua habari kuu za aya na kuzieleza kwa usahihi katika sentensi moja",
+      "kufupisha kifungu akizingatia mpangilio ufaao wa habari kutokana na matini",
+      "kufurahia kufupisha habari kwa usahihi katika mawasiliano ya kila siku."
+     ],
+     "learning_experiences": [
+      "kueleza maana ya ufupisho",
+      "kusoma kifungu kuhusu suala lengwa katika matini andishi au ya kidijitali",
+      "kutambua kwenye matini andishi au ya kidijitali habari kuu za aya na kuzieleza kwa usahihi kwa kuzingatia mtazamo wa matini katika matini ya kufupishwa",
+      "kufupisha kifungu alichosoma kwa kuzingatia mpangilio ufaao wa habari sahihi kutokana na matini",
+      "kuwawasilishia wenzake kazi yake ili waitolee maoni."
+     ],
+     "inquiry_questions": [
+      "Unazingatia nini unapofupisha kifungu?"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade7-kiswahili.pdf#p77"
+    },
+    {
+     "kicd_code": "8.2.1",
+     "name": "Kusoma kwa Kina Novela",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "kueleza maana ya mandhari na ploti katika fasihi",
+      "kutambua mandhari mbalimbali na ploti ya novela",
+      "kueleza umuhimu wa mandhari na ploti ya novela",
+      "kuandika maelezo mafupi kuhusu mandhari na ploti ya novela aliyosoma",
+      "kuchangamkia nafasi ya mandhari na ploti katika kazi ya fasihi."
+     ],
+     "learning_experiences": [
+      "kueleza maana ya mandhari katika fasihi",
+      "kutambua mandhari mbalimbali katika novela iliyoteuliwa na mwalimu",
+      "kujadili umuhimu wa mandhari ya novela iliyoteuliwa na mwalimu",
+      "kuwawasilishia wenzake darasani uchambuzi wake kuhusu mandhari",
+      "kuandika maelezo mafupi kuhusu mandhari ya novela iliyoteuliwa na mwalimu",
+      "kueleza maana ya ploti katika fasihi",
+      "kutambua ploti ya novela iliyoteuliwa na mwalimu",
+      "kujadili umuhimu wa ploti ya novela iliyoteuliwa na",
+      "mwalimu akishirikiana na wenzake",
+      "kuandika maelezo mafupi kuhusu ploti ya novela iliyoteuliwa na mwalimu",
+      "kuwawasilishia wenzake darasani uchambuzi wake kuhusu ploti",
+      "kumsomea mzazi au mlezi novela iliyochapishwa au kutoka mtandaoni na kutambua mandhari na ploti yake."
+     ],
+     "inquiry_questions": [
+      "1. Ni mandhari gani unayokumbuka yaliyo katika kazi za fasihi ulizowahi kusoma?",
+      "2. Ploti ya hadithi ina vipengele gani?"
+     ],
+     "core_competencies": [
+      "Mawasiliano na ushirikiano: mwanafunzi anapotambua na kujadili mandhari na ploti katika novela akiwa na wenzake katika kikundi.",
+      "Kujiamini: mwanafunzi anapowasilisha kazi yake darasani.",
+      "Ubunifu: mwanafunzi anapochanganua habari katika novela ili kupata mandhari na ploti.",
+      "Uwazaji kina: mwanafunzi anapoeleza umuhimu wa mandhari na ploti katika novela.",
+      "Hamu ya ujifunzaji: mwanafunzi anapotafiti na kujiandaa ili awawasilishie wenzake muhtasari wa mandhari na ploti."
+     ],
+     "values": [
+      "• Heshima: mwanafunzi anapoheshimu maoni ya wenzake wanapotambua na kujadili mandhari na ploti kwenye novela katika kikundi."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade7-kiswahili.pdf#p86"
+    },
+    {
+     "kicd_code": "9.2.1",
+     "name": "Kusoma kwa Ufahamu Kifungu cha kushawishi",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "kudondoa habari mahususi katika kifungu cha ufahamu cha kushawishi",
+      "kueleza maana ya msamiati na vifungu vya maneno katika kifungu cha ufahamu cha kushawishi",
+      "kueleza habari za kifungu cha ufahamu cha kushawishi kwa ufupi",
+      "kuchangamkia usomaji wa kifungu cha ufahamu cha kushawishi ili kukuza uelewa wa habari."
+     ],
+     "learning_experiences": [
+      "kudondoa habari mahususi (k.v. nani, nini, wapi na lini) katika kifungu cha ufahamu cha kushawishi",
+      "kueleza maana ya msamiati kuhusu suala lengwa (k.v. maneno na nahau) katika kifungu cha ufahamu cha kushawishi na kuueleza kwa kutumia kamusi",
+      "kuandika habari za kifungu cha ufahamu cha kushawishi kwa ufupi",
+      "kuwawasilishia wenzake kazi yake ili wamtolee maoni",
+      "kumsomea mzazi au mlezi kifungu cha ufahamu cha kushawishi na kujibu maswali."
+     ],
+     "inquiry_questions": [
+      "Kifungu cha kushawishi kina sifa gani?"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade7-kiswahili.pdf#p97"
+    },
+    {
+     "kicd_code": "10.2.1",
+     "name": "Kusoma kwa Kina Novela Wahusika",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "kutambua wahusika katika novela",
+      "kujadili sifa za wahusika katika novela",
+      "kueleza uhusiano kati ya wahusika katika novela",
+      "kuandika muhtasari wa sifa za wahusika katika novela",
+      "kujadili mafunzo yanayotokana na matendo ya wahusika katika novela",
+      "kujenga mazoea ya usomaji wa kazi za kifasihi katika maisha ya kila siku."
+     ],
+     "learning_experiences": [
+      "kutambua wahusika katika novela iliyoteuliwa na mwalimu",
+      "kujadili sifa za wahusika katika novela iliyoteuliwa na mwalimu",
+      "kuigiza wahusika katika novela iliyoteuliwa na mwalimu ili kukuza uelewa wa sifa zao",
+      "kueleza uhusiano kati ya wahusika katika novela iliyoteuliwa na mwalimu",
+      "kutazama video kuhusu wahusika katika novela iliyoteuliwa na mwalimu",
+      "kuandaa muhtasari kuhusu sifa za wahusika katika video aliyotazama",
+      "kujadili mafunzo yanayotokana na matendo ya wahusika",
+      "kumsimulia mzazi au mlezi wake hadithi ya novela na kujadiliana kuhusu wahusika wawili."
+     ],
+     "inquiry_questions": [
+      "Ni mambo yapi yanayokuwezesha kuwaelewa wahusika katika novela?"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade7-kiswahili.pdf#p106"
+    },
+    {
+     "kicd_code": "11.2.1",
+     "name": "Kusoma kwa Mapana Matini ya kujichagulia",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "kueleza ujumbe wa matini ya kujichagulia",
+      "kutambua msamiati uliotumiwa katika matini ya kujichagulia",
+      "kutumia ipasavyo msamiati aliosoma katika matini ya kujichagulia",
+      "kutoa muhtasari wa matini ya kujichagulia aliyosoma",
+      "kujenga mazoea ya kusoma matini mbalimbali katika maisha ya kila siku."
+     ],
+     "learning_experiences": [
+      "kueleza ujumbe wa matini ya kujichagulia aliyosoma",
+      "kutambua msamiati uliotumiwa katika matini ya kujichagulia (andishi au ya kidijitali)",
+      "kutumia kamusi kutafuta maana za maneno asiyoyajua",
+      "kujenga rekodi ya msamiati aliojifunza katika kitabu",
+      "kutunga sentensi akitumia msamiati katika matini aliyoisoma na kuwasomea wenzake darasani",
+      "kutoa muhtasari wa matini ya kujichagulia aliyosoma na kuwasilisha kwa wenzake ili waitolee maoni",
+      "kusakura mtandaoni na kujichagulia matini ya ziada kisha aisome."
+     ],
+     "inquiry_questions": [
+      "1. Unapenda kusoma matini za aina gani?",
+      "2. Unazingatia nini unapochagua matini ya kujisomea?"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade7-kiswahili.pdf#p116"
+    },
+    {
+     "kicd_code": "12.2.1",
+     "name": "Kusoma kwa Ufasaha",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "kusoma kifungu kwa kuzingatia matamshi bora",
+      "kusoma kifungu kwa kasi ifaayo",
+      "kusoma kifungu kwa kutumia sauti ipasavyo",
+      "kusoma kifungu kwa kuambatanisha ishara zifaazo",
+      "kuridhia kusoma makala kwa kuzingatia vipengele vinavyofanikisha mawasiliano."
+     ],
+     "learning_experiences": [
+      "kujadiliana na wenzake vipengele vya kuzingatia katika kusoma makala kwa ufasaha",
+      "kutazama vielelezo vya video za watu wanaosoma makala kwa ufasaha (k.v. hotuba na habari)",
+      "kusoma kifungu kuhusu suala lengwa katika matini andishi au ya kidijitali akizingatia matamshi bora",
+      "kusoma kifungu kuhusu suala lengwa kwa kuzingatia kasi ifaayo (maneno sahihi yasiyopungua 95 kwa dakika)",
+      "kusoma kifungu akizingatia sauti ifaayo (k.v. kiwango cha sauti na kiimbo)",
+      "kusoma kifungu kwa kuambatanisha ishara zifaazo panapofaa (k.v. ishara za uso na mikono)",
+      "kusoma mbele ya wenzake kazi yake ili wamtolee maoni",
+      "kumsomea mzazi au mlezi makala akizingatia vipengele vya usomaji bora."
+     ],
+     "inquiry_questions": [
+      "Unazingatia nini ili kusoma makala kwa ufasaha?"
+     ],
+     "core_competencies": [
+      "Mawasiliano na ushirikiano: mwanafunzi anapofanikiwa kusoma makala kwa ufasaha na anapojadiliana na wenzake katika kikundi kuhusu vipengele vya kimsingi vya kusoma kwa ufasaha.",
+      "Kujiamini: mwanafunzi anaposoma kifungu kwa ufasaha.",
+      "Ubunifu: mwanafunzi anapotumia ishara wakati wa kusoma kifungu.",
+      "Hamu ya ujifunzaji: mwanafunzi anaposhiriki katika shughuli ya kusoma anakuza hamu ya ujifunzaji."
+     ],
+     "values": [
+      "Heshima: mwanafunzi anapoheshimu maoni ya wenzake katika kazi ya kikundi wanapojadili vipengele vya usomaji bora.",
+      "Upendo: mwanafunzi anapowapa wenzake nafasi ya kushiriki katika mjadala wakati wa shughuli ya ujifunzaji katika kikundi.",
+      "Umoja: mwanafunzi anapotangamana na wenzake katika kikundi kujadili vipengele vya usomaji bora."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade7-kiswahili.pdf#p124"
+    },
+    {
+     "kicd_code": "13.2.1",
+     "name": "Kusoma kwa Kina Novela Mbinu za Lugha",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "kueleza maana ya mbinu za lugha katika fasihi",
+      "kutambua mbinu za lugha katika novela",
+      "kueleza umuhimu wa mbinu za lugha zilizotumiwa katika novela",
+      "kufurahia kuchanganua matumizi ya mbinu za lugha katika fasihi."
+     ],
+     "learning_experiences": [
+      "kueleza maana ya mbinu za lugha katika fasihi",
+      "kutambua mbinu za lugha (k.v. tashbihi, sitiari, nahau, methali, tasfida na tanakali za sauti) katika novela iliyoteuliwa na mwalimu",
+      "kueleza umuhimu wa mbinu za lugha zilizotumiwa katika novela iliyoteuliwa na mwalimu",
+      "kuhakiki uwasilishaji wa wenzake na kutoa maoni",
+      "kufanya utafiti maktabani au mtandaoni kuhusu matumizi ya mbinu za lugha katika novela",
+      "kumtajia mzazi au mlezi matumizi ya mbinu za lugha katika novela aliyosoma."
+     ],
+     "inquiry_questions": [
+      "Mbinu za lugha zina umuhimu gani zinapotumiwa katika kazi za fasihi?"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade7-kiswahili.pdf#p134"
+    },
+    {
+     "kicd_code": "14.2.1",
+     "name": "Kusoma kwa Ufahamu Kifungu cha mjadala",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "kudondoa habari mahususi katika kifungu cha mjadala",
+      "kutambua msamiati mpya katika kifungu cha mjadala",
+      "kuandika habari za kifungu cha mjadala kwa ufupi",
+      "kuchambua mitazamo katika kifungu cha mjadala",
+      "kuridhia kusoma kwa ufahamu ili kukuza uelewa wa habari."
+     ],
+     "learning_experiences": [
+      "kudondoa habari mahususi (k.v. nani, nini, wapi, lini) katika kifungu cha mjadala cha ufahamu",
+      "kutambua msamiati kuhusu suala lengwa katika kifungu cha mjadala na kuueleza kimuktadha au kwa kutumia kamusi",
+      "kuandika habari za kifungu cha ufahamu kwa ufupi",
+      "kuchambua mitazamo iliyo katika kifungu cha ufahamu cha mjadala",
+      "kuwawasilishia wenzake kazi yake ili wamtolee maoni",
+      "kutathmini kazi ya wenzake kwa upendo",
+      "• kumsomea mzazi au mlezi kifungu cha ufahamu na kujibu maswali."
+     ],
+     "inquiry_questions": [
+      "1. Kwa nini tunasoma ufahamu?",
+      "2. Je, ni mambo gani yanayoweza kukusaidia kuelewa kifungu cha ufahamu?"
+     ],
+     "core_competencies": [
+      "Mawasiliano na ushirikiano: mwanafunzi anapowasilisha kazi yake ya ufahamu kwa wenzake.",
+      "Kujiamini: mwanafunzi anapofaulu kukamilisha kikamilifu kazi yake ya ufahamu.",
+      "Hamu ya ujifunzaji: mwanafunzi anaposhiriki katika shughuli za ujifunzaji."
+     ],
+     "values": [
+      "Heshima: mwanafunzi anapoheshimu maoni ya wenzake katika kazi ya kikundi.",
+      "Upendo: mwanafunzi anapotathmini kazi ya wenzake kwa upendo.",
+      "Uwajibikaji: mwanafunzi anapojitolea kuchukua nafasi mbalimbali katika shughuli za kikundi.",
+      "Umoja: mwanafunzi anaposhiriki katika shughuli za kikundi."
+     ],
+     "pertinent_issues": [
+      "• Matumizi ya pesa: mwanafunzi anaposoma kifungu cha ufahamu kuhusu suala lengwa."
+     ],
+     "links_to_other_areas": [
+      "Mwanafunzi anaweza kuhusisha usomaji wa kifungu cha mjadala katika somo la Kiswahili na usomaji huo katika somo la English.",
+      "Mwanafunzi anaweza kuhusisha suala la matumizi ya pesa na yale amejifunza kuhusu suala hilo katika somo la Pre-Technical Studies, Mathematics na Religious Studies."
+     ],
+     "resources": [],
+     "kicd_source": "grade7-kiswahili.pdf#p142"
+    },
+    {
+     "kicd_code": "15.2.1",
+     "name": "Ufupisho",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "kueleza kwa usahihi ujumbe wa aya za matini kwa sentensi mojamoja",
+      "kueleza kwa usahihi ujumbe wa aya zote za matini kwa aya moja",
+      "kuandika ufupisho unaozingatia mtazamo wa matini ya kufupishwa",
+      "kufurahia kufupisha ujumbe kwa usahihi katika miktadha mbalimbali."
+     ],
+     "learning_experiences": [
+      "kueleza kwa usahihi ujumbe katika kila aya kwa kutumia sentensi mojamoja",
+      "kueleza kwa usahihi ujumbe wa aya zote za matini kwa aya moja",
+      "kujadili katika kikundi kuhusu jinsi ya kuandika ufupisho wa matini",
+      "kumsomea mzazi au mlezi kifungu na kuandika ufupisho kutoka mtandaoni au vitabuni na kutambua ujumbe wa aya za matini."
+     ],
+     "inquiry_questions": [
+      "Ni mambo gani yanayokusaidia kuandika ufupisho?"
+     ],
+     "core_competencies": [
+      "Mawasiliano na ushirikiano: mwanafunzi anapojadiliana na wenzake kuhusu ufupisho wa matini.",
+      "Ujuzi wa kidijitali: mwanafunzi anapotumia vifaa vya kidijitali kusoma kifungu.",
+      "Kujiamini: mwanafunzi anapofanya ufupisho wa matini katika kikundi.",
+      "Hamu ya ujifunzaji: mwanafunzi anaposoma kifungu kutoka mtandaoni na kukifupisha."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade7-kiswahili.pdf#p153"
+    }
+   ]
+  },
+  {
+   "strand": "Kuandika",
+   "strand_code": "1.3",
+   "assessment_rubric": [],
+   "substrands": [
+    {
+     "kicd_code": "1.3.1",
+     "name": "Viakifishi",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "kutambua herufi kubwa na kikomo katika matini",
+      "kueleza matumizi ya herufi kubwa na kikomo katika matini",
+      "kutumia herufi kubwa na kikomo ipasavyo katika matini",
+      "kuonea fahari matumizi ya herufi kubwa na kikomo katika matini ili kufanikisha mawasiliano."
+     ],
+     "learning_experiences": [
+      "kutambua herufi kubwa na kikomo katika maneno, sentensi au vifungu kwenye matini andishi au za kidijitali",
+      "kutafiti mtandaoni au kwenye vitabu vya ziada kuhusu matumizi ya herufi kubwa na kikomo katika maneno, sentensi na vifungu na kuandika daftarini mwake",
+      "kueleza matumizi ya herufi kubwa na kikomo katika maneno, sentensi na vifungu kwenye matini andishi au za kidijitali",
+      "kuandika maneno, sentensi au vifungu vifupi kuhusu suala lengwa kwa kutumia herufi kubwa na kikomo ipasavyo",
+      "kuwasomea wenzake au kuwasambazia kazi yake",
+      "kwenye mtandao ili waitolee maoni."
+     ],
+     "inquiry_questions": [
+      "Herufi kubwa na kikomo hutumika vipi katika maandishi?"
+     ],
+     "core_competencies": [
+      "Mawasiliano na ushirikiano: mwanafunzi anapowasomea wenzake kifungu kwa ufasaha na anaposhiriki katika mijadala na wanafunzi wenzake.",
+      "Ubunifu: mwanafunzi anapoandika vifungu vyenye matumizi yafaayo ya herufi kubwa na kikomo.",
+      "Hamu ya ujifunzaji: mwanafunzi anapotafiti mtandaoni kuhusu matumizi ya herufi kubwa na kikomo katika matini.",
+      "Uwazaji kina na utatuzi wa matatizo: mwanafunzi anapotumia herufi kubwa na kikomo katika kifungu alichokiandika."
+     ],
+     "values": [
+      "Heshima: mwanafunzi anapoheshimu maoni ya wenzake katika kazi ya kikundi.",
+      "Upendo: mwanafunzi anapowapa wenzake nafasi ya kushiriki katika shughuli za ujifunzaji darasani na katika kikundi.",
+      "Uwajibikaji: mwanafunzi anapojitolea kuchukua nafasi mbalimbali katika shughuli za kikundi."
+     ],
+     "pertinent_issues": [
+      "Usafi wa kibinafsi: mwanafunzi anapoandika kifungu kuhusu suala lengwa kwa kutumia herufi kubwa na kikomo ipasavyo."
+     ],
+     "links_to_other_areas": [
+      "Mwanafunzi anaweza kuhusisha dhana ya herufi kubwa na kikomo aliyojifunza katika somo la Kiswahili na yale amejifunza kuhusu dhana hiyo katika somo la English.",
+      "Mwanafunzi anaweza kuhusisha suala la usafi wa kibinafsi na yale amejifunza kuhusu suala hilo katika somo la Integrated Science na Agriculture."
+     ],
+     "resources": [],
+     "kicd_source": "grade7-kiswahili.pdf#p22"
+    },
+    {
+     "kicd_code": "2.3.1",
+     "name": "Barua ya Kirafiki ya Kutoa Mwaliko",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "kueleza umuhimu wa barua ya kirafiki ya kutoa mwaliko",
+      "kutambua ujumbe katika barua ya kirafiki ya kutoa mwaliko",
+      "kutambua vipengele vya kimuundo vya barua ya kirafiki ya kutoa mwaliko",
+      "kuandika barua ya kirafiki ya kutoa mwaliko kwa kuzingatia ujumbe, lugha na muundo ufaao",
+      "kufurahia uandishi wa barua ya kirafiki ya kutoa mwaliko ili kufanikisha mawasiliano."
+     ],
+     "learning_experiences": [
+      "kueleza umuhimu wa kuandika barua ya kirafiki ya kutoa mwaliko kuhusu masuala mbalimbali",
+      "kutambua ujumbe katika kielelezo cha barua ya kirafiki ya kutoa mwaliko",
+      "kujadili na wenzake vipengele vya kimuundo vya barua ya kirafiki ya kutoa mwaliko",
+      "kushiriki katika kujadili na wenzake kuhusu lugha inayofaa katika uandishi wa barua ya kirafiki ya kutoa mwaliko",
+      "kuandika barua ya kirafiki ya kutoa mwaliko kuhusu hafla fulani akizingatia ujumbe, lugha na muundo ufaao na kuwasomea",
+      "wenzake darasani ili waitathmini."
+     ],
+     "inquiry_questions": [
+      "1. Je, ni shughuli gani zinazoweza kukufanya uandike barua ya kirafiki ya kutoa mwaliko?",
+      "2. Je, ni mambo gani yanayotiliwa maanani katika kuandika barua ya kirafiki ya kutoa mwaliko?"
+     ],
+     "core_competencies": [
+      "Mawasiliano na ushirikiano: mwanafunzi anaposhirikiana na wenzake katika kujadili ujumbe, lugha na muundo wa barua ya kirafiki ya kutoa mwaliko na kuheshimu maoni ya wenzake. Pia anapowasomea wenzake barua aliyoandika.",
+      "Ubunifu: mwanafunzi anapoandika kwa mvuto barua ya kirafiki ya kutoa mwaliko kwa kuzingatia ujumbe, lugha na muundo ufaao.",
+      "Uwazaji kina na utatuzi wa matatizo: mwanafunzi anapopendekeza shughuli ambazo zinaweza kumfanya aandike barua ya kirafiki ya kutoa mwaliko. Pia anapoandika barua kuhusu masuala yanayoathiri jamii na kuwashirikisha wenzake katika kupendekeza suluhu."
+     ],
+     "values": [
+      "Upendo: mwanafunzi anapowapa wenzake nafasi ya kushiriki katika shughuli za ujifunzaji katika kikundi.",
+      "Umoja: mwanafunzi anaposhiriki na kuchangia katika shughuli za kikundi.",
+      "Amani: mwanafunzi anaposhirikiana na wenzake katika shughuli za kikundi kwa utulivu."
+     ],
+     "pertinent_issues": [
+      "Lishe bora: mwanafunzi anapoandika barua ya kirafiki ya kutoa mwaliko kuhusu suala lengwa."
+     ],
+     "links_to_other_areas": [
+      "Mwanafunzi anaweza kuhusisha uandishi wa barua ya kirafiki katika somo la Kiswahili na yale amejifunza kuhusu uandishi huo katika somo la English.",
+      "Mwanafunzi anaweza kuhusisha suala la lishe bora na yale amejifunza kuhusu suala hilo katika somo la Integrated Science na Agriculture."
+     ],
+     "resources": [],
+     "kicd_source": "grade7-kiswahili.pdf#p31"
+    },
+    {
+     "kicd_code": "3.3.1",
+     "name": "Insha za Kubuni",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "kuteua mada na ujumbe wa kuandikia insha ya kubuni",
+      "kujadili vidokezo kulingana na mada ya kuandikia insha ya kubuni",
+      "kuandika vidokezo vyenye ujumbe unaolingana na mada ya insha ya kubuni",
+      "kuandika insha ya kubuni inayozingatia vidokezo vilivyoandaliwa",
+      "kufurahia kuandaa vidokezo vyenye ujumbe unaolingana na mada ya insha."
+     ],
+     "learning_experiences": [
+      "kuteua mada anayoweza kuiandikia insha ya kubuni",
+      "kuteua ujumbe unaoafiki mada aliyoiteua",
+      "kujadiliana na wenzake vidokezo vya mada aliyoteua",
+      "kuandika vidokezo vyenye ujumbe unaolingana na mada",
+      "kuandika insha ya kubuni inayozingatia vidokezo alivyoandaa",
+      "kuwasilisha insha yake darasani au mtandaoni ili wenzake wamtolee maoni."
+     ],
+     "inquiry_questions": [
+      "Ni mambo gani unayozingatia unapoandaa vidokezo vya insha ya kubuni?"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade7-kiswahili.pdf#p39"
+    },
+    {
+     "kicd_code": "4.3.1",
+     "name": "Insha za Kubuni Masimulizi",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "kutambua lugha ya kiubunifu katika insha za masimulizi",
+      "kujadili umuhimu wa lugha ya kiubunifu katika insha za masimulizi",
+      "kubainisha wahusika na mandhari katika insha za masimulizi",
+      "kujadili umuhimu wa wahusika na mandhari katika insha za masimulizi",
+      "kuandika insha ya masimulizi akizingatia lugha, wahusika na mandhari ifaavyo",
+      "kufurahia kuandika insha ya masimulizi akizingatia lugha, wahusika na mandhari ifaavyo ili kukuza ubunifu."
+     ],
+     "learning_experiences": [
+      "kutambua lugha ya kiubunifu katika vielelezo vya insha za masimulizi",
+      "kushirikiana na wenzake kujadili umuhimu wa lugha ya kiubunifu katika vielelezo vya insha za masimulizi",
+      "kubainisha wahusika na mandhari katika vielelezo vya insha za masimulizi kutoka kwenye maandishi au vifaa vya kidijitali",
+      "kushirikiana na wenzake kujadili umuhimu wa wahusika na mandhari katika insha za masimulizi",
+      "kuandika insha ya masimulizi akitumia lugha kiubunifu na kuwabainisha wahusika na mandhari akizingatia suala lengwa",
+      "kuwasomea wenzake insha aliyoandika ili waitathmini",
+      "kumsomea mzazi au mlezi kielelezo cha insha ya masimulizi kisha atambue matumizi ya lugha kiubunifu na ubainishaji wa wahusika na mandhari."
+     ],
+     "inquiry_questions": [
+      "Je, ni mambo gani utahitaji kuzingatia ili kuandika insha nzuri ya masimulizi?"
+     ],
+     "core_competencies": [
+      "Mawasiliano na ushirikiano: mwanafunzi anapojadili kwa ufasaha umuhimu wa ubainishaji wa wahusika na mandhari katika insha za masimulizi. Pia anapowasomea wenzake insha aliyoandika ili waitathmini.",
+      "Ubunifu: mwanafunzi anapoandika insha kwa kutumia lugha kiubunifu na kubainisha wahusika na mandhari.",
+      "Kujiamini: mwanafunzi anapofaulu kuwasomea wenzake insha ya masimulizi."
+     ],
+     "values": [
+      "Upendo: mwanafunzi anapowapa wenzake nafasi ya kushiriki katika shughuli za ujifunzaji katika kikundi. Pia anapotathmini insha za wenzake.",
+      "Uwajibikaji: mwanafunzi anapojitolea kuchukua nafasi mbalimbali katika shughuli za kikundi.",
+      "Umoja: mwanafunzi anaposhirikiana na wenzake na kuchangia katika shughuli za kikundi."
+     ],
+     "pertinent_issues": [
+      "Masuala ya elimu ya mazingira: mwanafunzi anapoandika insha ya masimulizi kuhusu aina za maliasili kwa kuzingatia matumizi ya lugha kiubunifu, ubainishaji wa wahusika na mandhari."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade7-kiswahili.pdf#p49"
+    },
+    {
+     "kicd_code": "5.3.1",
+     "name": "Insha ya Maelekezo",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "kueleza maana ya insha ya maelekezo",
+      "kutambua aina za insha za maelekezo",
+      "kujadili sifa za insha ya maelekezo",
+      "kuandaa mpangilio wa hatua za insha ya maelekezo",
+      "kuandika insha ya maelekezo akizingatia vipengele muhimu vya insha ya maelekezo",
+      "kufurahia kuandika insha ya maelekezo akizingatia vipengele vyake muhimu ili"
+     ],
+     "learning_experiences": [
+      "kutafiti na kueleza maana ya insha ya maelekezo",
+      "kutambua anwani ya insha ya maelekezo ambayo amesoma kwenye matini",
+      "kutambua aina za insha za maelekezo kwenye maandishi au vifaa vya kidijitali",
+      "kujadili na wenzake sifa za insha ya maelekezo kwa kuzingatia vielelezo vya insha kwenye matini za kimaandishi au za kidijitali",
+      "kushiriki katika kikundi kuandaa mpangilio ufaao wa hatua za insha ya maelekezo",
+      "kuandika insha ya maelekezo akizingatia vipengele vyake muhimu (k.v. anwani na mpangilio mwafaka wa hatua) huku akitumia vipengele vya",
+      "lugha vinavyotumiwa kuelekeza ili kumjengea msomaji taswira kamili ya anachoelekezwa kufanya",
+      "kuwasomea wenzake katika kikundi insha aliyoandika darasani au awasambazie kwenye vifaa vya kidijitali ili waitolee maoni."
+     ],
+     "inquiry_questions": [
+      "Ukimwelekeza rafiki yako nyumbani kwenu utatumia mpangilio gani wa hatua ili asipotee njia?"
+     ],
+     "core_competencies": [
+      "Mawasiliano na ushirikiano: mwanafunzi anapoandika insha kwa ufasaha na anapoisoma vizuri. Pia anaposhiriki na wenzake katika kujadili kuhusu insha ya maelekezo.",
+      "Ubunifu: mwanafunzi anapoteua lugha mwafaka na kufaulu kutoa maelezo bayana ya anachoelekeza.",
+      "Hamu ya ujifunzaji: mwanafunzi anapowasomea wenzake insha aliyoandika ili waitolee maoni.",
+      "Kujiamini: mwanafunzi anapofaulu kuwasomea wenzake insha hadharani."
+     ],
+     "values": [
+      "Heshima: mwanafunzi anapoheshimu maoni ya wenzake katika kazi ya kikundi.",
+      "Upendo: mwanafunzi anapowapa wenzake nafasi ya kushiriki katika shughuli za ujifunzaji katika kikundi.",
+      "Uwajibikaji: mwanafunzi anapojitolea kuchukua nafasi mbalimbali katika shughuli za kikundi.",
+      "Umoja: mwanafunzi anaposhirikiana na wenzake na kuchangia katika shughuli za kikundi."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade7-kiswahili.pdf#p59"
+    },
+    {
+     "kicd_code": "6.3.1",
+     "name": "Insha za Kubuni Picha",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "kubuni anwani inayooana na kisa atakachosimulia kutokana na picha katika matini",
+      "kutoa maelezo dhahiri kuhusu matukio katika picha kwenye matini",
+      "kuandika kisa chenye maelezo dhahiri kutokana na picha katika matini",
+      "kufurahia kusimulia kisa kutokana na picha ili kukuza ubunifu."
+     ],
+     "learning_experiences": [
+      "kusimuliana matukio kutokana na picha kwenye matini kuhusu suala lengwa",
+      "kubuni anwani inayooana na kisa atakachosimulia kutokana na picha kwenye matini",
+      "kutoa maelezo dhahiri kuhusu matukio katika picha kwenye matini",
+      "kuandika kisa chenye maelezo dhahiri kutokana na picha kwenye matini",
+      "kuwasomea wenzake kisa alichoandika ili wakitolee maoni",
+      "kushirikiana na mzazi au mlezi wake kutafiti mtandaoni au vitabuni kuhusu insha za picha kisha wasimuliane visa kutokana na picha."
+     ],
+     "inquiry_questions": [
+      "Je, ni vigezo vipi utakavyozingatia wakati wa kuandika insha ya kubuni kutokana na picha?"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade7-kiswahili.pdf#p70"
+    },
+    {
+     "kicd_code": "7.3.1",
+     "name": "Insha za Kubuni Maelezo",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "kueleza maana ya insha ya maelezo",
+      "kutambua msamiati ufaao katika kutoa maelezo",
+      "kutambua umuhimu wa msamiati ufaao katika insha ya maelezo",
+      "kutumia msamiati ufaao kwa ufasaha katika kuandika insha ya maelezo",
+      "kufurahia kuandika insha za maelezo ili kujenga stadi ya kuandika."
+     ],
+     "learning_experiences": [
+      "kutambua msamiati ufaao katika kutoa maelezo (k.v. vivumishi na vielezi) kutoka kwa vielelezo vya insha kwenye matini za kimaandishi au za kidijitali",
+      "kutumia kifaa cha kidijitali kupigia mstari maneno yaliyotumiwa kutoa maelezo katika kifungu",
+      "kutambua umuhimu wa kuteua maneno yafaayo katika kielelezo cha insha ya maelezo",
+      "kuandika insha ya maelezo kwa kuzingatia msamiati ufaao ili kujenga maelezo dhahiri yenye kuathiri hisia mbalimbali na kutekeleza majukumu ya kushawishi, kuburudisha, kupasha habari au kufunza",
+      "kuwasomea wenzake insha aliyoandika ili waitolee maoni."
+     ],
+     "inquiry_questions": [
+      "Je, unatumia lugha ya aina gani unapotaka kumweleza mtu jambo fulani ili aweze kupata picha kamili?"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade7-kiswahili.pdf#p79"
+    },
+    {
+     "kicd_code": "8.3.1",
+     "name": "Viakifishi",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "kutambua matumizi ya kiulizi na koma katika matini",
+      "kutumia kiulizi na koma ipasavyo katika matini",
+      "kufurahia matumizi bora ya kiulizi na koma katika matini."
+     ],
+     "learning_experiences": [
+      "kutambua matumizi ya kiulizi (k.v. mwishoni mwa sentensi ya swali) na koma (k.v. kutenga orodha ya vitu au kuandika anwani) katika maneno, sentensi au vifungu vya maneno kwenye matini andishi au za kidijitali",
+      "kutumia kifaa cha kidijitali kusoma matumizi ya kiulizi na koma",
+      "kuandika maneno, sentensi au vifungu vya maneno kuhusu suala lengwa kwa kutumia kiulizi na koma ipasavyo",
+      "kuandika kwenye kifaa cha kidijitali kifungu kifupi kuhusu suala lengwa kwa kuzingatia kiulizi na koma ipasavyo na kuwasambazia wenzake kwenye mtandao ili wakitolee maoni",
+      "• kushirikiana na mzazi au mlezi kutafiti mtandaoni au katika vitabu vya ziada kuhusu matumizi ya kiulizi na koma katika maneno, sentensi au vifungu."
+     ],
+     "inquiry_questions": [
+      "1. Je, kiulizi hutumiwa vipi katika maandishi?",
+      "2. Je, koma hutumiwaje katika sentensi?"
+     ],
+     "core_competencies": [
+      "Mawasiliano na ushirikiano: mwanafunzi anaposhiriki na wenzake katika kujadili matumizi ya kiulizi na koma.",
+      "Ubunifu: mwanafunzi anapoandika vifungu vyenye matumizi yafaayo ya kiulizi na koma, ubunifu wake unajengeka.",
+      "Hamu ya ujifunzaji: mwanafunzi anaposhirikiana na mzazi au mlezi kutafiti mtandaoni au katika vitabu vya ziada kuhusu matumizi ya kiulizi na koma."
+     ],
+     "values": [
+      "Upendo: mwanafunzi anapopewa nafasi ya kushiriki katika shughuli za ujifunzaji darasani na katika kikundi.",
+      "Uwajibikaji: mwanafunzi anapojitolea kuchukua nafasi mbalimbali katika shughuli za kikundi.",
+      "Umoja: mwanafunzi anaposhiriki katika shughuli za kikundi."
+     ],
+     "pertinent_issues": [
+      "Haki za watoto: mwanafunzi anapoandika sentensi kwa kutumia viakifishi."
+     ],
+     "links_to_other_areas": [
+      "Mwanafunzi anaweza kuhusisha matumizi ya kiulizi na koma katika somo la Kiswahili na matumizi hayo katika somo la English.",
+      "Mwanafunzi anaweza kuhusisha suala la ulanguzi wa binadamu na yale amejifunza kuhusu suala hilo katika somo la Social Studies na Religious Studies."
+     ],
+     "resources": [],
+     "kicd_source": "grade7-kiswahili.pdf#p89"
+    },
+    {
+     "kicd_code": "9.3.1",
+     "name": "Insha za Kubuni Masimulizi",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "kutambua vipengele vinavyozingatiwa kujenga wazo katika insha ya masimulizi",
+      "kueleza vipengele vinavyojenga wazo katika insha ya masimulizi",
+      "kuandika insha ya masimulizi akikuza wazo katika aya ipasavyo",
+      "kufurahia utunzi wa insha za masimulizi zenye mpangilio mzuri wa wazo."
+     ],
+     "learning_experiences": [
+      "kutambua vipengele vinavyozingatiwa kujenga wazo (k.v. mada, utangulizi, kati na hitimisho) katika insha ya masimulizi kwenye matini za kimaandishi na za kidijitali",
+      "kueleza vipengele vinavyojenga wazo katika insha ya masimulizi",
+      "kuandika insha ya masimulizi akizingatia sehemu ya mwanzo, kati na hitimisho",
+      "kuwasomea wenzake insha aliyoandika au awasambazie kwenye vifaa vya kidijitali ili waitolee maoni."
+     ],
+     "inquiry_questions": [
+      "Ni sehemu gani kuu katika mpangilio wa matukio ya insha ya masimulizi?"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade7-kiswahili.pdf#p99"
+    },
+    {
+     "kicd_code": "10.3.1",
+     "name": "Barua Rasmi ya Kuomba Msamaha",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "kueleza umuhimu wa barua rasmi ya kuomba msamaha",
+      "kutambua ujumbe katika barua rasmi ya kuomba msamaha",
+      "kutambua vipengele vya kimuundo vya barua rasmi ya kuomba msamaha",
+      "kuandika barua rasmi ya kuomba msamaha kwa kuzingatia ujumbe, muundo na lugha ifaayo",
+      "kufurahia kujieleza kwa njia ifaayo kupitia kwa barua."
+     ],
+     "learning_experiences": [
+      "kueleza umuhimu wa kuandika barua rasmi ya kuomba msamaha kuhusu matukio mbalimbali",
+      "kutambua ujumbe unaoafiki barua rasmi ya kuomba msamaha kwa kujadiliana na mwenzake",
+      "kujadili na wenzake vipengele vya kimuundo vya barua rasmi ya kuomba msamaha",
+      "kujadili na wenzake kuhusu lugha inayofaa katika uandishi wa barua rasmi ya kuomba msamaha",
+      "kuandika barua rasmi ya kuomba msamaha kuhusu matukio mbalimbali na kuwasomea wenzake darasani ili waitolee maoni",
+      "kuandika barua rasmi ya kuomba msamaha katika kifaa cha kidijitali na kuwasambazia",
+      "wenzake kupitia mtandao ili waitolee maoni."
+     ],
+     "inquiry_questions": [
+      "Je, ni mambo gani yanayoweza kukufanya uandike barua rasmi ya kuomba msamaha?"
+     ],
+     "core_competencies": [
+      "Mawasiliano na ushirikiano: mwanafunzi anaposhiriki na wenzake katika kujadili vipengele vya barua rasmi ya kuomba msamaha.",
+      "Ubunifu: mwanafunzi anapoandika barua rasmi ya kuomba msamaha.",
+      "Uwazaji kina na utatuzi wa matatizo: mwanafunzi anapowaza kuhusu matukio yanayomfanya mtu kuomba msamaha.",
+      "Uraia: mwanafunzi anapoomba msamaha anajenga mshikamano katika jamii au taifa."
+     ],
+     "values": [
+      "Heshima: mwanafunzi anapoheshimu maoni ya wenzake katika kazi ya kikundi.",
+      "Upendo: mwanafunzi anapowapa nafasi wenzake kuchangia katika shughuli za ujifunzaji.",
+      "Uwajibikaji: mwanafunzi anapojitolea kuchukua nafasi mbalimbali katika shughuli za kikundi.",
+      "Umoja: mwanafunzi anaposhiriki katika shughuli za ujifunzaji."
+     ],
+     "pertinent_issues": [
+      "Mshikamano wa kijamii: mwanafunzi anapoandika barua ya kuomba msamaha."
+     ],
+     "links_to_other_areas": [
+      "Mwanafunzi anaweza kuhusisha uandishi wa barua rasmi ya kuomba msamaha katika somo la Kiswahili na uandishi huo katika somo la English.",
+      "Mwanafunzi anaweza kuhusisha suala la kujithamini na dhana ya msamaha katika somo la Kiswahili na dhana hiyo katika somo la Social Studies na Religious Studies."
+     ],
+     "resources": [],
+     "kicd_source": "grade7-kiswahili.pdf#p108"
+    },
+    {
+     "kicd_code": "11.3.1",
+     "name": "Insha za Kubuni Maelezo",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "kutambua vipengele vya mpangilio wa insha ya maelezo",
+      "kueleza mpangilio wa insha ya maelezo",
+      "kuandika insha ya maelezo inayozingatia mpangilio ufaao wa maelezo",
+      "kufurahia kuandika insha za maelezo katika maisha ya kila siku akizingatia mpangilio ufaao wa maelezo."
+     ],
+     "learning_experiences": [
+      "kutambua mpangilio wa insha ya maelezo katika matini za kimaandishi au za kidijitali (k.v. mpangilio unaozingatia mahali, hasa kama maelezo yanahusu mahali na mpangilio unaozingatia mfuatano wa matukio kiwakati)",
+      "kueleza jinsi maelezo yalivyopangwa katika kielelezo cha insha ya maelezo",
+      "kuandika vidokezo vya insha vinavyozingatia jinsi maelezo yalivyopangwa katika insha ya maelezo kuhusu suala lengwa",
+      "kuandika insha ya maelezo akizingatia mpangilio ufaao wa maelezo",
+      "kuwasomea wenzake insha aliyoiandika au awasambazie kwenye vifaa vya kidijitali ili waitolee maoni."
+     ],
+     "inquiry_questions": [
+      "Je, unawezaje kupanga matukio katika insha ya maelezo?"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade7-kiswahili.pdf#p118"
+    },
+    {
+     "kicd_code": "12.3.1",
+     "name": "Hotuba ya Kupasha Habari",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "kueleza maana ya hotuba ya kupasha habari",
+      "kutambua hotuba ya kupasha habari katika matini",
+      "kueleza ujumbe, lugha na muundo wa hotuba ya kupasha habari",
+      "kuandika hotuba ya kupasha habari kwa kuzingatia ujumbe, lugha na muundo ufaao",
+      "kuchangamkia nafasi ya hotuba ya kupasha habari katika mawasiliano."
+     ],
+     "learning_experiences": [
+      "kueleza maana ya hotuba ya kupasha habari",
+      "kujadiliana na wenzake kuhusu ujumbe, lugha na muundo ufaao wa hotuba ya kupasha habari",
+      "kujadili na wenzake miktadha inayochochea hotuba ya kupasha habari",
+      "kujadili na wenzake vidokezo vinavyoweza kutumiwa katika kuandika hotuba ya kupasha habari",
+      "kuandika hotuba ya kupasha habari kuhusu suala lengwa akizingatia ujumbe, lugha na muundo ufaao kisha awasambazie wenzake mtandaoni au kuwasomea darasani ili waitolee maoni",
+      "kuandika hotuba ya kupasha habari kuhusu suala linaloathiri",
+      "jamii yao na kumsomea mzazi au mlezi wake."
+     ],
+     "inquiry_questions": [
+      "Ni mambo yepi ambayo yanaweza kuelezwa kupitia kwa hotuba?"
+     ],
+     "core_competencies": [
+      "Mawasiliano na ushirikiano: mwanafunzi anapotoa mchango wake katika kikundi kuhusu hotuba ya kupasha habari.",
+      "Ujuzi wa kidijitali: mwanafunzi anapotumia tarakilishi kuandika hotuba ya kupasha habari na kuisambaza kwa mtandao.",
+      "Ubunifu: mwanafunzi anapoandika hotuba ya kupasha habari.",
+      "Hamu ya ujifunzaji: mwanafunzi anapoandika hotuba ya kupasha habari kuhusu suala linaloathiri jamii yao na kumsomea mzazi au mlezi wake."
+     ],
+     "values": [
+      "Heshima: mwanafunzi anapoheshimu maoni ya wenzake katika kazi ya kikundi.",
+      "Upendo: mwanafunzi anapopewa nafasi ya kushiriki katika shughuli za ujifunzaji darasani na katika kikundi.",
+      "Uwajibikaji: mwanafunzi anapojitolea kuchukua nafasi mbalimbali katika shughuli za kikundi."
+     ],
+     "pertinent_issues": [
+      "Mshikamano wa kijamii: mwanafunzi anaposhirikiana na wenzake katika kikundi kujadili ujumbe, lugha na muundo wa hotuba ya kupasha habari.",
+      "Elimu ya afya na kujikinga: mwanafunzi anapoandika hotuba ya kupasha habari kuhusu suala lengwa."
+     ],
+     "links_to_other_areas": [
+      "Mwanafunzi anaweza kuhusisha uandishi wa hotuba ya kupasha habari katika somo la Kiswahili na uandishi huo katika somo la English.",
+      "Mwanafunzi anaweza kuhusisha suala la magonjwa ambukizi na yale amejifunza kuhusu suala hilo katika somo la Integrated Science na Agriculture."
+     ],
+     "resources": [],
+     "kicd_source": "grade7-kiswahili.pdf#p127"
+    },
+    {
+     "kicd_code": "13.3.1",
+     "name": "Insha za Kubuni Maelezo",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "kutambua mambo ya kimsingi katika uandishi wa insha ya maelezo",
+      "kuandika insha ya maelezo inayodhihirisha sifa za mtu",
+      "kuchangamkia kutoa maelezo kamilifu kuhusu kitu au jambo."
+     ],
+     "learning_experiences": [
+      "kutambua mambo ya kimsingi katika uandishi wa insha ya maelezo",
+      "kuandaa vidokezo vya insha ya maelezo kuhusu sura na matendo ya mtu anayelengwa katika insha hiyo",
+      "kuandika daftarini au katika kifaa cha kidijitali insha ya maelezo inayotoa sifa za mtu akizingatia muundo ufaao na inayohusisha suala lengwa kisha awasomee wenzake darasani au awasambazie wenzake mtandaoni ili waitolee maoni",
+      "kutolea insha za wenzake maoni kwa upendo."
+     ],
+     "inquiry_questions": [
+      "1. Je, insha ya maelezo inahusu nini?",
+      "2. Je, ni vigezo vipi vinatumika katika kuandika insha ya maelezo?"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade7-kiswahili.pdf#p136"
+    },
+    {
+     "kicd_code": "14.3.1",
+     "name": "Insha ya Maelekezo",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "kutambua aina za insha za maelekezo",
+      "kujadili sifa za insha ya maelekezo",
+      "kuandaa mpangilio wa hatua za insha ya maelekezo",
+      "kuandika insha ya maelekezo akizingatia vipengele muhimu vya insha ya maelekezo",
+      "kufurahia kutoa maelekezo ifaavyo katika maisha ya kila siku akizingatia anwani na mpangilio ufaao wa hatua."
+     ],
+     "learning_experiences": [
+      "kubainisha sifa za insha ya maelekezo kwa kuzingatia vielelezo vya insha kwenye matini za kimaandishi au za kidijitali (k.v. usahihi wa habari, mpangilio wa maelezo wenye mantiki, lugha sahili na maelezo yanayotoka upande mmoja)",
+      "kujadili na wenzake aina za insha za maelekezo",
+      "kushiriki katika kikundi kujadili mpangilio ufaao wa hatua za kuelekeza",
+      "kuandaa mpangilio wa hatua za insha ya maelekezo",
+      "kuandika insha ya maelekezo akizingatia anwani na mpangilio mwafaka wa hatua huku akitumia vipengele vya",
+      "lugha vinavyotumiwa kuelekeza ili kumjengea msomaji taswira kamili ya anachoelekezwa kufanya",
+      "kuwasomea wenzake katika kikundi insha aliyoandika darasani au awasambazie kwenye vifaa vya kidijitali ili waitolee maoni."
+     ],
+     "inquiry_questions": [
+      "Utatumia mpangilio gani wa kumwelekeza mtu asipotee njia?"
+     ],
+     "core_competencies": [
+      "Mawasiliano na ushirikiano: mwanafunzi anaposhiriki na wenzake katika kujadili kuhusu anwani na hatua katika kielelezo cha insha ya maelekezo waliyosoma.",
+      "Ujuzi wa kidijitali: mwanafunzi anapotumia vifaa vya kidijitali kusambaza insha.",
+      "Ubunifu: mwanafunzi anapoteua lugha mwafaka na kufaulu kutoa maelezo bayana ya anachoelekeza.",
+      "Hamu ya ujifunzaji: mwanafunzi anapowasomea wenzake insha aliyoandika ili waitolee maoni.",
+      "Kujiamini: mwanafunzi anapofaulu kuwasomea wenzake insha hadharani."
+     ],
+     "values": [
+      "Heshima: mwanafunzi anapoheshimu maoni ya wenzake katika kazi ya kikundi.",
+      "Upendo: mwanafunzi anapopewa nafasi ya kushiriki katika shughuli za ujifunzaji darasani na katika kikundi.",
+      "Uwajibikaji: mwanafunzi anapojitolea kuchukua nafasi mbalimbali katika shughuli za kikundi.",
+      "Umoja: mwanafunzi anaposhiriki katika shughuli za kikundi."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade7-kiswahili.pdf#p144"
+    },
+    {
+     "kicd_code": "15.3.1",
+     "name": "Kuandika Kidijitali Baruapepe",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "kutambua ujumbe unaoafiki baruapepe kwa rafiki",
+      "kutambua vipengele vya kimuundo vya baruapepe kwa rafiki",
+      "kutumia lugha inayofaa katika uandishi wa baruapepe kwa rafiki",
+      "kuandika baruapepe kwa rafiki kwa kuzingatia ujumbe, lugha na muundo ufaao",
+      "kujenga mazoea ya kuwasiliana kwa kuandika baruapepe kwa rafiki."
+     ],
+     "learning_experiences": [
+      "kutambua ujumbe unaoafiki baruapepe kwa rafiki kwa kujadiliana na mwenzake",
+      "kujadili vipengele vya kimuundo vya baruapepe kwa rafiki",
+      "kushiriki katika kujadili na wenzake kuhusu lugha inayofaa katika uandishi wa baruapepe kwa rafiki",
+      "kuandika baruapepe kwa rafiki kwenye tarakilishi na kumsambazia mwenzake kupitia mtandao ili aitolee maoni",
+      "kumwandikia mwalimu wake baruapepe kwa rafiki ili aitathmini."
+     ],
+     "inquiry_questions": [
+      "Je, utazingatia nini unapoandika barua pepe kwa rafiki yako?"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade7-kiswahili.pdf#p155"
+    }
+   ]
+  },
+  {
+   "strand": "Sarufi",
+   "strand_code": "1.4",
+   "assessment_rubric": [
+    {
+     "indicator": "Anatumia vipengele vifaavyo katika kusikiliza na kujibu mazungumzo kwa wepesi.",
+     "exceeds": "Anatumia vipengele vifaavyo katika kusikiliza na kujibu mazungumzo.",
+     "meets": "Anatumia baadhi ya vipengele vifaavyo katika kusikiliza na kujibu mazungumzo.",
+     "approaches": "Anatumia baadhi ya vipengele vifaavyo katika kusikiliza na kujibu mazungumzo kwa kusaidiwa."
+    },
+    {
+     "indicator": "Anasikiliza na kutambua sauti lengwa na kuzitamka kwa ufasaha.",
+     "exceeds": "Anasikiliza na kutambua sauti lengwa na kuzitamka.",
+     "meets": "Anasikiliza na kutambua baadhi ya sauti lengwa na kuzitamka.",
+     "approaches": "Anasikiliza na kutambua baadhi ya sauti lengwa na kuzitamka kwa kuongozwa."
+    },
+    {
+     "indicator": "Anasikiliza na kufasiri ujumbe na kuuhusisha na maisha ya kila siku kwa utondoti.",
+     "exceeds": "Anasikiliza na kufasiri ujumbe na kuuhusisha na maisha ya kila siku.",
+     "meets": "Anasikiliza na kufasiri ujumbe na kuuhusisha na maisha ya kila siku kwa kiasi.",
+     "approaches": "Anasikiliza na kufasiri ujumbe na kuuhusisha na maisha ya kila siku kwa kiasi akielekezwa."
+    },
+    {
+     "indicator": "Anazungumza na kujieleza kwa ufasaha akizingatia aina mbalimbali za uzungumzaji kwa ubunifu.",
+     "exceeds": "Anazungumza na kujieleza kwa ufasaha akizingatia aina mbalimbali za uzungumzaji.",
+     "meets": "Anazungumza na kujieleza kwa ufasaha akizingatia baadhi ya aina za uzungumzaji.",
+     "approaches": "Anazungumza na kujieleza kwa ufasaha akizingatia baadhi ya aina za uzungumzaji akielekezwa."
+    },
+    {
+     "indicator": "Anawasilisha utungo wa fasihi simulizi au andishi kwa uketo.",
+     "exceeds": "Anawasilisha utungo wa fasihi simulizi au andishi.",
+     "meets": "Anawasilisha utungo wa fasihi simulizi au andishi kwa kuzingatia baadhi ya vipengele vya tungo za fasihi.",
+     "approaches": "Anawasilisha utungo wa fasihi simulizi au andishi kwa kuzingatia baadhi ya vipengele vya tungo za fasihi kwa kusaidiwa."
+    },
+    {
+     "indicator": "Anasoma vifungu vya aina mbalimbali na kutambua ujumbe na msamiati kwa utondoti.",
+     "exceeds": "Anasoma vifungu vya aina mbalimbali na kutambua ujumbe na msamiati.",
+     "meets": "Anasoma baadhi ya vifungu na kutambua ujumbe na msamiati.",
+     "approaches": "Anasoma baadhi ya vifungu na kutambua ujumbe na msamiati kwa kiasi."
+    },
+    {
+     "indicator": "Anasoma novela na kutambua maudhui, dhamira, mandhari, ploti, wahusika na mbinu za lugha kwa utondoti.",
+     "exceeds": "Anasoma novela na kutambua maudhui, dhamira, mandhari, ploti, wahusika na mbinu za lugha.",
+     "meets": "Anasoma novela na kutambua baadhi ya yafuatayo; maudhui, dhamira, mandhari, ploti, wahusika na mbinu za lugha.",
+     "approaches": "Anasoma novela na kutambua baadhi ya yafuatayo; maudhui, dhamira, mandhari, ploti, wahusika na mbinu za lugha kwa kusaidiwa."
+    },
+    {
+     "indicator": "Anasoma kwa kuzingatia vipengele vya kusoma kwa ufasaha na kina.",
+     "exceeds": "Anasoma kwa kuzingatia vipengele vya kusoma kwa ufasaha.",
+     "meets": "Anasoma kwa kuzingatia baadhi ya vipengele vya kusoma kwa ufasaha.",
+     "approaches": "Anasoma kwa kuzingatia baadhi ya vipengele vya kusoma kwa ufasaha kwa kuelekezwa."
+    },
+    {
+     "indicator": "Anasoma matini ya kujichagulia na kutambua vipengele vinavyozingatiwa kwa mapana.",
+     "exceeds": "Anasoma matini ya kujichagulia na kutambua vipengele vinavyozingatiwa.",
+     "meets": "Anasoma matini ya kujichagulia na kutambua baadhi ya vipengele vinavyozingatiwa.",
+     "approaches": "Anasoma matini ya kujichagulia na kutambua baadhi ya vipengele vinavyozingatiwa kwa kusaidiwa."
+    },
+    {
+     "indicator": "Anatambua vipengele vya ufupisho na kufupisha matini kwa utondoti.",
+     "exceeds": "Anatambua vipengele vya ufupisho na kufupisha matini.",
+     "meets": "Anatambua baadhi ya vipengele vya ufupisho na kufupisha matini.",
+     "approaches": "Anatambua baadhi ya vipengele vya ufupisho na kufupisha matini kwa kuongozwa."
+    },
+    {
+     "indicator": "Anatumia viakifishi mbalimbali kikamilifu na kwa wepesi.",
+     "exceeds": "Anatumia viakifishi mbali-mbali kikamilifu.",
+     "meets": "Anatumia baadhi ya viakifishi kikamilifu.",
+     "approaches": "Anatumia baadhi ya viakifishi kwa kusaidiwa."
+    },
+    {
+     "indicator": "Anaandika aina mbalimbali za insha kwa kuzingatia vipengele vifaavyo vya uandishi kwa utondoti.",
+     "exceeds": "Anaandika aina mbalimbali za insha kwa kuzingatia vipengele vifaavyo vya uandishi.",
+     "meets": "Anaandika aina mbalimbali za insha kwa kuzingatia baadhi ya vipengele vifaavyo vya uandishi.",
+     "approaches": "Anaandika aina mbalimbali za insha kwa kuzingatia baadhi ya vipengele vifaavyo vya uandishi kwa kuongozwa."
+    },
+    {
+     "indicator": "Anaandika aina mbalimbali za insha za kiuamilifu kwa kuzingatia vipengele vifaavyo vya uandishi kwa utondoti.",
+     "exceeds": "Anaandika aina mbalimbali za insha za kiuamilifu kwa kuzingatia vipengele vifaavyo vya uandishi.",
+     "meets": "Anaandika baadhi ya insha za kiuamilifu kwa kuzingatia baadhi ya vipengele vifaavyo vya uandishi.",
+     "approaches": "Anaandika baadhi ya insha za kiuamilifu kwa kuzingatia baadhi ya vipengele vifaavyo vya uandishi kwa kuongozwa."
+    },
+    {
+     "indicator": "Anatambua na kutumia aina mbalimbali za maneno katika lugha ya Kiswahili kwa uketo.",
+     "exceeds": "Anatambua na kutumia aina mbalimbali za maneno katika lugha ya Kiswahili.",
+     "meets": "Anatambua na kutumia baadhi ya aina za maneno katika lugha ya Kiswahili.",
+     "approaches": "Anatambua na kutumia baadhi ya aina za maneno katika lugha ya Kiswahili kwa kuelekezwa."
+    },
+    {
+     "indicator": "Anatambua na kutumia viambishi vya nyakati na hali katika vitenzi kwa uketo.",
+     "exceeds": "Anatambua na kutumia viambishi vya nyakati na hali katika vitenzi.",
+     "meets": "Anatambua na kutumia baadhi ya viambishi vya nyakati na hali katika vitenzi.",
+     "approaches": "Anatambua na kutumia baadhi ya viambishi vya nyakati na hali katika vitenzi kwa kuelekezwa."
+    },
+    {
+     "indicator": "Anatambua viambishi vya ngeli, ngeli za nomino na kutumia upatanisho wa kisarufi ipasavyo na kwa utondoti.",
+     "exceeds": "Anatambua viambishi vya ngeli, ngeli za nomino na kutumia upatanisho wa kisarufi ipasavyo.",
+     "meets": "Anatambua baadhi ya viambishi vya ngeli, ngeli za nomino na kutumia upatanisho wa kisarufi ipasavyo.",
+     "approaches": "Anatambua baadhi ya viambishi vya ngeli, ngeli za nomino na kutumia kwa kiasi upatanisho wa kisarufi ipasavyo."
+    },
+    {
+     "indicator": "Anatambua vinyume vya nomino na vivumishi na kuvitumia katika matini kwa wepesi.",
+     "exceeds": "Anatambua vinyume vya nomino na vivumishi na kuvitumia katika matini.",
+     "meets": "Anatambua vinyume vya baadhi ya nomino na vivumishi na kuvitumia katika matini.",
+     "approaches": "Anatambua vinyume vya baadhi ya nomino na vivumishi na kuvitumia katika matini kwa kusaidiwa."
+    },
+    {
+     "indicator": "Anatambua na kutumia vitenzi katika kauli mbalimbali kwa wepesi.",
+     "exceeds": "Anatambua na kutumia vitenzi katika kauli mbalimbali.",
+     "meets": "Anatambua na kutumia vitenzi katika baadhi ya kauli.",
+     "approaches": "Anatambua na kutumia vitenzi katika baadhi ya kauli kwa kusaidiwa."
+    },
+    {
+     "indicator": "Anatambua na kutumia sentensi sahili na ambatano katika matini kwa uketo.",
+     "exceeds": "Anatambua na kutumia sentensi sentensi sahili na ambatano katika matini.",
+     "meets": "Anatambua na kutumia baadhi ya sentensi sahili na ambatano katika matini.",
+     "approaches": "Anatambua na kutumia baadhi ya sentensi sahili na ambatano katika matini kwa kuelekezwa."
+    },
+    {
+     "indicator": "Anatambua maneno yaliyokanushwa, viambishi vya ukanushaji na kukanusha kwa kuzingatia wakati uliopita, uliopo na ujao ipasavyo na kwa wepesi.",
+     "exceeds": "Anatambua maneno yaliyokanushwa, viambishi vya ukanushaji na kukanusha kwa kuzingatia wakati uliopita, uliopo na ujao ipasavyo.",
+     "meets": "Anatambua maneno yaliyokanushwa, viambishi vya ukanushaji na kukanusha kwa kiasi kwa kuzingatia wakati uliopita, uliopo na ujao ipasavyo.",
+     "approaches": "Anatambua maneno yaliyokanushwa, viambishi vya ukanushaji na kukanusha kwa kiasi kwa kuzingatia wakati uliopita, uliopo na ujao kwa kusaidiwa."
+    },
+    {
+     "indicator": "Anatambua na kutumia nomino katika hali ya ukubwa kwa ufasaha.",
+     "exceeds": "Anatambua na kutumia nomino katika hali ya ukubwa.",
+     "meets": "Anatambua na kutumia baadhi ya nomino katika hali ya ukubwa.",
+     "approaches": "Anatambua na kutumia baadhi ya nomino katika hali ya ukubwa kwa kuelekezwa."
+    },
+    {
+     "indicator": "Anatumia usemi halisi na usemi wa taarifa katika matini kikamilifu kwa wepesi.",
+     "exceeds": "Anatumia usemi halisi na usemi wa taarifa katika matini kikamilifu",
+     "meets": "Anatumia kwa kiasi usemi halisi na usemi wa taarifa katika matini kikamilifu.",
+     "approaches": "Anatumia kiasi usemi halisi na usemi wa taarifa katika matini kwa kuongozwa."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "1.4.1",
+     "name": "Aina za nomino",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "kutambua nomino za pekee na za kawaida katika matini",
+      "kutambua aina za nomino za pekee katika matini",
+      "kutumia nomino za pekee na za kawaida ipasavyo katika matini",
+      "kuchangamkia matumizi ya nomino za pekee na za kawaida katika matini ili kufanikisha mawasiliano."
+     ],
+     "learning_experiences": [
+      "kutambua nomino za pekee na za kawaida kwenye orodha ya maneno, sentensi au vifungu",
+      "kutaja aina za nomino za pekee (k.v. majina ya watu, siku za wiki, miezi ya mwaka, mito, nchi, anwani za vitabu, za magazeti na za majarida)",
+      "kujaza nafasi katika sentensi au vifungu kwa kutumia nomino za pekee na za kawaida ipasavyo",
+      "kutunga sentensi au vifungu vifupi kwa kutumia nomino za pekee na za kawaida akizingatia masuala mtambuko mbalimbali likiwemo suala la usafi wa kibinafsi",
+      "kumtajia mzazi au mlezi wake nomino za pekee na za kawaida katika mazingira ya nyumbani."
+     ],
+     "inquiry_questions": [
+      "1. Ni vitu gani katika mazingira yako ambavyo ni nomino za pekee?",
+      "2. Ni vitu gani katika mazingira yako ambavyo ni nomino za kawaida?"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade7-kiswahili.pdf#p24"
+    },
+    {
+     "kicd_code": "2.4.1",
+     "name": "Aina za nomino",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "kutambua nomino za makundi na za dhahania katika matini",
+      "kutumia nomino za makundi na za dhahania ifaavyo katika matini",
+      "kuchangamkia kutumia nomino za makundi na za dhahania katika mawasiliano."
+     ],
+     "learning_experiences": [
+      "kutambua nomino za makundi na za dhahania kwenye chati, kadi maneno, kapu maneno na matini nyingine",
+      "kutambua nomino za makundi na za dhahania katika mazingira ya shuleni na nyumbani na kuzitungia sentensi",
+      "kujaza nafasi katika sentensi au vifungu kwa kutumia nomino za makundi na za dhahania ifaavyo",
+      "kutunga sentensi au kifungu kifupi kwa kutumia nomino za makundi na za dhahania akizingatia masuala mtambuko mbalimbali likiwemo suala la lishe bora",
+      "• kushirikiana na mzazi au mlezi wake kutambua nomino za makundi na za dhahania kwenye mtandao au kwenye vitabu vya ziada na kuzitungia sentensi."
+     ],
+     "inquiry_questions": [
+      "1. Ni nomino gani za makundi zinazopatikana katika mazingira ya shuleni na ya nyumbani?",
+      "2. Ni nomino gani za dhahania zinazopatikana katika mazingira ya shuleni na ya nyumbani?"
+     ],
+     "core_competencies": [
+      "Mawasiliano na ushirikiano: mwanafunzi anaposhiriki na kuchangia kikamilifu katika shughuli za ujifunzaji.",
+      "Ubunifu: mwanafunzi anapotunga sentensi sahihi kuhusu suala lengwa akitumia nomino za makundi na za dhahania.",
+      "Kujiamini: mwanafunzi anapofaulu kutambua nomino za makundi na za dhahania na kuzitungia sentensi na vifungu sahihi."
+     ],
+     "values": [
+      "Heshima: mwanafunzi anapoheshimu maoni ya wenzake katika kazi ya kikundi.",
+      "Upendo: mwanafunzi anapowapa wenzake nafasi ya kushiriki katika shughuli za ujifunzaji darasani na katika kikundi.",
+      "Umoja: mwanafunzi anaposhiriki na kuchangia katika shughuli za kikundi."
+     ],
+     "pertinent_issues": [
+      "Lishe bora: mwanafunzi anapotunga sentensi na vifungu kuhusu suala lengwa."
+     ],
+     "links_to_other_areas": [
+      "Mwanafunzi anaweza kuhusisha dhana ya nomino za makundi na za dhahania katika somo la Kiswahili na yale amejifunza kuhusu dhana hiyo katika somo la English.",
+      "Mwanafunzi anaweza kuhusisha suala la lishe bora na yale amejifunza kuhusu suala hilo katika somo la Integrated Science na Agriculture."
+     ],
+     "resources": [],
+     "kicd_source": "grade7-kiswahili.pdf#p33"
+    },
+    {
+     "kicd_code": "3.4.1",
+     "name": "Aina za nomino",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "kutambua nomino za wingi na za vitenzi-jina katika matini",
+      "kutumia nomino za wingi na za vitenzi-jina ipasavyo katika matini",
+      "kufurahia matumizi ya nomino za wingi na za vitenzi-jina katika mawasiliano."
+     ],
+     "learning_experiences": [
+      "kutambua nomino za wingi na za vitenzi-jina kwenye chati, kadi maneno au kapu maneno",
+      "kutenga nomino za wingi na za vitenzi-jina katika orodha ya maneno, sentensi au vifungu kwa kuzipigia mstari au kuzikolezea wino katika matini za kidijitali",
+      "kujaza nafasi katika sentensi au vifungu kwa kutumia nomino za wingi na za vitenzi-jina ipasavyo",
+      "kutunga sentensi au vifungu vifupi kwa kutumia nomino za wingi na za vitenzi-jina akizingatia masuala mtambuko mbalimbali likiwemo suala la uhuru wa wanyama",
+      "kushirikiana na mzazi au mlezi wake kutafiti (k.v. mtandaoni na vitabuni) kuhusu nomino za wingi na za vitenzi-jina na kuzitungia sentensi kisha awasomee wenzake darasani ili wamtolee maoni."
+     ],
+     "inquiry_questions": [
+      "Je, ni nomino zipi za wingi na za vitenzi-jina zinazopatikana katika mazingira yako?"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade7-kiswahili.pdf#p41"
+    },
+    {
+     "kicd_code": "4.4.1",
+     "name": "Nyakati na Hali",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "kubainisha vitenzi vilivyo katika wakati uliopo, uliopita na ujao katika matini",
+      "kutumia wakati uliopo, uliopita na ujao ifaavyo katika matini",
+      "kuchangamkia kutumia wakati uliopo, uliopita na ujao ifaavyo ili kuboresha mawasiliano."
+     ],
+     "learning_experiences": [
+      "kubainisha vitenzi vilivyo katika wakati uliopo, uliopita na ujao kutoka kwenye chati, mti maneno, kapu maneno au kwa kuvipigia mstari kwenye sentensi na vifungu",
+      "kusoma kifungu na kutambua nyakati zilizotumiwa",
+      "kubadilisha nyakati katika sentensi au vifungu kulingana na maagizo",
+      "kujaza nafasi katika sentensi au vifungu kwa kutumia wakati uliopo, uliopita na ujao ipasavyo",
+      "kuandika sentensi au vifungu vifupi katika wakati uliopo, uliopita au ujao daftarini mwake au kwenye kifaa cha kidijitali akizingatia masuala mtambuko mbalimbali likiwemo suala la aina za maliasili",
+      "kuwasomea wenzake au kuwasambazia kazi yake mtandaoni ili waitolee maoni."
+     ],
+     "inquiry_questions": [
+      "Kwa nini tunatumia nyakati mbalimbali katika mawasiliano?"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade7-kiswahili.pdf#p52"
+    },
+    {
+     "kicd_code": "5.4.1",
+     "name": "Nyakati na Hali",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "kubainisha vitenzi vilivyo katika wakati uliopita hali ya kuendelea na ujao hali ya kuendelea katika matini",
+      "kutumia wakati uliopita hali ya kuendelea na ujao hali ya kuendelea ifaavyo katika matini",
+      "kuchangamkia kutumia wakati uliopita hali ya kuendelea na ujao hali ya kuendelea ifaavyo ili"
+     ],
+     "learning_experiences": [
+      "kubainisha vitenzi vilivyo katika wakati uliopita hali ya kuendelea na ujao hali ya kuendelea kutoka kwenye chati, mti maneno, kapu maneno au kwa kuvipigia mstari kwenye sentensi na vifungu",
+      "kusoma kifungu kuhusu suala lengwa na kutambua nyakati na hali zilizotumiwa",
+      "kutunga sentensi au vifungu vifupi kwa kutumia wakati uliopita hali ya kuendelea na ujao hali ya kuendelea ifaavyo akizingatia masuala mtambuko mbalimbali likiwemo suala la unyanyasaji wa kijinsia",
+      "kuandika sentensi kuhusu suala lengwa katika wakati uliopita hali ya kuendelea na ujao hali ya kuendelea kwenye kifaa cha kidijitali na kuwasambazia wenzake mtandaoni ili waziweke katika nyakati na hali zinazozingatiwa",
+      "• kubadilisha nyakati na hali katika kifungu kulingana na maagizo."
+     ],
+     "inquiry_questions": [
+      "Kwa nini tunazingatia nyakati na hali mbalimbali katika mawasiliano?"
+     ],
+     "core_competencies": [
+      "Mawasiliano na ushirikiano: mwanafunzi anaposhirikiana na wenzake na kuchangia katika kazi za kikundi.",
+      "Ujuzi wa kidijitali: mwanafunzi anapotumia kifaa cha kidijitali kuandika sentensi katika wakati na hali lengwa na kuwasambazia wenzake mtandaoni.",
+      "Ubunifu: mwanafunzi anapobadilisha nyakati na hali mbalimbali na kutunga sentensi.",
+      "Kujiamini: mwanafunzi anapochangia kutambua nyakati na hali na kuzitungia sentensi.",
+      "Hamu ya ujifunzaji: mwanafunzi anapobadilisha nyakati na hali katika kifungu."
+     ],
+     "values": [
+      "Heshima: mwanafunzi anapoheshimu maoni ya wenzake katika kazi ya kikundi.",
+      "Upendo: mwanafunzi anapowapa wenzake nafasi ya kushiriki katika shughuli za ujifunzaji darasani na katika kikundi.",
+      "Uwajibikaji: mwanafunzi anapojitolea kuchukua nafasi mbalimbali katika shughuli za kikundi.",
+      "Umoja: mwanafunzi anaposhirikiana na wenzake na kuchangia katika shughuli za kikundi."
+     ],
+     "pertinent_issues": [
+      "Masuala ya kijamii: mwanafunzi anapotunga sentensi kuhusu suala la kijinsia."
+     ],
+     "links_to_other_areas": [
+      "Mwanafunzi anaweza kuhusisha dhana ya wakati uliopita hali ya kuendelea na ujao hali ya kuendelea katika somo la Kiswahili na dhana hiyo katika somo la English.",
+      "Mwanafunzi anaweza kuhusisha suala la unyanyasaji wa kijinsia na yale amejifunza kuhusu suala hilo katika somo la Social Studies."
+     ],
+     "resources": [],
+     "kicd_source": "grade7-kiswahili.pdf#p62"
+    },
+    {
+     "kicd_code": "6.4.1",
+     "name": "Vitenzi",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "kutambua vitenzi vikuu na visaidizi katika matini",
+      "kutumia vitenzi vikuu na visaidizi ipasavyo katika matini",
+      "kuchangamkia kutumia vitenzi vikuu na visaidizi ipasavyo katika mawasiliano."
+     ],
+     "learning_experiences": [
+      "kutambua vitenzi vikuu (k.v. alikuwa anacheka, angali anasoma) na visaidizi (k.v. kuwa, weza, kuja, -ngali, bidi na wahi) kwenye chati, kadi maneno, kapu maneno au tarakilishi",
+      "kubainisha vitenzi vikuu na visaidizi katika sentensi au vifungu kwenye vitabu, tarakilishi au chati kwa kuvikolezea wino au kuvipigia mstari",
+      "kutunga sentensi akitumia vitenzi vikuu na visaidizi ipasavyo kwa kuzingatia masuala mtambuko anuwai likiwemo suala la usalama shuleni",
+      "kutunga sentensi zinazohusu shughuli katika mazingira ya nyumbani kwa kutumia vitenzi vikuu na visaidizi (k.v. Mtoto huyu huwa anajali usalama wake)."
+     ],
+     "inquiry_questions": [
+      "Tunatofautisha vitenzi vikuu na vitenzi visaidizi kwa njia gani?"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade7-kiswahili.pdf#p72"
+    },
+    {
+     "kicd_code": "7.4.1",
+     "name": "Vitenzi Vishirikishi",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "kutambua vitenzi vishirikishi katika matini",
+      "kutumia vitenzi vishirikishi katika matini",
+      "kuonea fahari matumizi ya vitenzi vishirikishi katika sentensi na vifungu."
+     ],
+     "learning_experiences": [
+      "kujadili na mwenzake maana ya vitenzi vishirikishi",
+      "kuchopoa vitenzi vishirikishi (k.v. ni, si, yu, ndiye, ndio, ndipo) kwenye chati, kadi maneno, kapu maneno au tarakilishi",
+      "kutaja vitenzi vishirikishi vinavyojitokeza katika sentensi na vifungu",
+      "kutenga vitenzi vishirikishi katika orodha ya maneno, sentensi au vifungu kwenye vitabu, tarakilishi kwa kuvikolezea wino au kuvipigia mstari",
+      "kutunga sentensi na vifungu kwa kutumia vitenzi vishirikishi akizingatia masuala mtambuko mbalimbali likiwemo suala la kuhudumia jamii shuleni",
+      "kutunga sentensi zenye vitenzi vishirikishi zinazohusu shughuli katika mazingira ya nyumbani na kumsomea mzazi au mlezi wake (k.v. mimi ni mwanafunzi mtiifu)."
+     ],
+     "inquiry_questions": [
+      "Je, unajua aina gani za vitenzi?"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade7-kiswahili.pdf#p81"
+    },
+    {
+     "kicd_code": "8.4.1",
+     "name": "Ngeli na Upatanisho wa Kisarufi",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "kutambua viambishi vya upatanisho wa kisarufi vya ngeli ya A-WA na U-I katika sentensi",
+      "kutambua nomino za ngeli ya A-WA na U-I katika matini",
+      "kutumia nomino za ngeli ya A-WA na U-I katika matini kwa kuzingatia upatanisho ufaao wa kisarufi",
+      "kuchangamkia kutumia nomino za ngeli ya A-WA na U-I katika matini."
+     ],
+     "learning_experiences": [
+      "kutambua viambishi vya upatanisho wa kisarufi vya ngeli ya A-WA na U-I katika sentensi na mafungu ya maneno",
+      "kujaza nafasi katika sentensi au vifungu vifupi kwa kuzingatia upatanisho wa kisarufi wa ngeli ya A-WA na U-I",
+      "kuchopoa nomino za ngeli ya A-WA na U-I kwenye chati, kadi maneno, kapu maneno au katika tarakilishi",
+      "kutaja majina ya vitu katika mazingira ya shuleni yaliyo katika ngeli ya A-WA na U-I",
+      "kutenga nomino za ngeli ya A-WA na U-I katika orodha ya nomino, sentensi au vifungu kwenye vitabu, tarakilishi, chati",
+      "kwa kuzikolezea wino au kuzipigia mstari",
+      "kuunda sentensi au vifungu vifupi vyenye upatanisho ufaao wa kisarufi wa ngeli ya A-WA na U-I akizingatia masuala mtambuko mbalimbali likiwemo suala la ulanguzi wa binadamu",
+      "kutunga sentensi zenye upatanisho ufaao wa kisarufi wa ngeli ya A-WA na U-I akitumia nomino za vitu vilivyo katika mazingira ya nyumbani, na kumsomea mzazi au mlezi wake ili amtolee maoni."
+     ],
+     "inquiry_questions": [
+      "Ni vitu gani katika mazingira yako vilivyo na majina yanayopatikana katika ngeli ya A-WA na U-I?"
+     ],
+     "core_competencies": [
+      "Mawasiliano na ushirikiano: mwanafunzi anaposhirikiana na wenzake katika kazi ya kikundi.",
+      "Ubunifu: mwanafunzi anapotunga sentensi au vifungu akizingatia upatanisho wa kisarufi wa ngeli ya A-WA na U-I.",
+      "Kujiamini: mwanafunzi anapofaulu kuunda sentensi au vifungu kwa kuzingatia upatanisho wa kisarufi wa ngeli ya A-WA na U-I.",
+      "Hamu ya ujifunzaji: mwanafunzi anapomsomea mzazi au mlezi wake sentensi alizounda kwa kutumia nomino za ngeli ya A-WA na U-I katika mazingira ya nyumbani."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade7-kiswahili.pdf#p91"
+    },
+    {
+     "kicd_code": "9.4.1",
+     "name": "Ngeli na Upatanisho wa Kisarufi",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "kutambua viambishi vya upatanisho wa kisarufi vya ngeli ya KI-VI na LI-YA katika sentensi",
+      "kutambua nomino za ngeli ya KI-VI na LI-YA katika matini",
+      "kutumia nomino za ngeli ya KI-VI na LI-YA katika matini kwa kuzingatia upatanisho ufaao wa kisarufi",
+      "kuchangamkia kutumia nomino za ngeli ya KI-VI na LI-YA katika matini."
+     ],
+     "learning_experiences": [
+      "kutambua viambishi vya upatanisho wa kisarufi vya ngeli ya KI-VI na LI-YA katika sentensi na mafungu ya maneno",
+      "kujaza nafasi katika sentensi au vifungu vifupi kwa kuzingatia upatanisho wa kisarufi wa ngeli ya KI-VI na LI-YA",
+      "kuchopoa nomino za ngeli ya KI-VI na LI-YA kwenye chati, kadi maneno, kapu maneno au tarakilishi",
+      "kutaja majina ya vitu katika mazingira ya shuleni yaliyo katika ngeli ya KI-VI na LI-YA",
+      "kutenga nomino za ngeli ya KI-VI na LI-YA katika orodha ya nomino, sentensi au vifungu kwenye vitabu, tarakilishi",
+      "chati kwa kuzikolezea wino au kuzipigia mstari",
+      "kutunga sentensi au vifungu vifupi vyenye upatanisho ufaao wa kisarufi wa ngeli ya KI-VI na LI-YA akizingatia masuala mtambuko mbalimbali likiwemo suala la matumizi ya vifaa vya kidijitali katika mawasiliano",
+      "kuwasilisha kazi yake darasani au kuwasambazia wenzake mtandaoni ili waitolee maoni",
+      "kutunga sentensi zenye upatanisho ufaao wa kisarufi wa ngeli ya KI-VI na LI-YA akitumia nomino za vitu vilivyo katika mazingira ya nyumbani, na kumsomea mzazi au mlezi wake ili amtolee maoni."
+     ],
+     "inquiry_questions": [
+      "Utajuaje kama matini inazingatia kanuni za kisarufi?"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade7-kiswahili.pdf#p101"
+    },
+    {
+     "kicd_code": "10.4.1",
+     "name": "Vinyume",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "kueleza dhana ya kinyume cha maneno",
+      "kutambua vinyume vya nomino na vivumishi katika matini",
+      "kutumia vinyume vya nomino na vivumishi katika matini",
+      "kuchangamkia kutumia vinyume vya nomino na vivumishi katika mawasiliano."
+     ],
+     "learning_experiences": [
+      "kueleza maana ya kinyume cha maneno",
+      "kutambua vinyume vya nomino na vivumishi kwa kutumia kadi maneno, mti maneno au kapu maneno",
+      "kutambua vinyume vya nomino na vivumishi katika orodha ya maneno, sentensi au vifungu",
+      "kuchagua sentensi zinazoashiria matumizi ya vinyume vya nomino na vivumishi kutoka kwa sentensi mbalimbali kwenye vitabu, tarakilishi au chati",
+      "kutumia vinyume vya nomino na vivumishi kujaza nafasi katika sentensi au vifungu",
+      "kutunga sentensi au kifungu kifupi kwa kutumia vinyume vya nomino na vivumishi ipasavyo akizingatia masuala mtambuko mbalimbali likiwemo suala la kujithamini",
+      "• kusakura mtandaoni au katika vitabu vya ziada ili kupata vinyume zaidi vya nomino na vivumishi."
+     ],
+     "inquiry_questions": [
+      "Je, dhana ya vinyume vya nomino ina maana gani?"
+     ],
+     "core_competencies": [
+      "Mawasiliano na ushirikiano: mwanafunzi anapotoa mchango wake katika kazi ya kikundi.",
+      "Ujuzi wa kidijitali: mwanafunzi anapotumia vifaa vya kidijitali kutambua vinyume vya nomino na vivumishi.",
+      "Ubunifu: mwanafunzi anapotunga sentensi sahihi kuonyesha vinyume vya nomino na vivumishi.",
+      "Kujiamini: mwanafunzi anaposhiriki katika kutambua vinyume vya nomino na vivumishi na kuvitungia sentensi sahihi."
+     ],
+     "values": [
+      "Heshima: mwanafunzi anapoheshimu maoni ya wenzake katika kazi ya kikundi.",
+      "Upendo: mwanafunzi anapowapa wenzake nafasi ya kushiriki katika shughuli za kikundi.",
+      "Uwajibikaji: mwanafunzi anapojitolea kuchukua nafasi mbalimbali katika shughuli za kikundi.",
+      "Umoja: mwanafunzi anaposhiriki katika shughuli za kikundi."
+     ],
+     "pertinent_issues": [
+      "• Kujithamini: mwanafunzi anaposhirikiana na wenzake katika kikundi kuchopoa vinyume vya nomino na vivumishi na kutunga sentensi sahihi."
+     ],
+     "links_to_other_areas": [
+      "Mwanafunzi anaweza kuhusisha dhana ya vinyume vya maneno katika somo la Kiswahili na dhana hiyo katika somo la English.",
+      "Mwanafunzi anaweza kuhusisha suala la kujithamini na yale amejifunza kuhusu suala hilo katika somo la Social Studies."
+     ],
+     "resources": [],
+     "kicd_source": "grade7-kiswahili.pdf#p110"
+    },
+    {
+     "kicd_code": "11.4.1",
+     "name": "Mnyambuliko wa Vitenzi Kauli ya",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "kutambua kauli ya kutenda, kutendea na kutendwa katika vitenzi",
+      "kutumia vitenzi katika kauli ya kutenda, kutendea na kutendwa ipasavyo",
+      "kuchangamkia kutumia ipasavyo vitenzi katika kauli ya kutenda, kutendea na kutendwa ili kujenga ufasaha wa lugha."
+     ],
+     "learning_experiences": [
+      "kutambua vitenzi katika kauli ya kutenda, kutendea na kutendwa",
+      "kuteua vitenzi katika kauli ya kutenda, kutendea na kutendwa, kwenye chati, kadi maneno, kapu maneno, sentensi na vifungu au tarakilishi",
+      "kujaza nafasi katika sentensi au vifungu vifupi kwa kutumia vitenzi katika kauli ya kutenda, kutendea na kutendwa ipasavyo",
+      "kugeuza vitenzi katika kauli ya kutenda, kutendea na kutendwa",
+      "kutunga sentensi au vifungu vifupi kwa kutumia vitenzi katika kauli ya kutenda, kutendea na kutendwa akizingatia masuala mbalimbali likiwemo suala la majukumu ya watoto."
+     ],
+     "inquiry_questions": [
+      "Ni kauli gani za vitenzi unazozijua?"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade7-kiswahili.pdf#p120"
+    },
+    {
+     "kicd_code": "12.4.1",
+     "name": "Aina za Sentensi",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "kueleza maana ya sentensi sahili na ambatano",
+      "kutambua sentensi sahili na ambatano katika matini",
+      "kutunga sentensi sahili na ambatano ipasavyo",
+      "kuchangamkia matumizi ya sentensi sahili na ambatano katika mawasiliano."
+     ],
+     "learning_experiences": [
+      "kueleza maana ya sentensi sahili na ambatano",
+      "kutenga sentensi sahili na ambatano katika orodha ya sentensi kwenye vitabu, chati au tarakilishi kwa kuzipigia mstari au kuzikolezea wino",
+      "kutaja sentensi sahili na ambatano zinazojitokeza katika vifungu",
+      "kuunganisha sentensi sahili mbili au zaidi kuunda sentensi ambatano",
+      "kuunda sentensi sahili kutokana na sentensi ambatano",
+      "kutunga sentensi sahili na ambatano ipasavyo akizingatia masuala mtambuko mbalimbali likiwemo suala la magonjwa ambukizi",
+      "kumtungia mzazi au mlezi sentensi sahili na ambatano zinazohusu shughuli katika mazingira ya nyumbani."
+     ],
+     "inquiry_questions": [
+      "1. Ni aina gani ya sentensi unazozijua?",
+      "2. Je, sentensi sahili na ambatano hutofautianaje?"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade7-kiswahili.pdf#p129"
+    },
+    {
+     "kicd_code": "13.4.1",
+     "name": "Ukanushaji kwa Kuzingatia Nyakati",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "kueleza maana ya ukanushaji",
+      "kutambua wakati uliopita, uliopo na ujao katika matini",
+      "kutambua ukanushaji kwa kuzingatia wakati uliopita, uliopo na ujao katika matini",
+      "kutumia ipasavyo hali ya ukanushaji wa wakati uliopita, uliopo na ujao katika matini",
+      "kuchangamkia kukanusha sentensi katika wakati uliopita, uliopo na ujao ili kukuza mawasiliano."
+     ],
+     "learning_experiences": [
+      "kueleza maana ya ukanushaji",
+      "kutambua nyakati tatu tofauti (uliopita, uliopo, ujao) kutoka kwenye chati, mti maneno, vitabu au vifaa vya kidijitali",
+      "kutambua ukanushaji wa sentensi katika wakati uliopita, uliopo na ujao",
+      "kukanusha sentensi alizopewa katika wakati uliopita, uliopo na ujao",
+      "kutunga sentensi au vifungu vifupi kwa kutumia wakati uliopita, uliopo na ujao na kuzikanusha akizingatia masuala mtambuko mbalimbali likiwemo suala la utatuzi wa mizozo",
+      "kuwasilisha kazi yake darasani au kuwasambazia wenzake mtandaoni ili kuitolea maoni."
+     ],
+     "inquiry_questions": [
+      "Tunakanusha sentensi kwa kuzingatia nyakati gani?"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade7-kiswahili.pdf#p138"
+    },
+    {
+     "kicd_code": "14.4.1",
+     "name": "Ukubwa wa Nomino",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "kutambua nomino katika hali ya ukubwa katika matini",
+      "kutambua viambishi vya ukubwa katika nomino",
+      "kutumia nomino katika hali ya ukubwa ipasavyo",
+      "kuchangamkia kutumia nomino katika hali ya ukubwa katika sentensi."
+     ],
+     "learning_experiences": [
+      "kutambua nomino katika hali ya ukubwa (k.v. jitu, joka, jiji, kapu, goma, jisu na jishamba) kwenye orodha ya nomino, chati, kadi maneno, kapu maneno, sentensi, vifungu vya maneno au tarakilishi",
+      "kutambua viambishi vya ukubwa katika maneno",
+      "kuandika majina ya vifaa vya darasani katika ukubwa",
+      "kuambatanisha nomino za hali ya wastani na za hali ya ukubwa kwa usahihi",
+      "kubadilisha nomino za hali ya wastani ziwe katika hali ya ukubwa",
+      "kujaza nafasi katika sentensi au vifungu kwa kutumia nomino katika hali ya ukubwa ipasavyo",
+      "kutunga sentensi au vifungu vifupi akitumia nomino katika",
+      "hali ya ukubwa akizingatia masuala mtambuko mbalimbali likiwemo suala la matumizi ya pesa",
+      "kuwasilisha kazi yake darasani ili wenzake waitathmini",
+      "kumtajia mzazi au mlezi majina ya vifaa vya nyumbani katika ukubwa (k.v. jimeza, jijiko na jisahani)."
+     ],
+     "inquiry_questions": [
+      "Unazingatia nini unapoandika nomino katika ukubwa?"
+     ],
+     "core_competencies": [
+      "Mawasiliano na ushirikiano: mwanafunzi anaposhiriki na kuchangia katika kazi za kikundi kikamilifu.",
+      "Ujuzi wa kidijitali: mwanafunzi anapotumia vifaa vya kidijitali katika kutambua nomino katika hali ya ukubwa.",
+      "Ubunifu: mwanafunzi anapotunga sentensi sahihi kuhusu suala lengwa akitumia nomino katika hali ya ukubwa.",
+      "Hamu ya ujifunzaji: mwanafunzi anapomtajia mzazi au mlezi wake nomino katika hali ya ukubwa katika mazingira ya nyumbani."
+     ],
+     "values": [
+      "Heshima: mwanafunzi anapoheshimu maoni ya wenzake katika kazi ya kikundi.",
+      "Upendo: mwanafunzi anapowapa wenzake nafasi ya kushiriki katika shughuli za ujifunzaji darasani na katika kikundi.",
+      "Uwajibikaji: mwanafunzi anapojitolea kuchukua nafasi mbalimbali katika shughuli za kikundi.",
+      "Umoja: mwanafunzi anaposhirikiana na wenzake katika shughuli za kikundi."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade7-kiswahili.pdf#p147"
+    },
+    {
+     "kicd_code": "15.4.1",
+     "name": "Usemi Halisi na Usemi wa Taarifa",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "kueleza maana za usemi halisi na usemi wa taarifa",
+      "kutambua kanuni za kubadilisha usemi halisi kuwa usemi wa taarifa",
+      "kutumia usemi halisi na usemi wa taarifa ifaavyo",
+      "kuchangamkia matumizi ya usemi halisi na usemi wa taarifa katika mawasiliano.",
+      "Mapendekezo ya Nyenzo za Kufundishia",
+      "Michoro na picha",
+      "Vifaa vya kidijitali (k.v. tarakilishi/vipakatalishi, kinasasauti, rununu, projekta, video)",
+      "Kielelezo cha insha ya masimulizi",
+      "Kielelezo cha insha ya maelezo",
+      "Kielelezo cha insha ya maelekezo",
+      "Nakala ya barua ya kirafiki",
+      "Nakala ya barua rasmi",
+      "Picha za vitu mbalimbali"
+     ],
+     "learning_experiences": [
+      "kueleza maana za usemi halisi na usemi wa taarifa",
+      "kutambua kanuni za kimsingi za kubadilisha usemi halisi kuwa usemi wa taarifa",
+      "kubadilisha sentensi sahili kutoka usemi halisi hadi usemi wa taarifa na usemi wa taarifa hadi usemi halisi",
+      "kutunga sentensi sahili za usemi halisi na usemi wa taarifa akizingatia masuala mtambuko mbalimbali likiwemo suala la maadili ya mtu binafsi",
+      "kuwasomea wenzake ili wamtolee maoni",
+      "kushirikiana na wenzake kutunga na kutathmini sentensi sahili za usemi halisi na usemi wa taarifa.",
+      "Mapendekezo ya Shughuli Nyingine Zilizoratibiwa za Ujifunzaji",
+      "1. Kazi ya kikundi 2. Vyama vya ushirika shuleni 3. Mijadala inayohusu masuala mtambuko mbalimbali 4. Ziara za nyanjani 5. Kutagusana na vyombo vya habari na vifaa vingine vya kidijitali",
+      "1. Kazi ya kikundi 2. Vyama vya ushirika shuleni 3. Ziara za nyanjani 4. Kutagusana na vyombo vya habari na vifaa vingine vya kidijitali"
+     ],
+     "inquiry_questions": [
+      "1. Ni kwa usemi gani tunaweza kuwasilisha ujumbe?",
+      "2. Je, ni mambo gani unayozingatia wakati wa kubadilisha usemi halisi kuwa usemi wa taarifa?"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade7-kiswahili.pdf#p157"
+    }
+   ]
+  }
+ ]
+}

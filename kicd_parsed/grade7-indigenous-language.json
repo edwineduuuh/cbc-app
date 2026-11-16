@@ -1,0 +1,970 @@
+{
+ "source_pdf": "grade7-indigenous-language.pdf",
+ "grade": 7,
+ "subject": "indigenous-language",
+ "general_outcomes": [
+  "By the end of Junior School, the learner should be able to:",
+  "Respond appropriately to a variety of communication in the indigenous language.",
+  "Express themselves confidently and appropriately in a variety of social contexts.",
+  "Demonstrate knowledge of and apply indigenous knowledge, culture and values in varied situations.",
+  "Comprehend information in different contexts in the indigenous language.",
+  "Read fluently and write legibly in different formats to express a variety of ideas and opinions.",
+  "Enjoy communicating using a variety of cultural language strategies."
+ ],
+ "strands": [
+  {
+   "strand": "Reading",
+   "strand_code": "1.2",
+   "assessment_rubric": [],
+   "substrands": [
+    {
+     "kicd_code": "1.2.1",
+     "name": "Reading comprehension",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "respond to direct and inferential questions from a text for comprehension",
+      "use the dictionary to find the meaning of vocabulary used in texts for understanding",
+      "appreciate indigenous home designs for indigenous knowledge acquisition."
+     ],
+     "learning_experiences": [
+      "read comprehension texts related to the theme of indigenous homes",
+      "create a word bank of vocabulary from the passages",
+      "work with peers to infer the meaning of the vocabulary from context",
+      "use the dictionary to search for the meaning of the vocabulary",
+      "fill in gaps in a passage using the vocabulary",
+      "read texts on indigenous homes and answer inferential questions",
+      "search for information on the theme from digital sources and share the findings with peers."
+     ],
+     "inquiry_questions": [
+      "1. How should we read a text to get accurate information?",
+      "2. Why is it important to showcase our indigenous homes?"
+     ],
+     "core_competencies": [
+      "• Digital literacy is developed as the learner accesses information on the theme of peaceful coexistence from digital sources and shares with peers."
+     ],
+     "values": [
+      "Values:",
+      "Unity is achieved as the learner works with peers to infer the meaning of the vocabulary from context.",
+      "Responsibility is nurtured as the learner works diligently to search for information on the theme from digital sources and shares the findings with peers. Pertinent and Contemporary Issues (PCIs): Social cohesion is promoted as the learner interacts and appreciates texts on indigenous homes and how people lived. Link to other subjects: The learner is able to compare the concept of indigenous home structures to the concept of social organizations in Social Studies."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade7-indigenous-language.pdf#p16"
+    },
+    {
+     "kicd_code": "2.2.1",
+     "name": "Extensive Reading: Library Skills",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "select appropriate materials from the library for extensive reading",
+      "read texts based on a specific topic from a library for general information",
+      "access specific information from the internet for reading",
+      "advocate the use of library resources for general reading."
+     ],
+     "learning_experiences": [
+      "observe rules and regulations when in a library",
+      "select reference materials from a library for extended reading",
+      "search the internet for reading materials on a given theme",
+      "make a summary of key points from reading materials",
+      "use hard copy and online dictionaries to find the meaning of different vocabulary",
+      "prepare a personal reading list of a collection of books."
+     ],
+     "inquiry_questions": [
+      "1. How do we locate reading materials in a library?",
+      "2. How do we use the dictionary to find the meaning of new words?"
+     ],
+     "core_competencies": [
+      "Learning to learn takes place as the learner searches the library and internet for reference materials for extended reading.",
+      "Critical thinking and problem solving is enhanced as the learner encounters new information in texts from the library."
+     ],
+     "values": [
+      "Values:",
+      "Responsibility is nurtured as the learner observes rules and regulations of library use.",
+      "Respect is enhanced as the learner searches the internet for reading materials on a given topic. Pertinent and Contemporary Issues (PCIs): Digital literacy is enhanced as the learner is able to search, read and acquire more information from online sources. Link to other subjects: The learner is able to transfer extensive reading skills other learning areas such as Agriculture."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade7-indigenous-language.pdf#p22"
+    },
+    {
+     "kicd_code": "3.2.1",
+     "name": "Extensive reading: Vocabulary building",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "summarise key points from texts after reading",
+      "create a glossary of new vocabulary from texts for communication",
+      "promote reading to enhance language acquisition."
+     ],
+     "learning_experiences": [
+      "discuss ways of accessing reading materials on a specific theme from a library",
+      "work jointly to select relevant reading materials based on the theme",
+      "use a digital and any other electronic device to access grade appropriate reading materials on the theme",
+      "read the materials and make brief notes on the main points on the texts",
+      "identify vocabulary from the text and use the dictionary to find their meaning",
+      "team up to build a vocabulary bank on the new words identified",
+      "use the new words to construct sentences",
+      "• peer review each other’s sentences."
+     ],
+     "inquiry_questions": [
+      "1. How do we develop library skills?",
+      "2. How can we identify appropriate material for reading?"
+     ],
+     "core_competencies": [
+      "Communication and collaboration is realised when the learner recognises the value of other people’s ideas as they peer review each other’s sentences.",
+      "Learning to learn is enhanced as the learner independently identifies vocabulary from texts and uses the dictionary to find meaning."
+     ],
+     "values": [
+      "Responsibility is realised as the learner diligently selects relevant material for reading on the theme.",
+      "Unity is nurtured as the learner cooperates with peers to discuss ways of accessing reading materials from a library."
+     ],
+     "pertinent_issues": [
+      "Cyber security awareness is enhanced as the learner uses digital devices responsibly to access reading materials."
+     ],
+     "links_to_other_areas": [
+      "The learner is able to employ the knowledge on library skills to all the other learning areas."
+     ],
+     "resources": [],
+     "kicd_source": "grade7-indigenous-language.pdf#p27"
+    },
+    {
+     "kicd_code": "4.2.1",
+     "name": "Reading for information-Visuals",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "infer implied meaning of visuals for information",
+      "summarize written texts into visuals for comprehension",
+      "acknowledge the role of visuals in effective communication."
+     ],
+     "learning_experiences": [
+      "study the pictures and make observations about environmental conservation",
+      "infer the implied meaning from a variety of visuals",
+      "conduct a reader’s theatre to read texts on environmental conservation",
+      "create a personal glossary of vocabulary related to environmental conservation",
+      "work jointly to summarize information from the text into a visual(e.g. picture, charts, graph)",
+      "team up to collect a collection of visuals on the theme and organize them in a class portfolio."
+     ],
+     "inquiry_questions": [
+      "1. Why are visuals used in communication?",
+      "2. How do we conserve the environment?"
+     ],
+     "core_competencies": [
+      "• Citizenship is developed as the learner consolidates information when reading texts and studying pictures to make observations about environmental conservation."
+     ],
+     "values": [
+      "Values:",
+      "Respect is promoted as the learner appreciates diverse opinions when listening to peer’s interpretation of vocabulary items.",
+      "Unity is developed as the learner works with peers to discuss environmental issues in groups. Pertinent and Contemporary Issues (PCIs): Environmental education is promoted as the learner reads texts with information on environmental conservation. Link to other subjects: The learner is able to relate the concept on creating visuals to their learning in Creative Arts and Sports."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade7-indigenous-language.pdf#p33"
+    },
+    {
+     "kicd_code": "5.2.1",
+     "name": "Reading for Information",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "answer direct and inferential questions from a written text",
+      "infer meaning of vocabulary from context for comprehension",
+      "promote a reading culture in the community for lifelong learning."
+     ],
+     "learning_experiences": [
+      "conduct a reader’s theatre to read a passage on the theme of cultural diversity",
+      "collaborate with peers to answer direct questions",
+      "outline the main ideas from the passage",
+      "respond to inferential questions on the theme of the passage",
+      "collaborate with peers to identify vocabulary related to the theme and read aloud",
+      "work jointly to infer meaning of vocabulary in context",
+      "make sentences using the vocabulary identified and review each other’s sentences."
+     ],
+     "inquiry_questions": [
+      "Why is it important to read texts?"
+     ],
+     "core_competencies": [
+      "Self-efficacy is enhanced when the learner shows concerted attention when working jointly to infer meaning of vocabulary in context.",
+      "Citizenship is enhanced as the learner gains knowledge on cultural diversity from reading texts on the theme."
+     ],
+     "values": [
+      "Values: Unity is enhanced as the learner teams with others to review the sentences written using the vocabulary they have learnt. Pertinent and Contemporary Issues (PCIs): Social cohesion is promoted as the learner embraces respect for other people on account of knowledge acquired on cultural diversity. Link to other subjects: The learner is able to relate information on cultural diversity acquired from varied texts to Social Studies."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade7-indigenous-language.pdf#p39"
+    },
+    {
+     "kicd_code": "6.2.1",
+     "name": "Reading comprehension: Reading Strategies",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "apply the skimming strategy to identify the main idea in a text for comprehension",
+      "scan through a text to pick out target words related to the theme",
+      "appreciate the importance of reading for information."
+     ],
+     "learning_experiences": [
+      "work jointly to select a story on the theme-the farm",
+      "skim through the passage to identify the main idea",
+      "scan for specific information from the passage (e.g. names of characters and vocabulary items)",
+      "conduct a readers’ theatre to read a passage related to the theme aloud",
+      "work with peers to answer questions based on the passage",
+      "select vocabulary from the passage and list them on flash cards",
+      "make sentence using the vocabulary from a substitution table",
+      "work collaboratively to play language games involving vocabulary from digital devices."
+     ],
+     "inquiry_questions": [
+      "How is reading important in acquiring information?"
+     ],
+     "core_competencies": [
+      "• Critical thinking and problem solving is developed as the learner explores different options when making sentences using the vocabulary from a substitution table."
+     ],
+     "values": [
+      "Values:",
+      "Responsibility is acquired as the learner takes up their assigned role when conducting a readers’ theatre to read a passage related to the theme aloud.",
+      "Peace is developed as the learner teams up with others when answering questions based on the passage. Pertinent and Contemporary Issues (PCIs): Climate change is addressed as learners interact with concepts on the farm and how climate affects farm practices. Link to other subjects: The learner is able to relate vocabulary acquired from the theme to their learning of the farm in Agriculture ."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade7-indigenous-language.pdf#p45"
+    },
+    {
+     "kicd_code": "7.2.1",
+     "name": "Reading for information",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "identify main ideas in a reading text based on theme for comprehension",
+      "use vocabulary based on the theme to construct sentences for communication",
+      "recognise the value of reading texts for information in lifelong learning."
+     ],
+     "learning_experiences": [],
+     "inquiry_questions": [
+      "1. How can we pick ideas from a text?",
+      "2. How can we identify talents and gifts among people?"
+     ],
+     "core_competencies": [
+      "• Critical thinking and problem solving is acquired as the learner analyses texts to pick out the main ideas in each paragraph."
+     ],
+     "values": [
+      "Values:",
+      "Unity is developed as the learner cooperates with peers to create a list of vocabulary from the reading text.",
+      "Respect is enhanced as the learner exercises patience when taking turns to read a text on talents. Pertinent and Contemporary Issues (PCIs): Civic responsibility is cultivated as the learner gets information from texts about gifts and talents and appreciates their role in the society. Link to other subjects: The learner is able to relate the vocabulary derived from the theme of gifts and talents to concepts of talents in Creative Arts and Sports."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade7-indigenous-language.pdf#p51"
+    },
+    {
+     "kicd_code": "8.2.1",
+     "name": "Intensive Reading – Trickster stories",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "paraphrase trickster stories from their community for information",
+      "analyse trickster stories from their community for understanding",
+      "value reading oral narratives for enjoyment."
+     ],
+     "learning_experiences": [
+      "work collaboratively to collect varied trickster narratives from the community",
+      "organise the collection of trickster narratives in a class portfolio",
+      "brainstorm characters often portrayed as tricksters in oral narratives",
+      "conduct a reader’s theatre to read the trickster narrative in the class portfolio",
+      "listen to a resource person narrate a trickster story",
+      "compose a short summary of the trickster narrative listened to",
+      "outline the characters and plot in a trickster narrative",
+      "work collaboratively to stage a creative skit on a trickster narrative",
+      "brainstorm the moral lessons addressed in trickster narratives."
+     ],
+     "inquiry_questions": [
+      "Why are trickster narratives shared in the community?"
+     ],
+     "core_competencies": [
+      "Core competencies to be developed:",
+      "Citizenship is promoted as the learner displays respect and acceptance of heterogeneity when working collaboratively with peers to collect varied trickster narratives from the community.",
+      "Critical thinking and problem solving is developed as the learner brainstorms the moral lessons addressed in trickster narratives. Values:",
+      "Integrity is developed as the learner exhibits commitment to duty when working collaboratively with peers to stage a creative skit on a trickster narrative.",
+      "Peace is enhanced as the learner displays tolerance when brainstorming characters often portrayed as tricksters in oral narratives, with peers. Pertinent and Contemporary Issues (PCIs): Social cohesion is developed as the learner collaboratively engages in reading, analysing, and presenting trickster stories to the class. Link to other subjects: The learner is able to relate the concepts learnt when exploring trickster stories to their learning of narratives in English and Kiswahili."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade7-indigenous-language.pdf#p57"
+    },
+    {
+     "kicd_code": "9.2.1",
+     "name": "Reading for information",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "use vocabulary related to the theme to create a personal collection of vocabulary related to the theme for information",
+      "pick out emerging issues related to the theme",
+      "acknowledge reading as a source for information."
+     ],
+     "learning_experiences": [
+      "read digital and print texts and identify vocabulary related to patriotism and construction and maintenance of our roads",
+      "create a personal vocabulary bank of the new words picked",
+      "work collaboratively to infer the meaning of words from context and share with peers",
+      "use the dictionary to find out the meaning the words",
+      "work jointly with peers to use a thesaurus and the dictionary to find synonyms and opposites of the words",
+      "construct sentences using vocabulary",
+      "collaborate with peers to read articles from newspapers and magazines then pick out",
+      "emerging issues related to the theme."
+     ],
+     "inquiry_questions": [
+      "1. How can we deduce meaning of new words found in texts?",
+      "2. How are our indigenous communities similar to each other?"
+     ],
+     "core_competencies": [
+      "Critical thinking and problem solving is developed as the learner contributes to group decision-making when reading articles from newspapers and picking out emerging issues related to the theme.",
+      "Learning to learn is enhanced as the learner exhibits self-discipline when working jointly with peers to use a thesaurus and dictionary to find synonyms and opposites of the words as a strategy for continuous learning."
+     ],
+     "values": [
+      "Social justice is enhanced as the learner shares resources(thesaurus and dictionary) equitably when working jointly with peers to find synonyms and opposites of the words.",
+      "Responsibility is developed as the learner observes safety precautions when using digital devices to read texts and identify vocabulary related to the theme."
+     ],
+     "pertinent_issues": [
+      "Civic responsibility is promoted as the learner interacts with articles and picks out emerging issues related to the theme."
+     ],
+     "links_to_other_areas": [
+      "The learner is able to relate vocabulary derived from the theme of nationalism to similar concepts in Social Studies."
+     ],
+     "resources": [],
+     "kicd_source": "grade7-indigenous-language.pdf#p63"
+    }
+   ]
+  },
+  {
+   "strand": "Writing",
+   "strand_code": "1.3",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to identify specific information and main ideas from oral texts",
+     "exceeds": "Identifies specific information and main ideas from oral texts with rich references",
+     "meets": "Identifies specific information and main ideas from oral texts",
+     "approaches": "Identifies some specific information and main ideas from oral texts",
+     "below": "Identifies specific information and main ideas from oral texts with assistance"
+    },
+    {
+     "indicator": "Ability to transcribe an oral text for accuracy",
+     "exceeds": "Transcribes an oral text for accuracy with precision",
+     "meets": "Transcribes an oral text for accuracy",
+     "approaches": "Transcribes a large portion of an oral text for accuracy",
+     "below": "Transcribes a limited portion of an oral text for accuracy"
+    },
+    {
+     "indicator": "Ability to retell tongue twisters for fluency",
+     "exceeds": "Retells tongue twisters for fluency with precision and speed",
+     "meets": "Retells tongue twisters for fluency",
+     "approaches": "Retells some tongue twisters for fluency",
+     "below": "Retells tongue twisters for fluency with scaffolding"
+    },
+    {
+     "indicator": "Ability to recognise how to begin and end a conversation",
+     "exceeds": "Recognises how to begin and end a conversation creatively",
+     "meets": "Recognises how to begin and end a conversation",
+     "approaches": "Recognises how to either begin or end a conversation",
+     "below": "Recognises how to begin and end a conversation with clues"
+    },
+    {
+     "indicator": "Ability to engage in a conversation for effective communication",
+     "exceeds": "Engages in a conversation for effective communication skillfully",
+     "meets": "Engages in a conversation for effective communication",
+     "approaches": "Partially engages in a conversation for effective communication",
+     "below": "Engages in a conversation for effective communication with cues"
+    },
+    {
+     "indicator": "Ability to apply effective presentation skills when giving a short talk",
+     "exceeds": "Applies effective presentation skills when giving a short talk creatively",
+     "meets": "Applies effective presentation skills when giving a short talk",
+     "approaches": "Applies a limited variety of effective presentation skills when giving a short talk",
+     "below": "Applies effective presentation skills when giving a short talk with prompts"
+    },
+    {
+     "indicator": "Ability to identify vocabulary related to the theme from a written text",
+     "exceeds": "Identifies vocabulary related to the theme from a variety of written texts",
+     "meets": "Identifies vocabulary related to the theme from a written text",
+     "approaches": "Identifies a limited number of vocabulary related to the theme from a written text",
+     "below": "Identifies vocabulary related to the theme from a written text with clues"
+    },
+    {
+     "indicator": "Ability to respond to direct and inferential questions from texts",
+     "exceeds": "Responds to direct and inferential questions from texts with precision",
+     "meets": "Responds to direct and inferential questions from texts",
+     "approaches": "Responds to most direct and inferential questions from texts",
+     "below": "Responds to few direct and inferential questions from texts"
+    },
+    {
+     "indicator": "Ability to summarize information from visuals and texts",
+     "exceeds": "Summarizes information from varied visuals and texts",
+     "meets": "Summarizes information from visuals and texts",
+     "approaches": "Summarizes information from visuals and texts but leaves out minor details",
+     "below": "Summarizes information from visuals and texts but leaves out critical details"
+    },
+    {
+     "indicator": "Ability to identify the features of a trickster narrative and a fable",
+     "exceeds": "Identifies the features of a trickster narrative and a fable with",
+     "meets": "Identifies the features of a trickster",
+     "approaches": "Identifies most features of a trickster narrative and a fable",
+     "below": "Identifies few features of a trickster narrative and a fable"
+    },
+    {
+     "indicator": "Ability to select and read grade appropriate reading materials",
+     "exceeds": "Selects and reads a wide range of grade appropriate reading materials",
+     "meets": "Selects and reads grade appropriate reading materials",
+     "approaches": "Occasionally selects and reads grade appropriate reading materials",
+     "below": "Rarely selects and reads some grade appropriate reading materials"
+    },
+    {
+     "indicator": "Ability to write a coherent and well sequenced paragraph",
+     "exceeds": "Writes a coherent and well sequenced paragraph creatively",
+     "meets": "Writes a coherent and well sequenced paragraph",
+     "approaches": "Writes a coherent and well sequenced paragraph but leaves out some details",
+     "below": "Writes a coherent and well sequenced paragraph with guidance"
+    },
+    {
+     "indicator": "Ability to paraphrase information from a text",
+     "exceeds": "Paraphrases information from a variety of texts",
+     "meets": "Paraphrases information from a text",
+     "approaches": "Paraphrases information from a large portion of a text",
+     "below": "Paraphrases information from a small portion of a text"
+    },
+    {
+     "indicator": "Ability to compose an SMS and letter of request for communication using correct,",
+     "exceeds": "Composes varied SMS and letter of request for communication using correct",
+     "meets": "Composes an SMS and letter of request for communication using correct",
+     "approaches": "Composes an SMS and letter of request for communication leaving out",
+     "below": "Composes an SMS and letter of request for communication but leaves out"
+    },
+    {
+     "indicator": "Ability to compose essays, imaginative dialogues and narratives using correct: -structure or format -language -organisation",
+     "exceeds": "Creatively composes essays, imaginative dialogues and narratives using correct format or structure, language and organisation",
+     "meets": "Composes imaginative dialogues and narratives using correct format or structure, language and organisation",
+     "approaches": "Composes two of the items (either essays, imaginative dialogues or narratives) using correct format or structure, language and organisation",
+     "below": "Composes one of the items (either essays, imaginative dialogues or narratives) using correct format or structure, language and organisation"
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "1.3.1",
+     "name": "Social writing-SMS",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "identify features of a Short Message Service",
+      "create an SMS text with appropriate features for effective communication",
+      "adopt digital etiquette when using social media for communication."
+     ],
+     "learning_experiences": [
+      "work jointly to talk about the features of an ideal SMS",
+      "write an SMS using a digital device",
+      "peer review another learners’ SMS texts",
+      "discuss social media etiquette when writing an SMS",
+      "use SMS with etiquette.",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "How do we ensure etiquette when using digital devices?",
+      "Suggested Key Inquiry Question(s)"
+     ],
+     "core_competencies": [
+      "Digital literacy is developed as the learner writes an SMS using a digital device.",
+      "Communication is improved as the learner discusses and observes social media etiquette when writing an SMS."
+     ],
+     "values": [
+      "Responsibility is enhanced as the learner peer reviews another learners’ SMS texts and gives feedback for improvement.",
+      "Unity is displayed as the learner works jointly with peers to talk about the features of an ideal SMS."
+     ],
+     "pertinent_issues": [
+      "Global citizenship is achieved as the learner is able to apply etiquette in digital communication."
+     ],
+     "links_to_other_areas": [
+      "Link to other subjects: The learner is able to relate the concept of Short Message Service (SMS) to the concept of modern forms of communication in Social Studies."
+     ],
+     "resources": [],
+     "kicd_source": "grade7-indigenous-language.pdf#p18"
+    },
+    {
+     "kicd_code": "2.3.1",
+     "name": "Essay writing",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "outline parts of an essay from samples",
+      "compose an essay on a specific theme for communication",
+      "acknowledge the importance of essay writing for effective communication."
+     ],
+     "learning_experiences": [
+      "read in class sample essays and identify the three parts",
+      "identify ideas from sample essays",
+      "read essays aloud in class and correct mistakes",
+      "select a topic and write a simple essay and share with other learners",
+      "search for more information about essay writing from the library or digital sources",
+      "display essays in the class creative corner.",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "How do we write an essay?",
+      "Suggested key Inquiry Question(s)"
+     ],
+     "core_competencies": [
+      "Digital Literacy is developed as the learner searches for information on essay writing from digital sources.",
+      "Communication skills are developed as the learner writes essays on selected topics."
+     ],
+     "values": [
+      "Responsibility is exercised as the learner identifies an idea and selects a topic for essay writing.",
+      "Respect is observed as the learner reads sample essays with other learners in class."
+     ],
+     "pertinent_issues": [
+      "Social cohesion is enhanced as the learner participates in reading and identifying ideas from sample essays in class."
+     ],
+     "links_to_other_areas": [
+      "The learner can apply the skill of essay writing to other subjects like English and Kiswahili languages."
+     ],
+     "resources": [],
+     "kicd_source": "grade7-indigenous-language.pdf#p24"
+    },
+    {
+     "kicd_code": "3.3.1",
+     "name": "Writing for Information",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "outline key points from a text on a specific theme",
+      "paraphrase the main issues from a text for comprehension",
+      "acknowledge the value of brevity in communication."
+     ],
+     "learning_experiences": [],
+     "inquiry_questions": [
+      "1. Why do we write short notes?",
+      "2. How do you write short notes?"
+     ],
+     "core_competencies": [
+      "Self-efficacy is achieved as the learner shows concerted attention when brainstorming ideas on the theme of safety at home with other learners.",
+      "Digital literacy is developed as the learner interacts with technology devices reading texts on the theme online.",
+      "Core competencies to be developed:",
+      "Communication and Collaboration is achieved as the learner engages actively while role playing a dialogue in a conversation with fellow learners.",
+      "Learning to learn is enhanced as the learner takes the initiative to contribute to community development when starting or joining an environmental club to conserve the school and community environment. Values:",
+      "Respect is developed as the learner accommodates other learner’s opinions while discussing key points from a text.",
+      "Responsibility is cultivated as the learner exhibits a self-driven attitude by joining or starting an environmental club. Pertinent and Contemporary Issues (PCIs): Environmental education is enhanced as the learner acquires knowledge on environmental conservation by viewing presentations on the theme and discussing the main issues. Link to other subjects: The learner is able to relate the skills of environmental conservation to their learning in Agriculture ."
+     ],
+     "values": [
+      "Unity is enhanced as the learner teams up with peers to paraphrase the main points from each of the texts.",
+      "value the importance of conserving the environment. The learner is guided to:",
+      "watch a conversation to identify common ways of beginning and ending a conversation",
+      "use digital devices to view presentations/interviews on environmental conservation",
+      "discuss the main issues focused on",
+      "role-play a face-to-face conversation between two strangers while observing etiquette",
+      "work jointly to pick out the key words and phrases that 1. How can we make conversations respectful? 2. Why is it important to conserve environment?"
+     ],
+     "pertinent_issues": [
+      "Pertinent and Contemporary Issues (PCIs): Disaster Risk Reduction is enhanced as the learner interacts with information on safety at home and how to reduce emergencies. Link to other subjects: The learner is able to relate the concept on paraphrasing to their learning of similar concepts in Kiswahili."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade7-indigenous-language.pdf#p29"
+    },
+    {
+     "kicd_code": "4.3.1",
+     "name": "Creative Writing – Dialogue",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "outline the main features of a well written dialogue",
+      "compose an imaginative dialogue on the theme of environmental conservation for self-efficacy",
+      "promote creative writing for effective communication."
+     ],
+     "learning_experiences": [
+      "search from electronic and library sources for imaginative dialogues",
+      "watch or read the dialogues and discuss their features",
+      "work with peers to develop an outline of the structure of a good dialogue on a chart",
+      "write a simple imaginative dialogue on environmental conservation",
+      "share the written dialogues with peers for review",
+      "role play the dialogue with peers in class.",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "How can we write a good imaginative dialogue?",
+      "Suggested key Inquiry Question(s)"
+     ],
+     "core_competencies": [
+      "Communication and collaboration is nurtured as the learner contributes to group decision making to develop an outline of the structure of a good dialogue.",
+      "Digital literacy is acquired as the learner interacts with digital content to find sample imaginative dialogues."
+     ],
+     "values": [
+      "• Respect is enhanced as the learner accommodates ideas from peers as they discuss features of a good dialogue."
+     ],
+     "pertinent_issues": [
+      "Pertinent and Contemporary Issues (PCIs): Peace education is enhanced as the learner embraces the role of dialogue for peaceful coexistence. Link to other subjects: The learner is able to relate the concept of dialogue writing to their learning in Kiswahili and English."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade7-indigenous-language.pdf#p35"
+    },
+    {
+     "kicd_code": "5.3.1",
+     "name": "Creative writing – Narrative composition",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "identify the features of a narrative composition",
+      "write a narrative composition for self-expression",
+      "realise the importance of the narrative as a channel of communication."
+     ],
+     "learning_experiences": [],
+     "inquiry_questions": [
+      "How do we narrate events?"
+     ],
+     "core_competencies": [
+      "Creativity and imagination is developed as the learner embraces creative ideas to narrate an account of an event attended",
+      "Self-efficacy is developed as the learner effectively orders and prioritizes events when composing a simple narrative on the theme of cultural diversity.",
+      "Core competencies to be developed:",
+      "Digital literacy is enhanced as the learner interacts with digital content when listening to an audio recording and picks out vocabulary items.",
+      "Communication and collaboration is enhanced as the learner speaks engagingly using facts and examples when conducting a simple debate on the theme. Values:",
+      "Unity is developed as the learner collaborates with others to role play various adverbs from a chart.",
+      "Social justice is enhanced as the learner participates in sharing of roles fairly when working jointly to read adverbs aloud from flash cards. Pertinent and Contemporary Issues (PCIs): Environmental education is promoted as the learner is exposed to content and concepts on the farm for their day to day experiences. Link to other subjects: The learner is able to relate the concept of the farm to their knowledge in Agriculture ."
+     ],
+     "values": [
+      "Respect is enhanced as the learner gives constructive comments during the review on each other’s narratives",
+      "Responsibility is cultivated as the learner participates in outlining features of a narrative and puts them on a chart."
+     ],
+     "pertinent_issues": [
+      "Pertinent and Contemporary Issues (PCIs): Cultural awareness is developed as the learner becomes informed about cultural diversity. Link to other subjects: The learner can relate the skill on narrative writing to other languages like English and Kiswahili."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade7-indigenous-language.pdf#p41"
+    },
+    {
+     "kicd_code": "6.3.1",
+     "name": "Essay writing – expository composition",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "identify features of expository texts for self-expression",
+      "create an expository composition creatively and coherently",
+      "promote expository writing for effective communication."
+     ],
+     "learning_experiences": [
+      "work jointly with peers to mention features of expository texts",
+      "team up to collect sample expository compositions from print and non-print sources",
+      "read sample expository compositions",
+      "write simple expository compositions based on the theme",
+      "read their compositions aloud for peer review",
+      "display their well written compositions on the class language corner for a class gallery walk.",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "Why is writing a key aspect in communication?",
+      "Suggested key Inquiry Question(s)"
+     ],
+     "core_competencies": [
+      "Self-efficacy is achieved as the learner mobilises for peer support to collect sample expository compositions from print and non-print sources.",
+      "Citizenship is enhanced as the learner nurtures social cohesion while working collaboratively with peers to review their compositions."
+     ],
+     "values": [
+      "• Integrity is developed as the learner displays fairness when peer reviewing other learners’ compositions for honest feedback."
+     ],
+     "pertinent_issues": [
+      "Pertinent and Contemporary Issues (PCIs): Environmental awareness is enhanced as the learner searches and reads topics related to the theme - The farm. Link to other subjects: The learner is able to relate the skills used in expository writing to functional writing in English and Kiswahili"
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade7-indigenous-language.pdf#p47"
+    },
+    {
+     "kicd_code": "7.3.1",
+     "name": "Writing for information",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "identify parts of a paragraph for information",
+      "write a short coherent paragraph on the theme for self-expression",
+      "acknowledge the importance of paragraphing in written communication."
+     ],
+     "learning_experiences": [],
+     "inquiry_questions": [
+      "How do we write a paragraph?"
+     ],
+     "core_competencies": [
+      "Creativity and imagination is developed as the learner explores new ideas when using topic sentences to begin paragraphs and complete the story.",
+      "Citizenship is promoted as the learner shows tolerance and expresses different viewpoints when peer reviewing each other’s topical paragraphs.",
+      "Core competencies to be developed:",
+      "Digital Literacy is achieved as the learner interacts with digital content when watching fables from a digital device and talking about the character traits of animals.",
+      "Creativity and imagination is achieved as the learner explores new and unique ways of conducting a story telling session to narrate animal stories. Values:",
+      "Respect is enhanced as the learner embraces open-mindedness when discussing moral lessons from fables.",
+      "Patriotism is promoted as the learner cultivates a sense of awareness to the community when working with peers to collect fables (animal stories). Pertinent and Contemporary Issues (PCIs): Indigenous knowledge is enhanced as the learner watches fables from a digital device and talks about the character traits of animals. Link to other subjects: The learner is able to relate the concept of fables to their learning of narratives in English and Kiswahili."
+     ],
+     "values": [
+      "Values:",
+      "Love is promoted as the learner selflessly works with peers to reorganise the jumbled up sentence strips to form a coherent paragraph.",
+      "Respect is cultivated as the learner appreciates diverse opinions when working with peers to discuss the parts of a paragraph. Pertinent and Contemporary Issues (PCIs): Career education is promoted as the learner interacts with texts on the theme of gifts and talents and relates them with various career opportunities. Link to other subjects: The learner is able to link the concept of paragraph writing to their learning of creative writing in English and Kiswahili."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade7-indigenous-language.pdf#p53"
+    },
+    {
+     "kicd_code": "8.3.1",
+     "name": "Writing to give information",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "outline key ideas and events in an animal story based on the theme",
+      "compose an animal story featuring animal characters for self-expression",
+      "appreciate writing short stories for enjoyment."
+     ],
+     "learning_experiences": [
+      "work collaboratively to observe thematic pictures on cards and describe the events",
+      "work collaboratively to organise ideas from picture stories in a logical and sequenced order",
+      "compose a creative story with animal characters with coherent ideas",
+      "read the story to peers for review",
+      "organise their revised stories in a portfolio",
+      "work with peers to publish their best stories in the school or public journal or magazine.",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "1. How can we write interesting animal stories?",
+      "2. Why are animal stories important?",
+      "Suggested key Inquiry Question(s)"
+     ],
+     "core_competencies": [
+      "Communication and collaboration is enhanced as the learner recognises the value of other’s views when organising ideas from picture stories in a logical and sequenced order.",
+      "Self-efficacy is realised as the learner sets targets and plans efficiently to publish their best stories in the school magazine."
+     ],
+     "values": [
+      "Values:",
+      "Unity is developed as the learner displays a team spirit when working with peers to publish their best stories in the school magazine.",
+      "Respect is enhanced as the learner shows acceptance of diverse and constructive feedback from review of stories by peers. Pertinent and Contemporary Issues (PCIs): Animal Welfare is promoted as the learner is exposed to a wider understanding of animals through short stories with animal characters. Link to other subjects: The learner is able to relate the concept of writing short stories with animal characters with the concept of living things in Integrated Science."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade7-indigenous-language.pdf#p59"
+    },
+    {
+     "kicd_code": "9.3.1",
+     "name": "Functional writing – Letter of request",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "outline the components of a letter of request for comprehension",
+      "compose a letter of request (for library or club membership) for effective communication",
+      "appreciate the importance of letter writing for communication."
+     ],
+     "learning_experiences": [
+      "read sample formal letters of request",
+      "work jointly with peers to identify the features of a letter of request",
+      "make short notes on their findings",
+      "write a letter of request for library or club membership",
+      "peer review the composed letters for feedback",
+      "type the letter composed in a digital device",
+      "organise the typed letters in the class digital portfolio."
+     ],
+     "inquiry_questions": [
+      "Why do we need to make formal requests for membership to groups and institutions?"
+     ],
+     "core_competencies": [
+      "Learning to learn is enhanced as the learner builds on their own learning experiences when peer reviewing the composed letters for feedback.",
+      "Digital literacy is promoted as the learner creates content digitally when typing the letter composed in a digital device and organising them in the class digital portfolio."
+     ],
+     "values": [
+      "• Unity is enhanced as the learner cooperates with peers to identify the features of a letter of request."
+     ],
+     "pertinent_issues": [
+      "Pertinent and Contemporary Issues (PCIs): Healthy Interpersonal Relationships are enhanced as the learner gains insight on how to write letters of request for better formal relations. Link to other subjects: The learner relates the concept of letter writing to the concept of functional writing in English."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade7-indigenous-language.pdf#p65"
+    }
+   ]
+  },
+  {
+   "strand": "Listening and Speaking",
+   "strand_code": "2.1",
+   "assessment_rubric": [],
+   "substrands": [
+    {
+     "kicd_code": "2.1.1",
+     "name": "Listening for comprehension",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "find specific information from a text by listening",
+      "infer the meaning of vocabulary from a text",
+      "recognise the importance of Information Communication Technologies in life."
+     ],
+     "learning_experiences": [
+      "listen to a story on the theme of internet access and use from a digital device and discuss with peers",
+      "narrate key events in the story, in pairs",
+      "list pronouns from sentences and share",
+      "use the pronouns to write sentences",
+      "infer the meaning of new vocabulary as used in the story",
+      "use the vocabulary to construct sentences",
+      "observe pictures of digital devices and discuss their use",
+      "• discuss the importance of internet in communication."
+     ],
+     "inquiry_questions": [
+      "1. How is internet important in communication?",
+      "2. Why is it important to note down main points from an oral text?"
+     ],
+     "core_competencies": [
+      "Communication and collaboration are developed as the learner listens to oral stories and discusses with peers the importance of internet in communication."
+     ],
+     "values": [
+      "Responsibility is enhanced as the learner uses internet and digital devices with discipline when listening to stories on internet access and use.",
+      "Respect is nurtured as the learner expresses and listens to different views on the theme with peers."
+     ],
+     "pertinent_issues": [
+      "Social cohesion is achieved as the learner is able to demonstrate an understanding of different viewpoints as they interact with texts."
+     ],
+     "links_to_other_areas": [
+      "The learner is able to apply the skill of internet access and use to other learning areas, generally, when sourcing for learning materials."
+     ],
+     "resources": [],
+     "kicd_source": "grade7-indigenous-language.pdf#p20"
+    },
+    {
+     "kicd_code": "3.1.1",
+     "name": "Attentive listening",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "listen carefully to pick out the main ideas from a comprehension passage",
+      "respond to questions from an aural text",
+      "realise the importance of listening attentively for information."
+     ],
+     "learning_experiences": [
+      "team up to play the ‘broken telephone’ game to practice attentive listening",
+      "listen to an oral or watch an audio-visual story or passage on the theme of safety at home",
+      "discuss the various key ideas from the story or passage",
+      "identify words that denote actions (verbs) from the story or passage",
+      "team up to compose a song on the theme and sing with peers",
+      "answer questions from the song orally",
+      "debate the importance of safety at home."
+     ],
+     "inquiry_questions": [
+      "1. How can we listen attentively?",
+      "2. Why is it important to observe safety at home?"
+     ],
+     "core_competencies": [
+      "Core competencies to be developed:",
+      "Communication is developed as the learner keenly and actively listens to oral or watches audio-visual stories or passages and discusses with fellow learners the various ideas.",
+      "Creativity and imagination is nurtured as the learner practises singing the song on the theme of safety at home with other learners. Values: Responsibility is exercised when the learner diligently takes up roles when conducting the debate on safety at home. Pertinent and Contemporary Issues (PCIs): Safety and security education is enhanced as the learner gains knowledge about safety at home through interacting with information on safety at home. Link to other subjects: The learner is able to transfer knowledge acquired on safety at home to other contexts such as school laboratories during Integrated Science lessons, and theatres and playgrounds in Creative Arts and Sports."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade7-indigenous-language.pdf#p25"
+    },
+    {
+     "kicd_code": "5.1.1",
+     "name": "Conversational skills – Tongue Twisters and Riddles",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "identify commonly used tongue twisters and riddles in the community",
+      "take part in the performance of riddles and tongue twisters",
+      "recognise the importance of riddles and tongue twisters in enhancing communication skills."
+     ],
+     "learning_experiences": [
+      "take turns to perform common riddles",
+      "work jointly to discuss the process of riddling",
+      "practise turn-taking, negotiation and interjection as part of the riddling process",
+      "brainstorm the features of a riddle",
+      "compete with peers to say tongue twisters and record them",
+      "listen to recorded audio clips of tongue twisters and peer review",
+      "compose tongue twisters and take turns to perform them",
+      "work with peers to create a collection of riddles and tongue twisters and organize in a class portfolio.."
+     ],
+     "inquiry_questions": [
+      "1. Why are tongue twisters important in language development?",
+      "2. How do riddles help in enhancing communication?"
+     ],
+     "core_competencies": [
+      "Critical thinking and problem solving is developed as the learner follows simple instructions when performing riddles and tongue twisters.",
+      "Learning to learn is realised as the learner works engages in collective learning to compose and perform tongue twisters."
+     ],
+     "values": [
+      "Unity is promoted as the learner cooperates with peers to take turns to perform riddles and tongues twisters.",
+      "Respect is developed as the learner accommodates peers’ opinions as they compose tongue twisters."
+     ],
+     "pertinent_issues": [
+      "Ethnic and racial relations is enhanced as the learner is exposed to riddles and tongues twisters from different communities during performance and discussion."
+     ],
+     "links_to_other_areas": [
+      "The learner is able to relate the skills of performing riddles and tongue twisters to their learning in English and Kiswahili."
+     ],
+     "resources": [],
+     "kicd_source": "grade7-indigenous-language.pdf#p37"
+    },
+    {
+     "kicd_code": "7.1.1",
+     "name": "Intensive listening: Transcription",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "outline target words related to the theme from an oral text for comprehension",
+      "transcribe a short listening paragraph from a digital device for effective communication",
+      "acknowledge the role of transcription in the growth of Indigenous Languages."
+     ],
+     "learning_experiences": [
+      "listen to an oral text on talents and gifts and pick out specific talents and gifts",
+      "write a paragraph by transcribing an audio recorded story based on the theme and share with peers",
+      "peer review each other’s transcription for accuracy",
+      "organize the transcribed work in a portfolio",
+      "work with peers to discuss talents and gifts they have seen or they possess."
+     ],
+     "inquiry_questions": [
+      "1. How can we transcribe oral texts accurately?",
+      "2. Why do we transcribe texts in indigenous languages?"
+     ],
+     "core_competencies": [
+      "• Citizenship is enhanced as the learner engages in constructive dialogue when discussing the various talents and gifts."
+     ],
+     "values": [
+      "Values:",
+      "Responsibility is developed as the learner commits to organising the transcribed work in a portfolio.",
+      "Social justice is enhanced as the learner accords peers equal opportunities to contribute when pick out specific talents and gifts from the oral text. Pertinent and Contemporary Issues (PCIs): ICT is promoted as the learner writes a paragraph by transcribing an audio recorded story based on the theme and shares with peers. Link to other subjects: The learner is able to relate the skills of intensive listening to their learning in Kiswahili."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade7-indigenous-language.pdf#p49"
+    },
+    {
+     "kicd_code": "9.1.1",
+     "name": "Presentation Skills",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "outline issues to consider when preparing a short talk on the theme for self-expression",
+      "present a short talk on the theme for effective communication",
+      "appreciate the importance of",
+      "good presentation skills in communication."
+     ],
+     "learning_experiences": [
+      "watch a recorded presentation and list key points discussed",
+      "brainstorm with peers the issues to consider before and during a presentation",
+      "work jointly with peers to select a sub-topic on patriotism and prepare a presentation on the role of the government agencies (Kenya Roads Board and Kenya Rural Roads Authority) in construction and maintenance of roads",
+      "conduct a public speaking contest to present a short talk on the topic selected",
+      "collaborate with peers to record themselves when making the presentations",
+      "organise the collection of recorded presentations in a digital portfolio",
+      "engage the presenter in a question and answer session on the topic presented",
+      "peer review each other’s presentation for improvement."
+     ],
+     "inquiry_questions": [
+      "1. How can we make a compelling presentation?",
+      "2. Why should we appreciate bodies charged with maintenance of our roads?"
+     ],
+     "core_competencies": [
+      "Learning to learn is enhanced as the learner develops relationships with peers when working jointly to select a topic on the theme and prepare a presentation on it.",
+      "Digital literacy is acquired as the learner interacts with technology when collaborating with peers to record themselves when making the presentations."
+     ],
+     "values": [
+      "Patriotism is promoted as the learner exhibits honesty and dedication when making a short talk on the topic selected during a public speaking contest.",
+      "Respect is achieved as the learner appreciates diverse opinions when engaging the presenter in a question and answer session on the topic presented."
+     ],
+     "pertinent_issues": [
+      "Nationalism is promoted as the learner works jointly with peers to select a sub-topic on patriotism and prepares a presentation on it."
+     ],
+     "links_to_other_areas": [
+      "The learner relates the concept of presentation skills to similar concepts in Creative Arts and Sports."
+     ],
+     "resources": [],
+     "kicd_source": "grade7-indigenous-language.pdf#p61"
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,972 @@
+{
+ "source_pdf": "grade10-french.pdf",
+ "grade": 10,
+ "subject": "french",
+ "general_outcomes": [],
+ "strands": [
+  {
+   "strand": "Reading",
+   "strand_code": "1.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to use vocabulary and expressions in oral interactions",
+     "exceeds": "The learner uses varied vocabulary and expressions in oral interactions",
+     "meets": "The learner use",
+     "approaches": "The learner some of the targeted vocabulary and expressions in oral interactions",
+     "below": "The learner uses"
+    },
+    {
+     "indicator": "Ability to speak",
+     "exceeds": "The learner uses correct pronunciation, intonation, rhythm and articulation at all times in oral expression.",
+     "meets": "The learner uses appropriate pronunciation, intonation, rhythm and articulation in oral expression.",
+     "approaches": "The learner use",
+     "below": "The learner uses fairly good pronunciation, intonation, rhythm and articulation in oral expression."
+    },
+    {
+     "indicator": "Ability to respond to questions and prompts in oral interactions",
+     "exceeds": "Ability to respond",
+     "meets": "The learner responds to all questions and prompts to show comprehension and engagement",
+     "approaches": "The learner responds to some questions and prompts to show comprehension and engagement",
+     "below": "The learner responds to few questions and prompts to show comprehension and engagement"
+    },
+    {
+     "indicator": "Ability to extract and interpret information from oral interactions",
+     "exceeds": "The learner appropriately extracts and interprets information from oral interactions.",
+     "meets": "The learner satisfactorily extracts and interprets information from oral interactions",
+     "approaches": "The learner extracts and interprets information from oral interactions to some extent.",
+     "below": "The learner extracts and interprets information from oral interactions with some difficulties."
+    },
+    {
+     "indicator": "Ability to display willingness to participate in oral interactions",
+     "exceeds": "The learner is always willing to participate in meaningful oral interactions",
+     "meets": "The learner is willing to participate in meaningful oral interactions",
+     "approaches": "The learner is at times hesitant to participate in meaningful oral interactions",
+     "below": "The learner is mostly hesitant to participate in meaningful oral interactions"
+    },
+    {
+     "indicator": "Ability to respond correctly to questions on selected written texts.",
+     "exceeds": "The learner responds correctly to all questions and goes further to give appropriate illustrations and examples.",
+     "meets": "The learner responds correctly to all questions and shows comprehension and engagement.",
+     "approaches": "The learner responds to most of the questions to show comprehension and engagement",
+     "below": "The learner responds to very few questions to show comprehension and engagement"
+    },
+    {
+     "indicator": "Ability to display willingness to participate in reading different type of texts.",
+     "exceeds": "The learner is always willing to participate in reading different types of texts. Encourages others to engage in reading.",
+     "meets": "The learner is always willing to participate in reading different types of texts.",
+     "approaches": "The learner at times participates in reading different types of texts.",
+     "below": "The learner is mostly hesitant to participate in reading different types of texts."
+    },
+    {
+     "indicator": "Ability to use correct punctuation and orthography to produce written texts",
+     "exceeds": "The learner uses correct punctuation and orthography all the time to produce written texts",
+     "meets": "",
+     "approaches": "The learner uses correct punctuation and orthography most of the time to produce written texts",
+     "below": "The learner uses correct punctuation and orthography very few times to produce written texts"
+    },
+    {
+     "indicator": "Ability to maintain correct language structures (structure of words and sentences)",
+     "exceeds": "The learner maintains accurate use of language structures all through; structure of words and sentences are correct all the time.",
+     "meets": "",
+     "approaches": "The learner maintains use of language structures making few errors; (structure of words and sentences) .",
+     "below": "The learner maintains use of language structures making many errors; (structure of words and sentences)"
+    },
+    {
+     "indicator": "Ability to use correct vocabulary and expressions to write texts",
+     "exceeds": "The learner appropriately uses a wide variety of vocabulary and expressions to write texts",
+     "meets": "The learner uses a variety of vocabulary and expressions to write texts",
+     "approaches": "The learner uses vocabulary and expressions to write texts",
+     "below": "The learner uses limited vocabulary and expressions to write texts"
+    },
+    {
+     "indicator": "Ability to write coherent sentences and texts",
+     "exceeds": "The learner consistently writes coherent sentences and texts in a wide variety of contexts.",
+     "meets": "The learner consistently writes coherent sentences and texts",
+     "approaches": "The learner often writes coherent sentences and texts",
+     "below": "The learner scarcely writes coherent sentences and texts"
+    },
+    {
+     "indicator": "Ability to exhibit interest to produce written texts",
+     "exceeds": "The learner always exhibits interest to produce varied written texts. Encourages others to engage in oral interactions.",
+     "meets": "The learner exhibits interest to produce written texts.",
+     "approaches": "The learner hesitates to exhibit interest to produce written texts.",
+     "below": "The learner mostly hesitates to exhibit interest to produce written texts."
+    },
+    {
+     "indicator": "Ability to use grammar and syntax. Correct use of verb tenses, conjugations. Accurate sentence structure and word order. Proper use of the French articles",
+     "exceeds": "The learner uses grammar and syntax well adhering to the correct use of verb tenses, conjugations, Ensures accurate sentence structure and proper use of French articles",
+     "meets": "",
+     "approaches": "The learner uses grammar and syntax in a fairly good way however has challenges with the correct use of verb tenses conjugations, accurate sentence and word order and does not use the French articles accurately",
+     "below": "The learner has extremely minimal mastery of grammar and syntax. Does not use the verb tenses correctly. Confuses the sentence structure and word order. Literally confuses the French articles ."
+    },
+    {
+     "indicator": "Ability to use a large of vocabulary and idiomatic expressions and spelling accuracy, .",
+     "exceeds": "The learner display competence at using a large range of vocabulary and idiomatic expressions and spelling accuracy.",
+     "meets": "",
+     "approaches": "",
+     "below": ""
+    },
+    {
+     "indicator": "Ability to use Coherence and Cohesion in grammatical structures. Logical flow and organization of ideas.",
+     "exceeds": "The learner displays coherence and cohesion in grammatical structures and logical flow and organization of ideas with relative ease.",
+     "meets": "The learner displays coherence and cohesion in grammatical and logical flow and organization of ideas some challenges .",
+     "approaches": "The learner displays coherence and cohesion in grammatical and logical flow of ideas with quite a number of errors.",
+     "below": "The learner displays coherence and cohesion in grammatical and logical flow of ideas with too many errors."
+    },
+    {
+     "indicator": "Ability to use content and creativity well based on a given topic applying relevant grammatical structures.",
+     "exceeds": "The learner uses content and creativity well based on a given topic applying relevant grammatical structures extremely well.",
+     "meets": "The learner uses content and creativity based on a given topic applying relevant grammatical structures with extremely minimal errors.",
+     "approaches": "The learner uses content and creativity based on a given topic applying relevant grammatical structures with quite a number of errors.",
+     "below": "The leaner uses content and creativity based on a given topic applying grammatical structures with excessive errors."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "1.2",
+     "name": "Reading for vocabulary",
+     "suggested_duration": "6 lessons",
+     "learning_outcomes": [
+      "derive meaning of words from simple texts",
+      "read simple texts to pick out vocabulary to show understanding",
+      "show interest in reading simple texts."
+     ],
+     "learning_experiences": [
+      "select varied forms of greetings from simple texts, [Bonjour! Bonsoir !]",
+      "read flashcards with words on greetings and taking leave and rearrange them to form simple sentences",
+      "pick out vocabulary from a written text and use to communicate effectively in a social setup",
+      "match the vocabulary of members of the family to the given images [C’est mon père]",
+      "read captions with images to acquire vocabulary on friends, members of the nuclear and extended family",
+      "find the meaning of the vocabulary in reading texts, collaboratively."
+     ],
+     "inquiry_questions": [
+      "1. Why do we read?",
+      "2. How do you identify words?"
+     ],
+     "core_competencies": [
+      "Self-efficacy: This is brought out as the learner clearly reads and identifies vocabulary from texts."
+     ],
+     "values": [
+      "Values : Unity: This is nurtured as the learner works together to find the meaning of the vocabulary in reading texts. Pertinent and Contemporary Issues (PCIs): Social awareness skills: The learner uses the vocabulary acquired to communicate effectively in a social situation."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-french.pdf#p16"
+    },
+    {
+     "kicd_code": "2.2",
+     "name": "Reading for comprehension",
+     "suggested_duration": "6 lessons",
+     "learning_outcomes": [
+      "use correct language expressions to respond to questions on the given texts",
+      "interpret information from written texts using the appropriate language",
+      "appreciate the importance of reading texts."
+     ],
+     "learning_experiences": [
+      "read home layouts and associate places and rooms in the homes with their locations, jointly",
+      "read and answer comprehension questions on the location of rooms and objects in a home, in pairs",
+      "fill in blanks spaces in texts with expressions on location of places, rooms and objects at home",
+      "observe and identify images with weather elements, with peers",
+      "read weather charts and associate the weather elements to particular places (Kakamega-la pluie...)",
+      "rearrange jumbled words to form expressions on weather,in pairs",
+      "read aloud texts on locations of places and elements of weather",
+      "appreciate elements of weather-j’aime le soleil...)"
+     ],
+     "inquiry_questions": [
+      "Where are items and objects in your home located?"
+     ],
+     "core_competencies": [
+      "Critical thinking and problem solving: This is developed as the learner engages in reflective thinking and critical observation to make connections between places and their locations."
+     ],
+     "values": [
+      "Responsibility: This is nurtured as the learner displays hard work in reading texts and responding to questions."
+     ],
+     "pertinent_issues": [
+      "Self-awareness: This is brought about as the learner shows appreciation for weather elements in their environment."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-french.pdf#p24"
+    },
+    {
+     "kicd_code": "3.2",
+     "name": "Reading for comprehension",
+     "suggested_duration": "6 lessons",
+     "learning_outcomes": [
+      "recognize key elements from simple texts and respond to questions",
+      "use information from texts and answer questions",
+      "exhibit enthusiasm for finding meanings of words from a variety of texts."
+     ],
+     "learning_experiences": [
+      "pick out vocabulary on means of transport and travel documents from simple texts and writeups, collaboratively, [une voiture, un vélo, une véhicule, un billet, un passeport, etc.]",
+      "source for a variety of texts on internet and find more means of transport and expressions of travel, collectively",
+      "read texts on means of transport and safety and discuss the information needed, with peers, [il faut attacher le ceinture, mettre la casquette, faire attention aux règles routière, etc.]",
+      "look up for meanings of words from simple texts, with a partner and match them to the correct ones. [Je",
+      "voyage à moto – je me déplace à moto]",
+      "underline expressions on means of transport, travel and making reservations, from simple dialogues and texts, jointly, [Je vais à l’école à vélo, je voyage en bus, j’achète un billet, est-ce qu’il y a une siège... j’utilise un taxi pour]"
+     ],
+     "inquiry_questions": [
+      "How do you move around?"
+     ],
+     "core_competencies": [
+      "Self-efficacy: This is developed as learners clearly outline the procedures of making a reservation."
+     ],
+     "values": [
+      "Responsibility: Learners shows awareness of the safety measures to be taken while using certain means of transport."
+     ],
+     "pertinent_issues": [
+      "Safety and security: This is nurtured as learners talks about means of transport, they often use outlining safety measures they take in order to avoid accidents."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-french.pdf#p32"
+    },
+    {
+     "kicd_code": "4.2",
+     "name": "Reading for comprehension",
+     "suggested_duration": "6 lessons",
+     "learning_outcomes": [
+      "associate words in reading passages with ideas they represent",
+      "draw on prior knowledge to recognize clues of information in a text",
+      "show enthusiasm of identifying ideas and making summaries of comprehension texts."
+     ],
+     "learning_experiences": [
+      "read passages with vocabulary on foods and drinks and retell the main ideas",
+      "differenciate healthy foods and drinks from unhealthy ones in different texts, advertisements and captions,...healthy foods(les légumes, les fruits...)...unhealthy food...(les frites, le chocolat...)",
+      "make comparisons of the effects of consuming healthy and unhealthy food and drinks as they read texts with peers",
+      "research collaboratively by reading texts on how to prepare healthy meals and drinks",
+      "summarize written texts with peers on favourable foods and drinks that should be consumed to stay healthy.eg.( des oeufs, des lentilles...)",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "How can you use context clues to understand what you are reading?",
+      "Suggested Key Inquiry Question(s)"
+     ],
+     "core_competencies": [
+      "Critical thinking and problem-solving: This is enhanced as the learner explores a complex challenge, takes time to understand it, carries out a research and explores different options to get a solution."
+     ],
+     "values": [
+      "Responsibility: This is nurtured as the learner shows diligence when engaging in researching to find solutions on healthy eating."
+     ],
+     "pertinent_issues": [
+      "Healthy practices for prevention of lifestyle diseases: The learner is sensitized on the importance of healthy living practices by choosing to eat healthy food."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-french.pdf#p40"
+    },
+    {
+     "kicd_code": "5.2",
+     "name": "Reading for vocabulary (6. lessons)",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Identify related vocabulary from a written text.",
+      "Use vocabulary acquired from read text to respond to questions and prompts.",
+      "Display enthusiasm in reading texts to acquire vocabulary."
+     ],
+     "learning_experiences": [
+      "pick out vocabulary from a written text. (les objets de classe -un crayon, une chaise, un cahier, une gomme...)",
+      "match vocabulary to picture flashcards jointly",
+      "read texts on les jours de la semaine, and use the vocabulary to ask and respond to questions (quel jour sommes-nous?) with peers",
+      "pick out expressions of telling time from varied written texts to ask and tell time; quelle heure est-il? Il est...",
+      "select school activities highlighted in varied written",
+      "materials and tell when they take place",
+      "choose vocabulary of school subjects in written texts and match to images on flash cards",
+      "search online for school timetables and share the information with peers",
+      "source for written texts on school routine and find related vocabulary jointly.",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "Why do we learn vocabulary from written texts?",
+      "Suggested Key Inquiry Question(s)"
+     ],
+     "core_competencies": [
+      "Communication and collaboration – This is developed as the learner participates actively in group activities to source for written materials and identify vocabulary from them."
+     ],
+     "values": [
+      "Unity – this is nurtured as the learner works harmoniously with other group members to accomplish assigned tasks"
+     ],
+     "pertinent_issues": [
+      "Self-esteem – This is exhibited as the learner confidently volunteers to share information sourced online on school timetables"
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-french.pdf#p48"
+    },
+    {
+     "kicd_code": "5.3",
+     "name": "Guided writing",
+     "suggested_duration": "6 lessons",
+     "learning_outcomes": [
+      "write short texts with correct orthography",
+      "create simple texts with correct language patterns",
+      "value the importance of writing using the correct language patterns."
+     ],
+     "learning_experiences": [
+      "make a list of objects in the classroom, jointly, [les affaires scolaires – le pupitre, le tableau interactif, la fenêtre, la porte, les cahiers, etc.]",
+      "indicate time on different school activities, [La natation est à 5h00 du soir...]",
+      "make a personal timetable indicating subjects and the time they are taught",
+      "complete a short description of different school activities including moments of the day, days of the week and time [Lundi le matin, je nettoie la salle de classe, à huit heures, je commence mes cours...]",
+      "write simple school routines on days of the week and subject, in small groups, [le lundi, j’ai l’histoire et la bilogie]",
+      "fill in the blank spaces with the correct form of the articles [les articles définis et indéfinis: le, la,l’,les, un, une,des]",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "How do you carry outage your duties?",
+      "Suggested Key Inquiry Question(s)"
+     ],
+     "core_competencies": [
+      "Critical thinking and problem solving: brought out as learners makes their personal routines in order to improve on time management."
+     ],
+     "values": [
+      "Unity: this is developed as learners work together making schedules."
+     ],
+     "pertinent_issues": [
+      "Pertinent and Contemporary Issues (PCIs):"
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-french.pdf#p50"
+    },
+    {
+     "kicd_code": "6.2",
+     "name": "1 Reading for vocabulary",
+     "suggested_duration": "6 lessons",
+     "learning_outcomes": [
+      "identify vocabulary from read texts",
+      "use information from read simple texts",
+      "exhibit confidence in reading through a variety of simple texts"
+     ],
+     "learning_experiences": [
+      "read simple texts to select vocabulary on shopping (une boucherie,une pharmacie, une boutique, couleurs e.t.c)",
+      "record themselves while reading simple texts with vocabulary on shopping as peers assess them",
+      "participate in card games to select words and expressions on shopping by reading,(,beaucoup de,peu de,combien de, faire les achats, ça fait coûte combien? e.t.c)",
+      "Pick out expressions on shopping from simple written texts to construct sentences",
+      "• Source and read sentences containing words on shopping from digital devices on shopping, in small groups",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "Why is it important to learn reading?",
+      "Suggested Key Inquiry Question(s)"
+     ],
+     "core_competencies": [
+      "Self-efficacy: This is developed as learners confidently assess one another while reading simple texts."
+     ],
+     "values": [
+      "Responsibility: This is brought out as learners responsibly manipulate electronic devices to record their reading of simple texts."
+     ],
+     "pertinent_issues": [
+      "Safety and security: Developed when learners responsibly source for sentences on the internet."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-french.pdf#p56"
+    },
+    {
+     "kicd_code": "6.3",
+     "name": "Guided writing",
+     "suggested_duration": "6 lessons",
+     "learning_outcomes": [
+      "identify different information and relate it to different contexts",
+      "change visual representation of ideas to text",
+      "show enthusiasm in entrepreunership and wise spending."
+     ],
+     "learning_experiences": [
+      "Write down lists of different items found in different shops..(des vêtements, des chaussures, des meubles...)",
+      "write collaboratively short texts on activities done at shopping centres using vocabulary of buying and selling..( acheter, vendre, coûter...",
+      "Write dialogues between sellers and a buyers in shops; include prices, modes of payment, quantities,weights and measurements of goods... (Je voudrais un kilo de sucre, une bouteille de vin...)",
+      "create a story from an image on a visit to a shopping centre",
+      "describing shops...(En ville il y des magasins, des supermarchés...)",
+      "compare in writing shopping experiences in different parts of the world..( En Europe on fait des achats en ligne.)",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "Why is it important to have writing skills?",
+      "Suggested Key Inquiry Question(s)"
+     ],
+     "core_competencies": [
+      "Creativity and imagination: This is enhanced when the learner comes up with new and innovative ways of doing tasks as they create texts from images."
+     ],
+     "values": [
+      "Integrity: This is nurtured as the learner displays honesty when giving the right measurement, quantities and prices of goods in a shopping experience."
+     ],
+     "pertinent_issues": [
+      "Financial literacy: The learner is sensitized on entrepreneurship and wise spending of money."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-french.pdf#p58"
+    },
+    {
+     "kicd_code": "6.4",
+     "name": "Grammar",
+     "suggested_duration": "12 lessons",
+     "learning_outcomes": [
+      "construct sentences with correct language structures",
+      "describe items using correct language patterns",
+      "appreciate the role of grammatical elements in effective communication."
+     ],
+     "learning_experiences": [
+      "make kind requests by use of the polite form of the verb “vouloir” in pairs",
+      "associate expressions of quantity with given nouns (un kilo de viande...)",
+      "fill in the open spaces with the correct adjectives describing goods and cloths (couleur, taille, nombres ordinaux...)",
+      "construct sentences using given expressions of shopping (faire les achats/les courses/les provisions...)",
+      "construct mini dialogues using demonstrative adjectives (ce",
+      "cette...), interrogative adjectives, relative pronouns (quel, quelle...lequel, laquelle...) and demonstrative pronouns (celui, celle-ci...)",
+      "practice conjugation of verbs matching personal pronouns to the correct form of the verbs with peers (j’achète..., j’essaie..., il coûte...)",
+      "practice role plays on the topics: “sur le marché” and “dans un magasin” to practice the language structures used when buying and selling",
+      "appreciate him/herself as he/she carries out learning tasks."
+     ],
+     "inquiry_questions": [
+      "What description can you give to the items that you buy from shops and markets in terms of size, colour, weight..?"
+     ],
+     "core_competencies": [
+      "Learning to learn: This is developed as the learner collaboratively practices role playing on buying and selling."
+     ],
+     "values": [
+      "Love: This is nurtured as the learner uses kind language in soliciting for services in buying and selling scenarios."
+     ],
+     "pertinent_issues": [
+      "Self-esteem: This is brought about as the learner accepts and appreciates him/herself as he/she carries out learning tasks."
+     ],
+     "links_to_other_areas": [],
+     "resources": [
+      "Suggested Non-formal Activities",
+      "Oral descriptions",
+      "Image matching and sorting",
+      "Physical identification of objects",
+      "Filling in missing letters. –",
+      "Filling in missing words. –",
+      "Sounding words. –",
+      "Rearranging jumbled up words or phrases. - Spelling; oral and written. - Writing. - Mimicking through role-play. –",
+      "Reading aloud.",
+      "Answering simple questions. –",
+      "Word searches.",
+      "Word puzzles.",
+      "Charts",
+      "Video clips",
+      "Video games",
+      "up grids",
+      "Word puzzles",
+      "Flashcards (words or games)",
+      "Maps - Short stories",
+      "Real objects (home objects)",
+      "Audio recordings - Pictures",
+      "Poems - Songs",
+      "Chalkboard",
+      "Word wheel",
+      "Name tags and labels",
+      "Word searches",
+      "Journals - Computer",
+      "House floor plans",
+      "Songs",
+      "Recitation of poems",
+      "Role plays and simulation",
+      "Games e.g., hide and seek and board games",
+      "Peer education; practice with peers",
+      "Participation in French club activities"
+     ],
+     "kicd_source": "grade10-french.pdf#p60"
+    }
+   ]
+  },
+  {
+   "strand": "Writing",
+   "strand_code": "1.0",
+   "assessment_rubric": [],
+   "substrands": [
+    {
+     "kicd_code": "1.3",
+     "name": "Informative writing",
+     "suggested_duration": "6 lessons",
+     "learning_outcomes": [
+      "list vocabulary from varied simple texts with the correct orthography",
+      "construct simple texts using acquired vocabulary with the correct language patterns",
+      "show enthusiasm in constructing sentences following the correct language structure."
+     ],
+     "learning_experiences": [
+      "underline vocabulary in texts about family and numbers.",
+      "fill in missing letters to form words on numbers, family members and greetings",
+      "make letter flash cards and create words on family members in pairs",
+      "use selected words to create short simple sentences",
+      "rearrange jumbled-up words to create simple logical sentences",
+      "match vocabulary on the nuclear family to the correct images from texts",
+      "write simple texts to introduce members of one’s family and friends, and displays it on the wall for others to read"
+     ],
+     "inquiry_questions": [
+      "What do you consider while writing simple texts?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Critical thinking and imagination: This is developed as learners create simple logical sentences. Values: Responsibility: Is nurtured as learners accomplish tasks of creating flashcards with related vocabulary. Pertinent and Contemporary Issues (PCIs): Self-esteem: The learner develops self-esteem as they write about their family members and friends and display their work on the walls."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-french.pdf#p18"
+    },
+    {
+     "kicd_code": "1.4",
+     "name": "Grammar",
+     "suggested_duration": "10 lessons",
+     "learning_outcomes": [
+      "identify elements of grammar in simple texts",
+      "construct simple sentences with correct language structures",
+      "appreciate the importance of language structure in communication."
+     ],
+     "learning_experiences": [
+      "pick out personal pronouns and match them to the correct forms of verbs for oneself, family members and friends [ je, il/elle...nous, s’appeler]",
+      "fill in the gaps with the appropriate possessive adjectives to introduce members of the family and friends, [mon, ma, mes, ton, sa]",
+      "rearrange jumbled-up words to make simple texts",
+      "match personal pronouns to the correct form of the verbs",
+      "source and watch audio-visual materials with countries and their nationalities jointly",
+      "play conjugation games to practice reading different forms of",
+      "verbs with peers. (S’appeler, habiter, être, parler, avoir)",
+      "seek guidance on how to conjugate verbs.",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "1. How do you introduce yourself, family and friends?",
+      "2. Why do you need to observe grammar in your communication?",
+      "Suggested Key Inquiry Question(s)"
+     ],
+     "core_competencies": [
+      "Digital literacy: This is fostered as the learner manipulates digital devices to source for audio-visual materials."
+     ],
+     "values": [
+      "Unity: This is enhanced as the learner appreciates collaboration in learning while playing conjugation games collaboratively."
+     ],
+     "pertinent_issues": [
+      "Self-awareness: This is brought out as the learners seek guidance in understanding language structures."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-french.pdf#p20"
+    },
+    {
+     "kicd_code": "2.3",
+     "name": "Guided writing",
+     "suggested_duration": "6 lessons",
+     "learning_outcomes": [
+      "classify nouns and prepositions in a guided writing assignment",
+      "construct statements in guided writing exercises",
+      "appreciate the use of prepositions and nouns in writing tasks."
+     ],
+     "learning_experiences": [
+      "locate different items in a house using prepositions (dans , entre ,devant etc)",
+      "label in writing the items which are normally found in the kitchen and stick them on the classroom board.",
+      "write sentences with vocabulary of items in a house and where they are normally placed",
+      "fill in the blanks on an improvised weather report using nouns related to weather ( la pluie, le vent, le soleil etc)",
+      "reconstruct in writing jumbled up statements with nouns which are related to weather."
+     ],
+     "inquiry_questions": [
+      "Why is the arrangement of items important in a house?"
+     ],
+     "core_competencies": [
+      "Self-efficacy: The learner is guided to choose tasks which are eventually done when the grammatical task is completed."
+     ],
+     "values": [
+      "Values : Responsibility: The learners performing the writing task on how various items are placed in a home gives them some subtle orientation on responsibility. Pertinent and Contemporary Issues (PCIs): Self – awareness: The learners display this tenet when they are able to locate and situate items within their space or locality."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-french.pdf#p26"
+    },
+    {
+     "kicd_code": "2.4",
+     "name": "Grammar",
+     "suggested_duration": "10 lessons",
+     "learning_outcomes": [
+      "identify prepositions and noun classes from the grammatical exercises",
+      "apply the prepositions and nouns within grammatical context",
+      "show an interest in two aspects of the grammatical structure."
+     ],
+     "learning_experiences": [
+      "present images, diagrams and physical objects to illustrate the prepositions (la tasse est sur la table, Mon lit est dans la chambre, etc).",
+      "do matching games where they pair prepositions with the correct nouns using an improvised house plan",
+      "fill in the blank exercises to place the appropriate prepositions",
+      "Present sentence scrambles which contain prepositions which should be reordered correctly",
+      "Complete the blanks with the correct preposition in a text. (dans, sur, derrier, devant, dehors ...)",
+      "categorize nouns which deal with weather and display them on an",
+      "improvised weather chart of a country, region or county.",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "Why are prepositions important in the study of grammar?",
+      "Suggested Key Inquiry Question(s)"
+     ],
+     "core_competencies": [
+      "Communication and collaboration: The learner is encouraged to use the nouns and prepositions in an organized order as these grammatical structures are studied in class."
+     ],
+     "values": [
+      "Integrity: The learner takes responsibility for learning actions as they perform the grammatical exercises and make amends or corrections when directed by the teachers. (show how integrity is nurtured)"
+     ],
+     "pertinent_issues": [
+      "Self-awareness: The learner develops a sense of self-assurance as the use prepositions appropriately in a grammatical task."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-french.pdf#p28"
+    },
+    {
+     "kicd_code": "3.3",
+     "name": "1 Guided writing (6. lessons)",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "list common words with orthography",
+      "create simple sentences using language structures",
+      "appreciate the role of guided writing in simple texts."
+     ],
+     "learning_experiences": [
+      "source from the internet and write the vocabulary on means of transport, [le bus, le train la moto, le taxi, l’avion, le bateau, le cheval...]",
+      "rearrange letters to make words on vocabulary of means of transport, with peers",
+      "write down simple texts on safety measures in transport [attacher, boucler la ceinture de sécurité, mettre le casque]",
+      "using guided pictures, write simple sentences of likes and dislikes on means of transport.",
+      "Fill crosswords and word puzzles on means of transport"
+     ],
+     "inquiry_questions": [
+      "Why do you choose means of transport?"
+     ],
+     "core_competencies": [
+      "Digital literacy: This is brought out as the learner confidently sources information from the internet."
+     ],
+     "values": [
+      "Values: Unity: This is acquired when the learners work together harmoniously as they arrange letters to make words Pertinent and Contemporary Issues (PCIs): Safety and security: This is nurtured as the learner uses the internet responsibly to access the required vocabulary."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-french.pdf#p34"
+    },
+    {
+     "kicd_code": "4.3",
+     "name": "Guided writing",
+     "suggested_duration": "6 lessons",
+     "learning_outcomes": [
+      "identify expressions used to indicate foods and drinks",
+      "create short simple texts translating their ideas into written",
+      "appreciate the importance of the writing activity."
+     ],
+     "learning_experiences": [
+      "write sentences by matching expressions on foods and drinks to images/pictures",
+      "fill in blank spaces to complete a simple story on given foods and drinks",
+      "construct sentences on foods and drinks using given language structures",
+      "summarize information in written texts on foods and drinks, collaboratively",
+      "write simple sentences with il faut/il ne faut pas +verbe+ +activity/food to bring out the link between health and activities/foods",
+      "write short dialogues on the subject: “à table and à l’hôtel”, jointly",
+      "write simple family meal plans.",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "What do you eat and drink?",
+      "Suggested Key Inquiry Question(s)"
+     ],
+     "core_competencies": [
+      "Creativity and imagination: This is developed as the learner explores new ideas when writing family meal plans."
+     ],
+     "values": [
+      "Values: Respect: This is developed as the learner displays positive regard to others as he/she constructs dialogues with others. Pertinent and Contemporary Issues (PCIs): Self-awareness: The learner accepts and appreciates him/herself and his/her peers as they carry out the assigned activities together."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-french.pdf#p42"
+    },
+    {
+     "kicd_code": "4.4",
+     "name": "Grammar",
+     "suggested_duration": "10 lessons",
+     "learning_outcomes": [
+      "select elements of grammar from simple texts",
+      "write sentences with correct language structures",
+      "appreciate the importance of grammar proper communication in interactions."
+     ],
+     "learning_experiences": [
+      "make a list of vocabulary on drinks, meals and legumes, from a variety of simple structured texts, in small groups, [Le jus, le vin, le poulet, la viande...les épinards]",
+      "match names of food items to their corresponding images, in pairs",
+      "construct simple sentences expressing what they want while expressing politeness, [je voudrais une tasse de thé, j’aimerais un verre de lait]",
+      "practice using the correct adjectives of quantity in short sentences, as they match them to the images [un",
+      "litre d’huile, un pincé du sel, une poignée de...]",
+      "use correct forms of verbs to fill in the bank spaces in short sentences and texts, [boire, manger, goûter, prendre, déjeuner, avoir, aimer, preferer,etc.]"
+     ],
+     "inquiry_questions": [],
+     "core_competencies": [
+      "Critical and problem solving: this is enhanced as learners search and explore different options as they seek solution to the matching expressions of quantity to the right images."
+     ],
+     "values": [
+      "Respect: this is developed as learners appreciate diverse opinions shared towards solution suggestions amongst themselves."
+     ],
+     "pertinent_issues": [
+      "Self-awareness: learners work together talking about healthy living lifestyles on meals they take."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-french.pdf#p44"
+    }
+   ]
+  },
+  {
+   "strand": "Listening and Speaking",
+   "strand_code": "2.1",
+   "assessment_rubric": [],
+   "substrands": [
+    {
+     "kicd_code": "2.1.1",
+     "name": "Listening for comprehension (6. lessons)",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "identify the main theme from an audio text",
+      "extract relevant information from oral interactions",
+      "show enthusiasm while listening to various audio texts on different topics."
+     ],
+     "learning_experiences": [
+      "listen to audio sounds to differentiate sounds /u/ as in ou, vous,nous and /y / as in tu,du,vu",
+      "listen collaboratively to an audio text and give a summary of location of different items in the home",
+      "answer questions from an audio text on location of different items in the home(Où est la table? Elle est devant la porte)",
+      "draw a layout of a home from information gotten from an audio text.",
+      "take turns with peers in giving directions on how to reach their homes,(D’abord, allez tout droit, puis, tournez à gauche.....La maison est en face de l’hôpital)",
+      "• identify effects of elements of weather on the environment from information obtained from an audio text."
+     ],
+     "inquiry_questions": [
+      "How can you locate different items in the home?"
+     ],
+     "core_competencies": [
+      "Creativity and imagination: This is developed as learners synthesize information and use imagination to create images of various occurrences."
+     ],
+     "values": [
+      "Unity: This is nurtured as the learner cooperates with peers in listening to audio texts to get summary of recorded information."
+     ],
+     "pertinent_issues": [
+      "Safety and security: This is brought about as the learner gains knowledge on importance of security and safety measures to take as they go to various destinations."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-french.pdf#p22"
+    },
+    {
+     "kicd_code": "3.1",
+     "name": "Listening for comprehension (6. lessons)",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Respond to questions from an audio text to demonstrate understanding.",
+      "Interpret information from audio text for effective communication.",
+      "Show willingness to listen to a variety of audio texts"
+     ],
+     "learning_experiences": [
+      "associate the means of transport from audio stimuli to pictures on flashcards",
+      "listen to audio materials with vocabulary on means of transport and answer comprehension questions ( une voiture, un avion, un train, une moto, un vélo etc.)",
+      "listen to an audio recording on safety measures to be observed when traveling and share the information with peers",
+      "fill in travel documents with information given in an audio text",
+      "use expressions from an audio text to describe how they travel (Je voyage en train, je prends un bus",
+      "Je vais à pied, j’utilise une moto pour aller à l’école)",
+      "search online for audio visual materials on making reservations and explain the key points to their peers",
+      "role play making a travel booking ( Réserver une place; au guichet ou conversation téléphonique )",
+      "listen to audio texts to practise words with sounds /ɛ/ and /e/"
+     ],
+     "inquiry_questions": [
+      "What means of transport do you use for travel?"
+     ],
+     "core_competencies": [
+      "Learning to learn: The learner shares what they have learnt from listening to an audio text on safety measures while traveling."
+     ],
+     "values": [
+      "Responsibility: This is brought out as the learner offers guidance to others by explaining key points to their peers on how to make reservations."
+     ],
+     "pertinent_issues": [
+      "Self awareness: This is enhanced through effective communication when giving details during making a reservation."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-french.pdf#p30"
+    },
+    {
+     "kicd_code": "4.1",
+     "name": "1 Oral expression (6. lessons)",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "exhibit comprehension and engagement in oral interactions",
+      "use vocabulary and expressions to engage in oral presentations",
+      "express enthusiasm in oral communication."
+     ],
+     "learning_experiences": [
+      "listen to short audiovisual clips on different foods and repeat, (les légumes, les fruits,le poisson, la viande, e.t.c)",
+      "recite short simple poems to express likes and dislikes for certain foods",
+      "use role play to express likes and dislikes for certain foods and drinks",
+      "listen to audiovisual material to repeat the sounds, /u/ sous, vous /y/ sur, vous",
+      "sing songs jointly on names of different foods and drinks",
+      "participate in simple dialogues using vocabulary and expressions on likes and dislikes for foods and drinks, (j’aime, j’aime beaucoup, je n’aime pas, je préfère, e.t.c).",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "When do you express preferences?",
+      "Suggested Key Inquiry Question(s)"
+     ],
+     "core_competencies": [
+      "Self-efficacy: This is developed as learners skillfully manipulate audio-visual materials to listen to vocabulary on various types of food and drinks"
+     ],
+     "values": [
+      "Respect: This is nurtured as learners demonstrate patience in turn taking as they participate in dialogues on vocabulary."
+     ],
+     "pertinent_issues": [
+      "Self-awareness: Acquired when learners demonstrate appreciation of one another’s preferences."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-french.pdf#p38"
+    },
+    {
+     "kicd_code": "5.1",
+     "name": "Interactive speaking",
+     "suggested_duration": "10 lessons",
+     "learning_outcomes": [
+      "develop oral statements in interactive speaking",
+      "construct dialogues in verbal communication",
+      "appreciate feedback in verbal communication"
+     ],
+     "learning_experiences": [
+      "organize skits in pairs on the activities to be carried out in class and present orally in class",
+      "prepare collaboratively, then present orally subjects being taught in class and link them to professions.",
+      "improvise in pairs a telephone game where inquiry is made asking about the date and activities for a school function.",
+      "source and study collaboratively audio-visual materials which contain event planning on the internet",
+      "present orally what was witnessed from the audio-visual content on event, planning focusing on the date, time and the actual activities.",
+      "• Practice pronouncing /f/ and /v/ sounds in context (for example fille, mille, voiture, vrai )",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "Why confidence vital in interactive speaking?",
+      "Suggested Key Inquiry Question(s)"
+     ],
+     "core_competencies": [
+      "Communication and collaboration: The learner speaks engagingly using the facts provided as activities which involve interactive speaking are done in a collaborative manner ."
+     ],
+     "values": [
+      "Respect: The learner pays full attention when other are speaking without interrupting them as they wait to take their turn to communicate in learning activities which involve pair work."
+     ],
+     "pertinent_issues": [
+      "Self – esteem: The learner develops confidence to carry out oral presentations collaboratively as the personal skills and talents are honed with the constant practice."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-french.pdf#p46"
+    },
+    {
+     "kicd_code": "6.1.1",
+     "name": "Interactive speaking",
+     "suggested_duration": "10 lessons",
+     "learning_outcomes": [
+      "respond to questions and prompts for effective interaction.",
+      "use vocabulary and expressions in oral interactions",
+      "grow interest in participating actively in simple oral interactions"
+     ],
+     "learning_experiences": [
+      "listen to audio stimuli and speak on different types of shops [ magasin, kiosque, supermarché, marchés,]",
+      "listen to and sing songs with vocabulary on items sold at the market",
+      "participate in role play as a shopkeeper and a customer in a shop to enhance oral skills",
+      "recite simple poems to describe goods sold in the market on colour, sizes and price",
+      "Listen to and repeat words from audio stimuli on quantities and",
+      "measure of different items from the market",
+      "Articulate words properly in oral interactions.[ /s/ son, serviette /v/ vous, veste",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "Why do you choose a shopping place?",
+      "Suggested Key Inquiry Question(s)"
+     ],
+     "core_competencies": [
+      "Communication and collaboration: This is brought out when the learner participates in role play as a shopkeeper and a customer."
+     ],
+     "values": [
+      "Responsibility: This is nurtured as the learners recite simple poems."
+     ],
+     "pertinent_issues": [
+      "Consumer awareness: This is brought as learners role play buying and selling of goods."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-french.pdf#p54"
+    }
+   ]
+  },
+  {
+   "strand": "Grammar",
+   "strand_code": "3.4",
+   "assessment_rubric": [],
+   "substrands": [
+    {
+     "kicd_code": "3.4",
+     "name": "Grammar",
+     "suggested_duration": "10 lessons",
+     "learning_outcomes": [
+      "Identify the form of verb to use for a specific situation of communication.",
+      "Select the language structure suitable for a given context of communication",
+      "Appreciate the importance of grammar for effective communication"
+     ],
+     "learning_experiences": [
+      "conjugate verbs for use in prescribed contexts of communication. voyager, aller, arriver, utiliser, prendre, acheter, réserver",
+      "source for and play safe online interactive games on the conjugation of verbs related to transport",
+      "choose the correct preposition to indicate the means of travel (Je vais à pied, je vais en bus)",
+      "construct simple sentences related to means of transport (je prends un bus, je voyage en avion, j’utilise une moto)",
+      "express obligation in observing safety measures when using means of transport: il faut + infinitif, il doit + infinitif – il faut",
+      "attacher la ceinture de sécurité, il faut mettre le casque...)",
+      "fill in personal details in travel documents observing the correct punctuation",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "How do you create correct sentences?",
+      "Suggested Key Inquiry Question(s)"
+     ],
+     "core_competencies": [
+      "Critical thinking and problem solving: This is exhibited as learners use information provided to choose between the prepositions à and en in writing the means of travel one uses."
+     ],
+     "values": [
+      "Respect: The learner appreciates diverse opinions of others during discussions"
+     ],
+     "pertinent_issues": [
+      "Online safety: This is observed as learners use the internet responsibly as they source for and play safe online interactive games on conjugation of verbs."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-french.pdf#p36"
+    },
+    {
+     "kicd_code": "5.4.1",
+     "name": "Language structures",
+     "suggested_duration": "12 lessons",
+     "learning_outcomes": [
+      "identify elements of grammar in simple texts",
+      "construct simple sentences with right language structures",
+      "value the importance of language structure in communication."
+     ],
+     "learning_experiences": [
+      "use days of the week and months of the year to ask and say the date in sentences. [ Quel jour sommes-nous? Nous sommes... ]",
+      "fill in the blank spaces with the appropriate indefinite and definite article in identification of the objects in the classroom.",
+      "rearrange jumbled up words to make simple texts on the school activities",
+      "write simple texts about the school activities in the week",
+      "express preference of the learning area by constructing",
+      "simple sentences [j’aime le français, je préfère les mathématiques...].",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "Why is it essential to tell the date?",
+      "Suggested Key Inquiry Question(s)"
+     ],
+     "core_competencies": [
+      "Creativity and imagination: This developed when the learner writes simple texts about the school activities in the week."
+     ],
+     "values": [
+      "Responsibility: This is enhanced as the learners take care of the items found in their classroom."
+     ],
+     "pertinent_issues": [
+      "Self-awareness: This is brought out as the learners ask and tell date."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-french.pdf#p52"
+    }
+   ]
+  }
+ ]
+}

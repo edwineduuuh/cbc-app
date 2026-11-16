@@ -1,0 +1,580 @@
+{
+ "source_pdf": "grade10-wood-technology.pdf",
+ "grade": 10,
+ "subject": "wood-technology",
+ "general_outcomes": [
+  "By the end of senior school, the learner should be able to:",
+  "To gain a comprehensive understanding of the basic principles of wood technology, including the properties, classification, and sustainable use of wood as a natural resource.",
+  "To identify and work with various wood materials and composites, understanding their applications and the processes involved in their preparation and treatment.",
+  "To acquire practical skills in timber processing techniques, enabling them to design, produce, and evaluate a range of wood products while adhering to safety standards and sustainability practices.",
+  "To enhance their technical drawing skills, essential for creating accurate and detailed plans for wood products, thus bridging the gap between conceptual designs and finished projects.",
+  "To appreciate benefits of evolution of technology and its application in Wood Technology"
+ ],
+ "strands": [
+  {
+   "strand": "Foundations of Wood Technology",
+   "strand_code": "1.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to identify features in a wood workshop",
+     "exceeds": "Identifies features in a wood workshop and is able to specify where each is to be placed",
+     "meets": "Identifies features in a wood workshop",
+     "approaches": "Identifies features in a wood workshop but missed out on a few.",
+     "below": "Identifies the features in a wood workshop but misses out on quite a number"
+    },
+    {
+     "indicator": "Ability to illustrate the layout of a wood workshop",
+     "exceeds": "Illustrates the layout of the wood workshop and label the zones",
+     "meets": "Illustrates the layout of the wood workshop",
+     "approaches": "Illustrates the layout of the wood workshop but misses out on a few details",
+     "below": "Illustrates the layout of the wood workshop but misses out on many details"
+    },
+    {
+     "indicator": "Ability to identify types of hand tools used in the wood workshop",
+     "exceeds": "Identifies types of hand tools used in the wood workshop giving more details",
+     "meets": "Identifies hand tools used in the workshop",
+     "approaches": "Identifies hand tools used in the workshop but misses a few",
+     "below": "Identifies hand tools used in the workshop but misses many"
+    },
+    {
+     "indicator": "Ability to select the correct tool for a given task",
+     "exceeds": "Selects the correct tool for a given task and is able to tell which one is appropriate",
+     "meets": "Selects the correct tool for a given task",
+     "approaches": "Select the correct tool for a given task but is not able to ascertain the appropriate type",
+     "below": "Select the correct tool for a given task but at times confuses between some tools"
+    },
+    {
+     "indicator": "Ability to use the correct tool for a given task",
+     "exceeds": "Uses the correct tool for a given task safely",
+     "meets": "Uses the correct tool for a given task",
+     "approaches": "Uses the correct tool for a given task missing out some steps",
+     "below": "Uses the correct tool for a given task missing out many steps."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "1.1",
+     "name": "Overview of Wood Technology",
+     "suggested_duration": "6 lessons",
+     "learning_outcomes": [
+      "explore the development of Wood Technology as an area of study",
+      "relate the benefits of studying Wood Technology to different careers for self-development",
+      "appreciate the role of wood technology in the development of the economy."
+     ],
+     "learning_experiences": [
+      "brainstorm on the development of Wood Technology as an area of study",
+      "search online on the evolution of Wood Technology",
+      "discuss in groups the benefits and careers in Wood Technology",
+      "participate in a career talk by resource persons from different wood related sectors",
+      "discuss in groups, the importance of Wood Technology in economic development."
+     ],
+     "inquiry_questions": [
+      "1. Why is wood technology important as an area of study?"
+     ],
+     "core_competencies": [
+      "• Digital literacy: learner acquires digital skills when using digital devices to search for information on evolution of Wood Technology."
+     ],
+     "values": [
+      "Values:",
+      "Unity: learner cooperates with others when discussing the importance of Wood Technology in economic development.",
+      "Respect: learner appreciates diverse opinions of others as they discuss the importance of Wood.",
+      "Responsibility: learner use and care for digital devices when search for information online Pertinent and Contemporary Issues (PCIs):",
+      "Peer education: learner share information on the evolution of Wood Technology during discussions",
+      "Cyber security: learner observe cyber regulations when searching for information online",
+      "Social cohesion: learner socializes while working in groups when discussing the importance of Wood Technology in economic development."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-wood-technology.pdf#p13"
+    },
+    {
+     "kicd_code": "1.2",
+     "name": "Wood Workshop",
+     "suggested_duration": "12 lessons",
+     "learning_outcomes": [
+      "describe features of a wood workshop",
+      "illustrate the layout of a wood workshop",
+      "explain reasons for observing safety in the wood workshop",
+      "appreciate the importance of different features in a Wood workshop."
+     ],
+     "learning_experiences": [
+      "brainstorm on features of a wood workshop",
+      "visit workshops in the school and community to identify different features",
+      "use digital devices to search for features of a wood workshop",
+      "sketch and display the layout of a wood workshop",
+      "discuss reasons for observing safety in the wood workshop."
+     ],
+     "inquiry_questions": [
+      "1. Why is it important to have specific features in a wood workshop?",
+      "2. Why should a wood workshop have a proper layout?"
+     ],
+     "core_competencies": [
+      "Communication and Collaboration: learner develops speaking, listening and team working skills when brainstorming on features of workshop and discuss safety measures.",
+      "Digital Literacy: learner develops digital skills when interacting and manipulating digital devices to search for features of a wood workshop"
+     ],
+     "values": [
+      "Respect: learner appreciates diverse opinions of others as they discuss reasons for observing safety in the wood workshop.",
+      "Unity: learner visit workshops as a team in the school and neighbourhood to identify different features of wood workshop."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-wood-technology.pdf#p15"
+    },
+    {
+     "kicd_code": "1.3",
+     "name": "Hand Tools and equipment",
+     "suggested_duration": "26 lessons",
+     "learning_outcomes": [
+      "identify different types of hand tools and equipment in the workshop",
+      "classify different hand tools in the wood workshop",
+      "demonstrate safe use of hand tools and equipment in wood workshop",
+      "care and maintain hand tools during and after use in wood workshop",
+      "appreciate the importance of using the correct hand tools and equipment for a given task."
+     ],
+     "learning_experiences": [
+      "use visual aids to identify hand tools used in wood workshop",
+      "categorise the classes of woodworking hand tools; measuring, marking out, cutting, sharpening, boring, planing, impelling, holding/clamping, tools shaping.",
+      "brainstorm different types of equipment used in the workshop (workbench, portable stands, bench hook)",
+      "sketch and label different types of hand tools",
+      "practice safe use of hand tools and equipment.",
+      "discuss in groups how to care and maintain hand tools and equipment"
+     ],
+     "inquiry_questions": [
+      "1. Why is it important to use hand tools correctly. 2. Why is it important to care for and maintain hand tools in a Wood workshop?"
+     ],
+     "core_competencies": [
+      "• Communication and Collaboration: learner develops speaking, listening and teamwork skills when brainstorming different types of equipment used in the workshop"
+     ],
+     "values": [
+      "Values:",
+      "Responsibility: learner cares for tools and equipment as they practice safe use.",
+      "Unity: learner cooperates with others as they watch video clips and discusses uses of hand tools. Pertinent and Contemporary Issues (PCIs) Safety and security-learner observe safety for self when working with tools."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-wood-technology.pdf#p17"
+    }
+   ]
+  },
+  {
+   "strand": "Materials",
+   "strand_code": "2.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to illustrate parts of a tree in relation to the growth of a timber tree.",
+     "exceeds": "Illustrates the cross section of a tree trunk and states the function of each part",
+     "meets": "Illustrates the cross section of a tree trunk",
+     "approaches": "Illustrates the cross section of a tree trunk but leaves out few parts",
+     "below": "Illustrates the cross section of a tree trunk but leaves out many parts"
+    },
+    {
+     "indicator": "Ability to arrange stacks of timber in readiness for air seasoning",
+     "exceeds": "Arranges stacks of timber in readiness for air seasoning allowing aeration in the stack",
+     "meets": "Arranges stacks of timber in readiness for air seasoning",
+     "approaches": "Arranges stacks of timber in readiness for air seasoning leaving out piling sticks",
+     "below": "Arranges stacks of timber in readiness for air seasoning but places some boards on the floor"
+    },
+    {
+     "indicator": "Ability use of adhesives to bond materials.",
+     "exceeds": "Uses adhesives to bond materials and applies on exact position.",
+     "meets": "Uses adhesives to bond materials.",
+     "approaches": "Uses adhesives to bond materials but misses exact position.",
+     "below": "Uses adhesives to bond materials but fails to align materials for bonding"
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "2.1",
+     "name": "Growth of timber trees",
+     "suggested_duration": "12 lessons",
+     "learning_outcomes": [
+      "describe the process of growing trees for timber production",
+      "classify timber trees according to their physical features",
+      "illustrate a cross section of a tree trunk",
+      "appreciate the importance of growing trees within the environment."
+     ],
+     "learning_experiences": [
+      "brainstorm on the process of timber tree growth from seed to maturity.",
+      "Take a walk to the surrounding to observe and classify trees into softwoods or hardwoods according to their physical features",
+      "sketch and label parts of a tree trunk",
+      "discuss the functions of parts of a tree trunk.",
+      "prepare a tree nursery within the school compound and monitor their growth."
+     ],
+     "inquiry_questions": [
+      "1. Why is the growing of timber trees important in the society?",
+      "2. Which are the common species of trees for timber in Kenya?"
+     ],
+     "core_competencies": [
+      "Communication and collaboration: learner develops speaking, listening and teamwork skills when brainstorming on the process of timber tree growth from seed to maturity",
+      "Critical thinking and problem solving: learner develops evaluation and decision making skills when sketching and labelling parts of a tree trunk",
+      "Learning to learn: learner reflects on own work when preparing a tree nursery within the school compound."
+     ],
+     "values": [
+      "Values:",
+      "Responsibility: learner takes care of the tree nurseries within the school compound and monitors their growth.",
+      "Patriotism: learner donates seedlings for environmental conservation.",
+      "Unity: learner takes a walk to the surrounding to observe and classify trees into softwoods or hardwoods. Pertinent and Contemporary Issues (PCIs):",
+      "Social cohesion: learner tour and interact with their neighbourhood to observe and classify trees",
+      "Identifying and nurturing of gifts and talents: learner sketch and label parts of a tree trunk"
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-wood-technology.pdf#p20"
+    },
+    {
+     "kicd_code": "2.2",
+     "name": "Timber conversion and seasoning",
+     "suggested_duration": "14 lessons",
+     "learning_outcomes": [
+      "describe the methods of timber conversion",
+      "illustrate methods of timber seasoning",
+      "appreciate the role of technology in enhancing safety during timber conversion."
+     ],
+     "learning_experiences": [
+      "brainstorm on methods of timber conversion(through and through, quarter sawing, tangential sawing)",
+      "use digital and print media to search for methods of timber seasoning",
+      "discuss in groups reasons for timber seasoning",
+      "construct models to demonstrate proper stacking of timber.",
+      "Visit a neighbouring saw mill to observe the conversion and seasoning of timber"
+     ],
+     "inquiry_questions": [
+      "1. How is timber converted?",
+      "2. Why is seasoning of timber necessary?"
+     ],
+     "core_competencies": [
+      "Digital literacy: learner develops digital skills when interacting and manipulating digital devices to search for methods of timber seasoning",
+      "Learning to learn: learner reflects on own work when brainstorming on methods of timber conversion"
+     ],
+     "values": [
+      "Values:",
+      "Respect: learner appreciates diverse opinions of others as the learner discuss in reasons for timber seasoning",
+      "Responsibility: learner takes care of visual aids used to detail the different methods of timber seasoning. Pertinent and Contemporary Issues (PCIs):",
+      "Safety and security: learner carry out timber stacking ready for air seasoning within the locality",
+      "Social cohesion: learner works in groups to brainstorm on the stages of timber processing from felling to seasoning."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-wood-technology.pdf#p22"
+    },
+    {
+     "kicd_code": "2.3",
+     "name": "Adhesives",
+     "suggested_duration": "12 lessons",
+     "learning_outcomes": [
+      "identify types of adhesives used for bonding materials",
+      "describe the characteristics of adhesives used in Wood Technology",
+      "use adhesives to bond materials in wood technology.",
+      "appreciate the importance and use of wood adhesives."
+     ],
+     "learning_experiences": [
+      "discuss types of adhesives used in bonding materials",
+      "use visual aids to view types of adhesives used in bonding materials",
+      "classify of adhesives used in Wood Technology",
+      "search online the characteristics of adhesives used in Wood Technology; internal and external use",
+      "watch a video clip on how adhesives are used in Wood Technology",
+      "prepare and apply adhesives on a surface ready for bonding",
+      "discuss safety precautions related to use and disposal of adhesives used in Wood Technology",
+      "visit to nearby workshop to observe the use of adhesives used in Wood Technology"
+     ],
+     "inquiry_questions": [
+      "Why are wood adhesives important?"
+     ],
+     "core_competencies": [
+      "Core competencies to be developed:"
+     ],
+     "values": [
+      "Values:",
+      "Responsibility: learner takes care of adhesives when applying on a surface to avoid wastage.",
+      "Unity: learner work together in groups to discuss types of adhesives used in bonding materials and classification of adhesives.",
+      "Respect: learner appreciates diverse opinions of others as learner discusses safety precautions related to use and disposal of adhesives. Pertinent and Contemporary Issues (PCIs):",
+      "Drug and substance abuse: learner prepares and applies adhesives on a surface.",
+      "Environmental conservation: learner manage the use and disposal of adhesive wastes"
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-wood-technology.pdf#p24"
+    }
+   ]
+  },
+  {
+   "strand": "Timber processes and products",
+   "strand_code": "3.0",
+   "assessment_rubric": [],
+   "substrands": [
+    {
+     "kicd_code": "3.4",
+     "name": "Project Activity – Furniture Item",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Project report as learners progress with making the furniture item"
+     ],
+     "learning_experiences": [
+      "Digital devices",
+      "Relevant textbooks and reference materials",
+      "Assorted tools and materials"
+     ],
+     "inquiry_questions": [
+      "Clubs and societies, • Parental empowerment and engagement, • Learners visit a nearby workshop in the locality to familiarize with use of different tools."
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-wood-technology.pdf#p40"
+    }
+   ]
+  },
+  {
+   "strand": "Wood Processes and Products",
+   "strand_code": "3.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to select appropriate tools and equipment for wood preparation",
+     "exceeds": "Selects all tools and equipment for wood preparation",
+     "meets": "Selects 4 -5 tools and equipment for wood preparation",
+     "approaches": "Selects 2-3 tools and equipment for wood preparation",
+     "below": "Selects 1 tool and equipment for wood preparation"
+    },
+    {
+     "indicator": "Ability to carry out different operations on prepared wood",
+     "exceeds": "Carries out all operations on prepared wood",
+     "meets": "Carries out all operations on prepared wood",
+     "approaches": "Carries out some operations on prepared wood",
+     "below": "Carries out a few operations on prepared wood"
+    },
+    {
+     "indicator": "Ability to prepare three categories of joints used in wood work",
+     "exceeds": "Prepares three categories of joints used in woodwork and states the application of each",
+     "meets": "Prepares the three categories of joints used in wood work",
+     "approaches": "Prepares two category of joints used in wood work",
+     "below": "Prepares one category of joints used in wood work"
+    },
+    {
+     "indicator": "Ability to select materials and tools for preparing a surface to receive a finish",
+     "exceeds": "Selects five materials and tools for preparing a surface to receive a finish",
+     "meets": "Selects three or four materials and tools for preparing a surface to receive a finish",
+     "approaches": "Selects two materials and tools for preparing a surface to receive a finish",
+     "below": "Selects one material and tool for preparing a surface to receive a finish"
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "3.1",
+     "name": "Preparation of Wood",
+     "suggested_duration": "18 lessons",
+     "learning_outcomes": [
+      "select appropriate tools and equipment for wood preparation",
+      "describe the processes involved in wood preparation",
+      "carry out different operations on prepared wood",
+      "appreciate the importance of wood preparation for a product."
+     ],
+     "learning_experiences": [
+      "discuss in groups tools and equipment used for wood preparation (handsaw, tenon saw, jack plane, try square, marking gauge, bench hook)",
+      "brainstorm on the procedure of truing up the stock in preparation of wood",
+      "search online on procedures of truing up stock (face side, face edge, width/thickness, length)",
+      "execute different processes on timber; (chamfering, beveling, rebating, grooving, housing, mitring, shaping, boring holes)",
+      "visit a nearby workshop to observe the preparation of wood."
+     ],
+     "inquiry_questions": [
+      "Why is it necessary to carry out wood preparations?"
+     ],
+     "core_competencies": [
+      "• Learning to Learn: learner reflects on own work when visiting a nearby workshop to observe the preparation wood practice."
+     ],
+     "values": [
+      "Values:",
+      "Unity: learner use and share available tools for wood preparation.",
+      "Respect: learner appreciates each other’s contribution when discussing the procedure of truing up the stock. Pertinent and Contemporary Issues (PCIs):",
+      "Life skills: learner acquires skills of decision making and problem solving while handling timber.",
+      "Environmental conservation: learner exhibits skills on how to minimize wastage."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-wood-technology.pdf#p27"
+    },
+    {
+     "kicd_code": "3.2",
+     "name": "Wood working joints",
+     "suggested_duration": "26 lessons",
+     "learning_outcomes": [
+      "identify different types of joints in wood work",
+      "classify types of joints in wood work",
+      "prepare joints used in wood work",
+      "identify fasteners used in strengthening woodworking joints",
+      "appreciate the role of wood working joints in making of wood product."
+     ],
+     "learning_experiences": [
+      "discuss different types of joints in wood work",
+      "discuss classification of wood joints (lengthening, widening and framing.",
+      "sketch woodworking joints (lengthening, widening and framing)",
+      "use video clips to show how to prepare and assemble different woodworking joints",
+      "use visual aids to identify different fasteners used in wood working joints (screws nails dowels)",
+      "visit nearby wood workshops to observe the application of wood joints."
+     ],
+     "inquiry_questions": [
+      "1. How are wood",
+      "joints constructed?",
+      "2. Why are wood",
+      "fasteners important?"
+     ],
+     "core_competencies": [
+      "Communication and Collaboration: learner develops speaking, listening and teamwork skills when discussing classification of wood working joints.",
+      "Critical Thinking and Problem Solving: learner develops evaluation and decision making skills when discussing ways of strengthening joints using fasteners."
+     ],
+     "values": [
+      "Values:",
+      "Responsibility: learner avoid wastage of fasteners in joint construction",
+      "Respect: learner appreciate each other’s contribution when discussing classification of wood working joints Pertinent and Contemporary Issues (PCIs):",
+      "Community involvement: learner visit local workplaces to observe application of wood joints and fasteners.",
+      "Safety and security: learner handles tools to fabricate and strengthen joints."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-wood-technology.pdf#p29"
+    },
+    {
+     "kicd_code": "3.3",
+     "name": "Surface preparation",
+     "suggested_duration": "16 lessons",
+     "learning_outcomes": [
+      "explain the reasons for finishing a wood product",
+      "select materials and tools for surface preparation",
+      "prepare a wood surface to receive clear varnish",
+      "appreciate the importance of preparing of wood surfaces to receive finishes."
+     ],
+     "learning_experiences": [
+      "discuss in groups reasons for finishing a product.",
+      "discuss in groups materials, tools that are required for surface preparation( scraper, sand paper, files hot iron and cloth)",
+      "visit a neighborhood workshop to learn the preparation of surface (Scraping, raising the grain, hand sanding)",
+      "search online for materials required for surface preparation.",
+      "Apply clear varnish on a wood product"
+     ],
+     "inquiry_questions": [
+      "Why is surface preparation in wood finishing important?"
+     ],
+     "core_competencies": [
+      "Communication and collaboration: learner develops speaking, listening and teamwork skills when discussing reasons for finishing a product.",
+      "Digital Literacy: learner develops digital skills when interacting and manipulating digital devices to search online for materials required for surface preparation"
+     ],
+     "values": [
+      "Values:",
+      "Respect: learner accommodates opinions of others during discussions on materials, tools that are required for surface preparation.",
+      "Love: learner interact and share tools while carrying out the operations of preparing the surface for wood finishes.",
+      "Responsibility: learner takes care of tools to carry out the preparation of surface for wood finishes. Pertinent and Contemporary Issues (PCIs):",
+      "Environmental conservation: learner manages waste from finishes and surface preparation materials."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-wood-technology.pdf#p31"
+    },
+    {
+     "kicd_code": "3.4",
+     "name": "Project Activity – Furniture Item",
+     "suggested_duration": "24 lessons",
+     "learning_outcomes": [
+      "construct a furniture item using hand tools",
+      "appreciate the skills learned by completing a woodwork project"
+     ],
+     "learning_experiences": [
+      "discuss the procedure of carrying out the project(stool, bench, coffee table, chair, shoe rack, bedside cabinet, book rack)",
+      "select appropriate materials and tools for making the project",
+      "prepare materials to required sizes using hand tools- (cutting, planing, marking, )",
+      "mark and cut joints on the prepared work pieces",
+      "assemble the parts using wood glue (trial, dry & final assembly)",
+      "finish the project by sanding"
+     ],
+     "inquiry_questions": [
+      "How do you carry out a woodwork project?"
+     ],
+     "core_competencies": [
+      "Communication and Collaboration: learner develops speaking, listening and teamwork skills when discussing the procedure of carrying out a woodwork project",
+      "Critical Thinking and Problem Solving: learner develops evaluation and decision making skills when selecting appropriate materials and tools for making the project"
+     ],
+     "values": [
+      "Responsibility: learners observe safety as they work with tools and equipment when carrying out the project",
+      "Respect: learner appreciate each other’s contribution during the project making process"
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-wood-technology.pdf#p33"
+    }
+   ]
+  },
+  {
+   "strand": "Related Drawing",
+   "strand_code": "4.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to identify types of pictorial drawings",
+     "exceeds": "Identifies three types of pictorial drawings and specifies the oblique types of drawings (cavalier and cabinet)",
+     "meets": "Identifies three types of pictorial drawings",
+     "approaches": "Identifies two type of pictorial drawing",
+     "below": "Identifies one type of pictorial drawing"
+    },
+    {
+     "indicator": "Ability to draw shapes of items in isometric projection",
+     "exceeds": "Draws shapes of items in isometric projection and includes all the details",
+     "meets": "Draws shapes of items in isometric projection.",
+     "approaches": "Draws shapes of items in isometric projection leaves some details",
+     "below": "Draws shapes of items in isometric leaves many details"
+    },
+    {
+     "indicator": "Ability to interpret drawings from isometric to orthographic projection.",
+     "exceeds": "Interprets drawings from isometric to orthographic projection and includes all the details including linework",
+     "meets": "Interprets drawings from isometric to orthographic projection",
+     "approaches": "Interprets drawings from isometric to orthographic projection but misses to include some details",
+     "below": "Interprets drawings from isometric to orthographic projection but misses many details"
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "2.1",
+     "name": "Drawing and sketching",
+     "suggested_duration": "14 lessons",
+     "learning_outcomes": [
+      "identify different types of pictorial drawings used in wood technology",
+      "draw shapes of items to be made in isometric projection",
+      "draw orthographic views from isometric projections",
+      "make freehand sketches of items for designs purposes",
+      "embrace the use of drawing in design of items to be produced in the workshop."
+     ],
+     "learning_experiences": [
+      "use digital device to identify different types of pictorial drawings (oblique, isometric, perspective)",
+      "use drawing instruments to make isometric drawings",
+      "interpret drawings from isometric to orthographic projection",
+      "make freehand sketches of possible designs for use in production",
+      "Suggested learning resources"
+     ],
+     "inquiry_questions": [
+      "1. What is the importance of drawing in wood technology?",
+      "2. How can you make use of drawings in the design process?",
+      "Suggested non-formal activities"
+     ],
+     "core_competencies": [
+      "Digital literacy: learner develops digital skills when interacting and manipulating digital devices when identifying types of pictorial drawings.",
+      "Critical thinking and problem solving: learner develops evaluation and decision making skills when using drawing instruments to make isometric drawings"
+     ],
+     "values": [
+      "Responsibility: learner takes care of drawing instruments when drawing.",
+      "Love: learners share drawing instruments and other materials used in drawing"
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-wood-technology.pdf#p35"
+    }
+   ]
+  }
+ ]
+}

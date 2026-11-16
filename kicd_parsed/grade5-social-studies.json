@@ -1,0 +1,1040 @@
+{
+ "source_pdf": "grade5-social-studies.pdf",
+ "grade": 5,
+ "subject": "social-studies",
+ "general_outcomes": [],
+ "strands": [
+  {
+   "strand": "Natural and Historic Built Environments",
+   "strand_code": "1.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to describe characteristics of main climatic regions in Kenya.",
+     "exceeds": "Learner describes characteristics of main climatic regions in Kenya in detail and provides relevant examples.",
+     "meets": "Learner describes characteristics of main climatic regions in Kenya.",
+     "approaches": "Learner describes characteristics of main climatic regions in Kenya omitting minor details.",
+     "below": "Learner describes characteristics of main climatic regions in Kenya omitting major details."
+    },
+    {
+     "indicator": "Ability to illustrate key elements of a map on a sketch.",
+     "exceeds": "Learner illustrates key elements of a map on a sketch with examples.",
+     "meets": "Learner illustrates key elements of a map on a sketch.",
+     "approaches": "Leaner illustrates –some key elements of a map on a sketch.",
+     "below": "Learner can hardly illustrate key elements of a map on a sketch."
+    },
+    {
+     "indicator": "Ability to locate the position of Kenya in relation to her neighbours using a compass direction.",
+     "exceeds": "Learner locates the position of Kenya in relation to her neighbours using a compass direction with detailed descriptions.",
+     "meets": "Learner locates the position of Kenya in relation to her neighbours using a compass direction.",
+     "approaches": "Learner needs help to locate the position of Kenya in relation to her neighbours using a compass direction.",
+     "below": "Learner can hardly locate the position of Kenya in relation to her neighbours using a compass direction even with help."
+    },
+    {
+     "indicator": "Ability to locate the main physical features in Kenya on a map.",
+     "exceeds": "Learner locates the main physical features in Kenya on a map with detailed descriptions.",
+     "meets": "Learner locates the main physical features in Kenya on a map.",
+     "approaches": "Learner locates some of the main physical features in Kenya on a map.",
+     "below": "Learner can hardly locate the main physical features in Kenya on a map."
+    },
+    {
+     "indicator": "Ability to show main climatic regions in Kenya on a map.",
+     "exceeds": "Learner shows the main climatic regions in Kenya on a map and provides direction.",
+     "meets": "Learner shows the main climatic regions in Kenya on a map.",
+     "approaches": "Learner needs help to show the main climatic regions in Kenya on a map.",
+     "below": "Learner can hardly show the main climatic regions in Kenya on a map."
+    },
+    {
+     "indicator": "Ability to show the main historic built environments in Kenya on a map.",
+     "exceeds": "Learner shows the main historic built environments in Kenya on a map with detailed descriptions.",
+     "meets": "Learner shows the main historic built environments in Kenya on a map.",
+     "approaches": "Learner shows the main historic built environments in Kenya on a map with prompts.",
+     "below": "Learner can hardly show the main historic built environments in Kenya on a map even with prompts."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "1.2",
+     "name": "Location, Position and Size of Kenya",
+     "suggested_duration": "4 lessons",
+     "learning_outcomes": [
+      "identify countries that neighbour Kenya",
+      "locate the position of Kenya in relation to her neighbours using a compass direction",
+      "value good relations between Kenya and her neighbours."
+     ],
+     "learning_experiences": [
+      "draw a map of Kenya and indicate her neighbours",
+      "use an atlas/appropriate media to identify the position of Kenya in relation to her neighbours",
+      "acquire knowledge on their country as they discuss the position of Kenya in relation to her neighbours",
+      "use appropriate media, in pairs, to play games on locating places on a map",
+      "find out the size of Kenya using digital resources and share in class",
+      "draw a map of Kenya and indicate the size in square kilometres",
+      "• show love for their own country as they engage in self-driven tasks in composing songs and poems about Kenya and her neighbours."
+     ],
+     "inquiry_questions": [
+      "What is the position of Kenya in relation to her neighbours?"
+     ],
+     "core_competencies": [
+      "Self-efficacy: Learners acquire knowledge on their country as they discuss the position of Kenya in relation to her neighbours.",
+      "Learning to learn: Learners engage in self-driven tasks as they compose songs and poems about Kenya and her neighbours."
+     ],
+     "values": [
+      "Patriotism: Learners show love for their own country as they engage in self-driven tasks in composing songs and poems about Kenya and her neighbours."
+     ],
+     "pertinent_issues": [
+      "Social cohesion: Learners learn to co-exist as they discuss the position of Kenya in relation to her neighbours."
+     ],
+     "links_to_other_areas": [
+      "The learner is able to apply calculation skills in Mathematics as they find out the size of Kenya using digital resources.",
+      "The learner is able to apply Creative Arts skills as they draw a map of Kenya and indicate her neighbours."
+     ],
+     "resources": [],
+     "kicd_source": "grade5-social-studies.pdf#p16"
+    },
+    {
+     "kicd_code": "1.3",
+     "name": "Main physical features in Kenya",
+     "suggested_duration": "5 lessons",
+     "learning_outcomes": [
+      "identify main physical features in Kenya",
+      "show main physical features in Kenya on a map",
+      "value physical features found in Kenya."
+     ],
+     "learning_experiences": [
+      "appreciate diverse opinions as they brainstorm and identify physical features found in Kenya",
+      "use digital technology to effectively accomplish own tasks as they use digital and print resources to locate the main physical features in Kenya",
+      "locate the main physical features in Kenya using a sketch map or atlas",
+      "undertake tasks that encourage artistic expression as they draw a map of Kenya and locate the main physical features",
+      "engage in assigned roles of",
+      "collecting and displaying maps and pictures showing the main physical features in Kenya",
+      "care for the physical features found in the immediate environment."
+     ],
+     "inquiry_questions": [
+      "Why are physical features useful in a country?"
+     ],
+     "core_competencies": [
+      "Digital Literacy: Learners use digital technology to effectively accomplish their own tasks as they use digital and print resources to locate the main physical features in Kenya.",
+      "Creativity and Imagination: Learners undertake tasks that encourage artistic expression as they draw a map of Kenya and locate the main physical features."
+     ],
+     "values": [
+      "Responsibility: Learners engage in assigned roles as they collect and display maps and pictures showing the main physical features in Kenya.",
+      "Respect: Learners appreciate diverse opinions as they brainstorm in groups to identify physical features found in Kenya."
+     ],
+     "pertinent_issues": [
+      "• Environmental Education: Learners care for the physical features found in the immediate environment."
+     ],
+     "links_to_other_areas": [
+      "The learner is able to apply Creative Arts skills as they draw a map of Kenya and locate main physical features."
+     ],
+     "resources": [],
+     "kicd_source": "grade5-social-studies.pdf#p18"
+    },
+    {
+     "kicd_code": "1.4",
+     "name": "Weather and Climate",
+     "suggested_duration": "4 lessons",
+     "learning_outcomes": [
+      "identify elements of weather in the environment",
+      "show main climatic regions in Kenya on a map",
+      "describe characteristics of the main climatic regions in Kenya",
+      "acknowledge different weather and climatic conditions in planning for day-to-day activities.."
+     ],
+     "learning_experiences": [
+      "display team spirit as they brainstorm in groups the difference between weather and climate and share with peers",
+      "discuss in groups elements of weather (rainfall, wind, temperature, cloud cover)",
+      "use digital maps/atlas to locate the main climatic regions of Kenya",
+      "speak engagingly by using facts as they discuss in groups the characteristics of the main climatic regions in Kenya",
+      "engage in assigned roles and duties as they undertake tasks that will require learners to organise ideas as they model in groups a map of Kenya showing the main climatic regions and display in class",
+      "• find out from parents/guardians the effects of extreme weather conditions."
+     ],
+     "inquiry_questions": [
+      "Why do we experience different climatic conditions in Kenya?"
+     ],
+     "core_competencies": [
+      "Communication and Collaboration: Learners can speak engagingly by using facts as they discuss in groups elements of weather.",
+      "Creativity and Imagination: Learners undertake tasks that will require them to organise ideas as they model in groups a map of Kenya showing the main climatic regions and display in class."
+     ],
+     "values": [
+      "Unity: Learners display team spirit as they brainstorm in groups the difference between weather and climate.",
+      "Responsibility: Learners engage in assigned roles and duties as they undertake tasks that will require them to organise ideas while modelling in groups a map of Kenya showing the main climatic regions and display in class."
+     ],
+     "pertinent_issues": [
+      "Environmental Education: Learners become aware of weather as they brainstorm in groups the difference between weather and climate."
+     ],
+     "links_to_other_areas": [
+      "The learner is able to apply Creative Arts skills to model a map of Kenya showing the main climatic regions"
+     ],
+     "resources": [],
+     "kicd_source": "grade5-social-studies.pdf#p20"
+    },
+    {
+     "kicd_code": "1.5",
+     "name": "The Built Environments",
+     "suggested_duration": "4 lessons",
+     "learning_outcomes": [
+      "identify main historic built environments in Kenya",
+      "show main historic built environments in Kenya on a map",
+      "apply strategies to conserve historic built environments for preservation of cultural heritage",
+      "appreciate the need for conserving historic built environments in Kenya."
+     ],
+     "learning_experiences": [
+      "brainstorm the main historic built environments in Kenya",
+      "use digital/print resources to identify historic built environments",
+      "use a map of Kenya, in groups, to locate some of the historic built environments",
+      "develop posters/ charts/flip cards with messages on importance of caring for historic built environments in Kenya",
+      "visit/virtual visit a nearby historic built environment/library/cultural centre and share experiences",
+      "seek advice from a resource person as they engage on ways of conserving historic built environments",
+      "participate in conservation activities for historic built environments in the locality."
+     ],
+     "inquiry_questions": [
+      "Why should we conserve the historic built environments?"
+     ],
+     "core_competencies": [
+      "Critical thinking and Problem solving: Learners seek advice from a resource person as they engage on ways of conserving historic built environments.",
+      "Citizenship: Learners participate in conservation activities for historic built environments in the locality."
+     ],
+     "values": [
+      "Love: Learners portray a caring attitude as they participate in conservation activities for historic built environments in the locality.",
+      "Peace: Learners display tolerance as they brainstorm the main historic built environments in Kenya."
+     ],
+     "pertinent_issues": [
+      "• Environmental Education: Learners participate in conservation activities for historic built environments in the locality."
+     ],
+     "links_to_other_areas": [
+      "The learner is able to apply Agriculture skills as they participate in conservation of historic built environments in the locality."
+     ],
+     "resources": [],
+     "kicd_source": "grade5-social-studies.pdf#p22"
+    }
+   ]
+  },
+  {
+   "strand": "People and Social Organisations",
+   "strand_code": "2.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to explain the benefits of interdependence of language groups in Kenya.",
+     "exceeds": "Learner explains benefits of interdependence of language groups in Kenya and provides relevant examples.",
+     "meets": "Learner explains benefits of interdependence of language groups in Kenya.",
+     "approaches": "Learner explains some benefits of interdependence of language groups in Kenya.",
+     "below": "Learner has challenges explaining benefits of interdependence of language groups in Kenya."
+    },
+    {
+     "indicator": "Ability to identify methods of instruction used in African traditional education.",
+     "exceeds": "Learner identifies methods of instruction used in African traditional education with supportive details and examples.",
+     "meets": "Learner identifies methods of instruction used in African traditional education.",
+     "approaches": "Learner identifies some of the methods of instruction used in African traditional education.",
+     "below": "Learner has challenges identifying methods of instruction used in African traditional education."
+    },
+    {
+     "indicator": "Ability to show areas of high and low population density in Kenya on a map.",
+     "exceeds": "Learner shows areas of high and low population density in Kenya on a map and provides justifications.",
+     "meets": "Learner shows areas of high and low population density in Kenya on a map.",
+     "approaches": "Learner shows areas of high and low population density in Kenya on a map with minor errors.",
+     "below": "Learner shows areas of high and low population density in Kenya on a map with major errors."
+    },
+    {
+     "indicator": "Ability to illustrate the administrative structure of a school.",
+     "exceeds": "Learner illustrates the administrative structure of a school with detailed description.",
+     "meets": "Learner illustrates the administrative structure of a school.",
+     "approaches": "Learner illustrates the administrative structure of a school leaving out minor details.",
+     "below": "Learner illustrates the administrative structure of the school leaving out major details."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "2.1",
+     "name": "Language Groups in Kenya",
+     "suggested_duration": "5 lessons",
+     "learning_outcomes": [
+      "identify main language groups in Kenya",
+      "explain benefits of interdependence of language groups in Kenya",
+      "show the interdependence of language groups in Kenya",
+      "appreciate the interdependence of language groups."
+     ],
+     "learning_experiences": [
+      "brainstorm the main language groups in Kenya",
+      "appreciate the importance of oneness irrespective of individual differences",
+      "discuss ways in which different language groups depend on each other in Kenya",
+      "engage a resource person to find out the benefits of interdependence of language groups in Kenya",
+      "role-play scenarios that depict interdependence of language groups in Kenya",
+      "• narrate African stories on the origin of various language groups in Kenya."
+     ],
+     "inquiry_questions": [
+      "How do we benefit by interacting with different language groups in Kenya?"
+     ],
+     "core_competencies": [
+      "Learning to Learn: Learners develop relationships as they role-play scenarios that depict interdependence of language groups in Kenya.",
+      "Communication and Collaboration: Learners listen keenly and actively showing understanding of concepts as they compose poems and songs that depict interdependence during cultural events."
+     ],
+     "values": [
+      "Unity: Learners discuss in groups ways in which different language groups depend on each other in Kenya.",
+      "Respect: Learners value human dignity as they narrate African stories on the origin of various language groups in Kenya."
+     ],
+     "pertinent_issues": [
+      "Social cohesion: Learners work together harmoniously as they compose poems and songs that depict interdependence during cultural events."
+     ],
+     "links_to_other_areas": [
+      "The learner is able to apply Language skills as they compose poems and songs that depict interdependence during cultural events.",
+      "The learner is able to apply Language skills as they narrate and share African stories on the origin of various language groups in Kenya."
+     ],
+     "resources": [],
+     "kicd_source": "grade5-social-studies.pdf#p26"
+    },
+    {
+     "kicd_code": "2.2",
+     "name": "Population distribution in Kenya",
+     "suggested_duration": "4 lessons",
+     "learning_outcomes": [
+      "explain the effects of population density in different regions in Kenya",
+      "show areas of high and low population density in Kenya on a map",
+      "acknowledge the impact of population distribution in Kenya."
+     ],
+     "learning_experiences": [
+      "brainstorm areas of high and low population density in Kenya",
+      "use digital or print resources to locate areas of high and low population density in Kenya",
+      "shade areas of low and high population density on a sketch map of Kenya",
+      "take turns as they create a skit that depicts the impact of population distribution in Kenya."
+     ],
+     "inquiry_questions": [
+      "How is population distribution useful in Kenya?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed: Communication and collaboration: Learners describe procedure followed in doing defined tasks and give feedback as they shade in pairs, areas of low and high population density on a sketch map of Kenya. Values:",
+      "Unity: Learners take turns as they create a skit that depicts the impact of population distribution in Kenya.",
+      "Respect: Learners value ideas of others as they brainstorm areas of high and low population density in Kenya. Pertinent and Contemporary Issues (PCIs): Social cohesion: Learners work together harmoniously as they take turns to create a skit that depicts the impact of population distribution in Kenya. Link to other subjects: The learner is able to apply speaking skills in Languages as they present feedback to their peers on areas of low and high population density on a sketch map of Kenya."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade5-social-studies.pdf#p28"
+    },
+    {
+     "kicd_code": "2.3",
+     "name": "African Traditional Education",
+     "suggested_duration": "4 lessons",
+     "learning_outcomes": [
+      "identify methods of instruction used in African traditional education",
+      "explain the importance of African traditional education in promoting values",
+      "apply African traditional education in promoting values",
+      "appreciate the role of African traditional education in promoting values."
+     ],
+     "learning_experiences": [
+      "brainstorm the meaning of African traditional education",
+      "discuss with peers, methods of instruction used in African traditional education such as narratives, stories, songs, riddles and proverbs",
+      "listen keenly and actively as they watch video tapes/listen to narratives, stories/observe pictures on aspects of African traditional education",
+      "engage with a resource person on methods of instruction used in African traditional education",
+      "discuss the importance of African traditional education in promoting values",
+      "design posters on methods of instruction used in African traditional education",
+      "• find out from parents/guardians the methods of instruction used in African traditional education and share in class."
+     ],
+     "inquiry_questions": [
+      "How does African traditional education promote values in our community?"
+     ],
+     "core_competencies": [
+      "Communication and Collaboration: Learners listen keenly and actively as they watch video tapes/listen to narratives, stories/observe pictures on aspects of African traditional education.",
+      "Citizenship: Learners participate in the community and contribute to a better world through informed, ethical and peaceful action as they give a summary of an aspect of African traditional education and share the information in class."
+     ],
+     "values": [
+      "Integrity: Learners enhance self-discipline as they engage with a resource person on methods of instruction used in African traditional education.",
+      "Unity: Learners enhance turn taking in activities and conversation as they discuss in pairs, methods of instruction used in African traditional education such as narratives, stories, songs, riddles and proverbs."
+     ],
+     "pertinent_issues": [
+      "• Social Cohesion: Learners enhance understanding of self and others as they watch video tapes/listen to narratives, stories/observe pictures on aspects of African traditional education."
+     ],
+     "links_to_other_areas": [
+      "The learner is able to apply speaking and listening skills in Languages as they discuss methods of instruction used in African traditional education such as narratives, stories, songs, riddles, and proverbs."
+     ],
+     "resources": [],
+     "kicd_source": "grade5-social-studies.pdf#p30"
+    },
+    {
+     "kicd_code": "2.4",
+     "name": "School administration",
+     "suggested_duration": "4 lessons",
+     "learning_outcomes": [
+      "identify administrative leaders in a school",
+      "state duties of administrative leaders in a school",
+      "illustrate administrative structure of a school",
+      "appreciate work done by administrative leaders in school."
+     ],
+     "learning_experiences": [
+      "discuss the administrative leaders in school",
+      "discuss the order of administration in school",
+      "use digital or print resources to search duties of administrative leaders in school",
+      "collaboratively, share with parents or guardians the duties of school administrators",
+      "draw and display in class the administrative structure of the school."
+     ],
+     "inquiry_questions": [
+      "How is school administration organised?"
+     ],
+     "core_competencies": [
+      "Learning to Learn: Learners work collaboratively as they share with parents or guardians the duties of school administrators.",
+      "Communication and Collaboration: Learners contribute to group decision making as they discuss in groups the order of administration in school."
+     ],
+     "values": [
+      "Values:",
+      "Love: Learners share resources as they think, pair and share the administrative leaders in school.",
+      "Respect: Learners appreciate diverse opinions as they discuss in groups the order of administration in school. Pertinent and Contemporary Issues (PCIs):",
+      "Citizenship: Learners discuss in groups the order of administration in school.",
+      "Social cohesion: Learners share with parents or guardians the duties of school administrators. Link to other learning areas:",
+      "The learner is able to apply communication skills in Languages when discussing the order of administration in school.",
+      "The learner is able to apply drawing skills from Creative Arts when drawing and displaying in class the administrative structure of the school."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade5-social-studies.pdf#p32"
+    }
+   ]
+  },
+  {
+   "strand": "Resources and Economic Activities",
+   "strand_code": "3.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to identify resources found in Kenya.",
+     "exceeds": "Learner identifies resources found in Kenya with details.",
+     "meets": "Learner identifies resources found in Kenya.",
+     "approaches": "Learner identifies some resources found in Kenya.",
+     "below": "Learner has difficulty identifying resources found in Kenya."
+    },
+    {
+     "indicator": "Ability to examine the importance of minerals in Kenya",
+     "exceeds": "Learner examines the importance of minerals in Kenya with details.",
+     "meets": "Learner examines the importance of minerals in Kenya.",
+     "approaches": "Learner examines the importance of some minerals in Kenya.",
+     "below": "Learner has difficulty examining the importance of minerals in Kenya."
+    },
+    {
+     "indicator": "Ability to explain the contribution of fishing to the economy of Kenya.",
+     "exceeds": "Learner explains the contribution of fishing to the economy of Kenya in detail.",
+     "meets": "Learner explains the contribution of fishing to the economy of Kenya.",
+     "approaches": "Learner explains the contribution of fishing to the economy of Kenya with help.",
+     "below": "Learner has challenges explaining the contribution of fishing to the economy of Kenya even with help."
+    },
+    {
+     "indicator": "Ability to explore ways of maintaining road safety in society.",
+     "exceeds": "Learner explores ways of maintaining road safety in society in detail, providing relevant examples.",
+     "meets": "Learner explores ways of maintaining road safety in society.",
+     "approaches": "Learner explores some ways of maintaining road safety in society.",
+     "below": "Learner has difficulty exploring ways of maintaining road safety in society."
+    },
+    {
+     "indicator": "Ability to outline the main early forms of communication to facilitate social interactions.",
+     "exceeds": "Learner outlines the main early forms of communication to facilitate social interactions in varied contexts.",
+     "meets": "Learner outlines the main early forms of communication to facilitate social interactions.",
+     "approaches": "Learner outlines some of the main early forms of communication to facilitate social interactions.",
+     "below": "Learner has difficulty outlining the main early forms of communication to facilitate social interactions."
+    },
+    {
+     "indicator": "Ability to locate the main inland fishing grounds in Kenya.",
+     "exceeds": "Learner locates the main inland fishing grounds in Kenya with details.",
+     "meets": "Learner locates the main inland fishing grounds in Kenya.",
+     "approaches": "Learner locates some of the main inland fishing grounds in Kenya.",
+     "below": "Learner has difficulty locating the main inland fishing grounds in Kenya."
+    },
+    {
+     "indicator": "Ability to locate game reserves and national parks in Kenya.",
+     "exceeds": "Learner locates the main game reserves and national parks in Kenya and provides direction.",
+     "meets": "Learner locates the main game reserves and national parks in Kenya.",
+     "approaches": "Learner locates some of the main game reserves and national parks in Kenya.",
+     "below": "Learner has difficulty locating the main game reserves and national parks in Kenya."
+    },
+    {
+     "indicator": "Ability to illustrate and apply safety precautions in using means of transport.",
+     "exceeds": "Learner illustrates and applies safety precautions in using means of transport in varied contexts.",
+     "meets": "Learner illustrates and applies safety precautions in using means of transport.",
+     "approaches": "Learner illustrates and applies some safety precautions in using means of transport.",
+     "below": "Learner has difficulty illustrating and applying safety precautions in using means of transport."
+    },
+    {
+     "indicator": "Ability to illustrate the modern means of communication used in their community.",
+     "exceeds": "Learner illustrates modern means of communication used in their community in detail.",
+     "meets": "Learner illustrates modern means of communication used in their community.",
+     "approaches": "Learner illustrates some modern means of communication used in their community.",
+     "below": "Learner has difficulty illustrating modern means of communication used in their community."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "3.1",
+     "name": "Resources in Kenya -land, -minerals, -water, -wildlife -forests",
+     "suggested_duration": "4 lessons",
+     "learning_outcomes": [
+      "identify resources found in Kenya",
+      "explain the benefits of using available resources prudently",
+      "illustrate ways in which available resources can be used sustainably",
+      "appreciate the resources available in society."
+     ],
+     "learning_experiences": [
+      "brainstorm on resources found in Kenya",
+      "take a nature walk around the school locality to collect samples of resources found and share their findings in class",
+      "state the benefits of using available resources prudently",
+      "engage a resource to find out the benefits of using available resources prudently",
+      "search online or use available print media on the ways in which available resources can be used sustainably",
+      "write articles/come up sensitisation messages on prudent use of resources found in Kenya."
+     ],
+     "inquiry_questions": [
+      "1. Why is it important to use resources prudently?",
+      "2. How can we conserve resources in our society?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Creativity and Imagination: Learners undertake tasks that encourage artistic expression of ideas as they take a nature walk around the school locality to identify resources and share.",
+      "Critical Thinking and Problem solving: Learners follow simple instructions to solve and seek help as they collect samples of resources found within the environment and display them in class. Values: Responsibility: Learners engage a resource person to find out the benefits of using available resources prudently. Pertinent and Contemporary Issues (PCIs): Environmental issues: Learners demonstrate care as they search online or use available print media on the ways in which available resources can be used sustainably Link to other learning areas: The learner is able to apply the concept of caring from Agriculture as they learn about prudent use of available resources for sustainability."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade5-social-studies.pdf#p36"
+    },
+    {
+     "kicd_code": "3.2",
+     "name": "Mining in Kenya",
+     "suggested_duration": "5 lessons",
+     "learning_outcomes": [
+      "identify major minerals found in Kenya",
+      "use the map of Kenya to locate major minerals",
+      "examine the importance of minerals in Kenya",
+      "acknowledge the contribution of mining to the economy of Kenya."
+     ],
+     "learning_experiences": [
+      "brainstorm on minerals found in Kenya",
+      "use digital or print resources to identify minerals found in Kenya",
+      "draw a map of Kenya and locate major minerals",
+      "engage with a resource person to discuss the importance of minerals in society",
+      "create posters on contribution of mining to the economy of Kenya",
+      "visit a mining site/quarry or use digital devices or watch documentary on the",
+      "importance of mining in our country and write a report",
+      "generate new ideas as they create posters on the contribution of mining to the economy of Kenya."
+     ],
+     "inquiry_questions": [
+      "1. How do we benefit from the minerals found in our country?",
+      "2. How does the government promote mining in Kenya?"
+     ],
+     "core_competencies": [
+      "Creativity and Imagination: Learners generate new ideas as they create posters on the contribution of mining to the economy of Kenya",
+      "Learning to Learn: Learners engage with a resource person to discuss the importance of minerals in society"
+     ],
+     "values": [
+      "Patriotism: Learners acknowledge the contribution of mining to the economy of Kenya",
+      "Love: Learners avoid inflicting emotional pain on others as they in pairs create posters on the importance of mining in Kenya."
+     ],
+     "pertinent_issues": [
+      "Creative Thinking skills: Learners enhance creative thinking skills as they create posters on the importance of mining in Kenya."
+     ],
+     "links_to_other_areas": [
+      "The learner is able to apply Creative Arts skills as they create posters on the importance of mining in Kenya."
+     ],
+     "resources": [],
+     "kicd_source": "grade5-social-studies.pdf#p38"
+    },
+    {
+     "kicd_code": "3.3",
+     "name": "Fishing in Kenya",
+     "suggested_duration": "5 lessons",
+     "learning_outcomes": [
+      "identify main inland fishing grounds in Kenya",
+      "locate main inland fishing grounds in Kenya",
+      "explain contribution of fishing to the economy of Kenya",
+      "recognise fishing as an economic activity."
+     ],
+     "learning_experiences": [
+      "brainstorm on the main inland fishing grounds in Kenya using digital resources/print media",
+      "draw a map of Kenya showing the main inland fishing grounds",
+      "find out from relevant sources in groups the contribution of fishing to the economy of Kenya and write a summary",
+      "engage with a resource person to discuss the contribution of fishing to the economy of Kenya and report in class",
+      "develop posters on the importance of fishing in Kenya and share."
+     ],
+     "inquiry_questions": [
+      "Why is fishing important in our country?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Self-Efficacy: Learners show attention to detail as they discuss in groups methods of inland fishing in Kenya and report in class.",
+      "Citizenship: Learners demonstrate creativity as they develop posters, in pairs, on the importance of fishing in Kenya and share with members of the community. Values:",
+      "Unity: Learners take turns in activities as they illustrate in groups fishing methods used in Kenya, display in class and do a gallery walk to appreciate each other’s work.",
+      "Respect: Learners show positive regard for self and others as they find out from relevant sources in groups the contribution of fishing to the economy of Kenya and write a summary. Pertinent and Contemporary Issues (PCIs): Creativity thinking skills: Learners enhance the skills of creative thinking as they draw a map of Kenya showing the main inland fishing grounds. Link to other learning areas: The learner is able to apply Agriculture skills as they find out from relevant sources the contribution of fishing to the economy of Kenya and write a summary."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade5-social-studies.pdf#p40"
+    },
+    {
+     "kicd_code": "3.4",
+     "name": "Wildlife and Tourism in Kenya",
+     "suggested_duration": "5 lessons",
+     "learning_outcomes": [
+      "identify main tourist attractions in Kenya",
+      "locate main game reserves and national parks in Kenya",
+      "explain contributions of wildlife and tourism to the economy",
+      "acknowledge the contribution of wildlife and tourism to the economy of Kenya."
+     ],
+     "learning_experiences": [
+      "discuss and share on who is a tourist",
+      "use digital or print resources to identify tourist attractions in Kenya",
+      "brainstorm on main tourist attractions in Kenya",
+      "brainstorm on the difference between a game reserve and a national park",
+      "draw a map of Kenya and show the main game reserves and national parks (Nairobi National Park, Tsavo National Park, Amboseli National Park, Masai Mara Natioal Reserve and Kakamega Forest National Reserve)",
+      "discuss the contributions of wildlife and tourism to the economy and do a presentation in class",
+      "brainstorm and list down the contribution of tourism to the economy of Kenya",
+      "debate on the contribution of tourism to the economy of Kenya",
+      "write an essay on the contribution of tourism to the economy of Kenya."
+     ],
+     "inquiry_questions": [
+      "Why is wildlife important?"
+     ],
+     "core_competencies": [
+      "Learning to Learn: Learners share what they have learnt as they write an essay on the contribution of tourism to the economy of Kenya.",
+      "Communication and Collaboration: Learners speak clearly and effectively as they brainstorm on main tourist attractions in Kenya."
+     ],
+     "values": [
+      "Values:",
+      "Unity: Learners display team spirit as they debate on the contribution of tourism to the economy of Kenya.",
+      "Responsibility: Learners engage in tasks as they write an essay on the contribution of tourism to the economy of Kenya. Pertinent and Contemporary Issues (PCIs): Social Cohesion: Learners work together as they write essays on the contribution of tourism to the economy of Kenya. Link to other learning areas: The learner is able to apply Language skills as they write an essay on the contribution of tourism to the economy of Kenya."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade5-social-studies.pdf#p42"
+    },
+    {
+     "kicd_code": "3.5",
+     "name": "Development of Transport",
+     "suggested_duration": "5 lessons",
+     "learning_outcomes": [
+      "outline main means of early transport to facilitate movement of goods and services",
+      "identify modern means of transport in Kenya",
+      "explore ways of maintaining road safety in society",
+      "apply safety precautions in using means of transport",
+      "appreciate the role of modern means of transport in national development."
+     ],
+     "learning_experiences": [
+      "brainstorm the meaning of transport",
+      "use digital or print resources to find out the main early means of transport (human porterage, pack animals, logging/log and boats, rafts) and share in class",
+      "sketch the early means of transport and present in class",
+      "share information about modern means of transport in Kenya",
+      "use digital or print resources to identify modern means of transport in Kenya",
+      "write down modern means of transport identified and share in class",
+      "draw the road signs in Kenya and display them in class",
+      "role-play safe practices of a pedestrian crossing and present in class (walking instead of running, walk on a line/single file)",
+      "find out ways of observing road safety in Kenya using digital or print resources and write a report",
+      "role-play how to observe traffic rules while using the road."
+     ],
+     "inquiry_questions": [
+      "Why is transport important in development?"
+     ],
+     "core_competencies": [
+      "Self-Efficacy: Learners develop self-confidence as they use digital or print resources to find out the main early means of transport and share in class.",
+      "Creativity and Imagination: Learners exchange new ideas as they draw the road signs in Kenya and display them in class."
+     ],
+     "values": [
+      "Values:",
+      "Unity: Learners display team spirit as they role-play how to observe traffic rules while using the road.",
+      "Peace: Learners demonstrate love for their own community as they exchange new ideas, draw the road signs in Kenya and display them in class. Pertinent and Contemporary Issues (PCIs):",
+      "Nationalism: Learners display national pride, find out ways of observing road safety in Kenya using digital or print resources and write a report.",
+      "Child Road Safety: Learners work harmoniously as they role-play how to observe traffic rules while using the road. Link to other learning areas: The learner is able to apply Creative Arts skills as they role-play how to observe traffic rules while using the road."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade5-social-studies.pdf#p45"
+    },
+    {
+     "kicd_code": "3.6",
+     "name": "Development of Communication Traditional forms",
+     "suggested_duration": "4 lessons",
+     "learning_outcomes": [
+      "outline main early forms of communication to facilitate social interactions",
+      "explore modern means of communication in Kenya",
+      "illustrate modern means of communication used in their community",
+      "recognise the role of modern means of communication in Kenya."
+     ],
+     "learning_experiences": [
+      "use digital or print resources to find out the main early forms of communication and share in class",
+      "sketch the early forms of communication and present in class",
+      "discuss modern means of communication using appropriate media",
+      "discuss modern means of communication in Kenya using digital resources/ print media",
+      "draw different modern means of communication and display in class",
+      "• role-play use of various modern means of communication."
+     ],
+     "inquiry_questions": [
+      "Why is communication important?"
+     ],
+     "core_competencies": [
+      "Critical Thinking and Problem Solving: Learners undertake group activities as they role-play the use of various modern means of communication.",
+      "Creativity and Imagination: Learners undertake group activities as they role-play use of various modern means of communication."
+     ],
+     "values": [
+      "Unity: Learners collaborate with others as they discuss modern means of communication in Kenya."
+     ],
+     "pertinent_issues": [
+      "Internet Safety: Learners portray responsible online behaviour as they use digital devices to find out the main early forms and share in class."
+     ],
+     "links_to_other_areas": [
+      "The learner is able to apply the concept of use of technology in communication in Science and Technology as they discuss modern means of communication."
+     ],
+     "resources": [],
+     "kicd_source": "grade5-social-studies.pdf#p48"
+    }
+   ]
+  },
+  {
+   "strand": "Political Systems",
+   "strand_code": "4.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to illustrate contributions of selected traditional leaders in Kenya.",
+     "exceeds": "Learner illustrates the contributions of selected traditional leaders in Kenya in detail.",
+     "meets": "Learner illustrates contributions of selected traditional leaders in Kenya.",
+     "approaches": "Learner illustrates some of the contributions of selected traditional leaders in Kenya.",
+     "below": "Learner has challenges illustrating contributions of selected traditional leaders in Kenya."
+    },
+    {
+     "indicator": "Ability to compare early forms of government of the Ameru and the Maasai.",
+     "exceeds": "Learner compares early forms of government of the Ameru and the Maasai giving details.",
+     "meets": "Learner compares early forms of government of the Ameru and the Maasai",
+     "approaches": "Learner compares some early forms of government of the Ameru and the Maasai.",
+     "below": "Learner has challenges comparing early forms of government of the Ameru and the Maasai."
+    },
+    {
+     "indicator": "Ability to explain the requirements for dual citizenship in Kenya.",
+     "exceeds": "Learner explains the requirements for dual citizenship in Kenya under different contexts.",
+     "meets": "Learner explains the requirements for dual citizenship in Kenya.",
+     "approaches": "Learner explains some of the requirements for dual citizenship in Kenya.",
+     "below": "Learner has challenges explaining the requirements for dual citizenship in Kenya."
+    },
+    {
+     "indicator": "Ability to explain the importance of human rights in society.",
+     "exceeds": "Learner explains the importance of human rights in society in detail and provides examples.",
+     "meets": "Learner explains the importance of human rights in society.",
+     "approaches": "Learner explains the importance of human rights in society leaving out some details.",
+     "below": "Learner has challenges explaining the importance of human rights in society."
+    },
+    {
+     "indicator": "Ability to identify types of democracy in Kenya.",
+     "exceeds": "Learner identifies types of democracy in Kenya citing examples.",
+     "meets": "Learner identifies types of democracy in Kenya.",
+     "approaches": "Learner identifies some types of democracy in Kenya.",
+     "below": "Learner has challenges identifying types of democracy in Kenya."
+    },
+    {
+     "indicator": "Ability to illustrate ways of overcoming challenges of national unity.",
+     "exceeds": "Illustrates ways of overcoming challenges of national unity, giving examples",
+     "meets": "Illustrates ways of overcoming challenges of national unity",
+     "approaches": "Illustrates some ways of overcoming challenges of national unity",
+     "below": "Has difficulty illustrating ways of overcoming challenges of national unity"
+    },
+    {
+     "indicator": "Ability to develop national awareness to enhance social cohesion among diverse communities.",
+     "exceeds": "Develops national awareness to enhance social cohesion among diverse communities, giving details",
+     "meets": "Develops national awareness to enhance social cohesion among diverse communities",
+     "approaches": "Develops national awareness to enhance social cohesion among diverse communities omitting some points",
+     "below": "Has difficulty developing national awareness to enhance social cohesion among diverse communities"
+    },
+    {
+     "indicator": "Ability to draw national symbols using locally available materials.",
+     "exceeds": "Learner draws national symbols using locally available materials with clarity",
+     "meets": "Learner draws national symbols using locally available materials.",
+     "approaches": "Learner draws some national symbols using locally available materials.",
+     "below": "Has difficulty drawing national symbols using locally available materials."
+    },
+    {
+     "indicator": "Ability to illustrate the three arms of the National Government in Kenya.",
+     "exceeds": "Learner illustrates the three arms of the National Government in Kenya and gives examples.",
+     "meets": "Learner illustrates the three arms of the National Government in Kenya.",
+     "approaches": "Learner illustrates two arms of the National Government in Kenya.",
+     "below": "Learner illustrates less than two arms of the National Government in Kenya."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "4.1",
+     "name": "Traditional Leaders in Kenya",
+     "suggested_duration": "4 lessons",
+     "learning_outcomes": [
+      "outline leadership qualities of selected traditional leaders in Kenya",
+      "illustrate contributions of selected traditional leaders in the Kenya",
+      "recognise the role of traditional leaders in the community."
+     ],
+     "learning_experiences": [
+      "brainstorm leadership qualities of the selected traditional leaders in Kenya",
+      "observe pictures of selected traditional leaders in Kenya using appropriate media",
+      "gather information in groups, and do a write-up on the contributions of selected traditional leaders in Kenya",
+      "illustrate the contributions of selected traditional leaders in Kenya using charts and display in class",
+      "collect and creatively display portraits/ pictures of the selected traditional leaders in Kenya",
+      "draw, colour and display in class pictures of selected traditional leaders."
+     ],
+     "inquiry_questions": [
+      "Why are traditional leaders important in the community?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Communication and Collaboration: Learners listen keenly and actively and show understanding of other people’s perspective as they brainstorm, in pairs on who is a traditional leader.",
+      "Learning to learn: Learners develop self-discipline as they work collaboratively while gathering information in groups, and do a write-up on the contributions of selected traditional leaders in Kenya. Values:",
+      "Unity: Learners enhance cooperation as they gather information in groups, and do a write-up on the contributions of selected traditional leaders in Kenya.",
+      "Patriotism: Learners show dedication as they illustrate the differences and similarities between the selected traditional leaders in Kenya using charts and display in class. Pertinent and Contemporary Issues (PCIs):",
+      "Citizenship Education: Learners develop interethnic and interracial relationships as they observe pictures of selected traditional leaders in Kenya using appropriate media.",
+      "Social Cohesion: Learners understand the ethnic diversity of traditional leaders in Kenya as they illustrate the differences and similarities between the selected traditional leaders in Kenya using charts and display in class. Link to other learning areas:",
+      "The learner is able to apply speaking and listening skills in Languages as they brainstorm in groups leadership qualities of the selected traditional leaders in Kenya.",
+      "The learner is able to apply drawing skills from Creative Arts as they draw, colour and display in class pictures of selected traditional leaders."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade5-social-studies.pdf#p53"
+    },
+    {
+     "kicd_code": "4.2",
+     "name": "Early forms of Governm ent in Kenya",
+     "suggested_duration": "5 lessons",
+     "learning_outcomes": [
+      "describe early forms of government among selected communities in Kenya",
+      "compare early forms of government of the Maasai and Ameru",
+      "apply best practices from early forms of government among selected communities in Kenya to modern governance",
+      "appreciate the importance of early forms of governance in Kenya."
+     ],
+     "learning_experiences": [
+      "brainstorm in pairs on forms of government in their community and share in class",
+      "use digital or print resources to describe early forms of government",
+      "find out from the library or relevant sources the early forms of government among the Maasai and Ameru and present their findings in class",
+      "develop a chart to illustrate the differences and similarities in early forms of government among the Maasai and the Ameru",
+      "create a simple journal on best practices from early forms of government among the Maasai and the Ameru",
+      "• role-play early forms of government among the Maasai or the Ameru."
+     ],
+     "inquiry_questions": [
+      "How were communities ruled in the past?"
+     ],
+     "core_competencies": [
+      "Digital literacy: Learners communicate effectively as they use digital media and space to describe early forms of government.",
+      "Creativity and Imagination: Learners show originality as they create a simple journal on what they have learnt about early forms of government."
+     ],
+     "values": [
+      "Responsibility: Learners engage in assigned roles and duties as they create a simple journal on what they have learnt about early forms of government.",
+      "Respect: Learners appreciate diverse opinions about the Maasai and the Ameru as they brainstorm in pairs on forms of leadership in the communities and share"
+     ],
+     "pertinent_issues": [
+      "Learner Support Programmes: Learners engage in civic guidance as they use appropriate media to describe early forms of government among the Maasai and the Ameru.",
+      "Social cohesion: Learner’s role-play early forms of government among the Maasai or the Ameru."
+     ],
+     "links_to_other_areas": [
+      "The learner is able to apply performing skills in Creative Arts as they role-play early forms of government among the Maasai or the Ameru.",
+      "The learner is able to apply speaking and listening skills from Languages as they brainstorm on forms of leadership in their community and share in class."
+     ],
+     "resources": [],
+     "kicd_source": "grade5-social-studies.pdf#p55"
+    },
+    {
+     "kicd_code": "4.3",
+     "name": "Citizenship in Kenya",
+     "suggested_duration": "4 lessons",
+     "learning_outcomes": [
+      "state how one becomes a citizen in Kenya",
+      "explain requirements for dual citizenship in Kenya",
+      "demonstrate good citizenship for personal and social well-being",
+      "appreciate being a good citizen in the community."
+     ],
+     "learning_experiences": [
+      "discuss with peers ways of becoming a Kenyan citizen",
+      "use digital resources to find out ways of becoming a Kenyan citizen and share in class",
+      "debate on dual citizenship in Kenya",
+      "develop communication messages on good citizenship in our country",
+      "write an essay on what may happen if one lost Kenyan citizenship",
+      "create and recite poems on Kenyan citizenship",
+      "develop intergroup communication skills for promotion of peaceful",
+      "coexistence as they develop communication messages on good citizenship and share with others in school."
+     ],
+     "inquiry_questions": [
+      "How can we promote responsible citizenship?"
+     ],
+     "core_competencies": [
+      "Self-efficacy: Learners practise self-drive as they discuss in groups, ways in which one may lose Kenyan citizenship and present in class.",
+      "Citizenship: Learners develop intergroup communication skills for promotion of peaceful coexistence as they develop communication messages on good citizenship and share with others in school."
+     ],
+     "values": [
+      "Social Justice: Learners enhance democracy as they create and recite poems on Kenyan citizenship.",
+      "Integrity: Learners display self-discipline as they write an essay on what may happen if one lost Kenyan citizenship."
+     ],
+     "pertinent_issues": [
+      "Safety and Security: Learners enhance patriotism as they discuss in groups, ways in which one may lose Kenyan citizenship and present in class.",
+      "Peace Education: Learners acknowledge self and others as they sing songs on good Kenyan Citizenship."
+     ],
+     "links_to_other_areas": [
+      "The learner is able to apply singing skills in Creative Arts as they sing songs on good Kenyan Citizenship."
+     ],
+     "resources": [],
+     "kicd_source": "grade5-social-studies.pdf#p57"
+    },
+    {
+     "kicd_code": "4.4",
+     "name": "National Government",
+     "suggested_duration": "4 lessons",
+     "learning_outcomes": [
+      "describe the three arms of the National Government in Kenya",
+      "illustrate the three arms of National Government in Kenya",
+      "desire to participate in national governance in the country."
+     ],
+     "learning_experiences": [
+      "brainstorm the three arms of National Government in Kenya and share in class",
+      "discuss the three arms of National Government using appropriate media and list them down",
+      "engage with others to find out the three arms of National Government in Kenya using relevant sources",
+      "illustrate the three arms of the National Government in Kenya and display them in class."
+     ],
+     "inquiry_questions": [
+      "How does the government work?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Citizenship: Learners engage effectively with others as they find out the three arms of government in Kenya using relevant sources.",
+      "Creativity and Imagination: Learners undertake tasks as they illustrate and display in class the composition of the three arms of National Government in Kenya. Values:",
+      "Responsibility: Learners engage in assigned roles and duties as they find out the three arms of government in Kenya using relevant sources.",
+      "Unity: Learners appreciate the effort of others as they discuss the three arms of government using appropriate media and list them down. Pertinent and Contemporary Issues (PCIs):",
+      "Patriotism and good governance: Learners enhance good governance at all levels as they illustrate and display in class the three arms of the National Government in Kenya.",
+      "Peace Education: Learners appreciate similarities and differences amongst them as they brainstorm the three arms of National Government in Kenya and share in class. Link to other learning areas: The learner is able to apply drawing skills in Creative Arts when illustrating the three arms of the National Government in Kenya and display them in class."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade5-social-studies.pdf#p59"
+    },
+    {
+     "kicd_code": "5.3",
+     "name": "Democracy in Society",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "identify types of democracy in Kenya",
+      "explain benefits of democracy in society",
+      "practise democracy in governance in the community",
+      "desire to promote democracy in society."
+     ],
+     "learning_experiences": [
+      "brainstorm the meaning of democracy",
+      "use digital /print materials to find out types of democracy in Kenya and write short notes",
+      "discuss and list the benefits of democracy in society.",
+      "engage with a resource person to discuss the benefits of democracy in society.",
+      "develop posters on benefits of democracy in society, display in class and share",
+      "Recite poems /sing songs on the importance of democracy in society."
+     ],
+     "inquiry_questions": [
+      "How can we practise democracy in our society?"
+     ],
+     "core_competencies": [
+      "Digital Literacy: Learners use the digital devices safely and ethically in a networked environment as they find out more about benefits of democracy in society using digital resources/appropriate media.",
+      "Learning to learn: Learners develop relations as they discuss and list the benefits of democracy in society."
+     ],
+     "values": [
+      "Values:",
+      "Respect: Learners understand and appreciate others as they brainstorm on the meaning of democracy.",
+      "Responsibility: Learners offer leadership and guidance to others as they discuss and list the benefits of democracy in society. Pertinent and Contemporary Issues (PCIs):",
+      "Peace Education: Learners contribute to peacebuilding as they recite poems /sing songs on the importance of democracy in society.",
+      "Human rights and Responsibilities: Learners identify themselves as they engage with a resource person discuss on the benefits of democracy in society. Link to other subjects: The learner is able to apply speaking skills in Languages to recite poems /sing songs on the importance of democracy in society."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade5-social-studies.pdf#p68"
+    }
+   ]
+  },
+  {
+   "strand": "Governance",
+   "strand_code": "5.0",
+   "assessment_rubric": [],
+   "substrands": [
+    {
+     "kicd_code": "5.1",
+     "name": "National Unity in Kenya",
+     "suggested_duration": "3 lessons",
+     "learning_outcomes": [
+      "identify national symbols in Kenya",
+      "explain factors which promote national unity in Kenya",
+      "illustrate ways of overcoming challenges of national unity",
+      "develop national awareness to enhance social",
+      "cohesion among diverse communities",
+      "embrace a sense of nationhood and patriotism for harmonious living."
+     ],
+     "learning_experiences": [
+      "brainstorm on national symbols in Kenya (the coat of arms, the national flag, the national anthem and the public seal) and share in class",
+      "use appropriate media to identify the national symbols in Kenya and share with others in class",
+      "draw and colour the national symbols in Kenya using the locally available materials (the coat of arms, the national flag and the public seal)",
+      "brainstorm factors which promote national unity in Kenya",
+      "use appropriate media to establish factors which promote national unity in Kenya",
+      "engage a resource person to talk about ways of overcoming challenges of national unity",
+      "role-play national awareness to enhance social cohesion among diverse communities",
+      "write down and sing the three stanzas of the National Anthem of Kenya as sign of national awareness",
+      "find out from parents/ guardians or elders about the national days in Kenya",
+      "write a report about national days in Kenya and share in class."
+     ],
+     "inquiry_questions": [
+      "How can we promote national unity in our country?"
+     ],
+     "core_competencies": [
+      "Citizenship: Learners understand the impact of a person's rights and responsibilities in society as they brainstorm in groups factors which promote national unity in Kenya (national symbols, national days and national languages).",
+      "Creativity and Imagination: Learners undertake tasks that encourage artistic expression of ideas as they draw and colour the national symbols in Kenya using the locally available materials (the coat of arms, the national flag and the public seal)."
+     ],
+     "values": [
+      "Values:",
+      "Patriotism: learners show love for their country as they sing and write down in groups, the three stanzas of the National Anthem of Kenya.",
+      "Unity: Learners display team spirit as they share national symbols in Kenya (the coat of arms, the national flag, the national anthem and the public seal). Pertinent and Contemporary Issues (PCIs):",
+      "Human Rights and Responsibilities: Learners enhance cohesion as they brainstorm in groups factors which promote national unity in Kenya (national symbols, national days and national languages).",
+      "Patriotism and Good Governance: Learners demonstrate patriotism as they sing and write down in groups, the three stanzas of the National Anthem of Kenya Link to other learning areas:",
+      "The learner is able to apply performing skills from Creative Arts when singing and writing down three stanzas of the National Anthem of Kenya.",
+      "The learner is able to apply functional writing skills in Languages to write a report about national days in Kenya and share in class."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade5-social-studies.pdf#p63"
+    },
+    {
+     "kicd_code": "5.2",
+     "name": "Human Rights",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "identify basic human rights in Kenya",
+      "explain the importance of human rights in society",
+      "create awareness on the importance of respecting human rights in society",
+      "apply ways to protect human rights in society",
+      "appreciate the importance of respecting human rights in society."
+     ],
+     "learning_experiences": [
+      "brainstorm on the meaning of human rights and share in class",
+      "identify the basic human rights in Kenya using appropriate media and share in class",
+      "discuss the importance of human rights in society and make class presentations",
+      "develop posters to create awareness on the importance of respecting human rights in society",
+      "act a skit on how to apply ways in protecting human rights",
+      "engage with a resource person on the importance of human rights and write a report",
+      "recite poems and sing songs on the importance of human rights in society."
+     ],
+     "inquiry_questions": [
+      "Why is it important to respect human rights?"
+     ],
+     "core_competencies": [
+      "Creativity and Imagination: Learners undertake tasks that will enable them to come up with new ideas as they identify the basic human rights in Kenya using appropriate media and share in class.",
+      "Learning to learn: Learners develop motivation to learn as they engage with a resource person on the importance of human rights and write a report."
+     ],
+     "values": [
+      "Unity: Learners respect other people’s opinions as they discuss in groups the importance of human rights in society and make class presentations.",
+      "Respect: Learners value human dignity as they recite poems and sing songs on the importance of human rights in society."
+     ],
+     "pertinent_issues": [
+      "Human Rights and Responsibilities: Learners enhance understanding of children’s rights as they recite poems and sing songs on the importance of human rights in society.",
+      "Social Cohesion: Learners care for one another as they develop posters to create awareness on the importance of respecting human rights in society."
+     ],
+     "links_to_other_areas": [
+      "The learner is able to apply Creative Arts skills to develop posters to create awareness on the importance of respecting human rights in society.",
+      "The learner is able to apply speaking and listening skills in Languages to discuss the importance of human rights in society and make class presentations."
+     ],
+     "resources": [],
+     "kicd_source": "grade5-social-studies.pdf#p66"
+    }
+   ]
+  }
+ ]
+}

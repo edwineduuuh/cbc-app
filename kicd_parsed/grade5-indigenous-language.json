@@ -1,0 +1,987 @@
+{
+ "source_pdf": "grade5-indigenous-language.pdf",
+ "grade": 5,
+ "subject": "indigenous-language",
+ "general_outcomes": [
+  "Respond appropriately to a variety of communication in the indigenous language",
+  "Express themselves confidently and appropriately in a variety of social contexts",
+  "Comprehend information in different contexts in the indigenous language",
+  "Read texts accurately and fluently with comprehension",
+  "Write legibly in different formats to express a variety of ideas and opinions",
+  "Enjoy communicating using a variety of cultural language strategies"
+ ],
+ "strands": [
+  {
+   "strand": "WRITING",
+   "strand_code": "1.3",
+   "assessment_rubric": [],
+   "substrands": [
+    {
+     "kicd_code": "1.3.1",
+     "name": "Handwriting",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "outline letters of the alphabet neatly for effective communication",
+      "compose a paragraph neatly and legibly for effective communication",
+      "appreciate the importance of writing legibly and neatly."
+     ],
+     "learning_experiences": [
+      "trace letters of the alphabet in upper case and lower case neatly",
+      "identify various cultural attire from pictures",
+      "create target words on flashcards using the letters of the alphabet",
+      "work jointly with peers to write a short paragraph neatly and legibly on the theme",
+      "share the short paragraphs developed in class for peer review",
+      "organise their neatly written paragraphs in the class portfolio.",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "1. How do we write instructions?",
+      "2. Why should we write neatly and legibly?",
+      "Key Inquiry Question(s)"
+     ],
+     "core_competencies": [
+      "Collaboration is enhanced as the learner work jointly with peers to create flashcards with words using letters of the alphabet.",
+      "Creativity and imagination is developed as the learner composes and writes a short paragraph on the theme neatly and legibly."
+     ],
+     "values": [
+      "Unity is promoted as the learner works harmoniously with peers to write short paragraphs on the theme neatly and legibly.",
+      "Responsibility is achieved as the learner takes up specific roles as they work jointly to compose and write paragraphs."
+     ],
+     "pertinent_issues": [
+      "Learner’s self-esteem is nurtured as they develop skills of writing short paragraphs neatly and legibly."
+     ],
+     "links_to_other_areas": [
+      "The learner is able to connect the concept of diverse community cultural attires to the strand of citizenship in Social Studies."
+     ],
+     "resources": [],
+     "kicd_source": "grade5-indigenous-language.pdf#p12"
+    },
+    {
+     "kicd_code": "2.3.1",
+     "name": "Punctuation",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "identify punctuation marks (exclamation, double quotation and question marks) in a variety of texts",
+      "combine sentences to form a coherent and logical paragraph",
+      "appreciate sequencing of ideas for in writing for effective communication."
+     ],
+     "learning_experiences": [
+      "work with peers to identify punctuation marks (exclamation, double quotation and question marks) in texts",
+      "use exclamation, double quotation and question mark in sentence construction",
+      "share the punctuated sentences in class for peer review",
+      "fill blanks in sentences using punctuation marks",
+      "brainstorm with peers the uses of exclamation, double quotation and question marks in sentences.",
+      "Collaborate to play online games involving the use of punctuations marks.",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "Why do we punctuate sentences?",
+      "Key Inquiry Question(s)"
+     ],
+     "core_competencies": [
+      "• Collaboration as is enhanced as the learner works with peers to play online games involving identification and use of punctuation marks."
+     ],
+     "values": [
+      "Integrity is achieved as the learner uses digital devices responsibly to play online games without deviating to inappropriate sites.",
+      "Unity is enhanced as the learners work harmoniously with peers to complete tasks."
+     ],
+     "pertinent_issues": [
+      "Digital literacy is cultivated as the learner interacts with digital devices to play online games involving punctuation."
+     ],
+     "links_to_other_areas": [
+      "The learner is able to connect and apply the concept of punctuation to the learning of writing in English and Kiswahili."
+     ],
+     "resources": [],
+     "kicd_source": "grade5-indigenous-language.pdf#p16"
+    },
+    {
+     "kicd_code": "3.3.1",
+     "name": "Sequencing of ideas",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "identify connectors in varied texts for effective communication",
+      "use connectors to sequence ideas in paragraphs for fluency",
+      "enjoy writing texts using connectors for effective communication."
+     ],
+     "learning_experiences": [
+      "work collaboratively to use digital devices to search for various connectors",
+      "list connectors on charts for display",
+      "work jointly with peers to identify connectors (therefore, yet, also, because) in texts",
+      "use connectors to write two paragraphs on the theme",
+      "read the paragraphs on the theme in class for peer review",
+      "prepare sentence strips on the theme collaboratively",
+      "connect sentence strips to form a paragraph using the connectors given.",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "Why do we use connectors in writing?",
+      "Key Inquiry Question(s)"
+     ],
+     "core_competencies": [
+      "Digital literacy is enhanced as the learner uses digital devices to search for various connectors used in writing.",
+      "Critical thinking and problem solving is enhanced as the learner connects sentence strips to form a paragraph using appropriate connectors."
+     ],
+     "values": [
+      "Love is enhanced as the learner uses digitals devices carefully and shares them with peers as they search for various sentence connectors.",
+      "Honesty is promoted as the learner gives genuine and constructive feedback to peers during peer review."
+     ],
+     "pertinent_issues": [
+      "Pertinent and Contemporary Issues (PCIs)): The concept of personal safety when using the road is enhanced as learner gets knowledge on prevention of possible instances of road accidents. Links to Other learning areas: The learner is able to connect the concept of road safety learnt to similar content learnt in Social Studies."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade5-indigenous-language.pdf#p20"
+    },
+    {
+     "kicd_code": "4.3.1",
+     "name": "creative writing",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "highlight features of an interesting story",
+      "write an interesting story based on the theme",
+      "enjoy writing imaginative stories."
+     ],
+     "learning_experiences": [
+      "work with peers to highlight features of an interesting story",
+      "collect interesting stories from their community",
+      "collaboratively hold storytelling sessions",
+      "create a collection of vocabulary items from the stories they have read",
+      "work together to write an interesting story based on the theme",
+      "search for interesting pictures relevant to the theme from print and non-print sources",
+      "write an interesting story based on the pictures retrieved",
+      "present the written stories in class for peer review",
+      "organize their stories in a class portfolio.",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "How can we make stories interesting in writing?",
+      "Key Inquiry Question(s)"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Creativity and imagination is enhanced as the learner works with peers to explore ideas as they write an interesting story.",
+      "Self-efficacy is promoted as the learner confidently narrates stories before peers. Values:",
+      "Responsibility is achieved as learners use digital devices to search for interesting pictures without diverting to inappropriate sites.",
+      "Honesty is promoted as learners give honest opinions about peers work during review. Pertinent and Contemporary Issues (PCIs): Healthy interpersonal relationship is enhanced as the learner harmoniously relates with peers during presentations and peer reviews. Link to other learning areas: The learner is able to relate the concept of conflict resolution to their learning in Social Studies and Religious Education."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade5-indigenous-language.pdf#p24"
+    },
+    {
+     "kicd_code": "6.3.1",
+     "name": "Creative writing",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "identify idioms commonly used in the locality for",
+      "use idioms commonly used in the locality to write an imaginative story",
+      "Enjoy using idioms from their locality in writing."
+     ],
+     "learning_experiences": [
+      "list idioms from the audio story",
+      "discuss the meaning of various idioms used in the locality",
+      "use idioms from the locality to write creative stories collaboratively",
+      "read their creative stories in class for peer review",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "The learners is guided to: • mention idioms commonly used in the locality with peers • listen to an audio recording on a creative story,",
+      "Key Inquiry Question(s)"
+     ],
+     "core_competencies": [
+      "Communication and collaboration is enhanced as the learner shares their ideas and opinion on meanings of various idioms.",
+      "Creativity and imagination is cultivated as the learner uses idioms to write own creative stories."
+     ],
+     "values": [
+      "Respect is enhanced as the learner accommodates peers as they work together despite their physical and cultural background differences.",
+      "Honesty is enhanced as the learner gives honest opinion as they read the creative stories in class for peer review."
+     ],
+     "pertinent_issues": [
+      "Social cohesion is enhanced as the learners accommodates in their life’s special and vulnerable groups of people."
+     ],
+     "links_to_other_areas": [
+      "The learner is able to relate and connect their learning of idioms to Kiswahili and English languages."
+     ],
+     "resources": [],
+     "kicd_source": "grade5-indigenous-language.pdf#p32"
+    },
+    {
+     "kicd_code": "7.3.1",
+     "name": "Creative writing",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "highlight features of a poem",
+      "write a simple poem using neat and legible handwriting for communication",
+      "appreciate written poetry for self-expression."
+     ],
+     "learning_experiences": [
+      "listen to audio recording on simple poems",
+      "identify features of a poem from the audio recording",
+      "compose and write simple poems based on the theme using a neat and legible handwriting",
+      "recite the poems fluently and do a peer review collaboratively",
+      "record their poem recitations using digital devices",
+      "write a paragraph of a story and punctuate appropriately.",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "Why write legibly and neatly?",
+      "Key Inquiry Question(s)"
+     ],
+     "core_competencies": [
+      "Core Competences to be developed:",
+      "Communication is enhanced as the learner listens to an audio recording and identify features of a poem.",
+      "Creativity and imagination is cultivated as the learner composes and writes poems in neat and legible handwriting. Values:",
+      "Unity is enhanced as the learner works harmoniously with peers to create simple poems based on the theme.",
+      "Respect is promoted as the learner accommodates opinion given by others during peer review sessions. Pertinent and Contemporary Issues (PCIs): Digital literacy is promoted as the learner manipulates digital devices to record themselves reciting poems. Links to Other Subjects: The learner is able to relate the concept of talents to the learning in Religious Education."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade5-indigenous-language.pdf#p36"
+    },
+    {
+     "kicd_code": "8.3.1",
+     "name": "Functional writing",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "identify the components of a friendly letter for comprehension",
+      "write a friendly letter based on the theme for expression",
+      "Enjoy writing friendly letters for communication."
+     ],
+     "learning_experiences": [
+      "work collaboratively to collect samples of friendly letters from print and non-print sources",
+      "identify components of a friendly letter",
+      "discuss with peers the various components of sample friendly letters",
+      "compose a friendly letter and type in a digital device",
+      "proofread their friendly letters and make corrections",
+      "read and share friendly letters through social medial and emails.",
+      "Suggested Learning Experiences a"
+     ],
+     "inquiry_questions": [
+      "Why write friendly letters?",
+      "Key Inquiry Question(s)"
+     ],
+     "core_competencies": [
+      "Creativity and imagination is enhanced as learners use a digital device to write a friendly letter based on the theme.",
+      "Learning to learn is developed as learners are being exposed to the concept of friendly letter writing for life-long learning."
+     ],
+     "values": [
+      "Responsibility is nurtured as the learner takes initiative to care for digital devices and use them appropriately.",
+      "Love is promoted as the learner sends messages to peers suing friendly letters."
+     ],
+     "pertinent_issues": [
+      "Digital literacy is promoted as the learner appreciate and takes responsibility to care for digital devices."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade5-indigenous-language.pdf#p40"
+    },
+    {
+     "kicd_code": "9.3.1",
+     "name": "Functional writing",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "identify components of a recipe for information",
+      "write a recipe of their favourite food for instruction",
+      "enjoy writing recipes of various foods for information."
+     ],
+     "learning_experiences": [
+      "make a list of adverbs based on the theme",
+      "role play various adverbs based on the theme with peers",
+      "identify adverbs and write them on flashcards",
+      "discus different components of recipes with peers",
+      "collaborate to write a recipe on a common cultural food from their community",
+      "share their recipes with other groups in class",
+      "pin the recipes on the classroom gallery for a gallery walk"
+     ],
+     "inquiry_questions": [
+      "How do you write clear instructions?"
+     ],
+     "core_competencies": [
+      "• Creativity and imagination is enhanced as the learner composes and organises ideas to write a recipe on a common cultural food."
+     ],
+     "values": [
+      "Values:",
+      "Unity is achieved as the learner works with peers to write a recipe on a common cultural food from their community.",
+      "Love is cultivated as the learner share positive feedback on recipes with other classmates. Pertinent and Contemporary Issues (PCIs): Cultural awareness is enhanced as the learner is exposed to recipes on different cultural foods. Links to Other Subjects: The learner is able to relate and apply the concept of recipe writing to the learning of method of food preparation in Integrated Science."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade5-indigenous-language.pdf#p43"
+    }
+   ]
+  },
+  {
+   "strand": "LISTENING AND SPEAKING",
+   "strand_code": "2.1",
+   "assessment_rubric": [],
+   "substrands": [
+    {
+     "kicd_code": "2.1.1",
+     "name": "Listening for information",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "identify components of a conversation for comprehension",
+      "respond to an oral conversation related to the theme effectively",
+      "appreciate expressing self logically and coherently for communication."
+     ],
+     "learning_experiences": [
+      "listen to a conversation from an audio clip to identify conjunctions",
+      "collaborate with peers to talk about their experiences on environmental awareness in their community",
+      "answer oral questions based on a listening comprehension",
+      "role play giving or taking instructions during a conversation with peers",
+      "construct sentences using conjunctions",
+      "narrate and retell stories based on the theme collaboratively",
+      "listen to songs sung by peers on environmental issues and discuss main ideas",
+      "compose simple stories and songs using conjunctions."
+     ],
+     "inquiry_questions": [
+      "1. What is the importance of listening in a conversation?",
+      "2. How do we express self logically and coherently?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Creativity and imagination is developed as the learner engage in activities to explore ideas for constructing sentences and telling stories.",
+      "Digital literacy is enhanced as the learner manipulates and uses digital devices to listen to conjunctions and songs. Values:",
+      "Love is enhanced as the learner constructs and sings songs to show affection for their environment.",
+      "Responsibility is developed as the learner interact and share roles during a role play on giving and taking instructions. Pertinent and Contemporary Issues: Environmental awareness and climate change knowledge is promoted as the learner listens and composes songs about their environment. Link to other learning areas: The learner is able to connect content environmental awareness to their learning of similar concepts in Integrated Science."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade5-indigenous-language.pdf#p13"
+    },
+    {
+     "kicd_code": "3.1.1",
+     "name": "Listening for comprehension",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "identify vocabulary items in oral texts for effective communication",
+      "use vocabulary in sentences to express self accurately and effectively",
+      "advocate for the use of acquired language in communication."
+     ],
+     "learning_experiences": [
+      "listen and identify pronouns in oral sentences",
+      "listen to a story from a digital device and identify sentences with pronouns",
+      "create oral sentences using pronouns in collaboratively",
+      "fill gaps in sentences using pronouns",
+      "play pronouns games using cards or through online platforms",
+      "talk about a topic in class using pronouns",
+      "compose and sing songs containing pronouns",
+      "create a collection list of commonly used pronouns",
+      "match pronouns in singular and plural forms"
+     ],
+     "inquiry_questions": [
+      "Suggested Learning Experiences"
+     ],
+     "core_competencies": [
+      "Communication is developed as the learner listens to a story and creates oral sentences using pronouns.",
+      "Citizenship is enhanced as the learner interacts harmoniously and cohesively with peers as they play pronoun games."
+     ],
+     "values": [
+      "Love is enhanced as the learner shares with peers cards as they play pronoun games.",
+      "Social justice is promoted as the learner gives peers equal chance to participate in pronoun games."
+     ],
+     "pertinent_issues": [
+      "Socio economic issues such as safety and security is developed as the learner is exposed to content on road safety in the theme."
+     ],
+     "links_to_other_areas": [
+      "Learners are able to relate the concepts of pronouns to their learning of English and Kiswahili languages."
+     ],
+     "resources": [],
+     "kicd_source": "grade5-indigenous-language.pdf#p18"
+    },
+    {
+     "kicd_code": "4.1.1",
+     "name": "Self -expression",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "articulate vocabulary related to the theme correctly for communication",
+      "use nouns to construct sentences accurately for self-expression",
+      "Appreciate speaking clearly, fluently and efficiently in a conversation for communication."
+     ],
+     "learning_experiences": [
+      "match nouns with their synonyms",
+      "listen to recorded clips on articulation and pronunciation of words and repeat saying them",
+      "record each other as they pronounce words and peer review for correctness",
+      "take turns to select nouns from a word basket and use them to create own sentences",
+      "participate in a debate on a topic related to the theme using sentences containing nouns fluently",
+      "engage in digital language games to identify synonyms of words.",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "1. Why is it important to speak clearly?",
+      "2. How do we learn correct pronunciation of words?",
+      "Key Inquiry Question(s)"
+     ],
+     "core_competencies": [
+      "Collaboration is developed as the learner works with peers to select nouns from the word basket and uses them to construct sentences accurately",
+      "Self-efficacy is enhanced as the learner develops good pronunciation skills in their varied communication contexts."
+     ],
+     "values": [
+      "Respect is developed as the learner listens to and accommodates other learner’s ideas during the debate.",
+      "Love is enhances as the learner plays word and language games together on digital devices without discrimination."
+     ],
+     "pertinent_issues": [
+      "Negotiation skills are acquired as the learner interacts with peers during the debate to give alternative opinions and persuade the listeners with views on a topic related to the theme."
+     ],
+     "links_to_other_areas": [
+      "The learner is able to relate concept of peace building to similar content covered in Social Studies and Religious Education."
+     ],
+     "resources": [],
+     "kicd_source": "grade5-indigenous-language.pdf#p22"
+    },
+    {
+     "kicd_code": "5.1.1",
+     "name": "Expressing self creatively",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "identify creative language elements in narratives for comprehension",
+      "use creative language in narration for self-expression",
+      "appreciate the use of creative language conversation for effective communication."
+     ],
+     "learning_experiences": [
+      "use adjectives to describe events and experiences with peers",
+      "watch recorded clips of narratives and riddles and identify creative expressions",
+      "listen to each other telling stories and pick out creative language elements such as proverbs, sayings and idioms",
+      "participate in a riddle game",
+      "discuss and role play events at market places",
+      "make own narrative using creative language to describe events and experiences",
+      "say meaning of commonly used proverbs, sayings and idioms",
+      "make display charts containing proverbs and sayings.",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "1. How do we use language creatively?",
+      "2. What is the importance of creative language?",
+      "Key Inquiry Question(s)"
+     ],
+     "core_competencies": [
+      "Critical thinking and problem solving is improved as the learner participates in the riddle game to solve riddles.",
+      "Creativity and imagination is developed as the learner creates own narratives using proverbs, sayings and idioms"
+     ],
+     "values": [
+      "Responsibility is developed as the learner watches recorded videos and handles digital devices with care.",
+      "Social justice is enhanced as the learner share roles with peers equally during role-plays."
+     ],
+     "pertinent_issues": [
+      "Social awareness is enhanced as learner interacts and competes with peers in riddle games for enjoyment."
+     ],
+     "links_to_other_areas": [
+      "Learners are able to apply creative language skills to their writing of compositions in English and Kiswahili."
+     ],
+     "resources": [],
+     "kicd_source": "grade5-indigenous-language.pdf#p26"
+    },
+    {
+     "kicd_code": "6.1.1",
+     "name": "Listening for information",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "identify special and vulnerable groups from a listening comprehension for information",
+      "use vocabulary based on the theme in conversations for communication",
+      "appreciate vocabulary acquisition in language development."
+     ],
+     "learning_experiences": [
+      "listen to a listening comprehension from the teacher and identify vocabulary related to the theme",
+      "read words aloud and identify verbs",
+      "view pictures in books and identify vocabulary",
+      "mimic and say vocabulary in cards accurately with peers",
+      "collaborate with peers to discuss the meaning of vocabulary",
+      "create sentences using vocabulary and read them aloud",
+      "search for vocabulary related to the theme online and create vocabulary charts",
+      "narrate stories containing vocabulary related to the theme with peers.",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "1. How do we get meaning of words?",
+      "2. What is the importance of vocabulary in communication?",
+      "Key Inquiry Question(s)"
+     ],
+     "core_competencies": [
+      "Communication and collaboration is developed as learners listen to texts, discuss vocabulary and narrate stories based on the theme.",
+      "Digital literacy is promoted as the learner uses technology to search for vocabulary related to the theme."
+     ],
+     "values": [
+      "Responsibility is acquired as the learner takes different roles during general class activities.",
+      "Social justice is enhanced as the learner is exposed to content about special and vulnerable groups in society."
+     ],
+     "pertinent_issues": [
+      "Human rights education is promoted as the learner is exposed to content on issues of concern to special and vulnerable groups; and take initiative to cultivate social justice."
+     ],
+     "links_to_other_areas": [
+      "The learner is able to relate the content on special and vulnerable groups to the teachings in Religious Education."
+     ],
+     "resources": [],
+     "kicd_source": "grade5-indigenous-language.pdf#p30"
+    },
+    {
+     "kicd_code": "7.1.1",
+     "name": "Making opinions and judgements",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "identify interjections accurately in a conversation for comprehension",
+      "apply turn taking and interrupting politely in a conversation",
+      "advocate for good interrupting and turn taking skills in conversations."
+     ],
+     "learning_experiences": [
+      "view and watch recorded clips and identify components of a conversation",
+      "role play using introductory and closing phrases in a conversation with peers",
+      "pick out interjections in an oral conversation in class",
+      "participate in a dialogue about the theme while using interjection and turn taking skills",
+      "compose and sing a song about talents",
+      "discuss about the theme while applying appropriate skills for a conversation collaboratively",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "1. How do you respond or ask questions during conversations?",
+      "2. Why is it important to take turns and interject appropriately in conversations?",
+      "Key Inquiry Question(s)"
+     ],
+     "core_competencies": [
+      "Self-efficacy is promoted as the learner role plays, sings and discusses the theme confidently.",
+      "Learning to learn is developed as the learner practices using interjections and taking turns in varied conversations settings."
+     ],
+     "values": [
+      "Unity is enhanced as the learner harmoniously watches videos and discuss the theme with peers.",
+      "Love is developed as the learners and peers discover their different talents and appreciate their diverse potential."
+     ],
+     "pertinent_issues": [
+      "Peer education and mentorship is promoted as the learner is able to link their talents and abilities to future careers and occupations."
+     ],
+     "links_to_other_areas": [
+      "The learner is able to link and apply two-way conversation skills in their learning of Kiswahili and English languages."
+     ],
+     "resources": [],
+     "kicd_source": "grade5-indigenous-language.pdf#p34"
+    },
+    {
+     "kicd_code": "8.1.1",
+     "name": "Expressing personal opinions",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "speak clearly and audibly on a topic to express personal opinions effectively",
+      "apply audience awareness skills in public speaking",
+      "appreciate public speaking skills for self-expression."
+     ],
+     "learning_experiences": [
+      "organise ideas on a topic and present audibly and in good sound projection",
+      "discuss with peers audience awareness skills for presentations",
+      "use words and their opposites in sentences correctly",
+      "record themselves performing speeches and share in class",
+      "take part in a public speaking competition on a topic",
+      "imitate public speeches and presentations clearly and accurately",
+      "watch popular public speeches on care for digital devices and discuss with peers.",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "1. What do we consider when speaking in public?",
+      "2. Why is it important to speak clearly and audibly?",
+      "Key Inquiry Question(s)"
+     ],
+     "core_competencies": [
+      "Self-efficacy is acquired as the learner organises ideas and make public speeches effectively and efficiently.",
+      "Creativity and imagination is developed as the learner explores topics and take part in a public speaking competition with peers."
+     ],
+     "values": [
+      "Unity is promoted as the learner collaborates with peers to organise ideas on a topic for presentation in class.",
+      "Love is cultivated as the learner discovers varied ways of caring for digital devices."
+     ],
+     "pertinent_issues": [
+      "Self-management and awareness is enhanced as the learner discovers and applies public speaking skills in their communication."
+     ],
+     "links_to_other_areas": [
+      "Link to other learning areas:"
+     ],
+     "resources": [],
+     "kicd_source": "grade5-indigenous-language.pdf#p38"
+    },
+    {
+     "kicd_code": "9.1.1",
+     "name": "Language strategies on daily experiences",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "describe national events fluently and with expression",
+      "compose songs based on patriotism for expression",
+      "value the place of national days in promoting ethnic cohesion."
+     ],
+     "learning_experiences": [
+      "listen to recorded events on national days",
+      "work collaboratively to build a vocabulary bank on words based on national days",
+      "describe the events fluently, with accuracy and with expression (adverbs)",
+      "listen to each other describing events and identify adverbs used",
+      "work collaboratively to compose patriotic songs for a national day",
+      "perform the patriotism songs during an interclass festival.",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "1. Why do we celebrate national days?",
+      "2. How can we describe an event interestingly?",
+      "Key Inquiry Question(s)"
+     ],
+     "core_competencies": [
+      "Citizenship is enhanced as the learner work collaboratively with peers to compose patriotic songs to show love for their country.",
+      "Communication is developed as the learner describes national events and sing to pass messages on national days."
+     ],
+     "values": [
+      "Unity is acquired as the learner uses songs to preach social cohesion in the country.",
+      "Patriotism is enhanced as the learner performs the patriotic songs during festivals to show love for their country."
+     ],
+     "pertinent_issues": [
+      "Ethnic and positive racial relations is enhanced as the learner is exposed to content on patriotism and nationalism."
+     ],
+     "links_to_other_areas": [
+      "The learner is able to relate the concept nationalism and patriotism to their learning in Social Studies."
+     ],
+     "resources": [],
+     "kicd_source": "grade5-indigenous-language.pdf#p41"
+    }
+   ]
+  },
+  {
+   "strand": "READING",
+   "strand_code": "2.2",
+   "assessment_rubric": [],
+   "substrands": [
+    {
+     "kicd_code": "2.2.1",
+     "name": "Reading fluency",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "read a passage on the theme aloud for fluency and expression",
+      "answer questions from texts based on the theme for comprehension",
+      "appreciate reading texts on importance of conserving the environment for information. ."
+     ],
+     "learning_experiences": [
+      "conduct a reader’s theatre to read a simple passage based on the theme",
+      "identify instances of change in intonation from the texts read",
+      "read a passage independently and answer comprehension questions",
+      "work jointly with peers to discuss and infer meaning of vocabulary in context",
+      "use vocabulary to make sentences based on the theme collaboratively",
+      "collaboratively compose an oral narrative on weather",
+      "perform an oral narrative with fluency and expression in class.",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "1. How do we read fluently?",
+      "2. Why should we be alert on weather changes?",
+      "Key Inquiry Question(s)"
+     ],
+     "core_competencies": [
+      "Creativity and imagination is promoted as the learner collaboratively explore ideas to compose an oral narrative on weather.",
+      "Collaboration is enhanced as the learner works jointly with peers to discuss and infer meaning of vocabulary in contexts."
+     ],
+     "values": [
+      "Responsibility is enhanced as the learner seeks to care and conserve their home and school environment.",
+      "Love is promoted as the learner listens and appreciates the contribution of peers as they make sentences collaboratively"
+     ],
+     "pertinent_issues": [
+      "Learner’s self-esteem is cultivated as they confidently read fluently and expressively narratives in class."
+     ],
+     "links_to_other_areas": [
+      "The learner is able to transfer the skills learnt on inferring meaning of vocabulary in context to the learning of unfamiliar words in English."
+     ],
+     "resources": [],
+     "kicd_source": "grade5-indigenous-language.pdf#p15"
+    },
+    {
+     "kicd_code": "3.2.1",
+     "name": "Reading for information",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "read a passage based on the theme fluently for comprehension",
+      "respond to instructions to perform a relevant task for communication",
+      "appreciate the importance of following instructions."
+     ],
+     "learning_experiences": [
+      "work jointly with peers to read a passage on the theme",
+      "identify vocabulary used from the passage",
+      "identify pronouns from the passage",
+      "use pronouns to construct sentences with peers",
+      "work collaboratively to build a vocabulary bank with words identified",
+      "use a digital device to read content and follow steps of performing simple tasks",
+      "respond to questions based on the content read",
+      "collect reading materials for reference during a library lesson."
+     ],
+     "inquiry_questions": [
+      "1. Why is it important to read instructions with comprehension?",
+      "2. What is the importance of following instructions on performing a task?"
+     ],
+     "core_competencies": [
+      "Collaboration is achieved when the learner work collaboratively to build a vocabulary bank with words identified from texts.",
+      "Communication is enhanced as the learner demonstrates comprehension of texts by responding to questions."
+     ],
+     "values": [
+      "Peace is nurtured as the learner works jointly with peers to read a passage on the theme for information.",
+      "Responsibility is promoted as the learner utilizes with care digital devices to read content."
+     ],
+     "pertinent_issues": [
+      "Digital literacy is nurtured as the learner works collaboratively to accomplish tasks such reading online materials using digital devices."
+     ],
+     "links_to_other_areas": [
+      "The learner is able to apply library skills acquired to search for reading materials in English and Kiswahili."
+     ],
+     "resources": [],
+     "kicd_source": "grade5-indigenous-language.pdf#p19"
+    },
+    {
+     "kicd_code": "4.2.1",
+     "name": "Extensive reading",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "read a dialogue on peace building and summarise the main points",
+      "create a list of vocabulary based on the theme for comprehension",
+      "appreciate reading text on conflict resolution"
+     ],
+     "learning_experiences": [
+      "use a dictionary to search for synonyms of word",
+      "use the dictionary to find the meaning of vocabulary and create a word bank",
+      "conduct a reader’s theatre to practice reading dialogues",
+      "work jointly with peers to practice library rules on selection of materials",
+      "identify materials in the library appropriately and read silently to make notes on conflict resolution",
+      "use a digital device to find simple poems based on the theme.",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "What do you consider when selecting materials from the library?",
+      "Key Inquiry Question(s)"
+     ],
+     "core_competencies": [
+      "Self-efficacy is promoted as the learner works jointly with peers to practice library rules on selection of materials.",
+      "Learning to learn is developed as the learner uses the dictionary to find synonyms and meaning of vocabulary and create a personal word bank."
+     ],
+     "values": [
+      "Respect is nurtured as the learner adheres and observes library rules when selecting reading materials in the school library.",
+      "Social justice as is enhanced as the learner shares with peers reading materials borrowed from the library."
+     ],
+     "pertinent_issues": [
+      "Nationalism and patriotism is promoted as the learner reads materials on peace building for general information."
+     ],
+     "links_to_other_areas": [
+      "The learner is able to connect and apply the use of reference materials like dictionary and the library skills acquired in their learning of English."
+     ],
+     "resources": [],
+     "kicd_source": "grade5-indigenous-language.pdf#p23"
+    },
+    {
+     "kicd_code": "5.2.1",
+     "name": "Reading for information",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "read a text based on the theme fluently for comprehension",
+      "Interpret information from news and adverts for understanding",
+      "Enjoy reading texts on a variety of subjects at appropriate speed.",
+      "enjoy personal writing for communication."
+     ],
+     "learning_experiences": [
+      "describe products based on their colour, size, shape and origin (adjectives)",
+      "with peers, read texts on advertisement in the market",
+      "connecting ideas in passages to improve reading speed",
+      "read texts fluently observing punctuation marks for correct interpretation",
+      "read articles from digital devices and answer comprehension questions",
+      "practice identifying the sequence of ideas in paragraphs as they",
+      "work jointly with peers to write a shopping list for an event based on the theme",
+      "present the shopping list in class for peer review",
+      "organize the shopping lists in the class portfolio for reference.",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "Why are adverts important?",
+      "Key Inquiry Question(s)"
+     ],
+     "core_competencies": [
+      "highlight the format of a shopping list",
+      "write a shopping list for life-long The learner is guided to:",
+      "work collaboratively to search for varied samples of shopping lists from print and non-print sources",
+      "write down the components of a shopping list",
+      "describe things to be bought using aspects such as colour, amount, material, shape, size (adjectives) Why is a shopping list important?",
+      "Communication is enhances as the learner uses developed shopping lists in the market to pass their requests to shopkeepers.",
+      "Self-efficacy is developed as the learner confidently presents his shopping lists for peer review."
+     ],
+     "values": [
+      "Integrity is developed as the learner acquires the knowledge of using shopping lists to budget for their money.",
+      "Love is enhanced as the learner appreciates and gives positive comments to peers during review session."
+     ],
+     "pertinent_issues": [
+      "Financial literacy is enhanced as the learner is able to appreciate the importance of preparing shopping lists before going to purchase."
+     ],
+     "links_to_other_areas": [
+      "The learner is able to relate the concept of shopping lists to their learning in mathematics."
+     ],
+     "resources": [],
+     "kicd_source": "grade5-indigenous-language.pdf#p27"
+    },
+    {
+     "kicd_code": "6.2.1",
+     "name": "Reading fluency",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "predict events in a text bases on the theme for comprehension",
+      "skim and scan texts based on the theme for general information",
+      "appreciate skimming and",
+      "scanning in reading a variety of texts."
+     ],
+     "learning_experiences": [
+      "observe pictures and identify action words(verbs)",
+      "Predict texts based on the title or picture clues",
+      "practice skimming and scanning texts for specific details collaboratively",
+      "practice reading texts clearly and fluently and give peer reviews",
+      "read texts and answer comprehension questions",
+      "brain storm skimming and scanning strategies with peers",
+      "use digital devices to find information on",
+      "skimming and scanning",
+      "recite a poem based on the theme fluently using expressions."
+     ],
+     "inquiry_questions": [
+      "Why do we skim and scan text?",
+      "Suggested Learning Experiences"
+     ],
+     "core_competencies": [
+      "Communication is promoted as the learner skims and scans through a text for pick out specific details and information with ease.",
+      "Self-efficacy is promoted as the learner confidently recites poems fluently and with expressions."
+     ],
+     "values": [
+      "Responsibility is cultivated as the learner uses the digital devices appropriately and for the right purpose.",
+      "Respect is portrayed as the learner accommodates divergent opinion as they brainstorm on skimming and scanning strategies."
+     ],
+     "pertinent_issues": [
+      "Digital literacy is enhanced as the learner manipulates and uses technology devices to search for information about skimming and scanning strategies."
+     ],
+     "links_to_other_areas": [
+      "The learner is able to apply the skimming and scanning strategies acquired to their reading activities in English and Kiswahili."
+     ],
+     "resources": [],
+     "kicd_source": "grade5-indigenous-language.pdf#p31"
+    },
+    {
+     "kicd_code": "7.2.1",
+     "name": "Reading comprehension",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "read stories fluently and with expression for comprehension",
+      "answer comprehension question based on the theme",
+      "enjoy reading texts for comprehension."
+     ],
+     "learning_experiences": [
+      "read short stories on animals and answer comprehension questions",
+      "read poems and identify the message",
+      "discuss characters and themes in stories collaboratively",
+      "read and discuss the moral lessons in the short stories",
+      "pick out interjections from simple texts",
+      "role play different characters in stories with peers",
+      "use dictionary to search for meaning of vocabulary.",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "1. How do we identify characters in a story?",
+      "2. What moral lesson can we learn from a story?",
+      "Key Inquiry Question(s)"
+     ],
+     "core_competencies": [
+      "Communication and collaboration as is promoted as the learner reads stories and comprehend the moral lessons collaboratively.",
+      "Problem solving skill is developed as the learner identifies characters and moral lessons in stories."
+     ],
+     "values": [
+      "Respect is enhanced as the learner role play and appreciates the different character roles in a story.",
+      "Responsibility is inculcated as the learners draws and applies moral lessons from stories in their day-to-day living."
+     ],
+     "pertinent_issues": [
+      "Career progression and development is enhanced as the learner is able to link their talents to future occupations in the society."
+     ],
+     "links_to_other_areas": [
+      "The learner is able to apply the skills of drawing moral lessons from the story to their interpretation of teachings in Religious Studies."
+     ],
+     "resources": [],
+     "kicd_source": "grade5-indigenous-language.pdf#p35"
+    },
+    {
+     "kicd_code": "8.2.1",
+     "name": "Extensive Reading",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "outline the characters in the narrative for comprehension",
+      "retell the flow of the events in the story for expression",
+      "appreciate the moral lesson from stories for lifelong learning."
+     ],
+     "learning_experiences": [
+      "collect a variety of narratives in the community",
+      "read level readers individually and make notes or summaries",
+      "read texts based on the theme and identify vocabulary",
+      "find meaning of vocabulary from context",
+      "use dictionary to confirm meaning of vocabulary from texts",
+      "respond to comprehension questions from level readers",
+      "discuss lessons learnt from level readers",
+      "visit a library to select a material for individual reading.",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "1. What should you consider when reading silently?",
+      "2. How do you keep a record of learnt vocabulary?",
+      "Key Inquiry Question(s)"
+     ],
+     "core_competencies": [
+      "Learning to learn is enhanced as the learner search for meaning of vocabulary from contexts and in the dictionary.",
+      "Critical thinking and problem solving is cultivated as the learner confidently writes summaries of texts read."
+     ],
+     "values": [
+      "Responsibility is nurtures as the learner keeps records of summaries of the materials read.",
+      "Unity is promoted as the learner bonds well with peers and community as they collect narratives."
+     ],
+     "pertinent_issues": [
+      "The knowledge on care for digital devices is enhanced as the learner reads and interacts with content on the theme."
+     ],
+     "links_to_other_areas": [
+      "The learner is able to relate and apply dictionary skills in their learning of vocabulary in English and Kiswahili languages."
+     ],
+     "resources": [],
+     "kicd_source": "grade5-indigenous-language.pdf#p39"
+    },
+    {
+     "kicd_code": "9.2.1",
+     "name": "Reading Comprehension",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "read a story based on the theme for comprehension",
+      "make predictions on the events of the story",
+      "answer comprehension questions correctly",
+      "enjoy reading texts for comprehension."
+     ],
+     "learning_experiences": [
+      "select a reading material based on the theme",
+      "predict and preview text based on the theme",
+      "read simple passages on national days and answer questions collaboratively",
+      "elicit topical words from passages on national days and infer the meaning from context",
+      "discuss events in the stories read with peers",
+      "use digital devices to find texts for reading and make notes.",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "Why make predictions in stories?",
+      "Key Inquiry Question(s)"
+     ],
+     "core_competencies": [
+      "Communication and collaboration is promoted as the leaner finds and discusses meaning of new words collaboratively.",
+      "Digital literacy is developed as the learner uses digital devices to search for information on national days."
+     ],
+     "values": [
+      "Love is nurtures as the learner interacts with reading materials on nationalism.",
+      "Unity is cultivated as the learner is able to cooperate with peers as they work together."
+     ],
+     "pertinent_issues": [
+      "Self-esteem is enhanced as he learner confidently reads passages and discusses events in the stories for comprehensions."
+     ],
+     "links_to_other_areas": [
+      "Languages teach reading to infer meaning from context while social studies teaches national days."
+     ],
+     "resources": [],
+     "kicd_source": "grade5-indigenous-language.pdf#p42"
+    }
+   ]
+  }
+ ]
+}

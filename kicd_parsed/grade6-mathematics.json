@@ -1,0 +1,878 @@
+{
+ "source_pdf": "grade6-mathematics.pdf",
+ "grade": 6,
+ "subject": "mathematics",
+ "general_outcomes": [
+  "Demonstrate mastery of number concepts by working out problems in day-to-day life.",
+  "Apply measurement skills to find solutions to problems in a variety of contexts.",
+  "Apply properties of geometrical shapes and spatial relationships in real life experiences.",
+  "Apply data handling skills to solve problems in day-to-day life.",
+  "Analyze information using algebraic expressions in real life situations.",
+  "Apply mathematical ideas and concepts to other learning areas or learning areas: and in real life contexts.",
+  "Develop confidence and interest in mathematics for further learning and enjoyment.",
+  "Develop values and competencies for a cohesive harmonious living in the society.",
+  "Manage pertinent and contemporary issues for enhanced inter-personal relationships."
+ ],
+ "strands": [
+  {
+   "strand": "Numbers",
+   "strand_code": "1.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to use place value and total value of digits up to millions",
+     "exceeds": "The learner uses place value and total value of digits up to millions correctly and systematically",
+     "meets": "The learner uses place value and total value of digits up to millions correctly",
+     "approaches": "The learner uses place value or total value of digits up to millions correctly",
+     "below": "The learner uses place value or total value of digits up to hundreds of thousands correctly"
+    },
+    {
+     "indicator": "Ability to read and write numbers in symbols and in words",
+     "exceeds": "The learner reads and writes numbers in symbols and in words accurately and fluently.",
+     "meets": "The learner reads and writes numbers in symbols and in words accurately",
+     "approaches": "The learner reads or writes numbers in symbols or in words accurately",
+     "below": "The learner reads or writes numbers in symbols or in words partially accurately"
+    },
+    {
+     "indicator": "Ability to order and round off numbers up to 100,000",
+     "exceeds": "The learner orders and rounds off numbers up to 100,000 correctly and systematically.",
+     "meets": "The learner orders and rounds off numbers up to 100,000 correctly",
+     "approaches": "The learner orders or rounds off numbers up to 100,000 correctly",
+     "below": "The learner orders or rounds off numbers up to 50,000 correctly"
+    },
+    {
+     "indicator": "Ability to apply squares and square roots of whole numbers up to 100",
+     "exceeds": "The learner applies squares and square roots of whole numbers up to 100 correctly and consistently",
+     "meets": "The learner applies squares and square roots of whole numbers up to 100 correctly",
+     "approaches": "The learner applies squares or square roots of whole numbers up to 100 correctly",
+     "below": "The learner applies squares or square roots of whole numbers up to 70 correctly"
+    },
+    {
+     "indicator": "Ability to Multiply up to a 4-digit number by a 2-digit number",
+     "exceeds": "The learner multiplies up to a 4 digit number by a 2 digit number correctly and consistently",
+     "meets": "The learner multiplies up to a 4-digit number by a 2 digit number correctly",
+     "approaches": "The learner multiplies up to a 3-digit number by a 2 digit number correctly",
+     "below": "The learner multiplies up to a 2-digit number by a 1 digit number correctly"
+    },
+    {
+     "indicator": "Ability to round off decimals up to 3 decimal places",
+     "exceeds": "The learner rounds off decimals up to 3 decimal places correctly and logically",
+     "meets": "The learner rounds off decimals up to 3 decimal places correctly",
+     "approaches": "The learner rounds off decimals up to 2 decimal places correctly",
+     "below": "The learner rounds off decimals to 1 decimal place correctly"
+    },
+    {
+     "indicator": "Ability to create patterns involving addition, subtraction and multiplication",
+     "exceeds": "The learner creates patterns involving addition, subtraction and multiplication accurately and creatively.",
+     "meets": "The learner creates patterns involving addition, subtraction and multiplication accurately.",
+     "approaches": "The learner creates patterns involving any two of; addition, subtraction or multiplication accurately",
+     "below": "The learner creates patterns involving any one of; addition, subtraction or multiplication accurately"
+    },
+    {
+     "indicator": "Ability to divide up to a 4-digit number by up to a 3-digit number",
+     "exceeds": "The learner divides up to a 4-digit number by up to a 3 digit number correctly and consistently",
+     "meets": "The learner divides up to a 4-digit number by up to a 3 digit number correctly",
+     "approaches": "The learner divides up to a 4-digit number by up to a 2-digit number correctly",
+     "below": "The learner divides up to a 3-digit number by a 1-digit number correctly"
+    },
+    {
+     "indicator": "Ability to add and subtract fractions using LCM",
+     "exceeds": "The learner adds and subtracts fractions using LCM correctly and proficiently",
+     "meets": "The learner adds and subtracts fractions using LCM correctly",
+     "approaches": "The learner adds or subtracts fractions using LCM correctly",
+     "below": "The learner Adds or subtracts fractions using LCM partially correctly"
+    },
+    {
+     "indicator": "Ability to convert fractions to percentages and percentages to fractions",
+     "exceeds": "The learner converts fractions to percentages and percentages to fractions correctly and systematically",
+     "meets": "The learner converts fractions to percentages and percentages to fractions correctly",
+     "approaches": "The learner converts fractions to percentages or percentages to fractions correctly",
+     "below": "The learner Converts fractions to percentages correctly"
+    },
+    {
+     "indicator": "Ability to identify decimals up to ten thousandths",
+     "exceeds": "The learner identifies decimals up to ten thousandths correctly and fluently",
+     "meets": "The learner identifies decimals up to ten thousandths correctly",
+     "approaches": "The learner identifies decimals up to thousandths correctly",
+     "below": "The learner identifies decimals up to hundredths correctly"
+    },
+    {
+     "indicator": "Ability to convert decimals to fractions and fractions to decimals",
+     "exceeds": "The learner converts decimals to fractions and fractions to decimals correctly and logically",
+     "meets": "The learner converts decimals to fractions and fractions to decimals correctly",
+     "approaches": "The learner converts decimals to fractions or fractions to decimals correctly",
+     "below": "The learner converts decimals to fractions or fractions to decimals partially correctly"
+    },
+    {
+     "indicator": "Ability to convert decimals to percentages and percentages to decimals",
+     "exceeds": "The learner converts decimals to percentages and percentages to decimals correctly and logically",
+     "meets": "The learner converts decimals to percentages and percentages to decimals correctly",
+     "approaches": "The learner converts decimals to percentages or percentages to decimals correctly",
+     "below": "The learner converts decimals to percentages or percentages to decimals partially correctly"
+    },
+    {
+     "indicator": "Ability to add and subtract decimals up to 4-decimal places",
+     "exceeds": "The learner adds and subtracts decimals up to 4-decimal places correctly and logically",
+     "meets": "The learner adds and subtracts decimals up to 4-decimal places correctly",
+     "approaches": "The learner adds or subtracts decimals up to 4-decimal places correctly",
+     "below": "The learner adds or subtracts decimals up to 4-decimal places partially correctly"
+    },
+    {
+     "indicator": "Ability to form, simplify and solve inequalities in one unknown",
+     "exceeds": "The learner forms, simplifies and solves inequalities in one unknown accurately and logically",
+     "meets": "The learner forms, simplifies and solves inequalities in one unknown accurately",
+     "approaches": "The learner forms, simplifies or solves inequalities in one unknown accurately",
+     "below": "The learner forms inequalities in one unknown accurately"
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "1.1",
+     "name": "Whole Numbers",
+     "suggested_duration": "20 lessons",
+     "learning_outcomes": [
+      "use place value and total value of digits up to millions in real life",
+      "use numbers up to millions in symbols in real life",
+      "read and write numbers up to 100,000 in words in real life",
+      "order numbers up to 100,000 in real-life situations",
+      "round off numbers up to 100,000 to the nearest thousand in different situations",
+      "apply squares of whole numbers up to 100 in different situations",
+      "apply square roots of perfect squares up to 10,000 in different situations",
+      "appreciate use of whole numbers in real-life situations."
+     ],
+     "learning_experiences": [
+      "work with peers to identify place value of digits up to millions using place value apparatus",
+      "work in teams to read numbers up to millions in symbols from number charts/ cards",
+      "read and write numbers up to hundred thousand in words from number charts/ cards",
+      "discuss and read numbers up to millions in symbols from number charts or cards",
+      "discuss with peers and form different numbers by rearranging digits of a number up to 100,000",
+      "discuss in teams and round off numbers up to hundred thousand to the nearest 1,000 from number cards and share with other groups",
+      "multiply a given number by itself and",
+      "identify the answer as the square of the number",
+      "work out the square root of a given number and recognise the value which when multiplied by itself results in the given number",
+      "play games involving whole number using digital devices or other resources",
+      "create number charts involving number of road users to and from school or home. This will create awareness on the level of congestion of traffic on the road and help to address road safety issues."
+     ],
+     "inquiry_questions": [
+      "How do we read and write numbers in symbols and in words?"
+     ],
+     "core_competencies": [
+      "Critical thinking and problem solving: learners form different numbers by rearranging digits of a given number."
+     ],
+     "values": [
+      "Unity: learners, in pairs or groups, harmoniously identify total value of digits up to millions using place value apparatus."
+     ],
+     "pertinent_issues": [
+      "Social cohesion: learners work cohesively with peers and identify the square root of a given number as a value which when multiplied by itself results in the given number. Safety: leaners work together to create awareness on the levels of congestion on the roads using charts and discuss how to address road safety issues"
+     ],
+     "links_to_other_areas": [
+      "Learners read and write numbers in words which is enhanced from skills in Languages."
+     ],
+     "resources": [],
+     "kicd_source": "grade6-mathematics.pdf#p13"
+    },
+    {
+     "kicd_code": "1.2",
+     "name": "Multiplication",
+     "suggested_duration": "6 lessons",
+     "learning_outcomes": [
+      "multiply up to a 4-digit number by a 2-digit number in real-life situations",
+      "estimate products by rounding off numbers being multiplied to the nearest ten in real-life situations",
+      "make patterns involving multiplication of numbers not exceeding 1,000 in different situations",
+      "appreciate use of multiplication in real life."
+     ],
+     "learning_experiences": [
+      "• multiply up to a 4-digit number by a 2-digit number using; -fact families -skip counting -multiplication chart -expanded form -digital devices, -estimate products using; -rounding off factors -compatibility of numbers, -make patterns involving multiplication with products not exceeding 1,000 using number cards, -work with peers and play games involving multiplication using digital devices or other resources such as number cards."
+     ],
+     "inquiry_questions": [
+      "How do we multiply numbers?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed: Creativity and imagination: learner makes patterns involving multiplication with products not exceeding 1,000 using number cards. Values: Integrity: Learner multiplies up to a 4-digit number by a 2-digit number using skip counting and demonstrates honesty in their results. Pertinent and Contemporary Issues (PCIs): Self-esteem: Learner develops confidence as they estimate products using rounding off factors which builds self-esteem. Link to other learning areas: Learner estimates quantities of seeds or fertiliser required for planting different crops as learnt from Agriculture."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade6-mathematics.pdf#p15"
+    },
+    {
+     "kicd_code": "1.3",
+     "name": "Division",
+     "suggested_duration": "6 lessons",
+     "learning_outcomes": [
+      "divide up to a 4-digit number by up to a 3-digit number where the dividend is greater than the divisor in real -life situations",
+      "estimate quotients by rounding off the dividend and divisor to the nearest ten in real-life situations",
+      "perform combined operations involving addition, subtraction, multiplication and division up to 3-digit number",
+      "appreciate use of division of whole numbers in real life."
+     ],
+     "learning_experiences": [
+      "-divide up to a 4-digit number by up to a 3-digit number and share the answers where the dividend is greater than the divisor using; -relationship between multiplication and division -long method, -work out quotients by rounding off the dividend and divisor to the nearest ten, -work out questions involving two, three or four operations up to 3-digit numbers, -divide whole numbers using digital devices or other resources."
+     ],
+     "inquiry_questions": [
+      "Where is division used in real life?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed: Communication and collaboration: learner discusses with peers the relationship between multiplication and division using examples. Values: Unity: learner works together with others amicably to divide up to a 4-digit number by up to a 3-digit number and shares answers. Pertinent and Contemporary Issues (PCIs): Learner divides whole numbers using digital devices or other resources as they observe safety. Link to other learning areas: Learner divides quantities such as ingredients for cooking as learnt from Agriculture."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade6-mathematics.pdf#p17"
+    },
+    {
+     "kicd_code": "1.4",
+     "name": "Fractions",
+     "suggested_duration": "12 lessons",
+     "learning_outcomes": [
+      "add fractions using LCM in different situations",
+      "subtract fractions using LCM in different situations",
+      "add mixed numbers in different situations",
+      "subtract mixed numbers in different situations",
+      "identify reciprocal of proper fractions up to a 2-digit number in different situations",
+      "work out squares of fractions with a numerator of one digit and denominator of a 2-digit number in",
+      "express a fraction as a percentage in different situations",
+      "convert percentage to fractions in different situations",
+      "appreciate use of fractions in real life."
+     ],
+     "learning_experiences": [
+      "identify LCM of numbers given from number cards",
+      "add and subtract fractions using LCM by listing multiples",
+      "add and subtract mixed fractions by converting the fractions to improper fractions",
+      "add and subtract mixed fractions by adding and subtracting whole number and fraction parts separately",
+      "list the inverse of numbers between 1 and 10",
+      "calculate the reciprocal of a number by dividing 1 (one) by the number. Always start by working out the reciprocal of whole numbers before solving the reciprocal of proper fractions up to a 2-digit number",
+      "discuss the various reciprocals of a proper fraction",
+      "calculate squares of fractions through multiplication or practically",
+      "change fractions to equivalent fractions with denominator 100 through multiplication",
+      "identify a percentage as a fraction with denominator 100",
+      "work with peers on how to change fractions to percentages and vice versa",
+      "play digital games involving fractions."
+     ],
+     "inquiry_questions": [
+      "1. 1. How do we add or subtract fractions?",
+      "2. 2. Where is percentage used in day-to-day life?"
+     ],
+     "core_competencies": [
+      "Learning to learn: learner works out the reciprocal of whole numbers before solving the reciprocal of proper fractions."
+     ],
+     "values": [
+      "Unity: learner works harmoniously with peers and discusses reciprocals of proper fractions."
+     ],
+     "pertinent_issues": [
+      "Learner cohesively works together with others to calculate squares of fractions through multiplication to enhance social cohesion."
+     ],
+     "links_to_other_areas": [
+      "Learner uses fractional parts of a canvas or drawing materials to draw different patterns as learnt from Creative Arts."
+     ],
+     "resources": [],
+     "kicd_source": "grade6-mathematics.pdf#p19"
+    },
+    {
+     "kicd_code": "1.5",
+     "name": "Decimals",
+     "suggested_duration": "12 lessons",
+     "learning_outcomes": [
+      "identify decimals up to ten thousandths in different situations",
+      "round off decimals up to 3 decimal places in different situations",
+      "convert decimals to fractions and fractions to decimals in different situations",
+      "convert decimals to percentages and percentages to decimals in different situations",
+      "add decimals up to 4-decimal places in different situations",
+      "subtract decimals up to 4-decimal places in different situations",
+      "appreciate use of decimals in real-life situations."
+     ],
+     "learning_experiences": [
+      "work out place value of decimals up to ten thousandths using place value apparatus",
+      "relate place value of decimals up to ten thousandths to the number of decimal places",
+      "discuss and round off decimals up to 3 decimal places",
+      "change decimals to fractions using a square/ rectangular grid",
+      "change fractions to decimals using a square/ rectangular grid",
+      "add decimals up to 4-decimal places using shared place value apparatus",
+      "subtract decimals up to 4-decimal places using place value apparatus",
+      "play games involving decimals using digital devices or other resources."
+     ],
+     "inquiry_questions": [
+      "Where are decimals applicable in real life?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed: Communication and collaboration: learner discusses and relates place value of decimals up to ten thousandths to the number of decimal places. Values: Responsibility: learner adds decimals up to 4-decimal places using place value apparatus and shows responsibility by taking care of the apparatus. Pertinent and Contemporary Issues (PCIs): Learner adds decimals up to 4-decimal places using place value apparatus and share answers or working strategies with one another as part of Peer education. Link to other learning areas: Learner acquires new mathematical terms as they discuss and round off decimals up to 3 decimal places as acquired from Languages."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade6-mathematics.pdf#p21"
+    },
+    {
+     "kicd_code": "1.6",
+     "name": "Inequalities",
+     "suggested_duration": "8 lessons",
+     "learning_outcomes": [
+      "form simple inequalities in one unknown involving real-life situations",
+      "simplify inequalities in one unknown involving real-life situations",
+      "solve simple inequalities in one unknown involving real-life situations",
+      "appreciate use of inequalities in real-life situations."
+     ],
+     "learning_experiences": [
+      "discuss meaning of inequality symbols ‘> ‘and ‘< ‘",
+      "form inequalities in one unknown using different operations",
+      "simplify inequalities in one unknown using cards or charts",
+      "work out simple inequalities involving one unknown",
+      "play games involving inequalities using digital devices or other resources."
+     ],
+     "inquiry_questions": [
+      "How do we solve simple inequalities?"
+     ],
+     "core_competencies": [
+      "Self-efficacy: learner confidently works out simple inequalities involving one unknown."
+     ],
+     "values": [
+      "Responsibility: as learner works with peers to use IT devices carefully to simplify inequalities."
+     ],
+     "pertinent_issues": [
+      "Social cohesion: Learner works together with others harmoniously to form inequalities in one unknown to enhance social cohesion."
+     ],
+     "links_to_other_areas": [
+      "Learner uses new terms used in inequalities to enhance vocabulary in Languages."
+     ],
+     "resources": [],
+     "kicd_source": "grade6-mathematics.pdf#p23"
+    }
+   ]
+  },
+  {
+   "strand": "Measurement",
+   "strand_code": "2.0",
+   "assessment_rubric": [],
+   "substrands": [
+    {
+     "kicd_code": "2.1",
+     "name": "Length",
+     "suggested_duration": "14 lessons",
+     "learning_outcomes": [
+      "use the millimetre (mm) as a unit of measuring length in different situations",
+      "establish the relationship between the millimetre and centimetre in different situations",
+      "convert centimetres and millimetres to millimetres in different situations",
+      "add centimetres and millimetres in different situations",
+      "subtract centimetres and millimetres in different situations",
+      "multiply centimetres and millimetres by whole",
+      "numbers in real-life situations",
+      "divide centimetres and millimetres by whole numbers in real-life situations",
+      "determine the circumference of a circle practically",
+      "identify the relationship between circumference and diameter in different situations",
+      "appreciate use of length in real-life situations."
+     ],
+     "learning_experiences": [
+      "discuss and identify the millimetre as a unit of measuring length using a ruler",
+      "measure length of objects in millimetres using a ruler",
+      "measure a given length in cm and mm to establish the relationship between mm and cm",
+      "convert mm to cm and cm to mm when measuring lengths of different objects and comparing results",
+      "measure lengths of different objects in the environment",
+      "determine lengths in mm and cm in addition, subtraction, multiplication and division and discuss the answers",
+      "sketch the circumference",
+      "diameter and radius of a circle practically",
+      "measure the circumference of a circle practically",
+      "divide circumference by diameter to get pi (π)",
+      "play games involving length in centimetres and millimetres using digital devices or other resources."
+     ],
+     "inquiry_questions": [
+      "1. 1. Why do we measure distances in day-to-day life?",
+      "2. 2. What do we use to measure length in real life?"
+     ],
+     "core_competencies": [
+      "Creativity and imagination: learner sketches the circumference, diameter and radius of a circle practically."
+     ],
+     "values": [
+      "Unity: learner works amicably with peers to determine lengths in centimetres and millimetres in addition, subtraction, multiplication and division and discuss the answers."
+     ],
+     "pertinent_issues": [
+      "Learner chooses appropriate units for measuring lengths of different objects in the environment as enhanced from Environmental Education."
+     ],
+     "links_to_other_areas": [
+      "Learner handles objects with care when measuring lengths of different objects in the school compound for play activities in Creative Arts."
+     ],
+     "resources": [],
+     "kicd_source": "grade6-mathematics.pdf#p27"
+    },
+    {
+     "kicd_code": "2.2",
+     "name": "Area",
+     "suggested_duration": "6 lessons",
+     "learning_outcomes": [
+      "work out area of triangles in square centimetres (cm2)",
+      "work out area of combined shapes involving squares, rectangles and triangles in icm2",
+      "estimate the area of circles by counting squares",
+      "appreciate the use of cm2 in working out area in real life."
+     ],
+     "learning_experiences": [
+      "establish that the area of a triangle is equal to a half of the area of a rectangle or a square when the rectangle or the square is divided by a diagonal",
+      "work out the area of triangles in cm2 using the relationship between a rectangle and a triangle (Area of a triangle is equal to 1⁄2 area of a rectangle or square. A = 1⁄2 (Lx W)",
+      "sketch a circle on a unit square grid and count the full squares to estimate the area of circles and compare answers",
+      "prepare own combined shapes involving rectangles, squares, triangles and ask peers to determine the area",
+      "play games involving area using digital tools or other resources."
+     ],
+     "inquiry_questions": [
+      "Where is area used in real life?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed: Creativity and imagination: learner works out the area of triangles in cm2 using the relationship between a rectangle and a triangle. Values: Love: learner sketches a circle on a unit square grid and counts the full squares to estimate the area of circles and compare answers with one another. Pertinent and Contemporary Issues (PCIs): Learner confidently establishes that the area of a triangle is equal to a half of the area of a rectangle or a square when the rectangle or the square is divided by a diagonal to enhance self-esteem. Link to other learning areas: Learner explores their environment to calculate area of different places such as play fields within the community as learnt in Social Studies."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade6-mathematics.pdf#p29"
+    },
+    {
+     "kicd_code": "2.3",
+     "name": "Capacity",
+     "suggested_duration": "6 lessons",
+     "learning_outcomes": [
+      "identify the relationship among cubic centimetres (cm3), millilitres and litres in real life",
+      "convert litres to millilitres in different situations",
+      "convert capacity in millilitres to litres in different situations",
+      "appreciate use of cm3 and litres in measuring capacity in real life."
+     ],
+     "learning_experiences": [
+      "work out the relationship between cm3, mililitres and litres through measuring practically",
+      "measure capacity in millilitres and litres, discuss answers and share with others",
+      "change capacity in litres to millilitres using containers from the environment by comparing sizes of different containers",
+      "work out conversions of capacity of millilitres to litres",
+      "play games involving capacity using containers of different capacities."
+     ],
+     "inquiry_questions": [
+      "1. How can we measure capacity?",
+      "2. Where is capacity applicable in real life?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed: Critical thinking and problem solving: learner works out the relationship between cm3, millilitres and litres through measuring capacities practically. Values: Peace: learner works together with others harmoniously to measure capacity in millilitres and litres and agree on answers. Pertinent and Contemporary Issues (PCIs): Learner changes capacity in litres to millilitres using containers from the environment as part of Environmental education. Links to other learning areas: Learner takes accurate measurements of liquids using different containers from the immediate environment as part of Science and Technology."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade6-mathematics.pdf#p31"
+    },
+    {
+     "kicd_code": "2.4",
+     "name": "Mass",
+     "suggested_duration": "14 lessons",
+     "learning_outcomes": [
+      "identify the tonne as a unit for measuring mass in real life",
+      "identify items measured in tonnes in real life",
+      "identify the relationship between the kilogramme and the tonne",
+      "estimate mass in tonnes in different situations",
+      "convert kilogrammes to tonnes and tonnes to kilogrammes in real-life situations",
+      "add tonnes and kilogrammes in real life situations",
+      "subtract tonnes and kilogrames in real-life situations",
+      "multiply tonnes and kilogrammes by whole numbers in real-life situations",
+      "divide tonnes and kilogrammes by whole numbers in real-life situations",
+      "appreciate use of the kilogramme and tonne in measuring mass."
+     ],
+     "learning_experiences": [
+      "discuss tonne as a unit of measuring mass",
+      "discuss items in the environment such as loaded lorries, whose mass may be measured in tonnes",
+      "establish the relationship between the kilogramme and the tonne (1000kg = 1 tonne).",
+      "estimate mass in tonnes of various objects found in the environment.",
+      "change kilogrammes to tonnes and tonnes to kilogrammes.",
+      "determine mass of items in tonnes and",
+      "kilogrammes using different operations involving addition, subtraction, multiplication and division.",
+      "use digital weighing machines to measure mass of different items."
+     ],
+     "inquiry_questions": [
+      "1. How can we measure large amounts of mass?",
+      "2. In what situations would the tonnes be more applicable to use when measuring mass?"
+     ],
+     "core_competencies": [
+      "Digital literacy: learner uses digital weighing machines to measure mass of different items."
+     ],
+     "values": [
+      "Integrity: learner honestly determines mass of items kilogrammes using different operations involving addition, subtraction, multiplication and division."
+     ],
+     "pertinent_issues": [
+      "Learner discusses with others items in the environment such as loaded lorries, whose mass may be measured in tonnes and their impact on roads as learnt in Environmental education."
+     ],
+     "links_to_other_areas": [
+      "Learner discusses with others transit trucks that carry grains in tonnes to different places as learnt in Social Studies."
+     ],
+     "resources": [],
+     "kicd_source": "grade6-mathematics.pdf#p33"
+    }
+   ]
+  },
+  {
+   "strand": "Measurements",
+   "strand_code": "2.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to convert centimetres to millimetres and millimetres to centimetres",
+     "exceeds": "The learner converts centimetres to millimetres and millimetres to centimetres correctly and proficiently",
+     "meets": "The learner converts centimetres to millimetres and millimetres to centimetres correctly",
+     "approaches": "The learner converts centimetres to millimetres or millimetres to centimetres correctly",
+     "below": "The learner converts centimetres to millimetres correctly"
+    },
+    {
+     "indicator": "Ability to add, subtract, multiply and divide centimetres and millimetres",
+     "exceeds": "The learner adds, subtracts, multiplies and divides centimetres and millimetres correctly and proficiently",
+     "meets": "The learner adds, subtracts, multiplies and divides centimetres and millimetres correctly",
+     "approaches": "The learner adds, subtracts, multiplies or divides centimetres or millimetres correctly",
+     "below": "The learner adds or subtracts centimetres or millimetres correctly"
+    },
+    {
+     "indicator": "Ability to measure the circumference of a circle",
+     "exceeds": "The learner measures the circumference of a circle correctly and efficiently",
+     "meets": "The learner measures the circumference of a circle correctly",
+     "approaches": "The learner measures the circumference of a circle less efficiently",
+     "below": "The learner measures the circumference of a circle partially correctly"
+    },
+    {
+     "indicator": "Ability to work out area of triangle and combined shapes",
+     "exceeds": "The learner works out area of triangle and combined shapes correctly and systematically",
+     "meets": "The learner works out area of triangle and combined shapes correctly",
+     "approaches": "The learner works out area of triangle or combined shapes correctly",
+     "below": "The learner works out area of triangle correctly"
+    },
+    {
+     "indicator": "Ability to identify the relationship among cm3, millilitres and litres",
+     "exceeds": "The learner identifies the relationship among cm3, millilitres and litres correctly and logically",
+     "meets": "The learner identifies the relationship among cm3, millilitres and litres correctly",
+     "approaches": "The learner identifies the relationship between millilitres and litres correctly",
+     "below": "The learner Identifies the relationship between millilitres and litres partially correctly"
+    },
+    {
+     "indicator": "Ability to convert litres to millilitres and millilitres to litres",
+     "exceeds": "The learner converts litres to millilitres and millilitres to litres correctly and logically",
+     "meets": "The learner converts litres to millilitres and millilitres to litres correctly",
+     "approaches": "The learner converts litres to millilitres or and millilitres to litres correctly with help",
+     "below": "The learner converts litres to millilitres correctly"
+    },
+    {
+     "indicator": "Ability to identify the relationship between the kilograms and the tonne and converts tonnes to kilograms and kilograms to tonnes",
+     "exceeds": "The learner identifies the relationship between the kilograms and the tonne and converts tonnes to kilograms and kilograms to tonnes correctly and logically",
+     "meets": "The learner identifies the relationship between the kilograms and the tonne and converts tonnes to kilograms and tonnes to kilograms correctly",
+     "approaches": "The learner identifies the relationship between the kilograms and the tonne or converts tonnes to kilograms or tonnes to kilograms correctly",
+     "below": "The learner identifies the relationship between the kilograms and the tonne correctly"
+    },
+    {
+     "indicator": "Ability to add, subtract, multiply and divide tonnes and kilograms",
+     "exceeds": "The learner adds subtracts, multiplies and divides tonnes and kilograms accurately and proficiently",
+     "meets": "The learner adds subtracts, multiplies and divides tonnes and kilograms accurately",
+     "approaches": "The learner adds subtracts, multiplies or divides tonnes or kilograms accurately",
+     "below": "The learner adds or subtracts tonnes or kilograms accurately"
+    },
+    {
+     "indicator": "Ability to identify and write time in a.m. and p.m.",
+     "exceeds": "The learner identifies and writes time in a.m. and p.m. accurately and consistently",
+     "meets": "The learner identifies and writes time in a.m. and p.m. accurately",
+     "approaches": "The learner identifies or writes time in a.m. or p.m. accurately",
+     "below": "The learner identifies time in a.m. or p.m. accurately"
+    },
+    {
+     "indicator": "Ability to convert time from 12h to 24h and 24h to 12h system and interpret travel timetables",
+     "exceeds": "The learner converts time from 12h to 24h and 24h to 12h system and Interprets travel timetables accurately and logically",
+     "meets": "The learner converts time from 12h to 24h and 24h to 12h system and Interprets travel timetables accurately",
+     "approaches": "The learner converts time from 12h to 24h or 24h to 12h system or Interprets travel timetables accurately",
+     "below": "The learner converts time from 12h to 24h system or Interprets travel timetables partially accurately"
+    },
+    {
+     "indicator": "Ability to prepare a simple budget and determine buying and selling prices",
+     "exceeds": "The learner prepares a simple budget and determines buying and selling price accurately and comprehensively",
+     "meets": "The learner prepares a simple budget and determines buying and selling price accurately",
+     "approaches": "The learner prepares a simple budget or determines buying or selling price accurately",
+     "below": "The learner prepares a simple budget or determines buying or selling price partially accurately"
+    },
+    {
+     "indicator": "Ability to work out profit and loss from sales and identify types of taxes",
+     "exceeds": "The learner works out profit and loss from sales and identifies types of taxes accurately and consistently",
+     "meets": "The learner works out profit and loss from sales and identifies types of taxes accurately",
+     "approaches": "The learner works out profit or loss from sales or identifies types of taxes accurately",
+     "below": "The learner works out profit or loss from sales or Identifies types of taxes partially accurately"
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "2.5",
+     "name": "Time",
+     "suggested_duration": "10 lessons",
+     "learning_outcomes": [
+      "identify time in a.m. and p.m. in day-to-day life experiences",
+      "write time in a.m. and p.m. in day-to-day life",
+      "relate time in a.m. and p.m. to the 24h clock system",
+      "convert time from 12h to 24h and 24h to 12h system",
+      "interpret travel timetable in different situations",
+      "appreciate use of time in both 12h and 24h systems."
+     ],
+     "learning_experiences": [
+      "discuss time in a.m. and p.m. from digital and analogue clocks.",
+      "determine time in a.m. and p.m. from digital and analogue clocks.",
+      "equate time in a.m. and p.m.to the 24h clock system using a chart.",
+      "change time from the 12h to 24h system and 24h to 12h using a chart.",
+      "interpret travel timetables to create travel schedules for different events.",
+      "determine time durations of travelling using travel timetables within the country.",
+      "check local time using digital clock or analogue in 12h and 24h systems."
+     ],
+     "inquiry_questions": [
+      "How do we read and tell time?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed: Learning to learn: learner determines time in a.m. and p.m. from digital and analogue clocks. Values: Integrity: learner observes time in various activities and is punctual. Pertinent and Contemporary Issues (PCIs): Learner discusses the transit trucks that carry grains in tonnes to different places as learnt from Social Studies. Learners determine time durations of travelling using travel timetables within the country as enhanced in Citizenship. Link to other learning areas: Learner records time taken to perform in different games such as athletics as done in Creative Arts."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade6-mathematics.pdf#p35"
+    },
+    {
+     "kicd_code": "2.6",
+     "name": "Money",
+     "suggested_duration": "8 lessons",
+     "learning_outcomes": [
+      "prepare simple budget in different situations",
+      "determine buying and selling prices of different items in the community",
+      "work out profit from sales of different items in the community",
+      "calculate loss realised from sales of different items in the community",
+      "identify types of taxes in different situations",
+      "appreciate use of money in real-life situations."
+     ],
+     "learning_experiences": [
+      "identify different shopping items in the community or at home especially food items and prepare a simple budget",
+      "discuss the meaning of buying and selling price",
+      "determine buying and selling prices of different items in the community",
+      "discuss the meaning of profit and loss in real-life situations and share with peers",
+      "discuss and determine profit and loss by practising buying and selling from the classroom model shop",
+      "discuss income and value added tax (VAT) from receipts issued by shops and retailers as a form of tax",
+      "• use IT devices or other resources to explore more on money."
+     ],
+     "inquiry_questions": [
+      "How can you make profit in a business?"
+     ],
+     "core_competencies": [
+      "Communication and collaboration: Learner discusses with others the meaning of profit and loss in real-life situations and shares with peers."
+     ],
+     "values": [
+      "Integrity: Learner honestly determines buying and selling prices of different items in their classroom model shop."
+     ],
+     "pertinent_issues": [
+      "Learner discusses with others income and value added tax (VAT) as a form of tax as part of financial literacy."
+     ],
+     "links_to_other_areas": [
+      "Learner participates in making budgets for buying food at home as learnt from Agriculture."
+     ],
+     "resources": [],
+     "kicd_source": "grade6-mathematics.pdf#p37"
+    }
+   ]
+  },
+  {
+   "strand": "Geometry",
+   "strand_code": "3.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to construct parallel and perpendicular lines",
+     "exceeds": "The learner constructs parallel and perpendicular lines accurately and systematically",
+     "meets": "The learner constructs parallel and perpendicular lines accurately",
+     "approaches": "The learner constructs parallel or perpendicular lines correctly",
+     "below": "The learner constructs parallel lines correctly"
+    },
+    {
+     "indicator": "Ability to bisect lines through construction, identify and measure angles on a straight line at a point",
+     "exceeds": "The learner bisects lines through construction, identifies and measures angles on a straight line at a point correctly and consistently",
+     "meets": "The learner bisects lines through construction, identifies and measures angles on a straight line at a point correctly",
+     "approaches": "The learner bisects lines through construction, identifies or measures angles on a straight line at a point correctly",
+     "below": "The learner bisects lines through construction or Identifies angles on a straight line at a point correctly"
+    },
+    {
+     "indicator": "Ability to work out sum of angles on a straight line, rectangles and triangle s",
+     "exceeds": "The learner works out sum of angles on a straight line, rectangles and triangles accurately and correctly",
+     "meets": "The learner works out sum of angles on a straight line, rectangles and triangles accurately",
+     "approaches": "The learner works out sum of angles on a straight line, rectangles or triangles accurately",
+     "below": "The learner works out sum of angles on a straight line accurately"
+    },
+    {
+     "indicator": "Ability to construct equilateral, right-angled and isosceles triangles and measure their interior angles",
+     "exceeds": "Constructs equilateral, right-angled and isosceles triangles and measures their interior angles accurately and systematically",
+     "meets": "Constructs equilateral, right-angled and isosceles triangles and measures their interior angles accurately",
+     "approaches": "Constructs equilateral, right-angled or isosceles triangles or measure their interior angles accurately",
+     "below": "Constructs equilateral, right angled or isosceles triangles accurately."
+    },
+    {
+     "indicator": "Ability to identify vertices, faces and edges in cuboids and cubes",
+     "exceeds": "The learner identifies vertices, faces and edges in cuboids and cubes correctly and systematically",
+     "meets": "The learner identifies vertices, faces and edges in cuboids and cubes correctly",
+     "approaches": "The learner identifies any two of; vertices, faces or edges in cuboids or cubes correctly",
+     "below": "The learner identifies any one of; vertices or faces or edges in cuboids or cubes correctly"
+    },
+    {
+     "indicator": "Ability to identify faces and edges of cylinders",
+     "exceeds": "The learner identifies and edges of cylinders correctly and systematically",
+     "meets": "The learner identifies faces and edges of cylinders correctly",
+     "approaches": "The learner identifies faces or edges of cylinders correctly",
+     "below": "The learner identifies faces or edges of cylinders partially correctly."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "3.1",
+     "name": "Lines",
+     "suggested_duration": "6 lessons",
+     "learning_outcomes": [
+      "draw parallel lines in different situations",
+      "bisect lines by construction",
+      "construct perpendicular lines in different situations",
+      "appreciate use of lines in daily life."
+     ],
+     "learning_experiences": [
+      "construct parallel lines using geometrical instruments and other writing materials",
+      "bisect lines using geometrical instruments",
+      "draw perpendicular lines using geometrical instruments",
+      "share digital devices and other resources to draw parallel lines."
+     ],
+     "inquiry_questions": [
+      "Why do we need to draw lines?"
+     ],
+     "core_competencies": [
+      "Creativity and imagination: as learner bisects lines using ruler and compasses."
+     ],
+     "values": [
+      "Responsibility: Learner carefully shares digital devices and other resources to draw parallel lines."
+     ],
+     "pertinent_issues": [
+      "Learner exercises caution as they use geometrical instruments in construction of parallel lines as they observe safety measures."
+     ],
+     "links_to_other_areas": [
+      ": Learner constructs lines that can be used in creative drawing as part of Creative Arts."
+     ],
+     "resources": [],
+     "kicd_source": "grade6-mathematics.pdf#p42"
+    },
+    {
+     "kicd_code": "3.2",
+     "name": "Angles",
+     "suggested_duration": "6 lessons",
+     "learning_outcomes": [
+      "identify angles on a straight line at a point in different situations",
+      "measure angles on a straight line at a point in different situations",
+      "work out sum of angles on a straight line in different situations",
+      "determine the sum of angles in rectangles and triangle s",
+      "construct equilateral, right-angled and isosceles triangles",
+      "measure the interior angles of equilateral, right-angled and isosceles triangles",
+      "appreciate use of angles in real life."
+     ],
+     "learning_experiences": [
+      "discuss angles on a straight line using concrete objects that have straight edges",
+      "draw a line that cuts the straight line to form an angle. Measure and write the size(s) of angles formed. Compare the sizes of angles with your classmates",
+      "work out the sizes of various angles on a straight line",
+      "practically establish the sum of angles in a triangle and rectangles using different objects in the environment",
+      "identify and draw equilateral, right-angled and isosceles triangles using geometrical instruments",
+      "practically establish the sum of the interior angles in a rectangle and triangle",
+      "use geometrical instruments or digital resources to practise drawing different lines and angles."
+     ],
+     "inquiry_questions": [
+      "Where can you use angles in real life?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed: Self-efficacy: Learner confidently and practically establishes sum of the interior angles in a rectangle and triangle. Values: Unity: Learner works harmoniously with others to compare the sizes of angles. Pertinent and Contemporary Issues (PCIs): Learner practically establishes the sum of angles in a triangle and rectangles from different objects in the environment as enhanced in Environmental education. Link to other learning areas: Learner draws lines and angles that can be used in drawing and painting in Creative Art."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade6-mathematics.pdf#p43"
+    },
+    {
+     "kicd_code": "3.3",
+     "name": "3-D Objects",
+     "suggested_duration": "6 lessons",
+     "learning_outcomes": [
+      "identify vertices, faces and edges in cuboids and cubes in different situations",
+      "identify faces and edges of cylinders in different situations",
+      "describe plane figures in 3-D objects in the environment",
+      "appreciate use of 3-D objects in real life."
+     ],
+     "learning_experiences": [
+      "discuss and collect 3-D objects and safely keep them as part of their role in environmental conservation",
+      "identify and relate cuboids and cylinders in the environment",
+      "open up nets of cuboids, cubes and cylinders and sketch the layout",
+      "discuss the rectangular, square and circular shapes on the nets",
+      "manipulate 3-D objects using containers or digitally using IT devices."
+     ],
+     "inquiry_questions": [
+      "How do we use containers in daily life?"
+     ],
+     "core_competencies": [
+      "Creativity and imagination: Learner opens up nets of cuboids, cubes and cylinders."
+     ],
+     "values": [
+      "Values: Learner discusses with others and collect 3-D objects and safely keep them as part of their role in environmental conservation to enhance Patriotism. Pertinent and Contemporary Issues (PCIs): Learner discusses with others rectangular, square and circular shapes on the nets and respect each other’s views as part of social cohesion. Link to other learning areas: Learner discusses with others the differences between 3-D objects in terms of faces, edges and vertices in drawing and improves language skills."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade6-mathematics.pdf#p45"
+    }
+   ]
+  },
+  {
+   "strand": "Data Handling",
+   "strand_code": "4.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to draw a frequency table",
+     "exceeds": "The learner draws a frequency table accurately with all details",
+     "meets": "The learner draws a frequency table accurately",
+     "approaches": "The learner draws a frequency table accurately with most details",
+     "below": "The learner draws a frequency table with minimal details"
+    },
+    {
+     "indicator": "Ability to represent data using pictographs, piling and bar graphs",
+     "exceeds": "The learner represents data using pictographs, piling and bar graphs correctly and accurately",
+     "meets": "The learner represents data using pictographs, piling and bar graphs correctly",
+     "approaches": "The learner represents data using pictographs, piling andor bar graphs correctly",
+     "below": "The learner represents data using pictographs or piling partially correctly"
+    },
+    {
+     "indicator": "Ability to interpret information from bar graphs",
+     "exceeds": "The learner interprets information from bar graphs correctly and comprehensively",
+     "meets": "The learner interprets information from bar graphs correctly",
+     "approaches": "The learner interprets information from bar graphs with most details",
+     "below": "The learner interprets information from bar graphs with minimal details"
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "4.1",
+     "name": "Bar Graphs",
+     "suggested_duration": "10 lessons",
+     "learning_outcomes": [
+      "draw a frequency table of real-life situation data",
+      "represent data from real-life situations using pictographs",
+      "represent data from real-life situation through piling",
+      "represent data from real-life situations using bar graphs",
+      "interpret information from bar graphs",
+      "appreciate use of bar graphs in real life."
+     ],
+     "learning_experiences": [
+      "discuss with peers and collect data on identified topic from immediate environment and organise the data in a frequency table",
+      "collect data, discuss and organise it in pictographs",
+      "pile similar objects such as match boxes vertically to represent data",
+      "discuss and organise data in form of bar graphs",
+      "discuss information represented on bar graphs and explain what it represents",
+      "use digital devices or other resources to draw bar graphs and other charts to present data."
+     ],
+     "inquiry_questions": [
+      "How can bar graphs be used in real-life situations?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed: Creativity and imagination: as learner discusses with others and collects data and organises it using pictographs. Values: Integrity: Learner piles similar objects such as match boxes vertically to honestly represent data. Pertinent and Contemporary Issues (PCIs): Learner collects data on identified topic from immediate environment to address community issues as part of non-formal education. Link to other learning areas: Learner gathers information on any items in the environment that will enhance learning in Science and technology."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade6-mathematics.pdf#p49"
+    }
+   ]
+  }
+ ]
+}

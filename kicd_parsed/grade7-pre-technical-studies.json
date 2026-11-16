@@ -1,0 +1,626 @@
+{
+ "source_pdf": "grade7-pre-technical-studies.pdf",
+ "grade": 7,
+ "subject": "pre-technical-studies",
+ "general_outcomes": [
+  "By the end of Junior School, the learner should be able to:",
+  "communicate effectively using information and communication technology (ICT).",
+  "select and use tools and materials in the production of goods and services.",
+  "use financial and entrepreneurial competencies for prudent decision-making.",
+  "observe safety in the immediate environment to promote education for sustainable development.",
+  "apply ICT skills to carry out activities in day-to-day life.",
+  "create awareness of career choices regarding career pathways and progression for self-development."
+ ],
+ "strands": [
+  {
+   "strand": "Foundations of Pre -Technical Studies",
+   "strand_code": "1.0",
+   "assessment_rubric": [],
+   "substrands": [
+    {
+     "kicd_code": "1.1",
+     "name": "Introduction to Pre-Technical Studies",
+     "suggested_duration": "4 lessons",
+     "learning_outcomes": [
+      "identify the components of Pre-Technical Studies as a learning area",
+      "explain the role of Pre-Technical Studies in day-to-day life",
+      "embrace Pre-Technical Studies in career development."
+     ],
+     "learning_experiences": [
+      "brainstorm on the components of Pre-Technical Studies as a learning area",
+      "discuss and present the role of Pre-Technical Studies in day-to-day life",
+      "debate on the role of Pre-Technical Studies in day-to-day life."
+     ],
+     "inquiry_questions": [
+      "Why is Pre-Technical Studies important in day-to-day life?"
+     ],
+     "core_competencies": [
+      "Communication and Collaboration: learner develops writing, speaking, listening, and teamwork skills when discussing, and presenting on the role of Pre-Technical Studies.",
+      "Critical Thinking and Problem Solving: learner develops open-mindedness and creativity skills when brainstorming on Pre-Technical Studies as a learning area."
+     ],
+     "values": [
+      "Values:",
+      "Unity: learner displays team spirit and collaboration with others when discussing and presenting the role of Pre-Technical Studies in day-to-day life.",
+      "Respect: learner displays tolerance for others’ opinions when debating on the role of Pre-Technical Studies in day-to-day life. Pertinent and Contemporary Issues (PCIs): Social Cohesion is enhanced when debating on the role of Pre-Technical Studies. Link to Other Subjects: The learner is able to relate career to trade and economic activities in Social Studies."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade7-pre-technical-studies.pdf#p13"
+    }
+   ]
+  },
+  {
+   "strand": "Foundations of Pre-Technical Studies",
+   "strand_code": "1.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to explain the role of Pre-Technical Studies in day-to-day life.",
+     "exceeds": "Explains the role of Pre-Technical Studies in day-to-day life and adds unique details.",
+     "meets": "Explains the role of Pre-Technical Studies in day-to-day life.",
+     "approaches": "Explains the role of Pre-Technical Studies in day-to-day life omitting a few details.",
+     "below": "Explains the role of Pre-Technical Studies in day-to-day life omitting many details."
+    },
+    {
+     "indicator": "Ability to observe safety in the immediate environment.",
+     "exceeds": "Always observes safety in the immediate environment.",
+     "meets": "Often observes safety in the immediate environment.",
+     "approaches": "Occasionally observes safety in the immediate environment.",
+     "below": "Rarely observes safety in the immediate environment."
+    },
+    {
+     "indicator": "Ability to use a computer to perform tasks in a user environment.",
+     "exceeds": "Uses a computer to perform all tasks in a user environment.",
+     "meets": "Uses a computer to perform most of the tasks in a user environment.",
+     "approaches": "Uses a computer to perform some of the tasks in a user environment.",
+     "below": "Uses a computer to perform a few of the tasks in a user environment with assistance."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "1.2",
+     "name": "Safety in the Immediate Environment",
+     "suggested_duration": "6 lessons",
+     "learning_outcomes": [
+      "identify potential safety threats in the immediate environment",
+      "outline safety rules and regulations for a given situation",
+      "observe safety in the immediate environment",
+      "appreciate the importance of observing safety in the immediate environment."
+     ],
+     "learning_experiences": [
+      "brainstorm with peers on potential safety threats in the immediate environment (physical and online)",
+      "use print or digital media to search for information on potential hazards to personal safety in the immediate environment (falls, common road crashes, slips, trips, fires)",
+      "use print or digital media to search for information on physical threats to digital devices (theft, natural disasters, hardware failure) and online threats in the immediate environment and list them (cyberbullying, impersonation, phishing, hacking, friend requests from unknown people)",
+      "share ideas and practice on how to protect self and others from"
+     ],
+     "inquiry_questions": [
+      "1. Why is safety in the",
+      "immediate",
+      "environment",
+      "important?",
+      "2. How can online",
+      "threats be",
+      "safeguarded",
+      "threats in the immediate environment. • discuss safety rules and regulations to observe (when performing tasks, handing materials and tools), • role play on safety for self and others in the immediate environment."
+     ],
+     "core_competencies": [
+      "Learning to Learn: learner develops skills of sharing learnt knowledge when taking turns with peers to share ideas on safety for self and others in the immediate environment.",
+      "Digital Literacy: learner develops skills of interacting with technology when searching for information on potential hazards to personal safety in the immediate environment."
+     ],
+     "values": [
+      "Respect: learner appreciates diverse opinions when sharing information with peers on the online threats.",
+      "Responsibility: learner engages in assigned roles when role playing on safety for self and others in the immediate environment."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade7-pre-technical-studies.pdf#p15"
+    },
+    {
+     "kicd_code": "1.3",
+     "name": "Computer Concepts",
+     "suggested_duration": "6 lessons",
+     "learning_outcomes": [
+      "explain the characteristics of a computer in a user environment",
+      "classify computers used in day-to-day life",
+      "use a computer to perform tasks in a user environment",
+      "acknowledge the importance of different types of computers used in day-to-day life."
+     ],
+     "learning_experiences": [
+      "brainstorm on the meaning of the terms; computer, data, and information",
+      "discuss characteristics of a computer (speed, accuracy, versatility, reliability, diligence, storage, consistency)",
+      "download and watch a video clip on classification of computers",
+      "discuss the classification of computers (functionality, purpose, and size) in a user environment",
+      "interact with different types of computers in the user environment to perform tasks."
+     ],
+     "inquiry_questions": [
+      "1. Why are computers classified differently?",
+      "2. How are computers used in day-to-day life?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Critical Thinking and Problem Solving: learner develops interpretation and inference skills while brainstorming on the meaning of the terms; computer, data, and information.",
+      "Communication and Collaboration: learner develops speaking, listening, and teamwork skills when discussing the classification of computers in a user environment. Values:",
+      "Responsibility: learner shows accountability by caring for the print or digital media when interacting with different types of computers in the user environment to perform tasks.",
+      "Peace: learner displays patience with peers when discussing the classification of computers. Pertinent and Contemporary Issues (PCIs): Cyber Security: learner observes online safety when downloading and watching a video clip on classification of computers. Link to other Subjects: The learner is able to relate the skills of interacting with different types of computers to the use of a calculator in Mathematics."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade7-pre-technical-studies.pdf#p17"
+    }
+   ]
+  },
+  {
+   "strand": "Communication in Pre-Technical Studies",
+   "strand_code": "2.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to explain the importance of drawing as a means of communication.",
+     "exceeds": "Explains the importance of drawing as a means of communication and adds more details.",
+     "meets": "Explains the importance of drawing as a means of communication.",
+     "approaches": "",
+     "below": "Explains the importance of drawing as a means of communication leaving out many details."
+    },
+    {
+     "indicator": "Ability to sketch 2D shapes using free hand.",
+     "exceeds": "Sketches 2D shapes using free hand with unique and clear details.",
+     "meets": "Sketches 2D shapes using free hand.",
+     "approaches": "",
+     "below": "Sketches 2D shapes using free hand with many unclear details."
+    },
+    {
+     "indicator": "Ability to use ICT tools to enhance communication.",
+     "exceeds": "Uses more ICT tools than to enhance communication.",
+     "meets": "Uses ICT tools to enhance communication.",
+     "approaches": "",
+     "below": "Uses only a few of the ICT tools to enhance communication."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "2.1",
+     "name": "Introduction to Drawing",
+     "suggested_duration": "10 lessons",
+     "learning_outcomes": [
+      "explain the importance of drawing as a means of communication",
+      "distinguish between artistic and technical drawings used in technical fields",
+      "print numbers and letters of the alphabet as used in drawing",
+      "draw types of lines used in drawing",
+      "illustrate symbols and abbreviations used in drawing",
+      "appreciate the role of drawing in communication."
+     ],
+     "learning_experiences": [
+      "discuss the importance of drawing as a means of communication",
+      "brainstorm on the meaning of the terms ‘technical drawing’ and ‘artistic drawing",
+      "use print or online resources to search for information on artistic and technical drawing",
+      "practice printing numbers and letters of the alphabet",
+      "use visual aids to search for information on the types of lines and their application in drawing (thick and thin continuous, dashed, and chain).",
+      "draw various types of lines (thick and thin continuous, dashed and chain)",
+      "sketch basic symbols (⌀, ℄, R, ⊥, ▢) and abbreviations",
+      "(DRG, A/F, A/C, I/D, O/D) used in drawing",
+      "use audio-visual aids to study the application of symbols and abbreviations in drawing."
+     ],
+     "inquiry_questions": [
+      "How are drawings used in technical communication?"
+     ],
+     "core_competencies": [
+      "Communication and Collaboration: the learner acquires speaking, listening and teamwork skills when brainstorming on the meaning of the terms ‘technical drawing’ and ‘artistic drawing’.",
+      "Digital Literacy: learner develops the skill of interacting with technology when using online resources to search for information on artistic and technical drawing."
+     ],
+     "values": [
+      "Respect: learner demonstrates etiquette during discussion of basic symbols and abbreviations used in drawing.",
+      "Responsibility: learner demonstrates accountability when using visual aids to search for information on the types of lines and their application in drawing."
+     ],
+     "pertinent_issues": [
+      "Safety and Security: the learner develops online safety skills during online search for information on different types of drawings used in the technical fields."
+     ],
+     "links_to_other_areas": [
+      "Creative Arts: learner enhances knowledge of artistic drawing when drawing various types of lines in Pre-Technical studies."
+     ],
+     "resources": [],
+     "kicd_source": "grade7-pre-technical-studies.pdf#p20"
+    },
+    {
+     "kicd_code": "2.2",
+     "name": "Free-hand sketching",
+     "suggested_duration": "10 lessons",
+     "learning_outcomes": [
+      "Explain the principles of free-hand sketching",
+      "Identify techniques of free-hand sketching",
+      "sketch lines using free-hand",
+      "sketch 2D shapes using free hand",
+      "appreciate the importance of free-hand sketching in communication."
+     ],
+     "learning_experiences": [
+      "Learner is guided to:",
+      "discuss the meaning of free-hand sketching as used in Pre-Technical Studies",
+      "use print and digital media to search for information on freehand sketching techniques (box method, centerline method, hand compass method),(hatching, cross-hatching, stippling, and blending)",
+      "use pencils and drawing papers to sketch lines",
+      "use pencils and drawing papers to sketch two-dimensional shapes",
+      "use digital media, to observe how free-hand sketches express artistic ideas in different career fields"
+     ],
+     "inquiry_questions": [
+      "Why is free-hand sketching important?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Communication and Collaboration: learner acquires speaking, listening, and teamwork skills when discussing the meaning of free-hand sketching as used in Pre-Technical Studies.",
+      "Digital Literacy: learner develops the skill of interacting with technology when using digital media to observe how free-hand sketches express artistic ideas in different career fields. Values:",
+      "Respect: learner demonstrates etiquette during discussion of the meaning of free-hand sketching as used in Pre-Technical Studies",
+      "Responsibility: learner demonstrates accountability when using digital media, to observe how free-hand sketches express artistic ideas in different career fields. Pertinent and Contemporary Issues (PCI’s): Safety and Security: learner develops online safety skills when using digital media to observe how free hand sketches express artistic ideas in different career fields. Links to other Learning Areas: Creative arts: learner enhances skill of artistic drawing when using pencils and drawing papers to create lines."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade7-pre-technical-studies.pdf#p22"
+    },
+    {
+     "kicd_code": "2.3",
+     "name": "ICT Tools in Communication",
+     "suggested_duration": "6 lessons",
+     "learning_outcomes": [
+      "explain the importance of ICT tools in communication",
+      "describe the ICT tools used in communication",
+      "use ICT tools to enhance communication",
+      "acknowledge the role of communication in Pre-Technical Studies."
+     ],
+     "learning_experiences": [
+      "brainstorm and present on the meaning and importance of ICT tools in communication",
+      "use print or digital media to search for information on ICT tools used in communication (email, mobile phone, computers, video and web conferencing tools, social networking, and online collaboration) and present the findings",
+      "communicate using ICT tools (send and receive; email, texts, calls, chats, audio, animations and video)."
+     ],
+     "inquiry_questions": [
+      "How are ICT tools used in communication?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Communication and Collaboration: learner acquires speaking, writing, listening, and teamwork skills while brainstorming and presenting on the meaning and importance of ICT tools in communication.",
+      "Learning to Learn: learner acquires skills of organizing own learning and collaborating with others when using print or digital media to search for information on ICT tools used in communication.",
+      "Digital Literacy: learner develops skills of interacting with technology when using ICT tools to communicate. Values:",
+      "Respect: learner shows open-mindedness when brainstorming and presenting the meaning and importance of ICT tools in communication.",
+      "Responsibility: learner shows accountability when handling ICT tools to communicate. Pertinent and Contemporary Issues (PCIs): Mental Health: learner develops emotional awareness to relate well with peers when brainstorming and presenting on the meaning and importance of ICT tools in communication. Link to other Subjects: The learner is able to relate communication concepts to communication skills in English."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade7-pre-technical-studies.pdf#p24"
+    }
+   ]
+  },
+  {
+   "strand": "Materials for Production",
+   "strand_code": "3.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to identify materials used in production.",
+     "exceeds": "Identifies materials used in production and cites their applications.",
+     "meets": "Identifies materials used in production.",
+     "approaches": "Identifies most materials used in production.",
+     "below": "Identifies a few materials used in production."
+    },
+    {
+     "indicator": "Ability to describe the physical properties of metallic materials found in the immediate environment.",
+     "exceeds": "Describes the physical properties of metallic materials found in the immediate environment citing examples.",
+     "meets": "Describes the physical properties of metallic materials found in the immediate environment.",
+     "approaches": "Describes some of the physical properties of metallic materials found in the immediate environment.",
+     "below": "Describes only a few of the physical properties of metallic materials found in the immediate environment."
+    },
+    {
+     "indicator": "Ability to relate non-metallic materials to their uses in the locality.",
+     "exceeds": "Relates non-metallic materials to their uses in the locality and beyond locality.",
+     "meets": "Relates non-metallic materials to their uses in the locality.",
+     "approaches": "Relates some of the non-metallic materials to their uses in the locality.",
+     "below": "Relates a few of the non-metallic materials to their uses in the locality."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "3.1",
+     "name": "Introduction to Materials",
+     "suggested_duration": "6 lessons",
+     "learning_outcomes": [
+      "By the end of the sub strand, the learner should be to:",
+      "identify materials used in production",
+      "distinguish between metallic and non-metallic materials found in the locality",
+      "describe sustainable ways of using materials in production",
+      "appreciate the importance of materials in production."
+     ],
+     "learning_experiences": [
+      "discuss and present the meaning of materials used in production",
+      "use print or digital media to search for information on materials used in production and share with peers",
+      "discuss the differences between metallic and non-metallic materials",
+      "sort out materials in the locality as either metallic or non-metallic",
+      "brainstorm and present sustainable ways of using materials in production",
+      "discuss and make a presentation on the importance of materials used in production."
+     ],
+     "inquiry_questions": [
+      "How are materials used sustainably?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Self-efficacy: learner develops effective communication skills when discussing and presenting the differences between metallic and non-metallic materials.",
+      "Critical Thinking and Problem Solving: learner develops explanation, evaluation, and decision-making skills while sorting out materials in the locality as either metallic or non-metallic. Values:",
+      "Responsibility: learner shows accountability as they use print or digital media to search for information on materials used in production.",
+      "Peace: learner displays tolerance and respect for diversity when discussing and presenting the importance of materials used in production. Pertinent and Contemporary Issues (PCIs):",
+      "Environmental Education: learner acquires skills of protecting natural resources when brainstorming and presenting sustainable ways of using materials in production. Link to other Subjects: Social Studies: learner enhances knowledge on economic activities such as mining, fishing and trade as they search for information on materials used in production."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade7-pre-technical-studies.pdf#p27"
+    },
+    {
+     "kicd_code": "3.2",
+     "name": "Metallic Materials",
+     "suggested_duration": "10 lessons",
+     "learning_outcomes": [
+      "identify types of metallic materials used in the immediate environment",
+      "describe the physical properties of metallic materials found in the immediate environment",
+      "relate metallic materials to their use in the immediate environment",
+      "appreciate the use of metallic materials in production."
+     ],
+     "learning_experiences": [
+      "use print or digital media to search for information on metallic materials",
+      "prepare a checklist for identifying types of metallic materials (steel, aluminium, copper)",
+      "perform practical activities to examine the physical properties of metallic materials (magnetism, conductivity of heat and electricity, appearance)",
+      "discuss the physical properties of metallic materials",
+      "match metallic materials to their use in the immediate environment."
+     ],
+     "inquiry_questions": [
+      "How are metallic materials used in day-to-day life?"
+     ],
+     "core_competencies": [
+      "Digital Literacy: learner develops skills of interacting with technology when searching for information on metallic materials.",
+      "Communication and Collaboration: learner acquires speaking, listening, and teamwork skills when discussing the uses of metallic materials."
+     ],
+     "values": [
+      "Values:",
+      "Unity: learner displays team spirit and collaboration with others while discussing the uses of metallic materials.",
+      "Responsibility: learner shows accountability by caring for the print or digital media when searching for information on metallic materials. Pertinent and Contemporary Issues (PCIs): Peer Education and Mentorship: the learner develops inter-personal relationships when performing practical activities to examine the physical properties of metallic materials. Link to other Subjects: Integrated Science: learner enhances knowledge on properties of materials during discussion of physical properties of metallic materials."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade7-pre-technical-studies.pdf#p29"
+    },
+    {
+     "kicd_code": "3.3",
+     "name": "Non-Metallic Materials",
+     "suggested_duration": "10 lessons",
+     "learning_outcomes": [
+      "identify non-metallic materials found in the locality",
+      "categorise non-metallic materials as either synthetic or natural",
+      "describe the physical properties of non-metallic materials found in the locality",
+      "relate non-metallic materials to their uses in the locality",
+      "appreciate the use of non-metallic materials in production."
+     ],
+     "learning_experiences": [
+      "use print or digital media to search for information on non-metallic materials",
+      "discuss the non-metallic materials (wood, stone, plastics, paper, rubber, cement, glass, ceramics)",
+      "sort non-metallic materials as either synthetic or natural",
+      "perform practical activities to examine the physical properties of non-metallic materials (color, texture, hardness, fire resistance)",
+      "discuss the physical properties of non-metallic materials",
+      "match non-metallic materials to their use in the locality."
+     ],
+     "inquiry_questions": [
+      "Why are non-metallic materials important?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Critical Thinking and Problem Solving: learner develops evaluation and decision skills when sorting non-metallic materials as either synthetic or natural.",
+      "Creativity and Imagination: learner develops observation skills when performing practical activities to examine the physical properties of non-metallic materials. Values:",
+      "Peace: learner displays respect for self and peers when discussing non-metallic materials.",
+      "Unity: learner displays team spirit and collaboration with others when performing practical activities to examine the physical properties of non-metallic materials. Pertinent and Contemporary Issues (PCI’s): Personal Safety and Security: learner observes safety precautions when performing practical activities to examine the physical properties of non-metallic materials. Link to other Subjects: Integrated Science: learner enhances knowledge on use of matter during the matching of non-metallic materials to their use in the locality."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade7-pre-technical-studies.pdf#p31"
+    }
+   ]
+  },
+  {
+   "strand": "Tools and Production",
+   "strand_code": "4.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to identify measuring and marking out tools used to perform tasks.",
+     "exceeds": "Identifies measuring and marking out tools used to perform tasks and improvises more tools.",
+     "meets": "Identifies measuring and marking out tools used to perform tasks.",
+     "approaches": "",
+     "below": "Identifies measuring and marking out tools used to perform tasks leaving out many tools."
+    },
+    {
+     "indicator": "Ability to use measuring and marking out tools to perform a given task.",
+     "exceeds": "Uses measuring and marking out tools to perform a given task with high precision and no errors.",
+     "meets": "Uses measuring and marking out tools to perform a given task.",
+     "approaches": "",
+     "below": "Uses measuring and marking out tools to perform a given task with many errors."
+    },
+    {
+     "indicator": "Ability to use computer hardware devices to carry out a given task.",
+     "exceeds": "Uses computer hardware devices to carry out a given task and innovates more.",
+     "meets": "Uses computer hardware devices to carry out a given task.",
+     "approaches": "",
+     "below": "Uses only a few of the computer hardware devices to carry out a given task."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "4.1",
+     "name": "Measuring and Marking Out Tools",
+     "suggested_duration": "18 lessons",
+     "learning_outcomes": [
+      "identify measuring and marking out tools used to perform tasks",
+      "select measuring and marking out tools for a given task",
+      "use measuring and marking out tools to perform a given task",
+      "care for measuring and marking out tools to minimise damage",
+      "recognise the importance of measuring and marking out tools when performing tasks."
+     ],
+     "learning_experiences": [
+      "use visual aids and realia to identify measuring tools (tape measure, steel rule, callipers, weighing balance, stopwatch, ammeter, voltmeter) and marking out tools (divider, try-square, marking gauge, dot punch, scriber, pencil, marking knife)",
+      "choose the appropriate measuring and marking out tools to perform a given task",
+      "use available resources to search for information on the use of measuring and marking out tools",
+      "perform specific tasks using measuring and marking out tools",
+      "practice caring for measuring and marking out tools."
+     ],
+     "inquiry_questions": [
+      "1. Why are measuring and marking out tools important in day-to-day life?",
+      "2. How are measuring and marking out tools used when performing tasks?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Critical Thinking and Problem Solving: learner develops explanation, evaluation, and decision-making skills when choosing the appropriate measuring and marking out tools to perform a given task.",
+      "Self-efficacy: learner develops self-awareness skills by showing a concerted attention to detail when performing specific tasks using measuring and marking out tools. Values:",
+      "Respect: learner shows open-mindedness when discussing the use of measuring and marking out tools in the immediate environment.",
+      "Responsibility: learner shows accountability by caring for measuring and marking out tools in the immediate environment. Pertinent and Contemporary Issues (PCIs): Disaster Risk Reduction: learner avoids situations that can lead to injuries when caring for measuring and marking out tools in the immediate environment. Link to other Subjects: Mathematics: learner enhances the skill of measurement when performing specific tasks using measuring and marking out tools."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade7-pre-technical-studies.pdf#p34"
+    },
+    {
+     "kicd_code": "4.2",
+     "name": "Computer Hardware",
+     "suggested_duration": "14 lessons",
+     "learning_outcomes": [
+      "classify computer hardware devices in a user environment",
+      "use computer hardware devices to carry out a given task",
+      "value the importance of computer hardware devices in a user environment."
+     ],
+     "learning_experiences": [
+      "brainstorm and present the meaning of the term ‘computer hardware",
+      "use available resources to search for information on categories of computer hardware: input devices (keying devices, pointing devices, scanning devices, voice input devices, touch screen, digitizer, digital cameras), output devices (hardcopy and softcopy), storage devices (fixed and removable devices)",
+      "match available devices to their respective categories",
+      "perform tasks using computer input, output, and storage devices."
+     ],
+     "inquiry_questions": [
+      "How is computer hardware used?"
+     ],
+     "core_competencies": [
+      "Communication and Collaboration: learner acquires speaking, writing, listening, and teamwork skills when brainstorming and presenting on the meaning of the term ‘computer hardware’.",
+      "Critical Thinking and Problem Solving: learner develops skills of interpretation and inference when categorising computer hardware."
+     ],
+     "values": [
+      "Values:",
+      "Peace: learner displays tolerance when performing tasks using computer hardware.",
+      "Responsibility: learner shows accountability when using available resources to search for information on categories of computer hardware. Pertinent and Contemporary Issues (PCIs): Peer Education and Mentorship: learner enhances leadership skills when discussing the categories of computer hardware devices in a user environment. Link to other Subjects: Integrated Science: learner enhances skills of connecting electric devices when connecting hardware devices."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade7-pre-technical-studies.pdf#p36"
+    }
+   ]
+  },
+  {
+   "strand": "Entrepreneurship",
+   "strand_code": "5.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to describe the",
+     "exceeds": "Describes all the qualities of an entrepreneur.",
+     "meets": "Describes most of the qualities of an entrepreneur.",
+     "approaches": "Describes some",
+     "below": "Describes a few qualities of an entrepreneur with assistance."
+    },
+    {
+     "indicator": "Ability to explore",
+     "exceeds": "Explores all sources of generating business ideas for a business venture.",
+     "meets": "Explores most sources of generating business ideas for a business venture.",
+     "approaches": "",
+     "below": ""
+    },
+    {
+     "indicator": "Ability to analyse",
+     "exceeds": "Analyses all the factors determining the size of a production unit.",
+     "meets": "",
+     "approaches": "Analyses some of the",
+     "below": ""
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "5.1",
+     "name": "Introduction to Entrepreneurship",
+     "suggested_duration": "4 lessons",
+     "learning_outcomes": [
+      "explain the importance of entrepreneurship in the community",
+      "describe the qualities of an entrepreneur in business",
+      "explore sources of business ideas for a business venture",
+      "appreciate the role of entrepreneurship in a community."
+     ],
+     "learning_experiences": [],
+     "inquiry_questions": [],
+     "core_competencies": [
+      "Communication and Collaboration: learner acquires speaking, writing, listening, and teamwork skills when brainstorming and presenting on the meaning the meaning of the terms ‘entrepreneur’ and ‘entrepreneurship’.",
+      "Critical Thinking and Problem Solving: learner acquires evaluation and decision-making skills when conducting a self-assessment on entrepreneurial qualities."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade7-pre-technical-studies.pdf#p39"
+    },
+    {
+     "kicd_code": "5.2",
+     "name": "Production Unit",
+     "suggested_duration": "6 lessons",
+     "learning_outcomes": [
+      "explain the factors considered when locating a production unit",
+      "analyse the factors determining the size of a production unit",
+      "value the importance of locating a production unit in a suitable area."
+     ],
+     "learning_experiences": [],
+     "inquiry_questions": [
+      "How is the size of a production unit determined?"
+     ],
+     "core_competencies": [
+      "Communication and Collaboration: learner acquires speaking, writing, listening, and teamwork skills when discussing and presenting the meaning of the term ‘production unit’.",
+      "Critical Thinking and Problem Solving: learner acquires interpretation and inference skills when visiting the local community to assess the factors that influenced the location of a particular production unit."
+     ],
+     "values": [
+      "Values:",
+      "Responsibility: learner shows accountability when using print or digital media to search for information on the factors that determine its size and share with peers.",
+      "Respect: learner shows regard for the input of every member when brainstorming and presenting on the factors considered when choosing the location of a production unit. Pertinent and Contemporary Issues (PCIs): Financial Literacy: learner develops entrepreneurial skills when brainstorming and presenting the factors considered when choosing the location of a production unit. Link to other Subjects: Social Studies: learner enhances knowledge on trade when brainstorming on factors considered when choosing the location of a production unit."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade7-pre-technical-studies.pdf#p41"
+    },
+    {
+     "kicd_code": "5.3",
+     "name": "Financial Goals",
+     "suggested_duration": "10 lessons",
+     "learning_outcomes": [
+      "explain the importance of setting goals in financial management",
+      "analyse the factors to consider when setting financial goals",
+      "formulate financial goals for individual development",
+      "observe financial discipline in financial management."
+     ],
+     "learning_experiences": [],
+     "inquiry_questions": [],
+     "core_competencies": [],
+     "values": [
+      "Values:",
+      "Responsibility: learner engages in assigned roles and duties when discussing and presenting on the meaning and importance of goal setting as used in financial management.",
+      "Respect: learner shows regard for the input of every member when brainstorming and presenting on the factors to consider when setting financial goals. Pertinent and Contemporary Issues (PCIs): Financial Literacy: learner acquires financial skills when setting SMART financial goals. Link to other Subjects: Social Studies: learner enhances skills of personal goal setting when setting SMART financial goals."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade7-pre-technical-studies.pdf#p43"
+    }
+   ]
+  }
+ ]
+}

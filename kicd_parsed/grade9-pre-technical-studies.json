@@ -1,0 +1,628 @@
+{
+ "source_pdf": "grade9-pre-technical-studies.pdf",
+ "grade": 9,
+ "subject": "pre-technical-studies",
+ "general_outcomes": [
+  "By the end of Junior School, the learner should be able to:",
+  "Communicate effectively through the use of information and communication technology.",
+  "Select and use tools and materials in the production of goods and services.",
+  "Use financial and entrepreneurial competencies for prudent decision making.",
+  "Observe safety in the immediate environment to promote education for sustainable development.",
+  "Apply ICT skills to carry out activities in day-to-day life.",
+  "Create awareness on career choices in regard to career pathways and progression for self-development."
+ ],
+ "strands": [
+  {
+   "strand": "Foundations of Pre -Technical Studies",
+   "strand_code": "1.0",
+   "assessment_rubric": [],
+   "substrands": [
+    {
+     "kicd_code": "1.2",
+     "name": "Handling Hazardous Substances",
+     "suggested_duration": "9 lessons",
+     "learning_outcomes": [
+      "identify hazardous substances found in the environment",
+      "classify hazardous substances found in the locality",
+      "describe safe ways of handling hazardous substances in the environment",
+      "handle hazardous substances safely in the environment",
+      "appreciate the importance of observing safety when handling hazardous substances."
+     ],
+     "learning_experiences": [
+      "use print or digital media to search for information on hazardous substances (poisonous, flammable, corrosive)",
+      "explore the environment to identify hazardous substances (poisonous, flammable, corrosive)",
+      "group hazardous substances into poisonous, flammable or corrosive",
+      "discuss safe ways of handling hazardous substances in the environment",
+      "read and interpret instructions on the conditions for use of hazardous substances",
+      "visit the locality to learn about safe handling of poisonous, flammable and corrosive substances",
+      "practise safe handling of poisonous, flammable and corrosive substances in the environment",
+      "• discuss the importance of observing safety when handling hazardous substances."
+     ],
+     "inquiry_questions": [
+      "1. Why are hazardous substances labelled?",
+      "2. How are hazardous substances handled?"
+     ],
+     "core_competencies": [
+      "Communication and Collaboration: learner develops speaking, listening and self-expression skills when discussing safe ways of handling hazardous substances.",
+      "Learning to Learn: learner develops the skill of sharing learnt knowledge when discussing safe ways of handling hazardous substances."
+     ],
+     "values": [
+      "Respect: learner appreciates diverse opinions when discussing safe ways of handling hazardous substances in the immediate environment.",
+      "Patriotism: learner respects fellow citizens when visiting the locality to learn about safe handling of poisonous, flammable and corrosive substances."
+     ],
+     "pertinent_issues": [
+      "Disaster Risk Reduction: learner’s ability to identify hazards is enhanced when discussing safe ways of handling hazardous substances in the environment."
+     ],
+     "links_to_other_areas": [
+      "Integrated Science: learner enhances knowledge on laboratory safety when practising safe handling of poisonous, flammable and corrosive substances in the environment."
+     ],
+     "resources": [],
+     "kicd_source": "grade9-pre-technical-studies.pdf#p15"
+    }
+   ]
+  },
+  {
+   "strand": "Foundations of Pre – Technical Studies",
+   "strand_code": "1.0",
+   "assessment_rubric": [],
+   "substrands": [
+    {
+     "kicd_code": "1.1",
+     "name": "Safety on Raised Platforms",
+     "suggested_duration": "8 lessons",
+     "learning_outcomes": [
+      "identify types of raised platforms used in performing tasks",
+      "describe risks associated with working on raised platforms",
+      "observe safety when working on raised platforms",
+      "appreciate the need for observing safety while working on raised platforms."
+     ],
+     "learning_experiences": [
+      "walk around the school to explore types of raised platforms (ladders, trestles, steps, stands, mobile raised platforms, work benches, ramps)",
+      "brainstorm on the types of raised platforms used in day-to-day life",
+      "use print or digital media to search for information on risks associated with working on raised platforms",
+      "discuss ways of minimising risks related to working on raised platforms",
+      "role-play safety practices for working on raised platforms",
+      "visit the locality to observe safety precautions taken when working on raised platforms."
+     ],
+     "inquiry_questions": [
+      "What is the importance of observing safety when working on raised platforms?"
+     ],
+     "core_competencies": [
+      "Communication and Collaboration: learner develops speaking, listening and teamwork skills when discussing ways of minimising risks and dangers related to working on raised platforms.",
+      "Digital Literacy: learner acquires interacting with technology skills when using digital devices to search for information on risks associated with working on raised platforms."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade9-pre-technical-studies.pdf#p13"
+    }
+   ]
+  },
+  {
+   "strand": "Foundations of Pre-Technical Studies",
+   "strand_code": "1.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to describe risks associated with working on raised platforms",
+     "exceeds": "Describes risks associated with working on more than five raised platforms",
+     "meets": "Describes risks associated with working on five raised platforms",
+     "approaches": "Describes risks associated with working on three to four raised platforms",
+     "below": "Describes risks associated with working on two or less raised platforms"
+    },
+    {
+     "indicator": "Ability to describe safe ways of handling hazardous substances in the environment",
+     "exceeds": "Describes safe ways of handling hazardous substances in the environment citing examples",
+     "meets": "Describes safe ways of handling hazardous substances in the environment",
+     "approaches": "Describes some safe ways of handling hazardous substances in the environment",
+     "below": "With prompts describes safe ways of handling hazardous substances in the environment"
+    },
+    {
+     "indicator": "Ability to relate talents and abilities to career pathways",
+     "exceeds": "Relates talents and abilities to career pathways with illustrations",
+     "meets": "Relates talents and abilities to career pathways",
+     "approaches": "Relates some talents and abilities to career pathways",
+     "below": "With prompts relates talents and abilities to career pathways"
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "1.3",
+     "name": "Self-Exploration and Career Development",
+     "suggested_duration": "6 lessons",
+     "learning_outcomes": [
+      "explain ways of nurturing talents and abilities for self-development",
+      "relate talents and abilities to career pathways",
+      "analyse ethical and unethical practices related to the use of talents and abilities",
+      "choose a career based on talents and abilities for self-development."
+     ],
+     "learning_experiences": [
+      "discuss and present on ways of nurturing talents and abilities",
+      "display talents and abilities through clubs and societies and other planned school activities",
+      "make a list of talents and abilities and their corresponding career pathways",
+      "engage with a resource person on career opportunities related to talents and abilities",
+      "discuss a case scenario on ethical and unethical practices related to the use of talents and abilities",
+      "make presentations on careers of choice based on talents and abilities."
+     ],
+     "inquiry_questions": [
+      "1. How are talents and abilities nurtured?",
+      "2. Why is self-exploration necessary for career development?"
+     ],
+     "core_competencies": [
+      "Critical Thinking and Problem Solving: learner acquire interpretation and inference skills when reading and analysing a case scenario on ethical and unethical practices.",
+      "Creativity and Imagination: learner acquires networking skills when displaying talents and abilities through clubs, societies and other planned school activities."
+     ],
+     "values": [
+      "Integrity: learner develops a sense of accountability when analysing a case scenario on ethical and unethical practices related to the use of talents and abilities.",
+      "Respect: learner shows open-mindedness when discussing and presenting on ways of nurturing talents and abilities."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade9-pre-technical-studies.pdf#p17"
+    }
+   ]
+  },
+  {
+   "strand": "Communication in Pre-Technical Studies",
+   "strand_code": "2.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to explain the characteristics of oblique drawing in technical fields",
+     "exceeds": "Explains the characteristics of oblique drawing in technical fields with illustrations",
+     "meets": "Explains the characteristics of oblique drawing in technical fields",
+     "approaches": "Explains the characteristics of oblique drawing in technical fields leaving out few details",
+     "below": "Explains the characteristics of oblique drawing in technical fields leaving out many details"
+    },
+    {
+     "indicator": "Ability to create an application using visual programming software for solving problems in day-to-day life",
+     "exceeds": "Creates an application using visual programming software for solving problems in day-to-day life with enhanced user friendly features",
+     "meets": "Creates an application using visual programming software for solving problems in day-to-day life",
+     "approaches": "Creates an application using visual programming software for solving problems in day-to-day life with basic features",
+     "below": "Creates an application using visual programming software for solving problems in day-to-day life with simplistic features"
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "2.1",
+     "name": "Oblique Projection",
+     "suggested_duration": "14 lessons",
+     "learning_outcomes": [
+      "explain the characteristics of oblique drawing in technical fields",
+      "sketch given drawings in oblique projection",
+      "draw shaped blocks in oblique projection",
+      "appreciate the application of oblique projection in drawing."
+     ],
+     "learning_experiences": [
+      "use print or digital media to search for information on the characteristic of oblique drawings",
+      "brainstorm on the characteristic of oblique drawings",
+      "discuss the steps for drawing shaped blocks in oblique projection",
+      "draw given drawings in oblique projection without using instruments (cavalier and cabinet)",
+      "use geometrical set drawing instruments to draw shaped blocks in oblique projection (cabinet)",
+      "walk around the locality to observe the use of oblique drawings."
+     ],
+     "inquiry_questions": [
+      "How are oblique drawings used in technical fields?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Communication and Collaboration: learner develops speaking, listening and self-expression skills when brainstorming on the characteristic of oblique drawings.",
+      "Critical Thinking and Problem Solving: learner develops interpretation and inference skills when drawing oblique diagrams. Values:",
+      "Responsibility: learner cares for drawing instruments when drawing three dimensional objects in oblique projection.",
+      "Unity: learner cooperates with others when using digital devices to search for information on the characteristics of oblique drawings. Pertinent and Contemporary Issues (PCIs): Social Cohesion: learner develops ability to relate well with others as they brainstorm on the characteristics of oblique drawings. Link to other Subjects: Mathematics: learner enhances skills of solid geometry when drawing oblique diagrams."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade9-pre-technical-studies.pdf#p20"
+    },
+    {
+     "kicd_code": "2.2",
+     "name": "Visual Programming",
+     "suggested_duration": "15 lessons",
+     "learning_outcomes": [
+      "explain the application areas of visual programming software in solving problems",
+      "create an application using visual programming software for solving problems in day-to-day life",
+      "embrace the use of visual programming in the day-to-day life."
+     ],
+     "learning_experiences": [
+      "use print or digital media to search for information on the application areas of visual programming",
+      "discuss the application areas of visual programming software",
+      "watch a video on how to develop an application using visual programming software (games, stories and animations)",
+      "develop interactive stories, games and animations using visual programming software",
+      "practise using visual programming applications to solve problems in day-to-day life."
+     ],
+     "inquiry_questions": [
+      "How are applications developed using visual programming software?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Self-Efficacy: effective communication skills are developed as the learner discusses the application areas of visual programming with peers.",
+      "Critical Thinking and Problem Solving: open-mindedness and creativity skills are enhanced as the learner develops an application using visual programming software. Value:",
+      "Social Justice: learner shares resources equitably with others when working in groups to develop applications.",
+      "Responsibility: learner takes care of digital devices when developing interactive stories, games and animations using visual programming software. Pertinent and Contemporary Issues (PCIs):",
+      "Peer Education and Mentorship: interpersonal relationships are enhanced as learner discusses the application areas of visual programming software.",
+      "Internet Safety and Security: responsible online behaviour is enhanced as learner uses digital media to search for information on the application areas of visual programming. Link to other Subjects Creative Arts and Sports: learner enhances skills of animations when developing interactive stories and games."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade9-pre-technical-studies.pdf#p22"
+    }
+   ]
+  },
+  {
+   "strand": "Materials for Production",
+   "strand_code": "3.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to describe the preparation of wood for use in production of items",
+     "exceeds": "Describes the preparation of wood for use in production of items in details",
+     "meets": "Describes the preparation of wood for use in production of items",
+     "approaches": "Describes the preparation of wood for use in production of items leaving out a few details",
+     "below": "Describes the preparation of wood for use in production of items leaving out many details"
+    },
+    {
+     "indicator": "Ability to dispose waste materials using appropriate methods (reduce, reuse, recycle, compost and burn)",
+     "exceeds": "Disposes waste materials using five appropriate methods",
+     "meets": "Disposes waste materials using four appropriate methods",
+     "approaches": "Disposes waste materials using three appropriate methods",
+     "below": "Disposes waste materials using less than two appropriate methods"
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "3.1",
+     "name": "Wood",
+     "suggested_duration": "8 lessons",
+     "learning_outcomes": [
+      "classify wood according to physical characteristics",
+      "describe the preparation of wood for use in the production of items",
+      "relate types of wood to their uses in the community",
+      "value the importance of wood in day-to-day life."
+     ],
+     "learning_experiences": [
+      "use print or digital media to search for information on types of wood",
+      "discuss the physical characteristics of wood (soft and hard wood)",
+      "use a checklist to sort wood as either softwood or hardwood",
+      "discuss methods of wood preparation (conversion and seasoning)",
+      "brainstorm on the uses of wood in different trades",
+      "develop charts to match types of wood to their uses",
+      "visit the locality to explore the uses of wood."
+     ],
+     "inquiry_questions": [
+      "Why is wood important in day-to– day life?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Digital Literacy: learner develops interacting with technology skills when using digital devices to search for information on types of wood.",
+      "Learning to Learn: learner acquires planning and time management skills when developing charts to match types of wood to their uses. Values:",
+      "Unity: learner cooperates with others when using print or digital media to search for information on types of wood.",
+      "Respect: learner accepts diverse opinions when discussing the methods of wood preparation. Pertinent and Contemporary Issues (PCIs): Peer Education and Mentorship: interpersonal relationships are enhanced as learner discusses the methods of wood preparation. Link to other Subjects: Social Studies: learner enhances knowledge of resource exploitation as they brainstorm on the uses of wood in different trades."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade9-pre-technical-studies.pdf#p25"
+    },
+    {
+     "kicd_code": "3.2",
+     "name": "Handling Waste Materials",
+     "suggested_duration": "8 lessons",
+     "learning_outcomes": [
+      "identify waste materials found in the environment",
+      "describe ways of handling waste materials safely in the environment",
+      "dispose waste materials using appropriate methods",
+      "appreciate the need for proper handling of waste materials in the environment."
+     ],
+     "learning_experiences": [
+      "walk around the school compound to identify waste materials, (plastic, glass, metal, wood waste, electronic waste, construction waste)",
+      "use print or digital media to search for information on safe ways of handling waste materials",
+      "discuss safe ways of handling waste materials (reduce, reuse, recycle, compost and burn)",
+      "practise safe disposal of waste materials (reduce, reuse, recycle, compost and burn)",
+      "visit the locality to observe handling of waste materials."
+     ],
+     "inquiry_questions": [
+      "How are waste materials handled in the locality?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Self-Efficacy: effective communication skills are developed as the learner discusses safe ways of disposing waste materials.",
+      "Digital Literacy: learner develops interacting with technology skills when using digital devices to search for information on safe ways of handling waste materials in the environment. Values:",
+      "Responsibility: learner engages in assigned roles when practicing safe disposal of waste materials.",
+      "Patriotism: learner is conscious of belonging to the community as they visit the locality to observe handling of waste materials. Pertinent and Contemporary Issues (PCIs): Environmental Conservation: learner minimizes environmental pollution when reducing, reusing recycling waste materials. Link to other Subjects Agriculture: learner enhances skills on organic gardening when composting waste materials."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade9-pre-technical-studies.pdf#p27"
+    }
+   ]
+  },
+  {
+   "strand": "Tools and Production",
+   "strand_code": "4.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to identify holding tools used in the locality",
+     "exceeds": "Identifies more than five holding tools used the locality",
+     "meets": "Identifies five holding tools used in the locality",
+     "approaches": "Identifies three to four holding tools used in the locality",
+     "below": "Identifies two holding tools used in the locality"
+    },
+    {
+     "indicator": "Ability to use driving tools to perform given tasks",
+     "exceeds": "Consistently uses driving tools to perform given tasks",
+     "meets": "Uses driving tools to perform given tasks",
+     "approaches": "Sometimes uses driving tools to perform given tasks",
+     "below": "Rarely uses driving tools to perform given tasks with assistance"
+    },
+    {
+     "indicator": "Ability to make an item to solve the identified problem",
+     "exceeds": "Makes an aesthetically appealing item to solve the identified problem",
+     "meets": "Makes an item to solve the identified problem",
+     "approaches": "Makes an item that partially solves the identified problem",
+     "below": "Needs assistance to make an item to solve the identified problem"
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "4.1",
+     "name": "Holding Tools",
+     "suggested_duration": "8 lessons",
+     "learning_outcomes": [
+      "identify holding tools used in day-to-day life",
+      "select holding tools for performing given tasks",
+      "use holding tools to perform given tasks",
+      "care for holding tools used in day-to-day life",
+      "appreciate the importance of holding tools in day-to-day life."
+     ],
+     "learning_experiences": [
+      "use visual aids or real objects to identify holding tools",
+      "choose holding tools for different tasks",
+      "discuss uses of different types of holding tools (pliers, clamps, tongs, clips, vice)",
+      "use print or digital media to search for information on safe use of holding tools",
+      "demonstrate safe use of holding tools when performing different types of tasks",
+      "clean and safely store holding tools",
+      "share experiences on the use of holding tools."
+     ],
+     "inquiry_questions": [
+      "How are holding tools used in day-to-day life?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Communication and Collaboration: learner develops listening and speaking skills when discussing the uses of different types of holding tools.",
+      "Learning to Learn: learner reflects on own work when demonstrating safe use of holding tools. Values:",
+      "Unity: learner cooperates with others when discussing on the safe use of holding tools.",
+      "Responsibility: learner exercises accountability as they clean and safely store holding tools. Pertinent and Contemporary Issues (PCIs): Personal Safety and Security: learner demonstrates basic safety skills as they safely use holding tools to perform tasks. Link to other Subjects: Agriculture: learner enhances skills on use of farm tools during demonstration on the safe use of holding tools."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade9-pre-technical-studies.pdf#p30"
+    },
+    {
+     "kicd_code": "4.2",
+     "name": "Driving Tools",
+     "suggested_duration": "8 lessons",
+     "learning_outcomes": [
+      "identify driving tools used in day-to-day life",
+      "select driving tools for performing given tasks",
+      "use driving tools to perform given tasks",
+      "care for driving tools used in day-to-day life",
+      "acknowledge the importance of driving tools in day-to-day life."
+     ],
+     "learning_experiences": [
+      "use visual aids or realia to identify driving tools in the community",
+      "discuss uses of driving tools for different tasks (hammer, screwdriver, spanner, punches, mallets)",
+      "use print or digital devices to search and watch a video clip on the safe use of driving tools",
+      "demonstrate safe use of driving tools to perform different types of tasks",
+      "clean and safely store driving tools",
+      "share experiences on the use of holding tools."
+     ],
+     "inquiry_questions": [
+      "How are driving tools used in day-to-day life?"
+     ],
+     "core_competencies": [
+      "Self-Efficacy: learner acquires self-awareness skills when demonstrating safe use of driving tools to perform different types of tasks.",
+      "Digital Literacy: learner enhances interacting with technology skills when searching for information on safe use of driving tools."
+     ],
+     "values": [
+      "Values:",
+      "Respect: learner accommodates diverse opinions when sharing experiences on the use of holding tools.",
+      "Peace: learner follows laid down procedures when demonstrating safe use of driving tools. Pertinent and Contemporary Issues (PCIs): Personal Safety and Security: learner demonstrates basic safety skills when using driving tools safely to perform tasks. Link to other Subjects: Agriculture: learner enhances the knowledge on use of farm tools during demonstration on how to use and care for driving tools."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade9-pre-technical-studies.pdf#p32"
+    },
+    {
+     "kicd_code": "4.3",
+     "name": "Project",
+     "suggested_duration": "20 lessons",
+     "learning_outcomes": [
+      "identify a problem in the locality that can be solved using the skills acquired in Pre-Technical Studies",
+      "select an item that can be made to solve the identified problem",
+      "make an item to solve the problem identified using locally available materials",
+      "utilise skills acquired in Pre-Technical Studies to solve problems in day-to-day life."
+     ],
+     "learning_experiences": [
+      "explore the locality to identify problems that can be solved using the skills acquired in Pre-Technical Studies",
+      "brainstorm on the possible solutions to the identified problems",
+      "use print or digital media to search for information on possible items to solve the identified problem",
+      "discuss possible items that can be made to solve the identified problem",
+      "select one item that can be made using the skills acquired to solve the identified problem",
+      "sketch the item to be made using the skills acquired to solve the identified problem",
+      "estimating the cost of materials for making the project item",
+      "use locally available materials and tools to make the identified item",
+      "estimate the cost to determine the price for the item",
+      "• present the finished items for feedback."
+     ],
+     "inquiry_questions": [
+      "How are skills acquired in Pre-Technical Studies used to solve problems in the community?"
+     ],
+     "core_competencies": [
+      "Critical Thinking and Problem Solving: learner develops evaluation and decision making skills when selecting an item that can be made using the skills acquired.",
+      "Creativity and Imagination: learner experiments with ideas when discussing possible items that can be made to solve the identified problem."
+     ],
+     "values": [
+      "Responsibility: learner cares for tools and materials when making the item.",
+      "Respect: learner appreciates diverse opinions when discussing possible items that can be made to solve the identified problem."
+     ],
+     "pertinent_issues": [
+      "Environmental Conservation: learner conserves natural resources when using locally available materials and tools to make the project item.",
+      "Financial Literacy: learner enhances budgeting skills when estimating the cost of materials for making the project item."
+     ],
+     "links_to_other_areas": [
+      "Creative Arts and Sports: learner enhances drawing skills when sketching the project item."
+     ],
+     "resources": [],
+     "kicd_source": "grade9-pre-technical-studies.pdf#p34"
+    }
+   ]
+  },
+  {
+   "strand": "Entrepreneurship",
+   "strand_code": "5.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to identify financial institutions available in Kenya",
+     "exceeds": "Identifies four financial institutions available in Kenya",
+     "meets": "Identifies three financial institutions available in Kenya",
+     "approaches": "Identifies two financial institutions available in Kenya",
+     "below": "Identifies less than two financial institutions available in Kenya"
+    },
+    {
+     "indicator": "Ability to explain the reasons for government involvement in business in Kenya",
+     "exceeds": "Explains the reasons for government involvement in business in Kenya citing examples",
+     "meets": "Explains the reasons for government involvement in business in Kenya",
+     "approaches": "Explains some of the reasons for government involvement in business in Kenya",
+     "below": "With prompts explains of the reasons for government involvement in business in Kenya"
+    },
+    {
+     "indicator": "Ability to fill a business plan template (executive summary, business description, market/competitor analysis, product and services, marketing plan, financial projection)",
+     "exceeds": "Fills in six components of a business template giving specific details.",
+     "meets": "Fills in six components of a business template.",
+     "approaches": "Fills in three to five components of a business template.",
+     "below": "Fills in at most two components of a business template."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "5.1",
+     "name": "Financial Services",
+     "suggested_duration": "4 lessons",
+     "learning_outcomes": [
+      "identify financial institutions available in Kenya",
+      "classify financial institutions in Kenya",
+      "analyse services offered by financial institutions in Kenya",
+      "utilise financial services for entrepreneurial development."
+     ],
+     "learning_experiences": [
+      "use print or digital media to search for information on financial institutions available in Kenya",
+      "discuss and present the types of financial institutions in Kenya (banks, insurance, SACCOs, micro finance)",
+      "use print or digital media to search for information on services offered by financial institutions in Kenya",
+      "use a case study to discuss services offered by financial institutions in Kenya",
+      "engage in a discussion with a resource person on the utilisation of financial services for entrepreneurial development."
+     ],
+     "inquiry_questions": [
+      "What services are offered by different financial institutions in Kenya?"
+     ],
+     "core_competencies": [
+      "• Learning to Learn: learner acquires skills of organising self-learning when searching for information on services offered by financial institutions in Kenya."
+     ],
+     "values": [
+      "Values:",
+      "Responsibility: learner cares for own property and those of others when handling digital devices when searching for information on financial services.",
+      "Unity: learner displays team spirit and collaborates with others when discussing and presenting on the types of financial institutions in Kenya. Pertinent and Contemporary Issues (PCIs): Financial Literacy: learner’s financial knowledge is enhanced when discussing and presenting on the types of financial institutions in Kenya. Link to other Subjects: Agriculture: learner enhances knowledge on investment when searching for information on services offered by financial institutions in Kenya."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade9-pre-technical-studies.pdf#p37"
+    },
+    {
+     "kicd_code": "5.2",
+     "name": "Government and Business",
+     "suggested_duration": "6 lessons",
+     "learning_outcomes": [
+      "explain the reasons for government involvement in business",
+      "describe ways of government involvement in business",
+      "explore types of taxes in Kenya",
+      "analyse e-Government services in business",
+      "acknowledge the need to comply with Government regulations in business."
+     ],
+     "learning_experiences": [
+      "brainstorm and present on the reasons for government involvement in business in Kenya",
+      "use print or digital media to search for information on ways of Government involvement in business",
+      "discuss and present on the meaning and importance of paying taxes in Kenya",
+      "discuss types of taxes in Kenya (income tax, VAT, corporate tax, fuel levy, excise duty) and present to peers",
+      "discuss a case scenarios on e-Government services in business such as registration and licensing of motor vehicle business by NTSA, among others",
+      "• use digital devices to access and interact with e-Government platform in Kenya."
+     ],
+     "inquiry_questions": [
+      "Why is it important for the Government to get involved in business?"
+     ],
+     "core_competencies": [
+      "Critical Thinking and Problem Solving; learner develops evaluating and decision making skills when discussing a case scenario on e- Government services in business.",
+      "Digital Literacy: learner develops the skill of interacting with technology when using digital devices to access and interact with the e- Government platform in Kenya."
+     ],
+     "values": [
+      "Responsibility: learner acquires accountability skills when using digital devices to access and interact with e- Government platform in Kenya taxes in Kenya.",
+      "Social justice: learner learns about the need for government involvement in business to promote fairness and equity across the society."
+     ],
+     "pertinent_issues": [
+      "Financial Literacy: learner enhances financial skills when discussing and presenting on types of taxes paid in Kenya.",
+      "Social Cohesion: learner enhances interpersonal relationships when brainstorming and presenting on the reasons for government involvement in business."
+     ],
+     "links_to_other_areas": [
+      "Social Studies: learner enhances knowledge on taxation when discussing the types of taxes."
+     ],
+     "resources": [],
+     "kicd_source": "grade9-pre-technical-studies.pdf#p39"
+    },
+    {
+     "kicd_code": "5.3",
+     "name": "Business Plan",
+     "suggested_duration": "6 lessons",
+     "learning_outcomes": [
+      "explain the importance of a business plan in entrepreneurship",
+      "describe the components of a business plan in financial management",
+      "fill in a business plan template for a given business project",
+      "embrace the use of a business plan in entrepreneurship."
+     ],
+     "learning_experiences": [
+      "use print or digital media to search for information on the meaning and importance of a business plan",
+      "discuss and present the meaning and importance of a business plan",
+      "brainstorm and present on the components of a business plan (executive summary, business description, market/competitor analysis, product and services, marketing plan, financial projection)",
+      "analyse a case scenario on the components of a business plan",
+      "complete a business plan template (executive summary, business description, market/competitor analysis, product and services, marketing plan, financial projection)",
+      "engage with a resource person on the use of a business plan."
+     ],
+     "inquiry_questions": [
+      "1. Why is a business plan important to an entrepreneur?",
+      "2. How is a business plan prepared?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Learning to Learn: learner acquires the skill of organising own learning when completing a business plan template.",
+      "Critical thinking and Problem Solving: learner acquires evaluation and decision-making skills when completing a business plan template. Values:",
+      "Respect: learner shows regard for the input of every member when brainstorming and presenting the meaning and importance of a business plan.",
+      "Love: learner respects others when brainstorming and presenting the meaning and importance of a business plan. Pertinent and Contemporary Issues (PCIs): Social Cohesion: learner works and cooperates with others when brainstorming on the meaning and importance of a business plan. Link to other Subjects: Agriculture: learner enhances knowledge on marketing of agricultural produce when discussing business plan."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade9-pre-technical-studies.pdf#p41"
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,1842 @@
+{
+ "source_pdf": "grade5-english.pdf",
+ "grade": 5,
+ "subject": "english",
+ "general_outcomes": [
+  "listen for the main idea and specific information from a variety of print and digital texts.",
+  "speak, at the right speed, accurately, and with expression on a variety of subjects and genres.",
+  "read a variety of texts fluently, interpretively, and with comprehension for lifelong learning.",
+  "use grammatical forms to communicate ideas, opinions, and emotions appropriately in different settings.",
+  "write texts for various purposes legibly, accurately, creatively, and cohesively for self-expression.",
+  "apply Digital Literacy skills to enhance their language competency."
+ ],
+ "strands": [
+  {
+   "strand": "Reading",
+   "strand_code": "1.2",
+   "assessment_rubric": [],
+   "substrands": [
+    {
+     "kicd_code": "1.2.1",
+     "name": "Extensive Reading",
+     "suggested_duration": "3 lessons",
+     "learning_outcomes": [
+      "select relevant reference materials: dictionaries, junior encyclopaedias, and, subject-specific encyclopaedias on a variety of subjects",
+      "spell words correctly for effective communication",
+      "use reference materials to find the required information",
+      "adopt the use of reference materials for lifelong learning."
+     ],
+     "learning_experiences": [
+      "select appropriate print and non-print reference materials (dictionaries, junior encyclopaedias, and, subject-specific encyclopaedias)",
+      "read selected reference materials independently",
+      "look for information related to the theme from reference materials",
+      "report and discuss what they have read with peers",
+      "visit a library to find reference materials for information related to the theme."
+     ],
+     "inquiry_questions": [
+      "1. Why do you read books?",
+      "2. Which type of books do you enjoy reading?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Digital Literacy is developed as the learner manipulates electronic reference materials for information.",
+      "Learning to Learn is nurtured when the learner uses reference materials to get information and furthers their learning process. Values: Responsibility is developed as the learner does the assigned duty of selecting reading materials and reading independently. Pertinent and Contemporary Issues (PCIs): Life Skills Education: Interpersonal relationship is intensified when the learner learns about child rights and responsibilities and take upon their individual responsibilities both in school and at home. Link to other Learning Areas: The learner uses the skill on how to use reference materials in all the other learning areas as they all require searching for information."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade5-english.pdf#p15"
+    },
+    {
+     "kicd_code": "2.2.1",
+     "name": "Intensive Reading",
+     "suggested_duration": "3 lessons",
+     "learning_outcomes": [
+      "identify characters, places, and events in a story for comprehension",
+      "predict events in a text for comprehension",
+      "respond correctly to factual and inferential questions for comprehension",
+      "use contextual clues to infer the meaning of words for comprehension",
+      "recommend appropriate reading techniques to peers."
+     ],
+     "learning_experiences": [
+      "make predictions of what a story is about; what happens next in a story using the title/pictures in a story",
+      "infer the meaning of words from the context",
+      "use their imagination to visualise the events in a story",
+      "draw pictures, diagrams, or posters of events in the story",
+      "read poems of not more than five stanzas.",
+      "read a narrative of up to 400 words silently",
+      "retell a narrative or recite a poem and create a video or audio recording of the story."
+     ],
+     "inquiry_questions": [
+      "1. Why is the title of a poem or a story important?",
+      "2. How do we predict events in a story or poem?",
+      "3. How do we tell the meaning of unknown words in a story?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Creativity and imagination is advanced as the learner participates in activities such as predicting the story by use of pictures and visualising the event in the story as well as drawing pictures and posters on the events in the story.",
+      "Learning to Learn is achieved as the learner retells a narrative or recite a poem and create a video of the recording of the story. Values: Patriotism is promoted as the learner shows love for their country when they sing songs or recite poems related to national celebrations. Pertinent and Contemporary Issues (PCIs): Life Skills Education: effective communication is enhanced as the learner learns to communicate clearly through pictures or story-telling. Link to other Learning Areas: The learner applies reading skills in all other areas of learning as they all require reading for comprehension."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade5-english.pdf#p23"
+    },
+    {
+     "kicd_code": "3.2.1",
+     "name": "Intensive Reading: (Narrative of about 400 words)",
+     "suggested_duration": "3 lessons",
+     "learning_outcomes": [
+      "relate events in the story with their life experiences",
+      "predict events in a text for comprehension",
+      "create mental images from the events in a story",
+      "respond to factual and inferential questions correctly",
+      "relate events in a reading text to real life experiences."
+     ],
+     "learning_experiences": [
+      "make predictions on a story when reading",
+      "use their imagination to visualise the events in a story",
+      "scan and skim texts for new words and information with peers",
+      "answer factual and inferential questions from the texts",
+      "use digital devices to read online stories for comprehension."
+     ],
+     "inquiry_questions": [
+      "1. How do you get information from a text?",
+      "2. Which things do you predict or visualize in a story?"
+     ],
+     "core_competencies": [
+      "Self-Efficacy is developed as the learner predicts and visualises stories from texts.",
+      "Communication is enhanced as the learner works with peers to scan and skim the text and share information"
+     ],
+     "values": [
+      "Values: Social justice is promoted as the learner uses their imagination to visualise the events in a story Pertinent and Contemporary Issues (PCIs): Life Skills Education: The learner acquires the skills of living with others from reading texts on etiquette especially table manners. Link to other Learning Areas: The learner can link the content derived from the theme of etiquette to what is learnt in Agriculture."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade5-english.pdf#p31"
+    },
+    {
+     "kicd_code": "4.2.1",
+     "name": "Intensive Reading: Comprehension",
+     "suggested_duration": "3 lessons",
+     "learning_outcomes": [
+      "list the illustrations, posters, videos, pictures maps mnemonics in the classroom",
+      "make predictions based on visuals for comprehension",
+      "create mental images from text they have viewed, read or heard",
+      "answer factual and inferential questions correctly",
+      "judge the appropriateness of visuals in conjunction with peers."
+     ],
+     "learning_experiences": [
+      "view pictures, illustrations, posters, videos, pictures maps mnemonics, and symbols among others collaboratively with peers",
+      "describe and interpret visuals correctly with peers",
+      "preview and make predictions based on pictures and illustrations related to the theme",
+      "infer the meaning of the words related to the theme",
+      "compose songs, stories, poems or dialogues on road safety and prevention featuring words",
+      "answer questions based on the visuals with peers",
+      "present own stories using pictures or videos",
+      "create visuals based on their experiences."
+     ],
+     "inquiry_questions": [
+      "1. Why are pictures important?",
+      "2. How can you use pictures to communicate ?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Self-Efficacy is developed as the learner reads and interprets visuals.",
+      "Digital Literacy is achieved as the learner looks for or watches visuals in digital format. Values: Responsibility is enhanced as the learner composes poems and answers questions related to the theme collaboratively with peers. Pertinent and Contemporary Issues (PCIs): Life Skills Education: Effective communication is enhanced as the learner learns how to read and interpret visuals and can therefore communicate effectively using visuals. Link to other Learning Areas: The learner applies the concept of interpreting visuals to similar concepts learnt in Art and craft. This is also applicable when interpreting maps and charts, a concept taught in Social Studies."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade5-english.pdf#p39"
+    },
+    {
+     "kicd_code": "5.2.1",
+     "name": "Extensive Reading: Fiction and Non Fiction Materials",
+     "suggested_duration": "3 lessons",
+     "learning_outcomes": [
+      "select relevant reading materials from a collection of books",
+      "scan a text to obtain specific information",
+      "skim through digital or print texts to establish appropriateness and relevance",
+      "read a variety of materials for fluency",
+      "judge the appropriateness of a reading text on the basis of language and interest."
+     ],
+     "learning_experiences": [
+      "work jointly to select texts from a collection",
+      "preview a text to determine suitability.",
+      "scan a text to pick out vocabulary words",
+      "skim through reading materials for the main idea",
+      "select fiction and non-fiction reading materials of between 1000-1250 words (both print and non-print)",
+      "read selected materials independently",
+      "set up an after-school reading club where they meet regularly",
+      "share reflections on the books read collaboratively."
+     ],
+     "inquiry_questions": [
+      "1. What materials do you enjoy reading?",
+      "2. Why is it necessary to read many books?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Communication and Collaboration is enhanced as the learner sets up an after-school reading club where they meet regularly with peers to read.",
+      "Digital Literacy is attained as the learner sources for a variety of reading materials online.",
+      "Learning to Learn is developed as the learner engages in independent reading which enhances sourcing for information and lifetime learning. Values: Unity is developed as the learner respects self and others’ opinions when selecting and reading fiction and nonfiction materials collaboratively. Pertinent and Contemporary Issues (PCIs): Social justice is enhanced as the learner practises living together through establishment of an after-school reading club. Link to other Learning Areas: The learner applies extensive reading in other learning areas like Kiswahili which emphasises on the same concept."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade5-english.pdf#p47"
+    },
+    {
+     "kicd_code": "6.2.1",
+     "name": "Intensive Reading Comprehension Dialogues",
+     "suggested_duration": "3 lessons",
+     "learning_outcomes": [
+      "select unfamiliar words and phrases from a reading text",
+      "use contextual clues to infer the meaning of words from a text",
+      "respond to direct and inferential questions for comprehension",
+      "relate events in the story to their own experience"
+     ],
+     "learning_experiences": [
+      "make connections between the characters in the text and the people they know",
+      "relate events in the dialogue to their experiences",
+      "read and role-play a dialogue of about 400 words collaboratively with peers",
+      "pick out main ideas from the dialogue",
+      "answer direct and inferential questions based on the dialogue",
+      "infer the meaning of words from the context (for example, from words occurring before or after)."
+     ],
+     "inquiry_questions": [
+      "1. How can we guess the meaning of words?",
+      "2. What makes you a good reader?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed: Communication and Collaboration is achieved as the learner engages in role playing dialogues collaboratively with peers. Values: Unity is developed as the learner collaborates with peers to role play dialogues related to the theme. Pertinent and Contemporary Issues (PCIs): Learner Support Programmes - Career guidance is emphasised when the learners read and role play a dialogue on job occupations collaboratively with peers. Link to other Learning Areas: The learner can apply the skill of reading for comprehension to all other areas of learning as they all require reading."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade5-english.pdf#p56"
+    },
+    {
+     "kicd_code": "8.2.1",
+     "name": "Fluency in Reading",
+     "suggested_duration": "3 lessons",
+     "learning_outcomes": [
+      "identify unfamiliar words in texts for fluency",
+      "read a text accurately, with expression and at the right speed for fluency",
+      "recommend to peers and parents to read accurately, at the right speed and without hesitation."
+     ],
+     "learning_experiences": [
+      "scan through paragraphs for unfarmiliar words collaboratively",
+      "search for an article on a topic they enjoy, select a portion to read",
+      "set a goal on the number of words to be read per minute",
+      "find a word or phrase from a word -chart within a stipulated time",
+      "read a text in unison, as a class or small group (choral reading)",
+      "participate in a reader’s theatre using a short text from a poem or short play, o select a story or poem that can be divided into parts or characters, o assign a portion to each member with peers, o read a portion of the script orally for practice, o read the assigned parts with peers",
+      "• echo or imitate a model intonation and expression as they read a short paragraph or sentence at a time."
+     ],
+     "inquiry_questions": [
+      "1. What makes someone a good reader?",
+      "2. How long do you take to read a text?",
+      "3. What can you do to improve your reading speed?"
+     ],
+     "core_competencies": [
+      "Learning to Learn is promoted as the learner practices reading texts at the right speed and pace with the correct expression for effective communication."
+     ],
+     "values": [
+      "Unity is enhanced as the learner reads a text and participates in a reader’s theatre collaboratively."
+     ],
+     "pertinent_issues": [
+      "Environmental Activities are reinforced as the learner interacts with information about cash crops through participating in readers’ theatre."
+     ],
+     "links_to_other_areas": [
+      "The learner can apply the skill of reading fluency in all other areas of learning."
+     ],
+     "resources": [],
+     "kicd_source": "grade5-english.pdf#p72"
+    },
+    {
+     "kicd_code": "9.2.1",
+     "name": "Intensive Reading: Descriptive Fictional or Non-Fictional Texts (about 400 words)",
+     "suggested_duration": "3 lessons",
+     "learning_outcomes": [
+      "identify the main idea in each paragraph",
+      "visualise events, characters and descriptions in texts for comprehension",
+      "summarise the main points in a text",
+      "answer direct and inferential questions for comprehension",
+      "challenge others to focus on detail when reading a text."
+     ],
+     "learning_experiences": [
+      "make connections between events in the text and their experiences",
+      "retell the story collaboratively with peers",
+      "use illustrations, the introduction and the title of a text to make predictions",
+      "describe the characters, episodes and places collaboratively in a text",
+      "scan a text for specific details",
+      "answer questions from a text",
+      "state the main ideas from a text",
+      "watch a video related to the theme and pick specific information."
+     ],
+     "inquiry_questions": [
+      "1. How do you describe things?",
+      "2. How can you tell what will happen in a story?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Learning to Learn is enhanced as the learner scans a text for information.",
+      "Digital Literacy is enhanced as the learner watches a video related to the theme to pick out specific information. Values: Responsibility is developed as the learner reads texts which feature these values and watches a video related to the theme. Pertinent and Contemporary Issues (PCIs):",
+      "Health Education is enhanced as the learner is exposed to information on communicable diseases.",
+      "Environmental Education is developed as the learner reads texts about diseases. Link to other Learning Areas: The learner can apply the knowledge obtained from reading texts on communicable diseases to other learning areas like Physical and Health Education."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade5-english.pdf#p81"
+    },
+    {
+     "kicd_code": "10.2.1",
+     "name": "Intensive Reading",
+     "suggested_duration": "3 lessons",
+     "learning_outcomes": [
+      "relate the ideas in a text to their experiences for comprehension",
+      "respond to direct and inferential questions from a text correctly",
+      "summarise the main ideas in a text for comprehension",
+      "encourage others to pay attention to detail when reading."
+     ],
+     "learning_experiences": [
+      "skim through a text and obtain the main idea",
+      "scan through a text to obtain specific information",
+      "discuss and relate ideas to their experiences collaboratively with peers",
+      "read a text independently and retell it in own words",
+      "answer direct and inferential questions from the text",
+      "watch a video on leisure time and write the main points."
+     ],
+     "inquiry_questions": [
+      "1. Why do we read books?",
+      "2. Why should we make notes when reading?",
+      "3. What makes you a good reader?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Learning to Learn is enhanced as the learner uses skimming and scanning skills to obtain information from a text.",
+      "Self-efficacy is developed as the learner scans through a text to obtain specific information. Values: Responsibility is inculcated as the learner reads different texts and retells the stories in their own words independently. Pertinent and Contemporary Issues (PCIs): Safety and Security: Personal safety is nurtured as the learner acquires reading skills and uses them on proper utilisation of leisure time to keep themselves safe from environmental dangers. Link to other Learning Areas The learner applies the skill of intensive reading to Kiswahili where such a skill is emphasised."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade5-english.pdf#p90"
+    },
+    {
+     "kicd_code": "11.2.1",
+     "name": "Intensive Reading",
+     "suggested_duration": "3 lessons",
+     "learning_outcomes": [
+      "relate ideas in the text to personal experiences",
+      "create mental images from the events, characters or places in a text",
+      "answer direct and inferential questions from varied texts correctly",
+      "judge the appropriateness of digital texts on the basis of word choice, theme and interest."
+     ],
+     "learning_experiences": [
+      "infer the meaning of words from context",
+      "make connections between town experiences and events in the reading text.",
+      "create pictures, mimes, videos or crossword puzzles with peers",
+      "search and read texts from the internet with peers",
+      "dramatise or role play events or characters in stories they have read online",
+      "print the visuals obtained from online sources and share or display in a gallery."
+     ],
+     "inquiry_questions": [
+      "1. Why is it important to relate what you read to real life experiences?",
+      "2. What digital resources can you use in your reading?",
+      "3. Why are digital materials more interesting to read than print ones?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Critical Thinking and Problem Solving is cultivated as the learner engages in research online.",
+      "Digital Literacy is enhanced as the learner searches and reads texts from the internet with peers. Values: Integrity is inculcated as the learner avoids breach of confidentiality and security while they use technology responsibly. Pertinent and Contemporary Issues (PCIs): Safety and security is enhanced with the learner’s responsible use of internet while reading the online visuals intensively. Link to other Learning Areas: The learner relates intensive reading done here to similar concepts learnt in Kiswahili."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade5-english.pdf#p98"
+    },
+    {
+     "kicd_code": "12.2.1",
+     "name": "Intensive Reading",
+     "suggested_duration": "3 lessons",
+     "learning_outcomes": [
+      "create mental images from events, characters and places in a text",
+      "infer information and meaning of words from context",
+      "answer factual and inferential questions correctly for comprehension",
+      "relate events and characters in the reading text to personal experiences."
+     ],
+     "learning_experiences": [
+      "watch a video on environmental pollution and answer questions",
+      "read a poem or song and role play the events, experiences or characters in the text",
+      "answer factual and inferential questions on the poem and song they read",
+      "visualise events, characters or places mentioned in a text",
+      "draw visuals to summarise information from a text",
+      "role play events or characters in the poem collaboratively with peers."
+     ],
+     "inquiry_questions": [
+      "1. What can you learn from poems and songs?",
+      "2. Which poems and songs do you know?",
+      "3. How do you tell the meaning of unfamiliar words while reading?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Collaboration is enhanced as the learner role plays events or characters in the poem collaboratively with peers.",
+      "Digital Literacy is developed as the learner watches a video on a poem about environmental pollution. Values: Responsibility is promoted when learners read poems/listen to songs and answer questions. Pertinent and Contemporary Issues (PCIs): Environmental Education is enhanced as the learner interacts with content on environmental pollution. Life Skills Education – Communication skills are enhanced as the learner recites poems and sing songs. Link to other Learning Areas: The learner relates the content of songs and poems to what is learnt in Creative Arts. The learner applies the content of Environmental Pollution to a concept learnt in Science and Technology."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade5-english.pdf#p106"
+    },
+    {
+     "kicd_code": "13.2.1",
+     "name": "Extensive Reading",
+     "suggested_duration": "3 lessons",
+     "learning_outcomes": [
+      "select suitable reading materials (newspapers, magazines, class readers or poems), from a collection",
+      "read a variety of materials independently for information and pleasure",
+      "use comprehension strategies such as previewing, skimming and scanning strategies to find necessary information",
+      "judge the appropriateness of a reading text on the basis of theme, interest and language complexity."
+     ],
+     "learning_experiences": [
+      "select appropriate print and non-print reading materials; newspapers, magazines, class readers or poems",
+      "scan through a text for specific details and skim through a material to obtain the main idea",
+      "read selected materials independently",
+      "promote extensive reading among peers and the greater community",
+      "collaborate with peers to determine the appropriateness of reading texts on the basis of interest, themes and complexity of language",
+      "make notes on a topic they read with peers",
+      "make an entry of what they have read in their creative writing diary",
+      "visit a library to read online and offline materials."
+     ],
+     "inquiry_questions": [
+      "1. Why do you read?",
+      "2. What materials do you enjoy reading?"
+     ],
+     "core_competencies": [
+      "Digital Literacy is enhanced as the learner interacts with technology to search for online reading materials.",
+      "Learning to Learn is developed as the learner finds new information from newspapers, magazines, class readers and poems."
+     ],
+     "values": [
+      "Responsibility is promoted as the learner reads materials about spending money wisely and the importance of saving money."
+     ],
+     "pertinent_issues": [
+      "Financial literacy is enhanced as the learner reads material related to the topic on money."
+     ],
+     "links_to_other_areas": [
+      "The learner can apply vocabulary related to the theme to similar concepts in Mathematics."
+     ],
+     "resources": [],
+     "kicd_source": "grade5-english.pdf#p115"
+    }
+   ]
+  },
+  {
+   "strand": "Grammar in Use",
+   "strand_code": "1.3",
+   "assessment_rubric": [],
+   "substrands": [
+    {
+     "kicd_code": "1.3.1",
+     "name": "Word Class: Demonstrative Determiners",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "identify demonstrative determiners: this, these, that, those, in a variety of texts",
+      "use demonstrative determiners: this, these, that, those correctly",
+      "promote the use of the correct demonstrative determiner to use during communication."
+     ],
+     "learning_experiences": [
+      "identify demonstrative determiners: this, these, that, those, from a text s",
+      "read sentences containing demonstrative determiners in print or electronic materials",
+      "construct sentences using demonstrative determiners with peers",
+      "make sentences containing demonstrative determiners from a substitution table",
+      "use demonstrative determiners to fill gaps in sentences",
+      "search for more examples of sentences containing demonstrative determiners in print and digital texts."
+     ],
+     "inquiry_questions": [
+      "1. How do you identify objects that are near or far?",
+      "2. How do we show that objects being referred to are singular or more?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Self-efficacy is enhanced as the learner uses demonstrative determiners in sentences correctly.",
+      "Communication and Collaboration is achieved as the learner works with peers in constructing sentences using demonstrative determiners.",
+      "Digital Literacy is developed as the learner manipulates digital devices while searching for examples and usage of demonstrative determiners. Values: Respect is developed as the learner respects the opinion of others during activities involving peer engagement such as constructing sentences using demonstrative determiners. Pertinent and Contemporary Issues (PCIs): Life Skills Education: self-esteem in the learner is boosted as they learn how to communicate effectively using demonstrative with peers. Link to other Learning Areas: The learner applies the knowledge gained in learning demonstrative determiners in learning Kiswahili and Indigenous Languages."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade5-english.pdf#p17"
+    },
+    {
+     "kicd_code": "2.3.1",
+     "name": "Word Class: Collective Nouns/ Reflexive Pronouns",
+     "suggested_duration": "3 lessons",
+     "learning_outcomes": [
+      "identify collective nouns and reflexive pronouns in texts",
+      "use collective nouns and reflexive pronouns in sentences correctly",
+      "adopt the use of collective and reflexive pronouns during communication."
+     ],
+     "learning_experiences": [
+      "identify reflexive pronouns and collective nouns from print and digital texts",
+      "watch a video clip in which collective nouns and reflexive pronouns (myself, ourselves) have been used in sentences",
+      "team up to pick out collective nouns and reflexive pronouns",
+      "construct sentences using collective nouns and reflexive pronouns",
+      "create and complete crossword puzzles using collective nouns and reflexive pronouns."
+     ],
+     "inquiry_questions": [
+      "1. How do you emphasise that you did something on your own?",
+      "2. Which words do you use to refer to a group of things or animals?"
+     ],
+     "core_competencies": [
+      "Collaboration is enhanced as the learner works with peers to pick out collective nouns and reflexive pronouns from a text.",
+      "Digital Literacy is enhanced as the learner watches a video clip featuring nouns and pronouns."
+     ],
+     "values": [
+      "Values: Respect is fostered as the learner appreciates others’ opinions when answering questions and creating crossword puzzles collaboratively. Pertinent and Contemporary Issues (PCIs): Life Skill (self-awareness) is promoted as the learner learns to communicate effectively using collective nouns and reflexive pronouns in real life. Link to other Learning Areas: The learner can apply the knowledge gained in learning collective nouns and reflexive pronouns to the same concepts taught in Kiswahili."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade5-english.pdf#p25"
+    },
+    {
+     "kicd_code": "3.3.1",
+     "name": "Language Pattern",
+     "suggested_duration": "3 lessons",
+     "learning_outcomes": [
+      "identify sentences featuring the target language patterns: use of too...to/for and use of Must/Should with an Adverb/Adverbial",
+      "use the language patterns in sentences correctly",
+      "promote the use sentence patterns correctly for clarity of communication."
+     ],
+     "learning_experiences": [
+      "make sentences with too...to/for from a substitution table. For example, ‘The stone is too heavy for Nanjala to lift.’",
+      "construct sentences using: ‘must/should with an adverb/adverbial’ For example, We must brush our teeth every day",
+      "recite poems with the target language pattern.",
+      "discuss instances when the sentence patterns are used",
+      "fill in blank spaces in sentences using the patterns",
+      "search for examples of sentences with the language patterns from the internet, newspapers, and magazines among others."
+     ],
+     "inquiry_questions": [
+      "1. How do you identify correct sentences?",
+      "2. Why is it important to use sentences correctly?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed: Learning to Learn is enhanced as learners searches for examples of sentences in newspapers, internet, magazines among others. Values: Respect is developed as the learner displays open mindedness and humility when peers make sentences using the given pattern. Pertinent and Contemporary Issues (PCIs): Life Skills Education: effective communication is enriched as the learner shows mastery of sentence structures in language. Link to other Learning Areas: The learner applies the knowledge of the basic sentence structure to learn in all other areas of learning in which English is the language of instruction."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade5-english.pdf#p33"
+    },
+    {
+     "kicd_code": "4.3.1",
+     "name": "Word Class: Possessive Pronouns",
+     "suggested_duration": "3 lessons",
+     "learning_outcomes": [
+      "identify possessive forms in print or digital texts",
+      "use possessive forms correctly in sentences",
+      "advocate the correct use of possessive forms among peers."
+     ],
+     "learning_experiences": [
+      "engage in online/offline games involving pronouns collaboratively with peers",
+      "simulate, dramatise or role play a conversation featuring possessive pronouns",
+      "watch videos/songs involving the use of possessive pronouns",
+      "compose songs based on the use of personal and possessive pronouns",
+      "fill gaps in sentences correctly using possessive pronouns and belong to",
+      "use the words related to the theme in sentences",
+      "create a list of sentences using possessive and personal pronouns and featuring the words",
+      "display the list of sentences on charts and posters."
+     ],
+     "inquiry_questions": [
+      "1. Why should we use possessive forms correctly?",
+      "2. Which words show something belongs to a person?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Communication and Collaboration is enhanced as the learner engages in online games with peers.",
+      "Self-efficacy is developed as the learner creates a list of possessive pronouns and displays them in the classroom. Values: Integrity is cultivated as the learner displays honesty while filling the gaps using possessive pronouns individually as assigned. Pertinent and Contemporary Issues (PCIs): Citizenship -social cohesion and integration is cultivated as learners play language games. Link to other Learning Areas: The learner links the knowledge of pronouns to similar concepts learnt in Kiswahili."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade5-english.pdf#p41"
+    },
+    {
+     "kicd_code": "5.3.1",
+     "name": "Word Class: Adjectives",
+     "suggested_duration": "3 lessons",
+     "learning_outcomes": [
+      "identify comparative and superlative forms of adjectives in a text",
+      "order adjectives in terms of size, shape and age appropriately",
+      "use the comparative and superlative forms of adjectives accurately",
+      "advocate the importance of using adjectives correctly in communication."
+     ],
+     "learning_experiences": [
+      "describe items using the comparative and superlative forms of adjectives e.g. that window is bigger than this one",
+      "change positive forms of regular and irregular adjectives to their comparative and superlative forms",
+      "pick out adjectives of size, shape and age from a narrative or poem in collaboration with peers",
+      "construct sentences featuring adjectives of size, shape and age",
+      "fill gaps using adjectives in the correct order",
+      "create a crossword puzzle using adjectives."
+     ],
+     "inquiry_questions": [
+      "1. How do we compare things, people or events?",
+      "2. Which words are used to describe things or people?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Creativity and Imagination is enhanced as the learner creates crossword puzzles and make sentences based on adjectives.",
+      "Digital Literacy is achieved as the learner searches for various adjectives on the internet. Values: Peace is enhanced as the learner cooperate with peers to change positive forms of regular and irregular adjectives to superlative forms. Pertinent and Contemporary Issues (PCIs):",
+      "Environmental Education is enhanced as the learner is exposed to information on traditional foods.",
+      "Hygiene and Nutrition is enhanced as the learner interacts with texts with content on traditional nutritious food. Link to other Learning Areas: The learner uses this knowledge on comparison of adjectives to learn the similar concepts in Kiswahili."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade5-english.pdf#p49"
+    },
+    {
+     "kicd_code": "6.3.1",
+     "name": "Word Class: Determiners: Quantifiers",
+     "suggested_duration": "3 lessons",
+     "learning_outcomes": [
+      "identify quantifying determiners: few/ a few, little/ a little, a lot of/ lots of, each, all, enough, most, least in a variety of texts",
+      "use quantifying determiners few/ a few, little/ a little, a lot of/ lots of, each, all, enough, most, least appropriately in a variety of contexts",
+      "judge the appropriateness of quantifying determiners in oral and written texts."
+     ],
+     "learning_experiences": [
+      "read a passage related to the theme and identify quantifying determiners from the passage collaboratively",
+      "match quantifying determiners with corresponding countable and uncountable nouns",
+      "list quantifying determiners that can be used with both countable and uncountable nouns",
+      "read sentences containing quantifying determiners from the internet with peers",
+      "construct sentences using quantifying determiners with nouns with peers",
+      "complete sentences by filling in gaps using the correct quantifying determiners."
+     ],
+     "inquiry_questions": [
+      "1. Which words do we use to show amount or quantity?",
+      "2. Why is it important to tell the quantity of something?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Self-Efficacy is nurtured as the learner uses quantifying determiners in sentences correctly and learns to apply them in life.",
+      "Communication and Collaboration is achieved as the learner reads the sentences with quantifying determiners from the internet with peers.",
+      "Digital Literacy is developed as the learner uses the internet to look for sentences with quantifying determiners. Values: Respect is enhanced as the learner accommodates diverse opinions from peers as they complete tasks involving the use of quantifiers. Pertinent and Contemporary Issues (PCIs): Life Skills Education: Effective communication is promoted as the learner practises using quantifiers correctly to enable them communicate effectively. Link to other Learning Areas: The learner uses the knowledge of quantifying determiners to learn similar concepts in language areas such as Kiswahili."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade5-english.pdf#p58"
+    },
+    {
+     "kicd_code": "7.3.1",
+     "name": "Tense: Future Time using will/shall",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "identify words that indicate future time using will and shall in sentences",
+      "use will and shall to express future time correctly",
+      "collaborate with others to determine the correctness and appropriateness of the tense used in own or provided texts."
+     ],
+     "learning_experiences": [
+      "pick sentences which express future time from a text",
+      "make sentences from a substitution table",
+      "answer questions on future time using will/shall collaboratively",
+      "construct sentences using will/shall collaboratively",
+      "role play activities they plan or wish to do in future with peers",
+      "watch videos offline or online and identify sentences featuring future time with peers",
+      "use computers, tablets or mobile phones to listen to audio materials featuring future time",
+      "make predictions (on events, weather, among others) using will and shall",
+      "create display charts with sentences which feature will and shall."
+     ],
+     "inquiry_questions": [
+      "1. Which words do we use to show future time?",
+      "2. How do you tell that something will happen in the future?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Communication and Collaboration is enhanced as the learner expresses future plans using will and shall in pairs.",
+      "Self-efficacy is developed as the learner acquires the skill of making sentences about activities they plan do in future. Values: Social justice is developed as the learner shows democracy when they engage in role play activities to plan or wish for what to do in future. Pertinent and Contemporary Issues (PCIs): Effective Communication is realised as the learner practises basic sentence structures that express the future that they will use in their daily communication. Link to other Learning Areas: The learner uses the concept of future time in other language areas such as Kiswahili."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade5-english.pdf#p66"
+    },
+    {
+     "kicd_code": "8.3.1",
+     "name": "Sentences",
+     "suggested_duration": "3 lessons",
+     "learning_outcomes": [
+      "identify questions tags and double imperatives from a text",
+      "use question tags and double imperatives correctly in sentences",
+      "advocate the correct use of double imperatives and question tags in communication."
+     ],
+     "learning_experiences": [
+      "fill in gaps in sentences using double imperatives",
+      "select question tags from a story, dialogue or poem",
+      "match statements with the correct question tag",
+      "practise giving instructions related to the theme using double imperatives such as: shut down your tablets and listen to the teacher. Type this word in your tablet and look up its meaning",
+      "role play giving and receiving of instructions at home using double imperatives",
+      "use double imperatives to make rules for their classroom and display them in charts or posters",
+      "write correct sentences using double imperatives."
+     ],
+     "inquiry_questions": [
+      "1. What are some of your school rules?",
+      "2. How do you give instructions?",
+      "3. Why do we ask questions?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed: Self-efficacy is fostered as the learner formulates school or class rules using double imperatives. Values: Respect is developed as the learner practises using question tags and giving instructions in different contexts. Pertinent and Contemporary Issues (PCIs): Life Skill Education: Effective communication is developed as the learner role plays giving and receiving of instructions at home using double imperatives. Link to other Learning Areas: The learner applies the knowledge of imperatives to the same concept in Kiswahili."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade5-english.pdf#p74"
+    },
+    {
+     "kicd_code": "9.3.1",
+     "name": "Word Class: Adverbs",
+     "suggested_duration": "3 lessons",
+     "learning_outcomes": [
+      "identify adverbs of manner, time, place and frequency in a text",
+      "use adverbs correctly in oral and written contexts",
+      "use the modals could and would and the phrase how many...could/would in sentences correctly",
+      "judge the appropriateness of adverbs used in oral and written texts."
+     ],
+     "learning_experiences": [
+      "identify and list adverbs from a digital or print text collaboratively",
+      "make sentences from a substitution table using the pattern how many...could/would",
+      "fill in blank spaces with appropriate adverbs",
+      "construct sentences using adverbs of manner, time place and frequency",
+      "recite poems containing adverbs with peers",
+      "create a crossword puzzle using different types of adverbs."
+     ],
+     "inquiry_questions": [
+      "1. How do we describe when, how, where and how many times an action takes place?",
+      "2. Which word or words do we use to ask questions?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Self-efficacy is enhanced as the learner recites poems containing adverbs and creates a crossword puzzle using different types of adverbs individually.",
+      "Creativity and Imagination is achieved as the learner engages in creative activities like creating crossword puzzles using different types of adverbs. Values: Responsibility is enhanced as learners use adverbs to talk about different actions. Pertinent and Contemporary Issues (PCIs): Life skills: Effective Communication is enhanced as the learner constructs sentences using different types of adverbs. They use this knowledge and skill to communicate effectively. Link to other Learning Areas: The learner can apply the knowledge gained in different types of adverbs to learn similar concept in Kiswahili."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade5-english.pdf#p83"
+    },
+    {
+     "kicd_code": "10.3.1",
+     "name": "Word Class: Conjunctions",
+     "suggested_duration": "3 lessons",
+     "learning_outcomes": [
+      "identify conjunctions: but, or, yet, because, since and also, in texts for effective communication",
+      "use conjunctions but, or, yet, because, since and also, correctly in communication",
+      "judge the correctness and appropriateness of conjunctions in oral and written texts."
+     ],
+     "learning_experiences": [
+      "listen to a short dialogue and identify conjunctions",
+      "make sentences from a substitution table using but, or, yet, because, since and also",
+      "construct sentences using conjunctions with peers",
+      "fill in blank spaces using conjunctions in sentences or paragraphs",
+      "create a display chart of sentences containing conjunctions with peers",
+      "conduct a gallery walk and give feedback to each group."
+     ],
+     "inquiry_questions": [
+      "1. Why do you join words and sentences?",
+      "2. How do you join words or sentences?"
+     ],
+     "core_competencies": [
+      "Collaboration is enhanced as the learner constructs sentences using conjunctions collaboratively with peers.",
+      "Creativity and imagination is developed as the learner creates a display chart and conducts a gallery walk giving feedback on the displayed charts."
+     ],
+     "values": [
+      "Values: Respect is fostered as the learner creates a display chart of sentences containing conjunctions with peers . Pertinent and Contemporary Issues (PCIs):",
+      "Life Skills Education is developed as the learner efficiently constructs sentences using conjunctions for effective communication.",
+      "Education for Sustainable Development (ESD): Safety education is emphasised as the learner learns how to use leisure time by engaging in constructive and educative activities. Link to other Learning Areas: The learner applies the knowledge on the use of conjunction to other areas that have similar concepts such as Kiswahili."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade5-english.pdf#p92"
+    },
+    {
+     "kicd_code": "11.3.1",
+     "name": "Use of Interrogatives",
+     "suggested_duration": "3 lessons",
+     "learning_outcomes": [
+      "identify interrogatives: how, what, when, why, who in sentences correctly",
+      "use interrogatives how much more..., when/who/why/what else accurately in sentences",
+      "adopt the use of interrogatives used in oral and written texts."
+     ],
+     "learning_experiences": [
+      "mention the words used to ask questions -how, what, when, why, who",
+      "use the wh-words and how to ask questions collaboratively",
+      "construct questions using the pattern: how much more..., when/who/why/what else with peers for example, who else attended the ceremony? how much more sugar was bought?",
+      "use the interrogatives with: else, much to complete sentences",
+      "use digital devices to practice constructing questions with peers."
+     ],
+     "inquiry_questions": [
+      "1. Why do we ask questions?",
+      "2. How do we ask questions?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Learning to Learn is inculcated as the learner learns to use interrogatives correctly.",
+      "Collaboration is enhanced as the learner works collaboratively to construct questions using the target pattern. Values: Respect is cultivated when the learner uses digital devices to practice constructing questions with peers . Pertinent and Contemporary Issues (PCIs): Social cohesion is reinforced as the learner engages in collaborative activities with peers to use interrogatives as guided. Link to other Learning Areas: The learner can relate the concept of interrogatives to similar concept learnt in Kiswahili."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade5-english.pdf#p100"
+    },
+    {
+     "kicd_code": "12.3.1",
+     "name": "Word Class: Nouns",
+     "suggested_duration": "3 lessons",
+     "learning_outcomes": [
+      "identify nouns which occur as same in both singular and plural from given sentences",
+      "use nouns which occur as same in both singular and plural to make sentences",
+      "collaborate with others to determine the correctness and appropriateness of nouns used in various texts."
+     ],
+     "learning_experiences": [
+      "identify and underline nouns which occur as same in both singular and plural sentences",
+      "construct sentences with peers using nouns which only occur in singular or plural such as news, dirt, waste and rubbish",
+      "practise a conversation using plurals of nouns which occur as same in both singular and plural collaboratively",
+      "watch videos on nouns which only occur in singular or plural and answer questions",
+      "create display charts on nouns which occur as same in both singular and plural in sentences."
+     ],
+     "inquiry_questions": [
+      "1. Why is it important to use words correctly?",
+      "2. Which singular nouns end with letter -s?"
+     ],
+     "core_competencies": [
+      "Collaboration is developed as the learner uses words correctly to construct sentences with peers.",
+      "Digital Literacy is achieved as the learner watches videos on nouns which only occur in singular or plural and answer questions."
+     ],
+     "values": [
+      "Values: Responsibility is enhanced as the learner constructs sentences related to the theme thereby enhancing their awareness about the need to conserve the environment. Pertinent and Contemporary Issues (PCIs): Social cohesion is promoted as the learner engages in collaborative activities to create and display charts on nouns occurring as either singular or plural. Link to other Learning Areas: The learner can link the concept of nouns that exist either as singular or plural to similar concepts in Kiswahili."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade5-english.pdf#p108"
+    },
+    {
+     "kicd_code": "13.3.1",
+     "name": "Word Class: Prepositions",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "identify prepositions of time, in, on, at; place in, on, at and direction into, towards, to, through in sentences",
+      "use prepositions of time, place and direction appropriately for effective communication",
+      "appreciate the accuracy, appropriateness and correctness of prepositions used in varied texts."
+     ],
+     "learning_experiences": [
+      "underline prepositions of time, place and direction in sample sentences:",
+      "time such as in, on, at",
+      "place such as: in, on, at",
+      "direction such as: into, towards, to, through",
+      "play preposition games and songs online/offline",
+      "construct sentences using prepositions individually",
+      "watch videos and online material on prepositions collaboratively",
+      "create display charts containing prepositions of time and direction",
+      "create crossword puzzles using prepositions",
+      "solve code words and crossword puzzles involving prepositions",
+      "search for prepositions online, from newspapers magazines among others."
+     ],
+     "inquiry_questions": [
+      "1. Which words show direction and time?",
+      "2. Why is it important to show time and direction?"
+     ],
+     "core_competencies": [
+      "Core Competency to be developed:",
+      "Communication and Collaboration is enhanced as the learner sings and plays preposition games with peers.",
+      "Digital Literacy is promoted as learners watch videos and online materials on prepositions collaboratively. Values: Responsibility is inculcated as the learner takes initiative to display charts containing prepositions of time and direction. Pertinent and Contemporary Issues (PCIs): Life Skills Education – Effective communication is enhanced as the learner uses prepositions accurately in communication. Link to other Learning Areas: The learner applies the knowledge of preposition to similar concepts learnt in Kiswahili."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade5-english.pdf#p117"
+    }
+   ]
+  },
+  {
+   "strand": "Writing",
+   "strand_code": "1.4",
+   "assessment_rubric": [],
+   "substrands": [
+    {
+     "kicd_code": "1.4.1",
+     "name": "Functional Writing: Filling Forms",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "record specific details: personal information, school information, parents’ /guardians’ details, religion/county information, favourite sport, hobby among others in a variety of forms",
+      "design a form to obtain the required information",
+      "acknowledge the importance of filling forms correctly."
+     ],
+     "learning_experiences": [
+      "search for sample forms from the internet, individually",
+      "select the information to be filled in a form collaboratively",
+      "fill a form related to the theme using the following details: personal information, school information, parents’ /guardians’ details, religion/county information, favourite sport, hobby among others",
+      "discuss the importance of filling forms correctly with peers",
+      "design a form to obtain information with peers and upload it online.",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "1. Why do we fill forms?",
+      "2. Why is it important to fill forms accurately?",
+      "3. What details do we fill in forms?",
+      "Suggested Key Inquiry Question(s)"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Digital Literacy is developed as the learner manipulates digital devices to upload forms on the internet.",
+      "Creativity and imagination is enhanced as the learner embraces ideas that inspire creativity when designing forms. Values: Responsibility is fostered as the learner diligently designs a form based on the theme with peers. Pertinent and Contemporary Issues (PCIs):",
+      "Life Skills Education-effective communication skills are developed as the learner discusses the importance of filling forms correctly with peers.",
+      "Social cohesion is enhanced as learners work jointly to accomplish tasks. Link to other Learning Areas: The learner applies the content related to child rights and responsibilities which they learnt in Social Studies."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade5-english.pdf#p19"
+    },
+    {
+     "kicd_code": "2.4.1",
+     "name": "Creative Writing: Open ended Compositions",
+     "suggested_duration": "3 lessons",
+     "learning_outcomes": [
+      "select relevant points when planning a composition",
+      "write an open-ended composition for comprehension",
+      "advocate for the use of creativity in writing."
+     ],
+     "learning_experiences": [
+      "brainstorm possible points to include in their composition",
+      "write the first paragraph with peers while observing correct punctuation and spelling",
+      "complete the composition of about (100-150 words)",
+      "work jointly to proofread their compositions",
+      "display the completed compositions in class",
+      "conduct a gallery walk and give feedback",
+      "search and read compositions online.",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "1. How do we express ideas on different topics?",
+      "2. Why do we share ideas?",
+      "Suggested Key Inquiry Question(s)"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Learning to learn is promoted as the learner reflects on their learning as they work collaboratively with peers to proofread compositions.",
+      "Critical Thinking and problem solving is advanced as the learner brainstorms on possible points to use when writing compositions and when they complete the composition. Values: Responsibility is enhanced as the learner offers leadership and guidance to others as they collaborate to plan and create compositions. Pertinent and Contemporary Issues (PCIs): Life Skill Education is achieved as the learner expresses ideas effectively during discussion and in writing composition. Link to other Learning Areas: The learner applies the skill of composition writing when learning other subject like Kiswahili."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade5-english.pdf#p27"
+    },
+    {
+     "kicd_code": "3.4.1",
+     "name": "Mechanics of Writing: Handwriting",
+     "suggested_duration": "3 lessons",
+     "learning_outcomes": [
+      "identify text written in joined letters or cursive script",
+      "write legibly using joined letters/cursive script",
+      "recommend ways of improving legibility and neatness in written communication."
+     ],
+     "learning_experiences": [
+      "copy words, sentences, and paragraphs using joined letters in their books",
+      "observe visuals/pictures and compose a story of about (100-120 words) in cursive script",
+      "discuss the importance of writing legibly and neatly as a class",
+      "team up to search for information from the internet or print sources and make notes.",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "1. Why should we write legibly and neatly?",
+      "2. How can you improve your handwriting?",
+      "Suggested Key Inquiry Question(s)"
+     ],
+     "core_competencies": [
+      "Creativity and imagination is developed as the learner uses visuals to write notes.",
+      "Digital Literacy is enhanced as the learner uses internet resources to search for information on visual composition."
+     ],
+     "values": [
+      "Values: Respect is fostered as the learner accommodates diverse opinions from peers as they search for material featuring the theme and write compositions based on the characters, places or event. Pertinent and Contemporary Issues (PCIs): Life skills Education -self-esteem and confidence are enhanced as the learner becomes more proficient in self-expression. Link to other Learning Areas: The learner uses legible handwriting to write texts in all learning areas as legible and neat handwriting is emphasised."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade5-english.pdf#p35"
+    },
+    {
+     "kicd_code": "4.4.1",
+     "name": "Functional Writing: Friendly Letter",
+     "suggested_duration": "3 lessons",
+     "learning_outcomes": [
+      "identify the components of a friendly letter from a sample letter",
+      "write a friendly letter using the correct format for effective communication",
+      "judge the appropriateness of words, phrases and sentences used in friendly letters."
+     ],
+     "learning_experiences": [
+      "read a sample friendly letter with peers and pick out the parts such as address, salutation, date, complimentary close among others",
+      "pick words related to the theme such as (pedestrian crossing, risk, slide, smog, brake, emergency, police, license, prevent, safety, vehicle, prevention)",
+      "write a reply to a friendly letter using the new words and the correct format",
+      "proofread/edit the letter collaboratively",
+      "present the edited version to other groups",
+      "work jointly to search for more examples of friendly letters on the internet.",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "1. How do you communicat e with people who are far away?",
+      "2. Why do we write letters?",
+      "Suggested Key Inquiry Question(s)"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Learning to Learn is enhanced as the learner searches for more examples of friendly letters on the internet.",
+      "Creativity and Imagination is promoted as the learner composes friendly letters using the correct format. Values: Love is enhanced as learners reply friendly letters from peers. Pertinent and Contemporary Issues (PCIs): Life Skills Education: Effective communication is developed as the learner learns how to write a friendly letter. Link to other Learning Areas: The learner applies the skills and knowledge derived from letter writing to similar concept learnt in Kiswahili."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade5-english.pdf#p43"
+    },
+    {
+     "kicd_code": "5.4.1",
+     "name": "Creative Writing: Narrative Compositions",
+     "suggested_duration": "3 lessons",
+     "learning_outcomes": [
+      "identify the parts of a narrative composition",
+      "write coherently on different topics",
+      "create a narrative composition for self-expression",
+      "promote creativity in writing among peers."
+     ],
+     "learning_experiences": [
+      "brainstorm ideas for a narrative composition collaboratively with peers",
+      "read samples of narrative compositions with peers",
+      "identify the parts of a narrative composition",
+      "compose a narrative of 120 -160 words individually or collaboratively",
+      "practise writing own narratives",
+      "listen or view a recording of a narrative and rewrite it in own words",
+      "proofread each other’s work and give feedback.",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "1. Why do you enjoy reading stories?",
+      "2. How do you make your composition interesting?",
+      "Suggested Key Inquiry Question(s)"
+     ],
+     "core_competencies": [
+      "Creativity and Imagination is enhanced as the learner creates and writes stories.",
+      "Learning to learn is developed as the learner listens or view a recording of a narrative and re-write it in own words"
+     ],
+     "values": [
+      "Values: Patriotism is developed as learners create narrative compositions featuring traditional foods for different communities showing respect for each other. Pertinent and Contemporary Issues (PCIs): Life skills (Assertiveness) is enhanced as the learner masters the art of creative writing and can freely express themselves via writing. Link to other Learning Areas: The learner applies the knowledge about traditional food crops to other subjects such as Agriculture and Science and Technology which have similar concepts."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade5-english.pdf#p51"
+    },
+    {
+     "kicd_code": "6.4.1",
+     "name": "Creative Writing: Pictorial Composition",
+     "suggested_duration": "3 lessons",
+     "learning_outcomes": [
+      "choose possible topics for pictorial compositions",
+      "create a composition based on the visuals or pictures",
+      "judge visuals appropriately for creativity in writing."
+     ],
+     "learning_experiences": [
+      "interpret pictures collaboratively with peers",
+      "match the pictures with the different parts of a composition: beginning, middle and end",
+      "watch a variety of pictorial compositions collaboratively with peers",
+      "arrange different pictures logically to write a story coherently",
+      "write a pictorial composition of about 120 -160 words",
+      "proof read the pictorial composition",
+      "display their compositions in the classroom.",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "1. Why do we enjoy looking at pictures?",
+      "2. What messages do pictures communicate?",
+      "Suggested Key Inquiry Question (s)"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Communication and Collaboration is enhanced as the learner works with peers to watch a variety of pictorial compositions.",
+      "Creativity and Imagination is nurtured as the learner interprets pictures and writes stories. Values: Responsibility is achieved as the learner takes up assigned roles of creating and proofreading pictorial compositions. Pertinent and Contemporary Issues (PCIs): Life Skill Education: Effective communication is enhanced as the learner expresses themselves in writing a pictorial composition of about 120 -160 words. Link to other Learning Areas: The learner can apply the skills to similar concepts in Art and Craft drawing, and Social Studies which features interpretation of maps and charts."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade5-english.pdf#p60"
+    },
+    {
+     "kicd_code": "7.4.1",
+     "name": "Mechanics of Writing: Punctuation",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "identify commas and double quotation marks in written texts",
+      "use the comma and double quotation marks correctly in sentences",
+      "advocate the use of correct punctuation in written communication."
+     ],
+     "learning_experiences": [
+      "read a short text and identify punctuation marks used collaboratively with peers",
+      "use commas to show pauses between words, phrases or clauses",
+      "complete sentences using double quotation marks and commas",
+      "pick out sentences with double quotation marks in newspapers, magazines, articles or internet resources",
+      "play punctuation games with peers",
+      "create posters or charts with sentences with double quotation marks and commas and display them in class.",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "1. Which punctuation marks do you know?",
+      "2. Why do we punctuate sentences?",
+      "Suggested Key Inquiry Question(s)"
+     ],
+     "core_competencies": [
+      "Core Competency to be developed: Digital literacy is developed as the learner explores internet resources on the use of the comma and double punctuation marks. Values: Responsibility is enhanced as the learner takes up assigned duties and roles in creating posters with sentences using correct use of punctuation marks. Pertinent and Contemporary Issues (PCIs): Life Skills Education: effective communication is enhanced as the learner works collaboratively when picking out magazines, reading and identifying punctuation marks used. Link to other Learning Areas: The learner applies the concept of correct punctuation in writing in all learning areas particularly in Kiswahili."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade5-english.pdf#p68"
+    },
+    {
+     "kicd_code": "8.4.1",
+     "name": "Creative Writing",
+     "suggested_duration": "3 lessons",
+     "learning_outcomes": [
+      "identify similes and proverbs in a variety of texts",
+      "use similes and proverbs correctly in oral and written texts",
+      "create a narrative composition featuring similes and proverbs",
+      "advocate the use of similes and proverbs to enhance creativity in writing."
+     ],
+     "learning_experiences": [
+      "read narratives with formulaic expressions in print and digital format",
+      "list similes and proverbs in texts collaboratively",
+      "create a clear and coherent storyline using proverbs and similes",
+      "engage in a dialogue to advance plot and storyline",
+      "compose a story featuring similes and proverbs with peers",
+      "write creative compositions featuring similes and proverbs, individually",
+      "team up to create and display charts with proverbs and similes.",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "1. How do we make our compositions interesting?",
+      "2. Which similes and proverbs do you know?",
+      "Suggested Key Inquiry Question(s)"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Self-efficacy is enhanced as the learner becomes more proficient in writing creative compositions.",
+      "Creativity and imagination is fostered as the learner engages in a dialogue to advance a storyline and composes narratives on various topics related to the theme. Values: Unity is fostered as the learners list similes and proverbs in texts collaboratively. Pertinent and Contemporary Issues (PCIs): Life Skills Education is developed as writing compositions enhances effective communication skills in the learner. Link to other Learning Areas: The learner relates this aspect of creative writing to similar skills learnt in Kiswahili."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade5-english.pdf#p76"
+    },
+    {
+     "kicd_code": "9.4.1",
+     "name": "Mechanics of Writing: Punctuation Marks",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "identify the apostrophe and exclamation mark in sentences",
+      "punctuate sentences correctly using the apostrophe and the exclamation mark",
+      "collaborate with others to punctuate own or provided documents."
+     ],
+     "learning_experiences": [
+      "listen to a short oral text and write the text with the correct punctuation marks",
+      "underline the apostrophe and exclamation marks in a text with peers",
+      "construct sentences using the apostrophe and exclamation mark",
+      "watch online videos or slides about the correct use of the apostrophe and exclamation mark",
+      "create and display charts or posters with sentences in which the apostrophe and exclamation mark are used collaboratively with peers",
+      "conduct a gallery walk and view the charts made by each group of peers."
+     ],
+     "inquiry_questions": [
+      "1. Which punctuation marks do you know?",
+      "2. Why do we punctuate sentences?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Creativity and Imagination is enriched as the learner develops and displays posters and charts in the classroom for peers to review.",
+      "Learning to Learn is developed as the learner searches for information on the internet and learns surfing skills. Values: Responsibility is developed as the learner creates and displays charts using different types of sentences and punctuates them correctly. Pertinent and Contemporary Issues (PCIs): Health Education is enhanced as the learner interacts with material on common communicable diseases both offline and online. Link to other Learning Areas: Punctuation marks are used in all areas of learning as the learner takes down notes. Kiswahili in particular is an area that the learner can apply this concept, as it teaches on punctuation as a skill."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade5-english.pdf#p85"
+    },
+    {
+     "kicd_code": "10.4.1",
+     "name": "Creative Writing: Descriptive Composition (120 -160 words)",
+     "suggested_duration": "3 lessons",
+     "learning_outcomes": [
+      "describe people or things mentioned in a text",
+      "create a descriptive composition related to the theme for effective communication",
+      "critique a composition on the choice of words, creativity, relevance to theme and logical flow",
+      "appreciate a well written composition from a text"
+     ],
+     "learning_experiences": [
+      "read a sample composition from print or electronic sources",
+      "talk about people or things in the text",
+      "make sentences to describe how they spent their leisure time collaboratively",
+      "organise the sentences to make a paragraph collaboratively",
+      "write a descriptive composition individually",
+      "proof read the composition with peers.",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "1. How do we describe things or events?",
+      "2. Why is it important to describe things or events clearly?",
+      "Suggested Key Inquiry Question(s)"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Communication and Collaboration is developed as the learner collaboratively makes sentences to describe how they spent their leisure time collaboratively.",
+      "Learning to learn is enhanced as the learner builds on reflective learning by creating own compositions and proofreading the composition written by peers. Values: Respect is fostered as the learner writes descriptive compositions about various characters. Pertinent and Contemporary Issues (PCIs): Life Skills Education is nurtured as the learner acquires effective communication skills when organising and writing compositions. Link to other Learning Areas: The learner can apply descriptive composition writing skills to Kiswahili as they learn the same concept."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade5-english.pdf#p94"
+    },
+    {
+     "kicd_code": "11.4.1",
+     "name": "Spelling",
+     "suggested_duration": "3 lessons",
+     "learning_outcomes": [
+      "spell selected words correctly for effective communication",
+      "use homophones and homonyms in sentences correctly",
+      "advocate for the use of correct spelling of words in written communication."
+     ],
+     "learning_experiences": [
+      "The learner should be guided to:",
+      "discuss with peers the words they find difficult to spell",
+      "make a presentation on correct spelling of homophones and homonyms",
+      "write words from a dictation by the teacher or from an audio-visual recording",
+      "play spelling games with peers; for example, scramble or scrabble",
+      "use a jigsaw puzzle to form words correctly with peers",
+      "make words from jumbled up letters.",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "1. Which words do you find difficult to write?",
+      "2. How do we learn to spell words correctly?",
+      "Suggested Key Inquiry Question(s)"
+     ],
+     "core_competencies": [
+      "Communication and Collaboration is enhanced as the learner plays spelling games with peers; for example, scramble or scrabble.",
+      "Critical Thinking and Problem Solving is nurtured as the learner makes words from jumbled up letters, play spelling games like scrabble or scramble with peers.",
+      "Learning to Learn is inculcated as the learner makes effort to spell words they find difficult to spell."
+     ],
+     "values": [
+      "Values: Responsibility is promoted as learners write examples of different words and play spelling games such as scrabble while working with peers. Pertinent and Contemporary Issues (PCIs): Life Skills Education - Effective communication and interpersonal communication is promoted as learners write words from a dictation by the teacher or from an audio-visual recording. Link to other Learning Areas: The learner relates the concept of proper spelling of words to similar concepts learnt in Kiswahili."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade5-english.pdf#p102"
+    },
+    {
+     "kicd_code": "12.4.1",
+     "name": "Functional Writing: Diary",
+     "suggested_duration": "3 lessons",
+     "learning_outcomes": [
+      "identify the key components of a diary/journal from a sample diary/journal",
+      "create a journal/diary to convey desired information in the right format",
+      "collaborate with peers to create personal journals and diaries on varied topics."
+     ],
+     "learning_experiences": [
+      "view a sample diary sample journal/and identify the components",
+      "write journal/diary entries with peers",
+      "create an appointment diary collaboratively",
+      "create a three-day journal with peers",
+      "display their work in class and take a gallery walk",
+      "give feedback to each group about their work after the gallery walk",
+      "search for examples of diaries or journals on the internet, textbooks or the library",
+      "create a diary or journal individually.",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "1. Why should we plan our activities in advance?",
+      "2. What is the most memorable experience in your life?",
+      "Suggested Key Inquiry Question(s)"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed: Creativity and imagination is developed as the learner creates an appointment diary collaboratively. Values: Unity is fostered as learners create a three-day journal with peers. Pertinent and Contemporary Issues (PCIs) Life Skills Education - Effective communication is enhanced as the learner gives feedback to each group about their work after the gallery walk. Link to other Learning Areas: The skill of writing diaries and journals is applied by the learner to other learning areas such as Kiswahili."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade5-english.pdf#p110"
+    },
+    {
+     "kicd_code": "13.4.1",
+     "name": "Spelling",
+     "suggested_duration": "3 lessons",
+     "learning_outcomes": [
+      "identify homophones, words with double consonants and words with double vowels correctly",
+      "spell homophones, words with double consonants and words with double vowels correctly",
+      "uses homophones, words with double consonants and words with double vowels in sentences correctly",
+      "recommend to peers ways of enhancing their spelling skills for clarity of communication",
+      "collaborate with others to judge the appropriateness of words, phrases and sentences used in own or provided documents."
+     ],
+     "learning_experiences": [
+      "identify homophones, words with double consonants such as slipped, clapping, carefully and words with double vowels from a text",
+      "listen to words read by the teacher or from audio recording for example: -waist/waste -collect/dropped",
+      "write down words from a dictation correctly",
+      "use a jigsaw puzzle to form words correctly with peers",
+      "make words from jumbled up letters",
+      "form sentences from the words they have spelt",
+      "• search for homophones, words with double consonants and words with double vowels from the internet."
+     ],
+     "inquiry_questions": [
+      "1. Why should we write words correctly?",
+      "2. Which words have the same pronunciation but different spelling?"
+     ],
+     "core_competencies": [
+      "Creativity and problem solving is enhanced as the learner makes words from jumbled up letters.",
+      "Learning to Learn is fostered as learners build on their own learning when searching for homophones, words with double consonants and words with double vowels from the internet."
+     ],
+     "values": [
+      "Unity is developed as the learner creates puzzles and rearranges jumbled up sentences collaboratively with peers."
+     ],
+     "pertinent_issues": [
+      "Financial literacy is enhanced as the learner interacts with vocabulary about money."
+     ],
+     "links_to_other_areas": [
+      "The learner applies the skill of proper spelling in all learning areas especially Kiswahili."
+     ],
+     "resources": [],
+     "kicd_source": "grade5-english.pdf#p119"
+    }
+   ]
+  },
+  {
+   "strand": "Listening and Speaking",
+   "strand_code": "2.0",
+   "assessment_rubric": [],
+   "substrands": [
+    {
+     "kicd_code": "2.1.1",
+     "name": "Pronunciation and Vocabulary",
+     "suggested_duration": "3 lessons",
+     "learning_outcomes": [
+      "identify words, phrases, and sentences containing the target sounds/p/ /b/ from texts",
+      "construct sentences orally using words related to the theme",
+      "listen for the main idea",
+      "and specific details for effective communication",
+      "interpret a speaker’s feelings and emotions (non-verbal cues) correctly during an oral presentation",
+      "realise the importance of non-verbal cues and appropriate word choice in communication."
+     ],
+     "learning_experiences": [
+      "identify words with these sounds: /p/ /b/ from print materials such as newspapers, magazines",
+      "listen to audio-visual recordings of dialogue containing the sounds /b/ /p/",
+      "visualise saying tongue twisters with the sounds /b/ /p/",
+      "discuss with peers the vocabulary used in the text and construct sentences using the vocabulary",
+      "respond correctly to questions based on the dialogue.",
+      "Role plays the events depicted in the dialogue",
+      "interpret gestures, eye contacts, and facial expressions correctly."
+     ],
+     "inquiry_questions": [
+      "1. Why should we listen carefully?",
+      "2. Why do we take turns when talking?"
+     ],
+     "core_competencies": [
+      "Self-efficacy is enhanced as the learner role plays and constructs sentences using learnt vocabulary.",
+      "Learning to Learn is advanced as the learner builds on their own learning by taking short notes from the text they have listened to.",
+      "Digital Literacy is developed as the learner listen to audio-visual recordings of words containing sounds /b/ and /p/ in real use."
+     ],
+     "values": [
+      "Unity is fostered as the learner collaborates with others to engage in role play and answers questions related to the theme."
+     ],
+     "pertinent_issues": [
+      "Life Skills Education: effective communication and self-awareness are enhanced as the learner differentiates the sounds /b/ and /p/ to communicate clearly."
+     ],
+     "links_to_other_areas": [
+      "The learner can relate the content in pronunciation and effective listening to similar concepts as sounds are learnt in Kiswahili."
+     ],
+     "resources": [],
+     "kicd_source": "grade5-english.pdf#p21"
+    },
+    {
+     "kicd_code": "3.1.1",
+     "name": "Pronunciation and Vocabulary",
+     "suggested_duration": "3 lessons",
+     "learning_outcomes": [
+      "identify polite words, phrases, and expressions in oral contexts",
+      "construct sentences orally using words",
+      "related to the theme",
+      "listen for specific sounds in words, phrases, and expressions",
+      "use polite words, phrases, and expressions to compliment others",
+      "recommend appropriate words and phrases for expressing politeness."
+     ],
+     "learning_experiences": [
+      "listen to correct pronunciation of sounds, phrases, and expressions from the teacher, audio-visual recordings among others",
+      "practise saying the sound /ɔɪ/ in words.",
+      "practise using polite words",
+      "and phrases with peers",
+      "role play the use of polite words, phrases, and expressions during meals",
+      "access correct pronunciation of sounds, words, phrases, and expressions from digital texts",
+      "listen to/recite poems with words featuring the target sounds."
+     ],
+     "inquiry_questions": [
+      "1. Why should you use polite expressions when talking to others?",
+      "attentively?",
+      "3. Which words, phrases, or expressions do we use to show politeness?"
+     ],
+     "core_competencies": [
+      "Self-Efficacy is nurtured as the learner engages in role play using polite words, phrases and expressions.",
+      "Digital Literacy is achieved as the learner uses digital devices to listen to the pronunciation of target sounds, words and phrases."
+     ],
+     "values": [
+      "Love is inculcated as the learner puts the interests of others first through role play as well as listening/reciting poems related to the theme."
+     ],
+     "pertinent_issues": [
+      "Life Skills Education: effective communication is enhanced through the proper articulation of sounds and use of polite expressions."
+     ],
+     "links_to_other_areas": [
+      "This learner is able to relate the concept on etiquette and table manners to the learning of similar concepts in Agriculture"
+     ],
+     "resources": [],
+     "kicd_source": "grade5-english.pdf#p29"
+    },
+    {
+     "kicd_code": "4.1.1",
+     "name": "Pronunciation and Vocabulary",
+     "suggested_duration": "3 lessons",
+     "learning_outcomes": [
+      "list words whose meaning differs according to pronunciation (Word Stress (contrast between, nouns/verbs, verb",
+      "construct sentences orally using words related to the theme",
+      "pronounce words using the correct stress",
+      "use vocabulary related to the theme correctly",
+      "advocate for the importance of correct use of stress in communication."
+     ],
+     "learning_experiences": [
+      "recite a poem featuring the words skid, speed, hit and run, reckless, block, traffic, fatal, rescue, ambulance, road signs",
+      "apply the correct stress on the words skid, speed, hit and run, reckless, block, traffic, fatal, rescue, ambulance, road signs",
+      "listen/watch to an audio-visual",
+      "material on pronunciation",
+      "list the words that are stressed",
+      "practise saying words using the correct stress, with peers for example; conflict (verb)/conflict (noun), subject",
+      "/subject (noun)",
+      "work jointly to identify the word class of the stressed word",
+      "say words containing the sounds /t/ and /d/",
+      "construct sentences orally using the new vocabulary",
+      "take part in a language game involving word stress."
+     ],
+     "inquiry_questions": [
+      "1. Why should we pronounce words correctly?",
+      "2. Why do words have different meanings at times?"
+     ],
+     "core_competencies": [
+      "Communication and Collaboration is enhanced as the learner practises correct pronunciation of sounds and words in small groups.",
+      "Self-efficacy is developed as learners recite poems and stress words correctly."
+     ],
+     "values": [
+      "Peace is fostered as the learner displays tolerance with peers struggling to distinguish between sounds /t/ and /d/ during pronunciation and they as help one another to improve their pronunciation."
+     ],
+     "pertinent_issues": [
+      "Safety and security is promoted as the learner interacts with content on accident prevention."
+     ],
+     "links_to_other_areas": [
+      "The learner applies the knowledge derived from the theme accident and road safety to the concept of accidents is learnt in such learning areas as Environmental Studies."
+     ],
+     "resources": [],
+     "kicd_source": "grade5-english.pdf#p37"
+    },
+    {
+     "kicd_code": "5.1.1",
+     "name": "Listening Comprehension",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "recognise sounds, words and phrases correctly",
+      "listen for the main idea and specific details for effective communication",
+      "use adjectives to construct sentences orally",
+      "display varied emotions and feelings during an oral presentation."
+     ],
+     "learning_experiences": [
+      "listen to a speech and pick out words containing sound /e/",
+      "interpret non-verbal cues such as gestures, facial expressions and eye contact collaboratively with peers",
+      "prepare and make a speech while collaborating with peers",
+      "listen to correct pronunciation of sounds, words and phrases from the teacher or audio-visual recordings",
+      "listen to a poem with various adjectives describing traditional foods",
+      "recite the poem with peers and pick out adjectives",
+      "search for examples of adjectives in the internet, newspapers and magazines."
+     ],
+     "inquiry_questions": [
+      "1. Why should we pronounce sounds correctly?",
+      "2. Which words do we use to describe things, people or events?"
+     ],
+     "core_competencies": [
+      "Citizenship is inculcated as the learner discusses and appreciates traditional foods from different communities.",
+      "Self-efficacy is enhanced as the learner’s confidence is enhanced as they recite poems and make speeches while collaborating with peers."
+     ],
+     "values": [
+      "Patriotism is developed as the learner shows awareness of own culture and respect for others’ culture as they listen to poems describing traditional foods."
+     ],
+     "pertinent_issues": [
+      "Cultural awareness: This is promoted as the learner interacts with texts on traditional foods."
+     ],
+     "links_to_other_areas": [
+      "The learner applies the skill of listening comprehension in all other learning areas as they all require listening skills as a learning prerequisite."
+     ],
+     "resources": [],
+     "kicd_source": "grade5-english.pdf#p45"
+    },
+    {
+     "kicd_code": "6.1.1",
+     "name": "Pronunciation and Vocabulary",
+     "suggested_duration": "3 lessons",
+     "learning_outcomes": [
+      "sort statements and questions based on rising and falling intonation",
+      "pronounce words and phrases with the target sounds /f/ and /v/, correctly",
+      "construct sentences orally using words related to the theme",
+      "use stress and intonation appropriately in statements and questions",
+      "advocate the need for correct stress and intonation in varied contexts."
+     ],
+     "learning_experiences": [
+      "reproduce appropriate patterns of stress and intonation in speech",
+      "sort the statements and questions on the basis of rising or falling intonation collaboratively with peers",
+      "practise saying words, phrases and sentences with the sounds /f/ and /v/",
+      "say tongue twisters with the sounds /f/ and /v/ collaboratively",
+      "watch a video of a dialogue in which statements and questions are used",
+      "recite a choral verse with peers",
+      "use the right intonation on a role play on telephone conversation",
+      "sing songs featuring stress and intonation."
+     ],
+     "inquiry_questions": [
+      "1. Why should we pronounce sounds and words correctly?",
+      "2. Why do we raise or lower our voices when speaking?"
+     ],
+     "core_competencies": [
+      "Communication and Collaboration is achieved as the learner reproduces appropriate patterns of stress and intonation in speech.",
+      "Self-Efficacy is nurtured as the learner practises saying words, phrases and sentences with the sounds /f/ and /v/."
+     ],
+     "values": [
+      "Values: Respect is developed as the learner displays understanding and appreciation of others’ efforts as they practise saying tongue twisters with the sounds /f/ and /v/. Pertinent and Contemporary Issues (PCIs): Life Skills Education: Effective communication is promoted as the learner makes telephone conversations using appropriate stress and intonation for effective communication. Link to other Learning Areas: The learner can apply the concept of stress and intonation to Kiswahili and other languages that expose learners to stress and intonation."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade5-english.pdf#p53"
+    },
+    {
+     "kicd_code": "7.1.1",
+     "name": "Pronunciation and Vocabulary",
+     "suggested_duration": "3 lessons",
+     "learning_outcomes": [
+      "identify words, phrases or sentences with the target sound: /ə/ and the diphthongs: /ɪə/ and /eɪ/ from a dialogue",
+      "construct sentences orally using words related to the theme",
+      "pronounce sounds correctly for accuracy in speech",
+      "use words and non-verbal cues to express different moods",
+      "challenge others to listen interactively for effective communication.",
+      "select relevant reading materials from a collection of books",
+      "read a variety of materials for information and pleasure",
+      "judge the appropriateness of reading materials on the basis of interest, complexity and subject."
+     ],
+     "learning_experiences": [
+      "select words with the sound: /ə/ and the diphthongs: /ɪə/ and /eɪ/ from a dialogue",
+      "take turns to read a dialogue collaboratively",
+      "interrupt a conversation appropriately",
+      "view a video of conversation and list words or phrases used to interrupt politely",
+      "say the target sounds as modelled from a recording",
+      "make sentences with words containing the sound: /ə/ and the diphthongs: /ɪə/ /eɪ/.",
+      "skim through reading materials to obtain the main idea",
+      "preview texts to determine suitability and relevance",
+      "scan materials for specific details collaboratively",
+      "select appropriate reading materials from a library",
+      "read the selected materials individually",
+      "share reflections on the books read collaboratively",
+      "keep a record of materials read."
+     ],
+     "inquiry_questions": [
+      "1. Why should we pronounce sounds and words correctly?",
+      "2. Why should you give others a chance to speak?",
+      "3. How do you tell if someone is happy or sad?",
+      "1. What kind of information do you find in books?",
+      "2. Why is it necessary to read many books?",
+      "3. What do you consider when choosing a material to read?"
+     ],
+     "core_competencies": [
+      "Self-efficacy is nurtured as the learner improves their pronunciation skills by practising pronouncing the target sounds.",
+      "Digital Literacy is developed as the learner interacts with digital devices while watching a video.",
+      "Core Competencies to be developed:",
+      "Collaboration is enhanced as the learner scans materials for specific details collaboratively",
+      "Learning to Learn is developed as the learner selects appropriate reading materials from a library. Values: Unity is enhanced as the learner cooperates and assists one another to select appropriate reading materials. Pertinent and Contemporary Issues (PCIs): Effective Communication is realised in the learner as they read the selected materials individually. Link to other Learning Areas: The learner applies the skill of extensive reading to select and read non-fiction materials in all the learning areas."
+     ],
+     "values": [
+      "Respect is enhanced as the learner exercises patience as they practise listening interactively, turn taking and correct use of non-verbal cues."
+     ],
+     "pertinent_issues": [
+      "Life Skill Education: effective communication is enhanced as the learner watches a video of conversation and sees how people to interrupt politely in real life conversations."
+     ],
+     "links_to_other_areas": [
+      "The learner can apply correct pronunciation to learning in Kiswahili."
+     ],
+     "resources": [],
+     "kicd_source": "grade5-english.pdf#p62"
+    },
+    {
+     "kicd_code": "8.1.1",
+     "name": "Pronunciation and Vocabulary",
+     "suggested_duration": "3 lessons",
+     "learning_outcomes": [
+      "list proverbs and sayings in a narrative",
+      "construct sentences orally using words related to the theme",
+      "pronounce words with the target sounds /k/ /g/ correctly",
+      "use words, proverbs and sayings appropriately in oral communication",
+      "display varied emotions and feelings when listening to an oral presentation."
+     ],
+     "learning_experiences": [
+      "listen to a narrative and select proverbs and sayings",
+      "match the vocabulary with their meanings",
+      "make oral sentences using vocabulary",
+      "practise saying words with the sounds /k/ /g/ with peers",
+      "create tongue twisters with the sounds /k/ /g/ with peers",
+      "search for vocabulary, proverbs and sayings in the internet collaboratively",
+      "listen and view stories of about 130 words and songs featuring proverbs and sayings",
+      "create posters and charts with common proverbs and sayings that the learners can relate to with peers and display them in the classroom."
+     ],
+     "inquiry_questions": [
+      "1. Why should we pronounce words correctly?",
+      "2. Which proverbs and sayings do you know?",
+      "3. Why are proverbs and sayings important in speech?"
+     ],
+     "core_competencies": [
+      "Digital Literacy is developed as the learner searches for proverbs and sayings from the internet.",
+      "Learning to Learn is nurtured as the learner appreciate the need to use correct pronunciation in various contexts for effective pronunciation."
+     ],
+     "values": [
+      "Unity developed as the learner cooperates with peers to practise using proverbs which encourage cooperation and unity among people."
+     ],
+     "pertinent_issues": [
+      "Environmental Education is enhanced as the learner is exposed to information about the farm and crops."
+     ],
+     "links_to_other_areas": [
+      "The learner uses the knowledge gained from the theme to learn some concepts in Social Studies on cash crops."
+     ],
+     "resources": [],
+     "kicd_source": "grade5-english.pdf#p70"
+    },
+    {
+     "kicd_code": "1.1.1",
+     "name": "Speaking Fluency: pronunciation",
+     "suggested_duration": "3 lessons",
+     "learning_outcomes": [
+      "list words with sound /h/ from an oral text",
+      "construct sentences orally using words related to the theme",
+      "speak accurately, at the right speed and with expression on a given topic",
+      "use vocabulary related to the theme correctly in oral communication",
+      "display appropriate emotions and feelings when making an oral presentation."
+     ],
+     "learning_experiences": [
+      "listen to a poem or narrative and identify words with the /h/ sound",
+      "retell a narrative in own words collaboratively",
+      "listen to graded texts with audio recordings of whole narratives",
+      "listen to music and pick out target sounds and vocabulary",
+      "watch news at home for fun, and retell the interesting episodes to peers and friends in the classroom",
+      "practise delivering the news highlights in the classroom",
+      "respond to oral questions on given texts confidently and with speed",
+      "make one-minute speeches on communicable diseases collaboratively with peers",
+      "recite poems on communicable diseases."
+     ],
+     "inquiry_questions": [
+      "1. Why is it important to speak accurately and express the right feelings?",
+      "2. How can you listen more attentively?",
+      "3. Which words do you use to talk about diseases?"
+     ],
+     "core_competencies": [
+      "Communication is enhanced as the learner makes short speeches about communicable diseases",
+      "Creativity and Imagination is developed as the learner collaboratively makes one-minute speeches on communicable diseases with peers."
+     ],
+     "values": [
+      "Values: Responsibility is enhanced as the learner acquires and shares information about communicable diseases in one minute speeches. Pertinent and Contemporary Issues (PCIs):",
+      "Effective communication is developed in the learner as they practise delivering the news highlights in the classroom.",
+      "Health Related Issues: Communicable diseases- The learner’s knowledge on communicable diseases is advanced as they listen to pieces of news about the same. Link to other Learning Areas: The learner can link the vocabulary on communicable diseases to their learning of similar concepts in Science and Technology."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade5-english.pdf#p78"
+    },
+    {
+     "kicd_code": "10.1.1",
+     "name": "Pronunciation and Vocabulary: Interactive Listening",
+     "suggested_duration": "3 lessons",
+     "learning_outcomes": [
+      "identify different moods in a narrative or a choral verse",
+      "use words and phrases with the selected sound /s/ and /z/ in sentences",
+      "interrupt politely during a conversation",
+      "challenge others to listen interactively during conversations."
+     ],
+     "learning_experiences": [
+      "listen to a narrative and retell it while expressing different moods or feelings",
+      "construct sentences collaboratively with peers",
+      "say words containing the sounds /s/ and /z/ with peers",
+      "watch a video of a conversational narrative or a choral verse online or offline",
+      "take turns pick out words that show polite interruption in the video",
+      "engage in a dialogue and practise interrupting one another politely."
+     ],
+     "inquiry_questions": [
+      "1. Why should you interrupt others politely?",
+      "2. How do you show different moods and feelings when listening to someone?",
+      "3. Which words do you use to join an on-going conversation?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Communication and Collaboration is fostered as the learner works with peers to construct sentences orally.",
+      "Creativity and Imagination is enhanced as the learner creates and role plays conversations and takes turn during a conversation. Values: Responsibility is promoted as the learner engages in a dialogue and practises interrupting one another politely. Pertinent and Contemporary Issues (PCIs): Life Skills Education is advanced as the learner acquires the art of conversation during turn taking and role playing on polite interruption. Link to other Learning Areas: The learner applies the skill of conversing in dialogue form to Kiswahili as it has similar concepts."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade5-english.pdf#p88"
+    },
+    {
+     "kicd_code": "11.1.1",
+     "name": "Pronunciation and Vocabulary",
+     "suggested_duration": "3 lessons",
+     "learning_outcomes": [
+      "select words containing the target sound /aɪ/, in sentences",
+      "construct sentences orally using words related to the theme",
+      "listen for words with the sound /aɪ/ from an audio text",
+      "interpret a speaker’s emotions and feelings correctly during oral presentations."
+     ],
+     "learning_experiences": [
+      "listen to oral presentations (dialogues or poems on topical issues) containing words with the sound /aɪ/",
+      "identify words with the sound /aɪ/ from texts",
+      "practise saying selected tongue twisters collaboratively",
+      "make a three-minute speech with peers",
+      "recite poems with peers",
+      "interpret non-verbal cues correctly."
+     ],
+     "inquiry_questions": [
+      "1. Why is it important to listen carefully?",
+      "2. How can we become better listeners?"
+     ],
+     "core_competencies": [
+      "Communication and Collaboration is enhanced as the learner makes short speeches while collaborating with peers.",
+      "Self-Efficacy is developed as the learner picks out the target sounds from poems or stories."
+     ],
+     "values": [
+      "Love is enhanced as the learner prepares and makes speeches with peers."
+     ],
+     "pertinent_issues": [
+      "Life Skills Education (Effective listening) is cultivated when the learner listens to their peers say tongue-twisters and make short speeches."
+     ],
+     "links_to_other_areas": [
+      "The learner applies fluency in listening and nonverbal skills in learning similar concepts in Kiswahili."
+     ],
+     "resources": [],
+     "kicd_source": "grade5-english.pdf#p96"
+    },
+    {
+     "kicd_code": "12.2",
+     "name": "Pronunciation and Vocabulary",
+     "suggested_duration": "3 lessons",
+     "learning_outcomes": [
+      "pronounce words with selected sounds /f/ and /v / accurately for effective communication",
+      "construct sentences orally using words",
+      "related to the theme",
+      "speak accurately, without hesitation and with expression",
+      "challenge others to speak accurately, at the right speed and to display appropriate expressions during oral presentations."
+     ],
+     "learning_experiences": [
+      "say words containing the sounds /f/ and /v/ with peers",
+      "pronounce the words related to the theme correctly",
+      "construct oral sentences using vocabulary learnt",
+      "listen to a recorded speech from a digital device on environmental pollution",
+      "make short speeches using vocabulary learnt, and appropriate non-verbal cues."
+     ],
+     "inquiry_questions": [
+      "1. Why should we speak clearly and confidently?",
+      "2. Why do we make speeches?"
+     ],
+     "core_competencies": [
+      "Collaboration is achieved as the learner works with peers to say minimal pairs of sounds /f/ and /v/.",
+      "Self-efficacy is achieved as the learner creates and makes short speeches using appropriate non-verbal cues."
+     ],
+     "values": [
+      "Patriotism is cultivated as the learner listens to a recorded speech from a digital device on environmental pollution."
+     ],
+     "pertinent_issues": [
+      "Environmental Education is promoted as learners interact with content related to environmental pollution while they listen to the recorded speech."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade5-english.pdf#p104"
+    },
+    {
+     "kicd_code": "13.1.1",
+     "name": "Pronunciation and Vocabulary",
+     "suggested_duration": "3 lessons",
+     "learning_outcomes": [
+      "select words and phrases with the target sounds /m/ /n/ /ŋ/, digraphs and consonant clusters from a text",
+      "use similes and vocabulary related to the theme correctly in sentences",
+      "judge the appropriateness of words, similes and non-verbal cues during an oral presentation",
+      "interpret a speaker’s feelings and emotions correctly during oral presentations."
+     ],
+     "learning_experiences": [
+      "listen to a dialogue from an audio-visual recording or read by the teacher and select words with the target sounds, digraphs and clusters",
+      "say words containing the sounds /m/ /n/ /ŋ/ with peers",
+      "identify words featuring the target sounds",
+      "identify similes from an audio visual text",
+      "use similes and words in sentences with peers",
+      "discuss new words found in the dialogue collaboratively",
+      "construct sentences using the new words individually",
+      "dramatise the dialogue with peers."
+     ],
+     "inquiry_questions": [
+      "1. Why should we listen attentively?",
+      "2. How can you tell that someone is attentive?"
+     ],
+     "core_competencies": [
+      "Communication and Collaboration is enhanced as the learner identifies similes from audio material and constructs sentences using those similes collaboratively.",
+      "Digital Literacy is achieved as the learner interacts with digital content when listening to dialogues from digital devices."
+     ],
+     "values": [
+      "Values: Responsibility is developed as learners take up initiative to familiarise themselves with words and expressions like saving, money and a proverb like: ‘A fool and his money are soon parted’. Pertinent and Contemporary Issues (PCIs): Financial literacy is inculcated as the learner listens to dialogues based on the theme of money. Link to other Learning Areas: The learner can apply intensive listening in learning all areas as listening is a key skill for learning."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade5-english.pdf#p112"
+    }
+   ]
+  }
+ ]
+}

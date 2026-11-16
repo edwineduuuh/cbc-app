@@ -1,0 +1,1307 @@
+{
+ "source_pdf": "grade10-indigenous-language.pdf",
+ "grade": 10,
+ "subject": "indigenous-language",
+ "general_outcomes": [
+  "By the end of Senior School, the learner should be able to:",
+  "Express themselves confidently and appropriately in a variety of social contexts,",
+  "Apply the use of indigenous language in various communication situations,",
+  "Demonstrate ability to apply indigenous knowledge, culture and values in varied situations,",
+  "Comprehend information in different contexts in the indigenous language,",
+  "Read fluently and with comprehension in indigenous language,",
+  "Use indigenous language to legibly write ideas and opinions in different formats,",
+  "Enjoy communicating using a variety of cultural language strategies."
+ ],
+ "strands": [
+  {
+   "strand": "Grammatical aspects (parts of speech, prepositions, adverbs, verbs, adjectives, simple sentences",
+   "strand_code": "",
+   "assessment_rubric": [],
+   "substrands": [
+    {
+     "kicd_code": "",
+     "name": "Identifies, uses and integrates grammatical structures in sentences",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Identifies, accurately uses and effortlessly integrates grammatical structures in a range of sentences"
+     ],
+     "learning_experiences": [
+      "Identifies, accurately uses and integrates grammatical structures in sentences"
+     ],
+     "inquiry_questions": [
+      "Identifies, uses and integrates grammatical structures in some sentences"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-indigenous-language.pdf#p75"
+    }
+   ]
+  },
+  {
+   "strand": "Reading",
+   "strand_code": "1.2",
+   "assessment_rubric": [],
+   "substrands": [
+    {
+     "kicd_code": "1.2.1",
+     "name": "Extensive Reading",
+     "suggested_duration": "6 lessons",
+     "learning_outcomes": [
+      "read poems and short stories on traditional food and nutrition to enhance indigenous knowledge",
+      "identify nouns from poems and short stories on traditional food and nutrition for language acquisition",
+      "use the nouns identified in oral and written texts",
+      "use the vocabulary learnt to construct sentences related to traditional food and nutrition",
+      "acknowledge the role of reading materials in enhancing vocabulary development."
+     ],
+     "learning_experiences": [
+      "source for poems and short stories from different sources (such as newspapers, books, articles), online and offline related to traditional food and nutrition",
+      "select poems and short stories on traditional food and nutrition",
+      "pick out the ideas related to traditional food and nutrition from the poems selected",
+      "pick out nouns from the texts read and categorise them accordingly",
+      "team up to use digital devices to record each other when reading texts on traditional food and nutrition",
+      "extract vocabulary related to traditional food and nutrition from the materials read",
+      "infer meaning of words related to traditional food and nutrition",
+      "write sentences and longer texts using learnt vocabulary related to traditional food and nutrition",
+      "work jointly to create a word wall of learnt vocabulary related to traditional food and nutrition."
+     ],
+     "inquiry_questions": [
+      "1. Why is it important to read extensively?",
+      "2. How can we infer the meaning of vocabulary when reading a text?"
+     ],
+     "core_competencies": [
+      "Digital literacy: The learner uses digital devices to identify and select relevant poems on traditional food and nutrition.",
+      "Self-efficacy: The learner selects the reading resources and makes decisions on what to prioritise as they identify poems related to traditional food and nutrition, online and offline.",
+      "Collaboration: The learner recognises the value of other’s ideas as they work jointly to create a word wall of learnt vocabulary."
+     ],
+     "values": [
+      "Responsibility: The learner offers leadership and guidance to others as they extract vocabulary related to traditional food and nutrition from the materials read.",
+      "Unity: The learner collaborates with others as they create a word wall."
+     ],
+     "pertinent_issues": [
+      "Active social skills: The learner participates actively in selecting materials related to traditional food and nutrition.",
+      "Cyber Security: The learner uses the internet responsibly by avoiding inappropriate websites while selecting materials on food and nutrition."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-indigenous-language.pdf#p15"
+    },
+    {
+     "kicd_code": "2.2.1",
+     "name": "Reading for information",
+     "suggested_duration": "6 lessons",
+     "learning_outcomes": [
+      "explain the reading process for information",
+      "discuss what to consider before, during and after reading a text for comprehension",
+      "apply the reading process in a variety of texts",
+      "construct sentences using pronouns from the texts read for language development",
+      "acknowledge the reading process in obtaining information for lifelong learning."
+     ],
+     "learning_experiences": [
+      "read texts related to traditional and modern forms of communication",
+      "scan through the texts to respond to questions",
+      "team up to undertake reading activities before, during and after reading (asking questions)",
+      "use portable devices e.g. mobile phone, to access online or offline material on traditional and modern forms of communication",
+      "make notes (main points) from texts on traditional and modern forms of communication",
+      "use the notes made to write summaries of the texts",
+      "read each other’s summaries for peer review",
+      "work jointly to pick out pronouns from the texts read",
+      "construct sentences using the pronouns identified",
+      "create a vocabulary bank from texts read."
+     ],
+     "inquiry_questions": [
+      "How do you access information in a text?"
+     ],
+     "core_competencies": [
+      "Citizenship: The learner develops an appreciation of and respect for culture while reading texts on traditional and modern forms of communication.",
+      "Digital Literacy: The learner uses digital learning platforms to access and read materials on traditional and modern forms of communication.",
+      "Self-efficacy: The learner reads peers’ summaries with confidence.",
+      "Critical thinking and Problem Solving: The learner demonstrates objective ideas as they construct sentences using the pronouns identified."
+     ],
+     "values": [
+      "Patriotism: The learner is aware of own culture while reading texts on traditional and modern forms of communication.",
+      "Unity: The learner collaborates with others in the group while writing summaries of texts on traditional and modern forms of communication."
+     ],
+     "pertinent_issues": [
+      "Analytical thinking: The learner identifies the main points in a text on traditional and modern forms of communication."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-indigenous-language.pdf#p21"
+    },
+    {
+     "kicd_code": "3.2.1",
+     "name": "Reading for Comprehension",
+     "suggested_duration": "7 lessons",
+     "learning_outcomes": [
+      "explain how to write a summary of a text for language development",
+      "skim and scan texts for general and specific information",
+      "summarise texts to enhance comprehension",
+      "embrace reading as a means of building vocabulary."
+     ],
+     "learning_experiences": [
+      "use portable devices e.g., mobile phone, to access online or offline materials material on cultural celebrations",
+      "skim through texts on cultural celebrations for general information",
+      "scan through the texts to respond to questions",
+      "brainstorm on how to write a summary of a text",
+      "make notes on the main points in texts on cultural celebrations",
+      "work jointly to write summaries of the texts from the notes made",
+      "read each other’s summaries for peer review",
+      "• dramatise cultural celebrations in relevant clubs and societies."
+     ],
+     "inquiry_questions": [
+      "1. How do you access information in a text?",
+      "2. Why do we write summaries?"
+     ],
+     "core_competencies": [
+      "Citizenship: The learner develops an appreciation of and respect for culture while reading texts on cultural celebrations.",
+      "Digital Literacy: The learner uses digital learning platforms to access and read materials on cultural celebrations.",
+      "Self-efficacy: The learner executes the task of summarising a text clearly while considering the main ideas."
+     ],
+     "values": [
+      "Patriotism: The learner is aware of own culture while reading texts on cultural celebrations.",
+      "Unity: The learner collaborates with others in writing summaries of texts on cultural celebrations.",
+      "Peace: The learner respects self and others while dramatising cultural celebrations in clubs and societies."
+     ],
+     "pertinent_issues": [
+      "Analytical thinking: The learner identifies the main points in a text on cultural celebrations.",
+      "Social Skills: The learner dramatises cultural celebrations in clubs and societies."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-indigenous-language.pdf#p27"
+    },
+    {
+     "kicd_code": "4.2.1",
+     "name": "Extensive reading",
+     "suggested_duration": "6 lessons",
+     "learning_outcomes": [
+      "skim through texts for meaning making",
+      "infer meaning of words from text read using contextual clues",
+      "generate questions from texts for comprehension",
+      "pick out verbs in texts read for language development",
+      "embrace the use of vocabulary in texts read."
+     ],
+     "learning_experiences": [
+      "use comprehension strategies to read a variety of texts on health from online or offline sources",
+      "discuss the use of contextual clues in meaning derivation from texts read",
+      "collaborate to generate questions from texts read on health",
+      "work jointly to identify verbs used in texts on health",
+      "identify vocabularies related to the hospital",
+      "use contextual clues to infer the meaning of the vocabularies",
+      "use verbs to construct sentences using vocabulary learnt",
+      "• write a short composition related to health using the new vocabulary learnt."
+     ],
+     "inquiry_questions": [
+      "Why do we read extensively?"
+     ],
+     "core_competencies": [
+      "Collaboration: The learner recognises the value of others as they discuss the use of contextual clues in meaning derivation.",
+      "Creativity and imagination: The learner generates new ideas by generating questions from the texts read.",
+      "Digital literacy: The learner interacts with digital devices while searching for texts.",
+      "Self-efficacy: The learner constructs sentences effectively using vocabulary related to the health."
+     ],
+     "values": [
+      "Respect: The learner recognises the input of every member as they check the meaning of the vocabularies.",
+      "Integrity: The learner exhibits self-discipline as they source for online materials on health using digital devices and avoiding inappropriate sites."
+     ],
+     "pertinent_issues": [
+      "Health Issues: The learner creates awareness on health-related issues when writing sentences.",
+      "Self-esteem: The learner constructs sentences effectively using vocabulary related to the hospital."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-indigenous-language.pdf#p33"
+    },
+    {
+     "kicd_code": "5.2.1",
+     "name": "Extensive reading",
+     "suggested_duration": "6 lessons",
+     "learning_outcomes": [
+      "articulate words with the correct pace for fluency of speech",
+      "use the correct intonation to read texts for development of fluency",
+      "identify different types of adverbs in texts for language development",
+      "embrace the use of vocabulary related to environmental conservation for language development."
+     ],
+     "learning_experiences": [
+      "read aloud a variety of texts on environmental conservation from online or offline sources",
+      "use audio recordings for imitation of articulation, speed and pronunciation",
+      "practice reading texts on environmental conservation at correct speed and accuracy",
+      "practice intonation drills of sight words related to environmental degradation",
+      "read dialogues on environmental degradation aloud focusing on intonation",
+      "work jointly to pinpoint different types of adverbs (manner, place, time, degree, frequency) from the texts read on environmental conservation",
+      "collaborate with peers to identify vocabularies related to environmental degradation",
+      "write a short composition on dangers of environmental degradation using adverbs."
+     ],
+     "inquiry_questions": [
+      "Why do we read extensively"
+     ],
+     "core_competencies": [
+      "Collaboration: The learner recognises the value of others while identifying vocabularies on environmental degradation.",
+      "Creativity and imagination: The learner generates new ideas by writing a composition on environmental degradation using the vocabularies learnt.",
+      "Digital literacy: The learner interacts with digital devices when listening to audios on environmental conservation and imitating articulation, speed and pronunciation.",
+      "Self efficacy: The learner writes a composition effectively using vocabulary related to environmental degradation."
+     ],
+     "values": [
+      "Respect: The learner recognises the input of every member as they check the meaning of the vocabularies.",
+      "Integrity: The learner exhibits self-discipline as they source for online materials on environmental conservation using digital devices and avoiding inappropriate sites."
+     ],
+     "pertinent_issues": [
+      "Environmental conservation: The learner creates awareness on climate change when writing sentences on environmental degradation.",
+      "Self-esteem: The learner constructs sentences effectively using vocabulary related to environmental conservation."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-indigenous-language.pdf#p39"
+    },
+    {
+     "kicd_code": "6.2.1",
+     "name": "Extensive Reading",
+     "suggested_duration": "6 lessons",
+     "learning_outcomes": [
+      "read varied texts for vocabulary building",
+      "infer meanings of vocabulary for language development",
+      "identify conjunctions in sentences for language development",
+      "use conjunctions in varied texts on gender",
+      "acknowledge the role of extensive reading in understanding gender issues."
+     ],
+     "learning_experiences": [
+      "search for a variety of texts (magazines, articles, journals, stories etc) on gender issues (e.g. traditional gender roles, female genital mutilation, early and forced marriages), virtually or from physical library",
+      "skim through texts on gender issues identified to select material of one’s interest for wide readership",
+      "note down new vocabulary identified while reading",
+      "infer the meaning of vocabulary related to gender issues",
+      "work jointly to identify conjunctions in the texts read on gender issues",
+      "list the conjunctions and the new vocabulary and post on the classroom board or digital wall",
+      "construct sentences using the vocabulary and conjunctions identified",
+      "participate in a debate on gender issues."
+     ],
+     "inquiry_questions": [
+      "Why should you read extensively?"
+     ],
+     "core_competencies": [
+      "Digital literacy: The learner interacts with digital technology when searching for texts on gender issues and uploading learnt vocabulary on the classroom physical or digital wall.",
+      "Learning to learn: The learner prioritises the task of extensive reading by skimming through texts to select material of one’s interest for wide readership."
+     ],
+     "values": [
+      "Respect: The learner accommodates diverse opinions while participating in debates on gender issues.",
+      "Responsibility: The learner undertakes the assigned role of skimming through and reading texts on gender issues.",
+      "Patriotism: The learner interacts with information on culture while reading texts on gender issues."
+     ],
+     "pertinent_issues": [
+      "Self-awareness: The learner reads varied texts on gender issues and discusses negative gender practices in the society.",
+      "Gender issues: The learner reads texts and debates on gender issues."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-indigenous-language.pdf#p45"
+    },
+    {
+     "kicd_code": "7.2.1",
+     "name": "Reading for comprehension",
+     "suggested_duration": "6 lessons",
+     "learning_outcomes": [
+      "identify the steps in reading comprehension for meaning making",
+      "apply comprehension strategies to read varied texts for meaning making",
+      "identify and use prepositions in texts read for language development",
+      "acknowledge the role of reading for comprehension in language development."
+     ],
+     "learning_experiences": [
+      "discuss the steps followed in reading for comprehension (pre, during and after reading)",
+      "search for a variety of texts (magazines, articles, journal, stories) from the virtual or physical library on careers in the traditional and modern societies",
+      "team up to summarise the texts by applying the comprehension, strategies (summarising, sequencing, inferring, drawing conclusions)",
+      "collaborate to identify prepositions in texts read",
+      "discuss the vocabulary related to careers in the traditional and modern societies",
+      "post the prepositions and vocabulary on the classroom physical or digital wall",
+      "• participate in a debate on careers in traditional and modern societies."
+     ],
+     "inquiry_questions": [
+      "How can you read a text to understand its meaning?"
+     ],
+     "core_competencies": [
+      "Digital literacy: The learner interacts with digital technology when searching for texts on careers in the traditional and modern societies and uploading learnt vocabulary on the classroom physical or digital wall.",
+      "Learning to learn: The learner prioritises the task of reading for comprehension by summarising texts read.",
+      "Collaboration: The learner recognises the value of other’s ideas while teaming up to identify prepositions from texts read."
+     ],
+     "values": [
+      "Respect: The learner accommodates diverse opinions while participating in debates on careers in the traditional and modern societies.",
+      "Responsibility: The learner undertakes the assigned role of inferring meaning from texts on careers in the traditional and modern societies.",
+      "Patriotism: The learner acquires awareness of culture while reading texts on careers in the traditional and modern societies."
+     ],
+     "pertinent_issues": [
+      "Self-awareness: The learner reads varied texts on careers in the traditional and modern societies.",
+      "Career education: The learner reads texts and debates on careers in the traditional and modern societies."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-indigenous-language.pdf#p51"
+    },
+    {
+     "kicd_code": "8.2.1",
+     "name": "Extensive Reading",
+     "suggested_duration": "8 lessons",
+     "learning_outcomes": [
+      "make notes from texts for language development",
+      "construct sentences from sight words for meaning making",
+      "recognise the importance of reading to bolster knowledge on budgeting."
+     ],
+     "learning_experiences": [
+      "read materials from online or offline sources about budgeting (books, newspapers, magazines, journals, online and offline sources)",
+      "respond to comprehension questions from the materials read",
+      "identify vocabulary that are related to the concept of a budget in financial management from texts read",
+      "use vocabulary related to budgeting in sentence construction as well as texts",
+      "work jointly to make notes (selective highlighting, organising notes, brevity) from texts read on budgeting",
+      "discuss and make presentations on budgeting during clubs."
+     ],
+     "inquiry_questions": [
+      "1. Why is it important to make notes?"
+     ],
+     "core_competencies": [
+      "Communication: The learner speaks clearly and effectively when participating in discussions and presentations on budgeting during clubs.",
+      "Collaboration: The learner contributes to group discussions on fair and ethical market practices.",
+      "Digital literacy: The learner uses a digital device to read materials from online and offline sources on budgeting."
+     ],
+     "values": [
+      "Values:",
+      "Unity: The learner collaborates with others during group work as they write notes on types of budgets.",
+      "Responsibility: The learner handles digital devices with care as they read materials from online sources about budgeting. Pertinent and Contemporary Issues (PCIs):",
+      "Learner Support Programmes (debating club): The learner participates in discussions and presentations on budgeting during debate clubs.",
+      "Self-management: The learner constructs sentences using vocabulary related to budgeting."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-indigenous-language.pdf#p57"
+    },
+    {
+     "kicd_code": "9.2.1",
+     "name": "Study Skills",
+     "suggested_duration": "6 lessons",
+     "learning_outcomes": [
+      "explain the various stages in the reading process for effective learning",
+      "apply the reading process in exploration of ideas",
+      "pinpoint aspects of past, present and future tenses in texts for language development",
+      "appreciate the need to read widely for exploration and deepening one's knowledge."
+     ],
+     "learning_experiences": [
+      "brainstorm on the various stages in the reading process while respecting each other’s opinion",
+      "make predictions on what the text is likely to address",
+      "read a text silently on Information Communication and Technology (with messages on cyber security)",
+      "discuss the accuracy of predictions based on the text read",
+      "infer the meaning of new words and respond to questions on the text",
+      "identify the key messages on Information Communication and Technology and write them in point form on a chart",
+      "recognise the past, present and future tenses used in the text on information, communication and technology",
+      "write down the words and sentences used in text on information, communication and technology that represent the past, present and future tenses",
+      "read texts on media and technology during leisure time."
+     ],
+     "inquiry_questions": [
+      "How do we read a text with comprehension?"
+     ],
+     "core_competencies": [
+      "Digital literacy: The learner makes use of digital devices to type a summary of the text read.",
+      "Critical thinking and problem solving: The learner explores different options while responding to questions on the text.",
+      "Learning to learn: The learner reflects on own work and adjusts accordingly while discussing the predictions on the text."
+     ],
+     "values": [
+      "Unity: The learner brainstorms on the various stages in the reading process while respecting others’ opinion.",
+      "Responsibility: The learner engages in assigned roles while identifying and writing the key messages."
+     ],
+     "pertinent_issues": [
+      "Cyber security: The learner acquires knowledge on ICT by reading texts on information, communication and technology.",
+      "Creative thinking: The learner checks the accuracy of predictions from the text read on communication and technology."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-indigenous-language.pdf#p63"
+    }
+   ]
+  },
+  {
+   "strand": "Writing",
+   "strand_code": "1.3",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to use parts of speech in sentence construction: − Nouns − Pronouns − Adjectives − Verbs − Adverbs − Conjunctions − Prepositions",
+     "exceeds": "Uses parts of speech in sentence construction (nouns, pronouns, adjectives, prepositions, adverbs and verbs) with precision",
+     "meets": "Uses parts of speech in sentence construction (nouns, pronouns, adjectives, prepositions, adverbs and verbs)",
+     "approaches": "Uses most of the parts of speech in sentence construction (nouns, pronouns, adjectives, prepositions, adverbs and verbs)",
+     "below": "Uses a few of the parts of speech in sentence construction (nouns, pronouns, adjectives, prepositions, adverbs and verbs)"
+    },
+    {
+     "indicator": "Ability to use simple sentences in texts",
+     "exceeds": "Uses simple sentences in texts with precision",
+     "meets": "Uses simple sentences in texts",
+     "approaches": "Makes effort to use simple sentences in texts",
+     "below": "Uses simple sentences in texts with prompts"
+    },
+    {
+     "indicator": "Ability to apply appropriate tense",
+     "exceeds": "Applies appropriate tense",
+     "meets": "Applies appropriate tense",
+     "approaches": "Applies at least two of the tenses and aspect in",
+     "below": "Applies either of the tenses and"
+    },
+    {
+     "indicator": "Ability to pronounce target words with the correct intonation",
+     "exceeds": "Pronounces target words with correct intonation effortlessly",
+     "meets": "Pronounces target words with correct intonation",
+     "approaches": "Pronounces some target words with correct intonation",
+     "below": "Pronounces few target words correctly with difficulty in using correct intonation"
+    },
+    {
+     "indicator": "Ability to demonstrate proper use of turn-taking, negotiation, non-verbal cues and interrupting politely during conversations",
+     "exceeds": "Demonstrates proper use of turn-taking, non-verbal cues and interrupting politely during conversations with precision",
+     "meets": "Demonstrates use of turn-taking, non-verbal cues and interrupting politely during conversations",
+     "approaches": "Demonstrates use of turn-taking, non-verbal cues and interrupting politely during conversation in most instances",
+     "below": "Demonstrates turn-taking, non-verbal cues and interrupting politely during conversation with prompts"
+    },
+    {
+     "indicator": "Ability to identify target words from an",
+     "exceeds": "Identifies target words from a",
+     "meets": "Identifies target words from an oral",
+     "approaches": "Identifies most target words from",
+     "below": "Identifies only a few target words"
+    },
+    {
+     "indicator": "Ability to use non-verbal cues (gestures, facial expressions, appearance, tonal variations, body movements) appropriately in story telling",
+     "exceeds": "Uses non-verbal cues (gestures, facial expressions, appearance, tonal variations, body movements) in storytelling meticulously",
+     "meets": "Uses non-verbal cues (gestures, facial expressions, appearance, tonal variations, body movements) appropriately in story telling",
+     "approaches": "Uses most non-verbal cues (gestures, facial expressions, appearance, tonal variations, body movements) appropriately in story telling",
+     "below": "Uses few non-verbal cues (gestures, facial expressions, appearance, tonal variations, body movements) appropriately in story telling"
+    },
+    {
+     "indicator": "Ability to identify main points, respond appropriately and pay attention to body language while listening to indigenous language",
+     "exceeds": "Identifies main points, responds appropriately and pays attention to body language with precision while listening to",
+     "meets": "Identifies main points, responds appropriately and pays attention to body language while listening to",
+     "approaches": "Identifies some main points, responds appropriately most times and sometimes pays attention to body language while",
+     "below": "Identifies few points, responds appropriately sometimes and has difficulty paying attention to body language while listening to"
+    },
+    {
+     "indicator": "Ability to use story telling techniques",
+     "exceeds": "Exhibits a clear and powerful voice projection, wide range of vocal tones and consistently responds to audience interactions,",
+     "meets": "Exhibits good voice projection, a range of vocal tones and responds to audience interactions,",
+     "approaches": "Exhibits voice projection, unclear vocal tones and inconsistently responds to audience interactions,",
+     "below": "Exhibits voice projection, lacks vocal variety and responds to audience interactions with prompts,"
+    },
+    {
+     "indicator": "Ability to read texts, identify and use vocabulary and retrieve information",
+     "exceeds": "Reads a diverse range of texts, identifies and learns new vocabulary, retrieves information effortlessly,",
+     "meets": "Reads a range of texts, identifies and learns new vocabulary, retrieves information correctly,",
+     "approaches": "Reads some texts, identifies and learns some new vocabulary, retrieves information with difficulty,",
+     "below": "Reads some texts, identifies and learns some vocabulary, retrieves information with prompts,"
+    },
+    {
+     "indicator": "Ability to outline main ideas and specific details from texts for information",
+     "exceeds": "Outlines main ideas and specific details from texts with rich references",
+     "meets": "Outlines main ideas and specific details from texts for information",
+     "approaches": "Outlines main ideas and specific details from texts for information leaving out minimal details",
+     "below": "Outlines main ideas and specific details from texts for information but leaves out most details"
+    },
+    {
+     "indicator": "Ability to apply the steps of the reading process Pre-reading During reading Post-reading",
+     "exceeds": "Applies all the steps of the reading process meticulously,",
+     "meets": "Applies the steps of the reading process,",
+     "approaches": "Applies two of the steps of the reading process,",
+     "below": "Applies at most one of the steps of the reading process,"
+    },
+    {
+     "indicator": "Ability to employ reading strategies (skimming, scanning, summarizing, predicting, questioning)",
+     "exceeds": "Ability to employ a wide range of reading strategies to different texts consistently,",
+     "meets": "Ability to employ reading strategies texts corectly,",
+     "approaches": "Ability to employ reading strategies in some texts,",
+     "below": "Ability to employ reading strategies in texts with assistance"
+    },
+    {
+     "indicator": "Ability to apply appropriate pronunciation, speed and intonation when reading",
+     "exceeds": "Consistently applies appropriate pronunciation, speed and intonation when reading",
+     "meets": "Applies appropriate pronunciation, speed and intonation when reading",
+     "approaches": "Applies either appropriate pronunciation, speed or intonation when reading",
+     "below": "Applies either appropriate pronunciation, speed or intonation when reading for accuracy with prompts"
+    },
+    {
+     "indicator": "Ability to write the letters of the language alphabet",
+     "exceeds": "Writes the letters of the language alphabet effortlessly",
+     "meets": "Writes letters of the language alphabet",
+     "approaches": "Writes most of the letters of the language alphabet",
+     "below": "Writes a few of the letters of the language alphabet"
+    },
+    {
+     "indicator": "Ability to use the target punctuation marks in texts • Comma • Full stop • Question mark • Exclamation mark • Quotation marks",
+     "exceeds": "Uses the target punctuation marks in a variety of texts",
+     "meets": "Uses the target punctuation marks texts",
+     "approaches": "Uses most of the target punctuation marks in texts",
+     "below": "Uses a few of the target punctuation marks in texts"
+    },
+    {
+     "indicator": "Ability to write: • Thank you notes • Condolence note",
+     "exceeds": "Writes the target social notes using the correct format, language and",
+     "meets": "Writes the target social notes using the correct format, language and organization",
+     "approaches": "Writes the target social notes using the correct format, language and",
+     "below": "Rarely writes the target social notes meticulously using the correct format,"
+    },
+    {
+     "indicator": "Ability to compose: -invitation letters -application letters using the correct format, language and organization",
+     "exceeds": "Composes all the items using the correct format, language and organization consistently",
+     "meets": "Composes the letters using the correct format, language and organization",
+     "approaches": "Composes the letters using the correct format, language and organization but omits a few details",
+     "below": "Composes either the letters using the correct format, language and organization but omits most details"
+    },
+    {
+     "indicator": "Ability to write: -expository essay -argumentative essay -descriptive essay -dialogue using the correct format, language and organization",
+     "exceeds": "Composes all the items using the correct format, language and organization consistently",
+     "meets": "Composes the essays and dialogue using the correct format, language and organization",
+     "approaches": "Composes either of the essays or dialogue using the correct format, language and organization",
+     "below": "Composes the essays and dialogue using the correct format, language and organization with assistance"
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "1.3.1",
+     "name": "Orthography",
+     "suggested_duration": "6 lessons",
+     "learning_outcomes": [
+      "write letters of the alphabet in indigenous language",
+      "apply principles of orthography to correctly spell words in indigenous language",
+      "use appropriate capitalisation conventions in writing words in indigenous language",
+      "recognise the value of correct spelling in indigenous language."
+     ],
+     "learning_experiences": [
+      "discuss meaning of orthography (spelling and how they are written)",
+      "team up to talk about common spelling rules",
+      "talk about common spelling mistakes",
+      "look at alphabet flashcards in indigenous language and sound them",
+      "use the alphabet song to talk about letters of the alphabet",
+      "recognise letters of the alphabet",
+      "Write lower-and upper-case letters correctly in words",
+      "display flashcards with correctly spelt words on",
+      "the classroom or digital wall.",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "Why is it important to spell words correctly?",
+      "Suggested Key Inquiry Question(s)"
+     ],
+     "core_competencies": [
+      "Collaboration: The learner contributes to group decision making by participating actively in identifying common spelling mistakes in the language.",
+      "Critical Thinking and Problem Solving: The learner makes critical observations on the spelling of the target language.",
+      "Learning to learn: The learner develops relationships by sharing what they have learnt on spelling conventions in indigenous language."
+     ],
+     "values": [
+      "Patriotism: The learner is aware of own culture while spelling words in indigenous language.",
+      "Unity: The learner collaborates with others in the group while talking about common spelling mistakes in the target language."
+     ],
+     "pertinent_issues": [
+      "Effective communication: The learner discusses the significance of turn-taking during conversations on spelling conventions."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-indigenous-language.pdf#p17"
+    },
+    {
+     "kicd_code": "2.3.1",
+     "name": "Mechanics of Writing: Punctuation marks",
+     "suggested_duration": "6 lessons",
+     "learning_outcomes": [
+      "explain the uses of punctuation marks in texts",
+      "use punctuation marks to construct sentences",
+      "write grade appropriate essays on communication using punctuation marks correctly",
+      "acknowledge the importance of punctuation marks in writing."
+     ],
+     "learning_experiences": [
+      "identify punctuation marks in a given text",
+      "discuss the uses of selected punctuation marks",
+      "practise using selected punctuation marks in writing sentences and essays",
+      "read the sentences and essays aloud paying attention to punctuation marks",
+      "collaborate in punctuating sentences and essays using online editing tools or offline resources",
+      "apply punctuation marks correctly in writing texts",
+      "critique peers' work and respectfully offer positive feedback.",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "Why do you punctuate texts?",
+      "Suggested Key Inquiry Question(s)"
+     ],
+     "core_competencies": [
+      "• Collaboration: The learner contributes to group decision making by participating actively in punctuating sentences using online editing tools or offline resources."
+     ],
+     "values": [
+      "Values:",
+      "Respect: The learner understands and appreciates others while respectfully critiquing peers’ essays and offering positive feedback.",
+      "Responsibility: The learner engages in an assigned role and duty by writing an essay using appropriate punctuation and inviting other students to peer review.",
+      "Integrity: The learner displays honesty while editing sentences using online tools or offline resources. Pertinent and Contemporary Issues (PCIs):",
+      "Creative thinking: The learner writes simple sentences on the given task.",
+      "Social cohesion: The learner promotes social cohesion when collaborating with peers in punctuating sentences using online editing tools or offline resources."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-indigenous-language.pdf#p23"
+    },
+    {
+     "kicd_code": "3.3.1",
+     "name": "Functional Writing",
+     "suggested_duration": "7 lessons",
+     "learning_outcomes": [
+      "explain the characteristics of social notes in informal writing",
+      "write different types of notes for appreciation of social relationships",
+      "use adjectives to write social notes for language development",
+      "embrace writing notes to foster social relationships."
+     ],
+     "learning_experiences": [
+      "identify a variety of social notes online or offline responsibly",
+      "read and explain the features of the four types of social notes",
+      "team up to write the social notes",
+      "appraise each other’s social notes",
+      "review the notes and display them on an e-bulletin board or school notice board",
+      "identify adjectives in a variety of social notes",
+      "use adjectives to write social notes.",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "What kind of messages do we write?",
+      "Suggested Key Inquiry Question(s)"
+     ],
+     "core_competencies": [
+      "Self-efficacy: The learner effectively communicates when identifying adjectives and a variety of social notes.",
+      "Collaboration: The learner contributes to group decision making by recognising the value of others’ ideas as they write social notes."
+     ],
+     "values": [
+      "Values:",
+      "Compassion: The learner portrays a caring attitude through writing of social notes.",
+      "Unity: The learner collaborates with others to review social notes. Pertinent and Contemporary Issues (PCIs):",
+      "Empathy: The learner shows empathy through writing social notes.",
+      "Active Social skills: The learner promotes social skills through writing social notes."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-indigenous-language.pdf#p29"
+    },
+    {
+     "kicd_code": "4.3.1",
+     "name": "Creative Writing",
+     "suggested_duration": "7 lessons",
+     "learning_outcomes": [
+      "explain the process of developing a paragraph for language development",
+      "write clear and concise paragraphs for effective communication",
+      "use adverbs to develop paragraphs on the theme",
+      "appreciate the importance of a well written paragraph for language development."
+     ],
+     "learning_experiences": [
+      "discuss the process of development of a paragraph",
+      "write various parts of a paragraph (topic, topic sentence, supporting sentences and conclusion)",
+      "collaborate to write paragraph on personal hygiene from the various parts",
+      "work jointly to critique each other’s paragraph checking on coherence",
+      "use digital devices to write paragraphs on personal hygiene online or offline.",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "1. Why do we write paragraphs?",
+      "2. How can you write a well organised paragraph?",
+      "Suggested Key Inquiry Question(s)"
+     ],
+     "core_competencies": [
+      "• Self-efficacy: The learner effectively communicates when writing a paragraph on personal hygiene."
+     ],
+     "values": [
+      "value of others’ ideas as they write a paragraph on personal hygiene.",
+      "Digital literacy: The learner manipulates digital devices to write paragraphs on personal hygiene online and offline. Values:",
+      "Unity: The learner collaborates with others in writing a paragraph on personal hygiene.",
+      "Respect: The learner respects and appreciates the contribution of others while collaborating to write paragraphs. Pertinent and Contemporary Issues (PCIs):",
+      "Analytical thinking: The learner explores ways in which the paragraph can be put together to make coherent meaning.",
+      "Self-awareness: The learner speaks confidently and clearly when critiquing peers' views on coherence in paragraphs."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-indigenous-language.pdf#p35"
+    },
+    {
+     "kicd_code": "5.3.1",
+     "name": "Expository writing",
+     "suggested_duration": "8 lessons",
+     "learning_outcomes": [
+      "explain the process of paragraph development for effective communication",
+      "identify features of essays for language development",
+      "write expository essays for effective communication",
+      "identify different types of adverbs from the essays written",
+      "appreciate paragraph development for effective communication."
+     ],
+     "learning_experiences": [
+      "search for electronic and print texts and identify vocabulary related to soil erosion",
+      "discuss the characteristics of a good paragraph (topic, illustrative and clincher sentences, coherence)",
+      "write an outline of an expository essay and present it for peer review",
+      "collaborate with peers to talk about features of expository essays",
+      "listen to talks/recordings by environmentalists on soil erosion and identify parts of speech used",
+      "write expository essays on soil erosion or other issues related to the environment using well-constructed paragraphs",
+      "work jointly to identify different types of adverbs (manner, time, place, degree, frequency) from the expository essay on soil erosion",
+      "invite a resource person to talk about the benefits of environmental conservation.",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "1. What makes a good paragraph?",
+      "2. Why is it important to write about environmental issues?",
+      "Suggested Key Inquiry Question(s)"
+     ],
+     "core_competencies": [
+      "Communication: The learner writes paragraphs clearly and presents organised work on soil erosion.",
+      "Learning to learn: The learner shares their essay on soil erosion for peer review.",
+      "Creativity and imagination: The learner uses their imagination to generate ideas to write an expository essay on soil erosion.",
+      "Self-efficacy: The learner builds confidence in ability to express their opinion during group discussions on features of essays."
+     ],
+     "values": [
+      "Unity: The learner actively participates in discussions on soil erosion and outlines the points to be considered when writing an essay.",
+      "Respect: The learner recognises the contribution of others while discussing and writing essays on soil erosion.",
+      "Responsibility: The learner engages in assigned roles in the group as they come up with features of an expository essay."
+     ],
+     "pertinent_issues": [
+      "Environmental conservation: The learner creates awareness on soil erosion.",
+      "Self-awareness: The learner participates in group discussions when writing essays on soil erosion."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-indigenous-language.pdf#p41"
+    },
+    {
+     "kicd_code": "6.3.1",
+     "name": "Creative Writing: Argumentative Essays",
+     "suggested_duration": "8 lessons",
+     "learning_outcomes": [
+      "explain the characteristics of an argumentative essay for effective writing",
+      "write essays on gender issues for language development",
+      "embrace essay writing in creating awareness on gender issues."
+     ],
+     "learning_experiences": [
+      "source for online or offline texts on gender and read several argumentative essays",
+      "use the essays read to discuss the components of an argumentative essay",
+      "identify a topic of interest related to gender (Female Genital Mutilation, child/early/forced marriage, gender-based violence, gender and health, gender disparities, gender roles)",
+      "brainstorm on arguments, counter arguments and refutations related to the topic identified",
+      "share the ideas generated in the brainstorming session with the rest of the class at plenary for feedback",
+      "organise the points generated at the plenary to write an outline of an argumentative essay",
+      "write an argumentative essay on the gender related topic identified",
+      "peer review the essays",
+      "keep a copy of the essay in the learning portfolio.",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "1. How do we write cohesive essays?",
+      "2. How do we express our ideas?",
+      "Suggested Key Inquiry Question(s)"
+     ],
+     "core_competencies": [
+      "Creativity and imagination: The learner makes connections while writing argumentative essays on gender issues.",
+      "Critical thinking and problem solving: The learner makes interpretations and inferences while brainstorming on arguments, counter arguments and refutations related to the topic identified.",
+      "Self-efficacy: The learner presents ideas with confidence while discussing the components of an argumentative essay."
+     ],
+     "values": [
+      "Respect: The learner accommodates diverse opinions while brainstorming on arguments, counter arguments and refutations related to the topic identified.",
+      "Unity: The learner appreciates the efforts of others while sharing and peer reviewing the essays on gender issues.",
+      "Responsibility: The learner responsibly engages in writing argumentative essays on gender issues."
+     ],
+     "pertinent_issues": [
+      "Self-awareness: The learner demonstrates self-awareness while discussing gender issues.",
+      "Gender issues: The learner highlights gender issues while writing the argumentative essay on a gender-related topic."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-indigenous-language.pdf#p47"
+    },
+    {
+     "kicd_code": "7.3.1",
+     "name": "Functional Writing",
+     "suggested_duration": "8 lessons",
+     "learning_outcomes": [
+      "describe the components of application and invitation letters for effective communication",
+      "write application and invitation letters for social interaction",
+      "identify prepositions in the application and invitation letters for language development",
+      "appreciate the role of application and invitation letters for social interactions"
+     ],
+     "learning_experiences": [
+      "read invitation and application letters online or offline",
+      "discuss the components of invitation and application letters by analysing the letters read",
+      "write an invitation letter (invite your former classmate to the school cultural gala/event) or an application letter (apply for an advertised job) using the correct format",
+      "team up to single out prepositions used in the invitation and application letters",
+      "peer review invitation and application letters for feedback.",
+      "upload or file copies of the invitation and application letters",
+      "on the digital or hard copy portfolio.",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "1. How do we apply for scholarships or jobs?",
+      "2. How do we invite people to social functions?",
+      "Suggested Key Inquiry Question(s)"
+     ],
+     "core_competencies": [
+      "Communication: The learner writes fluently and presents organised invitation and application letters both in and out of class.",
+      "Collaboration: The learner contributes to group decision making while discussing the components of invitation and application letters.",
+      "Digital literacy: The learner uses the internet to upload the invitation and application letters on the digital portfolio.",
+      "Self-efficacy: The learner executes the task of writing invitation and application letters in and out of class."
+     ],
+     "values": [
+      "Unity: The learner collaborates with peers while reviewing the invitation and application letters to social events.",
+      "Respect: The learner accommodates the contribution of peers during group discussion on components of invitation and application letters."
+     ],
+     "pertinent_issues": [
+      "Cyber security: The learner takes necessary precautions for safety while interacting with online sources to read invitation and application letters.",
+      "Social cohesion: The learner engages in writing invitation and application letters to social functions."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-indigenous-language.pdf#p53"
+    },
+    {
+     "kicd_code": "8.3.1",
+     "name": "Creative Writing: Dialogue, poems and songs",
+     "suggested_duration": "8 lessons",
+     "learning_outcomes": [
+      "identify components of dialogues, poems and songs for effective writing",
+      "write dialogues and songs to enhance creativity",
+      "create a 3 stanza poem to enhance creativity",
+      "identify simple and compound sentences from the dialogues, poems and songs for effective writing",
+      "acknowledge the importance of creative writing in sharing of experiences."
+     ],
+     "learning_experiences": [
+      "discuss the basic structure of a song and poem",
+      "point out components of a dialogue",
+      "collaborate with peers to brainstorm, write and create dialogues, songs and poems on traditional and modern ways of trading",
+      "write clear stage directions to guide in performance of dialogues",
+      "present the dialogues, songs and poems created to peers for critiquing",
+      "work jointly to pinpoint the simple and compound sentences",
+      "from the dialogues, songs and poems created",
+      "write down the simple and compound sentences",
+      "post the simple and compound sentences on both the classroom and digital wall.",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "How can we write creatively?",
+      "Suggested Key Inquiry Question(s)"
+     ],
+     "core_competencies": [
+      "Digital literacy: The learner uses digital devices to effectively search from online sources videos on traditional and modern ways of trading.",
+      "Collaboration: The learner contributes to group decision making by identifying simple sentences from skits."
+     ],
+     "values": [
+      "Responsibility: The learner offers leadership and guidance to others when critiquing the skits created by peers.",
+      "Unity: The learner cooperates with peers when brainstorming, writing and creating dialogues, songs and poems on traditional and modern ways of trading."
+     ],
+     "pertinent_issues": [
+      "Coping with emotions: The learner portrays the ability to deal with fear when presenting work for peer critiquing."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-indigenous-language.pdf#p59"
+    },
+    {
+     "kicd_code": "9.3.1",
+     "name": "Creative Writing",
+     "suggested_duration": "8 lessons",
+     "learning_outcomes": [
+      "identify the fundamentals of writing an essay for language development",
+      "apply the fundamentals of essay writing to write descriptive essays for effective communication",
+      "appreciate essay writing for language development."
+     ],
+     "learning_experiences": [
+      "discuss the fundamentals of writing descriptive essays",
+      "work jointly to describe items and people in the classroom (a long ruler)",
+      "construct sentences from words used to describe items and people in the classroom",
+      "write a short descriptive essays from the sentences constructed (the tall, beautiful teacher is writing on the chalkboard) in a variety of contexts",
+      "write descriptive essays on media and technology using the format discussed",
+      "exchange essays with peers for peer feedback",
+      "revise essays based on feedback.",
+      "Meets Expectations"
+     ],
+     "inquiry_questions": [
+      "Why do we write essays?",
+      "Approaches Expectations"
+     ],
+     "core_competencies": [
+      "Creativity and imagination: The learner undertakes tasks that show ability to use imagination while writing a descriptive essay on media and technology.",
+      "Collaboration: The learner works with peers to discuss the structure of a descriptive essay and to describe items and people in the classroom."
+     ],
+     "values": [
+      "Values:",
+      "Unity: The learner takes turns during the discussion on the structure of a descriptive essay.",
+      "Peace: The learner displays tolerance during a group discussion on writing a descriptive essay. Pertinent and Contemporary Issues (PCIs): Self Esteem: The learner presents the descriptive essays for review and peer feedback."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-indigenous-language.pdf#p65"
+    }
+   ]
+  },
+  {
+   "strand": "Listening and Speaking",
+   "strand_code": "2.1",
+   "assessment_rubric": [],
+   "substrands": [
+    {
+     "kicd_code": "2.1.1",
+     "name": "Conversational Skills",
+     "suggested_duration": "6 lessons",
+     "learning_outcomes": [
+      "describe the elements of an effective conversation in communication",
+      "conduct conversations politely to foster good relationships",
+      "evaluate information from debates to improve communication",
+      "acknowledge the significance of effective conversations in fostering citizenship."
+     ],
+     "learning_experiences": [
+      "work jointly to identify elements of a conversation",
+      "discuss ways of responding appropriately in conversations",
+      "team up to evaluate the credibility of information during a debate to identify evidence and biases",
+      "discuss the significance of turn-taking during debate sessions",
+      "engage in debates on a topic on traditional and modern form of communication",
+      "agree and disagree politely during a debating session",
+      "converse about traditional and modern forms of communication with a resource person",
+      "analyse the points raised during the debate on traditional and modern",
+      "forms of communication and make a conclusion."
+     ],
+     "inquiry_questions": [
+      "1. How do we communicate effectively?",
+      "2. What makes a good conversation?"
+     ],
+     "core_competencies": [
+      "Collaboration: The learner contributes to group decision making by participating actively in evaluating the points raised during a debate.",
+      "Critical thinking and Problem Solving: The learner makes critical observations on the arguments raised during a debate and deduces objective conclusions.",
+      "Citizenship: The learner demonstrates critical and constructive dialogue when engaging in a debate about traditional and modern forms of communication.",
+      "Learning to learn: The learner develops relationships by sharing what they have learnt about traditional and modern forms of communication."
+     ],
+     "values": [
+      "Patriotism: The learner respects peers while conversing with a resource person on issues pertaining to traditional and modern forms of communication.",
+      "Social justice: The learner advocates for harmonious relationships after analysing the points raised during a debate on traditional and modern forms of communication and makes an appropriate conclusion."
+     ],
+     "pertinent_issues": [
+      "Effective communication: The learner discusses the significance of turn-taking during debates."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-indigenous-language.pdf#p19"
+    },
+    {
+     "kicd_code": "3.1.1",
+     "name": "Listening for Comprehension",
+     "suggested_duration": "6 lessons",
+     "learning_outcomes": [
+      "identify the main ideas in stories, songs and dialogues on a cultural celebration to enhance comprehension",
+      "sequence events in stories, songs and dialogues related to cultural celebrations",
+      "retell stories on cultural celebrations to enhance comprehension",
+      "value the importance of listening for effective communication."
+     ],
+     "learning_experiences": [
+      "listen to stories, songs and dialogues on cultural celebrations on digital devices/resource person",
+      "work jointly to identify the main ideas in each story, song and dialogue listened to",
+      "team up to retell the stories listened to",
+      "select main ideas in stories related to cultural celebrations",
+      "collaborate with peers to organise the events in the stories on cultural celebrations in a sequential manner",
+      "participate in a debate on cultural celebrations during clubs and societies."
+     ],
+     "inquiry_questions": [
+      "1. Why is it important to listen?",
+      "2. How do you normally listen to a person who is speaking to you?"
+     ],
+     "core_competencies": [
+      "Core competencies to be developed:",
+      "Communication: The learner listens keenly and actively to identify the main ideas in stories songs and dialogues related to the cultural celebrations.",
+      "Collaboration: The learner contributes to group decision making by participating actively in a school debate on cultural celebrations.",
+      "Self-efficacy: The learner clearly orders the main ideas in stories related to cultural celebrations.",
+      "Digital literacy: The learner uses a digital device to listen to stories, songs and dialogues on cultural celebrations. Values:",
+      "Unity: The learner takes turns and collaborates with others as they order the main ideas in stories on cultural celebrations.",
+      "Respect: The learner understands and appreciates the opinion of others during the debate on cultural celebrations. Pertinent and Contemporary Issues (PCIs):",
+      "Learner Support Programmes: The learner participates in a debate on cultural celebrations in clubs and societies.",
+      "Active social skills: The learner selects main ideas in stories related to cultural celebrations."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-indigenous-language.pdf#p25"
+    },
+    {
+     "kicd_code": "4.1.1",
+     "name": "Oral Presentation",
+     "suggested_duration": "6 lessons",
+     "learning_outcomes": [
+      "identify delivery techniques for making an oral presentation",
+      "make an oral presentation to enhance fluency",
+      "perform skits to build confidence",
+      "acknowledge the importance of good oral presentation for effective delivery of information."
+     ],
+     "learning_experiences": [
+      "explain the meaning of an oral presentation",
+      "listen to an oral presentation on lifestyle diseases from a video clip, and pinpoint the delivery techniques used (non-verbal cues, confidence)",
+      "make an oral presentation on lifestyle diseases",
+      "record the oral presentations on lifestyle diseases",
+      "script and record a clip on health related issues using suitable digital recorders",
+      "perform and film the skit using suitable digital",
+      "recorders and post on the class digital platform."
+     ],
+     "inquiry_questions": [
+      "1. How do we make an oral presentation interesting?",
+      "2. How can we sensitise the society on health related issues?"
+     ],
+     "core_competencies": [
+      "Collaboration: The learner acknowledges the value of others’ ideas during oral presentations on lifestyle diseases.",
+      "Creativity and imagination: The learner generates new ideas when talking about techniques of conducting oral presentations.",
+      "Self-efficacy: The learner effectively communicates health issues when making oral presentations and performing skits."
+     ],
+     "values": [
+      "Responsibility: The learner engages in assigned roles when reading about lifestyle diseases from online or offline sources, and discusses the findings.",
+      "Compassion: The learner respects other’s views while recording the oral presentations on lifestyle diseases.",
+      "Respect: The learner accommodates diverse opinions of every member of the team when making oral presentations on lifestyle diseases."
+     ],
+     "pertinent_issues": [
+      "Health disorders: The learner acquaints themselves with the promotion of a healthy lifestyle.",
+      "Self-esteem: The learner confidently makes a presentation on lifestyle diseases during oral presentations."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-indigenous-language.pdf#p31"
+    },
+    {
+     "kicd_code": "5.1.1",
+     "name": "Critical Listening",
+     "suggested_duration": "7 lessons",
+     "learning_outcomes": [
+      "determine the speaker, context and intention in varied oral texts",
+      "select key points from an audio text on environment for information",
+      "recognise facts and opinions from texts on environment",
+      "distinguish facts from opinions in an oral context",
+      "realise the importance of critical listening in the learning of Indigenous languages."
+     ],
+     "learning_experiences": [
+      "search for information online and offline on how to identify the speaker, context and intention",
+      "listen to passages read by the teacher or from an audio recording and identify the speaker, context and intention",
+      "listen to a resource person presenting a talk and isolate the key facts as well as the opinions",
+      "discuss how to distinguish between facts and opinions from a text",
+      "collaborate with others to distinguish facts from opinions from an audio recording",
+      "• collaboratively design a mind map to present facts and opinions."
+     ],
+     "inquiry_questions": [
+      "Why is it necessary to listen critically when a presentation or talk is being made?"
+     ],
+     "core_competencies": [
+      "Communication: The learner listens keenly to a resource person presenting a talk and isolates the key facts as well as the opinion.",
+      "Collaboration: The learner recognises the value of others’ ideas when discussing discuss how to distinguish between facts and opinions from a text"
+     ],
+     "values": [
+      "Unity: The learner appreciates the efforts of others when discuss how to distinguish between facts and opinions from a text.",
+      "Respect: The learner accommodates diverse opinions from others when searching for information online and offline on how to identify the speaker, context and intention."
+     ],
+     "pertinent_issues": [
+      "Environmental issues: The learner interacts with information on environement as they recognise facts and opinions from texts on environment."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-indigenous-language.pdf#p37"
+    },
+    {
+     "kicd_code": "6.1.1",
+     "name": "Oral presentation",
+     "suggested_duration": "6 lessons",
+     "learning_outcomes": [
+      "identify techniques for conducting an oral presentation for effective delivery of information",
+      "perform skits for enjoyment",
+      "identify interjections used in the skits and oral presentations for language development",
+      "acknowledge the importance of good oral presentation for effective delivery of information."
+     ],
+     "learning_experiences": [
+      "listen to online clips or offline talks or a talk from a guest speaker on the concept of gender issues.",
+      "answer questions from listening to texts on gender issues",
+      "discuss the techniques of conducting oral presentations",
+      "listen to an oral presentation on gender issues from a skit, and pinpoint the delivery techniques used (clear articulation, vocal variety, body language, audience interaction, use of props and costumes)",
+      "collaborate to present a skit on gender issues",
+      "work jointly to point out the interjections used in the skits",
+      "write sentences using the interjections identified."
+     ],
+     "inquiry_questions": [
+      "1. How can you tell that a person is listening keenly?",
+      "2. Why is gender sensitivity important?"
+     ],
+     "core_competencies": [
+      "Communication: The learner listens keenly and actively to online clips or offline talks on gender issues.",
+      "Collaboration: The learner recognises the value of others’ ideas when discussing the techniques for conducting oral presentations.",
+      "Self efficacy: The learner confidently presents a skit on gender issues."
+     ],
+     "values": [
+      "Unity: The learner appreciates the efforts of others when composing and performing skits with messages on gender issues during interclass festivals in school.",
+      "Respect: The learner accommodates diverse opinions from others when searching and composing skits on gender issues."
+     ],
+     "pertinent_issues": [
+      "Self Esteem: The learner speaks confidently while presenting skits on gender issues and uses appropriate body language during presentation."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-indigenous-language.pdf#p43"
+    },
+    {
+     "kicd_code": "7.1.1",
+     "name": "Listening for Information",
+     "suggested_duration": "6 lessons",
+     "learning_outcomes": [
+      "identify main ideas in texts for information",
+      "use vocabulary learnt in a variety of contexts",
+      "summarise texts on careers to enhance communication",
+      "paraphrase given texts accurately expressing the original ideas for meaning",
+      "appreciate the role of listening attentively in obtaining information."
+     ],
+     "learning_experiences": [
+      "listen to an audio for information on trends in careers (such as soft skills, remote work, digitally enabled independent work, job automation)",
+      "discuss the main ideas gathered on emerging trends in careers",
+      "identify and infer the meaning of vocabulary used in texts on emerging trends in careers",
+      "collaborate with peers to use vocabulary acquired in varied tasks such as sentence construction and creating songs and dialogues",
+      "present the texts created in class for review as well as enjoyment",
+      "team up to summarise passages on emerging trends in careers by",
+      "accurately expressing the original ideas",
+      "collaborate with peers to paraphrase texts and share the rewritten texts in class",
+      "present to peers the texts for review and revision."
+     ],
+     "inquiry_questions": [
+      "How can we isolate main ideas in a text?"
+     ],
+     "core_competencies": [
+      "Digital literacy: The learner listens to information on emerging trends in careers from audio recordings.",
+      "Collaboration: The learner recognises the value of other’s opinions while summarising the passage on emerging trends in careers by accurately expressing the original ideas."
+     ],
+     "values": [
+      "Unity: This is achieved as the learner collaborates with others when discussing information on emerging trends in careers from audio recordings.",
+      "Responsibility: The learner offers leadership and guidance when presenting the texts created on emerging career trends."
+     ],
+     "pertinent_issues": [
+      "Career exploration: The learner explores careers when listening for information on emerging trends in careers from audio recordings.",
+      "Social awareness: The learner fosters relationships when discussing main ideas on emerging trends in careers."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-indigenous-language.pdf#p49"
+    },
+    {
+     "kicd_code": "8.1.1",
+     "name": "Attentive Listening",
+     "suggested_duration": "6 lessons",
+     "learning_outcomes": [
+      "answer questions on oral stories to enhance attentiveness",
+      "take notes on listening comprehension texts for effective communication",
+      "acknowledge the importance of listening attentively for comprehension."
+     ],
+     "learning_experiences": [
+      "listen to online clips or offline talk from a guest speaker on the concept of income",
+      "answer questions from listening texts on sources of income/income generating projects",
+      "listen to a member of the group read a story on income streams and take notes",
+      "role play in school clubs and societies on the sources of income",
+      "compose and perform songs with messages on sources of income during interclass festivals in school",
+      "present a short speech/talk on income sources and critique each other’s presentations."
+     ],
+     "inquiry_questions": [
+      "1. How can you tell that a person is listening keenly?",
+      "2. Why are business and entrepreneurship talks important?"
+     ],
+     "core_competencies": [
+      "Core competencies to be developed:",
+      "Communication: The learner listens keenly and actively to online clips or offline talks on sources of income.",
+      "Collaboration: The learner recognises the value of others’ ideas as they take part in role plays during activities of clubs and societies.",
+      "Self-efficacy: The learner confidently examines the needs of the community while presenting a short speech/talk on sources of income. Values:",
+      "Unity: The learner appreciates the efforts of others when composing and performing songs with messages on sources of income during interclass festivals in school.",
+      "Respect: The learner accommodates diverse opinions from others when searching for stories on successful income generating projects and identifying factors of success. Pertinent and Contemporary Issues (PCIs):",
+      "Self Esteem: The learner speaks confidently while presenting speeches on sources of income and provides positive criticism for each other’s presentations.",
+      "Resource mobilisation and utilisation: The learner searches for stories on successful income generating projects and identifies factors of success."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-indigenous-language.pdf#p55"
+    },
+    {
+     "kicd_code": "9.1.1",
+     "name": "Conversational Skills: Dialogue",
+     "suggested_duration": "7 lessons",
+     "learning_outcomes": [
+      "identify conversational skills for effective communication",
+      "apply conversational skills in a dialogue for effective communication",
+      "embrace conversational skills for effective communication."
+     ],
+     "learning_experiences": [
+      "view a dialogue on media and technology online or offline",
+      "identify the conversational skills used by participants in the dialogues viewed",
+      "discuss the importance of each conversational skill",
+      "employ the conversational skills in role playing a dialogue on the impact of media and technology on communities",
+      "provide feedback to peers respectfully on effectiveness of conversational skills in their dialogue",
+      "utilise effective conversational skills in school clubs."
+     ],
+     "inquiry_questions": [
+      "How can we make a conversation effective?"
+     ],
+     "core_competencies": [
+      "Core competencies to be developed:",
+      "Creativity and imagination: The learner shows ability to use imagination to generate new ideas while creating and presenting a dialogue on media and technology.",
+      "Communication: The learner speaks clearly and effectively by engaging in effective conversational skills in dialogues on media and technology.",
+      "Collaboration: The learner contributes to group decision making by participating actively while creating and presenting a dialogue. Values:",
+      "Respect: The learner understands and appreciates others while providing feedback to peers respectfully on effectiveness of conversational skills in dialogues on media and technology.",
+      "Peace: The learner avoids hurting others while engaging in a dialogue on media and technology. Pertinent and Contemporary Issues (PCIs):",
+      "Self-awareness: The learner reads varied texts on media and technology and discusses its impact in the society.",
+      "Assertiveness: The learner speaks clearly and effectively while role-playing a dialogue on media and technology."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-indigenous-language.pdf#p61"
+    },
+    {
+     "kicd_code": "",
+     "name": "Reading",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Organising jumbled up sentences",
+      "Question and answer"
+     ],
+     "learning_experiences": [
+      "Writing Skills",
+      "Peer assessment",
+      "Dictation",
+      "Portfolio",
+      "Learner journals",
+      "Standardised writing assessment",
+      "Anecdotal records"
+     ],
+     "inquiry_questions": [],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [
+      "SUGGESTED NON-FORMAL LEARNING"
+     ],
+     "kicd_source": "grade10-indigenous-language.pdf#p76"
+    },
+    {
+     "kicd_code": "",
+     "name": "READING",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Participating in wordplays and language games in language clubs to sharpen language competence",
+      "Giving talks on various themes at community events to sharpen language capacity",
+      "Writing articles on various themes and sharing in clubs and societies",
+      "Participating in language symposiums to build vocabulary"
+     ],
+     "learning_experiences": [
+      "WRITING",
+      "Dramatising and filming skits on various themes",
+      "Designing posters and public notices for school clubs and societies",
+      "Letter writing drills",
+      "Composing poems on issues around the theme in music or drama clubs",
+      "Writing and compiling articles on various themes to share in journalism clubs"
+     ],
+     "inquiry_questions": [],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-indigenous-language.pdf#p78"
+    }
+   ]
+  }
+ ]
+}

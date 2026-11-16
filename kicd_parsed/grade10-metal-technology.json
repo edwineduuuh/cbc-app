@@ -1,0 +1,870 @@
+{
+ "source_pdf": "grade10-metal-technology.pdf",
+ "grade": 10,
+ "subject": "metal-technology",
+ "general_outcomes": [
+  "By the end of senior secondary, the learner should be able to: -1. attain a firm foundation for the study of metal technology and, further training and education",
+  "use knowledge and skills in drawing to design items that can be made using metals",
+  "use metals to fabricate items that can be used to solve problems in the society",
+  "correctly select and use metal working tools and equipment for given tasks",
+  "carry out metal joining using the various metal joining processes",
+  "use acquired competencies in identifying business opportunity, set up and ethically run a enterprises in metal working related field",
+  "prudently manage finances and create wealth using metallic materials",
+  "appreciate metal technology in technical and social economic development of the country",
+  "promote national and international consciousness fostering positive attitudes toward other people and nations"
+ ],
+ "strands": [
+  {
+   "strand": "Fundamentals of Metal Technology",
+   "strand_code": "1.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to explain the importance of studying metalwork",
+     "exceeds": "Explains the importance of studying metalwork linking it to other areas",
+     "meets": "Explains the importance of studying metalwork as a learning area",
+     "approaches": "Struggles to explain the importance of studying metalwork as a learning area.",
+     "below": "With assistance, explains the importance of studying metalwork as a learning area."
+    },
+    {
+     "indicator": "Ability to define the terms used in metalwork as a learning area",
+     "exceeds": "Defines terms used in metalwork as a learning area with examples",
+     "meets": "Defines terms used in metalwork as a learning area.",
+     "approaches": "Struggles to define terms used in metalwork as a learning area",
+     "below": "With assistance defines the terms used in metalwork as a learning area."
+    },
+    {
+     "indicator": "Ability to describe the possible causes of accidents in a metal workshop",
+     "exceeds": "Describes the possible causes of accidents in a metal workshop citing examples",
+     "meets": "Describes the possible causes of accidents in a metal workshop",
+     "approaches": "Inadequately describes possible causes of accidents in a metal workshop",
+     "below": "With prompts, describes the possible causes of accidents in a metal workshop"
+    },
+    {
+     "indicator": "Ability to outline the first aid procedures for casualties in a workshop",
+     "exceeds": "Outlines the first aid procedures for casualties with demonstrations.",
+     "meets": "Outlines the first aid procedures for casualties",
+     "approaches": "Struggles to outline the first aid procedures for casualties",
+     "below": "With prompts, outlines the first aid procedures for casualties."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "1.1",
+     "name": "Introduction to metal technology",
+     "suggested_duration": "4 lessons",
+     "learning_outcomes": [
+      "define the terms used in metal technology as a learning area",
+      "explain the importance of studying metal technology as a career",
+      "Describe businesses related to metal technology in the community",
+      "appreciate importance of metal technology in day to day life"
+     ],
+     "learning_experiences": [
+      "Brainstorm on the terms used in metal technology as a learning area (metal, metal technology, material, tools, machines, personal protective equipment, workshop)",
+      "Use print or digital media to search for information on the meaning of the terms used in metal technology as a learning area",
+      "Discuss the importance of studying metal technology as career",
+      "Explore on the metal technology related business in the community",
+      "Visit metal technology related businesses within the"
+     ],
+     "inquiry_questions": [
+      "What is the importance of studying metal technology?"
+     ],
+     "core_competencies": [
+      "Core competencies to be developed:",
+      "Communication and collaboration: learner develops speaking, listening and teamwork skills when discussing and presenting on importance of studying metal technology.",
+      "Learning to Learn: learner develop relationship skills as they Visit metal technology related businesses within the locality and share their experiences in class",
+      "Digital Literacy: learner interacts and manipulates digital devices when using digital media to search for information on the meaning of the terms used in metal technology as a learning area",
+      "Values:",
+      "Unity: learners develops positive relationships as they interact and share learning aids when using print or digital media to search for information on the meaning of the terms used in metal technology",
+      "Love: learner care for each other as they discuss the importance of studying metal technology",
+      "Responsibility: learners care for print or digital media as they search for information on the meaning of the terms used in metal technology Pertinent and Contemporary Issues (PCIs):",
+      "Peer education: as learners work in groups as they discuss the importance of studying metal technology",
+      "Social cohesion: learners acquire effective communication skills as they explore on the metal technology related business",
+      "Social issues as: learners interact with each other as they visit metal technology related businesses within the locality",
+      "Financial Literacy: as learner acquire financial literacy skills as they visit metal technology related businesses within the locality and share their experiences in class"
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-metal-technology.pdf#p13"
+    },
+    {
+     "kicd_code": "1.2",
+     "name": "Safety at workshop",
+     "suggested_duration": "8 lessons",
+     "learning_outcomes": [
+      "explain safety in a metal workshop",
+      "explore the general workshop rules and regulations as outlined in occupational safety and health act (OSHA)",
+      "describe the possible causes of accidents in a metal workshop",
+      "outline the first aid procedures for accident casualties in a metal workshop.",
+      "describe the component of a metal workshop layout",
+      "appreciate the importance of safety in a metal workshop"
+     ],
+     "learning_experiences": [
+      "Brainstorm on the aspects of safety in a metal workshop (personal, equipment and environment)",
+      "Use print or digital media to search for information on workshop safety rules and regulations",
+      "Discus the possible causes of accident in a metal workshop",
+      "Demonstrate first aid procedures for accident casualties in a metal technology workshop",
+      "Watch videos on different workshop layout and discuss with peers",
+      "Visit a workshop in the locality to observe safety measures in place"
+     ],
+     "inquiry_questions": [
+      "How does workshop layout impact on workshop safety?"
+     ],
+     "core_competencies": [
+      "Core competencies to be developed:",
+      "Critical thinking and problem solving: learner interprets and makes inference when analyzing case studies on safety practices at different workplaces",
+      "Communication and collaboration: learner develops writing, reading, speaking, listening and teamwork skills when discussing and presenting on the general workshop rules and regulations",
+      "Learning to learn: learner develops self-learning skill when using print or digital media to search for information on workshop safety rules and regulations",
+      "Self-efficacy: learner develops self awareness skills as they discuss the possible causes of accident in a metal workshop",
+      "Values:",
+      "Patriotism: learner exhibit rule of law as they observe safety rules and regulations in a metal workshop",
+      "Responsibility: learner develops diligence as they identify the possible causes of accident in a metal workshop",
+      "Peace: learner develops empathy as they demonstrate first aid procedures for accident casualties in a metal technology workshop",
+      "• Pertinent and Contemporary Issues (PCIs):",
+      "Safety and security: as learner develop safety skills as they practice safety in a metal workshop",
+      "Social awareness: learner develop effective communication skill as they discuss the possible causes of accident in a metal workshop",
+      "Social responsibility: learner develops first aid skills as they demonstrate first aid procedures for accident casualties in a metal technology workshop"
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-metal-technology.pdf#p15"
+    },
+    {
+     "kicd_code": "1.1",
+     "name": "Introduction to metal technology",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Observation of learning activities."
+     ],
+     "learning_experiences": [
+      "Relevant video clips and pictures on Metal Technology.",
+      "Manilla papers and marker pens to make presentations",
+      "Resource Persons"
+     ],
+     "inquiry_questions": [
+      "Learners to local businesses in the community which deal with metals"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-metal-technology.pdf#p39"
+    },
+    {
+     "kicd_code": "1.2",
+     "name": "Safety at workshop",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Observation of learning activities"
+     ],
+     "learning_experiences": [
+      "Relevant video clips and pictures on safety in a metal workshop.",
+      "First Aid Kit",
+      "Person Protection Equipment (PPE)"
+     ],
+     "inquiry_questions": [
+      "Visit local workshop to observe safety"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-metal-technology.pdf#p39"
+    }
+   ]
+  },
+  {
+   "strand": "Tools and Materials in Metal Technology",
+   "strand_code": "2.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to use hand and bench tools to carry out given tasks",
+     "exceeds": "With ease, uses hand and bench tools to carry out given tasks",
+     "meets": "Uses hand and bench tools to carry out given tasks",
+     "approaches": "With difficulty, uses hand and bench tools to carry out given tasks",
+     "below": "With assistance, uses hand and bench tools to carry out given tasks"
+    },
+    {
+     "indicator": "Ability to use measuring and marking out to perform given tasks",
+     "exceeds": "With ease, uses measuring and marking out tools to perform given tasks",
+     "meets": "Uses measuring and marking out tools to perform given tasks",
+     "approaches": "With difficulty, uses measuring and marking out tools to perform given tasks",
+     "below": "With assistance, uses measuring and marking out tools to perform given tasks"
+    },
+    {
+     "indicator": "Ability to distinguish between ferrous and nonferrous metals.",
+     "exceeds": "Distinguishes between ferrous and nonferrous metals citing examples",
+     "meets": "Distinguishes between ferrous and nonferrous metals",
+     "approaches": "Struggles to distinguish between ferrous and nonferrous metals",
+     "below": "With prompts, distinguishes between ferrous and nonferrous metals"
+    },
+    {
+     "indicator": "Ability to illustrate forms of material supply in a metal workshop",
+     "exceeds": "Illustrates and explains forms of material supply in a metal workshop",
+     "meets": "illustrates forms of material supply in a metal workshop",
+     "approaches": "With prompts, illustrates forms of material supply in a metal workshop",
+     "below": "With guidance, Illustrates forms of material supply in a metal workshop"
+    },
+    {
+     "indicator": "Ability to fabricate an item to solve a given problem in the community.",
+     "exceeds": "Fabricates an item, with aesthetics, that solves a given problem in the community.",
+     "meets": "",
+     "approaches": "",
+     "below": ""
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "2.1",
+     "name": "Hand tools and bench tools",
+     "suggested_duration": "20 lessons",
+     "learning_outcomes": [
+      "select hand and bench tools for a given task in a metal workshop",
+      "perform a given task using hand and bench tools in a metal workshop",
+      "maintain hand and bench tools in a metal workshop",
+      "appreciate the importance of hand and bench tools in a metal workshop"
+     ],
+     "learning_experiences": [
+      "use visual aids or realia to identify hand and bench tools used in a workshop (cutting tools, driving tools, holding tools, measuring tools and marking out tools)",
+      "discuss the use of hand and bench tools in the workshop",
+      "watch audio visual aids on the safe use of hand and bench tools in the workshop",
+      "demonstrate safe use of hand and bench tools for a given task",
+      "maintain and store hand and bench tools in the workshop"
+     ],
+     "inquiry_questions": [
+      "1. What are the benefits of using appropriate tools in the workshop?",
+      "2. How does care and maintenance of tools enhance to efficiency in a workshop?"
+     ],
+     "core_competencies": [
+      "• Communication and Collaboration: learners develops writing, reading, speaking, listening and teamwork skills as they discuss the use of hand and bench tools in the workshop"
+     ],
+     "values": [
+      "Values:",
+      "Unity:’ learners develop cooperation skill as they share hand and bench tools in the workshop",
+      "Responsibility: learners develop accountability skills as they care for and maintain hand and bench tools in the workshop",
+      "Love: learners develops sharing skills as they use visual aids or realia to identify hand and bench tools used in a workshop"
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-metal-technology.pdf#p18"
+    },
+    {
+     "kicd_code": "2.2",
+     "name": "Measuring and marking out tools",
+     "suggested_duration": "20 lessons",
+     "learning_outcomes": [
+      "identify measuring and marking out tools used in a metal workshop",
+      "Perform a given task using measuring and marking out tools in a metal workshop",
+      "maintain measuring and marking out tools in a metal workshop",
+      "acknowledge the importance of measuring and marking out tools in metal workshop"
+     ],
+     "learning_experiences": [
+      "Learner is guided to",
+      "use visual aids or realia to identify measuring and marking out tools used in a metal workshop (steel rule, try square, dot punch, centre punch, outside calliper, inside calliper, scriber, divider, odd leg calliper, vee-block, angle blocks, surface table, scribing block, and trammel)",
+      "discuss the use of measuring and marking tools in the workshop",
+      "watch audio visual aids on the safe use of measuring and marking tools in the workshop",
+      "demonstrate safe use of measuring and marking tools for a given task",
+      "maintain and store measuring and marking out tools in the workshop"
+     ],
+     "inquiry_questions": [
+      "1. What are the benefits of using appropriate measuring and marking out tools in the workshop?",
+      "2. How does care and maintenance of measuring and marking out tools enhance precision in a workshop?"
+     ],
+     "core_competencies": [
+      "Core competencies to be developed: Core competences to be developed:",
+      "Communication and Collaboration: learners develops writing, reading, speaking, listening and teamwork skills as they discuss measuring and marking out tools used in a Metal workshop",
+      "Learning to Learn: learner develops self-learning skill as they demonstrate safe use of measuring and marking tools for a given task",
+      "Digital Literacy: learners interacts and manipulates digital devices as they watch audio visual aids on the safe use of measuring and marking tools in the workshop",
+      "Critical thinking and problem solving: learner develops open minded and creativity skills as he demonstrates the safe use of measuring and marking tools for a given task in the workshop",
+      "Values:",
+      "Respect: learners exercise patient as they share resources during the identification of measuring and marking out tools",
+      "Responsibility: learners acquire persistence as the practice safe use of measuring and marking out tools in the metal workshop",
+      "Unity: learners exhibit fairness by respecting other people’s opinion during the discussion of measuring and marking out tool",
+      "Social justice: learners are united together as they work in groups when carrying out measurement marking out processes",
+      "Pertinent and Contemporary Issues (PCIs):",
+      "Safety and security: learners develop safety skills as they use measuring and marking out tools in the workshop",
+      "Technology: learners enhance their technological skills as they use visual aids or realia to identify measuring and marking out tools used in a metal workshop",
+      "Self management: learners develop self esteem as they demonstrates the safe use of measuring and marking tools for a given task in the workshop"
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-metal-technology.pdf#p20"
+    },
+    {
+     "kicd_code": "2.3",
+     "name": "Ferrous and Non-ferrous metals",
+     "suggested_duration": "20 lessons",
+     "learning_outcomes": [
+      "distinguish between ferrous and non-ferrous metals as applied in materials",
+      "Explain the properties of metals found in a metal workshop",
+      "describe the process of producing iron from its ore",
+      "Illustrate the forms of material supply in a metal workshop",
+      "appreciate the use of ferrous and non-ferrous metals in day-to-day life"
+     ],
+     "learning_experiences": [
+      "Use print or digital media to search for information on ferrous and non-ferrous metals",
+      "sort metals into ferrous and non-ferrous metals (iron, steel,,copper, aluminium, tin, lead, zinc)",
+      "discuss the types of ferrous metals (low carbon steel, mild steel, high carbon steel)",
+      "Brainstorm on the properties of metals (physical, mechanical)",
+      "Use print or digital media to search for information production of iron from its ore",
+      "discuss the process of producing iron from its ore",
+      "Brainstorm on forms of materials supply in a metal workshop ( sheets, plates, tubes, wires, bars,)",
+      "Sketch forms of material supply in a metal workshop",
+      "Acknowledged the use of ferrous and non-ferrous metals in day-to-day life"
+     ],
+     "inquiry_questions": [
+      "1. Why is the study of ferrous and non-ferrous metals important in metal technology?",
+      "2. What are the uses of metals in day to day life?"
+     ],
+     "core_competencies": [],
+     "values": [
+      "Respect: learner develops open mindedness as they brainstorm on forms of material supply",
+      "Responsibility: learner develops self drive as they engage in assigned roles of duties during discussion of the process of producing iron.",
+      "Peace: learner works in harmony with other members of the team as they discuss the types of ferrous and non-ferrous metals."
+     ],
+     "pertinent_issues": [
+      "Self-management: the learner acquires self esteem as learner correctly sketches forms of material supply in a metal workshop.",
+      "Social awareness: the learner develops effective communication skills as they discuss types of ferrous and non-ferrous metals",
+      "Safety and security: online safety as the learner uses digital devices to search on the production of iron from its ore."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-metal-technology.pdf#p22"
+    },
+    {
+     "kicd_code": "2.4",
+     "name": "Project",
+     "suggested_duration": "18 lessons",
+     "learning_outcomes": [
+      "identify a problem in the community that can be solved using the knowledge and skills acquired in study of metal technology",
+      "suggest an item that can be made to solve the problem identified in the community using locally available materials.",
+      "fabricate the identified item in the workshop using locally available materials",
+      "appreciate the use of tools and equipment in fabrication."
+     ],
+     "learning_experiences": [
+      "The learners are guided to:",
+      "brainstorm on the problems in the community that can solved using the skills acquired.",
+      "Discuss possible items that can be made to solve the identified problem in the community.",
+      "Select an item that can be made using locally available resources to solve the identified problem community",
+      "Use locally available resources fabricate the selected item",
+      "Present the fabricated the item to class"
+     ],
+     "inquiry_questions": [
+      "How can knowledge and skills acquired in the use of tools and materials be used to solve the problems in the community?"
+     ],
+     "core_competencies": [
+      "• Creativity and imagination: learner utilizes the selection skills to choose a suitable item that can be fabricated to solve the problem identified in the community"
+     ],
+     "values": [
+      "Values:",
+      "Love: learner shares locally available resources to fabricate the selected item.",
+      "Unity: learner shows cooperation as they select an item that can be made using locally available resources to solve the identified problem community",
+      "Patriotism: learner exhibits loyalty to the country as they fabricate an item to solve the identified problem in the community. Pertinent and Contemporary Issues:",
+      "Good governance: the learner exercises civic responsibility by identifying a problem in the community that can be solved using the knowledge and skills acquired in study of tools and materials.",
+      "Social awareness: learner the uses effective communication to discuss possible items that can be made using locally available resources to solve the identified problem community",
+      "Safety and security:learner practice safety as they use tools when they are fabricating the item selected"
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-metal-technology.pdf#p24"
+    },
+    {
+     "kicd_code": "2.1",
+     "name": "Hand tools and bench tools",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Observation of practical activities"
+     ],
+     "learning_experiences": [
+      "Work bench",
+      "Cutting tools",
+      "Driving tools",
+      "Holding tools",
+      "Measuring tools",
+      "Marking out tools",
+      "Suggested learning resources",
+      "• Relevant video clips and pictures on hand and bench tools"
+     ],
+     "inquiry_questions": [
+      "Visit local workshop to observe the use of hand and bench tools",
+      "Suggested non-formal activities"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-metal-technology.pdf#p39"
+    },
+    {
+     "kicd_code": "2.2",
+     "name": "Measuring and marking out tools",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Observation of practical activities"
+     ],
+     "learning_experiences": [
+      "Work bench",
+      "Steel rule, try square, dot punch, centre punch, outside calliper, inside calliper, scriber, divider, odd leg calliper, vee-block, angle blocks, surface table, scribing block, and trammel",
+      "Relevant video clips and pictures on measuring and marking out tools"
+     ],
+     "inquiry_questions": [
+      "Visit local workshop to observe the use of hand and bench tools"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-metal-technology.pdf#p40"
+    },
+    {
+     "kicd_code": "2.3",
+     "name": "Ferrous and non-ferrous metals",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Observation of practical activities"
+     ],
+     "learning_experiences": [
+      "Relevant video clips and pictures on Metals & Nonmetals",
+      "Metals & Nonmetals (Iron, steel,, copper, aluminum, tin, lead, zinc, low carbon steel",
+      "Suggested learning resources",
+      "mild steel, high carbon steel)",
+      "Metals in different forms (sheets, plates, tubes, wires, bars)"
+     ],
+     "inquiry_questions": [
+      "Visit local workshop to observe metals & nonmetals",
+      "Suggested non-formal activities"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-metal-technology.pdf#p40"
+    },
+    {
+     "kicd_code": "2.4",
+     "name": "Project",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Oral assessment on safety and use of tools and materials"
+     ],
+     "learning_experiences": [
+      "Hand and bench tools",
+      "Measuring and marking out tools",
+      "Locally available metals and non-metals",
+      "Print and digital devices"
+     ],
+     "inquiry_questions": [
+      "Visit the community to identify problems • Visit the locality to obtain metals and non-metals (locally available)"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-metal-technology.pdf#p41"
+    }
+   ]
+  },
+  {
+   "strand": "Related Drawing in Metal Technology",
+   "strand_code": "3.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to identify symbols and abbreviations used in drawing",
+     "exceeds": "Identifies and sketches symbols and abbreviations used in Technical Drawing",
+     "meets": "Identifies symbols and abbreviations used in Technical Drawing",
+     "approaches": "Struggles to identify symbols and abbreviations used in Technical Drawing",
+     "below": "With guidance, identifies symbols and abbreviations used in Technical Drawing"
+    },
+    {
+     "indicator": "Ability to construct scales used in technical drawing",
+     "exceeds": "Constructs and applies scales used in Technical Drawing",
+     "meets": "Constructs scales used in Technical Drawing",
+     "approaches": "With prompts, constructs scales used in Technical Drawing",
+     "below": "With assistance, constructs scales used in Technical Drawing"
+    },
+    {
+     "indicator": "Ability to identify types of pictorial drawings in Technical Drawing",
+     "exceeds": "Identifies and sketches pictorial drawings used in Technical Drawing",
+     "meets": "Identifies pictorial drawings used in Technical Drawing",
+     "approaches": "Struggles to identify pictorial drawings used in Technical Drawing",
+     "below": "With assistance, identifies pictorial drawings used in Technical Drawing"
+    },
+    {
+     "indicator": "Ability to construct a pictorial drawing in isometric projection.",
+     "exceeds": "Constructs and labels pictorial drawings in isometric projection",
+     "meets": "Constructs pictorial drawings in isometric projection",
+     "approaches": "With prompts, constructs pictorial drawings in isometric projection",
+     "below": "With assistance, constructs pictorial drawings in isometric projection"
+    },
+    {
+     "indicator": "Ability to construct a pictorial drawing in oblique projection.",
+     "exceeds": "Constructs and labels pictorial drawings in oblique projection",
+     "meets": "Constructs pictorial drawings in oblique projection",
+     "approaches": "With prompts, constructs pictorial drawings in oblique projection",
+     "below": "With assistance, constructs pictorial drawings in oblique projection"
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "3.1",
+     "name": "Scales and conventions",
+     "suggested_duration": "15 lessons",
+     "learning_outcomes": [
+      "identify symbols, abbreviations and conventions used in drawings",
+      "interpret symbols, abbreviations and conventions used in drawings",
+      "construct scales in technical drawing",
+      "appreciate the application of symbols, abbreviations and conventions used in drawings"
+     ],
+     "learning_experiences": [
+      "use print or digital media to search for information on symbols, abbreviations and conventions used in drawing",
+      "discuss with peers the symbols, abbreviations and conventions used in drawing",
+      "illustrate symbols, abbreviations and conventions used in drawings",
+      "Practice the construction of scales (plane and diagonal) in technical drawing",
+      "Acknowledge the application of symbols, abbreviations and conventions used in technical drawing."
+     ],
+     "inquiry_questions": [
+      "Why are the symbols, abbreviations and conventions used in drawing?"
+     ],
+     "core_competencies": [
+      "Digital literacy: learner interact with technology as they use digital media to search for information on symbols, abbreviations and conventions used in drawing",
+      "Self-efficacy: learner develops effective communication skills as they illustrate symbols, abbreviations and conventions used in drawings"
+     ],
+     "values": [
+      "Values:",
+      "Responsibility: learner engages in the practice of construction of plane and diagonal scales used in drawing",
+      "Respect: learner accept others opinion as they discuss the application of standard symbols, abbreviations and conventions",
+      "Integrity: learner observes honesty and discipline as they use print or digital media to search for information on symbols, abbreviations and conventions used in drawing Pertinent and Contemporary Issues (PCIs):",
+      "Safety and security: online safety as the learner uses digital devices to search for information on symbols, abbreviations and conventions used in drawing",
+      "Social awareness: learner communicate effectively using drawing symbols, abbreviations and conventions in drawings",
+      "Self management: learner develops Self-esteem as they gains confidence when discuss the symbols, abbreviations and conventions used in drawings"
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-metal-technology.pdf#p27"
+    },
+    {
+     "kicd_code": "3.2",
+     "name": "Pictorial drawing",
+     "suggested_duration": "20 lessons",
+     "learning_outcomes": [
+      "identify types of pictorial drawings used in metal technology",
+      "draw three-dimensional figures used in metal technology",
+      "Construct pictorial drawings in isometric projection",
+      "Construct pictorial drawings in oblique projection.",
+      "Dimension pictorial drawings used in metal technology",
+      "appreciate the use of pictorial drawings in metal technology"
+     ],
+     "learning_experiences": [
+      "Use visual aids to identify types of pictorial drawing",
+      "discuss with peers different types of pictorial drawings in metal technology",
+      "Practice drawing of three-dimensional figures (prisms and pyramids)",
+      "Practice the drawing of three-dimensional figures in a given projection (isometric, oblique)",
+      "Practice correct dimensioning of pictorial drawings",
+      "Display the pictorial drawings in class"
+     ],
+     "inquiry_questions": [
+      "1. What is a pictorial drawing?",
+      "2. Why are pictorial drawings important in metal technology?"
+     ],
+     "core_competencies": [],
+     "values": [
+      "Values:",
+      "Respect: the learner develops patience by accurately following step-by-step of construction process hence enhancing the importance of accuracy.",
+      "Unity: learner cultivate fairness skills by sharing drawing tools and instruments with peers fostering a collaborative atmosphere during construction of pictorial drawings.",
+      "Responsibility: learner demonstrates diligence by adherence to safety and care for tools and equipment when constructing Pertinent and Contemporary Issues (PCIs):",
+      "Technology: learners enhance their technological skills as they use visual aids to identify types of pictorial drawing",
+      "Safety and security: learner demonstrates diligence by adherence to safety and care for tools and equipment when constructing",
+      "Social skills: learner communicate effectively using drawing symbols, abbreviations and conventions in drawings"
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-metal-technology.pdf#p29"
+    },
+    {
+     "kicd_code": "3.1",
+     "name": "Scales and conventions",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Observation of scale drawing activities"
+     ],
+     "learning_experiences": [
+      "Relevant video clips and pictures on symbols, abbreviations and conventions in drawing",
+      "Reference materials for drawing",
+      "Drawing instruments"
+     ],
+     "inquiry_questions": [
+      "Visit a drawing room in the locality to observe symbols, abbreviations and conventions in drawing"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-metal-technology.pdf#p41"
+    },
+    {
+     "kicd_code": "3.2",
+     "name": "Pictorial drawing",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "• Observation of pictorial drawings"
+     ],
+     "learning_experiences": [
+      "• Relevant video clips and pictures on pictorial drawings",
+      "Suggested learning resources",
+      "Reference materials for drawing",
+      "Drawing instruments"
+     ],
+     "inquiry_questions": [
+      "Visit a drawing room in the locality to observe pictorial drawings",
+      "Suggested non-formal activities"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-metal-technology.pdf#p41"
+    }
+   ]
+  },
+  {
+   "strand": "Metal Joining and Finishing Processes",
+   "strand_code": "4.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to explain methods used in joining sheet metals in a workshop",
+     "exceeds": "Explains, with examples, methods used in joining sheet metals in a workshop",
+     "meets": "Explains methods used in joining sheet metals in a workshop",
+     "approaches": "With prompts, explains methods used in joining sheet metals in a workshop",
+     "below": "Hardly explains methods used in joining sheet metals in a workshop"
+    },
+    {
+     "indicator": "Ability to perform a given sheet metal joining process in a workshop",
+     "exceeds": "Performs sheet metal joining processes with precision in a workshop",
+     "meets": "Performs sheet metal joining processes in a workshop",
+     "approaches": "With guidance, performs sheet metal joining processes in a workshop",
+     "below": "Hardly performs sheet metal joining processes with in a workshop"
+    },
+    {
+     "indicator": "Ability to perform a given sheet metal process in a workshop",
+     "exceeds": "Performs sheet metal processes with precision in a workshop",
+     "meets": "Performs sheet metal processes in a workshop",
+     "approaches": "With guidance, performs sheet metal processes in a workshop",
+     "below": "Hardly performs sheet metal processes with in a workshop"
+    },
+    {
+     "indicator": "Ability to fabricate a given sheet metal item in a workshop.",
+     "exceeds": "Fabricates a sheet metal item, with aesthetics, in a workshop.",
+     "meets": "Fabricates a sheet metal item, in a workshop.",
+     "approaches": "Struggles to fabricate a sheet metal item that solves a given problem in the community.",
+     "below": "With guidance, fabricates a sheet metal item to solve a given problem in the community."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "4.1",
+     "name": "Methods of joining sheet metal",
+     "suggested_duration": "20 lessons",
+     "learning_outcomes": [
+      "Identify types of sheet metal joints used in metal technology.",
+      "explain methods used in joining sheet metals in metal technology",
+      "perform a given task using sheet metal joining methods in the workshop",
+      "appreciate the use of sheet metal joining methods in day -to– day life"
+     ],
+     "learning_experiences": [
+      "Use print or digital media to search for information on types joints in sheet metal (butt, lap, seam)",
+      "Sketch the types of joints used in sheet metal",
+      "brainstorm on the methods used in joining sheet metals (riveting, fasteners, and screw thread)",
+      "carry out a given sheet metal joining process (riveting, seam, fastening and screw thread)",
+      "practice safety when carrying out sheet metal joining methods in the workshop",
+      "Display the sheet metal joints produced in class"
+     ],
+     "inquiry_questions": [
+      "What is importance of joints in sheet metal?"
+     ],
+     "core_competencies": [
+      "• Communication and Collaboration: The learner enhances speaking, listening, and teamwork skills while brainstorming on the methods used in joining sheet metals."
+     ],
+     "values": [
+      "Values:",
+      "Respect: The learner cultivates patience by accurately following each step of methods of joining sheet metal, understanding the importance of precision and care.",
+      "Responsibility: The learner demonstrates diligence by adhering to all safety protocols when carrying out tasks in sheet metal joining methods in the workshop, ensuring a safe working environment for themselves and others.",
+      "Unity: The learner cultivates fairness skills by equitably sharing tools and materials with peers, fostering a collaborative atmosphere during the sheet metal joining process. Pertinent and Contemporary Issues (PCIs):",
+      "Safety and Security: The learner enhances safety skills by diligently practicing safety protocols when carrying out tasks in sheet metal joining methods in the workshop.",
+      "Social Awareness: The learner improves effective communication skills through brainstorming sessions on various methods used in joining sheet metals.",
+      "Self-Management: The learner boosts self-esteem by showcasing the sheet metal joints they have produced in class."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-metal-technology.pdf#p32"
+    },
+    {
+     "kicd_code": "4.2",
+     "name": "Sheet metal processes",
+     "suggested_duration": "15 lessons",
+     "learning_outcomes": [
+      "Describe sheet metal processes applied in metal technology",
+      "Select tools and equipment for a given sheet metal process in the workshop",
+      "Carry out sheet metal processes for given task in a workshop",
+      "Acknowledge the importance of sheet metal processes in day-to-day life."
+     ],
+     "learning_experiences": [
+      "Learner is guided to",
+      "Use print or digital media to search for information on sheet metal processes (edge treatment, hollowing, sinking, raising)",
+      "discuss the sheet metal processes (edge treatment, hollowing, sinking, raising)",
+      "Select the appropriate tools and equipment for a given sheet metal process",
+      "Perform a given sheet metal process in the workshop",
+      "Present the work produced from sheet metal processes to class"
+     ],
+     "inquiry_questions": [
+      "What guides the selection of sheet process for a given task?"
+     ],
+     "core_competencies": [
+      "Communication and Collaboration: The learner enhances speaking, listening, and teamwork skills through discussions on the various types of sheet metal processes.",
+      "Critical Thinking and Problem Solving: The learner acquires open-mindedness and creativity while selecting the appropriate tools and equipment for a given sheet metal process.",
+      "Digital Literacy: The learner develops digital skills by using digital media to search for information on sheet metal"
+     ],
+     "values": [
+      "Values:",
+      "Love: The learner cultivates generosity by sharing tools and equipment when carrying out a given sheet metal process in the workshop.",
+      "Responsibility: The learner exhibits accountability for tools and equipment while performing a given sheet metal process in the workshop.",
+      "Peace: The learner develops caring skills by practicing safety measures for themselves and others when carrying out a given sheet metal process in the workshop. Pertinent and Contemporary Issues (PCIs):",
+      "Safety and Security: The learner develops safety skills by practicing safety measures when carrying out sheet metal processes in the workshop.",
+      "Social Awareness: The learner enhances effective communication skills by discussing the various sheet metal processes.",
+      "Self-Management: The learner builds self-esteem by presenting the work produced from sheet metal processes to the class."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-metal-technology.pdf#p34"
+    },
+    {
+     "kicd_code": "4.3",
+     "name": "Project",
+     "suggested_duration": "20 lessons",
+     "learning_outcomes": [
+      "identify a problem in the community that can be solved using the knowledge and skills acquired in sheet metal processes",
+      "Suggest an item that can be made to solve the identified problem using locally available materials",
+      "Fabricate an item to solve the identified problem, utilizing the acquired knowledge and skills",
+      "appreciate the importance of sheet metal processes in solving problems within the community"
+     ],
+     "learning_experiences": [
+      "brainstorm on the problems in the locality that can solved using the skills acquired in sheet metal processes",
+      "Discuss possible items that can be made to solve the identified problem.",
+      "Select an item that can be made using locally available resources to solve the identified problem",
+      "Use locally available resources fabricate the selected item",
+      "Present the fabricated item to class",
+      "Suggested learning resources"
+     ],
+     "inquiry_questions": [
+      "1. What societal problems can be solved using knowledge and skills acquired in study of sheet metal processes?",
+      "2. How can sheet metal skills and processes be used in solving problems in the society?",
+      "Suggested non-formal activities"
+     ],
+     "core_competencies": [
+      "• Creativity and imagination: learner utilizes the selection skills to choose a suitable item that can be fabricated to solve the problem identified in the community"
+     ],
+     "values": [
+      "Values:",
+      "Love: learner shares locally available resources to fabricate the selected item.",
+      "Unity: learner shows cooperation as they select an item that can be made using locally available resources to solve the identified problem community",
+      "Patriotism: learner exhibits loyalty to the country as they fabricate an item to solve the identified problem in the community Pertinent and Contemporary Issues:",
+      "Good governance: the learner exercises civic responsibility by identifying a problem in the community that can be solved using the knowledge and skills acquired in study of tools and materials.",
+      "Social awareness: learner the uses effective communication to discuss possible items that can be made using locally available resources to solve the identified problem community",
+      "Safety and security:learner practice safety as they use tools when they are fabricating the item selected"
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-metal-technology.pdf#p36"
+    },
+    {
+     "kicd_code": "4.1",
+     "name": "Methods of joining sheet metal",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Observation of sheet metal joining activities"
+     ],
+     "learning_experiences": [
+      "Relevant video clips and pictures on types of sheet metals, joints and joining materials",
+      "Sheet metal joints (butt, lap, seam)",
+      "Sheet metal joining materials (riveting, fasteners, and screw thread)",
+      "Safety precautions reference"
+     ],
+     "inquiry_questions": [
+      "Visit a sheet metal workshop in the locality to observe types of sheet metals, joints, joining materials and practice sheet metal work"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-metal-technology.pdf#p42"
+    },
+    {
+     "kicd_code": "4.2",
+     "name": "Sheet metal processes",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Observe practical activities as they carry out sheet metals processing"
+     ],
+     "learning_experiences": [
+      "• Print or digital media to search for information on sheet metal processes (edge treatment, hollowing, sinking, raising)",
+      "Suggested learning resources",
+      "• Sheet metal working Tools Equipment"
+     ],
+     "inquiry_questions": [
+      "Visit a sheet metal workshop in the locality to observe edge treatment, hollowing, sinking, raising",
+      "Suggested non-formal activities",
+      "and to practice sheet metal work"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-metal-technology.pdf#p42"
+    },
+    {
+     "kicd_code": "4.3",
+     "name": "Project",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Oral assessment on safety and use of tools and materials"
+     ],
+     "learning_experiences": [
+      "Sheet metal joining tools",
+      "Sheet metal processing tools and equipment",
+      "Locally available sheet metals Print and digital devices"
+     ],
+     "inquiry_questions": [
+      "Visit the community to identify problems • Visit the locality to obtain sheet metals (locally available)"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-metal-technology.pdf#p43"
+    }
+   ]
+  }
+ ]
+}

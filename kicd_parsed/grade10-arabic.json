@@ -1,0 +1,998 @@
+{
+ "source_pdf": "grade10-arabic.pdf",
+ "grade": 10,
+ "subject": "arabic",
+ "general_outcomes": [
+  "By the end of Senior School, the learner should be able to:",
+  "Use Arabic as a communication tool through the four language skills of listening, speaking, reading and writing to meet basic and practical communication needs,",
+  "Develop an ability to speak fluently and accurately in a variety of situations,",
+  "Develop a reading culture for information and pleasure; drawing inferences and relating texts to previous knowledge; reading critically and developing the confidence to ask and answer questions,",
+  "Develop and apply skills and strategies for idea generation, selection, development and organization in writing,",
+  "Apply the grammatical rules, structures, and linguistic functions for real life purposes,",
+  "Understand and apply the overarching values and pertinent and contemporary issues embedded in the curriculum,",
+  "Realize the uniqueness of the Arabic culture, heritage and its contribution to world knowledge."
+ ],
+ "strands": [
+  {
+   "strand": "Listening and Speaking",
+   "strand_code": "1.0",
+   "assessment_rubric": [],
+   "substrands": [
+    {
+     "kicd_code": "1.1",
+     "name": "Listening Comprehension",
+     "suggested_duration": "7 lessons",
+     "learning_outcomes": [
+      "identify Arabic letters and their sounds for comprehension",
+      "combine syllables and sounds to form words",
+      "respond to simple oral questions appropriately",
+      "develop interest in learning the Arabic language."
+     ],
+     "learning_experiences": [
+      "work jointly to identify letters and sounds in the Arabic Alphabet",
+      "match sounds to their corresponding letters to form syllables",
+      "join syllables to form meaningful words",
+      "pronounce words with sound ba, ma, la, da from a given display",
+      "listen to an audio presentation on greetings and introductions and answer questions correctly",
+      "team up to role-play greetings for different times of the day",
+      "work jointly to engage in a conversation on introducing",
+      "self, nuclear and extended family members."
+     ],
+     "inquiry_questions": [
+      "How do you avoid distraction while listening for comprehension?"
+     ],
+     "core_competencies": [
+      "Communication and collaboration: This is developed as the learners builds on their interaction skills by engaging in a conversation on introducing self, nuclear and extended family members.",
+      "Self-efficacy: This is promoted as the learners shows concerted attention to perform the task of matching sounds to their corresponding letters to form syllables."
+     ],
+     "values": [
+      "Respect: This is enhanced as the learner appreciates the efforts made by peers when collaborating to role-play greetings for different times of the day"
+     ],
+     "pertinent_issues": [
+      "Cultural awareness: This is promoted as the learner appreciates and practices greetings used at different times."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-arabic.pdf#p14"
+    },
+    {
+     "kicd_code": "1.2",
+     "name": "Oral Presentations",
+     "suggested_duration": "7 lessons",
+     "learning_outcomes": [
+      "express opinions and ideas orally on a given context",
+      "make a short speech for effective communication",
+      "appreciate presenting ideas orally to convey a message."
+     ],
+     "learning_experiences": [
+      "work jointly to describe their home (location, items, sections)",
+      "pronounce vocabulary related to the home with correct articulation",
+      "take turns to use vocabulary and phrases related to the home to construct sentences",
+      "work jointly to conduct simple conversation related to home",
+      "make a short speech related to the theme using appropriate tone and pronunciation",
+      "listen to audio-visual presentations during free time and imitate."
+     ],
+     "inquiry_questions": [
+      "How can oral presentation develop language skills?"
+     ],
+     "core_competencies": [
+      "Core competencies to be developed:",
+      "Self-efficacy: This is enhanced as the learner shows concerted effort while working jointly to conduct simple conversation related to home.",
+      "Creativity and imagination: This is enhanced as the learner embraces new ideas that inspire creativity when making a short speech related to the theme on home. Values:",
+      "Social justice: This is enhanced as the learner accords others an equal opportunity when taking turns to use words and phrases related to the home to construct sentences. Pertinent and Contemporary Issues (PCIs): Environmental awareness: This is promoted as learners describe their environment when talking about their homes in terms of location, sections and items."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-arabic.pdf#p22"
+    },
+    {
+     "kicd_code": "1.3",
+     "name": "Speaking Fluency",
+     "suggested_duration": "7 lessons",
+     "learning_outcomes": [
+      "express opinions and ideas fluently",
+      "use appropriate stress and intonation to describe places",
+      "respond fluently to given instructions",
+      "acknowledge fluency speaking in communication."
+     ],
+     "learning_experiences": [
+      "use simple phrases to express opinions and ideas on tourist destinations and attractions in Kenya",
+      "articulate words and phrases using the correct intonation and stress",
+      "conduct dialogue on tourist destination and attraction in Kenya",
+      "make an oral presentation fluently in class on tourist destinations and attractions",
+      "search from online or offline sources and observe different tourism destinations and attraction sites in Kenya."
+     ],
+     "inquiry_questions": [
+      "How can you develop fluency in speaking Arabic?"
+     ],
+     "core_competencies": [
+      "• Digital Literacy: This is enhanced as the learner interacts with digital content when using online sources to observe different tourism destinations and attraction sites in Kenya."
+     ],
+     "values": [
+      "Values: Unity: This is enhanced as the learner cooperates with peers when conducting a dialogue on tourist destinations and attraction in Kenya. Pertinent and Contemporary Issues (PCIs): Environmental conservation: This is promoted as the learner observes different tourism destinations and attraction sites in Kenya."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-arabic.pdf#p30"
+    },
+    {
+     "kicd_code": "1.4",
+     "name": "Attentive Listening",
+     "suggested_duration": "7 lessons",
+     "learning_outcomes": [
+      "identify specific details from a text for comprehension",
+      "listen to variety of texts to obtain information",
+      "appreciate the importance of listening attentively for lifelong learning."
+     ],
+     "learning_experiences": [
+      "listen to an audio presentation and list the healthy eating habits mentioned",
+      "share findings with peers for review",
+      "work jointly to list vocabulary based on healthy eating mentioned in the audio presentation",
+      "pick out words or phrases related to healthy eating habits from a given presentation",
+      "listen to news a bulletin or speech during your free time and share the information with peers."
+     ],
+     "inquiry_questions": [
+      "Why is active listening important in communication?"
+     ],
+     "core_competencies": [
+      "• Communication and collaboration: This is enhanced as the learners build on their interpersonal skills as they listen to news a bulletin or speech during your free time and share the information with peers."
+     ],
+     "values": [
+      "Values: Love: This is promoted as the learners portray a caring attitude when sharing findings with peers for review. Pertinent and Contemporary Issues (PCIs): Health promotion: This is promoted as learners listen to an audio presentation on healthy living and extract information from it."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-arabic.pdf#p38"
+    },
+    {
+     "kicd_code": "1.5",
+     "name": "Selective Listening",
+     "suggested_duration": "7 lessons",
+     "learning_outcomes": [
+      "pick out target vocabulary from an oral text for information",
+      "listen to selected texts to deduce specific information",
+      "acknowledge the significance of selective listening in communication."
+     ],
+     "learning_experiences": [
+      "work collaboratively to pick out vocabulary on specific school activities from an audio recording",
+      "listen to audio presentations on school routines and extract the main ideas",
+      "collectively listen to a recorded presentation on school routines and make a summary of the main points",
+      "search online /offline for different school routines and make a presentation on findings in class",
+      "peer review each other’s presentation for constructive feedback."
+     ],
+     "inquiry_questions": [
+      "Why is selective listening important in communication?"
+     ],
+     "core_competencies": [
+      "• Learning to learn: This is promoted as the learner builds on their research skills by searching online /offline for"
+     ],
+     "values": [
+      "Values:",
+      "Integrity: This is promoted as the learner accommodates diverse opinions when peer reviewing other’s presentations for constructive feedback.",
+      "Unity: This is promoted as the learner cooperates with peers to pick out specific school activities mentioned in the recording. Pertinent and Contemporary Issues (PCIs): Time management: This is promoted as the learner engages with information on time management and appreciates aspects of time management in a school setup."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-arabic.pdf#p46"
+    },
+    {
+     "kicd_code": "1.6",
+     "name": "Listening for Gist",
+     "suggested_duration": "7 lessons",
+     "learning_outcomes": [
+      "identify the main idea from a text",
+      "paraphrase a text for specific information",
+      "acknowledge the importance of listening skills in communication"
+     ],
+     "learning_experiences": [
+      "listen to an audio recording on shopping activities and identify the main idea",
+      "work jointly to pick out specific information from the audio recording on shopping activities and make notes",
+      "search online/offline for phrases and expressions that signal the main idea in a text",
+      "watch a video describing a shopping mall",
+      "paraphrase information on specific activities carried out in the mall",
+      "work jointly to role play a shopping scenario in a shopping mall."
+     ],
+     "inquiry_questions": [
+      "How can you extract the main idea from a listening text?"
+     ],
+     "core_competencies": [
+      "Core competencies to be developed:",
+      "Communication and collaboration: This is enhanced as the learner builds on their listening skills when working jointly to pick out specific information from the audio recording on shopping activities and make notes.",
+      "Digital literacy: This is achieved as the learner interacts with digital content when searching online/offline for phrases and expressions that signal the main idea. Values: Unity: This is promoted as the learner displays a team spirit while working jointly to role play a shopping scenario in a shopping mall. Pertinent and Contemporary Issues (PCIs): Entrepreneurship: This is promoted as the learners listen to an audio recording and interact with texts with information on the world of business."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-arabic.pdf#p54"
+    }
+   ]
+  },
+  {
+   "strand": "Reading",
+   "strand_code": "2.0",
+   "assessment_rubric": [],
+   "substrands": [
+    {
+     "kicd_code": "2.1",
+     "name": "Reading for Comprehension",
+     "suggested_duration": "7 lessons",
+     "learning_outcomes": [
+      "identify the main ideas in a text",
+      "respond to questions from a text for comprehension",
+      "summarise information from a short text",
+      "appreciate the importance of reading for comprehension in lifelong learning."
+     ],
+     "learning_experiences": [
+      "take turns to read short passages on nuclear and extended families",
+      "brainstorm on the main ideas in the passages with peers",
+      "team up to organise the names of nuclear and extended family members on flowcharts",
+      "answer questions from the passages on nuclear and extended family members",
+      "read short poems related to family members and answer simple questions",
+      "use short sentences to summarise information on texts about members of the family",
+      "team up to search online /offline sources for introduction phrases and greetings used at different times of the day."
+     ],
+     "inquiry_questions": [
+      "What should you consider when reading for comprehension?"
+     ],
+     "core_competencies": [
+      "Core competencies to be developed:",
+      "Self-efficacy: This is nurtured as the learner builds on their interpersonal skills when working jointly to role play introducing and greeting different members of the family.",
+      "Digital literacy: This is achieved as the learner interacts with digital content when search online/offline for introduction phrases and greetings used at different times of the day. Values: Social Justice: This is enhanced as the learner accords each one an equal opportunity when taking turns to read a short passage on nuclear and extended families. Pertinent and Contemporary Issues (PCIs): Social Cohesion: This is promoted as the learner gets to appreciate interpersonal relationships through practicing greetings and self-introduction for peaceful co-existence."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-arabic.pdf#p16"
+    },
+    {
+     "kicd_code": "2.2",
+     "name": "Reading Fluency",
+     "suggested_duration": "7 lessons",
+     "learning_outcomes": [
+      "identify the techniques of reading fluently",
+      "read a text with correct intonation, stress and pronunciation",
+      "apply appropriate expression when reading a text for fluency",
+      "appreciate the importance of reading fluency for understanding."
+     ],
+     "learning_experiences": [
+      "take turns to read short passages aloud on home while observing correct intonation, stress and correct pronunciation",
+      "watch a variety of audio-visual clips featuring well-read scripts related to home",
+      "team up to play a speed reading game for fun and enjoyment",
+      "read a text such as a poem, a narrative, or dialogue with: -appropriate expressions -accuracy -the right speed",
+      "participate in activities that enhance reading fluency such as paired",
+      "reading, repeated reading and choral reading",
+      "work collaboratively to conduct a reading mini-contest."
+     ],
+     "inquiry_questions": [
+      "Why is it important to read fluently?"
+     ],
+     "core_competencies": [
+      "Communication and collaboration: This is promoted as the learner builds on their interpersonal skills when teaming up to play a speed reading game for fun and enjoyment.",
+      "Self-efficacy: This is enhanced as the learner shows concerted attention when reading a text aloud with appropriate expression, accuracy and the right speed."
+     ],
+     "values": [
+      "Responsibility: This is promoted as the learner takes up self-initiative to participate in activities that enhance reading fluency.",
+      "Unity: This is enhanced as the learner displays a team spirit while conducting a reading mini-contest."
+     ],
+     "pertinent_issues": [
+      "Self-Management Skills: This is observed as learners watch a variety of audio-visual clips featuring well-read scripts related to the theme to build on the fluency skills."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-arabic.pdf#p24"
+    },
+    {
+     "kicd_code": "2.3",
+     "name": "Reading for Information",
+     "suggested_duration": "7 lessons",
+     "learning_outcomes": [
+      "identify main information from a text",
+      "infer meaning of vocabulary or phrases for language acquisition",
+      "appreciate the importance of reading as a source of information."
+     ],
+     "learning_experiences": [
+      "read texts on tourism attraction sites and destination",
+      "discuss the information obtained from the texts",
+      "conduct a reader’s theatre to read short texts on tourist destinations in Kenya",
+      "build a vocabulary bank on the new words identified related to tourist destinations in Kenya",
+      "work jointly to fill in crossword puzzles using new words learned",
+      "read passages on tourist destinations in Kenya and answer questions",
+      "watch videos offline or online featuring tourist destinations and attraction sites in Kenya."
+     ],
+     "inquiry_questions": [
+      "How does reading contribute to obtaining information?"
+     ],
+     "core_competencies": [
+      "• Self-efficacy: This is promoted as the learner effectively orders and prioritises tasks when conducting a reader’s theatre to read short texts on tourist destinations in Kenya."
+     ],
+     "values": [
+      "Values: Respect: This is inculcated as the learner appreciates peer’s opinions when discussing the information obtained from texts. Pertinent and Contemporary Issues (PCIs): Environmental conservation: This is promoted as the learner interacts with information on various tourist destinations and attraction sites in Kenya."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-arabic.pdf#p32"
+    },
+    {
+     "kicd_code": "2.4",
+     "name": "Intensive Reading: Poetry",
+     "suggested_duration": "7 lessons",
+     "learning_outcomes": [
+      "read poems fluently for enjoyment",
+      "analyse Arabic poems based on the subject matter for information",
+      "develop interest in reading Arabic poems for enjoyment."
+     ],
+     "learning_experiences": [
+      "collaborate with peers to read short poems on healthy eating",
+      "answer questions from the poem",
+      "practice reading texts with peers on healthy eating",
+      "team up with poems to reading poetry texts focusing on intonation, stress and pronunciation",
+      "search from the internet healthy eating habits, download and read with peers",
+      "team up to present a poem on healthy eating during an interclass competition."
+     ],
+     "inquiry_questions": [
+      "How can we build a reading culture in ourselves?"
+     ],
+     "core_competencies": [
+      "• Self-efficacy: This is inculcated as the learner builds on their public presentation skills as they present a poem on healthy eating during an interclass competition."
+     ],
+     "values": [
+      "Values:",
+      "Integrity: This is developed as the learner embraces safe use of internet spaces when search from the internet healthy eating habits, download and read with peers.",
+      "Unity: This is enhanced as the learner collaborates with peers in reading texts focusing on intonation, stress and pronunciation. Pertinent and Contemporary Issues (PCIs): Health promotion issues: This is promoted as the learners interact with poems containing information on healthy eating."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-arabic.pdf#p40"
+    },
+    {
+     "kicd_code": "2.5",
+     "name": "Extensive Reading: Library skills",
+     "suggested_duration": "7 lessons",
+     "learning_outcomes": [
+      "read simple Arabic texts for enjoyment",
+      "track reading progress for lifelong learning",
+      "develop a positive reading culture for lifelong learning."
+     ],
+     "learning_experiences": [
+      "conduct a reader’s theatre to read stories on the various school routines",
+      "read short articles from newspapers, magazines or journals",
+      "read short stories from various storybooks",
+      "create a reading log (with details such as title, author, characters, key events) to track and monitor reading progress",
+      "interact with digital devices, browse and read texts on school activities with peers",
+      "team up with peers to hold book club sessions to discuss Arabic stories read."
+     ],
+     "inquiry_questions": [
+      "How does reading fluency promote the reading culture?"
+     ],
+     "core_competencies": [
+      "• Citizenship: This is promoted as the learner accumulates information by interacting with digital devices, browses and reads texts on school activities with peers."
+     ],
+     "values": [
+      "Values: Unity: This is nurtured as the learner cooperates with peers to conduct a reader’s theatre to read stories on the various school routines, Pertinent and Contemporary Issues (PCIs): Time management: This is promoted as the learner engages with information on time management and appreciates aspects of time management in a school setup."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-arabic.pdf#p48"
+    },
+    {
+     "kicd_code": "2.6",
+     "name": "Intensive Reading: Arabic Prose",
+     "suggested_duration": "7 lessons",
+     "learning_outcomes": [
+      "describe the characteristics of Arabic prose",
+      "describe characters in a prose text for information",
+      "discuss prose texts by author and events for information",
+      "value the role of prose in culture transmission."
+     ],
+     "learning_experiences": [
+      "brainstorm on the characteristics of prose with peers",
+      "conduct a silent reading session to read short prose texts",
+      "work jointly to present the characters in a prose on a flow chart showing their relationships with other characters",
+      "team up to conduct a research online/offline about the author of the prose",
+      "discuss the major events in the prose",
+      "download prose texts from digital devices and read with proper intonation and with expression."
+     ],
+     "inquiry_questions": [
+      "1. What is the significance of intensive reading in language acquisition?",
+      "2. What are the forms of Arabic prose?"
+     ],
+     "core_competencies": [
+      "• Critical thinking and problem solving: This is enhanced as the learner applies logical reasoning when analysing the characters in a prose and presenting them on a flow chart to show their relationships with other characters."
+     ],
+     "values": [
+      "Values: Peace: This is promoted as the learner accords peers a friendly reading environment when conducting a silent reading session to read short prose texts. Pertinent and Contemporary Issues (PCIs): Cultural awareness: This is promoted as the learner interacts with the Arabic culture when interacting with prose texts for information."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-arabic.pdf#p56"
+    },
+    {
+     "kicd_code": "",
+     "name": "Suggested learning resources",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Exit or Admit stamps.",
+      "Total Physical Response.",
+      "Matching names to pictures.",
+      "Filling in missing information.",
+      "Writing simple plays.",
+      "Matching of sentences."
+     ],
+     "learning_experiences": [
+      "Non-formal activities",
+      "Tandem (face-to-face or electronic) and intercultural learning.",
+      "Language Days.",
+      "Inter-House Competitions.",
+      "Inter-Class Competitions.",
+      "Inter-School Contests.",
+      "Exchange Programs.",
+      "School Open Days.",
+      "Kenya Music Festival.",
+      "Arabic language Clubs."
+     ],
+     "inquiry_questions": [],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-arabic.pdf#p69"
+    }
+   ]
+  },
+  {
+   "strand": "Writing",
+   "strand_code": "3.0",
+   "assessment_rubric": [],
+   "substrands": [
+    {
+     "kicd_code": "3.1",
+     "name": "Handwriting",
+     "suggested_duration": "8 lessons",
+     "learning_outcomes": [
+      "trace letters of the Arabic Alphabet neatly and legibly for comprehension",
+      "rewrite words, phrases and sentences neatly for accuracy",
+      "appreciate the significance of neatness and legibility in writing."
+     ],
+     "learning_experiences": [
+      "observe letter of Arabic alphabet on a given display and copy them neatly",
+      "write dotted and undotted letters of Arabic alphabets, ).. س ، ر ، د ، ح( )...ش ، ز ، ذ ، ج ، ب(",
+      "team up to prepare an Arabic chart on letters of the Alphabet",
+      "copy words, phrases and sentences neatly and legibly",
+      "work jointly to list words used in greetings and introductions on flashcards neatly and legibly",
+      "write a list of the letters of the Arabic alphabet with words corresponding to the first letter",
+      "write simple sentences about nuclear and extended family members neatly and legibly",
+      "re-write paragraphs related to Arabic greetings and Introductions legible and neatly and share with peers for review."
+     ],
+     "inquiry_questions": [
+      "How does handwriting enhance effective communication?"
+     ],
+     "core_competencies": [
+      "Communication and collaboration: This is enhanced as the learner engages actively and contributes to group decision making when teaming up to prepare an Arabic chart on letters of the Alphabet.",
+      "Self-efficacy: This is promoted as the learner builds on their organization skills when writing simple sentences about nuclear and extended family members neatly and legibly."
+     ],
+     "values": [
+      "Unity: This is promoted as the learner cooperates with peers to list words used in greetings and introductions on flashcards neatly and legibly."
+     ],
+     "pertinent_issues": [
+      "Social cohesion: This is promoted as the learners accommodate and show kindness to each other as they work harmoniously to give constructive feedback during peer review."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-arabic.pdf#p18"
+    },
+    {
+     "kicd_code": "3.2",
+     "name": "Mechanics of Writing: Spelling",
+     "suggested_duration": "7 lessons",
+     "learning_outcomes": [
+      "identify vocabulary related to the theme for language acquisition",
+      "write texts using correct spelling for comprehension",
+      "acknowledge the role of spelling in communication."
+     ],
+     "learning_experiences": [
+      "work jointly to join Arabic letters to form meaningful words",
+      "team up to write words related to the home using correct spelling",
+      "fill in simple Arabic puzzles to spell words used to show location and direction",
+      "work jointly to fill gaps in words with missing Arabic letters",
+      "write short legible paragraphs from a digital device and share with peers for review",
+      "team up to conduct a dictation language contest to write words related to the home."
+     ],
+     "inquiry_questions": [
+      "Why is it important to spell words correctly?"
+     ],
+     "core_competencies": [
+      "• Communication and collaboration: This is nurtured as the learner collaborates while working jointly to fill gaps in words with missing Arabic letters."
+     ],
+     "values": [
+      "Values: Respect: This is promoted as the learner accommodates diverse opinions when writing short legible paragraphs from a digital device and shares with peers for review Pertinent and Contemporary Issues (PCIs): Environment Awareness: This is addressed as the learner interacts with information about directions and locations of things in the home."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-arabic.pdf#p26"
+    },
+    {
+     "kicd_code": "3.3",
+     "name": "Creative Writing: Sequencing Ideas",
+     "suggested_duration": "8 lessons",
+     "learning_outcomes": [
+      "express ideas and opinions in a logical and coherent manner",
+      "use connectors of sequence to organise ideas for effective communication",
+      "construct logical and coherent paragraphs for information",
+      "appreciate the skill of organising ideas for effective communication."
+     ],
+     "learning_experiences": [
+      "rearrange words from a given collection to form meaningful sentences",
+      "create sentences from a substitution table on tourist attraction sites and destinations",
+      "reorganise jumbled up sentences to form logical and coherent paragraphs",
+      "work jointly to list connectors of sequence and their uses on a chart for display, e.g. First, Additionally, However, Second, Then, Lastly, ) اذإ ، اذل ، لواأ(",
+      "fill in gaps with appropriate connectors of sequence to join sentences to form a coherent paragraphs.",
+      "team up to play a game involving rearranging jumbled",
+      "up words to form a meaningful story",
+      "display the neatly written and logical paragraphs in the classroom."
+     ],
+     "inquiry_questions": [
+      "Why is it necessary to organise ideas in writing?"
+     ],
+     "core_competencies": [
+      "Critical thinking and problem solving: This is enhanced as the learner applies logical reasoning when reorganising words from a given collection to form meaningful sentences.",
+      "Creativity and imagination: This is enhanced as learners connect ideas to create sentences from a substitution table on tourist attraction sites and destinations."
+     ],
+     "values": [
+      "Responsibility: This is promoted as the learner engages in assigned duties when teaming up to play a game involving rearranging jumbled up words to form a story."
+     ],
+     "pertinent_issues": [
+      "Environmental conservation: This is promoted as learners interact with information from texts related to tourist attraction sites and destinations."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-arabic.pdf#p34"
+    },
+    {
+     "kicd_code": "3.4",
+     "name": "Descriptive Writing",
+     "suggested_duration": "8 lessons",
+     "learning_outcomes": [
+      "identify descriptive words for information",
+      "compose a short descriptive text about a person, thing or place",
+      "appreciate the importance of descriptive writing in communication."
+     ],
+     "learning_experiences": [
+      "work jointly to list words that can be used to describe foods",
+      "search online/offline for words and expressions that can be used to describe different foods",
+      "prepare a mind map to describe what healthy eating entails",
+      "write simple descriptions about food and health using short phrases and sentences",
+      "use basic descriptive words to write simple essays on healthy eating."
+     ],
+     "inquiry_questions": [
+      "How is descriptive writing important in communication?"
+     ],
+     "core_competencies": [
+      "Digital Literacy: This is developed as the learner interacts with digital technology when searching online/offline for words and expressions that can be used to describe different foods.",
+      "Creativity and imagination: This is enhanced as the learner embraces ideas that inspire creative thinking when writing simple essays on healthy eating."
+     ],
+     "values": [
+      "Values: Unity: This is promoted as the learner works jointly with peers to list words that can be used to describe foods. Pertinent and Contemporary Issues (PCIs): Healthy Living: This is promoted as the learner interacts with texts and information on healthy foods to encourage healthy living."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-arabic.pdf#p42"
+    },
+    {
+     "kicd_code": "3.5",
+     "name": "Creative Writing",
+     "suggested_duration": "8 lessons",
+     "learning_outcomes": [
+      "outline vocabulary related to the theme for language acquisition",
+      "write short imaginative texts based on the theme",
+      "appreciate the significance of creative writing in communication."
+     ],
+     "learning_experiences": [
+      "work jointly to build a vocabulary bank on words related to the school routine",
+      "write simple sentences on the school activities and school time table using the words from the vocabulary bank",
+      "write neat and legible imaginative paragraphs on the school routine",
+      "collaborate with peers to rearrange jumbled up sentences to form a creative story related to the theme",
+      "display their neatly written paragraphs in class for peer review",
+      "write a neat and legible story based on picture displays related to the school routine."
+     ],
+     "inquiry_questions": [
+      "How can you make your composition interesting?"
+     ],
+     "core_competencies": [
+      "Core competencies to be developed:",
+      "Learning to learn: This is developed as the learner builds on their own learning experience by working jointly with peers to build a vocabulary bank on words related to the theme.",
+      "Creativity and imagination: This is promoted as the learner adopts ideas that inspire creative thinking when writing a neat and legible story based on picture displays related to the school routine. Values: Integrity: This is enhanced as the learner displays trustworthiness and willingness to make their work better as they display their neatly written paragraphs in class for peer review. Pertinent and Contemporary Issues (PCIs): Good governance: This is inculcated as the learner interacts with information and texts related to the school routines."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-arabic.pdf#p50"
+    },
+    {
+     "kicd_code": "3.6",
+     "name": "Functional Writing: Informal letter",
+     "suggested_duration": "8 lessons",
+     "learning_outcomes": [
+      "identify an informal letter by structure and format for comprehension",
+      "write an informal letter following the correct format",
+      "develop interest in writing informal letters for communication."
+     ],
+     "learning_experiences": [
+      "work jointly to observe samples of friendly letters from digital devices",
+      "brainstorm on the format of the informal letters with peers",
+      "outline the structure of a friendly letter on a chart for display",
+      "write a letter to a friend thanking him/her for accompanying them to a shopping mall to purchase stationery",
+      "exchange the friendly letter with a peer for constructive feedback",
+      "type the friendly letter on a digital device or display the letter in the class"
+     ],
+     "inquiry_questions": [
+      "What steps should we consider when writing a friendly letter?"
+     ],
+     "core_competencies": [
+      "Digital literacy: This is enhanced as the learner interacts with a digital technology when typing a friendly letter on a digital device.",
+      "Learning to learn: This is developed as the learner builds on their research skills when working jointly to observe samples of friendly letters and brainstorming on their format."
+     ],
+     "values": [
+      "Values:",
+      "Responsibility: This is promoted as the learner engages in assigned duties when writing a letter to a friend thanking him/her for accompanying them to a shopping mall to purchase stationery",
+      "Social justice: This is promoted as the learner fosters inclusivity of ideas when brainstorming on the format of the sample friendly letters. Pertinent and Contemporary Issues (PCIs): Social cohesion: This is promoted as the learner practices writing friendly letters to pass information thus fostering interpersonal relations among peers for cohesion."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-arabic.pdf#p58"
+    },
+    {
+     "kicd_code": "",
+     "name": "Suggested learning resources",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Construction of sentences."
+     ],
+     "learning_experiences": [
+      "Non-formal activities",
+      "Arabic language Clubs",
+      "Tandem (face-to-face or electronic) and intercultural learning.",
+      "Language Days.",
+      "School Open Days.",
+      "Kenya Music Festival.",
+      "Exchange Programs.",
+      "Inter-House Competitions.",
+      "Inter-Class Competitions.",
+      "Inter-School Contests."
+     ],
+     "inquiry_questions": [],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-arabic.pdf#p70"
+    }
+   ]
+  },
+  {
+   "strand": "Grammar",
+   "strand_code": "4.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to use vocabulary and expressions to probe and engage in oral interactions",
+     "exceeds": "The learner uses all",
+     "meets": "The learner uses all targeted vocabulary and expressions to probe and engage in oral interactions",
+     "approaches": "The learner uses some of the targeted vocabulary and expressions to probe and engage in oral interactions",
+     "below": "The learner uses very few of the targeted vocabulary and expressions to probe and engage in oral interactions"
+    },
+    {
+     "indicator": "Ability to maintain correct spoken language patterns (pronunciation, intonation, rhythm and pacing) in oral expression",
+     "exceeds": "The learner maintains correct pronunciation, intonation, rhythm and pacing at all times in oral expression. Makes successful attempts at using colloquial and idiomatic expressions",
+     "meets": "The learner maintains",
+     "approaches": "The learner",
+     "below": "The learner maintains correct pronunciation, intonation, rhythm and pacing most of the time in oral expression. Makes a few errors at times that may interfere with communication"
+    },
+    {
+     "indicator": "Ability to respond to questions and",
+     "exceeds": "The learner responds to all questions and prompts to",
+     "meets": "The learner responds to all",
+     "approaches": "The learner responds to some questions and",
+     "below": "The learner responds to very few questions and"
+    },
+    {
+     "indicator": "Ability to employ gestures and facial expressions to enhance oral interactions",
+     "exceeds": "The learner employs adequate gestures and facial expressions in oral expressions whenever required. Is sensitive to cultural diversity and adapts non-verbal cues to diverse cultural contexts",
+     "meets": "The learner employs adequate gestures and facial expressions to complement oral expressions whenever required",
+     "approaches": "The learner employs some gestures and facial expressions to complement oral expressions when required. A few gestures and facial expressions used do not rhyme with the intended communication",
+     "below": "The learner employs a few gestures and facial expressions to complement oral expressions when required. Many of the gestures and facial expressions used do not rhyme with the intended communication"
+    },
+    {
+     "indicator": "Ability to display willingness to participate in oral interactions",
+     "exceeds": "The learner is always willing to start and/or participate in meaningful oral interactions with people in their surroundings. Encourages others to engage in oral interactions",
+     "meets": "The learner is always willing to start and/or participate in meaningful oral interactions with people in their surroundings",
+     "approaches": "The learner is at times hesitant to start and/or participate in meaningful oral interactions with people in their surroundings",
+     "below": "The learner is mostly hesitant to start and/or participate in meaningful oral interactions with people in their surroundings"
+    },
+    {
+     "indicator": "Ability to pronounce words in contexts for accuracy in reading",
+     "exceeds": "The learner maintains accurate pronunciation of words in simple texts on familiar topics to convey the intended meaning. Makes no errors of pronunciation even for texts on unfamiliar topics.",
+     "meets": "The learner maintains accurate pronunciation of words in simple texts on familiar topics to convey the intended meaning.",
+     "approaches": "The learner makes a few errors of pronunciation of words in simple texts on familiar topics. Errors may hamper the ability to convey the intended meaning.",
+     "below": "The learner makes many errors of pronunciation of words in simple texts on familiar topics. Errors greatly hamper the ability to convey the intended meaning."
+    },
+    {
+     "indicator": "Ability to read with fluency (smoothness, pace, pauses and intonation)",
+     "exceeds": "The learner reads simple texts with natural and smooth flow and at an appropriate pace all through. Pays attention to all punctuations and applies appropriate",
+     "meets": "The learner reads simple texts with natural and smooth flow and at an appropriate pace all through. Pays attention to all punctuations and applies appropriate pauses and intonation to express intention and emotions.",
+     "approaches": "The learner reads simple texts with natural and smooth flow and at an appropriate pace through most parts of the texts. Pays attention to most of the punctuations and applies appropriate pauses and intonation to express",
+     "below": "The learner reads simple texts with stilted and choppy flow through most parts of the texts. Pays attention to very little punctuation as pauses and"
+    },
+    {
+     "indicator": "Ability to read and understand simple texts",
+     "exceeds": "The learner interprets all questions in context and gives correct answers to all the questions. Uses extensive vocabulary in giving responses to questions.",
+     "meets": "The learner interprets all questions in context and gives correct answers to all the questions. Uses adequate vocabulary in giving responses to questions.",
+     "approaches": "The learner interprets most of the questions in context and gives correct answers to most of them. Vocabulary used in giving responses to questions is mostly sufficient with limited errors.",
+     "below": "The learner interprets few questions in context and gives correct answers to a few of them. Vocabulary used in giving responses to questions is insufficient."
+    },
+    {
+     "indicator": "Ability to write clear and readable texts",
+     "exceeds": "The learner writes readable texts paying attention to neatness all through. Letters in all the words are correctly spaced and sized within the lines. Words are correctly spaced within sentences all through. Text looks like a typed Microsoft office word document.",
+     "meets": "The learner writes readable texts paying attention to neatness all through. Letters in all the words are correctly spaced and sized within the lines. Words are correctly spaced within sentences all through.",
+     "approaches": "The learner writes readable texts paying attention to neatness in most parts of the text. Letters in most of the words are correctly spaced and sized within the lines. Some abnormal spacing of words within sentences is visible.",
+     "below": "The learner writes texts that are not easily readable. Neatness is not maintained all through. Letters in most of the words are incorrectly spaced and sized within the lines. Frequent abnormal spacing of words within sentences is visible."
+    },
+    {
+     "indicator": "Ability to organize ideas in texts",
+     "exceeds": "Exhibits a logical and coherent sequence throughout; provides a clear sense of a beginning, middle, and end. Makes smooth transitions between ideas.",
+     "meets": "Exhibits a logical sequence; provides a beginning, middle, and end",
+     "approaches": "Attempts to provide a logical sequence and/or the beginning or ending is abrupt or unclear.",
+     "below": "Exhibits little order; provides a series of separate sentence and/or disconnected ideas."
+    },
+    {
+     "indicator": "Ability to use vocabulary in texts",
+     "exceeds": "Includes a wide variety of vocabulary that expands the topic, but there may be minor inaccuracies.",
+     "meets": "Includes a variety of vocabulary related to the topic.",
+     "approaches": "Includes basic vocabulary; some vocabulary may be inaccurate or unrelated to the topic.",
+     "below": "Includes limited vocabulary and/or most vocabulary is inaccurate or unrelated to the topic."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "4.1",
+     "name": "Word class: Nouns",
+     "suggested_duration": "8 lessons",
+     "learning_outcomes": [
+      "identify nouns in terms of their definiteness, gender, singular, dual and plural forms",
+      "use nouns featuring definiteness, gender, singular, dual and plural to construct sentences correctly",
+      "appreciate the significance of nouns in language acquisition."
+     ],
+     "learning_experiences": [
+      "underline definite and indefinite nouns featuring introductions and greetings from a given text, )ملاأ ، مأ(",
+      "work jointly with peers to construct sentences with masculine and feminine nouns",
+      "create display charts featuring singular, dual and plural nouns",
+      "practise a conversation with a peer using nouns in the singular, dual and plural forms",
+      "copy from a digital device words featuring the sound masculine plural, sound feminine plural and broken plural nouns."
+     ],
+     "inquiry_questions": [
+      "1. Why is it important to use words correctly?",
+      "2. How do we describe people, and objects in the plural form?"
+     ],
+     "core_competencies": [
+      "Core competencies to be developed:",
+      "Communication and collaboration: This is developed as the learners work jointly with peers to construct sentences with masculine and feminine nouns",
+      "Critical thinking and problem solving: This is enhanced as the learner follows instructions carefully when creating display charts featuring singular, dual and plural nouns. Values: Unity: This is enhanced as the learner cooperates with peers when practising a conversation using singular, dual and plural nouns. Pertinent and Contemporary Issues (PCIs): Social cohesion: This is promoted as the learner engages in activities involving greetings and introductions used at different times."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-arabic.pdf#p20"
+    },
+    {
+     "kicd_code": "4.2",
+     "name": "Word class: Pronouns and Conjunctions",
+     "suggested_duration": "8 lessons",
+     "learning_outcomes": [
+      "identify pronouns and conjunctions in texts",
+      "use pronouns and conjunctions correctly in sentences",
+      "value the use of pronouns and conjunctions in communication."
+     ],
+     "learning_experiences": [
+      "work jointly with peers to construct sentences containing personal pronouns related to the home and display in the classroom, )..........وه ، تنأ ، نحن ، انأ(",
+      "fill gaps in sentences correctly using conjunctions, )... ث ، ف ، و(",
+      "sing a song based on the use of relative pronouns, ، ناتللا ، ناذللا ، يتلا ، يذلا( ،يتلالا ، نيذلا",
+      "role-play with peers a conversation featuring possessive pronouns, )امكريرس ، يتفرغ(",
+      "• copy sentences containing conjunctions from a digital device."
+     ],
+     "inquiry_questions": [
+      "1. Why should we use pronouns correctly?",
+      "2.What is the significance of conjunctions in sentence construction?"
+     ],
+     "core_competencies": [
+      "Self-efficacy: This is enhanced as the learner analyses their ideas when constructing sentences containing personal pronouns related to the home and displays in the classroom",
+      "Communication and collaboration: This is enhanced as the learner speaks clearly and effectively while engaging a conversation featuring possessive pronouns describing their home."
+     ],
+     "values": [
+      "Social justice: This is enhanced as the learner accords others an equal opportunity when working jointly to constructing sentences containing personal pronouns and display in the classroom."
+     ],
+     "pertinent_issues": [
+      "Safety and security : This is promoted as learners describe places such as their homes."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-arabic.pdf#p28"
+    },
+    {
+     "kicd_code": "4.3",
+     "name": "Word class: Pronouns and Articles",
+     "suggested_duration": "8 lessons",
+     "learning_outcomes": [
+      "identify demonstrative pronouns and interrogative articles in a variety of texts",
+      "use demonstrative pronouns and interrogative articles correctly in sentences",
+      "appreciate the use of correct demonstrative pronouns and interrogative articles for communication."
+     ],
+     "learning_experiences": [
+      "extract demonstrative pronouns from a text such as: this, that, these, those ،ءلؤاه ،ناتاه ،ناذه ،هذه ،اذه ك ئلوأ امكلت ،امكلذ ،كلت ،كلذ",
+      "underline interrogative articles from a text on tourism destinations and attractions in Kenya )مك ، ىتم ، نيأ ، نم ، ام(",
+      "read sentences containing demonstrative pronouns extracted from print or electronic materials",
+      "construct sentences using interrogative articles and share with peers for review",
+      "search online/offline for texts containing demonstrative pronouns and interrogative articles."
+     ],
+     "inquiry_questions": [
+      "How are interrogative articles important in developing language learning?"
+     ],
+     "core_competencies": [
+      "Core competencies to be developed:",
+      "Digital literacy: This is enhanced as the learner interacts with digital technology when searching online for texts containing demonstrative pronouns and interrogative articles.",
+      "Learning to learn : This is promoted as the learner reflects on their learning experiences when constructing sentences using interrogative articles and shares with peers for review. Values: Respect: This is observed as the learner listens patiently to diverse opinions from peers during activities that involve peer review. Pertinent and Contemporary Issues (PCIs): Environmental conservation: This is addressed as the learner interacts with texts that contain tourism destinations and attraction sites in Kenya."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-arabic.pdf#p36"
+    },
+    {
+     "kicd_code": "4.4",
+     "name": "Word class",
+     "suggested_duration": "8 lessons",
+     "learning_outcomes": [
+      "identify adverbs, prepositions and adjectives from a reading text",
+      "use adverbs, prepositions and adjectives correctly in sentences",
+      "appreciate the importance of using adverbs, prepositions and adjectives correctly for lifelong learning."
+     ],
+     "learning_experiences": [
+      "pick out adverbs (of time, manner and place) from texts related to healthy eating habits from a given text, مامأ(",
+      "fill gaps in sentences using prepositions correctly",
+      "describe people using the correct forms of adjectives",
+      "construct sentences using adverbs, prepositions, adjectives correctly",
+      "work jointly to solve a crossword puzzle using adjectives, prepositions and adverbs",
+      "prepare flashcards with adverbs, adjectives and prepositions and display on the classroom wall."
+     ],
+     "inquiry_questions": [
+      "1. How do we describe things, people and events?",
+      "2. Why are prepositions important in communication?"
+     ],
+     "core_competencies": [
+      "Core competencies to be developed:",
+      "Creativity and imagination: This is promoted as the learner embraces ideas that inspire creative thinking when preparing flashcards with adverbs, adjectives and prepositions and display on the classroom wall.",
+      "Critical thinking and problem solving: This is enhanced as the learner weighs out possible options while solving a crossword puzzle using adjectives. Values: Responsibility: This is promoted as the learners engage in assigned roles and duties when filling gaps in sentences using prepositions correctly. Pertinent and Contemporary Issues (PCIs): Health promotion issues: This is promoted as learners display sense of responsibility when observing healthy eating habits."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-arabic.pdf#p44"
+    },
+    {
+     "kicd_code": "4.5",
+     "name": "Word class: Verbs",
+     "suggested_duration": "8 lessons",
+     "learning_outcomes": [
+      "identify the past, present and imperative verb forms",
+      "apply past tense, present and imperative verb forms correctly",
+      "acknowledge the significance of tense in language learning."
+     ],
+     "learning_experiences": [
+      "pick out sentences that contain past, present and imperative verb forms featuring school routines",
+      "fill gaps in sentences with the appropriate verb forms",
+      "match verbs with the corresponding pronouns to indicate tense",
+      "engage in conversation featuring past, present and imperative verb forms",
+      "change past tense verbs into present and imperative forms",
+      "search online /offline for texts containing sentences with past, present and imperative verb forms",
+      "work jointly with peers to create charts with sentences",
+      "which contain different verb forms and display in the classroom."
+     ],
+     "inquiry_questions": [
+      "1. How do we change past tense verbs into present tense and imperative forms?",
+      "2. Why are tenses important in language acquisition?"
+     ],
+     "core_competencies": [
+      "Communication and collaboration: This is promoted as the learners work jointly with peers to create charts with sentences which contain different verb forms and display in the classroom.",
+      "Digital literacy: This is enhanced as the learners interact with digital technology when searching online /offline for texts containing sentences with past, present and imperative verb forms."
+     ],
+     "values": [
+      "Integrity: This is promoted as the learner shows commitment when filling gaps in sentences with the appropriate verb forms."
+     ],
+     "pertinent_issues": [
+      "Time management: This is promoted as the learner engages with information on time management and appreciates aspects of time management in a school setup."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-arabic.pdf#p52"
+    },
+    {
+     "kicd_code": "4.6",
+     "name": "Sentence patterns",
+     "suggested_duration": "8 lessons",
+     "learning_outcomes": [
+      "identify sentences featuring the subject and predicate",
+      "use the sentence patterns correctly",
+      "acknowledge the use of correct sentence patterns in communication."
+     ],
+     "learning_experiences": [
+      "underline the subject and predicate in sentences",
+      "fill in blank spaces in sentences using the correct patterns",
+      "construct sentences containing the subject, verb and object featuring shopping activities correctly",
+      "recite a simple poem containing the target sentence pattern",
+      "search for examples of nominal and verbal sentences from the print or electronic media."
+     ],
+     "inquiry_questions": [
+      "Why is it important to use sentence structures correctly?"
+     ],
+     "core_competencies": [
+      "Learning to learn: This is enhanced as the learner build on their research skills when searching for examples of nominal and verbal sentences from the print or electronic media.",
+      "Self-efficacy: This is promoted as the learner builds on their public presentation skills when reciting a simple poem containing the target sentence pattern."
+     ],
+     "values": [
+      "Values: Responsibility: This is promoted as the learner performs a signed roles and duties of filling in blank spaces in sentences using the correct patterns. Pertinent and Contemporary Issues (PCIs): Financial literacy: This is promoted as the learner constructs sentences containing the subject, verb and object on shopping activities correctly."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-arabic.pdf#p60"
+    },
+    {
+     "kicd_code": "",
+     "name": "Suggested learning resources",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Exit or Admit stamps.",
+      "Total Physical Response.",
+      "Reading for fluency."
+     ],
+     "learning_experiences": [
+      "Non-formal activities",
+      "Kenya Music Festival.",
+      "Arabic language Clubs.",
+      "Tandem (face-to-face or electronic) and intercultural learning.",
+      "School Open Days.",
+      "Exchange Programs.",
+      "Language Days.",
+      "Inter-House Competitions.",
+      "Inter-Class Competitions.",
+      "Inter-School Contests."
+     ],
+     "inquiry_questions": [],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-arabic.pdf#p68"
+    }
+   ]
+  }
+ ]
+}

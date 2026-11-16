@@ -1,0 +1,508 @@
+{
+ "source_pdf": "grade9-integrated-science.pdf",
+ "grade": 9,
+ "subject": "integrated-science",
+ "general_outcomes": [
+  "By the end of Junior School, the learner should be able to:",
+  "Acquire scientific knowledge, skills, values and attitudes to make informed choices on career pathways at Senior School.",
+  "Select, improvise and safely use basic scientific tools, apparatus, materials, and chemicals effectively in everyday life.",
+  "Explore, manipulate, manage, and conserve the environment for learning and sustainable development.",
+  "practise relevant hygiene, sanitation, and nutrition skills to promote good health.",
+  "Apply the understanding of body systems to promoting and maintaining good health.",
+  "Develop a capacity for scientific inquiry and problem-solving in different situations.",
+  "Appreciate the use of scientific knowledge, skills, principles, and practises in everyday life.",
+  "Apply acquired scientific knowledge, skills, principles, and practises in everyday life."
+ ],
+ "strands": [
+  {
+   "strand": "Mixtures, Elements, and Compounds",
+   "strand_code": "1.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to describe the structure of the atom.",
+     "exceeds": "The learner describes the structure of the atom comprehensively.",
+     "meets": "The learner describes the structure of the atom adequately.",
+     "approaches": "The learner partially describes the structure of the atom.",
+     "below": "The learner partially describes the structure of the atom, with a prompt."
+    },
+    {
+     "indicator": "Ability to classify elements into metals and non-metals.",
+     "exceeds": "The learner classifies all elements into metals and nonmetals comprehensively.",
+     "meets": "The learner classifies all the elements into metals and nonmetals.",
+     "approaches": "The learner classifies most of the elements into metals and nonmetals.",
+     "below": "The learner classifies a few elements into metals and nonmetals."
+    },
+    {
+     "indicator": "Ability to outline the uses of metals and alloys.",
+     "exceeds": "The learner outlines the uses of all metals and alloys exhaustively.",
+     "meets": "The learner outlines the uses of all common metals and alloys.",
+     "approaches": "The learner outlines the uses of most of the metals and alloys.",
+     "below": "The learner outlines the uses of a few metals and alloys."
+    },
+    {
+     "indicator": "Ability to explain the effect of rusting on metals.",
+     "exceeds": "The learner explains the effect of rusting on metals in detail comprehensively.",
+     "meets": "The learner explains the effect of rusting on metals sufficiently.",
+     "approaches": "The learner explains the effect of rusting on metals partially.",
+     "below": "The learner explains the effect of rusting on metals partially leaving some key points."
+    },
+    {
+     "indicator": "Ability to outline the advantages and disadvantages of hard and soft water.",
+     "exceeds": "The learner outlines the advantages and disadvantages of hard and soft water exhaustively.",
+     "meets": "The learner outlines the advantages and disadvantages of hard and soft water",
+     "approaches": "The learner outlines most of the advantages and disadvantages of hard and soft water.",
+     "below": "The learner outlines a few advantages and disadvantages of hard and soft water."
+    },
+    {
+     "indicator": "Ability to apply different methods to soften temporary hard water.",
+     "exceeds": "Applies all appropriate methods to soften temporary hard water innovatively.",
+     "meets": "Applies all appropriate methods to soften temporary hard water.",
+     "approaches": "Applies the least appropriate method to soften temporary hard water.",
+     "below": "Applies less than two methods to soften temporary hard water."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "1.1",
+     "name": "Structure of the atom",
+     "suggested_duration": "14 lessons",
+     "learning_outcomes": [
+      "describe the structure of the atom",
+      "determine the mass number of elements",
+      "draw the electron arrangement in atoms using dot or cross diagrams",
+      "classify elements into metals and non-metals",
+      "show interest in classifying elements into metals and non-metals."
+     ],
+     "learning_experiences": [
+      "discuss the meaning of the atom and illustrate its structure",
+      "work out the mass number of an element collaboratively",
+      "write the electron arrangements of elements",
+      "illustrate the electron arrangement in atoms using dot or cross diagrams collaboratively",
+      "use electron arrangement to classify elements into metals and non-metals",
+      "use digital or print media to observe the structure of an atom and its electron arrangement. Project: model the atomic structure of selected elements of the periodic table using locally available materials."
+     ],
+     "inquiry_questions": [
+      "How is the structure of the atom important?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Communication and Collaboration: the learner acquires listening and speaking skills as they discuss with peers the meaning of the atom and illustrate its structure.",
+      "Creativity and Imagination: the learner experiments and comes up with models of atoms of selected elements from locally available materials. Pertinent and Contemporary Issues: Socio-economic issues (Cyber Security): the learner observes cyber security measures when using digital media to observe the structure of an atom and electron arrangement. Values:",
+      "Unity: the learner respects others’ opinions while having group discussions.",
+      "Integrity: the learner displays honesty while using digital devices to search for information on the structure of an atom, electron arrangement, atomic number, and mass number of elements. Links to other Subjects The learner applies mathematical manipulation to work out the mass number of elements."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade9-integrated-science.pdf#p13"
+    },
+    {
+     "kicd_code": "1.2",
+     "name": "Metals and Alloys",
+     "suggested_duration": "16 lessons",
+     "learning_outcomes": [
+      "describe the physical properties of metals",
+      "describe the composition of alloys",
+      "identify the uses of metals and alloys in day-to-day life",
+      "explain the effects of rusting of metals",
+      "appreciate the importance of common alloys in day-to-day life."
+     ],
+     "learning_experiences": [
+      "identify metals and non-metals in their environment",
+      "carry out experiments to demonstrate the physical properties of metals",
+      "discuss the composition of common alloys",
+      "identify some items from the locality that have been made from alloys",
+      "discuss the uses of common metals and alloys",
+      "discuss causes, effects, and ways of controlling the rusting of metals",
+      "use digital or print media to search for information on the physical properties of metals and common alloys."
+     ],
+     "inquiry_questions": [
+      "How are alloys important in day-to-day life?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed",
+      "Communication and Collaboration: the learner works with peers to carry out experiments to demonstrate the physical properties of metals.",
+      "Digital Literacy: the learner interacts with digital technology as they search for information using digital devices on the physical and chemical properties of metals and common alloys. Pertinent and Contemporary Issues (PCIs) Financial Literacy: the learner appreciates the economic importance of metals and common alloys in day-to-day life as they discuss the uses of common metals and alloys. Values",
+      "Respect: the learner accommodates others’ opinions during group discussions on the uses of metals and common alloys.",
+      "Peace: the learner humorously works together with peers when carrying out experiments to demonstrate the physical properties of metals. Link to other Subjects",
+      "The learner links the properties of common metals and alloys used in workshops in Pre-Technical Studies.",
+      "The learner uses relates the use of utensils made from metals and their alloys in Agriculture."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade9-integrated-science.pdf#p15"
+    },
+    {
+     "kicd_code": "1.3",
+     "name": "Water hardness",
+     "suggested_duration": "14 lessons",
+     "learning_outcomes": [
+      "describe the physical properties of water",
+      "distinguish between hard and soft water in nature",
+      "apply methods of softening hard water in day-to-day life",
+      "outline the advantages and disadvantages of hard and soft water",
+      "appreciate the applications of soft and hard water in day-to-day life.",
+      "identify external and internal parts of a leaf",
+      "explain adaptations of the leaf to photosynthesis",
+      "describe the process of photosynthesis",
+      "investigate the conditions necessary for photosynthesis",
+      "appreciate the process of photosynthesis in nature."
+     ],
+     "learning_experiences": [
+      "collect and observe water from different sources, compare them in terms of appearance, odour, taste, and boiling point (taste water from safe sources)",
+      "carry out activities to compare the lathering abilities of various samples of unboiled water with soap collaboratively",
+      "group the samples into hard and soft water",
+      "explain the meaning of hard and soft water",
+      "discuss the advantages and disadvantages of soft and hard water",
+      "perform various activities for softening hard water (boiling, addition of",
+      "washing soda, distilling)",
+      "use digital or print media to search for information, on the methods of softening hard water.",
+      "use a hand lens to observe the fresh leaves of plants, draw and label the external parts",
+      "use print or non-print media to search for information on the internal structure of the leaf in relation to their roles in photosynthesis, discuss and share with peers",
+      "discuss the adaptations of a leaf in relation to their roles in photosynthesis",
+      "observe the structure of the chloroplast on charts/photomicrographs, discuss its role in photosynthesis, share with peers",
+      "use print or non-print media to search for information on the process and products of photosynthesis, discuss and share with peers",
+      "use print or non-print media to search"
+     ],
+     "inquiry_questions": [
+      "1. What is the importance of different types of water?",
+      "2. Why is hard water preferred for drinking?",
+      "What is the importance of photosynthesis in nature?"
+     ],
+     "core_competencies": [
+      "Learning to Learn: the learner learns new methods of softening water as they apply methods of softening hard water in day-to-day life.",
+      "Critical thinking and Problem-solving: the learner learns ways of reducing soap wastage as they relate the lathering ability of water to the hardness and softness of water.",
+      "Core Competencies to be developed",
+      "Learning to Learn: the learner searches for information on photosynthesis, discusses, and shares with peers.",
+      "Self-efficacy: the learner successfully carries out experiments on conditions necessary for photosynthesis and shares the findings. Values:",
+      "Social Justice: the learner shares resources equitably while carrying out experiments to show that light, carbon (IV) oxide, and chlorophyll are necessary for photosynthesis.",
+      "Integrity: the learner displays honesty while carrying out experiments to show that light, carbon (IV) oxide, and chlorophyll are necessary for photosynthesis and presenting their own results. Pertinent and Contemporary Issues (PCIs)",
+      "Environmental Conservation: the learner collects only the required number of leaves to observe the external structure.",
+      "Safety: the learner observes safety precautions while carrying out experiments on photosynthesis. Link to other Learning Areas: The information on photosynthesis is linked to food production."
+     ],
+     "values": [
+      "Responsibility: the learner plays a role when carrying out experiments on softening hard water.",
+      "Respect: the learner gives each other an opportunity to air their views as they discuss in a group the differences between hard and soft water."
+     ],
+     "pertinent_issues": [
+      "Financial Literacy: the learner practises how to save on soap by using soft water for laundry."
+     ],
+     "links_to_other_areas": [
+      "The learner relates the use of soft water in laundry work in Agriculture."
+     ],
+     "resources": [],
+     "kicd_source": "grade9-integrated-science.pdf#p17"
+    }
+   ]
+  },
+  {
+   "strand": "Living things and their Environment",
+   "strand_code": "2.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Investigating the conditions necessary for photosynthesis.",
+     "exceeds": "The learner investigates all the conditions necessary for photosynthesis comprehensively.",
+     "meets": "The learner investigates all the conditions necessary for photosynthesis.",
+     "approaches": "The learner investigates most of the conditions necessary for photosynthesis.",
+     "below": "The learner investigates a few conditions necessary for photosynthesis."
+    },
+    {
+     "indicator": "Describing the process of digestion in human beings.",
+     "exceeds": "The learner describes the process of digestion in human beings comprehensively.",
+     "meets": "The learner describes the process of digestion in human beings correctly.",
+     "approaches": "The learner partially describes the process of digestion in human beings simplistically.",
+     "below": "The learner partially describes the process of digestion in human beings leaving out some key points."
+    },
+    {
+     "indicator": "Explaining pollination, fertilisation, and fruit formation in flowering plants.",
+     "exceeds": "The learner explains all the concepts of pollination, fertilisation, and fruit formation in flowering plants.",
+     "meets": "The learner explains all the concepts of pollination, fertilisation, and fruit formation in flowering plants.",
+     "approaches": "The learner explains at least two concepts among pollination, fertilisation, and fruit formation in flowering plants.",
+     "below": "The learner explains one concept among pollination, fertilisation, and fruit formation in flowering plants."
+    },
+    {
+     "indicator": "Categorising fruits and seeds based on their mode of dispersal.",
+     "exceeds": "The learner categorises fruits and seeds based on their mode of dispersal and other modes.",
+     "meets": "The learner categorises fruits and seeds based on their mode of dispersal.",
+     "approaches": "The learner categorises fruits and seeds based on their mode of dispersal partially.",
+     "below": "The learner partially categorises fruits and seeds without considering their mode of dispersal."
+    },
+    {
+     "indicator": "Constructing food chains and food webs in the environment.",
+     "exceeds": "The learner constructs food chains and food webs in the environment correctly and systematically.",
+     "meets": "The learner constructs food chains and food webs in the environment correctly.",
+     "approaches": "The learner partially constructs food chains and food webs in the environment correctly.",
+     "below": "The learner constructs food chains and food webs in the environment without considering the appropriate order."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "2.2",
+     "name": "Nutrition in animals",
+     "suggested_duration": "16 lessons",
+     "learning_outcomes": [
+      "outline modes of nutrition in animals",
+      "describe the structure and functions of different types of teeth",
+      "classify animals based on their dentition",
+      "describe the process of digestion in human beings",
+      "appreciate that animals have varied modes of nutrition."
+     ],
+     "learning_experiences": [
+      "use print or non-print media to search for information on modes of nutrition in animals and discuss",
+      "use specimens/charts/ models/ digital media to identify and draw different types of teeth",
+      "discuss the functions of different types of teeth",
+      "use specimens/ charts/ models/ digital media to study dentition in different animals and share the findings with peers",
+      "use print or non-print media to search for information on the process of digestion in human beings, discuss, and share with peers."
+     ],
+     "inquiry_questions": [
+      "1. How do different animals feed?",
+      "2. How is food digested in the human body?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed: Communication and Collaboration: the learner acquires speaking and listening skills as they discuss the process of digestion in human beings. Values:",
+      "Unity: the learner works collaboratively and harmoniously with peers as they study dentition in different animals.",
+      "Respect: the learner appreciates others’ opinions while discussing different modes of nutrition in animals. Pertinent and Contemporary Issues (PCIs): Animal Welfare: the learner cares for animals as they study different types of dentition. Links to other Learning Areas: The learner can link the information on nutrition in animals to feeding of animals in Agriculture."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade9-integrated-science.pdf#p23"
+    },
+    {
+     "kicd_code": "2.3",
+     "name": "Reproduction in plants",
+     "suggested_duration": "20 lessons",
+     "learning_outcomes": [
+      "outline functions of parts of a flower",
+      "describe pollination in plants",
+      "outline the adaptations of flowers to wind and insect pollination",
+      "explain fertilisation and fruit formation in flowering plants",
+      "categorise fruits and seeds based on their mode of dispersal",
+      "recognise the role of flowers in nature."
+     ],
+     "learning_experiences": [
+      "collaboratively discuss the functions of parts of a flower",
+      "use print or non-print media to search for information on meaning and types of pollination, discuss and share the findings with peers",
+      "use print or non-print media to search for information on adaptations of flowers to wind and insect pollination, discuss and share the findings with peers",
+      "study samples of flowers to discuss their adaptations to agents of pollination, draw, label, and share the findings with peers",
+      "watch animations or take an excursion in the school compound or neighbourhood to observe pollinating agents in action, record and discuss, (the behaviour of insects and birds in relation to",
+      "flowers; swaying of anthers of grasses e.g maize in wind)",
+      "use print or non-print media to search for information on the effect of agrochemicals on pollinating agents and their effects on reproduction in plants",
+      "use print and non-print media to search for information on fertilisation and fruit formation in flowering plants, discuss and share the findings with peers",
+      "collaboratively study illustrations/animations on fertilisation, seed and fruit formation, share the findings with peers (details of double fertilisation not required)",
+      "use print and non-print media to search for information on seeds and fruit dispersal in plants, discuss the findings",
+      "observe different fruits and seeds from their locality, discuss and categorise them based on their mode of dispersal, (consider locally",
+      "available and safe wild fruits)",
+      "discuss the importance of fruit and seed dispersal."
+     ],
+     "inquiry_questions": [
+      "How does reproduction in plants occur?"
+     ],
+     "core_competencies": [
+      "Learning to Learn: the learner searches for information on fertilisation and fruit formation in flowering plants.",
+      "Digital Literacy: the learner uses digital devices to search for information on the effect of agrochemicals on pollinating agents and their effect on reproduction in plants."
+     ],
+     "values": [
+      "Social Justice: the learner observes equal participation as they discuss the importance of fruit and seed dispersal."
+     ],
+     "pertinent_issues": [
+      "Biodiversity: the learner searches for information on the effect of agrochemicals on pollinating agents and their effects on reproduction in plants",
+      "Safety and Security: the learner takes precautions while collecting various flowers, fruits, and seeds from the immediate environment."
+     ],
+     "links_to_other_areas": [
+      "The learner can link the information on fertilisation and fruit formation to crop production in Agriculture."
+     ],
+     "resources": [],
+     "kicd_source": "grade9-integrated-science.pdf#p25"
+    },
+    {
+     "kicd_code": "2.4",
+     "name": "The Interdependence of Life",
+     "suggested_duration": "18 lessons",
+     "learning_outcomes": [
+      "explain the biotic and abiotic factors of the environment",
+      "construct food chains and food webs in the environment",
+      "describe the effect of human activities on the environment",
+      "appreciate the interdependence between living and non-living factors of the environment."
+     ],
+     "learning_experiences": [
+      "use print and non-print material to search for information on biotic interrelationships, share findings with peers",
+      "investigate the interrelationships between biotic factors of the environment in their locality and discuss the findings with peers (include insects, spiders, lizards, toads, chameleons)",
+      "use digital or print media to search for more information on the interrelationships between biotic factors of the environment",
+      "use print and non-print media to search for information on interrelationships between organisms in Kenya national parks and game reserves",
+      "discuss the effect of abiotic factors on living organisms",
+      "search for information on the effect of",
+      "human activities on the environment and discuss",
+      "carry out activities to identify living organisms and what they feed on and construct food chains and food webs",
+      "discuss the role of decomposers in an ecosystem and their importance in recycling nutrients (avoid details of chemical reactions and specific microorganisms involved in nitrogen, carbon & Sulphur cycles)."
+     ],
+     "inquiry_questions": [
+      "What is the role of living and non-living factors in environments?"
+     ],
+     "core_competencies": [
+      "Citizenship: the learner develops a sense of responsibility to the nation while searching for information on interrelationships between organisms in Kenya’s national parks and game reserves.",
+      "Communication and Collaboration: the learner develops speaking and listening skills as they discuss the role of decomposers in an ecosystem and their importance in recycling nutrients."
+     ],
+     "values": [
+      "Patriotism: the learner develops a love for the country as they search for information on interrelationships between organisms in Kenya’s national parks and game reserves.",
+      "Peace: the learner shows respect for diversity and heritage as they study the interdependence between living and non-living components of the environment."
+     ],
+     "pertinent_issues": [
+      "Environmental Conservation: the learner learns the importance of decomposers as they discusses the role of decomposers in an ecosystem and their importance in recycling nutrients."
+     ],
+     "links_to_other_areas": [
+      "The learner can link the information on the role of decomposers in an ecosystem to the production of manure in Agriculture."
+     ],
+     "resources": [],
+     "kicd_source": "grade9-integrated-science.pdf#p28"
+    }
+   ]
+  },
+  {
+   "strand": "Force and Energy",
+   "strand_code": "3.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Drawing ray diagrams to locate images formed by concave and convex mirrors.",
+     "exceeds": "The learner draws ray diagrams to locate all images formed by concave and convex mirrors correctly and systematically.",
+     "meets": "The learner draws ray diagrams to locate all images formed by concave and convex mirrors.",
+     "approaches": "The learner draws ray diagrams to locate most of the images formed by concave and convex mirrors.",
+     "below": "The learner draws ray diagrams to locate a few images formed by concave and convex mirrors."
+    },
+    {
+     "indicator": "Describing the characteristics of images formed by concave and convex mirrors.",
+     "exceeds": "The learner describes all the characteristics of images formed by concave and convex mirrors comprehensively.",
+     "meets": "The learner describes all the characteristics of images formed by concave and convex mirrors.",
+     "approaches": "The learner describes most of the characteristics of images formed by concave and convex mirrors.",
+     "below": "The learner describes a few characteristics of images formed by concave and convex mirrors."
+    },
+    {
+     "indicator": "Explaining the uses of concave and convex mirrors in day-to-day life.",
+     "exceeds": "The learner explains the uses of concave and convex mirrors in day-to-day life extensively.",
+     "meets": "The learner explains the uses of concave and convex mirrors in day-to-day life sufficiently.",
+     "approaches": "The learner explains most of the uses of concave and convex mirrors in day-to-day life.",
+     "below": "The learner explains a few uses of concave and convex mirrors in day-to-day life."
+    },
+    {
+     "indicator": "Describing generation of waves in nature.",
+     "exceeds": "The learner describes the generation of waves in nature comprehensively.",
+     "meets": "The learner describes the generation of waves in nature correctly.",
+     "approaches": "The learner partially describes the generation of waves in nature partially.",
+     "below": "The learner partially describes the generation of waves in nature partially leaving out some key points."
+    },
+    {
+     "indicator": "Ability to describe the basic characteristics of waves in nature.",
+     "exceeds": "The learner describes the basic characteristics of waves in nature comprehensively.",
+     "meets": "The learner describes the basic characteristics of waves in nature sufficiently",
+     "approaches": "The learner describes the basic characteristics of waves in nature partially.",
+     "below": "The learner describes the basic characteristics of waves in nature omitting some key points partially leaving out some key details."
+    },
+    {
+     "indicator": "Ability to describe remote sensing in relation to waves.",
+     "exceeds": "The learner describes remote sensing in relation to waves correctly and comprehensively.",
+     "meets": "The learner describes remote sensing in relation to waves correctly.",
+     "approaches": "The learner describes remote sensing in relation to waves partially.",
+     "below": "The learner describes remote sensing in relation to waves partially with prompt."
+    },
+    {
+     "indicator": "Ability to describe the applications of waves in day-to-day life.",
+     "exceeds": "The learner describes the applications of waves in day-to-day life exhaustively.",
+     "meets": "The learner describes the applications of waves in day-to-day life sufficiently.",
+     "approaches": "The learner describes most of the applications of waves in day-to-day life.",
+     "below": "The learner describes a few applications of waves in day-to-day life."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "3.1",
+     "name": "Curved mirrors",
+     "suggested_duration": "18 lessons",
+     "learning_outcomes": [
+      "describe types of curved mirrors",
+      "draw ray diagrams to locate images formed by concave and convex mirrors",
+      "describe the characteristics of images formed by concave and convex mirrors",
+      "explain the uses of concave and convex mirrors in day-to-day life",
+      "appreciate the applications of curved mirrors in"
+     ],
+     "learning_experiences": [
+      "discuss the types of curved mirrors (concave, convex, and parabolic surfaces)",
+      "discuss the terms used in curved mirrors (aperture, pole, centre of curvature, principal axis, radius of curvature, principal focus, focal length, and focal plane)",
+      "carry out activities to locate the position of images formed by concave and convex mirrors",
+      "illustrate image positions for various object positions in concave and convex mirrors",
+      "discuss the characteristics of images formed by curved mirrors (object at infinity, beyond C, at C, between C & F, at F, and between F and P)",
+      "discuss the applications of concave and convex mirrors in day-to-day life (solar concentrators, car headlamps",
+      "shaving mirrors, dentists’ mirrors, projector lamps, telescopes, mirrors used in supermarkets, driving mirrors)",
+      "use digital or print media to explore more information on applications of curved mirrors."
+     ],
+     "inquiry_questions": [
+      "How are curved mirrors used in day-to-day life?"
+     ],
+     "core_competencies": [
+      "Self-efficacy: the learner exercises leadership skills as they discuss with peers the characteristics of images formed by curved mirrors.",
+      "Communication and Collaboration: the learner develops listening and writing skills while discussing with peers the terms used in curved mirrors."
+     ],
+     "values": [
+      "Social Justice: the learner exercises equity and accord equal opportunity to group members as they discuss the characteristics of images formed by curved mirrors.",
+      "Responsibility: the learner exercises excellence as they illustrate image positions for various object positions in concave and convex mirrors."
+     ],
+     "pertinent_issues": [
+      "Socio-economic Issues: the learner relates concepts of reflection at curved mirrors to safety and security as they discuss the applications of concave and convex mirrors in day-to-day life (transport and surveillance)."
+     ],
+     "links_to_other_areas": [
+      "The learner relates concepts in curved mirrors to hairdressing and beauty therapy in Pre-technical studies."
+     ],
+     "resources": [],
+     "kicd_source": "grade9-integrated-science.pdf#p31"
+    },
+    {
+     "kicd_code": "3.2",
+     "name": "Waves",
+     "suggested_duration": "16 lessons",
+     "learning_outcomes": [
+      "describe the generation of waves in nature",
+      "classify waves as longitudinal and transverse",
+      "describe basic characteristics of waves in nature",
+      "describe remote sensing in relation to waves",
+      "describe applications of waves in day-to-day life",
+      "appreciate the applications of",
+      "waves in day-to-day life."
+     ],
+     "learning_experiences": [
+      "brainstorm on the meaning of wave as used in science",
+      "carry out activities to demonstrate the generation of waves in nature and classify them into longitudinal and transverse (use a slinky spring, skipping rope, water in a basin, a source of sound/speaker, animations on wave)",
+      "carry out activities to demonstrate the parts of a wave (amplitude, wavelength, frequency, period, wave speed, phase; include wave equations; velocity=wavelength x frequency)",
+      "carry out activities to demonstrate characteristics of waves (straight line motion, reflection, bending of waves, movement around objects)",
+      "brainstorm on the meaning of remote sensing",
+      "discuss remote sensing in relation to waves, (reflection, absorption, and transmission of",
+      "electromagnetic radiation at different wavelengths)",
+      "use digital or print media to search for more information on the relationship between remote sensing and waves, remote sensing processes, active and passive remote sensing, remote sensing platforms, and carrier associated with remote sensing",
+      "discuss the applications of waves in real-life situations."
+     ],
+     "inquiry_questions": [
+      "How are waves applied in our day-to-day life?"
+     ],
+     "core_competencies": [
+      "Learning to Learn: the learner gains new knowledge and skills as they use digital or print media to search for more information on the relationship between remote sensing and waves.",
+      "Creativity and Imagination: the learner experiments with various activities as they carry out activities to demonstrate generation of waves in nature and classify them into longitudinal and transverse."
+     ],
+     "values": [
+      "Respect: the learner exercises open-mindedness as they embrace discussions on different ideas on applications of waves in day-to-day life.",
+      "Peace: the learner works in harmony with peers as they carry out activities to demonstrate characteristics of waves."
+     ],
+     "pertinent_issues": [
+      "Learner Support Programs: the learner is exposed to career guidance services on various opportunities in the field of remote sensing as a career."
+     ],
+     "links_to_other_areas": [
+      "The learner relates concepts of waves to the transmission of sound from musical instruments in Creative Arts and Sports."
+     ],
+     "resources": [],
+     "kicd_source": "grade9-integrated-science.pdf#p33"
+    }
+   ]
+  }
+ ]
+}

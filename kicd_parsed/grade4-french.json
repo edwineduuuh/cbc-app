@@ -1,0 +1,987 @@
+{
+ "source_pdf": "grade4-french.pdf",
+ "grade": 4,
+ "subject": "french",
+ "general_outcomes": [
+  "develop the ability to use the language for purposes of practical communication",
+  "appreciate the culture of other people to promote national and international relationship for peaceful co-existence",
+  "contribute to the cognitive and affective development of the student provide enjoyment and intellectual stimulation",
+  "promote positive attitudes and develop an appreciation of the value of language."
+ ],
+ "strands": [
+  {
+   "strand": "1. Listening and speaking",
+   "strand_code": "",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to recognize sounds from letter combinations",
+     "exceeds": "Learner recognizes all the targeted sounds from a given audio stimuli and in more complex context.",
+     "meets": "Learner recognizes all the targeted sounds from a given audio stimuli",
+     "approaches": "Learner recognizes most of the targeted sounds from a given audio stimuli",
+     "below": "Learner recognizes a few of the targeted sounds from a given audio stimuli."
+    },
+    {
+     "indicator": "Ability to articulate given words",
+     "exceeds": "The learner articulates all familiar words as well as more complex vocabulary",
+     "meets": "The learner articulates all familiar words",
+     "approaches": "The learner articulates most familiar words",
+     "below": "The learner articulates a few familiar words"
+    },
+    {
+     "indicator": "Ability to communicate fluently in social interactions",
+     "exceeds": "The learner is fluent in communication with a fast pace and correct intonation.",
+     "meets": "The learner is fluent in communication maintaining good pace and intonation",
+     "approaches": "The learner attempts to communicate but is hindered by wrong intonation",
+     "below": "The learner attempts to communicate but is hindered by slow pace and wrong intonation."
+    },
+    {
+     "indicator": "Ability to demonstrate mastery of vocabulary and expressions in oral interactions",
+     "exceeds": "Learner demonstrates mastery of extensive vocabulary and expressions",
+     "meets": "Learner demonstrates mastery of all familiar vocabulary and expressions",
+     "approaches": "Learner demonstrates mastery of most familiar vocabulary and expressions",
+     "below": "Learner demonstrates mastery of a few words and expressions"
+    },
+    {
+     "indicator": "Ability to recall important information",
+     "exceeds": "The learner identifies the main ideas in an oral text citing appropriate illustrations",
+     "meets": "The learner identifies the main ideas in an oral text",
+     "approaches": "The learner identifies most of the main ideas in an oral text",
+     "below": "The learner identifies a few ideas in an oral text"
+    },
+    {
+     "indicator": "Ability to use information from audio stimuli to engage in oral interaction",
+     "exceeds": "The learner uses all the information from audio stimuli appropriately and in great detail to engage in oral interactions",
+     "meets": "The learner uses all the information from audio stimuli appropriately to engage in oral interactions",
+     "approaches": "The learner uses most of the information from audio stimuli appropriately to engage in oral interactions",
+     "below": "The learner uses some of the information appropriately to engage in oral interactions"
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "1.2",
+     "name": "Imitative speaking Family",
+     "suggested_duration": "3 lessons",
+     "learning_outcomes": [
+      "a. imitate sounds and words as articulated from source b. use fluent speech patterns for effective real-life interactions c. display a positive attitude towards speaking activities"
+     ],
+     "learning_experiences": [
+      "listen and repeat names of members of a nuclear family",
+      "carry out speaking drills in groups",
+      "introduce members of their family using family photos (Qui est-ce ? C’est mon père.)",
+      "sing songs with vocabulary related to family members"
+     ],
+     "inquiry_questions": [
+      "Who is family?"
+     ],
+     "core_competencies": [
+      "Communication and Collaboration: As learners carry out drills in groups:"
+     ],
+     "values": [
+      "Love: Learner demonstrates love through group activities and role plays",
+      "Respect: learner shows respect for diversity as they share about their families"
+     ],
+     "pertinent_issues": [
+      "Citizenship: Social Cohesion by appreciating the different compositions of various families"
+     ],
+     "links_to_other_areas": [
+      "Creative Arts as learners compose and sing songs on Family and Family members."
+     ],
+     "resources": [],
+     "kicd_source": "grade4-french.pdf#p12"
+    },
+    {
+     "kicd_code": "1.3",
+     "name": "Listening for gist My surrounding",
+     "suggested_duration": "3 lessons",
+     "learning_outcomes": [
+      "recall general information from audio stimuli/texts",
+      "use information from audio stimuli in interactive communication contexts",
+      "develop a positive attitude towards listening as a skill for effective communication"
+     ],
+     "learning_experiences": [
+      "listen to songs on my house and identify different rooms and items",
+      "use digital devices to source for videos on presentation of a house",
+      "listen to presentations on my house by fellow learners in paired activities",
+      "play hide and seek games to locate objects as directed by audio stimuli",
+      "listen to instructions and put items at their right places",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "Why should we keep things in the right places in the house?",
+      "Suggested Key Inquiry Questions)"
+     ],
+     "core_competencies": [
+      "Critical Thinking and Problem Solving:as the learner reflects on information given to locate and arrange objects",
+      "Learning to learn: As learners listen to instructions on keeping things in the right places; they learn how to be neat and organised."
+     ],
+     "values": [
+      "Responsibility as learners keep items in their right places"
+     ],
+     "pertinent_issues": [
+      "Safety and Security: as learners keep items in their right places to create order and avoid accidents"
+     ],
+     "links_to_other_areas": [
+      "Social Studies as learners are sensitized on keeping things in the right place to avoid accidents and conflict"
+     ],
+     "resources": [],
+     "kicd_source": "grade4-french.pdf#p13"
+    },
+    {
+     "kicd_code": "1.4",
+     "name": "Phonological awareness Days of the week",
+     "suggested_duration": "3 lessons",
+     "learning_outcomes": [
+      "recognize letter sounds in words from audio stimuli",
+      "articulate words correctly in oral interactions.",
+      "appreciate the importance of correct pronunciation in interactive communication"
+     ],
+     "learning_experiences": [
+      "sing songs about days of the week",
+      "listen and repeat words with the sound [d] and [R]",
+      "recite poems on days of the week and related activities",
+      "watch audio-visual clips with days of the week",
+      "participate in rhyming games to acquire vocabulary",
+      "play syllable-clapping game for articulation"
+     ],
+     "inquiry_questions": [
+      "Why is there no school on weekends?"
+     ],
+     "core_competencies": [
+      "Communication and collaboration: As the learner participates in rhyming games and other activities/"
+     ],
+     "values": [
+      "Unity: is nurtured as learners play games together"
+     ],
+     "pertinent_issues": [
+      "Pertinent and Contemporary Issues Self-cohesion : learners play games together and share on individual activities on particular days Link to other Learning Areas: Creative Arts as the learner participates in singing and reciting poems"
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade4-french.pdf#p14"
+    },
+    {
+     "kicd_code": "1.5",
+     "name": "Listening for gist Fun and Enjoyment",
+     "suggested_duration": "3 lessons",
+     "learning_outcomes": [
+      "recall general information from audio stimuli/texts",
+      "use information from audio stimuli in interactive communication contexts",
+      "develop a positive attitude towards listening as a skill for effective communication"
+     ],
+     "learning_experiences": [
+      "listen to audio-visual materials (short dialogues) to identify fun activities",
+      "carry out short dialogues in pairs",
+      "listen to birthday songs and sing along",
+      "create mimes and verbalize them in group activities"
+     ],
+     "inquiry_questions": [
+      "Why do people celebrate their birthdays?"
+     ],
+     "core_competencies": [
+      "Communication and collaboration: As the learner gives information on birthdays and perform dialogues and songs"
+     ],
+     "values": [
+      "Love: nurtured as learners sing birthday songs for one another"
+     ],
+     "pertinent_issues": [
+      "Self-esteem: This is enhanced as learners share information about their birthdays and activities they do."
+     ],
+     "links_to_other_areas": [
+      "Religious Education as learners appreciate creation and the gift of life."
+     ],
+     "resources": [],
+     "kicd_source": "grade4-french.pdf#p16"
+    },
+    {
+     "kicd_code": "1.6",
+     "name": "Imitative speaking Foods and Drinks",
+     "suggested_duration": "3 lessons",
+     "learning_outcomes": [
+      "imitate pronunciation of sounds and words as articulated from source",
+      "use speech patterns fluently for effective real-life interactions",
+      "display a positive attitude towards speaking activities"
+     ],
+     "learning_experiences": [
+      "listen to and repeat names of food items and drinks",
+      "listen to audio-visual material relating to food items to pick out vocabulary",
+      "listen to and repeat sentences relating to food and drinks (Qu’est-ce que c’est? C’est un/une + nom/ Ce sont des + nom)",
+      "group food items and drinks into healthy and unhealthy",
+      "Play games to practice vocabulary related to food and drinks",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "1. What is good food?",
+      "2.’Which is the favourite food in your community?",
+      "Suggested Key Inquiry Question(s)"
+     ],
+     "core_competencies": [
+      "Communication and collaboration: as learners play games related to food and drinks"
+     ],
+     "values": [
+      "Respect for diversity is nurtured as they share on the diversities in foods and drinks across different communities",
+      "Responsibility: learner develops a sense of responsibility by differentiating between healthy and unhealthy foods."
+     ],
+     "pertinent_issues": [
+      "Health Promotion as learners are sensitized on healthy and unhealthy foods"
+     ],
+     "links_to_other_areas": [
+      "Agriculture and Nutrition as learners are taught on healthy and unhealthy foods."
+     ],
+     "resources": [],
+     "kicd_source": "grade4-french.pdf#p17"
+    },
+    {
+     "kicd_code": "1.7",
+     "name": "Phonological awareness My body",
+     "suggested_duration": "3 lessons",
+     "learning_outcomes": [
+      "recognize letter sounds in words from audio stimuli",
+      "articulate words correctly in oral interactions.",
+      "appreciate the importance of correct pronunciation in interactive communication"
+     ],
+     "learning_experiences": [
+      "Listen to audio materials and pick out vocabulary on the different parts of the body",
+      "Listen to and repeat sentences related to parts of the body (J’ai + number + parts of the body e.g. J’ai deux mains)",
+      "Sing songs about parts of the body"
+     ],
+     "inquiry_questions": [
+      "What do you like about your body?"
+     ],
+     "core_competencies": [
+      "Creativity and Imagination: as learners compose and sing songs on parts of the body."
+     ],
+     "values": [
+      "Respect: learner shows respect for diversity as they appreciate the uniqueness in physical traits of fellow learners"
+     ],
+     "pertinent_issues": [
+      "Self-awareness : as learners identify parts of their body Link to other Learning Areas: Integrated Science as the learners identify and name various body parts."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade4-french.pdf#p18"
+    },
+    {
+     "kicd_code": "1.8",
+     "name": "Phonological awareness Weather and Environment",
+     "suggested_duration": "3 lessons",
+     "learning_outcomes": [
+      "recognize letter sounds in words from audio stimuli",
+      "articulate words correctly in oral interactions.",
+      "appreciate the importance of correct pronunciation in interactive communication"
+     ],
+     "learning_experiences": [
+      "watch and listen to audio-visual materials on weather and identify weather features; soleil, vent, nuage",
+      "listen to songs about weather features and pick out related vocabulary",
+      "group weather features into friendly and harsh categories",
+      "recite poems on weather features with specific sounds ex. (nuage, orage, neige, déluge, gele)",
+      "source vocabulary on weather features from digital devices",
+      "search and play games in groups using digital devices",
+      "recite tongue-twisters"
+     ],
+     "inquiry_questions": [
+      "Which weather do you enjoy?"
+     ],
+     "core_competencies": [
+      "Communication and Collaboration: as learners play games in groups",
+      "Digital Literacy as learners search for games online using digital devices"
+     ],
+     "values": [
+      "Values: Unity is nurtured as learners work in groups Pertinent and Contemporary Issues: Disaster risk reduction: learners share and learn on the adverse effects of some weather features Link to other Learning Areas: Social Studies as learners are taken through various weather features and their effects"
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade4-french.pdf#p19"
+    },
+    {
+     "kicd_code": "1.9",
+     "name": "Imitative speaking Getting Around",
+     "suggested_duration": "3 lessons",
+     "learning_outcomes": [
+      "imitate pronunciation of sounds and words as articulated from source",
+      "use fluent speech patterns for effective real-life interactions",
+      "display a positive attitude toward speaking activities"
+     ],
+     "learning_experiences": [
+      "recite poems on areas in a home",
+      "listen to and sing songs on objects found in a home",
+      "source and watch video clips on house plans from digital devices to identify rooms and areas",
+      "play games in groups to state the location or position of areas in a home",
+      "listen and follow instructions on putting items in their right places",
+      "participate in simple simulations on asking for and giving location",
+      "ask for the location of some household items in paired activities",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "Where do you keep different household items?",
+      "Suggested Key Inquiry Question(s)"
+     ],
+     "core_competencies": [
+      "Communication and collaboration: learners develop teamwork skills as they play games in groups to locate items in a house"
+     ],
+     "values": [
+      "Unity as learners share information and play games"
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade4-french.pdf#p21"
+    }
+   ]
+  },
+  {
+   "strand": "2. Reading",
+   "strand_code": "",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to recognize basic sounds in simple written vocabulary",
+     "exceeds": "The learner recognizes all targeted basic sounds in simple vocabulary on greetings and introductions and makes successful attempts at more complex ones",
+     "meets": "The learner recognizes all targeted basic sounds in simple vocabulary on greetings and introductions",
+     "approaches": "The learner recognizes most targeted basic sounds in simple vocabulary on greetings and introductions",
+     "below": "The learner recognizes a few targeted basic sounds in simple vocabulary on greetings and introductions"
+    },
+    {
+     "indicator": "Ability to read aloud simple words with accurate pronunciation",
+     "exceeds": "The learner reads words in texts about greetings and introductions with accurate pronunciation and reading is always fluid and meaningful even in attempts at new words",
+     "meets": "The learner reads words in texts about greetings and introductions with accurate pronunciation and reading is always fluid and meaningful",
+     "approaches": "The learner reads words in texts about greetings and introductions with a few errors of pronunciation and reading is most of the time fluid and meaningful",
+     "below": "The learner reads words in texts about greetings and introductions with many errors of pronunciation and reading is rarely fluid and meaningful"
+    },
+    {
+     "indicator": "Ability to use knowledge of sounds to read familiar words with accurate pronunciation",
+     "exceeds": "The learner uses knowledge of sounds to read all familiar and more complex words with accurate pronunciation",
+     "meets": "The learner uses knowledge of sounds to read all familiar words with accurate pronunciation",
+     "approaches": "The learner uses knowledge of sounds to read some familiar words with accurate pronunciation",
+     "below": "The learner uses knowledge of sounds to read a few familiar words with accurate pronunciation"
+    },
+    {
+     "indicator": "Ability to infer meaning of words from simple texts",
+     "exceeds": "The learner infers the meaning of all new words in a text correctly and responds to all questions related to the text.",
+     "meets": "The learner infers the meaning of all new words in a text correctly.",
+     "approaches": "The learner infers the meaning of most of the new words in a text correctly.",
+     "below": "The learner infers the meaning of a few new words in a text text correctly."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "2.1",
+     "name": "Reading aloud Greetings and introductions",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "recognize words in context when reading",
+      "read aloud simple words with accurate pronunciation",
+      "develop confidence in their reading abilities through guided support"
+     ],
+     "learning_experiences": [
+      "read aloud simple vocabulary on greetings cards (Bonjour, salut)",
+      "play games to read their names and their friends’ aloud",
+      "use picture stimuli to read vocabulary aloud",
+      "read names spelt out using the French alphabet",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "1. Why do we read?",
+      "2. What do you read?",
+      "Suggested Key Inquiry Question(s)"
+     ],
+     "core_competencies": [
+      "Communication and collaboration: as learners play games to read their names aloud"
+     ],
+     "values": [
+      "Respect: is nurtured as they learn the diversity in names and greetings"
+     ],
+     "pertinent_issues": [
+      "Citizenship: Social cohesion is enhanced in accommodating diversity"
+     ],
+     "links_to_other_areas": [
+      "Social Studies as learners are exposed to different naming cultures and their identity"
+     ],
+     "resources": [],
+     "kicd_source": "grade4-french.pdf#p24"
+    },
+    {
+     "kicd_code": "2.2",
+     "name": "Reading aloud My Family",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "recognize words in context when reading",
+      "read aloud simple words with accurate pronunciation",
+      "develop confidence in their reading abilities through guided support"
+     ],
+     "learning_experiences": [
+      "to follow the reading aloud of words in order to know how to pronounce them",
+      "read aloud words in turns",
+      "articulate correctly words related to family as they read aloud short phrases.",
+      "identify some French accents and pronounce the accented words correctly; (accent aigu / grave"
+     ],
+     "inquiry_questions": [
+      "Why do some French words have accents?"
+     ],
+     "core_competencies": [
+      "Communication and collaboration: As learners read aloud words in turns correcting each other"
+     ],
+     "values": [
+      "Love: Demonstrate patience as others take turns to read texts"
+     ],
+     "pertinent_issues": [
+      "Self-esteem: Learners exhibit self-esteem and self-drive as they learn to read in a new language"
+     ],
+     "links_to_other_areas": [
+      "A All Learning Areas as Reading Aloud cuts across."
+     ],
+     "resources": [],
+     "kicd_source": "grade4-french.pdf#p25"
+    },
+    {
+     "kicd_code": "2.3",
+     "name": "Reading aloud My surrounding",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "recognize words in context when reading",
+      "read aloud simple words with accurate pronunciation",
+      "develop confidence in their reading abilities through guided support"
+     ],
+     "learning_experiences": [
+      "to follow the reading aloud of words in order know how to pronounce them",
+      "source for texts from digital devices and read aloud words in turns",
+      "articulate correctly words related to home as they read aloud short phrases.",
+      "read texts and answer questions on location of objects and areas (dans, derrière, entre, sur, sous)"
+     ],
+     "inquiry_questions": [
+      "Which places is reading aloud done?"
+     ],
+     "core_competencies": [
+      "Communication and collaboration: As learners take turns in reading aloud and correcting each other",
+      "Digital Literacy as learners source for texts online for practice"
+     ],
+     "values": [
+      "Love: as the learners share digital devices"
+     ],
+     "pertinent_issues": [
+      "Self-esteem: Learners exhibit self-esteem as they read aloud in turns"
+     ],
+     "links_to_other_areas": [
+      "Social Studies as learners learn about the environment"
+     ],
+     "resources": [],
+     "kicd_source": "grade4-french.pdf#p26"
+    },
+    {
+     "kicd_code": "2.4",
+     "name": "Reading aloud Days of the week",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "recognize words in context when reading",
+      "read aloud simple words with accurate pronunciation",
+      "develop confidence in their reading abilities through guided support"
+     ],
+     "learning_experiences": [
+      "read aloud the days of the week",
+      "read short texts on days of the week and simple activities to practice fluency",
+      "recite poems"
+     ],
+     "inquiry_questions": [
+      "Which is the best day of the week?"
+     ],
+     "core_competencies": [
+      "Learning to learn: This is developed as learners learn how to read vocabulary on days of the week"
+     ],
+     "values": [
+      "Respect: learner shows respect for diversity as they take turns to read texts on days of the week"
+     ],
+     "pertinent_issues": [
+      "Self-esteem: learner develops confidence by being able to read texts related to the days of the week and activities."
+     ],
+     "links_to_other_areas": [
+      "Social Studies as days of the week relate to time and date."
+     ],
+     "resources": [],
+     "kicd_source": "grade4-french.pdf#p27"
+    },
+    {
+     "kicd_code": "2.5",
+     "name": "Reading aloud My birthday",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "recognize words in context when reading",
+      "read aloud simple words with accurate pronunciation",
+      "develop confidence in their reading abilities through guided support"
+     ],
+     "learning_experiences": [
+      "Listen keenly and follow the reading aloud of texts as they pick out selected vocabulary",
+      "Read aloud in turns selected dates of birth (date and month)",
+      "Read aloud the lyrics of birthday songs."
+     ],
+     "inquiry_questions": [
+      "Why are birthdays important?"
+     ],
+     "core_competencies": [
+      "Creativity and Imagination: as learners compose and sing birthday songs"
+     ],
+     "values": [
+      "Love as the learners take turns in reading aloud"
+     ],
+     "pertinent_issues": [
+      "Self-esteem: learner develops confidence by being able to read aloud texts"
+     ],
+     "links_to_other_areas": [
+      "Religious Education as learners appreciate creation and their existence"
+     ],
+     "resources": [],
+     "kicd_source": "grade4-french.pdf#p28"
+    },
+    {
+     "kicd_code": "2.6",
+     "name": "Reading aloud Foods and Drinks",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "recognize words in context when reading",
+      "read aloud simple words with accurate pronunciation",
+      "develop confidence in their reading abilities through guided support"
+     ],
+     "learning_experiences": [
+      "read aloud names of food items and drinks",
+      "take turns in reading short texts relating to food items to pick out vocabulary",
+      "match names of food and drinks to images",
+      "play word search games on vocabulary related to food and drinks"
+     ],
+     "inquiry_questions": [
+      "Which foods have you never eaten?"
+     ],
+     "core_competencies": [
+      "Learning to learn: As learners learn of new foods and drinks from different communities."
+     ],
+     "values": [
+      "Respect: learner shows respect for diversity as they learn of different foods and drinks"
+     ],
+     "pertinent_issues": [
+      "Self-esteem: learner develops confidence by being able to read texts related to food and drinks."
+     ],
+     "links_to_other_areas": [
+      "Agriculture and Nutrition as learners read on different foods and drinks"
+     ],
+     "resources": [],
+     "kicd_source": "grade4-french.pdf#p29"
+    },
+    {
+     "kicd_code": "2.7",
+     "name": "Guided reading My body",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "infer meaning of words from simple texts",
+      "read simple texts fluently using the right intonation and pace",
+      "show enthusiasm in reading through exposure to simple varied texts"
+     ],
+     "learning_experiences": [
+      "read short texts on parts of the body for information",
+      "source for and read short texts about the human body from the internet"
+     ],
+     "inquiry_questions": [
+      "What is unique about your body?"
+     ],
+     "core_competencies": [
+      "Digital literacy: This is developed as the learner sources for texts on parts of their body from the internet."
+     ],
+     "values": [
+      "Responsibility: learner uses the internet responsibly in sourcing for information"
+     ],
+     "pertinent_issues": [
+      "Online safety: as learners use the internet to source for information"
+     ],
+     "links_to_other_areas": [
+      "Integrated Science as learners read on body parts."
+     ],
+     "resources": [],
+     "kicd_source": "grade4-french.pdf#p30"
+    },
+    {
+     "kicd_code": "2.8",
+     "name": "Guided reading Weather and environment",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "infer meaning of words from simple texts",
+      "read simple texts fluently using the right intonation and pace",
+      "show enthusiasm in reading through exposure to simple varied texts"
+     ],
+     "learning_experiences": [
+      "source for texts on weather features from digital devices in groups",
+      "repeat read texts in groups",
+      "read texts in pairs to acquire vocabulary",
+      "respond to simple questions from reading texts",
+      "read texts and categorize weather features into friendly and harsh",
+      "se picture stimuli to read weather features"
+     ],
+     "inquiry_questions": [
+      "How do you predict the weather?"
+     ],
+     "core_competencies": [
+      "Critical thinking and problem solving: as learners interpret picture stimuli to read weather features"
+     ],
+     "values": [
+      "Unity: as learners work together in groups to source for reading materials from digital devices"
+     ],
+     "pertinent_issues": [
+      "Disaster risk reduction: learners share on predicting the weather and the adverse effects of some weather features"
+     ],
+     "links_to_other_areas": [
+      "Social Studies as learners study various weather features"
+     ],
+     "resources": [],
+     "kicd_source": "grade4-french.pdf#p31"
+    },
+    {
+     "kicd_code": "2.9",
+     "name": "Guided reading Getting around",
+     "suggested_duration": "2 lessons",
+     "learning_outcomes": [
+      "infer meaning of words from simple texts",
+      "read simple texts fluently using the right intonation and pace",
+      "show enthusiasm in reading through exposure to simple varied texts"
+     ],
+     "learning_experiences": [
+      "source for texts on different areas in a home from digital devices in groups",
+      "(la chambre, le salon, la cuisine...)",
+      "share on read texts in groups",
+      "read texts in pairs to acquire vocabulary on different items in a home (le canapé, la télé, le frigo, le lit, la porte...)",
+      "respond to simple questions from reading texts",
+      "read texts and answer questions on location of objects and areas",
+      "(dans, derrière, entre, sur, sous)",
+      "matching picture stimuli to given vocabulary",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "How do you identify different areas in a home?",
+      "Suggested Key Inquiry Question(s)"
+     ],
+     "core_competencies": [
+      "Critical thinking and problem solving: learners develop research skills as they source for texts on different areas in a home"
+     ],
+     "values": [
+      "Unity: as learners work in groups sharing ideas from read texts"
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade4-french.pdf#p32"
+    }
+   ]
+  },
+  {
+   "strand": "3. Writing",
+   "strand_code": "",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to write given words",
+     "exceeds": "The learner can write all the given words with correct orthography putting appropriate accents.",
+     "meets": "The learner can write all the given words with correct orthography",
+     "approaches": "The learner can write most of the given words with correct orthography",
+     "below": "The learner can write a few given words with correct orthography"
+    },
+    {
+     "indicator": "Ability to create short simple sentences",
+     "exceeds": "The learner creates short simple sentences with the correct structure and makes successful attempts at more complex sentences.",
+     "meets": "The learner creates short simple sentences with the correct structure",
+     "approaches": "The learner creates short simple sentences with a few challenges in the structure",
+     "below": "The learner creates short simple sentences with many challenges in the structure"
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "3.1",
+     "name": "Guided writing Greetings and introductions",
+     "suggested_duration": "1 lessons",
+     "learning_outcomes": [
+      "write common words with correct orthography",
+      "create simple sentences using correct structures",
+      "appreciate the role of writing in interactive communication contexts"
+     ],
+     "learning_experiences": [
+      "rearrange letters to make words",
+      "fill crosswords and word puzzles",
+      "fill gaps in simple dialogues",
+      "label items with names of friends as dictated in group activities",
+      "write short greetings to one another",
+      "write down dictated simple vocabulary in greetings",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "How many form of greetings can you write?",
+      "Suggested Key Inquiry Question(s)"
+     ],
+     "core_competencies": [
+      "Critical thinking and problem solving: this is developed as learners think critically when rearranging letters to make correct words"
+     ],
+     "values": [
+      "Love: as learners write short greetings to one another"
+     ],
+     "pertinent_issues": [
+      "Life skills education: as learners label items"
+     ],
+     "links_to_other_areas": [
+      "English, Kiswahili and Indigenous Languages as they learn greetings in different languages."
+     ],
+     "resources": [],
+     "kicd_source": "grade4-french.pdf#p35"
+    },
+    {
+     "kicd_code": "3.2",
+     "name": "Guided writing Family",
+     "suggested_duration": "1 lessons",
+     "learning_outcomes": [
+      "write common words with correct orthography",
+      "create simple sentences using correct structures",
+      "appreciate the role of writing in interactive communication contexts"
+     ],
+     "learning_experiences": [
+      "to extract and write down information on members of a family from family trees",
+      "create words from letters through scrabble and crosswords",
+      "write short sentences describing the relationships between members of a family",
+      "(Pierre est le père de ...)"
+     ],
+     "inquiry_questions": [
+      "What makes families different?"
+     ],
+     "core_competencies": [
+      "Communication and collaboration: as the learners play spelling games together"
+     ],
+     "values": [
+      "Unity: as learners play scrabble and other spelling games together"
+     ],
+     "pertinent_issues": [
+      "Self-esteem: as learners practice writing in a new language."
+     ],
+     "links_to_other_areas": [
+      "Religious Education as learners appreciate their families and identity."
+     ],
+     "resources": [],
+     "kicd_source": "grade4-french.pdf#p36"
+    },
+    {
+     "kicd_code": "3.3",
+     "name": "Guided writing My surrounding -My Home",
+     "suggested_duration": "1 lessons",
+     "learning_outcomes": [
+      "Write common words with correct orthography",
+      "create simple sentences using correct structures",
+      "appreciate the role of writing in interactive communication contexts"
+     ],
+     "learning_experiences": [
+      "Write with accuracy, words and phrases as they watch and listen to audio-visual materials on household items.",
+      "Match pictures and images with words describing different rooms in a house",
+      "associate pictures and images with words where different objects are",
+      "write phrases in groups on items found at home."
+     ],
+     "inquiry_questions": [
+      "How many rooms should a house have?"
+     ],
+     "core_competencies": [
+      "Creativity and imagination: as learners match pictures and images with words"
+     ],
+     "values": [
+      "Unity: as the learners work in groups"
+     ],
+     "pertinent_issues": [
+      "Self esteem is enhanced as learners write new words in French."
+     ],
+     "links_to_other_areas": [
+      "Social Studies as learners discuss their surrounding"
+     ],
+     "resources": [],
+     "kicd_source": "grade4-french.pdf#p37"
+    },
+    {
+     "kicd_code": "3.4",
+     "name": "Guided writing Time -Days of the Week",
+     "suggested_duration": "1 lessons",
+     "learning_outcomes": [
+      "write common words with correct orthography",
+      "create simple sentences using correct structures",
+      "appreciate the role of writing in interactive communication contexts"
+     ],
+     "learning_experiences": [
+      "write down the days of the week",
+      "write texts on days of the week and simple activities",
+      "fill in gaps in short texts relating to days of the week"
+     ],
+     "inquiry_questions": [
+      "Which day of the week do you rest?"
+     ],
+     "core_competencies": [
+      "Learning to learn: as learners write new vocabulary on days of the week"
+     ],
+     "values": [
+      "Respect: learner shows respect for diversity as they take turns to write days of the week"
+     ],
+     "pertinent_issues": [
+      "Self-esteem: learner develops confidence by being able to write texts related days of the week and activities."
+     ],
+     "links_to_other_areas": [
+      "English and Kiswahili as they write the days of the week"
+     ],
+     "resources": [],
+     "kicd_source": "grade4-french.pdf#p38"
+    },
+    {
+     "kicd_code": "3.5",
+     "name": "Guided writing Fun and Enjoyment -My birthday",
+     "suggested_duration": "1 lessons",
+     "learning_outcomes": [
+      "write common words with correct orthography",
+      "create simple sentences using correct structures",
+      "appreciate the role of writing in interactive communication contexts"
+     ],
+     "learning_experiences": [
+      "Write short texts on days of the week and months",
+      "Copy birthday messages from birthday cards or from other sources",
+      "Write short dialogues in pairs"
+     ],
+     "inquiry_questions": [
+      "Do you celebrate your birthday?"
+     ],
+     "core_competencies": [
+      "Communication and collaboration: as the learners write short dialogues in pairs"
+     ],
+     "values": [
+      "Love: Through sharing of birthday messages."
+     ],
+     "pertinent_issues": [
+      "Self esteem is enhanced as learners receive warm birthday messages from their peers."
+     ],
+     "links_to_other_areas": [
+      "Creative Arts as learners write birthday messages"
+     ],
+     "resources": [],
+     "kicd_source": "grade4-french.pdf#p39"
+    },
+    {
+     "kicd_code": "3.6",
+     "name": "Guided Writing Foods and Drinks",
+     "suggested_duration": "1 lessons",
+     "learning_outcomes": [
+      "Write common words with correct orthography",
+      "create simple sentences using correct structures",
+      "appreciate the role of writing in interactive communication contexts"
+     ],
+     "learning_experiences": [
+      "draw and label images of food items and drinks",
+      "fill in gaps in short texts relating to food items to pick out vocabulary",
+      "create charts on foods and drinks"
+     ],
+     "inquiry_questions": [
+      "Which foods should we avoid eating?"
+     ],
+     "core_competencies": [
+      "Learning to learn: This is developed as learners write vocabulary on food and drinks"
+     ],
+     "values": [
+      "Respect: learner show respect for one another as they take turns to write"
+     ],
+     "pertinent_issues": [
+      "Self-esteem: learner develops confidence by being able to write texts related to food and drinks."
+     ],
+     "links_to_other_areas": [
+      "Agriculture and Nutrition as learners write on foods and drinks."
+     ],
+     "resources": [],
+     "kicd_source": "grade4-french.pdf#p40"
+    },
+    {
+     "kicd_code": "3.7",
+     "name": "Guided writing My body",
+     "suggested_duration": "1 lessons",
+     "learning_outcomes": [
+      "write common words with correct orthography",
+      "create simple sentences using correct structures",
+      "appreciate the role of writing in interactive communication contexts"
+     ],
+     "learning_experiences": [
+      "write short texts on parts of the body",
+      "draw and label parts of the body",
+      "fill in gaps in short texts relating to parts of the body",
+      "source charts on parts of the body from the internet"
+     ],
+     "inquiry_questions": [
+      "What do you like most about your body?"
+     ],
+     "core_competencies": [
+      "Digital literacy: This is developed as the learner sources for texts on parts of their body from the internet."
+     ],
+     "values": [
+      "Responsibility: learner uses the internet responsibly in sourcing for information"
+     ],
+     "pertinent_issues": [
+      "Online safety: as learners use the internet to source for information"
+     ],
+     "links_to_other_areas": [
+      "Pre-technical Studies as learners use technology to source for information."
+     ],
+     "resources": [],
+     "kicd_source": "grade4-french.pdf#p41"
+    },
+    {
+     "kicd_code": "3.8",
+     "name": "Guided writing Weather and environment",
+     "suggested_duration": "1 lessons",
+     "learning_outcomes": [
+      "write common words with correct orthography",
+      "create simple sentences using correct structures",
+      "appreciate the role of writing in interactive communication contexts"
+     ],
+     "learning_experiences": [
+      "• rearrange letters to make words about weather features (le soleil, la pluie, le vent...)",
+      "fill crosswords and word puzzles in group activity",
+      "fill gaps in simple dialogues with vocabulary of weather",
+      "fill blanks on picture stimuli with vocabulary on weather",
+      "write down dictated simple vocabulary on weather"
+     ],
+     "inquiry_questions": [
+      "Which is your favourite weather?"
+     ],
+     "core_competencies": [
+      "Critical thinking and problem solving: as learners think critically when filling crosswords"
+     ],
+     "values": [
+      "Unity: as earners work in groups to fill crosswords and puzzles"
+     ],
+     "pertinent_issues": [
+      "Disaster risk reduction: learners share on the adverse effects of some weather features"
+     ],
+     "links_to_other_areas": [
+      "Social Studies as learners are taken through the different weather features."
+     ],
+     "resources": [],
+     "kicd_source": "grade4-french.pdf#p42"
+    },
+    {
+     "kicd_code": "3.9",
+     "name": "Guided writing Getting around",
+     "suggested_duration": "1 lessons",
+     "learning_outcomes": [
+      "write common words with correct orthography",
+      "create simple sentences using correct structures",
+      "appreciate the role of writing in interactive communication contexts"
+     ],
+     "learning_experiences": [
+      "rearrange letters to make words on items in a house (La télé, la porte, la table, le tapis)",
+      "fill crosswords and word puzzles in group activities",
+      "fill gaps in simple dialogues with vocabulary of locating items and areas",
+      "use picture stimuli to label items and areas in a house",
+      "write down dictated simple vocabulary on items and areas in a house",
+      "write simple instructions on where to place different items in the house"
+     ],
+     "inquiry_questions": [
+      "Which items should be labelled in the house?"
+     ],
+     "core_competencies": [
+      "Critical thinking and problem solving: this is developed as learners think critically when filling crosswords"
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade4-french.pdf#p43"
+    }
+   ]
+  }
+ ]
+}

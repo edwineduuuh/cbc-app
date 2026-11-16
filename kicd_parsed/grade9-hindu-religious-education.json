@@ -1,0 +1,253 @@
+{
+ "source_pdf": "grade9-hindu-religious-education.pdf",
+ "grade": 9,
+ "subject": "hindu-religious-education",
+ "general_outcomes": [],
+ "strands": [
+  {
+   "strand": "Manifestation of Paramatma (Supreme Being)",
+   "strand_code": "1.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to state the contributions of the Enlightened Beings.",
+     "exceeds": "The learner states the contributions of the Enlightened Beings in detail.",
+     "meets": "The learner states the contributions of the Enlightened Beings correctly.",
+     "approaches": "The learner states some of the contributions of the Enlightened Beings partially.",
+     "below": "The learner states some of the contributions of the Enlightened Beings only when prompted."
+    },
+    {
+     "indicator": "Ability to narrate Scriptural stories that portray the teachings of the Enlightened Beings",
+     "exceeds": "The learner narrates Scriptural stories that portray the teachings of the Enlightened Beings eloquently with confidence.",
+     "meets": "The learner narrates Scriptural stories that portray the teachings of the Enlightened Beings correctly.",
+     "approaches": "The learner narrates Scriptural stories that portray the teachings of the Enlightened Beings with minor mix ups.",
+     "below": "The learner narrates Scriptural stories that portray the teachings of the Enlightened Beings with major mixups."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "1.1",
+     "name": "Enlightened Beings",
+     "suggested_duration": "20 lessons",
+     "learning_outcomes": [
+      "state the contributions of the Enlightened Beings for harmonious living",
+      "narrate Scriptural stories that portray the teachings of the Enlightened Beings for moral and social development",
+      "desire to implement the teachings of the Enlightened Beings for personal improvement."
+     ],
+     "learning_experiences": [
+      "mention contribution of Enlightened Beings",
+      "conduct research using digital media/digital media with assistive technology library/ magazines to describe the contributions of Enlightened Beings",
+      "write an essay on The Guru’s way of life (Khalsa Panth)",
+      "research on the concept of The Tirthankars’ way of non-violence (Ahimsa)",
+      "listen to audio-visual clips on the life history of the Enlightened Beings",
+      "write a composition on how they have implemented any of the teachings they have learnt from the Enlightened Beings",
+      "share the stories that teach about the contributions of Enlightened Beings",
+      "write a personal essay describing their aspirations that are inspired by the teachings from the Enlightened Beings",
+      "develop a practical activity in implementing any of the teachings.",
+      "draw, paint or make a tactual illustration on a life event of an Enlightened Beings.",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "1. How have the teachings of the Enlightened Beings impacted society?",
+      "2. How do the life histories of Enlightened Beings guide our lives today?",
+      "Suggested Key Inquiry Question(s)"
+     ],
+     "core_competencies": [
+      "Digital literacy: Learner enhances digital skills when searches online to study Tridev’s contribution to mankind.",
+      "Learning to Learn: Learner enhances knowledge when listens to audio-visual clips on the life history of the Enlightened Beings and write a composition on how they have implemented any of the teachings they have learnt from the Enlightened Beings."
+     ],
+     "values": [
+      "Respect: Learner develops respect when writes an essay on The Guru’s way of life (Khalsa Panth) research on the concept of The Tirthankars’ way of non-violence (Ahimsa).",
+      "Responsibility: Learner enhances resilience when develops a practical activity in implementing any of the teachings."
+     ],
+     "pertinent_issues": [
+      "• Socio-economic issues: Learner acquires the ability of dealing with issues when makes research on the concept of The Tirthankars’ way of non-violence (Ahimsa)."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade9-hindu-religious-education.pdf#p13"
+    }
+   ]
+  },
+  {
+   "strand": "Scriptures",
+   "strand_code": "2.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to explain the compilation of Sri Sukhmani Sahib in Sri Guru Granth Sahib ji.",
+     "exceeds": "The learner explains the compilation of Sri Sukhmani Sahib in Sri Guru Granth Sahib ji with details.",
+     "meets": "The learner explains compilation of Sri Sukhuman Sahib in Sri Guru Granth Sahib ji.",
+     "approaches": "The learner explains the compilation of Sri Sukhmani Sahib in Sri Guru Granth Sahib ji with minor omissions.",
+     "below": "The learner explains the compilation of Sri Sukhmani Sahib in Sri Guru Granth Sahib ji with major omissions."
+    },
+    {
+     "indicator": "Ability to outline the role of Sikh Scriptures for guidance in one’s life.",
+     "exceeds": "The learner outlines the role of Sikh Scriptures with details.",
+     "meets": "The learner outlines the role of Sikh Scriptures.",
+     "approaches": "The learner outlines the role of Sikh Scriptures leaving out some details.",
+     "below": "The learner outlines the role of Sikh Scriptures leaving out key details."
+    },
+    {
+     "indicator": "Ability to identify five Sikh Principles of Dharma.",
+     "exceeds": "The learner identifies all the five Sikh Principles of Dharma with relevant examples.",
+     "meets": "The learner identifies all the five Sikh Principles of Dharma correctly.",
+     "approaches": "The learner identifies three to four Sikh Principles of Dharma.",
+     "below": "The learner identifies less than three Sikh Principles of Dharma."
+    },
+    {
+     "indicator": "Ability to describe the concepts of the three pillars of Sikh Dharma.",
+     "exceeds": "The learner describes the concepts of the three pillars of Sikh Dharma in detail.",
+     "meets": "The learner describes the concepts of the three pillars of Sikh Dharma appropriately.",
+     "approaches": "The learner describes concepts of two pillars of Sikh Dharma.",
+     "below": "The learner describes concepts of one pillar of Sikh Dharma."
+    },
+    {
+     "indicator": "Ability to enumerate common rituals and protocols during religious practices.",
+     "exceeds": "The learner enumerates common rituals and protocols during religious practices with relevant examples.",
+     "meets": "The learner enumerates common rituals and protocols during religious practices.",
+     "approaches": "The learner enumerates some common rituals and protocols during religious practices.",
+     "below": "The learner enumerates some common rituals and protocols during religious practices only when prompted."
+    },
+    {
+     "indicator": "Ability to describe the rituals and protocols performed during religious activities.",
+     "exceeds": "The learner describes the rituals and protocols performed during religious activities in details.",
+     "meets": "The learner describes the rituals and protocols performed during religious activities.",
+     "approaches": "The learner describes the rituals and protocols performed during religious activities leaving out some details.",
+     "below": "The learner describes some rituals and protocols performed during religious activities leaving out key details."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "2.1",
+     "name": "Scriptural Text and role of Sikh Scriptures",
+     "suggested_duration": "20 lessons",
+     "learning_outcomes": [
+      "outline the role of Sikh Scriptures for guidance in one’s life",
+      "explain the compilation of Sri Sukhmani Sahib in Sri Guru Granth Sahib ji for internalization",
+      "interpret the universal message embedded in the Sri Sukhmani Sahib for deeper understanding",
+      "appreciate the teachings of the Sikh Scriptures for spiritual development."
+     ],
+     "learning_experiences": [
+      "mention compilation of Sri Sukhumani sahib in Sri Guru Granth Sahib ji",
+      "discuss the compilation of the Sri Guru Granth Sahib ji",
+      "prepare a PowerPoint and present in class for constructive feedback from peers",
+      "conduct research using digital media/digital media with assistive technology library/ magazines on the compilation of Ashtpadi from 17-24 from Sri Sukhmani Sahib in Sri Guru Granth Sahib ji",
+      "interact with resource persons on the role of Sri Guru Granth Sahib ji",
+      "write an essay on Sri Guru Granth Sahib ji's role in a devotee’s life",
+      "study selected Shabads from the Sikh Scriptures that convey the message of universal brotherhood",
+      "Listen to the audio/video recitation of Sri Sukhmani Sahib for correct pronunciation",
+      "engage with parents/guardians at home to find teachings from their faith that are like those in Sri Guru Granth Sahib Ji for class discussion.",
+      "assist learners with special needs as per their abilities through peer teaching to make them understand the basic concepts from Sri Guru Granth Sahib ji in their class.",
+      "Principles of Dharma in addressing Pandemic or other calamities",
+      "listen to resource persons to help understand the role of the Sikh Principles of Dharma.",
+      "• Assist learners with special needs as per their abilities through peer teaching to make them understand the religious practices."
+     ],
+     "inquiry_questions": [
+      "1. How do Scriptures influence your lifestyle?",
+      "2. How does recitation of Scriptures help to acquire self-efficacy?"
+     ],
+     "core_competencies": [
+      "• Learning to learn: Learner enhances knowledge while interacting with resource persons on the role of Sri Guru Granth Sahib ji.",
+      "Learning to learn: Learner shares learnt knowledge while discussing with peers the relevance of Sikh Principles of Dharma during Pandemic or other calamities.",
+      "Digital literacy: Learner develops digital skills when research using digital media/digital media with assistive technology library/ magazines the five virtues from the Sikh Principles of Dharma.",
+      "Learning to Learn: Learner enhances knowledge when discussing with peers and share visual information on the religious ritual practices among the faiths that are performed during auspicious occasions.",
+      "Digital Literacy: Learner develops digital skills while interacting with technology as they watch videos/illustrations on the participation in religious rituals and protocols."
+     ],
+     "values": [
+      "Values:",
+      "Patriotism: Learner exhibits devotion when writes an essay on Sri Guru Granth Sahib ji's role in a devotee’s life.",
+      "Respect: Learner shows open mindedness while engaging with parents/guardians at home to find teachings from their faith that are like those in Sri Guru Granth Sahib Ji for class discussion. Pertinent and Contemporary Issues (PCI’s): Citizenship: Learner enhances social cohesion when study’s selected Shabads from the Sikh Scriptures that convey the message of universal brotherhood. Links to other Subjects:",
+      "The learner is able to relate the skill of developing digital skills while discussing the compilation of the Sri Guru Granth Sahib ji and prepare a PowerPoint and present in class for constructive feedback from peers to the skills of developing digital skills in pre-technical studies.",
+      "The learner is able to relate the skills of writing while presenting essays on Sri Guru Granth Sahib ji's role in a devotee’s life to the writing skills in English.",
+      "Respect: Learner develops virtue of patience when listens to resource persons to help understand the role of the Sikh Principles of Dharma.",
+      "Responsibility: Learner exhibits hard work while researching on the pillars of Sikhism, create and present a poster/ video clip in class.",
+      "Integrity: Learner exhibits discipline when watching videos/illustrations on participation in religious rituals and protocols.",
+      "Respect: Learner develops acceptance when visits places of worship to observe rituals and protocols in the company of parents."
+     ],
+     "pertinent_issues": [
+      "Socio-economic issues: Learner gains knowledge on how to overcome pandemic while discussing with peers the relevance of Sikh Principles of Dharma during Pandemic or other calamities.",
+      "Citizenship: Learner expressess social cohesion when discusses and shares the experiences on rituals and protocols performed during religious activities in the four faiths."
+     ],
+     "links_to_other_areas": [
+      "The learner is able to relate the skill of research using digital media/digital media with assistive technology library/ magazines the five virtues from the Sikh Principles of Dharma to the skills of developing digital skills in pre-technical studies.",
+      "The learner is able to relate the skill of developing digital skills while watching videos/illustrations on participation in religious rituals and protocols to the skills of developing digital skills in pre-technical studies.",
+      "The learner is able to relate the skill of reciting poems on rituals and protocol of religious practices to the speaking skills in English."
+     ],
+     "resources": [],
+     "kicd_source": "grade9-hindu-religious-education.pdf#p16"
+    }
+   ]
+  },
+  {
+   "strand": "Yog",
+   "strand_code": "5.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to identify the key events of the selected four prominent practitioners of Gyan/Jnana Yog.",
+     "exceeds": "The learner identifies the key events of all the selected four prominent practitioners of Gyan/Jnana Yog comprehensively.",
+     "meets": "The learner identifies the key events of all the four selected prominent practitioners of Gyan/Jnana Yog.",
+     "approaches": "The learner identifies key events of the three selected prominent practitioners of Gyan/Jnana Yog.",
+     "below": "The learner identifies key events of less than two selected prominent practitioners of Gyan/Jnana Yog."
+    },
+    {
+     "indicator": "Ability to outline four selected key practitioners of Gyan/Jnana Yog from the four faiths.",
+     "exceeds": "The learner outlines all the four selected key practitioners of Gyan/Jnana Yog from the four faiths with explanations in detail.",
+     "meets": "The learner outlines all the four selected key practitioners of Gyan/Jnana Yog from the four faiths correctly.",
+     "approaches": "The learner outlines three of the four selected key practitioners of Gyan/Jnana Yog from the four faiths.",
+     "below": "The learner outlines less than three of the selected key practitioners of Gyan/Jnana Yog from the four faiths."
+    },
+    {
+     "indicator": "Ability to outline Sanskaars as per Sikh Dharma.",
+     "exceeds": "The learner outlines all the five Sanskaars as per Sikh Dharma giving detailed information.",
+     "meets": "The learner outlines four Sanskaars as per Sikh Dharma.",
+     "approaches": "The learner outlines three Sanskaars as per Sikh Dharma.",
+     "below": "The learner outlines less than three Sanskaars as per Sikh Dharma."
+    },
+    {
+     "indicator": "Ability to illustrate the significance of the Sikh Sanskaars.",
+     "exceeds": "The learner illustrates the significance of the Sikh Sanskaars comprehensively.",
+     "meets": "The learner illustrates the significance of the Sikh Sanskaars appropriately.",
+     "approaches": "The learner illustrates significance of the Sikh Sanskaars with minor omissions.",
+     "below": "The learner illustrates the significance of the Sikh Sanskaars with major omissions."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "5.1",
+     "name": "Knowledge (Gyan/Jnana Yog)",
+     "suggested_duration": "20 lessons",
+     "learning_outcomes": [
+      "state the key events of the selected four prominent practitioners of Gyan/Jnana Yog for better understanding",
+      "outline the four key practitioners of Gyan/Jnana Yog from the four faiths for familiarisation",
+      "interpret the importance of Gyan/Jnana Yog as a spiritual path",
+      "acknowledge Gyan/Jnana Yog as a tool of holistic development."
+     ],
+     "learning_experiences": [
+      "name key events of prominent practitioners of Gyan/Jnana Yog",
+      "listen /watch the discourses on Gyan/Jnana Yog",
+      "discuss the concept of Gyan/Jnana Yog with peers",
+      "conduct research using digital devices/resource persons/libraries to get a better understanding of the components of Gyan/Jnana Yog",
+      "write an essay on Gyan/Jnana Yog and present in class for peer review",
+      "outline the personalities from the four faiths who attained spiritualism through Gyan/Jnana Yog",
+      "Plan with neighbouring schools and organize a symposium on Gyan/Jnana Yog",
+      "Make a collage of pictures of different Gyan/Jnana Yog"
+     ],
+     "inquiry_questions": [],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Learning to Learn: Learner acquires knowledge when conducts research using digital devices/resource persons/libraries to get a better understanding of the components of Gyan/Jnana Yog.",
+      "Critical thinking and Problem Solving: Learner enhances researching skills when outlines the personalities from the four faiths who attained spiritualism through Gyan/Jnana Yog. Values: Responsibility: Learner exhibits hard work when conducts research using digital devices/resource persons/libraries to get a better understanding of the components of Gyan/Jnana Yog. Pertinent and Contemporary Issues (PCI’s): Citizenship: Learner develops social cohesion while planning with neighbouring schools and organize a symposium on Gyan/Jnana Yog. Links to other Subjects: The learner is able to relate the skill of writing an essay on Gyan/Jnana Yog and present in class for peer review to the writing skills in English. The learner is able to relate the skill of making a collage of pictures of different Gyan/Jnana Yogis from the four faiths to the skills of making a collage of pictures in Creative Arts and Sports.",
+      "Digital Literacy: Learner enhances digital skills when research using digital devices and compare/similarities in Sankaars from the other three faiths and will develop the skill of developing with technology as they make presentations using digital devices.",
+      "Communication and collaboration: Learner enhances listening skills when listens to discourses on Sanskaars that are based on religious guidelines. Values:",
+      "Respect: Learner displays open-mindedness while making a presentation on the various Sikh Sanskaars using digital device/flip charts.",
+      "Responsibility: Learner becomes excellent when makes inquiries through resource person/ library/places of worship on the Sikh Sanskaars practice. Pertinent and Contemporary Issues (PCI’s): Citizenship: Learner develops social cohesion when visits a Gurdwara or a Sikh’s family home to observe the Sanskaars being. Links to other Subjects: The learner is able to relate to the skill of researching using digital devices and compare similarities in Sankaars from the other three faiths to the digital skills in Pre-technical studies."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade9-hindu-religious-education.pdf#p26"
+    }
+   ]
+  }
+ ]
+}

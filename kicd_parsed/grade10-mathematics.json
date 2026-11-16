@@ -1,0 +1,729 @@
+{
+ "source_pdf": "grade10-mathematics.pdf",
+ "grade": 10,
+ "subject": "mathematics",
+ "general_outcomes": [
+  "By the end of the course the learner should be able to: a) Develop numerical computational skills, concepts and competencies for continuous learning and application of Mathematics, b) Collect, analyse and represent data for informed decision-making in real-life situations c) Evaluate and make financial decisions and transactions in real-life situations, d) Develop spatial skills and model geometric structures in real-life situations, e) Use digital technology for Mathematical manipulations, explorations, innovations, navigational skills and for further learning, f) Develop critical and creative thinking, logical reasoning and analytical skills for problem-solving, g) Use Mathematical concepts and skills to support other learning areas for further training, research and career development, h) Develop confidence and interest in Mathematics as well as the coherence, utility and aesthetic nature of the subject for lifelong learning, i) Demonstrate appropriate responsiveness to Pertinent and Contemporary Issues in the community and promote values for peaceful coexistence. IDENTIFIED STRANDS",
+  "Numbers and Algebra",
+  "Measurements and Geometry",
+  "Statistics and Probability"
+ ],
+ "strands": [
+  {
+   "strand": "Numbers and Algebra",
+   "strand_code": "1.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to classify whole numbers as odd, even, prime, and composite numbers, and real numbers as rational and irrational",
+     "exceeds": "The learner correctly and consistently classifies whole numbers as odd, even, prime, and composite numbers, and real numbers as rational and irrational",
+     "meets": "The learner correctly classifies whole numbers as odd, even, prime, and composite numbers, and real numbers as rational and irrational",
+     "approaches": "The learner correctly classifies whole numbers as odd, even, prime, or composite numbers, or real numbers as rational and irrational",
+     "below": "The learner correctly classifies whole numbers as odd, even, prime, or composite numbers,"
+    },
+    {
+     "indicator": "Ability to determine the reciprocal of real numbers by division, tables and calculators",
+     "exceeds": "The learner consistently and accurately determines the reciprocal of real numbers by division, tables and calculators",
+     "meets": "The learner accurately determines the reciprocal of real numbers by division, tables and calculators",
+     "approaches": "The learner accurately determines the reciprocal of real numbers by division or, tables or calculators",
+     "below": "The learner partially determines the reciprocal of real numbers by division, or tables or calculators"
+    },
+    {
+     "indicator": "Ability to apply reciprocal of real numbers in mathematical computations",
+     "exceeds": "The leaner systematically and accurately applies the reciprocal of real numbers in mathematical computations",
+     "meets": "The learner accurately applies reciprocal of real numbers in mathematical computations",
+     "approaches": "The leaner partially accurately applies the reciprocal of real numbers in mathematical computations",
+     "below": "The leaner partially applies the reciprocal of real numbers in mathematical computations with prompts"
+    },
+    {
+     "indicator": "Ability to derive and apply laws of indices.",
+     "exceeds": "The learner systematically and accurately derives and applies laws of indices",
+     "meets": "The learner accurately derives and applies laws of indices",
+     "approaches": "The learner accurately derives or applies laws of indices",
+     "below": "The learner partially derives or applies laws of indices"
+    },
+    {
+     "indicator": "Ability to determine common logarithms of numbers from mathematical tables and calculators",
+     "exceeds": "The learner consistently and accurately determines common logarithms of numbers from mathematical tables and calculators",
+     "meets": "The learner accurately determines common logarithms of numbers from tables and calculators",
+     "approaches": "The learner accurately determines common logarithms of numbers from mathematical tables or calculators",
+     "below": "The learner partially determines common logarithms of numbers from mathematical tables or calculators"
+    },
+    {
+     "indicator": "Ability to apply common logarithms in multiplication, division, powers, and roots of numbers",
+     "exceeds": "The learner appropriately and accurately applies common logarithms in multiplication, division, powers, and roots of numbers",
+     "meets": "The learner accurately applies common logarithms in multiplication, division, powers, and roots of numbers",
+     "approaches": "The learner accurately applies common logarithms in multiplication or division or powers or roots of numbers",
+     "below": "The learner partially applies common logarithms in multiplication or division of powers or roots of numbers"
+    },
+    {
+     "indicator": "Ability to form quadratic",
+     "exceeds": "The learner consistently and correctly forms",
+     "meets": "The learner correctly forms quadratic",
+     "approaches": "The learner partially forms quadratic",
+     "below": "The learner partially forms quadratic expressions from"
+    },
+    {
+     "indicator": "expressions from different situations",
+     "exceeds": "quadratic expressions from different situations",
+     "meets": "expressions from different situations",
+     "approaches": "expressions from different situations",
+     "below": "different situations with assistance"
+    },
+    {
+     "indicator": "Ability to derive quadratic identities from the concept of area",
+     "exceeds": "The learner consistently and correctly derives quadratic identities from the concept of area",
+     "meets": "The learner correctly derives quadratic identities from the concept of area",
+     "approaches": "The learner partially derives quadratic identities from the concept of area",
+     "below": "The learner partially derives quadratic identities in from the concept of area with assistance"
+    },
+    {
+     "indicator": "Ability to factorise quadratic expressions in different situations",
+     "exceeds": "The learner systematically and correctly factorises quadratic expressions in different situations",
+     "meets": "The learner correctly factorises quadratic expressions in different situations",
+     "approaches": "The learner partially factorises quadratic expressions in different situations",
+     "below": "The learner partially factorises quadratic in different situations with prompts"
+    },
+    {
+     "indicator": "Ability to form, solve, and apply quadratic equations in real-life situations",
+     "exceeds": "The learner systematically and accurately forms, solves, and applies quadratic equations in real-life situations",
+     "meets": "The learner accurately forms, solves, and applies quadratic equations in real-life situations",
+     "approaches": "The learner partially accurately forms solves, and applies quadratic equations in real-life situations",
+     "below": "The learner partially forms, or solves, or applies quadratic equations in real-life situations"
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "1.3",
+     "name": "Quadratic Expressions and Equations 1",
+     "suggested_duration": "14 lessons",
+     "learning_outcomes": [
+      "form quadratic expressions from different situations",
+      "derive the quadratic identities from the concept of area",
+      "apply quadratic identities in numerical cases",
+      "factorise quadratic expressions in different situations",
+      "form quadratic equations in different situations",
+      "solve quadratic equations by factorization",
+      "apply quadratic equations to real life situations",
+      "explore the use of quadratic equations in real life situations."
+     ],
+     "learning_experiences": [
+      "generate quadratic expressions from given statements",
+      "discuss with peers and come up with quadratic identities and write them on a chart.",
+      "discuss and use quadratic identities to evaluate numerical cases",
+      "discuss and work out factors of quadratic expressions.",
+      "work with peers to form quadratic equations from roots, statement and real-life cases",
+      "work out factors of quadratic equations to",
+      "obtain solutions to the equations",
+      "search on the use of quadratic equations using digital devices or other resources."
+     ],
+     "inquiry_questions": [
+      "How do we apply the concept of quadratic equations?"
+     ],
+     "core_competencies": [
+      "Critical thinking and problem-solving: the learner interprets real-life cases to form and solve quadratic equations to get solutions to real-life cases.",
+      "Communication and collaboration: the learner discusses with peers and comes up with quadratic identities."
+     ],
+     "values": [
+      "Unity: the learner works with others to write quadratic identities on a chart.",
+      "Respect: the learner works with peers to form and solve quadratic equations to get solutions to real-life cases."
+     ],
+     "pertinent_issues": [
+      "Socio-economic and environmental issues - Social cohesion: the learner works with peers to form and solve quadratic equations to get solutions to real-life cases."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-mathematics.pdf#p17"
+    }
+   ]
+  },
+  {
+   "strand": "Measurements and Geometry",
+   "strand_code": "2.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to determine",
+     "exceeds": "T d e s f",
+     "meets": "T t e s s",
+     "approaches": "The learner determines",
+     "below": ""
+    },
+    {
+     "indicator": "Ability to construct",
+     "exceeds": "The learner precisely constructs objects and their images under enlargement given the centre and the linear scale factor",
+     "meets": "",
+     "approaches": "The learner partially",
+     "below": "The learner constructs objects and their images under enlargement given the centre and the linear scale factor with assistance"
+    },
+    {
+     "indicator": "Ability to apply",
+     "exceeds": "",
+     "meets": "The learner applies similarity and enlargement to real life situations",
+     "approaches": "The learner partially",
+     "below": ""
+    },
+    {
+     "indicator": "Ability to apply",
+     "exceeds": "",
+     "meets": "The learner accurately applies trigonometric ratios in the solution of triangles, angles of elevation, and depression",
+     "approaches": "The learner accurately",
+     "below": "The learner partially applies trigonometric ratios in any one of either solution of triangles or angles of elevation or depression"
+    },
+    {
+     "indicator": "Ability to determine",
+     "exceeds": "",
+     "meets": "The learner correctly determines the area of the common region between two intersecting circles",
+     "approaches": "The learner partially",
+     "below": "The learner partially determines the area of the common region between two intersecting circles with prompts"
+    },
+    {
+     "indicator": "Ability to define",
+     "exceeds": "The learner correctly and accurately defines and solves problems involving relative speed",
+     "meets": "The learner correctly defines and solves problems involving relative speed",
+     "approaches": "The learner correctly",
+     "below": "The learner partially correctly defines or solves problems involving relative speed"
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "2.1",
+     "name": "Similarity and Enlargement",
+     "suggested_duration": "12 lessons",
+     "learning_outcomes": [
+      "determine the centre of enlargement and the linear scale factor for similar figures",
+      "construct the image of an object under an enlargement given the centre and the linear scale factor",
+      "determine the area and volume scale factor of different figures and solids",
+      "relate linear scale factor, area scale factor, and volume",
+      "scale factor in enlargements",
+      "apply similarity and enlargement to real-life situations",
+      "appreciate the use of similarity and enlargement in real-life situations."
+     ],
+     "learning_experiences": [
+      "discuss in a group and review the properties of similar figures and enlargement",
+      "use an object and its image to establish the centre of enlargement and the ratio of the lengths of corresponding sides, Linear Scale Factor (L.S.F)",
+      "discuss in a group and draw on a plane surface the images of objects under enlargement given the centres and linear scale factors",
+      "draw on the Cartesian plane the images of objects under enlargement given the centres and linear scale factors.",
+      "discuss in a group and establish Linear Scale Factor (L.S.F) from similar plane figures. Work out the ratio of the area of similar plane figures, Area Scale Factor (A.S.F). Work out the ratio of volume of similar solids, Volume Scale Factor (V.S.F)",
+      "discuss in a group and establish the relationship between L.S.F, A.S.F and V.S.F using two similar solids.",
+      "work out tasks involving similarity and enlargements in real life situations.",
+      "use digital devices and other resources to learn more on the use and application of similarity and enlargement Project Use and improvise locally available materials to make sets of models of solids such as cubes, cuboids",
+      "cylinders and spheres of different sizes using similarity and enlargement to be used as learning resources."
+     ],
+     "inquiry_questions": [
+      "How is similarity and enlargement applied in day-to-day life?"
+     ],
+     "core_competencies": [
+      "Communication and Collaboration: the learner discusses and recognises similar objects from their immediate environment.",
+      "Creativity and Imagination: the learner makes models of solids of different sizes using similarity and enlargement concepts."
+     ],
+     "values": [
+      "Responsibility: the learner collects and takes care of objects from the immediate environment to recognize those that are similar and discusses what makes them similar.",
+      "Integrity: the learner makes models with accurate measurements adhering to the concept of similarity and enlargement."
+     ],
+     "pertinent_issues": [
+      "Social Cohesion: the learner works in a group to create models of various similar solids.",
+      "Education for Sustainable Development - Environmental Education: the learner collects and uses objects from the immediate environment and discusses to recognize those that are similar."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-mathematics.pdf#p22"
+    },
+    {
+     "kicd_code": "2.2",
+     "name": "Reflection and Congruence",
+     "suggested_duration": "12 lessons",
+     "learning_outcomes": [
+      "identify lines of symmetry in plane figures",
+      "determine the properties of reflection in different situations",
+      "draw an image given an object and a mirror line on plane surface and Cartesian plane",
+      "determine the equation of the mirror line given an object and its image",
+      "congruence tests for triangles",
+      "appreciate use of reflection and congruence in real-life situations."
+     ],
+     "learning_experiences": [
+      "collect and observe different objects from the immediate environment and illustrate the lines and planes of symmetry.",
+      "use a plane mirror to locate the image of an object placed at a point in front of the mirror.",
+      "draw a plane figure and a mirror line on tracing paper. Fold the paper along the mirror line and trace out the plane figure. Use the two plane figures and the mirror line to generate the properties of reflection.",
+      "draw on plain paper a given object and a mirror line. Use the properties of reflection to locate the corresponding image",
+      "draw on a Cartesian plane given objects and mirror lines. Use the properties of reflection to draw the corresponding images.",
+      "construct a mirror line given an object and its image on a Cartesian plane. Work out the equation of the mirror line",
+      "work in a group and make paper cutouts of different identical shapes. Use the shapes to identify direct and opposite congruent shapes",
+      "use different triangles to establish the congruence tests; three sides (SSS), two sides and an included",
+      "angle(SAS), two angles and a side (AAS or SAA or ASA), and right angle, hypotenuse and side (RHS)",
+      "use digital devices to carry out reflection of different objects to generate images"
+     ],
+     "inquiry_questions": [
+      "1. How do we use reflection in day-to-day life?",
+      "2. Where do we use congruence in real life?"
+     ],
+     "core_competencies": [
+      "Learning to Learn: the learner applies the properties of reflection to generate the image of an object on a given mirror line.",
+      "Creativity and Imagination: the learner locates the image of an object placed at a point in front of a mirror."
+     ],
+     "values": [
+      "Responsibility: the learner cautiously takes care of the mirror used in reflecting corresponding images.",
+      "Respect: the learner recognises the input of every member of the team as they work in groups to make paper cutouts of different identical shapes to identify direct or opposite congruent shapes."
+     ],
+     "pertinent_issues": [
+      "Safety and Security: the learner in a group carefully uses the mirror to draw the image of an object given a mirror line.",
+      "Environment and Technology: the learner selectively and cautiously collects and observes different objects from the immediate environment and identifies the lines and planes of symmetry."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-mathematics.pdf#p25"
+    },
+    {
+     "kicd_code": "2.3",
+     "name": "Rotation",
+     "suggested_duration": "10 lessons",
+     "learning_outcomes": [
+      "determine the properties of rotation in different situations",
+      "rotate an object, given the centre and angle of rotation on a plane surface and the Cartesian plane",
+      "determine the centre and angle of rotation given an object and its image",
+      "determine the order of rotational symmetry of plane figures",
+      "determine the axis and order of rotational symmetry in solids",
+      "deduce congruence from rotation",
+      "appreciate the application of rotation in real-life situations."
+     ],
+     "learning_experiences": [
+      "demonstrate rotation using an actual or improvised clock. Discuss and explain the movement of the hour or minute hand",
+      "use an object and its image on a plane surface to discuss and generate the properties of rotation.",
+      "generate an image of an object given a centre and angle of rotation.",
+      "carry out rotation on a Cartesian plane given the object, centre, and angle of rotation",
+      "in a group, use construction to find the centre and angle",
+      "of rotation given the object and its image on a plane surface and the Cartesian plane",
+      "use paper cutouts of different plane figures to locate points of symmetry and establish the order of rotational symmetry",
+      "collect regular solids such as pyramids, triangular prisms, cones, tetrahedrons from the immediate environment and identify the axis to establish the order of rotational symmetry",
+      "use different objects and their images to identify the type of congruence in rotation",
+      "use digital devices and other resources to learn",
+      "more on rotation of plane figures and solids"
+     ],
+     "inquiry_questions": [
+      "How is rotation applied in real-life situations?"
+     ],
+     "core_competencies": [
+      "Critical thinking and Problem Solving: the learner draws objects and their images and through construction establishes the centres and angles of rotation.",
+      "Communication and Collaboration: the learner discusses using an object and its image on a plane surface to generate the properties of rotation."
+     ],
+     "values": [
+      "Responsibility: the learner takes care of learning resources collected from the immediate environment to establish their axis and order of rotational symmetry",
+      "Respect: learners appreciate each other’s opinion as they discuss and draw the image under a rotation given the object, center and angle of rotation"
+     ],
+     "pertinent_issues": [
+      "Safety and Security: as the learner observes safety measures while making paper cutouts of different plane figures to locate the point and order of rotational symmetry.",
+      "Environment and Technology: as the learner responsibly collects regular solids from the immediate environment to determine the axis and order of rotational symmetry."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-mathematics.pdf#p28"
+    },
+    {
+     "kicd_code": "2.4",
+     "name": "Trigonometry 1",
+     "suggested_duration": "15 lessons",
+     "learning_outcomes": [
+      "determine the trigonometric ratios of acute angles from, mathematical tables and calculators",
+      "relate sines and cosines of complementary angles",
+      "relate the sine, cosine and tangent of acute angles",
+      "determine trigonometric ratios of special angles: 30o, 45o, 60o and 90o using triangles",
+      "apply trigonometric ratios to angles of elevation and depression",
+      "reflect on the use of trigonometry in real-life situations"
+     ],
+     "learning_experiences": [
+      "identify from the immediate environment shapes that make right-angled triangles.",
+      "draw right-angled triangles and use them to define and work out sine, cosine, and tangent ratios",
+      "use mathematical tables and calculators to obtain trigonometric ratios",
+      "generate a table of angles and their complements and determine their sines and cosines. Make observations and establish the",
+      "relationships between the sine and cosine ratios",
+      "work in a group and using different acute angles, generate a table of the ratios of sine, cosine, and tangents to establish the relationship between sine, cosine, and tangent",
+      "work in a group and use an isosceles right-angled triangle and an equilateral triangle to generate the trigonometric ratios of special angles 30o, 45o, 60o and 90o",
+      "use trigonometric ratios to work out tasks related to triangles",
+      "use a simple clinometer to measure the angle of elevation and depression",
+      "from a target object in the immediate environment",
+      "use trigonometric ratios to work out tasks involving angles of elevation and depression",
+      "use digital devices and other resources such as books, manuals, and journals to learn more about trigonometric ratios involving triangles, angles of depression, and elevation. Project Make a simple clinometer using locally available materials and use it as a learning resource"
+     ],
+     "inquiry_questions": [
+      "1. What is trigonometry?",
+      "2. How do we use trigonometry in real-life situations?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Creativity and Imagination: the learner makes a simple clinometer using locally available material and uses it as a learning resource",
+      "Critical Thinking and Problem-Solving: the learner discusses and makes observations about the sine and cosine of complementary angles, and applies trigonometric ratios in the solution of triangles",
+      "Digital literacy: the learner uses digital devices and other resources such as books, manuals, and journals to learn more about trigonometric ratios Values:",
+      "Responsibility: the learner takes care of mathematical tables and calculators used in determining trigonometric ratios",
+      "Unity: the learner works in a group for instance when using an isosceles right-angled triangle and an equilateral triangle to generate the trigonometric ratios of special angles 30o, 45o, 60o, and 90o Pertinent and Contemporary Issues (PCIs):",
+      "Environmental Education and Protection: the learner identifies shapes in the immediate environment that have right-angled triangles, and makes a simple clinometer using materials from the immediate environment",
+      "Parental Engagement and Empowerment: the learner gets support from parents/guardians to get resources to make a clinometer."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-mathematics.pdf#p31"
+    },
+    {
+     "kicd_code": "2.5",
+     "name": "Area of Polygons",
+     "suggested_duration": "14 lessons",
+     "learning_outcomes": [
+      "derive the formula for the area of a triangle given two sides and an included angle",
+      "work out the area of a triangle given two sides and an included angle",
+      "determine the area of a triangle using Heron’s formula",
+      "determine the area of quadrilaterals in different situations",
+      "work out the area of regular polygons of heptagon and octagon",
+      "determine the area of irregular polygons in different situations",
+      "explore the area of polygons as used in real-life situations."
+     ],
+     "learning_experiences": [
+      "discuss in groups and use trigonometric ratios to generate the formula for the area of a triangle given two sides and an included angle. For example, Area = 1 abSinC 2",
+      "use the formula Area = 1 abSinC to calculate the area 2 of different triangular shapes",
+      "use the Hero’s Formula (Heron’s Formula) to work out the areas of various triangles",
+      "identify different quadrilaterals and work out their areas",
+      "identify from the immediate environment objects in the shape of regular polygons and calculate the area of regular polygons up to decagons",
+      "use objects from the immediate environment that have shapes of irregular polygons, discuss and work out their area",
+      "research and discuss in a group the use of the area of polygons in real-life situations."
+     ],
+     "inquiry_questions": [
+      "1. How do we work out the area of polygons?",
+      "2. How do we apply the concept of the area of polygons in real-life situations?"
+     ],
+     "core_competencies": [
+      "Critical Thinking and Problem Solving: the learner uses trigonometric ratios to generate the formula for a triangle given two sides and an included angle",
+      "Creativity and Imagination: the learner identifies from the immediate environment objects in the shape of regular polygons and calculates their area.",
+      "Learning to Learn: the learners research and discuss the use of the area of polygons in real-life situations"
+     ],
+     "values": [
+      "Values:",
+      "Patriotism: the learner uses the objects from the environment and takes care of the environment",
+      "Responsibility: the learner identifies objects from the immediate environment to use in calculating the area of regular polygons Pertinent and Contemporary Issues (PCIs): Environmental Education: the learner collects objects from the immediate environment to be used as learning materials"
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-mathematics.pdf#p35"
+    },
+    {
+     "kicd_code": "2.6",
+     "name": "Area of a Part of a Circle",
+     "suggested_duration": "12 lessons",
+     "learning_outcomes": [
+      "determine the area of an annulus in different situations",
+      "work out the area of a sector of a circle in real-life situations",
+      "determine the area of an annular sector in different situations",
+      "work out the area of a segment of a circle",
+      "determine the area of common region",
+      "between two intersecting circles",
+      "apply the area of a part of a circle in real-life situations",
+      "explore the use of the area of a part of a circle in real-life situations."
+     ],
+     "learning_experiences": [
+      "use circular shapes or objects to identify concentric rings formed by inner and outer space. Hence work out the area of the annulus",
+      "work in a group, and use paper cutouts to make sectors of circles to determine their areas as part of a circle",
+      "use different examples to illustrate and work out the area of an annulus sector for example area covered by a car wiper blade when cleaning the windscreen",
+      "draw different segments of a circle and calculate their area",
+      "draw illustrations of two intersecting circles to identify the",
+      "common area between the two circles, hence work out the area",
+      "relate and work out the area of a part of a circle in real life situations",
+      "use digital devices and other resources to learn more about the area of a part of a circle. Project",
+      "make a dartboard of different numbers of concentric circles from locally available materials. Paint different colours on the annular sectors and the concentric circles. Discuss and create rules for playing and scoring the game.",
+      "make necklaces using beading techniques of different coloured annular sectors."
+     ],
+     "inquiry_questions": [
+      "How do we use the concept of the area of a part of a circle in real life?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Creativity and Imagination: the learner makes an improvised dartboard of different numbers of concentric circles.",
+      "Learning to Learn: the learner draws illustrations of two intersecting circles to identify the common area between the two circles.",
+      "Communication and collaboration: the learners engage to improvise locally available materials to make dart boards and necklaces Values:",
+      "Responsibility: the learner makes darts board of different numbers of concentric circles from the immediate environment",
+      "Unity: the learner collaborates in a group and uses paper cutouts to make sectors of circles to determine their areas as part of a circle Pertinent and Contemporary Issues (PCIs):",
+      "Parental Engagement and Empowerment: the learner engages parents in using locally available materials for making improvised necklaces.",
+      "Environment Education: the learner sources for locally available materials to make necklaces and dart boards.",
+      "Learner Support Programmes - Peer Support: the learner works with others to make necklaces using beading techniques of different coloured annular sectors."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-mathematics.pdf#p38"
+    },
+    {
+     "kicd_code": "2.7",
+     "name": "Surface Area and Volume of Solids",
+     "suggested_duration": "15 lessons",
+     "learning_outcomes": [
+      "determine the surface area of prisms, pyramids, cones, frustums, and spheres",
+      "calculate the surface area of composite solids",
+      "calculate the volume of prisms, pyramids, cones, frustums, and spheres",
+      "determine the volume of composite solids",
+      "explore the use of the surface area and volume of solids in real-life situations."
+     ],
+     "learning_experiences": [
+      "use models and nets of prisms, pyramids, cones, frustums, and spheres to calculate surface areas.",
+      "identify the components of a composite solid, calculate the surface area of each component and obtain the total surface area of the composite solid.",
+      "use models of a cone and a cylinder of the same height and base area and an appropriate substance such as sand or water, to demonstrate that the volume of the cone is a third of the volume of the cylinder.",
+      "discuss in a group and work out the volume of prisms, pyramids, cones, frustums, and spheres.",
+      "discuss in a group the components of composite solids, work out the volume of the components and obtain the total volume.",
+      "use appropriate containers from the local environment to work out the volume and capacity of the prism, pyramid, cone, frustum and sphere.",
+      "use digital devices and other resources to work out the surface area and volume of solids",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "1. How do we determine the surface area and volume of solids?",
+      "2. Why do we determine the surface area and volume of solids?",
+      "Suggested Key Inquiry Questions"
+     ],
+     "core_competencies": [
+      "• Critical Thinking and Problem-Solving: the learner uses a cylinder and a cone of the same radius and height, and a substance such as sand or water, to determine the volume of a cone as a third the volume of a cylinder."
+     ],
+     "values": [
+      "Values:",
+      "Unity: the learner discusses in a group and establishes the relationship between the volume of a cone and the volume of a cylinder.",
+      "Respect: the learner listens to others’ opinions as they discuss in groups and work out the volumes of prisms, pyramids, cones, frustums and spheres. Pertinent and Contemporary Issues (PCIs): Environment and technology: as the learner collects and uses containers from the immediate environment and uses them to discuss and recognize their volumes."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-mathematics.pdf#p41"
+    },
+    {
+     "kicd_code": "2.8",
+     "name": "Vectors I",
+     "suggested_duration": "15 lessons",
+     "learning_outcomes": [
+      "explain vector and scalar quantities with illustrations",
+      "use vector notations in different ways",
+      "represent vectors geometrically in different situations",
+      "identify equivalent vectors in different situations",
+      "add vectors in different situations",
+      "multiply vectors by scalars",
+      "determine column vectors in different situations",
+      "determine position vectors in different situations",
+      "work out magnitude of a vector in different situations",
+      "determine the midpoint of a vector in different situations",
+      "determine translation vector as a transformation",
+      "appreciate the use of vectors in real life situations"
+     ],
+     "learning_experiences": [
+      "search and brainstorm on the meaning of the terms vector and scalar quantities and illustrate giving examples.",
+      "practice writing vector notations using charts",
+      "illustrate vectors on charts, grids and regular plane figures",
+      "demonstrate equivalent vectors using charts, grids and Cartesian coordinates",
+      "illustrate addition of vectors using charts and grids to get the resultant vector.",
+      "illustrate multiplication of vectors by a scalar using charts and grids.",
+      "express vectors in column form from Cartesian planes, grids and charts.",
+      "discuss and illustrate position vectors using any arbitrary reference points like the origin.",
+      "work out magnitude of different vectors",
+      "find the midpoint of different vectors",
+      "use vectors to illustrate translation as a transformation",
+      "use digital devices to watch videos and play games involving vectors"
+     ],
+     "inquiry_questions": [
+      "1. What are vectors?",
+      "2. Where is vectors used in real life situations?"
+     ],
+     "core_competencies": [
+      "Learning to learn: As the learner uses charts and grids to practice vector addition.",
+      "Self-efficacy: As the learner shares and uses resources from the immediate environment such as plane figures or flip charts to demonstrate equivalent vectors."
+     ],
+     "values": [
+      "• Responsibility: As the learner uses resources from immediate environment such as plane figures, flip charts and relate equivalent vectors"
+     ],
+     "pertinent_issues": [
+      "Pertinent and Contemporary Issues (PCIs):",
+      "Education for sustainable Development - Environmental education as learners practice addition of vectors using charts and grids made from resources in the immediate environment.",
+      "Learner Support Programme - Peer education: learners assist one another as they practice expressing vectors in column form from Cartesian planes, grids and charts."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-mathematics.pdf#p44"
+    },
+    {
+     "kicd_code": "2.9",
+     "name": "Linear Motion",
+     "suggested_duration": "15 lessons",
+     "learning_outcomes": [
+      "explain the terms distance, displacement, speed, velocity and acceleration in real life situations",
+      "determine velocity and acceleration in different situations",
+      "draw a displacement-time graph of different situations",
+      "interpret displacement-time graph in different situations",
+      "draw a velocity-time graph from given tables in different situations",
+      "interpret velocity-time graph in different situations",
+      "determine relative speed of two moving bodies in different situations",
+      "appreciate use of linear motion in real life situations"
+     ],
+     "learning_experiences": [
+      "demonstrate motion by moving an object from a point to another for a specified distance and direction and state the meaning of the terms distance, displacement, speed, velocity and acceleration",
+      "participate in a race of a specified distance. Record time taken by each learner and work out the velocity and acceleration of different learners",
+      "work out the velocity and acceleration of movement of objects from one point another",
+      "use data of displacement and time to plot displacement-time graphs on a grid or Cartesian plane",
+      "obtain information from a graph and examine it in relation to displacement, time and velocity",
+      "use data of velocity and time taken to draw a velocity-time graphs on a grid or Cartesian plane",
+      "obtain information from a graph and examine it in relation to velocity, time and acceleration",
+      "observe two bodies in motion such as cars when overtaking or moving in opposite directions and work out the relative speed of these two bodies in motion",
+      "use digital devices and other resources to explore more",
+      "on linear motion in day-to-day life."
+     ],
+     "inquiry_questions": [
+      "1. What is speed?",
+      "2. How do we use displacement-time graphs in real life?",
+      "3. How do we use velocity-time graphs?"
+     ],
+     "core_competencies": [
+      "Communication and Collaboration: the learner discusses different displacement-time graphs",
+      "Self-Efficacy: the learner participates in a race of a specified distance, record time taken by a learner and work out the velocity and acceleration.",
+      "Critical Thinking and Problem Solving: the learner observes two bodies in motion such as cars when overtaking or moving in opposite directions and works out the relative speed of the two bodies in motion."
+     ],
+     "values": [
+      "Responsibility: as the learner uses objects in motion such as thrown objects and many others to explain distance, displacement, speed, velocity and acceleration",
+      "Integrity: as the learner participates in a race of a specified distance, records time taken by each learner and accurately works out the velocity and acceleration of different learners",
+      "Unity: as the learner participates and collaborates in a race to record time taken by each learner and work out the velocity and acceleration of different learners."
+     ],
+     "pertinent_issues": [
+      "Learner Support Programmes-Sports and Games: the learner participates in a race of a specified distance, records time taken by each learner and works out the velocity and acceleration",
+      "Socio-Economic and Environmental Issues-Safety and Security: the learner observes the two bodies in motion such as cars when overtaking or moving in opposite directions and works out the relative speed of these two bodies in motion."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-mathematics.pdf#p47"
+    }
+   ]
+  },
+  {
+   "strand": "Statistics and Probability",
+   "strand_code": "3.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to draw a frequency distribution table for grouped and ungrouped data and determine mean, mode, and median",
+     "exceeds": "The learner accurately and systematically draws a frequency distribution table for grouped and ungrouped data and determines mean, mode, and median",
+     "meets": "The learner accurately draws a frequency distribution table for grouped and ungrouped data and determines mean, mode, and median",
+     "approaches": "The learner accurately draws a frequency distribution table for grouped or ungrouped data or determines mean, mode, and median",
+     "below": "The learner partially draws a frequency distribution table for grouped or ungrouped data or determines mean, mode or median"
+    },
+    {
+     "indicator": "Ability to represent and interpret grouped data using histograms and frequency polygons",
+     "exceeds": "The learner systematically and accurately represents and interprets grouped data using histograms and frequency polygons",
+     "meets": "The learner accurately represents and interprets grouped data using histograms and frequency polygons",
+     "approaches": "The learner accurately represents or interprets grouped data using histograms or frequency polygons",
+     "below": "The learner partially represents or interprets grouped data using histograms or frequency polygons"
+    },
+    {
+     "indicator": "Ability to perform experiments involving probabilities and identify the range of probability",
+     "exceeds": "The learner systematically and accurately performs experiments involving probabilities and identifies the range of probability",
+     "meets": "The learner accurately performs experiments involving probabilities and identifies the range of probability",
+     "approaches": "The learner accurately performs experiments involving probabilities or identifies the range of probability",
+     "below": "The learner partially performs experiments involving probabilities or identifies the range of probability"
+    },
+    {
+     "indicator": "Ability to generate probability space of different events and determine the probability of mutually exclusive and independent events",
+     "exceeds": "The learner systematically and accurately generates probability space of different events and determines the probability of mutually exclusive independent events",
+     "meets": "The learner accurately generates probability space of different events and determines the probability of mutually exclusive independent events",
+     "approaches": "The learner accurately generates the probability space of different events or determines the probability of mutually exclusive or independent events",
+     "below": "The learner partially generates probability space of different events or determines the probability of mutually exclusive or independent events"
+    },
+    {
+     "indicator": "Ability to apply the laws of probability and determine the probability of independent events using tree diagrams",
+     "exceeds": "The learner precisely and correctly applies the laws of probability and determines the probability of independent events using tree diagrams",
+     "meets": "The learner precisely and correctly applies the laws of probability and determines the probability of independent events using tree diagrams",
+     "approaches": "The learner correctly applies the laws of probability or determines the probability of independent events using tree diagrams",
+     "below": "The learner partially applies the laws of probability or determines the probability of independent events using tree diagrams"
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "3.1",
+     "name": "Statistics I",
+     "suggested_duration": "16 lessons",
+     "learning_outcomes": [
+      "collect data from real-life sources",
+      "draw a frequency distribution table for grouped and ungrouped data",
+      "determine mean, mode and median of grouped and ungrouped data",
+      "represent data using histograms and frequency polygons",
+      "interpret data from histograms and frequency polygons",
+      "promote data collection, organisation and representation for informed decision making."
+     ],
+     "learning_experiences": [
+      "discuss with peers the meaning of the term data. Explore data sources and use different and appropriate methods to collect and record data",
+      "use the collected data or any other data to prepare a frequency distribution table for an ungrouped data",
+      "group collected data or any other data into appropriate classes and generate a frequency distribution table",
+      "discuss in pairs and identify the modal class for grouped data",
+      "use data collected from different sources and work out the mode",
+      "median and mean for grouped and ungrouped data",
+      "work in a group and use collected data to draw histograms (with equal and unequal class-width) and frequency polygons",
+      "use the histograms and frequency polygons to examine data to make conclusions",
+      "use digital devices and other resources to draw histograms and frequency polygons. Project",
+      "Identify a situation in the school or community that can be used for data collection, organisation and representation to guide the school or community to make informed decisions. Present and share findings to different groups of people such as school administrators, parents or local community leaders."
+     ],
+     "inquiry_questions": [
+      "1. What is statistics?",
+      "2. How do we represent data?",
+      "3. How do we use statistics in day to day life?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Critical thinking and problem solving: the learner uses the histograms and frequency polygons to examine data and make conclusions.",
+      "Self-Efficacy: the learner discusses with peers the meaning of the term data and explores data sources.",
+      "Digital literacy: the learner uses digital devices to draw histograms and frequency polygons to make conclusions.",
+      "Communication and collaboration: learner presents and shares findings from data to different groups of people such as school administrators, parents or local community leaders. Values:",
+      "Integrity: the learner collects and records data accurately.",
+      "Unity: the learner works in groups and uses collected data to draw histograms and frequency polygons. Pertinent and Contemporary Issues (PCIs):",
+      "Life Skills - Decision Making: the learner makes informed decisions from data interpretation from histograms and frequency polygons.",
+      "Parental Engagement and Empowerment: the learner seeks support and guidance from parents or guardians to collect, organise and present data on an identified situation in the school or community."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-mathematics.pdf#p58"
+    },
+    {
+     "kicd_code": "3.2",
+     "name": "Probability 1",
+     "suggested_duration": "12 lessons",
+     "learning_outcomes": [
+      "perform experiments involving probabilities in different situations",
+      "identify the range of probability in different situations",
+      "generate probability space of different events",
+      "determine the probability of mutually exclusive and independent events",
+      "apply the laws of probability in different situations",
+      "determine the probability of independent events using tree diagrams",
+      "appreciate the application of",
+      "probability in real life situations."
+     ],
+     "learning_experiences": [
+      "carry out experiments in a group such as tossing coins or throwing dice to illustrate experimental probability",
+      "discuss in a group the probabilities of events and show the range of probability.",
+      "list down all the possible outcomes of different events in real life situations",
+      "work out in pairs the probability of mutually exclusive events and independent events.",
+      "work out probability of events using addition and multiplication law",
+      "in pairs use tree diagram to work out probability of two",
+      "independent and mutually events",
+      "discuss, create and play games related to probability.",
+      "use digital devices and other resources to learn more on probability"
+     ],
+     "inquiry_questions": [
+      "How is probability applied in real life situations?"
+     ],
+     "core_competencies": [
+      "Communication and collaboration: the learner carries out experiments such as tossing coins or throwing dice to illustrate experimental probability.",
+      "Citizenship: the learner acknowledges Kenyan currency as they carry out experiments of tossing coins.",
+      "Self-efficacy: the learner appreciates his/her ability to play games related to probability."
+     ],
+     "values": [
+      "Responsibility: the learner carefully tosses coins or throws dice to illustrate experimental probability.",
+      "Social justice: the learner plays games where they accept there is winning or losing and acknowledging honest outcomes."
+     ],
+     "pertinent_issues": [
+      "Social Cohesion: the learner interacts with others freely as they discuss, create and play games related to probability.",
+      "Life skills and values education: the learner uses different experimental events and lists down all the possible outcomes which assist in decision making."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-mathematics.pdf#p61"
+    }
+   ]
+  }
+ ]
+}

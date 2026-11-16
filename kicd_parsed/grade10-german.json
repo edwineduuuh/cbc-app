@@ -1,0 +1,942 @@
+{
+ "source_pdf": "grade10-german.pdf",
+ "grade": 10,
+ "subject": "german",
+ "general_outcomes": [
+  "Listen to varied speakers in diverse contexts and respond appropriately.",
+  "Interact on varied topics for effective communication.",
+  "Read varied literary and non-literary texts for comprehension and literary appreciation.",
+  "Write texts on a range of topics.",
+  "Apply language structures appropriately in different contexts.",
+  "Apply media and technology to enhance German language learning.",
+  "Solve everyday challenges using critical thinking and problem-solving skills.",
+  "Appreciate own and other people’s cultures for national cohesion and international consciousness. SUMMARY OF STRANDS AND SUB STRANDS S/No. Strand Sub Strand Suggested Number of Lessons",
+  "1.1 Listening and Speaking • Dialogic Listening • Pronunciation and Intonation • Conversational skills • Biassed Listening • Listening for gist • Sentence melody • Vocabulary and expression • Listening for details 48"
+ ],
+ "strands": [
+  {
+   "strand": "Reading",
+   "strand_code": "1.2",
+   "assessment_rubric": [],
+   "substrands": [
+    {
+     "kicd_code": "1.2.2",
+     "name": "Reading for comprehension",
+     "suggested_duration": "7 lessons",
+     "learning_outcomes": [
+      "retrieve main information from reading texts",
+      "analyse information from a reading text",
+      "read texts for enjoyment"
+     ],
+     "learning_experiences": [
+      "describe pictures on greetings and introductions",
+      "read texts on family relationships and highlight specific information and vocabulary",
+      "read jumbled up texts on family and put the parts in the correct order/sequence with peers",
+      "read and match subtitles to texts on family",
+      "carry out research on family setups in Kenya and Germany using online and print media."
+     ],
+     "inquiry_questions": [
+      "1. How does reading promote open mindedness?",
+      "2. How do you read a text to understand?"
+     ],
+     "core_competencies": [
+      "Critical thinking and problem solving: The learner develops the ability to make logical connections as they sequence parts of a text."
+     ],
+     "values": [
+      "Unity: The learner works collaboratively as they carry out the task of sequencing parts of a reading text with peers.",
+      "Responsibility: The learner demonstrates proper use of media when carrying out research online or using print media."
+     ],
+     "pertinent_issues": [
+      "Pertinent and Contemporary Issues (PCIs): Ethnic and Racial relations: The learner develops open-mindedness and tolerance of others as they research and read texts about family setups in Kenya and Germany."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-german.pdf#p15"
+    },
+    {
+     "kicd_code": "2.2.2",
+     "name": "Reading for comprehension - Extensive reading",
+     "suggested_duration": "7 lessons",
+     "learning_outcomes": [
+      "interpret a reading text for main information",
+      "analyse information from a reading text",
+      "read texts for enjoyment."
+     ],
+     "learning_experiences": [
+      "describe pictures about the home",
+      "read texts and highlight information and vocabulary on the home",
+      "read and sequence parts of a text about the home with peers",
+      "read and match subtitles to texts about homes",
+      "carry out research on home setups in Kenya and Germany using online and print media, read and share with peers."
+     ],
+     "inquiry_questions": [
+      "1. How does reading promote open mindedness?",
+      "2. How do you read a text to understand?"
+     ],
+     "core_competencies": [
+      "Critical thinking and problem solving: The learner develops the ability to make logical connections as they sequence parts of a text."
+     ],
+     "values": [
+      "Unity: The learner displays unity as they carry out the task of sequencing parts of a reading text with peers.",
+      "Responsibility: The learner demonstrates proper use of media when carrying out research about homes online or using print media."
+     ],
+     "pertinent_issues": [
+      "Ethnic and Racial Relations: The learner demonstrates open-mindedness and tolerance as they research and read texts about home setups in Kenya and Germany."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-german.pdf#p23"
+    },
+    {
+     "kicd_code": "3.2.3",
+     "name": "Scanning",
+     "suggested_duration": "7 lessons",
+     "learning_outcomes": [
+      "distinguish specific information in a reading text",
+      "read texts for specific information",
+      "recognise the role of reading in learning.",
+      "distinguish varied features of functional writing",
+      "develop schedules and time tables for information",
+      "value functional writing for information",
+      "derive rules of grammar structures from given communicative contexts",
+      "apply the acquired language structures in communication",
+      "acknowledge the purpose of Grammar in communication",
+      "identify general information in listening comprehension",
+      "recognise German sound combinations in sentences",
+      "apply German sound combinations for communication",
+      "value the role of sentence melodies in communication."
+     ],
+     "learning_experiences": [
+      "read and underline specific information about school",
+      "read and fill in missing information in cloze texts on school",
+      "read and match information to pictures and time",
+      "read and organise information in the correct order (Days of the week or time of the day)",
+      "read and re-organise jumbled up text/sentences on school subjects and time table",
+      "research online and read about school routines in different German speaking countries and compare with their own.",
+      "fill in missing information on time in sentences/texts",
+      "write down a list of different school activities and compare with peers",
+      "fill in information in templates (time tables)",
+      "write words/phrases about school on flash cards and play with peers",
+      "design own timetables and schedules",
+      "research online and write about school routines in different German speaking countries",
+      "match formal and informal times",
+      "highlight verb endings from given contexts",
+      "fill in missing endings of the given verbs",
+      "match activities to given photos",
+      "combine sentences using given conjunctions",
+      "match the prefixes to the given verbs",
+      "construct sentences using given grammar structures",
+      "play with cards to reorganize sentences with peers",
+      "complete given sentences",
+      "carry out online exercises with peers",
+      "complete a cloze text of a song and sing with peers",
+      "Suggested Learning Experiences",
+      "listen to texts on food and eating habits and note down the key words",
+      "sample/talk about food items and different cuisines with peers",
+      "simulate dialogues on how to order food in restaurants with peers",
+      "discuss with peers about healthy lifestyle and note down ideas.",
+      "make use of online videos to learn vocabulary about food in Kenya and in Germany and discuss with peers",
+      "compare and contrast foodstuff in Kenya and Germany, by responding to oral questions",
+      "role play dialogues in restaurants and shopping places, using acquired phrases and vocabularies",
+      "search online for different foodstuffs and their health benefits and share with peers",
+      "• compile video clips on different eating habits and their effects on human health."
+     ],
+     "inquiry_questions": [
+      "1. How is reading important to you?",
+      "2. Why do people read?",
+      "1. How does writing relate to communication?",
+      "2. How do you write to communicate?",
+      "How important is grammar in communication?",
+      "Suggested Key Inquiry Question(s)",
+      "How do visual images stimulate our speaking?"
+     ],
+     "core_competencies": [
+      "Critical Thinking and Problem solving: The learner develops the ability to understand connections as they rearrange jumbled up texts.",
+      "Digital Literacy: The learner enhances their digital competence as they research online and read about school routines in different German speaking countries.",
+      "Citizenship: The learner develops an appreciation and respect for diversity as they research online and write about school routines in different German speaking countries.",
+      "Self Efficacy: The Learner develops planning skills as they design their own school timetables and schedules.",
+      "Core Competencies to be developed: Critical Thinking and Problem solving skills(Interpretation and Inference): The learner develops ability to analyze and interpret information in order to make inference on grammar rules as they carry out tasks on verb endings Values: Unity: The Learner enhances team spirit as they carry out online exercises with peers. Pertinent and Contemporary Issues: Analytical and Critical thinking: The learner improves their analytical skills as they analyse grammar structures to derive grammar rules.",
+      "Creativity and Imagination: The learner develops skills of making connections as they simulate dialogues on how to order food in restaurants with peers",
+      "Digital literacy: The learner develops the skills of interacting with technology as they search online different foodstuffs and their health benefits and share with peers"
+     ],
+     "values": [
+      "Values: Patriotism: The Learner displays love for their own country as they compare school routines in other countries with their own. Pertinent and Contemporary Issues (PCIs): Safety and Security: Learner develops awareness on responsible use of the internet as they search for information online on school routines.",
+      "Responsibility: The Learner displays accountability as they design their own school timetables and schedules.",
+      "Responsibility: The learner reflects on responsible eating habits that promote good health.",
+      "Respect: The learner demonstrates respect for self and others as they interact with peers when practicing dialogues with their classmates.",
+      "Love: The learner reflects a caring attitude, avoids offending others as they present, and discuss different eating habits and their effects on health."
+     ],
+     "pertinent_issues": [
+      "Pertinent and Contemporary Issues (PCIs): Decision making skills: The Learner develops problem solving skills as they come up with school time tables and schedules to manage their time.",
+      "Health education: The learner acquires knowledge on how to care for their bodies and health and avoid lifestyle diseases as they compile videos on the different eating habits and their effects."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-german.pdf#p30"
+    },
+    {
+     "kicd_code": "4.2.2",
+     "name": "Reading for comprehension Measure words (ein Liter Milch, ein Kilo Zucker)",
+     "suggested_duration": "7 lessons",
+     "learning_outcomes": [
+      "analyse information in texts for comprehension",
+      "read texts for comprehension",
+      "acknowledge value of reading comprehension in learning."
+     ],
+     "learning_experiences": [
+      "read and underline information on foodstuff",
+      "read and create a list for the vocabulary on food types",
+      "take turns reading the texts on health and eating habits with peers",
+      "read and discuss with peers about ways of keeping healthy",
+      "read and design posters with peers on ways to stay healthy",
+      "advocate for healthy eating habits",
+      "read about food diversity in different cultures and discuss it with peers in plenary."
+     ],
+     "inquiry_questions": [
+      "How do you read for comprehension?"
+     ],
+     "core_competencies": [
+      "Critical thinking and problem solving: The learner develops the ability to make logical connections as they sequence parts of a text.",
+      "Learning to learn: The learner develops skills for learning independently as they analyse texts for specific information and organise it for comprehension."
+     ],
+     "values": [
+      "Values:",
+      "Love: The learner demonstrates self care as they sample out food stuffs considered to be healthy.",
+      "Responsibility: The learner observes health precautions as they design posters with peers to advocate for a healthy lifestyle. Pertinent and Contemporary Issues (PCIs): Health education: learner acquires knowledge on lifestyle diseases as they search online for different eating habits and their effects on human health."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-german.pdf#p38"
+    },
+    {
+     "kicd_code": "5.2.2",
+     "name": "Scanning, Reading comprehension",
+     "suggested_duration": "7 lessons",
+     "learning_outcomes": [
+      "identify required information in reading texts for communication",
+      "use appropriate reading skills to extract specific information from reading texts",
+      "appreciate the role of reading in communication",
+      "highlight expressions for diverse communicative contexts",
+      "write interesting texts for communication",
+      "appreciate writing for enjoyment.",
+      "identify grammar structures in a text",
+      "apply appropriate language structures in communication",
+      "appreciate the role of language structures in diverse contexts of communication."
+     ],
+     "learning_experiences": [
+      "read given texts on transport and underline specific information",
+      "read and interpret travel schedules with peers",
+      "read and analyze a text on transport for specific information and present to peers",
+      "read and highlight destination points in a map from information contained in a text",
+      "search online/ ofline texts on means of transport in Germany and share with peers",
+      "take turns in reading dialogical texts with peers on giving directions.",
+      "create flashcards using language Apps on vocabulary on means of transport",
+      "enlist words and expressions used to describe routes",
+      "write simple texts about transport",
+      "write a dialogue with peers seeking for information at the bus/train station",
+      "note down their favorite tourist destination and discuss with peers",
+      "write travel schedules (Fahrplan) with peers",
+      "research for interesting blogs and write their own on ideal travel destinations and schedules",
+      "read and interpret tour guides with peers.",
+      "retrieve prepositions that require the dative case from a given text",
+      "underline irregular verbs from a text",
+      "conjugate verbs with separable prefixes in sentences",
+      "use various verbs to write a travel schedule (fahren, ankommen..)",
+      "discus with peers and write down rules that govern the use of prepositions with dative",
+      "create a digital portfolio indicating rules for conjugation of irregular verbs and verbs with separable prefixes.",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "How can we get specific information from a text?",
+      "What do you consider when writing for enjoyment?",
+      "How can technology help in the learning of a language?",
+      "Suggested Key Inquiry Question(s)"
+     ],
+     "core_competencies": [
+      "Communication and collaboration: The learner develops communication skills as they read dialogic texts in turn with peers.",
+      "Citizenship: The learner reads and compares texts on means of transport in own and other countries they develop a sense of appreciation for their country.",
+      "Core competencies to be developed:",
+      "Digital literacy: The learner displays knowledge of technology as they research and write blogs of their experiences with the different means of transport.",
+      "Self efficacy: This is displayed when learners demonstrate confidence when asking for information at a train station. Values: Respect: The learner displays politeness as they role play on how to ask for information when on a journey. Pertinent and Contemporary Issues (PCIs): Social awareness skills: As the learner interacts with peers in a role play, they foster communication skills",
+      "Digital literacy: This promotes their technological abilities as they create digital portfolios to reflect on what they have learned.",
+      "Self-efficacy: They improve their organisational skills as they learn to plan their time by creating a travel schedule."
+     ],
+     "values": [
+      "Values: Respect: The learner displays patience as they read texts in turns about giving directions. Pertinent and Contemporary Issues (PCIs): Cultural awareness: Learner’s knowledge on cultural diversities is enhanced as they read and compare texts about means of transport in Germany and own country",
+      "Values: Responsibility: Learner practices accountability when they plan their time when on a jouney. Pertinent and Contemporary Issues (PCIs): Self Management Skills: Learner fosters their self management skills as they design travel schedules."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-german.pdf#p46"
+    },
+    {
+     "kicd_code": "6.2.6",
+     "name": "Reading comprehension",
+     "suggested_duration": "7 lessons",
+     "learning_outcomes": [
+      "analyse required information from a given reading text",
+      "utilise comprehension skills in given reading texts",
+      "appreciate reading texts on diverse shopping habits for comprehension"
+     ],
+     "learning_experiences": [
+      "read given text and underline the different clothes on sale",
+      "read texts on shopping and answer questions",
+      "read given text and list down the various shopping venues",
+      "read various texts on shopping habits and match to given titles",
+      "read with peer a given conversation on shopping and answer questions",
+      "search and read description of online products in German speaking countries and match them with provided texts"
+     ],
+     "inquiry_questions": [
+      "How do you get all the required information from a text?"
+     ],
+     "core_competencies": [
+      "Digital Literacy: This is developed when learner searches and reads description of online products and matches them with given texts"
+     ],
+     "values": [
+      "Responsibility: The learner develops responsible use of the internet as they search and read description of online products and match them with given texts"
+     ],
+     "pertinent_issues": [
+      "Pertinent and Contemporary Issues (PCIs): Global Citizenship: This is developed as learner searches for and reads descriptions of online products in German speaking countries and match them with given texts."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-german.pdf#p54"
+    },
+    {
+     "kicd_code": "",
+     "name": "Suggested Learning Resources",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Total Physical Response",
+      "Matching names to pictures",
+      "Filling in missing information",
+      "Writing simple plays",
+      "Matching of sentences"
+     ],
+     "learning_experiences": [
+      "Non-Formal Activities",
+      "Exchange Programs",
+      "Tandem (face-to-face or electronic) and intercultural learning",
+      "Language Days",
+      "School Open Days",
+      "Kenya Music Festival",
+      "Language Clubs",
+      "Inter-House Competitions",
+      "Inter-Class Competitions",
+      "Inter-School Contests"
+     ],
+     "inquiry_questions": [],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-german.pdf#p67"
+    }
+   ]
+  },
+  {
+   "strand": "Writing",
+   "strand_code": "1.3",
+   "assessment_rubric": [],
+   "substrands": [
+    {
+     "kicd_code": "1.3.1",
+     "name": "Descriptive writing",
+     "suggested_duration": "8 lessons",
+     "learning_outcomes": [
+      "analyse given information for writing",
+      "compose descriptive texts for communication",
+      "recognise the place of descriptive writing in communication",
+      "outline the rules that govern particular grammatical structures for communication",
+      "apply varied grammar structures in communication",
+      "appreciate the role of grammar structures for effective communication."
+     ],
+     "learning_experiences": [
+      "organise given information on family coherently into paragraphs",
+      "design own family trees",
+      "write a text introducing themselves and share it with their peers",
+      "compose a text describing their family and share with peers for feedback",
+      "write down similarities and/or differences between own text and those of peers",
+      "react respectfully to written texts from their peers.",
+      "summarise written text on family",
+      "design photo collage of their families using technology with peers",
+      "research on family trees in Germany from various media",
+      "note the differences, and share their findings with peers",
+      "conjugate given verbs for introduction of self and family members",
+      "fill in missing personal pronouns in texts about families",
+      "match personal pronouns to pictures of family members",
+      "ask and respond to questions about family from peers",
+      "research on German grammar rules and share with peers in plenary",
+      "write texts about family using question words",
+      "use possessive pronouns to describe their family and relations",
+      "search and play online interactive language games with peers.",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "How do you write a descriptive text to capture the attention of the audience?",
+      "1. Why is grammar important for communication?",
+      "2. How do you derive grammar rules from a text?",
+      "Suggested Key Inquiry Question(s)"
+     ],
+     "core_competencies": [
+      "Creativity and Imagination: The learner develops the skills of making connections as they research on family trees in Germany, note down the differences, and share their findings with peers.",
+      "Citizenship: The learner develops active community skills as they write texts about their family and share them with peers for feedback.",
+      "Digital Literacy: The learner develops skills of interacting with technology as they carry out research on online language games and plays them with their peers.",
+      "Learning to learn: The learner enhances their research skills as they research on German grammar rules and share with peers in plenary."
+     ],
+     "values": [
+      "Unity: The learner works collaboratively as they design photo collages of their families using technology with peers.",
+      "Respect: The learner observes respect as they give peers feedback on their written texts.",
+      "Unity: The learner works collaboratively with peers as they research & play online language games."
+     ],
+     "pertinent_issues": [
+      "Ethnic/ racial relations and diversities: The learner appreciates diverse ethnic and racial identities in Kenya and Germany as they research on family trees in Germany from various media, note down the differences, and share their findings with peers.",
+      "Online Safety: The learner practices cyber etiquette and sharpens their problem solving skills as they search and play online interactive language games with peers."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-german.pdf#p17"
+    },
+    {
+     "kicd_code": "2.3.2",
+     "name": "Descriptive writing",
+     "suggested_duration": "8 lessons",
+     "learning_outcomes": [
+      "analyse given information in writing",
+      "compose descriptive texts for creative writing",
+      "appreciate the place of descriptive writing in communication."
+     ],
+     "learning_experiences": [
+      "list down items in a home",
+      "match words to pictures of rooms at home",
+      "fill in missing information in a text about home",
+      "draw their house and put names of furniture in specific rooms",
+      "write short texts about their home",
+      "write down similarities and/or differences between own text and those of peers",
+      "react to written texts from their peers",
+      "summarise written texts on home",
+      "watch a video on homes in Germany, write short notes, and compare with Kenya."
+     ],
+     "inquiry_questions": [
+      "1. What is the purpose of descriptive writing?",
+      "2. How does descriptive writing help you express yourself?"
+     ],
+     "core_competencies": [
+      "Creativity and imagination: The learner tests their ideas and imagination abilities as they draw their homes and place furniture in specific rooms."
+     ],
+     "values": [
+      "Values: Respect: The learner appreciates diverse opinions as they react to information from peers about their homes. Pertinent and Contemporary Issues (PCIs): Self-awareness: Learner’s awareness of various places and furniture in their homes is enhanced as they discuss and share information with peers."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-german.pdf#p24"
+    },
+    {
+     "kicd_code": "4.3.3",
+     "name": "Functional writing - Menu -Recipe",
+     "suggested_duration": "8 lessons",
+     "learning_outcomes": [
+      "identify characteristics of functional writing in communication",
+      "compose menus and recipes for information",
+      "value the role of functional writing in communication",
+      "use appropriate words to describe things in communication",
+      "apply acquired vocabulary for speaking and writing",
+      "Embrace the role of Grammar in the execution of coherent communication.",
+      "identify specific information from given audio texts",
+      "utilise biased listening for specific information",
+      "acknowledge the role of biased listening in communication."
+     ],
+     "learning_experiences": [
+      "list down ideal healthy food items for shopping",
+      "illustrate new food-related words by creating flashcards",
+      "prepare a puzzle on foodstuffs in a menu.",
+      "appreciate different culinary habits from different cultures",
+      "write own reflections of how to stay healthy and fit",
+      "create menus and recipes using the learned vocabulary, phrases, and creative pictures.",
+      "The learner is guided to:",
+      "determine the accusative and dative objects in a sentence",
+      "make use of adjectives to describe nouns when communicating",
+      "differentiate between the use of indefinite and negative articles from a given text",
+      "conjugate verbs correctly",
+      "sort out the adjectives , verbs and nouns in paragraphs",
+      "build sentences using grammar elements",
+      "colour grammar word elements in order to distinguish their functions",
+      "memorise vocabulary by associating them with other pictures or words",
+      "role play on Akkusativ and Dativ objects in a sentence",
+      "recognise grammar rules and",
+      "their application in language learning",
+      "enjoy learning grammar rules by working out online exercises that reveal the answers and positively reinforce their achievements.",
+      "Suggested Learning Experiences",
+      "listen to an audio text on means of transport and answer questions",
+      "discuss with peers the different means of transport from the audio text",
+      "listen to audio texts on asking for information at a train station and identify specific expressions on the topic",
+      "simulate asking for direction with peers",
+      "role play scenes on asking for information at the airport with peers",
+      "record themselves asking for direction and means of transport and listen with peers",
+      "search online on train and airplane schedules in kenya and Germany and discuss in plenum."
+     ],
+     "inquiry_questions": [
+      "How do we make our writing interesting?",
+      "1. How can you memorise grammar elements?",
+      "2. Why is grammar important for communication?",
+      "Suggested Key Inquiry Question(s)",
+      "How do you listen effectively?"
+     ],
+     "core_competencies": [
+      "Creativity and imagination: The learner develops experimentation skills as they create menus and recipes using the learned vocabulary, phrases, and creative pictures.",
+      "Learning to learn: The learner develops strategies for learning as they create mnemonics for memorizing words and teaching them to their peers.",
+      "Digital literacy: The learner uses technological skills to effectively work out grammar tasks with peers.",
+      "Core Competencies to be developed: Communication & collaboration: The learner develops dialogical skills as they conduct role plays collaboratively, while learning about traveling and finding information at a train station or airport. Values: Respect: The learner demonstrates politeness as they seek for help from peers when role playing the context at the airport Pertinent and Contemporary Issues (PCIs): Global Citiznship: The learner develops an awareness of how other countries operate as they research online about means of transport in Kenya and Germany"
+     ],
+     "values": [
+      "Integrity (self discipline): The learner exhibits self discipline and truthfulness as they carry out self reflections for good health.",
+      "Responsibility: The learner demonstrates responsibility as they offer guidance to peers through prescribing recipes for healthy foods.",
+      "Love: The learner practices consideration for others as they collaborate with peers to come up with learning strategies."
+     ],
+     "pertinent_issues": [
+      "Pertinent and Contemporary Issues (PCIs): Healthy Living: The learner enhances their awareness of healthy living as they write their own reflections on how to stay healthy and fit.",
+      "Health promotion issues: The learner explores tips for staying fit and healthy as they sort out grammar features used for communication."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-german.pdf#p40"
+    },
+    {
+     "kicd_code": "6.3.1",
+     "name": "Descriptive writing",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "analyse given information for purposes of writing texts",
+      "compose descriptive texts for creative writing",
+      "appreciate the place of descriptive writing in language communication."
+     ],
+     "learning_experiences": [
+      "write texts about their favourite products in the supermarket",
+      "write about services available in various places in the city",
+      "design own shopping list",
+      "write texts about various products and share with peers for feedback",
+      "create descriptive texts about the products and services available in their locality",
+      "organise given information about products coherently into paragraph",
+      "write down similarities and/or differences between own text and those of peers",
+      "react to written texts from their peers",
+      "summarize written text on shopping",
+      "design photo collage of different products in the supermarket",
+      "research on shopping in Germany from various media , write the differences with Kenya down and share their findings with peers."
+     ],
+     "inquiry_questions": [
+      "Why is descriptive writing important in communication?"
+     ],
+     "core_competencies": [
+      "Creativity and Imagination: The learner experiments with photos on a collage to create appealing products and services.",
+      "Digital literacy: The learner uses technological skills to carry out research on various products in Germany, comparing this with Kenya and sharing with peers"
+     ],
+     "values": [
+      "Respect: The learner demonstrates respect for themselves and others as they interact with peers when writing and comparing their shopping lists."
+     ],
+     "pertinent_issues": [
+      "Safety and Security: The learner develops awareness on responsible use of the internet as they search for information online on various products and services."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-german.pdf#p56"
+    },
+    {
+     "kicd_code": "",
+     "name": "Suggested Learning Resources",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Construction of sentences"
+     ],
+     "learning_experiences": [
+      "Non-Formal Activities",
+      "Language Clubs",
+      "Tandem (face-to-face or electronic) and intercultural learning",
+      "Language Days",
+      "School Open Days",
+      "Kenya Music Festival",
+      "Exchange Programs",
+      "Inter-House Competitions",
+      "Inter-Class Competitions",
+      "Inter-School Contests"
+     ],
+     "inquiry_questions": [],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-german.pdf#p68"
+    }
+   ]
+  },
+  {
+   "strand": "Listening and Speaking",
+   "strand_code": "2.1",
+   "assessment_rubric": [],
+   "substrands": [
+    {
+     "kicd_code": "2.1.1",
+     "name": "Conversational skills",
+     "suggested_duration": "8 lessons",
+     "learning_outcomes": [
+      "identify features of a dialogue in communication",
+      "extract specific information from a listening text",
+      "express their opinion in varied conversational contexts",
+      "acknowledge the role of biased listening in communication."
+     ],
+     "learning_experiences": [
+      "listen to audio texts about my home and match to given pictures",
+      "watch videos on houses in Kenya and in Germany and answer given questions",
+      "discuss with peers about items they have at home",
+      "carry out a project on different colours and come up with a collage depicting a home with peers",
+      "take turns in conducting dialogues on their likes and dislikes about home",
+      "research on prices of home items from various sources and share with peers"
+     ],
+     "inquiry_questions": [
+      "How do you make conversations interesting?"
+     ],
+     "core_competencies": [
+      "• Digital literacy: The learner enhances their research skills as they research about prices of items they have at home."
+     ],
+     "values": [
+      "Values: Unity: The learner works collaboratively works with peers to create a photo collage of a home. Pertinent and Contemporary Issues (PCIs): Social awareness skills: The learner demonstrates effective communication and assertiveness as they express their likes and dislikes on homes."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-german.pdf#p21"
+    },
+    {
+     "kicd_code": "3.1.1",
+     "name": "Biased listening Pronunciation & intonation",
+     "suggested_duration": "8 lessons",
+     "learning_outcomes": [
+      "distinguish different German sounds for effective communication",
+      "utilise biased listening skills in listening comprehension",
+      "appreciate the role of pronunciation and intonation in communication."
+     ],
+     "learning_experiences": [
+      "listen and imitate different sounds (-z, -d, -t, -g)",
+      "listen to audio texts about school routines and answer questions",
+      "talk about their school activities with peers",
+      "record themselves speaking about school subjects and listen with peers for assessment and feedback",
+      "search online and sing songs on days of the week with peers."
+     ],
+     "inquiry_questions": [
+      "1. How do you listen to understand?",
+      "2. How is pronunciation important in communication?"
+     ],
+     "core_competencies": [
+      "Learning to learn: The learner develops research skills as they carry out online research on songs."
+     ],
+     "values": [
+      "Unity: The learner displays unity by collaborating with others as they record themselves and share information about school subjects.",
+      "Responsibility: The learner enhances accountability as they use different media devices for the assigned tasks."
+     ],
+     "pertinent_issues": [
+      "Pertinent and Contemporary Issues (PCIs): Social awareness skills: The learner develops effective communication skills as they undertake tasks such as recording themselves and listening to peers."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-german.pdf#p28"
+    },
+    {
+     "kicd_code": "6.1.6",
+     "name": "Listening for details Conversational skills",
+     "suggested_duration": "8 lessons",
+     "learning_outcomes": [
+      "Identify detailed information from a listening text",
+      "express their needs orally on varied topics",
+      "acknowledge the role of listening for details in communication."
+     ],
+     "learning_experiences": [
+      "listen to audio clips on clothes and highlight important details",
+      "watch videos on different shopping places and respond to questions",
+      "discuss with peers about shopping for their their favourite clothes",
+      "listen to a shopping dialogue and simulate it with peers",
+      "role play with peers different shopping contexts, eg in the supermarket, in the boutique, in the flea market",
+      "record themselves role playing different shopping contexts, listen with peers, and brainstorm on integrity while shopping/selling."
+     ],
+     "inquiry_questions": [
+      "1. How can one ensure effective dialogue?",
+      "2. 2. How can one improve their listening and conversational skills?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed: Digital Literacy: The learner improves their digital know-how as they use technology to record themselves as they role play different shopping contexts. Values: Integrity: The leaner fosters honesty as they role play and brainstorm with peers on different shopping contexts. Pertinent and Contemporary Issues (PCIs): Financial Literacy: Learners enhance their financial literacy skills as they negotiate with others and act out their roles in the shopping contexts."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-german.pdf#p52"
+    },
+    {
+     "kicd_code": "",
+     "name": "Suggested Learning Resources",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Reading for fluency",
+      "Exit or Admit stamps"
+     ],
+     "learning_experiences": [
+      "Non-Formal Activities",
+      "School Open Days",
+      "Kenya Music Festival",
+      "Language Clubs",
+      "Exchange Programs",
+      "Tandem (face-to-face or electronic) and intercultural learning",
+      "Language Days",
+      "Inter-House Competitions",
+      "Inter-Class Competitions",
+      "Inter-School Contests"
+     ],
+     "inquiry_questions": [],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-german.pdf#p66"
+    }
+   ]
+  },
+  {
+   "strand": "Grammar",
+   "strand_code": "2.4",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to identify listening markers in a text for communication",
+     "exceeds": "The Learner identifies more than the required listening markers in a text for communication",
+     "meets": "The Learner identifies all the required listening markers in a text for communication",
+     "approaches": "Learner identifies most of the required listening markers in a text for communication",
+     "below": "Learner identifies some of the required listening markers in a text for communication"
+    },
+    {
+     "indicator": "Ability to listen actively for comprehension",
+     "exceeds": "Learner listens actively and carries out more than the given tasks correctly",
+     "meets": "Learner listens actively and carries out all the given tasks correctly",
+     "approaches": "Learner listens actively and carries out most of the given tasks correctly",
+     "below": "Learner listens actively and carries out some of the given tasks correctly"
+    },
+    {
+     "indicator": "Ability to identify expressions for communication",
+     "exceeds": "Learner correctly identifies more than the required expressions",
+     "meets": "Learner correctly identifies all the required expressions",
+     "approaches": "Learner correctly identifies most of the required expressions",
+     "below": "Learner correctly identifies some of the required expressions"
+    },
+    {
+     "indicator": "Ability to use acquired vocabulary to communicate",
+     "exceeds": "Learner uses acquired and varied vocabulary to communicate in given contexts",
+     "meets": "Learner uses acquired vocabulary to communicate in given contexts",
+     "approaches": "Learner uses acquired vocabulary to communicate in most of the given contexts",
+     "below": "Learner uses acquired vocabulary to communicate in some of the given contexts"
+    },
+    {
+     "indicator": "Ability to identify expressions from reading texts",
+     "exceeds": "Learner identifies more than the required expressions from given reading texts",
+     "meets": "Learner identifies all the required expressions from given reading texts",
+     "approaches": "Learner identifies most of the required expressions from given reading texts",
+     "below": "Learner identifies some of the required expressions from given reading texts"
+    },
+    {
+     "indicator": "Ability to read aloud texts for articulation",
+     "exceeds": "Learner reads aloud texts with the correct articulation and fluency, has near native fluency",
+     "meets": "Learner reads aloud texts with the correct articulation and fluency",
+     "approaches": "Learner reads aloud texts with the correct articulation and fluency most of the time",
+     "below": "Learner reads aloud texts with the correct articulation and fluency some of the time"
+    },
+    {
+     "indicator": "Ability to read texts for comprehension",
+     "exceeds": "learner reads given texts and carries out more than the given tasks correctly",
+     "meets": "Learner reads given texts and carries out all the given tasks correctly",
+     "approaches": "Learner reads given texts and carries out most of the given tasks correctly",
+     "below": "Learner reads given texts and carries out some of the given tasks correctly"
+    },
+    {
+     "indicator": "Ability to identify steps of writing",
+     "exceeds": "Learner identifies and explains all the required steps of writing",
+     "meets": "Learner identifies all the required steps of writing",
+     "approaches": "Learner identifies most of the required steps of writing",
+     "below": "Learner identifies some of the required steps of writing"
+    },
+    {
+     "indicator": "Ability to identify rules of orthography",
+     "exceeds": "Learner identifies and explains all the required rules of orthography in given contexts",
+     "meets": "Learner identifies all the required rules of orthography in given contexts",
+     "approaches": "Learner identifies most of the required rules of orthography in given contexts",
+     "below": "Learner identifies some of the required rules of orthography in given contexts"
+    },
+    {
+     "indicator": "Ability to identify the format in writing",
+     "exceeds": "Learner identifies and explains the correct format in writing for the given contexts",
+     "meets": "Learner identifies the correct format in writing for the given contexts",
+     "approaches": "Learner identifies the correct format in writing for most of the given contexts",
+     "below": "Learner identifies the correct format in writing for some of the given contexts"
+    },
+    {
+     "indicator": "Ability to identify expressions in writing",
+     "exceeds": "Learner identifies more than the required expressions in writing for given contexts",
+     "meets": "Learner identifies all the required expressions in writing for given contexts",
+     "approaches": "Learner identifies most of the required expressions in writing for given contexts",
+     "below": "Learner identifies some of the required expressions in writing for given contexts"
+    },
+    {
+     "indicator": "Ability to write texts",
+     "exceeds": "Learner writes more than the required texts using the correct format, orthography and appropriate expressions in given contexts",
+     "meets": "Learner writes all the required texts using the correct format, orthography and appropriate expressions in given contexts.",
+     "approaches": "Learner writes most of the required texts using the correct format, orthography and appropriate expressions in given contexts.",
+     "below": "Learner writes some of the required texts using the correct format, orthography and appropriate expressions in given contexts."
+    },
+    {
+     "indicator": "Ability to identify: - Verb conjugation (haben und sein, regular /irregular -empfehlen, fahren, essen, separable/inseparable prefixes, modal verbs -können, dürfen, möchten, mögen)",
+     "exceeds": "The learner explains more than the required language structures",
+     "meets": "Learner identifies all the required language structures",
+     "approaches": "Learner identifies most of the required language structures",
+     "below": "Learner identifies some of the required language structures with assistance"
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "2.4.2",
+     "name": "Definite, indefinite, and negative articles (nominative). -Plural forms. -Adjectives (Predicate)",
+     "suggested_duration": "7 lessons",
+     "learning_outcomes": [
+      "Differentiate various grammar structures for communication",
+      "apply varied grammar structures in communication",
+      "appreciate the role that grammar plays in communication."
+     ],
+     "learning_experiences": [
+      "select the definite and indefinite articles in a text",
+      "List down the different types of plural forms of nouns",
+      "categorise the nouns about the home in the different plural categories",
+      "identify missing furniture from a picture",
+      "construct sentences about the missing furniture using the negative articles",
+      "describe various features and furniture in a home using adjectives",
+      "Search and play online games about the home, furniture, and grammar structures with peers.",
+      "Suggested Learning Experiences"
+     ],
+     "inquiry_questions": [
+      "1. Why is grammar important for communication?",
+      "2. How do you derive grammar rules from a text?",
+      "Suggested Key Inquiry Question(s)"
+     ],
+     "core_competencies": [
+      "Learning to learn: The learner reflects on the various plural forms of nouns and list them down.",
+      "Digital literacy: The learner finds online games about vocabulary of the home and play with their peers."
+     ],
+     "values": [
+      "Values: Integrity: The learner develops a sense of responsible use of technology as they search for language games to support learning. Pertinent and contemporary Issues (PCIs): Decision making skills: This is promoted as the learner critically analyses a noun and its plural and then determine the plural category it belongs to."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-german.pdf#p26"
+    },
+    {
+     "kicd_code": "6.4.6",
+     "name": "Adjectives: Comparative and Superlative",
+     "suggested_duration": "7 lessons",
+     "learning_outcomes": [
+      "construct sentences using the given grammatical aspects",
+      "develop various and relevant grammatical rules",
+      "Appreciate the use of correct language structures in communication.",
+      "The learner applies all the given language structures in communication"
+     ],
+     "learning_experiences": [
+      "construct simple sentences using the comparative and superlative forms",
+      "write out a short text to show the various shopping items and their comparative, superlative aspects",
+      "carry out online research about the various dative verbs and present the findings to their peers",
+      "collect various photos in a shopping set up that bring out comparative and superlative aspects from various sources, make a photo collage, and display it in class",
+      "use demonstrative pronouns to form sentences describing the various activities they carry out in a business setting",
+      "conduct a role play scenario in a business setting using correct grammatical aspects",
+      "using an online app, learner differentiates between comparative and superlative aspects.",
+      "Learner applies most of the given language structures in communication"
+     ],
+     "inquiry_questions": [
+      "How can we effectively communicate?",
+      "Learner applies some of the given language structures in communication with assistance"
+     ],
+     "core_competencies": [
+      "Learning to learn: The learner is able to prioritise the various tasks given as they carry out shopping activities."
+     ],
+     "values": [
+      "Intergrity: Learner exhibits self disciplineu and tilises resources prudently as they conduct business activities."
+     ],
+     "pertinent_issues": [
+      "Financial literacy: The learner is equipped with essential life skills for making well informed financial decisions."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-german.pdf#p58"
+    },
+    {
+     "kicd_code": "",
+     "name": "Suggested Learning Resources",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Exit or Admit stamps",
+      "Total Physical Response"
+     ],
+     "learning_experiences": [
+      "Non-Formal Activities",
+      "Kenya Music Festival",
+      "German language Clubs",
+      "Tandem (face-to-face or electronic) and intercultural learning",
+      "School Open Days",
+      "Exchange Programs",
+      "Language Days",
+      "Inter-House Competitions",
+      "Inter-Class Competitions",
+      "Inter-School Contests"
+     ],
+     "inquiry_questions": [],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-german.pdf#p65"
+    }
+   ]
+  },
+  {
+   "strand": "Language structures",
+   "strand_code": "4.0",
+   "assessment_rubric": [],
+   "substrands": [
+    {
+     "kicd_code": "",
+     "name": "Suggested Learning Resources",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Construction of sentences"
+     ],
+     "learning_experiences": [
+      "Non-Formal Activities",
+      "Language Clubs",
+      "Tandem (face-to-face or electronic) and intercultural learning",
+      "Language Days",
+      "School Open Days",
+      "Kenya Music Festival",
+      "Exchange Programs",
+      "Inter-House Competitions",
+      "Inter-Class Competitions",
+      "Inter-School Contests"
+     ],
+     "inquiry_questions": [],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-german.pdf#p69"
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,572 @@
+{
+ "source_pdf": "grade4-creative-arts-and-sports.pdf",
+ "grade": 4,
+ "subject": "creative-arts-and-sports",
+ "general_outcomes": [
+  "perform and display different Creative Arts works to promote diverse cultural knowledge and expression",
+  "create artworks to share their ideas, emotions, thoughts, feelings and experiences for learning and enjoyment",
+  "perform physical and health activities for enjoyment, survival and self-fulfilment",
+  "apply environmental conservation values of re-use and recycle of materials for creative and improvisation purposes",
+  "evaluate Creative Arts works to make meaningful connections to creating, executing, performing, display and appreciation of art works",
+  "use emerging technologies as a learning tool to explore creative ideas in the process of making, performing, displaying and appreciation of Creative Arts’ works",
+  "acquire a variety of developmentally appropriate Creative Arts experiences within the social, cultural, national and international contexts",
+  "address pertinent and contemporary issues in society through Creative Arts’ works."
+ ],
+ "strands": [
+  {
+   "strand": "Creating and Executing",
+   "strand_code": "1.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to create and/or execute:  a rhythmic pattern using an indigenous percussion musical instrument,  a drawing using smudge technique,  passing skills in Netball  catching skills in Netball  a montage on ball games",
+     "exceeds": "Creates and/or executes the 9 items in Creative activities correctly and aesthetically.",
+     "meets": "Creates and/or executes the 9 items in Creative activities correctly.",
+     "approaches": "Creates and/or executes the 5-8 items in Creative activities correctly.",
+     "below": "Creates and/or executes the 4 and below items in Creative activities correctly."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "1.1",
+     "name": "Percussion Musical Instruments (Drawing)",
+     "suggested_duration": "17 lessons",
+     "learning_outcomes": [
+      "identify indigenous percussion musical instruments from different Kenyan communities",
+      "classify indigenous Kenyan percussion musical instruments",
+      "discuss the function(s) of parts of a percussion musical instrument",
+      "improvise rhythmic patterns using indigenous percussion musical instruments",
+      "make charcoal sticks for drawing",
+      "create tonal value on a drawing of a percussion",
+      "instrument using the smudging technique",
+      "appreciate indigenous percussion instruments from Kenyan communities and pictures drawn."
+     ],
+     "learning_experiences": [
+      "watch virtual or actual percussion musical instruments to identify by; name, community and method of playing",
+      "observe/listen to sounds of percussion musical instruments and classify as melodic or non-melodic",
+      "identify parts of a percussion musical instrument and discuss their function(s) in sound production",
+      "practice improvising rhythmic patterns to accompany songs using percussion instruments",
+      "talk about value/ tone as an element of art created on virtual and actual sample pictures",
+      "collaboratively, collect materials and tools to make charcoal sticks following the correct procedure while observing safety",
+      "use charcoal sticks to illustrate how to create tone/value by smudging technique",
+      "draw using charcoal sticks a picture of one percussion instrument and create tonal variation by smudging technique",
+      "show and talk about own and peers’ percussion instruments and drawings in a just and fair manner."
+     ],
+     "inquiry_questions": [
+      "1. What is the importance of percussion instruments from different communities in Kenya?",
+      "2. How is tonal variation created in a drawing?"
+     ],
+     "core_competencies": [
+      "Communication and Collaboration: The learner speaks clearly and listens keenly while talking about their work and working together to make charcoal sticks.",
+      "Digital literacy: The learner interacts with digital devices to source information on percussion instruments."
+     ],
+     "values": [
+      "Social justice: The learner talks about own and others’ pictures justly.",
+      "Responsibility: The learner cares for own and peers’ items and observes safety precautions when making charcoal sticks."
+     ],
+     "pertinent_issues": [
+      "Pertinent and Contemporary Issues (PCIs):"
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade4-creative-arts-and-sports.pdf#p12"
+    },
+    {
+     "kicd_code": "1.2",
+     "name": "Netball",
+     "suggested_duration": "15 lessons",
+     "learning_outcomes": [
+      "discuss the skills of passing and catching in Netball",
+      "make a ball using macramé technique",
+      "perform the skills of passing, and catching in Netball",
+      "appreciate Netball as a team game for enjoyment."
+     ],
+     "learning_experiences": [
+      "watch a virtual or live Netball game and identify passes and catching skills",
+      "demonstrate passing (chest and overhead) and catching (double-handed) skills",
+      "collect reusable materials and improvise balls using macramé technique (overhand knot)",
+      "practise passing (chest and overhead) and catching (double-handed) skills",
+      "play a Mini-Netball game applying the skills of (passing and catching) while observing safety",
+      "talk about own and others’ skills in Netball game."
+     ],
+     "inquiry_questions": [
+      "1. Why are the skills of passing and catching important in a Netball game?",
+      "2. Why is it necessary to improvise a netball?"
+     ],
+     "core_competencies": [
+      "Creativity and Imagination: The learner explores with varied materials when improvising balls.",
+      "Learning to learn: The learner watches a Netball game to learn the netball skills through demonstration and practise."
+     ],
+     "values": [
+      "Social justice: The learner demonstrates fairness as they take turns in practising the netball skills of shooting, catching and passing.",
+      "Responsibility: The learner takes initiative to clean the working area and store the balls in an improvised storage."
+     ],
+     "pertinent_issues": [
+      "Resource mobilisation and utilisation: The learner collects locally available materials to improvise a netball.",
+      "Self-esteem: The learner displays confidence in demonstrating new skills through practice and playing a Netball game."
+     ],
+     "links_to_other_areas": [
+      "Mathematics: The learner takes part in passing the Netball to a team-mate while applying ball trajectory visualisation."
+     ],
+     "resources": [],
+     "kicd_source": "grade4-creative-arts-and-sports.pdf#p14"
+    },
+    {
+     "kicd_code": "1.3",
+     "name": "Painting and Montage",
+     "suggested_duration": "15 lessons",
+     "learning_outcomes": [
+      "classify colours into primary and secondary for painting",
+      "paint a picture of simple items for colour value application",
+      "create a montage composition for expression",
+      "appreciate painting and montage as methods of making pictures."
+     ],
+     "learning_experiences": [
+      "mix primary colours to create secondary colours",
+      "mix white with a secondary colour to create light tones on a scale strip",
+      "mix black with a secondary colour to create dark tones on a scale strip",
+      "draw a single object and paint with emphasis on colour value",
+      "observe sample montage pictures for familiarity",
+      "source picture of ball games and cut out",
+      "arrange and paste cut out pictures to make a montage themed “ball games” and clean the working area",
+      "• show and take turns to talk about their own and others work."
+     ],
+     "inquiry_questions": [
+      "1. How is glue for pasting pictures improvised?",
+      "2. Why is colour classification important in painting?"
+     ],
+     "core_competencies": [
+      "Communication and Collaboration: The learner works with others in groups and speaks clearly about their own and others work.",
+      "Creativity and Imagination: The learner makes thoughtful choices when producing a montage pictorial composition."
+     ],
+     "values": [
+      "Respect: The learner accommodates others’ views during critique of their own and others’ painting and montage work.",
+      "Love: The learner takes turns to talk about their own and others work."
+     ],
+     "pertinent_issues": [
+      "Social Cohesion: The learner acquires the skill of working with others during creating a montage composition."
+     ],
+     "links_to_other_areas": [
+      "Mathematics: The learner mixes colours in correct proportions to classify as primary or secondary colours."
+     ],
+     "resources": [],
+     "kicd_source": "grade4-creative-arts-and-sports.pdf#p16"
+    },
+    {
+     "kicd_code": "1.4",
+     "name": "Rhythm",
+     "suggested_duration": "15 lessons",
+     "learning_outcomes": [
+      "interpret rhythmic patterns involving the crotchet, pair of quaver and their rests",
+      "write the French rhythm names using free hand lettering",
+      "describe the qualities of a good rhythmic pattern",
+      "compose a rhythmic pattern involving a crochet, a pair of quavers and their rests",
+      "enjoy creating rhythmic patterns."
+     ],
+     "learning_experiences": [
+      "listen to/sing familiar topical songs and identify the music notes and their rests using their French rhythm names",
+      "clap the rhythm of the songs while reciting their rhythms using French rhythm names",
+      "write letters of the alphabet in lowercase using free hand lettering-ascenders and descenders",
+      "use free hand lettering to write French rhythm names taa and ta-te",
+      "relate the French rhythm names taa, and ta-te to",
+      "music note symbols for crotchet and a pair of quavers",
+      "discuss the techniques used in composing rhythmic patterns",
+      "write rhythmic patterns from dictation using either French rhythm names or note symbols and their rests",
+      "compose original rhythmic patterns and write them using French rhythm names, note symbols and their rests",
+      "critique rhythms created by self and peers respecting each other’s views."
+     ],
+     "inquiry_questions": [
+      "1. How can a rhythm be created?"
+     ],
+     "core_competencies": [
+      "Communication and Collaboration: The learner works with others in groups and speaks clearly during critique of own and others’ rhythms.",
+      "Creativity and Imagination: The learner composes original rhythmic patterns and writes them using French rhythm names, note symbols and their rests."
+     ],
+     "values": [
+      "Values:",
+      "Respect: The learner accommodates others’ views during critique of own and others’ original rhythmic compositions.",
+      "Integrity: The learner creates own original rhythmic patterns. Pertinent and Contemporary Issues (PCIs):",
+      "Social Cohesion: The learner acquires the skill of working with others during group composition of rhythmic patterns.",
+      "Social Justice: The learner fairly critiques rhythms created by others and self. Link to other learning areas:",
+      "English: The learner applies the concept of syllabic division in reciting French rhythm names of words and writing letters of the alphabet in lowercase using free hand.",
+      "Mathematics: The learner uses the concept of numbers when relating the value of the quaver in relation to the crotchet."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade4-creative-arts-and-sports.pdf#p18"
+    },
+    {
+     "kicd_code": "1.5",
+     "name": "Melody",
+     "suggested_duration": "15 lessons",
+     "learning_outcomes": [
+      "identify sol-fa syllables d r m in a simple melody",
+      "interpret hand signs for the sol-fa syllables d r m for pitch discrimination",
+      "state the qualities of a good melody as a foundation to composition",
+      "create short melodies using the sol-fa syllables",
+      "model clay slabs with sol-fa syllables using coil and slab techniques",
+      "enjoy creating short melodies and modelling using clay."
+     ],
+     "learning_experiences": [
+      "sing familiar songs based on the sol-fa syllables d r m, and identify the sol-fa syllables by ear",
+      "listen to and identify aurally and orally the sol-fa pitches (d r m) as sounded on a melodic instrument/voice",
+      "watch videos/demonstrations of execution of the Kodaly hand signs for the sol-fa syllables d, r m and practice performing the hand signs",
+      "brainstorm on the qualities of a good melody",
+      "apply composition techniques to create short melodies based on the sol-fa syllables d r m and the note",
+      "symbols; crotchet, a pair of quavers and their rests",
+      "collect clay for modelling from the local environment",
+      "roll clay into slab and cut out three rectangular pieces of three different sizes",
+      "model so-lfa syllables (d r m) using coil technique and attach on the slabs."
+     ],
+     "inquiry_questions": [
+      "How can interesting melodies be created?"
+     ],
+     "core_competencies": [
+      "Creativity and Imagination: The learner uses unique and new ideas to compose melodies and models the sol-fa syllables.",
+      "Self-efficacy: The learner models the sol-fa syllables and composes original melodies."
+     ],
+     "values": [
+      "Unity: The learner works with peers when modelling, creating and performing various melodies.",
+      "Love: The learner respects others while critiquing their performances.",
+      "value  a rhythmic pattern using French rhythm names and music note symbols and rests,  model clay slabs with sol-fa syllables  short melodies using the sol-fa syllables d r m"
+     ],
+     "pertinent_issues": [
+      "Life skills: The learner acquires interpersonal skills through interacting with peers in groups as they model sol-fa syllables and create melodies.",
+      "Mentorship and peer education: The learner shares their compositions with peers who give feedback for improvement."
+     ],
+     "links_to_other_areas": [
+      "Link to other learning areas:"
+     ],
+     "resources": [],
+     "kicd_source": "grade4-creative-arts-and-sports.pdf#p21"
+    }
+   ]
+  },
+  {
+   "strand": "Performing and Displaying",
+   "strand_code": "2.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to perform and/or display: -medium starts -elongated starts -sprinting techniques -crab balance -side roll -notes B, A and G the on descant recorder -simple melodies based on B A G on the descant recorder -photographs with proper lighting and center of interest -different types of songs",
+     "exceeds": "Performs and/or displays the 10 items in Creative activities skilfully.",
+     "meets": "Performs and/or displays the 10 items in Creative activities correctly.",
+     "approaches": "Performs and/or displays 6-9 items in Creative activities.",
+     "below": "Performs and/or displays 5 or less items in Creative activities."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "2.1",
+     "name": "Athletics",
+     "suggested_duration": "18 lessons",
+     "learning_outcomes": [
+      "discuss the sprint starts and sprinting techniques",
+      "perform the sprint starts and sprinting techniques for skill development",
+      "paint the Kenyan flag for an athletic event",
+      "recognise the value of flying the Kenyan flag during an athletics event."
+     ],
+     "learning_experiences": [
+      "watch a virtual or live demonstration of sprint starts and sprinting techniques",
+      "demonstrate a medium and elongated sprint start techniques",
+      "demonstrate the sprinting technique",
+      "sketch the Kenyan flag on a paper/fabric",
+      "paint the flag observing colour arrangement and neatness",
+      "attach the flag to a suitable handle",
+      "practise the medium and elongated start",
+      "practise sprinting technique",
+      "run sprint races while observing safety and cheering each other using the flags made"
+     ],
+     "inquiry_questions": [
+      "1. Why is it important to maintain appropriate posture during sprints?",
+      "2. Why is the national flag flown during a national athletic event?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Citizenship: The learner understands sense of belonging to their country as they paint and fly the Kenyan flag.",
+      "Digital literacy: The learner uses digital technology to watch a virtual demonstration of sprint starts and sprinting techniques. Values:",
+      "Patriotism: The learner appreciates sketching and painting the Kenyan flag.",
+      "Love: The learner works with peers to demonstrate the techniques of starting sprints and sprinting techniques. Pertinent and Contemporary Issues (PCIs):",
+      "Safety and security: The learner performs sprints while observing the safety of self and others.",
+      "Social cohesion: The learner works with peers as they play sprint games while observing safety and cheering each other using the flags. Link to other learning areas: Social studies: The learner links knowledge of Kenyan flag learnt in Social Studies as they learn colours of the flag."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade4-creative-arts-and-sports.pdf#p25"
+    },
+    {
+     "kicd_code": "2.2",
+     "name": "Gymnastics",
+     "suggested_duration": "15 lessons",
+     "learning_outcomes": [
+      "explain a crab balance and a side roll in gymnastics",
+      "perform the crab balance for skill acquisition",
+      "execute side roll for skill acquisition",
+      "appreciate performing gymnastics skills for enjoyment."
+     ],
+     "learning_experiences": [
+      "watch a virtual or live performance of crab balance and side roll",
+      "demonstrate crab balance",
+      "demonstrate a side roll",
+      "practise the crab balance while observing safety",
+      "practise side roll while observing safety",
+      "combine a crab balance into a side roll in turns",
+      "observe each other’s performance and give feedback."
+     ],
+     "inquiry_questions": [
+      "How does performance of rolls and balances improve body health?"
+     ],
+     "core_competencies": [
+      "Self-efficacy: The learner appreciates their unique abilities in practising side roll and crab balance.",
+      "Critical thinking and problem solving: The learner follows simple instructions while performing a crab balance and side roll in gymnastics."
+     ],
+     "values": [
+      "Values:",
+      "Love: The learner takes turn to support a peer during performance of the crab balance and side roll.",
+      "Responsibility: The learner puts into practise the aspects of safety of self and others when performing the rolls and balances. Pertinent and Contemporary Issues (PCIs):",
+      "Safety: The learner observes safety of self and others as they perform the rolls and balances.",
+      "Social cohesion: The learner works in pairs to perform the side roll and crab balance. Link to other learning areas: Mathematics: The learner uses number and sequence concept in performing gymnastics."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade4-creative-arts-and-sports.pdf#p27"
+    },
+    {
+     "kicd_code": "2.3",
+     "name": "Songs",
+     "suggested_duration": "15 lessons",
+     "learning_outcomes": [
+      "sing different types of songs applying performance techniques",
+      "perform the East African Community Anthem in unison",
+      "identify types of folk songs performed by indigenous Kenyan communities",
+      "perform an indigenous Kenyan folk song applying performance techniques",
+      "value performing indigenous songs from different communities."
+     ],
+     "learning_experiences": [
+      "listen to and identify different types of songs",
+      "sing different types of songs with accuracy in pitch and rhythm adhering to performance directions and applying appropriate performance techniques",
+      "discuss the messages of the songs and demonstrate how the mood of the songs can be expressed while singing",
+      "listen to a live or recorded performance of the East African Community Anthem in unison, with peers, discuss and internalise the words of the anthem",
+      "practise singing East African Community Anthem in unison observing performance techniques and etiquette",
+      "watch a variety of live/recorded folk songs from different indigenous Kenyan communities, identify and classify them",
+      "take a role to perform different folk songs."
+     ],
+     "inquiry_questions": [
+      "What does good singing involve?"
+     ],
+     "core_competencies": [
+      "Citizenship: The learner performs songs and folk songs drawn from different communities developing and appreciating cultural diversity within the Kenyan context.",
+      "Critical thinking and problem solving: The learner listens to and discusses different messages in songs.",
+      "Communication and Collaboration: The learner sings different types of songs expressively using appropriate gestures, facial expressions and diction to convey the message in the songs."
+     ],
+     "values": [
+      "Responsibility: The learner takes different roles in folk songs performance.",
+      "Patriotism: The learner performs folk songs from diverse Kenyan communities and the East African community anthem."
+     ],
+     "pertinent_issues": [
+      "Social Cohesion: The learner performs with peers’ different types of folk songs drawn from diverse Kenyan communities"
+     ],
+     "links_to_other_areas": [
+      "Link to other learning areas: Indigenous Languages: The Learner uses indigenous language when singing songs drawn from different communities in Kenya."
+     ],
+     "resources": [],
+     "kicd_source": "grade4-creative-arts-and-sports.pdf#p29"
+    },
+    {
+     "kicd_code": "2.4",
+     "name": "Photography",
+     "suggested_duration": "8 lessons",
+     "learning_outcomes": [
+      "identify different digital devices for photography",
+      "discuss elements of photography for familiarisation",
+      "take photographs using digital devices for expression",
+      "enjoy taking photographs using digital devices."
+     ],
+     "learning_experiences": [
+      "observe virtual and actual pictures to recognise devices for taking photographs",
+      "observe sample photographs to discuss lighting and centre of interest",
+      "source and set the digital devices for taking photographs",
+      "take photographs of self and objects within the surrounding focusing on; lighting and centre of interest",
+      "select photographs with proper lighting and centre of interest",
+      "show and talk about own and others photographs and share feedback."
+     ],
+     "inquiry_questions": [
+      "Why is light important in photography?"
+     ],
+     "core_competencies": [
+      "• Critical thinking and problem solving: The learner selects to store photographs with proper lighting and centre of interest."
+     ],
+     "values": [
+      "• Respect: The learner listens to and appreciate peers’ views during group discussions."
+     ],
+     "pertinent_issues": [
+      "Pertinent and Contemporary Issues (PCIs) Social Cohesion: The learner works with peers to take photos of self and objects in the surroundings. Link to other learning areas:",
+      "Mathematics: The learner applies mathematical concepts, such as geometry and proportion.",
+      "Science and Technology: The learner delves into the science behind digital imaging technologies, connecting scientific principles to the functioning of devices used in photography."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade4-creative-arts-and-sports.pdf#p32"
+    },
+    {
+     "kicd_code": "2.5",
+     "name": "Descant Recorder",
+     "suggested_duration": "15 lessons",
+     "learning_outcomes": [
+      "identify the parts of a descant recorder for familiarization",
+      "care for a descant recorder for longevity",
+      "play notes B A G on a descant recorder using appropriate playing techniques",
+      "play simple melodies based on notes B A G on the descant recorder",
+      "enjoy playing melodies using the descant recorder."
+     ],
+     "learning_experiences": [
+      "familiarise with the descant recorder to identify its parts",
+      "brainstorm on ways of caring for a descant recorder and its importance",
+      "practise the techniques of playing a descant recorder",
+      "use digital devices responsibly to search and watch recordings/ watch live demonstrations on how to play notes B A and G on the descant recorder",
+      "play simple melodies based on B A G on the descant recorder with accuracy in pitch and rhythm",
+      "watch peers play melodies on the descant recorder, critique and give feedback to peers for improvement."
+     ],
+     "inquiry_questions": [
+      "How is a good tone produced on the descant recorder?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Digital literacy: The learner uses digital devices to search and watch how to play notes on the descant recorder.",
+      "Learning to learn: The learner searches for and acquires skills of how to play new notes on the descant recorder. Values:",
+      "Respect: The learner listens to and accommodates peers’ views during discussions.",
+      "Responsibility: The learner takes care of the descant recorder during and after use. Pertinent and Contemporary Issues (PCIs):",
+      "Communicable diseases: The learner prevents spread of communicable diseases by observation of hygiene measures in the use of the descant recorder.",
+      "Social cohesion: The learner plays the descant recorder in harmony with peers in a group. Link to other learning areas: Agriculture: The learner applies the concepts and knowledge learnt on prevention of communicable diseases in the use of the descant recorder."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade4-creative-arts-and-sports.pdf#p34"
+    },
+    {
+     "kicd_code": "2.6",
+     "name": "Swimming (Optional)",
+     "suggested_duration": "15 lessons",
+     "learning_outcomes": [
+      "recognise ways of water entry in the swimming pool",
+      "play water games in the swimming pool for fun",
+      "float in water for skill acquisition",
+      "glide in water for water confidence",
+      "appreciate safety in and out of the swimming pool while playing water games."
+     ],
+     "learning_experiences": [
+      "visit the swimming pool for familiarisation and water orientation",
+      "demonstrate water entry into the pool",
+      "using feet first technique",
+      "collaboratively, engage in different water games while observing safety",
+      "demonstrate floating techniques",
+      "practise flotation technique",
+      "demonstrate gliding",
+      "practise gliding",
+      "observe each other performing the glide and floating and provide feedback."
+     ],
+     "inquiry_questions": [
+      "Why is Swimming an essential life skill?"
+     ],
+     "core_competencies": [
+      "Self-efficacy: The learner builds confidence by floating in water.",
+      "Learning to learn: The learner acquires the skills of pool entry and floating in water."
+     ],
+     "values": [
+      "Respect: The learner respects others' performance in floating and gliding in water.",
+      "Responsibility: The learner observes own and others safety while performing and practising the water entry, floating and gliding."
+     ],
+     "pertinent_issues": [
+      "Safety and security: The learner adheres to water safety precautions while practising water entry, floating and gliding.",
+      "Environmental awareness: The learner familiarises on the pool environment, safe use of water and pool hygiene."
+     ],
+     "links_to_other_areas": [
+      "Science and Technology: The learner develops a practical understanding of correct body posture when floating and gliding."
+     ],
+     "resources": [],
+     "kicd_source": "grade4-creative-arts-and-sports.pdf#p36"
+    },
+    {
+     "kicd_code": "2.6",
+     "name": "Indigenous Kenyan Games (Optional)",
+     "suggested_duration": "15 lessons",
+     "learning_outcomes": [
+      "identify types of indigenous animal games played in Kenya",
+      "perform different indigenous animal games for skill acquisition",
+      "perform indigenous animal games to a musical rhythm for enjoyment",
+      "appreciate the role played by animal",
+      "games for fitness and health",
+      "explain the concept of appreciation in Creative Arts",
+      "make a portfolio for presenting creative art works",
+      "showcase own and peers’ artworks in a gallery for critique",
+      "analyse the Kenya National Anthem to foster patriotism",
+      "describe a Kenyan folk song performance using",
+      "participate in games and sports within the school",
+      "value appreciation of Creative Arts works drawn from various cultural backgrounds"
+     ],
+     "learning_experiences": [
+      "watch a virtual or live demonstration of indigenous animal game and identify the skills observed",
+      "demonstrate different animal games while observing safety",
+      "practice different animal games while observing safety",
+      "practise different types of animal games while combining it to a musical rhythm",
+      "research and brainstorm the concept of appreciation in Creative Arts",
+      "collaboratively select and prepare previously created artworks for display, (drawings, painting, photographs, musical instruments, balls, clay slabs,)",
+      "prepare a working portfolio from locally available resources and decorate by either pasting coloured paper/fabric",
+      "present the drawings in the working portfolio folder",
+      "prepare display areas, boards and props",
+      "display works of Creative Arts in appropriate areas within the school",
+      "take a gallery walk to observe artworks",
+      "talk about own and peers' work for appreciation focussing on; type of artwork, materials used, media used and craftsmanship",
+      "listen to/watch a performance of the three verses of the Kenya National Anthem and talk about its aspects",
+      "listen to or watch a live or recorded performance of a Kenyan folk song and analyse the components",
+      "participate in Netball, athletics, gymnastics",
+      "swimming/animal games for fun and for inter class/inter school championships",
+      "appreciate the performances with focus on; teamwork, safety for self and others."
+     ],
+     "inquiry_questions": [
+      "1. How do indigenous animal games enhance physical fitness?",
+      "2. Why are animal games considered as indigenous activities?",
+      "What is the importance of analysis in Creative Arts?"
+     ],
+     "core_competencies": [
+      "Communication and Collaboration: The learner works with others in playing animal games.",
+      "Learning to learn: The learner acquires physical fitness skills while participating in animal games.",
+      "Self-efficacy: The learner exhibits their music and art works and sports work responsibly for appreciation.",
+      "Citizenship: The learner gets to appreciate Kenyan music as they listen to and analyse Kenyan folk songs.",
+      "Learning to learn: The learner takes initiative to understand how art, music and sports work.",
+      "Digital Literacy: The learner appreciates different works of art displayed through multimedia."
+     ],
+     "values": [
+      "Responsibility: The learner takes on different roles while playing animal games.",
+      "Unity: The learner works with others while playing animal games.",
+      "Unity: The learner collaborates with others when analysing in groups the execution of sports skills.",
+      "Respect: The learner appreciates others while analysing the execution of sports skills in groups.",
+      "Integrity: The learner observes sportsmanship during mini games.",
+      "Patriotism: The learner develops the love for Kenya as they discuss aspects of the Kenya National Anthem."
+     ],
+     "pertinent_issues": [
+      "Safety: The learner observes safety rules when playing animal games.",
+      "Health and Fitness: The learner improves fitness when playing animal games for a healthy lifestyle.",
+      "Health and safety: The learner participate in sports activities for enjoyment and fun.",
+      "Social cohesion: The learner analyses in groups the execution of sports skills in inter class/inter school championships.",
+      "Analytical and creative thinking: The learner analyses music and sports events, critique art works.",
+      "Cultural awareness: The learner analyses folk songs and indigenous art from different parts of the world"
+     ],
+     "links_to_other_areas": [
+      "Mathematics: The learner keeps counting during animal games.",
+      "Agriculture: The learner's knowledge of different animals is enhanced during performance of animal games.",
+      "Link to other learning areas:",
+      "Social studies: The learner integrates with others while undertaking various tasks in groups",
+      "English: The learner enhances listening and speaking skills in English while discussing the music listened to."
+     ],
+     "resources": [],
+     "kicd_source": "grade4-creative-arts-and-sports.pdf#p38"
+    }
+   ]
+  }
+ ]
+}

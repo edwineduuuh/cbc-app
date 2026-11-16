@@ -1,0 +1,592 @@
+{
+ "source_pdf": "grade7-agriculture-nutrition.pdf",
+ "grade": 7,
+ "subject": "agriculture-nutrition",
+ "general_outcomes": [
+  "By end of Junior School, the learner should be able to:",
+  "Participate actively in agricultural and household activities in conservation of resources.",
+  "Use scarce resources through innovative practices to contribute towards food and nutrition security.",
+  "Engage in food production processes for self-sustainability, health and economic development.",
+  "Adopt personal and environmental hygiene practices for healthy living.",
+  "Apply the use of appropriate production techniques, innovative technologies, digital and media resources to enhance sustainable agricultural and household practices.",
+  "Appreciate agricultural and household skills as a worthy niche for hobby, career development, further education and training."
+ ],
+ "strands": [
+  {
+   "strand": "Conservation of Resources",
+   "strand_code": "1.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to describe ways of conserving resources in the environment: (controlling soil pollution, making water retention structures, conserving food nutrients, growing trees).",
+     "exceeds": "The learner describes four ways of conserving resources.",
+     "meets": "The learner describes three ways of conserving resources.",
+     "approaches": "The learner describes two ways of conserving resources.",
+     "below": "The learner describes less than two ways of conserving resources."
+    },
+    {
+     "indicator": "Ability to conserve resources in the environment: (soil, water, food nutrients, trees).",
+     "exceeds": "The learner conserves four resources in the environment.",
+     "meets": "The learner conserves three resources in the environment.",
+     "approaches": "The learner conserves two resources in the environment.",
+     "below": "The learner conserves less than two resources in the environment."
+    },
+    {
+     "indicator": "Ability to show responsibility in conserving resources in the environment: (caring for resources, observing safety, participating in assigned roles, offering leadership to others).",
+     "exceeds": "The learner shows four indicators of responsibility in conserving resources in the environment.",
+     "meets": "The learner shows three indicators of responsibility in conserving resources in the environment.",
+     "approaches": "The learner shows two indicators of responsibility in conserving resources in the environment.",
+     "below": "The learner shows less than two indicators of responsibility in conserving resources in the environment."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "1.1",
+     "name": "Controlling Soil Pollution",
+     "suggested_duration": "7 lessons",
+     "learning_outcomes": [
+      "explain the causes of soil pollution in gardening",
+      "control soil pollution in home environment",
+      "demonstrate responsibility in using safe farming practices to conserve the soil."
+     ],
+     "learning_experiences": [
+      "Learners are guided to:",
+      "search and watch a video clip or print media on causes of soil pollution and then share experiences on causes of soils pollution such as waste water, excessive use of artificial fertilizers, agricultural chemicals and plastic wastes.",
+      "engage in safe soil pollution control practices such as safe disposal of household waste water, used chemical containers and plastic wastes.",
+      "create awareness messages against improper disposal of waste water, dumping of soil pollutants, used chemical containers and plastic wastes and use of correct types and amounts of farm chemicals and fertilizers."
+     ],
+     "inquiry_questions": [
+      "How can household practices cause soil pollution?"
+     ],
+     "core_competencies": [
+      "Citizenship: civic skills as learners promote control of soil pollution to enhance soil conservation in the community."
+     ],
+     "values": [
+      "Patriotism: awareness of own responsibility as the learners engage in activities that promote soil pollution control."
+     ],
+     "pertinent_issues": [
+      "Pertinent and contemporary issues: Environmental conservation as learners protect soil against pollution. Link to other learning areas: Learners relate soil pollution to other forms of environmental pollution learnt in Integrated Science."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade7-agriculture-nutrition.pdf#p13"
+    },
+    {
+     "kicd_code": "1.2",
+     "name": "Constructing Water Retention Structures",
+     "suggested_duration": "8 lessons",
+     "learning_outcomes": [
+      "describe how surface run-off can be used in gardening",
+      "construct water retention structures to conserve surface runoff",
+      "adopt utilisation of surface run-off in gardening."
+     ],
+     "learning_experiences": [
+      "Learners are guided to:",
+      "search for information and discuss how surface run-off can be conserved in structures such as water retention ditches and water retention pits for gardening.",
+      "construct retention ditches or retention pits for water conservation.",
+      "establish a crop of their choice such as a banana sucker, sugarcane, napier grass or arrowroot to adopt the utilization of surface run-off in gardening."
+     ],
+     "inquiry_questions": [
+      "1. How can surface run-off be conserved for gardening purposes?",
+      "2. How does construction of water retention structures conserve water?"
+     ],
+     "core_competencies": [
+      "Critical thinking and problem solving: decision making skills as learners construct water retention structures to control run-off."
+     ],
+     "values": [
+      "Unity: collaboration with others as learners engage in project activities to construct water retention structures."
+     ],
+     "pertinent_issues": [
+      "Environmental protection as learners construct water retention structures to harness run-off and use it in gardening activities."
+     ],
+     "links_to_other_areas": [
+      "Link to other learning areas: Learners relate construction of run-off control structures to destruction of environment by excess water in socio-economic amenities as learnt in Social Studies."
+     ],
+     "resources": [],
+     "kicd_source": "grade7-agriculture-nutrition.pdf#p15"
+    },
+    {
+     "kicd_code": "1.3",
+     "name": "Conserving Food Nutrients",
+     "suggested_duration": "9 lessons",
+     "learning_outcomes": [
+      "identify ways of conserving vitamins and minerals in vegetables",
+      "conserve vitamins and minerals in vegetables",
+      "adopt conservation of vitamins and minerals in vegetables."
+     ],
+     "learning_experiences": [
+      "Learners are guided to:",
+      "search for information and discuss on ways of conserving vitamins and minerals in vegetables such as washing, peeling, cutting, cooking time, and covering.",
+      "conserve vitamins and minerals in vegetables during food handling, preparation and cooking.",
+      "Discuss and make presentations on how they can adopt appropriate ways of handling, preparing and cooking vegetables to conserve vitamins and minerals."
+     ],
+     "inquiry_questions": [
+      "How do we conserve vitamins and minerals in vegetables?"
+     ],
+     "core_competencies": [
+      "Learning to learn: carrying out research and sharing information on ways of conserving food nutrients."
+     ],
+     "values": [
+      "Integrity: prudent use of resources as learners conserve food nutrients."
+     ],
+     "pertinent_issues": [
+      "Pertinent and Contemporary Issues: Health promotion as learners conserve nutrients in food production processes. Link to other Learning Areas: Learners relate conservation of food nutrients to healthy growth and development learnt in Integrated Science."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade7-agriculture-nutrition.pdf#p17"
+    },
+    {
+     "kicd_code": "1.4",
+     "name": "Growing Trees",
+     "suggested_duration": "8 lessons",
+     "learning_outcomes": [
+      "explain the importance of trees in conserving the environment",
+      "plant trees to conserve the environment",
+      "adopt tree planting as a way of conserving the environment."
+     ],
+     "learning_experiences": [
+      "Learners are guided to:",
+      "search for information on importance of trees and make presentations in class to share their findings.",
+      "plant at least one tree either from seeds or seedlings or cuttings.",
+      "take care of the seedlings until it is fully established to adopt tree planting for conservation of environment."
+     ],
+     "inquiry_questions": [
+      "How can growing of trees conserve the environment?"
+     ],
+     "core_competencies": [
+      "Citizenship: active community life skills as learners plant trees to conserve the environment."
+     ],
+     "values": [
+      "Patriotism: loving the country by conserving the environment through tree planting."
+     ],
+     "pertinent_issues": [
+      "Environmental protection as learners establish trees in the community to enhance the environment."
+     ],
+     "links_to_other_areas": [
+      "Learners relate tree planting to conservation of natural resources learnt in Social Studies."
+     ],
+     "resources": [],
+     "kicd_source": "grade7-agriculture-nutrition.pdf#p19"
+    }
+   ]
+  },
+  {
+   "strand": "Food Production Processes",
+   "strand_code": "2.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to describe food production processes (preparation of sites, planting, management practices, preparing eggs, preparing honey, grilling, roasting, steaming).",
+     "exceeds": "The learner describes eight food production processes.",
+     "meets": "The learner describes six to seven food production processes.",
+     "approaches": "The learner describes three to five food production processes.",
+     "below": "The learner describes less than three food production processes."
+    },
+    {
+     "indicator": "Ability to carry out various food production processes: (preparation of sites, planting, management practices, preparing eggs, preparing honey, grilling, roasting, steaming).",
+     "exceeds": "The learner carries out eight food production processes.",
+     "meets": "The learner carries out six to seven food production processes.",
+     "approaches": "The learner carries out three to five food production processes.",
+     "below": "The learner carries out less than three food production processes."
+    },
+    {
+     "indicator": "Ability to exhibit integrity in the food production processes: (is self-disciplined, is honest, uses prudent use of resources and adherence to ethical procedures).",
+     "exceeds": "The learner shows four indicators of integrity in carrying out the food production processes.",
+     "meets": "The learner shows three indicators of integrity in carrying out the food production processes.",
+     "approaches": "The learner shows two indicators of integrity in carrying out the food production processes.",
+     "below": "The learner shows less than two indicators of integrity in carrying out the food production processes."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "2.1",
+     "name": "Crop Establishment",
+     "suggested_duration": "9 lessons",
+     "learning_outcomes": [
+      "determine appropriate tilth for selected planting material",
+      "prepare a suitable tilth for establishing selected planting material",
+      "adopt appropriate tilth in establishing a selected planting material."
+     ],
+     "learning_experiences": [
+      "Learners are guided to:",
+      "observe provided planting materials and suggest appropriate tilth for each material (small sized seeds for fine tilth, medium sized seeds for medium tilth and large planting materials like tubers, suckers and cuttings for coarse tilth).",
+      "prepare suitable sites (fine tilth for small seeds, medium tilth for medium sized seeds, coarse tilth for large planting materials like tubers, suckers and cuttings).",
+      "establish a planting material of their choice in the selected soil tilth and take care of the crop to adopt use of appropriate tilth in crop production."
+     ],
+     "inquiry_questions": [
+      "How does planting material determine planting site preparation?"
+     ],
+     "core_competencies": [
+      "Critical thinking and problem solving: observation skills as learnt relate size of planting materials to type of tilth."
+     ],
+     "values": [
+      "Unity: collaboration with other learners in the preparation of sites and planting."
+     ],
+     "pertinent_issues": [
+      "Safety of self and others as learners use tools and equipment to prepare planting sites."
+     ],
+     "links_to_other_areas": [
+      "Learners relate planting site (tilth) and seed size to concept of germination learnt in Integrated Science."
+     ],
+     "resources": [],
+     "kicd_source": "grade7-agriculture-nutrition.pdf#p21"
+    },
+    {
+     "kicd_code": "2.2",
+     "name": "Selected Crop Management Practices",
+     "suggested_duration": "8 lessons",
+     "learning_outcomes": [
+      "explain management practices carried out on crops",
+      "carry out management practices in crop production",
+      "appreciate importance of various management practices in crop production."
+     ],
+     "learning_experiences": [
+      "Learners are guided to:",
+      "watch a video, or a demonstration on management practices (gapping, thinning, weeding, earthing-up).",
+      "carry out selected management practices (gapping, thinning, weeding through physical methods, earthing-up).",
+      "make class presentations on the importance of the selected management practices in crop production."
+     ],
+     "inquiry_questions": [
+      "How can we carry out management practices in crop production?"
+     ],
+     "core_competencies": [
+      "Self-efficacy: effective communication skills as learners make presentations on importance of selected crop management practices."
+     ],
+     "values": [
+      "Respect: open mindedness as learners appreciate opinions of others during presentations"
+     ],
+     "pertinent_issues": [
+      "Safety and security for self and others in the use of tools and equipment to carry out crop management practices."
+     ],
+     "links_to_other_areas": [
+      "Learners relate plant spacing and population that guide gapping and thinning to concepts of measurement and numbers in Mathematics."
+     ],
+     "resources": [],
+     "kicd_source": "grade7-agriculture-nutrition.pdf#p22"
+    },
+    {
+     "kicd_code": "2.3",
+     "name": "Preparing Animal Products",
+     "suggested_duration": "9 lessons",
+     "learning_outcomes": [
+      "explain how to prepare animal products for various purposes",
+      "prepare animal products for various purposes",
+      "embrace preparation of animal products for various purposes."
+     ],
+     "learning_experiences": [
+      "Learners are guided to:",
+      "search for information, discuss and share experiences on how to prepare eggs and honey for use and storage.",
+      "prepare eggs (sorting, grading, packing) and honey (crushing and straining method, packing in appropriate containers).",
+      "display prepared animal products to embrace the practice of preparing animal products."
+     ],
+     "inquiry_questions": [
+      "How can we prepare animal products?"
+     ],
+     "core_competencies": [
+      "Digital literacy: digital citizenship skills while observing netiquette in the use and search of information on the internet."
+     ],
+     "values": [
+      "Integrity: use of ethically acceptable procedures in preparation and packaging of eggs and honey."
+     ],
+     "pertinent_issues": [
+      "Food hygiene on the use of clean tools and equipment when preparing eggs and honey."
+     ],
+     "links_to_other_areas": [
+      "Learners relate preparation of eggs and honey through sorting, grading and packing to concept of presentation of products for marketing learnt in Pre-Technical Studies."
+     ],
+     "resources": [],
+     "kicd_source": "grade7-agriculture-nutrition.pdf#p23"
+    },
+    {
+     "kicd_code": "2.4",
+     "name": "Cooking Food",
+     "suggested_duration": "9 lessons",
+     "learning_outcomes": [
+      "describe methods of cooking different types of foods",
+      "cook food using various methods",
+      "appreciate the use of varied methods of cooking food."
+     ],
+     "learning_experiences": [
+      "Learners are guided to:",
+      "use digital resources, print materials or resource person to source for information on grilling, roasting and steaming foods",
+      "practise grilling, steaming and roasting methods to prepare foods while observing safety of self and others.",
+      "serve grilled, steamed and roasted foods to appreciate the various methods of cooking."
+     ],
+     "inquiry_questions": [
+      "Why should we use different methods of cooking food?"
+     ],
+     "core_competencies": [
+      "Digital literacy: connecting and using technology to search for information on methods of cooking."
+     ],
+     "values": [
+      "Responsibility: taking care of cooking equipment as learners engage in steaming and roasting methods."
+     ],
+     "pertinent_issues": [
+      "Safety of self and others as learners use sharp tools and fuels in cooking."
+     ],
+     "links_to_other_areas": [
+      "Learners relate cooking methods to transfer of heat learnt in Integrated Science."
+     ],
+     "resources": [],
+     "kicd_source": "grade7-agriculture-nutrition.pdf#p24"
+    }
+   ]
+  },
+  {
+   "strand": "Hygiene Practices",
+   "strand_code": "3.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to describe hygiene practices at household level: (hygiene in rearing animals and laundering loose coloured items).",
+     "exceeds": "The learner describes hygiene practices at household level with elaborate details.",
+     "meets": "The learner describes hygiene practices.",
+     "approaches": "The learner describes hygiene practices at household level with some few details missing.",
+     "below": "The learner describes hygiene practices at household level with lots of missing details."
+    },
+    {
+     "indicator": "Ability to carry out hygiene practices at household level: (hygiene in rearing animals and laundering loose coloured items).",
+     "exceeds": "The learner can identify the required hygienic practice, required hygienic measures, can assemble require resources, and carry out the practice.",
+     "meets": "The learner can identify the required hygienic practice, required hygienic measures, can assemble require resources.",
+     "approaches": "The learner can identify the required hygienic practice, required hygienic measures.",
+     "below": "The learner can identify the required hygienic practice."
+    },
+    {
+     "indicator": "Ability to exhibit unity in practising hygiene: (team spirit, collaboration with others, respects others and shares available resources).",
+     "exceeds": "The learner exhibits four indicators of unity in practising hygiene at household level.",
+     "meets": "The learner exhibits three indicators of unity in practising hygiene at household level.",
+     "approaches": "The learner exhibits two indicators of unity in practising hygiene at household level.",
+     "below": "The learner exhibits less than two indicators of unity in practising hygiene at household level."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "3.1",
+     "name": "Hygiene in Rearing Animals",
+     "suggested_duration": "9 lessons",
+     "learning_outcomes": [
+      "describe hygiene practices in rearing domestic animals",
+      "carry out hygiene practices in rearing domestic animals",
+      "appreciate importance of hygiene practices in rearing domestic animals."
+     ],
+     "learning_experiences": [
+      "Learners are guided to:",
+      "search for information on hygienic practices (clean feeders and waterers, clean and well ventilated houses, clean animal) in rearing domestic animals such as pets.",
+      "carry out appropriate hygiene practices in rearing domestic animals such as cleaning feeders, waterers, cleaning animal structures.",
+      "make class presentation on the importance of hygiene in rearing domestic animals."
+     ],
+     "inquiry_questions": [
+      "How can we maintain hygiene while rearing animals?"
+     ],
+     "core_competencies": [
+      "Learning to learn: sharing learnt knowledge as learners apply information to carry out hygiene in animal rearing practices."
+     ],
+     "values": [
+      "Responsibility: engaging in assigned roles while carrying out hygiene practices in rearing domestic animals."
+     ],
+     "pertinent_issues": [
+      "Animal welfare as learners observe hygiene practices in rearing domestic animals."
+     ],
+     "links_to_other_areas": [
+      "Learners relate hygiene practices in rearing domestic animals to concepts of animal production as an economic activity learnt in Social Studies."
+     ],
+     "resources": [],
+     "kicd_source": "grade7-agriculture-nutrition.pdf#p26"
+    },
+    {
+     "kicd_code": "3.2",
+     "name": "Laundry: Loose Coloured Items",
+     "suggested_duration": "8 lessons",
+     "learning_outcomes": [
+      "describe how to launder a loose coloured article for hygiene purposes",
+      "launder a loose coloured article for hygiene purposes",
+      "embrace laundering of loose coloured article for hygiene purposes."
+     ],
+     "learning_experiences": [
+      "Learners are guided to:",
+      "watch a video clip or a demonstration on how to launder a loose coloured (sorting, washing by kneading and squeezing, drying, finishing).",
+      "launder a loose coloured item (sorting, washing by kneading and squeezing, drying, finishing).",
+      "display the clean loose coloured articles to embrace appropriate laundry for hygiene purposes."
+     ],
+     "inquiry_questions": [
+      "How do you launder a loose coloured article for hygienic purposes?"
+     ],
+     "core_competencies": [
+      "Learning to learn: reflection of own work as learners launder loose coloured articles for hygiene purposes."
+     ],
+     "values": [
+      "Responsibility as learners undertake assigned roles to launder loose coloured articles."
+     ],
+     "pertinent_issues": [
+      "Health promotion as learners maintain hygiene through laundering a loose coloured article."
+     ],
+     "links_to_other_areas": [
+      "Learners relate laundering of loose coloured articles to concept of tie and dye technique of fixing colours learnt in Creative Arts and Sports."
+     ],
+     "resources": [],
+     "kicd_source": "grade7-agriculture-nutrition.pdf#p27"
+    }
+   ]
+  },
+  {
+   "strand": "Production Techniques",
+   "strand_code": "4.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to describe production techniques at household level: (knitting, constructing framed garden, value addition on crop produce, and making soap).",
+     "exceeds": "The learner describes four production techniques at household level.",
+     "meets": "The learner describes three production techniques at household level.",
+     "approaches": "The learner describes two production techniques at household level.",
+     "below": "The learner describes less than two production techniques at household level."
+    },
+    {
+     "indicator": "Ability to apply production techniques at household level: (knitting, constructing framed garden, value addition on crop produce, and making soap).",
+     "exceeds": "The learner applies four production techniques at household level.",
+     "meets": "The learner applies three production techniques at household level.",
+     "approaches": "The learner applies two production techniques at household level.",
+     "below": "The learner applies less than two production techniques at household level."
+    },
+    {
+     "indicator": "Ability to portray integrity in production techniques: (is honest, uses resources prudently, adheres to ethical procedures, has commitment to duty).",
+     "exceeds": "The learners portrays four indicators of integrity in production techniques.",
+     "meets": "The learners portrays three indicators of integrity in production techniques.",
+     "approaches": "The learners portrays two indicators of integrity in production techniques.",
+     "below": "The learners portrays less than two indicators of integrity in production techniques."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "4.1",
+     "name": "Knitting Skills",
+     "suggested_duration": "10 lessons",
+     "learning_outcomes": [
+      "describe knitting stitches used in making household articles",
+      "knit various articles for household use",
+      "embrace knitting skills in making household articles."
+     ],
+     "learning_experiences": [
+      "Learners are guided to:",
+      "use digital devices or real materials or print media identify basic knitting stitches (purl and knit).",
+      "knit a simple household article such as tool bag, scarf, gloves, mats or table wipers.",
+      "display knitted work to embrace the use of knitted articles for household use."
+     ],
+     "inquiry_questions": [
+      "How do you knit an article for household use?"
+     ],
+     "core_competencies": [
+      "Creativity and imagination: experimenting skills as learners knit a household article using basic knitting stitches."
+     ],
+     "values": [
+      "Integrity: prudent use of materials and equipment in the knitting of household article."
+     ],
+     "pertinent_issues": [
+      "Safety of self and others as learners use sharp knitting tools."
+     ],
+     "links_to_other_areas": [
+      "Learners relate knitting to weaving technique learnt in Creative Arts and Sports."
+     ],
+     "resources": [],
+     "kicd_source": "grade7-agriculture-nutrition.pdf#p29"
+    },
+    {
+     "kicd_code": "4.2",
+     "name": "Constructing Framed Suspended Garden",
+     "suggested_duration": "10 lessons",
+     "learning_outcomes": [
+      "describe framed suspended garden for growing crops",
+      "construct a framed structure for suspended garden",
+      "embrace the use of framed suspended garden for growing crops."
+     ],
+     "learning_experiences": [
+      "Learners are guided to:",
+      "search for photos, videos and illustrations on framed suspended gardens to describe how they are constructed.",
+      "innovate and construct framed suspended gardens using locally available materials such as wires, wooden planks, metal bars and poles.",
+      "establish a crop on the constructed framed suspended garden to embrace their use in growing crops."
+     ],
+     "inquiry_questions": [
+      "How are framed suspended gardens constructed?"
+     ],
+     "core_competencies": [
+      "Creativity and imagination: experimenting skills as learners innovate framed suspended gardens."
+     ],
+     "values": [
+      "Unity: team work as learners undertake the project for construction of framed suspended garden."
+     ],
+     "pertinent_issues": [
+      "Environmental awareness as learners utilize limited space when constructing framed suspended gardens."
+     ],
+     "links_to_other_areas": [
+      "Learners relate designing, sketching and construction of framed suspended garden to skills in drawing, designing and use of related tools learnt in Pre-Technical Studies."
+     ],
+     "resources": [],
+     "kicd_source": "grade7-agriculture-nutrition.pdf#p30"
+    },
+    {
+     "kicd_code": "4.3",
+     "name": "Adding Value to Crop Produce",
+     "suggested_duration": "8 lessons",
+     "learning_outcomes": [
+      "explain ways of adding value on crop produce",
+      "add value to a selected crop produce",
+      "appreciate the importance of value addition on crop produce."
+     ],
+     "learning_experiences": [
+      "Learners are guided to:",
+      "discuss ways of adding value to crop produce such as potatoes, cassava, groundnuts, simsim, sweet potatoes and pumpkin.",
+      "process a provided sample of crop produce such as potatoes, cassava, groundnuts, simsim, sweet potatoes and pumpkin to add value using appropriate methods like drying and frying.",
+      "compare the processed crop produce to raw crop produce in terms of monetary value and storage life to appreciate importance of value addition."
+     ],
+     "inquiry_questions": [
+      "Why do we add value to crop produce?",
+      "How can we add value to crop produce?"
+     ],
+     "core_competencies": [
+      "Critical thinking and problem solving: evaluation and decision making skills as learners carry out value addition to a selected crop produce."
+     ],
+     "values": [
+      "Integrity: applying laid down procedures when learners ethically processes crop produce to add value."
+     ],
+     "pertinent_issues": [
+      "Food and nutrition security as learners process crop produce for value addition."
+     ],
+     "links_to_other_areas": [
+      "Learners relate value addition concept to commodity marketing learnt in Pre-Technical Studies."
+     ],
+     "resources": [],
+     "kicd_source": "grade7-agriculture-nutrition.pdf#p31"
+    },
+    {
+     "kicd_code": "4.4",
+     "name": "Making Homemade Soap",
+     "suggested_duration": "8 lessons",
+     "learning_outcomes": [
+      "identify the forms of soap used at household level",
+      "make homemade soap using natural ingredients",
+      "embrace homemade soap for household use."
+     ],
+     "learning_experiences": [
+      "Learners are guided to:",
+      "brainstorm and share experiences on forms of soap (liquid, cake/bar, paste, powder) used at household level.",
+      "use natural ingredients such as ashes, salt, water, animal fats or plant oils to make soap.",
+      "use the homemade soap to maintain cleanliness at household level."
+     ],
+     "inquiry_questions": [
+      "How can we make soap using natural ingredients?"
+     ],
+     "core_competencies": [
+      "Critical thinking and problem solving: open-mindedness and creativity skills as learners make homemade soap using natural ingredients."
+     ],
+     "values": [
+      "Responsibility: engaging in assigned roles while making homemade soap."
+     ],
+     "pertinent_issues": [
+      "Financial literacy as learners save on costs by using locally available resources to make homemade soap."
+     ],
+     "links_to_other_areas": [
+      "Learners relate use of natural ingredients in making soap to concepts of recycling and reusing wastes learnt in Integrated Science."
+     ],
+     "resources": [],
+     "kicd_source": "grade7-agriculture-nutrition.pdf#p32"
+    }
+   ]
+  }
+ ]
+}

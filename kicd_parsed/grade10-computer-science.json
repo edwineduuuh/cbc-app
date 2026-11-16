@@ -1,0 +1,272 @@
+{
+ "source_pdf": "grade10-computer-science.pdf",
+ "grade": 10,
+ "subject": "computer-science",
+ "general_outcomes": [],
+ "strands": [
+  {
+   "strand": "Foundation of Computer Science",
+   "strand_code": "1.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to relate the",
+     "exceeds": "Relates 5 principle technologies to respective computer generation and gives relevant examples",
+     "meets": "Relates 4 principle technologies to respective computer generation",
+     "approaches": "Relates 3 principle technologies to respective computer generation",
+     "below": "Relate at most 2 principle technologies to respective computer generation"
+    },
+    {
+     "indicator": "Ability to read and",
+     "exceeds": "Reads and writes data to a computer storage device using different methods",
+     "meets": "Reads and writes data to a computer storage device",
+     "approaches": "Reads and writes data to a computer storage device, with prompts",
+     "below": "Reads and writes data to a computer storage device, with prompts and assistance"
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "1.4",
+     "name": "Computer storage",
+     "suggested_duration": "6 lessons",
+     "learning_outcomes": [
+      "identify types of storage used in computer systems",
+      "categorise types of storage used in computer systems",
+      "read data from a computer storage",
+      "write data to a computer storage",
+      "establish criteria used to select computer storage",
+      "acknowledge safety of data in computer storage media."
+     ],
+     "learning_experiences": [],
+     "inquiry_questions": [],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-computer-science.pdf#p19"
+    },
+    {
+     "kicd_code": "1.5",
+     "name": "Central Processing Unit (CPU)",
+     "suggested_duration": "6 lessons",
+     "learning_outcomes": [
+      "describe structural elements of the CPU of a computer system",
+      "relate structural elements of the CPU to their functions",
+      "examine types of CPUs in computing devices",
+      "appreciate the role of CPU in computing."
+     ],
+     "learning_experiences": [],
+     "inquiry_questions": [],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-computer-science.pdf#p23"
+    },
+    {
+     "kicd_code": "1.6",
+     "name": "Operating System (OS)",
+     "suggested_duration": "12 lessons",
+     "learning_outcomes": [
+      "describe functions of an operating system",
+      "classify operating system according to different attributes",
+      "install an operating system in a computer",
+      "use an operating system to perform a task",
+      "acknowledge the importance of operating systems in computing."
+     ],
+     "learning_experiences": [],
+     "inquiry_questions": [],
+     "core_competencies": [
+      "Core competencies to be developed:",
+      "Critical Thinking and Problem Solving: learner analyses situations and selects an appropriate operating system for a given situation.",
+      "Learning to learn: learner reflects on own learning as they share experiences on installation and use of Operating Systems. Values:",
+      "Respect: learner is open minded as they discuss functions of an operating system.",
+      "Integrity: learner applies laid down procedures as they use OS in error handling and managing input, output and storage devices. Pertinent and Contemporary Issues (PCIs): Life Skills: self-esteem as a learner install different types of OS and application software in computing devices in a virtual environment."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-computer-science.pdf#p25"
+    }
+   ]
+  },
+  {
+   "strand": "Computer Networking",
+   "strand_code": "2.0",
+   "assessment_rubric": [],
+   "substrands": [
+    {
+     "kicd_code": "2.4",
+     "name": "Network Topologies",
+     "suggested_duration": "8 lessons",
+     "learning_outcomes": [
+      "differentiate between physical and logical network topologies",
+      "describe types of logical and physical topologies in computer networking",
+      "create a physical network topology for a computer network",
+      "appreciate the use of network topologies in computer networks."
+     ],
+     "learning_experiences": [],
+     "inquiry_questions": [],
+     "core_competencies": [
+      "Core competencies to be developed:",
+      "Critical Thinking and Problem Solving: learner brainstorms and discusses advantages and disadvantages of physical network topologies.",
+      "Creativity and Imagination: learner generate new ideas on how to simulate a physical network topology. Values:",
+      "Unity: learner collaborates with others as they discuss types of computer network physical topologies.",
+      "Love: learner respects others opinion as they discuss advantages and disadvantages of physical network topologies. Pertinent and Contemporary Issues (PCIs): Life skills: Effective communication as learner share experiences on use of different physical network topologies."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-computer-science.pdf#p38"
+    }
+   ]
+  },
+  {
+   "strand": "Software development",
+   "strand_code": "3.0",
+   "assessment_rubric": [],
+   "substrands": [
+    {
+     "kicd_code": "3.1",
+     "name": "Computer Programming Concepts",
+     "suggested_duration": "14 lessons",
+     "learning_outcomes": [
+      "explain the terminologies used in programming languages",
+      "describe evolution of programming languages in software development",
+      "categorise the programming languages according to the paradigms",
+      "create simple instructions to simulate low level programming languages",
+      "acknowledge the evolution of programming languages in software development."
+     ],
+     "learning_experiences": [],
+     "inquiry_questions": [],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-computer-science.pdf#p41"
+    },
+    {
+     "kicd_code": "3.2",
+     "name": "Program development",
+     "suggested_duration": "15 lessons",
+     "learning_outcomes": [
+      "describe stages of program development in computer programming",
+      "write a pseudocode to illustrate the logical flow of an algorithm",
+      "represent the logical flow of an algorithm using a flowchart",
+      "design an algorithm to solve a real life problem",
+      "appreciate the importance of using algorithms in problem solving"
+     ],
+     "learning_experiences": [
+      "discuss the stages of program development cycle (problem definition, program design, coding, testing, implementation, documentation, maintenance)",
+      "discuss characteristics of an algorithm (input, output, finite, definite, effective)",
+      "discuss the keywords (start, variables, input, processing, output, end) used in pseudocodes and demonstrate how they are used to represent algorithms",
+      "use the keywords (start, variables, input, processing, output, end) to write a pseudocode that illustrates the logical flow of an algorithm",
+      "discuss the standard symbols (start, input, processing, decision, repetition, continuation, output, end) used in flowcharts and demonstrate how they are used to represent an algorithm"
+     ],
+     "inquiry_questions": [],
+     "core_competencies": [
+      "Core competencies to be developed:",
+      "Critical Thinking and Problem Solving: learner seeks alternatives that may solve a problem when discussing characteristics of an algorithm.",
+      "Creativity and Imagination: learner undertakes tasks as they work on a problem to find a solution when constructing an algorithm using a flowchart and pseudocode. Values:",
+      "Unity: learner display team spirit as they draw and discuss symbols of a program flowchart.",
+      "Respect: learner understands and appreciates others as they share experiences on the significance of algorithms in problem solving. Pertinent and Contemporary Issues (PCIs): Socio-Economic and Environmental Issues: safety in the school as learner observe safety practices in the computer user environment as they use digital devices when constructing algorithms."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-computer-science.pdf#p43"
+    },
+    {
+     "kicd_code": "3.3",
+     "name": "Identifiers and Operators",
+     "suggested_duration": "18 lessons",
+     "learning_outcomes": [
+      "describe the elementary elements of a computer program",
+      "declare variables and constants in a programming language",
+      "use input and output statements in a programming language",
+      "use operators in a programming language",
+      "appreciate the role of identifiers and operators in programming."
+     ],
+     "learning_experiences": [],
+     "inquiry_questions": [],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-computer-science.pdf#p45"
+    },
+    {
+     "kicd_code": "3.4",
+     "name": "Control Structures",
+     "suggested_duration": "17 lessons",
+     "learning_outcomes": [
+      "describe control structures in programming",
+      "select program control structure for a given situation",
+      "use control structures in programming",
+      "appreciate the application of control structures in programming."
+     ],
+     "learning_experiences": [],
+     "inquiry_questions": [],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [
+      "Pertinent and Contemporary Issues (PCIs): Life Skills: self-esteem as learners present findings on boolean and compound expressions."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-computer-science.pdf#p47"
+    },
+    {
+     "kicd_code": "3.5",
+     "name": "Data Structures",
+     "suggested_duration": "14 lessons",
+     "learning_outcomes": [
+      "describe types of containers in programming",
+      "use containers in programming",
+      "apply sorting and searching techniques in data structures",
+      "embrace the use of containers in programming."
+     ],
+     "learning_experiences": [],
+     "inquiry_questions": [],
+     "core_competencies": [
+      "Core competencies to be developed:",
+      "Digital Literacy: learner uses a digital device to watch a video clip on declaration and initialisation of single and two dimensional containers.",
+      "Learning to Learn: learner reflect on their own learning as they share experiences on the use of containers to solve problems in programming. Values:",
+      "Peace: learner respect self and others as they brainstorm the meaning and use of containers.",
+      "Respect: learner appreciates diverse opinions as they discuss the syntax of containers in programming. Pertinent and Contemporary Issues (PCIs): Citizenship Education: national values as learner fosters fairness and justice among peers as they discuss and write examples of lists, dictionaries, sets and tuples in turns."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-computer-science.pdf#p49"
+    },
+    {
+     "kicd_code": "3.6",
+     "name": "Functions",
+     "suggested_duration": "14 lessons",
+     "learning_outcomes": [
+      "discuss types of function used in modular programming",
+      "use built-in and user-defined functions to create a modular program",
+      "discuss the scope of variables and parameter passing between functions",
+      "appreciate the importance of modularity in programming."
+     ],
+     "learning_experiences": [],
+     "inquiry_questions": [],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-computer-science.pdf#p51"
+    }
+   ]
+  }
+ ]
+}

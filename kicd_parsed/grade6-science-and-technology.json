@@ -1,0 +1,396 @@
+{
+ "source_pdf": "grade6-science-and-technology.pdf",
+ "grade": 6,
+ "subject": "science-and-technology",
+ "general_outcomes": [
+  "interact with the environment for learning and sustainable development.",
+  "apply digital literacy skills appropriately for communication, learning and enjoyment.",
+  "appreciate the contribution of science and technology in the provision of innovative solutions.",
+  "use scientific knowledge to observe and explain the natural world.",
+  "make functional discoveries that impact individuals and the wider society.",
+  "use innovative approaches as well as critical thinking and problem solving skills to stimulate scientific inquiry, at the local, national and global levels for lifelong learning."
+ ],
+ "strands": [
+  {
+   "strand": "Living",
+   "strand_code": "1.0",
+   "assessment_rubric": [],
+   "substrands": [
+    {
+     "kicd_code": "1.2",
+     "name": "Invertebrates",
+     "suggested_duration": "14 lessons",
+     "learning_outcomes": [
+      "identify common invertebrates in the environment",
+      "practise precautions in handling invertebrates",
+      "describe the general characteristics of invertebrates",
+      "outline the economic importance of invertebrates",
+      "appreciate the importance of invertebrates in nature."
+     ],
+     "learning_experiences": [
+      "walk around the school compound, observe and identify common invertebrates, record and share with peers",
+      "use print and non-print material to search for information on common invertebrates and share the findings with peers",
+      "discuss with peers the safety precautions applied when handling invertebrates",
+      "use print and non-print materials to search for information on general characteristics of invertebrates",
+      "explore the school compound and the adjacent environment to identify different invertebrates and their characteristics; practise safety precautions in handling invertebrates",
+      "make an inventory of common invertebrates in their locality",
+      "discuss the economic importance of invertebrates."
+     ],
+     "inquiry_questions": [
+      "What are the common features of invertebrates?"
+     ],
+     "core_competencies": [
+      "Critical thinking and problem solving: The learner identifies solutions to some economic problems as they discuss the economic importance of invertebrates. Creativity and Imagination: The learner thinks critically, imagines and innovatively creates an inventory of common invertebrates in their locality."
+     ],
+     "values": [
+      "Love: The learner learns how to take care self and others as they explore the school compound and their locality to identify different invertebrates and their characteristics."
+     ],
+     "pertinent_issues": [
+      "Animal Welfare: The learner learns how to take care of animals as they explore the school compound and their locality to identify different invertebrates and their characteristics. Safety and security: The learner practises and observes safety precautions in handling animals as they discuss safety precautions applied when handling invertebrates. Health promotion issues: The learner discusses the role of invertebrates in transmission of diseases as they discuss safety precautions applied when handling invertebrates."
+     ],
+     "links_to_other_areas": [
+      "Agriculture and Nutrition: The learner is able to link information on transmission of diseases to communicable diseases in Agriculture and Nutrition."
+     ],
+     "resources": [],
+     "kicd_source": "grade6-science-and-technology.pdf#p16"
+    }
+   ]
+  },
+  {
+   "strand": "Living Things and the Environment",
+   "strand_code": "1.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to describe the importance of fungi.",
+     "exceeds": "The learner describes the importance of fungi correctly and comprehensively.",
+     "meets": "The learner describes the importance of fungi correctly.",
+     "approaches": "The learner describes the importance of fungi partially.",
+     "below": "The learner has challenges describing the importance of fungi , with prompt."
+    },
+    {
+     "indicator": "Ability to outline the economic importance of invertebrates.",
+     "exceeds": "The learner outlines the economic importance of invertebrates correctly, giving example(s) from the locality.",
+     "meets": "The learner outlines the economic importance of invertebrates correctly.",
+     "approaches": "The learner outlines most of the economic importance of invertebrates correctly with help",
+     "below": "The learner outlines a few economic importance of invertebrates."
+    },
+    {
+     "indicator": "Ability to describe functions of main parts of the human circulatory system.",
+     "exceeds": "The learner describes functions of main parts of the human circulatory system correctly and comprehensively.",
+     "meets": "The learner describes functions of main parts of the human circulatory system correctly",
+     "approaches": "The learner describes most of the functions of main parts of the human circulatory system correctly.",
+     "below": "The learner describes a few functions of main parts of the human circulatory system."
+    },
+    {
+     "indicator": "Ability to develop a routine plan for maintaining a healthy circulatory system.",
+     "exceeds": "The learner develops a comprehensive routine plan for maintaining a healthy circulatory system.",
+     "meets": "The learner develops a routine plan for maintaining a healthy circulatory system.",
+     "approaches": "The learner develops a routine plan for maintaining a healthy circulatory system omitting some parts.",
+     "below": "The learner develops a routine plan for maintaining a healthy circulatory system."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "1.3",
+     "name": "Human circulatory system",
+     "suggested_duration": "16 lessons",
+     "learning_outcomes": [
+      "identify main parts of the human circulatory system",
+      "describe functions of main parts of the human circulatory system",
+      "outline the symptoms and prevention of common health conditions of the human circulatory",
+      "develop a routine plan for maintaining a healthy circulatory system",
+      "appreciate the importance of a healthy circulatory system."
+     ],
+     "learning_experiences": [
+      "use print and non-print materials to search for information on the main parts of the human circulatory system and share the finding with peers",
+      "use locally available materials to model the human circulatory system and share the finding with peers",
+      "use online interactive platforms or digital images or writing materials to illustrate main parts of the human circulatory system",
+      "use print and non-print material to search for information on parts of the heart (auricles, ventricles and vessels) and their functions, record and share their findings with peers",
+      "discuss with peers the functions of the main blood vessels in the human body (arteries, veins and",
+      "capillaries)",
+      "discuss with peers the components of blood and their functions, record and share (red blood cells, white blood cells and platelets)",
+      "search for information on the symptoms and prevention of common health conditions of the human circulatory system and share the findings with peers",
+      "discuss with peers the ways of maintaining a healthy human circulatory system",
+      "discuss with peers on routine plan for maintaining a healthy circulatory system, and develop a routine plan for maintaining a healthy circulatory system (to include drinking plenty of water, physical activities and healthy eating)."
+     ],
+     "inquiry_questions": [
+      "1. What is the human circulatory system made up of?",
+      "2. What measures enhance a healthy human circulatory system?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed: Communication and Collaboration: The learner acquires listening and speaking skills as they discuss components of blood and their functions. Digital literacy: The learner uses interactive platforms or digital images as they search for information on the main parts of the human circulatory system and share the finding with peers. Values: Responsibility: The learner learns how to live responsibly while practising ways for maintaining a healthy circulatory system. Unity: The learner shares the roles involved in an activity as they use print and non-print material to search for information on parts of the heart. Pertinent and Contemporary Issues (PCI’s: Health promotion issues: The learner learns ways of living healthy as they discuss ways of maintaining a healthy human circulatory system and develop a routine plan for maintaining a healthy circulatory system. Links to other learning areas: Creative Arts: The learner is able to relate modelling of the human circulatory system to modelling in Creative Arts and Sports."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade6-science-and-technology.pdf#p18"
+    }
+   ]
+  },
+  {
+   "strand": "Living Things and their Environment",
+   "strand_code": "1.0",
+   "assessment_rubric": [],
+   "substrands": [
+    {
+     "kicd_code": "1.1",
+     "name": "Fungi",
+     "suggested_duration": "12 lessons",
+     "learning_outcomes": [
+      "identify common fungi in the environment",
+      "describe the importance of fungi in nature",
+      "appreciate the importance of fungi in the economy."
+     ],
+     "learning_experiences": [
+      "use print and non-print materials to search for images of common fungi such and share findings with peers",
+      "take a walk in the school compound and the adjacent environment to observe and identify different types of fungi",
+      "grow moulds on available food materials, observe and share with peers",
+      "use print and non-print materials to search for information on the economic importance of moulds, yeast and mushrooms, record and discuss with peers. Note: Learners are guided to observe precautions and safe disposal of wastes when handling fungi."
+     ],
+     "inquiry_questions": [
+      "How is fungi important in nature?"
+     ],
+     "core_competencies": [],
+     "values": [
+      "Values: Responsibility: The learner plays different role(s) as they grow moulds on available food materials, observe and share with peers. Pertinent and Contemporary Issues Financial Literacy: The learner learns about economic activities as they use print and non-print materials to search for information on the economic importance of moulds, yeast and mushrooms. Environmental conservation: The learner learns how to conserve the environment as they observe precautions and safe disposal of wastes when handling fungi. Links to Other Learning Areas: Agriculture and Nutrition: The learner is able to link information on the economic importance of fungi to food production in Agriculture and Nutition."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade6-science-and-technology.pdf#p14"
+    }
+   ]
+  },
+  {
+   "strand": "Matter",
+   "strand_code": "2.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to identify the changes of state when substances are heated or cooled.",
+     "exceeds": "The learner correctly identifies the changes of state when substances are heated or cooled giving examples from locality.",
+     "meets": "The learner correctly identifies at least four changes of state when substances are heated or cooled.",
+     "approaches": "The learner identifies at least two changes of state when substances are heated or cooled.",
+     "below": "The learner identifies less than two changes of state when substances are heated or cooled."
+    },
+    {
+     "indicator": "Ability to identify the components of air.",
+     "exceeds": "The learner correctly identifies the major components of air giving some examples.",
+     "meets": "The learner identifies the major components of air correctly.",
+     "approaches": "The learner identifies most of the major components of air correctly.",
+     "below": "The learner correctly identifies a few of the major component of air."
+    },
+    {
+     "indicator": "Ability to explain the effects of air pollution on the environment.",
+     "exceeds": "The learner correctly and comprehensively explains the effects of air pollution on the environment.",
+     "meets": "The learner correctly explains the effects of air pollution on the environment.",
+     "approaches": "The learner explains most of the effects of air pollution on the environment correctly.",
+     "below": "The learner explains a few effects of air pollution on the environment."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "2.1",
+     "name": "Change of State",
+     "suggested_duration": "18 lessons",
+     "learning_outcomes": [
+      "identify the changes of state when substances are heated or cooled",
+      "describe the applications of the change of state of matter in everyday life",
+      "appreciate the applications of change of state of matter in day-to-day life."
+     ],
+     "learning_experiences": [
+      "brainstorm the meaning of change of state of matter",
+      "carry out activities to demonstrate change of state of matter",
+      "discuss the applications of change of state of matter in everyday life",
+      "use digital or print media to search for information on what happens when matter is heated or cooled. Note: observe safety while heating substances to avoid fires and burns. Project: Learners to make candles using waste candle wax or beeswax. Learners to repair broken plastic containers."
+     ],
+     "inquiry_questions": [
+      "How is change of state of matter important in day-to-day life?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed: Communication and collaboration: The learner acquires speaking and listening skills as they brainstorm the meaning of change of state of matter. Learning to learn: The learner learns the best procedural practices of changing states as they carry out activities to demonstrate change of state of matter. Values: Respect: The learner appreciates diverse opinions of others while discussing the change of state of matter in everyday life. Pertinent and contemporary Issues: Socio-economic issues (Environmental Education): The learner practises ways of conserving the environment as they make candles using waste candle wax or beeswax and repairing broken plastic containers to save on the cost. Linkage to Other Learning Areas: Agriculture and Nutrition: The learner relates the concept of evaporation as a process of drying clothes and cereals in Agriculture and Nutrition."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade6-science-and-technology.pdf#p22"
+    },
+    {
+     "kicd_code": "2.2",
+     "name": "Composition of Air",
+     "suggested_duration": "16 lessons",
+     "learning_outcomes": [
+      "identify the components of air",
+      "outline uses of the different components of air",
+      "explain the effects of air pollution in the environment",
+      "describe methods of reducing air pollution in the environment",
+      "appreciate the need for clean air in day-to-day life."
+     ],
+     "learning_experiences": [
+      "brainstorm on the meaning air and its constituent",
+      "draw a pie chart showing percentage composition of components of air",
+      "carry out activity to investigate the presence of oxygen in air collaboratively (use a burning candle)",
+      "discuss with peers the uses of the different components of air",
+      "brainstorm on the meaning of air pollution",
+      "explore the school and neighbourhood to identify air pollutants",
+      "discuss with peers the effects of air pollution on the environment",
+      "identify and discuss methods of reducing air pollution",
+      "use digital or print media to search for more information on the effects of air pollution. Note: observe safety precautions in air-",
+      "polluted environments (Example: practise use of dust masks, goggles, overcoats). Project: Learners are guided to make posters on common air pollutants, dangers of air pollution and ways of controlling air pollution."
+     ],
+     "inquiry_questions": [
+      "How does air pollution affect the environment?"
+     ],
+     "core_competencies": [
+      "Citizenship: The learner relates concept of environmental conservation as they discuss on air pollutants and come up with ways of reducing air pollution in the environment. Learning to learn: The learner learns new skills of controlling air pollutants as they explore the school and neighbourhood to identify air pollutants."
+     ],
+     "values": [
+      "Responsibility: The learner observes safety precautions in an air-polluted environment as they identify and discuss methods of reducing air pollution. Patriotism: The learner serves the community by making posters on common air pollutants, dangers of air pollution and ways of controlling air pollution to educate members of the community."
+     ],
+     "pertinent_issues": [
+      "Socio-economic and environmental issues (Environmental education and climate change): The learner practises ways of environmental conservation as they identify and discuss methods of reducing air pollution."
+     ],
+     "links_to_other_areas": [
+      "Mathematics: The learner uses mathematical skills to draw a pie chart showing the percentage composition of components of air. ."
+     ],
+     "resources": [],
+     "kicd_source": "grade6-science-and-technology.pdf#p24"
+    }
+   ]
+  },
+  {
+   "strand": "Force and Energy",
+   "strand_code": "3.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to illustrate the formation of shadows and eclipses in nature.",
+     "exceeds": "The learner illustrates the formation of shadows and eclipses in nature correctly and labels.",
+     "meets": "The learner illustrates the formation of shadows and eclipses in nature correctly.",
+     "approaches": "The learner illustrates the formation of shadows and eclipses in nature omitting some basic details.",
+     "below": "The learner illustrates the formation of shadows and eclipses in nature, with help."
+    },
+    {
+     "indicator": "Ability to demonstrate the use of levers to make work easier.",
+     "exceeds": "The learner demonstrates the use of levers to make work easier correctly and innovatively.",
+     "meets": "The learner demonstrates the use of levers to make work easier correctly.",
+     "approaches": "The learner partially demonstrates the use of levers to make work easier correctly",
+     "below": "The learner demonstrates the use of levers to make work easier, with prompt."
+    },
+    {
+     "indicator": "Ability to demonstrate how a slope makes work easier in day-to-day life.",
+     "exceeds": "The learner demonstrates how a slope makes work easier in day-to-day life correctly and innovatively, giving illustrations.",
+     "meets": "The learner demonstrates how a slope makes work easier in day-to-day life correctly.",
+     "approaches": "The learner partially demonstrates how a slope makes work easier in day-to-day life correctly.",
+     "below": "The learner requires prompt to demonstrate how a slope makes work easier in day-to-day life."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "3.1",
+     "name": "Light",
+     "suggested_duration": "16 lessons",
+     "learning_outcomes": [
+      "demonstrate the movement of light through materials",
+      "draw ray diagrams of images formed in plane mirrors",
+      "illustrate the formation of shadows and eclipses in nature",
+      "describe the formation of rainbow in nature",
+      "appreciate the importance of movement light in everyday life."
+     ],
+     "learning_experiences": [
+      "carry out activities to show the movement of light through different materials",
+      "perform an experiment to show reflection of light in plane mirrors (laws of reflection)",
+      "locate and illustrate images formed in plane mirrors and discuss their characteristics",
+      "carry out activities to demonstrate and illustrate the formation of shadows and eclipses",
+      "use digital or print media to search for more information on the movement of light through materials, image formation in plane mirrors, the formation of shadows, eclipses and rainbow in nature",
+      "discuss with peers the applications of movement of light through different media (mirrors",
+      "periscope, kaleidoscope, lenses, magnifying glass, hand lens, mirage, rainbow). Project: Learner uses locally available resources to make a functional periscope."
+     ],
+     "inquiry_questions": [
+      "How does light travel?"
+     ],
+     "core_competencies": [
+      "Digital literacy: The learner interacts with digital technology as they use digital or print media to search for information on the movement of light through materials, image formation in plane mirrors, the formation of shadows, eclipses and rainbows in nature. Communication and Collaboration: The learner cooperates and works harmoniously with peers as they discuss the applications of movement of light in different media."
+     ],
+     "values": [
+      "Unity: The learner works harmoniously with peers as they use locally available resources to make a functional periscope."
+     ],
+     "pertinent_issues": [
+      "Socio-economic issues: The learner observes safety and security as they use plane mirrors to perform experiments to demonstrate image formation and describe the characteristics of images formed."
+     ],
+     "links_to_other_areas": [
+      "The learner is able to relate the concept of ray of light in lighting up the home in Home Science."
+     ],
+     "resources": [],
+     "kicd_source": "grade6-science-and-technology.pdf#p27"
+    },
+    {
+     "kicd_code": "3.2",
+     "name": "Levers as simple machines",
+     "suggested_duration": "14 lessons",
+     "learning_outcomes": [
+      "identify common levers used in day-to-day life",
+      "describe parts of a lever as used in making work easier",
+      "classify levers into the three classes",
+      "demonstrate the use of levers in making work easier",
+      "appreciate the use of levers in making work easier."
+     ],
+     "learning_experiences": [
+      "brainstorm on the meaning of levers as simple machines",
+      "work collaboratively to identify parts of a lever",
+      "carry out activities to group levers into the three classes",
+      "carry out activities to demonstrate the use of common levers as simple machines",
+      "use digital or print media to search for information on how levers make work easier in day-to-day life. Project: Learners are guided to make and use a beam balance from locally available materials."
+     ],
+     "inquiry_questions": [
+      "How are levers used in day to day life?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed Creativity and imagination: The learner assembles different parts and innovatively makes a beam balance from locally available materials. Learning to learn: The learner learns from each other as they carry out activities while demonstrating the use of common levers as simple machines. Values: Respect: The learner displays positive regard for self and others as they work together to identify parts of a lever. Pertinent and Contemporary Issues: Citizenship education: The learner exercises care and protection for one another while performing experiments to demonstrate the use of common levers as simple machines. Link to Other Learning Areas: Agriculture and Nutrition: Learner is able to link application of the principle of levers in farm tools, use of cutlery; spoons and bottle openers as in Agriculture and Nutrition. Creative Arts: Learner is able to apply the concepts of simple leavers as they play on a see-saw in Creative Arts."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade6-science-and-technology.pdf#p29"
+    },
+    {
+     "kicd_code": "3.3",
+     "name": "Slopes as simple machines",
+     "suggested_duration": "14 lessons",
+     "learning_outcomes": [
+      "identify types of slopes used as simple machines",
+      "demonstrate how a slope makes work easier in day-to-day life",
+      "appreciate the use of slopes in everyday life."
+     ],
+     "learning_experiences": [
+      "discuss with peers the meaning of slope as a simple machine (inclined plane)",
+      "give practical examples on where slopes are used to make work easier around the school environment (ladders, ramps, staircase, road winding uphill, wedge, roofs, loading a lorry)",
+      "discuss with peers how slopes are used to make work easier in day-to-day life",
+      "carry out activities to show how slopes make work easier",
+      "where possible, use digital media to search for information on how slopes make work easier (elevators/lifts, escalators/moving stares, stair case, ladders, cableways, ramps, road winding uphill, wedge, roofs, loading a lorry)",
+      "discuss with peers the importance of use of slopes in day-to-day life.",
+      "Project: make a simple slope for use in school or at home using locally available materials."
+     ],
+     "inquiry_questions": [
+      "How are slopes used in everyday life?"
+     ],
+     "core_competencies": [
+      "Citizenship: The learner exercises ethical responsibility as they make a simple slope for use in school or at home using locally available materials. Critical thinking and problem solving: The learner thinks clearly as they make a simple slope for use in school or at home using locally available materials."
+     ],
+     "values": [
+      "Integrity: The learner learns how to utilise resources prudently while making a simple slope for use in school or at home."
+     ],
+     "pertinent_issues": [
+      "Socio economic issues: The learner exercises safety and security as they carry out activities to show how slopes make work easier."
+     ],
+     "links_to_other_areas": [
+      "Agriculture and Nutrition: The learner is able to relate the concept of slope in the use of farm tools, equipment and machinery to carry out the projects in Agriculture and Nutrition."
+     ],
+     "resources": [],
+     "kicd_source": "grade6-science-and-technology.pdf#p31"
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,1094 @@
+{
+ "source_pdf": "grade10-agriculture-nutrition.pdf",
+ "grade": 10,
+ "subject": "agriculture-nutrition",
+ "general_outcomes": [
+  "By the end of Senior Secondary School, the learner should be able to:",
+  "Apply agricultural principles in logical and critical thinking skills to solve contextual challenges in the society.",
+  "Apply basic research and scientific skills to manipulate the environment and solve contemporary challenges.",
+  "Employ individual talents to exploit agricultural resources for leisure, career and economic growth, further education and training.",
+  "Use ICT and agricultural technologies effectively in varied agricultural production and communication contexts.",
+  "Apply and promote healthy interventions in environmental care through agricultural practices.",
+  "Protect, preserve and improve the environment for agriculture and socio-economic sustainability.",
+  "Manage pertinent and contemporary socio-economic challenges responsibly through agricultural and environmental endowments."
+ ],
+ "strands": [
+  {
+   "strand": "Crop Production",
+   "strand_code": "1.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to describe ways of conserving accessing land for agricultural uses: (leasing, inheriting, buying, donation).",
+     "exceeds": "The learner describes four ways of accessing land for agricultural uses.",
+     "meets": "The learner describes three ways of accessing land for agricultural uses.",
+     "approaches": "The learner describes two ways of accessing land for agricultural uses.",
+     "below": "The learner describes less than two ways of accessing land for agricultural uses."
+    },
+    {
+     "indicator": "Ability to investigate four properties of agricultural soil: (porosity, texture, soil pH, humus).",
+     "exceeds": "The learner investigates four properties of agricultural soil.",
+     "meets": "The learner investigates three properties of agricultural soil.",
+     "approaches": "The learner investigates two properties of agricultural soil.",
+     "below": "The learner investigates less than two properties of agricultural soil."
+    },
+    {
+     "indicator": "Ability to carry out four activities in land preparation: (land clearing, primary cultivation, secondary cultivation, tertiary cultivation).",
+     "exceeds": "The learner carries out four activities in land preparation.",
+     "meets": "The learner carries out three activities in land preparation.",
+     "approaches": "The learner carries out two activities in land preparation.",
+     "below": "The learner carries out one activity in land preparation."
+    },
+    {
+     "indicator": "Ability to carry out four practices in the management of growing crops: (top dressing, cutting back, single stem prunning, multiple stem prunning).",
+     "exceeds": "Carries out four practices in the management of growing crops",
+     "meets": "Carries out three practices in the management of growing crops",
+     "approaches": "Carries out two practices in the management of growing crops",
+     "below": "Carries out one practice in the management of growing crops"
+    },
+    {
+     "indicator": "Ability to carry out four practices in crop protection: (physical weed control, cultural weed control, chemical weed control, biological weed control).",
+     "exceeds": "Carries out four practices in crop protection.",
+     "meets": "Carries out three practices in crop protection.",
+     "approaches": "Carries out two practices in crop protection.",
+     "below": "Carries out one practice in crop protection."
+    },
+    {
+     "indicator": "Ability to carry out correct procedure in the harvesting of crops: (pre-harvesting practices, harvesting practices and post harvesting practices).",
+     "exceeds": "Carries out pre-harvesting practices, harvesting practices and post harvesting practices in conventional and innovative ways.",
+     "meets": "Carries out pre-harvesting practices, harvesting practices and post harvesting practices.",
+     "approaches": "Carries out pre-harvesting practices and harvesting practices.",
+     "below": "Carries out pre-harvesting practices."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "1.1",
+     "name": "Agricultural Land",
+     "suggested_duration": "10 lessons",
+     "learning_outcomes": [
+      "describe ways of accessing land for agricultural use",
+      "evaluate utility of land for agricultural production purposes",
+      "analyse natural factors that determine productivity of land in agriculture",
+      "appreciate importance of land in agricultural production."
+     ],
+     "learning_experiences": [
+      "Learner is guided to:",
+      "discuss with resource person ways of accessing land for agricultural use including leasing, inheriting, buying and donation.",
+      "take an excursion in the community to study and assess different forms of land and discuss the possible utilities of the land.",
+      "use digital devices to search for information on natural factors that determine productivity of land such as climate, altitude, soil factors, topography and biotic factors.",
+      "make class presentations on importance of land in agricultural production."
+     ],
+     "inquiry_questions": [
+      "1. How is land productivity determined for agriculture?",
+      "2. Why is land put into different agricultural uses?"
+     ],
+     "core_competencies": [
+      "Citizenship: social cultural sensitivity awareness skill as they take excursion to explore utility of land and discuss forms of land ownership with resource person.",
+      "Communication and collaboration: learners speak clearly and effectively, listens actively as they discuss ways of accessing land with resource person."
+     ],
+     "values": [
+      "Values:",
+      "Respect: learners respect input of their peers and the resource person as they discuss ways of accessing land.",
+      "Social justice: learners develop respect for other land users as they learn about different forms of land ownership in the country. Pertinent and Contemporary Issues (PCIs):",
+      "Social economic and environmental issues: learners appreciate others as neighbours and land owners as they learn on access to land.",
+      "Biodiversity: as learners appreciate effect of different agro-ecological factors on agricultural productivity of land."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-agriculture-nutrition.pdf#p13"
+    },
+    {
+     "kicd_code": "1.2",
+     "name": "Properties of soil 12 lessons",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "describe properties of a soil for crop production",
+      "investigate the properties of soil for crop production",
+      "relate importance of soil profile to crop production",
+      "acknowledge importance of soil properties in crop production."
+     ],
+     "learning_experiences": [
+      "Learner is guided to:",
+      "discuss on physical, chemical and biological properties of soil for crop production.",
+      "conduct experiments to test physical properties (porosity, texture) chemical properties (soil pH) and biological properties (humus).",
+      "take field excursion, observe and relate soil profile to crop farming activities.",
+      "Use digital and non-digital resources to search for importance of soil properties in crop production."
+     ],
+     "inquiry_questions": [
+      "How do properties of soil influence crop production?"
+     ],
+     "core_competencies": [
+      "Digital literacy: digital connectivity and exploration skills as learners use digital devices to explore soil properties",
+      "Self-efficacy: own determination skill as learners use ICT and conduct experiments to determine soil properties.",
+      "Creativity and imaginations: observations and making connection skill as they conduct experiments on physical properties of soil."
+     ],
+     "values": [
+      "• Unity: learners promote team work and social cohesion as they conduct group discussions and experiments on properties of soil."
+     ],
+     "pertinent_issues": [
+      "Pertinent and Contemporary Issues (PCIs):",
+      "Social economic and environmental issues: learners develop awareness of the immediate environment as they take excursion and observe soil profile and farming activities.",
+      "Life skills: learners develop creativity and problem-solving skills as they conduct experiments to test physical properties of soil."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-agriculture-nutrition.pdf#p15"
+    },
+    {
+     "kicd_code": "1.3",
+     "name": "Land Preparation",
+     "suggested_duration": "12 lessons",
+     "learning_outcomes": [
+      "describe activities of fallow land preparation to appropriate seedbed",
+      "carry out land preparation operations for selected crop",
+      "apply conservation tillage in crop production",
+      "appreciate importance land preparation in crop production."
+     ],
+     "learning_experiences": [
+      "Learner is guided to:",
+      "brainstorm on the activities carried out on fallow land to prepare appropriate seedbed (land clearing, primary cultivation, secondary cultivation, tertiary operations).",
+      "carry out applicable activities on fallow land to prepare it for establishment of a selected crop.",
+      "assess status of land for production of selected crop and apply applicable conservation tillage practices such as zero tillage and minimum tillage.",
+      "make presentations on importance of proper land preparations in crop production."
+     ],
+     "inquiry_questions": [
+      "How does proper land preparation contribute to crop production?"
+     ],
+     "core_competencies": [
+      "Critical thinking and problem solving: interpretation and inferencing skills as learners visit the community and compare appropriateness of land preparation practices in crop production.",
+      "Citizenship: social and civic skill as learners compare appropriateness of land preparation practices during a field visit."
+     ],
+     "values": [
+      "Peace: social conflict resolution as learners share tools and tasks among themselves while carrying land preparation activities.",
+      "Unity: harmonious working as learners carry out land preparation activities."
+     ],
+     "pertinent_issues": [
+      "Pertinent and Contemporary Issues (PCIs):",
+      "Life skills: self-management skills as learners carry out activities of land preparation.",
+      "Social economic and environmental issues: safety and security of self and others as learners carry out land preparation."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-agriculture-nutrition.pdf#p17"
+    },
+    {
+     "kicd_code": "1.4",
+     "name": "Field Management Practices",
+     "suggested_duration": "10 lessons",
+     "learning_outcomes": [
+      "describe management practices of selected vegetable and perennial crops",
+      "carry out selected management practices in crop production",
+      "appreciate importance of selected management practices in crop production."
+     ],
+     "learning_experiences": [
+      "Learner is guided to:",
+      "use digital devices to search for information or take a field trip to study pruning of vegetables such as capsicum and tomatoes; and perennial crops that require cutting back, single stem and multiple stem pruning.",
+      "carry out prunning of selected vegetable crops such as tomatoes and capsicum.",
+      "discuss and carry out top dressing of selected crops using appropriate fertilizers and top-dressing methods.",
+      "make a field trip to study and appreciate importance of selected field management practices in crop production."
+     ],
+     "inquiry_questions": [
+      "How do field management practices influence crop production?"
+     ],
+     "core_competencies": [
+      "Communication and collaboration: skills of speaking clearly and effective listening as learners discuss how prune selected vegetable crops.",
+      "Self-efficacy: skill of own determination as learners use appropriate fertilizers to carry out top dressing of selected crops."
+     ],
+     "values": [
+      "Values:",
+      "Respect: learners recognize and appreciate each other and the community while they interact during field trip and excursion.",
+      "Responsibility: learner demonstrate responsibility as they carry out assigned tasks in pruning selected vegetable crops. Pertinent and Contemporary Issues (PCIs):",
+      "Financial Literacy: economical use of resources as learners apply correct fertilizer and appropriate top dressing methods.",
+      "Social economic and environmental issues: environmental conservation as learners top dress selected crops using correct fertilizers and appropriate methods."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-agriculture-nutrition.pdf#p19"
+    },
+    {
+     "kicd_code": "1.5",
+     "name": "Growing Selected Crop",
+     "suggested_duration": "10 lessons",
+     "learning_outcomes": [
+      "determine crops that are established through the nursery",
+      "grow a selected crop applying appropriate management practices",
+      "justify management practice for selected crop."
+     ],
+     "learning_experiences": [
+      "Learner is guided to:",
+      "brainstorm to determine appropriate crop such as vegetables or any other crop that is established from the nursery.",
+      "establish and carry out appropriate management practices for a selected crop during the growth cycle.",
+      "make class presentations on field management practices adopted and carried out on the selected crop."
+     ],
+     "inquiry_questions": [
+      "How do management practices influence crop productivity?"
+     ],
+     "core_competencies": [
+      "Creativity and imagination: information and communication skills as learners engage effectively while making class presentations on field management practices.",
+      "Self-efficacy: self-awareness and personal confidence as learners make class presentations on field management practices."
+     ],
+     "values": [
+      "Responsibility: learners promote a sense of obligation to duty as they carrying out assigned tasks on field management practices.",
+      "Respect: learners promote reverence for audience as they make class presentations on field management practices."
+     ],
+     "pertinent_issues": [
+      "Pertinent and Contemporary Issues (PCIs):",
+      "Learner support programme: decision making and guidance services as learners consult and make choices to determine appropriate crops to establish.",
+      "Social economic and environmental issues: safety and security of self and others as learners carry out activities in establishment and management of selected crops."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-agriculture-nutrition.pdf#p21"
+    },
+    {
+     "kicd_code": "1.6",
+     "name": "Crop Protection 14 lessons",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "identify weeds in a crop field",
+      "classify weeds based on provided criteria",
+      "describe methods of weed control",
+      "carry out weed control using appropriate methods",
+      "appreciate economic importance of weeds in a farming household."
+     ],
+     "learning_experiences": [
+      "Learner is guided to:",
+      "take excursion to identify weeds in a crop field and make herbarium.",
+      "use digital and non-digital resources to classify weeds based on morphology, and life cycle.",
+      "discuss in groups the methods of weed control (physical; cultural; biological; chemical; legislative methods).",
+      "carry out weed control in a crop field using appropriate method (physical; cultural; biological; chemical; integrated methods).",
+      "discuss and make class presentations on pros and cons on weeds to a farming household."
+     ],
+     "inquiry_questions": [
+      "1. How do weeds affect crop production?",
+      "2. Why is weed control done in crop production?"
+     ],
+     "core_competencies": [
+      "Digital literacy: skills in connecting using digital technology as they search for information to classify weed based on provided criteria.",
+      "Learning to learn: learning independently as learners carry out weed control in a crop field using appropriate methods."
+     ],
+     "values": [
+      "• Responsibility: learners develop a sense of obligation as the carry out weed control in a crop field."
+     ],
+     "pertinent_issues": [
+      "Pertinent and Contemporary Issues (PCIs):",
+      "Financial Literacy: as learners discuss the economic significance of weeds in a farming household.",
+      "Learner support programme: guidance services as learner seek and receive support while carrying out weed control practices."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-agriculture-nutrition.pdf#p23"
+    },
+    {
+     "kicd_code": "1.7",
+     "name": "General Crop Harvesting",
+     "suggested_duration": "10 lessons",
+     "learning_outcomes": [
+      "explain factors that determine harvesting of a crop produce",
+      "carry out the harvesting process for selected crop produce",
+      "acknowledge the importance of harvesting process in crop production."
+     ],
+     "learning_experiences": [
+      "Learner is guided to:",
+      "discuss and search on digital devices for factors that determine harvesting of crop produce (timing, stage of growth, purpose).",
+      "Carry out harvesting process (pre-harvest practices, harvesting and post-harvest practices) for tubers and cereals.",
+      "discuss with a resource person on the importance of harvesting process in crop production."
+     ],
+     "inquiry_questions": [
+      "How does harvesting process affect the quantity and quality of crop produce?"
+     ],
+     "core_competencies": [
+      "Citizenship: social and civic skills when learners take field excursion to observe and participate in carrying out post-harvest practices on crop produce.",
+      "Critical thinking and problem solving: observation, evaluation and decision-making skills in determining appropriate time of harvesting crop produce."
+     ],
+     "values": [
+      "Integrity: learners promote honesty as they determine appropriate time of harvesting crop produce.",
+      "Unity: learners work in harmony as they make a field excursion to observe and participate in carrying out post-harvest practices on crop produce."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-agriculture-nutrition.pdf#p25"
+    },
+    {
+     "kicd_code": "1.1",
+     "name": "Agricultural Land",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Observation of learning activities."
+     ],
+     "learning_experiences": [
+      "Relevant video clips and picture on factors that determine land productivity. Manilla papers and marker pens to make presentations on importance of land in agricultural production."
+     ],
+     "inquiry_questions": [
+      "Learners to develop poster to sensitise members of school community on legal procedures of land acquisition."
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-agriculture-nutrition.pdf#p49"
+    },
+    {
+     "kicd_code": "1.2",
+     "name": "Properties of soil",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Observation of learning activities"
+     ],
+     "learning_experiences": [
+      "Photographs of different soil textural classes Varied soil samples Soil testing materials and equipment such as soil testing kit and PH indicators Soil sampling tools such as jembe, auger, panga and soil containers"
+     ],
+     "inquiry_questions": [
+      "Learners to develop an item in soil testing during a science and technology fair"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-agriculture-nutrition.pdf#p49"
+    },
+    {
+     "kicd_code": "1.3",
+     "name": "Land Preparation",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Observation of learning activities"
+     ],
+     "learning_experiences": [
+      "School farm Farm tools and equipments such as jembe, fork jembe, panga, slasher"
+     ],
+     "inquiry_questions": [
+      "Develop a demonstration plot on well prepared land at school or home set up",
+      "Initiate and participate in young farmers club on land preparation activities"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-agriculture-nutrition.pdf#p49"
+    },
+    {
+     "kicd_code": "1.4",
+     "name": "Field Management Practices",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Observation of pruning and top dressing activities",
+      "Written test •"
+     ],
+     "learning_experiences": [
+      "Pruning tools such as secatuers, pruning saw, knife, sheers among others Top dressing tools and materials such as knapsack/ hand sprayer, gloves and samples of appropriate fertilizers"
+     ],
+     "inquiry_questions": [
+      "Learner participates in young farmers activities in pruning and top dressing activities Learners participate in making posters on importance of application of inorganic fertilizers"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-agriculture-nutrition.pdf#p50"
+    },
+    {
+     "kicd_code": "1.5",
+     "name": "Growing Selected Crop",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Observation of nursery management practices or harvesting activities"
+     ],
+     "learning_experiences": [
+      "School farm, innovative gardens, applicable tools and equipments such as rake, garden trowel, watering can"
+     ],
+     "inquiry_questions": [
+      "Learner to participate in club activities in nursery bed establishment, management Learner to participate in nursery management activities at home"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-agriculture-nutrition.pdf#p50"
+    },
+    {
+     "kicd_code": "1.6",
+     "name": "Crop Protection",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Observation of weed control activities",
+      "Project portfolio on weed identification"
+     ],
+     "learning_experiences": [
+      "Photographs of weeds, weeds herbarium ,local environment, video clip on weed and weed control methods, samples of appropriate herbicides and tools, knapsack/ hand sprayer"
+     ],
+     "inquiry_questions": [
+      "Learner to participate in activities of sensitizing school community on importance of weeds"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-agriculture-nutrition.pdf#p51"
+    },
+    {
+     "kicd_code": "1.7",
+     "name": "General Crop Harvesting",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Observation of activities such as harvesting"
+     ],
+     "learning_experiences": [
+      "Crop in a school farm, innovative gardens, photographs of crops for harvesting"
+     ],
+     "inquiry_questions": [
+      "Engage in work study programme to participate In harvesting a cereal or tuber crop"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-agriculture-nutrition.pdf#p51"
+    }
+   ]
+  },
+  {
+   "strand": "Animal Production",
+   "strand_code": "2.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to distinguish breeds of livestock (cattle, pigs, rabbits, sheep, goats) based on their characteristics",
+     "exceeds": "The learner distinguishes five breeds of livestock based on their characteristics.",
+     "meets": "The learner distinguishes four breeds of livestock based on their characteristics.",
+     "approaches": "The learner distinguishes three breeds of livestock based on their characteristics.",
+     "below": "The learner distinguishes two or less breeds of livestock based on their characteristics."
+    },
+    {
+     "indicator": "Ability to use tools and equipment (halter, restraining rope, bull ring, leading stick) to ensure safety in handling of animals.",
+     "exceeds": "The learner uses four tools and equipment to ensure safety in handling of animals.",
+     "meets": "The learner uses three tools and equipment to ensure safety in handling of animals.",
+     "approaches": "The learner uses two tools and equipment to ensure safety in handling of animals.",
+     "below": "The learner uses less than two tools and equipment to ensure safety in handling of animals."
+    },
+    {
+     "indicator": "Ability to identify sills of ill health in animals.",
+     "exceeds": "The learner identifies and proposes control measures to signs of ill health in animals",
+     "meets": "The learner identifies signs of ill health in animals.",
+     "approaches": "The learner identifies many signs of ill health in animals.",
+     "below": "The learner identifies few signs of ill health in animals."
+    },
+    {
+     "indicator": "Ability to describes four bee keeping activities: (factors to consider, stocking process, apiary management, honey harvesting process).",
+     "exceeds": "The learners describes four bee keeping activities.",
+     "meets": "The learners describes three bee keeping activities.",
+     "approaches": "The learners describes two bee keeping activities.",
+     "below": "The learners describes less than two bee keeping activities."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "2.1",
+     "name": "Breeds of Livestock",
+     "suggested_duration": "10 lessons",
+     "learning_outcomes": [
+      "describe breeds of livestock based on their uses",
+      "distinguish common breed livestock based on their characteristics",
+      "appreciate diversity of productivity from different livestock breeds."
+     ],
+     "learning_experiences": [
+      "Learner is guided to:",
+      "use information from digital and print resources to describe breeds of cattle, pigs, rabbits, sheep and goats.",
+      "take a field trip, excursion or observe resource media to distinguish common breed livestock based on their observable characteristics.",
+      "discuss and make presentations on comparative productivity from various livestock breeds."
+     ],
+     "inquiry_questions": [
+      "How does livestock breeds affect productivity of animals?"
+     ],
+     "core_competencies": [
+      "Digital literacy: connecting using digital technology to search for information and distinguish common breeds of poultry and rabbits based on their characteristics.",
+      "Communication and collaboration: teamwork skills as they contribute ideas to group decision making while brainstorming on purposes of rearing poultry and rabbits."
+     ],
+     "values": [
+      "• Unity: learners integrate and work as a team while discussing various types of poultry and rabbits."
+     ],
+     "pertinent_issues": [
+      "Pertinent and Contemporary Issues (PCIs):",
+      "Financial literacy: ways of earning money as the learners discuss the purposes of rearing rabbits and poultry in Kenya.",
+      "Social economic and environmental issues: cyber security as learners take care of digital intrusion while searching for information to distinguish poultry and rabbits breeds."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-agriculture-nutrition.pdf#p28"
+    },
+    {
+     "kicd_code": "2.2",
+     "name": "Animal handling and safety",
+     "suggested_duration": "9 lessons",
+     "learning_outcomes": [
+      "examine forms of animal handling in the community",
+      "describe the structures used to ensure safety in handling domestic animals",
+      "use tools and equipment to ensure safety in handling domestic animals",
+      "explain ways of ensuring safety of persons handling domestic animals",
+      "participate in promoting safety of domestic animal in the community."
+     ],
+     "learning_experiences": [
+      "Learner is guided to:",
+      "discuss inhumane treatments such as beating, poor restraining, inappropriate castration, poor transport methods, inappropriate harnessing, inhumane slaughtering, overloading draught animals, and over working.",
+      "use digital devices to observe and describe structures used to ensure safe handling of domestic animals.",
+      "discuss ways of ensuring safety of persons handling domestic animals through methods such as restraining animals, correct position when handling, holding appropriate parts and ensuring safe distance.",
+      "use tools and equipment used to ensure safety in handling domestic animals; tools to include halter, restraining rope, bull ring and lead stick.",
+      "take an excursion to nearby farms to observe animal handling and present suggestions on how animal safety could be enhanced in the community."
+     ],
+     "inquiry_questions": [
+      "How can we ensure safety when handling animals?"
+     ],
+     "core_competencies": [
+      "Core competencies to be developed Citizenship: active community life skills as learners embrace and promote the rights of animals and their relationship with humans through animal safety in the community. Values Love as learners undertake promotion of rights of animals through safe handling. Pertinent and contemporary issues Safety of animals and animal handlers as the learners practice how to handle animals safely. Links to other subjects Social studies as learners embrace human and animal rights as well as human and animal safety in agricultural context."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-agriculture-nutrition.pdf#p30"
+    },
+    {
+     "kicd_code": "2.2",
+     "name": "General Animal Health",
+     "suggested_duration": "12 lessons",
+     "learning_outcomes": [
+      "explain the benefits of keeping animals healthy in livestock production",
+      "identify signs of ill health in livestock production",
+      "propose general control measures of ill health in livestock production",
+      "adopt practices that maintain animal health in livestock production."
+     ],
+     "learning_experiences": [
+      "Learner is guided to:",
+      "use information from digital and print resources to explain the benefits of keeping animals healthy in livestock production.",
+      "discuss with resource person and observe animals in a herd to identify signs of ill health.",
+      "discuss and suggest general preventative and control measures of ill health in livestock production",
+      "practise applicable measures that maintain animal health in livestock production and apply them in rearing available animals in school."
+     ],
+     "inquiry_questions": [
+      "How is animal health important in animal production?"
+     ],
+     "core_competencies": [
+      "Citizenship: social and civic skills as learners develop awareness messages on animal welfare issues to promote animal health.",
+      "Creativity and imagination: creative experimentation skill as learners think, rethink, adjust and try out ideas while creating awareness messages on animal welfare issues to promote animal health."
+     ],
+     "values": [
+      "• Patriotism: learners promote animal welfare issues through awareness messages on animal health."
+     ],
+     "pertinent_issues": [
+      "Pertinent and Contemporary Issues (PCIs):",
+      "Life skills: analytical thinking and problem-solving skills as learners discuss with a resource person to suggest possible control measures for various parasites in poultry and rabbits.",
+      "Social economic and environmental issues: learners create awareness messages to promote animal welfare to the school community."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-agriculture-nutrition.pdf#p32"
+    },
+    {
+     "kicd_code": "2.3",
+     "name": "Bee Keeping",
+     "suggested_duration": "8 lessons",
+     "learning_outcomes": [
+      "explain the factors to consider in siting an apiary",
+      "describe the process of stocking a hive",
+      "carry out safe apiary management practices",
+      "demonstrate honey harvesting process."
+     ],
+     "learning_experiences": [
+      "Learner is guided to:",
+      "discuss the factors to consider in siting an apiary.",
+      "use digital devices or print resources to acquire information on how to stock a hive, then describe the process in class plenary.",
+      "deliberate with a resource person and participate in a guided process of carrying out safe apiary management practices.",
+      "use an empty hive or model of a hive to role play the honey harvesting process."
+     ],
+     "inquiry_questions": [
+      "How are bee reared?"
+     ],
+     "core_competencies": [
+      "Digital literacy: connecting using digital technology as they search and watch video clips on how to stock a bee hive.",
+      "Self-efficacy: self-confidence as learners role play with peers in class the honey harvesting process using an empty hive or model of a hive."
+     ],
+     "values": [
+      "Responsibility as learners carry out safe apiary management practices.",
+      "Unity as learners cooperate in demonstration (role playing) honey harvesting process."
+     ],
+     "pertinent_issues": [
+      "Health promotion issues: first aid as learners carry out safe management practices.",
+      "Social economic and environmental issues: safety and security of self and others as learners carry out apiary management practices."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-agriculture-nutrition.pdf#p34"
+    },
+    {
+     "kicd_code": "2.4",
+     "name": "Animal Rearing Project",
+     "suggested_duration": "15 lessons",
+     "learning_outcomes": [
+      "develop a project plan on rearing a selected animal",
+      "prepare a budget for the animal rearing project",
+      "implement the plan for the animal rearing project",
+      "carry out routine management practices on the animal rearing project",
+      "evaluate the animal rearing practices carried out in the project."
+     ],
+     "learning_experiences": [
+      "Learner is guided to:",
+      "adopt a project template to write a project plan on rearing a selected animal (mammals, birds, insects).",
+      "brainstorm on appropriate animal rearing project, develop project details and simple budget.",
+      "select the site for the project, install the required animal structures, prepare appropriate record templates and routine duty schedule.",
+      "stock and manage the animal project as per the project plan.",
+      "make class presentations on the success and areas of improvements to evaluate the animal rearing practices carried out in the project."
+     ],
+     "inquiry_questions": [
+      "How can animal rearing project be carried be out?"
+     ],
+     "core_competencies": [
+      "Critical thinking and problem solving: evaluation and decision-making skills as learners determine appropriate animal rearing project, develop project details and simple budget.",
+      "Creativity and imagination: skill in making connections as learners relate ideas to adopt a project template and write a project plan on rearing of poultry, rabbits or bees."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-agriculture-nutrition.pdf#p35"
+    },
+    {
+     "kicd_code": "2.1",
+     "name": "Breeds of Livestock",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Oral assessment as learners observe to distinguish different livestock breeds"
+     ],
+     "learning_experiences": [
+      "Live animal breeds, photographs/videos / pictures of different livestock breeds"
+     ],
+     "inquiry_questions": [
+      "Learner to Engage in Agricultural Show in the livestock breed section"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-agriculture-nutrition.pdf#p51"
+    },
+    {
+     "kicd_code": "2.2",
+     "name": "Animal handling and safety",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Observation of animal handling activities"
+     ],
+     "learning_experiences": [
+      "Animal handling equipment such as bull ring, rope, holster Video clips and pictures on animal handling"
+     ],
+     "inquiry_questions": [
+      "Learners to conduct a sensitization of handling different animals using correct equipments"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-agriculture-nutrition.pdf#p52"
+    },
+    {
+     "kicd_code": "2.3",
+     "name": "General Animal Health",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Oral presentation of signs of ill health"
+     ],
+     "learning_experiences": [
+      "Video clips, photographs of ill animals Animals in the immediate environment and in school Relevant materials and equipments such as antiseptics, drugs, bolus gun, hypodermic syringes and needles"
+     ],
+     "inquiry_questions": [
+      "Learners to participate livestock disease control practices in Communitysuch as cleaning livestock structures"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-agriculture-nutrition.pdf#p52"
+    },
+    {
+     "kicd_code": "2.4",
+     "name": "Bee Keeping",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Oral assessment on safety in bee handling"
+     ],
+     "learning_experiences": [
+      "Hives or hive models, bee handling equipment such as hive tool smoker, bee suit"
+     ],
+     "inquiry_questions": [
+      "Learners to participate in public fora to sensitize the community on proper citing of apiary"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-agriculture-nutrition.pdf#p52"
+    },
+    {
+     "kicd_code": "2.5",
+     "name": "Animal Rearing Project",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Observation as learners carry out management",
+      "practices in animal rearing"
+     ],
+     "learning_experiences": [
+      "Appropriate rearing structures such as rabbit hatch, poultry house, feeders",
+      "and waterers and feeding materials"
+     ],
+     "inquiry_questions": [
+      "Learners to participate in animal rearing in their community set ups"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-agriculture-nutrition.pdf#p52"
+    }
+   ]
+  },
+  {
+   "strand": "Agricultural Technologies and Entrepreneurship",
+   "strand_code": "3.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to describe composting methods applicable at farm level",
+     "exceeds": "Makes an exemplary detailed description of composting methods applicable at farm level beyond the provided list.",
+     "meets": "Makes a description of all composting methods applicable at farm level from a provided list.",
+     "approaches": "Makes a description of some composting methods applicable at farm level from a provided list.",
+     "below": "Makes a description of some composting methods applicable at farm level from a provided list only if prompted."
+    },
+    {
+     "indicator": "Ability to carry out conventional composting methods for production of organic manure.",
+     "exceeds": "Distinctively creative in carrying out both pit and heap composting methods for production of organic manure.",
+     "meets": "Carries out both pit and heap composting methods for production of organic manure.",
+     "approaches": "Carries out either pit or heap composting methods for production of organic manure.",
+     "below": "Carries out either pit or heap composting methods for production of organic manure only if assisted."
+    },
+    {
+     "indicator": "Ability to carry out innovative composting methods for production of organic manure.",
+     "exceeds": "Carries out more than the two innovative composting methods for production of organic manure.",
+     "meets": "Carries out both innovative composting methods for production of organic manure.",
+     "approaches": "Carries out one of the innovative composting methods for production of organic manure.",
+     "below": "Carries out one of the innovative composting methods for production of organic manure only if assisted."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "3.1",
+     "name": "Tools and Equipment",
+     "suggested_duration": "14 lessons",
+     "learning_outcomes": [
+      "identify tools and equipment used for various agricultural tasks",
+      "carry out various agricultural tasks using appropriate tools and equipment",
+      "carry out appropriate maintenance practices on selected tools and equipment",
+      "apply safety measures in the use of tools and equipment",
+      "acknowledge importance of maintaining tools and",
+      "equipment for efficient working."
+     ],
+     "learning_experiences": [
+      "Learner is guided to:",
+      "observe and analyse tools and equipment used for various agricultural tasks (tasks to include: gardening tasks; livestock production tasks; assembling and dissembling tasks).",
+      "conduct various agricultural tasks (gardening tasks; livestock production tasks; assembling and dissembling tasks) using appropriate tools and equipment.",
+      "carry out maintenance practices (such as cleaning, sharpening, lubrication, part repairs and replacements, parts tightening, painting) on selected tools and equipment.",
+      "practise the care and safety in use of tools and equipment such as appropriate storage, correct usage",
+      "safe distance, appropriate personal protective equipment.",
+      "discuss and make presentations on importance of maintaining tools and equipment used in agricultural tasks."
+     ],
+     "inquiry_questions": [
+      "How do tools and equipment contribute to efficiency of farm operations?"
+     ],
+     "core_competencies": [
+      "Self-efficacy: self-confidence skill as learners carry out repairs and maintenance practices on farm tools, equipment and machines.",
+      "Creativity and imagination: skills in asking questions and undertaking tasks as learners carry out various farm tasks using farm tools equipment and machines."
+     ],
+     "values": [
+      "Responsibility: Learners promote responsibility in the care for and safety in the use of tools, equipment and machines.",
+      "Respect: as learners regard each other’s ideas when brainstorming to analyse tools, equipment and machines used for various farm tasks."
+     ],
+     "pertinent_issues": [
+      "Health promotion issues: conduct first aid in case of accidents as learners use various farm tools, equipment and machines.",
+      "Social economic and environmental issues: safety and security as learners work together in various farm tasks using tools, equipment and machines."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-agriculture-nutrition.pdf#p38"
+    },
+    {
+     "kicd_code": "3.2",
+     "name": "Product Processing and Value Addition",
+     "suggested_duration": "20 lessons",
+     "learning_outcomes": [
+      "suggest methods of value addition for selected agricultural produce",
+      "carry out processing of agricultural produce of plant origin",
+      "carry out processing of agricultural produce of animal origin",
+      "carry out home-based packaging and branding of processed agricultural products",
+      "design innovative value addition equipment for agricultural produce",
+      "appraise ethical issues in the processing and",
+      "value addition processes."
+     ],
+     "learning_experiences": [
+      "Learner is guided to:",
+      "use digital and non-digital resources to search for information and suggest methods applicable for value addition of selected agricultural produce.",
+      "discuss with resource person on use of applicable methods/techniques to carry out processing of agricultural produce of plant origin such as vegetables, nuts, fruits, cereals, tubers and pulses into Jam, butter, marmalade, ketchup, juices, flour, puree/concentrate of semi-solid fruit extracts, crisps among others.",
+      "discuss with resource person applicable methods/techniques to carry out processing of produce of animal origin such as honey, milk, hides and skins, meat or fish.",
+      "visit market outlets to observe and study applicable methods to carry out home-based packaging and branding of processed agricultural products.",
+      "• discuss and present ethical concerns in processing and value addition of various agricultural produce."
+     ],
+     "inquiry_questions": [
+      "How does value addition enhance nutrition and food security?"
+     ],
+     "core_competencies": [
+      "Self-efficacy: self-confidence and realization of own potential as learners make exhibitions of value addition of agricultural produce.",
+      "Critical thinking and problem solving: researching skills as learners search for information, suggest and apply applicable methods of value addition of various agricultural produce."
+     ],
+     "values": [
+      "Responsibility: learners promote sense of responsibility while undertaking various tasks in the project for value addition of agricultural produce.",
+      "Peace: harmonious co-existence while undertaking the project tasks on selected value addition processes and making exhibitions of value-added products."
+     ],
+     "pertinent_issues": [
+      "Life skills: peaceful conflict management as learners resolve social conflicts while carrying out project on selected value addition processes.",
+      "Health promotion issues: nutrition and food security as learners carry out various value addition processes on agricultural produce.",
+      "Financial literacy: resource allocation and enterprise ideas as learners carry out project on food processing."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-agriculture-nutrition.pdf#p40"
+    },
+    {
+     "kicd_code": "3.3",
+     "name": "Establishing Agricultural Enterprise",
+     "suggested_duration": "13 lessons",
+     "learning_outcomes": [
+      "explain factors of production in an agricultural enterprise",
+      "propose ways of acquiring capital to establish an agricultural enterprise",
+      "examine factors to consider in selecting an agricultural enterprise",
+      "evaluate sources of support services for agricultural enterprise",
+      "appreciate role of various factors of production in establishing an agricultural enterprise."
+     ],
+     "learning_experiences": [
+      "Learner is guided to:",
+      "discuss the factors of production in an agricultural enterprise (land/space, labour, entrepreneurship, capital).",
+      "discuss with a resource person to suggest ways of mobilizing capital to establish an agricultural enterprise such as borrowing, savings, disposing-off assets, grants and donations.",
+      "use digital and non-digital resources to search and examine factors to consider in selecting an agricultural enterprise.",
+      "discuss with a resource person to evaluate appropriate sources of support services for agricultural enterprise.",
+      "discuss and present the role of various factors of production in establishing an agricultural enterprise."
+     ],
+     "inquiry_questions": [
+      "How do we establish an agricultural enterprise?"
+     ],
+     "core_competencies": [
+      "Core Competences to be developed:",
+      "Critical thinking and problem solving: research skills as learners search for information and examine factors to consider in selecting an agricultural enterprise.",
+      "Creativity and imagination: make connections and relate ideas about mobilizing capital to establish an agricultural enterprise. Values:",
+      "Patriotism: learners promote good relationship with the community when visiting for benchmarking on resource management strategies.",
+      "Respect: as learners recognise and discuss with the resource person to determine sources of support services for agricultural enterprises. Pertinent and Contemporary Issues (PCIs):",
+      "Financial literacy: awareness of resources as the learners suggest ways of mobilizing capital for establishing agricultural enterprise.",
+      "Learner support programme: peer education and mentorship skills as learners visit an existing farming enterprise to benchmark on resource management strategies on agricultural enterprises."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-agriculture-nutrition.pdf#p42"
+    },
+    {
+     "kicd_code": "3.4",
+     "name": "Marketing agricultural produce",
+     "suggested_duration": "6 lessons",
+     "learning_outcomes": [
+      "describe ways of preparing agricultural produce for marketing",
+      "prepare agricultural produce for marketing",
+      "discuss market outlets for agricultural produce",
+      "evaluate expenses incurred in marketing agricultural produce",
+      "appreciate the importance of preparing agricultural produce for marketing."
+     ],
+     "learning_experiences": [
+      "Learner is guided to:",
+      "discuss ways of preparing agricultural produce for marketing such as weighing, sorting, grading, packaging, branding and labeling.",
+      "visit an agricultural market outlet to observe and learn how different agricultural produce are weighed, sorted, graded, packaged, branded, labelled and displayed.",
+      "demonstrate how to prepare samples of selected agricultural produce for marketing (weighing, sorting, grading, packaging, branding and labeling) and make a display of produce in the classroom.",
+      "discuss various market outlets for agricultural produce (digital platforms and physical market outlets).",
+      "inquire from a resource person expenses incurred in marketing activities such as transportation costs, advertisement costs, market authority charges and taxes.",
+      "share experiences on benefits of preparing agricultural produce for marketing (weighing, sorting, grading, packaging, branding and labeling)."
+     ],
+     "inquiry_questions": [
+      "How can we prepare agricultural produce for the market?"
+     ],
+     "core_competencies": [
+      "Self efficacy: self-awareness and planning skills as learners demonstrate how to prepare vegetable crop produce for marketing and display produce to the class."
+     ],
+     "values": [
+      "Integrity as learners appreciate important roles played in the marketing process such as accurate weighing and pricing."
+     ],
+     "pertinent_issues": [
+      "Financial literacy as learners visit the market, observe and learn how vegetable crop produce are prepared, displayed and sold in the market to earn income and make relevant obligations to market authorities and the government."
+     ],
+     "links_to_other_areas": [
+      "Business studies as learners study the players and processes in a marketing system for crop produce."
+     ],
+     "resources": [],
+     "kicd_source": "grade10-agriculture-nutrition.pdf#p44"
+    },
+    {
+     "kicd_code": "3.5",
+     "name": "Composting Techniques",
+     "suggested_duration": "10 lessons",
+     "learning_outcomes": [
+      "describe composting in production of organic manure",
+      "examine factors that influence quality of compost manure",
+      "carry out conventional composting methods for production of organic manure",
+      "carry out innovative composting methods for production of organic manure",
+      "appreciate role of composting in soil improvement."
+     ],
+     "learning_experiences": [
+      "Learner is guided to:",
+      "use ideas from digital and non-digital resources to describe methods of composting (conventional methods; innovative methods) and appropriate materials for composting at farm level.",
+      "Discuss and present factors that influence quality of compost manure (materials, process of composting, storage).",
+      "follow procedure provided by resource person or other sources to carry out composting for production of organic manure through pit and heap methods.",
+      "Use digital resources to acquire ideas and carry out innovative composting such as vermi-composting and containerized composting for production of organic manure.",
+      "• utilize the compost manure to existing crop enterprises to appreciate role of composting in soil improvement.",
+      "Suggested learning resources"
+     ],
+     "inquiry_questions": [
+      "Why is composting relevant in soil improvement?",
+      "Suggested non-formal activities"
+     ],
+     "core_competencies": [
+      "Digital literacy: connecting using digital technologies as learners use digital resources to acquire ideas and carry out innovative composting.",
+      "Creativity and imagination: skills in making connections as learners acquire ideas and implement them to carry out innovative composting techniques."
+     ],
+     "values": [
+      "Responsibility: learners promote sense of obligation to tasks as they carry apply compost manure to existing crop enterprises.",
+      "Respect: learners recognise and respectfully interact with a resource person to carry out composting for production of compost manure."
+     ],
+     "pertinent_issues": [
+      "Learner support programme: educational guidance services as learners seek advice and information from resource person on how to carry out composting.",
+      "Social economic and environmental issues: bio-diversity conservation as learners appreciate the role of composting for soil improvement."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-agriculture-nutrition.pdf#p46"
+    },
+    {
+     "kicd_code": "3.1",
+     "name": "Tools and Equipment",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Observation of learners as they identify and use appropriate tools for agricultural purposes"
+     ],
+     "learning_experiences": [
+      "Sample agricultural tools such as panga, jembe, pruning knife and burdizzo, elastrator and ring dehorning wire, claw hammer, hand saw"
+     ],
+     "inquiry_questions": [
+      "Learners to engage in agricultural activities involving the use of tools in the community or at school"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-agriculture-nutrition.pdf#p53"
+    },
+    {
+     "kicd_code": "3.2",
+     "name": "Product Processing and Value Addition",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Observe learners as they carry out value addition and processing activities"
+     ],
+     "learning_experiences": [
+      "Source of heat, cutting tools, crop and animal produce to be processed such as milk, honey, hides and vegetable produce such as fruits, cereals and nuts"
+     ],
+     "inquiry_questions": [
+      "Participate in the proper storage, value addition and preservation of agricultural produce of animal and crop origin in school and at home"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-agriculture-nutrition.pdf#p53"
+    },
+    {
+     "kicd_code": "3.3",
+     "name": "Establishing Agricultural Enterprise",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Project report as learners establish an agricultural enterprise"
+     ],
+     "learning_experiences": [
+      "Established enterprises in school or its environs, resource person"
+     ],
+     "inquiry_questions": [
+      "Initiate micro enterprises at home or in school clubs"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-agriculture-nutrition.pdf#p53"
+    },
+    {
+     "kicd_code": "3.4",
+     "name": "Marketing agricultural produce",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Observe practical activities as they prepare and market agricultural produce",
+      "• Oral assessment"
+     ],
+     "learning_experiences": [
+      "sample agricultural produce such as vegetable, cereals, pulses milk, eggs, chicks, the local market"
+     ],
+     "inquiry_questions": [
+      "Visit the local market to make observations on marketing agricultural produce"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-agriculture-nutrition.pdf#p53"
+    },
+    {
+     "kicd_code": "3.5",
+     "name": "Composting Techniques",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Observation of composting process"
+     ],
+     "learning_experiences": [
+      "Local Composting materials of plant and animal origin, pictures, video clips and illustrations and samples of compost manure"
+     ],
+     "inquiry_questions": [
+      "Learners to advocate on the use of compost manure at home and in school through messages on posters"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-agriculture-nutrition.pdf#p54"
+    }
+   ]
+  }
+ ]
+}

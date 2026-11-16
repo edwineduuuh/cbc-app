@@ -1,0 +1,466 @@
+{
+ "source_pdf": "grade10-chemistry.pdf",
+ "grade": 10,
+ "subject": "chemistry",
+ "general_outcomes": [
+  "By the end of Senior School, the learner should be able to:",
+  "Acquire scientific knowledge, skills, values and attitudes for everyday use, and further education and training;",
+  "Conduct a range of scientific investigations, including collection of qualitative and quantitative data, analysis and interpretation of results;",
+  "Use scientific language in the study of Chemistry;",
+  "Develop skills and logical thinking in carrying out project work, field work and excursions, where chemistry can be appreciated on a larger scale;",
+  "Relate Chemistry in the classroom to modern industrial processes and real world situations;",
+  "Develop critical thinking skills to explain phenomena and address challenges in day to day life;",
+  "Explore, manipulate, manage and conserve the environment for learning and sustainable development;",
+  "Apply principles of Chemistry and acquired skills to invent, formulate, construct, produce or manufacture useful products from available resources for sustainable development;",
+  "Develop interest in and appreciation of Chemistry as a subject and its usefulness in the society."
+ ],
+ "strands": [
+  {
+   "strand": "Inorganic Chemistry",
+   "strand_code": "1.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to explain the importance of chemistry in our day to day life",
+     "exceeds": "Correctly explains at least four importance of chemistry in our day to day life.",
+     "meets": "Correctly explains at least three importance of chemistry in our day to day life",
+     "approaches": "Correctly explains at least two importance of chemistry in our day to day life",
+     "below": "Correctly explains at least one importance of chemistry in our day to day life"
+    },
+    {
+     "indicator": "Ability to illustrate the electron arrangement of elements using s and p notation.",
+     "exceeds": "Correctly Illustrates the electron arrangement of all the 20 elements using s and p notation.",
+     "meets": "Correctly illustrates electron arrangement of 15-20 elements using s and p notation.",
+     "approaches": "Correctly illustrates the electron arrangement of 10-15 elements using s and p notation.",
+     "below": "Correctly illustrates the electron arrangement of at most 10 elements using s and p notation."
+    },
+    {
+     "indicator": "Ability to write balanced equations for chemical reactions.",
+     "exceeds": "Correctly writes balanced equations for all chemical reactions",
+     "meets": "Correctly writes balanced equations for most chemical reactions",
+     "approaches": "Correctly write balanced equations for some chemical reactions",
+     "below": "correctly write few balanced chemical equations with prompts"
+    },
+    {
+     "indicator": "Ability to investigate the relationship between bond types and",
+     "exceeds": "Correctly and comprehensively investigates the relationship between",
+     "meets": "Correctly investigates the relationship between bond types and physical",
+     "approaches": "Correctly investigates the relationship between some bond types and physical properties of",
+     "below": "Investigate the relationship between bond types and physical properties of"
+    },
+    {
+     "indicator": "physical properties of elements,",
+     "exceeds": "bond types and physical properties of elements,",
+     "meets": "properties of elements,",
+     "approaches": "elements leaving out some details",
+     "below": "elements leaving out most details"
+    },
+    {
+     "indicator": "Ability to describe the trends in properties in groups and periods",
+     "exceeds": "Correctly describes all the trends in properties in groups and periods.",
+     "meets": "Correctly describes most trends in properties in groups and periods.",
+     "approaches": "Correctly describes some of the trends in properties in groups and periods.",
+     "below": "Describes few trends in properties in groups and periods."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "1.1",
+     "name": "Introduction to Chemistry",
+     "suggested_duration": "6 lessons",
+     "learning_outcomes": [
+      "explain the meaning of Chemistry as a field of science",
+      "explore the role of Chemistry in day to day life",
+      "examine the effects of drug and substance use in day to day life",
+      "promote the rights and responsibilities to a safe and healthy learning environment."
+     ],
+     "learning_experiences": [
+      "brainstorm on concepts covered in junior school that relate to Chemistry",
+      "discuss with peers the meaning of Chemistry as a field of science",
+      "discuss with peers the branches of Chemistry",
+      "brainstorm the importance of Chemistry in our daily lives",
+      "search for information using electronic and/or print media on the career opportunities related to Chemistry and how gender stereotyping influences career choices",
+      "discuss with peers the meaning of drug",
+      "prescription, dosage and substance use",
+      "brainstorm on the consumer rights and protection in relation to drug prescription, substance use and side effects for awareness, Project",
+      "Develop posters to sensitise the peers/community on the risks of drug and substance use."
+     ],
+     "inquiry_questions": [
+      "How is the study of Chemistry important in our society?"
+     ],
+     "core_competencies": [
+      "Communication and Collaboration: The learner explores teamwork with peers by contributing to group decision making through recognising and acknowledging the value of others’ ideas during discussions.",
+      "Self-efficacy: The learner effectively communicates while presenting the findings on career opportunities related to Chemistry and how gender stereotypes influence career choices in plenary.",
+      "Digital literacy: The learner uses digital technology effectively to search for information on various career opportunities related to Chemistry.",
+      "Citizenship: The learner demonstrates critical and constructive dialogue as they brainstorm with peers on the consumer rights to information on the drug prescription, substance use and knowledge on their side effects for awareness."
+     ],
+     "values": [
+      "Values:"
+     ],
+     "pertinent_issues": [
+      "Pertinent and Contemporary Issues (PCIs)",
+      "Life skills (Safety and security): as the learner brainstorms with peers on the rights and responsibilities of a learner to a safe and healthy learning environment.",
+      "Health Promotion Issues (drug and substance use): The learner discusses with peers the meaning of drug prescription, dosage, substance use and their effects in day to day life.",
+      "Socio-Economic and Environmental issues (Consumer protection): The learner discusses with peers the information on samples of containers of manufactured products and explores the labels on them for marks of quality, expiry dates, nutritional information, preservatives and messages of caution for consumer protection awareness."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-chemistry.pdf#p13"
+    },
+    {
+     "kicd_code": "1.2",
+     "name": "The Atom",
+     "suggested_duration": "24 lessons",
+     "learning_outcomes": [
+      "describe the structure of the atom",
+      "determine the relative atomic mass of elements",
+      "write the electron arrangement of elements using s and p notation",
+      "develop interest in the study of structure of the atom."
+     ],
+     "learning_experiences": [
+      "review with peers the concept of the structure of the atom, atomic number and mass number",
+      "discuss with peers the relationship between atomic number, mass number and number of electrons in an atom",
+      "illustrate the structure of the atom using Dalton and Rutherford's models",
+      "brainstorm the meaning of the terms isotopes and relative atomic mass",
+      "calculate the relative atomic mass of elements from isotopic abundances",
+      "discuss the relationship between energy levels and orbitals in an atom",
+      "carry out simple activities to illustrate the order of filling the electrons in the orbitals",
+      "draw the electron arrangement for the first 20 elements using s and p orbitals",
+      "watch simulation on the Rutherford Gold Foil experiment and discuss with peers."
+     ],
+     "inquiry_questions": [
+      "How are electrons arranged in an atom?"
+     ],
+     "core_competencies": [
+      "Digital literacy: the learner continuously learns to use digital platforms while watching animations on atomic models, isotopes and electron arrangement of atoms",
+      "Creativity and Imagination: the learner experiments with ideas while modelling the structure of the atom using locally available materials",
+      "Learning to learn: the learner reflects on their own work as they practise illustration of electron arrangements for the first 20 elements using s and p orbitals"
+     ],
+     "values": [
+      "Social justice: The learner advocates for harmonious relationship in groups while discussing the meaning of isotopes and relative atomic mass",
+      "Integrity: The learner shows self-discipline by appropriately using digital devices to watch animations, simulations or videos on electron arrangement of the atom"
+     ],
+     "pertinent_issues": [
+      "Pertinent and Contemporary Issues (PCIs)",
+      "Socio-Economic and Environmental issues (Environmental conservation): the learner responsibly uses locally available materials to model the structure of the atom.",
+      "Life skills (Self-esteem): the learner gains confidence while presenting findings on the meaning of isotopes and relative atomic mass.",
+      "Socio-Economic and Environmental issues (global citizenship): the learner brainstorms with peers on the contributions of scientists in the development of atomic theory/models."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-chemistry.pdf#p16"
+    },
+    {
+     "kicd_code": "1.3",
+     "name": "The Periodic Table",
+     "suggested_duration": "28 lessons",
+     "learning_outcomes": [
+      "relate the position of an element in the periodic table to its electron arrangement",
+      "illustrate ion formation of elements",
+      "derive the formulae of compounds",
+      "write balanced equations for chemical reactions",
+      "appreciate the role of electron arrangement in the development of the periodic table."
+     ],
+     "learning_experiences": [
+      "brainstorm in groups, on the development of the periodic table",
+      "arrange the first 20 elements of the periodic table into groups and periods",
+      "identify the chemical families of elements using the periodic table",
+      "discuss with peers the stability of atoms (loss or gain of electrons)",
+      "predict the type of ion formed from a given electron arrangement of an atom (cation and anion)",
+      "discuss with peers the relationship between valency",
+      "and oxidation number of elements",
+      "write electron arrangement of ions using s and p notation",
+      "infer the valency and oxidation numbers from electron arrangement of elements",
+      "discuss elements with variable oxidation numbers",
+      "practice writing formulae of compounds using valencies and oxidation states of elements and radicals",
+      "write balanced chemical equations for simple chemical reactions."
+     ],
+     "inquiry_questions": [
+      "Why is the study of the periodic table important?"
+     ],
+     "core_competencies": [
+      "Communication and Collaboration: the learner listens keenly and actively using open questions while discussing with peers the relationship between atomic number, mass number and number of electrons in atoms of elements.",
+      "Critical thinking and problem solving: the learner creates new ideas while drawing diagrams of ions of selected elements using dots and/or crosses to illustrate ion formation.",
+      "Learning to learn: the learner learns independently by writing balanced equations for chemical reactions."
+     ],
+     "values": [
+      "Values: Peace: The learner shows compassion as they display tolerance while predicting the type of ion formed from the electron arrangement of elements with peers Pertinent and Contemporary Issues (PCIs)",
+      "Socio-Economic and Environmental Issues (social cohesion): as the learner discusses with peers, how atoms acquire stability.",
+      "Life skills (analytical thinking): as the learner predicts the type of ion formed from a given electron arrangement of an atom."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-chemistry.pdf#p19"
+    },
+    {
+     "kicd_code": "1.4",
+     "name": "Chemical Bonding",
+     "suggested_duration": "24 lessons",
+     "learning_outcomes": [
+      "illustrate bond types in elements, molecules and compounds",
+      "investigate the relationship between bond types and physical properties of elements, molecules and compounds",
+      "relate bond types and resultant structures to the uses of elements, molecules and compounds",
+      "appreciate the uses of different substances based on their bond types and structures in day to day life."
+     ],
+     "learning_experiences": [
+      "review the concept of stability of atoms (gaining and/or losing electrons).",
+      "discuss in groups the role of valence electrons in bonding (octet/duplet noble gas configuration).",
+      "discuss with peers, different types of chemical bonds and intermolecular forces (ionic, covalent, dative covalent, hydrogen bond, Van der Waals and metallic).",
+      "draw Lewis structures dot (.) and cross (x) diagrams to show bonding in selected elements, molecules and compounds (ionic, covalent, dative covalent",
+      "hydrogen bond, Van der Waals and metallic bonding)",
+      "carry out activities to investigate the physical properties of giant ionic, simple molecular, giant atomic/covalent and giant metallic compounds (solubility, thermal and electrical conductivity, melting point, boiling point)",
+      "brainstorm in groups the relationship between bond type and physical properties of elements and compounds (diamond, graphite, sodium chloride, aluminium metal, among others)",
+      "explore uses of elements, molecules and compounds based on their bond types and structures",
+      "watch animations, simulations or videos on chemical bonding and resultant structures.",
+      "Project: Model bonding in selected molecules or compounds. e.g.,NaCl, SiO , graphite, diamond among 2 others (use locally available materials)"
+     ],
+     "inquiry_questions": [
+      "How do chemical bonds influence the properties of substances?"
+     ],
+     "core_competencies": [
+      "Learning to learn: the learner learns independently while drawing dot and cross diagrams to illustrate bonding in elements and compounds.",
+      "Digital literacy: the learner uses digital technology to effectively accomplish own task while watching animations, simulations, and videos on chemical bonding.",
+      "Creativity and Imagination: The learner experiments with material to develop models to illustrate bonding in selected elements/compounds using locally available materials.",
+      "Critical Thinking and Problem Solving: The learner interprets and infer with peers the relationship between bond types and resulting structures."
+     ],
+     "values": [
+      "Love: the learner shows care by avoiding to hurt others as they carry out activities to investigate the physical properties of different structures."
+     ],
+     "pertinent_issues": [
+      "Pertinent and Contemporary Issues (PCIs)",
+      "Socio-Economic and Environmental issues (Environment conservation): The learner uses locally available materials to make models.",
+      "Life skills (creative thinking): The learner models bonding in selected elements/compounds e.g., SiO2, NaCl, graphite and diamond.",
+      "Socio-Economic and Environmental issues (social cohesion): The learner discusses with peers different types of chemical bonds."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-chemistry.pdf#p22"
+    },
+    {
+     "kicd_code": "1.5",
+     "name": "Periodicity",
+     "suggested_duration": "32 lessons",
+     "learning_outcomes": [
+      "describe the trends in physical properties of elements of the periodic table",
+      "investigate the chemical properties of elements in group of the periodic table",
+      "describe the trends in properties across a period",
+      "outline applications of elements of the periodic table",
+      "appreciate applications of various elements of the periodic table."
+     ],
+     "learning_experiences": [
+      "discuss in groups, the trends in physical properties of elements in group I, II, VII and VIII",
+      "carry out experiments to investigate the physical properties of group I and II elements",
+      "carry out experiments to investigate chemical properties of group I and II elements (reaction with oxygen, chlorine, cold water, steam and dilute acids)",
+      "collect and test for the gas produced",
+      "prepare chlorine gas and carry out experiments to investigate",
+      "the physical properties of chlorine, bromine and iodine (appearance, smell, solubility in water and physical states)",
+      "carry out experiments to investigate the chemical properties of chlorine (reaction with water, reaction with metals, displacement reactions and bleaching action)",
+      "discuss the trends in physical properties of period three elements (atomic size, ionisation energy, electron affinity, electronegativity, melting and boiling points)",
+      "carry out experiments on reactions of period three elements with (oxygen, water, chlorine and dilute acids)",
+      "search for information using electronic and/or print media on the uses of selected",
+      "elements in groups I, II, VII and VIII and present your findings in class."
+     ],
+     "inquiry_questions": [
+      "1. Why is the study of chemical families important?",
+      "2. How does the position of an element in the periodic table influence its properties?"
+     ],
+     "core_competencies": [
+      "Communication and Collaboration: as the learner discusses in groups, the trends in physical properties of elements in group I, II, VII and VIII.",
+      "Self-efficacy: the learner confidently communicates the uses of selected elements while making presentations in plenary",
+      "Learning to learn: The learner independently learns by practising writing balanced chemical equations for reactions involving group I, II and VII elements.",
+      "Digital literacy: The learner uses digital devices appropriately to search for information on the uses of group I, II, VII and VIII elements."
+     ],
+     "values": [
+      "Unity: The learner appreciates the participation of each member of the group as they carry out experiments to investigate physical and chemical properties of elements in the chemical families."
+     ],
+     "pertinent_issues": [
+      "Learner Support Programmes (healthy inter and intra personal relationships): as the learner searches with peers for information on the uses of elements in group I, II, VII and VIII.",
+      "Socio-Economic and Environmental issues (safety in class and school environment): The learner observes safety while preparing chlorine gas to investigate physical and chemical properties.",
+      "Life skills (assertiveness): The learner confidently presents their findings on the uses of elements in group I, II, VII and VIII of the periodic table"
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-chemistry.pdf#p26"
+    },
+    {
+     "kicd_code": "",
+     "name": "Introduction to chemistry",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "conventional laboratory resources",
+      "improvised resources from the environment",
+      "• conventional laboratory resources"
+     ],
+     "learning_experiences": [
+      "question and answer method",
+      "written exercises",
+      "individual performance assessment",
+      "observations",
+      "project work"
+     ],
+     "inquiry_questions": [
+      "excursions • field work • science Clubs and societies • games • science symposia"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-chemistry.pdf#p39"
+    },
+    {
+     "kicd_code": "",
+     "name": "Chemical Families",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Improvised resources from the environment"
+     ],
+     "learning_experiences": [
+      "individual performance assessment",
+      "observations",
+      "project work",
+      "practicals"
+     ],
+     "inquiry_questions": [],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-chemistry.pdf#p40"
+    }
+   ]
+  },
+  {
+   "strand": "Physical Chemistry",
+   "strand_code": "2.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to describe the chemical properties of acids and bases.",
+     "exceeds": "Correctly and comprehensively describes all the chemical properties of acids and bases.",
+     "meets": "Correctly describes most of the chemical properties of acids and bases.",
+     "approaches": "Correctly describes some of the chemical properties of acids and bases,",
+     "below": "Correctly describes few of the chemical properties of acids and bases."
+    },
+    {
+     "indicator": "Ability to prepare salts using appropriate methods in the laboratory",
+     "exceeds": "Correctly and systematically prepares salts using appropriate methods in the laboratory",
+     "meets": "Correctly prepares salts using appropriate methods in the laboratory",
+     "approaches": "Correctly prepares salts using appropriate methods in the laboratory missing out some steps",
+     "below": "Correctly prepares salts using appropriate methods in the laboratory missing out most steps"
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "2.1",
+     "name": "Acids and bases",
+     "suggested_duration": "28 lessons",
+     "learning_outcomes": [
+      "explain the characteristics of acids and bases in aqueous solutions",
+      "describe the chemical properties of acids and bases",
+      "classify acids and bases into strong and weak using universal indicator",
+      "outline the uses of acids and bases in day to day life",
+      "Appreciate the uses of acids and bases in day to day activities."
+     ],
+     "learning_experiences": [
+      "review the concept of acids and bases as learned in JS",
+      "observe safety when handling acids and bases",
+      "carry out experiment to demonstrate dissociation of acids and bases in water",
+      "carry out experiments on chemical properties of acids",
+      "perform experiments to investigate which metal oxides and hydroxides reacts with both acids and base",
+      "collect and test for gases produced during the experiments",
+      "conduct experiments to determine strength of acids and bases using universal indicator",
+      "carry out activities to compare the electrical conductivity of strong and weak acids and bases",
+      "properly dispose waste after experiments",
+      "search for information on the applications of acids and bases."
+     ],
+     "inquiry_questions": [
+      "What common household substances are acidic and/or basic in nature?"
+     ],
+     "core_competencies": [
+      "Communication and Collaboration: The learner develops teamwork by contributing to group decision making while working with peers as they carry out laboratory experiments and activities.",
+      "Digital literacy: The learner interacts with digital technology as they search for information on the applications of acids and bases"
+     ],
+     "values": [
+      "Values: Responsibility: The learner develops accountability as they take care of apparatus while using them during experiments Pertinent and Contemporary Issues (PCIs): Environmental issues (safety in the laboratory): The learner observes safety when handling acids and bases"
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-chemistry.pdf#p31"
+    },
+    {
+     "kicd_code": "2.2",
+     "name": "Introduction to Salts",
+     "suggested_duration": "30 lessons",
+     "learning_outcomes": [
+      "classify different salts based on their properties.",
+      "prepare salts using appropriate methods in the laboratory",
+      "describe the behaviour of salts when exposed to air",
+      "outline applications of salts in day to day life",
+      "appreciate application s of salts in day to day life."
+     ],
+     "learning_experiences": [
+      "brainstorm and carry out activities in groups, to establish the meaning of salt (samples of inorganic fertilisers/table salt/commercial salts found at home and in the school laboratory)",
+      "discuss with peers and categorise salts as normal, acidic, basic and double",
+      "carry out experiments to determine the solubility of salts in water and classify them as either soluble or insoluble (chlorides, carbonates, nitrates and sulphates)",
+      "carry out experiments to prepare salts (direct synthesis, reactions between; acids and metals, acids and bases, acids",
+      "and carbonates/hydrogen carbonates, precipitation reaction)",
+      "brainstorm on learner’s rights and responsibilities to a safe learning environment when preparing salts",
+      "write balanced chemical equations for reactions involved in the preparation of salts (ionic equations limited to precipitation reactions)",
+      "carry out experiments to investigate the behaviour of different salts when exposed to the atmosphere (hygroscopic, deliquescent and efflorescent salts)",
+      "discuss with peers, the applications of salts (Agriculture, food industry, medicine, paper industry",
+      "paints industry, glass industry, laundry among others)",
+      "search for information using electronic and/or print media on the effects of applications of salts (inorganic fertilisers) on environmental sustainability (water pollution-eutrophication, soil and air pollution)",
+      "discuss with peers mitigation measures to challenges of using inorganic fertilisers for sustainable economy, health and the environment."
+     ],
+     "inquiry_questions": [
+      "1. How do salts behave when exposed to air?",
+      "2. How can salts be prepared in the laboratory?"
+     ],
+     "core_competencies": [
+      "Communication and Collaboration: The learner brainstorms and carries out activities with peers to establish the meaning of salt",
+      "Learning to learn: The learner develops relationships by sharing what they have learnt while carrying out experiments to prepare salts",
+      "Creativity and imagination: The learner makes observations as they carry out experiments to determine solubility of salts in water."
+     ],
+     "values": [
+      "Values:",
+      "Respect: The learner appreciates the opinion of others as they carry out activities to categorise salts as soluble or insoluble",
+      "Unity: the learner cooperates with peers as they discuss the applications of salts Pertinent and Contemporary Issues (PCIs)",
+      "Socio-Economic and Environmental issues (waste management): The learner appropriately disposes of laboratory waste after preparing different salts",
+      "Life skills (Self-esteem): The learner confidently makes presentations in plenary on the findings about the effects of excessive use of salts on environmental sustainability"
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-chemistry.pdf#p34"
+    },
+    {
+     "kicd_code": "",
+     "name": "Acids and Bases Introduction to Salts",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "conventional laboratory resources",
+      "Improvised resources from the environment"
+     ],
+     "learning_experiences": [
+      "question and answer method",
+      "written exercises",
+      "individual performance assessment",
+      "project work",
+      "practicals"
+     ],
+     "inquiry_questions": [
+      "excursions • field work • science Clubs and societies • games • science symposia"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-chemistry.pdf#p40"
+    }
+   ]
+  }
+ ]
+}

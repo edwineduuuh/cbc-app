@@ -1,0 +1,473 @@
+{
+ "source_pdf": "grade10-ict.pdf",
+ "grade": 10,
+ "subject": "ict",
+ "general_outcomes": [
+  "Communicate effectively through the use of information and communication technological innovations.",
+  "Demonstrate knowledge of information and communication technology applications that enhances their personal and professional productivity",
+  "Recognize potential risks associated with the use of ICT, and means by which they can mitigate the risks in a responsible way.",
+  "Make valuable contributions to the social and economic development of the society through the use of information and communication technology skills.",
+  "Apply knowledge, skills, attitude and values in information and communication technologies in daily live activities and lifelong learning.",
+  "Demonstrate information and communications skills that can impact current and new methods of working in the outside world and on social, economic, ethical and moral issues."
+ ],
+ "strands": [
+  {
+   "strand": "ICT and Society",
+   "strand_code": "1.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to relate the application areas of ICT to solving community problems",
+     "exceeds": "Relates the application areas of ICT to solving community problems and gives examples",
+     "meets": "Relates the application areas of ICT to solving community problems",
+     "approaches": "Relates some",
+     "below": "Relates few"
+    },
+    {
+     "indicator": "Ability to use operating system to organise files and folders in a computing device",
+     "exceeds": "",
+     "meets": "Demonstrates proficient use of file management tools and features of the operating system to organize files and folders",
+     "approaches": "",
+     "below": ""
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "1.1",
+     "name": "Introduction to ICT",
+     "suggested_duration": "4 lessons",
+     "learning_outcomes": [
+      "identify technologies used in Communication",
+      "explain the components of ICT infrastructure in an organisation",
+      "use ICT to interact with information on a topical issue",
+      "appreciate the importance of ICT in the society."
+     ],
+     "learning_experiences": [
+      "brainstorm on the meaning of the terms; information, process, communication, technology, information technology, Information and Communication technology (ICT)",
+      "use print or digital media to search for information on technologies used in Communication",
+      "discuss the components of ICT infrastructure in an organisation",
+      "engage in an activity to send and receive information using an ICT device",
+      "share experiences on importance of ICT in the society."
+     ],
+     "inquiry_questions": [
+      "How do different digital technologies facilitate communication and information exchange in a society?"
+     ],
+     "core_competencies": [
+      "Critical Thinking and Problem Solving: leaner develops research skills when searching for information on technologies used in Communication",
+      "Communication and collaboration: learner acquires speaking, listening and teamwork skills when discussing the components of ICT infrastructure in an organisation"
+     ],
+     "values": [
+      "Values:",
+      "Peace: learner has respect for diversity when discussing the components of ICT infrastructure in an organisation",
+      "Unity: learner accommodates each other’s opinion when brainstorming on the meaning of the terms; information, process, communication, technology, information technology, Information and Communication technology (ICT) Pertinent and Contemporary Issues (PCIs): Socio cohesion: learner develops abilities to relate with others when discussing the components of ICT infrastructure in an organisation."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-ict.pdf#p13"
+    },
+    {
+     "kicd_code": "1.2",
+     "name": "Application Areas of ICT",
+     "suggested_duration": "4 lessons",
+     "learning_outcomes": [
+      "identify application areas of ICT in the society",
+      "relate the application areas of ICT to solving community problems",
+      "appreciate the role of ICT in the society."
+     ],
+     "learning_experiences": [
+      "use print or digital media to search for information on areas where ICTs are used and share the findings",
+      "visit school community areas such as the school administration office, accounts office, and nearby supermarket to observe how ICT is used",
+      "discuss the use of ICT in solving community problems",
+      "share experiences on the challenges posed by ICT in society."
+     ],
+     "inquiry_questions": [
+      "1. How is ICT used to",
+      "solve problems in",
+      "daily life?",
+      "2. What are the trends in",
+      "ICT application"
+     ],
+     "core_competencies": [
+      "Critical thinking and problem solving: learner acquires Interpretation and inference skills when using print or digital media to search for information on areas where ICTs are used.",
+      "Citizenship: learner develops global awareness skills when sharing experiences on the challenges posed by ICT in society."
+     ],
+     "values": [
+      "Social justice: accords equal opportunities in sharing responsibilities as learner role plays use of ICT in daily life activities.",
+      "Integrity: learner has online self-discipline when using print or digital media to search for information on areas where ICTs are used."
+     ],
+     "pertinent_issues": [
+      "Pertinent and Contemporary Issues (PCIs): Online safety: learner observes online safety measures when using digital media to search for information on areas where ICTs are used and share the findings."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-ict.pdf#p15"
+    },
+    {
+     "kicd_code": "1.3",
+     "name": "Operating Systems",
+     "suggested_duration": "6 lessons",
+     "learning_outcomes": [
+      "explain the importance of operating systems in digital devices",
+      "identify types of operating systems used in digital devices",
+      "use operating system to organise files and folders in a computing device",
+      "implement security control measure on files and folders in a computing device using the operating system"
+     ],
+     "learning_experiences": [
+      "brainstorm the meaning and importance of operating systems in a digital device",
+      "identify and discuss types of operating systems in digital devices (windows, Linux, macOS, Android, iOS) including those in dedicated digital devices",
+      "explore the operating system interface used for interaction (GUI, command line, menu driven)",
+      "engage in basic operating system manipulations such as changing the desktop background, adjusting system settings, locating applications",
+      "use the file explorer to navigate through a computer system",
+      "manipulate files and folders (creating, renaming, moving, copying, searching and deleting files and folders) within the operating system environment",
+      "apply features of the operating system such as file permissions, user access controls, passwords, file backups and",
+      "appreciate the use",
+      "of operating",
+      "systems in a",
+      "device."
+     ],
+     "inquiry_questions": [
+      "What role do operating systems play in supporting user operations in a digital device?",
+      "file organization techniques to efficiently secure files and folders in a computing device."
+     ],
+     "core_competencies": [
+      "Learning to learn: learner carries out research when exploring the operating system interface used for interaction.",
+      "Digital literacy: learner interacts with digital technology when creating, renaming, moving, copying, searching and deleting files and folders within the operating system environment."
+     ],
+     "values": [
+      "Love: learner respects others when brainstorming the importance of operating systems in a digital device",
+      "Responsibility: learner performs assigned roles when engaged in basic operating system manipulations such as changing the desktop background, adjusting system settings, locating applications"
+     ],
+     "pertinent_issues": [
+      "• Self-esteem: learner’s self-confidence is enhanced when engaged in basic operating system manipulations, creating, renaming, moving, copying, searching and deleting files and folders within the operating system environment."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-ict.pdf#p17"
+    }
+   ]
+  },
+  {
+   "strand": "Productivity Tools",
+   "strand_code": "2.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to create a text document using word processing productivity tools.",
+     "exceeds": "Creates a text document with advanced formatting, including headers, footers, styles, and advanced layout features using word processing productivity tools.",
+     "meets": "Creates a text document with advanced formatting, including headers, footers, styles using word processing productivity tools.",
+     "approaches": "Creates a text document with basic formatting, and basic formatting tools using word processing productivity tools.",
+     "below": "Struggles to format the text document correctly, with minimal use of formatting tools using word processing productivity tools."
+    },
+    {
+     "indicator": "Ability to create an interactive presentation for a target audience.",
+     "exceeds": "Creates an interactive presentation for a target audience using creative and visually appealing design elements that enhance understanding and engagement.",
+     "meets": "Creates an interactive presentation for a target audience using creative appealing design elements that support understanding and engagement.",
+     "approaches": "Creates an interactive presentation for a target audience using basic design elements with limited creativity.",
+     "below": "Creates an interactive presentation for a target audience with no creativity in design elements."
+    },
+    {
+     "indicator": "Ability to create a publication using desktop publishing tools to achieve a",
+     "exceeds": "Demonstrates advanced proficiency in using desktop publishing tools to create and manipulate text, images, graphics, and layout elements effectively.",
+     "meets": "Demonstrates proficient use of desktop publishing tools to create and manipulate text, images, graphics, and layout elements effectively.",
+     "approaches": "Demonstrates basic proficiency in using desktop publishing tools. Use of text, images, graphics, and layout elements is limited",
+     "below": "Demonstrates limited proficiency in using desktop publishing tools. Use of text, images, graphics, and layout elements is absent"
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "2.1",
+     "name": "Word Processing",
+     "suggested_duration": "10 lessons",
+     "learning_outcomes": [
+      "explain the importance of word processing in document production",
+      "select a word processing productivity tool to be used for document production",
+      "create a text document using word processing productivity tools",
+      "share a document created in a word processing productivity tool",
+      "appreciate the emerging trends in word processing productivity tools."
+     ],
+     "learning_experiences": [
+      "brainstorm on the meaning and importance of word processing in document production",
+      "explore a real-world setting to identify examples of word processing applications. (Apache OpenOffice, LibreOffice, Microsoft Word, Google Docs, WPS Office Write)",
+      "perform word processing tasks which include creating, saving, navigating, closing, and retrieving a text document",
+      "brainstorm ways of formatting a text document to make it visually appealing and well-presented",
+      "carry out page layout tasks such as setting margins, paper size, and page numbering",
+      "use editing tools in a word processor on a created document",
+      "such as thesaurus, spell checker, grammar checker, auto-complete, and auto-correct.",
+      "apply formatting features in a word processor to characters, paragraphs, columns, and page formats to give the document a professional appearance.",
+      "insert and format a table of figures and table of content in a created document",
+      "insert section and page breaks, styles, headers and footers, hyperlinks, cross referencing",
+      "create and manipulate tables",
+      "generate merged documents",
+      "insert and format graphics (symbols, shapes, images, text wrap).",
+      "collaborate with peers by using the track changes and comments features",
+      "share a text document created in a word processor through hard copy, PDF, email, or upload.",
+      "• engage a resource person about emerging trends in word processing productivity tools.",
+      "Suggested learning experiences"
+     ],
+     "inquiry_questions": [
+      "How can the key features in a Word Processor be optimised to enhance document production?",
+      "Suggested Key Inquiry Questions"
+     ],
+     "core_competencies": [
+      "Communication and Collaboration: learner develops listening and speaking skills when brainstorming on the meaning and importance of word processing in document production.",
+      "Critical Thinking and problem solving: learner acquires active listening and communication skills when brainstorming on ways of formatting a text document to make it visually appealing and well-presented."
+     ],
+     "values": [
+      "Unity: learner respects others opinion when brainstorming on ways of formatting a text document to make it visually appealing and well-presented.",
+      "Peace: learner is patient with others when brainstorming on the meaning and importance of word processing in document production."
+     ],
+     "pertinent_issues": [
+      "Self-esteem: learner self-confidence is enhanced when performing tasks which include creating, saving, navigating, closing, and retrieving a word processing document."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-ict.pdf#p20"
+    },
+    {
+     "kicd_code": "2.2",
+     "name": "Presentation",
+     "suggested_duration": "6 lessons",
+     "learning_outcomes": [
+      "explain the importance of presentation productivity tools used in presentation creation",
+      "select a presentation productivity tool used for creating a presentation",
+      "create an interactive presentation for a target audience",
+      "deliver a slide presentation effectively on a topical area",
+      "appreciate the emerging trends in presentation productivity tools"
+     ],
+     "learning_experiences": [
+      "brainstorm on the meaning and importance of productivity tools used for creating a presentation",
+      "identify examples presentation software (e.g. LibreOffice Impress, PowerPoint, Keynote, Google Slides Canva) including their basic features",
+      "explore methods of creating and editing a presentation",
+      "create and edit slides by incorporating text, images, shapes, charts, multimedia elements, speaker notes, master slides and diverse templates",
+      "apply various slide transition effects, add styles, and adjust presentation speeds to enhance presentation flow",
+      "add interactivity in presentations by incorporating animations, transitions, interactive elements, and seamless slide navigation",
+      "add hyperlinks on the clickable elements such as text, images, or shapes, ensuring enhanced navigation",
+      "use the presentation presenter tools, such as the presenter view in Microsoft PowerPoint or Google Slides, to keep track of notes, timings, and upcoming slides",
+      "engage the audience with interactive elements in a presentation created of a topical issue in the community.",
+      "share experiences in emerging trends in",
+      "presentation productivity tools",
+      "Suggested learning experiences"
+     ],
+     "inquiry_questions": [
+      "How can the presentation software be effectively used to create a visually appealing, informative, and interactive presentation that engages the audience.",
+      "Suggested Key Inquiry Questions"
+     ],
+     "core_competencies": [
+      "Self-efficacy: learner acquires the skill of effective communication when engaging the audience with interactive elements in a presentation created of a topical issue in the society.",
+      "Imagination and creativity: learner explores new ideas when adding interactivity in presentations by incorporating animations, transitions, interactive elements."
+     ],
+     "values": [
+      "Responsibility: learner engages in assigned roles when creating and editing slides by incorporating text, images, shapes, charts, multimedia elements, speaker notes, master slides and diverse templates",
+      "Patriotism: learner respects fellow learners as citizens when engaging the audience with interactive elements in a presentation created of a topical issue in the community."
+     ],
+     "pertinent_issues": [
+      "Social-awareness skills: learner is assertive when engaging the audience with interactive elements in a presentation created of a topical issue in the society."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-ict.pdf#p23"
+    },
+    {
+     "kicd_code": "2.3",
+     "name": "Desktop Publishing",
+     "suggested_duration": "8 lessons",
+     "learning_outcomes": [
+      "explain the importance of desktop publishing tools in document publication",
+      "select a desktop publishing tool to be used for producing publications.",
+      "create a publication using desktop publishing tools to achieve a professional appearance.",
+      "share a publication created in a desktop publishing tool",
+      "appreciate emerging trends in DTP productivity tools."
+     ],
+     "learning_experiences": [
+      "Learner is guided to:",
+      "brainstorm on the meaning and importance of desktop publishing tools in document publication.",
+      "use print or digital media to search for examples and categories of DTP application which include which Open Source: (e.g. Scribus, LibreOffice Draw, Scribble) and Non-Open Source:( Adobe InDesign, QuarkXPress, Affinity Publisher, Microsoft Publisher) used for creation of a publication and share with peers",
+      "perform tasks which include creating, saving, navigating, closing, and retrieving a publication",
+      "creation of a publication with the aid of the key features of desktop publishing tool",
+      "use editing tools in a desktop publishing tool to refine a publication created, ensuring a professional appearance.",
+      "in turn share a publication created in DTP tool through a hard copy, pdf, email, upload",
+      "tools",
+      "integrate a publication with other applications, apply mail merge to personalize the final publication.",
+      "engage a resource person about emerging trends in DTP productivity tools",
+      "Suggested learning experiences"
+     ],
+     "inquiry_questions": [
+      "How does Desktop publishing software make creating and designing professional quality publications easier?",
+      "Suggested Key Inquiry Questions"
+     ],
+     "core_competencies": [
+      "Creativity and imagination: learner explores s new ideas when creating and applying formatting features using a desktop publishing tool required to have a document with processional outlook.",
+      "Critical Thinking and problem solving: learner acquires researching skills when exploring a real-world setting to find examples of software used to produce publications."
+     ],
+     "values": [
+      "Respect: learner appreciates effort of others when brainstorming on the meaning and importance of desktop publishing tools",
+      "Unity: learner is cooperative when engaging a resource person about emerging trends in DTP productivity tools."
+     ],
+     "pertinent_issues": [
+      "Social-awareness skills: leaner ‘s effective communication skills are enhanced when brainstorming on the meaning and importance of desktop publishing tools."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-ict.pdf#p26"
+    }
+   ]
+  },
+  {
+   "strand": "Internet and Web Technologies",
+   "strand_code": "3.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to use email application to communicate with peers",
+     "exceeds": "Demonstrates advanced proficiency in using email application features to communicate with peers",
+     "meets": "Demonstrates proficient use of email application features to communicate with peers",
+     "approaches": "Demonstrates basic proficiency in using email application features to communicate with peers",
+     "below": "Demonstrates limited proficiency in using email application features to communicate with peers."
+    },
+    {
+     "indicator": "Ability to use online forums to collaborate and share content",
+     "exceeds": "Demonstrates advanced proficiency in using online forum features to collaborate and share content",
+     "meets": "Demonstrates proficient use of online forum features to collaborate and share content",
+     "approaches": "Demonstrates basic proficiency in using online forum features to collaborate and share content",
+     "below": "Demonstrates limited proficiency in using online forum features to collaborate and share content"
+    },
+    {
+     "indicator": "Ability to observe appropriate netiquette behaviours in an online environment",
+     "exceeds": "Always observes appropriate netiquette behaviours in an online environment",
+     "meets": "Mostly observes appropriate netiquette behaviours in an online environment",
+     "approaches": "Attempts to observe appropriate netiquette behaviours in an online environment",
+     "below": "Frequently disregards observing appropriate netiquette behaviours in an online environment"
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "3.1",
+     "name": "The Internet",
+     "suggested_duration": "6 lessons",
+     "learning_outcomes": [
+      "explain the purpose of the internet in the society",
+      "explore the common services offered through the internet for various needs and interests",
+      "identify the fundamental components required to set up an internet connection.",
+      "use search engine to gather relevant information",
+      "use email application to communicate with peers",
+      "appreciate the positive impacts of the internet on society"
+     ],
+     "learning_experiences": [
+      "brainstorm on the meaning, history and purpose of the Internet",
+      "use print or digital media to search for the meaning of common terms used in the internet such as intranet, www, extranet, website, webpage, URL, Server, web browser, search engine, web application, Internet service provider and surfing",
+      "identify common services offered through the internet for various needs and interests such as communication, e-commerce, education, social media, financial services, remote work tools, gaming.",
+      "research and present information on the fundamental components required to set up an internet connection.",
+      "simulate setting up an internet connection using provided equipment such as hotspot, ethernet cables, wireless routers, tethering and portable hotspot",
+      "use search engines to find and access information on the internet (keyword search, operators, filters, Boolean operators, related search, autocomplete, settings, images and videos)",
+      "compose and send an email to peers.",
+      "customise aspects of email application to suit workflow, enhance productivity, and effectively manage emails (account setup, organize folders, email filters, notifications, signature, default settings, security, sync settings, layout customization, backup and storage)",
+      "explore and share experiences of positive impacts of the internet on various aspects of society",
+      "• share experiences on the positive impact of the Internet on society",
+      "Suggested learning experiences"
+     ],
+     "inquiry_questions": [
+      "How can the Internet be harnessed to facilitate communication and information gathering?",
+      "Suggested Key Inquiry Questions"
+     ],
+     "core_competencies": [
+      "Learning to learn: learner develops research skills when using digital media to search for the meaning of common terms used in the internet such as intranet, www, extranet, website, webpage, URL, Server, web browser, search engine, web application, Internet service provider and surfing",
+      "Self-efficacy: learner acquires effective communication skills when sharing experiences on positive impacts of the internet on various aspects of society"
+     ],
+     "values": [
+      "Respect: learner is open minded when sharing experiences on the positive impact of the Internet on society",
+      "Responsibility: learner engages in assigned roles and duties when simulating setting up an internet connection using provided equipment such as hotspot, ethernet cables, wireless routers, tethering and portable hotspot"
+     ],
+     "pertinent_issues": [
+      "Online Safety: learner observes online safety measures when using internet to search for information and communicate through sending and receiving emails."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-ict.pdf#p29"
+    },
+    {
+     "kicd_code": "3.2",
+     "name": "Digital Communication",
+     "suggested_duration": "10 lessons",
+     "learning_outcomes": [
+      "explain the importance of digital communication in the society.",
+      "identify online platforms used to support digital communication",
+      "use digital online platforms to communicate",
+      "use online forums to collaborate and share content",
+      "appreciate the impact of Artificial Intelligence (AI) in digital communication platforms"
+     ],
+     "learning_experiences": [
+      "brainstorm on the meaning and importance of digital communication in the society.",
+      "search for information on digital communication platforms used for personal and professional communication, such as email, chat apps, video conferencing, instant messaging (IM), collaboration platforms, learning management and social media.",
+      "explore the key features of online platforms used to support digital communication such as user profiles, customisable interfaces, accessibility, search functionality, privacy and security, integration with other services, support and help resources.",
+      "use various online digital platforms such as social medial to communicate with peers such as discussion forums where students can post questions and answer on any topical issue.",
+      "explore various digital collaboration tools such as cloud-based documents platforms (Google Docs, Zoho docs), file-sharing services platforms (Dropbox, Google drive, One drive), and project management platforms (Asana, Jira)",
+      "use digital collaboration tools like cloud-based document platforms, file-sharing services platforms, and project management platforms to work collaboratively, share resources, manage projects, and enhance productivity through seamless communication and real-time updates.",
+      "evaluate different types of video and audio streaming media platforms such as You tube, Prime Video, Netflix, Apple Music, Amazon, Facebook Live, Spotify, Apple Music.",
+      "use audio or video-based platforms to create podcasts on various subjects, allowing learners to share learning experiences",
+      "share experiences on the positive impact of the Internet on society",
+      "Suggested learning experiences"
+     ],
+     "inquiry_questions": [
+      "How can various digital communication platforms be effectively utilised to create communication, connection and learning?",
+      "Suggested Key Inquiry Questions"
+     ],
+     "core_competencies": [
+      "Communication and Collaboration: learner acquires listening and speaking skills when sharing experiences on the positive impact of the Internet on society.",
+      "Critical thinking and problem solving: learner develops evaluation and decision making when evaluating different types of video and audio streaming media platforms."
+     ],
+     "values": [
+      "Integrity: learner has self-discipline when using audio or video-based platforms to create podcasts on various subjects, allowing learners to share learning experiences",
+      "Peace: learner has respect self and others when brainstorm on the meaning and importance of digital communication in the society"
+     ],
+     "pertinent_issues": [
+      "Online safety: learner uses internet responsibly when using various online digital platforms such as social medial to communicate with peers such as discussion forums where students can post questions and answer on any topical issue."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-ict.pdf#p32"
+    },
+    {
+     "kicd_code": "3.3",
+     "name": "Digital Citizenship",
+     "suggested_duration": "6 lessons",
+     "learning_outcomes": [
+      "explore the importance of being a good digital citizen in an online environment",
+      "identify appropriate netiquette behaviours in an online environment",
+      "observe appropriate netiquette behaviours in an online environment",
+      "observe healthy practices when using ICT technologies",
+      "analyse practices for environmental conservation to mitigate degradation caused by the use of digital technology.",
+      "appreciate the importance of responsible use of technologies"
+     ],
+     "learning_experiences": [
+      "brainstorm on the importance of being a good digital citizen in an online environment",
+      "search for information on what constitutes netiquette behaviours and present the findings.",
+      "analyse and present real-world online scenarios (emails, forum posts, social media interactions) and identify netiquette issues and suggest improvements.",
+      "brainstorm on some of the unethical behaviours on the internet.",
+      "evaluate information encountered in the internet in order to identify potential biases, misinformation, and the credibility of sources.",
+      "role-play taking different online personas while adhering to netiquette behaviours and have reviews by their peers.",
+      "use online platforms to simulate appropriate netiquette behaviours in an online environment",
+      "discuss the importance of maintaining positive and responsible digital footprints",
+      "adjust privacy settings on various online platforms (e.g., social media, email) to control the visibility of personal information.",
+      "maintain healthy personal practices when using digital devices",
+      "identify healthy ergonomic requirements in the user environment",
+      "brainstorm on good practices necessary for environmental conservation resulting from the use of digital technology (energy efficiency, electronics recycling, digital waste management)"
+     ],
+     "inquiry_questions": [
+      "How can I use digital technologies responsibly and responsively?"
+     ],
+     "core_competencies": [
+      "Critical thinking and problem solving: learner acquires reflection skills when analysing and presenting real-world online scenarios (emails, forum posts, social media interactions) and identify netiquette issues and suggest improvements.",
+      "Self-efficacy: learner acquires leadership skills when role-playing taking different online personas while adhering to netiquette behaviours and having reviews by their peers."
+     ],
+     "values": [
+      "Values:",
+      "Responsibility: learner engages in assigned roles when evaluating information encountered in the internet in order to identify potential biases, misinformation, and the credibility of sources.",
+      "Unity: learner strives to achieve common goal when role-play taking different online personas while adhering to netiquette behaviours and have reviews by their peers Pertinent and Contemporary Issues (PCIs): Online safety: learner prevents cybersecurity threats when adjusting privacy settings on various online platforms (e.g., social media, email) to control the visibility of personal information"
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-ict.pdf#p35"
+    }
+   ]
+  }
+ ]
+}

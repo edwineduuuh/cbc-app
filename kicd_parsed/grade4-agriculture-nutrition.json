@@ -1,0 +1,574 @@
+{
+ "source_pdf": "grade4-agriculture-nutrition.pdf",
+ "grade": 4,
+ "subject": "agriculture-nutrition",
+ "general_outcomes": [
+  "By the end of Upper Primary school, the learner should be able to:",
+  "Participate actively in agricultural and household activities in conservation of resources.",
+  "Use scarce resources through innovative practices to contribute towards food and nutrition security.",
+  "Engage in food production processes for self-sustainability, health and economic development."
+ ],
+ "strands": [
+  {
+   "strand": "Conservation of Resources",
+   "strand_code": "1.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to demonstrate knowledge on conservation of resources",
+     "exceeds": "Demonstrates exceptional ability to express and present ideas on conservation of soil, water, fuel and wild animals.",
+     "meets": "Demonstrates ability to express and present ideas on conservation of soil, water, fuel and wild animals.",
+     "approaches": "Demonstrates moderate ability to express and present ideas on conservation of soil, water, fuel and wild animals.",
+     "below": "Demonstrates minimal ability to express and present ideas on conservation of soil, water, fuel and wild animals."
+    },
+    {
+     "indicator": "Ability to conserve resources",
+     "exceeds": "Creatively applies appropriate measures to conserve resources (soil, water, fuels and wild animals).",
+     "meets": "Applies appropriate measures to conserve resources (soil, water, fuels and wild animals).",
+     "approaches": "Partially applies appropriate measures to conserve resources (soil, water, fuels and wild animals).",
+     "below": "Partially applies measures that require improvement to conserve resources (soil, water, fuels and wild animals)."
+    },
+    {
+     "indicator": "Ability to show responsibility in conservation of resources",
+     "exceeds": "Shows leadership, personal initiative and dutifulness in undertaking tasks in conservation of resources (soil, water, fuel and wild animals).",
+     "meets": "Shows personal initiative and dutifulness in undertaking tasks in conservation of resources (soil, water, fuel and wild animals).",
+     "approaches": "Shows dutifulness in undertaking tasks in conservation of resources (soil, water, fuel and wild animals).",
+     "below": "Requires prompt to undertake tasks in conservation of resources (soil, water, fuel and wild animals)."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "1.1",
+     "name": "Soil Conservation",
+     "suggested_duration": "7 lessons",
+     "learning_outcomes": [
+      "Identify suitable materials for making compost manure",
+      "Prepare compost manure for farming",
+      "Appreciate importance of compost manure in farming."
+     ],
+     "learning_experiences": [
+      "Learners are guided to:",
+      "Discuss suitable materials for compost manure based on their local environment.",
+      "Collect and compost suitable materials and make compost manure using heap method.",
+      "Practise the learnt skills in making compost manure using slashed vegetation, kitchen wastes and any other available organic wastes and using it in their gardening activities.",
+      "Develop communication skills during the discussion; care for environment while collecting waste organic matter; and unity while working together in the composting activity.",
+      "Suggested learning experiences"
+     ],
+     "inquiry_questions": [
+      "How can composting conserve the environment?",
+      "Suggested Key inquiry questions"
+     ],
+     "core_competencies": [
+      "Communication and collaboration: speaking and listening skills as the learners discuss the process of preparing compost manure."
+     ],
+     "values": [
+      "Unity: working together striving to achieve common goal in the preparation of compost manure."
+     ],
+     "pertinent_issues": [
+      "Care for the environment as learner utilize waste organic materials in the preparation of compost manure."
+     ],
+     "links_to_other_areas": [
+      "Link to other subjects:"
+     ],
+     "resources": [],
+     "kicd_source": "grade4-agriculture-nutrition.pdf#p10"
+    },
+    {
+     "kicd_code": "1.2",
+     "name": "Water Conservation",
+     "suggested_duration": "7 lessons",
+     "learning_outcomes": [
+      "Describe drip irrigation as a way of conserving water",
+      "Carry out drip irrigation to conserve water",
+      "Appreciate use of drip irrigation in conserving water in farming."
+     ],
+     "learning_experiences": [
+      "Learners are guided to:",
+      "Watch video clips or use print media or observe drip irrigation in neighbouring households to guide them discuss drip irrigation concept.",
+      "Innovate drip equipment using water pipes and available containers and use the drip irrigation in gardening activities",
+      "Develop creativity skills when innovating drip irrigation equipment; practice responsibility in task allocation; and personal safety while working with tools and equipment.",
+      "Suggested learning experiences"
+     ],
+     "inquiry_questions": [
+      "How do we use drip irrigation to conserve water?",
+      "Suggested Key inquiry questions"
+     ],
+     "core_competencies": [
+      "Creativity and imagination: creativity skills in experimenting new ideas while innovating drip irrigation equipment."
+     ],
+     "values": [
+      "Responsibility: undertaking tasks allocated in the innovative drip irrigation project."
+     ],
+     "pertinent_issues": [
+      "Safety of self and others as the learners handle and work with tools and equipment in innovating drip irrigation."
+     ],
+     "links_to_other_areas": [
+      "Learners relate construction skills in the construction of drip irrigation to skill in use of tools in Science and Technology."
+     ],
+     "resources": [],
+     "kicd_source": "grade4-agriculture-nutrition.pdf#p11"
+    },
+    {
+     "kicd_code": "1.3",
+     "name": "Fuel Conservation",
+     "suggested_duration": "7 lessons",
+     "learning_outcomes": [
+      "Identify types of fuels used at home",
+      "Use and conserve fuels in cooking",
+      "Appreciate the importance of conserving fuel to minimize wastage of resources."
+     ],
+     "learning_experiences": [
+      "Learners are guided to:",
+      "Discuss to enumerate the types of fuels such as charcoal, firewood, gas, kerosene, used at home.",
+      "Practise ways of conserving fuels such as putting off fire when done and using fuel efficient equipment when cooking.",
+      "Develop problem solving skills as they solve problems of fuel by reducing wastage in use of fuel, show responsibility by practicing advance preparation of foodstuffs, observe safety in use of fuel.",
+      "Suggested learning experiences"
+     ],
+     "inquiry_questions": [
+      "How does reducing fuel wastage conserve our resources?",
+      "Suggested Key inquiry questions"
+     ],
+     "core_competencies": [
+      "Critical thinking and problem solving: evaluation and decision making skills as learners explore ways of reducing wastage in use of fuels."
+     ],
+     "values": [
+      "Responsibility: solving problems proactively as learners use fuels conservatively."
+     ],
+     "pertinent_issues": [
+      "Safety of self and others as learners use fuels and related fires."
+     ],
+     "links_to_other_areas": [
+      "Learners relate the skills in conservation of fuels to types and sources of energy learnt in Science and Technology."
+     ],
+     "resources": [],
+     "kicd_source": "grade4-agriculture-nutrition.pdf#p12"
+    },
+    {
+     "kicd_code": "1.4",
+     "name": "Conserving Wild Animals",
+     "suggested_duration": "8 lessons",
+     "learning_outcomes": [
+      "Identify small wild animals that destroy crops",
+      "Construct and use a scarecrow to keep off small wild animals from crops",
+      "Appreciate the importance of living better with small wild animals."
+     ],
+     "learning_experiences": [
+      "Learners are guided to:",
+      "Brainstorm and share experiences on small wild animals such as birds, hares, squirrels, monkeys, that destroy crops.",
+      "Discuss, construct a scarecrow using locally available materials and install the scarecrows in the immediate environment to keep off small wild animals.",
+      "Develop creativity skills as they design a scare crow, demonstrate responsibility in allocating roles to construct and practice animal protection by safely keeping off the small wild animal."
+     ],
+     "inquiry_questions": [
+      "How does reducing fuel wastage conserve our resources?"
+     ],
+     "core_competencies": [
+      "Creativity and imagination: observation and experimentation skills as learners create scarecrow to scare wild animals."
+     ],
+     "values": [
+      "Responsibility: engaging in assigned roles and duties as learners construct the scarecrow to keep off wild animals."
+     ],
+     "pertinent_issues": [
+      "Conservation of biodiversity as learners construct scarecrow to keep off wild animals without killing them."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade4-agriculture-nutrition.pdf#p13"
+    }
+   ]
+  },
+  {
+   "strand": "Food Production Processes",
+   "strand_code": "2.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to explain food production processes at household level",
+     "exceeds": "Explains five food production processes (direct sowing of seeds, growing of fruits, uses of domestic animals, balanced diet, boiling or shallow frying) at household level giving exemplary details.",
+     "meets": "Explains five food production processes (direct sowing of seeds, growing of fruits, uses of domestic animals, balanced diet, cooking by boiling and frying at household level",
+     "approaches": "Explains two to four food production processes (direct sowing of seeds, growing of fruits , uses of domestic animals, balanced diet, cooking by boiling and frying at household level",
+     "below": "Explains less than two food production processes (direct sowing of seeds, growing of fruits, uses of domestic animals, balanced diet, cooking by boiling and frying at household level"
+    },
+    {
+     "indicator": "Ability to carry out various food production",
+     "exceeds": "Carries out five food production processes (direct sowing of",
+     "meets": "Carries out five food production processes (direct sowing of seeds,",
+     "approaches": "Carries out two or four food production processes (direct sowing",
+     "below": "Carries out less than two food production processes (direct sowing"
+    },
+    {
+     "indicator": "Ability to demonstrate integrity in carrying out food production processes",
+     "exceeds": "Displays more than four aspects of integrity (utilizing resources prudently, is accountable, displays honesty and applies ethically acceptable procedures) in carrying out food production processes",
+     "meets": "Display four aspects of integrity (utilizing resources prudently, is accountable, displays honesty and applies ethically is acceptable procedures) in carrying out food production processes",
+     "approaches": "Displays two or three aspects of integrity (utilizing resources prudently, is accountable, displays honesty and applies ethically acceptable procedures) in carrying out food production processes",
+     "below": "Applies integrity in less than two (utilizing resources prudently, is accountable, displays honesty and applies ethically acceptable procedures) in carrying out food production processes"
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "2.1",
+     "name": "Direct Sowing of Tiny Seeds",
+     "suggested_duration": "8 lessons",
+     "learning_outcomes": [
+      "Identify crops established through direct sowing of tiny seeds",
+      "Sow tiny seeds in a finely prepared seedbed.",
+      "Adopt direct sowing in establishment of food crops."
+     ],
+     "learning_experiences": [
+      "Learners are guided to:",
+      "Discuss to enumerate food crops such as carrots and millet that are established through direct sowing of tiny seeds (crops that do not require transplanting).",
+      "Sow the tiny seeds in a finely prepared ground or container seedbed.",
+      "Develop learning to learn as they address challenges in establishing tiny seeds, develop tolerance and respect while undertaking the seedbed preparation task and resolve food security in growing a crop."
+     ],
+     "inquiry_questions": [
+      "How does direct sowing of tiny seeds enhance food production process?"
+     ],
+     "core_competencies": [
+      "Learning to learn: own reflection as learners establish tiny seeds in a prepared seedbed."
+     ],
+     "values": [
+      "Respect: accommodation of diverse opinions while the learners undertake seed bed preparation tasks."
+     ],
+     "pertinent_issues": [
+      "Food and nutritional security as learners grow crops on prepared seedbeds to contribute to food availability at household level."
+     ],
+     "links_to_other_areas": [
+      "Learners relate the use of tools and equipment in preparation of seedbed and sowing tiny seeds to concepts of tools in making work easier learnt in Science and Technology."
+     ],
+     "resources": [],
+     "kicd_source": "grade4-agriculture-nutrition.pdf#p15"
+    },
+    {
+     "kicd_code": "2.2",
+     "name": "Growing fruits",
+     "suggested_duration": "16 lessons",
+     "learning_outcomes": [
+      "Identify fruits that can grow the locality",
+      "Grow a fruit crop suited in the locality",
+      "Appreciate the importance of consuming fruits for nutrition."
+     ],
+     "learning_experiences": [
+      "Learners are guided to:",
+      "Brainstorm and share information on different types of fruits that can grow in their locality.",
+      "Establish and take care a fruit crop that can suitably grow in the locality such as woody fruit tree (for example, tree tomato and guava) and climbing fruits (such as passion fruit, kiwi, grapes, black berries, rasp berries)",
+      "Develop self-efficacy when they produce own fruits for consumption; responsibility while caring for the growing fruits; and promote health by consuming fruits..",
+      "Suggested learning experiences"
+     ],
+     "inquiry_questions": [
+      "How do we grow fruits?",
+      "Suggested Key inquiry questions"
+     ],
+     "core_competencies": [
+      "Self-efficacy: self-confidence as learners realise the benefit of growing own fruits for consumption."
+     ],
+     "values": [
+      "Responsibility: as learners take care of growing fruits."
+     ],
+     "pertinent_issues": [
+      "Health promotion awareness as learners appreciate the importance of consuming fruits."
+     ],
+     "links_to_other_areas": [
+      "Learners relate growing of fruits as an economic activity as learnt in Social Studies."
+     ],
+     "resources": [],
+     "kicd_source": "grade4-agriculture-nutrition.pdf#p16"
+    },
+    {
+     "kicd_code": "2.3",
+     "name": "Uses of Domestic Animals",
+     "suggested_duration": "8 lessons",
+     "learning_outcomes": [
+      "Identify types of domestic animals in the community",
+      "Relate various domestic animals to their uses",
+      "Appreciate the importance of domestic animals for food production."
+     ],
+     "learning_experiences": [
+      "Learners are guided to:",
+      "Share experiences on the types of domestic animals (cattle, sheep, goats, poultry) found in their community and their uses.",
+      "Match the domestic animals to their uses (cattle, sheep, goat and poultry).",
+      "Make class presentations using photos or other visuals importance of domestic animal.",
+      "Develop self –efficacy as they confidently make class presentations; respect others while listening to the presentations; and appreciate the uses of domestic animals",
+      "Suggested learning experiences"
+     ],
+     "inquiry_questions": [
+      "How does domestic animal contribute to food production?",
+      "Suggested Key inquiry questions"
+     ],
+     "core_competencies": [
+      "Self-efficacy: self-confidence as learners make presentations on uses of domestic animals."
+     ],
+     "values": [
+      "Respect: open mindedness as learners listen and accommodate others opinions during presentations on importance of domestic animals."
+     ],
+     "pertinent_issues": [
+      "Animal welfare as the learners appreciate importance of domestic animals to humans."
+     ],
+     "links_to_other_areas": [
+      "Link to other subjects:"
+     ],
+     "resources": [],
+     "kicd_source": "grade4-agriculture-nutrition.pdf#p17"
+    },
+    {
+     "kicd_code": "2.4",
+     "name": "Balanced Diet",
+     "suggested_duration": "9 lessons",
+     "learning_outcomes": [
+      "Explain importance of eating a balanced diet",
+      "Select food from different food-groups to make a balanced diet",
+      "Appreciate the importance of eating a balanced diet."
+     ],
+     "learning_experiences": [
+      "Learners are guided to:",
+      "Discuss or use digital devices to search for importance of eating a balanced diet (variety and proportion).",
+      "Select foods from locally available foods that comprise a balanced diet.",
+      "Exhibit unity in making collaborative presentations of a balanced meal, and promote health awareness through the class presentations."
+     ],
+     "inquiry_questions": [
+      "How does a balanced diet impact on health?"
+     ],
+     "core_competencies": [
+      "Communication and collaboration: team work as learners contribute in the discussion on importance of a balanced diet."
+     ],
+     "values": [
+      "Unity: collaboration with others as learners select foods that comprise balanced diet."
+     ],
+     "pertinent_issues": [
+      "Health awareness promotion as learners discuss the importance of eating a balanced diet."
+     ],
+     "links_to_other_areas": [
+      "Learners relate the importance of eating balanced diet to knowledge learnt in Science and Technology on healthy eating habits."
+     ],
+     "resources": [],
+     "kicd_source": "grade4-agriculture-nutrition.pdf#p18"
+    },
+    {
+     "kicd_code": "2.5",
+     "name": "Boiling and Shallow Frying Food",
+     "suggested_duration": "11 lessons",
+     "learning_outcomes": [
+      "Describe boiling and shallow frying as methods of cooking",
+      "Cook food using boiling and shallow frying methods",
+      "Embrace boiling and shallow frying in food production."
+     ],
+     "learning_experiences": [
+      "Learners are guided to:",
+      "Watch video clip or demonstration on boiling and shallow frying methods of cooking.",
+      "Cook and serve boiled and shallow fried foods.",
+      "Demonstrate learning to learn by working cautiously while boiling and shallow frying ; following cooking steps; and promoting safety measures while working with fire and fats."
+     ],
+     "inquiry_questions": [
+      "How can we cook foods using boiling and frying methods?"
+     ],
+     "core_competencies": [
+      "Learning to learn: organizing own learning as learners apply laid down procedure in boiling and shallow frying foods."
+     ],
+     "values": [
+      "Responsibility: observes safety precautions when boiling and shallow frying foods."
+     ],
+     "pertinent_issues": [
+      "Safety of self and others to avoid accidents as they boil and fry foods."
+     ],
+     "links_to_other_areas": [
+      "Learners relate handling of accidents to skills learnt of first aid in Science and Technology."
+     ],
+     "resources": [],
+     "kicd_source": "grade4-agriculture-nutrition.pdf#p19"
+    }
+   ]
+  },
+  {
+   "strand": "Hygiene Practices",
+   "strand_code": "3.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to describe practices that promote hygiene",
+     "exceeds": "Describes three practices (personal hygiene, domestic hygiene and cleaning personal PPEs) in exemplary details to promote hygiene",
+     "meets": "Describes three practices (personal hygiene, domestic hygiene and cleaning personal PPEs) to promote hygiene",
+     "approaches": "Describes two practices (personal hygiene, domestic hygiene and cleaning personal PPEs) to promote hygiene",
+     "below": "Describes less than two practices (personal hygiene, domestic hygiene and cleaning personal PPEs) to promote hygiene"
+    },
+    {
+     "indicator": "Ability to apply health practices to promote hygiene",
+     "exceeds": "Applies three health practices (personal hygiene, domestic hygiene and cleaning personal PPEs) to promote hygiene using both conventional and innovative approaches.",
+     "meets": "Applies three health practices (personal hygiene, domestic hygiene and cleaning personal PPEs) to promote hygiene",
+     "approaches": "Applies two health practices (personal hygiene, domestic hygiene and cleaning personal PPEs) to promote hygiene",
+     "below": "Applies less than two health practices (personal hygiene, domestic hygiene and cleaning personal PPEs) to promote hygiene"
+    },
+    {
+     "indicator": "Ability to demonstrate responsibility while undertaking health practices that promote hygiene",
+     "exceeds": "Shows leadership qualities in caring and observing safety in undertaking health practices that promote hygiene",
+     "meets": "Shows care and observes safety in undertaking health practices that promote hygiene",
+     "approaches": "Shows care or observes safety in undertaking health practices that promote hygiene",
+     "below": "Shows care or observes safety with need for some guiding support that undertake health practices."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "3.1",
+     "name": "Personal Hygiene",
+     "suggested_duration": "10 lessons",
+     "learning_outcomes": [
+      "Identify health practices that promote personal hygiene",
+      "Apply health practices that promote personal hygiene",
+      "Embrace health practices to promote personal hygiene in daily life."
+     ],
+     "learning_experiences": [
+      "Learners are guided to:",
+      "Brainstorm and enumerate practices that promote personal hygiene such as hand washing, use of personal protective equipment, use of clean water and cleaning foods.",
+      "Demonstrate appropriate practices that promote personal hygiene such as hand washing, use of personal protective equipment, use of clean water and cleaning foods.",
+      "Demonstrate self -efficacy through practising good grooming ; and responsibility as they carry out health practices.",
+      "Suggested learning experiences"
+     ],
+     "inquiry_questions": [
+      "How does personal hygiene promote good health?",
+      "Suggested Key inquiry questions"
+     ],
+     "core_competencies": [
+      "Self-efficacy: practice of good grooming as learners apply skills learnt on personal hygiene."
+     ],
+     "values": [
+      "Responsibility: taking charge of own body as they practice personal hygiene and use personal protective equipment."
+     ],
+     "pertinent_issues": [
+      "Prevention of communicable diseases as learners practice personal hygiene."
+     ],
+     "links_to_other_areas": [
+      "Link to other subjects:"
+     ],
+     "resources": [],
+     "kicd_source": "grade4-agriculture-nutrition.pdf#p22"
+    },
+    {
+     "kicd_code": "3.2",
+     "name": "Domestic Hygiene",
+     "suggested_duration": "9 lessons",
+     "learning_outcomes": [
+      "Describe the various methods used for cleaning home environment",
+      "Use appropriate methods to clean home environment",
+      "Appreciate a clean environment in promoting domestic hygiene"
+     ],
+     "learning_experiences": [
+      "Learners are guided to:",
+      "Discuss the methods of cleaning home environment such as mopping, dusting, sweeping and disposal of refuse.",
+      "Apply the methods such as mopping, dusting, sweeping and disposal of refuse to maintain hygiene in the environment. The methods to be applied using improvised and locally available resources.",
+      "Develop creativity in the use of improvised resources while cleaning; accountability in taking care of living places; and environmental awareness in maintaining clean environment.",
+      "Suggested learning experiences"
+     ],
+     "inquiry_questions": [
+      "How can we maintain hygienic in the home environment?",
+      "Suggested Key inquiry questions"
+     ],
+     "core_competencies": [
+      "Creativity and imagination: thoughtful choices as learners use improvised and locally available cleaning resources."
+     ],
+     "values": [
+      "Responsibility: accountability as learners engage in activities of cleaning home environment."
+     ],
+     "pertinent_issues": [
+      "Environmental awareness as learners maintain clean health environment."
+     ],
+     "links_to_other_areas": [
+      "Link to other subjects:"
+     ],
+     "resources": [],
+     "kicd_source": "grade4-agriculture-nutrition.pdf#p23"
+    },
+    {
+     "kicd_code": "3.3",
+     "name": "Cleaning Personal Protective Equipment",
+     "suggested_duration": "9 lessons",
+     "learning_outcomes": [
+      "Identify personal protective equipment in day to day life",
+      "Clean personal protective equipment for hygiene purposes",
+      "Appreciate clean personal protective equipment in promoting hygiene."
+     ],
+     "learning_experiences": [
+      "Learners are guided to:",
+      "Search for information or observe a demonstration to identify common personal protective equipment such as gloves, dust masks, gum boots, head gear, overall and canvas shoes.",
+      "Apply appropriate methods to clean personal protective equipment such as gumboots or canvas shoes.",
+      "Develop digital literacy as they search for personal protective equipment; responsibility as they care for personal protective items; and personal safety skills as they exercise caution in the cleaning activity.",
+      "Suggested learning experiences"
+     ],
+     "inquiry_questions": [
+      "How does cleaning of personal protective equipment promote hygiene?",
+      "Suggested Key inquiry questions"
+     ],
+     "core_competencies": [
+      "Digital literacy: use of digital technology as learners search for information on personal protective equipment."
+     ],
+     "values": [
+      "Responsibility: safety and care of self as learners clean personal protective equipment."
+     ],
+     "pertinent_issues": [
+      "Personal safety as learners exercise caution while undertaking cleaning activity."
+     ],
+     "links_to_other_areas": [
+      "Learners relate use of personal protective equipment to personal safety skills learnt in Science and Technology."
+     ],
+     "resources": [],
+     "kicd_source": "grade4-agriculture-nutrition.pdf#p24"
+    }
+   ]
+  },
+  {
+   "strand": "Production Techniques",
+   "strand_code": "4.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to identify the types of tacking stitches used in sewing",
+     "exceeds": "Identify two types of tacking stitches used in sewing with details that relate to their applications.",
+     "meets": "Identify two types of tacking stitches used in sewing",
+     "approaches": "Identify one type of tacking stitches used in sewing",
+     "below": "Identify one type of tacking stitches used in sewing when given some prompt cues."
+    },
+    {
+     "indicator": "Ability to make an item using tacking stitches",
+     "exceeds": "Creatively makes an item using tacking stitches that are firm",
+     "meets": "Makes an item using tacking stitches that are firm",
+     "approaches": "Makes an item using tacking stitches that are loose",
+     "below": "Makes an incomplete item using tacking stitches that are loose."
+    },
+    {
+     "indicator": "Ability to work in unity in making an item",
+     "exceeds": "Exhibits more than three aspects of unity (sharing resources, working in teams, appreciating efforts of others) while making an item",
+     "meets": "Exhibits three aspects of unity (sharing resources, working in teams, appreciating efforts of others) while making an item",
+     "approaches": "Exhibits two aspects of unity (sharing resources, working in teams, appreciating efforts of others) while making an item",
+     "below": "Exhibits less than two aspects of unity (sharing resources, working in teams, appreciating efforts of others) while making an item"
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "4.1",
+     "name": "Making Tacking Stitches",
+     "suggested_duration": "11 lessons",
+     "learning_outcomes": [
+      "Identify the types of tacking stitch in sewing",
+      "Make an item using tacking stitches",
+      "Appreciate the importance of tacking stitches."
+     ],
+     "learning_experiences": [
+      "Learners are guided to:",
+      "Observe samples of tacking stitches (even tacking; long and short tacking) used in sewing.",
+      "Make sample item such as a handkerchief or scarecrow clothing using tacking (even tacking or long and short stitches) stitches.",
+      "Apply creativity and innovativeness in making an item; demonstrate unity while sharing sewing items; and exercise personal safety while working with sharp sewing tools."
+     ],
+     "inquiry_questions": [
+      "How can we use tacking stitches in making items?"
+     ],
+     "core_competencies": [
+      "Creativity and imagination: experimentation skills as learners observe, innovate and try out on tacking stitches."
+     ],
+     "values": [
+      "Unity: display of team spirit as learners share resources in the making of tacking stitches."
+     ],
+     "pertinent_issues": [
+      "Safety of self and others as learners use needles and other sharp tools in sewing task."
+     ],
+     "links_to_other_areas": [
+      "Link to other subjects:"
+     ],
+     "resources": [],
+     "kicd_source": "grade4-agriculture-nutrition.pdf#p26"
+    }
+   ]
+  }
+ ]
+}

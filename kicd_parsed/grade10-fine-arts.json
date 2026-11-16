@@ -1,0 +1,972 @@
+{
+ "source_pdf": "grade10-fine-arts.pdf",
+ "grade": 10,
+ "subject": "fine-arts",
+ "general_outcomes": [
+  "By the end of senior school, the learner should be able to;",
+  "Deepen visual perception skills through exploration of various artistic techniques in 2Dimensional and 3Dimensional works.",
+  "Promote understanding of diverse fine art works from Kenya to promote patriotism.",
+  "Demonstrate appreciation of the Fine art through the historical perspective",
+  "Acquire research and analytical skills to document and critique artworks.",
+  "Explore a range of materials, techniques and tools used in fine arts to create functional and aesthetic artworks.",
+  "Explore and develop skills in ICT for design, production and presentation of fine artworks.",
+  "Apply creative and innovative skills to make materials from upcycled and recycled objects from the immediate environment.",
+  "Demonstrate understanding of the creative process in fine arts for portfolio development. (documen",
+  "Acquire art related entrepreneurial skills for economic empowerment.",
+  "Appreciate indigenous African crafts and use them as sources of inspiration in design and production."
+ ],
+ "strands": [
+  {
+   "strand": "Picture Making Techniques (2 D Art)",
+   "strand_code": "1.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to analyze the 5 elements and 5 principles of two dimensional Art",
+     "exceeds": "Analyzes the 5 elements and 5 principles of two dimensional Art with examples.",
+     "meets": "Analyses the 5 elements and 5 principles of two dimensional Art",
+     "approaches": "analyzes 3-4 elements and 3-4 principles of two dimensional Art",
+     "below": "Analyzes 1 or 2 elements and 1 or 2 principles of two dimensional Art"
+    },
+    {
+     "indicator": "Ability to -draw objects in two-point perspective. - Convergence lines - Vanishing points - View points (worm’s eye, bird’s eye, eye level)",
+     "exceeds": "Draws objects in two-point using the 3 aspects neatly and with precision.",
+     "meets": "Draws objects in two-point with the 3 aspects .",
+     "approaches": "Draws objects in two-point with the 2 aspects",
+     "below": "Draws objects in two-point with less than 2 aspects"
+    },
+    {
+     "indicator": "Ability to apply the stages of drawing in executing a still life composition, -sketching, - Shading, - Adding details and refining,",
+     "exceeds": "Sets up draws and shades a still life composition strikingly while applying all the stages of drawing,",
+     "meets": "Correctly sets up ,draws and shades a still life composition while applying all the 3 stages of drawing",
+     "approaches": "Sets up, draws and shades a still life composition while applying 3 stages of drawing with minor mistakes",
+     "below": "Sets up, draws and shades a still life composition while applying 2 stages of drawing but with major mistakes"
+    },
+    {
+     "indicator": "Ability make a portfolio folder for storage and presentation of artworks",
+     "exceeds": "Accurately makes and decorates a portfolio folder for storage and presentation of artwork with precision.",
+     "meets": "Accurately makes a portfolio folder for storage and presentation of artworks",
+     "approaches": "Makes a portfolio folder for storage and presentation of artworks with slight inaccuracies.",
+     "below": "Makes a portfolio folder for storage and presentation of artworks that has irregular sides"
+    },
+    {
+     "indicator": "Ability to describe wash and brush-spraying techniques of painting.",
+     "exceeds": "Describes wash and brush-spraying techniques of painting elaborately",
+     "meets": "Describes wash and brush-spraying techniques of painting",
+     "approaches": "Describes wash brush-spraying techniques of painting with minor errors",
+     "below": "Describes either wash or brush-spraying techniques of painting with major errors"
+    },
+    {
+     "indicator": "Ability to paint sceneries from observation using the wash technique to create atmospheric effect and depth. - Flat wash - Graded wash",
+     "exceeds": "Paints sceneries from observation, using the wash technique to elaborately create atmospheric effect and depth.",
+     "meets": "Paints sceneries from observation using the wash technique to create atmospheric effect and depth. .",
+     "approaches": "Paints sceneries from observation using wash technique to create atmospheric effect and depth with minor errors",
+     "below": "Paints sceneries from observation using undefined wash techniques and lacking depth."
+    },
+    {
+     "indicator": "Ability to create a pictorial composition using brush-spray painting technique.",
+     "exceeds": "Creates a pictorial composition using brush-spray painting technique, to bring out colour",
+     "meets": "Creates a pictorial composition using brush-spray painting technique,",
+     "approaches": "Creates a pictorial composition using brush-spray painting technique,",
+     "below": "Create a pictorial composition using brush-spray painting techniquebut with"
+    },
+    {
+     "indicator": "-colour contrast/harmony, -balance -rhythm and movement,",
+     "exceeds": "contrast/harmony, balance, rhythm and movement.",
+     "meets": "emphasizing colour contrast/harmony, balance, rhythm and movement.",
+     "approaches": "emphasizing colour contrast/harmony, and balance with minor errors",
+     "below": "major flaws in rendering colour contrast/harmony, and balance with emphasizing colour only"
+    },
+    {
+     "indicator": "Ability to analyse the concept of collage technique",
+     "exceeds": "Analyses the concept of collage techniquewith examples elaborately.",
+     "meets": "Analyses the concept of collage technique",
+     "approaches": "Analyses the concept of collage technique whilemissing out a few details",
+     "below": "Analyse the concept of collage technique while missing outmajor details"
+    },
+    {
+     "indicator": "Ability to create a paper collage composition based on a PCI theme exhibiting following features: -shapes , -colour, -painterly effect, -overlapping and -superimposition.",
+     "exceeds": "Creates a paper collage composition based on a PCI theme, exhibiting 5 features of collage making with intricate details.",
+     "meets": "Creates a paper collage composition based on a PCI theme, exhibiting the 5 features of collage making.",
+     "approaches": "Creates a paper collage composition based on a PCI them 3-4 features of collage making.:",
+     "below": "Creates a paper collage composition based on a PCI theme , exhibiting less than 2 features of collage making."
+    },
+    {
+     "indicator": "Ability to create a multi-media collage composition based on a PCI theme with emphasis on: - Texture - 3-dimensional effect.",
+     "exceeds": "Creates a multi-media collage composition based on a PCI theme, creatively bringing out texture and 3-dimensional effect.",
+     "meets": "Creates a multi-media collage composition based on a PCI theme, clearly bringing out texture and 3-dimensional effect.",
+     "approaches": "Creates a multi-media collage composition based on a PCI theme partially bringing out texture and 3-dimensional effect.",
+     "below": "Creates a multi-media collage composition based on a PCI theme barely bringing out texture and 3-dimensional effect."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "1.1",
+     "name": "Drawing",
+     "suggested_duration": "20 lessons",
+     "learning_outcomes": [
+      "analyze the elements and principles of 2 dimensional art in drawing",
+      "draw objects in one-point perspective",
+      "draw objects in two -point perspective",
+      "apply the stages of drawing in executing a still life composition",
+      "make a portfolio folder for storage and presentation of artworks",
+      "value drawing as a technique in picture making."
+     ],
+     "learning_experiences": [
+      "Learner is guided to",
+      "use digital devices to source and study artworks in the actual and virtual environment focusing on",
+      "Elements:line; (contour/lines),shape,(overlappin g), texture (tactile /simulated), value (tinting/shading), colour (hue,value, intensity)",
+      "Principles-balance, dominance,proportion, rhythm and movement, harmony/unity of 2D Art art in drawing",
+      "explore objects in actual and safe virtual sources to visualize occurrence of linear perspective with focus on one -point perspective",
+      "draw angular objects in one-point perspective with emphasis on:",
+      "convergence lines,vanishing point and one view point",
+      "explore objects in actual and safe virtual sources to visualize occurrence of linear perspective with focus on two-point perspective",
+      "draw angular objects and spaces in two-point perspective with emphasis on:convergence lines, two vanishing points and view points",
+      "collectively gather a variety of objects, set up a still life observing overlaps and sizes of objects and draw it with focus on :sketching, shading (smudge), adding details and refining",
+      "use recyclable materials to make a one fold portfolio folder to store 2 dimensional artworks",
+      "present the drawings in the portfolio for critique and feedback."
+     ],
+     "inquiry_questions": [
+      "How can perspective create an illusion of depth in a drawing?"
+     ],
+     "core_competencies": [
+      "Communication and collaboration: as the learner teams with others to gather a variety of objects and sets up a still life",
+      "Digital Literacy: as the learner uses digital devices to source and study online artworks."
+     ],
+     "values": [
+      "Values:",
+      "Respect: as the learner appreciates others’ opinions during critique.",
+      "Unity: as the learner works harmoniously with others. Suggested Learning Resources: Internet connectivity, reference materials, drawing paper, drawing charcoal, pastel, pens, pencils, erasers, crayons among others."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-fine-arts.pdf#p13"
+    },
+    {
+     "kicd_code": "1.2",
+     "name": "Painting",
+     "suggested_duration": "20 lessons",
+     "learning_outcomes": [
+      "describe wash techniques of painting",
+      "paint sceneries from observation using the wash technique",
+      "describe brush-spraying techniques of painting",
+      "create a pictorial composition using brush-spray painting technique",
+      "appreciate own and others’ paintings."
+     ],
+     "learning_experiences": [
+      "Learner is guided to:",
+      "search virtual and/or actual sources to study samples of paintings done using the wash techniques, with emphasis on:wash technique (flat and graded}",
+      "experiment with flat washes and graded washes on paper using water colours",
+      "make a viewfinder using recycled paper",
+      "explore the environment and use the viewfinder to select sceneries for painting, with focus on foreground, middleground, background and dominance.",
+      "sketch the scenery for painting",
+      "paint the sceneries with emphasis on colour value to create atmospheric effect and depth",
+      "search virtual and/or actual sources to study samples of paintings done using brush-spraying techniques, with emphasis on the process of making stencils and painting",
+      "design and cut stencils based on environmental conservation",
+      "use stencils, paints and brushes to produce a pictorial composition, with emphasis on colour contrast/ harmony, balance and rhythm and movement",
+      "finish by trimming and window mounting",
+      "display and communicate effectively in the critique of own and peers’ paintings."
+     ],
+     "inquiry_questions": [
+      "1. Why is the wash technique most appropriate for painting sceneries?",
+      "2. How do flat and graded washes compare in terms of their application, challenges and outcomes?"
+     ],
+     "core_competencies": [
+      "Digital Literacy: as the learner search virtual and/or actual sources to study samples of paintings done using the wash and brush-spraying techniques",
+      "Learning to learn: as the learner explores a new technique of brush spray painting."
+     ],
+     "values": [
+      "Values:",
+      "Respect: as the learner accommodates others’ opinions during the critique session.",
+      "Love: as the learner works peacefully and displays trustworthiness as they share resources."
+     ],
+     "pertinent_issues": [
+      "Social-Economic and Environmental Issues:",
+      "Environmental conservation;design and make a stencils based on environmental conservation"
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-fine-arts.pdf#p16"
+    },
+    {
+     "kicd_code": "1.3",
+     "name": "Collage",
+     "suggested_duration": "20 lessons",
+     "learning_outcomes": [
+      "analyse the concept of collage technique",
+      "create a single media collage composition based on a PCI theme",
+      "create a mixed-media collage composition based on a PCI theme",
+      "appraise own and peers' collage artworks."
+     ],
+     "learning_experiences": [
+      "Learner is guided to",
+      "explore and discuss virtual/actual collage artworks done by local and international artists with focus on characteristics(mixed-media, single media, textural effect, 3-D effect, painterly effect, juxtaposition, superimposition)",
+      "safely collect and prepare recyclable materials with focus on; support, adhesive and type of materials",
+      "develop sketches for single media and collages",
+      "use the sketch to create a single media collage (paper )based on animal welfare, focusing on shapes , colour, painterly effect, juxtaposition and superimposition.",
+      "use the sketch to create mixed-media collage composition based on environmental conservation focusing on variation of tone, texture and 3-dimensional effect.",
+      "Use appropriate finishing techniques, (trimming and mounting)",
+      "Present own collage work confidently and clearly speak while giving feedback to peers’ work."
+     ],
+     "inquiry_questions": [
+      "1. How can the choice of materials affect the durability of a collage?",
+      "2. How can collage technique be used as a tool for highlighting contemporary and pertinent issues?"
+     ],
+     "core_competencies": [
+      "Communication: as the learner speaks clearly while giving feedback to peers’ work.",
+      "Citizenship: as the learner studies collage artworks done by local and international artists for mentorship.",
+      "Self-efficacy: as the learner presents confidently own and others collage work for feedback."
+     ],
+     "values": [
+      "Respect: as the learner accommodates diverse opinions during the critique session.",
+      "Responsibility: as the learner observes safety precautions, collect and prepare recyclable materials."
+     ],
+     "pertinent_issues": [
+      "Social economic and environmental issues:",
+      "Animal welfare; as the learner creates a collage composition inspired by animal welfare",
+      "Safety; as the learner collects and prepares materials for making collage"
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-fine-arts.pdf#p19"
+    },
+    {
+     "kicd_code": "1.1",
+     "name": "Drawing",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Varied shades of pencils, erasers, ruler, recyclable stiff papers, drawing book, digital devices"
+     ],
+     "learning_experiences": [
+      "Portfolio assessment",
+      "Critiques and peer reviews",
+      "Exhibition and displays",
+      "Written tests",
+      "Projects",
+      "Sketchbooks and journals",
+      "Self assessment",
+      "Technical skills tests"
+     ],
+     "inquiry_questions": [
+      "Actual/ digital Gallery and museums visits. • Community Art groups visits. • Studio visits and artists talks • Art clubs • Workshop and master classes"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-fine-arts.pdf#p52"
+    },
+    {
+     "kicd_code": "1.2",
+     "name": "Painting",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Brushes, easel, drawing papers, water colours, water, painting brushes, recyclable tooth brushes, pallettes,digital devices ( camera/tablets)"
+     ],
+     "learning_experiences": [],
+     "inquiry_questions": [],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-fine-arts.pdf#p52"
+    },
+    {
+     "kicd_code": "1.3",
+     "name": "Collage",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Digital devicees, recyclable papers (newpapers, magazines among othes), textured materials from the environment, adhesive, suppor-stiff boards, water colours."
+     ],
+     "learning_experiences": [
+      "Suggested Assessment Methods"
+     ],
+     "inquiry_questions": [
+      "Non-Formal Activities"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-fine-arts.pdf#p52"
+    }
+   ]
+  },
+  {
+   "strand": "Multi media Arts (2 D Art)",
+   "strand_code": "2.0",
+   "assessment_rubric": [],
+   "substrands": [
+    {
+     "kicd_code": "2.1",
+     "name": "Graphic Design",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Internet connectivity, digital devices reference materials, paper, pencils, calligraphy pens, brushes, poster colours, watercolours among others."
+     ],
+     "learning_experiences": [],
+     "inquiry_questions": [],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-fine-arts.pdf#p53"
+    },
+    {
+     "kicd_code": "2.2",
+     "name": "Fabric Decoration:Tie and Dye",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Cotton fabrics, binders/strings, spraying cans, containers, hot water dyes, fixatives (hydros and caustic soda), iron box, scissors, stitching tools."
+     ],
+     "learning_experiences": [],
+     "inquiry_questions": [],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-fine-arts.pdf#p53"
+    },
+    {
+     "kicd_code": "2.3",
+     "name": "Fabric Decoration: Batik",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Cotton fabrics, bee and candle wax, spirit, brushes, spraying cans, containers, cold water dyes, fixatives (hydros and caustic soda), iron box, scissors, stitching tools."
+     ],
+     "learning_experiences": [
+      "Suggested Assessment Methods"
+     ],
+     "inquiry_questions": [
+      "Non-Formal Activities"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-fine-arts.pdf#p53"
+    }
+   ]
+  },
+  {
+   "strand": "Multimedia Arts (2 D Art)",
+   "strand_code": "2.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to identify 3 aspects in calligraphy. -ascenders, -body -descenders",
+     "exceeds": "Identifies the 3 aspects in calligraphy with relevant examples.",
+     "meets": "Identifies the 3 aspects in calligraphy",
+     "approaches": "Identifies the 2 aspects in calligraphy",
+     "below": "Identifies the 1 or none of the aspects in calligraphy"
+    },
+    {
+     "indicator": "Ability to illustrate text for a seasonal card using calligraphy -ascenders, -body -descenders",
+     "exceeds": "Neatly illustrates text for a seasonal card using lowercase calligraphy while considering the 3 aspects.",
+     "meets": "Illustrates text for a seasonal card using lowercase calligraphy while considering the 3 aspects.",
+     "approaches": "Illustrates text for a seasonal card using lowercase calligraphy while considering 2 aspects. .",
+     "below": "Illustrates text for a seasonal card using lowercase calligraphy while considering the 1 or none of the aspects."
+    },
+    {
+     "indicator": "Ability to design a trade mark using computer aided design -line illustrations - Layout, - Colour,",
+     "exceeds": "Designs a 2 colour trademark using computer aided design with precision and emphasis on the 4 aspects",
+     "meets": "Designs a 2 colour trademark using computer aided design with emphasis on the 4 aspects",
+     "approaches": "Designs a 2 colour trademark using computer aided design with emphasis on the 3 -4 aspects",
+     "below": "Designs a 2 colour trademark using computer aided design with emphasis on less than 3 aspects"
+    },
+    {
+     "indicator": "Ability to design a poster using line and wash illustrations -layout -colour -dominance",
+     "exceeds": "Designs a poster freehand using line and wash illustrations with precision with emphasis on the 3 aspects.",
+     "meets": "Designs a poster freehand using line and wash illustrations while incorporating a scanned trademark with emphasis on the 3 aspects",
+     "approaches": "Designs a poster freehand using line and wash illustrations with minor errors in incorporating a scanned trademark with emphasis on 2 aspects.",
+     "below": "Designs a poster freehand using line and wash illustrations with major errors in incorporating a scanned trademark with emphasis on less than 2 aspects."
+    },
+    {
+     "indicator": "Ability to analyse characteristics of tie and dyed fabrics: • linear stripes method (vertical and horizontal) • marbled effect method • spiral effect method",
+     "exceeds": "Analyses 3 characteristics of tie and dyed fabrics with relevant examples",
+     "meets": "Analyses 3 characteristics of tie and dyed fabrics",
+     "approaches": "Analyses 2 characteristics of tie and dyed fabrics",
+     "below": "Analyses 1 characteristic of tie and dyed fabrics"
+    },
+    {
+     "indicator": "Ability to tie and dye fabric to create • linear, • marbled and • spiral effects,",
+     "exceeds": "Tie and dyes fabrics with 3 effects precisely",
+     "meets": "Correctly Tie and dyes fabrics with the 3 effects",
+     "approaches": "Tie and dyes fabrics with 2 effects and minor errors",
+     "below": "Tie and dyes fabrics with 2-3 effects with major errors"
+    },
+    {
+     "indicator": "Ability to analyse characteristics of batik fabrics, • crackled effect • textured effect",
+     "exceeds": "Correctly analyses 2 characteristics of batik fabrics with relevant examples",
+     "meets": "Correctly analyses 2 characteristics of batik fabrics",
+     "approaches": "Analyses 2 characteristic of batik fabric with minimal mistakes",
+     "below": "Analyses 1 characteristic of batik fabric with major errors"
+    },
+    {
+     "indicator": "Ability to batik fabric to create; • crackled and • textured effects,",
+     "exceeds": "Creatively batiks fabr ics to create crackled and textured effects,",
+     "meets": "Correctly batiks fabrics to create crackled and textured effects,",
+     "approaches": "Batiks fabrics with minimal crackles and textured effects",
+     "below": "Batiks fabrics to create either crackled or textured effects,"
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "2.1",
+     "name": "Graphic Design",
+     "suggested_duration": "10 lessons",
+     "learning_outcomes": [
+      "analyse the concept of calligraphy for farmiliarity",
+      "illustrate short text for a seasonal card using calligraphy",
+      "design a trade mark using computer aided design",
+      "design a poster using line and wash illustrations",
+      "appraise own and others' calligraphy, trademarks and posters."
+     ],
+     "learning_experiences": [
+      "Learners are guided to",
+      "watch videos on calligraphy and engagingly discuss; making the pen (cutting of the tip), angle of writing, and stylisation of ascenders, body ,descenders",
+      "use recyclable materials to improvise 2 calligraphy pens (flat and slanted tip)",
+      "practise writing letters,numeral among others",
+      "use guidelines to write text maintaining the correct angle of the pen to write a seasonal card in lower case",
+      "effectively research on elements of graphic design (illustrations, layout, colour, and lettering)",
+      "use computer aided design to create a 2 colour trademark",
+      "observe actual or virtual samples of educational, social and advertisement posters",
+      "create an advertisement poster in freehand with emphasis on;line and wash illustrations, layout, colour and dominance",
+      "display and critique others’ works while reflecting on own illustrations."
+     ],
+     "inquiry_questions": [
+      "1. Why are graphic illustrations incorporated in a work of Art?",
+      "2. Why should one use a slanted tip when improvising a calligraphy pen?"
+     ],
+     "core_competencies": [
+      "Communication:as the learner engagingly discusses the layout of ascenders, body ,descenders on the guidelines",
+      "Imagination and Creativity: as the learner generates new ideas when illustrating calligraphic text for the seasonal card",
+      "Digital literacy: as the learner manipulates digital tools to research aspects of a trademark and when using computer aided design to create a 2 colour trademark.",
+      "Critical thinking and problem solving: as the learner improvises calligraphy pens to write calligraphy",
+      "Self-efficacy: as the learner displays, critiques others’ works while reflecting on own graphic illustrations."
+     ],
+     "values": [
+      "Respect: as the learner appreciates others’ opinion during the critique others' poems, trademarks and posters.."
+     ],
+     "pertinent_issues": [
+      "Environmental conservation: as learner use recyclable materials to make calligraphy pen",
+      "Financial literacy :as the learner conducts digital research to appreciate aspects of a trademark"
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-fine-arts.pdf#p26"
+    },
+    {
+     "kicd_code": "2.2",
+     "name": "Fabric Decoration:Tie and Dye",
+     "suggested_duration": "10 lessons",
+     "learning_outcomes": [
+      "analyse the concept of tie and dyed in fabric decoration",
+      "tie and dye fabric to create diamond effect",
+      "tie and dye fabric to create spiral effects",
+      "appraise own and others' decorated fabrics ."
+     ],
+     "learning_experiences": [
+      "explore actual and virtual sources to research tie and dye focusing on; concept, techniques (diamond and spiral methods) and materials and tools",
+      "actively collaborate in sourcing and preparing the cotton fabrics enough for the methods",
+      "tie the fabric according to the technique (diamond and spiral methods)",
+      "prepare the two dye baths according to manufacturer instructions while observing safety",
+      "dye the fabric in two colours for each method",
+      "rinse, dry and iron the fabric to make a scarf/ table clothe while observing safety precautions",
+      "collaboratively display and have peer assessment of the finished artworks"
+     ],
+     "inquiry_questions": [
+      "1. What is the cultural significance of tye and dye?",
+      "2. How do the different binding techniques affect the resultant patterns?"
+     ],
+     "core_competencies": [
+      "Digital literacy: as the learner interacts with digital devices to search information on characteristics of fabrics decorated tie and dye techniques",
+      "Collaboration: as the learner actively collaborates in sourcing and cleaning used cotton fabrics"
+     ],
+     "values": [
+      "Unity: as the learner cooperates with peers to collaboratively source and clean used cotton fabrics",
+      "Love: as the learner shows generosity by sharing materials for tie and dye",
+      "Integrity: as the learner shows accountability while handling tools and materials used in fabric decoration (tie and dye)"
+     ],
+     "pertinent_issues": [
+      "Social economic issues: Safety in the class as the learner prepares the dye bath for the tie and dye .",
+      "Health promotion issues: as learner sources, cleans, reuses and recycles cotton fabrics such as T-shirts, bedcovers"
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-fine-arts.pdf#p28"
+    },
+    {
+     "kicd_code": "2.3",
+     "name": "Fabric Decoration: Batik",
+     "suggested_duration": "10 lessons",
+     "learning_outcomes": [
+      "analyse the concept of batik in fabric decoration",
+      "batik fabric to create crackled and textured effects",
+      "appraise own and others' decorated fabrics ."
+     ],
+     "learning_experiences": [
+      "use digital devices to search information on batik focusing on; concept (Indonesia/ Ghana/Nigeria/Senegal), techniques (crackled effect, textured effect) and materials and tools",
+      "actively collaborate in sourcing and preparing the cotton fabrics enough for the methods",
+      "safely prepare wax using recyclable paraffin and beeswax in ratios of 2:1",
+      "wax the fabric and let it cool to create a crackled and textured effect on each fabric",
+      "safely prepare a cold dye bath according to manufacturer instructions and dye the fabric",
+      "dewax the fabric by; rubbing/ironing/white spirit",
+      "display and have peer assessment of the finished artworks."
+     ],
+     "inquiry_questions": [
+      "1. Why is it not possible to have definite shapes when tie and dyeing?",
+      "2. What visual effect is observed in a fabric made using batik technique?"
+     ],
+     "core_competencies": [
+      "Digital literacy: as the learner interacts with digital devices to search information on characteristics of fabrics decorated by batik, tie and dye techniques",
+      "Collaboration: as the learner actively collaborates in sourcing and cleaning used cotton fabrics"
+     ],
+     "values": [
+      "Unity: as the learner cooperates with peers to collaboratively source and clean used cotton fabrics",
+      "Love: as the learner show generosity by sharing materials for tie and dye an batik",
+      "Integrity: as the learner shows accountability while handling tools and materials used in fabric decoration (batik )"
+     ],
+     "pertinent_issues": [
+      "Social economic issues: Safety in the class as the learner prepares the dye bath for the first colour and heat the paraffin and beeswax in a double container",
+      "Social economic and environmental issues: as learner source and clean reuse and recycle cotton fabrics such as T-shirts, bedcovers"
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-fine-arts.pdf#p30"
+    }
+   ]
+  },
+  {
+   "strand": "Indigenous Crafts ( 3D Art)",
+   "strand_code": "3.0",
+   "assessment_rubric": [],
+   "substrands": [
+    {
+     "kicd_code": "3.1",
+     "name": "Pottery and Ceramics",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Digital devices, clay, water, recyclable resources for making updraft kiln, containers, source of fire."
+     ],
+     "learning_experiences": [],
+     "inquiry_questions": [],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-fine-arts.pdf#p54"
+    },
+    {
+     "kicd_code": "3.2",
+     "name": "Sculpture",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Sketching pads, drawing tools, digital devices, soft woods/ stones, carving tools (gauges, chisel"
+     ],
+     "learning_experiences": [],
+     "inquiry_questions": [],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-fine-arts.pdf#p54"
+    },
+    {
+     "kicd_code": "3.3",
+     "name": "Weaving",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Macrame’ mobile app, varied coloured yarns/ threads, macrame board,scissors, comb, tape, scissor, pins among others."
+     ],
+     "learning_experiences": [
+      "Suggested Assessment Methods"
+     ],
+     "inquiry_questions": [
+      "Non-Formal Activities"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-fine-arts.pdf#p54"
+    },
+    {
+     "kicd_code": "3.4",
+     "name": "Jewellery and Ornamentation",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Recyclable leather items, beads, bones,wire, buttons, plastics, papers, used metal sheet, and found objects, adhesive, stitching tools, carving tools, digital devices"
+     ],
+     "learning_experiences": [],
+     "inquiry_questions": [],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-fine-arts.pdf#p55"
+    },
+    {
+     "kicd_code": "3.5",
+     "name": "Art Appreciation",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Digital devices, internet connectuvity, drawing books, drawing tools"
+     ],
+     "learning_experiences": [],
+     "inquiry_questions": [],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-fine-arts.pdf#p55"
+    }
+   ]
+  },
+  {
+   "strand": "Indigenous Crafts (3D Art)",
+   "strand_code": "3.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to analyse properties of clay in pottery, (plasticity, porosity, vitrification)",
+     "exceeds": "Analyzes the 3 properties of clay in pottery,and includes illustrations",
+     "meets": "Analyzes the 3 properties of clay in pottery,",
+     "approaches": "Analyzes the 2 properties of clay in pottery,",
+     "below": "Analyzes the 1 property of clay in pottery, ."
+    },
+    {
+     "indicator": "Ability to prepare clay for pottery (sourcing clay,drying, crushing, slaking,sieving,drying, kneading and wedging; and storage)",
+     "exceeds": "Prepares clay following the 1-4 stages and",
+     "meets": "Prepares clay following the 8 stages",
+     "approaches": "Prepares clay folloeing the 5-7 stages",
+     "below": "Prepares clay following the 1-4 stages"
+    },
+    {
+     "indicator": "Ability to model a handbuilt vase using the pellet technique,",
+     "exceeds": "Models vase creatively.",
+     "meets": "Models a vase using pellets of even size and neat joining.",
+     "approaches": "Models a vase using pellets of even/andof size and neat/untidy joining",
+     "below": "models vase with mostly -uneven pellets. -untidy joining"
+    },
+    {
+     "indicator": "Ability to fire the pellet vases in the updraught kiln",
+     "exceeds": "Fires the pellet vase evenly in the updraught kiln.",
+     "meets": "Fires the pellet vases w in the updraught kiln.",
+     "approaches": "Fires the pellet vases in the updraught kiln with some parts unevenly fired.",
+     "below": "Fires the pellet vases in the updraught kiln with defects; uneven firing, broken parts and cracks."
+    },
+    {
+     "indicator": "Ability to examine the concept of relief sculpture for inspiration, • subject matter • Finishing techniques • Materials and tools used",
+     "exceeds": "Comprehensively analyzes the 3 aspects of relief sculpture with relevant examples.",
+     "meets": "Analyzes the 3 aspects of relief sculptures.",
+     "approaches": "with difficulty analyzes any 2 aspects of relief sculptures.",
+     "below": "With prompts analyzes any 1 or no aspect of relief sculpture."
+    },
+    {
+     "indicator": "Ability to carve a relief sculpture for skill acquisition;",
+     "exceeds": "Skilfully carves out a reliefsculpture following the correct",
+     "meets": "Carves out a relief sculpturefollowing the correct steps, craftsmanship.",
+     "approaches": "Carves out a relief sculpture while missing out on",
+     "below": "Carves out a relief sculpture while missing out on most"
+    },
+    {
+     "indicator": "• Interpretation of subject matter • Sketching the design • Selection of appropriate soft wood • Preparing the wood • Craftsmanship",
+     "exceeds": "steps, skilled craftsmanship.",
+     "meets": "",
+     "approaches": "some steps, fair craftsmanship.",
+     "below": "of the steps, very little attention to detail."
+    },
+    {
+     "indicator": "Ability to examine the process of constructing a square knot for making a web",
+     "exceeds": "Examines the process of constructing a square knot for making a web citing examples",
+     "meets": "Examines the process of constructing a square knot for making a web",
+     "approaches": "Examines the process of constructing a square knot for making a web whilemaking minor mistakes",
+     "below": "Examines the process of constructing a square knot for making a web while making major mistakes"
+    },
+    {
+     "indicator": "Ability to construct an ornamental wall hanging using square knots,",
+     "exceeds": "Creatively and neatly constructs a2colour ornamental wall hanging using square knots",
+     "meets": "Constructs a 2 colour an ornamental wall hanging using square knots,",
+     "approaches": "Constructs a 2 colour an ornamental wall hanging using square knots though withsome inconsistent tension",
+     "below": "Constructs a 2 colour an ornamental wall hanging using square knots though all webbing has inconsistent tension"
+    },
+    {
+     "indicator": "Ability to analyze the process of constructing a spiral knot",
+     "exceeds": "Thoroughly analyzes the process of constructing a spiral knot",
+     "meets": "analyzes the process of constructing a spiral knot",
+     "approaches": "analyzes the process of constructing a spiral knot with minor errors",
+     "below": "analyzes the process of constructing a spiral knot with major errors"
+    },
+    {
+     "indicator": "Ability to use open source software to design a wall hanging with a combination of square and spiral knots",
+     "exceeds": "Uses the Macrame’ mobile app to creatively design a wall hanging to be made using square knots and spiral knots",
+     "meets": "Uses the Macrame’ mobile app to design a wall hanging to be made using square knots and spiral knots",
+     "approaches": "Uses the Macrame’ mobile app with some difficulty to design a fabric for a wall hanging to be made using square knots and spiral knots",
+     "below": "Unable to grasp the operation of the Macrame’ mobile app to design a fabric for a wall hanging to be made using square knots and spiral knots"
+    },
+    {
+     "indicator": "Ability to analyze materials and tools used in jewellery and ornamentation, (materials and tools used, techniques and processes, subject matter, function (adornment and decorating spaces).",
+     "exceeds": "Comprehensively analyzes materials used in jewellery and ornamentation with regard to the 4 aspects.",
+     "meets": "Analyzes materials used in jewellery and ornamentation, with regard to the 4 aspects",
+     "approaches": "Partially analyzes materials used in jewellery and ornamentation, with regard to the 2-3 aspects.",
+     "below": "With prompts, analyzes materials used in jewellery and ornamentation, with regard to less than 1 aspects"
+    },
+    {
+     "indicator": "Ability to produce a beaded cardholder using found objects with emphasis on the following techniques; -cutting -plaiting, -thonging, -stitching, -beadwork.",
+     "exceeds": "Skillfully makes a beaded cardholder from found objects using a combination of the 4 leatherwork techniques.",
+     "meets": "Makes a beaded cardholder from found objects using a combination of the 4 leatherwork techniques.",
+     "approaches": "With difficulty makes a beaded cardholder from found objects using a combination of any 2-3 leatherwork techniques.",
+     "below": "Partially makes a beaded cardholder from found objects using any 1 leatherwork technique."
+    },
+    {
+     "indicator": "Ability to make a necklace with a bone work pendant using the following steps; -preparation -carving/shaping -stringing -finishing",
+     "exceeds": "Creatively designs and makes a necklace with a bone work pendant following the 4 steps.",
+     "meets": "Designs and makes a leather strip necklace with a bone work pendant following the 4 steps.",
+     "approaches": "With difficulty makes a necklace with a bone work pendant following any 2 to 3 steps.",
+     "below": "Partially makes a necklace with a bone work pendant following any 1 step."
+    },
+    {
+     "indicator": "Ability to create a suncatcher bracelet forskill development focusing on all the following;",
+     "exceeds": "Skillfully creates a suncatcher bracelet focusing on all the following; -craftsmanship,",
+     "meets": "Creates a suncatcher bracelet focusing on 4 the following; -craftsmanship, -colour scheme,",
+     "approaches": "With difficulty creates a suncatcher bracelet using focusing on any 2-3 of the following; -craftsmanship,",
+     "below": "Partially creates a suncatcher bracelet focusing on any 1 or none of the following;"
+    },
+    {
+     "indicator": "-craftsmanship, -colour scheme, -functionality, -safety, -aesthetics.",
+     "exceeds": "-Colour scheme, -functionality, -safety, -aesthetics.",
+     "meets": "-functionality, -safety, -aesthetics.",
+     "approaches": "-colour scheme, -functionality, -safety, -aesthetics.",
+     "below": "-craftsmanship, -colour scheme, -functionality, -safety, -aesthetics."
+    },
+    {
+     "indicator": "Ability toanalyze legal issues in production and",
+     "exceeds": "Analyzes legal issues in production and marketing of artwork comprehensively",
+     "meets": "Analyzes legal issues in production and marketing of artwork",
+     "approaches": "Analyzes legal issues in production and marketing of artworkwith minor errors",
+     "below": "Analyzes legal issues in production and marketing of artwork with major errors"
+    },
+    {
+     "indicator": "Ability to formulate strategies of marketing artworks online",
+     "exceeds": "Formulates strategies of marketing artworks online comprehensively",
+     "meets": "Formulates strategies of marketing artworks online",
+     "approaches": "Formulates strategies of marketing artworks onlinewith minor errors",
+     "below": "Formulates strategies of marketing artworks online with major errors"
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "3.1",
+     "name": "Pottery and Ceramics",
+     "suggested_duration": "20 lessons",
+     "learning_outcomes": [
+      "analyse properties of clay in pottery",
+      "prepare clay for pottery",
+      "model a hand-built vase using the pellet technique",
+      "fire the pellet vases in an updraught kiln",
+      "appraise the hand-built pellet vases for feedback."
+     ],
+     "learning_experiences": [
+      "Learners are guided to:",
+      "research virtual and/actual sources on pottery focusing on; practise in Kenya, properties (plasticity, porosity, vitrification) and preparation of clay.",
+      "source clay,drying, crushing, slaking,sieving,drying, kneading and wedging; and store for use",
+      "watch a video on pellet technique to analyse uniformity and joining of pellets",
+      "model a clay vase using the pellet technique with emphasis on uniformity of pellets joinery of clay pellets considering elements and principles of 3D Art",
+      "collaboratively use recyclable materials to build an updraught kiln considering safety",
+      "fire the pellet vases in the updraught kiln observing safety precautions",
+      "display own and others’ work for peer feedback and reflection."
+     ],
+     "inquiry_questions": [
+      "1. How can you overcome the challenges in modeling using pellet technique?",
+      "2. What factors are considered when choosing a location for an updraught kiln?"
+     ],
+     "core_competencies": [
+      "Imagination and creativity: as the learner builds a vase using the pellet technique.",
+      "Digital literacy: as the learner uses ICT tools to explore pottery made using the pellet technique",
+      "Critical thinking and problem solving: as the learner chooses a site and builds an updraught kiln."
+     ],
+     "values": [
+      "Responsibility: as the learner is guided to take good care of own and others’ pottery items to avoid breakage during drying and firing and when being guided to cautiously handle fire during the firing process to avoid fire accidents.",
+      "Patriotism: as the learner exhibits awareness of own responsibilities in the society by prudent use of clay and conserving the environment by protecting riparian land areas from over-exploitation"
+     ],
+     "pertinent_issues": [
+      "Health Education (Personal hygiene): as the learner is guided on the need to maintain high standards of personal and environmental cleanliness when working with clay.",
+      "Citizenship (Social cohesion): as the learner interacts amicably with others as they construct the updraught kiln."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-fine-arts.pdf#p35"
+    },
+    {
+     "kicd_code": "3.2",
+     "name": "Sculpture",
+     "suggested_duration": "20 lessons",
+     "learning_outcomes": [
+      "examine the concept of relief sculpture for inspiration",
+      "carve a relief sculpture for skill acquisation",
+      "value own and others’ relief sculptural forms."
+     ],
+     "learning_experiences": [
+      "Learners are guided to:",
+      "explore virtual and/or actual samples of indigenous relief sculptures in Eastern and central Africa (Makonde, Akamba, Karamajong’ and Bamileke of DRC) emphasis on; subject matter, material, tools and finishing techniques",
+      "design and carve a relief sculpture inspired by indigenous sculptures from East Africa, with emphasis on; -interpretation of subject matter -selection and preparation of appropriate recyclable material from the environment. -elements and principles of 3 D Art, -finishing",
+      "• communicate with clarity as they display and critique own and others artwork."
+     ],
+     "inquiry_questions": [
+      "1. How are the principles of 3D art portrayed in sculpture?",
+      "2. How can you experiment with organic and inorganic materials for a quality finish on relief sculptures?"
+     ],
+     "core_competencies": [
+      "Imagination and Creativity: as the learner designs and carve wooden masks in relief.",
+      "Self-efficacy: as the learner demonstrates persistence, commitment, and resilience during the production of the sculptural forms, exhibits self-esteem and confidence during critique of one's own and others’ art works."
+     ],
+     "values": [
+      "Responsibility: as the learner is encouraged to recycle and upcycle materials in order to take care of the environment.",
+      "Patriotism: as the learner exhibits awareness of own responsibilities in the society by prudent use of materials (wood) and restoring the environment by planting trees."
+     ],
+     "pertinent_issues": [
+      "Citizenship Education: learner is sensitized on appreciation of ethnic diversities when exploring relief sculptures from Eastern and Central African region.",
+      "Socio-Economic and Environmental Issues: Waste management as the learner is encouraged to recycle and upcycle organic and inorganic waste materials from the immediate environment to make relief sculptures for environmental conservation."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-fine-arts.pdf#p37"
+    },
+    {
+     "kicd_code": "3.3",
+     "name": "Weaving",
+     "suggested_duration": "20 lessons",
+     "learning_outcomes": [
+      "examine the process of constructing a square knot for making a web",
+      "construct an ornamental wall hanging using square knots",
+      "analyze the process of constructing a spiral knot",
+      "construct a two colour bag using spiral knots",
+      "use open source software to design a wall hanging with a combination of square and spiral knots",
+      "appreciate own and others’ macrame artworks."
+     ],
+     "learning_experiences": [
+      "Learners are guided to:",
+      "observe and discuss video clips on the process of making square knots focusing on loose knotting of the web and tight or compact knotting of the web",
+      "construct 2 colour webs using square knots embedded with recycled beads to make an ornamental wall hanging",
+      "Observe video clips and discuss the structure of a spiral knots",
+      "construct 2 colour webs using spiral knots embedded with recycled beads to make a bag",
+      "Use the Macrame’ mobile app to design a bag using a combination of square and spiral knots",
+      "Make the bag following the design.",
+      "• display and critique own and others’ works reflecting on the knotted bags."
+     ],
+     "inquiry_questions": [
+      "1. How can Macrame’ be used to make wall hangings?",
+      "2. How does choice of knots influence the appearance of Macrame’ item?"
+     ],
+     "core_competencies": [
+      "Critical thinking and problem solving: as the learner adapts technology to develop designs of articles to be made in macrame",
+      "Imagination and Creativity: as the learner designs macrame’ articles/projects",
+      "Digital literacy: as the learner uses ICT tools to explore and create patterns for weaving."
+     ],
+     "values": [
+      "Integrity: as the learner utilizes resources sparingly and avoids conflict of interest during critique sessions.",
+      "Respect: as the learner is encouraged to be sensitive to others’ opinions during class discussion.",
+      "Love: as the learner is encouraged to share materials and tools as they weave the waist bags."
+     ],
+     "pertinent_issues": [
+      "Environmental conservation/ Global citizenship (sustainable development). -as the learner is guided on the need to conserve the environment as a source of art materials for weaving. -as learners are guided to reuse and recycle materials for weaving the waist bags.",
+      "Financial literacy: as the learner explores career opportunities in Multimedia Crafts through clubs, creates woven waist bags and learns marketing strategies.",
+      "Consumer Literacy: as the learner sources for safe and appropriate materials for use in weaving the waist bag."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-fine-arts.pdf#p39"
+    },
+    {
+     "kicd_code": "3.4",
+     "name": "Jewellery and Ornamentation",
+     "suggested_duration": "15 lessons",
+     "learning_outcomes": [
+      "analyze materials and tools used in jewellery and ornamentation",
+      "produce a beaded cardholder using found objects",
+      "Make a necklace with a pendant",
+      "create a suncatcher bracelet for skill development",
+      "Appreciate own and others’ mixed media artworks."
+     ],
+     "learning_experiences": [
+      "Learners are guided to:",
+      "Study and discuss actual and/or virtual samples of jewellery and ornamented items for inspiration with focus on; materials and tools used, techniques and processes, subject matter, function (adornment and decorating spaces).",
+      "explore the environment, collect and prepare materials for making the cardholder , NB: Learners to consider hygiene and safety precautions",
+      "design and make a functional cardholder with focus on; -varied materials -combination of sticking, plaiting, thonging, stitching and beadwork techniques. -principles of Art and Design (Balance",
+      "dominance, Rhythm and movement).",
+      "Safety measures when using sharp tools",
+      "make a necklace with a pendant using recycled materials while observing the following",
+      "Elements(colour, shape) and Principles (Balance, dominance, rhythm and movement)",
+      "Process (Preparing materials, carving/shaping the pendant, stringing, Finishing)",
+      "design and make a suncatcher bracelet using reflective materials among others with emphasis on",
+      "Elements(colour, shape, texture) and Principles(Balance, dominance, rhythm and movement).",
+      "Craftsmanship (experiments using the skills of; stitching",
+      "gluing, cutting, bending, twisting, piercing,threading/stringing,hole punching, painting, polishing.) observe safety measures",
+      "appreciate others’ diverse opinions and value human dignity during display and critique."
+     ],
+     "inquiry_questions": [
+      "1. How does jewellery and ornamentation contribute to environmental conservation?",
+      "2. How can the immediate environment provide inspiration for jewellery and ornamentation?"
+     ],
+     "core_competencies": [
+      "Critical thinking and problem solving: as the learner explores the environment, collects and prepares materials for leatherwork and jewellery while producing various functional and decorative items.",
+      "Experiments with different materials and techniques while making a suncatcher bracelet.",
+      "Communication as the learer; -seeks information and offers support while sourcing, preparing, using materials and sharing what they have learnt with others. -pays attention to the person speaking, takes turns in conversation during critique of own and others’ Mixed Media artworks.",
+      "Collaboration: as the learner amicably works together with peers, appreciates efforts of others while sourcing materials for leatherwork and jewellery."
+     ],
+     "values": [
+      "Values:",
+      "Respect: as the learner appreciates diverse opinions and values human dignity during critique sessions. Social justice: as learners appreciate boundaries and permission while sourcing and preparing materials for jewellery and ornaments"
+     ],
+     "pertinent_issues": [
+      "Health promotion issues: as the learner is sensitized on the need to consider hygiene when collecting and cleaning found objects",
+      "Social economic and environmental issues: as the learner observes safety measures when using sharp tools used in leatherwork and jewellery."
+     ],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-fine-arts.pdf#p41"
+    },
+    {
+     "kicd_code": "3.5",
+     "name": "Art Appreciation",
+     "suggested_duration": "5 lessons",
+     "learning_outcomes": [
+      "analyze legal issues in production and marketing of artwork",
+      "formulate strategies of marketing artworks online",
+      "appreciate strategies of online marketing of artworks."
+     ],
+     "learning_experiences": [
+      "Learners are guided to:",
+      "Actively participate in research and discussion on legal issues with regard to:",
+      "production of artwork (quality and safety of materials used)",
+      "marketing of artworks(misleading information,counterfeit)",
+      "Use digital devices to conduct research and prepare slides on; -the importance of marketing artworks online, -ways of marketing online,( organizing virtual art exhibition in social media forums, listing costed artworks in online market places, -advantages and disadvantages of online marketing)",
+      "Respect others opinions as they present and discuss the slides in class.",
+      "Suggested Assessment Methods"
+     ],
+     "inquiry_questions": [
+      "1. Why is it important for practicing artists to know legal issues affecting the production of artwork?",
+      "2. How can one uphold integrity when marketing artworks?",
+      "Non-Formal Activities"
+     ],
+     "core_competencies": [],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade10-fine-arts.pdf#p45"
+    }
+   ]
+  }
+ ]
+}

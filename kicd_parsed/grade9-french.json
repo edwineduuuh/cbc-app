@@ -1,0 +1,957 @@
+{
+ "source_pdf": "grade9-french.pdf",
+ "grade": 9,
+ "subject": "french",
+ "general_outcomes": [
+  "By the end of this level, the learner should be able to;",
+  "develop the ability to use the language for purposes of practical communication;",
+  "appreciate the culture of other people to promote national and international relationship for peaceful co-existence",
+  "contribute to the cognitive and affective development of the student;",
+  "provide enjoyment and intellectual stimulation;",
+  "promote positive attitudes and develop an appreciation of the value of language"
+ ],
+ "strands": [
+  {
+   "strand": "1 Listening and Speaking",
+   "strand_code": "",
+   "assessment_rubric": [],
+   "substrands": [
+    {
+     "kicd_code": "1.3",
+     "name": "Listening for information Vocabulary Grammar Attention",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "identify key points from audio stimuli",
+      "recall important details from audio stimuli",
+      "demonstrate focused listening for optimal information retrieval",
+      "cultivate awareness on the importance of paying attention to details when listening for information."
+     ],
+     "learning_experiences": [
+      "listen to audio-visual materials with vocabulary and expressions about common Kenyan domestic and wild animals",
+      "listen to audio clips with different sounds of animals and identify their names",
+      "describe different animals by their attributes",
+      "discuss which animals they and their friends and acquaintances like and why",
+      "listen to recordings with vocabulary on how to best take care of the different animals"
+     ],
+     "inquiry_questions": [
+      "Why do you think it is important to prepare well when visiting the countryside?"
+     ],
+     "core_competencies": [
+      "Core Competencies to developed: Citizenship: This is developed as the learner appreciates their local, national and African cultural heritage and their place in the world while taking pride in identifying Kenyan domestic and wild animals. Values: Love: This is developed as learners appreciate the care and attention to animals as they tell on how to best take care of different animals. Pertinent and Contemporary Issues Animal welfare: This is cultivated as the learner appreciates the importance of taking care of different farm animals. Link to other learning areas Agriculture and nutrition: As learners relate vocabulary on farm animals to livestock farming in Agriculture and Nutrition."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade9-french.pdf#p16"
+    }
+   ]
+  },
+  {
+   "strand": "1. Listening and speaking",
+   "strand_code": "",
+   "assessment_rubric": [],
+   "substrands": [
+    {
+     "kicd_code": "1.4",
+     "name": "Active Listening",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "recall details and information accurately from oral interactions",
+      "interpret verbal cues from audio stimuli",
+      "demonstrate willingness to be receptive to new ideas in oral interactions."
+     ],
+     "learning_experiences": [
+      "watch audio-visual clips with vocabulary on routine and time",
+      "practice talking about the daily routine in relation to time, (A 5h00 je me lève, je prends mon petit-déjeuner à 7h30, je dors a 10h45)",
+      "participate in rhyming games to acquire vocabulary on routine",
+      "discuss jointly on different routines.",
+      "Listen to audio recordings on planned activities across the week."
+     ],
+     "inquiry_questions": [
+      "Why is it important to plan for daily activities?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed: Communication and collaboration: This is developed as the learner listens keenly and actively while discussing on planned activities across the week. Values Unity: The learner appreciates the need for teamwork while working together and talking about their routine. Pertinent and Contemporary Issues Time management: The learner appreciates the need for organization while learning about routines. Link to other subjects: English: Learners relate vocabulary on daily activities and routine to routine activities in English."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade9-french.pdf#p18"
+    },
+    {
+     "kicd_code": "1.7",
+     "name": "Listening for information",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "recall important details from audio stimuli",
+      "demonstrate focused listening for information retrieval",
+      "cultivate awareness on the importance of paying attention to details when listening for information."
+     ],
+     "learning_experiences": [
+      "listen to audio materials to pick out vocabulary on expressing state of health",
+      "listen to and repeat sentences related to expressing state of health",
+      "play word puzzle games with vocabulary on expressing one’s state of health",
+      "engage in miming activities for expressing state of health",
+      "listen to audio stimuli on how to take care of self and others when unwell",
+      "answer questions from audio stimuli relating to expressing one’s state of health",
+      "engage in a role-play on “at the doctor’s.”"
+     ],
+     "inquiry_questions": [
+      "How can one avoid falling sick?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed: Self-efficacy: This is developed as the learner shows a concerted attention to detail while filling in gaps and answering about the state of health. Values: Love: The learner shows empathy and concern while listening to audio stimuli on how to take care of self and others when unwell. Pertinent and Contemporary Issues: Self-awareness: The learner is mindful and able to reflect on how they feel while engaging in a role play on “at the doctors” to express their state of health. Link to other subjects: The learners are able to link the vocabulary learnt on state of the health to the concept of health and diseases in Integrated Science."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade9-french.pdf#p24"
+    }
+   ]
+  },
+  {
+   "strand": "2. Reading",
+   "strand_code": "",
+   "assessment_rubric": [],
+   "substrands": [
+    {
+     "kicd_code": "2.4",
+     "name": "Reading for fluency",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "infer meaning of words from simple texts",
+      "read simple texts fluently using the right intonation and pace",
+      "show enthusiasm in reading through exposure to simple varied texts."
+     ],
+     "learning_experiences": [
+      "read short texts on routine and practice fluency",
+      "use the clock and watches in reading time",
+      "recite poems on daily routine jointly",
+      "use the internet to source for and read vocabulary on routine",
+      "discuss the important of having a routine at home",
+      "play games in groups on daily routine activities"
+     ],
+     "inquiry_questions": [
+      "What makes our daily routines differ from one person’s to another’s?"
+     ],
+     "core_competencies": [
+      "Self-efficacy: The learner shows a concerted attention to detail while doing tasks by planning and seeking help when necessary while learning about daily routine at home."
+     ],
+     "values": [
+      "Unity: The learner embraces collaboration in learning activities as they recite poems in pairs and groups"
+     ],
+     "pertinent_issues": [
+      "Self-Management: The learner appreciates the need to be organised while discussing the importance of having a routine."
+     ],
+     "links_to_other_areas": [
+      "The vocabulary on daily activities and routine is similar to the same learned in routine activities in English."
+     ],
+     "resources": [],
+     "kicd_source": "grade9-french.pdf#p37"
+    }
+   ]
+  },
+  {
+   "strand": "Listening and speaking",
+   "strand_code": "1.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to use vocabulary and expressions to in oral interactions",
+     "exceeds": "",
+     "meets": "The learner uses all targeted vocabulary and expressions in oral interactions",
+     "approaches": "The learner uses most of the targeted vocabulary and expressions in oral interactions",
+     "below": "The learner uses very few of the targeted vocabulary and expressions in oral interactions"
+    },
+    {
+     "indicator": "Ability to maintain correct spoken language structures (pronunciation, intonation, rhythm and pacing) in oral expression",
+     "exceeds": "The learner maintains correct pronunciation, intonation, rhythm and pacing at all times in oral expression. The communication is clear and error free.",
+     "meets": "The learner maintains correct pronunciation, intonation, rhythm and pacing most of the time in oral expression.",
+     "approaches": "",
+     "below": "The learner maintains correct pronunciation, intonation, rhythm and pacing in few instances in oral expression. Makes many errors most of the time that interfere with communication"
+    },
+    {
+     "indicator": "Ability to respond to questions and prompts in oral interactions",
+     "exceeds": "The learner responds to all questions and goes further to give appropriate illustrations and examples.",
+     "meets": "The learner responds to all questions and prompts to show comprehension and engagement.",
+     "approaches": "The learner responds to most of the questions and prompts to show comprehension and engagement",
+     "below": "The learner responds to very few questions and prompts to show comprehension and engagement"
+    },
+    {
+     "indicator": "Ability to employ gestures and facial expressions to enhance oral interactions",
+     "exceeds": "The learner employs appropriate gestures and facial expressions to complement oral expressions and shows sensitivity to diverse cultural contexts.",
+     "meets": "The learner employs appropriate gestures and facial expressions to complement oral expressions.",
+     "approaches": "The learner employs most of the gestures and facial expressions to complement oral expressions.",
+     "below": "The learner employs very few gestures and facial expressions to complement oral expressions."
+    },
+    {
+     "indicator": "Ability to display willingness to participate in oral interactions",
+     "exceeds": "The learner is always willing to participate in meaningful oral interactions with people in their surroundings. Encourages others to engage in oral interactions.",
+     "meets": "The learner is always willing to participate in meaningful oral interactions with people in their surroundings.",
+     "approaches": "The learner is at times hesitant to participate in meaningful oral interactions with people in their surroundings.",
+     "below": "The learner is mostly hesitant to participate in meaningful oral interactions with people in their surroundings."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "1.1",
+     "name": "Interactive Speaking",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "respond to questions and prompts to show comprehension and engagement",
+      "use vocabulary and expressions appropriately to probe and engage in oral interactions",
+      "use non-verbal communication cues to enhance communication",
+      "exhibit confidence to contribute actively in conversations."
+     ],
+     "learning_experiences": [
+      "listen to audio clips on formal greetings, introductions and taking leave to respond to questions",
+      "participate in “Repeat-after-me” exercise to acquire vocabulary on formal greetings and taking leave; (Comment allez-vous Monsieur? A la prochaine Madame)",
+      "listen to and sing songs with vocabulary on formal greetings, introductions and taking leave. (Quelle est votre nationalité ? Vous parlez français ?)",
+      "play mimicry games to acquire non-verbal communication skills",
+      "source and watch video clips with authentic dialogues on greetings",
+      "introductions and taking leave in formal settings, (Bonsoir Madame ! Comment vous appelez-vous madame ? Au revoir, à bientôt ! Vous êtes kenyan ?)",
+      "participate in simple skits collaboratively on formal greetings; introductions and taking leave."
+     ],
+     "inquiry_questions": [
+      "How can we maintain formal relationships in greetings and introductions?"
+     ],
+     "core_competencies": [
+      "Communication and collaboration: This is developed as the learner speaks clearly and effectively using appropriate language, expression and gestures while participating in simple skits on formal greetings, introductions and taking leave."
+     ],
+     "values": [
+      "Respect: This is enhanced as the learner uses polite expressions while presenting themselves and greeting others."
+     ],
+     "pertinent_issues": [
+      "Citizenship: This is enhanced as the learner works together with others to appreciate teamwork while participating in simple skits."
+     ],
+     "links_to_other_areas": [
+      "Social studies: As the learners relate the nationality concept to the idea of people and their nationalities across Africa and the world in Social Studies."
+     ],
+     "resources": [],
+     "kicd_source": "grade9-french.pdf#p12"
+    },
+    {
+     "kicd_code": "1.2",
+     "name": "Listening for information",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "identify key points from audio stimuli",
+      "recall important details from audio stimuli",
+      "demonstrate focused listening for optimal information retrieval",
+      "cultivate awareness on the importance of paying attention to details when listening for information."
+     ],
+     "learning_experiences": [
+      "listen to audio-visual materials with vocabulary and expressions used to describe members of the family, types of family (famille nuclaire et famille elargie), professions and places of work.",
+      "role play on various aspects of the family (descriptions, professions...)",
+      "use the vocabulary, expressions and grammatical structures learned to describe their family members to peers / classmates in short dialogues and in turns.",
+      "Use the vocabulary acquired to tell where the various professionals work"
+     ],
+     "inquiry_questions": [
+      "What would you consider if you were to choose a profession?"
+     ],
+     "core_competencies": [
+      "Core Competencies to developed: Communication and collaboration: This is developed as the learner role plays in small groups to describe their family members Values: Respect for others as learners recognize the variation in likes of others in terms of professions Pertinent and Contemporary Issues Self-esteem: Learners exhibit self-esteem and self-drive as they describe their likings for various careers. Link to other learning areas: English and Kiswahili: As the learners link the description of the family to the concept of qualitative adjectives in English and Kiswahili."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade9-french.pdf#p14"
+    },
+    {
+     "kicd_code": "1.5",
+     "name": "Oral expression",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "demonstrate comprehension and engagement in oral interactions",
+      "use verbal cues to probe and engage in oral interactions",
+      "exhibit great interest to participate actively in conversations."
+     ],
+     "learning_experiences": [
+      "watch and listen to audio-visual materials to acquire vocabulary and grammar related to making plans for fun and enjoyment",
+      "talk about plans with the use of verbs conjugated in future tense (le futur proche) and use of adverbs of time (dans deux jours / un mois,etc.; la semaine / l’année prochaine, ce soir, ce weekend)",
+      "engage in oral interactions: question-answer on personal plans to have fun",
+      "participate in simple role plays collaboratively."
+     ],
+     "inquiry_questions": [
+      "What do you consider when making plans for a fun activity?"
+     ],
+     "core_competencies": [
+      "Core Competencies to developed: Communication and collaboration: This is developed as the learners listen keenly and actively to the audio-visual materials on fun and enjoyment. Values: Unity: Learner cultivates the need to be inclusive as they work collaboratively as they participate in role plays. Pertinent and Contemporary Issues Safety and security: Learners are made aware of safety and security measures to consider while having fun. Link to other learning areas: Creative Arts: Learners link the vocabulary on leisure activities to leisure and sporting activities in Creative Arts and Sports."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade9-french.pdf#p20"
+    },
+    {
+     "kicd_code": "1.6",
+     "name": "Interactive speaking",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "respond to questions and prompts to show comprehension and engagement",
+      "use vocabulary and expressions appropriately to probe and engage in oral interactions",
+      "exhibit confidence to contribute actively in conversations."
+     ],
+     "learning_experiences": [
+      "listen to audio-visual material relating to ordering food in the restaurant to pick out vocabulary. (Je voudrais du poulet s’il vous plait ! Excusez-moi, j’aimerais du café s’il vous plait ! Je voudrais/aimerais + repas)",
+      "discuss jointly on the favourite meals and why they prefer them",
+      "listen to and repeat names of different vocabularies about ordering food in the restaurant/utensils/quantities (J’ai besoin d’un couteau, Avoir besoin de + ustensile/ingrédient)",
+      "role play at the restaurant.",
+      "discuss jointly about the vocabulary to use whenordering food in the restaurant."
+     ],
+     "inquiry_questions": [
+      "What do you think happens when people go to eat out?"
+     ],
+     "core_competencies": [
+      "Communication and collaboration: This is developed as learners speak clearly and effectively using appropriate expressions and gestures while role-playing at the restaurant."
+     ],
+     "values": [
+      "Unity: The learner acknowledges the value of working together while discussing jointly about ordering food in the restaurant."
+     ],
+     "pertinent_issues": [
+      "Self-awareness: The learner recognizes the need of appreciating their choice of food and that of others as they discuss their favourite meals jointly."
+     ],
+     "links_to_other_areas": [
+      "Agriculture and nutrition: Learners link the description and preferences on foods and drinks to content covered in Agriculture and Nutrition."
+     ],
+     "resources": [],
+     "kicd_source": "grade9-french.pdf#p22"
+    },
+    {
+     "kicd_code": "1.8",
+     "name": "Listening for information",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "identify key points from audio stimuli",
+      "use information from audio stimuli to respond to questions or prompts",
+      "cultivate awareness on the importance of paying attention to details when listening for information."
+     ],
+     "learning_experiences": [
+      "watch audio-visual clips with activities related to particular environments and respond to questions jointly",
+      "use the Internet to source and watch audio-visual materials on the positive and negative effects of weather on the environment and pick out new vocabulary: The search engine is set with “Safe Search ON”",
+      "participate in “Headline creation” activity in small groups where they listen to audio clips on seasons and capture the essence of the content",
+      "play games on vocabulary search jointly using digital devices."
+     ],
+     "inquiry_questions": [
+      "How do weather conditions affect human life?"
+     ],
+     "core_competencies": [
+      "Core Competencies to developed: Communication and Collaboration: The learner listens keenly and actively to the activities related to particular environments and responds to questions jointly. Values: Unity: The learner recognizes the need for teamwork as they play games on vocabulary search jointly using digital devices. Pertinent and Contemporary Issues Online safety: The learner uses the internet with secure networks as they source information online with “Safe Search “ turned ON. Link to Other Subjects: Social studies: Learners link the activities of describing weather conditions in a local area to weather and climate in social studies"
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade9-french.pdf#p26"
+    },
+    {
+     "kicd_code": "1.9",
+     "name": "Interactive speaking",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "respond to questions and prompts to show comprehension and engagement",
+      "use vocabulary and expressions appropriately to probe and engage in oral interactions",
+      "use non-verbal communication cues to enhance communication",
+      "exhibit confidence to contribute actively in conversations"
+     ],
+     "learning_experiences": [
+      "participate in “Repeat-after-me” exercise to acquire vocabulary on asking and giving directions",
+      "listen to and sing songs on different locations around them",
+      "play mimicry games collaboratively to practice non-verbal cues like gestures of giving directions",
+      "source and watch video clips with authentic dialogues on asking and giving directions using digital devices",
+      "do simple skits in small groups on asking and giving directions."
+     ],
+     "inquiry_questions": [
+      "How can one avoid getting lost in a new place?"
+     ],
+     "core_competencies": [
+      "Core Competencies to developed: Creativity and imagination: This is developed as a learner undertakes joint activities and exchanges new ideas that inspire creative thinking while doing skits on asking and giving directions. Values: Unity: The learner appreciates the need for collaboration while playing mimicry games to practice non-verbal cues like gestures of giving directions. Pertinent and Contemporary Issues (PCIs): Interpersonal relationships: This is brought out as the learner relates with others through doing simple skits jointly on asking and giving directions. Link to other subjects: Social studies: The learner can relate the concept of asking and giving directions to the concept of directions in Social Studies."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade9-french.pdf#p28"
+    }
+   ]
+  },
+  {
+   "strand": "Reading",
+   "strand_code": "2.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to pronounce words in contexts for accuracy in reading",
+     "exceeds": "The learner pronounces words with a near native accent in simple texts to convey the intended meaning.",
+     "meets": "The learner pronounces words in simple texts to convey the intended meaning.",
+     "approaches": "The learner pronounces most words in simple texts to convey the intended meaning.",
+     "below": "The learner pronounces a few words in simple texts to convey the intended meaning."
+    },
+    {
+     "indicator": "Ability to read with fluency (smoothness, pace, rhythm and intonation)",
+     "exceeds": "The learner articulates words well while reading smoothly with correct intonation, rhythm and pace even in texts on unfamiliar topics.",
+     "meets": "The learner articulates words well while reading smoothly with correct intonation, rhythm and pace",
+     "approaches": "The learner frequently articulates words well while reading smoothly with correct intonation, rhythm and pace",
+     "below": "The learner occasionally articulates words well while reading smoothly with correct intonation, rhythm and pace"
+    },
+    {
+     "indicator": "Ability to analyse simple texts",
+     "exceeds": "The learner interprets and responds to questions in context using extensive vocabulary in giving responses.",
+     "meets": "The learner interprets and responds to questions in context.",
+     "approaches": "The learner interprets and responds to most of the questions in context.",
+     "below": "The learner interprets and responds to a few questions in context."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "2.1",
+     "name": "Reading for fluency",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "infer meaning of words from simple texts",
+      "read simple texts fluently using the right intonation and pace",
+      "show enthusiasm in reading through exposure to simple varied texts."
+     ],
+     "learning_experiences": [
+      "echo read texts on formal greetings and introductions in class with the teacher for pronunciation practice",
+      "source for texts on formal greetings and introductions from digital devices and pick out vocabulary (Bonjour Monsieur/ Madame/ Mademoiselle, Comment allez-vous; Je vais bien, merci: Comment vous appelez-vous, Monsieur?)",
+      "dramatic read simple texts collaboratively for developing fluency."
+     ],
+     "inquiry_questions": [
+      "How do you think greetings between people who are unfamiliar to one another go?"
+     ],
+     "core_competencies": [
+      "Core competencies to be developed Digital Literacy: This is developed as the learner uses digital technology to effectively accomplish their own tasks using digital platforms while sourcing for texts on formal greetings. Values Respect: This is enhanced as the learner uses respectful and formal expressions to greet and talk to people Pertinent and Contemporary Issues Social cohesion: This is enhanced as the learner embraces collaboration in learning in doing dramatic reading of simple texts collaboratively. Link to other learning areas: Social studies: Learners relate concept of nationality to Africa and the world in Social Studies"
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade9-french.pdf#p32"
+    },
+    {
+     "kicd_code": "2.2",
+     "name": "Reading for understanding",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "identify key details and facts from read texts",
+      "use information from read texts to respond to questions and prompts",
+      "build confidence in one's ability to comprehend and interpret written material."
+     ],
+     "learning_experiences": [
+      "highlight key details and information about family members and their professions in selected texts",
+      "read selected passages with vocabulary on nuclear and extended family",
+      "read flashcards with vocabulary describing members of the nuclear and extended family",
+      "answer comprehension questions on nuclear and extended family",
+      "consult their parents about their family tree",
+      "practice reading texts with the right intonation and pace to bring out meanings."
+     ],
+     "inquiry_questions": [
+      "What do you think people consider when choosing a place to work?"
+     ],
+     "core_competencies": [
+      "Core Competencies to developed: Citizenship: This is developed as the learner appreciates a sense of belonging while reading texts on nuclear and extended family members. Values: Love: The learner demonstrates appreciation of family members while reading about family members. Pertinent and Contemporary Issues Parental Guidance and Engagement: The learner consults with the parents to understand their family tree. Link to other learning areas: The concept of answering comprehension questions is covered in English and Kiswahili."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade9-french.pdf#p34"
+    },
+    {
+     "kicd_code": "2.3",
+     "name": "Reading for understanding",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "identify key details and facts from read texts",
+      "use information from read texts to respond to questions and prompts",
+      "build confidence in one's ability to comprehend and interpret written material."
+     ],
+     "learning_experiences": [
+      "Read texts with vocabulary about the countryside",
+      "identify animals from his/her locality in written texts",
+      "match animals with their descriptions in texts",
+      "collaboratively use digital devices to search for and build vocabulary and expressions about basic care of animals."
+     ],
+     "inquiry_questions": [
+      "Why do you think some people keep pets?"
+     ],
+     "core_competencies": [
+      "Citizenship: This is developed as the learner develops a sense of belonging to one’s locality when reading about the countryside."
+     ],
+     "values": [
+      "Love: This is developed as the learner expresses appreciation of different locales by reading about different countrysides."
+     ],
+     "pertinent_issues": [
+      "Animal welfare: The learner is enlightened about the importance of taking care of animals"
+     ],
+     "links_to_other_areas": [
+      "The learner relates vocabulary on farm animals to livestock farming in agriculture and Nutrition."
+     ],
+     "resources": [],
+     "kicd_source": "grade9-french.pdf#p36"
+    },
+    {
+     "kicd_code": "2.5",
+     "name": "Reading for understanding",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "identify key details and facts from texts",
+      "use information from texts to respond to questions and prompts",
+      "build confidence in one's ability to comprehend and interpret written material."
+     ],
+     "learning_experiences": [
+      "Read texts with vocabulary on making plans and dates",
+      "read silently as well as aloud texts on plans and programs for various activities (sports, jeux, activités de loisirs, visites et voyages)",
+      "read texts on activities to be undertaken in a date",
+      "answer with accuracy written comprehension questions based on making plans for fun and enjoyment."
+     ],
+     "inquiry_questions": [
+      "What would happen if we plan for activities without considering time?"
+     ],
+     "core_competencies": [
+      "Self-efficacy: Learners demonstrate self-efficacy as they develop effective communication skills necessary to have fun and enjoyment."
+     ],
+     "values": [
+      "Responsibility: Learners are made aware of the need for time management and planning while learning about making plans."
+     ],
+     "pertinent_issues": [
+      "Guidance: Learners are encouraged to engage in activities that bring fun and enjoyment for healthy living."
+     ],
+     "links_to_other_areas": [
+      "The concept of fun activities is similar to the sporting activities in Creative Arts."
+     ],
+     "resources": [],
+     "kicd_source": "grade9-french.pdf#p38"
+    },
+    {
+     "kicd_code": "2.6",
+     "name": "Reading for understanding",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "identify key details and facts from read texts",
+      "use information from read texts to respond to questions and prompts",
+      "build confidence in one's ability to comprehend and interpret written material."
+     ],
+     "learning_experiences": [
+      "read short texts on the eating out and ordering food in the restaurant",
+      "read texts with vocabulary on ordering food in a restaurant",
+      "play word search games on vocabulary related to the restaurant and ordering for food",
+      "read texts with texts of people talking about their food preferences",
+      "source for information on ordering food in the restaurant from the internet with Safe Search turned ON",
+      "respond to questions from read material on eating out",
+      "read menus of food in different restaurants online."
+     ],
+     "inquiry_questions": [
+      "Why is it important to plan well when going to eat out?"
+     ],
+     "core_competencies": [
+      "Core competencies to be developed Learning to learn: This is developed as the learner builds on their own learning experiences by sourcing for information on ordering food from the internet. Values Respect: This is nurtured as the learner uses appropriate language when ordering food in a restaurant. Pertinent and Contemporary Issues Cyber Security: The learner uses the internet safely to source for information about ordering food in a restaurant. Link to other learning areas The vocabulary on the description and preferences on foods and drinks is linked to the content covered in Agriculture and Nutrition."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade9-french.pdf#p39"
+    },
+    {
+     "kicd_code": "2.7",
+     "name": "Reading for understanding",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "identify key details and facts from read texts",
+      "use information from read texts to respond to questions and prompts",
+      "build confidence in one's ability to comprehend and interpret written material."
+     ],
+     "learning_experiences": [
+      "echo read short texts on expressing state of health jointly",
+      "source for and read short texts about expressing state of health from the internet",
+      "respond to questions from read material on expressing one’s state of health",
+      "play word search games on vocabulary related to expressing state of health",
+      "use emojis and charts to read about state of health."
+     ],
+     "inquiry_questions": [
+      "Why is it important to be honest when talking about your state of health?"
+     ],
+     "core_competencies": [
+      "Core competencies to be developed Creativity and Imagination: This is developed as the learner finds hidden patterns between different ideas while playing search games on vocabulary about health status. Values Responsibility: The learner uses the internet responsibly in sourcing for information about the expressing one’s state of health. Pertinent and Contemporary Issues Health Guidance: The learner is enlightened about healthy living as they learn vocabulary on expressing their state of health. Link to other subjects: The vocabulary learnt on state of the health is similar to the concept of health and diseases in Integrated Science."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade9-french.pdf#p41"
+    },
+    {
+     "kicd_code": "2.8",
+     "name": "Reading for understanding",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "Identify key points and facts from read texts",
+      "use information from read texts to respond to questions and prompts",
+      "build confidence in one's ability to comprehend and interpret written material."
+     ],
+     "learning_experiences": [
+      "echo read texts about the environment, related weather and activities in small groups for vocabulary",
+      "use the internet to search for texts on the effects of weather on environment for reading in groups; search engine is set on “safe search”",
+      "engage in interactive read-aloud activities where reading is paused for “question and answer breaks”",
+      "read texts on way to conserve the environment",
+      "read texts and respond to simple questions about effects of weather on environment."
+     ],
+     "inquiry_questions": [
+      "How do you think weather and climate are connected to disasters natural calamities?"
+     ],
+     "core_competencies": [
+      "Core competences to be developed Communication and collaboration: This is developed as the learner reads clearly and effectively using the appropriate articulation, pronunciation, intonation, rhythm and pacing texts on the environment. Values Patriotism: The learner shows love for the environment as they learn about ways to take care of the environment. Pertinent and Contemporary Issues Environmental Conservation: The learner appreciates the need to care for the environment while learning about the environment. Link to Other Subjects: The vocabulary learned on the environment and weather conditions is similar to the same concept Social Studies"
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade9-french.pdf#p43"
+    },
+    {
+     "kicd_code": "2.9",
+     "name": "Reading for Understanding",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "infer meaning of words from simple texts",
+      "read simple texts fluently using the right intonation and pace",
+      "show enthusiasm in reading through exposure to simple varied texts."
+     ],
+     "learning_experiences": [
+      "Engage in interactive read-aloud activity where reading is paused for question and answer breaks texts on locations",
+      "source for and read texts on means of transport from digital devices collaboratively(le chameau, l’âne, la moto, la bicyclette, le vélo, l’auto, le bus, le taxi, le train, le métro, le tramway, la trottinette, le scooter, le bateau, le canoë, le bac/ferry)",
+      "echo read texts in small groups to practice intonation and pace in reading",
+      "engage in dramatic reading texts on locations and giving directions",
+      "• matching picture stimuli to given vocabulary about means of transport (la gare, la station de metro, le billet, )."
+     ],
+     "inquiry_questions": [
+      "What makes a tour of a place interesting?"
+     ],
+     "core_competencies": [
+      "Critical thinking and problem solving: The learner follows simple instructions to complete tasks and seek help when need be while matching picture stimuli to given vocabulary about means of transport."
+     ],
+     "values": [
+      "Unity: The learner embraces collaboration in learning experiences while sourcing for information on locations and directions from the internet."
+     ],
+     "pertinent_issues": [
+      "Safety and Security: The learner understands the need to have correct data about the location of a place to avoid getting lost and own security."
+     ],
+     "links_to_other_areas": [
+      "The concept of directions of locations is similar to the same concept in Social Studies."
+     ],
+     "resources": [],
+     "kicd_source": "grade9-french.pdf#p45"
+    }
+   ]
+  },
+  {
+   "strand": "Writing",
+   "strand_code": "3.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to write clear and readable texts: Space between words in a sentence Space between letters in a word",
+     "exceeds": "The learner writes texts paying attention to neatness and proper spacing all through. Handwriting exhibits individual style and flair.",
+     "meets": "The learner writes texts paying attention to neatness and proper spacing all through.",
+     "approaches": "The learner writes texts paying attention to neatness and spacing in most parts of the text.",
+     "below": "The learner writes texts paying attention to neatness and spacing in very few parts of the text."
+    },
+    {
+     "indicator": "Ability to write texts using correct language structures and vocabulary",
+     "exceeds": "The learner writes simple texts while maintaining spelling and grammatical accuracy all through. Sentence structures are correct all the time while using vocabulary appropriate to the context.",
+     "meets": "The learner writes simple texts while using correct sentence structures and vocabulary.",
+     "approaches": "The learner writes simple texts while using correct sentence structures and vocabulary.",
+     "below": "The learner writes simple texts but is unable to maintain spelling and grammatical accuracy all through. Sentence structures are incorrect most of the time. Uses very limited vocabulary appropriate to the context."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "3.1",
+     "name": "Guided writing",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "write common words with correct orthography",
+      "create simple sentences using correct structures",
+      "appreciate the role of writing in interactive communication contexts."
+     ],
+     "learning_experiences": [
+      "Fill crosswords and word puzzles using cues from texts on formal greetings and introductions.",
+      "fill gaps in simple dialogues using simple vocabulary of formal greetings and introductions (salut, (Bonjour Monsieur/ Madame/ Mademoiselle, Comment allez-vous ; Je vais bien, merci : Comment vous appelez-vous, Monsieur? Enchanté)",
+      "write down dictated simple vocabulary on formal greetings and introductions.",
+      "use visual prompts like pictures and illustrations to write simple texts on formal greetings and introductions."
+     ],
+     "inquiry_questions": [
+      "What do you need to do to prepare for writing texts?"
+     ],
+     "core_competencies": [
+      "Core competencies to be developed Communication and collaboration: This is developed as the learner writes clearly and correctly vocabulary on formal greetings and introduction. Values Love: This is nurtured as learners show compassion to each other while they write short greetings to one another to know their wellbeing. Pertinent and Contemporary Issues Socio-civic Guidance: This is enhanced as the learner respects others while using the right etiquette in a formal and polite language. Link to other learning areas: The concept of self-introduction and formal greetings is similar to the same concept in English and Kiswahili."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade9-french.pdf#p48"
+    },
+    {
+     "kicd_code": "3.2",
+     "name": "Guided writing",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "write common words with correct orthography",
+      "create simple sentences using correct structures",
+      "appreciate the role of writing in interactive communication contexts."
+     ],
+     "learning_experiences": [
+      "write short and coherent texts through dictation related to the theme of family",
+      "write short texts about the various aspects of the theme family from a variety of learning resources",
+      "match texts with illustrations of various aspects of the family learnt",
+      "fill in appropriate words/expressions theme of family to make complete texts",
+      "participate in collaborative writing projects on family using digital devices to present in club presentations.."
+     ],
+     "inquiry_questions": [
+      "Why would you choose to write as a means of communicating with others?"
+     ],
+     "core_competencies": [
+      "Core Competencies to developed: Digital literacy: This is developed as the learner uses digital technology to effectively accomplish own tasks while writing projects using digital devices. Values: Love: The learner demonstrates appreciation of family members while writing about family members. Pertinent and Contemporary Issues Clubs and Societies: The learner engages in club activities while writing projects for club presentations. Link to other learning areas: The guided writing skill is similar to that applied in English and Kiswahili."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade9-french.pdf#p50"
+    },
+    {
+     "kicd_code": "3.3",
+     "name": "Guided writing",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "write common words with correct orthography",
+      "create simple sentences using correct structures",
+      "appreciate the role of writing in interactive communication contexts."
+     ],
+     "learning_experiences": [
+      "write grammatically correct short texts using acquired vocabulary and phrases to describe animals.",
+      "match vocabulary to categorize animals into domestic and wild in group activities",
+      "fill crosswords and word puzzles on the countryside",
+      "write short texts about basic care of animals."
+     ],
+     "inquiry_questions": [
+      "How do you thing written materials like posters and signboards can be important when visiting the countryside?"
+     ],
+     "core_competencies": [
+      "Critical thinking and problem solving: This is developed as the learner follows simple instructions to solve and seek help when need be when filling crosswords and word puzzles on the countryside."
+     ],
+     "values": [
+      "Love: The learner embraces living in different localities while learning about the countryside."
+     ],
+     "pertinent_issues": [
+      "Life Skills: Learner uses their time appropriately through following plans per a routine schedule."
+     ],
+     "links_to_other_areas": [
+      "The vocabulary learned on farm animals is linked to the concept of livestock farming in Agriculture and Nutrition."
+     ],
+     "resources": [],
+     "kicd_source": "grade9-french.pdf#p52"
+    },
+    {
+     "kicd_code": "3.4",
+     "name": "Guided writing",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "write common words with correct orthography",
+      "create simple sentences using correct structures",
+      "appreciate the role of writing in interactive communication contexts."
+     ],
+     "learning_experiences": [
+      "Write texts on routine",
+      "fill in gaps in short texts relating to routine",
+      "create a weekly routine",
+      "fill word puzzles with vocabulary on routine jointly",
+      "write down simple dictated words on routine",
+      "write simple phrases on the importance of following routine",
+      "write simple sentences on daily routine."
+     ],
+     "inquiry_questions": [
+      "Why is writing a routine schedule important?"
+     ],
+     "core_competencies": [
+      "Creativity and Imagination: This is developed as the learner undertakes group activities and exchanges new ideas that inspire creative thinking while fill word puzzles with vocabulary on routine jointly."
+     ],
+     "values": [
+      "Responsibility: The learner is equipped with time management skills while learning about routine."
+     ],
+     "pertinent_issues": [
+      "Life Skills: Learner uses their time appropriately through following plans per a routine schedule."
+     ],
+     "links_to_other_areas": [
+      "The vocabulary on daily activities and routine is similar to the same learned in routine activities in English."
+     ],
+     "resources": [],
+     "kicd_source": "grade9-french.pdf#p53"
+    },
+    {
+     "kicd_code": "3.5",
+     "name": "Guided writing",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "write common words with correct orthography",
+      "create simple sentences using correct structures",
+      "appreciate the role of writing in interactive communication contexts."
+     ],
+     "learning_experiences": [
+      "note down key words and expressions used to talk about programs and plans for the near future on fun and enjoyment.",
+      "do transformation of selected verbs to form nouns (la nominalization des verbes visiter, arriver, danser, chanter, écouter, partir)",
+      "write short texts with peers about their future plans for fun and enjoyment activities to be carried out within the school, such as swimming gala, beauty pageant, face painting, watching movies, playing video-games, etc.)",
+      "draw programs for entertainment events in school and post them on school notice boards."
+     ],
+     "inquiry_questions": [
+      "Why do you think it is important to write down a plan of activities?"
+     ],
+     "core_competencies": [
+      "Core Competencies: Communication and Collaboration: this is developed as the learner writes fluently and in an organised manner while writing short texts with peers about their future plans for fun and enjoyment. Values: Responsibility: Learners are made aware of the need for time management to cater for fun and enjoyment. Pertinent and Contemporary Issues Guidance: Learners are encouraged to engage in activities that bring fun and enjoyment for healthy living. Link to other learning areas: The concept of fun activities is similar to the sporting activities in Creative Arts."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade9-french.pdf#p54"
+    },
+    {
+     "kicd_code": "3.6",
+     "name": "Guided Writing",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "write common words with correct orthography",
+      "create simple sentences using correct structures",
+      "appreciate the role of writing in interactive communication contexts."
+     ],
+     "learning_experiences": [
+      "fill in gaps in short texts relating to ordering for food in the restaurant to pick out vocabulary",
+      "write down short simple sentences on ordering for food",
+      "write down simple dictated vocabulary on things at the restaurant",
+      "source from the internet vocabulary on eating out",
+      "work jointly to create a menu."
+     ],
+     "inquiry_questions": [
+      "Why is it important to make early decisions before ordering food and drinks in a restaurant?"
+     ],
+     "core_competencies": [
+      "Learning to learn: This is developed as the learner builds on their own learning experiences as they work jointly to create a menu."
+     ],
+     "values": [
+      "Responsibility: This is enhanced as the learner is able to make own decision on what to eat in a restaurant."
+     ],
+     "pertinent_issues": [
+      "Cyber Security: The learner uses the internet safely to source for information about ordering food in a restaurant."
+     ],
+     "links_to_other_areas": [
+      "The vocabulary on description and preferences on foods and drinks is similar to the content covered in Agriculture and Nutrition."
+     ],
+     "resources": [],
+     "kicd_source": "grade9-french.pdf#p56"
+    },
+    {
+     "kicd_code": "3.7",
+     "name": "Guided writing",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "write common words with correct orthography",
+      "create simple sentences using correct structures",
+      "appreciate the role of writing in interactive communication contexts."
+     ],
+     "learning_experiences": [
+      "Write short texts on state of health",
+      "draw and label different emojis related to state of health",
+      "fill in gaps in short texts relating to state of health.",
+      "source for and write down information on state of health from the internet",
+      "match images on state of health to their descriptions."
+     ],
+     "inquiry_questions": [
+      "Why do you think it is important to communicate early when unwell?"
+     ],
+     "core_competencies": [
+      "Self-efficacy: This is developed as the learner shows a concerted attention to detail while describing the state of health."
+     ],
+     "values": [
+      "Responsibility: The learner is mindful of their own health while learning about the state of health."
+     ],
+     "pertinent_issues": [
+      "Cyber Security: As learners use the internet to source for information on state of health with safe search turned on."
+     ],
+     "links_to_other_areas": [
+      "The vocabulary learned on state of the health to the concept of health and diseases in Integrated Science."
+     ],
+     "resources": [],
+     "kicd_source": "grade9-french.pdf#p57"
+    },
+    {
+     "kicd_code": "3.8",
+     "name": "Guided writing",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "write common words with correct orthography",
+      "create simple sentences using correct structures",
+      "appreciate the role of writing in interactive communication contexts."
+     ],
+     "learning_experiences": [
+      "write down dictated simple vocabulary on activities related to the environment: (L’agriculture, la pêche dans les lacs, la natation, le camping, la randonnée, ?)",
+      "rearrange letters to make words for vocabulary mastery",
+      "fill crosswords and word puzzles with vocabulary on effects of weather on environment (le tourisme, le sport, ) (érosion du sol, les inondations, la sècheresse, irruption de maladies, la famine )",
+      "make sentences from jumbled words to practice word order jointly; (Trop de pluie cause les inondations)",
+      "use picture writing prompts to write about different effects of weather on environment."
+     ],
+     "inquiry_questions": [
+      "How can writing skills be useful in promoting environmental awareness?"
+     ],
+     "core_competencies": [
+      "Core competences to be developed Creativity and imagination: This is developed as the learner finds hidden patterns between different ideas while filling crosswords and word puzzles with vocabulary on weather. Values Unity: The learner appreciates collaboration in learning while making sentences from jumbled words to practice word order jointly. Pertinent and Contemporary Issues Environmental Conservation: The learner appreciates the need to care for the environment while learning about the environment. Link to Other Subjects: The vocabulary on describing weather conditions in a local area is similar to the concept of weather and climate in Social Studies."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade9-french.pdf#p58"
+    },
+    {
+     "kicd_code": "3.9",
+     "name": "Guided writing",
+     "suggested_duration": "",
+     "learning_outcomes": [
+      "write common words with correct orthography",
+      "create simple sentences using correct structures",
+      "appreciate the role of writing in interactive communication contexts."
+     ],
+     "learning_experiences": [
+      "fill crosswords and word puzzles with vocabulary on asking and giving directions. (qller; continuer; tourner; prendre; traverser; trouver; à droite, à gauche, tout droit, vers l’est, l’ouest, le nord, le sud ; la rue, le pont, l’avenue)",
+      "rearrange letters to make words on vocabulary of transport and moving around in small groups activities",
+      "make sentences from jumbled words to practice language structures",
+      "write down simple instructions on directions to a given place collaboratively",
+      "use picture writing prompts to write simple texts about asking and giving directions",
+      "• do collaborative club projects on locations and directions."
+     ],
+     "inquiry_questions": [
+      "How do you think writing can be helpful in guiding people when getting around?"
+     ],
+     "core_competencies": [
+      "Learning to Learn: This is developed as the learner builds on their own learning experiences while making sentences from jumbled words."
+     ],
+     "values": [
+      "Unity: This is enhanced as teamwork among learners is achieved while writing down simple instructions on directions to a given place collaboratively."
+     ],
+     "pertinent_issues": [
+      "Clubs and Societies: The learner appreciates working together to accomplish a collaborative project in the French club."
+     ],
+     "links_to_other_areas": [
+      "The concept of directions of locations is similar to the same concept in Social Studies."
+     ],
+     "resources": [],
+     "kicd_source": "grade9-french.pdf#p60"
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,1068 @@
+{
+ "source_pdf": "grade6-social-studies.pdf",
+ "grade": 6,
+ "subject": "social-studies",
+ "general_outcomes": [
+  "1) understand, use and manage the immediate environment for individual and national development, 2) recognize and understand the need for, and importance of interdependence of people and nations, 3) acquire competencies to analyse population issues to improve quality of life, 4) understand and respect own and other people’s culture for sustainable social interactions, 5) respect and appreciate human diversity to promote social cohesion and integration, 6) understand and appreciate human rights and civic responsibility for attainment of social justice, 7) apply acquired competencies in solving environmental challenges for sustainable development, 8) acquire knowledge of and show appreciation for the historical background of our communities for personal identity, 9) understand the system of governance in Kenya and be willing to participate in its processes."
+ ],
+ "strands": [
+  {
+   "strand": "Natural and the Built Environments",
+   "strand_code": "1.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to describe the importance of the main physical features of Eastern Africa region",
+     "exceeds": "Learner describes the importance of the main physical features of Eastern Africa region with details.",
+     "meets": "Learner describes the importance of the main physical features of Eastern Africa region",
+     "approaches": "Learner describes the importance of some of the main physical features of Eastern Africa region.",
+     "below": "Learner has challenges describing the importance of the main physical features of Eastern Africa region."
+    },
+    {
+     "indicator": "Ability to describe characteristics of the main climatic regions in Eastern Africa.",
+     "exceeds": "Learner describes characteristics of the main climatic regions in Eastern Africa with examples.",
+     "meets": "Learner describes characteristics of the main climatic regions in Eastern Africa.",
+     "approaches": "Learner describes some characteristics of the main climatic regions in Eastern Africa.",
+     "below": "Learner has challenges describing characteristics of the main climatic regions in Eastern Africa."
+    },
+    {
+     "indicator": "Ability to describe the importance of the main historic built environments in Eastern Africa.",
+     "exceeds": "Learner describes the importance of the main historic built environments in Eastern Africa with examples.",
+     "meets": "Learner describes the importance of the main historic built environments in Eastern Africa.",
+     "approaches": "Learner describes the importance of some of the main historic built environments in Eastern Africa.",
+     "below": "Learner has challenges describing the importance of the main historic built environments in Eastern Africa."
+    },
+    {
+     "indicator": "Ability to draw a map of Eastern Africa and label the main types of vegetation.",
+     "exceeds": "Learner draws a map of Eastern Africa and labels the main types of vegetation creatively.",
+     "meets": "Learner draws a map of Eastern Africa and labels the main types of vegetation.",
+     "approaches": "Learner draws a map of Eastern Africa and labels some of the main types of vegetation.",
+     "below": "Learner has challenges drawing a map of Eastern Africa and labelling the main types of vegetation."
+    },
+    {
+     "indicator": "Ability to develop ways of conserving historic built environments in Eastern Africa.",
+     "exceeds": "Learner develops ways of conserving historic built environments in Eastern Africa citing examples.",
+     "meets": "Learner develops ways of conserving historic built environments in Eastern Africa.",
+     "approaches": "Learner develops some ways of conserving historic built environments in Eastern Africa.",
+     "below": "Learner has challenges developing ways of conserving historic built environments in Eastern Africa."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "1.1",
+     "name": "Position and Size of Countries in Eastern Africa",
+     "suggested_duration": "3 lessons",
+     "learning_outcomes": [
+      "identify the countries of Eastern Africa on a map",
+      "describe the position and size of countries in Eastern Africa",
+      "use latitudes and longitudes to locate places on a map",
+      "appreciate the unity of Eastern African countries."
+     ],
+     "learning_experiences": [
+      "identify countries in Eastern Africa on a map, and share in class",
+      "locate, in groups, the position of countries in Eastern Africa using an atlas/appropriate media",
+      "use digital devices to establish the sizes in square kilometres of countries in Eastern Africa",
+      "draw, colour and display the map of Eastern Africa in class",
+      "in pairs, identify latitudes and longitudes of Eastern Africa using appropriate media",
+      "practise locating places on a map using latitudes and longitudes."
+     ],
+     "inquiry_questions": [
+      "How do you determine the position of countries in Eastern Africa?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Creativity and imagination: Learners undertake tasks that encourage artistic expression of ideas as they play games in groups on position and sizes of countries in Eastern Africa.",
+      "Communication and collaboration: Learners contribute to group work as they locate in groups the position of countries in Eastern Africa using an atlas/appropriate media. Values:",
+      "Patriotism: Learners realise their sense of identity as they sing the East African Community Anthem.",
+      "Respect: Learners appreciate diverse opinions as they brainstorm in groups on the differences between latitudes and longitudes. Pertinent and contemporary Issues (PCIs):",
+      "Critical Thinking: Learners build their critical thinking skills as they brainstorm in groups on the differences between latitudes and longitudes.",
+      "Citizenship: Learners demonstrate patriotism as they sing the East African Community Anthem. Link to Other Learning Areas:",
+      "Learners use Science and Technology knowledge when working with digital devices to locate positions of countries in Eastern Africa based on latitudes and longitudes.",
+      "Learners apply Creative Arts skills to draw latitudes and longitudes on a sketch map of Eastern Africa."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade6-social-studies.pdf#p14"
+    },
+    {
+     "kicd_code": "1.2",
+     "name": "Main physical features in Eastern Africa",
+     "suggested_duration": "4 lessons",
+     "learning_outcomes": [
+      "identify the main physical features in Eastern Africa on a map",
+      "describe the formation of the main physical features of Eastern Africa",
+      "draw a map of Eastern Africa and label the main physical features",
+      "value the physical features in the locality."
+     ],
+     "learning_experiences": [
+      "discuss, in groups, and identify the main physical features in Eastern Africa (mountains -volcanic and bloc) -rift valleys, lakes, plains)",
+      "use digital devices to describe the formation of the main physical features in Eastern Africa",
+      "draw a map of Eastern Africa, locate the main physical features, and display in class",
+      "discuss ways of conserving the physical features within the locality to promote environmental education",
+      "explore and identify the physical features within the locality."
+     ],
+     "inquiry_questions": [
+      "1. How can we conserve physical features found in our locality?",
+      "2. Why are physical features important?"
+     ],
+     "core_competencies": [
+      "Core competencies to be developed:",
+      "Digital Literacy: Learners use digital devices to describe the formation of the main physical features in Eastern Africa. Values:",
+      "Unity: Learners display team spirit as they discuss, in groups, and identify the main physical features in Eastern Africa.",
+      "Integrity: Learners display discipline as they use digital devices to describe the formation of the main physical features in Eastern Africa. Pertinent and Contemporary Issues (PCIs):",
+      "Environmental Education: Learners discuss ways of conserving the physical features within the locality to promote environmental education.",
+      "Cooperation and Unity: Task oriented grouping as learners discuss, in groups, and identify the main physical features in Eastern Africa Link to other Learning Areas:",
+      "Learners use Creative Arts knowledge as they draw a map of Eastern Africa, locate the main physical features, and display in class.",
+      "Learners use English, Kiswahili and Kenyan Sign Language skills as they brainstorm, in pairs, the main physical features.in Eastern Africa."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade6-social-studies.pdf#p16"
+    },
+    {
+     "kicd_code": "1.3",
+     "name": "Climatic regions in Eastern Africa",
+     "suggested_duration": "5 lessons",
+     "learning_outcomes": [
+      "identify the main climatic regions in Eastern Africa on a map",
+      "describe characteristics of the main climatic regions in Eastern Africa",
+      "explain ways in which climate influences human activities in Eastern Africa",
+      "acknowledge the main climatic regions in Eastern Africa."
+     ],
+     "learning_experiences": [
+      "brainstorm on climatic regions in Eastern Africa and present to the class",
+      "discuss the characteristics of climatic regions in Eastern Africa, and make class presentations.",
+      "compose poems that address effects of climatic change on human activities",
+      "observe safety precautions and practices, use digital devices/print resources to draw the main climatic regions of Eastern Africa."
+     ],
+     "inquiry_questions": [
+      "How can climate influence our day-to-day activities?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Digital literacy: Learners observe safety precautions and practices as they use digital devices/print resources to draw the main climatic regions of Eastern Africa",
+      "Communication and Collaboration: Learners recognise the value of others’ ideas as they discuss, in groups, the characteristics of climatic regions in Eastern Africa. Pertinent and Contemporary Issues (PCIs):",
+      "Disaster risk reduction: Learners are equipped with knowledge on disaster risk reduction as they compose poems that address effects of climatic change on human activities",
+      "Decision-making skills: Learners are able to make choices as they use digital/print media to find out how climate influences human activities Values:",
+      "Social Justice: Learners accord equal opportunities in sharing responsibilities as they compose poems that address effects of climatic change on human activities",
+      "Love: Learners portray a caring attitude as they share digital devices to find out how climate influences human activities Links to Other Learning Areas:",
+      "Learners use English, Kiswahili and KSL skills as they recite poems on the importance of historic built environments.",
+      "Learners apply Creative Arts skills to model a map of Eastern Africa showing the main climatic regions."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade6-social-studies.pdf#p18"
+    },
+    {
+     "kicd_code": "1.4",
+     "name": "Vegetation in Eastern Africa",
+     "suggested_duration": "4 lessons",
+     "learning_outcomes": [
+      "identify the main types of vegetation in Eastern Africa on a map",
+      "draw a map of Eastern Africa and label the main types of vegetation",
+      "describe the characteristics of the main types of vegetation in Eastern Africa",
+      "explain ways of conserving vegetation in the environment",
+      "value vegetation found at home and school."
+     ],
+     "learning_experiences": [
+      "brainstorm, in pairs, the main types of vegetation in Eastern Africa, and share in class",
+      "draw a map of Eastern Africa indicating the main types of vegetation and display the map class",
+      "discuss the characteristics of the main types of vegetation in Eastern Africa",
+      "plan and carry out activities on conservation of vegetation in the locality."
+     ],
+     "inquiry_questions": [
+      "How can we conserve vegetation in our environment?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Critical thinking and problem solving: Learners follow instructions to locate the main vegetation types in Eastern Africa using digital devices.",
+      "Self-Efficacy: Learners identify general features in their locality as they plan and carry out activities on conservation of vegetation, Link to Pertinent and Contemporary Issues (PICs):",
+      "Environmental education: Learners practise environmental awareness as they plan and write down, in groups, how they will conserve vegetation within the school compound.",
+      "Patriotism: Learners demonstrate patriotism as they plan and carry out activities on conservation of vegetation in their locality. Values:",
+      "Responsibility: Learners show determination as they plant and care for vegetation at school.",
+      "Peace: Learners respect self and others as they discuss, in groups, the characteristics of the main types of vegetation in Eastern Africa. Links to Other Learning Areas:",
+      "Learners apply Integrated Science knowledge and skills to plant and care for vegetation at school.",
+      "Learners use Creative Arts skills to draw and display in class a map showing the main types of vegetation in Eastern Africa."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade6-social-studies.pdf#p20"
+    },
+    {
+     "kicd_code": "1.5",
+     "name": "Historic Built Environments",
+     "suggested_duration": "4 lessons",
+     "learning_outcomes": [
+      "identify the main historic built environments in Eastern Africa on a map",
+      "describe the importance of the main historic built environments in Eastern Africa",
+      "demonstrate ways of conserving historic built environments in Eastern Africa",
+      "value historic built environments in Eastern Africa and in the locality."
+     ],
+     "learning_experiences": [
+      "use digital/print resources to identify the historic built environments in Eastern Africa (Museums, monuments and historical buildings)",
+      "discuss the importance of the main historic built environments in Eastern Africa",
+      "compose and recite poems on the ways of conserving historic built environments in Eastern Africa",
+      "engage with a resource person to learn about the importance of historic built environments in Eastern Africa",
+      "create a cultural corner in school for preservation of culture."
+     ],
+     "inquiry_questions": [
+      "Why should we conserve the historic built environments?"
+     ],
+     "core_competencies": [
+      "Digital literacy: Learners use digital/print resources to identify the historic built environments in Eastern Africa.",
+      "Self-efficacy: Learners confidently compose and recite poems on the importance of historic built environments in Eastern Africa."
+     ],
+     "values": [
+      "Values:",
+      "Social Justice: Learners foster inclusivity and non-discrimination as they create and recite poems on the importance of historic built environments in Eastern Africa.",
+      "Respect: Learners appreciate others as they engage with a resource person to learn about the importance of historic built environments in Eastern Africa. Links to other Learning Areas: Learners apply Creative Arts skills to create and recite poems on the importance of historic built environments in Eastern Africa."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade6-social-studies.pdf#p22"
+    }
+   ]
+  },
+  {
+   "strand": "People and Social Organisation",
+   "strand_code": "2.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to describe the effects of the migration and settlement of selected language groups in Eastern Africa.",
+     "exceeds": "Learner describes the effects of the migration and settlement of selected language groups in Eastern Africa with details.",
+     "meets": "Learner describes the effects of the migration and settlement of selected language groups in Eastern Africa",
+     "approaches": "Learner describes some of the effects of the migration and settlement of selected language groups in Eastern Africa.",
+     "below": "Learner struggles to describe the effects of the migration and settlement of selected language groups in Eastern Africa."
+    },
+    {
+     "indicator": "Ability to explain effects of high population density in Eastern Africa.",
+     "exceeds": "Learner explains effects of high population density in Eastern Africa with details.",
+     "meets": "Learner explains effects of high population density in Eastern Africa",
+     "approaches": "Learner explains some effects of high population density in Eastern Africa.",
+     "below": "Learner struggles to explain effects of high population density in Eastern Africa."
+    },
+    {
+     "indicator": "Ability to explain the benefits of collaboration between school and the community.",
+     "exceeds": "Learner explains the benefits of collaboration between school and the community with details.",
+     "meets": "Learner explains the benefits of collaboration between school and the community.",
+     "approaches": "Learner explains some of the benefits of collaboration between school and the community.",
+     "below": "Learner struggles to explains the benefits of collaboration between school and the community."
+    },
+    {
+     "indicator": "Ability to demonstrate ways in which the school collaborates with the community.",
+     "exceeds": "Learner demonstrates ways in which the school collaborates with the community in a detailed manner.",
+     "meets": "Learner demonstrates ways in which the school collaborates with the community.",
+     "approaches": "Learner demonstrates some ways in which the school collaborates with the community.",
+     "below": "Learner struggles to demonstrate ways in which the school collaborates with the community"
+    },
+    {
+     "indicator": "Ability to identify aspects of African traditional culture that ought to be preserved.",
+     "exceeds": "Learner identifies aspects of African traditional culture that ought to be preserved with details.",
+     "meets": "Learner identifies aspects of African traditional culture that ought to be preserved.",
+     "approaches": "Learner identifies some aspects of African traditional culture that ought to be preserved.",
+     "below": "Learner struggles to identify aspects of African traditional culture that ought to be preserved."
+    },
+    {
+     "indicator": "Ability to illustrate the movement and settlement of the selected language groups in Eastern Africa on a map.",
+     "exceeds": "Learner illustrates the movement and settlement of the selected language groups in Eastern Africa on a map correctly, giving details.",
+     "meets": "Learner illustrates the movement and settlement of the selected language groups in Eastern Africa on a map correctly.",
+     "approaches": "Learner illustrates the movement and settlement of some of the selected language groups in Eastern Africa on a Map correctly.",
+     "below": "Learner struggles to illustrate the movement and settlement of the selected language groups in Eastern Africa on a map."
+    },
+    {
+     "indicator": "Ability to locate areas of high and low population density in Eastern Africa on a map.",
+     "exceeds": "Learner locates areas of high and low population density in Eastern Africa on a map creatively.",
+     "meets": "Learner locates areas of high and low population density in Eastern Africa on a map.",
+     "approaches": "Learner locates some areas of high and low population density in Eastern Africa on a map.",
+     "below": "Learner struggles to locate areas of high and low population density in Eastern Africa on a map."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "2.1",
+     "name": "Language groups in Eastern Africa",
+     "suggested_duration": "5 lessons",
+     "learning_outcomes": [
+      "describe the classification of communities in Eastern Africa according to language groups",
+      "explain the reasons for migration of selected language groups into Eastern Africa",
+      "illustrate the movement and settlement of the selected language groups in Eastern Africa on a map",
+      "describe the effects of the migration and settlement of selected language groups in Eastern Africa.",
+      "appreciate unity of language groups in Eastern Africa."
+     ],
+     "learning_experiences": [
+      "brainstorm the classification of communities in Eastern Africa according to language groups",
+      "discuss the reasons for migration of selected language groups into Eastern Africa",
+      "use digital/print resources to establish the effects of the migration and settlement of selected language groups into Eastern Africa",
+      "draw the movement routes followed by the selected language groups on a map of Eastern Africa."
+     ],
+     "inquiry_questions": [
+      "Why do people migrate?"
+     ],
+     "core_competencies": [
+      "Core competencies to be developed:",
+      "Learning to learn: Learners brainstorm, in groups, the classification of communities in Eastern Africa according to language groups.",
+      "Self-efficacy: Learners draw the movement routes followed by the selected language groups on a map of Eastern Africa. Pertinent and Contemporary Issues (PICs):",
+      "Peace education: Learners enhance peace and co-existence as they brainstorm, in groups, on the origins of the selected language groups in Eastern Africa and share in class.",
+      "Self-awareness: Learners are able to understand themselves as they do a library research and write down the communities in Eastern Africa. Values.",
+      "Responsibility: Learners take responsibility as they find out from parents/guardians and elders about the myths and stories of their origin and share in class.",
+      "Unity: Learners appreciate themselves as they discuss, in groups, the effects of movement and settlement of selected language groups in Eastern Africa and make presentations in class. Links to other Learning areas: Learners apply Creative Arts skills to develop communication messages on the importance of unity among language groups in Eastern Africa. Learners use Religious Studies knowledge to discuss stories of origins of various language groups."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade6-social-studies.pdf#p26"
+    },
+    {
+     "kicd_code": "2.2",
+     "name": "Population distribution in Eastern Africa",
+     "suggested_duration": "3 lessons",
+     "learning_outcomes": [
+      "explain factors influencing population distribution in Eastern Africa",
+      "locate areas of high and low population density in Eastern Africa on a map",
+      "explain effects of high population density in Eastern Africa",
+      "acknowledge population distribution in Eastern Africa."
+     ],
+     "learning_experiences": [
+      "brainstorm on factors influencing population distribution in Eastern Africa and share in class",
+      "draw a map of Eastern Africa and locate areas of high and low population density using digital/print resources",
+      "discuss the effects of high population density in Eastern Africa and write a report",
+      "share with parents /guardians the effects of high population density in Eastern Africa."
+     ],
+     "inquiry_questions": [
+      "Why are some parts of Eastern Africa more populated than others?"
+     ],
+     "core_competencies": [
+      "Creativity and imagination: Learners share with parents and guardians about effects of population density in Eastern Africa",
+      "Digital literacy: Learners use the internet to identify areas of high and low population density in Eastern Africa."
+     ],
+     "values": [
+      "Values.",
+      "Unity: Learners strive to achieve common goals as they brainstorm, in pairs, on factors influencing population distribution in Eastern Africa and share in class.",
+      "Respect: Learners appreciate the diverse opinions of others as they discuss, in groups, the effects of high population density in Eastern Africa and write a report. Links to Other Learning Areas:",
+      "Learners use Creative Arts knowledge and skills to draw a map of Eastern Africa and locate areas of high and low population density.",
+      "Learners realise the importance of good relationships through their Religious Studies knowledge."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade6-social-studies.pdf#p28"
+    },
+    {
+     "kicd_code": "2.3",
+     "name": "Culture and Social Organisation",
+     "suggested_duration": "4 lessons",
+     "learning_outcomes": [
+      "describe age-groups and age-sets in African traditional society",
+      "explain the functions of a clan in traditional African society",
+      "identify aspects of African traditional culture that ought to be preserved",
+      "desire to uphold aspects of African traditional culture that ought to be preserved."
+     ],
+     "learning_experiences": [
+      "Learner is guided to:",
+      "brainstorm features of age-groups and age-sets and share in class.",
+      "discuss the functions of a clan in traditional African society",
+      "create posters on aspects of African traditional culture that ought to be preserved",
+      "sing songs on aspects of African traditional culture that ought to be preserved."
+     ],
+     "inquiry_questions": [
+      "How would we preserve positive aspects of African traditional culture?"
+     ],
+     "core_competencies": [
+      "Communication and Collaboration: Learners brainstorm the meaning of age-groups and age-sets and share in class.",
+      "Creativity and Imagination: Learners create posters on aspects of African traditional culture that ought to be preserved."
+     ],
+     "values": [
+      "Values.",
+      "Unity: Learners display team spirit as they sing songs on aspects of African traditional culture that ought to be preserved.",
+      "Respect: Learners appreciate diverse opinions as they brainstorm the meaning of age-groups and age-sets and share in class. Links to Other Learning Areas:",
+      "Learners use Creative Arts to sing songs on aspects of African traditional culture that ought to be preserved.",
+      "Learners sing songs on aspects of African traditional culture that ought to be preserved using Religious Studies knowledge."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade6-social-studies.pdf#p30"
+    },
+    {
+     "kicd_code": "2.4",
+     "name": "School and Community",
+     "suggested_duration": "3 lessons",
+     "learning_outcomes": [
+      "identify ways in which the school collaborates with the community",
+      "explain the benefits of collaboration between school and the community",
+      "design strategies for sustaining collaboration between school and the community",
+      "appreciate the benefits of collaboration between the school and community."
+     ],
+     "learning_experiences": [
+      "brainstorm ways in which the school collaborates with the community",
+      "discuss benefits of collaboration between the school and the community and present in class",
+      "role-play ways in which the school collaborates with the community",
+      "showcase strategies for sustaining collaboration between school and the community",
+      "discuss strategies for sustaining collaboration between school and the community using available resources and display",
+      "accord equal opportunities in sharing responsibilities as they act out scenarios that depict",
+      "collaboration between the school and the community."
+     ],
+     "inquiry_questions": [
+      "How can the school collaborate with the community?"
+     ],
+     "core_competencies": [
+      "Self-efficacy: Learners practise self-drive as they role-play ways in which the school collaborates with the community.",
+      "Citizenship: Learners understand personal and collective responsibility in school as they role-play collaboration between the school and the community."
+     ],
+     "values": [
+      "Integrity: Learners exhibit fairness as they role-play ways in which the school collaborates with the community.",
+      "Unity: Learners write an essay on the benefits of collaboration between the school and the community."
+     ],
+     "pertinent_issues": [
+      "Negotiation: Learners attain and practise basic skills in negotiations as they demonstrate ways in which the school collaborates with the community.",
+      "Leadership: Learners promote good leadership as they share experiences on school collaboration with the community."
+     ],
+     "links_to_other_areas": [
+      "Learners write an essay on the benefits of collaboration between the school and the community enhancing their knowledge and skills in languages such as English, Kiswahili and KSL.",
+      "Learners use Creative Arts to role-play ways in which the school collaborates with the community."
+     ],
+     "resources": [],
+     "kicd_source": "grade6-social-studies.pdf#p32"
+    }
+   ]
+  },
+  {
+   "strand": "Resources and Economic Activities in Eastern Africa",
+   "strand_code": "3.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to explain the challenges facing beef farming in Eastern Africa.",
+     "exceeds": "Learner explains the challenges facing beef farming in Eastern with details.",
+     "meets": "Learner explains the challenges facing beef farming in Eastern Africa.",
+     "approaches": "Learner explains some of the challenges facing beef farming in Eastern Africa.",
+     "below": "Learner has challenges explaining the challenges facing beef farming in Eastern Africa."
+    },
+    {
+     "indicator": "Ability to describe the methods of extracting minerals in Eastern Africa.",
+     "exceeds": "Learner describes the methods of extracting minerals in Eastern Africa correctly and systematically.",
+     "meets": "Learner describes the methods of extracting minerals in Eastern Africa correctly.",
+     "approaches": "Learner describes some of the methods of extracting minerals in Eastern Africa correctly.",
+     "below": "Learner has challenges describing the methods of extracting minerals in Eastern Africa."
+    },
+    {
+     "indicator": "Ability to describe methods of marine fishing in Eastern Africa.",
+     "exceeds": "Learner describes methods of marine fishing in Eastern Africa with details.",
+     "meets": "Learner describes methods of marine fishing in Eastern Africa.",
+     "approaches": "Learner describes some methods of marine fishing in Eastern Africa.",
+     "below": "Learner has challenges describing methods of marine fishing in Eastern Africa."
+    },
+    {
+     "indicator": "Ability to explain factors that promote tourism in Eastern Africa.",
+     "exceeds": "Learner explains factors that promote tourism in Eastern Africa in detail.",
+     "meets": "Learner explains factors that promote tourism in Eastern Africa",
+     "approaches": "Learner explains some factors that promote tourism in Eastern Africa.",
+     "below": "Learner has challenges explaining factors that promote tourism in Eastern Africa."
+    },
+    {
+     "indicator": "Ability to describe the methods of extracting minerals in Eastern Africa.",
+     "exceeds": "Learner describes the methods of extracting minerals in Eastern Africa with details.",
+     "meets": "Learner describes the methods of extracting minerals in Eastern Africa.",
+     "approaches": "Learner describes some of the methods of extracting minerals in Eastern Africa.",
+     "below": "Learner has challenges describing the methods of extracting minerals in Eastern Africa."
+    },
+    {
+     "indicator": "Ability to state the possible solutions to problems associated with mining,",
+     "exceeds": "Learner states the possible solutions to problems associated with mining with examples.",
+     "meets": "Learner states the possible solutions to problems associated with mining.",
+     "approaches": "Learner states some of the possible solutions to problems associated with mining.",
+     "below": "Learner has challenges stating the possible solutions to problems associated with mining."
+    },
+    {
+     "indicator": "Ability to state the possible solutions to challenges facing transport networks in Eastern Africa.",
+     "exceeds": "Learner states possible solutions to challenges facing transport networks in Eastern Africa with examples.",
+     "meets": "Learner states possible solutions to challenges facing transport networks in Eastern Africa.",
+     "approaches": "Learner states some possible solutions to challenges facing transport networks in Eastern Africa.",
+     "below": "Learner has challenges stating possible solutions to challenges facing transport networks in Eastern Africa."
+    },
+    {
+     "indicator": "Ability to locate on a map the areas where beef farming is practised in Eastern Africa.",
+     "exceeds": "Learner locates on a map the areas where beef farming is practised in Eastern Africa and shows others.",
+     "meets": "Learner locates on a map area where beef farming is practised in Eastern Africa.",
+     "approaches": "Learner locates on a map some of the areas where beef farming is practised in Eastern Africa.",
+     "below": "Learner has challenges locating on a map the areas where beef farming is practised in Eastern Africa."
+    },
+    {
+     "indicator": "Ability to design possible solutions to challenges facing fishing in Eastern Africa.",
+     "exceeds": "Learner designs possible solutions to challenges facing fishing in Eastern Africa with examples.",
+     "meets": "Learner designs possible solutions to challenges facing fishing in Eastern Africa",
+     "approaches": "Learner designs some possible solutions to challenges facing fishing in Eastern Africa.",
+     "below": "Learner has challenges designing possible solutions to challenges facing fishing in Eastern Africa."
+    },
+    {
+     "indicator": "Ability to draw a map of Eastern Africa showing the main transport networks.",
+     "exceeds": "Learner draws a map of Eastern Africa showing the main transport networks creatively.",
+     "meets": "Learner draws a map of Eastern Africa showing the main transport networks.",
+     "approaches": "Learner draws a map of Eastern Africa showing some of the main transport networks.",
+     "below": "Learner has challenges drawing a map of Eastern Africa showing the main transport networks."
+    },
+    {
+     "indicator": "Ability to demonstrate how different modes of communication are used in Eastern Africa.",
+     "exceeds": "Learner demonstrates how different modes of communication are used in Eastern Africa with details.",
+     "meets": "Learner demonstrates how different modes of communication are used in Eastern Africa.",
+     "approaches": "Learner demonstrates how some of the different modes of communication are used in Eastern Africa.",
+     "below": "Learner has challenges demonstrating how different modes of communication are used in Eastern Africa."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "3.1",
+     "name": "Beef Farming",
+     "suggested_duration": "4 lessons",
+     "learning_outcomes": [
+      "describe factors influencing beef farming in Eastern Africa",
+      "locate on a map areas where beef farming is practised in Eastern Africa",
+      "identify the contribution of beef farming to the economy of Eastern Africa",
+      "explain the challenges facing beef farming and possible solutions in Eastern Africa",
+      "acknowledge beef farming as an economic activity in Eastern Africa."
+     ],
+     "learning_experiences": [
+      "discuss factors influencing beef farming in Eastern Africa and share in class",
+      "draw a map of Eastern Africa and locate areas where beef farming is practised",
+      "engage with an agricultural extension officer to find out the contributions of beef farming to the economy of Eastern Africa",
+      "brainstorm the challenges facing beef farming in Eastern Africa",
+      "design posters on importance of beef farming."
+     ],
+     "inquiry_questions": [
+      "How could we benefit from large-scale farming?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Critical thinking and problem solving: Learners follow instructions as they brainstorm on the challenges facing beef farming in Eastern Africa and formulate possible solutions.",
+      "Communication and collaboration: Learners listen critically as they discuss, in groups, factors influencing beef farming in Eastern Africa. Values:",
+      "Respect: Learners respect others as they discuss, in groups, factors influencing beef farming in Eastern Africa and share in class.",
+      "Unity: Learners understand and appreciate others as they discuss factors influencing beef farming in Eastern Africa and share in class. Pertinent and Contemporary Issues (PCIs):",
+      "Environmental education: Learners discuss factors influencing beef farming in Eastern Africa.",
+      "Creative thinking skills: Learners create posters on the importance of beef farming. Link to other Learning Areas: Pre-technical Studies: Learners engage an agricultural extension officer to find out the contributions of beef farming to the economy of Eastern Africa."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade6-social-studies.pdf#p36"
+    },
+    {
+     "kicd_code": "3.2",
+     "name": "Fishing in Eastern Africa",
+     "suggested_duration": "5 lessons",
+     "learning_outcomes": [
+      "locate marine and inland fishing grounds on a map",
+      "describe methods of marine fishing in Eastern Africa",
+      "explain challenges facing fishing in Eastern Africa",
+      "design possible solutions to challenges facing fishing in Eastern Africa",
+      "value fishing as an economic activity."
+     ],
+     "learning_experiences": [
+      "Learner is guided to:",
+      "locate on a map the marine and inland fishing grounds in Eastern Africa",
+      "discuss the methods of marine fishing in Eastern Africa and present in class",
+      "use digital devices/print resources to research methods of marine fishing in Eastern Africa",
+      "brainstorm on the challenges facing marine fishing in Eastern Africa.",
+      "engage a fisheries officer to identify possible solutions to challenges facing marine fishing in Eastern Africa."
+     ],
+     "inquiry_questions": [
+      "Why is fishing important to the Eastern Africa communitie s?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Communication and collaboration: Learners listen critically as they discuss challenges facing marine fishing.",
+      "Learning to learn: Learners work collaboratively as they engage with a fisheries officer to identify possible solutions to challenges facing marine fishing in Eastern Africa. Values: Unity: Learners collaborate with others as they discuss and write down possible solutions to challenges facing marine fishing in Eastern Africa.",
+      "Responsibility: Learners proactively solve problems as they illustrate methods of marine fishing in Eastern Africa using appropriate media. Pertinent and Contemporary Issues (PCIs): Critical thinking skills: Learners discuss, in groups, and write down possible solutions to challenges facing marine fishing in Eastern Africa. Link to Other Learning Areas:",
+      "Learners use Pre-technical Studies knowledge to discuss the methods of marine fishing in Eastern Africa.",
+      "Learners use Mathematics knowledge to locate on a map the main fishing grounds in Eastern Africa."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade6-social-studies.pdf#p38"
+    },
+    {
+     "kicd_code": "3.3",
+     "name": "Wildlife and Tourism in Eastern Africa",
+     "suggested_duration": "5 lessons",
+     "learning_outcomes": [
+      "explain factors that promote tourism in Eastern Africa",
+      "locate game reserves and national parks in Eastern Africa on a map",
+      "explain challenges facing tourism in Eastern Africa",
+      "state possible solutions to challenges facing tourism in Eastern Africa",
+      "value tourism as an economic activity."
+     ],
+     "learning_experiences": [
+      "brainstorm on factors that promote tourism in Eastern Africa",
+      "draw a map of Eastern Africa and locate game reserves and national parks",
+      "engage a Game Ranger on possible solutions to the challenges facing tourism in Eastern Africa",
+      "design posters and charts on challenges and solutions facing tourism",
+      "participate in conservation of wildlife walk/run activities in the locality."
+     ],
+     "inquiry_questions": [
+      "How can we promote tourism in our country?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Self-Efficacy: Learners engage with a Game Ranger confidently on possible solutions to the challenges facing tourism in Eastern Africa.",
+      "Citizenship: Learners demonstrate interest in interaction with others as they brainstorm, in groups, factors that promote tourism in Eastern Africa. Values:",
+      "Unity: Learners collaborate with others as they discuss and formulate solutions to problems facing tourism in Eastern Africa.",
+      "Patriotism: Learners proactively solve problems as they develop charts on challenges and solutions facing tourism. Pertinent and Contemporary Issues (PCIs):",
+      "Decision making skills: Learners participate in conservation of wildlife walk/run.",
+      "Safety and Security: Learners observe precautionary measures as they visit a nearby tourist attraction site and write a report. Link to other Learning Areas:",
+      "Learners use Creative Arts skills to draw a map of Eastern Africa and locate game reserves and national parks.",
+      "Learners apply Religious Studies knowledge as they participate in conservation of wildlife walk/run activities in the locality."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade6-social-studies.pdf#p40"
+    },
+    {
+     "kicd_code": "3.4",
+     "name": "Transport in Eastern Africa",
+     "suggested_duration": "4 lessons",
+     "learning_outcomes": [
+      "identify the main transport networks in Eastern Africa on a map",
+      "draw a map of Eastern Africa showing the main transport networks",
+      "explain the challenges facing transport networks in Eastern Africa",
+      "state possible solutions to challenges facing transport",
+      "networks in Eastern Africa",
+      "appreciate the role of transport network in economic development."
+     ],
+     "learning_experiences": [
+      "Learner is guided to:",
+      "locate the main transport networks in Eastern Africa on a map",
+      "draw a map of Eastern Africa showing the main transport networks",
+      "explain the challenges facing transport networks in Eastern Africa",
+      "state possible solutions to challenges facing transport networks in Eastern Africa",
+      "appreciate the transport network in economic development.",
+      "draw a map of Eastern Africa and indicate the main transport networks",
+      "discuss challenges facing transport networks in Eastern Africa and share in class",
+      "design posters to create awareness on possible solutions to transport networks",
+      "engage a resource person to discuss challenges and possible solutions to road",
+      "crashes in Eastern africa",
+      "brainstorm on the possible solutions to challenges facing transport network in Eastern Africa",
+      "participate in clean-up activities of road reserves in their locality observing safety and security."
+     ],
+     "inquiry_questions": [
+      "Why do we need transport networks in Eastern Africa y?"
+     ],
+     "core_competencies": [
+      "Digital literacy: Learners use digital devices to communicate effectively as they identify transport networks in Eastern Africa using digital devices.",
+      "Citizenship: Learners undertake tasks as they participate in clean-up activities on road reserves in their locality observing safety and security"
+     ],
+     "values": [
+      "Unity: Learners collaborate with others as they identify transport networks in Eastern Africa using digital devices.",
+      "Responsibility: Learners proactively solve problems facing transport networks in Eastern Africa using digital devices."
+     ],
+     "pertinent_issues": [
+      "Environmental education: Learners participate in clean-up activities of road reserves in their locality",
+      "Safety and Security: Learners observe precautions as they participate in clean-up activities of road reserves in their locality"
+     ],
+     "links_to_other_areas": [
+      "Learners use knowledge from Pre-technical Studies to locate the main transport networks in Eastern Africa."
+     ],
+     "resources": [],
+     "kicd_source": "grade6-social-studies.pdf#p42"
+    },
+    {
+     "kicd_code": "3.5",
+     "name": "Communicatio n in Eastern Africa",
+     "suggested_duration": "4 lessons",
+     "learning_outcomes": [
+      "identify modes of communication in Eastern Africa",
+      "explain challenges facing communication networks in Eastern Africa",
+      "state possible solutions to challenges facing communication networks in Eastern Africa",
+      "demonstrate how different modes of communication are used in Eastern Africa",
+      "appreciate the role of communication networks in Eastern Africa.",
+      "identify minerals found in Eastern Africa",
+      "describe the methods of extracting minerals in Eastern Africa",
+      "explain the effects of smining on the environment in Eastern Africa",
+      "state the possible solutions to problems associated with mining",
+      "desire to conserve areas affected by mining activities in Eastern Africa."
+     ],
+     "learning_experiences": [
+      "brainstorm the various modes of communication used in Eastern Africa",
+      "discuss the challenges facing communication networks in Eastern Africa",
+      "use digital/print resources to research on challenges facing communication networks in Eastern Africa",
+      "discuss solutions to challenges facing communication networks in Eastern Africa, and share in class.",
+      "Learner is guided to:",
+      "draw a map of Eastern Africa and show the location of minerals",
+      "discuss how the minerals are extracted (soda ash in Kenya, gold in Tanzania, limestone in Uganda) and share in class the effects of mining on the environment and make a class presentation",
+      "write an essay on the solutions to problems associated with mining",
+      "watch video clips and suggest possible ways of conserving land affected by mining."
+     ],
+     "inquiry_questions": [
+      "How do communication networks influence the development of a country?",
+      "How can we reclaim areas affected by mining East ern Africa?"
+     ],
+     "core_competencies": [
+      "Communication and collaboration: Learners collaboratively discuss the challenges facing communication networks in Eastern Africa.",
+      "Learning to learn: Learners brainstorm the various modes of communication used in Eastern Africa.",
+      "Core Competencies to be developed:",
+      "Citizenship: Learners have a responsibility of conserving the environment as they write an essay on the solutions to problems associated with mining.",
+      "Creativity and Imagination: Learners undertake tasks, draw a map of Eastern Africa and show the location of minerals. Values:",
+      "Patriotism: Learners serve the community as they write essays on the effects of mining on the environment and possible solutions.",
+      "Respect: Learners brainstorm on the effects of mining on the environment and make a class presentation. Pertinent and Contemporary Issues (PCIs):",
+      "Self-esteem: Learners discuss how the minerals are extracted and share in class.",
+      "Self-awareness: Learners brainstorm and identify minerals in Eastern Africa. Link to other Learning Areas: Learners use Agriculture knowledge to come up with possible conservation measures Learners use Creative Arts skills as they draw a map of Eastern Africa and show the location of minerals."
+     ],
+     "values": [
+      "Peace: Learners are open-minded as they brainstorm, in pairs, and state challenges facing communication networks in Eastern Africa.",
+      "Unity: Learners discuss the challenges facing communication networks in Eastern Africa."
+     ],
+     "pertinent_issues": [
+      "Social cohesion: Learners role-play scenarios that depict the different modes of communication in Eastern Africa.",
+      "Safety and Security: Learners observe precautions as they use digital devices to research on challenges facing communication networks in Eastern Africa."
+     ],
+     "links_to_other_areas": [
+      "Learners apply Pre-technical Studies knowledge as they discuss, in groups, solutions to challenges facing communication networks in Eastern Africa.",
+      "Learners use English/Kiswahili/Kenya Sign Language as they state solutions facing communication networks in Eastern Africa."
+     ],
+     "resources": [],
+     "kicd_source": "grade6-social-studies.pdf#p44"
+    }
+   ]
+  },
+  {
+   "strand": "Political Systems",
+   "strand_code": "4.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to compare traditional forms of government of the Buganda and the Nyamwezi.",
+     "exceeds": "Compares traditional forms of government of the Buganda and the Nyamwezi with examples.",
+     "meets": "Compares traditional forms of government of the Buganda and the Nyamwezi.",
+     "approaches": "Compares some traditional forms of government of the Buganda and the Nyamwezi.",
+     "below": "Has difficulty comparing the traditional forms of government of the Buganda and the Nyamwezi."
+    },
+    {
+     "indicator": "Ability to describe the benefits of the East African Community to member states.",
+     "exceeds": "Describes the benefits of the East African Community to member states with details.",
+     "meets": "Describes the benefits of the East African Community to member states.",
+     "approaches": "Describes some of the benefits of the East African Community to member states.",
+     "below": "Has challenges describing the benefits of East African Community to member states."
+    },
+    {
+     "indicator": "Ability to describe the rights and responsibilities of a Kenyan citizen.",
+     "exceeds": "Describes the rights and responsibilities of a Kenyan citizen with examples.",
+     "meets": "Describes the rights and responsibilities of a Kenyan citizen.",
+     "approaches": "Describes some of the rights and responsibilities of a Kenyan citizen.",
+     "below": "Has challenges describing the rights and responsibilities of a Kenyan citizen."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "4.1",
+     "name": "Traditional forms of Government",
+     "suggested_duration": "5 lessons",
+     "learning_outcomes": [
+      "describe traditional forms of government of the Buganda and the Nyamwezi in Eastern Africa",
+      "compare traditional forms of government of the Buganda and the Nyamwezi",
+      "value aspects of good governance in traditional societies."
+     ],
+     "learning_experiences": [
+      "brainstorm on the traditional forms of government among the Buganda and the Nyamwezi of Eastern Africa",
+      "draw a chart showing the governance structure among the Buganda and the Nyamwezi in Eastern Africa and display in class",
+      "discuss the similarities and differences in traditional forms of government between the Buganda and the Nyamwezi",
+      "role-play scenarios depicting aspects of good governance in society."
+     ],
+     "inquiry_questions": [
+      "How were communities governed in the past?"
+     ],
+     "core_competencies": [
+      "Self-Efficacy: Learners draw a chart showing the governance structure among the Buganda and the Nyamwezi in Eastern Africa and display in class.",
+      "Creativity and Imagination: Learners undertake tasks that encourage artistic expressions as they role-play scenarios depicting aspects of good governance in society."
+     ],
+     "values": [
+      "Values:",
+      "Unity: Learners collaborate with others as they brainstorm the traditional forms of government in Eastern Africa (the Buganda and the Nyamwezi).",
+      "Responsibility: Learners find out the similarities and differences between selected traditional forms of government. Pertinent and Contemporary Issues (PCIs):",
+      "Social Cohesion: Learners brainstorm on traditional forms of government in Eastern Africa (the Buganda and the Nyamwezi).",
+      "Safety and Security: Learners interact with digital devices as they use digital or print resources to find out the similarities and differences between selected traditional forms of government. Link to other Learning Areas:",
+      "Learners use Creative Arts skills to draw a chart showing the governance structure among the Buganda and the Nyamwezi in Eastern Africa.",
+      "Learners apply English/Kiswahili/KSL knowledge to role-play scenarios depicting aspects of good governance in society."
+     ],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade6-social-studies.pdf#p52"
+    },
+    {
+     "kicd_code": "4.2",
+     "name": "Regional co-operations",
+     "suggested_duration": "4 lessons",
+     "learning_outcomes": [
+      "explain the objectives of East African Community",
+      "describe the benefits of the East African Community to member states",
+      "identify the challenges facing the East African Community",
+      "formulate possible solutions to challenges facing the East African Community",
+      "value the unity of Eastern African countries."
+     ],
+     "learning_experiences": [
+      "Learner is guided to:",
+      "brainstorm on objectives of East African Community and share in class",
+      "use digital or print resources to research on the benefits of East African Community to member states and present in class",
+      "engage a resource person to explore solutions to challenges facing the East African Community",
+      "share experiences as they draw and colour the map of East Africa and post them at strategic points in school",
+      "sing the East African Community Anthem and reflect on the message."
+     ],
+     "inquiry_questions": [
+      "How do East African countries show cooperation?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Self-Efficacy: Learners develop authentic solutions to problems facing the East African Community as they use digital or print resources.",
+      "Learning to learn: Learners share experiences as they draw and colour the map of East Africa and post them at strategic points in school. Values:",
+      "Unity: Learners collaborate with others as they discuss the benefits of the East African Community to member states and report in class.",
+      "Integrity: Learners apply laid-down procedures as they discuss the benefits of East African Community to member states and report in class. Pertinent and Contemporary Issues (PCIs):",
+      "Safety and Security: Learners use digital resources safely to make presentations in class on the research findings.",
+      "Social Cohesion: Learners brainstorm on the member states of the East African Community and make a class presentation. Link to Other Learning Areas:",
+      "Learners use Creative Arts skills as they sing the East Africa Community Anthem.",
+      "Learners apply English/Kiswahili/KSL skills to sing the East Africa Community Anthem."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade6-social-studies.pdf#p54"
+    },
+    {
+     "kicd_code": "4.3",
+     "name": "Citizenship",
+     "suggested_duration": "4 lessons",
+     "learning_outcomes": [
+      "describe the rights and responsibilities of a Kenyan citizen",
+      "state the qualities of a good Kenya citizen",
+      "demonstrate the values of a good Kenyan citizen",
+      "appreciate patriotism as a Kenyan citizen."
+     ],
+     "learning_experiences": [
+      "Learner is guided to:",
+      "discuss the rights and responsibilities of a Kenyan citizen and present in class.",
+      "brainstorm the qualities a good Kenyan citizen",
+      "use digital resources to watch clips on scenarios that demonstrate values of a good Kenyan citizen",
+      "compose songs and poems on values of a good Kenyan citizen",
+      "design posters on values of a good citizen and post them at strategic places in the school."
+     ],
+     "inquiry_questions": [
+      "How can we demonstrate good citizenship in our country?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Communication and collaboration: Learners speak clearly and effectively as they compose songs and poems on the values of a good Kenyan citizen.",
+      "Creativity and imagination: Learners design posters on values of a good citizen and post them in strategic places in school. Values:",
+      "Patriotism: Learners collaborate with others as they compose songs and poems on values of a good Kenyan citizen.",
+      "Respect: Learners respect diverse opinions as they debate on the rights and responsibilities of a Kenyan citizen. Pertinent and Contemporary Issues (PCIs):",
+      "Self-awareness: Learners brainstorm on the rights and responsibilities of a Kenyan citizen and make a presentation in class.",
+      "Critical thinking: Learners create songs and poems on values of a good Kenyan citizen. Link to Other Learning Areas:",
+      "Learners use Creative Arts skills as they compose songs and poems on values of a good Kenyan citizen."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade6-social-studies.pdf#p56"
+    },
+    {
+     "kicd_code": "4.4",
+     "name": "Human rights",
+     "suggested_duration": "4 lessons",
+     "learning_outcomes": [
+      "explain classification of human rights in society",
+      "describe ways in which human rights are upheld in society",
+      "demonstrate ways in which human rights are upheld in society",
+      "value respect for human rights in Kenya."
+     ],
+     "learning_experiences": [
+      "Learner is guided to:",
+      "brainstorm on categories of human rights and share in class (political, social and economic categories)",
+      "use a chart to illustrate categories of human rights and display in class",
+      "use digital/print resources to find out ways in which human rights are upheld in society today",
+      "engage with a human rights officer on ways of promoting respect for human rights in society",
+      "role-play scenarios that depict respect for human rights in society."
+     ],
+     "inquiry_questions": [
+      "How could respect for human rights promote unity in society?"
+     ],
+     "core_competencies": [
+      "Core competencies to be developed:",
+      "Learning to learn: Learners share what they have learnt as they engage with a human rights officer on ways of promoting respect for human rights in society.",
+      "Digital literacy: Learners use digital devices as they discuss ways of upholding human rights in society. Values:",
+      "Unity: Learners collaborate with others as they use a chart to illustrate categories of human rights and make a presentation.",
+      "Responsibility: Learners proactively solve problems as they engage with a human rights officer on ways in which human rights are violated in society today. Pertinent and Contemporary Issues (PCIs):",
+      "Assertiveness: Learners engage with a resource person on ways in which human rights are protected in society today.",
+      "Self-awareness: Learners think and share on human rights. Link to other Learning Areas:",
+      "Learners use the knowledge of Religious Studies to uphold values such as ways of promoting respect for human rights in society as they engage with a human rights officer.",
+      "Learners use English/Kiswahili/KSL skills to role-play scenarios that depict respect for human rights in society."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade6-social-studies.pdf#p58"
+    }
+   ]
+  },
+  {
+   "strand": "Governance",
+   "strand_code": "5.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to describe the rights and responsibilities of a Kenyan citizen.",
+     "exceeds": "Describes the rights and responsibilities of a Kenyan citizen with examples.",
+     "meets": "Describes the rights and responsibilities of a Kenyan citizen.",
+     "approaches": "Describes some of the rights and responsibilities of a Kenyan citizen.",
+     "below": "Has challenges describing the rights and responsibilities of a Kenyan citizen."
+    },
+    {
+     "indicator": "Ability to explain the causes of conflicts in society.",
+     "exceeds": "Explains the causes of conflicts in society with examples.",
+     "meets": "Explains the causes of conflicts in society.",
+     "approaches": "Explains some of the causes of conflicts in society.",
+     "below": "Has challenges explaining the causes of conflicts in society."
+    },
+    {
+     "indicator": "Ability to describe ways in which human rights are upheld in society.",
+     "exceeds": "Describes ways in which human rights are upheld in society with details.",
+     "meets": "Describes ways in which human rights are upheld in society.",
+     "approaches": "Describes some ways in which human rights are upheld in society.",
+     "below": "Has challenges describing ways in which human rights are upheld in society."
+    },
+    {
+     "indicator": "Ability to explain the meaning of key words of the preamble of the Constitution of Kenya.",
+     "exceeds": "Explains the meaning of key words in the preamble of the Constitution of Kenya with examples.",
+     "meets": "Explains the meaning of key words in the preamble of the Constitution of Kenya.",
+     "approaches": "Explains the meaning of some key words in the preamble of the Constitution of Kenya.",
+     "below": "Has challenges explaining the meaning of key words in the preamble of the Constitution of Kenya."
+    },
+    {
+     "indicator": "Ability to identify sources of revenue for National Government in Kenya.",
+     "exceeds": "Identifies sources of revenue for the National Government in Kenya with examples.",
+     "meets": "Identifies sources of revenue for the National Government in Kenya.",
+     "approaches": "Identifies some sources of revenue for the National Government in Kenya.",
+     "below": "Has challenges identifying sources of revenue for the National Government in Kenya."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "5.1",
+     "name": "Peace and Conflict Resolution",
+     "suggested_duration": "4 lessons",
+     "learning_outcomes": [
+      "explain the causes of conflicts in society today",
+      "describe peaceful methods of resolving conflicts in society",
+      "illustrate ways of promoting peace in society",
+      "value peaceful ways of resolving conflicts in society."
+     ],
+     "learning_experiences": [
+      "brainstorm causes of conflicts in society today and present in class",
+      "discuss peaceful methods of resolving conflicts in society and share in class",
+      "role-play peaceful methods of resolving conflicts in society",
+      "watch video clips /print materials/ documentaries on ways of promoting peace in society",
+      "write in a journal of activities that depict peaceful ways of resolving conflicts."
+     ],
+     "inquiry_questions": [
+      "1. Why should we embrace peaceful co-existence in society?",
+      "2. How can we live peacefully with others in society?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Self-efficacy: Learners examine community needs as they create songs and poems on peace.",
+      "Creativity and imagination: Learners role-play peaceful methods of resolving conflicts in school. Values:",
+      "Unity: Learners collaborate with others as they design a poster on ways of promoting peace and display in class. Responsibility: Learners proactively solve problems as they write essays on ways of promoting peace. Pertinent and Contemporary Issues (PCIs):",
+      "Self-esteem: Learners role-play peaceful methods of resolving conflicts in school.",
+      "Peace education: Learners discuss peaceful methods of resolving conflicts in society. Link to Other Learning Areas:",
+      "Learners apply Religious Studies knowledge as they discuss peaceful methods of resolving conflicts in the society.",
+      "Learners use Creative Arts skills to role-play peaceful methods of resolving conflicts in society."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade6-social-studies.pdf#p62"
+    },
+    {
+     "kicd_code": "5.2",
+     "name": "Government Revenue and Expenditure",
+     "suggested_duration": "4 lessons",
+     "learning_outcomes": [
+      "identify sources of revenue for National Government in Kenya",
+      "explain ways in which the national and county governments in Kenya spend their revenue",
+      "acknowledge the importance of paying taxes."
+     ],
+     "learning_experiences": [
+      "engage a revenue officer to discuss sources of revenue for National Government in Kenya",
+      "brainstorm on ways in which the national and county governments spend their revenue",
+      "use digital/print resources to look at the budget allocation for the national and county governments",
+      "compose songs and poems that address the importance of paying tax to the government."
+     ],
+     "inquiry_questions": [
+      "Why do we pay taxes to the government?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Learning to learn: Learners share what they have learnt as they engage with a revenue officer on sources of revenue for the National Government in Kenya.",
+      "Citizenship: Learners compose songs and poems that address the importance of paying taxes to the government. Values:",
+      "Unity: Learners collaborate with others as they brainstorm on the meaning of revenue. Integrity: Learners are committed to duty as they create and recite poems on the importance of paying taxes to the government. Pertinent and Contemporary Issues (PCIs):",
+      "Financial literacy: Learners engage with a revenue officer on sources of government revenue.",
+      "Self -awareness: Learners discuss, in groups, expenditure of government revenue in Kenya. Link to Other Learning Areas:",
+      "Learners apply Mathematical skills as they use digital/print resources to explore budget allocation for the national and county governments.",
+      "Learners use the knowledge in Agriculture to engage a resource person to find out sources of revenue for the National Government in Kenya."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade6-social-studies.pdf#p64"
+    },
+    {
+     "kicd_code": "5.3",
+     "name": "The Preamble of the Constitution of Kenya",
+     "suggested_duration": "3 lessons",
+     "learning_outcomes": [
+      "identify key words in the preamble of the Constitution of Kenya",
+      "explain the meaning of key words in the preamble",
+      "uphold the Constitution of Kenya in society."
+     ],
+     "learning_experiences": [
+      "Learner is guided to:",
+      "use digital resources/print media to search for the meaning of the key words in the preamble of the Constitution of Kenya",
+      "engage a court clerk to interpret key words used in the preamble of the Constitution of Kenya",
+      "compose and sing a song on the preamble of the Constitution of Kenya",
+      "create posters on the key words of the preamble of the Constitution of Kenya and display."
+     ],
+     "inquiry_questions": [
+      "What is the importance of the preamble in the Constitution of Kenya?"
+     ],
+     "core_competencies": [
+      "Core Competencies to be developed:",
+      "Self-Efficacy: Learners create posters on the key words of the preamble of the Constitution of Kenya and display it in class.",
+      "Citizenship: Learners demonstrate responsible decision making as they discuss and list down the key words of the preamble of the Constitution of Kenya and make presentations. Values:",
+      "Patriotism: Learners serve the community as they compose and sing a song on the preamble of the Constitution of Kenya.",
+      "Peace: Learners display calmness as they engage a court clerk to interpret the meaning of the key words used in the preamble of the Constitution of Kenya. Pertinent and Contemporary Issues (PCIs):",
+      "Self-awareness: Learners engage with a court clerk to interpret the preamble of the Constitution of Kenya.",
+      "Social cohesion: Learners compose and sing a song on the preamble of the Constitution of Kenya. Link to other learning Areas:",
+      "Learners apply Religious Studies skills to demonstrate responsible decision making as they discuss the meaning of the key words in the preamble of the Constitution of Kenya.",
+      "Learners use the knowledge in English/English/KSL to brainstorm the key words in the preamble of the Constitution of Kenya."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade6-social-studies.pdf#p66"
+    }
+   ]
+  }
+ ]
+}
