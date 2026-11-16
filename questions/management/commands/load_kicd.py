@@ -150,6 +150,10 @@ class Command(BaseCommand):
                             help="Limit to one subject slug, e.g. mathematics")
         parser.add_argument("--grades", default=None,
                             help="Limit to grades, e.g. 4,5,6")
+        parser.add_argument("--if-needed", action="store_true",
+                            help="Exit immediately if the curriculum is already "
+                                 "loaded. For deploy scripts: the first deploy "
+                                 "loads it, later ones cost one COUNT query.")
         parser.add_argument("--no-new-subjects", action="store_true",
                             help="Skip designs for learning areas that have no "
                                  "Subject row yet. Use this on production: "
@@ -163,7 +167,32 @@ class Command(BaseCommand):
         files = sorted(p for p in PARSED_DIR.glob("*.json")
                        if not p.name.startswith("_"))
         if not files:
+            if opts["if_needed"]:
+                self.stdout.write("No parsed designs on disk; nothing to load.")
+                return
             raise SystemExit(f"No parsed JSON in {PARSED_DIR}. Run ingest_kicd first.")
+
+        if opts["if_needed"]:
+            # Deploy guard: has the curriculum ever been loaded here?
+            #
+            # Deliberately not "are all designs loaded" - with
+            # --no-new-subjects, and with uncertain strand matches held back
+            # for review, the number in the database is legitimately lower
+            # than the number on disk, so that comparison would reload
+            # everything on every deploy.
+            #
+            # Consequence worth knowing: adding new designs needs one manual
+            # run without this flag. That is the right trade - a deploy should
+            # not silently rewrite 1,300 rows each time it runs.
+            loaded = (Substrand.objects
+                      .exclude(learning_outcomes=[])
+                      .exclude(learning_outcomes=None).count())
+            if loaded > 0:
+                self.stdout.write(
+                    f"Curriculum already loaded ({loaded} sub-strands with "
+                    f"outcomes). Skipping - run without --if-needed to refresh.")
+                return
+            self.stdout.write("No curriculum loaded yet - loading.")
 
         grades = None
         if opts["grades"]:
