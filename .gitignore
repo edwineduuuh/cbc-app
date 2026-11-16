@@ -7,6 +7,11 @@ node_modules/
 .next/
 .DS_Store
 
+# KICD source PDFs: big, and KICD holds the copyright. The parsed JSON in
+# kicd_parsed/ is committed instead, so the curriculum can be rebuilt without them.
+kicd_raw/*
+!kicd_raw/README.md
+
 # Local dev scratch scripts + editor config
 write_bars.py
 test_unicode.py

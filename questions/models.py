@@ -45,6 +45,21 @@ class Topic(models.Model):
         default=None,
         help_text="Cached AI flashcard deck for the WHOLE strand (fallback when no substrands)",
     )
+
+    # ─── KICD curriculum design data ───────────────────────────────────────
+    # The rationalised designs publish the assessment rubric once per STRAND,
+    # not per sub-strand, so it lives here. Shape:
+    #   [{"indicator": "...", "exceeds": "...", "meets": "...",
+    #     "approaches": "...", "below": "..."}, ...]
+    kicd_code = models.CharField(
+        max_length=20, blank=True, default='',
+        help_text='Strand number in the design, e.g. "1.0"',
+    )
+    assessment_rubric = models.JSONField(
+        null=True, blank=True, default=None,
+        help_text="Suggested Assessment Rubric: one entry per level indicator",
+    )
+
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
@@ -68,6 +83,52 @@ class Substrand(models.Model):
         null=True, blank=True, default=None,
         help_text="Cached AI flashcard deck for this sub-strand",
     )
+
+    # ─── KICD curriculum design data ───────────────────────────────────────
+    # Ingested verbatim from the official rationalised designs by
+    # `manage.py ingest_kicd`. Never paraphrased - marking keys, the tutor's
+    # curriculum boundary and lesson plans all quote these directly.
+    kicd_code = models.CharField(
+        max_length=20, blank=True, default='',
+        help_text='Sub-strand number in the design, e.g. "1.2"',
+    )
+    rationale = models.TextField(blank=True, default='')
+    general_outcomes = models.JSONField(
+        default=list, blank=True,
+        help_text="Subject general learning outcomes for this grade",
+    )
+    learning_outcomes = models.JSONField(
+        default=list, blank=True,
+        help_text="Specific learning outcomes, verbatim from the design",
+    )
+    learning_experiences = models.JSONField(
+        default=list, blank=True,
+        help_text="Suggested learning experiences (the teaching activities)",
+    )
+    inquiry_questions = models.JSONField(
+        default=list, blank=True,
+        help_text="Suggested key inquiry question(s)",
+    )
+    core_competencies = models.JSONField(default=list, blank=True)
+    values = models.JSONField(default=list, blank=True)
+    pertinent_issues = models.JSONField(
+        default=list, blank=True,
+        help_text="Pertinent and contemporary issues (PCIs)",
+    )
+    links_to_other_areas = models.JSONField(default=list, blank=True)
+    suggested_duration = models.CharField(
+        max_length=40, blank=True, default='',
+        help_text='Lesson count from the design, e.g. "6 lessons"',
+    )
+    resources = models.JSONField(
+        default=list, blank=True,
+        help_text="Suggested resources / non-formal activities",
+    )
+    kicd_source = models.CharField(
+        max_length=160, blank=True, default='',
+        help_text="Source PDF and page this was parsed from, for provenance",
+    )
+
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
@@ -122,6 +183,15 @@ class Question(models.Model):
         ('easy', 'Easy'),
         ('medium', 'Medium'),
         ('hard', 'Hard'),
+    ]
+
+    BLOOM_LEVELS = [
+        ('remember', 'Remember'),
+        ('understand', 'Understand'),
+        ('apply', 'Apply'),
+        ('analyze', 'Analyze'),
+        ('evaluate', 'Evaluate'),
+        ('create', 'Create'),
     ]
 
     QUESTION_TYPES = [
@@ -203,6 +273,17 @@ class Question(models.Model):
     worked_solution = models.JSONField(null=True, blank=True, default=None, help_text="Step-by-step solution with LaTeX")   
     cached_ai_explanation = models.JSONField(null=True, blank=True, default=None, help_text="Cached AI explanation for MCQ - avoids repeat API calls")
     difficulty = models.CharField(max_length=10, choices=DIFFICULTY_CHOICES, default='medium')
+
+    # KICD TAGGING - lets us balance a quiz across Bloom levels and report
+    # which command verbs a learner is weak on. Derived from question_text by
+    # `manage.py tag_questions_kicd`, no API call.
+    bloom_level = models.CharField(
+        max_length=12, choices=BLOOM_LEVELS, blank=True, default='',
+    )
+    command_verb = models.CharField(
+        max_length=40, blank=True, default='',
+        help_text='KICD command verb, e.g. State, Describe, Explain, Account for',
+    )
 
     # METADATA
     created_at = models.DateTimeField(auto_now_add=True)
