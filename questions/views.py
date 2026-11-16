@@ -367,7 +367,12 @@ class SubstrandListView(generics.ListAPIView):
         topic_id = self.request.query_params.get('topic')
         if not topic_id:
             return Substrand.objects.none()
-        return Substrand.objects.select_related('topic').filter(topic_id=topic_id)
+        # topic__subject and the question count are serialized now, so fetch
+        # them in the same query rather than one extra query per sub-strand.
+        return (Substrand.objects
+                .select_related('topic', 'topic__subject')
+                .filter(topic_id=topic_id)
+                .order_by('order', 'kicd_code', 'name'))
 
 
 class SubstrandManageView(generics.ListCreateAPIView):
@@ -379,12 +384,17 @@ class SubstrandManageView(generics.ListCreateAPIView):
         topic_id = self.request.query_params.get('topic')
         if not topic_id:
             return Substrand.objects.none()
-        return Substrand.objects.select_related('topic').filter(topic_id=topic_id)
+        # topic__subject and the question count are serialized now, so fetch
+        # them in the same query rather than one extra query per sub-strand.
+        return (Substrand.objects
+                .select_related('topic', 'topic__subject')
+                .filter(topic_id=topic_id)
+                .order_by('order', 'kicd_code', 'name'))
 
 
 class SubstrandDetailView(generics.RetrieveUpdateDestroyAPIView):
     """GET/PATCH/DELETE /api/admin/substrands/<id>/"""
-    queryset = Substrand.objects.select_related('topic')
+    queryset = Substrand.objects.select_related('topic', 'topic__subject')
     serializer_class = SubstrandSerializer
     permission_classes = [IsAuthenticated]
 
@@ -1156,8 +1166,14 @@ def _run_grading_task(attempt_id, quiz_id, questions, answers, working_images,
                 Attempt.objects.filter(pk=attempt_id).update(started_at=parsed_started_at)
 
             if not has_subscription:
-                User.objects.filter(pk=user_id).update(
-                    quiz_credits=_F('quiz_credits') - 1
+                # Claim today's free quiz. Date-based and idempotent, so a
+                # re-run of this task cannot burn a second day's allowance.
+                _today = timezone.now().date()
+                User.objects.filter(pk=user_id).exclude(
+                    last_free_quiz_date=_today
+                ).update(
+                    last_free_quiz_date=_today,
+                    free_quizzes_used=_F('free_quizzes_used') + 1,
                 )
 
         # Streak update - fetch fresh user object in this thread
@@ -1474,7 +1490,6 @@ def submit_quiz(request):
     # ========== AUTHENTICATED USER FLOW ==========
     else:
         user = request.user
-        credits = getattr(user, 'quiz_credits', 0)
 
         has_subscription = False
         try:
@@ -1483,11 +1498,13 @@ def submit_quiz(request):
         except Subscription.DoesNotExist:
             pass
 
-        if not has_subscription and credits <= 0:
+        if not has_subscription and not user.free_quiz_available_today:
             return Response({
-                'error': 'No quiz credits remaining',
-                'message': 'Subscribe to unlock unlimited quizzes!',
+                'error': 'Today\'s free quiz already used',
+                'message': 'You have used today\'s free quiz. Come back tomorrow, '
+                           'or subscribe for unlimited quizzes!',
                 'credits_exhausted': True,
+                'free_quiz_used_today': True,
                 'redirect': '/student/payments'
             }, status=402)
 
@@ -1562,34 +1579,37 @@ def credits_status(request):
     except Subscription.DoesNotExist:
         pass
 
-    # Free quiz credits - from User model (single source of truth)
-    credits = user.quiz_credits
+    # Free tier: one quiz per day. `credits` is 1 or 0 for today, so the
+    # existing `quiz_credits` response key keeps working for the frontend.
+    available = user.free_quiz_available_today
+    credits = 1 if available else 0
 
-    # If a former subscriber has leftover free quizzes, TELL them - don't silently
-    # let them burn through credits thinking they're still subscribed.
+    # A former subscriber still gets the daily free quiz - say so rather than
+    # letting them think access ended entirely.
     expiry_warning = None
     if expired_plan:
-        if credits > 0:
+        if available:
             expiry_warning = (
-                f'⚠️ Your {expired_plan} plan has ended - you still have {credits} '
-                f'free quiz{"zes" if credits != 1 else ""} left. Subscribe to keep '
-                f'unlimited quizzes plus the AI Tutor & Flash Cards.'
+                f'⚠️ Your {expired_plan} plan has ended - you still get one free '
+                f'quiz a day. Subscribe to keep unlimited quizzes plus the AI '
+                f'Tutor & Flash Cards.'
             )
         else:
             expiry_warning = f'⚠️ Your {expired_plan} plan has ended. Subscribe to keep learning.'
 
     return Response({
-        'has_access': credits > 0,
+        'has_access': available,
         'quiz_credits': credits,
+        'free_quiz_available_today': available,
         'has_subscription': False,
         'subscription_status': 'expired' if expired_plan else 'free_trial',
         'subscription_plan': None,
         'subscription_expires': None,
         'expiry_warning': expiry_warning,
         'message': (
-            f'🎓 {credits} free quiz{"zes" if credits != 1 else ""} remaining'
-            if credits > 0
-            else '💳 Subscribe to unlock unlimited quizzes'
+            'Your free quiz for today is ready'
+            if available
+            else 'You have used today\'s free quiz - come back tomorrow, or subscribe'
         )
     })
 
@@ -1694,23 +1714,24 @@ class SubscriptionStatusView(APIView):
         except Exception:
             pass
 
-        # Check free quiz credits
-        credits = user.quiz_credits
-        if credits > 0:
+        # Free tier: one quiz per day
+        if user.free_quiz_available_today:
             return Response({
                 'status': 'free_trial',
                 'has_access': True,
-                'plan': 'Free Trial',
-                'quiz_credits': credits,
+                'plan': 'Free daily quiz',
+                'quiz_credits': 1,
+                'free_quiz_available_today': True,
                 'trial': True,
             })
 
-        # No credits, no subscription
+        # Today's free quiz used, no subscription
         return Response({
             'status': 'expired',
             'has_access': False,
             'plan': None,
             'quiz_credits': 0,
+            'free_quiz_available_today': False,
             'trial': False,
         })
 
@@ -2936,21 +2957,22 @@ def check_quiz_access(request):
     except Subscription.DoesNotExist:
         pass
     
-    credits = user.quiz_credits
-    can_access = has_subscription or credits > 0
+    available = user.free_quiz_available_today
+    can_access = has_subscription or available
     if has_subscription:
         message = 'Unlimited access (Subscribed)'
-    elif credits > 0:
-        message = f'{credits} free quiz{"zes" if credits != 1 else ""} remaining'
+    elif available:
+        message = 'Your free quiz for today is ready'
     else:
-        message = 'You have used all your free quizzes. Subscribe to continue!'
-    
+        message = 'You have used today\'s free quiz. Come back tomorrow, or subscribe!'
+
     return Response({
         'can_access': can_access,
         'message': message,
         'has_subscription': has_subscription,
         'subscription': subscription_details,
-        'free_quizzes_remaining': credits,
+        'free_quizzes_remaining': 1 if available else 0,
+        'free_quiz_available_today': available,
     })
 
 
@@ -3007,16 +3029,15 @@ def start_quiz_with_check(request, quiz_id):
     except Subscription.DoesNotExist:
         pass
     
-    credits = user.quiz_credits
-    if not has_subscription and credits <= 0:
+    if not has_subscription and not user.free_quiz_available_today:
         return Response({
             'error': 'Payment required',
-            'message': 'You have used all your free quizzes. Subscribe to continue!',
+            'message': 'You have used today\'s free quiz. Come back tomorrow, or subscribe!',
             'redirect': '/subscribe',
         }, status=402)
-    
+
     if not has_subscription:
-        user.use_quiz_credit()
+        user.claim_free_quiz_today()
     
     try:
         quiz = Quiz.objects.get(id=quiz_id)
@@ -3032,7 +3053,8 @@ def start_quiz_with_check(request, quiz_id):
     return Response({
         'success': True,
         'attempt_id': attempt.id,
-        'free_quizzes_remaining': user.quiz_credits,
+        'free_quizzes_remaining': 1 if user.free_quiz_available_today else 0,
+        'free_quiz_available_today': user.free_quiz_available_today,
     })
 
 

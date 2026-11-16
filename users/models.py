@@ -68,14 +68,22 @@ class User(AbstractUser):
     parent_email = models.EmailField(blank=True, default='',
         help_text='Parent email for receipts & progress reports')
 
-    # FREE TRIAL CREDITS - 3 free quizzes for every new user
+    # FREE TIER - one free quiz per day, every day
+    # Date-based rather than a counter: claiming the same day twice is a no-op,
+    # so a retried submission can never cost a learner a quiz.
+    last_free_quiz_date = models.DateField(
+        null=True, blank=True,
+        help_text='Date of the most recent free (unsubscribed) quiz'
+    )
+    # Retained for analytics and history. No longer gates access - the daily
+    # allowance above does. Not decremented.
     quiz_credits = models.IntegerField(
         default=3,
-        help_text='Free quiz attempts remaining'
+        help_text='Legacy free-quiz counter (historical; access is now daily)'
     )
     free_quizzes_used = models.IntegerField(
         default=0,
-        help_text='Number of free quizzes used'
+        help_text='Lifetime count of free quizzes taken'
     )
     # Free taste of the AI tools: strand keys (e.g. "topic:5") previewed in the
     # Tutor / Flash Cards before subscribing. Re-opening a previewed strand is free.
@@ -123,38 +131,46 @@ class User(AbstractUser):
         return self.role in [self.ROLE_TEACHER, self.ROLE_SCHOOL_ADMIN] or self.is_admin
 
     @property
+    def free_quiz_available_today(self):
+        """True if today's free quiz has not been used yet."""
+        return self.last_free_quiz_date != timezone.now().date()
+
+    @property
     def has_active_trial(self):
-        """Check if user still has free quiz credits"""
-        return self.quiz_credits > 0
-    
+        """Kept for the admin list; now means 'today's free quiz is unused'."""
+        return self.free_quiz_available_today
+
     @property
     def has_access(self):
-        """Check if user can take a quiz (has credits OR active subscription)"""
-        if self.quiz_credits > 0:
-            return True
+        """Can this user start a quiz - today's free one, or a subscription."""
         try:
-            return self.subscription.is_valid
+            if self.subscription.is_valid:
+                return True
         except Exception:
-            return False
+            pass
+        return self.free_quiz_available_today
 
-    def use_quiz_credit(self):
-        """Decrement one free quiz credit. Returns True if credit was available.
-        Uses F() expressions to prevent race conditions."""
+    def claim_free_quiz_today(self):
+        """Consume today's free quiz. Returns True if it was still available.
+
+        Idempotent by design: the WHERE clause only matches when today has not
+        been claimed, so a duplicate or retried call cannot cost a second quiz
+        the way decrementing a counter twice would.
+        """
         from django.db.models import F
-        
-        # Atomic decrement - prevents race conditions
-        rows_updated = User.objects.filter(
-            pk=self.pk,
-            quiz_credits__gt=0
+
+        today = timezone.now().date()
+        rows_updated = User.objects.filter(pk=self.pk).exclude(
+            last_free_quiz_date=today
         ).update(
-            quiz_credits=F('quiz_credits') - 1,
+            last_free_quiz_date=today,
             free_quizzes_used=F('free_quizzes_used') + 1,
-            total_quizzes_taken=F('total_quizzes_taken') + 1
+            total_quizzes_taken=F('total_quizzes_taken') + 1,
         )
-        
+
         if rows_updated > 0:
-            # Refresh from DB to get updated values
-            self.refresh_from_db(fields=['quiz_credits', 'free_quizzes_used', 'total_quizzes_taken'])
+            self.refresh_from_db(
+                fields=['last_free_quiz_date', 'free_quizzes_used', 'total_quizzes_taken'])
             return True
         return False
 

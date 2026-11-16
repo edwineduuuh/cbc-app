@@ -1,6 +1,12 @@
 """
 questions/credits.py
-Free trial credits system - 3 free quizzes per user
+Free tier helpers - ONE FREE QUIZ PER DAY.
+
+NOTE: `check_quiz_credits` below is not wired to any view. The live gate is
+inline in `views.submit_quiz`, and the claim happens in
+`views._run_grading_task`. This module is kept because it is referenced in
+docs//history; it was updated alongside the daily-allowance change so that
+re-enabling it cannot reintroduce the old counter-based gate.
 """
 
 from functools import wraps
@@ -38,29 +44,27 @@ def check_quiz_credits(view_func):
         except Subscription.DoesNotExist:
             pass
 
-        # Check free credits
-        credits = getattr(user, 'quiz_credits', 0)
-
-        if credits <= 0:
+        # Today's free quiz
+        if not user.free_quiz_available_today:
             return Response({
-                'error': 'You have used all your free quizzes! Subscribe for unlimited access.',
+                'error': 'You have used today\'s free quiz! Subscribe for unlimited access.',
                 'credits_exhausted': True,
+                'free_quiz_used_today': True,
                 'redirect': '/subscribe',
                 'quiz_credits': 0,
             }, status=status.HTTP_402_PAYMENT_REQUIRED)
 
-        # User has credits - proceed and deduct after successful submission
+        # Available - proceed, then claim it on success.
         response = view_func(request, *args, **kwargs)
 
         if response.status_code in [200, 201]:
-            user.use_quiz_credit()
+            user.claim_free_quiz_today()
 
             if hasattr(response, 'data'):
-                response.data['quiz_credits'] = user.quiz_credits
+                response.data['quiz_credits'] = 0
                 response.data['credits_message'] = (
-                    f'Quiz submitted! You have {user.quiz_credits} free quiz{"zes" if user.quiz_credits != 1 else ""} remaining.'
-                    if user.quiz_credits > 0
-                    else 'This was your last free quiz! Subscribe to continue learning.'
+                    'Quiz submitted! That was today\'s free quiz - another one '
+                    'unlocks tomorrow, or subscribe for unlimited quizzes.'
                 )
 
         return response
@@ -75,7 +79,7 @@ def get_user_credits_status(user):
             'has_access': False,
             'quiz_credits': 0,
             'subscription_status': 'none',
-            'message': 'Sign up to get 3 free quizzes'
+            'message': 'Sign up to get a free quiz every day'
         }
 
     # Check subscription
@@ -94,16 +98,17 @@ def get_user_credits_status(user):
     except Exception:
         pass
 
-    # Free trial user
-    credits = getattr(user, 'quiz_credits', 0)
+    # Free tier: one quiz per day
+    available = user.free_quiz_available_today
 
     return {
-        'has_access': credits > 0,
-        'quiz_credits': credits,
+        'has_access': available,
+        'quiz_credits': 1 if available else 0,
+        'free_quiz_available_today': available,
         'subscription_status': 'free_trial',
         'message': (
-            f'{credits} free quiz{"zes" if credits != 1 else ""} remaining'
-            if credits > 0
-            else 'Subscribe to unlock unlimited quizzes'
+            'Your free quiz for today is ready'
+            if available
+            else 'You have used today\'s free quiz - come back tomorrow, or subscribe'
         )
     }

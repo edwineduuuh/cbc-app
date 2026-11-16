@@ -57,7 +57,9 @@ class AdminUserStatsView(APIView):
             'by_role': role_breakdown,
             'by_grade': grade_breakdown,
             'subscribed': len(active_sub_user_ids),
-            'free_trial_active': students.filter(quiz_credits__gt=0).count(),
+            # Free tier is now a daily allowance, so "on the free tier" means
+            # an unsubscribed student, not one with a positive credit counter.
+            'free_trial_active': students.exclude(id__in=active_sub_user_ids).count(),
             'new_this_week': users.filter(date_joined__gte=week_ago).count(),
             'new_this_month': users.filter(date_joined__gte=month_ago).count(),
             'active_today': students.filter(last_activity_date=today).count(),
@@ -307,8 +309,11 @@ class AdminEngagementView(APIView):
         total_students = students.count()
 
         # Trial → paid conversion
+        # "Ever tried it" = flagged, or has taken at least one free quiz.
+        # quiz_credits is no longer decremented, so it cannot stand in for this.
         ever_had_trial = students.filter(
-            Q(has_used_trial=True) | Q(quiz_credits__lt=2)
+            Q(has_used_trial=True) | Q(last_free_quiz_date__isnull=False)
+            | Q(free_quizzes_used__gt=0)
         ).count()
         paid = Subscription.objects.filter(
             is_active=True, user__role='student'
