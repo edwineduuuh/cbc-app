@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from .models import (
     Subject, Topic, Substrand, Question, Quiz, Attempt, QuestionSet,
-    SubscriptionPlan, PaymentRequest, LessonPlan, LiveSession,
+    SubscriptionPlan, PaymentRequest, LiveSession,
     LiveQuestion, StudentSession, StudentAnswer, Passage, QuestionPart,
     MotivationalContent,
 )
@@ -547,12 +547,6 @@ class LiveQuestionSerializer(serializers.ModelSerializer):
         model = LiveQuestion
         fields = ['id', 'order', 'text', 'question_type', 'options', 'correct_index', 'points']
 
-
-class LessonPlanSerializer(serializers.ModelSerializer):
-    class Meta:
-        model  = LessonPlan
-        fields = "__all__"
-        read_only_fields = ["teacher", "generated_plan", "created_at", "updated_at"]
 
 
 class ClassroomSerializer(serializers.ModelSerializer):

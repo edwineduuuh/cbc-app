@@ -6,7 +6,7 @@ from rest_framework.views import APIView
 from django.utils import timezone
 from .models import (
     Subject, Topic, Substrand, Question, Quiz, Attempt, Subscription,
-    LessonPlan, LiveSession, LiveQuestion, StudentSession, StudentAnswer,
+    GeneratedOutput, LiveSession, LiveQuestion, StudentSession, StudentAnswer,
     SubscriptionPlan, PaymentRequest, ClassQuizAssignment, QuestionPart
 )
 from users.models import Classroom as UsersClassroom
@@ -16,7 +16,7 @@ from .serializers import (
     QuestionDetailSerializer,
     QuizListSerializer, QuizDetailSerializer, SubmitQuizSerializer,
     AttemptSerializer, AttemptDetailSerializer, SubscriptionPlanSerializer, PaymentRequestSerializer,
-    LessonPlanSerializer, ClassroomSerializer, LiveQuestionSerializer,
+    ClassroomSerializer, LiveQuestionSerializer,
     StudentSessionSerializer, StudentAnswerSerializer, LeaderboardSerializer,
 )
 from .permissions import IsAdminUser, IsTeacherUser, IsAdminOrTeacher
@@ -29,7 +29,6 @@ import string
 import random
 from django.db import transaction
 
-from questions.decorators import requires_subscription
 User = get_user_model()
 
 from datetime import timedelta
@@ -480,7 +479,6 @@ class QuizDetailView(generics.RetrieveAPIView):
     ).select_related('subject')
     serializer_class = QuizDetailSerializer
     permission_classes = [AllowAny]
-    # @requires_subscription
 
 
 class AttemptListView(generics.ListAPIView):
@@ -586,7 +584,7 @@ class TeacherAnalyticsView(APIView):
                                        classrooms_enrolled__is_active=True
                                    ).distinct().count(),
             # New teacher panel fields
-            'lesson_plans_created': LessonPlan.objects.filter(teacher=user).count(),
+            'lesson_plans_created': GeneratedOutput.objects.filter(teacher=user).count(),
             'classrooms_created':   LiveSession.objects.filter(teacher=user).count(),
             'students_in_quizzes':  StudentSession.objects.filter(classroom__teacher=user).count(),
         }
@@ -1941,86 +1939,6 @@ def make_join_code(length=6):
 
 
 # ─────────────────────────────────────────────────────────────
-#  LESSON PLANS
-# ─────────────────────────────────────────────────────────────
-
-@api_view(["GET"])
-@permission_classes([IsAuthenticated])
-def list_lesson_plans(request):
-    """GET /api/lessons/ - list teacher's lesson plans"""
-    plans = LessonPlan.objects.filter(teacher=request.user).order_by("-created_at")
-    # optional filters
-    grade   = request.query_params.get("grade")
-    subject = request.query_params.get("subject")
-    term    = request.query_params.get("term")
-    if grade:   plans = plans.filter(grade=grade)
-    if subject: plans = plans.filter(subject=subject)
-    if term:    plans = plans.filter(term=term)
-    results = []
-    for p in plans:
-        results.append({
-            "id": p.id,
-            "plan": p.generated_plan,
-            "meta": LessonPlanSerializer(p).data,
-        })
-    return Response(results)
-
-
-@api_view(["POST"])
-@permission_classes([IsAuthenticated])
-def generate_lesson(request):
-    required = ["grade", "subject", "term", "week", "lesson_number", "strand", "duration"]  # ← CHANGED topic to strand
-    for field in required:
-        if not request.data.get(field):
-            return Response({"error": f"'{field}' is required."}, status=400)
-
-    plan_data = {
-        "grade":          request.data["grade"],
-        "subject":        request.data["subject"],
-        "term":           request.data["term"],
-        "week":           int(request.data["week"]),
-        "lesson_number":  int(request.data["lesson_number"]),
-        "strand":         request.data["strand"],  # ← CHANGED topic to strand
-        "substrand":      request.data.get("substrand", ""),  # ← CHANGED subtopic to substrand
-        "duration":       request.data["duration"],
-        "learner_level":  request.data.get("learner_level", "Mixed ability"),
-        "prior_knowledge":request.data.get("prior_knowledge", ""),
-        "resources":      request.data.get("resources", ""),
-        "is_practical":   bool(request.data.get("is_practical", False)),
-        "practical_area": request.data.get("practical_area", ""),
-    }
-
-    plan = LessonPlan.objects.create(teacher=request.user, **plan_data)
-
-    try:
-        ai_output = generate_lesson_plan(plan_data)
-        plan.generated_plan = ai_output
-        plan.save()
-        return Response({
-            "id":   plan.id,
-            "plan": ai_output,
-            "meta": LessonPlanSerializer(plan).data,
-        }, status=201)
-    except Exception as e:
-        plan.delete()
-        return Response({"error": f"AI generation failed: {str(e)}"}, status=500)
-
-@api_view(["GET", "DELETE"])
-@permission_classes([IsAuthenticated])
-def lesson_plan_detail(request, pk):
-    """GET/DELETE /api/lessons/<pk>/"""
-    plan = get_object_or_404(LessonPlan, pk=pk, teacher=request.user)
-    if request.method == "DELETE":
-        plan.delete()
-        return Response(status=204)
-    return Response({
-        "id":   plan.id,
-        "plan": plan.generated_plan,
-        "meta": LessonPlanSerializer(plan).data,
-    })
-
-
-# ─────────────────────────────────────────────────────────────
 #  CLASSROOMS
 # ─────────────────────────────────────────────────────────────
 
@@ -2409,7 +2327,7 @@ def teacher_analytics(request):
     teacher = request.user
 
     # Basic counts
-    lesson_count = LessonPlan.objects.filter(teacher=teacher).count()
+    lesson_count = GeneratedOutput.objects.filter(teacher=teacher).count()
     classrooms = Classroom.objects.filter(teacher=teacher)
     classroom_count = classrooms.count()
     live_count = classrooms.filter(status="live").count()
@@ -3013,51 +2931,6 @@ def test_email_sms(request):
         results['sms'] = 'SKIPPED - pass phone in request body'
 
     return Response(results)
-
-
-@api_view(['POST'])
-@permission_classes([IsAuthenticated])
-def start_quiz_with_check(request, quiz_id):
-    """Start quiz - checks access and decrements credit"""
-    user = request.user
-    
-    has_subscription = False
-    try:
-        subscription = Subscription.objects.get(user=user, is_active=True)
-        if subscription.end_date >= timezone.now():
-            has_subscription = True
-    except Subscription.DoesNotExist:
-        pass
-    
-    if not has_subscription and not user.free_quiz_available_today:
-        return Response({
-            'error': 'Payment required',
-            'message': 'You have used today\'s free quiz. Come back tomorrow, or subscribe!',
-            'redirect': '/subscribe',
-        }, status=402)
-
-    if not has_subscription:
-        user.claim_free_quiz_today()
-    
-    try:
-        quiz = Quiz.objects.get(id=quiz_id)
-    except Quiz.DoesNotExist:
-        return Response({'error': 'Quiz not found'}, status=404)
-    
-    attempt = Attempt.objects.create(
-        student=user,
-        quiz=quiz,
-        start_time=timezone.now(),
-    )
-    
-    return Response({
-        'success': True,
-        'attempt_id': attempt.id,
-        'free_quizzes_remaining': 1 if user.free_quiz_available_today else 0,
-        'free_quiz_available_today': user.free_quiz_available_today,
-    })
-
-
 # ── Motivational Content ──────────────────────────────────────
 from .models import MotivationalContent
 from .serializers import MotivationalContentSerializer

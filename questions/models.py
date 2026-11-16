@@ -802,28 +802,6 @@ class UserProfile(models.Model):
     def __str__(self):
         return f"{self.user.username} - {self.free_quizzes_remaining} free quizzes"
     
-    def can_start_quiz(self):
-        """Check if user can start a quiz"""
-        # Check subscription (is_valid respects the expiry date, unlike is_active)
-        if hasattr(self.user, 'subscription') and self.user.subscription.is_valid:
-            return True, "Unlimited (Subscribed)"
-        
-        # Check free trial
-        if self.free_quizzes_remaining > 0:
-            return True, f"{self.free_quizzes_remaining} free quizzes remaining"
-        
-        return False, "No free quizzes remaining. Please subscribe."
-    
-    def use_free_quiz(self):
-        """Decrement free quiz counter"""
-        if self.free_quizzes_remaining > 0:
-            self.free_quizzes_remaining -= 1
-            if self.free_quizzes_remaining == 0:
-                self.free_trial_exhausted = True
-            self.save()
-            return True
-        return False
-
 
 # Auto-create profile when user is created
 from django.db.models.signals import post_save
@@ -1205,37 +1183,6 @@ class GeneratedOutput(models.Model):
 
     def __str__(self):
         return f"{self.get_tool_display()}: {self.title}"
-
-
-class LessonPlan(models.Model):
-    teacher        = models.ForeignKey(User, on_delete=models.CASCADE, related_name="lesson_plans")
-    grade          = models.CharField(max_length=20)
-    subject        = models.CharField(max_length=80)
-    term           = models.CharField(max_length=20)
-    week           = models.PositiveSmallIntegerField()
-    lesson_number  = models.PositiveSmallIntegerField()
-    strand         = models.CharField(max_length=200)
-    substrand      = models.CharField(max_length=200, blank=True)
-    duration       = models.CharField(max_length=40)
-    learner_level  = models.CharField(max_length=60)
-    prior_knowledge= models.TextField(blank=True)
-    resources      = models.TextField(blank=True)
-    is_practical   = models.BooleanField(default=False)
-    practical_area = models.CharField(max_length=200, blank=True)
-
-    # AI-generated JSON stored as text
-    generated_plan = models.JSONField(null=True, blank=True)
-
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-    class Meta:
-        ordering = ["-created_at"]
-
-    def __str__(self):
-        return f"{self.grade} | {self.subject} | {self.strand} (Wk {self.week})"
-
-
 # ─────────────────────────────────────────────
 #  CLASSROOMS (Kahoot-style)
 # ─────────────────────────────────────────────

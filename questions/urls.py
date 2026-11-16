@@ -183,10 +183,7 @@ urlpatterns = [
     path('teacher/classrooms/<int:classroom_id>/quizzes/<int:quiz_id>/results/', TeacherQuizResultsView.as_view(), name='teacher-quiz-results'),
 
     # ── LESSON PLANS ──────────────────────────────────────────────
-    path("lessons/", views.list_lesson_plans, name="lesson-list"),
-    path("lessons/generate/", views.generate_lesson, name="lesson-generate"),
     path("lessons/generate-questions/", generate_quiz_questions, name="generate-quiz-questions"),
-    path("lessons/<int:pk>/", views.lesson_plan_detail, name="lesson-detail"),
 
     # ── CLASSROOMS (teacher, requires auth) ──────────────────────
     path("classrooms/", views.classrooms, name="classroom-list"),
@@ -215,7 +212,6 @@ urlpatterns = [
 
     # ── Free Trial Access Check ──────────────────────────────────
     path('quiz-access/', views.check_quiz_access, name='quiz-access'),
-    path('quiz/<int:quiz_id>/start/', views.start_quiz_with_check, name='start-quiz-check'),
 
 # ── AI Tutor & Flash Cards ────────────────────────────────────
 path('tutor/topics/<int:topic_id>/lesson/', teach_topic, name='tutor-teach-topic'),
