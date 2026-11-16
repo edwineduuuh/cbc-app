@@ -14,5 +14,5 @@ jobs:
       - name: Ping /api/health/
         run: |
           curl -fsS --max-time 90 --retry 4 --retry-delay 15 \
-            https://cbc-backend-production-8bc4.up.railway.app/api/health/ \
+            https://cbc-backend-production-0fd4.up.railway.app/api/health/ \
             && echo "warm" || echo "ping failed (will retry next run)"
