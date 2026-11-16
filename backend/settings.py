@@ -202,6 +202,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
+# Silences the 25 models.W042 warnings every management command printed, which
+# buried real output in the deploy logs. Purely cosmetic for existing tables:
+# it only sets the default primary key type for models that do not declare one,
+# and all of ours already have their integer ids in the database.
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+
 STATIC_URL = 'static/'
 
 # Custom User model
