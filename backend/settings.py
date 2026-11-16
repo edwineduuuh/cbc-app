@@ -29,6 +29,19 @@ CLOUDINARY_STORAGE = {
 # Now use environment variables
 ANTHROPIC_API_KEY = os.environ.get('ANTHROPIC_API_KEY')
 GEMINI_API_KEY = os.environ.get('GEMINI_API_KEY')
+OPENAI_API_KEY = os.environ.get('OPENAI_API_KEY')
+
+# ── Content generation (teacher tools) ────────────────────────────────────
+# Separate from grading on purpose. Grading marks a learner with no human in
+# between, so it stays on the model it was tuned against (see ai_grading.py).
+# Generation is read by a teacher before it reaches anyone, so it can run on
+# the cheapest model that writes well - and which one that is should be a
+# setting, not a code change, so models can be compared on real output.
+#
+#   GEN_PROVIDER: openai | anthropic | gemini | openrouter
+GEN_PROVIDER = os.environ.get('GEN_PROVIDER', 'openai')
+GEN_MODEL = os.environ.get('GEN_MODEL', '')          # blank = provider default
+OPENROUTER_API_KEY = os.environ.get('OPENROUTER_API_KEY')
 
 # Validate SECRET_KEY
 from django.core.exceptions import ImproperlyConfigured

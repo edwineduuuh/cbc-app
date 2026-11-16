@@ -1108,6 +1108,105 @@ Respond with JSON:
 #  LESSON PLANS
 # ─────────────────────────────────────────────
 
+class ApiCall(models.Model):
+    """One row per AI call. Rule 5: if the bill spikes you have a bug, not a
+    business - and you cannot see a spike you never recorded.
+
+    Costs are computed at call time from the provider's price list, because
+    prices change and back-calculating later is guesswork.
+    """
+    timestamp = models.DateTimeField(auto_now_add=True, db_index=True)
+    user = models.ForeignKey(
+        User, on_delete=models.SET_NULL, null=True, blank=True,
+        related_name="api_calls",
+    )
+    task = models.CharField(
+        max_length=40, db_index=True,
+        help_text="assessment, lesson_plan, lesson_notes, scheme, tutor, mark_structured",
+    )
+    provider = models.CharField(max_length=20)
+    model = models.CharField(max_length=60)
+    tokens_in = models.IntegerField(default=0)
+    tokens_out = models.IntegerField(default=0)
+    cost_usd = models.FloatField(default=0.0)
+    response_time_ms = models.IntegerField(default=0)
+    error = models.TextField(blank=True, default="")
+
+    class Meta:
+        db_table = "api_calls"
+        ordering = ["-timestamp"]
+        indexes = [
+            models.Index(fields=["-timestamp", "task"], name="apicall_ts_task_idx"),
+            models.Index(fields=["user", "-timestamp"], name="apicall_user_ts_idx"),
+        ]
+
+    def __str__(self):
+        return f"{self.task} {self.model} ${self.cost_usd:.5f}"
+
+
+class GeneratedOutput(models.Model):
+    """Anything a teacher tool produced, kept so it can be reopened and edited.
+
+    One table for every tool rather than one per tool: it gives a single
+    Output History, and it lets the tools chain - lesson notes start from a
+    lesson plan, a record of work starts from a scheme - by pointing `source`
+    at the output they were built from.
+    """
+    TOOLS = [
+        ("assessment", "Assessment"),
+        ("lesson_plan", "Lesson plan"),
+        ("lesson_notes", "Lesson notes"),
+        ("scheme_of_work", "Scheme of work"),
+        ("record_of_work", "Record of work"),
+    ]
+
+    teacher = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name="generated_outputs")
+    tool = models.CharField(max_length=20, choices=TOOLS, db_index=True)
+    title = models.CharField(max_length=200)
+
+    # What it was generated from. Sub-strand is the anchor: it carries the
+    # KICD outcomes the generation was grounded in.
+    substrand = models.ForeignKey(
+        "Substrand", on_delete=models.SET_NULL, null=True, blank=True,
+        related_name="generated_outputs")
+    topic = models.ForeignKey(
+        Topic, on_delete=models.SET_NULL, null=True, blank=True,
+        related_name="generated_outputs")
+    grade = models.IntegerField(null=True, blank=True)
+    subject = models.ForeignKey(
+        Subject, on_delete=models.SET_NULL, null=True, blank=True,
+        related_name="generated_outputs")
+
+    # The tool that fed this one, for chained workflows.
+    source = models.ForeignKey(
+        "self", on_delete=models.SET_NULL, null=True, blank=True,
+        related_name="derived")
+
+    payload = models.JSONField(
+        default=dict, help_text="The generated content, shape depends on tool")
+    inputs = models.JSONField(
+        default=dict, help_text="The form values used, so it can be regenerated")
+
+    bookmarked = models.BooleanField(default=False)
+    edited_at = models.DateTimeField(null=True, blank=True)
+    model_used = models.CharField(max_length=60, blank=True, default="")
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        db_table = "generated_outputs"
+        ordering = ["-created_at"]
+        indexes = [
+            models.Index(fields=["teacher", "-created_at"], name="genout_teacher_idx"),
+            models.Index(fields=["tool", "-created_at"], name="genout_tool_idx"),
+        ]
+
+    def __str__(self):
+        return f"{self.get_tool_display()}: {self.title}"
+
+
 class LessonPlan(models.Model):
     teacher        = models.ForeignKey(User, on_delete=models.CASCADE, related_name="lesson_plans")
     grade          = models.CharField(max_length=20)
