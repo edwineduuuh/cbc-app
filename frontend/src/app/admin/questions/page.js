@@ -8,6 +8,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Toast from "@/components/ui/Toast";
 import PhysicsFormulaBar from "@/components/PhysicsFormulaBar";
 import FinancialStatementEditor from "@/components/FinancialStatementEditor";
+import KicdDesignPanel from "@/components/KicdDesignPanel";
 import {
   Plus,
   Upload,
@@ -2071,11 +2072,19 @@ export default function QuestionManagementPage() {
                     onChange={handleChange}
                     options={filteredSubstrands.map((s) => ({
                       value: s.id,
-                      label: s.name,
+                      label: s.kicd_code ? `${s.kicd_code} ${s.name}` : s.name,
                     }))}
                     placeholder="- Select substrand -"
                   />
                 )}
+                {/* The official KICD design for the chosen sub-strand. Shown
+                    while writing so the question and its marking scheme can be
+                    worded against the real outcome instead of from memory. */}
+                <KicdDesignPanel
+                  substrand={filteredSubstrands.find(
+                    (s) => String(s.id) === String(formData.substrand)
+                  )}
+                />
                 <div className="grid grid-cols-3 gap-4">
                   <SelectField
                     label="Grade"

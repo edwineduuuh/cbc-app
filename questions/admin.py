@@ -22,15 +22,63 @@ class QuestionPartInline(admin.TabularInline):
 class SubstrandInline(admin.TabularInline):
     model = Substrand
     extra = 1
-    fields = ['name', 'slug', 'order']
+    fields = ['kicd_code', 'name', 'slug', 'suggested_duration', 'order', 'outcome_count']
+    readonly_fields = ['outcome_count']
+    ordering = ['order', 'kicd_code']
+
+    def outcome_count(self, obj):
+        return len(obj.learning_outcomes or []) if obj and obj.pk else '-'
+    outcome_count.short_description = 'Outcomes'
+
+
+class HasKicdDataFilter(admin.SimpleListFilter):
+    """Find the gaps: which sub-strands still have no curriculum data."""
+    title = 'KICD data'
+    parameter_name = 'kicd'
+
+    def lookups(self, request, model_admin):
+        return [('yes', 'Has learning outcomes'), ('no', 'Missing learning outcomes')]
+
+    def queryset(self, request, qs):
+        if self.value() == 'yes':
+            return qs.exclude(learning_outcomes=[]).exclude(learning_outcomes=None)
+        if self.value() == 'no':
+            return qs.filter(learning_outcomes__in=[[], None])
+        return qs
 
 
 @admin.register(Substrand)
 class SubstrandAdmin(admin.ModelAdmin):
-    list_display = ['name', 'topic', 'order', 'question_count']
-    list_filter = ['topic__subject', 'topic__grade']
-    search_fields = ['name', 'topic__name']
+    list_display = ['kicd_code', 'name', 'topic', 'suggested_duration',
+                    'outcome_count', 'question_count', 'kicd_source']
+    list_filter = [HasKicdDataFilter, 'topic__subject', 'topic__grade']
+    search_fields = ['name', 'topic__name', 'kicd_code']
     ordering = ['topic__grade', 'topic__subject__name', 'topic__order', 'order', 'name']
+    readonly_fields = ['kicd_source']
+
+    fieldsets = (
+        ('Identity', {
+            'fields': ('topic', 'kicd_code', 'name', 'slug', 'order',
+                       'suggested_duration')
+        }),
+        ('KICD curriculum design - quoted verbatim from the official design', {
+            'description': 'Ingested by <code>manage.py ingest_kicd</code>. These are '
+                           'the statements marking keys, the AI tutor and lesson plans '
+                           'quote. Edit only to correct a parsing error.',
+            'fields': ('learning_outcomes', 'inquiry_questions', 'learning_experiences',
+                       'core_competencies', 'values', 'pertinent_issues',
+                       'links_to_other_areas', 'resources', 'general_outcomes',
+                       'rationale', 'kicd_source'),
+        }),
+        ('Cached AI content', {
+            'fields': ('cached_ai_lesson', 'cached_flashcards'),
+            'classes': ('collapse',),
+        }),
+    )
+
+    def outcome_count(self, obj):
+        return len(obj.learning_outcomes or [])
+    outcome_count.short_description = 'Outcomes'
 
     def question_count(self, obj):
         return obj.questions.count()
@@ -47,14 +95,23 @@ class PassageAdmin(admin.ModelAdmin):
 @admin.register(Question)
 class QuestionAdmin(admin.ModelAdmin):
     inlines = [QuestionPartInline]
-    list_display = ['id', 'question_text_short', 'topic', 'substrand', 'question_type', 'difficulty', 'max_marks', 'has_image']
-    list_filter = ['question_type', 'difficulty', 'topic__subject', 'topic__grade', 'substrand']
-    search_fields = ['question_text', 'id']
+    list_display = ['id', 'question_text_short', 'topic', 'substrand', 'question_type',
+                    'bloom_level', 'command_verb', 'difficulty', 'max_marks', 'has_image']
+    list_filter = ['question_type', 'bloom_level', 'difficulty', 'topic__subject',
+                   'topic__grade', 'substrand']
+    search_fields = ['question_text', 'id', 'command_verb']
     ordering = ['-created_at']
-    
+    autocomplete_fields = ['substrand']
+
     fieldsets = (
         ('Basic Info', {
             'fields': ('topic', 'substrand', 'passage', 'question_type', 'difficulty', 'max_marks', 'question_text', 'question_image')
+        }),
+        ('KICD tagging', {
+            'description': 'Set by <code>manage.py tag_questions_kicd</code>. Lets a '
+                           'quiz be balanced across Bloom levels and shows which '
+                           'command verbs a learner struggles with.',
+            'fields': ('bloom_level', 'command_verb'),
         }),
         ('MCQ Options', {
             'fields': ('option_a', 'option_b', 'option_c', 'option_d'),
@@ -77,18 +134,60 @@ class QuestionAdmin(admin.ModelAdmin):
         return "✓" if obj.question_image else "✗"
     has_image.short_description = 'Image'
 
+class TopicHasRubricFilter(admin.SimpleListFilter):
+    title = 'KICD rubric'
+    parameter_name = 'rubric'
+
+    def lookups(self, request, model_admin):
+        return [('yes', 'Has assessment rubric'), ('no', 'Missing assessment rubric')]
+
+    def queryset(self, request, qs):
+        if self.value() == 'yes':
+            return qs.exclude(assessment_rubric=None).exclude(assessment_rubric=[])
+        if self.value() == 'no':
+            return qs.filter(assessment_rubric__in=[None, []])
+        return qs
+
+
 @admin.register(Topic)
 class TopicAdmin(admin.ModelAdmin):
+    """A Topic is a KICD strand. Sub-strands and the rubric hang off it."""
     inlines = [SubstrandInline]
-    list_display = ['name', 'subject', 'grade', 'order', 'substrand_count', 'question_count']
-    list_filter = ['subject', 'grade']
-    search_fields = ['name', 'subject__name']
+    list_display = ['kicd_code', 'name', 'subject', 'grade', 'order',
+                    'substrand_count', 'outcome_total', 'rubric_rows', 'question_count']
+    list_filter = [TopicHasRubricFilter, 'subject', 'grade']
+    search_fields = ['name', 'subject__name', 'kicd_code']
     prepopulated_fields = {'slug': ('name',)}
     ordering = ['grade', 'subject__name', 'order', 'name']
 
+    fieldsets = (
+        ('Strand', {
+            'fields': ('subject', 'grade', 'kicd_code', 'name', 'slug',
+                       'description', 'order')
+        }),
+        ('KICD assessment rubric', {
+            'description': 'Published once per strand in the design, as one entry per '
+                           'level indicator with Exceeds / Meets / Approaches / Below '
+                           'Expectations descriptors.',
+            'fields': ('assessment_rubric',),
+        }),
+        ('Cached AI content', {
+            'fields': ('cached_ai_lesson', 'cached_flashcards'),
+            'classes': ('collapse',),
+        }),
+    )
+
     def substrand_count(self, obj):
         return obj.substrands.count()
-    substrand_count.short_description = 'Substrands'
+    substrand_count.short_description = 'Sub-strands'
+
+    def outcome_total(self, obj):
+        return sum(len(s.learning_outcomes or []) for s in obj.substrands.all())
+    outcome_total.short_description = 'Outcomes'
+
+    def rubric_rows(self, obj):
+        return len(obj.assessment_rubric or [])
+    rubric_rows.short_description = 'Rubric'
 
     def question_count(self, obj):
         return obj.questions.count()

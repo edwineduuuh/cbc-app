@@ -38,6 +38,8 @@ export default function TopicsPage() {
   const [expanded, setExpanded] = useState({});
   // substrands per topic: { [topicId]: [...] }
   const [substrands, setSubstrands] = useState({});
+  // which sub-strands have their KICD design detail expanded: { [subId]: bool }
+  const [openDesign, setOpenDesign] = useState({});
   const [loadingSubs, setLoadingSubs] = useState({});
 
   // topic modal
@@ -439,10 +441,36 @@ export default function TopicsPage() {
                     </button>
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2 flex-wrap">
+                        {topic.kicd_code && (
+                          <span className="text-xs font-mono px-1.5 py-0.5 bg-gray-100 text-gray-500 rounded">{topic.kicd_code}</span>
+                        )}
                         <span className="font-semibold text-gray-900">{topic.name}</span>
                         <span className="text-xs px-2 py-0.5 bg-blue-100 text-blue-700 rounded-full">Grade {topic.grade}</span>
                         <span className="text-xs px-2 py-0.5 bg-gray-100 text-gray-600 rounded-full">{topic.subject_name}</span>
                         <span className="text-xs text-gray-400">{topic.question_count} question{topic.question_count !== 1 ? "s" : ""}</span>
+                        {topic.outcome_count > 0 ? (
+                          <span
+                            className="text-xs px-2 py-0.5 bg-emerald-50 text-emerald-700 rounded-full"
+                            title="Learning outcomes ingested from the official KICD design"
+                          >
+                            KICD · {topic.outcome_count} outcome{topic.outcome_count !== 1 ? "s" : ""}
+                          </span>
+                        ) : (
+                          <span
+                            className="text-xs px-2 py-0.5 bg-amber-50 text-amber-700 rounded-full"
+                            title="No KICD learning outcomes loaded for this strand yet"
+                          >
+                            No KICD data
+                          </span>
+                        )}
+                        {Array.isArray(topic.assessment_rubric) && topic.assessment_rubric.length > 0 && (
+                          <span
+                            className="text-xs px-2 py-0.5 bg-indigo-50 text-indigo-700 rounded-full"
+                            title="Suggested Assessment Rubric from the design (per level indicator)"
+                          >
+                            Rubric · {topic.assessment_rubric.length}
+                          </span>
+                        )}
                       </div>
                       {topic.description && <p className="text-xs text-gray-500 mt-0.5 line-clamp-1">{topic.description}</p>}
                     </div>
@@ -477,20 +505,77 @@ export default function TopicsPage() {
                         </div>
                       ) : (
                         <div className="divide-y divide-gray-100">
-                          {subs.map(sub => (
-                            <div key={sub.id} className="flex items-center gap-3 px-6 py-3">
-                              <span className="w-2 h-2 rounded-full bg-emerald-400 shrink-0" />
-                              <span className="flex-1 text-sm text-gray-700">{sub.name}</span>
-                              <div className="flex items-center gap-1 shrink-0">
-                                <button onClick={() => openEditSub(sub, topic)} className="p-1.5 text-gray-400 hover:bg-white hover:text-gray-700 rounded-lg transition-colors" title="Edit">
-                                  <Pencil className="w-3.5 h-3.5" />
-                                </button>
-                                <button onClick={() => setConfirmDelete({ type: "sub", item: sub, topicId: topic.id })} className="p-1.5 text-red-300 hover:bg-white hover:text-red-500 rounded-lg transition-colors" title="Delete">
-                                  <Trash2 className="w-3.5 h-3.5" />
-                                </button>
+                          {subs.map(sub => {
+                            const outcomes = sub.learning_outcomes || [];
+                            const inquiry = sub.inquiry_questions || [];
+                            const showDesign = !!openDesign[sub.id];
+                            return (
+                            <div key={sub.id} className="px-6 py-3">
+                              <div className="flex items-center gap-3">
+                                <span className={`w-2 h-2 rounded-full shrink-0 ${outcomes.length ? "bg-emerald-400" : "bg-amber-400"}`} />
+                                {sub.kicd_code && (
+                                  <span className="text-xs font-mono text-gray-400 shrink-0">{sub.kicd_code}</span>
+                                )}
+                                <span className="flex-1 text-sm text-gray-700">{sub.name}</span>
+                                {sub.suggested_duration && (
+                                  <span className="text-xs text-gray-400 shrink-0">{sub.suggested_duration}</span>
+                                )}
+                                {outcomes.length > 0 && (
+                                  <button
+                                    onClick={() => setOpenDesign(p => ({ ...p, [sub.id]: !p[sub.id] }))}
+                                    className="text-xs px-2 py-0.5 bg-emerald-50 text-emerald-700 rounded-full hover:bg-emerald-100 shrink-0"
+                                    title="Show the KICD learning outcomes for this sub-strand"
+                                  >
+                                    {outcomes.length} outcome{outcomes.length !== 1 ? "s" : ""}
+                                  </button>
+                                )}
+                                <div className="flex items-center gap-1 shrink-0">
+                                  <button onClick={() => openEditSub(sub, topic)} className="p-1.5 text-gray-400 hover:bg-white hover:text-gray-700 rounded-lg transition-colors" title="Edit">
+                                    <Pencil className="w-3.5 h-3.5" />
+                                  </button>
+                                  <button onClick={() => setConfirmDelete({ type: "sub", item: sub, topicId: topic.id })} className="p-1.5 text-red-300 hover:bg-white hover:text-red-500 rounded-lg transition-colors" title="Delete">
+                                    <Trash2 className="w-3.5 h-3.5" />
+                                  </button>
+                                </div>
                               </div>
+
+                              {showDesign && (
+                                <div className="mt-2 ml-5 pl-4 border-l-2 border-emerald-200 space-y-2">
+                                  <div>
+                                    <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide">
+                                      Specific learning outcomes
+                                    </p>
+                                    <ul className="mt-1 space-y-0.5">
+                                      {outcomes.map((o, i) => (
+                                        <li key={i} className="text-xs text-gray-600 flex gap-1.5">
+                                          <span className="text-gray-400">{String.fromCharCode(97 + i)})</span>
+                                          <span>{o}</span>
+                                        </li>
+                                      ))}
+                                    </ul>
+                                  </div>
+                                  {inquiry.length > 0 && (
+                                    <div>
+                                      <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide">
+                                        Key inquiry question{inquiry.length !== 1 ? "s" : ""}
+                                      </p>
+                                      <ul className="mt-1 space-y-0.5">
+                                        {inquiry.map((q, i) => (
+                                          <li key={i} className="text-xs text-gray-600 italic">{q}</li>
+                                        ))}
+                                      </ul>
+                                    </div>
+                                  )}
+                                  {sub.kicd_source && (
+                                    <p className="text-xs text-gray-400">
+                                      Source: {sub.kicd_source}
+                                    </p>
+                                  )}
+                                </div>
+                              )}
                             </div>
-                          ))}
+                            );
+                          })}
                         </div>
                       )}
                       <div className="px-6 py-3 border-t border-gray-100">

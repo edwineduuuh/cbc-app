@@ -20,11 +20,42 @@ class QuestionPartSerializer(serializers.ModelSerializer):
             'explanation', 'order', 'statement_subtype', 'table_data'
         ]
 class SubstrandSerializer(serializers.ModelSerializer):
+    """Sub-strand plus its KICD curriculum design data.
+
+    The KICD fields are read-only here on purpose: they are quoted verbatim
+    from the official design by `manage.py ingest_kicd`, and an API edit would
+    silently break that provenance. Corrections go through Django admin.
+    """
     topic_name = serializers.CharField(source='topic.name', read_only=True)
+    grade = serializers.IntegerField(source='topic.grade', read_only=True)
+    subject_name = serializers.CharField(source='topic.subject.name', read_only=True)
+    question_count = serializers.SerializerMethodField()
+    has_kicd_data = serializers.SerializerMethodField()
 
     class Meta:
         model = Substrand
-        fields = ['id', 'name', 'slug', 'order', 'topic', 'topic_name']
+        fields = [
+            'id', 'name', 'slug', 'order', 'topic', 'topic_name',
+            'grade', 'subject_name', 'question_count',
+            # KICD curriculum design
+            'kicd_code', 'learning_outcomes', 'inquiry_questions',
+            'learning_experiences', 'core_competencies', 'values',
+            'pertinent_issues', 'links_to_other_areas', 'suggested_duration',
+            'resources', 'general_outcomes', 'rationale', 'kicd_source',
+            'has_kicd_data',
+        ]
+        read_only_fields = [
+            'kicd_code', 'learning_outcomes', 'inquiry_questions',
+            'learning_experiences', 'core_competencies', 'values',
+            'pertinent_issues', 'links_to_other_areas', 'suggested_duration',
+            'resources', 'general_outcomes', 'rationale', 'kicd_source',
+        ]
+
+    def get_question_count(self, obj):
+        return obj.questions.count()
+
+    def get_has_kicd_data(self, obj):
+        return bool(obj.learning_outcomes)
 
 
 class PassageSerializer(serializers.ModelSerializer):
@@ -52,14 +83,21 @@ class SubjectSerializer(serializers.ModelSerializer):
         return Question.objects.filter(topic__subject=obj).count()
 
 class TopicSerializer(serializers.ModelSerializer):
+    """A Topic is a KICD strand. The assessment rubric is published per strand."""
     subject_name   = serializers.CharField(source='subject.name', read_only=True)
     question_count = serializers.SerializerMethodField()
     quiz_count     = serializers.SerializerMethodField()
+    substrand_count = serializers.SerializerMethodField()
+    outcome_count   = serializers.SerializerMethodField()
 
     class Meta:
         model  = Topic
-        fields = ['id', 'name', 'slug', 'description', 'subject', 'subject_name', 'grade', 'order', 'question_count', 'quiz_count']
-        read_only_fields = ['id', 'slug', 'subject_name', 'question_count', 'quiz_count']
+        fields = ['id', 'name', 'slug', 'description', 'subject', 'subject_name',
+                  'grade', 'order', 'question_count', 'quiz_count',
+                  'kicd_code', 'assessment_rubric', 'substrand_count', 'outcome_count']
+        read_only_fields = ['id', 'slug', 'subject_name', 'question_count',
+                            'quiz_count', 'assessment_rubric', 'substrand_count',
+                            'outcome_count']
 
     def get_question_count(self, obj):
         return obj.questions.count()
@@ -71,6 +109,12 @@ class TopicSerializer(serializers.ModelSerializer):
             quiz_type='topical',
             is_active=True
         ).count()
+
+    def get_substrand_count(self, obj):
+        return obj.substrands.count()
+
+    def get_outcome_count(self, obj):
+        return sum(len(s.learning_outcomes or []) for s in obj.substrands.all())
 class QuestionSerializer(serializers.ModelSerializer):
     subject_name   = serializers.CharField(source='topic.subject.name', read_only=True)
     topic_name     = serializers.CharField(source='topic.name', read_only=True)
@@ -90,6 +134,7 @@ class QuestionSerializer(serializers.ModelSerializer):
             'option_a', 'option_b', 'option_c', 'option_d',
             'correct_answer',
             'difficulty', 'question_type', 'max_marks',
+            'bloom_level', 'command_verb',
             'question_image_url',
             'passage',
             'parts',
@@ -178,6 +223,7 @@ class QuestionDetailSerializer(serializers.ModelSerializer):
             'option_a_image', 'option_b_image', 'option_c_image', 'option_d_image',
             'correct_answer', 'correct_answers',
             'explanation', 'difficulty', 'marking_scheme',
+            'bloom_level', 'command_verb',
             'explanation_image_url', 'explanation_image',
             'created_at', 'created_by',
             'question_image_url', 'question_image',
