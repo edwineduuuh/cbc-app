@@ -26,7 +26,7 @@ import {
 
 const API =
   process.env.NEXT_PUBLIC_API_URL ||
-  "https://cbc-backend-production-8bc4.up.railway.app/api";
+  "https://cbc-backend-production-0fd4.up.railway.app/api";
 
 // Cosmetic copy ONLY, keyed by slug. The money - id, price, duration - comes
 // from /api/plans/, so the price shown is always exactly the price charged.

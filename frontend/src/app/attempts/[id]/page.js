@@ -23,7 +23,7 @@ import "katex/dist/katex.min.css";
 import FinancialStatementInput from "@/components/FinancialStatementInput";
 const API =
   process.env.NEXT_PUBLIC_API_URL ||
-  "https://cbc-backend-production-8bc4.up.railway.app/api";
+  "https://cbc-backend-production-0fd4.up.railway.app/api";
 function _patchKatexSvg(html) {
   return html.replace(/<svg([^>]*)>/g, (_, attrs) => {
     if (attrs.includes('style="')) {

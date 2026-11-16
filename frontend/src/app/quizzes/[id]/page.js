@@ -41,7 +41,7 @@ function cldOptimize(url, width = 900) {
 
 const API =
   process.env.NEXT_PUBLIC_API_URL ||
-  "https://cbc-backend-production-8bc4.up.railway.app/api";
+  "https://cbc-backend-production-0fd4.up.railway.app/api";
 function _patchKatexSvg(html) {
   // KaTeX 0.16+ draws \sqrt with SVGs. Tailwind v4 sets svg{display:block}
   // globally which hides them. We must inject display:inline INTO the existing

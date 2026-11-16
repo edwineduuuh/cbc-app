@@ -8,7 +8,7 @@ import { ChevronRight, Loader2, ArrowLeft } from "lucide-react";
 
 const API =
   process.env.NEXT_PUBLIC_API_URL ||
-  "https://cbc-backend-production-8bc4.up.railway.app/api";
+  "https://cbc-backend-production-0fd4.up.railway.app/api";
 
 const QUIZ_TYPE_TABS = [
   { id: "all", label: "All" },

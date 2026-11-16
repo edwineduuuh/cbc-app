@@ -95,7 +95,7 @@ export function AuthProvider({ children }) {
   useEffect(() => {
     const API_URL =
       process.env.NEXT_PUBLIC_API_URL ||
-      "https://cbc-backend-production-8bc4.up.railway.app/api";
+      "https://cbc-backend-production-0fd4.up.railway.app/api";
     const ping = () =>
       fetch(`${API_URL}/health/`, { cache: "no-store" }).catch(() => {});
     ping();

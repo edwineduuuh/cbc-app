@@ -21,7 +21,7 @@ const STAFF_ROLES = ["admin", "superadmin", "teacher", "school_admin"];
 
 const API =
   process.env.NEXT_PUBLIC_API_URL ||
-  "https://cbc-backend-production-8bc4.up.railway.app/api";
+  "https://cbc-backend-production-0fd4.up.railway.app/api";
 
 const TYPE_LABEL = {
   concept: "Concept",
