@@ -40,8 +40,9 @@ export default function Navbar() {
   const navLinks = isTeacher
     ? [
         { href: "/teacher", label: "My Classes", icon: Home, primary: true },
-        { href: "/teacher?tab=lessons", label: "Lesson Plans", icon: BookOpen, primary: true },
+        { href: "/facilitator", label: "Facilitator Tools", icon: BookOpen, primary: true },
         { href: "/teacher?tab=analytics", label: "Analytics", icon: BarChart3, primary: true },
+        { href: "/teacher?tab=lessons", label: "Lesson Plans (old)", icon: BookOpen },
       ]
     : [
         { href: "/dashboard", label: "Dashboard", icon: Home, primary: true },
