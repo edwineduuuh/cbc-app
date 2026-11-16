@@ -39,10 +39,40 @@ export default function CurriculumPicker({ onSelect }) {
     setError("");
     try {
       const r = await fetchWithAuth(`${API}/facilitator/curriculum/${qs}`);
+
+      // Say which thing is actually wrong. "Check your connection" sends
+      // someone hunting their wifi when the real cause is a backend that
+      // has not been redeployed, or a database with no curriculum in it.
+      if (r.status === 404) {
+        setError(
+          "This server does not have the curriculum endpoint yet. The backend " +
+          "needs to be redeployed with the latest code."
+        );
+        setter([]);
+        return;
+      }
+      if (r.status === 403) {
+        setError("Your account does not have facilitator access.");
+        setter([]);
+        return;
+      }
+      if (!r.ok) {
+        setError(`The server returned an error (${r.status}). Try again shortly.`);
+        setter([]);
+        return;
+      }
+
       const d = await r.json();
-      setter(d[key] || []);
+      const rows = d[key] || [];
+      setter(rows);
+      if (label === "grades" && rows.length === 0) {
+        setError(
+          "No curriculum has been loaded on this server yet. Run " +
+          "“manage.py load_kicd”, or redeploy so it runs automatically."
+        );
+      }
     } catch {
-      setError("Could not load the curriculum. Check your connection.");
+      setError("Could not reach the server. Check your connection.");
       setter([]);
     } finally {
       setBusy("");
