@@ -57,6 +57,35 @@ must be plausible but clearly wrong to a learner who knows the outcome.
 
 - An MCQ is worth exactly 1 mark. Never more.
 
+- IF AN MCQ NEEDS A CALCULATION, DO THE CALCULATION. Work the answer out in \
+full, then make that exact value one of the four options and mark it \
+correct. Each of the other three must be the value a learner reaches by one \
+specific, nameable mistake, not a random number near the right one.
+
+- Match the question to the verb. A multiple-choice question may only ask a \
+learner to recognise something: use Identify, State, Name, Which, or Choose. \
+Explain, Describe, Distinguish, Justify, Compare, Analyse and Outline all \
+require writing, so a question using them must be structured, never \
+multiple-choice.
+
+- ASSESS THE COMPETENCY, NOT A GENERAL SKILL WEARING ITS NAME. This is the \
+test every question must pass: if you can delete the sub-strand's vocabulary \
+from the question and it still has the same answer, the question does not \
+assess this sub-strand and must be rewritten.
+  * "An application multiplies water use by 7; calculate the weekly use" \
+tests multiplication. The word "application" is scenery. It is worthless as \
+evidence of a visual programming outcome.
+  * A visual programming question asks what a learner DOES with the tool: \
+what a given block sequence outputs, which block is missing, what to change \
+so the program repeats, how to test it, why it behaves wrongly.
+  * The same applies everywhere - a question is about the sub-strand only \
+when the sub-strand's own ideas are what the learner has to reason with.
+
+- The Kenyan context must carry the question, not decorate it. If swapping \
+the town or the crop for any other changes nothing about what is being \
+tested, the context is decoration - rewrite the question so the local detail \
+is what the learner reasons about.
+
 - NEVER draw a diagram with text characters. No ASCII art, no boxes made of \
 pipes and dashes, no arrows made of hyphens, no tables of symbols. They look \
 broken on a printed paper. When a question uses a diagram, set "diagram" on \
@@ -71,14 +100,14 @@ SCHEMA = """{
  "instructions": "one or two sentences of instructions for the learner",
  "total_marks": 26,
  "questions": [
-  {"number": 1, "type": "mcq", "marks": 1,
+  {"number": 1, "type": "mcq", "marks": 1, "sub": 1,
    "question_text": "...",
    "options": {"A": "...", "B": "...", "C": "...", "D": "..."},
    "correct_answer": "B",
    "outcome": "the learning outcome this assesses, copied from the list",
    "bloom_level": "remember|understand|apply|analyze",
    "command_verb": "Identify"},
-  {"number": 5, "type": "structured", "marks": 3,
+  {"number": 5, "type": "structured", "marks": 3, "sub": 2,
    "question_text": "stem that sets a Kenyan context",
    "parts": [{"label": "a", "question_text": "...", "marks": 2},
              {"label": "b", "question_text": "...", "marks": 1}],
@@ -122,76 +151,161 @@ def _diagram_instruction(want_diagram, substrand):
     )
 
 
-def _bullets(items, limit=None):
+def _bullets(items, limit=None, indent=""):
     items = [i for i in (items or []) if str(i).strip()]
     if limit:
         items = items[:limit]
-    return "\n".join(f"- {i}" for i in items) or "- (none recorded)"
+    return ("\n".join(f"{indent}- {i}" for i in items)
+            or f"{indent}- (none recorded)")
 
 
-def build_prompt(substrand, *, count=10, description="", mcq_ratio=0.6,
+def token_budget(count: int) -> int:
+    """Output budget for a paper of `count` questions.
+
+    A flat 8000 was fine for four questions and silently produced NOTHING for
+    twelve: on a reasoning model the budget covers reasoning as well as the
+    answer, so the paper was still being written when it ran out, and an
+    empty response came back. A structured question with its marking scheme
+    runs about 700 tokens, so budget generously - unused budget is not billed.
+    """
+    return min(32000, 5000 + 1100 * max(1, int(count or 1)))
+
+
+def _as_list(substrands):
+    """Accept one sub-strand or many, so older callers keep working."""
+    if substrands is None:
+        return []
+    if isinstance(substrands, (list, tuple)):
+        return list(substrands)
+    return [substrands]
+
+
+def _grouped(substrands):
+    """[(topic, [substrand, ...]), ...] in the order given."""
+    groups, index = [], {}
+    for s in substrands:
+        if s.topic_id not in index:
+            index[s.topic_id] = len(groups)
+            groups.append((s.topic, []))
+        groups[index[s.topic_id]][1].append(s)
+    return groups
+
+
+def _rubric_text(topics):
+    """The design publishes its rubric per strand, not per sub-strand."""
+    blocks = []
+    for t in topics:
+        lines = []
+        for r in (t.assessment_rubric or [])[:6]:
+            ind = r.get("indicator", "")
+            if ind:
+                lines.append(f"- {ind} | meets expectations: {r.get('meets', '')}")
+        if lines:
+            head = f"{t.kicd_code} {t.name}".strip()
+            blocks.append(f"For strand {head}:\n" + "\n".join(lines))
+    if not blocks:
+        return ""
+    return ("\nASSESSMENT RUBRICS FROM THE DESIGN (what 'meeting "
+            "expectations' looks like):\n" + "\n\n".join(blocks))
+
+
+def build_prompt(substrands, *, count=10, description="", mcq_ratio=0.6,
                  want_diagram=False):
-    """Assemble the generation prompt from the stored KICD design."""
-    topic = substrand.topic
+    """Assemble the generation prompt from the stored KICD design.
+
+    Takes however many sub-strands were ticked. Each is given a tag - [S1],
+    [S2] - and every question must come back carrying the tag it assesses, so
+    a printed paper can say which part of the design each question came from
+    and a facilitator can see the coverage is real.
+    """
+    subs = _as_list(substrands)
+    if not subs:
+        raise ValueError("No sub-strands given")
+
+    topic = subs[0].topic
     subject = topic.subject
     n_mcq = max(0, round(count * mcq_ratio))
     n_struct = count - n_mcq
 
-    rubric = topic.assessment_rubric or []
-    rubric_text = ""
-    if rubric:
-        lines = []
-        for r in rubric[:6]:
-            ind = r.get("indicator", "")
-            meets = r.get("meets", "")
-            if ind:
-                lines.append(f"- {ind} | meets expectations: {meets}")
-        if lines:
-            rubric_text = (
-                "\nASSESSMENT RUBRIC FOR THIS STRAND (what 'meeting "
-                "expectations' looks like):\n" + "\n".join(lines))
+    groups = _grouped(subs)
+    blocks, tag = [], 0
+    for t, members in groups:
+        lines = [f"STRAND {t.kicd_code} {t.name}".rstrip()]
+        for s in members:
+            tag += 1
+            s._tag = tag                      # read back in _validate
+            head = f"  [S{tag}] Sub-strand {s.kicd_code} {s.name}".rstrip()
+            if s.suggested_duration:
+                head += f" ({s.suggested_duration})"
+            lines.append(head)
+            lines.append("    Specific learning outcomes:")
+            lines.append(_bullets(s.learning_outcomes, indent="      "))
+            if s.inquiry_questions:
+                lines.append("    Key inquiry questions:")
+                lines.append(_bullets(s.inquiry_questions, 2, indent="      "))
+        blocks.append("\n".join(lines))
+
+    design = "\n\n".join(blocks)
+    competencies = _bullets(subs[0].core_competencies, 4)
+
+    if len(subs) == 1:
+        spread = ("Spread the questions across the learning outcomes above "
+                  "rather than clustering on one, and across Bloom levels "
+                  "rather than all recall.")
+    else:
+        per = max(1, count // len(subs))
+        spread = (
+            f"The paper covers {len(subs)} sub-strands. Spread the {count} "
+            f"questions across ALL of them - roughly {per} per sub-strand, "
+            f"and every sub-strand listed must get at least one question. "
+            f"Order the questions so the paper runs through the sub-strands "
+            f"in the order listed above. Spread across Bloom levels too, "
+            f"rather than all recall.")
 
     return f"""Write an assessment for:
 
 Grade: {topic.grade}
 Learning area: {subject.name}
-Strand: {topic.kicd_code} {topic.name}
-Sub-strand: {substrand.kicd_code} {substrand.name}
-Suggested duration in the design: {substrand.suggested_duration or 'not stated'}
 
-SPECIFIC LEARNING OUTCOMES (from the KICD curriculum design - assess these \
-and only these):
-{_bullets(substrand.learning_outcomes)}
+THE KICD CURRICULUM DESIGN TO ASSESS (assess these outcomes and only these):
 
-KEY INQUIRY QUESTIONS:
-{_bullets(substrand.inquiry_questions)}
+{design}
 
 CORE COMPETENCIES THE DESIGN TARGETS:
-{_bullets(substrand.core_competencies, 4)}
-{rubric_text}
+{competencies}
+{_rubric_text([t for t, _ in groups])}
 
 TEACHER'S REQUEST: {description.strip() or 'A standard classroom assessment.'}
-{_diagram_instruction(want_diagram, substrand)}
+{_diagram_instruction(want_diagram, subs)}
 
 Produce exactly {count} questions: {n_mcq} multiple-choice and {n_struct} \
-structured. Number them 1 to {count}, MCQs first. Spread them across the \
-learning outcomes above rather than clustering on one, and across Bloom \
-levels rather than all recall.
+structured. Number them 1 to {count}, MCQs first. {spread}
+
+Every question must carry "sub": N, the number of the [S N] sub-strand it \
+assesses. Do not invent a tag that is not listed.
 
 Return JSON in exactly this shape:
 {SCHEMA}"""
 
 
-def generate_assessment(substrand, *, count=10, description="",
-                        mcq_ratio=0.6, user=None, diagrams=True) -> dict:
-    """Generate one assessment. Returns the parsed payload."""
-    prompt = build_prompt(substrand, count=count, description=description,
+def generate_assessment(substrands, *, count=10, description="",
+                        mcq_ratio=0.6, user=None, diagrams=True,
+                        verify=True) -> dict:
+    """Generate one assessment over one or more sub-strands."""
+    subs = _as_list(substrands)
+    prompt = build_prompt(subs, count=count, description=description,
                           mcq_ratio=mcq_ratio, want_diagram=diagrams)
-    data = generate_json(prompt, SYSTEM, max_tokens=8000,
+    data = generate_json(prompt, SYSTEM, max_tokens=token_budget(count),
                          task="assessment", user=user)
     if not isinstance(data, dict) or not data.get("questions"):
         raise ValueError("Generator returned no questions")
-    data = _validate(data, substrand)
+    data = _validate(data, subs)
+
+    if verify:
+        # Before diagrams, so we never pay to draw a picture for a question
+        # that is about to be thrown out.
+        from questions.review import review_paper
+        data = review_paper(data, subs, user=user, description=description)
 
     if diagrams:
         # After validation, so a failed image never costs us the questions.
@@ -295,19 +409,48 @@ def _spread_answer(q, number):
         q["correct_answer"] = target
 
 
-def _validate(data, substrand):
+def _label(s):
+    return f"{s.kicd_code} {s.name}".strip()
+
+
+def _tag_question(q, by_tag, only):
+    """Record which sub-strand a question came from, from its [S N] tag."""
+    s = None
+    try:
+        s = by_tag.get(int(q.get("sub")))
+    except (TypeError, ValueError):
+        s = None
+    if s is None:
+        s = only                      # one sub-strand: the tag is redundant
+    q.pop("sub", None)
+    if s is None:
+        return False
+    q["substrand_id"] = s.id
+    q["substrand"] = _label(s)
+    q["strand"] = f"{s.topic.kicd_code} {s.topic.name}".strip()
+    return True
+
+
+def _validate(data, substrands):
     """Fix what is cheap to fix, flag what is not.
 
     Marks are the part teachers notice: a paper whose parts do not sum to its
     stated total gets thrown away. So the total is always recomputed from the
     questions rather than trusted.
     """
+    subs = _as_list(substrands)
+    by_tag = {getattr(s, "_tag", i): s for i, s in enumerate(subs, start=1)}
+    only = subs[0] if len(subs) == 1 else None
+
     warnings = []
     questions = []
+    untagged = 0
     for i, q in enumerate(data.get("questions", []), start=1):
         if not isinstance(q, dict) or not q.get("question_text"):
             continue
         q["number"] = i
+        if not _tag_question(q, by_tag, only):
+            untagged += 1
         q["marks"] = int(q.get("marks") or 1)
         if _has_ascii_art(q.get("question_text", "")):
             warnings.append(
@@ -349,9 +492,38 @@ def _validate(data, substrand):
 
     data["questions"] = questions
     data["total_marks"] = sum(q["marks"] for q in questions)
+
+    # A sub-strand nobody asked a question about is the failure mode of a
+    # multi-strand paper: it looks complete and quietly skips a third of what
+    # was ticked.
+    if len(subs) > 1:
+        asked = {q.get("substrand_id") for q in questions}
+        missed = [s for s in subs if s.id not in asked]
+        if missed:
+            warnings.append(
+                "No question was set on: "
+                + "; ".join(_label(s) for s in missed)
+                + ". Ask for more questions, or tick fewer sub-strands.")
+        if untagged:
+            warnings.append(
+                f"{untagged} question(s) did not say which sub-strand they "
+                f"assess, so they are unlabelled on the paper.")
+
     data["warnings"] = warnings
-    data.setdefault("title", f"{substrand.name} Assessment")
-    data["covers"] = (
-        f"{substrand.topic.kicd_code} {substrand.topic.name} "
-        f"({substrand.kicd_code} {substrand.name})").strip()
+    data.setdefault("title", f"{subs[0].name} Assessment" if subs
+                    else "Assessment")
+    data["covers"] = _covers(subs)
+    data["substrands"] = [{"id": s.id, "label": _label(s),
+                           "strand": f"{s.topic.kicd_code} {s.topic.name}".strip()}
+                          for s in subs]
     return data
+
+
+def _covers(subs):
+    """One line naming what the paper assesses, grouped by strand."""
+    parts = []
+    for t, members in _grouped(subs):
+        head = f"{t.kicd_code} {t.name}".strip()
+        kids = ", ".join(_label(s) for s in members)
+        parts.append(f"{head} ({kids})" if kids else head)
+    return "; ".join(parts)

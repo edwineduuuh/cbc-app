@@ -10,7 +10,7 @@ const API =
   process.env.NEXT_PUBLIC_API_URL ||
   "https://cbc-backend-production-0fd4.up.railway.app/api";
 
-const COUNTS = [5, 10, 15, 20, 25, 30];
+const COUNTS = [5, 10, 15, 20, 25, 30, 40];
 
 // Generation takes roughly a minute. A spinner alone reads as "hung" at that
 // length, so step through what is happening and keep an elapsed counter.
@@ -24,7 +24,7 @@ const STAGES = [
 
 export default function AssessmentsPage() {
   const router = useRouter();
-  const [substrand, setSubstrand] = useState(null);
+  const [selection, setSelection] = useState(null);
   const [count, setCount] = useState(10);
   const [description, setDescription] = useState("");
   const [diagrams, setDiagrams] = useState(true);
@@ -36,8 +36,10 @@ export default function AssessmentsPage() {
 
   useEffect(() => () => timers.current.forEach(clearInterval), []);
 
+  const chosen = selection?.substrands || [];
+
   const generate = async () => {
-    if (!substrand || busy) return;
+    if (!selection || busy) return;
     setBusy(true); setError(""); setStage(0); setElapsed(0);
 
     const t1 = setInterval(() => setElapsed((s) => s + 1), 1000);
@@ -53,7 +55,11 @@ export default function AssessmentsPage() {
     try {
       const r = await fetchWithAuth(`${API}/facilitator/assessments/generate/`, {
         method: "POST",
-        body: JSON.stringify({ substrand: substrand.id, count, description, diagrams }),
+        body: JSON.stringify({
+          strands: selection.strandIds,
+          substrands: selection.substrandIds,
+          count, description, diagrams,
+        }),
         signal: ac.signal,
       });
       const d = await r.json();
@@ -80,29 +86,58 @@ export default function AssessmentsPage() {
       </p>
 
       <div className="bg-white rounded-2xl border border-gray-200 p-5 sm:p-6 space-y-5">
-        <CurriculumPicker onSelect={setSubstrand} />
+        <CurriculumPicker onSelect={setSelection} />
 
         {/* What the questions will be based on. Shown before generating so a
             facilitator can tell this is the real design, not invented. */}
-        {substrand && (
+        {chosen.length === 1 && (
           <div className="rounded-xl border border-emerald-200 bg-emerald-50/60 p-4">
             <p className="text-xs font-semibold uppercase tracking-wide text-emerald-800">
               Will assess these learning outcomes
             </p>
             <ol className="mt-2 space-y-1">
-              {(substrand.learning_outcomes || []).map((o, i) => (
+              {(chosen[0].learning_outcomes || []).map((o, i) => (
                 <li key={i} className="text-xs text-gray-700 flex gap-1.5">
                   <span className="text-gray-400">{String.fromCharCode(97 + i)})</span>
                   <span>{o}</span>
                 </li>
               ))}
             </ol>
-            {(substrand.inquiry_questions || []).length > 0 && (
+            {(chosen[0].inquiry_questions || []).length > 0 && (
               <p className="mt-2 text-xs italic text-gray-600">
-                {substrand.inquiry_questions[0]}
+                {chosen[0].inquiry_questions[0]}
               </p>
             )}
           </div>
+        )}
+
+        {chosen.length > 1 && (
+          <div className="rounded-xl border border-emerald-200 bg-emerald-50/60 p-4">
+            <p className="text-xs font-semibold uppercase tracking-wide text-emerald-800">
+              This paper will cover {chosen.length} sub-strands
+            </p>
+            <ul className="mt-2 grid sm:grid-cols-2 gap-x-4 gap-y-1">
+              {chosen.map((s) => (
+                <li key={s.id} className="text-xs text-gray-700">
+                  {s.kicd_code ? `${s.kicd_code} ` : ""}{s.name}
+                </li>
+              ))}
+            </ul>
+            <p className="mt-2 text-[11px] text-gray-500">
+              {chosen.reduce((n, s) => n + (s.outcome_count || 0), 0)} learning
+              outcomes in total.
+            </p>
+          </div>
+        )}
+
+        {/* Ten questions over fourteen sub-strands is not an assessment of
+            any of them. Say so before it is paid for, not after. */}
+        {chosen.length > count && (
+          <p className="flex items-start gap-2 text-sm text-amber-800 bg-amber-50 border border-amber-200 rounded-xl px-3 py-2">
+            <AlertTriangle className="w-4 h-4 mt-0.5 shrink-0" />
+            {count} questions across {chosen.length} sub-strands means some get
+            no question at all. Ask for more questions, or tick fewer.
+          </p>
         )}
 
         <div className="grid sm:grid-cols-2 gap-4">
@@ -161,7 +196,7 @@ export default function AssessmentsPage() {
 
         <button
           onClick={generate}
-          disabled={!substrand || busy}
+          disabled={!selection || busy}
           className="w-full flex items-center justify-center gap-2 rounded-xl bg-emerald-600 px-4 py-3 text-sm font-semibold text-white hover:bg-emerald-700 disabled:bg-gray-200 disabled:text-gray-400"
         >
           {busy ? <Loader2 className="w-4 h-4 animate-spin" /> : <Sparkles className="w-4 h-4" />}

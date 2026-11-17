@@ -26,6 +26,66 @@ logger = logging.getLogger("generation")
 
 MAX_QUESTIONS = 40
 
+# Past this many sub-strands the design text alone crowds out the questions,
+# and a paper spread that thin tests nothing properly.
+MAX_SUBSTRANDS = 25
+
+
+def _as_id_list(value):
+    out = []
+    for v in (value if isinstance(value, (list, tuple)) else [value]):
+        try:
+            out.append(int(v))
+        except (TypeError, ValueError):
+            continue
+    return out
+
+
+def _resolve_substrands(data):
+    """Work out which sub-strands a request means. Returns (list, error).
+
+    A strand with none of its sub-strands ticked means all of them: that is
+    how the picker presents it, and it saves ticking fourteen boxes to say
+    "the whole strand".
+    """
+    qs = (Substrand.objects
+          .select_related("topic", "topic__subject")
+          .exclude(learning_outcomes=[]))
+
+    ids = _as_id_list(data.get("substrands") or data.get("substrand") or [])
+    strand_ids = _as_id_list(data.get("strands") or [])
+
+    chosen = list(qs.filter(id__in=ids)) if ids else []
+
+    # Strands whose sub-strands were not individually ticked.
+    covered = {s.topic_id for s in chosen}
+    rest = [t for t in strand_ids if t not in covered]
+    if rest:
+        chosen += list(qs.filter(topic_id__in=rest))
+
+    if not chosen:
+        if ids or strand_ids:
+            return [], ("Nothing selected has KICD learning outcomes loaded, "
+                        "so an assessment cannot be grounded in the design.")
+        return [], "Select at least one strand or sub-strand."
+
+    # De-duplicate, then put them in curriculum order so the paper reads the
+    # way the design does.
+    seen, unique = set(), []
+    for s in chosen:
+        if s.id not in seen:
+            seen.add(s.id)
+            unique.append(s)
+    unique.sort(key=lambda s: (s.topic.kicd_code or "", s.topic.name,
+                               s.order or 0, s.kicd_code or "", s.name))
+
+    grades = {s.topic.grade for s in unique}
+    subjects = {s.topic.subject_id for s in unique}
+    if len(grades) > 1 or len(subjects) > 1:
+        return [], "All sub-strands must come from the same grade and learning area."
+
+    return unique[:MAX_SUBSTRANDS], ""
+
 
 def _is_facilitator(user):
     return (user.role in ("teacher", "admin", "superadmin", "school_admin")
@@ -43,6 +103,9 @@ def _summarise(o: GeneratedOutput) -> dict:
         "subject": o.subject.name if o.subject else "",
         "strand": o.topic.name if o.topic else "",
         "substrand": o.substrand.name if o.substrand else "",
+        # What the paper actually covers, which for a multi-strand paper is
+        # the only honest answer to "what is this?".
+        "covers": (o.payload or {}).get("covers", ""),
         "bookmarked": o.bookmarked,
         "created_at": o.created_at,
         "edited_at": o.edited_at,
@@ -80,6 +143,35 @@ def curriculum_tree(request):
         } for s in subs]})
 
     if subject_id and grade:
+        # tree=1 returns every strand with its sub-strands nested, so the
+        # picker can offer tick boxes for all of them at once instead of one
+        # request per strand opened.
+        if request.query_params.get("tree"):
+            topics = (Topic.objects
+                      .filter(subject_id=subject_id, grade=grade)
+                      .prefetch_related("substrands")
+                      .order_by("kicd_code", "order", "name"))
+            strands = []
+            for t in topics:
+                subs = sorted(
+                    (s for s in t.substrands.all() if s.learning_outcomes),
+                    key=lambda s: (s.order or 0, s.kicd_code or "", s.name))
+                if not subs:
+                    continue
+                strands.append({
+                    "id": t.id, "name": t.name, "kicd_code": t.kicd_code,
+                    "has_rubric": bool(t.assessment_rubric),
+                    "substrand_count": len(subs),
+                    "substrands": [{
+                        "id": s.id, "name": s.name, "kicd_code": s.kicd_code,
+                        "suggested_duration": s.suggested_duration,
+                        "outcome_count": len(s.learning_outcomes or []),
+                        "learning_outcomes": s.learning_outcomes,
+                        "inquiry_questions": s.inquiry_questions,
+                    } for s in subs],
+                })
+            return Response({"strands": strands})
+
         topics = (Topic.objects
                   .filter(subject_id=subject_id, grade=grade)
                   .annotate(n=Count("substrands",
@@ -112,26 +204,21 @@ def curriculum_tree(request):
 @api_view(["POST"])
 @permission_classes([IsAuthenticated])
 def generate_assessment_view(request):
-    """POST {substrand, count, description, mcq_ratio} -> a saved assessment."""
+    """POST -> a saved assessment.
+
+    Takes {substrands: [id, ...]} - a paper usually covers several sub-strands,
+    which is how an end-of-term test is actually set. {strands: [id, ...]}
+    means every sub-strand of those strands, so a facilitator can tick a whole
+    strand without ticking its children. {substrand: id} is still accepted.
+    """
     if not _is_facilitator(request.user):
         return Response({"error": "Facilitator access required"},
                         status=status.HTTP_403_FORBIDDEN)
 
     data = request.data or {}
-    substrand_id = data.get("substrand")
-    if not substrand_id:
-        return Response({"error": "substrand is required"},
-                        status=status.HTTP_400_BAD_REQUEST)
-
-    substrand = get_object_or_404(
-        Substrand.objects.select_related("topic", "topic__subject"),
-        pk=substrand_id)
-
-    if not substrand.learning_outcomes:
-        return Response(
-            {"error": "This sub-strand has no KICD learning outcomes loaded, "
-                      "so an assessment cannot be grounded in the design."},
-            status=status.HTTP_400_BAD_REQUEST)
+    chosen, err = _resolve_substrands(data)
+    if err:
+        return Response({"error": err}, status=status.HTTP_400_BAD_REQUEST)
 
     try:
         count = int(data.get("count") or 10)
@@ -141,7 +228,7 @@ def generate_assessment_view(request):
 
     try:
         payload = generate_assessment(
-            substrand,
+            chosen,
             count=count,
             description=(data.get("description") or "")[:1000],
             mcq_ratio=float(data.get("mcq_ratio") or 0.6),
@@ -160,18 +247,26 @@ def generate_assessment_view(request):
                         status=status.HTTP_502_BAD_GATEWAY)
 
     from django.conf import settings
+    first = chosen[0]
+    topics = {s.topic_id for s in chosen}
     out = GeneratedOutput.objects.create(
         teacher=request.user,
         tool="assessment",
-        title=payload.get("title") or f"{substrand.name} Assessment",
-        substrand=substrand,
-        topic=substrand.topic,
-        grade=substrand.topic.grade,
-        subject=substrand.topic.subject,
+        title=payload.get("title") or f"{first.name} Assessment",
+        # Only pin the row to one strand or sub-strand when it really is
+        # about one. A paper across four strands filed under the first would
+        # be a lie in the library listing.
+        substrand=first if len(chosen) == 1 else None,
+        topic=first.topic if len(topics) == 1 else None,
+        grade=first.topic.grade,
+        subject=first.topic.subject,
         payload=payload,
         inputs={"count": count,
                 "description": data.get("description") or "",
-                "mcq_ratio": data.get("mcq_ratio") or 0.6},
+                "mcq_ratio": data.get("mcq_ratio") or 0.6,
+                "diagrams": bool(data.get("diagrams", True)),
+                "substrands": [s.id for s in chosen],
+                "strands": sorted(topics)},
         model_used=getattr(settings, "GEN_MODEL", "") or "",
     )
     return Response({"id": out.id, **_summarise(out), "payload": payload},

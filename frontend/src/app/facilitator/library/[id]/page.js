@@ -324,7 +324,12 @@ export default function LibraryItemPage() {
                       <p className="mt-2 text-[11px] text-gray-400">
                         {q.marks} {q.marks === 1 ? "mark" : "marks"}
                         {` · ${TYPE_LABEL[q.type] || q.type}`}
-                        {item.substrand ? ` · ${item.substrand}` : ""}
+                        {/* Which part of the design this one came from. On a
+                            paper spanning several sub-strands that differs per
+                            question, so the item's own label will not do. */}
+                        {q.substrand || item.substrand
+                          ? ` · ${q.substrand || item.substrand}`
+                          : ""}
                       </p>
                     </>
                   )}
