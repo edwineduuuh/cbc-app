@@ -26,6 +26,8 @@ import re
 import time
 
 from questions.generation import generate_json
+from questions.knec_format import (KNEC_STYLE, exemplars_for, paper_shape,
+                                   scaled_sections)
 from questions.subject_style import depth_for, reading_level, style_for
 
 logger = logging.getLogger("generation")
@@ -278,7 +280,7 @@ def _rubric_text(topics):
 
 
 def build_prompt(substrands, *, count=10, description="", mcq_ratio=None,
-                 want_diagram=False):
+                 want_diagram=False, section=None):
     """Assemble the generation prompt from the stored KICD design.
 
     Takes however many sub-strands were ticked. Each is given a tag - [S1],
@@ -297,7 +299,21 @@ def build_prompt(substrands, *, count=10, description="", mcq_ratio=None,
     # what the facilitator wrote and by what this learning area is normally
     # assessed with. A hard-coded 60% multiple-choice made every paper a
     # recognition quiz no matter what was asked for.
-    if mcq_ratio is None:
+    # A full KNEC paper is generated one section at a time, so this pass is
+    # told exactly which section it is writing and nothing else.
+    if section:
+        if section["type"] == "mcq":
+            mix = (f"You are writing {section['name'] or 'the paper'} only. "
+                   f"EVERY question is multiple-choice with four options "
+                   f"A-D and is worth exactly 1 mark. Write no structured "
+                   f"questions.")
+        else:
+            mix = (f"You are writing {section['name'] or 'the paper'} only. "
+                   f"EVERY question is structured with parts (a), (b) and "
+                   f"where it helps (c), each part carrying its own marks. "
+                   f"Each question is worth {section['marks']} marks or "
+                   f"close to it. Write no multiple-choice questions.")
+    elif mcq_ratio is None:
         mix = (
             "Decide the mix of multiple-choice and structured questions "
             "yourself. The teacher's request above governs: if they asked "
@@ -354,6 +370,10 @@ def build_prompt(substrands, *, count=10, description="", mcq_ratio=None,
     # papers in the same shape.
     style = style_for(subject.name)
     reading = reading_level(topic.grade)
+    # How a real KNEC paper at this grade is built, and how its questions are
+    # actually worded - read off KJSEA and KPSEA papers.
+    shape = paper_shape(topic.grade, count)
+    examples = exemplars_for(subject.name)
 
     return f"""Write an assessment for:
 
@@ -362,6 +382,12 @@ Learning area: {subject.name}
 {style}
 
 {reading}
+
+{KNEC_STYLE}
+
+{examples}
+
+{shape}
 
 THE KICD CURRICULUM DESIGN TO ASSESS (assess these outcomes and only these):
 
@@ -388,7 +414,7 @@ Return JSON in exactly this shape:
 
 def generate_assessment(substrands, *, count=10, description="",
                         mcq_ratio=None, user=None, diagrams=True,
-                        verify=True) -> dict:
+                        verify=True, full_paper=False) -> dict:
     """Generate one assessment over one or more sub-strands."""
     subs = _as_list(substrands)
     started = time.time()
@@ -397,12 +423,42 @@ def generate_assessment(substrands, *, count=10, description="",
     def mark(name):
         marks.append((name, round(time.time() - started, 1)))
 
-    prompt = build_prompt(subs, count=count, description=description,
-                          mcq_ratio=mcq_ratio, want_diagram=diagrams)
-    data = generate_json(prompt, SYSTEM, max_tokens=token_budget(count),
-                         task="assessment", user=user)
-    if not isinstance(data, dict) or not data.get("questions"):
-        raise ValueError("Generator returned no questions")
+    sections = scaled_sections(subs[0].topic.grade, count) if full_paper else None
+
+    if sections:
+        # One call per section. A single call for forty questions runs out of
+        # budget and drifts; each section also gets instructions for only the
+        # kind of question it contains.
+        data, raw = {}, []
+        for i, sec in enumerate(sections):
+            prompt = build_prompt(subs, count=sec["count"],
+                                  description=description,
+                                  want_diagram=diagrams and i == len(sections) - 1,
+                                  section=sec)
+            part = generate_json(prompt, SYSTEM,
+                                 max_tokens=token_budget(sec["count"]),
+                                 task=f"assessment-{sec['type']}", user=user)
+            if not isinstance(part, dict) or not part.get("questions"):
+                raise ValueError(f"Generator returned no {sec['name']}")
+            got = [q for q in part["questions"] if isinstance(q, dict)]
+            for q in got:
+                q["section"] = sec["name"]
+            raw += got
+            if not data:
+                data = {k: v for k, v in part.items() if k != "questions"}
+            mark(sec["name"].lower().replace(" ", "-") or "written")
+        data["questions"] = raw
+        data["sections"] = [{"name": s["name"], "type": s["type"],
+                             "instruction": s["instruction"]}
+                            for s in sections]
+    else:
+        prompt = build_prompt(subs, count=count, description=description,
+                              mcq_ratio=mcq_ratio, want_diagram=diagrams)
+        data = generate_json(prompt, SYSTEM, max_tokens=token_budget(count),
+                             task="assessment", user=user)
+        if not isinstance(data, dict) or not data.get("questions"):
+            raise ValueError("Generator returned no questions")
+
     data = _validate(data, subs)
     mark("written")
 

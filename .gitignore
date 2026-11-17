@@ -18,3 +18,5 @@ test_unicode.py
 .claude/settings.json
 media/
 frontend/src/lib/nav.code-search
+knec_raw/*
+!knec_raw/README.md
