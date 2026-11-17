@@ -1086,6 +1086,27 @@ Respond with JSON:
 #  LESSON PLANS
 # ─────────────────────────────────────────────
 
+class CurriculumLoad(models.Model):
+    """Fingerprint of the KICD data last loaded into this database.
+
+    Exists so a deploy can reload the curriculum when - and only when - the
+    parsed designs have actually changed. Counting rows cannot tell you that:
+    a corrected parse can produce the same number of sub-strands as the wrong
+    one it replaces, which is exactly what happened when strands were being
+    merged together.
+    """
+    fingerprint = models.CharField(max_length=64, unique=True)
+    substrands = models.IntegerField(default=0)
+    loaded_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        db_table = "curriculum_loads"
+        ordering = ["-loaded_at"]
+
+    def __str__(self):
+        return f"{self.fingerprint[:12]} - {self.substrands} sub-strands"
+
+
 class ApiCall(models.Model):
     """One row per AI call. Rule 5: if the bill spikes you have a bug, not a
     business - and you cannot see a spike you never recorded.

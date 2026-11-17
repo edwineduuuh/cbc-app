@@ -21,6 +21,7 @@ unmatched. So:
 Re-runnable: matching and loading are idempotent, so fixing one mapping and
 running again does not duplicate anything.
 """
+import hashlib
 import json
 import re
 from difflib import SequenceMatcher
@@ -136,6 +137,15 @@ def similarity(a, b):
     return ratio
 
 
+def _fingerprint(files):
+    """Content hash of every parsed design, so a changed parse is detectable."""
+    h = hashlib.sha256()
+    for f in sorted(files, key=lambda p: p.name):
+        h.update(f.name.encode("utf-8"))
+        h.update(f.read_bytes())
+    return h.hexdigest()
+
+
 class Command(BaseCommand):
     help = "Map kicd_parsed/*.json onto Subject/Topic/Substrand rows."
 
@@ -172,27 +182,20 @@ class Command(BaseCommand):
                 return
             raise SystemExit(f"No parsed JSON in {PARSED_DIR}. Run ingest_kicd first.")
 
+        fingerprint = _fingerprint(files)
         if opts["if_needed"]:
-            # Deploy guard: has the curriculum ever been loaded here?
-            #
-            # Deliberately not "are all designs loaded" - with
-            # --no-new-subjects, and with uncertain strand matches held back
-            # for review, the number in the database is legitimately lower
-            # than the number on disk, so that comparison would reload
-            # everything on every deploy.
-            #
-            # Consequence worth knowing: adding new designs needs one manual
-            # run without this flag. That is the right trade - a deploy should
-            # not silently rewrite 1,300 rows each time it runs.
-            loaded = (Substrand.objects
-                      .exclude(learning_outcomes=[])
-                      .exclude(learning_outcomes=None).count())
-            if loaded > 0:
+            # Deploy guard. Reload when the parsed designs have changed, not
+            # merely when the table is empty: a corrected parse can produce
+            # the same row count as the wrong one it replaces, so counting
+            # rows would leave bad data in place forever.
+            from questions.models import CurriculumLoad
+            if CurriculumLoad.objects.filter(fingerprint=fingerprint).exists():
                 self.stdout.write(
-                    f"Curriculum already loaded ({loaded} sub-strands with "
-                    f"outcomes). Skipping - run without --if-needed to refresh.")
+                    f"Curriculum already loaded and unchanged "
+                    f"({fingerprint[:12]}). Skipping.")
                 return
-            self.stdout.write("No curriculum loaded yet - loading.")
+            self.stdout.write(
+                f"Parsed designs changed ({fingerprint[:12]}) - loading.")
 
         grades = None
         if opts["grades"]:
@@ -360,6 +363,14 @@ class Command(BaseCommand):
               ["subject/grade", "KICD strand", "closest topic", "score"])
         table("CREATED (no close match)", created_rows,
               ["subject/grade", "kind", "name", ""])
+
+        if not dry:
+            from questions.models import CurriculumLoad
+            CurriculumLoad.objects.get_or_create(
+                fingerprint=fingerprint,
+                defaults={"substrands": stats["substrands_created"]
+                          + stats["substrands_updated"]},
+            )
 
         if skipped_subjects:
             self.stdout.write(self.style.WARNING(
