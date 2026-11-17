@@ -39,21 +39,73 @@ JUNIOR_SCHOOL = {           # Grades 7-9, KJSEA shape
     ],
 }
 
-# Grade 10+. PROVISIONAL: the first Senior School cohort started in January
-# 2026, so there is no national paper to read this off the way the Primary
-# and Junior School shapes were read off KPSEA and KJSEA. Do not assert what
-# a Senior School paper does or does not contain until a real one replaces
-# this - an earlier version claimed it has no multiple-choice, which was
-# borrowed from KCSE, a different system's examination.
+# Grade 10, read off the real KNEC School Based Assessment papers of October
+# 2026 - CRE, Biology, Physics, Chemistry, Computer Studies, Business
+# Studies, History and Citizenship, Agriculture, Home Science, Geography,
+# Essential Mathematics, Music and Dance, HRE.
+#
+# Senior School is assessed by SBA, not by KCSE. Every one of those papers
+# opens with a multiple-choice Section A - 30 items in Biology, 20 in CRE and
+# most others, 10 in Physics and Chemistry - then a structured Section B, and
+# several add an essay Section C. An earlier version of this file claimed
+# Senior School has no multiple-choice at all, which was borrowed from KCSE,
+# a different system's examination, and was simply wrong.
 SENIOR_SCHOOL = {
     "sections": [
-        {"name": "SECTION A", "type": "mcq", "count": 10, "marks": 1,
+        {"name": "SECTION A", "type": "mcq", "count": 20, "marks": 1,
          "instruction": "Answer ALL the questions in this section."},
         {"name": "SECTION B", "type": "structured", "count": 10, "marks": 5,
          "instruction": "Answer ALL the questions in this section in the "
                         "spaces provided."},
     ],
 }
+
+SENIOR_STYLE = """THIS IS A GRADE 10 SCHOOL BASED ASSESSMENT. It is written \
+differently from Junior School, and the short-stem rule above does NOT apply \
+to Section A here.
+
+- A SECTION A STEM IS A SCENARIO, AND IT ADDRESSES THE LEARNER DIRECTLY. \
+Real examples: "Your class prefect reported you to the teacher that he saw \
+you with a mobile phone so as to cover up for his best friend who was the \
+owner of the phone. This made your teacher to punish you for the entire \
+week. Select the commandment that the prefect failed to observe." / "A \
+learner compares two plots shown in a photo: one is gently sloping with deep \
+soil, while the other is steep, rocky, and shallow. Which factor should the \
+learner consider when selecting a suitable plot?" / "Engineer's club plans to \
+use a waterproof camera to record videos at the bottom of a deep-water tank. \
+Before lowering the camera, the learners decided to strengthen its outer \
+casing. Why do you think this is necessary?" Two or three sentences of real \
+situation, then the question.
+
+- THE STEMS ASK FOR A JUDGEMENT, not a fact: "Select the most suitable \
+method", "Choose the statement that best summarises", "Which action would \
+give the strongest evidence", "Which of the following best explains", "Which \
+management practice would most likely increase yield", "What is the most \
+appropriate conclusion". The controlling word - best, most, strongest, \
+correct, except - is bold.
+
+- OPTIONS MAY BE A SET OF ROMAN-NUMERALLED STATEMENTS the learner must \
+choose between: the stem lists (i) to (iv), and the options are "i, ii and \
+iv only" / "ii and iii only". They may also be four named learners each \
+making a statement, a two-column table to match, or a sequence to put in \
+order.
+
+- SECTION B IS "N POINTS FOR N MARKS", often five: "Suggest five possible \
+measures that learners in your school can adopt to promote the daily reading \
+of the Bible. (5 Marks)" / "Analyse five reasons why the learners are \
+abusing those drugs. (5 Marks)". In the sciences it is instead parts (a), \
+(b), (c) built on one stimulus - a figure, a data table, a described \
+investigation - each part carrying its own marks.
+
+- MARKING IS WRITTEN AS "Any 3 x 2 = 6 marks" or "Any 4 x 1 = 4 marks": the \
+scheme lists more acceptable points than the learner needs, and says how \
+many are required and what each is worth. In Mathematics it is M1 for the \
+method, A1 for the accurate answer, B1 for an independent correct statement.
+
+- The command verbs carry their weight: State, Name, Identify, Give, List \
+and Highlight are 1 mark a point; Describe, Explain, Outline, Analyse, \
+Assess and Justify are 2 marks a point; Discuss and Evaluate carry a longer \
+answer."""
 
 PRIMARY = {                 # Grades 4-6, KPSEA shape
     "sections": [
@@ -100,8 +152,10 @@ def scaled_sections(grade, count: int) -> list[dict]:
         return [dict(secs[0], count=max(1, count))]
 
     if b is SENIOR_SCHOOL:
-        # Fewer multiple-choice than Junior School, pending a real paper.
-        n_mcq = max(1, round(count * 0.3))
+        # The real SBA papers are mostly Section A by item count, and mostly
+        # Section B by marks: CRE is 20 MCQ and 6 structured, Biology 30 and
+        # 12, Agriculture 20 and 5.
+        n_mcq = max(1, round(count * 0.55))
     else:
         n_mcq = max(1, round(count * 0.5))
     split = (n_mcq, count - n_mcq)
@@ -118,17 +172,15 @@ def paper_shape(grade, count: int) -> str:
     b = blueprint(grade)
 
     if b is SENIOR_SCHOOL:
-        n_short = count - max(1, round(count * 0.25))
+        n_mcq = max(1, round(count * 0.55))
         return (
-            f"PAPER SHAPE: this is SENIOR SCHOOL. Use both multiple-choice "
-            f"and structured questions, with the structured ones carrying "
-            f"most of the marks - about {n_short} shorter questions and "
-            f"{count - n_short} longer ones with several parts. The command "
-            f"verb sets the marks: State, Name, Identify and Give are worth "
-            f"1 mark per point; Describe, Explain, Distinguish and Outline "
-            f"are worth 2 marks per point; Account for and Justify demand a "
-            f"reasoned answer worth 2 or more. A learner at this level is "
-            f"expected to apply and analyse, not recall.")
+            f"PAPER SHAPE: this is a Grade 10 SCHOOL BASED ASSESSMENT. The "
+            f"real papers run SECTION A of multiple-choice at one mark each, "
+            f"then SECTION B of structured questions carrying most of the "
+            f"marks. Unless the teacher asked for something else, set "
+            f"{n_mcq} Section A questions and {count - n_mcq} Section B "
+            f"questions, with Section B questions worth 4 to 6 marks each.\n\n"
+            + SENIOR_STYLE)
 
     if len(b["sections"]) == 1:
         return (
