@@ -37,8 +37,29 @@ export default function CurriculumPicker({ onSelect }) {
   const load = useCallback(async (qs, key, setter, label) => {
     setBusy(label);
     setError("");
+
+    // The backend sleeps when idle and a cold start can take 30s+, which is
+    // longer than the shared client's 25s abort. Give this call its own,
+    // longer signal and retry once, so a sleeping server looks like a slow
+    // page rather than a broken one.
+    const attempt = (ms) => {
+      const ac = new AbortController();
+      const t = setTimeout(() => ac.abort(), ms);
+      return fetchWithAuth(`${API}/facilitator/curriculum/${qs}`, {
+        signal: ac.signal,
+      }).finally(() => clearTimeout(t));
+    };
+
     try {
-      const r = await fetchWithAuth(`${API}/facilitator/curriculum/${qs}`);
+      let r;
+      try {
+        r = await attempt(45000);
+      } catch (first) {
+        if (first?.name !== "AbortError") throw first;
+        setError("Waking the server up, one moment...");
+        r = await attempt(45000);      // cold start is a one-off cost
+      }
+      setError("");
 
       // Say which thing is actually wrong. "Check your connection" sends
       // someone hunting their wifi when the real cause is a backend that
@@ -71,8 +92,12 @@ export default function CurriculumPicker({ onSelect }) {
           "“manage.py load_kicd”, or redeploy so it runs automatically."
         );
       }
-    } catch {
-      setError("Could not reach the server. Check your connection.");
+    } catch (e) {
+      setError(
+        e?.name === "AbortError"
+          ? "The server is taking too long to wake up. Reload the page in a moment."
+          : "Could not reach the server. Check your connection."
+      );
       setter([]);
     } finally {
       setBusy("");
