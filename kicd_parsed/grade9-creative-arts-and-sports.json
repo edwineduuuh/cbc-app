@@ -631,7 +631,60 @@
       "identify types of indigenous board games played in Kenya",
       "perform different indigenous board games",
       "perform indigenous board games to background music for enjoyment",
-      "appreciate the role played by indigenous board games for mental health.",
+      "appreciate the role played by indigenous board games for mental health."
+     ],
+     "learning_experiences": [
+      "watch a virtual or live demonstration of indigenous board games and identify the skills observed in the games",
+      "demonstrate indigenous board game skills while observing safety",
+      "practice skills in different indigenous board games while observing safety",
+      "play games using different indigenous board games with background musical rhythm."
+     ],
+     "inquiry_questions": [
+      "1. How do indigenous board games enhance mental relaxation?",
+      "2. Why are board games considered an indigenous game?"
+     ],
+     "core_competencies": [
+      "Core competency to be developed:",
+      "Communication and Collaboration: the learner works with others in indigenous board games.",
+      "Learning to Learn: the learner acquires and masters skills in indigenous board games. Values:",
+      "Responsibility: the learner takes on different roles during indigenous board games.",
+      "Unity: the learner works with others in indigenous board games. Pertinent and Contemporary Issues (PCIs):",
+      "Safety: the learner observes safety rules when playing indigenous board games.",
+      "Health and Fitness: the learner improves fitness through indigenous board games for a healthy lifestyle. Link to other learning areas: Mathematics: the learner keeps counting during indigenous board games."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade9-creative-arts-and-sports.pdf#p43"
+    }
+   ]
+  },
+  {
+   "strand": "Appreciation in Creative Arts and Sports",
+   "strand_code": "3.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to examine the criteria for evaluating Creative Arts and Sports. (Rugby, mosaic, solo vocal music)",
+     "exceeds": "Examines the criteria for evaluating the 5 areas in Creative Arts and Sports in areas depth.",
+     "meets": "Examines the criteria for evaluating the 5 areas in Creative Arts and Sports correctly.",
+     "approaches": "Examines the criteria for evaluating 3-4 areas in Creative Arts and Sports.",
+     "below": "Examines the criteria for evaluating 2 or less areas in Creative Arts and Sports"
+    },
+    {
+     "indicator": "Ability to analyse performances or pieces in Creative Arts and Sports, (solo vocal music, game of rugby, mosaic artwork (organisation of the work, subject matter, theme), modelling of dummy trophy (organisation of the work, subject matter, theme), contemporary dance)",
+     "exceeds": "Analyses all the 6 performances or pieces in Creative Arts and Sports in detail.",
+     "meets": "Analyses all the 6 performances or pieces in Creative Arts and Sports.",
+     "approaches": "Analyses 3 to 5 performances or pieces in Creative Arts and Sports.",
+     "below": "Analyses less than 2 or less performances or pieces in Creative Arts and Sports."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "3.1",
+     "name": "Analysis of Creative Arts and Sports",
+     "suggested_duration": "8 lessons",
+     "learning_outcomes": [
       "analyse a play performance",
       "examine ethical practices in sports",
       "analyse a solo vocal piece of music",
@@ -639,10 +692,6 @@
       "appreciate the role of analysis in adding value to Creative Arts and Sports."
      ],
      "learning_experiences": [
-      "watch a virtual or live demonstration of indigenous board games and identify the skills observed in the games",
-      "demonstrate indigenous board game skills while observing safety",
-      "practice skills in different indigenous board games while observing safety",
-      "play games using different indigenous board games with background musical rhythm.",
       "research on the criteria for evaluating a play",
       "analyse a given play performance to evaluate theme, setting, conflict, resolution, use of voice, use of body movement, internalisation, audience involvement, props, costume, overall impression",
       "discuss ethical issues in Sports (Anti-doping)",
@@ -655,19 +704,10 @@
       "discuss ethical issues in Creative Arts."
      ],
      "inquiry_questions": [
-      "1. How do indigenous board games enhance mental relaxation?",
-      "2. Why are board games considered an indigenous game?",
       "1. Why is analysis an important skill in Creative Arts and Sports?",
       "2. How can analysis of creative arts and sports enhance creativity?"
      ],
      "core_competencies": [
-      "Core competency to be developed:",
-      "Communication and Collaboration: the learner works with others in indigenous board games.",
-      "Learning to Learn: the learner acquires and masters skills in indigenous board games. Values:",
-      "Responsibility: the learner takes on different roles during indigenous board games.",
-      "Unity: the learner works with others in indigenous board games. Pertinent and Contemporary Issues (PCIs):",
-      "Safety: the learner observes safety rules when playing indigenous board games.",
-      "Health and Fitness: the learner improves fitness through indigenous board games for a healthy lifestyle. Link to other learning areas: Mathematics: the learner keeps counting during indigenous board games.",
       "Self-Efficacy: the learner gains confidence in their ability to evaluate and appreciate diverse forms of artistic expression as they apply their knowledge and skills to assess the artistic merits of visual representations in these arts.",
       "Citizenship: the learner exhibits cultural citizenship by exploring and understanding the cultural context and significance of the folk song."
      ],
@@ -684,7 +724,7 @@
       "Social Studies: perspectives can be applied to understand the historical, cultural, and societal context of the solo vocal song and its significance within the community"
      ],
      "resources": [],
-     "kicd_source": "grade9-creative-arts-and-sports.pdf#p43"
+     "kicd_source": "grade9-creative-arts-and-sports.pdf#p47"
     }
    ]
   }

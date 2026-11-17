@@ -499,7 +499,57 @@
       "perform different indigenous animal games for skill acquisition",
       "perform indigenous animal games to a musical rhythm for enjoyment",
       "appreciate the role played by animal",
-      "games for fitness and health",
+      "games for fitness and health"
+     ],
+     "learning_experiences": [
+      "watch a virtual or live demonstration of indigenous animal game and identify the skills observed",
+      "demonstrate different animal games while observing safety",
+      "practice different animal games while observing safety",
+      "practise different types of animal games while combining it to a musical rhythm"
+     ],
+     "inquiry_questions": [
+      "1. How do indigenous animal games enhance physical fitness?",
+      "2. Why are animal games considered as indigenous activities?"
+     ],
+     "core_competencies": [
+      "Communication and Collaboration: The learner works with others in playing animal games.",
+      "Learning to learn: The learner acquires physical fitness skills while participating in animal games."
+     ],
+     "values": [
+      "Responsibility: The learner takes on different roles while playing animal games.",
+      "Unity: The learner works with others while playing animal games."
+     ],
+     "pertinent_issues": [
+      "Safety: The learner observes safety rules when playing animal games.",
+      "Health and Fitness: The learner improves fitness when playing animal games for a healthy lifestyle."
+     ],
+     "links_to_other_areas": [
+      "Mathematics: The learner keeps counting during animal games.",
+      "Agriculture: The learner's knowledge of different animals is enhanced during performance of animal games."
+     ],
+     "resources": [],
+     "kicd_source": "grade4-creative-arts-and-sports.pdf#p38"
+    }
+   ]
+  },
+  {
+   "strand": "Appreciation in Creative Arts",
+   "strand_code": "3.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to display /critique/participate in or analyse/  drawings,  painting,  photographs,  Kenya national Anthem,  Kenyan folk songs  netball,  athletics,  gymnastics,  swimming/animal games",
+     "exceeds": "Displays/ critiques/participates in or analyses the 9 items in Creative Arts in detail and/ or skilfully",
+     "meets": "Displays/ critiques/participates in or analyses the 9 items in Creative Arts correctly",
+     "approaches": "Displays/ critiques/participates in or analyses the 4-6 items in Creative Arts",
+     "below": "Displays/ critiques/participates in or analyses at least 1- 3 item in Creative Arts"
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "3.1",
+     "name": "Analysis of Creative Arts works",
+     "suggested_duration": "15 lessons",
+     "learning_outcomes": [
       "explain the concept of appreciation in Creative Arts",
       "make a portfolio for presenting creative art works",
       "showcase own and peers’ artworks in a gallery for critique",
@@ -509,10 +559,6 @@
       "value appreciation of Creative Arts works drawn from various cultural backgrounds"
      ],
      "learning_experiences": [
-      "watch a virtual or live demonstration of indigenous animal game and identify the skills observed",
-      "demonstrate different animal games while observing safety",
-      "practice different animal games while observing safety",
-      "practise different types of animal games while combining it to a musical rhythm",
       "research and brainstorm the concept of appreciation in Creative Arts",
       "collaboratively select and prepare previously created artworks for display, (drawings, painting, photographs, musical instruments, balls, clay slabs,)",
       "prepare a working portfolio from locally available resources and decorate by either pasting coloured paper/fabric",
@@ -528,43 +574,33 @@
       "appreciate the performances with focus on; teamwork, safety for self and others."
      ],
      "inquiry_questions": [
-      "1. How do indigenous animal games enhance physical fitness?",
-      "2. Why are animal games considered as indigenous activities?",
       "What is the importance of analysis in Creative Arts?"
      ],
      "core_competencies": [
-      "Communication and Collaboration: The learner works with others in playing animal games.",
-      "Learning to learn: The learner acquires physical fitness skills while participating in animal games.",
       "Self-efficacy: The learner exhibits their music and art works and sports work responsibly for appreciation.",
       "Citizenship: The learner gets to appreciate Kenyan music as they listen to and analyse Kenyan folk songs.",
       "Learning to learn: The learner takes initiative to understand how art, music and sports work.",
       "Digital Literacy: The learner appreciates different works of art displayed through multimedia."
      ],
      "values": [
-      "Responsibility: The learner takes on different roles while playing animal games.",
-      "Unity: The learner works with others while playing animal games.",
       "Unity: The learner collaborates with others when analysing in groups the execution of sports skills.",
       "Respect: The learner appreciates others while analysing the execution of sports skills in groups.",
       "Integrity: The learner observes sportsmanship during mini games.",
       "Patriotism: The learner develops the love for Kenya as they discuss aspects of the Kenya National Anthem."
      ],
      "pertinent_issues": [
-      "Safety: The learner observes safety rules when playing animal games.",
-      "Health and Fitness: The learner improves fitness when playing animal games for a healthy lifestyle.",
       "Health and safety: The learner participate in sports activities for enjoyment and fun.",
       "Social cohesion: The learner analyses in groups the execution of sports skills in inter class/inter school championships.",
       "Analytical and creative thinking: The learner analyses music and sports events, critique art works.",
       "Cultural awareness: The learner analyses folk songs and indigenous art from different parts of the world"
      ],
      "links_to_other_areas": [
-      "Mathematics: The learner keeps counting during animal games.",
-      "Agriculture: The learner's knowledge of different animals is enhanced during performance of animal games.",
       "Link to other learning areas:",
       "Social studies: The learner integrates with others while undertaking various tasks in groups",
       "English: The learner enhances listening and speaking skills in English while discussing the music listened to."
      ],
      "resources": [],
-     "kicd_source": "grade4-creative-arts-and-sports.pdf#p38"
+     "kicd_source": "grade4-creative-arts-and-sports.pdf#p42"
     }
    ]
   }

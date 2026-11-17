@@ -14,41 +14,6 @@
      "meets": "Correctly relates all fields of study in Biology to career opportunities",
      "approaches": "Relates most fields of study in Biology to career opportunities",
      "below": "Relates a few fields of study in Biology to career opportunities"
-    },
-    {
-     "indicator": "Ability to illustrate the light and dark stages of photosynthesis",
-     "exceeds": "Accurately illustrates the light and dark stages of photosynthesis",
-     "meets": "Illustrates the light and dark stages of photosynthesis",
-     "approaches": "Partly illustrates the light and dark stages of photosynthesis",
-     "below": "Partly illustrates the light and dark stages of photosynthesis with prompts"
-    },
-    {
-     "indicator": "Ability to relate the structures of the plant transport system to their functions",
-     "exceeds": "Comprehensively relates the structures of the plant transport system to their functions",
-     "meets": "Relates the structures of the plant transport system to their functions",
-     "approaches": "Relates some structures of the plant transport system to their functions",
-     "below": "Relates some structures of the plant transport system to their functions with difficulty"
-    },
-    {
-     "indicator": "Ability to describe the mechanism of opening and closing of stomata in plants",
-     "exceeds": "Comprehensively describes the mechanism of opening and closing of stomata in plants",
-     "meets": "Correctly describes all the mechanism of opening and closing of stomata in plants",
-     "approaches": "Partially describes the mechanism of opening and closing of stomata in plants",
-     "below": "Partially describes the mechanism of opening and closing of stomata in plants with prompts"
-    },
-    {
-     "indicator": "Ability to describe the economic importance of anaerobic respiration",
-     "exceeds": "Correctly describes the economic importance of anaerobic respiration citing examples",
-     "meets": "Correctly describes the economic importance of anaerobic respiration",
-     "approaches": "Describes some of the economic importance of anaerobic respiration",
-     "below": "Describes some of the economic importance of anaerobic respiration with difficulty"
-    },
-    {
-     "indicator": "Ability to describe the process of aerobic and anaerobic respiration",
-     "exceeds": "Comprehensively describes the process of aerobic and anaerobic respiration using illustrations",
-     "meets": "Describes the process of aerobic and anaerobic respiration",
-     "approaches": "Partially describes the process of aerobic and anaerobic respiration",
-     "below": "Partially describes the process of aerobic and anaerobic respiration with prompts"
     }
    ],
    "substrands": [
@@ -201,7 +166,43 @@
      "links_to_other_areas": [],
      "resources": [],
      "kicd_source": "grade10-biology.pdf#p21"
+    }
+   ]
+  },
+  {
+   "strand": "Anatomy and Physiology of Plants",
+   "strand_code": "2.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to illustrate the light and dark stages of photosynthesis",
+     "exceeds": "Accurately illustrates the light and dark stages of photosynthesis",
+     "meets": "Illustrates the light and dark stages of photosynthesis",
+     "approaches": "Partly illustrates the light and dark stages of photosynthesis",
+     "below": "Partly illustrates the light and dark stages of photosynthesis with prompts"
     },
+    {
+     "indicator": "Ability to relate the structures of the plant transport system to their functions",
+     "exceeds": "Comprehensively relates the structures of the plant transport system to their functions",
+     "meets": "Relates the structures of the plant transport system to their functions",
+     "approaches": "Relates some structures of the plant transport system to their functions",
+     "below": "Relates some structures of the plant transport system to their functions with difficulty"
+    },
+    {
+     "indicator": "Ability to describe the mechanism of opening and closing of stomata in plants",
+     "exceeds": "Comprehensively describes the mechanism of opening and closing of stomata in plants",
+     "meets": "Correctly describes all the mechanism of opening and closing of stomata in plants",
+     "approaches": "Partially describes the mechanism of opening and closing of stomata in plants",
+     "below": "Partially describes the mechanism of opening and closing of stomata in plants with prompts"
+    },
+    {
+     "indicator": "Ability to describe the economic importance of anaerobic respiration",
+     "exceeds": "Correctly describes the economic importance of anaerobic respiration citing examples",
+     "meets": "Correctly describes the economic importance of anaerobic respiration",
+     "approaches": "Describes some of the economic importance of anaerobic respiration",
+     "below": "Describes some of the economic importance of anaerobic respiration with difficulty"
+    }
+   ],
+   "substrands": [
     {
      "kicd_code": "2.1",
      "name": "Nutrition",
@@ -327,7 +328,22 @@
      "links_to_other_areas": [],
      "resources": [],
      "kicd_source": "grade10-biology.pdf#p29"
-    },
+    }
+   ]
+  },
+  {
+   "strand": "Anatomy and Physiology of Animals",
+   "strand_code": "3.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to describe the process of aerobic and anaerobic respiration",
+     "exceeds": "Comprehensively describes the process of aerobic and anaerobic respiration using illustrations",
+     "meets": "Describes the process of aerobic and anaerobic respiration",
+     "approaches": "Partially describes the process of aerobic and anaerobic respiration",
+     "below": "Partially describes the process of aerobic and anaerobic respiration with prompts"
+    }
+   ],
+   "substrands": [
     {
      "kicd_code": "3.1",
      "name": "Nutrition",

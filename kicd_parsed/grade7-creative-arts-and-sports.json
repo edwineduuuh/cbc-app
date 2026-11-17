@@ -643,7 +643,60 @@
       "identify types of indigenous rope games played in Kenya",
       "perform different indigenous rope games for skill acquisition",
       "perform indigenous rope skipping to a musical rhythm for enjoyment",
-      "appreciate the role played by indigenous rope skipping games for fitness and health.",
+      "appreciate the role played by indigenous rope skipping games for fitness and health."
+     ],
+     "learning_experiences": [
+      "watch a virtual or live demonstration of indigenous rope skipping and identify the skills observed",
+      "demonstrate indigenous rope skipping skills while observing safety",
+      "practise indigenous rope skipping while observing safety",
+      "practise different types of indigenous rope skipping while combining it to a musical rhythm."
+     ],
+     "inquiry_questions": [
+      "1. How does indigenous rope skipping enhance physical fitness?",
+      "2. Why is rope skipping considered an indigenous game?"
+     ],
+     "core_competencies": [
+      "Core competency to be developed:",
+      "Communication and Collaboration: the learner interact and works with others in indigenous rope skipping.",
+      "Learning to learn: the learner acquires and masters skills in indigenous rope skipping. Values:",
+      "Responsibility: the learner takes on different roles during indigenous rope skipping.",
+      "Unity: the learner works with others in indigenous rope skipping. Pertinent and Contemporary Issues (PCIs):",
+      "Safety: the learner observes safety rules of indigenous rope skipping.",
+      "Health and Fitness: the learner improves fitness through indigenous rope skipping for a healthy lifestyle. Link to other learning areas: Mathematics: the learner keeps counting during indigenous rope skipping."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade7-creative-arts-and-sports.pdf#p46"
+    }
+   ]
+  },
+  {
+   "strand": "Appreciation in Creative Arts and Sports",
+   "strand_code": "3.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to examine the criteria for evaluating Creative Arts and Sports.",
+     "exceeds": "Examines the criteria for evaluating Creative Arts and Sports in depth.",
+     "meets": "Examines the criteria for evaluating Creative Arts and Sports correctly.",
+     "approaches": "Examines the criteria for evaluating Creative Arts and Sports with minor omissions.",
+     "below": "Examines the criteria for evaluating Creative Arts and Sports with many omissions."
+    },
+    {
+     "indicator": "Ability to analyse performances or pieces in Creative Arts and Sports (folk song, football game, sports values, storytelling, )",
+     "exceeds": "Analyses all performances or pieces in Creative Arts and Sports critically.",
+     "meets": "Analyses all performances or pieces in Creative Arts and Sports.",
+     "approaches": "Analyses 2 to 3 performances or pieces in Creative Arts and Sports.",
+     "below": "Analyses less than 2 performances or pieces in Creative Arts and Sports."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "3.1",
+     "name": "Analysis of Creative Arts and Sports",
+     "suggested_duration": "10 lessons",
+     "learning_outcomes": [
       "examine the spirit of sports values for clean sports",
       "analyse a folk song from a Kenyan community",
       "analyse a storytelling performance",
@@ -651,10 +704,6 @@
       "appreciate the role of analysis in Creative Arts and Sports."
      ],
      "learning_experiences": [
-      "watch a virtual or live demonstration of indigenous rope skipping and identify the skills observed",
-      "demonstrate indigenous rope skipping skills while observing safety",
-      "practise indigenous rope skipping while observing safety",
-      "practise different types of indigenous rope skipping while combining it to a musical rhythm.",
       "work as a team and talk about the values in sports: fairness, teambuilding and equality",
       "analyse a given folk song paying attention to its components",
       "research on the criteria to analyse storytelling",
@@ -664,18 +713,9 @@
       "• decorate the portfolio with found object."
      ],
      "inquiry_questions": [
-      "1. How does indigenous rope skipping enhance physical fitness?",
-      "2. Why is rope skipping considered an indigenous game?",
       "Why do we analyse Creative Arts and Sports work?"
      ],
      "core_competencies": [
-      "Core competency to be developed:",
-      "Communication and Collaboration: the learner interact and works with others in indigenous rope skipping.",
-      "Learning to learn: the learner acquires and masters skills in indigenous rope skipping. Values:",
-      "Responsibility: the learner takes on different roles during indigenous rope skipping.",
-      "Unity: the learner works with others in indigenous rope skipping. Pertinent and Contemporary Issues (PCIs):",
-      "Safety: the learner observes safety rules of indigenous rope skipping.",
-      "Health and Fitness: the learner improves fitness through indigenous rope skipping for a healthy lifestyle. Link to other learning areas: Mathematics: the learner keeps counting during indigenous rope skipping.",
       "Self-Efficacy: the learner gains confidence in their ability to evaluate and appreciate diverse forms of artistic expression as they apply their knowledge and skills to assess the artistic merits of visual representations.",
       "Learning to Learn: demonstrated as the learner adapts to new information, seeks further knowledge, and refines their evaluation skills throughout the process of evaluating Creative Arts and Sports."
      ],
@@ -693,7 +733,7 @@
      ],
      "links_to_other_areas": [],
      "resources": [],
-     "kicd_source": "grade7-creative-arts-and-sports.pdf#p46"
+     "kicd_source": "grade7-creative-arts-and-sports.pdf#p50"
     }
    ]
   }

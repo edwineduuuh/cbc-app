@@ -669,29 +669,17 @@
       "identify types of indigenous tagging games played in Kenya",
       "perform different indigenous tagging games for skill acquisition",
       "perform indigenous tagging games using musical rhythm for coordination",
-      "appreciate the role played by indigenous tagging games for enjoyment.",
-      "showcase artwork for appreciation",
-      "analyse a verse performance",
-      "examine the spirit of sportsmanship in sporting activities",
-      "analyse a folk dance from a Kenyan community",
-      "appreciate the role of analysis in adding value to Creative Arts and Sports."
+      "appreciate the role played by indigenous tagging games for enjoyment."
      ],
      "learning_experiences": [
       "watch virtual or live performance of indigenous tagging games and identify the types of games observed",
       "demonstrate skills in different indigenous tagging games while observing safety",
       "practise different indigenous tagging games while observing safety",
-      "practise different indigenous tagging games with background musical rhythm.",
-      "collectively, prepare display area within school spaces",
-      "display own artwork",
-      "research on the criteria to analyse a verse",
-      "analyse a verse considering the persona, theme, language and performance",
-      "research to identify good conduct and behavior in sports",
-      "watch a recorded or live performance of a given Kenyan folk dance and analyse it."
+      "practise different indigenous tagging games with background musical rhythm."
      ],
      "inquiry_questions": [
       "1. How do indigenous tagging skills enhance physical fitness?",
-      "2. Why is tagging considered an indigenous game?",
-      "Why is analysis an important skill in Creative Arts and Sports?"
+      "2. Why is tagging considered an indigenous game?"
      ],
      "core_competencies": [
       "Core competency to be developed:",
@@ -700,7 +688,66 @@
       "Responsibility: the learner takes on different roles during indigenous tagging games.",
       "Unity: the learner works with others in indigenous tagging games Pertinent and Contemporary Issues (PCIs):",
       "Safety: the learner observes safety rules when playing indigenous tagging games.",
-      "Health and Fitness: the learner improves fitness through indigenous tagging games for a healthy lifestyle. Link to other learning areas: Mathematics: the learner keeps counting during indigenous tagging games.",
+      "Health and Fitness: the learner improves fitness through indigenous tagging games for a healthy lifestyle. Link to other learning areas: Mathematics: the learner keeps counting during indigenous tagging games."
+     ],
+     "values": [],
+     "pertinent_issues": [],
+     "links_to_other_areas": [],
+     "resources": [],
+     "kicd_source": "grade8-creative-arts-and-sports.pdf#p46"
+    }
+   ]
+  },
+  {
+   "strand": "Appreciation in Creative Arts and Sports",
+   "strand_code": "3.0",
+   "assessment_rubric": [
+    {
+     "indicator": "Ability to examine the criteria for evaluating Creative Arts and Sports.",
+     "exceeds": "Examines the criteria for evaluating Creative Arts and Sports in depth.",
+     "meets": "Examines the criteria for evaluating Creative Arts and Sports correctly.",
+     "approaches": "Examines the criteria for evaluating Creative Arts and Sports with minor omissions.",
+     "below": "Examines the criteria for evaluating Creative Arts and Sports with many omissions."
+    },
+    {
+     "indicator": "Ability to examine the criteria for evaluating Creative Arts and Sports,",
+     "exceeds": "Examines the criteria for evaluating Creative Arts and Sports, community in depth.",
+     "meets": "Examines the criteria for evaluating Creative Arts and Sports, community.",
+     "approaches": "Examines the criteria for evaluating Creative Arts and Sports, community while missing out on minor details.",
+     "below": "Examines the criteria for evaluating Creative Arts and Sports, community while missing out on major details."
+    },
+    {
+     "indicator": "Ability to analyse creative arts and sports items: -Netball game -a folk dance -a 3D visual artwork -a verse performance",
+     "exceeds": "Analyses the 4 items in Creative Arts and Sports critically.",
+     "meets": "Analyses the 4 items in Creative Arts and Sports.",
+     "approaches": "Analyses 2-3 items in Creative Arts and Sports.",
+     "below": "Analyses less than 2 items in Creative Arts and Sports."
+    }
+   ],
+   "substrands": [
+    {
+     "kicd_code": "3.1",
+     "name": "Analysis of Creative Arts and Sports",
+     "suggested_duration": "8 lessons",
+     "learning_outcomes": [
+      "showcase artwork for appreciation",
+      "analyse a verse performance",
+      "examine the spirit of sportsmanship in sporting activities",
+      "analyse a folk dance from a Kenyan community",
+      "appreciate the role of analysis in adding value to Creative Arts and Sports."
+     ],
+     "learning_experiences": [
+      "collectively, prepare display area within school spaces",
+      "display own artwork",
+      "research on the criteria to analyse a verse",
+      "analyse a verse considering the persona, theme, language and performance",
+      "research to identify good conduct and behavior in sports",
+      "watch a recorded or live performance of a given Kenyan folk dance and analyse it."
+     ],
+     "inquiry_questions": [
+      "Why is analysis an important skill in Creative Arts and Sports?"
+     ],
+     "core_competencies": [
       "• Self-Efficacy: the learner gains confidence in their ability to evaluate and appreciate diverse forms of artistic expression as they apply their knowledge and skills to assess the artistic merits of visual representations."
      ],
      "values": [
@@ -716,7 +763,7 @@
      "pertinent_issues": [],
      "links_to_other_areas": [],
      "resources": [],
-     "kicd_source": "grade8-creative-arts-and-sports.pdf#p46"
+     "kicd_source": "grade8-creative-arts-and-sports.pdf#p50"
     }
    ]
   }

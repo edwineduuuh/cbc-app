@@ -38,10 +38,19 @@ Vary them. Do not reuse Nairobi for every question.
 - Pitch the difficulty at exactly the grade given.
 - Every question carries its marks. Structured questions are 2-5 marks and \
 may have (a)/(b) parts.
-- For EVERY structured question, give a marking_scheme: a list of points, \
-each with the marks it earns. Each point must be specific enough that a \
-marker can decide yes or no without judgement - write "states that light \
-energy is converted to chemical energy", never "mentions the process".
+- For EVERY structured question, give a marking_scheme written the way a \
+Kenyan marking scheme is written, so a marker can use it without judgement:
+  * Group the points by the question part they belong to ("a", "b", "c").
+  * Start each part with how the marks are earned: "Award 1 mark each for \
+any two valid reasons (max 2 marks)", "Award 2 marks for the correct \
+calculation and answer".
+  * Then list the acceptable responses as separate points. Where several \
+answers are valid, list them - a marker needs to recognise a correct answer \
+the learner phrased differently.
+  * Each point must be specific enough to decide yes or no: write "states \
+that light energy is converted to chemical energy", never "mentions the \
+process".
+  * The marks across all points must add up to the question's total.
 - For MCQs give four options with exactly one correct answer. Distractors \
 must be plausible but clearly wrong to a learner who knows the outcome.
 
@@ -60,10 +69,17 @@ SCHEMA = """{
    "bloom_level": "remember|understand|apply|analyze",
    "command_verb": "Identify"},
   {"number": 5, "type": "structured", "marks": 3,
-   "question_text": "...",
+   "question_text": "stem that sets a Kenyan context",
    "parts": [{"label": "a", "question_text": "...", "marks": 2},
              {"label": "b", "question_text": "...", "marks": 1}],
-   "marking_scheme": [{"point": "...", "marks": 1}, {"point": "...", "marks": 2}],
+   "marking_scheme": [
+     {"part": "a", "award": "Award 1 mark each for any two valid reasons (max 2 marks)",
+      "marks": 2,
+      "points": ["first acceptable answer", "second acceptable answer",
+                 "another answer a marker should accept"]},
+     {"part": "b", "award": "Award 1 mark for a reasoned explanation",
+      "marks": 1,
+      "points": ["what the answer must say to earn the mark"]}],
    "outcome": "...",
    "bloom_level": "apply",
    "command_verb": "Explain"}
@@ -143,6 +159,39 @@ def generate_assessment(substrand, *, count=10, description="",
     return _validate(data, substrand)
 
 
+def _normalise_scheme(scheme):
+    """Accept either scheme shape and store the grouped one.
+
+    The grouped shape - part, award wording, acceptable points - is what a
+    Kenyan marking scheme looks like and what a marker can actually use. Older
+    output (and the occasional flat response) is a plain list of
+    {point, marks}, so it is wrapped rather than rejected.
+    """
+    if not isinstance(scheme, list):
+        return []
+    out = []
+    for entry in scheme:
+        if not isinstance(entry, dict):
+            continue
+        if entry.get("points") or entry.get("award"):
+            points = [str(p).strip() for p in (entry.get("points") or [])
+                      if str(p).strip()]
+            out.append({
+                "part": str(entry.get("part") or "").strip(),
+                "award": str(entry.get("award") or "").strip(),
+                "marks": int(entry.get("marks") or 0),
+                "points": points,
+            })
+        elif entry.get("point"):
+            out.append({
+                "part": str(entry.get("part") or "").strip(),
+                "award": "",
+                "marks": int(entry.get("marks") or 0),
+                "points": [str(entry["point"]).strip()],
+            })
+    return out
+
+
 _LETTERS = ["A", "B", "C", "D"]
 
 
@@ -194,7 +243,8 @@ def _validate(data, substrand):
                 _spread_answer(q, i)
             q.pop("marking_scheme", None)
         else:
-            scheme = q.get("marking_scheme") or []
+            scheme = _normalise_scheme(q.get("marking_scheme"))
+            q["marking_scheme"] = scheme
             if not scheme:
                 warnings.append(f"Q{i}: structured question has no marking scheme")
             else:

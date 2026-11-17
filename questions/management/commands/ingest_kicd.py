@@ -89,13 +89,18 @@ STEM_OUTCOME = re.compile(
 STEM_EXPERIENCE = re.compile(
     r"^\s*(?:the\s+learner\s+is\s+guided\s+to|mwanafunzi\s+aelekezwe)\s*:?", re.I)
 # Rubric indicator phrasing, used to spot a headerless continuation page.
-# English designs phrase indicators "Ability to ...". Kiswahili designs use a
-# third-person verb instead - "Anasoma vifungu...", "Anatambua vipengele..." -
-# which no English-only pattern catches. Sub-strand titles are nouns or
-# gerunds (Kusikiliza, Sarufi), never "Ana-" verbs, so this is safe to treat
-# as a rubric signal.
-RUBRIC_INDICATOR_LEAD = re.compile(
-    r"^(ability\s+to|uwezo\s+wa|ana[a-z]{3,}\b)", re.I)
+# English designs phrase rubric indicators "Ability to ...".
+RUBRIC_INDICATOR_LEAD = re.compile(r"^(ability\s+to|uwezo\s+wa)\b", re.I)
+
+# Kiswahili designs use a third-person verb instead - "Anasoma vifungu...",
+# "Anatambua vipengele..." - which no English pattern catches.
+#
+# This is applied ONLY to Kiswahili-language designs. As a general rule it
+# matched "Anatomy", so the Grade 10 Biology strand "2.0 Anatomy and
+# Physiology of Plants" was rejected as a rubric row and every sub-strand
+# after it stayed filed under strand 1.0.
+SW_RUBRIC_LEAD = re.compile(r"^ana[a-z]{3,}\b", re.I)
+SW_SUBJECTS = ("kiswahili", "fasihi")
 # Text that is an outcome, a value or a competency rather than a strand title.
 # Some designs put these in the strand column; adopting them creates strands
 # named "Kuweza kuchambua hadithi za fasihi simulizi..." or "Exhibits
@@ -201,11 +206,22 @@ def title_from_cell(cell):
     return flatten(head).strip(" •-–:,;.")
 
 
+# Set per design in parse_file; only Kiswahili designs get the SW rule.
+_SW_DESIGN = False
+
+
+def is_rubric_indicator(text):
+    """Does this read like a rubric level indicator rather than a title?"""
+    if RUBRIC_INDICATOR_LEAD.match(text or ""):
+        return True
+    return bool(_SW_DESIGN and SW_RUBRIC_LEAD.match(text or ""))
+
+
 def plausible_title(name):
     """Could this be a strand or sub-strand title at all?"""
     if not name:
         return False
-    if NOT_A_TITLE.match(name) or RUBRIC_INDICATOR_LEAD.match(name):
+    if NOT_A_TITLE.match(name) or is_rubric_indicator(name):
         return False
     if HEADER_WORD.match(name):
         return False
@@ -293,7 +309,7 @@ def looks_like_rubric_body(rows):
     hits = 0
     for row in rows[:6]:
         for cell in row[:2]:
-            if RUBRIC_INDICATOR_LEAD.match(clean(cell or "")):
+            if is_rubric_indicator(clean(cell or "")):
                 hits += 1
                 break
     return hits >= 1
@@ -505,12 +521,28 @@ def parse_substrand_rows(p, rows, idx, page_no):
         if not any(cells):
             continue
 
-        # Full-width attachment block (Core competencies / Values / PCIs / ...)
+        # A row with only the first column filled is usually a full-width
+        # attachment block (Core competencies / Values / PCIs / ...) - but it
+        # is also how a design announces a new strand. Treating every such row
+        # as a block meant "2.0 Anatomy and Physiology of Plants" was skipped
+        # and every sub-strand after it stayed filed under strand 1.0.
         if cells[0] and not any(cells[1:]):
             key, val = block_kind(cells[0])
             cur = p.current()
             if key and cur is not None:
                 cur[key].extend([v for v in split_items(val) if len(v) > 3])
+                got = True
+                continue
+            if key:
+                continue
+            m = STRAND_CODE.match(cells[0])
+            code = norm_code(m.group(1)) if m else ""
+            candidate = title_from_cell(m.group(2) if m else cells[0])
+            # Only a numbered heading starts a strand here; an un-numbered
+            # stray cell is far more likely to be spillover text.
+            if code and plausible_title(candidate):
+                p.cur_strand_code = code
+                p.cur_strand = canonical_strand(p, candidate)
                 got = True
             continue
 
@@ -606,7 +638,7 @@ def parse_headerless_rubric(p, rows):
         cells = [flatten(clean(c or "")) for c in row]
         if not any(cells):
             continue
-        ind = next((c for c in cells[:2] if RUBRIC_INDICATOR_LEAD.match(c)), "")
+        ind = next((c for c in cells[:2] if is_rubric_indicator(c)), "")
         if not ind:
             continue
         rest = [c for c in cells[cells.index(ind) + 1:] if c]
@@ -637,7 +669,7 @@ def parse_rubric_continuation(p, rows):
             continue
         ind = cells[cols["indicator"]] if cols["indicator"] < len(cells) else ""
         # Rubric indicators read "Ability to ..." / "Uwezo wa ..." throughout.
-        if not RUBRIC_INDICATOR_LEAD.match(ind):
+        if not is_rubric_indicator(ind):
             return False
         entry = {k: flatten(cells[i]) if i < len(cells) else "" for k, i in cols.items()}
         if any(entry.get(k) for k in ("exceeds", "meets")):
@@ -659,7 +691,7 @@ def validate(sub):
     name = (sub.get("name") or "").strip()
     if not name:
         return "no name"
-    if RUBRIC_INDICATOR_LEAD.match(name):
+    if is_rubric_indicator(name):
         return f"name is a rubric indicator, not a sub-strand: {name!r}"
     if not re.search(r"[A-Za-z]{3}", name):
         return f"name has no real word: {name!r}"
@@ -670,7 +702,7 @@ def validate(sub):
     if HEADER_WORD.match(name):
         return f"name is a column heading: {name!r}"
     strand = (sub.get("strand") or "").strip()
-    if strand and (RUBRIC_INDICATOR_LEAD.match(strand)
+    if strand and (is_rubric_indicator(strand)
                    or not re.search(r"[A-Za-z]{3}", strand)):
         return f"strand looks like a fragment: {strand!r}"
     good = [o for o in sub["learning_outcomes"] if looks_like_outcome(o)]
@@ -689,6 +721,9 @@ def parse_file(path, use_ai, log):
             f"(see kicd_raw/README.md). Refusing to guess the grade/subject."
         )
     grade, subject = int(m.group(1)), m.group(2).lower()
+
+    global _SW_DESIGN
+    _SW_DESIGN = any(k in subject for k in SW_SUBJECTS)
 
     doc = fitz.open(path)
     p = Parsed(grade, subject, path.name)
