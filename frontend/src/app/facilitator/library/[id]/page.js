@@ -259,6 +259,15 @@ export default function LibraryItemPage() {
 
                   {!showScheme && (
                     <>
+                      {q.diagram?.url && (
+                        /* eslint-disable-next-line @next/next/no-img-element */
+                        <img
+                          src={q.diagram.url}
+                          alt={q.diagram.alt || "Diagram for this question"}
+                          className="mt-3 mb-1 max-w-sm w-full rounded-lg border border-gray-200 bg-white print:border-gray-400"
+                        />
+                      )}
+
                       {q.type === "mcq" && q.options && (
                         <ul className="mt-2 space-y-1">
                           {Object.entries(q.options).map(([k, v]) => (

@@ -72,6 +72,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 MEDIA_URL = '/media/'
+# Without this, local file storage writes into the repo root - generated
+# diagrams landed in ./diagrams/ instead of ./media/diagrams/.
+MEDIA_ROOT = BASE_DIR / 'media'
 if os.environ.get('DATABASE_URL', '').startswith('sqlite'):
     DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
 else:

@@ -16,3 +16,4 @@ kicd_raw/*
 write_bars.py
 test_unicode.py
 .claude/settings.json
+media/

@@ -21,6 +21,7 @@ from __future__ import annotations
 
 import json
 import random
+import re
 
 from questions.generation import generate_json
 
@@ -54,6 +55,14 @@ process".
 - For MCQs give four options with exactly one correct answer. Distractors \
 must be plausible but clearly wrong to a learner who knows the outcome.
 
+- NEVER draw a diagram with text characters. No ASCII art, no boxes made of \
+pipes and dashes, no arrows made of hyphens, no tables of symbols. They look \
+broken on a printed paper. If a question genuinely needs a diagram, set \
+"diagram" on that question with a description of what to draw, and write the \
+question so it refers to "the diagram above". At most one question in a \
+paper should need a diagram, and only where it is genuinely required - do \
+not add one for decoration.
+
 Return ONLY valid JSON. No markdown fences, no commentary."""
 
 SCHEMA = """{
@@ -82,7 +91,10 @@ SCHEMA = """{
       "points": ["what the answer must say to earn the mark"]}],
    "outcome": "...",
    "bloom_level": "apply",
-   "command_verb": "Explain"}
+   "command_verb": "Explain",
+   "diagram": {"subject": "a transverse section of a leaf",
+               "labels": ["upper epidermis", "palisade mesophyll", "stoma"],
+               "alt": "one sentence describing it for a screen reader"}}
  ]
 }
 Omit "parts" for a single-part structured question. Omit "options",
@@ -148,7 +160,7 @@ Return JSON in exactly this shape:
 
 
 def generate_assessment(substrand, *, count=10, description="",
-                        mcq_ratio=0.6, user=None) -> dict:
+                        mcq_ratio=0.6, user=None, diagrams=True) -> dict:
     """Generate one assessment. Returns the parsed payload."""
     prompt = build_prompt(substrand, count=count, description=description,
                           mcq_ratio=mcq_ratio)
@@ -156,7 +168,49 @@ def generate_assessment(substrand, *, count=10, description="",
                          task="assessment", user=user)
     if not isinstance(data, dict) or not data.get("questions"):
         raise ValueError("Generator returned no questions")
-    return _validate(data, substrand)
+    data = _validate(data, substrand)
+
+    if diagrams:
+        # After validation, so a failed image never costs us the questions.
+        from questions.diagrams import attach_diagrams
+        data = attach_diagrams(data, user=user)
+    return data
+
+
+# A line is "drawn" rather than written when it is mostly box/arrow glyphs
+# and whitespace. Belt and braces for the prompt rule against ASCII art,
+# because one of these on a printed paper is humiliating.
+_ART_CHARS = set("|_-=+/\\<>^~*()[]{}·°o")
+
+
+def _looks_drawn(line: str) -> bool:
+    stripped = line.strip()
+    if len(stripped) < 4:
+        return False
+    visible = [c for c in stripped if not c.isspace()]
+    if not visible:
+        return False
+    arty = sum(1 for c in visible if c in _ART_CHARS)
+    return arty / len(visible) >= 0.5
+
+
+def _has_ascii_art(text: str) -> bool:
+    lines = (text or "").split("\n")
+    drawn = sum(1 for l in lines if _looks_drawn(l))
+    return drawn >= 2
+
+
+def _strip_ascii_art(text: str) -> str:
+    """Drop the drawn block, including its framed label lines.
+
+    A line like "| epidermal cells |" is mostly letters, so the ratio test
+    alone keeps it - and half a removed box is worse than none. Once a block
+    is known to be art, anything fenced by box characters goes with it.
+    """
+    fenced = re.compile(r"^\s*[|/\\+]|[|/\\+]\s*$|^[\s_\-=]+$")
+    kept = [l for l in (text or "").split("\n")
+            if not _looks_drawn(l) and not fenced.search(l)]
+    return re.sub(r"\n{3,}", "\n\n", "\n".join(kept)).strip()
 
 
 def _normalise_scheme(scheme):
@@ -232,6 +286,11 @@ def _validate(data, substrand):
             continue
         q["number"] = i
         q["marks"] = int(q.get("marks") or 1)
+        if _has_ascii_art(q.get("question_text", "")):
+            warnings.append(
+                f"Q{i}: contained a diagram drawn with text characters; "
+                f"it was removed. Regenerate if the question needs a picture.")
+            q["question_text"] = _strip_ascii_art(q["question_text"])
         qtype = (q.get("type") or "").lower()
         q["type"] = "mcq" if qtype == "mcq" else "structured"
 
