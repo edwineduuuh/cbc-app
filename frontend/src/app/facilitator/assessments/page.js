@@ -43,17 +43,29 @@ export default function AssessmentsPage() {
     const t2 = setInterval(() => setStage((s) => Math.min(s + 1, STAGES.length - 1)), 12000);
     timers.current = [t1, t2];
 
+    // The shared client aborts at 25s. Generating a paper takes 45-60s, so it
+    // could never finish - it failed with "signal is aborted without reason".
+    // Pass our own signal: fetchWithTimeout leaves a caller-supplied one alone.
+    const ac = new AbortController();
+    const hardStop = setTimeout(() => ac.abort(), 180000);
+
     try {
       const r = await fetchWithAuth(`${API}/facilitator/assessments/generate/`, {
         method: "POST",
         body: JSON.stringify({ substrand: substrand.id, count, description }),
+        signal: ac.signal,
       });
       const d = await r.json();
       if (!r.ok) throw new Error(d.error || "Could not generate the assessment");
       router.push(`/facilitator/library/${d.id}`);
     } catch (e) {
-      setError(e.message || "Could not generate the assessment");
+      setError(
+        e?.name === "AbortError"
+          ? "The server took too long to answer. Try again, or ask for fewer questions."
+          : e.message || "Could not generate the assessment"
+      );
     } finally {
+      clearTimeout(hardStop);
       timers.current.forEach(clearInterval);
       setBusy(false);
     }
