@@ -11,14 +11,51 @@ from .diagram_views import diagram_file
 def health(request):
     """Lightweight keep-warm endpoint. Touches the DB with a trivial query so a
     cron ping keeps both the web service and the database connection warm,
-    avoiding cold-start delays for users."""
+    avoiding cold-start delays for users.
+
+    It also reports which commit is actually serving and whether the pieces a
+    generated paper depends on are present. Without this the only way to tell
+    a deployed fix from an undeployed one was to generate a paper and look at
+    it, which is slow, costs money, and sent us round in circles more than
+    once. Booleans and counts only - never a key, never a value.
+    """
+    import os
+
     try:
         with connection.cursor() as cur:
             cur.execute("SELECT 1")
         db = "ok"
     except Exception:
         db = "down"
-    return JsonResponse({"status": "ok", "db": db})
+
+    # Railway and Render both inject the deployed commit.
+    commit = (os.environ.get("RAILWAY_GIT_COMMIT_SHA")
+              or os.environ.get("RENDER_GIT_COMMIT") or "")
+
+    diagrams = {}
+    try:
+        from .models import Diagram
+        diagrams = {
+            "table": True,
+            "stored": Diagram.objects.count(),
+            "can_draw": bool(getattr(settings, "OPENAI_API_KEY", "")),
+        }
+    except Exception as e:
+        # The migration has not run, so the paper will show descriptions only.
+        diagrams = {"table": False, "why": type(e).__name__}
+
+    return JsonResponse({
+        "status": "ok",
+        "db": db,
+        "commit": commit[:12],
+        "debug": bool(settings.DEBUG),
+        "generation": {
+            "provider": getattr(settings, "GEN_PROVIDER", ""),
+            "model": getattr(settings, "GEN_MODEL", "") or "(provider default)",
+            "key": bool(getattr(settings, "OPENAI_API_KEY", "")),
+        },
+        "diagrams": diagrams,
+    })
 from .authoring_analytics_views import QuestionAnalyticsView, AISuggestionsView
 from .admin_analytics_extended_views import (
     AdminUserStatsView,
