@@ -27,10 +27,14 @@ from __future__ import annotations
 
 import json
 import logging
+from concurrent.futures import ThreadPoolExecutor
 
 from questions.generation import generate_json
 
 logger = logging.getLogger("generation")
+
+# Questions per checking call. Small enough that the batches finish together.
+REVIEW_BATCH = 8
 
 REVIEW_SYSTEM = """You are a Kenyan examiner checking a paper before it is \
 printed. You have not been shown anyone's answer key.
@@ -155,18 +159,42 @@ def _verdicts(payload, user, subject_name=""):
                 "instead of calculating does not belong on this paper - "
                 "report it with tests=\"no\".\n\n")
 
-    prompt = (context + "Check these questions.\n\n"
-              + "\n\n".join(_block(q) for q in questions))
-    try:
-        data = generate_json(prompt, REVIEW_SYSTEM,
-                             max_tokens=min(24000, 2000 + 700 * len(questions)),
-                             task="assessment-review", user=user)
-    except Exception as e:
-        logger.warning("paper review failed, left as generated: %s", e)
+    # Check in parallel batches. One call for the whole paper means waiting
+    # for every verdict in turn, and the check is the second thing standing
+    # between a facilitator and their paper.
+    batches = [questions[i:i + REVIEW_BATCH]
+               for i in range(0, len(questions), REVIEW_BATCH)]
+
+    def check(batch):
+        from django.db import connection
+        try:
+            prompt = (context + "Check these questions.\n\n"
+                      + "\n\n".join(_block(q) for q in batch))
+            return generate_json(
+                prompt, REVIEW_SYSTEM,
+                max_tokens=min(24000, 2000 + 700 * len(batch)),
+                task="assessment-review", user=user)
+        except Exception as e:
+            logger.warning("paper review batch failed: %s", e)
+            return {}
+        finally:
+            connection.close()
+
+    if len(batches) == 1:
+        parts = [check(batches[0])]
+    else:
+        with ThreadPoolExecutor(max_workers=len(batches)) as pool:
+            parts = list(pool.map(check, batches))
+
+    rows = []
+    for p in parts:
+        rows += (p or {}).get("questions", [])
+    if not rows:
+        logger.warning("paper review returned nothing, left as generated")
         return {}
 
     out = {}
-    for row in (data or {}).get("questions", []):
+    for row in rows:
         if not isinstance(row, dict):
             continue
         try:
@@ -377,14 +405,15 @@ def review_paper(payload: dict, substrands, *, user=None, description="",
     payload["questions"] = questions
     payload["total_marks"] = sum(int(q.get("marks") or 0) for q in questions)
 
-    warnings = payload.setdefault("warnings", [])
-    if replacements:
-        warnings.append(
-            f"{len(faults)} question(s) failed review and were replaced. "
-            f"Reasons: " + "; ".join(sorted({why for _, _, why in faults})) + ".")
-    else:
-        warnings.append(
-            f"{len(faults)} question(s) failed review and were removed, so "
-            f"this paper has {len(questions)} questions. Reasons: "
-            + "; ".join(sorted({why for _, _, why in faults})) + ".")
+    # A question that was caught and replaced is the check doing its job, so
+    # it is logged, not shown. The warnings box is for what a facilitator
+    # must act on before printing; filling it with our own internal
+    # reasoning makes a sound paper look faulty.
+    logger.info("review replaced %s of %s: %s", len(faults), len(questions),
+                "; ".join(sorted({why for _, _, why in faults}))[:500])
+    if not replacements:
+        payload.setdefault("warnings", []).append(
+            f"This paper has {len(questions)} questions rather than the "
+            f"number asked for: {len(faults)} did not pass checking and "
+            f"could not be replaced.")
     return payload

@@ -44,7 +44,16 @@ PRICES = {
 }
 
 DEFAULT_MODEL = {
-    "openai": "gpt-6-luna",
+    # Not the cheapest tier. Side by side on the same sub-strand, the same
+    # prompt and the same rules, gpt-6-luna wrote "which of the following is
+    # the increase in height" with four plain lengths, ignored the rule to
+    # write money as Ksh, and never used the item types a real paper uses.
+    # gpt-6.1-terra wrote a negative rate with a sign trap and a reciprocal
+    # trap among its options, printed the marks inline the way KNEC does,
+    # and set an equation in implicit form to be rearranged. Ten times the
+    # price of luna is still a fraction of a shilling a paper, and the paper
+    # is the product.
+    "openai": "gpt-6.1-terra",
     "anthropic": "claude-haiku-4-5",
     "gemini": "gemini-2.5-flash",
     "openrouter": "google/gemini-2.5-flash",

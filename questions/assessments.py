@@ -24,6 +24,7 @@ import logging
 import random
 import re
 import time
+from concurrent.futures import ThreadPoolExecutor
 
 from questions.generation import generate_json
 from questions.knec_format import (KNEC_STYLE, exemplars_for, paper_shape,
@@ -32,8 +33,11 @@ from questions.subject_style import depth_for, reading_level, style_for
 
 logger = logging.getLogger("generation")
 
-SYSTEM = """You are a Kenyan teacher writing a classroom assessment for the \
-CBE (Competency Based Education) curriculum.
+SYSTEM = """You are a setter at the Kenya National Examinations Council. \
+You write the School Based Assessment papers that KNEC publishes for the \
+CBE curriculum, and your questions are held to the standard of a paper that \
+goes out to every school in the country. A teacher reading your paper must \
+not be able to tell it from a KNEC one.
 
 Rules:
 - Assess ONLY the learning outcomes given. Do not test content outside them.
@@ -41,7 +45,7 @@ Rules:
 - Use KICD command verbs: State, Name, Identify, Describe, Explain, \
 Outline, Distinguish, Calculate, Work out, Account for, Analyse, Justify.
 - Ground questions in real Kenyan contexts: named towns, counties, crops, \
-institutions, currency in KES, local businesses and everyday situations. \
+institutions, money written as Ksh, local businesses and everyday situations. \
 Vary them. Do not reuse Nairobi for every question.
 - Pitch the difficulty at exactly the grade given.
 - Every question carries its marks. A structured question is worth 2 to 6 \
@@ -131,6 +135,15 @@ at (3, 7) - ask it for a coordinate grid and it draws a picture of a blank \
 grid, which is useless to a question saying "use the diagram above". Use \
 "diagram" only for a picture of a real thing: a leaf section, an apparatus \
 set-up, a circuit, a map.
+
+- WRITE MATHEMATICS AS MATHEMATICS, NOT AS TYPEWRITER TEXT. Put every \
+mathematical expression between single dollar signs, in LaTeX, and it is \
+typeset properly on the paper: $\\frac{3}{4}$ not 3/4, $x^2$ not x^2 or x2, \
+$\\sqrt{16}$ not sqrt(16), $2\\frac{1}{2}$ for a mixed number, $y = 2x + 1$, \
+$3x - 5 \\le 16$ for an inequality, $\\pi r^2$, $45^\\circ$, $12\\ \
+\\text{cm}^2$. A learner reading "1/2" or "x^2" on a printed paper is \
+reading something that looks unfinished. Leave ordinary words outside the \
+dollar signs - only the mathematics goes inside.
 
 - NEVER draw a diagram with text characters. No ASCII art, no boxes made of \
 pipes and dashes, no arrows made of hyphens, no tables of symbols. They look \
@@ -229,6 +242,91 @@ def _bullets(items, limit=None, indent=""):
             or f"{indent}- (none recorded)")
 
 
+# One call for a whole paper is why a paper took two minutes: the model
+# writes the questions one after another and we wait for all of them. Six
+# questions is about forty seconds, and six calls of six run in the time of
+# one - so a fifty question paper costs roughly what eight questions cost.
+QUESTIONS_PER_CALL = 6
+MAX_PARALLEL_CALLS = 9
+
+# What the facilitator typed decides the mix. Working it out here rather
+# than asking the model keeps every parallel part consistent with the rest,
+# and costs nothing.
+_ALL_STRUCTURED = re.compile(
+    r"no\s+(multiple[-\s]?choice|mcq)|all\s+structured|structured\s+only|"
+    r"only\s+structured|essay|written\s+answers\s+only", re.I)
+_ALL_MCQ = re.compile(
+    r"(multiple[-\s]?choice|mcq)s?\s+only|only\s+(multiple[-\s]?choice|mcq)|"
+    r"all\s+(multiple[-\s]?choice|mcq)", re.I)
+_MOSTLY_STRUCTURED = re.compile(r"mostly\s+structured|mainly\s+structured", re.I)
+_MOSTLY_MCQ = re.compile(r"mostly\s+(multiple[-\s]?choice|mcq)|"
+                         r"mainly\s+(multiple[-\s]?choice|mcq)", re.I)
+
+
+def plan_mix(count: int, grade, description: str, mcq_ratio=None):
+    """(number of multiple-choice, number of structured) for this paper."""
+    count = max(1, int(count or 1))
+    text = description or ""
+
+    if mcq_ratio is not None:
+        ratio = max(0.0, min(1.0, float(mcq_ratio)))
+    elif _ALL_STRUCTURED.search(text):
+        ratio = 0.0
+    elif _ALL_MCQ.search(text):
+        ratio = 1.0
+    elif _MOSTLY_STRUCTURED.search(text):
+        ratio = 0.2
+    elif _MOSTLY_MCQ.search(text):
+        ratio = 0.8
+    else:
+        try:
+            g = int(grade)
+        except (TypeError, ValueError):
+            g = 8
+        # Grades 4-6 are a multiple-choice paper; 7-9 split evenly; Grade 10
+        # is mostly Section A by item count. Read off the real papers.
+        ratio = 1.0 if g <= 6 else (0.5 if g <= 9 else 0.55)
+
+    n_mcq = int(round(count * ratio))
+    if ratio not in (0.0, 1.0):
+        n_mcq = max(1, min(count - 1, n_mcq))
+    return n_mcq, count - n_mcq
+
+
+def plan_jobs(n_mcq: int, n_struct: int, subs: list) -> list[dict]:
+    """Split the paper into parts that can be written at the same time.
+
+    Each part is given its own slice of the sub-strands, so the parts cover
+    the design between them instead of all crowding the same outcome.
+    """
+    jobs = []
+    for kind, total in (("mcq", n_mcq), ("structured", n_struct)):
+        left = total
+        while left > 0:
+            take = min(QUESTIONS_PER_CALL, left)
+            jobs.append({"type": kind, "count": take})
+            left -= take
+
+    if len(jobs) > MAX_PARALLEL_CALLS:
+        # Too many parts means too many calls; make each part bigger instead.
+        merged, per = [], max(1, (n_mcq + n_struct) // MAX_PARALLEL_CALLS + 1)
+        for kind, total in (("mcq", n_mcq), ("structured", n_struct)):
+            left = total
+            while left > 0:
+                take = min(per, left)
+                merged.append({"type": kind, "count": take})
+                left -= take
+        jobs = merged
+
+    n = len(jobs) or 1
+    for i, job in enumerate(jobs):
+        job["part"] = i + 1
+        job["parts"] = n
+        # Round-robin the sub-strands so every part has something of its own.
+        job["subs"] = subs[i::n] or subs
+    return jobs
+
+
 def token_budget(count: int) -> int:
     """Output budget for a paper of `count` questions.
 
@@ -280,7 +378,7 @@ def _rubric_text(topics):
 
 
 def build_prompt(substrands, *, count=10, description="", mcq_ratio=None,
-                 want_diagram=False, section=None):
+                 want_diagram=False, section=None, part=None):
     """Assemble the generation prompt from the stored KICD design.
 
     Takes however many sub-strands were ticked. Each is given a tag - [S1],
@@ -342,6 +440,23 @@ def build_prompt(substrands, *, count=10, description="", mcq_ratio=None,
                 lines.append(_bullets(s.inquiry_questions, 2, indent="      "))
         blocks.append("\n".join(lines))
 
+    # This call is one part of a paper being written in parallel. Say so, and
+    # point it at its own slice of the design, so the parts do not all crowd
+    # the same outcome.
+    part_note = ""
+    if part and part.get("parts", 1) > 1:
+        mine = [getattr(s, "_tag", i) for i, s in
+                enumerate(part.get("subs") or [], start=1)]
+        part_note = (
+            f"\nYOU ARE WRITING PART {part['part']} OF {part['parts']} of one "
+            f"paper, and other parts are being written at the same time. "
+            f"Write ONLY your {count} questions - do not try to cover the "
+            f"whole design. Draw yours mainly from "
+            + (", ".join(f"[S{t}]" for t in mine) if mine else "the design")
+            + ", and make them unmistakably different in shape and setting "
+              "from anything an obvious first attempt would produce, so the "
+              "finished paper does not repeat itself.\n")
+
     design = "\n\n".join(blocks)
     competencies = _bullets(subs[0].core_competencies, 4)
 
@@ -392,6 +507,7 @@ Learning area: {subject.name}
 THE KICD CURRICULUM DESIGN TO ASSESS (assess these outcomes and only these):
 
 {design}
+{part_note}
 
 CORE COMPETENCIES THE DESIGN TARGETS:
 {competencies}
@@ -424,9 +540,54 @@ def generate_assessment(substrands, *, count=10, description="",
     def mark(name):
         marks.append((name, round(time.time() - started, 1)))
 
-    sections = scaled_sections(subs[0].topic.grade, count) if full_paper else None
+    grade = subs[0].topic.grade
+    sections = scaled_sections(grade, count) if full_paper else None
 
-    if sections:
+    if not sections:
+        # Write the paper in parts, all at the same time. One call for the
+        # whole paper means waiting for the model to write every question in
+        # turn, which is what made a short paper take two minutes.
+        n_mcq, n_struct = plan_mix(count, grade, description, mcq_ratio)
+        jobs = plan_jobs(n_mcq, n_struct, subs)
+        data, raw = {}, []
+
+        def write(job):
+            from django.db import connection
+            try:
+                prompt = build_prompt(
+                    subs, count=job["count"], description=description,
+                    want_diagram=diagrams and job["part"] == 1,
+                    section={"name": "", "type": job["type"],
+                             "marks": 5, "count": job["count"]},
+                    part=job)
+                part = generate_json(prompt, SYSTEM,
+                                     max_tokens=token_budget(job["count"]),
+                                     task=f"assessment-{job['type']}",
+                                     user=user)
+                got = [q for q in (part or {}).get("questions", [])
+                       if isinstance(q, dict)]
+                return job, part, got
+            finally:
+                connection.close()
+
+        if len(jobs) == 1:
+            results = [write(jobs[0])]
+        else:
+            with ThreadPoolExecutor(max_workers=len(jobs)) as pool:
+                results = list(pool.map(write, jobs))
+
+        for job, part, got in sorted(results, key=lambda r: r[0]["part"]):
+            if not data and isinstance(part, dict):
+                data = {k: v for k, v in part.items() if k != "questions"}
+            raw += got
+        if not raw:
+            raise ValueError("Generator returned no questions")
+        # Multiple-choice first, as every KNEC paper orders them.
+        raw.sort(key=lambda q: 0 if (q.get("type") or "") == "mcq" else 1)
+        data["questions"] = raw
+        mark(f"written-in-{len(jobs)}-parts")
+
+    elif sections:
         # One call per section. A single call for forty questions runs out of
         # budget and drifts; each section also gets instructions for only the
         # kind of question it contains.
@@ -452,14 +613,6 @@ def generate_assessment(substrands, *, count=10, description="",
         data["sections"] = [{"name": s["name"], "type": s["type"],
                              "instruction": s["instruction"]}
                             for s in sections]
-    else:
-        prompt = build_prompt(subs, count=count, description=description,
-                              mcq_ratio=mcq_ratio, want_diagram=diagrams)
-        data = generate_json(prompt, SYSTEM, max_tokens=token_budget(count),
-                             task="assessment", user=user)
-        if not isinstance(data, dict) or not data.get("questions"):
-            raise ValueError("Generator returned no questions")
-
     data = _validate(data, subs)
     mark("written")
 

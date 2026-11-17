@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import { fetchWithAuth } from "@/lib/api";
+import MathText from "@/components/MathText";
 import {
   ArrowLeft, Bookmark, Check, Copy, Loader2, Pencil, Printer, AlertTriangle,
 } from "lucide-react";
@@ -374,7 +375,7 @@ export default function LibraryItemPage() {
                       onChange={(e) => editQuestion(idx, { question_text: e.target.value })}
                       className="w-full rounded-lg border border-gray-200 px-2 py-1.5 text-sm" />
                   ) : (
-                    <p className="text-sm text-gray-900 whitespace-pre-wrap">{q.question_text}</p>
+                    <p className="text-sm text-gray-900"><MathText>{q.question_text}</MathText></p>
                   )}
 
                   {!showScheme && (
@@ -384,7 +385,7 @@ export default function LibraryItemPage() {
                       {q.type === "mcq" && q.options && (
                         <ul className="mt-2 space-y-1">
                           {Object.entries(q.options).map(([k, v]) => (
-                            <li key={k} className="text-sm text-gray-700">{k}) {v}</li>
+                            <li key={k} className="text-sm text-gray-700">{k}) <MathText>{v}</MathText></li>
                           ))}
                         </ul>
                       )}
@@ -393,7 +394,7 @@ export default function LibraryItemPage() {
                         <ul className="mt-2 space-y-3">
                           {q.parts.map((part, pi) => (
                             <li key={pi} className="text-sm text-gray-800">
-                              ({part.label}) {part.question_text}
+                              ({part.label}) <MathText>{part.question_text}</MathText>
                               {part.marks ? <span className="text-gray-400"> ({part.marks} marks)</span> : null}
                               <AnswerLines marks={part.marks} />
                             </li>
@@ -423,7 +424,7 @@ export default function LibraryItemPage() {
                       </p>
                       {q.type === "mcq" ? (
                         <p className="text-sm font-semibold text-emerald-700">
-                          {q.correct_answer}) {q.options?.[q.correct_answer]}
+                          {q.correct_answer}) <MathText>{q.options?.[q.correct_answer]}</MathText>
                         </p>
                       ) : (
                         <div className="space-y-3">
@@ -431,11 +432,11 @@ export default function LibraryItemPage() {
                             <div key={gi}>
                               <p className="text-sm text-gray-900">
                                 {g.part && <span className="font-semibold">({g.part}) </span>}
-                                {g.award || `${g.marks} ${g.marks === 1 ? "mark" : "marks"}`}
+                                <MathText>{g.award || `${g.marks} ${g.marks === 1 ? "mark" : "marks"}`}</MathText>
                               </p>
                               <ul className="mt-1 ml-4 space-y-0.5 list-disc">
                                 {(g.points || []).map((pt, pi) => (
-                                  <li key={pi} className="text-sm text-gray-700">{pt}</li>
+                                  <li key={pi} className="text-sm text-gray-700"><MathText>{pt}</MathText></li>
                                 ))}
                               </ul>
                             </div>
