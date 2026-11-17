@@ -25,6 +25,7 @@ failed. One repair round only - bounded cost, no loops.
 """
 from __future__ import annotations
 
+import json
 import logging
 
 from questions.generation import generate_json
@@ -61,11 +62,27 @@ or their town. "Four sacks of x kg plus 3 kg is 19 kg, which equation" and \
 same shape: the second repeats the first. Judge the task, not the wording. \
 Always name the earlier question, never the later one.
 
+4. "shallow" - "yes" if the question only asks a learner to recall a \
+definition, read a number straight out of the stem, or substitute one value \
+into a formula the question itself supplies, when the sub-strand's outcomes \
+expect them to apply, analyse or judge. Otherwise "no". A question whose \
+answer is stated in its own wording is always shallow.
+
+5. "setting" - two or three words naming the scenario, such as "road ramp", \
+"matatu fare", "maize harvest", "none" if it has no real-world setting. Use \
+the same words for the same scenario so repeats can be spotted.
+
+A question may refer to "the diagram above" or "the graph above". The figure \
+IS printed with it on the paper, and is described in square brackets under \
+the question. Judge the question as a learner holding the paper would, with \
+the figure in front of them. NEVER report "unclear" merely because you \
+cannot see a picture yourself.
+
 Return ONLY JSON, no commentary:
-{"questions": [{"n": 1, "correct": "B", "tests": "yes", "repeats": 0, "note": ""},
-               {"n": 2, "correct": "none", "tests": "yes", "repeats": 0, "note": "7x12=84, not listed"},
-               {"n": 3, "correct": "n/a", "tests": "no", "repeats": 0, "note": "only asks for a percentage"},
-               {"n": 4, "correct": "C", "tests": "yes", "repeats": 1, "note": "same as Q1 with different numbers"}]}"""
+{"questions": [{"n": 1, "correct": "B", "tests": "yes", "repeats": 0, "shallow": "no", "setting": "road ramp", "note": ""},
+               {"n": 2, "correct": "none", "tests": "yes", "repeats": 0, "shallow": "no", "setting": "water tank", "note": "7x12=84, not listed"},
+               {"n": 3, "correct": "n/a", "tests": "no", "repeats": 0, "shallow": "yes", "setting": "none", "note": "only asks for a percentage"},
+               {"n": 4, "correct": "C", "tests": "yes", "repeats": 1, "shallow": "no", "setting": "road ramp", "note": "same as Q1 with different numbers"}]}"""
 
 REPAIR_SYSTEM_SUFFIX = """
 
@@ -74,10 +91,37 @@ that is named for each one. Return the same JSON shape, with "questions" \
 holding ONLY the replacements."""
 
 
+def _figure_line(q) -> str:
+    """Describe the figure this question will be printed with.
+
+    Without this the checker sees "use the graph above" with no graph, calls
+    the question unanswerable and deletes it - which is exactly what happened
+    to the one good graph question on a paper.
+    """
+    plot = q.get("plot")
+    if isinstance(plot, dict) and plot.get("type"):
+        try:
+            from questions.plots import render_plot
+            return ("  [FIGURE PRINTED ABOVE THIS QUESTION: "
+                    + render_plot(plot)[1] + "]")
+        except Exception:
+            return ("  [FIGURE PRINTED ABOVE THIS QUESTION, drawn exactly "
+                    "from: " + json.dumps(plot, default=str)[:400] + "]")
+    dia = q.get("diagram")
+    if isinstance(dia, dict):
+        shown = dia.get("alt") or dia.get("subject") or ""
+        if shown:
+            return f"  [FIGURE PRINTED ABOVE THIS QUESTION: {shown}]"
+    return ""
+
+
 def _block(q) -> str:
     opts = q.get("options") or {}
     lines = [f'Question {q["number"]} [{q.get("substrand") or "unlabelled"}] '
              f'({q.get("type")}): {q.get("question_text", "")}']
+    fig = _figure_line(q)
+    if fig:
+        lines.append(fig)
     for k in ("A", "B", "C", "D"):
         if k in opts:
             lines.append(f"  {k}) {opts[k]}")
@@ -119,6 +163,8 @@ def _verdicts(payload, user):
             # Only ever an earlier question: a checker that names a later one
             # would have the paper delete the original and keep the copy.
             "repeats": repeats if 0 < repeats < n else 0,
+            "shallow": str(row.get("shallow") or "").strip().lower() == "yes",
+            "setting": str(row.get("setting") or "").strip().lower(),
             "note": str(row.get("note") or "").strip(),
         }
     return out
@@ -226,15 +272,59 @@ def review_paper(payload: dict, substrands, *, user=None, description="",
             "Read the answers before printing.")
         return payload
 
-    kept, faults = [], []
-    for q in payload.get("questions", []):
+    questions = payload.get("questions", [])
+    # Some recall belongs on a paper; a paper that is all recall does not
+    # assess the design. Allow a third, reject the rest.
+    shallow_budget, shallow_used = max(1, len(questions) // 3), 0
+    settings = {}
+
+    hard, soft = [], []     # hard: wrong or off-topic. soft: thin or repeated.
+    for q in questions:
         v = verdicts.get(q.get("number"))
-        fault = _fault(q, v) if v else None
+        if not v:
+            hard.append((q, None))
+            continue
+
+        fault = _fault(q, v)
         if fault:
-            faults.append((q.get("type") or "structured",
-                           q.get("substrand") or "", fault))
-        else:
-            kept.append(q)
+            hard.append((q, fault))
+            continue
+
+        setting = v.get("setting")
+        if setting and setting not in ("none", "n/a", "-"):
+            if setting in settings:
+                soft.append((q, f"it is set in the same scenario as question "
+                                f"{settings[setting]} ({setting}), so the "
+                                f"paper reads as one idea repeated"))
+                continue
+            settings[setting] = q.get("number")
+
+        if v.get("shallow"):
+            if shallow_used >= shallow_budget:
+                soft.append((q, "it only asked a learner to recall or "
+                                "substitute, which this outcome does not "
+                                "stop at"))
+                continue
+            shallow_used += 1
+
+        hard.append((q, None))
+
+    # Replacing most of a paper is a sign the review is wrong, not the paper,
+    # and it doubles the cost. Hard faults always go; thin or repeated ones go
+    # only while the paper keeps its shape.
+    room = max(0, len(questions) // 2 - sum(1 for _, f in hard if f))
+    rejected = [(q, f) for q, f in hard if f] + soft[:room]
+    rejected_ids = {id(q) for q, _ in rejected}
+
+    kept = [q for q in questions if id(q) not in rejected_ids]
+    faults = [(q.get("type") or "structured", q.get("substrand") or "", f)
+              for q, f in rejected]
+
+    if len(soft) > room:
+        payload.setdefault("warnings", []).append(
+            f"{len(soft) - room} further question(s) are thin or repeat a "
+            f"setting, but were kept so the paper keeps its length. "
+            f"Generate again for a different spread.")
 
     if not faults:
         return payload

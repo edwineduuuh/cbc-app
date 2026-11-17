@@ -26,6 +26,7 @@ import re
 import time
 
 from questions.generation import generate_json
+from questions.subject_style import reading_level, style_for
 
 logger = logging.getLogger("generation")
 
@@ -85,6 +86,22 @@ so the program repeats, how to test it, why it behaves wrongly.
   * The same applies everywhere - a question is about the sub-strand only \
 when the sub-strand's own ideas are what the learner has to reason with.
 
+- NO TWO QUESTIONS MAY SHARE A SCENARIO. A paper with three questions about \
+ramps, or three about matatu fares, reads as one idea stretched thin however \
+different the numbers are. Each question gets a different setting drawn from \
+different parts of Kenyan life: farming, markets and trade, transport, \
+school, health, water, energy, weather, sport, small business, wildlife, \
+fishing, construction, savings and loans.
+
+- REACH THE DEPTH THE OUTCOME DEMANDS. Look at the verb in each specific \
+learning outcome. If the design says a learner should apply, analyse, \
+justify or evaluate, a question that only asks them to recall a definition \
+or substitute one number into a given formula has not assessed it. At least \
+a third of the paper must require more than recall: interpreting what an \
+answer means in the situation, finding the error in a worked solution, \
+deciding between two methods and saying why, working backwards from a \
+result, or judging whether a claim is reasonable.
+
 - NO TWO QUESTIONS MAY SHARE A SHAPE. If two questions differ only in their \
 numbers, their names or their town, they are one question printed twice and \
 the paper is padding. "Four sacks of x kg plus 3 kg is 19 kg, which equation" \
@@ -99,6 +116,16 @@ expressions fits.
 the town or the crop for any other changes nothing about what is being \
 tested, the context is decoration - rewrite the question so the local detail \
 is what the learner reasons about.
+
+- A FIGURE WHERE POSITION MATTERS IS A "plot", NEVER A "diagram". If the \
+figure is a coordinate grid, a straight line, a shaded inequality region, a \
+number line, or anything a learner reads a value off, give the question a \
+"plot" object with the numbers in it. It is then drawn exactly from those \
+numbers. A "diagram" is passed to a picture model, which cannot put a point \
+at (3, 7) - ask it for a coordinate grid and it draws a picture of a blank \
+grid, which is useless to a question saying "use the diagram above". Use \
+"diagram" only for a picture of a real thing: a leaf section, an apparatus \
+set-up, a circuit, a map.
 
 - NEVER draw a diagram with text characters. No ASCII art, no boxes made of \
 pipes and dashes, no arrows made of hyphens, no tables of symbols. They look \
@@ -142,7 +169,29 @@ SCHEMA = """{
  ]
 }
 Omit "parts" for a single-part structured question. Omit "options",
-"correct_answer" for structured. Omit "marking_scheme" for mcq."""
+"correct_answer" for structured. Omit "marking_scheme" for mcq.
+
+A mathematical figure uses "plot" INSTEAD of "diagram". Two types:
+
+ "plot": {"type": "cartesian",
+          "x_range": [-3, 3], "y_range": [-3, 5],
+          "lines": [{"equation": "y = 2x + 1", "style": "solid"}],
+          "shade": [{"inequality": "2x + y <= 6"}],
+          "points": [{"x": 3, "y": 7, "label": "A"}],
+          "alt": "one sentence describing it"}
+
+ "plot": {"type": "number_line", "min": -2, "max": 8, "step": 1,
+          "mark": [{"at": 2, "closed": true}, {"at": 6, "closed": false}],
+          "shade": [{"from": 2, "to": 6}],
+          "alt": "one sentence describing it"}
+
+Rules for a plot: write equations in x and y only, as "y = 2x + 1" or
+"2x + 3y = 12"; an inequality uses <, <=, > or >= and is drawn with the
+correct boundary (broken for < and >, solid for <= and >=) and the correct
+side shaded. "lines", "shade" and "points" are each optional - leave out
+what the question does not need. Choose ranges that show what matters and
+keep the grid under about 15 steps each way. For a blank grid for a learner
+to plot on, give ranges and nothing else."""
 
 
 def _diagram_instruction(want_diagram, substrand):
@@ -155,13 +204,15 @@ def _diagram_instruction(want_diagram, substrand):
         return ("DIAGRAMS: do not use any diagram in this assessment. "
                 "Write questions that stand on their own words.")
     return (
-        "DIAGRAMS: exactly ONE question in this paper must be built around a "
-        "diagram, and it must be a question that is genuinely better with a "
-        "picture - a labelled structure, an apparatus set-up, a cycle, a "
-        "graph to read, a map. Give that question a \"diagram\" object "
-        "naming what to draw and the parts to label, and word the question "
-        "so it refers to the diagram above it. Every other question has no "
-        "diagram."
+        "FIGURES: exactly ONE question in this paper must be built around a "
+        "figure, and it must be a question that is genuinely better with one "
+        "- a graph to read, a number line, a labelled structure, an "
+        "apparatus set-up, a cycle, a map. Word that question so it refers "
+        "to the figure above it. If the figure is mathematical - a "
+        "coordinate grid, a line, a shaded inequality, a number line - give "
+        "it a \"plot\" object with the numbers in it, NOT a \"diagram\": a "
+        "plot is drawn exactly, a diagram is only a picture. Every other "
+        "question has neither."
     )
 
 
@@ -223,7 +274,7 @@ def _rubric_text(topics):
             "expectations' looks like):\n" + "\n\n".join(blocks))
 
 
-def build_prompt(substrands, *, count=10, description="", mcq_ratio=0.6,
+def build_prompt(substrands, *, count=10, description="", mcq_ratio=None,
                  want_diagram=False):
     """Assemble the generation prompt from the stored KICD design.
 
@@ -238,8 +289,21 @@ def build_prompt(substrands, *, count=10, description="", mcq_ratio=0.6,
 
     topic = subs[0].topic
     subject = topic.subject
-    n_mcq = max(0, round(count * mcq_ratio))
-    n_struct = count - n_mcq
+
+    # mcq_ratio=None means nobody fixed the mix, so the paper is shaped by
+    # what the facilitator wrote and by what this learning area is normally
+    # assessed with. A hard-coded 60% multiple-choice made every paper a
+    # recognition quiz no matter what was asked for.
+    if mcq_ratio is None:
+        mix = (
+            "Decide the mix of multiple-choice and structured questions "
+            "yourself. The teacher's request above governs: if they asked "
+            "for all structured, or an essay, or multiple-choice only, give "
+            "exactly that. If they did not say, give a mix of both.")
+    else:
+        n_mcq = max(0, min(count, round(count * float(mcq_ratio))))
+        mix = (f"Produce exactly {n_mcq} multiple-choice and "
+               f"{count - n_mcq} structured questions.")
 
     groups = _grouped(subs)
     blocks, tag = [], 0
@@ -276,10 +340,27 @@ def build_prompt(substrands, *, count=10, description="", mcq_ratio=0.6,
             f"in the order listed above. Spread across Bloom levels too, "
             f"rather than all recall.")
 
+    depth = (
+        f"At least {max(2, round(count / 3))} of the {count} questions must "
+        f"demand more than recall or one-step substitution - interpreting a "
+        f"result in its situation, finding an error, choosing between "
+        f"methods with a reason, working backwards, or judging a claim. Give "
+        f"each question its honest bloom_level; a paper that is all "
+        f"\"remember\" has not assessed this design.")
+
+    # What a good paper looks like in THIS learning area. Without it one set
+    # of instructions wrote Kiswahili, CRE, Agriculture and Mathematics
+    # papers in the same shape.
+    style = style_for(subject.name)
+    reading = reading_level(topic.grade)
+
     return f"""Write an assessment for:
 
 Grade: {topic.grade}
 Learning area: {subject.name}
+{style}
+
+{reading}
 
 THE KICD CURRICULUM DESIGN TO ASSESS (assess these outcomes and only these):
 
@@ -292,8 +373,10 @@ CORE COMPETENCIES THE DESIGN TARGETS:
 TEACHER'S REQUEST: {description.strip() or 'A standard classroom assessment.'}
 {_diagram_instruction(want_diagram, subs)}
 
-Produce exactly {count} questions: {n_mcq} multiple-choice and {n_struct} \
-structured. Number them 1 to {count}, MCQs first. {spread}
+Produce exactly {count} questions. {mix} Number them 1 to {count}, with any \
+multiple-choice questions first. {spread}
+
+{depth}
 
 Every question must carry "sub": N, the number of the [S N] sub-strand it \
 assesses. Do not invent a tag that is not listed.
@@ -303,7 +386,7 @@ Return JSON in exactly this shape:
 
 
 def generate_assessment(substrands, *, count=10, description="",
-                        mcq_ratio=0.6, user=None, diagrams=True,
+                        mcq_ratio=None, user=None, diagrams=True,
                         verify=True) -> dict:
     """Generate one assessment over one or more sub-strands."""
     subs = _as_list(substrands)

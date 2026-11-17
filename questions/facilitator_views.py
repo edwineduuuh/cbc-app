@@ -251,7 +251,11 @@ def generate_assessment_view(request):
     topics = {s.topic_id for s in chosen}
     inputs = {"count": count,
               "description": (data.get("description") or "")[:1000],
-              "mcq_ratio": float(data.get("mcq_ratio") or 0.6),
+              # None means nobody fixed the mix, so what the facilitator
+              # typed in the box decides it.
+              "mcq_ratio": (float(data["mcq_ratio"])
+                            if data.get("mcq_ratio") not in (None, "")
+                            else None),
               # Diagrams cost far more than the questions do, so they are the
               # facilitator's choice rather than something that happens to them.
               "diagrams": bool(data.get("diagrams", True)),

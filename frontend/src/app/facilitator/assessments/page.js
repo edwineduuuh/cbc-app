@@ -169,6 +169,7 @@ export default function AssessmentsPage() {
               {COUNTS.map((c) => <option key={c} value={c}>{c}</option>)}
             </select>
           </div>
+
         </div>
 
         <div>
@@ -180,7 +181,7 @@ export default function AssessmentsPage() {
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             maxLength={1000}
-            placeholder="For example: an end-of-term test, mostly structured questions, include one question on a local farming example, suitable for a 40-minute lesson."
+            placeholder="This box decides the paper. For example: all structured questions, no multiple choice; an end-of-term exam with a comprehension passage; 40 minutes; include a question on a local farming example; harder than usual."
             className="w-full rounded-xl border border-gray-200 bg-white px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
           />
         </div>

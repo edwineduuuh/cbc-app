@@ -10,6 +10,7 @@ The bytes come from the database rather than disk because Railway wipes the
 filesystem on every deploy.
 """
 import logging
+import re
 
 from django.http import Http404, HttpResponse
 from django.views.decorators.cache import cache_control
@@ -25,7 +26,10 @@ ONE_YEAR = 60 * 60 * 24 * 365
 
 @require_safe
 @cache_control(public=True, max_age=ONE_YEAR, immutable=True)
-def diagram_file(request, key):
+def diagram_file(request, name):
+    # ".png" or ".svg" is only there so the URL looks like a picture. What it
+    # actually is comes from the stored content type.
+    key = re.sub(r"\.(png|svg)$", "", name, flags=re.I)
     try:
         d = Diagram.objects.only("data", "content_type", "key").get(key=key)
     except Diagram.DoesNotExist:

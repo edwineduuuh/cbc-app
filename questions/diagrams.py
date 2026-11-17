@@ -13,6 +13,7 @@ from __future__ import annotations
 
 import base64
 import hashlib
+import json
 import logging
 import time
 
@@ -137,13 +138,53 @@ def _store(data: bytes, key: str, spec: dict) -> str | None:
     return d.url
 
 
-def attach_diagrams(payload: dict, *, user=None) -> dict:
-    """Generate an image for any question that asked for a diagram.
+def attach_plot(q: dict) -> bool:
+    """Draw a mathematical figure exactly, from numbers. Free and instant.
 
-    Replaces the spec with {url, alt}. Questions whose image fails keep their
-    text and simply lose the picture.
+    An image model cannot put a point at (3, 7) - asked for a coordinate grid
+    it draws a picture OF a grid, which is worthless to a question that says
+    "use the diagram above". Anything where position carries meaning is
+    rendered by questions.plots instead.
+    """
+    from questions.plots import PlotError, plot_key, render_plot
+
+    spec = q.get("plot")
+    if not isinstance(spec, dict) or not spec.get("type"):
+        q.pop("plot", None)
+        return False
+    try:
+        svg, alt = render_plot(spec)
+    except PlotError as e:
+        logger.info("plot spec could not be drawn (%s): %s", e, spec)
+        q.pop("plot", None)
+        return False
+
+    from .models import Diagram
+    key = plot_key(spec)
+    Diagram.objects.get_or_create(
+        key=key,
+        defaults={"data": svg, "content_type": "image/svg+xml",
+                  "byte_size": len(svg), "alt": alt[:1000],
+                  "prompt": json.dumps(spec, sort_keys=True, default=str)[:4000],
+                  "model_used": "plots.py", "cost_usd": 0},
+    )
+    q.pop("plot", None)
+    q.pop("diagram", None)          # a plotted figure replaces any drawn one
+    q["diagram"] = {"url": f"/api/diagrams/{key}.svg", "alt": alt,
+                    "exact": True}
+    return True
+
+
+def attach_diagrams(payload: dict, *, user=None) -> dict:
+    """Give every question that needs one its figure.
+
+    Mathematical figures are plotted from their spec, which costs nothing and
+    is exact. Everything else - a leaf section, an apparatus set-up - goes to
+    the image model, where being approximate is fine.
     """
     for q in payload.get("questions", []):
+        if attach_plot(q):
+            continue
         spec = q.get("diagram")
         if not isinstance(spec, dict) or not spec.get("subject"):
             q.pop("diagram", None)

@@ -275,7 +275,9 @@ path('facilitator/library/', facilitator_views.my_library, name='facilitator-lib
 path('facilitator/library/<int:pk>/', facilitator_views.library_item, name='facilitator-library-item'),
 
     # Public on purpose - an <img> cannot carry a token. See diagram_views.
-    path('diagrams/<str:key>.png', diagram_file, name='diagram-file'),
+    # The extension is cosmetic: a drawn diagram is a PNG and a plotted one is
+    # an SVG, and the response's own content type is what the browser uses.
+    path('diagrams/<str:name>', diagram_file, name='diagram-file'),
 ]
 
 # Serve media files in development
