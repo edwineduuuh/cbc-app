@@ -29,6 +29,22 @@ function Diagram({ diagram }) {
   const [failed, setFailed] = useState(false);
   if (!diagram) return null;
 
+  // Still being drawn. The paper is already readable, so show what the
+  // picture will be rather than holding the whole paper back for it.
+  if (diagram.pending) {
+    return (
+      <figure className="mt-3 mb-1 max-w-sm rounded-lg border border-gray-200 bg-gray-50 px-4 py-3 print:hidden">
+        <figcaption className="flex items-center gap-2 text-xs font-medium text-gray-600">
+          <Loader2 className="w-3.5 h-3.5 animate-spin text-emerald-600" />
+          Drawing the image...
+        </figcaption>
+        {diagram.alt && (
+          <p className="mt-1.5 text-xs text-gray-500">{diagram.alt}</p>
+        )}
+      </figure>
+    );
+  }
+
   const src = imgSrc(diagram.url);
   if (src && !failed) {
     return (
@@ -99,11 +115,14 @@ export default function LibraryItemPage() {
   // While the paper is still being written, ask again every few seconds. The
   // work happens on the server, so this page can be closed and reopened and
   // the paper is still coming.
+  // Keep asking while the paper is being written, and afterwards while any
+  // picture is still being drawn - the paper is readable in the meantime.
+  const pendingDiagrams = item?.payload?.diagrams_pending || 0;
   useEffect(() => {
-    if (item?.status !== "running") return;
+    if (item?.status !== "running" && !pendingDiagrams) return;
     const t = setInterval(() => { load(); setWaited((s) => s + 4); }, 4000);
     return () => clearInterval(t);
-  }, [item?.status, load]);
+  }, [item?.status, pendingDiagrams, load]);
 
   const patch = async (body) => {
     setSaving(true); setError("");

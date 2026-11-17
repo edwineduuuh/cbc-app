@@ -24,7 +24,6 @@ const STAGES = [
   "Checking every question against the sub-strand...",
   "Working out the answers independently...",
   "Replacing any question that failed the check...",
-  "Drawing the diagram...",
 ];
 
 export default function AssessmentsPage() {

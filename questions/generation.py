@@ -75,7 +75,11 @@ def cost_usd(model: str, tokens_in: int, tokens_out: int) -> float:
 def _call_openai(system, prompt, model, max_tokens, want_json):
     from openai import OpenAI
 
-    client = OpenAI(api_key=settings.OPENAI_API_KEY)
+    # The SDK's default is a 600 second timeout with retries on top, so a
+    # single stalled call can hold a paper for ten minutes and then start
+    # again. Fail fast and let the caller report it.
+    client = OpenAI(api_key=settings.OPENAI_API_KEY,
+                    timeout=150.0, max_retries=1)
     kwargs = {
         "model": model,
         "messages": [

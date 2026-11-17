@@ -315,12 +315,20 @@ def _build_assessment(output_id, substrand_ids, inputs, user_id):
             mcq_ratio=inputs["mcq_ratio"],
             user=user,
             diagrams=inputs["diagrams"],
+            # Hand the paper over as soon as it is written. A drawn picture
+            # takes most of a minute, and nobody should watch a spinner with
+            # a finished paper behind it.
+            defer_images=True,
         )
         GeneratedOutput.objects.filter(pk=output_id).update(
             payload=payload,
             title=(payload.get("title") or "").strip()[:200] or "Assessment",
             status=GeneratedOutput.STATUS_READY,
             error="")
+
+        if payload.get("diagrams_pending"):
+            from questions.diagrams import draw_pending
+            draw_pending(output_id, user=user)
     except Exception as e:
         logger.exception("assessment generation failed (output %s)", output_id)
         GeneratedOutput.objects.filter(pk=output_id).update(

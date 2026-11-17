@@ -414,7 +414,8 @@ Return JSON in exactly this shape:
 
 def generate_assessment(substrands, *, count=10, description="",
                         mcq_ratio=None, user=None, diagrams=True,
-                        verify=True, full_paper=False) -> dict:
+                        verify=True, full_paper=False,
+                        defer_images=False) -> dict:
     """Generate one assessment over one or more sub-strands."""
     subs = _as_list(substrands)
     started = time.time()
@@ -470,9 +471,17 @@ def generate_assessment(substrands, *, count=10, description="",
         mark("reviewed")
 
     if diagrams:
-        # After validation, so a failed image never costs us the questions.
-        from questions.diagrams import attach_diagrams
-        data = attach_diagrams(data, user=user)
+        # Plots are drawn now: they come from numbers, so they cost nothing
+        # and take milliseconds. Pictures are held back - one takes most of a
+        # minute, and a facilitator should not be watching a spinner with a
+        # finished paper sitting behind it.
+        from questions.diagrams import (attach_diagrams, attach_plots,
+                                        mark_image_pending)
+        data = attach_plots(data)
+        if defer_images:
+            data = mark_image_pending(data)
+        else:
+            data = attach_diagrams(data, user=user)
         mark("drawn")
 
     # Wall time per stage. The whole chain once ran past gunicorn's 120s

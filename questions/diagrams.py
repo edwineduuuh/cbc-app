@@ -85,7 +85,12 @@ def generate_diagram(spec: dict, *, user=None) -> str | None:
     try:
         from openai import OpenAI
 
-        client = OpenAI(api_key=settings.OPENAI_API_KEY)
+        # The SDK defaults to a 600 second timeout and retries on top. A
+        # hung image call therefore blocks for ten minutes and then tries
+        # again, which is how a paper took a quarter of an hour. A drawing
+        # either arrives inside 90 seconds or it is not worth waiting for.
+        client = OpenAI(api_key=settings.OPENAI_API_KEY,
+                        timeout=90.0, max_retries=1)
         r = client.images.generate(
             model=IMAGE_MODEL,
             prompt=_prompt(spec),
@@ -173,6 +178,91 @@ def attach_plot(q: dict) -> bool:
     q["diagram"] = {"url": f"/api/diagrams/{key}.svg", "alt": alt,
                     "exact": True}
     return True
+
+
+def attach_plots(payload: dict) -> dict:
+    """Draw every mathematical figure. Milliseconds, and free.
+
+    Plots are rendered from numbers by questions.plots, so they are done
+    before the paper is handed over. Only pictures from the image model are
+    slow enough to be worth waiting for separately.
+    """
+    for q in payload.get("questions", []):
+        attach_plot(q)
+    return payload
+
+
+def mark_image_pending(payload: dict) -> dict:
+    """Hold back the drawn pictures so the paper can be read immediately.
+
+    A picture takes the better part of a minute, and a facilitator was
+    staring at "Drawing the diagram..." with a finished paper behind it. The
+    spec is parked on the question and the paper goes out now; the picture
+    is drawn afterwards and dropped into place.
+    """
+    pending = 0
+    for q in payload.get("questions", []):
+        spec = q.get("diagram")
+        if not isinstance(spec, dict) or not spec.get("subject"):
+            continue
+        if spec.get("url") or spec.get("pending"):
+            continue
+        q["diagram"] = {
+            "pending": True,
+            "alt": spec.get("alt") or spec.get("subject") or "",
+            "spec": {k: spec.get(k) for k in ("subject", "labels", "alt")},
+        }
+        pending += 1
+    payload["diagrams_pending"] = pending
+    return payload
+
+
+def draw_pending(output_id, *, user=None) -> int:
+    """Draw the held-back pictures, saving the paper after each one.
+
+    Saving per picture rather than at the end means the page shows each
+    diagram the moment it exists, instead of all of them at once at the end.
+    """
+    from .models import GeneratedOutput
+
+    drawn = 0
+    while True:
+        out = GeneratedOutput.objects.filter(pk=output_id).first()
+        if not out:
+            return drawn
+        payload = out.payload or {}
+        target = next(
+            (q for q in payload.get("questions", [])
+             if isinstance(q.get("diagram"), dict)
+             and q["diagram"].get("pending")), None)
+        if target is None:
+            if payload.get("diagrams_pending"):
+                payload["diagrams_pending"] = 0
+                GeneratedOutput.objects.filter(pk=output_id).update(
+                    payload=payload)
+            return drawn
+
+        spec = target["diagram"].get("spec") or {}
+        alt = target["diagram"].get("alt") or ""
+        started = time.time()
+        url = generate_diagram(spec, user=user)
+        if url:
+            _log_call(task="diagram", provider="openai", model=IMAGE_MODEL,
+                      user=user, tokens_in=0, tokens_out=0, error="",
+                      ms=int((time.time() - started) * 1000))
+            target["diagram"] = {"url": url, "alt": alt or spec.get("subject", "")}
+            drawn += 1
+        else:
+            # Keep the description: the question says "the diagram above".
+            target["diagram"] = {"url": "", "alt": alt}
+            payload.setdefault("warnings", []).append(
+                f"Q{target.get('number')}: the diagram could not be drawn - "
+                f"the description is shown instead.")
+
+        payload["diagrams_pending"] = sum(
+            1 for q in payload.get("questions", [])
+            if isinstance(q.get("diagram"), dict) and q["diagram"].get("pending"))
+        GeneratedOutput.objects.filter(pk=output_id).update(payload=payload)
 
 
 def attach_diagrams(payload: dict, *, user=None) -> dict:
