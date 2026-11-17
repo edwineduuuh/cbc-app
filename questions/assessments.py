@@ -19,6 +19,7 @@ against the scheme, never against its own knowledge.
 """
 from __future__ import annotations
 
+import difflib
 import json
 import logging
 import random
@@ -746,6 +747,25 @@ def _label(s):
     return f"{s.kicd_code} {s.name}".strip()
 
 
+def _match_outcome(claimed: str, outcomes: list) -> str:
+    """The design outcome this question claims, or '' if it is not one.
+
+    The model copies the outcome it is assessing out of the list it was
+    given. A tag that is not in the list means the question has wandered off
+    the design, which is the one thing this tool must never do.
+    """
+    claimed = (claimed or "").strip()
+    if not claimed or not outcomes:
+        return ""
+    low = claimed.lower()
+    best, score = "", 0.0
+    for o in outcomes:
+        r = difflib.SequenceMatcher(None, low, str(o).strip().lower()).ratio()
+        if r > score:
+            best, score = str(o).strip(), r
+    return best if score >= 0.75 else ""
+
+
 def _tag_question(q, by_tag, only):
     """Record which sub-strand a question came from, from its [S N] tag."""
     s = None
@@ -761,6 +781,17 @@ def _tag_question(q, by_tag, only):
     q["substrand_id"] = s.id
     q["substrand"] = _label(s)
     q["strand"] = f"{s.topic.kicd_code} {s.topic.name}".strip()
+
+    # Hold the question to an outcome that is actually in the design. A tag
+    # the design does not contain means the question has wandered off it.
+    claimed = (q.get("outcome") or "").strip()
+    matched = _match_outcome(claimed, s.learning_outcomes or [])
+    q["outcome"] = matched
+    # Keep what it said even when that is not a design outcome, so the
+    # rejection can name the claim instead of saying "the outcome it claimed".
+    if claimed and not matched:
+        q["outcome_claimed"] = claimed
+    q["off_design"] = not matched
     return True
 
 

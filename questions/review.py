@@ -66,13 +66,22 @@ or their town. "Four sacks of x kg plus 3 kg is 19 kg, which equation" and \
 same shape: the second repeats the first. Judge the task, not the wording. \
 Always name the earlier question, never the later one.
 
-4. "shallow" - "yes" if the question only asks a learner to recall a \
+4. "outcome" - every question states the curriculum outcome it claims to \
+assess, in square brackets under it. Answer "yes" if answering the question \
+genuinely requires the skill that outcome names, and "no" if the question \
+tests something else and the claim is just attached to it. A question whose \
+outcome says "determine the gradient from two known points" but which hands \
+the learner the gradient and asks for something else is a "no". This is the \
+one thing the paper must never get wrong: a question outside the design is \
+worthless to the teacher whatever else is right about it.
+
+5. "shallow" - "yes" if the question only asks a learner to recall a \
 definition, read a number straight out of the stem, or substitute one value \
 into a formula the question itself supplies, when the sub-strand's outcomes \
 expect them to apply, analyse or judge. Otherwise "no". A question whose \
 answer is stated in its own wording is always shallow.
 
-5. "setting" - two or three words naming the scenario, such as "road ramp", \
+6. "setting" - two or three words naming the scenario, such as "road ramp", \
 "matatu fare", "maize harvest", "none" if it has no real-world setting. Use \
 the same words for the same scenario so repeats can be spotted.
 
@@ -83,10 +92,10 @@ the figure in front of them. NEVER report "unclear" merely because you \
 cannot see a picture yourself.
 
 Return ONLY JSON, no commentary:
-{"questions": [{"n": 1, "correct": "B", "tests": "yes", "repeats": 0, "shallow": "no", "setting": "road ramp", "note": ""},
-               {"n": 2, "correct": "none", "tests": "yes", "repeats": 0, "shallow": "no", "setting": "water tank", "note": "7x12=84, not listed"},
-               {"n": 3, "correct": "n/a", "tests": "no", "repeats": 0, "shallow": "yes", "setting": "none", "note": "only asks for a percentage"},
-               {"n": 4, "correct": "C", "tests": "yes", "repeats": 1, "shallow": "no", "setting": "road ramp", "note": "same as Q1 with different numbers"}]}"""
+{"questions": [{"n": 1, "correct": "B", "tests": "yes", "outcome": "yes", "repeats": 0, "shallow": "no", "setting": "road ramp", "note": ""},
+               {"n": 2, "correct": "none", "tests": "yes", "outcome": "yes", "repeats": 0, "shallow": "no", "setting": "water tank", "note": "7x12=84, not listed"},
+               {"n": 3, "correct": "n/a", "tests": "no", "outcome": "yes", "repeats": 0, "shallow": "yes", "setting": "none", "note": "only asks for a percentage"},
+               {"n": 4, "correct": "C", "tests": "yes", "outcome": "yes", "repeats": 1, "shallow": "no", "setting": "road ramp", "note": "same as Q1 with different numbers"}]}"""
 
 REPAIR_SYSTEM_SUFFIX = """
 
@@ -123,6 +132,11 @@ def _block(q) -> str:
     opts = q.get("options") or {}
     lines = [f'Question {q["number"]} [{q.get("substrand") or "unlabelled"}] '
              f'({q.get("type")}): {q.get("question_text", "")}']
+    # The outcome the question says it assesses, so the checker can judge the
+    # claim rather than take it on trust.
+    if q.get("outcome"):
+        lines.append(f'  [CLAIMS TO ASSESS THIS DESIGN OUTCOME: '
+                     f'"{q["outcome"]}"]')
     fig = _figure_line(q)
     if fig:
         lines.append(fig)
@@ -208,6 +222,7 @@ def _verdicts(payload, user, subject_name=""):
         out[n] = {
             "correct": str(row.get("correct") or "").strip(),
             "tests": str(row.get("tests") or "").strip().lower(),
+            "outcome_ok": str(row.get("outcome") or "").strip().lower() != "no",
             # Only ever an earlier question: a checker that names a later one
             # would have the paper delete the original and keep the copy.
             "repeats": repeats if 0 < repeats < n else 0,
@@ -225,6 +240,11 @@ def _fault(q, v):
         note = v.get("note") or ""
         reason = f"it did not actually assess {where}"
         return f"{reason} - {note}" if note else reason
+
+    if not v.get("outcome_ok", True):
+        claimed = q.get("outcome") or q.get("outcome_claimed") or "the outcome it claimed"
+        return (f'it did not actually assess the design outcome it claims, '
+                f'"{claimed}"')
 
     if v.get("repeats"):
         return (f"it asked the same thing as question {v['repeats']} with "
