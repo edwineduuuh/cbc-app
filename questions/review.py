@@ -53,10 +53,19 @@ asks a learner to multiply two numbers is testing multiplication: "no". A \
 question that asks what a block of code outputs, or which step is missing, \
 is testing programming: "yes".
 
+3. "repeats" - the number of an EARLIER question in this paper that this one \
+is a copy of in shape, or 0. Two questions are the same shape when they ask \
+a learner to do the same thing and differ only in their numbers, their names \
+or their town. "Four sacks of x kg plus 3 kg is 19 kg, which equation" and \
+"five cans of x litres plus 8 litres is 33 litres, which equation" are the \
+same shape: the second repeats the first. Judge the task, not the wording. \
+Always name the earlier question, never the later one.
+
 Return ONLY JSON, no commentary:
-{"questions": [{"n": 1, "correct": "B", "tests": "yes", "note": ""},
-               {"n": 2, "correct": "none", "tests": "yes", "note": "7x12=84, not listed"},
-               {"n": 3, "correct": "n/a", "tests": "no", "note": "only asks for a percentage"}]}"""
+{"questions": [{"n": 1, "correct": "B", "tests": "yes", "repeats": 0, "note": ""},
+               {"n": 2, "correct": "none", "tests": "yes", "repeats": 0, "note": "7x12=84, not listed"},
+               {"n": 3, "correct": "n/a", "tests": "no", "repeats": 0, "note": "only asks for a percentage"},
+               {"n": 4, "correct": "C", "tests": "yes", "repeats": 1, "note": "same as Q1 with different numbers"}]}"""
 
 REPAIR_SYSTEM_SUFFIX = """
 
@@ -100,9 +109,16 @@ def _verdicts(payload, user):
             n = int(row.get("n"))
         except (TypeError, ValueError):
             continue
+        try:
+            repeats = int(row.get("repeats") or 0)
+        except (TypeError, ValueError):
+            repeats = 0
         out[n] = {
             "correct": str(row.get("correct") or "").strip(),
             "tests": str(row.get("tests") or "").strip().lower(),
+            # Only ever an earlier question: a checker that names a later one
+            # would have the paper delete the original and keep the copy.
+            "repeats": repeats if 0 < repeats < n else 0,
             "note": str(row.get("note") or "").strip(),
         }
     return out
@@ -115,6 +131,10 @@ def _fault(q, v):
         note = v.get("note") or ""
         reason = f"it did not actually assess {where}"
         return f"{reason} - {note}" if note else reason
+
+    if v.get("repeats"):
+        return (f"it asked the same thing as question {v['repeats']} with "
+                f"different numbers, so the paper was padding")
 
     if q.get("type") != "mcq":
         return None
@@ -141,7 +161,8 @@ def _fault(q, v):
     return None
 
 
-def _repair(faults, substrands, *, count_by_type, description, user):
+def _repair(faults, substrands, *, count_by_type, description, user,
+            keeping=None):
     """Generate replacements for the questions that were thrown out."""
     from questions.assessments import (SCHEMA, SYSTEM, _as_list, build_prompt,
                                        token_budget)
@@ -161,10 +182,19 @@ def _repair(faults, substrands, *, count_by_type, description, user):
         f'- a {t} question on {label or "the sub-strand"}, rejected because {why}'
         for t, label, why in faults)
 
+    # The replacements have to differ from what SURVIVED too, or a paper that
+    # lost its duplicates gets them straight back.
+    kept_text = "\n".join(f'- {q.get("question_text", "")[:200]}'
+                          for q in (keeping or []))
+
     prompt = (
         f"{base}\n\n"
         f"THESE QUESTIONS WERE JUST REJECTED IN REVIEW. Write replacements "
         f"that do not repeat the fault:\n{rejected}\n\n"
+        + (f"THE PAPER ALREADY CONTAINS THESE QUESTIONS. Your replacements "
+           f"must ask for something different from every one of them, not the "
+           f"same task with other numbers:\n{kept_text}\n\n" if kept_text else "")
+        +
         f"Produce exactly {total} questions: "
         f"{count_by_type.get('mcq', 0)} multiple-choice and "
         f"{count_by_type.get('structured', 0)} structured.\n\n"
@@ -218,7 +248,7 @@ def review_paper(payload: dict, substrands, *, user=None, description="",
         for t, _, _ in faults:
             by_type[t] = by_type.get(t, 0) + 1
         raw = _repair(faults, substrands, count_by_type=by_type,
-                      description=description, user=user)
+                      description=description, user=user, keeping=kept)
         if raw:
             # Put them through the same validation the originals went
             # through - marks, marking schemes, answer spread, sub-strand tag.

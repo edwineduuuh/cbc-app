@@ -1191,6 +1191,25 @@ class GeneratedOutput(models.Model):
     edited_at = models.DateTimeField(null=True, blank=True)
     model_used = models.CharField(max_length=60, blank=True, default="")
 
+    # Building a paper takes about two minutes - writing it, checking every
+    # question, then drawing. That is far too long to hold an HTTP request
+    # open: gunicorn killed the worker at 120s and the browser reported
+    # "Failed to fetch" for a paper that had in fact been generated. The row
+    # is created first and filled in by a background thread, so nothing
+    # depends on a connection staying up.
+    STATUS_RUNNING = "running"
+    STATUS_READY = "ready"
+    STATUS_FAILED = "failed"
+    STATUS_CHOICES = [
+        (STATUS_RUNNING, "Generating"),
+        (STATUS_READY, "Ready"),
+        (STATUS_FAILED, "Failed"),
+    ]
+    # Rows that existed before this field are finished work, so "ready".
+    status = models.CharField(max_length=12, choices=STATUS_CHOICES,
+                              default=STATUS_READY, db_index=True)
+    error = models.TextField(blank=True, default="")
+
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

@@ -20,10 +20,14 @@ against the scheme, never against its own knowledge.
 from __future__ import annotations
 
 import json
+import logging
 import random
 import re
+import time
 
 from questions.generation import generate_json
+
+logger = logging.getLogger("generation")
 
 SYSTEM = """You are a Kenyan teacher writing a classroom assessment for the \
 CBE (Competency Based Education) curriculum.
@@ -80,6 +84,16 @@ what a given block sequence outputs, which block is missing, what to change \
 so the program repeats, how to test it, why it behaves wrongly.
   * The same applies everywhere - a question is about the sub-strand only \
 when the sub-strand's own ideas are what the learner has to reason with.
+
+- NO TWO QUESTIONS MAY SHARE A SHAPE. If two questions differ only in their \
+numbers, their names or their town, they are one question printed twice and \
+the paper is padding. "Four sacks of x kg plus 3 kg is 19 kg, which equation" \
+and "five cans of x litres plus 8 litres is 33 litres, which equation" are \
+the same question. Each question must demand something different: form an \
+equation, solve one, check whether a given value satisfies one, find the \
+error in a worked solution, read a result off a graph or number line, \
+interpret what an answer means for the situation, decide which of two \
+expressions fits.
 
 - The Kenyan context must carry the question, not decorate it. If swapping \
 the town or the crop for any other changes nothing about what is being \
@@ -293,6 +307,12 @@ def generate_assessment(substrands, *, count=10, description="",
                         verify=True) -> dict:
     """Generate one assessment over one or more sub-strands."""
     subs = _as_list(substrands)
+    started = time.time()
+    marks = [("start", 0.0)]
+
+    def mark(name):
+        marks.append((name, round(time.time() - started, 1)))
+
     prompt = build_prompt(subs, count=count, description=description,
                           mcq_ratio=mcq_ratio, want_diagram=diagrams)
     data = generate_json(prompt, SYSTEM, max_tokens=token_budget(count),
@@ -300,17 +320,28 @@ def generate_assessment(substrands, *, count=10, description="",
     if not isinstance(data, dict) or not data.get("questions"):
         raise ValueError("Generator returned no questions")
     data = _validate(data, subs)
+    mark("written")
 
     if verify:
         # Before diagrams, so we never pay to draw a picture for a question
         # that is about to be thrown out.
         from questions.review import review_paper
         data = review_paper(data, subs, user=user, description=description)
+        mark("reviewed")
 
     if diagrams:
         # After validation, so a failed image never costs us the questions.
         from questions.diagrams import attach_diagrams
         data = attach_diagrams(data, user=user)
+        mark("drawn")
+
+    # Wall time per stage. The whole chain once ran past gunicorn's 120s
+    # timeout, so the worker was killed and the browser reported "Failed to
+    # fetch" on a paper that had in fact been generated. Guessing which stage
+    # is slow is not good enough - record it.
+    logger.info("assessment built in %.1fs: %s", marks[-1][1],
+                ", ".join(f"{n}@{t}s" for n, t in marks[1:]))
+    data["seconds"] = marks[-1][1]
     return data
 
 

@@ -12,14 +12,19 @@ const API =
 
 const COUNTS = [5, 10, 15, 20, 25, 30, 40];
 
-// Generation takes roughly a minute. A spinner alone reads as "hung" at that
-// length, so step through what is happening and keep an elapsed counter.
+// Two to three minutes: the paper is written, then every question is checked
+// and weak ones replaced, then any diagram is drawn. A spinner alone reads as
+// "hung" at that length, so step through what is happening and keep an
+// elapsed counter.
 const STAGES = [
   "Reading the curriculum design...",
   "Choosing which outcomes to assess...",
   "Writing the questions...",
   "Writing the marking schemes...",
-  "Checking the marks add up...",
+  "Checking every question against the sub-strand...",
+  "Working out the answers independently...",
+  "Replacing any question that failed the check...",
+  "Drawing the diagram...",
 ];
 
 export default function AssessmentsPage() {
@@ -46,11 +51,11 @@ export default function AssessmentsPage() {
     const t2 = setInterval(() => setStage((s) => Math.min(s + 1, STAGES.length - 1)), 12000);
     timers.current = [t1, t2];
 
-    // The shared client aborts at 25s. Generating a paper takes 45-60s, so it
-    // could never finish - it failed with "signal is aborted without reason".
-    // Pass our own signal: fetchWithTimeout leaves a caller-supplied one alone.
+    // The server now answers straight away with the id of a paper it is
+    // building in the background, so this request is short. It used to hold
+    // the connection open for the whole two minutes, which is why it died.
     const ac = new AbortController();
-    const hardStop = setTimeout(() => ac.abort(), 180000);
+    const hardStop = setTimeout(() => ac.abort(), 45000);
 
     try {
       const r = await fetchWithAuth(`${API}/facilitator/assessments/generate/`, {
@@ -64,11 +69,22 @@ export default function AssessmentsPage() {
       });
       const d = await r.json();
       if (!r.ok) throw new Error(d.error || "Could not generate the assessment");
+      // The paper has its own page from this moment, which shows it being
+      // built. Closing the tab no longer loses it.
       router.push(`/facilitator/library/${d.id}`);
     } catch (e) {
+      // "Failed to fetch" is what the browser says for a connection that
+      // died, which tells a facilitator nothing and sent us hunting the
+      // wrong bug. Name the likely cause instead.
+      const dropped =
+        e?.name === "TypeError" || /failed to fetch|network/i.test(e?.message || "");
       setError(
         e?.name === "AbortError"
           ? "The server took too long to answer. Try again, or ask for fewer questions."
+          : dropped
+          ? "The connection to the server dropped before the paper came back. " +
+            "This usually means it took too long. Try again, or ask for fewer " +
+            "questions, or untick the diagram."
           : e.message || "Could not generate the assessment"
       );
     } finally {
@@ -207,8 +223,9 @@ export default function AssessmentsPage() {
           <div className="rounded-xl bg-gray-50 border border-gray-200 px-4 py-3">
             <p className="text-sm text-gray-700">{STAGES[stage]}</p>
             <p className="text-xs text-gray-400 mt-1">
-              {elapsed}s elapsed. This usually takes about a minute - you can leave
-              this page open.
+              {elapsed}s elapsed. Two to three minutes is normal - the questions
+              are written, then checked one by one, then any diagram is drawn.
+              You can leave this page open.
             </p>
           </div>
         )}

@@ -9,6 +9,8 @@ and chained - lesson notes from a lesson plan, a record of work from a
 scheme.
 """
 import logging
+import threading
+from datetime import timedelta
 
 from django.db.models import Count, Q
 from django.shortcuts import get_object_or_404
@@ -92,9 +94,27 @@ def _is_facilitator(user):
             or user.is_staff)
 
 
+# A paper takes about two minutes. Past this, the container was redeployed or
+# restarted mid-generation and the thread went with it - the row would say
+# "generating" forever, so it is reported as failed instead.
+STALE_AFTER = timedelta(minutes=10)
+
+
+def _status_of(o: GeneratedOutput) -> str:
+    if (o.status == GeneratedOutput.STATUS_RUNNING
+            and timezone.now() - o.created_at > STALE_AFTER):
+        return GeneratedOutput.STATUS_FAILED
+    return o.status
+
+
 def _summarise(o: GeneratedOutput) -> dict:
     """Row shape for the My Library list - no payload, keeps it light."""
+    state = _status_of(o)
     return {
+        "status": state,
+        "error": (o.error or ("The server restarted while this was being "
+                              "generated." if state == "failed" and not o.error
+                              else "")),
         "id": o.id,
         "tool": o.tool,
         "tool_display": o.get_tool_display(),
@@ -226,33 +246,22 @@ def generate_assessment_view(request):
         count = 10
     count = max(1, min(count, MAX_QUESTIONS))
 
-    try:
-        payload = generate_assessment(
-            chosen,
-            count=count,
-            description=(data.get("description") or "")[:1000],
-            mcq_ratio=float(data.get("mcq_ratio") or 0.6),
-            user=request.user,
-            # Diagrams cost far more than the questions do, so they are the
-            # facilitator's choice rather than something that happens to them.
-            diagrams=bool(data.get("diagrams", True)),
-        )
-    except GenerationError as e:
-        logger.warning("assessment generation failed: %s", e)
-        return Response({"error": f"Could not generate: {e}"},
-                        status=status.HTTP_502_BAD_GATEWAY)
-    except Exception as e:
-        logger.exception("assessment generation crashed")
-        return Response({"error": f"Could not generate: {e}"},
-                        status=status.HTTP_502_BAD_GATEWAY)
-
     from django.conf import settings
     first = chosen[0]
     topics = {s.topic_id for s in chosen}
+    inputs = {"count": count,
+              "description": (data.get("description") or "")[:1000],
+              "mcq_ratio": float(data.get("mcq_ratio") or 0.6),
+              # Diagrams cost far more than the questions do, so they are the
+              # facilitator's choice rather than something that happens to them.
+              "diagrams": bool(data.get("diagrams", True)),
+              "substrands": [s.id for s in chosen],
+              "strands": sorted(topics)}
+
     out = GeneratedOutput.objects.create(
         teacher=request.user,
         tool="assessment",
-        title=payload.get("title") or f"{first.name} Assessment",
+        title=f"{first.name} assessment",      # the paper renames itself
         # Only pin the row to one strand or sub-strand when it really is
         # about one. A paper across four strands filed under the first would
         # be a lie in the library listing.
@@ -260,17 +269,63 @@ def generate_assessment_view(request):
         topic=first.topic if len(topics) == 1 else None,
         grade=first.topic.grade,
         subject=first.topic.subject,
-        payload=payload,
-        inputs={"count": count,
-                "description": data.get("description") or "",
-                "mcq_ratio": data.get("mcq_ratio") or 0.6,
-                "diagrams": bool(data.get("diagrams", True)),
-                "substrands": [s.id for s in chosen],
-                "strands": sorted(topics)},
+        payload={},
+        inputs=inputs,
+        status=GeneratedOutput.STATUS_RUNNING,
         model_used=getattr(settings, "GEN_MODEL", "") or "",
     )
-    return Response({"id": out.id, **_summarise(out), "payload": payload},
-                    status=status.HTTP_201_CREATED)
+
+    # Hand the work to a thread and answer now. Holding the request open for
+    # two minutes is what made this fail: the worker was killed at 120s and
+    # the browser reported "Failed to fetch" for a paper that had actually
+    # been written. Nothing now depends on the connection staying up - the
+    # facilitator can close the tab and the paper still lands in My Library.
+    threading.Thread(
+        target=_build_assessment,
+        args=(out.id, [s.id for s in chosen], inputs, request.user.id),
+        daemon=True,
+        name=f"assessment-{out.id}",
+    ).start()
+
+    return Response({"id": out.id, **_summarise(out)},
+                    status=status.HTTP_202_ACCEPTED)
+
+
+def _build_assessment(output_id, substrand_ids, inputs, user_id):
+    """Generate the paper off the request. Runs in its own thread."""
+    from django.contrib.auth import get_user_model
+    from django.db import connection
+
+    try:
+        order = {sid: i for i, sid in enumerate(substrand_ids)}
+        subs = sorted(
+            Substrand.objects.select_related("topic", "topic__subject")
+                             .filter(id__in=substrand_ids),
+            key=lambda s: order.get(s.id, 0))
+        user = get_user_model().objects.filter(pk=user_id).first()
+
+        payload = generate_assessment(
+            subs,
+            count=inputs["count"],
+            description=inputs["description"],
+            mcq_ratio=inputs["mcq_ratio"],
+            user=user,
+            diagrams=inputs["diagrams"],
+        )
+        GeneratedOutput.objects.filter(pk=output_id).update(
+            payload=payload,
+            title=(payload.get("title") or "").strip()[:200] or "Assessment",
+            status=GeneratedOutput.STATUS_READY,
+            error="")
+    except Exception as e:
+        logger.exception("assessment generation failed (output %s)", output_id)
+        GeneratedOutput.objects.filter(pk=output_id).update(
+            status=GeneratedOutput.STATUS_FAILED,
+            error=f"{type(e).__name__}: {e}"[:500])
+    finally:
+        # A thread gets its own connection; leaving it open leaks one per
+        # paper until the pool is exhausted.
+        connection.close()
 
 
 # ── output history ────────────────────────────────────────────────────────

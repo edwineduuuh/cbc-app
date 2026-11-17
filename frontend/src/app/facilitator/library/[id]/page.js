@@ -78,12 +78,15 @@ export default function LibraryItemPage() {
   const [tab, setTab] = useState("assessment");   // assessment | scheme
   const [copied, setCopied] = useState("");
   const [error, setError] = useState("");
+  const [waited, setWaited] = useState(0);
 
   const load = useCallback(async () => {
     try {
       const r = await fetchWithAuth(`${API}/facilitator/library/${id}/`);
       if (r.status === 404) { router.replace("/facilitator/library"); return; }
-      setItem(await r.json());
+      const d = await r.json();
+      setItem(d);
+      return d.status;
     } catch {
       setError("Could not open this item.");
     } finally {
@@ -92,6 +95,15 @@ export default function LibraryItemPage() {
   }, [id, router]);
 
   useEffect(() => { load(); }, [load]);
+
+  // While the paper is still being written, ask again every few seconds. The
+  // work happens on the server, so this page can be closed and reopened and
+  // the paper is still coming.
+  useEffect(() => {
+    if (item?.status !== "running") return;
+    const t = setInterval(() => { load(); setWaited((s) => s + 4); }, 4000);
+    return () => clearInterval(t);
+  }, [item?.status, load]);
 
   const patch = async (body) => {
     setSaving(true); setError("");
@@ -175,6 +187,57 @@ export default function LibraryItemPage() {
     return <div className="py-20 flex justify-center"><Loader2 className="w-5 h-5 animate-spin text-emerald-600" /></div>;
   }
   if (!item) return <p className="text-sm text-red-600">{error || "Not found."}</p>;
+
+  // Still being written. The server is doing it, not this page, so there is
+  // nothing to lose by navigating away.
+  if (item.status === "running") {
+    const stage =
+      waited < 80 ? "Writing the questions and their marking schemes..."
+      : waited < 110 ? "Checking every question against the sub-strand..."
+      : waited < 140 ? "Replacing any question that failed the check..."
+      : "Drawing the diagram...";
+    return (
+      <div className="max-w-3xl">
+        <Link href="/facilitator/library" className="inline-flex items-center gap-1.5 text-sm text-gray-500 hover:text-gray-800 mb-4">
+          <ArrowLeft className="w-4 h-4" /> My Library
+        </Link>
+        <div className="bg-white rounded-2xl border border-gray-200 p-8 text-center">
+          <Loader2 className="w-6 h-6 animate-spin text-emerald-600 mx-auto" />
+          <p className="mt-4 text-sm font-medium text-gray-800">{stage}</p>
+          <p className="mt-1 text-xs text-gray-500">
+            {item.grade ? `Grade ${item.grade} · ` : ""}{item.subject}
+            {item.covers ? ` · ${item.covers}` : ""}
+          </p>
+          <p className="mt-4 text-xs text-gray-400">
+            About two minutes in total. You can close this page - it is being
+            built on the server and will be waiting in My Library.
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  if (item.status === "failed") {
+    return (
+      <div className="max-w-3xl">
+        <Link href="/facilitator/library" className="inline-flex items-center gap-1.5 text-sm text-gray-500 hover:text-gray-800 mb-4">
+          <ArrowLeft className="w-4 h-4" /> My Library
+        </Link>
+        <div className="bg-white rounded-2xl border border-red-200 p-8">
+          <p className="flex items-center gap-2 text-sm font-semibold text-red-700">
+            <AlertTriangle className="w-4 h-4" /> This paper could not be generated
+          </p>
+          {item.error && (
+            <p className="mt-2 text-xs text-gray-600 font-mono break-words">{item.error}</p>
+          )}
+          <Link href="/facilitator/assessments"
+                className="mt-5 inline-flex rounded-xl bg-emerald-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-emerald-700">
+            Try again
+          </Link>
+        </div>
+      </div>
+    );
+  }
 
   const p = item.payload || {};
   const questions = p.questions || [];
