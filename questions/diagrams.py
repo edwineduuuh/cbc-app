@@ -13,12 +13,11 @@ from __future__ import annotations
 
 import base64
 import hashlib
-import io
 import logging
 import time
 
 from django.conf import settings
-from django.core.files.base import ContentFile
+from django.db.models import F
 
 from questions.generation import _log_call
 
@@ -70,6 +69,17 @@ def generate_diagram(spec: dict, *, user=None) -> str | None:
         logger.warning("no OPENAI_API_KEY; skipping diagram")
         return None
 
+    # Same prompt, same picture: if we have drawn it before, hand back the
+    # stored one and pay nothing.
+    key = diagram_key(spec)
+    from .models import Diagram
+    existing = Diagram.objects.filter(key=key).only("key").first()
+    if existing:
+        Diagram.objects.filter(pk=existing.pk).update(
+            times_used=F("times_used") + 1)
+        logger.info("diagram cache hit %s", key)
+        return existing.url
+
     started = time.time()
     try:
         from openai import OpenAI
@@ -87,8 +97,7 @@ def generate_diagram(spec: dict, *, user=None) -> str | None:
         else:
             import requests
             data = requests.get(r.data[0].url, timeout=90).content
-        url = _store(data, diagram_key(spec))
-        return url
+        return _store(data, key, spec)
     except Exception as e:
         logger.exception("diagram generation failed")
         _log_call(task="diagram", provider="openai", model=IMAGE_MODEL,
@@ -100,14 +109,32 @@ def generate_diagram(spec: dict, *, user=None) -> str | None:
         pass
 
 
-def _store(data: bytes, key: str) -> str:
-    """Save the PNG to the configured media storage and return its URL."""
-    from django.core.files.storage import default_storage
+def _store(data: bytes, key: str, spec: dict) -> str | None:
+    """Keep the PNG in the database and return the URL that serves it.
 
-    name = f"diagrams/{key}.png"
-    if not default_storage.exists(name):
-        default_storage.save(name, ContentFile(data))
-    return default_storage.url(name)
+    Not the filesystem: Railway rebuilds the container on every deploy, so a
+    file written to media/ is gone by the next push and the picture would be
+    paid for again - and Django does not serve MEDIA_URL at all when DEBUG is
+    off, which is why these came out as broken images.
+    """
+    from .models import Diagram
+
+    if not data:
+        return None
+    d, _ = Diagram.objects.get_or_create(
+        key=key,
+        defaults={
+            "data": data,
+            "content_type": "image/png",
+            "byte_size": len(data),
+            "prompt": _prompt(spec)[:4000],
+            "alt": (spec.get("alt") or spec.get("subject") or "")[:1000],
+            "labels": [str(l) for l in (spec.get("labels") or [])],
+            "model_used": IMAGE_MODEL,
+            "cost_usd": IMAGE_COST_USD,
+        },
+    )
+    return d.url
 
 
 def attach_diagrams(payload: dict, *, user=None) -> dict:
@@ -132,7 +159,14 @@ def attach_diagrams(payload: dict, *, user=None) -> dict:
                 "alt": spec.get("alt") or spec.get("subject", "Diagram"),
             }
         else:
-            q.pop("diagram", None)
+            # Keep the description. The question says "the diagram above", so
+            # dropping it silently leaves a question referring to nothing -
+            # a teacher can at least sketch from the words.
+            q["diagram"] = {
+                "url": "",
+                "alt": spec.get("alt") or spec.get("subject") or "",
+            }
             payload.setdefault("warnings", []).append(
-                f"Q{q.get('number')}: the diagram could not be generated.")
+                f"Q{q.get('number')}: the diagram could not be drawn - the "
+                f"description is shown instead.")
     return payload

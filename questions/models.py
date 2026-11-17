@@ -1204,6 +1204,51 @@ class GeneratedOutput(models.Model):
 
     def __str__(self):
         return f"{self.get_tool_display()}: {self.title}"
+
+
+class Diagram(models.Model):
+    """A generated diagram, stored as bytes in the database.
+
+    Not on disk: Railway's filesystem is wiped on every deploy, so a diagram
+    saved to media/ is gone by the next build and we pay to draw it again.
+    Not on S3 either - these are a few hundred KB each, there will never be
+    many of them (the key is a hash of the prompt, so the same picture is
+    drawn once and reused forever), and a bucket is one more thing to
+    configure wrongly.
+
+    Served by questions.diagram_views.diagram_file, which is deliberately
+    public: the key is unguessable and the picture holds nothing personal,
+    and an <img> tag cannot send an Authorization header.
+    """
+    key = models.CharField(max_length=64, unique=True, db_index=True,
+                           help_text="sha256 of the prompt - same prompt, same diagram")
+    data = models.BinaryField(help_text="The PNG itself")
+    content_type = models.CharField(max_length=40, default="image/png")
+    byte_size = models.PositiveIntegerField(default=0)
+
+    prompt = models.TextField(blank=True, default="")
+    alt = models.TextField(blank=True, default="",
+                           help_text="What the picture shows, in words")
+    labels = models.JSONField(default=list, blank=True)
+
+    model_used = models.CharField(max_length=60, blank=True, default="")
+    cost_usd = models.DecimalField(max_digits=8, decimal_places=4, default=0)
+    times_used = models.PositiveIntegerField(default=1)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        db_table = "diagrams"
+        ordering = ["-created_at"]
+
+    def __str__(self):
+        return f"{self.alt[:60] or self.key}"
+
+    @property
+    def url(self) -> str:
+        return f"/api/diagrams/{self.key}.png"
+
+
 # ─────────────────────────────────────────────
 #  CLASSROOMS (Kahoot-style)
 # ─────────────────────────────────────────────

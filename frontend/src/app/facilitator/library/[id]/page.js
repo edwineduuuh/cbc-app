@@ -14,6 +14,44 @@ const API =
 
 const TYPE_LABEL = { mcq: "Multiple choice", structured: "Structured" };
 
+// The backend hands back a root-relative path ("/api/diagrams/<key>.png").
+// Rendered here that resolves against the *frontend's* origin, where nothing
+// is served - which is exactly why diagrams showed as broken images. Point it
+// back at the API.
+const ORIGIN = API.replace(/\/api\/?$/, "");
+const imgSrc = (u) =>
+  !u ? "" : /^(https?:|data:)/i.test(u) ? u : `${ORIGIN}${u.startsWith("/") ? "" : "/"}${u}`;
+
+/** The picture a question is built around. If it cannot be loaded, show what
+ *  it was meant to show - a question that says "the diagram above" must not
+ *  sit above an empty space. */
+function Diagram({ diagram }) {
+  const [failed, setFailed] = useState(false);
+  if (!diagram) return null;
+
+  const src = imgSrc(diagram.url);
+  if (src && !failed) {
+    return (
+      /* eslint-disable-next-line @next/next/no-img-element */
+      <img
+        src={src}
+        alt={diagram.alt || "Diagram for this question"}
+        onError={() => setFailed(true)}
+        className="mt-3 mb-1 max-w-sm w-full rounded-lg border border-gray-200 bg-white print:border-gray-400"
+      />
+    );
+  }
+  if (!diagram.alt) return null;
+  return (
+    <figure className="mt-3 mb-1 max-w-sm rounded-lg border border-dashed border-gray-300 bg-gray-50 px-4 py-3 print:border-gray-400 print:bg-white">
+      <figcaption className="text-[11px] font-semibold uppercase tracking-wide text-gray-500">
+        Diagram
+      </figcaption>
+      <p className="mt-1 text-sm italic text-gray-600">{diagram.alt}</p>
+    </figure>
+  );
+}
+
 /** Ruled lines a learner writes on. Roughly two per mark, with a floor so a
  *  1-mark part is still usable, because a printed paper with nowhere to write
  *  is not a paper. */
@@ -259,14 +297,7 @@ export default function LibraryItemPage() {
 
                   {!showScheme && (
                     <>
-                      {q.diagram?.url && (
-                        /* eslint-disable-next-line @next/next/no-img-element */
-                        <img
-                          src={q.diagram.url}
-                          alt={q.diagram.alt || "Diagram for this question"}
-                          className="mt-3 mb-1 max-w-sm w-full rounded-lg border border-gray-200 bg-white print:border-gray-400"
-                        />
-                      )}
+                      <Diagram diagram={q.diagram} />
 
                       {q.type === "mcq" && q.options && (
                         <ul className="mt-2 space-y-1">

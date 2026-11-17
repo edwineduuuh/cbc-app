@@ -5,6 +5,7 @@ from django.db import connection
 from django.http import JsonResponse
 from . import views
 from . import facilitator_views
+from .diagram_views import diagram_file
 
 
 def health(request):
@@ -235,6 +236,9 @@ path('facilitator/curriculum/', facilitator_views.curriculum_tree, name='facilit
 path('facilitator/assessments/generate/', facilitator_views.generate_assessment_view, name='facilitator-generate-assessment'),
 path('facilitator/library/', facilitator_views.my_library, name='facilitator-library'),
 path('facilitator/library/<int:pk>/', facilitator_views.library_item, name='facilitator-library-item'),
+
+    # Public on purpose - an <img> cannot carry a token. See diagram_views.
+    path('diagrams/<str:key>.png', diagram_file, name='diagram-file'),
 ]
 
 # Serve media files in development
