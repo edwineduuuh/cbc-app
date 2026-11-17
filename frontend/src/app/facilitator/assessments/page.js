@@ -27,6 +27,7 @@ export default function AssessmentsPage() {
   const [substrand, setSubstrand] = useState(null);
   const [count, setCount] = useState(10);
   const [description, setDescription] = useState("");
+  const [diagrams, setDiagrams] = useState(true);
   const [busy, setBusy] = useState(false);
   const [stage, setStage] = useState(0);
   const [elapsed, setElapsed] = useState(0);
@@ -52,7 +53,7 @@ export default function AssessmentsPage() {
     try {
       const r = await fetchWithAuth(`${API}/facilitator/assessments/generate/`, {
         method: "POST",
-        body: JSON.stringify({ substrand: substrand.id, count, description }),
+        body: JSON.stringify({ substrand: substrand.id, count, description, diagrams }),
         signal: ac.signal,
       });
       const d = await r.json();
@@ -132,6 +133,24 @@ export default function AssessmentsPage() {
             className="w-full rounded-xl border border-gray-200 bg-white px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
           />
         </div>
+
+        <label className="flex items-start gap-2.5 cursor-pointer">
+          <input
+            type="checkbox"
+            checked={diagrams}
+            onChange={(e) => setDiagrams(e.target.checked)}
+            className="mt-0.5 w-4 h-4 accent-emerald-600"
+          />
+          <span>
+            <span className="block text-sm font-medium text-gray-800">
+              Draw a diagram where a question needs one
+            </span>
+            <span className="block text-xs text-gray-500">
+              Adds about a minute. Each diagram is drawn once and reused by
+              every later assessment that needs the same one.
+            </span>
+          </span>
+        </label>
 
         {error && (
           <p className="flex items-start gap-2 text-sm text-red-700 bg-red-50 border border-red-100 rounded-xl px-3 py-2">

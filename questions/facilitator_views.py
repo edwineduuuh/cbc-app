@@ -146,6 +146,9 @@ def generate_assessment_view(request):
             description=(data.get("description") or "")[:1000],
             mcq_ratio=float(data.get("mcq_ratio") or 0.6),
             user=request.user,
+            # Diagrams cost far more than the questions do, so they are the
+            # facilitator's choice rather than something that happens to them.
+            diagrams=bool(data.get("diagrams", True)),
         )
     except GenerationError as e:
         logger.warning("assessment generation failed: %s", e)
