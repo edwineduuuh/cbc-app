@@ -39,12 +39,17 @@ JUNIOR_SCHOOL = {           # Grades 7-9, KJSEA shape
     ],
 }
 
-SENIOR_SCHOOL = {           # Grade 10+, KCSE shape
+# Grade 10+. PROVISIONAL: the first Senior School cohort started in January
+# 2026, so there is no national paper to read this off the way the Primary
+# and Junior School shapes were read off KPSEA and KJSEA. Do not assert what
+# a Senior School paper does or does not contain until a real one replaces
+# this - an earlier version claimed it has no multiple-choice, which was
+# borrowed from KCSE, a different system's examination.
+SENIOR_SCHOOL = {
     "sections": [
-        {"name": "SECTION I", "type": "structured", "count": 12, "marks": 3,
-         "instruction": "Answer ALL the questions in this section in the "
-                        "spaces provided."},
-        {"name": "SECTION II", "type": "structured", "count": 4, "marks": 10,
+        {"name": "SECTION A", "type": "mcq", "count": 10, "marks": 1,
+         "instruction": "Answer ALL the questions in this section."},
+        {"name": "SECTION B", "type": "structured", "count": 10, "marks": 5,
          "instruction": "Answer ALL the questions in this section in the "
                         "spaces provided."},
     ],
@@ -95,12 +100,11 @@ def scaled_sections(grade, count: int) -> list[dict]:
         return [dict(secs[0], count=max(1, count))]
 
     if b is SENIOR_SCHOOL:
-        # KCSE: short questions then long ones, no multiple-choice.
-        n_long = max(1, round(count * 0.25))
-        split = (count - n_long, n_long)
+        # Fewer multiple-choice than Junior School, pending a real paper.
+        n_mcq = max(1, round(count * 0.3))
     else:
         n_mcq = max(1, round(count * 0.5))
-        split = (n_mcq, count - n_mcq)
+    split = (n_mcq, count - n_mcq)
 
     out = []
     for sec, n in zip(secs, split):
@@ -114,18 +118,17 @@ def paper_shape(grade, count: int) -> str:
     b = blueprint(grade)
 
     if b is SENIOR_SCHOOL:
+        n_short = count - max(1, round(count * 0.25))
         return (
-            "PAPER SHAPE: this is SENIOR SCHOOL. It is examined the way KCSE "
-            "is, NOT the way Junior School is. There are no multiple-choice "
-            "questions unless the teacher asks for them. Every question is "
-            "structured with parts (a), (b), (c), each part carrying its own "
-            "marks in brackets. Short questions run 2 to 4 marks; a long "
-            "question runs 8 to 10 marks with several parts. The command "
-            "verb sets the marks: State, Name, Identify and Give are worth 1 "
-            "mark per point; Describe, Explain, Distinguish and Outline are "
-            "worth 2 marks per point; Account for and Justify demand a "
-            "reasoned answer worth 2 or more. A learner at this level is "
-            "expected to apply and analyse, not recall.")
+            f"PAPER SHAPE: this is SENIOR SCHOOL. Use both multiple-choice "
+            f"and structured questions, with the structured ones carrying "
+            f"most of the marks - about {n_short} shorter questions and "
+            f"{count - n_short} longer ones with several parts. The command "
+            f"verb sets the marks: State, Name, Identify and Give are worth "
+            f"1 mark per point; Describe, Explain, Distinguish and Outline "
+            f"are worth 2 marks per point; Account for and Justify demand a "
+            f"reasoned answer worth 2 or more. A learner at this level is "
+            f"expected to apply and analyse, not recall.")
 
     if len(b["sections"]) == 1:
         return (
