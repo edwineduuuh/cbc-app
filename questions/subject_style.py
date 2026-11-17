@@ -19,20 +19,29 @@ from __future__ import annotations
 import re
 
 # ── per-family guidance ───────────────────────────────────────────────────
-MATHS = """This is a Mathematics paper.
-- Marks are for method as well as answer. A structured question's marking \
-scheme must award the working - the correct equation formed, the correct \
-substitution, the correct manipulation - not only the final number, so a \
-learner who slips in arithmetic still earns most of the marks.
-- State the units in the answer wherever the quantity has them, and write \
-money as KES.
-- Ask a learner to do mathematics, not to recognise vocabulary: form an \
-equation from a situation, solve it, check a solution, find the error in a \
-worked solution shown in the question, work backwards from an answer, decide \
-which of two methods is better and say why, or interpret what the answer \
-means for the situation.
-- Where a figure carries the mathematics - a graph, a number line, a shaped \
-figure with measurements, a data table - give it as a "plot" so it is drawn \
+MATHS = """This is a Mathematics paper. MATHEMATICS IS WORKING OUT.
+
+- EVERY question requires a learner to compute something. The command verbs \
+are Solve, Find, Calculate, Determine, Evaluate, Simplify, Express, Factorise, \
+Work out, Show that, and Hence. A learner answers with working and a result, \
+not with sentences.
+- DO NOT write questions that ask a learner to explain, describe, discuss, \
+justify, comment on, state the importance of, or say what something "tells \
+us" or "means in this situation". DO NOT show a learner's wrong working and \
+ask them to find the mistake. Those belong in other subjects. A maths \
+question that can be answered in prose without calculating is not a maths \
+question.
+- Marks are method marks. The marking scheme must award the steps - the \
+equation formed, the substitution, the manipulation, the final answer - so a \
+learner who slips in arithmetic still earns most of the marks. Write it the \
+way a Kenyan marking scheme is written: M1 for the method, A1 for the \
+accurate answer, B1 for an independent correct statement.
+- Parts build on each other. Part (b) normally starts "Hence" and uses the \
+result of part (a), which is how a Kenyan paper is set.
+- State units in the answer wherever the quantity has them, and write money \
+as KES.
+- Where a figure carries the mathematics - a graph, a number line, a figure \
+with measurements, a data table - give it as a "plot" so it is drawn \
 exactly."""
 
 SCIENCE = """This is a science paper.
@@ -165,6 +174,30 @@ def style_for(subject_name: str) -> str:
         if re.search(pattern, name):
             return text
     return ""
+
+
+# ── what "harder than recall" means, per subject ──────────────────────────
+# A generic "go deeper than recall" rule turned Mathematics into prose:
+# explain what the gradient tells you, spot the learner's error. In a Kenyan
+# maths paper depth is a longer calculation, not a longer sentence.
+_DEPTH_MATHS = (
+    "must take more than one step of working: a result carried forward into "
+    "the next part with \"Hence\", a quantity found by working backwards "
+    "from a given answer, two conditions combined, a value substituted into "
+    "a relationship the learner first had to form, or a \"Show that\" "
+    "leading to a stated result. Depth here is a longer calculation, NEVER a "
+    "written explanation.")
+
+_DEPTH_GENERAL = (
+    "must demand more than recall or one-step substitution: interpreting a "
+    "result in its situation, applying an idea to a new case, comparing two "
+    "options with a reason, working out what follows from given information, "
+    "or judging whether a claim is reasonable.")
+
+
+def depth_for(subject_name: str) -> str:
+    style = style_for(subject_name)
+    return _DEPTH_MATHS if style is MATHS else _DEPTH_GENERAL
 
 
 # ── language pitched at the grade ─────────────────────────────────────────

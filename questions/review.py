@@ -130,12 +130,32 @@ def _block(q) -> str:
     return "\n".join(lines)
 
 
-def _verdicts(payload, user):
+def _verdicts(payload, user, subject_name=""):
     """Ask the checker about every question. {} if the call fails."""
     questions = payload.get("questions") or []
     if not questions:
         return {}
-    prompt = ("Check these questions.\n\n"
+
+    # Without this the checker judges a Mathematics paper by the standards of
+    # an essay subject and calls honest calculation "shallow", which then has
+    # the question replaced by one asking a learner to explain something.
+    from questions.subject_style import depth_for, style_for
+
+    context = ""
+    if subject_name:
+        context = (f"This is a {subject_name} paper. A question is deep "
+                   f"enough when it {depth_for(subject_name)}\n\n")
+        if style_for(subject_name) and "WORKING OUT" in style_for(subject_name):
+            context += (
+                "MATHEMATICS: calculation IS the subject. A question that "
+                "requires real working is never shallow, however plainly it "
+                "is worded. Mark shallow only when a single trivial "
+                "substitution answers it. A maths question that asks a "
+                "learner to explain, describe or spot someone's mistake "
+                "instead of calculating does not belong on this paper - "
+                "report it with tests=\"no\".\n\n")
+
+    prompt = (context + "Check these questions.\n\n"
               + "\n\n".join(_block(q) for q in questions))
     try:
         data = generate_json(prompt, REVIEW_SYSTEM,
@@ -265,7 +285,13 @@ def review_paper(payload: dict, substrands, *, user=None, description="",
     """
     from questions.assessments import _validate
 
-    verdicts = _verdicts(payload, user)
+    subs_list = list(substrands) if isinstance(substrands, (list, tuple)) \
+        else [substrands]
+    subject_name = ""
+    if subs_list and getattr(subs_list[0], "topic", None):
+        subject_name = getattr(subs_list[0].topic.subject, "name", "") or ""
+
+    verdicts = _verdicts(payload, user, subject_name)
     if not verdicts:
         payload.setdefault("warnings", []).append(
             "The questions could not be double-checked automatically. "

@@ -26,7 +26,7 @@ import re
 import time
 
 from questions.generation import generate_json
-from questions.subject_style import reading_level, style_for
+from questions.subject_style import depth_for, reading_level, style_for
 
 logger = logging.getLogger("generation")
 
@@ -42,8 +42,11 @@ Outline, Distinguish, Calculate, Work out, Account for, Analyse, Justify.
 institutions, currency in KES, local businesses and everyday situations. \
 Vary them. Do not reuse Nairobi for every question.
 - Pitch the difficulty at exactly the grade given.
-- Every question carries its marks. Structured questions are 2-5 marks and \
-may have (a)/(b) parts.
+- Every question carries its marks. A structured question is worth 2 to 6 \
+marks and may have (a)/(b)/(c) parts. Do not stack parts past that. If the \
+teacher asked for long questions, every structured question is long - never \
+mix a 2-mark question and a 13-mark question on the same paper, which makes \
+the paper look unplanned.
 - For EVERY structured question, give a marking_scheme written the way a \
 Kenyan marking scheme is written, so a marker can use it without judgement:
   * Group the points by the question part they belong to ("a", "b", "c").
@@ -341,12 +344,10 @@ def build_prompt(substrands, *, count=10, description="", mcq_ratio=None,
             f"rather than all recall.")
 
     depth = (
-        f"At least {max(2, round(count / 3))} of the {count} questions must "
-        f"demand more than recall or one-step substitution - interpreting a "
-        f"result in its situation, finding an error, choosing between "
-        f"methods with a reason, working backwards, or judging a claim. Give "
-        f"each question its honest bloom_level; a paper that is all "
-        f"\"remember\" has not assessed this design.")
+        f"At least {max(2, round(count / 3))} of the {count} questions "
+        f"{depth_for(subject.name)} Give each question its honest "
+        f"bloom_level; a paper that is all \"remember\" has not assessed "
+        f"this design.")
 
     # What a good paper looks like in THIS learning area. Without it one set
     # of instructions wrote Kiswahili, CRE, Agriculture and Mathematics
@@ -606,6 +607,16 @@ def _validate(data, substrands):
 
     data["questions"] = questions
     data["total_marks"] = sum(q["marks"] for q in questions)
+
+    # A paper of 2-mark questions with a 13-mark one buried in it looks
+    # unplanned, and a teacher allocating lesson time notices immediately.
+    struct = [q["marks"] for q in questions if q["type"] == "structured"]
+    if len(struct) > 2:
+        biggest, smallest = max(struct), min(struct)
+        if biggest >= 10 and biggest >= 3 * smallest:
+            warnings.append(
+                f"The questions are very unevenly weighted - from {smallest} "
+                f"marks to {biggest}. Check the balance before printing.")
 
     # A sub-strand nobody asked a question about is the failure mode of a
     # multi-strand paper: it looks complete and quietly skips a third of what
