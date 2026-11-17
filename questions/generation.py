@@ -108,17 +108,31 @@ def _call_openai(system, prompt, model, max_tokens, want_json):
 def _call_anthropic(system, prompt, model, max_tokens, want_json):
     import anthropic
 
-    client = anthropic.Anthropic(api_key=settings.ANTHROPIC_API_KEY)
-    r = client.messages.create(
-        model=model,
-        max_tokens=max_tokens,
+    client = anthropic.Anthropic(api_key=settings.ANTHROPIC_API_KEY,
+                                 timeout=150.0, max_retries=1)
+    kwargs = {
+        "model": model,
+        # Current Claude models think by default, and thinking is billed
+        # against max_tokens. The first run of Haiku 5.5 spent most of the
+        # budget reasoning and the JSON came back cut off mid-object, so
+        # leave room for both.
+        "max_tokens": max_tokens * 3,
         # Cache the system prompt: it is identical for every generation of a
         # given tool, so the prefix bills at ~10% after the first call.
-        system=[{"type": "text", "text": system,
-                 "cache_control": {"type": "ephemeral"}}],
-        messages=[{"role": "user", "content": prompt}],
-    )
-    text = next((b.text for b in r.content if b.type == "text"), "")
+        "system": [{"type": "text", "text": system,
+                    "cache_control": {"type": "ephemeral"}}],
+        "messages": [{"role": "user", "content": prompt}],
+    }
+
+    # Writing a paper from a design does not need deep reasoning, and the
+    # thinking tokens are what crowded out the answer. Older SDKs do not
+    # know the parameter, so fall back rather than fail.
+    try:
+        r = client.messages.create(output_config={"effort": "low"}, **kwargs)
+    except TypeError:
+        r = client.messages.create(**kwargs)
+
+    text = "".join(b.text for b in r.content if b.type == "text")
     return text, r.usage.input_tokens, r.usage.output_tokens
 
 
