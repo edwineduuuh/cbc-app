@@ -55,13 +55,14 @@ process".
 - For MCQs give four options with exactly one correct answer. Distractors \
 must be plausible but clearly wrong to a learner who knows the outcome.
 
+- An MCQ is worth exactly 1 mark. Never more.
+
 - NEVER draw a diagram with text characters. No ASCII art, no boxes made of \
 pipes and dashes, no arrows made of hyphens, no tables of symbols. They look \
-broken on a printed paper. If a question genuinely needs a diagram, set \
-"diagram" on that question with a description of what to draw, and write the \
-question so it refers to "the diagram above". At most one question in a \
-paper should need a diagram, and only where it is genuinely required - do \
-not add one for decoration.
+broken on a printed paper. When a question uses a diagram, set "diagram" on \
+that question describing what to draw and which parts to label, and write \
+the question so it refers to "the diagram above" - the picture is drawn \
+separately and placed there.
 
 Return ONLY valid JSON. No markdown fences, no commentary."""
 
@@ -101,6 +102,26 @@ Omit "parts" for a single-part structured question. Omit "options",
 "correct_answer" for structured. Omit "marking_scheme" for mcq."""
 
 
+def _diagram_instruction(want_diagram, substrand):
+    """Ask for a diagram outright when the facilitator ticked the box.
+
+    Left to its own judgement the model almost never asks for one, so the
+    tick box did nothing. If it is ticked, one question must use a diagram.
+    """
+    if not want_diagram:
+        return ("DIAGRAMS: do not use any diagram in this assessment. "
+                "Write questions that stand on their own words.")
+    return (
+        "DIAGRAMS: exactly ONE question in this paper must be built around a "
+        "diagram, and it must be a question that is genuinely better with a "
+        "picture - a labelled structure, an apparatus set-up, a cycle, a "
+        "graph to read, a map. Give that question a \"diagram\" object "
+        "naming what to draw and the parts to label, and word the question "
+        "so it refers to the diagram above it. Every other question has no "
+        "diagram."
+    )
+
+
 def _bullets(items, limit=None):
     items = [i for i in (items or []) if str(i).strip()]
     if limit:
@@ -108,7 +129,8 @@ def _bullets(items, limit=None):
     return "\n".join(f"- {i}" for i in items) or "- (none recorded)"
 
 
-def build_prompt(substrand, *, count=10, description="", mcq_ratio=0.6):
+def build_prompt(substrand, *, count=10, description="", mcq_ratio=0.6,
+                 want_diagram=False):
     """Assemble the generation prompt from the stored KICD design."""
     topic = substrand.topic
     subject = topic.subject
@@ -149,6 +171,7 @@ CORE COMPETENCIES THE DESIGN TARGETS:
 {rubric_text}
 
 TEACHER'S REQUEST: {description.strip() or 'A standard classroom assessment.'}
+{_diagram_instruction(want_diagram, substrand)}
 
 Produce exactly {count} questions: {n_mcq} multiple-choice and {n_struct} \
 structured. Number them 1 to {count}, MCQs first. Spread them across the \
@@ -163,7 +186,7 @@ def generate_assessment(substrand, *, count=10, description="",
                         mcq_ratio=0.6, user=None, diagrams=True) -> dict:
     """Generate one assessment. Returns the parsed payload."""
     prompt = build_prompt(substrand, count=count, description=description,
-                          mcq_ratio=mcq_ratio)
+                          mcq_ratio=mcq_ratio, want_diagram=diagrams)
     data = generate_json(prompt, SYSTEM, max_tokens=8000,
                          task="assessment", user=user)
     if not isinstance(data, dict) or not data.get("questions"):
@@ -295,6 +318,11 @@ def _validate(data, substrand):
         q["type"] = "mcq" if qtype == "mcq" else "structured"
 
         if q["type"] == "mcq":
+            # A multiple-choice question is worth one mark. The model has
+            # handed back 5- and 6-mark MCQs, which makes the paper's totals
+            # nonsense and is obvious to any teacher reading it.
+            if q["marks"] != 1:
+                q["marks"] = 1
             opts = q.get("options") or {}
             if len(opts) != 4 or q.get("correct_answer") not in opts:
                 warnings.append(f"Q{i}: MCQ options or correct answer invalid")
