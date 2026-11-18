@@ -11,10 +11,11 @@ const BASE_URL = "https://stadispace.co.ke";
 
 // Brand type, loaded once and self-hosted by Next (no runtime Google Fonts
 // request). DM Sans: interface. Cormorant Garamond: the wordmark and public
-// headlines only. Exposed as --font-sans / --font-display.
-const dmSans = DM_Sans({ subsets: ["latin"], variable: "--font-sans", display: "swap" });
+// headlines only. Raw variables --font-dm-sans / --font-cormorant; globals.css
+// maps them to Tailwind's font-sans / font-display.
+const dmSans = DM_Sans({ subsets: ["latin"], variable: "--font-dm-sans", display: "swap" });
 const cormorant = Cormorant_Garamond({
-  subsets: ["latin"], weight: ["600", "700"], variable: "--font-display", display: "swap",
+  subsets: ["latin"], weight: ["600", "700"], variable: "--font-cormorant", display: "swap",
 });
 
 export const metadata = {
@@ -121,20 +122,10 @@ const structuredData = {
   // sameAs: ["https://facebook.com/…", "https://instagram.com/…", ...],
 };
 
-const initThemeScript = `
-(function(){
-  try {
-    var t = localStorage.getItem('theme') || 'light';
-    var dark = t === 'dark' || (t === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
-    document.documentElement.classList.toggle('dark', dark);
-    document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
-  } catch(e){}
-})();
-`;
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${dmSans.variable} ${cormorant.variable}`} suppressHydrationWarning>
+    <html lang="en" className={`${dmSans.variable} ${cormorant.variable} dark`} data-theme="dark" suppressHydrationWarning>
       <head>
         <link
           rel="stylesheet"
@@ -160,11 +151,6 @@ export default function RootLayout({ children }) {
         `}} />
       </head>
       <body suppressHydrationWarning>
-        <Script
-          id="theme-init"
-          strategy="beforeInteractive"
-          dangerouslySetInnerHTML={{ __html: initThemeScript }}
-        />
 
         <Script
           id="mathjax-config"

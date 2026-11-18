@@ -9,7 +9,7 @@ import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
 import Toast from "@/components/ui/Toast";
 import SocialLoginButtons from "@/components/SocialLoginButtons";
-import { BookOpen, ArrowRight, Eye, EyeOff, Sparkles } from "lucide-react";
+import { ArrowRight, Eye, EyeOff, Sparkles } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
@@ -186,12 +186,7 @@ export default function LoginPage() {
           >
             {/* Mobile logo */}
             <div className="lg:hidden flex items-center gap-2.5 mb-8">
-              <div className="w-9 h-9 rounded-xl bg-cyan-700 flex items-center justify-center">
-                <BookOpen className="w-4 h-4 text-white" />
-              </div>
-              <span className="font-display text-lg font-bold text-cyan-900">
-                CBE Kenya
-              </span>
+              <Logo size={22} />
             </div>
 
             <div className="mb-8">

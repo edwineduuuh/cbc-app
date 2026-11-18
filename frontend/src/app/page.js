@@ -64,7 +64,7 @@ function FAQItem({ q, a }) {
             fontFamily: "'Cormorant Garamond', serif",
             fontSize: 17,
             fontWeight: 600,
-            color: "#0f1f3d",
+            color: "var(--text)",
           }}
           className="group-hover:text-teal-600 transition-colors"
         >
@@ -72,7 +72,7 @@ function FAQItem({ q, a }) {
         </span>
         <ChevronDown
           className={`w-5 h-5 flex-shrink-0 transition-transform duration-300 ${open ? "rotate-180" : ""}`}
-          style={{ color: "#0e7490" }}
+          style={{ color: "var(--accent)" }}
         />
       </button>
       <AnimatePresence>
@@ -111,29 +111,29 @@ export default function LandingPage() {
       icon: ShieldCheck,
       title: "Expert-Crafted Questions",
       desc: "Every question is designed by qualified educators who understand Kenya's CBE framework. Not imported. Not generic. Built here, for here, by people who know what Kenyan students need.",
-      accent: "#0e7490",
-      bg: "#f0fafb",
+      accent: "#20B8A6",
+      bg: "rgba(32,184,166,0.12)",
     },
     {
       icon: Brain,
       title: "Feedback That Teaches",
       desc: "Not just right or wrong. Every answer comes with a clear explanation of why - so the next attempt is always smarter than the last.",
-      accent: "#1e3a6e",
-      bg: "#f0f4ff",
+      accent: "#4D8DDA",
+      bg: "rgba(77,141,218,0.12)",
     },
     {
       icon: BarChart3,
       title: "Track What Matters",
       desc: "See exactly where your child is strong and where they need more work - by learning area, by strand. Real data. Real insight.",
-      accent: "#16a34a",
-      bg: "#f0fdf4",
+      accent: "#3CCB8B",
+      bg: "rgba(60,203,139,0.12)",
     },
     {
       icon: Clock,
       title: "Practice on Their Time",
       desc: "Morning, evening, weekends. StadiSpace is always there whenever your child is ready to put in the work. No scheduling. No waiting.",
-      accent: "#0f1f3d",
-      bg: "#f8fafc",
+      accent: "#E8B65B",
+      bg: "rgba(232,182,91,0.12)",
     },
   ];
 
@@ -191,20 +191,20 @@ export default function LandingPage() {
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=DM+Sans:wght@300;400;500;600;700&display=swap');
         .font-display { font-family: 'Cormorant Garamond', serif; }
-        .teal-text { background: linear-gradient(135deg, #0e7490, #0f1f3d); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .teal-text { color: #20B8A6; }
         .card-lift { transition: all 0.3s ease; }
         .card-lift:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(0,0,0,0.1); }
         .float { animation: float 5s ease-in-out infinite; }
         @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
         ::-webkit-scrollbar { width: 5px; }
-        ::-webkit-scrollbar-track { background: #f8fafc; }
-        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+        ::-webkit-scrollbar-track { background: #080F1D; }
+        ::-webkit-scrollbar-thumb { background: #26384F; border-radius: 3px; }
       `}</style>
 
       {/* ── NAVBAR ── */}
       <nav
         style={{
-          background: "rgba(255,255,255,0.95)",
+          background: "rgba(8,15,29,0.92)",
           borderBottom: "1px solid var(--border)",
         }}
         className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md"
@@ -212,7 +212,7 @@ export default function LandingPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <Link href="/" aria-label="StadiSpace home">
-              <Logo size={22} tone="onLight" />
+              <Logo size={22} />
             </Link>
 
             <div className="hidden md:flex items-center gap-8">
@@ -245,7 +245,7 @@ export default function LandingPage() {
               <Link href="/register">
                 <button
                   style={{
-                    background: "linear-gradient(135deg, #0e7490, #0f1f3d)",
+                    background: "#0E7490",
                     color: "white",
                     fontSize: 14,
                     fontWeight: 700,
@@ -324,7 +324,7 @@ export default function LandingPage() {
                   <Link href="/register">
                     <button
                       style={{
-                        background: "linear-gradient(135deg, #0e7490, #0f1f3d)",
+                        background: "#0E7490",
                         color: "white",
                         borderRadius: 12,
                         padding: "11px 0",
@@ -349,7 +349,7 @@ export default function LandingPage() {
         className="pt-28 pb-20 relative overflow-hidden"
         style={{
           background:
-            "linear-gradient(160deg, #ffffff 0%, #f0f4f8 60%, #e8f4f8 100%)",
+            "linear-gradient(160deg, #0E1A2C 0%, #080F1D 70%)",
         }}
       >
         <div
@@ -389,11 +389,11 @@ export default function LandingPage() {
               >
                 <ShieldCheck
                   className="w-3.5 h-3.5"
-                  style={{ color: "#0e7490" }}
+                  style={{ color: "var(--accent)" }}
                 />
                 <span
                   style={{
-                    color: "#0e7490",
+                    color: "var(--accent)",
                     fontSize: 12,
                     fontWeight: 600,
                     letterSpacing: "0.08em",
@@ -412,7 +412,7 @@ export default function LandingPage() {
                   fontFamily: "'Cormorant Garamond', serif",
                   fontSize: "clamp(34px, 5vw, 58px)",
                   lineHeight: 1.12,
-                  color: "#0f1f3d",
+                  color: "var(--text)",
                   marginBottom: 24,
                   fontWeight: 700,
                 }}
@@ -423,7 +423,7 @@ export default function LandingPage() {
                 {/* <br />
                 and 
                 <br /> */}
-                <em style={{ color: "#0e7490" }}>fun </em>
+                <em style={{ color: "var(--accent)" }}>fun </em>
                 thrive together.
               </motion.h1>
 
@@ -441,7 +441,7 @@ export default function LandingPage() {
               >
                 Where every question becomes a quest, every answer sparks
                 momentum, and every mistake becomes a step toward mastery.{" "}
-                <strong style={{ color: "#0f1f3d" }}>
+                <strong style={{ color: "var(--text)" }}>
                   Don't take our word for it. Try us.
                 </strong>
               </motion.p>
@@ -455,7 +455,7 @@ export default function LandingPage() {
                 <Link href="/register">
                   <button
                     style={{
-                      background: "linear-gradient(135deg, #0e7490, #0f1f3d)",
+                      background: "#0E7490",
                       color: "white",
                       fontWeight: 700,
                       fontSize: 15,
@@ -521,7 +521,7 @@ export default function LandingPage() {
                   ))}
                 </div>
                 <p style={{ color: "var(--text-muted)", fontSize: 13 }}>
-                  <span style={{ color: "#0f1f3d", fontWeight: 600 }}>
+                  <span style={{ color: "var(--text)", fontWeight: 600 }}>
                     3 free quizzes
                   </span>{" "}
                   to start. No card. No pressure.
@@ -588,7 +588,7 @@ export default function LandingPage() {
                       </p>
                       <p
                         style={{
-                          color: "#0f1f3d",
+                          color: "var(--text)",
                           fontSize: 13,
                           fontWeight: 700,
                           margin: 0,
@@ -606,7 +606,7 @@ export default function LandingPage() {
                       fontWeight: 700,
                       padding: "4px 12px",
                       borderRadius: 20,
-                      border: "1px solid #bbf7d0",
+                      border: "1px solid rgba(60,203,139,0.35)",
                     }}
                   >
                     2 / 2 marks
@@ -624,14 +624,14 @@ export default function LandingPage() {
                     }}
                   >
                     Explain{" "}
-                    <strong style={{ color: "#0f1f3d" }}>two ways</strong> in
+                    <strong style={{ color: "var(--text)" }}>two ways</strong> in
                     which the human circulatory system benefits the body.
                   </p>
 
                   {/* Student answer */}
                   <div
                     style={{
-                      background: "#eff6ff",
+                      background: "rgba(77,141,218,0.12)",
                       borderRadius: 12,
                       padding: "10px 14px",
                       marginBottom: 12,
@@ -641,7 +641,7 @@ export default function LandingPage() {
                       style={{
                         fontSize: 10,
                         fontWeight: 700,
-                        color: "#1d4ed8",
+                        color: "#7FB0EA",
                         textTransform: "uppercase",
                         letterSpacing: "0.06em",
                         marginBottom: 5,
@@ -666,7 +666,7 @@ export default function LandingPage() {
                   <div
                     style={{
                       background: "var(--bg-secondary)",
-                      border: "1px solid #bbf7d0",
+                      border: "1px solid rgba(60,203,139,0.35)",
                       borderRadius: 12,
                       padding: "12px 14px",
                       marginBottom: 10,
@@ -702,7 +702,7 @@ export default function LandingPage() {
                   <div
                     style={{
                       background: "var(--bg)",
-                      border: "1px solid #e9d5ff",
+                      border: "1px solid rgba(167,139,250,0.35)",
                       borderRadius: 12,
                       padding: "10px 14px",
                     }}
@@ -711,7 +711,7 @@ export default function LandingPage() {
                       style={{
                         fontSize: 10,
                         fontWeight: 700,
-                        color: "#7c3aed",
+                        color: "#B9A4FB",
                         textTransform: "uppercase",
                         letterSpacing: "0.06em",
                         marginBottom: 5,
@@ -722,7 +722,7 @@ export default function LandingPage() {
                     <p
                       style={{
                         fontSize: 12,
-                        color: "#581c87",
+                        color: "#D6CCFE",
                         lineHeight: 1.6,
                         margin: 0,
                       }}
@@ -791,7 +791,7 @@ export default function LandingPage() {
                       padding: 8,
                     }}
                   >
-                    <Trophy className="w-4 h-4" style={{ color: "#0e7490" }} />
+                    <Trophy className="w-4 h-4" style={{ color: "var(--accent)" }} />
                   </div>
                   <div>
                     <p
@@ -806,7 +806,7 @@ export default function LandingPage() {
                     </p>
                     <p
                       style={{
-                        color: "#0f1f3d",
+                        color: "var(--text)",
                         fontSize: 13,
                         fontWeight: 800,
                         margin: 0,
@@ -897,7 +897,7 @@ export default function LandingPage() {
           <FadeIn>
             <p
               style={{
-                color: "#0e7490",
+                color: "var(--accent)",
                 fontSize: 12,
                 fontWeight: 700,
                 textTransform: "uppercase",
@@ -911,7 +911,7 @@ export default function LandingPage() {
               style={{
                 fontFamily: "'Cormorant Garamond', serif",
                 fontSize: "clamp(24px, 3.5vw, 42px)",
-                color: "#0f1f3d",
+                color: "var(--text)",
                 lineHeight: 1.5,
                 fontWeight: 400,
               }}
@@ -920,9 +920,9 @@ export default function LandingPage() {
               <br />
               to see their child thrive.
               <br />
-              <span style={{ color: "#0e7490" }}>We exist to make that</span>
+              <span style={{ color: "var(--accent)" }}>We exist to make that</span>
               <br />
-              <em style={{ color: "#0f1f3d" }}>a little more reachable."</em>
+              <em style={{ color: "var(--text)" }}>a little more reachable."</em>
             </blockquote>
             <div
               style={{
@@ -945,7 +945,7 @@ export default function LandingPage() {
               crafted with intention - not to trick, but to build. Every answer
               - right or wrong - moves a student forward. This isn't just
               marking.{" "}
-              <strong style={{ color: "#0f1f3d" }}>
+              <strong style={{ color: "var(--text)" }}>
                 It understands. It grows. It elevates.
               </strong>
             </p>
@@ -988,7 +988,7 @@ export default function LandingPage() {
               <button
                 style={{
                   background: "var(--bg-card)",
-                  color: "#0e7490",
+                  color: "var(--accent)",
                   fontWeight: 700,
                   fontSize: 15,
                   padding: "14px 32px",
@@ -1014,7 +1014,7 @@ export default function LandingPage() {
           <FadeIn className="text-center max-w-2xl mx-auto mb-16">
             <p
               style={{
-                color: "#0e7490",
+                color: "var(--accent)",
                 fontSize: 12,
                 fontWeight: 700,
                 textTransform: "uppercase",
@@ -1028,14 +1028,14 @@ export default function LandingPage() {
               style={{
                 fontFamily: "'Cormorant Garamond', serif",
                 fontSize: "clamp(34px, 4vw, 56px)",
-                color: "#0f1f3d",
+                color: "var(--text)",
                 lineHeight: 1.1,
                 marginBottom: 16,
               }}
             >
               Built for Kenyan students.
               <br />
-              <em style={{ color: "#0e7490" }}>Made with Kenyan parents in mind.</em>
+              <em style={{ color: "var(--accent)" }}>Made with Kenyan parents in mind.</em>
             </h2>
             <p style={{ color: "var(--text)", fontSize: 16, lineHeight: 1.7 }}>
               Every question is expert-crafted around CBE. Not imported. Not
@@ -1071,7 +1071,7 @@ export default function LandingPage() {
                   </div>
                   <h3
                     style={{
-                      color: "#0f1f3d",
+                      color: "var(--text)",
                       fontWeight: 700,
                       fontSize: 15,
                       marginBottom: 10,
@@ -1101,7 +1101,7 @@ export default function LandingPage() {
           <FadeIn className="text-center max-w-xl mx-auto mb-16">
             <p
               style={{
-                color: "#0e7490",
+                color: "var(--accent)",
                 fontSize: 12,
                 fontWeight: 700,
                 textTransform: "uppercase",
@@ -1115,13 +1115,13 @@ export default function LandingPage() {
               style={{
                 fontFamily: "'Cormorant Garamond', serif",
                 fontSize: "clamp(34px, 4vw, 56px)",
-                color: "#0f1f3d",
+                color: "var(--text)",
                 lineHeight: 1.1,
               }}
             >
               Try before
               <br />
-              <em style={{ color: "#0e7490" }}>you commit to anything.</em>
+              <em style={{ color: "var(--accent)" }}>you commit to anything.</em>
             </h2>
           </FadeIn>
 
@@ -1134,7 +1134,7 @@ export default function LandingPage() {
                       width: 56,
                       height: 56,
                       borderRadius: 16,
-                      background: "linear-gradient(135deg, #0e7490, #0f1f3d)",
+                      background: "#0E7490",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
@@ -1155,7 +1155,7 @@ export default function LandingPage() {
                   </div>
                   <h3
                     style={{
-                      color: "#0f1f3d",
+                      color: "var(--text)",
                       fontWeight: 700,
                       fontSize: 17,
                       marginBottom: 10,
@@ -1177,7 +1177,7 @@ export default function LandingPage() {
             <Link href="/register">
               <button
                 style={{
-                  background: "linear-gradient(135deg, #0e7490, #0f1f3d)",
+                  background: "#0E7490",
                   color: "white",
                   fontWeight: 700,
                   fontSize: 15,
@@ -1208,7 +1208,7 @@ export default function LandingPage() {
           <FadeIn className="text-center max-w-xl mx-auto mb-12">
             <p
               style={{
-                color: "#0e7490",
+                color: "var(--accent)",
                 fontSize: 13,
                 fontWeight: 700,
                 letterSpacing: "0.1em",
@@ -1223,7 +1223,7 @@ export default function LandingPage() {
                 fontFamily: "'Cormorant Garamond', serif",
                 fontSize: 38,
                 fontWeight: 700,
-                color: "#0f1f3d",
+                color: "var(--text)",
                 lineHeight: 1.15,
               }}
             >
@@ -1274,7 +1274,7 @@ export default function LandingPage() {
                       width: 44,
                       height: 44,
                       borderRadius: 12,
-                      background: "linear-gradient(135deg, #0f1f3d, #0e7490)",
+                      background: "#0E7490",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
@@ -1288,7 +1288,7 @@ export default function LandingPage() {
                       fontFamily: "'Cormorant Garamond', serif",
                       fontSize: 20,
                       fontWeight: 700,
-                      color: "#0f1f3d",
+                      color: "var(--text)",
                       marginBottom: 8,
                     }}
                   >
@@ -1308,7 +1308,7 @@ export default function LandingPage() {
             <Link href="/register?role=teacher">
               <button
                 style={{
-                  background: "linear-gradient(135deg, #0e7490, #0f1f3d)",
+                  background: "#0E7490",
                   color: "white",
                   fontSize: 16,
                   fontWeight: 700,
@@ -1332,7 +1332,7 @@ export default function LandingPage() {
           <FadeIn className="text-center max-w-xl mx-auto mb-16">
             <p
               style={{
-                color: "#0e7490",
+                color: "var(--accent)",
                 fontSize: 12,
                 fontWeight: 700,
                 textTransform: "uppercase",
@@ -1346,14 +1346,14 @@ export default function LandingPage() {
               style={{
                 fontFamily: "'Cormorant Garamond', serif",
                 fontSize: "clamp(34px, 4vw, 56px)",
-                color: "#0f1f3d",
+                color: "var(--text)",
                 lineHeight: 1.1,
                 marginBottom: 14,
               }}
             >
               Less than a single
               <br />
-              <em style={{ color: "#0e7490" }}>tutor session.</em>
+              <em style={{ color: "var(--accent)" }}>tutor session.</em>
             </h2>
             <p style={{ color: "var(--text)", fontSize: 15 }}>
               All learning areas. Grades 4 to 10. Unlimited practice.
@@ -1400,7 +1400,7 @@ export default function LandingPage() {
                         fontFamily: "'Cormorant Garamond', serif",
                         fontSize: 52,
                         fontWeight: 700,
-                        color: "#0f1f3d",
+                        color: "var(--text)",
                         lineHeight: 1,
                       }}
                     >
@@ -1437,7 +1437,7 @@ export default function LandingPage() {
                     >
                       <CheckCircle
                         className="w-4 h-4 shrink-0"
-                        style={{ color: "#0e7490" }}
+                        style={{ color: "var(--accent)" }}
                       />
                       {item}
                     </li>
@@ -1502,7 +1502,7 @@ export default function LandingPage() {
                 <div style={{ marginBottom: 20 }}>
                   <h3
                     style={{
-                      color: "#0e7490",
+                      color: "var(--accent)",
                       fontSize: 11,
                       fontWeight: 700,
                       textTransform: "uppercase",
@@ -1527,7 +1527,7 @@ export default function LandingPage() {
                         fontFamily: "'Cormorant Garamond', serif",
                         fontSize: 52,
                         fontWeight: 700,
-                        color: "#0f1f3d",
+                        color: "var(--text)",
                         lineHeight: 1,
                       }}
                     >
@@ -1575,7 +1575,7 @@ export default function LandingPage() {
                     >
                       <CheckCircle
                         className="w-4 h-4 shrink-0"
-                        style={{ color: "#0e7490" }}
+                        style={{ color: "var(--accent)" }}
                       />
                       {item}
                     </li>
@@ -1640,7 +1640,7 @@ export default function LandingPage() {
                 <div style={{ marginBottom: 20 }}>
                   <h3
                     style={{
-                      color: "#0f1f3d",
+                      color: "var(--text)",
                       fontSize: 11,
                       fontWeight: 700,
                       textTransform: "uppercase",
@@ -1665,7 +1665,7 @@ export default function LandingPage() {
                         fontFamily: "'Cormorant Garamond', serif",
                         fontSize: 52,
                         fontWeight: 700,
-                        color: "#0f1f3d",
+                        color: "var(--text)",
                         lineHeight: 1,
                       }}
                     >
@@ -1713,7 +1713,7 @@ export default function LandingPage() {
                     >
                       <CheckCircle
                         className="w-4 h-4 shrink-0"
-                        style={{ color: "#0f1f3d" }}
+                        style={{ color: "var(--text)" }}
                       />
                       {item}
                     </li>
@@ -1754,9 +1754,9 @@ export default function LandingPage() {
                 boxShadow: "0 2px 8px rgba(0,0,0,0.04)",
               }}
             >
-              <Phone className="w-4 h-4" style={{ color: "#0e7490" }} />
+              <Phone className="w-4 h-4" style={{ color: "var(--accent)" }} />
               <span style={{ color: "var(--text)", fontSize: 13, fontWeight: 500 }}>
-                Pay with <strong style={{ color: "#0f1f3d" }}>M-Pesa</strong> -
+                Pay with <strong style={{ color: "var(--text)" }}>M-Pesa</strong> -
                 no card ever needed
               </span>
             </div>
@@ -1770,7 +1770,7 @@ export default function LandingPage() {
           <FadeIn className="text-center mb-14">
             <p
               style={{
-                color: "#0e7490",
+                color: "var(--accent)",
                 fontSize: 12,
                 fontWeight: 700,
                 textTransform: "uppercase",
@@ -1784,7 +1784,7 @@ export default function LandingPage() {
               style={{
                 fontFamily: "'Cormorant Garamond', serif",
                 fontSize: "clamp(34px, 4vw, 56px)",
-                color: "#0f1f3d",
+                color: "var(--text)",
                 lineHeight: 1.1,
               }}
             >

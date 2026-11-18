@@ -51,7 +51,7 @@ export function BrandSymbol({ size = 32, tone = "auto", title }) {
 // Set on every span, not just the parent: some older pages carry a blanket
 // `* { font-family: 'DM Sans' }`, which beats an inherited font.
 const WORDMARK_FONT = {
-  fontFamily: "var(--font-display), 'Cormorant Garamond', Georgia, serif",
+  fontFamily: "var(--font-cormorant), 'Cormorant Garamond', Georgia, serif",
   fontWeight: 700,
 };
 

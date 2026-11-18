@@ -43,7 +43,7 @@ StadiSpace serves individual students and educators. There is no school-manageme
 | 5 | You alone upload PDFs/videos; watermark PDFs | Admin-only library design in §6; watermarking in §6.3 |
 | 6 | Wordmark proposal before any rebrand | Delivered at the **start of Phase 1** for your approval; nothing replaced until you approve |
 | 7 | Research app-store payments for Kenya | Done (§9). Recommendation: Android sign-in only; iOS adds Apple in-app purchase. One central entitlement system |
-| 8 | Dark default for new visitors/accounts; keep saved preferences | Phase 1: default changes only where no theme is saved; existing `localStorage` choice wins; toggle stays in Settings |
+| 8 | ~~Dark default, keep saved preferences~~ → **Superseded: dark only** | One theme. `<html class="dark">` rendered server-side; light palette, theme init script and Settings → Appearance removed; saved "light" choices are ignored |
 
 ---
 
@@ -292,7 +292,7 @@ Rules: never edit an applied migration; `makemigrations --check` in CI; test on 
 ## 12. Design system (unchanged from v1, summarised)
 
 - **Brand evolution, not replacement:** navy base, teal signature, warm white, editorial serif on the public site only.
-- **Tokens:** dark default `bg #080F1D · surface #14243A · surface-2 #1B2C43 · text #F5F7FA · muted #A9B9CC · teal #20B8A6 · blue #4D8DDA · amber #E8B65B`. Light mode uses the **existing** brand navy `#0F1F3D` for text and teal `#0E7490` for actions.
+- **Dark only (owner decision, Nov 2026): no light theme, no toggle.** **Tokens:** `bg #080F1D · surface #14243A · surface-2 #1B2C43 · text #F5F7FA · muted #A9B9CC · teal #20B8A6 · blue #4D8DDA · amber #E8B65B`. The original teal `#0E7490` stays for solid buttons with white text (5.4:1).
 - **Measured contrast:** white text on `#20B8A6` is 2.5:1 (fails), so teal buttons use navy text (7.7:1). `#20B8A6` on white is 2.5:1 (fails), so light mode uses `#0E7490` (5.4:1).
 - **Type:** DM Sans for the interface, Cormorant Garamond for public headlines ≥ 32px, Kalam kept only for the marking style. Down from 10 families.
 - One component set; tables collapse to rows on phones; 44px tap targets; 8/12px radius; motion only for state changes.

@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect, useCallback } from "react";
 import { useAuth } from "@/contexts/AuthContext";
+import Logo from "@/components/brand/Logo";
 import { useTheme } from "@/hooks/useTheme";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
@@ -1187,17 +1188,12 @@ export default function AdminPage() {
         }}
       />
       {/* ── Header ── */}
-      <header className="bg-emerald-800 sticky top-0 z-10 shadow-lg">
+      <header className="bg-[#14243A] border-b border-[#26384F] sticky top-0 z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-white/20 flex items-center justify-center">
-              <BookOpen className="w-5 h-5 text-white" />
-            </div>
-            <div>
-              <span className="text-white font-bold text-lg tracking-tight">
-                CBE Kenya
-              </span>
-              <span className="text-emerald-300 text-xs ml-2 font-medium hidden sm:inline">
+            <div className="flex items-center">
+              <Logo size={20} />
+              <span className="text-[#A9B9CC] text-xs ml-3 font-medium hidden sm:inline">
                 Admin Panel
               </span>
             </div>

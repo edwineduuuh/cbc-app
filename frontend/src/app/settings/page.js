@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react";
 import { useAuth } from "@/contexts/AuthContext";
-import { useTheme as useThemeContext } from "@/contexts/ThemeContext";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -22,7 +21,6 @@ import {
   Trash2,
   Save,
   Camera,
-  Palette,
   Sun,
   Moon,
   Monitor,
@@ -32,7 +30,6 @@ const API = process.env.NEXT_PUBLIC_API_URL || "https://cbc-backend-production-0
 
 const SECTIONS = [
   { id: "profile", label: "Profile", icon: User },
-  { id: "appearance", label: "Appearance", icon: Palette },
   { id: "password", label: "Password", icon: Lock },
   { id: "notifications", label: "Notifications", icon: Bell },
   { id: "security", label: "Security", icon: Shield },
@@ -163,9 +160,6 @@ export default function SettingsPage() {
               >
                 {activeSection === "profile" && (
                   <ProfileSection user={user} showToast={showToast} />
-                )}
-                {activeSection === "appearance" && (
-                  <AppearanceSection showToast={showToast} />
                 )}
                 {activeSection === "password" && (
                   <PasswordSection showToast={showToast} />
@@ -716,83 +710,3 @@ function DangerSection({ logout, router, showToast }) {
   );
 }
 
-// ─── Appearance Section ────────────────────────────────────
-function AppearanceSection({ showToast }) {
-  const { theme, setTheme } = useThemeContext();
-
-  const OPTIONS = [
-    { id: "light", label: "Light", desc: "Bright and clean", icon: Sun },
-    { id: "dark", label: "Dark", desc: "Easy on the eyes", icon: Moon },
-    {
-      id: "system",
-      label: "System",
-      desc: "Match your device",
-      icon: Monitor,
-    },
-  ];
-
-  const choose = (id) => {
-    setTheme(id);
-    showToast(
-      id === "system" ? "Following your device theme" : `${id[0].toUpperCase()}${id.slice(1)} theme applied`,
-    );
-  };
-
-  return (
-    <div className="bg-white dark:bg-slate-800 rounded-2xl border border-gray-100 dark:border-slate-700 shadow-sm p-6">
-      <h2 className="font-bold text-gray-900 dark:text-white text-lg mb-1">
-        Appearance
-      </h2>
-      <p className="text-gray-500 dark:text-gray-400 text-sm mb-6">
-        Choose how StadiSpace looks on this device.
-      </p>
-
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-        {OPTIONS.map((opt) => {
-          const Icon = opt.icon;
-          const active = (theme || "light") === opt.id;
-          return (
-            <button
-              key={opt.id}
-              onClick={() => choose(opt.id)}
-              className={`flex flex-col items-start gap-2 rounded-2xl border-2 p-4 text-left transition-all ${
-                active
-                  ? "border-teal-500 bg-teal-50 dark:bg-teal-500/10"
-                  : "border-gray-200 dark:border-slate-700 hover:border-gray-300 dark:hover:border-slate-600"
-              }`}
-            >
-              <div
-                className={`flex h-10 w-10 items-center justify-center rounded-xl ${
-                  active
-                    ? "bg-teal-500 text-white"
-                    : "bg-gray-100 dark:bg-slate-700 text-gray-500 dark:text-gray-300"
-                }`}
-              >
-                <Icon className="h-5 w-5" />
-              </div>
-              <div>
-                <p
-                  className={`text-sm font-bold ${
-                    active
-                      ? "text-teal-700 dark:text-teal-300"
-                      : "text-gray-900 dark:text-white"
-                  }`}
-                >
-                  {opt.label}
-                </p>
-                <p className="text-xs text-gray-500 dark:text-gray-400">
-                  {opt.desc}
-                </p>
-              </div>
-              {active && (
-                <span className="mt-1 inline-flex items-center gap-1 text-xs font-semibold text-teal-600 dark:text-teal-400">
-                  <Check className="h-3 w-3" /> Active
-                </span>
-              )}
-            </button>
-          );
-        })}
-      </div>
-    </div>
-  );
-}
