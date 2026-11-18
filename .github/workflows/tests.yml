@@ -1,0 +1,27 @@
+name: tests
+
+# Runs the backend test suite on every push and pull request. Uses a
+# throwaway SQLite database and dummy keys: it never touches production and
+# no test calls a real external service (payment calls are mocked).
+on:
+  push:
+  pull_request:
+
+jobs:
+  backend:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      SECRET_KEY: ci-only-not-a-real-secret-0123456789abcdefghijklmnopqrstuvwxyz
+      DEBUG: "False"
+      DATABASE_URL: sqlite:///ci.sqlite3
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - run: python manage.py check
+      - run: python manage.py makemigrations --check --dry-run
+      - run: python manage.py test questions --noinput

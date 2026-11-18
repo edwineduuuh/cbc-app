@@ -584,6 +584,21 @@ function getMatchingConfig(tableData) {
     }),
   );
 
+  // Learners get the answers removed by the server: the chips arrive as a
+  // shuffled `chip_pool` and the answer column is blank, so which chip
+  // belongs to which row is not in the page. See redact_table() in
+  // questions/serializers.py.
+  if (Array.isArray(tableData.chip_pool) && editableCols.size === 1) {
+    const ec = [...editableCols][0];
+    return {
+      ec,
+      ic: ec === 0 ? 1 : 0,
+      getAnswer: () => "",
+      pool: tableData.chip_pool,
+      multi: !!tableData.chip_multi,
+    };
+  }
+
   if (editableCols.size === 1) {
     const ec = [...editableCols][0];
     const ic = ec === 0 ? 1 : 0;
@@ -624,22 +639,27 @@ function MatchingTable({ tableData, answer, onAnswer }) {
   const rows = tableData.rows;
   const headers = rows[0];
   const dataRows = rows.slice(1);
-  const { ec, ic, getAnswer } = getMatchingConfig(tableData);
+  const cfg = getMatchingConfig(tableData);
+  const { ec, ic, getAnswer } = cfg;
+  const serverPool = cfg.pool; // present for learners (answers redacted)
 
   // A cell's answer may be a COMMA-SEPARATED set of chips. Multi-mode (several
   // chips per cell + reuse) kicks in when any cell lists >1 chip, or an answer
   // repeats across rows. Otherwise it stays the classic 1-to-1, used-once flow.
   const rowTokens = (row) =>
     getAnswer(row).split(",").map((s) => s.trim()).filter(Boolean);
-  const allTokens = dataRows.flatMap(rowTokens);
+  const allTokens = serverPool || dataRows.flatMap(rowTokens);
   const distinctTokens = [...new Set(allTokens)];
-  const multiMode =
-    dataRows.some((row) => rowTokens(row).length > 1) ||
-    allTokens.length !== distinctTokens.length;
+  const multiMode = serverPool
+    ? cfg.multi
+    : dataRows.some((row) => rowTokens(row).length > 1) ||
+      allTokens.length !== distinctTokens.length;
 
   // Shuffle the chip pool once on mount.
   const [pool] = useState(() => {
-    const items = multiMode
+    const items = serverPool
+      ? distinctTokens.map((text, i) => ({ key: `t${i}`, text }))
+      : multiMode
       ? distinctTokens.map((text, i) => ({ key: `t${i}`, text }))
       : dataRows.map((row, ri) => ({ key: `${ri + 1}_${ec}`, text: getAnswer(row) }));
     return items.sort(() => Math.random() - 0.5);

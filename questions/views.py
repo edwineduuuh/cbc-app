@@ -19,7 +19,10 @@ from .serializers import (
     ClassroomSerializer, LiveQuestionSerializer,
     StudentSessionSerializer, StudentAnswerSerializer, LeaderboardSerializer,
 )
-from .permissions import IsAdminUser, IsTeacherUser, IsAdminOrTeacher
+from .permissions import (
+    IsAdminUser, IsTeacherUser, IsAdminOrTeacher, IsContentStaff,
+    IsCurriculumManager, is_platform_admin,
+)
 from .ai_service import generate_lesson_plan, mark_open_answer, generate_student_report
 import csv
 import io
@@ -377,7 +380,7 @@ class SubstrandListView(generics.ListAPIView):
 class SubstrandManageView(generics.ListCreateAPIView):
     """GET /api/admin/substrands/?topic=<id>   POST /api/admin/substrands/"""
     serializer_class = SubstrandSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsCurriculumManager]
 
     def get_queryset(self):
         topic_id = self.request.query_params.get('topic')
@@ -395,13 +398,13 @@ class SubstrandDetailView(generics.RetrieveUpdateDestroyAPIView):
     """GET/PATCH/DELETE /api/admin/substrands/<id>/"""
     queryset = Substrand.objects.select_related('topic', 'topic__subject')
     serializer_class = SubstrandSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsCurriculumManager]
 
 
 class TopicManageView(generics.ListCreateAPIView):
     """GET /api/admin/topics/?subject=&grade=   POST /api/admin/topics/"""
     serializer_class = TopicSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsCurriculumManager]
 
     def get_queryset(self):
         queryset = Topic.objects.select_related('subject')
@@ -431,7 +434,7 @@ class TopicDetailView(generics.RetrieveUpdateDestroyAPIView):
     """GET/PATCH/DELETE /api/admin/topics/<id>/"""
     queryset = Topic.objects.select_related('subject')
     serializer_class = TopicSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsCurriculumManager]
 
     def perform_update(self, serializer):
         from django.utils.text import slugify
@@ -1191,14 +1194,19 @@ def _run_grading_task(attempt_id, quiz_id, questions, answers, working_images,
 
 
 @api_view(['GET'])
-@permission_classes([AllowAny])
+@permission_classes([IsAuthenticated])
 def get_attempt_grading_status(request, attempt_id):
     """
     GET /api/attempts/<attempt_id>/grading-status/
     Lightweight polling endpoint - returns status + score when done.
+    Only the learner who sat the attempt (or an admin) may poll it; the
+    attempt page already sends the login token.
     """
+    owned = Attempt.objects.all()
+    if not is_platform_admin(request.user):
+        owned = owned.filter(student=request.user)
     try:
-        attempt = Attempt.objects.only(
+        attempt = owned.only(
             'status', 'score', 'total_marks_awarded', 'total_max_marks',
             'total_questions', 'correct_answers',
         ).get(pk=attempt_id)
@@ -2086,6 +2094,7 @@ def next_question(request, pk):
 # ─────────────────────────────────────────────────────────────
 
 @api_view(["GET"])
+@permission_classes([AllowAny])  # live session: pupils have no account
 def join_classroom(request, code):
     """
     GET /api/join/<code>/
@@ -2121,6 +2130,7 @@ def join_classroom(request, code):
 
 
 @api_view(["POST"])
+@permission_classes([AllowAny])  # live session: pupils have no account
 def student_register(request, code):
     """
     POST /api/join/<code>/register/
@@ -2148,6 +2158,7 @@ def student_register(request, code):
 
 
 @api_view(["POST"])
+@permission_classes([AllowAny])  # live session: pupils have no account
 def submit_answer(request, session_id):
     """
     POST /api/sessions/<session_id>/answer/
@@ -2223,6 +2234,7 @@ def submit_answer(request, session_id):
 
 
 @api_view(["GET"])
+@permission_classes([AllowAny])  # live session: pupils have no account
 def session_results(request, session_id):
     """GET /api/sessions/<session_id>/results/ - student's full result"""
     session = get_object_or_404(StudentSession, pk=session_id)
@@ -2234,6 +2246,7 @@ def session_results(request, session_id):
 # ─────────────────────────────────────────────────────────────
 
 @api_view(["GET"])
+@permission_classes([AllowAny])  # live session: pupils have no account
 def leaderboard(request, classroom_id):
     """GET /api/classrooms/<classroom_id>/leaderboard/ - sorted by score"""
     classroom = get_object_or_404(Classroom, pk=classroom_id)
@@ -2408,7 +2421,9 @@ def teacher_analytics(request):
     })
 
 @api_view(['POST'])
-# @permission_classes([IsAuthenticated])
+# Legacy (ai_service.py is abandoned). Was open to the internet and spent
+# API credit on every call; admin-only until it is removed.
+@permission_classes([IsAdminUser])
 def generate_quiz_questions(request):
     """
     POST /api/lessons/generate-questions/
@@ -2603,6 +2618,29 @@ def mpesa_callback(request):
             mpesa_logger.info("IntaSend intermediate state=%s for invoice=%s - waiting", state, invoice_id)
             return Response({'message': 'ok'})
 
+        # Never act on what the request body CLAIMS. Anyone can POST to this
+        # URL, so a body saying "COMPLETE" proves nothing. Ask IntaSend what
+        # really happened and use ITS state, amount and reference instead.
+        verified = _intasend_lookup_invoice(invoice_id)
+        if verified is not None:
+            state, api_amount, api_ref = verified
+            amount_paid = api_amount if api_amount is not None else amount_paid
+            payment_reference = api_ref or payment_reference
+            if state in intermediate_states or not state:
+                mpesa_logger.info("IntaSend API says invoice=%s state=%s - waiting", invoice_id, state)
+                return Response({'message': 'ok'})
+        elif not (challenge and request.data.get('challenge') == challenge):
+            # No API token to check with, and no shared secret proving the
+            # sender is IntaSend: this callback could be forged. Leave the
+            # payment pending - the learner's status poll, or an admin, will
+            # settle it.
+            mpesa_logger.error(
+                "IntaSend callback for invoice=%s NOT applied: could not verify "
+                "with IntaSend (set INTASEND_API_TOKEN and/or INTASEND_CHALLENGE)",
+                invoice_id,
+            )
+            return Response({'message': 'ok'})
+
         with transaction.atomic():
             try:
                 payment_request = (
@@ -2736,6 +2774,41 @@ def mpesa_callback(request):
     except Exception as e:
         mpesa_logger.exception("Unhandled error in intasend_callback: %s", e)
         return Response({'message': 'ok'})
+
+
+def _intasend_lookup_invoice(invoice_id):
+    """Ask IntaSend for an invoice's real state.
+
+    Returns (STATE, amount, reference), or None when it cannot be checked -
+    no INTASEND_API_TOKEN, a network error, or a non-200 answer. Same request
+    the status poll in check_payment_status makes.
+    """
+    api_token = os.getenv('INTASEND_API_TOKEN', '')
+    if not api_token or not invoice_id:
+        return None
+    import requests as req_lib
+    inv_id = str(invoice_id)
+    if not inv_id.startswith('INV_'):
+        inv_id = f'INV_{inv_id}'
+    try:
+        resp = req_lib.get(
+            f'https://api.intasend.com/api/v1/payment/collection/{inv_id}/',
+            headers={'Authorization': f'Token {api_token}'},
+            timeout=10,
+        )
+        if resp.status_code != 200:
+            mpesa_logger.warning("IntaSend lookup invoice=%s http=%s", invoice_id, resp.status_code)
+            return None
+        data = resp.json()
+    except Exception as e:
+        mpesa_logger.warning("IntaSend lookup failed for invoice=%s: %s", invoice_id, e)
+        return None
+    invoice = data.get('invoice') or data
+    state = (invoice.get('state') or data.get('state') or '').upper().strip()
+    amount = invoice.get('value') or data.get('value')
+    ref = (invoice.get('mpesa_reference') or invoice.get('payment_reference')
+           or data.get('mpesa_reference') or '')
+    return state, amount, ref
 
 
 def _activate_payment(payment_request, amount_paid=None, payment_reference='INTASEND_POLLED'):
@@ -2895,7 +2968,7 @@ def check_quiz_access(request):
 
 
 @api_view(['POST'])
-@permission_classes([IsAuthenticated])
+@permission_classes([IsAdminUser])
 def test_email_sms(request):
     """Admin-only: test email and SMS sending, returns exact errors."""
     if not request.user.is_staff:
@@ -2964,11 +3037,9 @@ from .serializers import MotivationalContentAdminSerializer
 class MotivationalContentAdminListCreateView(generics.ListCreateAPIView):
     """Admin endpoint - list all (incl. inactive) & create motivational content."""
     serializer_class = MotivationalContentAdminSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsContentStaff]
 
     def get_queryset(self):
-        if not (self.request.user.is_staff or getattr(self.request.user, 'role', '') in ('teacher', 'admin', 'superadmin', 'school_admin')):
-            return MotivationalContent.objects.none()
         return MotivationalContent.objects.all()
 
     def perform_create(self, serializer):
@@ -2978,9 +3049,7 @@ class MotivationalContentAdminListCreateView(generics.ListCreateAPIView):
 class MotivationalContentAdminDetailView(generics.RetrieveUpdateDestroyAPIView):
     """Admin endpoint - retrieve / update / delete a single motivational item."""
     serializer_class = MotivationalContentAdminSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsContentStaff]
 
     def get_queryset(self):
-        if not (self.request.user.is_staff or getattr(self.request.user, 'role', '') in ('teacher', 'admin', 'superadmin', 'school_admin')):
-            return MotivationalContent.objects.none()
         return MotivationalContent.objects.all()

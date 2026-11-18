@@ -1,15 +1,66 @@
 # questions/permissions.py
 from rest_framework.permissions import BasePermission, SAFE_METHODS
 
+# ── Who may do what ───────────────────────────────────────────────────────
+# StadiSpace is B2C. Students and facilitators (teachers) are customers who
+# CONSUME central content; anyone can self-register as either (see
+# users/serializers.py SELF_SERVICE_ROLES), so neither role may ever manage
+# central content. "school_admin" is a leftover role with no place in the
+# product and grants nothing here.
+#
+#   ADMIN_ROLES   - run the platform: users, payments, curriculum, publishing
+#   CONTENT_ROLES - maintain the teacher-set question bank. "content_editor"
+#                   is recognised so the role can be introduced without
+#                   touching these checks; it is only assigned by an admin.
+ADMIN_ROLES = ("admin", "superadmin")
+CONTENT_ROLES = ADMIN_ROLES + ("content_editor",)
+
+
+def is_platform_admin(user) -> bool:
+    return bool(
+        user and user.is_authenticated and (
+            user.is_superuser or user.is_staff
+            or getattr(user, "role", None) in ADMIN_ROLES
+        )
+    )
+
+
+def is_content_staff(user) -> bool:
+    return bool(
+        user and user.is_authenticated and (
+            user.is_superuser or user.is_staff
+            or getattr(user, "role", None) in CONTENT_ROLES
+        )
+    )
+
+
+class IsContentStaff(BasePermission):
+    """Central question bank, quizzes, passages and bulk imports."""
+    message = "Only StadiSpace content staff can manage central content."
+
+    def has_permission(self, request, view):
+        return is_content_staff(request.user)
+
+
+class IsCurriculumManager(BasePermission):
+    """Curriculum structure (strands, sub-strands): content staff may read it
+    to file questions; only an admin may change it."""
+    message = "Only an administrator can change the curriculum structure."
+
+    def has_permission(self, request, view):
+        if request.method in SAFE_METHODS:
+            return is_content_staff(request.user)
+        return is_platform_admin(request.user)
+
 
 class IsAdminUser(BasePermission):
     """
-    Allows access to users with admin/superadmin/school_admin role
+    Allows access to users with the admin/superadmin role
     OR Django staff/superuser status.
     """
     message = "You must be an admin to perform this action."
 
-    ADMIN_ROLES = ["admin", "superadmin", "school_admin"]
+    ADMIN_ROLES = list(ADMIN_ROLES)
 
     def has_permission(self, request, view):
         user = request.user

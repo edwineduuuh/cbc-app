@@ -5,14 +5,14 @@ from django.db import transaction
 from .models import Quiz, Subject, Topic, Question, ClassQuizAssignment  # ← ADD ClassQuizAssignment
 from users.models import Classroom  # ← ADD THIS LINE
 from .serializers import QuizDetailSerializer, QuizListSerializer, QuizCreateUpdateSerializer
-from .permissions import IsAdminOrTeacher, IsTeacherUser
+from .permissions import IsContentStaff, IsTeacherUser
 
 class QuizListCreateView(generics.ListCreateAPIView):
     """
     GET  /api/admin/quizzes/ - List all quizzes (with filters)
     POST /api/admin/quizzes/ - Create new quiz
     """
-    permission_classes = [IsAdminOrTeacher]
+    permission_classes = [IsContentStaff]
     
     def get_serializer_class(self):
         if self.request.method == 'POST':
@@ -66,7 +66,7 @@ class QuizDetailView(generics.RetrieveUpdateDestroyAPIView):
     PUT    /api/admin/quizzes/<id>/
     DELETE /api/admin/quizzes/<id>/
     """
-    permission_classes = [IsAdminOrTeacher]
+    permission_classes = [IsContentStaff]
     queryset = Quiz.objects.all()
 
     def get_serializer_class(self):
@@ -87,7 +87,7 @@ class QuizPublishView(generics.GenericAPIView):
     POST /api/admin/quizzes/<id>/publish/
     Toggle quiz active status
     """
-    permission_classes = [IsAdminOrTeacher]
+    permission_classes = [IsContentStaff]
     queryset = Quiz.objects.all()
     
     def post(self, request, pk):

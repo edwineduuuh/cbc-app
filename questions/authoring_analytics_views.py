@@ -4,10 +4,10 @@ from rest_framework.permissions import IsAuthenticated
 from django.db.models import Count, Avg, FloatField, Q
 from django.db.models.functions import Coalesce
 from .models import Question, Attempt, Quiz
-from .permissions import IsAdminOrTeacher
+from .permissions import IsContentStaff
 
 class QuestionAnalyticsView(generics.GenericAPIView):
-    permission_classes = [IsAdminOrTeacher]
+    permission_classes = [IsContentStaff]
     
     def get(self, request):
         total = Question.objects.count()
@@ -35,7 +35,7 @@ class QuestionAnalyticsView(generics.GenericAPIView):
         })
 
 class AISuggestionsView(generics.GenericAPIView):
-    permission_classes = [IsAdminOrTeacher]
+    permission_classes = [IsContentStaff]
     
     def get(self, request):
         subject_id = request.query_params.get('subject')

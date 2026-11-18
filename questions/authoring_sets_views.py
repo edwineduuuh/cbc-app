@@ -3,10 +3,10 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from .models import QuestionSet
 from .serializers import QuestionSetSerializer
-from .permissions import IsAdminOrTeacher
+from .permissions import IsContentStaff
 
 class QuestionSetListCreateView(generics.ListCreateAPIView):
-    permission_classes = [IsAdminOrTeacher]
+    permission_classes = [IsContentStaff]
     serializer_class = QuestionSetSerializer
     
     def get_queryset(self):
@@ -16,7 +16,7 @@ class QuestionSetListCreateView(generics.ListCreateAPIView):
         serializer.save(created_by=self.request.user)
 
 class QuestionSetDetailView(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes = [IsAdminOrTeacher]
+    permission_classes = [IsContentStaff]
     serializer_class = QuestionSetSerializer
     
     def get_queryset(self):

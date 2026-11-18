@@ -13,7 +13,7 @@ from .serializers import (
     JoinClassroomSerializer, UpdateClassroomSerializer, RegenerateJoinCodeSerializer,
     UserSerializer
 )
-from questions.permissions import IsTeacherUser, IsAdminOrTeacher
+from questions.permissions import IsTeacherUser, IsAdminOrTeacher, IsAdminUser
 # Create your views here.
 User = get_user_model()
 
@@ -538,13 +538,13 @@ def forgot_password(request):
 
 
 @api_view(['POST'])
-@permission_classes([AllowAny])
+@permission_classes([IsAdminUser])
 def email_diagnostic(request):
-    """Temporary diagnostic endpoint - returns exact email send error so we can debug.
-    Protected by a secret header: X-Diag-Key: stadispace_diag_2026
+    """Diagnostic endpoint - returns the exact email send error so we can debug.
+
+    Admin login only. It used to be public behind a header key committed to
+    the repo, which let anyone with the key send mail from our domain.
     """
-    if request.headers.get('X-Diag-Key') != 'stadispace_diag_2026':
-        return Response({'error': 'Forbidden'}, status=403)
 
     test_email = request.data.get('email', request.data.get('to'))
     if not test_email:

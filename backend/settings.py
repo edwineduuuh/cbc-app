@@ -222,6 +222,11 @@ REST_FRAMEWORK = {
         # Same as SimpleJWT, but also records daily activity for admin analytics.
         'users.auth.ActivityTrackingJWTAuthentication'
     ],
+    # Fail closed: a view that forgets permission_classes requires a login
+    # instead of silently being public. Public views say AllowAny explicitly.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
 }
 
 # JWT Configuration

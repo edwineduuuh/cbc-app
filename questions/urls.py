@@ -55,6 +55,12 @@ def health(request):
             "key": bool(getattr(settings, "OPENAI_API_KEY", "")),
         },
         "diagrams": diagrams,
+        # Payment callbacks are only applied when one of these is set - see
+        # mpesa_callback. Booleans only.
+        "payments": {
+            "intasend_api_token": bool(os.environ.get("INTASEND_API_TOKEN")),
+            "intasend_challenge": bool(os.environ.get("INTASEND_CHALLENGE")),
+        },
     })
 from .authoring_analytics_views import QuestionAnalyticsView, AISuggestionsView
 from .admin_analytics_extended_views import (
@@ -148,7 +154,8 @@ urlpatterns = [
     path('quizzes/grade-one/', grade_one, name='grade_one'),
     path('attempts/', AttemptListView.as_view(), name='attempt-list'),
     path('attempts/<int:pk>/', AttemptDetailView.as_view(), name='attempt-detail'),
-    path('attempts/<int:attempt_id>/', get_attempt_results, name='attempt_results'),
+    # (A second 'attempts/<int:attempt_id>/' -> get_attempt_results was here.
+    # Django matches the first pattern, so it could never be reached.)
     path('attempts/<int:attempt_id>/grading-status/', get_attempt_grading_status, name='attempt_grading_status'),
 
     # ── Guest Session ────────────────────────────────────────────

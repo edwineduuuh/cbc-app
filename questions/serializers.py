@@ -5,6 +5,105 @@ from .models import (
     LiveQuestion, StudentSession, StudentAnswer, Passage, QuestionPart,
     MotivationalContent,
 )
+from .permissions import is_content_staff
+
+
+# ═══════════════════════════════════════════════════════════════
+# ANSWER KEYS - never sent to someone who is about to sit the quiz
+# ═══════════════════════════════════════════════════════════════
+# The quiz endpoint is public (guests take free quizzes), so whatever
+# QuestionSerializer returns is readable by anyone. The teacher-set answer
+# keys are the most valuable thing StadiSpace owns; they go out only to
+# content staff, or after an attempt has been submitted (the caller passes
+# include_answers=True in the serializer context).
+
+QUESTION_ANSWER_FIELDS = ("correct_answer", "worked_solution")
+PART_ANSWER_FIELDS = ("correct_answer", "marking_scheme", "explanation")
+
+
+def answers_allowed(context) -> bool:
+    if context.get("include_answers"):
+        return True
+    request = context.get("request")
+    return bool(request and is_content_staff(getattr(request, "user", None)))
+
+
+def _cell_text(cell, key):
+    v = cell.get(key) if isinstance(cell, dict) else None
+    return v.strip() if isinstance(v, str) else ""
+
+
+def _matching_config(rows):
+    """Python twin of getMatchingConfig() in frontend quizzes/[id]/page.js:
+    which column holds the answers of a two-column matching table, and how
+    to read each row's answer. None when the table is not a matching table."""
+    if len(rows) < 2 or len(rows[0] or []) != 2:
+        return None
+    data_rows = rows[1:]
+    editable = {c for row in data_rows for c, cell in enumerate(row)
+                if isinstance(cell, dict) and cell.get("e")}
+    if len(editable) == 1:
+        ec = next(iter(editable)); ic = 1 - ec
+        def answer(row): return _cell_text(row[ec], "a") or _cell_text(row[ec], "v")
+        if all(len(r) > ec and answer(r) for r in data_rows) and \
+           all(len(r) > ic and _cell_text(r[ic], "v") for r in data_rows):
+            return ec, answer
+    if not editable:
+        if all(_cell_text(r[0], "v") for r in data_rows) and \
+           all(len(r) > 1 and _cell_text(r[1], "v") for r in data_rows):
+            return 1, lambda row: _cell_text(row[1], "v")
+    return None
+
+
+def redact_table(table_data):
+    """Strip the answers out of a table question but keep it answerable.
+
+    Fill-in tables: blank cells lose their answer ("a"); the student types.
+    Matching tables: the chips ARE the answers, so the student must see them
+    - but not which row each belongs to. The answer column is blanked and the
+    chips are sent as a separate shuffled `chip_pool`.
+    """
+    import copy, random
+    if not isinstance(table_data, dict) or not isinstance(table_data.get("rows"), list):
+        return table_data
+    td = copy.deepcopy(table_data)
+    rows = td["rows"]
+    # Same rule as the quiz page: table_type "matching" OR matching-shaped.
+    cfg = _matching_config(rows)
+    if cfg is not None:
+        ec, answer = cfg
+        tokens = []
+        for row in rows[1:]:
+            tokens.extend(t.strip() for t in answer(row).split(",") if t.strip())
+        td["chip_multi"] = len(tokens) != len(set(tokens)) or any(
+            len([t for t in answer(r).split(",") if t.strip()]) > 1 for r in rows[1:])
+        pool = sorted(set(tokens)) if td["chip_multi"] else tokens
+        random.shuffle(pool)
+        td["chip_pool"] = pool
+        td["table_type"] = "matching"
+        for row in rows[1:]:
+            if isinstance(row[ec], dict):
+                row[ec] = {**row[ec], "a": "", "v": "", "e": True}
+    for row in rows:
+        for cell in row:
+            if isinstance(cell, dict) and cell.get("e"):
+                cell.pop("a", None)
+                cell["v"] = ""
+    return td
+
+
+def strip_answers(data):
+    """Remove answer keys from one serialized question (dict), in place."""
+    for f in QUESTION_ANSWER_FIELDS:
+        data.pop(f, None)
+    if data.get("table_data"):
+        data["table_data"] = redact_table(data["table_data"])
+    for part in data.get("parts") or []:
+        for f in PART_ANSWER_FIELDS:
+            part.pop(f, None)
+        if part.get("table_data"):
+            part["table_data"] = redact_table(part["table_data"])
+    return data
 
 
 # ═══════════════════════════════════════════════════════════════
@@ -155,6 +254,12 @@ class QuestionSerializer(serializers.ModelSerializer):
             return obj.question_image.url
         except:
             return None
+
+    def to_representation(self, obj):
+        data = super().to_representation(obj)
+        if not answers_allowed(self.context):
+            strip_answers(data)
+        return data
 
     def get_statement_schema_template(self, obj):
         """Expose only headings/section-names so the blank student form uses the correct
@@ -456,7 +561,12 @@ class AttemptDetailSerializer(serializers.ModelSerializer):
         ]
 
     def get_quiz(self, obj):
-        return QuizDetailSerializer(obj.quiz).data
+        # The learner's own attempt: once it is submitted they may see the
+        # key (the review page shows it). Never while still in progress.
+        return QuizDetailSerializer(
+            obj.quiz,
+            context={**self.context, "include_answers": obj.status != "in_progress"},
+        ).data
 
     def get_questions_review(self, obj):
         questions = ordered_quiz_questions(obj.quiz)  # match the quiz-taking order

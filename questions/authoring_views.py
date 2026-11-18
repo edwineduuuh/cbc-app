@@ -16,7 +16,7 @@ from .serializers import (
     QuestionDetailSerializer, QuizListSerializer, PassageAdminSerializer,
     ordered_quiz_questions,
 )
-from .permissions import IsAdminUser, IsAdminOrTeacher
+from .permissions import IsAdminUser, IsContentStaff
 import csv
 import io
 import json
@@ -57,7 +57,7 @@ class QuestionCreateView(generics.CreateAPIView):
     Create a new question
     """
     serializer_class = QuestionDetailSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsContentStaff]
     parser_classes = [MultiPartParser, FormParser, JSONParser]
 
     def perform_create(self, serializer):
@@ -75,7 +75,7 @@ class QuestionListManageView(generics.ListAPIView):
     List all questions with filters - paginated (100 per page)
     """
     serializer_class = QuestionDetailSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsContentStaff]
     pagination_class = QuestionPagination
 
     def get_queryset(self):
@@ -122,7 +122,7 @@ class AdminQuizExportView(APIView):
     check. Unlike the student-facing quiz detail (which hides answers), this is
     admin-only and returns everything a reviewer needs to see.
     """
-    permission_classes = [IsAdminOrTeacher]
+    permission_classes = [IsContentStaff]
 
     def get(self, request, pk):
         try:
@@ -154,7 +154,7 @@ class QuestionUpdateView(generics.RetrieveUpdateDestroyAPIView):
     """
     queryset = Question.objects.all()
     serializer_class = QuestionDetailSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsContentStaff]
     parser_classes = [MultiPartParser, FormParser, JSONParser]
 
     def perform_update(self, serializer):
@@ -205,7 +205,7 @@ class BulkQuestionImportView(generics.CreateAPIView):
     POST /api/admin/questions/bulk-import/
     Import questions from CSV - creates subjects/topics automatically
     """
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsContentStaff]
     parser_classes = [MultiPartParser, FormParser]
 
     def post(self, request):
@@ -380,7 +380,7 @@ class PassageListCreateView(generics.ListCreateAPIView):
     POST /api/admin/passages/   - create a new passage
     """
     serializer_class = PassageAdminSerializer
-    permission_classes = [IsAdminOrTeacher]
+    permission_classes = [IsContentStaff]
 
     def get_queryset(self):
         qs = Passage.objects.select_related('subject').order_by('-created_at')
@@ -404,5 +404,5 @@ class PassageDetailView(generics.RetrieveUpdateDestroyAPIView):
     GET/PUT/PATCH/DELETE /api/admin/passages/<id>/
     """
     serializer_class = PassageAdminSerializer
-    permission_classes = [IsAdminOrTeacher]
+    permission_classes = [IsContentStaff]
     queryset = Passage.objects.all()
