@@ -62,7 +62,8 @@ export function useGenerate(url) {
     try {
       const r = await fetchWithAuth(`${API}${url}`, { method: "POST", body: JSON.stringify(body) });
       const d = await r.json().catch(() => ({}));
-      if (!r.ok) throw new Error(d.error || "Something went wrong. Try again.");
+      if (r.status === 404) throw new Error("This tool isn't on the server yet - it goes live with the next update.");
+      if (!r.ok) throw new Error(d.error || `The server couldn't do that (error ${r.status}). Try again.`);
       router.push(`/facilitator/library/${d.id}`);
     } catch (e) {
       setError(/failed to fetch|network/i.test(e.message || "")
