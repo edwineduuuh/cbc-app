@@ -30,7 +30,7 @@ export default function LoginPage() {
   // false redirect to /dashboard immediately after logout.
   useEffect(() => {
     if (!authLoading && user && localStorage.getItem("accessToken")) {
-      if (user.role === "teacher") router.replace("/teacher");
+      if (user.role === "teacher") router.replace("/facilitator");
       else if (
         user.is_staff ||
         user.is_superuser ||

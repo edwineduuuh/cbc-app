@@ -26,7 +26,7 @@ function ExploreContent() {
 
   useEffect(() => {
     if (!authLoading && user?.role === "teacher") {
-      router.replace("/teacher");
+      router.replace("/facilitator");
     }
   }, [user, authLoading, router]);
 

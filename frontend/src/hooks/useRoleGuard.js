@@ -39,7 +39,7 @@ export function useRoleGuard(allowedRoles) {
       ) {
         router.push("/admin");
       } else if (user.role === "teacher") {
-        router.push("/teacher/dashboard");
+        router.push("/facilitator");
       } else {
         router.push("/dashboard");
       }

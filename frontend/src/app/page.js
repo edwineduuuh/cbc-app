@@ -1204,18 +1204,18 @@ export default function LandingPage() {
             {[
               {
                 icon: Users,
-                title: "Manage Classes",
-                desc: "Create classrooms, share join codes via WhatsApp. Students join in seconds.",
+                title: "Assessments in minutes",
+                desc: "Generate a KNEC-style paper for any strand, with a marking scheme and diagrams, ready to print.",
               },
               {
                 icon: BookOpen,
-                title: "Assign Quizzes",
-                desc: "Pick from 1000+ CBC quizzes or create your own. Set deadlines and track completion.",
+                title: "Built on the KICD designs",
+                desc: "Every tool works from the official curriculum designs, grade by grade and sub-strand by sub-strand.",
               },
               {
                 icon: BarChart3,
-                title: "Track Performance",
-                desc: "See class averages, individual results, and a live leaderboard. Know who needs help.",
+                title: "Your work, saved",
+                desc: "Everything you generate is kept in your library to reopen, edit and print again.",
               },
             ].map((f, i) => (
               <FadeIn key={i} delay={i * 0.1}>

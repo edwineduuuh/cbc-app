@@ -2,6 +2,10 @@
   base = "frontend"
   command = "npm run build"
   publish = ".next"
+  # Skip the build (and its deploy credits) when a push changes nothing
+  # under frontend/ - e.g. a Django-only fix that only Railway needs.
+  # Runs in the base directory, so "." means frontend/. Exit 0 = skip.
+  ignore = "git diff --quiet $CACHED_COMMIT_REF $COMMIT_REF -- ."
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"

@@ -53,6 +53,20 @@ class IsCurriculumManager(BasePermission):
         return is_platform_admin(request.user)
 
 
+class IsFacilitator(BasePermission):
+    """Educator Studio: facilitators (stored role "teacher") and admins.
+
+    Status is enforced earlier, in users.auth: a pending or suspended
+    facilitator never gets this far.
+    """
+    message = "The Educator Studio is for facilitator accounts."
+
+    def has_permission(self, request, view):
+        u = request.user
+        return bool(u and u.is_authenticated
+                    and (getattr(u, "role", None) == "teacher" or is_platform_admin(u)))
+
+
 class IsAdminUser(BasePermission):
     """
     Allows access to users with the admin/superadmin role

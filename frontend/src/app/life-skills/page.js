@@ -11,7 +11,7 @@ export default function LifeSkillsPage() {
 
   useEffect(() => {
     if (!loading && user?.role === "teacher") {
-      router.replace("/teacher");
+      router.replace("/facilitator");
     }
   }, [user, loading, router]);
 

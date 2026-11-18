@@ -12,7 +12,6 @@ export default function robots() {
           "/progress",
           "/attempts/",
           "/student/",
-          "/teacher/",
           "/api/",
           "/auth/",
         ],

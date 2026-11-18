@@ -22,7 +22,7 @@ import Logo, { BrandSymbol } from "@/components/brand/Logo";
 import {
   Home, BookOpen, BarChart3, Settings, LogOut, Sparkles, Heart,
   GraduationCap, Layers, Video, Menu, X, ClipboardCheck, Library,
-  CalendarDays, FileText, NotebookPen, Users, LayoutDashboard,
+  CalendarDays, FileText, NotebookPen, LayoutDashboard,
   FileQuestion, ListChecks, ScrollText, BookText, Network, Upload,
   Quote, PanelLeftClose, PanelLeftOpen, UserCircle,
 } from "lucide-react";
@@ -42,7 +42,7 @@ const NAV = {
     groups: [
       { items: [
         { href: "/dashboard", label: "Home", icon: Home, mobile: true },
-        { href: "/explore", label: "Learn", icon: BookOpen, mobile: true, match: ["/explore", "/student/quizzes", "/attempts"] },
+        { href: "/explore", label: "Learn", icon: BookOpen, mobile: true, match: ["/explore", "/attempts"] },
         { href: "/tutor", label: "Tutor", icon: GraduationCap, mobile: true },
         { href: "/flashcards", label: "Flash cards", icon: Layers },
         { href: "/progress", label: "My progress", icon: BarChart3, mobile: true },
@@ -63,9 +63,6 @@ const NAV = {
         { label: "Schemes of work", icon: CalendarDays, soon: true },
         { label: "Lesson plans", icon: FileText, soon: true },
         { label: "Records of work", icon: NotebookPen, soon: true },
-      ]},
-      { title: "Classes", items: [
-        { href: "/teacher", label: "My classes", icon: Users, exact: true },
       ]},
     ],
   },
@@ -96,7 +93,7 @@ const NAV = {
 function isChromeless(pathname) {
   return (
     pathname === "/" ||
-    ["/login", "/register", "/forgot-password", "/reset-password", "/verify-email", "/welcome", "/join"]
+    ["/login", "/register", "/forgot-password", "/reset-password", "/verify-email", "/welcome"]
       .some((p) => pathname === p || pathname.startsWith(p + "/")) ||
     pathname.startsWith("/auth/") ||
     pathname.startsWith("/quizzes/") ||

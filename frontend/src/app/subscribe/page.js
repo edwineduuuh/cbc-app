@@ -149,7 +149,7 @@ export default function SubscribePage() {
 
   useEffect(() => {
     if (!authLoading && user?.role === "teacher") {
-      router.replace("/teacher");
+      router.replace("/facilitator");
       return;
     }
     fetchSubscriptionStatus();

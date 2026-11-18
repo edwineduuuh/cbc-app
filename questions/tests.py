@@ -179,11 +179,6 @@ class CentralContentIsAdminOnly(Fixtures):
         self.assertEqual(c.get("/api/subjects/").status_code, 200)
         self.assertEqual(c.get("/api/quizzes/").status_code, 200)
         self.assertEqual(c.get("/api/plans/").status_code, 200)
-        # Live sessions are account-free by design: unknown id is 404, not 401.
-        # (join/ and leaderboard/ are not used here: both already raise
-        # NameError on master - the code still says Classroom, renamed to
-        # LiveSession. Separate bug, tracked in docs/revamp.)
-        self.assertEqual(c.get("/api/sessions/999999/results/").status_code, 404)
 
     def test_email_diagnostic_needs_admin(self):
         r = client_for(None).post("/api/auth/email-diagnostic/", {"email": "x@example.invalid"},

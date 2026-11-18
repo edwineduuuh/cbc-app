@@ -15,9 +15,12 @@ class UserSerializer(serializers.ModelSerializer):
             'id', 'username', 'email', 'role', 'grade',
             'first_name', 'last_name',
             'is_staff', 'is_superuser',
-            'email_verified', 'date_joined',
+            'email_verified', 'date_joined', 'status',
         ]
-        read_only_fields = ['id', 'is_staff', 'is_superuser', 'date_joined']
+        # role, status and email_verified are never set by the user: role
+        # is fixed at sign-up, status by verification or an administrator.
+        read_only_fields = ['id', 'is_staff', 'is_superuser', 'date_joined',
+                            'role', 'status', 'email_verified']
 
 class RegisterSerializer(serializers.ModelSerializer):
     """
@@ -36,6 +39,7 @@ class RegisterSerializer(serializers.ModelSerializer):
         style={'input_type': 'password'}
     )
     username = serializers.CharField(required=False, allow_blank=True)
+    email = serializers.EmailField(required=True)
 
     class Meta:
         model = User
@@ -47,6 +51,16 @@ class RegisterSerializer(serializers.ModelSerializer):
     # the request body - without this allow-list, posting
     # {"role": "superadmin"} to the register endpoint grants it.
     SELF_SERVICE_ROLES = (User.ROLE_STUDENT, User.ROLE_TEACHER)
+
+    def validate_email(self, value):
+        # One email, one StadiSpace account - whatever the sign-in method.
+        email = (value or '').strip().lower()
+        if User.objects.filter(email__iexact=email).exists():
+            raise serializers.ValidationError(
+                "An account with this email already exists. Sign in instead, "
+                "or use Forgot password."
+            )
+        return email
 
     def validate_role(self, value):
         if value and value not in self.SELF_SERVICE_ROLES:
@@ -120,6 +134,9 @@ class RegisterSerializer(serializers.ModelSerializer):
             parent_phone=validated_data.get('parent_phone', ''),
             parent_email=validated_data.get('parent_email', ''),
             school_name=validated_data.get('school_name', ''),
+            # Students activate by verifying their email; facilitators wait
+            # for an administrator even after verifying.
+            status=User.STATUS_PENDING,
         )
 
         return user

@@ -18,6 +18,7 @@ from django.utils import timezone
 from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
+from .permissions import IsFacilitator
 from rest_framework.response import Response
 
 from .assessments import generate_assessment
@@ -90,8 +91,9 @@ def _resolve_substrands(data):
 
 
 def _is_facilitator(user):
-    return (user.role in ("teacher", "admin", "superadmin", "school_admin")
-            or user.is_staff)
+    # Kept for the existing call site; IsFacilitator guards every view now.
+    from .permissions import IsFacilitator
+    return IsFacilitator().has_permission(type("R", (), {"user": user})(), None)
 
 
 # A paper takes about two minutes. Past this, the container was redeployed or
@@ -135,7 +137,7 @@ def _summarise(o: GeneratedOutput) -> dict:
 
 # ── curriculum pickers ────────────────────────────────────────────────────
 @api_view(["GET"])
-@permission_classes([IsAuthenticated])
+@permission_classes([IsFacilitator])
 def curriculum_tree(request):
     """Grades / subjects / strands / sub-strands that actually have KICD data.
 
@@ -222,7 +224,7 @@ def curriculum_tree(request):
 
 # ── generate ──────────────────────────────────────────────────────────────
 @api_view(["POST"])
-@permission_classes([IsAuthenticated])
+@permission_classes([IsFacilitator])
 def generate_assessment_view(request):
     """POST -> a saved assessment.
 
@@ -342,7 +344,7 @@ def _build_assessment(output_id, substrand_ids, inputs, user_id):
 
 # ── output history ────────────────────────────────────────────────────────
 @api_view(["GET"])
-@permission_classes([IsAuthenticated])
+@permission_classes([IsFacilitator])
 def my_library(request):
     """GET /facilitator/library/?tool=&bookmarked=&q= - their own saved work."""
     qs = (GeneratedOutput.objects
@@ -368,7 +370,7 @@ def my_library(request):
 
 
 @api_view(["GET", "PATCH", "DELETE"])
-@permission_classes([IsAuthenticated])
+@permission_classes([IsFacilitator])
 def library_item(request, pk):
     """Open, edit or delete one item. A facilitator only ever sees their own."""
     out = get_object_or_404(GeneratedOutput, pk=pk, teacher=request.user)

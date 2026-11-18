@@ -369,7 +369,7 @@ export default function DashboardPage() {
     if (!authLoading && user) {
       // Teachers should never see the student dashboard
       if (user.role === "teacher") {
-        router.replace("/teacher");
+        router.replace("/facilitator");
         return;
       }
       fetchData();

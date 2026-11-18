@@ -225,6 +225,11 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated',
     ],
+    # Used by users/throttles.py on the account endpoints only.
+    'DEFAULT_THROTTLE_RATES': {
+        'login': '10/min',   # per IP + account being tried
+        'auth': '20/min',    # per IP: register, social, reset, verify
+    },
 }
 
 # JWT Configuration

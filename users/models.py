@@ -99,6 +99,30 @@ class User(AbstractUser):
     # Email verification
     email_verified = models.BooleanField(default=False)
 
+    # ACCOUNT STATUS - what the account may do, separate from its role.
+    #   active     full access for the role
+    #   pending    a new student awaiting email verification, or a new
+    #              facilitator awaiting administrator approval
+    #   suspended  blocked by an administrator (can be reinstated)
+    #   rejected   facilitator application turned down
+    # Every account that existed before this field is "active", so nobody
+    # is locked out by the migration.
+    STATUS_ACTIVE = 'active'
+    STATUS_PENDING = 'pending'
+    STATUS_SUSPENDED = 'suspended'
+    STATUS_REJECTED = 'rejected'
+    STATUS_CHOICES = [
+        (STATUS_ACTIVE, _('Active')),
+        (STATUS_PENDING, _('Pending')),
+        (STATUS_SUSPENDED, _('Suspended')),
+        (STATUS_REJECTED, _('Rejected')),
+    ]
+    status = models.CharField(
+        max_length=12, choices=STATUS_CHOICES, default=STATUS_ACTIVE,
+        db_index=True,
+        help_text=_("Account status, set by verification or by an administrator."),
+    )
+
     # STREAK TRACKING
     current_streak = models.IntegerField(default=0, help_text='Current daily streak')
     longest_streak = models.IntegerField(default=0, help_text='All-time longest streak')
@@ -129,6 +153,23 @@ class User(AbstractUser):
     @property
     def is_teacher_or_above(self):
         return self.role in [self.ROLE_TEACHER, self.ROLE_SCHOOL_ADMIN] or self.is_admin
+
+    @property
+    def is_account_active(self):
+        return self.status == self.STATUS_ACTIVE
+
+    def set_status(self, new_status, *, by=None, reason=''):
+        """Change status and write the audit row. Returns True if it changed."""
+        old = self.status
+        if old == new_status:
+            return False
+        self.status = new_status
+        self.save(update_fields=['status'])
+        RoleChange.objects.create(
+            user=self, changed_by=by, field=RoleChange.FIELD_STATUS,
+            old_value=old, new_value=new_status, reason=reason or '',
+        )
+        return True
 
     @property
     def free_quiz_available_today(self):
@@ -261,6 +302,37 @@ class ClassroomInvitation(models.Model):
     
     def __str__(self):
         return f"{self.student.username} joined {self.classroom}"
+
+class RoleChange(models.Model):
+    """Audit trail: every change to an account's role or status.
+
+    Written by User.set_status and by administrator actions, so "who
+    approved this facilitator, and when" always has an answer. changed_by
+    is null for system changes (e.g. email verification activating a
+    student).
+    """
+    FIELD_ROLE = 'role'
+    FIELD_STATUS = 'status'
+    FIELD_CHOICES = [(FIELD_ROLE, 'Role'), (FIELD_STATUS, 'Status')]
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='role_changes')
+    changed_by = models.ForeignKey(
+        User, on_delete=models.SET_NULL, null=True, blank=True,
+        related_name='role_changes_made')
+    field = models.CharField(max_length=10, choices=FIELD_CHOICES)
+    old_value = models.CharField(max_length=20, blank=True, default='')
+    new_value = models.CharField(max_length=20)
+    reason = models.TextField(blank=True, default='')
+    created_at = models.DateTimeField(auto_now_add=True, db_index=True)
+
+    class Meta:
+        db_table = 'role_changes'
+        ordering = ['-created_at']
+
+    def __str__(self):
+        who = self.changed_by.username if self.changed_by else 'system'
+        return f"{self.user.username}: {self.field} {self.old_value} -> {self.new_value} by {who}"
+
 
 class DailyActivity(models.Model):
     """One row per user per day they were active (any authenticated request).

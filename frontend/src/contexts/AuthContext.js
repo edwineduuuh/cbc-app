@@ -126,7 +126,7 @@ export function AuthProvider({ children }) {
     if (!userData) return "/login";
 
     if (userData.role === "teacher") {
-      return "/teacher";
+      return "/facilitator";
     }
 
     if (

@@ -7,7 +7,6 @@ from . import views
 from . import facilitator_views
 from .diagram_views import diagram_file
 
-
 def health(request):
     """Lightweight keep-warm endpoint. Touches the DB with a trivial query so a
     cron ping keeps both the web service and the database connection warm,
@@ -76,8 +75,6 @@ from .authoring_quiz_views import (
     QuizListCreateView,
     QuizDetailView as AdminQuizDetailView,
     QuizPublishView,
-    TeacherQuizLibraryView,
-    AssignQuizToClassroomView,
 )
 from .authoring_sets_views import QuestionSetListCreateView, QuestionSetDetailView
 from .authoring_views import (
@@ -110,14 +107,11 @@ from .views import (
     AttemptDetailView,
     AdminStatsView,
     QuestionGroupStatsView,
-    TeacherAnalyticsView,
     submit_quiz,
     grade_one,
     get_attempt_results,
     get_attempt_grading_status,
     StudentAnalyticsView,
-    TeacherClassroomAnalyticsView,
-    TeacherQuizResultsView,
     SubscriptionPlanListView,
     SubscriptionStatusView,
     SubmitPaymentView,
@@ -162,7 +156,6 @@ urlpatterns = [
     path('guest/quota/', check_guest_quota, name='guest-quota'),
 
     # ── Analytics ────────────────────────────────────────────────
-    path('analytics/teacher/', TeacherAnalyticsView.as_view(), name='teacher-analytics'),
     path('analytics/student/', StudentAnalyticsView.as_view(), name='student-analytics'),
 
     # ── Credits & Subscription ───────────────────────────────────
@@ -220,31 +213,8 @@ urlpatterns = [
     # ── Admin - Bulk Upload ───────────────────────────────────────
     path('admin/bulk-upload/', BulkUploadView.as_view(), name='bulk_upload'),
 
-    # ── Teacher ───────────────────────────────────────────────────
-    path('teacher/quiz-library/', TeacherQuizLibraryView.as_view(), name='teacher-quiz-library'),
-    path('teacher/assign-quiz/', AssignQuizToClassroomView.as_view(), name='assign-quiz'),
-    path('teacher/classrooms/<int:pk>/analytics/', TeacherClassroomAnalyticsView.as_view(), name='teacher-classroom-analytics'),
-    path('teacher/classrooms/<int:classroom_id>/quizzes/<int:quiz_id>/results/', TeacherQuizResultsView.as_view(), name='teacher-quiz-results'),
-
     # ── LESSON PLANS ──────────────────────────────────────────────
     path("lessons/generate-questions/", generate_quiz_questions, name="generate-quiz-questions"),
-
-    # ── CLASSROOMS (teacher, requires auth) ──────────────────────
-    path("classrooms/", views.classrooms, name="classroom-list"),
-    path("classrooms/<int:pk>/", views.classroom_detail, name="classroom-detail"),
-    path("classrooms/<int:pk>/start/", views.start_classroom, name="classroom-start"),
-    path("classrooms/<int:pk>/end/", views.end_classroom, name="classroom-end"),
-    path("classrooms/<int:pk>/next/", views.next_question, name="classroom-next"),
-    path("classrooms/<int:pk>/report/", views.classroom_report, name="classroom-report"),
-    path("classrooms/<int:classroom_id>/leaderboard/", views.leaderboard, name="classroom-leaderboard"),
-
-    # ── STUDENT JOIN (no auth) ────────────────────────────────────
-    path("join/<str:code>/", views.join_classroom, name="student-join"),
-    path("join/<str:code>/register/", views.student_register, name="student-register"),
-
-    # ── STUDENT ANSWERS (no auth) ─────────────────────────────────
-    path("sessions/<int:session_id>/answer/", views.submit_answer, name="submit-answer"),
-    path("sessions/<int:session_id>/results/", views.session_results, name="session-results"),
 
     # ── M-Pesa STK Push & Callback ──────────────────────────────
     path('payments/stk-push/', views.initiate_stk_push, name='stk-push'),
