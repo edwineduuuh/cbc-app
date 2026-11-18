@@ -1450,7 +1450,7 @@ export default function FinancialStatementInput({
       trial_balance: "Trial Balance",
     };
     return (
-      <div style={{ fontFamily: "'Lato', sans-serif" }}>
+      <div style={{ fontFamily: "var(--font-sans)" }}>
         <p
           style={{
             textAlign: "center",
@@ -1504,7 +1504,7 @@ export default function FinancialStatementInput({
   const currency = schema.currency || "Ksh";
 
   return (
-    <div style={{ fontFamily: "'Lato', sans-serif" }}>
+    <div style={{ fontFamily: "var(--font-sans)" }}>
       {schema.title && (
         <p
           style={{

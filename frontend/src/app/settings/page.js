@@ -37,14 +37,16 @@ const SECTIONS = [
 ];
 
 export default function SettingsPage() {
-  const { user, logout } = useAuth();
+  const { user, logout, loading: authLoading } = useAuth();
   const router = useRouter();
   const [activeSection, setActiveSection] = useState("profile");
   const [toast, setToast] = useState(null);
 
+  // Wait for the saved login to load; redirecting on the first render sent
+  // signed-in users to /login (and from there to /dashboard).
   useEffect(() => {
-    if (!user) router.push("/login");
-  }, [user]);
+    if (!authLoading && !user) router.push("/login");
+  }, [user, authLoading, router]);
 
   const showToast = (message, type = "success") => {
     setToast({ message, type });
@@ -56,9 +58,8 @@ export default function SettingsPage() {
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=DM+Sans:wght@400;500;600;700&display=swap');
-        .font-display { font-family: 'Playfair Display', serif; }
-        * { font-family: 'DM Sans', sans-serif; }
+        .font-display { font-family: var(--font-display); }
+        * { font-family: var(--font-sans); }
       `}</style>
 
       {/* Toast */}
@@ -308,7 +309,7 @@ function ProfileSection({ user, showToast }) {
           onClick={handleSave}
           disabled={loading}
           className="flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-sm text-white disabled:opacity-60 transition-all"
-          style={{ background: "linear-gradient(135deg, #0d9488, #059669)" }}
+          style={{ background: "#0E7490" }}
         >
           {loading ? (
             <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
@@ -447,7 +448,7 @@ function PasswordSection({ showToast }) {
           onClick={handleSave}
           disabled={loading}
           className="flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-sm text-white disabled:opacity-60"
-          style={{ background: "linear-gradient(135deg, #0d9488, #059669)" }}
+          style={{ background: "#0E7490" }}
         >
           {loading ? (
             <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />

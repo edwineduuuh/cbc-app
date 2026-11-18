@@ -64,9 +64,8 @@ export default function GuestProgress() {
   return (
     <div className="min-h-screen bg-gray-950 text-white">
       {/* <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=DM+Sans:wght@400;500;600;700&display=swap');
-        .font-display { font-family: 'Playfair Display', serif; }
-        * { font-family: 'DM Sans', sans-serif; }
+        .font-display { font-family: var(--font-display); }
+        * { font-family: var(--font-sans); }
         .glass { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); }
       `}</style> */}
 

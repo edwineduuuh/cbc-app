@@ -124,84 +124,84 @@ function getGradeBand(score, grade) {
       return {
         grade: "EE",
         label: "Exceeds Expectations",
-        color: "#059669",
-        bg: "#d1fae5",
+        color: "#3CCB8B",
+        bg: "rgba(60,203,139,0.14)",
       };
     if (score >= 50)
       return {
         grade: "ME",
         label: "Meets Expectations",
-        color: "#2563eb",
-        bg: "#dbeafe",
+        color: "#7FB0EA",
+        bg: "rgba(77,141,218,0.14)",
       };
     if (score >= 25)
       return {
         grade: "AE",
         label: "Approaches Expectations",
-        color: "#d97706",
-        bg: "#fef3c7",
+        color: "#E8B65B",
+        bg: "rgba(232,182,91,0.14)",
       };
     return {
       grade: "BE",
       label: "Below Expectations",
-      color: "#dc2626",
-      bg: "#fee2e2",
+      color: "#F07178",
+      bg: "rgba(240,113,120,0.14)",
     };
   }
   if (score >= 90)
     return {
       grade: "EE1",
       label: "Exceeds Expectations",
-      color: "#059669",
-      bg: "#d1fae5",
+      color: "#3CCB8B",
+      bg: "rgba(60,203,139,0.14)",
     };
   if (score >= 75)
     return {
       grade: "EE2",
       label: "Exceeds Expectations",
-      color: "#059669",
-      bg: "#d1fae5",
+      color: "#3CCB8B",
+      bg: "rgba(60,203,139,0.14)",
     };
   if (score >= 58)
     return {
       grade: "ME1",
       label: "Meets Expectations",
-      color: "#2563eb",
-      bg: "#dbeafe",
+      color: "#7FB0EA",
+      bg: "rgba(77,141,218,0.14)",
     };
   if (score >= 41)
     return {
       grade: "ME2",
       label: "Meets Expectations",
-      color: "#2563eb",
-      bg: "#dbeafe",
+      color: "#7FB0EA",
+      bg: "rgba(77,141,218,0.14)",
     };
   if (score >= 31)
     return {
       grade: "AE1",
       label: "Approaches Expectations",
-      color: "#d97706",
-      bg: "#fef3c7",
+      color: "#E8B65B",
+      bg: "rgba(232,182,91,0.14)",
     };
   if (score >= 21)
     return {
       grade: "AE2",
       label: "Approaches Expectations",
-      color: "#d97706",
-      bg: "#fef3c7",
+      color: "#E8B65B",
+      bg: "rgba(232,182,91,0.14)",
     };
   if (score >= 11)
     return {
       grade: "BE1",
       label: "Below Expectations",
-      color: "#dc2626",
-      bg: "#fee2e2",
+      color: "#F07178",
+      bg: "rgba(240,113,120,0.14)",
     };
   return {
     grade: "BE2",
     label: "Below Expectations",
-    color: "#dc2626",
-    bg: "#fee2e2",
+    color: "#F07178",
+    bg: "rgba(240,113,120,0.14)",
   };
 }
 
@@ -258,12 +258,12 @@ function ReportCard({
 }) {
   const scoreColor =
     score >= 75
-      ? "#0f766e"
+      ? "#5FD3C4"
       : score >= 50
-        ? "#1d4ed8"
+        ? "#7FB0EA"
         : score >= 30
-          ? "#b45309"
-          : "#991b1b";
+          ? "#F2C978"
+          : "#F7A1A7";
 
   return (
     <div
@@ -276,7 +276,7 @@ function ReportCard({
         padding: 48,
         background: "var(--bg-secondary)",
         color: "var(--text)",
-        fontFamily: "'Inter', system-ui, sans-serif",
+        fontFamily: "var(--font-sans)",
       }}
     >
       <div
@@ -622,8 +622,8 @@ function ReportCard({
                     style={{
                       padding: "8px 14px",
                       borderRadius: 999,
-                      background: item.correct ? "#d1fae5" : "#fee2e2",
-                      color: item.correct ? "#0f766e" : "#b91c1c",
+                      background: item.correct ? "rgba(60,203,139,0.14)" : "rgba(240,113,120,0.14)",
+                      color: item.correct ? "#5FD3C4" : "#F7A1A7",
                       fontWeight: 700,
                       fontSize: 12,
                     }}
@@ -1028,7 +1028,7 @@ export default function AttemptResultsPage() {
           alignItems: "center",
           justifyContent: "center",
           gap: 20,
-          fontFamily: "'Lato', sans-serif",
+          fontFamily: "var(--font-sans)",
         }}
       >
         <div
@@ -1037,7 +1037,7 @@ export default function AttemptResultsPage() {
             height: 56,
             borderRadius: "50%",
             border: "4px solid var(--border)",
-            borderTopColor: "#1a6fc4",
+            borderTopColor: "#20B8A6",
             animation: "spin 0.9s linear infinite",
           }}
         />
@@ -1077,7 +1077,7 @@ export default function AttemptResultsPage() {
             height: 40,
             borderRadius: "50%",
             border: "3px solid var(--border)",
-            borderTopColor: "#1a6fc4",
+            borderTopColor: "#20B8A6",
             animation: "spin 0.8s linear infinite",
           }}
         />
@@ -1090,14 +1090,14 @@ export default function AttemptResultsPage() {
       <div style={{ minHeight: "100vh", background: "var(--bg-secondary)", display: "flex", alignItems: "center", justifyContent: "center" }}>
         <div style={{ textAlign: "center", padding: "0 24px", maxWidth: 340 }}>
           <div style={{ fontSize: 36, marginBottom: 12 }}></div>
-          <p style={{ color: "#dc2626", fontWeight: 700, fontSize: 16, marginBottom: 8 }}>
+          <p style={{ color: "#F07178", fontWeight: 700, fontSize: 16, marginBottom: 8 }}>
             Grading failed
           </p>
           <p style={{ color: "var(--text)", fontSize: 13, marginBottom: 20, lineHeight: 1.6 }}>
             Something went wrong while marking your quiz. Your credits have not been deducted. Please try the quiz again.
           </p>
           <Link href="/browse">
-            <button style={{ background: "#1a6fc4", color: "#fff", border: "none", borderRadius: 8, padding: "10px 20px", fontSize: 14, fontWeight: 600, cursor: "pointer", width: "100%" }}>
+            <button style={{ background: "#0E7490", color: "#fff", border: "none", borderRadius: 8, padding: "10px 20px", fontSize: 14, fontWeight: 600, cursor: "pointer", width: "100%" }}>
               Go to Browse
             </button>
           </Link>
@@ -1109,9 +1109,9 @@ export default function AttemptResultsPage() {
     return (
       <div style={{ minHeight: "100vh", background: "var(--bg-secondary)", display: "flex", alignItems: "center", justifyContent: "center" }}>
         <div style={{ textAlign: "center", padding: "0 24px" }}>
-          <div style={{ width: 40, height: 40, borderRadius: "50%", border: "3px solid var(--border)", borderTopColor: "#1a6fc4", animation: "spin 0.8s linear infinite", margin: "0 auto 16px" }} />
+          <div style={{ width: 40, height: 40, borderRadius: "50%", border: "3px solid var(--border)", borderTopColor: "#20B8A6", animation: "spin 0.8s linear infinite", margin: "0 auto 16px" }} />
           <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
-          <p style={{ color: "#1e40af", fontWeight: 600, fontSize: 15, marginBottom: 4 }}>Loading results…</p>
+          <p style={{ color: "#7FB0EA", fontWeight: 600, fontSize: 15, marginBottom: 4 }}>Loading results…</p>
           <p style={{ color: "var(--text-muted)", fontSize: 13 }}>Please wait</p>
         </div>
       </div>
@@ -1124,20 +1124,20 @@ export default function AttemptResultsPage() {
   const message = getMessage(score);
   const scoreColor =
     score >= 75
-      ? "#059669"
+      ? "#3CCB8B"
       : score >= 50
-        ? "#2563eb"
+        ? "#7FB0EA"
         : score >= 30
-          ? "#d97706"
-          : "#dc2626";
+          ? "#E8B65B"
+          : "#F07178";
   const scoreBg =
     score >= 75
-      ? "#d1fae5"
+      ? "rgba(60,203,139,0.14)"
       : score >= 50
-        ? "#dbeafe"
+        ? "rgba(77,141,218,0.14)"
         : score >= 30
-          ? "#fef3c7"
-          : "#fee2e2";
+          ? "rgba(232,182,91,0.14)"
+          : "rgba(240,113,120,0.14)";
   const timeTaken =
     results.completed_at && results.started_at
       ? Math.round(
@@ -1151,7 +1151,7 @@ export default function AttemptResultsPage() {
       style={{
         minHeight: "100vh",
         background: "var(--bg-secondary)",
-        fontFamily: "'Inter', system-ui, sans-serif",
+        fontFamily: "var(--font-sans)",
       }}
     >
       <style>{`
@@ -1185,7 +1185,6 @@ export default function AttemptResultsPage() {
         }
       `}</style>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Instrument+Serif:ital@0;1&display=swap');
         * { box-sizing: border-box; }
         @keyframes spin { to { transform: rotate(360deg); } }
         @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
@@ -1340,7 +1339,7 @@ export default function AttemptResultsPage() {
               color: scoreColor,
               lineHeight: 1,
               marginBottom: 8,
-              fontFamily: "Instrument Serif, serif",
+              fontFamily: "var(--font-display)",
             }}
           >
             {score}%
@@ -1448,7 +1447,7 @@ export default function AttemptResultsPage() {
                 gap: 6,
                 padding: "10px 20px",
                 borderRadius: 12,
-                background: scoreColor,
+                background: "#0E7490",
                 border: "none",
                 color: "#fff",
                 fontSize: 13,
@@ -1517,20 +1516,20 @@ export default function AttemptResultsPage() {
             const correct = item.is_correct;
             const partial = !correct && item.marks_awarded > 0;
             const cardColor = correct
-              ? "#d1fae5"
+              ? "rgba(60,203,139,0.14)"
               : partial
-                ? "#fde68a"
-                : "#fee2e2";
+                ? "rgba(232,182,91,0.35)"
+                : "rgba(240,113,120,0.14)";
             const cardBg = correct
-              ? "#f0fdf4"
+              ? "rgba(60,203,139,0.10)"
               : partial
-                ? "#fffbeb"
-                : "#fff5f5";
+                ? "rgba(232,182,91,0.10)"
+                : "rgba(240,113,120,0.10)";
             const textColor = correct
-              ? "#059669"
+              ? "#3CCB8B"
               : partial
-                ? "#92400e"
-                : "#dc2626";
+                ? "#F2C978"
+                : "#F07178";
 
             return (
               <motion.div
@@ -1612,8 +1611,8 @@ export default function AttemptResultsPage() {
                               style={{
                                 fontSize: 11,
                                 fontWeight: 600,
-                                color: "#7c3aed",
-                                background: "#ede9fe",
+                                color: "#C4B5FD",
+                                background: "rgba(167,139,250,0.14)",
                                 borderRadius: 6,
                                 padding: "1px 6px",
                                 marginLeft: 8,
@@ -1684,25 +1683,25 @@ export default function AttemptResultsPage() {
                             const pPartial =
                               !pCorrect && part.marks_awarded > 0;
                             const pColor = pCorrect
-                              ? "#059669"
+                              ? "#3CCB8B"
                               : pPartial
-                                ? "#d97706"
-                                : "#dc2626";
+                                ? "#E8B65B"
+                                : "#F07178";
                             const pBg = pCorrect
-                              ? "#f0fdf4"
+                              ? "rgba(60,203,139,0.10)"
                               : pPartial
-                                ? "#fffbeb"
-                                : "#fff5f5";
+                                ? "rgba(232,182,91,0.10)"
+                                : "rgba(240,113,120,0.10)";
                             const pBorder = pCorrect
-                              ? "#bbf7d0"
+                              ? "rgba(60,203,139,0.35)"
                               : pPartial
-                                ? "#fde68a"
-                                : "#fecaca";
+                                ? "rgba(232,182,91,0.35)"
+                                : "rgba(240,113,120,0.35)";
                             const pChipBg = pCorrect
-                              ? "#d1fae5"
+                              ? "rgba(60,203,139,0.14)"
                               : pPartial
-                                ? "#fde68a"
-                                : "#fee2e2";
+                                ? "rgba(232,182,91,0.35)"
+                                : "rgba(240,113,120,0.14)";
                             // Resolve letter → full option text using quiz question parts
                             const quizQ = results.quiz?.questions?.find(
                               (q) => String(q.id) === String(qId),
@@ -1839,7 +1838,7 @@ export default function AttemptResultsPage() {
                                   {/* Your answer */}
                                   <div
                                     style={{
-                                      background: "#eff6ff",
+                                      background: "rgba(77,141,218,0.10)",
                                       borderRadius: 10,
                                       padding: "10px 14px",
                                     }}
@@ -1848,7 +1847,7 @@ export default function AttemptResultsPage() {
                                       style={{
                                         fontSize: 11,
                                         fontWeight: 700,
-                                        color: "#1d4ed8",
+                                        color: "#7FB0EA",
                                         textTransform: "uppercase",
                                         letterSpacing: "0.06em",
                                         marginBottom: 5,
@@ -1859,7 +1858,7 @@ export default function AttemptResultsPage() {
                                     <div
                                       style={{
                                         fontSize: 13,
-                                        color: "#1e3a5f",
+                                        color: "var(--text)",
                                         lineHeight: 1.6,
                                       }}
                                     >
@@ -1891,8 +1890,8 @@ export default function AttemptResultsPage() {
                                         background: pCorrect
                                           ? "var(--bg-secondary)"
                                           : pPartial
-                                            ? "#fffbeb"
-                                            : "#fff7ed",
+                                            ? "rgba(232,182,91,0.10)"
+                                            : "rgba(245,158,91,0.10)",
                                         borderRadius: 10,
                                         padding: "10px 14px",
                                         borderLeft: `3px solid ${pColor}`,
@@ -1972,9 +1971,9 @@ export default function AttemptResultsPage() {
                                 /\((?:\d+|[a-z]+)\)\s*(?:correct|excellent|spot on|well done|perfect|great|yes|hongera|vizuri|sahihi|nzuri)/i.test(
                                   segFeedback,
                                 );
-                              const pColor = isCorrect ? "#059669" : "#dc2626";
-                              const pBg = isCorrect ? "#f0fdf4" : "#fff5f5";
-                              const pBorder = isCorrect ? "#bbf7d0" : "#fecaca";
+                              const pColor = isCorrect ? "#3CCB8B" : "#F07178";
+                              const pBg = isCorrect ? "rgba(60,203,139,0.10)" : "rgba(240,113,120,0.10)";
+                              const pBorder = isCorrect ? "rgba(60,203,139,0.35)" : "rgba(240,113,120,0.35)";
                               // Correct answer: if stored as single letter look up option text, else use as-is
                               const ca = String(part.correct_answer || "");
                               const correctText =
@@ -2045,7 +2044,7 @@ export default function AttemptResultsPage() {
                                   >
                                     <div
                                       style={{
-                                        background: "#eff6ff",
+                                        background: "rgba(77,141,218,0.10)",
                                         borderRadius: 10,
                                         padding: "10px 14px",
                                       }}
@@ -2054,7 +2053,7 @@ export default function AttemptResultsPage() {
                                         style={{
                                           fontSize: 11,
                                           fontWeight: 700,
-                                          color: "#1d4ed8",
+                                          color: "#7FB0EA",
                                           textTransform: "uppercase",
                                           letterSpacing: "0.06em",
                                           marginBottom: 4,
@@ -2065,7 +2064,7 @@ export default function AttemptResultsPage() {
                                       <p
                                         style={{
                                           fontSize: 13,
-                                          color: "#1e3a5f",
+                                          color: "var(--text)",
                                           margin: 0,
                                         }}
                                       >
@@ -2086,7 +2085,7 @@ export default function AttemptResultsPage() {
                                         style={{
                                           background: isCorrect
                                             ? "var(--bg-secondary)"
-                                            : "#fff7ed",
+                                            : "rgba(245,158,91,0.10)",
                                           borderRadius: 10,
                                           padding: "10px 14px",
                                           borderLeft: `3px solid ${pColor}`,
@@ -2155,8 +2154,8 @@ export default function AttemptResultsPage() {
 
                         {/* Feedback */}
                         {item.feedback && (
-                          <div style={{ background: correct ? "var(--bg-secondary)" : "#fffbeb", border: `1px solid ${correct ? "#bbf7d0" : "#fde68a"}`, borderRadius: 12, padding: "14px 16px" }}>
-                            <p style={{ fontSize: 11, fontWeight: 700, color: correct ? "#059669" : "#92400e", letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: 8 }}>
+                          <div style={{ background: correct ? "var(--bg-secondary)" : "rgba(232,182,91,0.10)", border: `1px solid ${correct ? "rgba(60,203,139,0.35)" : "rgba(232,182,91,0.35)"}`, borderRadius: 12, padding: "14px 16px" }}>
+                            <p style={{ fontSize: 11, fontWeight: 700, color: correct ? "#3CCB8B" : "#F2C978", letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: 8 }}>
                               {correct ? "✓ Feedback" : "Feedback"}
                             </p>
                             <p style={{ fontSize: 14, color: "var(--text)", lineHeight: 1.7, margin: 0 }}
@@ -2168,7 +2167,7 @@ export default function AttemptResultsPage() {
                         {/* Points missed */}
                         {!correct && item.points_missed?.length > 0 && (
                           <div style={{ background: "var(--bg-secondary)", border: "1px solid #fecaca", borderRadius: 12, padding: "12px 16px" }}>
-                            <p style={{ fontSize: 11, fontWeight: 700, color: "#dc2626", letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: 8 }}>
+                            <p style={{ fontSize: 11, fontWeight: 700, color: "#F07178", letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: 8 }}>
                               Items to Review
                             </p>
                             <ul style={{ margin: 0, paddingLeft: 18, display: "flex", flexDirection: "column", gap: 4 }}>
@@ -2182,7 +2181,7 @@ export default function AttemptResultsPage() {
                         {/* Points earned */}
                         {item.points_earned?.length > 0 && (
                           <div style={{ background: "var(--bg-secondary)", border: "1px solid #bbf7d0", borderRadius: 12, padding: "12px 16px" }}>
-                            <p style={{ fontSize: 11, fontWeight: 700, color: "#059669", letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: 8 }}>
+                            <p style={{ fontSize: 11, fontWeight: 700, color: "#3CCB8B", letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: 8 }}>
                               Correct Entries
                             </p>
                             <ul style={{ margin: 0, paddingLeft: 18, display: "flex", flexDirection: "column", gap: 4 }}>
@@ -2197,8 +2196,8 @@ export default function AttemptResultsPage() {
 
                     {/* ── TABLE question: render filled table ── */}
                     {item.question_type === "table" && item.table_data && (
-                      <div style={{ background: "#eff6ff", borderRadius: 12, padding: "12px 16px", marginBottom: 12 }}>
-                        <p style={{ fontSize: 11, fontWeight: 700, color: "#1d4ed8", letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: 8 }}>Your Answer</p>
+                      <div style={{ background: "rgba(77,141,218,0.10)", borderRadius: 12, padding: "12px 16px", marginBottom: 12 }}>
+                        <p style={{ fontSize: 11, fontWeight: 700, color: "#7FB0EA", letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: 8 }}>Your Answer</p>
                         <div style={{ overflowX: "auto" }}>
                           <table style={{ borderCollapse: "collapse", fontSize: 13, width: "100%" }}>
                             <tbody>
@@ -2232,7 +2231,7 @@ export default function AttemptResultsPage() {
                                           : "var(--bg-secondary)",
                                         fontWeight: isEditable ? 600 : 400,
                                         color: isEditable
-                                          ? (isCorrect ? "#15803d" : isWrong ? "#dc2626" : "var(--text)")
+                                          ? (isCorrect ? "#6EE7A8" : isWrong ? "#F07178" : "var(--text)")
                                           : "var(--text)",
                                         textAlign: "center",
                                         minWidth: 80,
@@ -2258,7 +2257,7 @@ export default function AttemptResultsPage() {
                           {/* Your answer */}
                           <div
                             style={{
-                              background: "#eff6ff",
+                              background: "rgba(77,141,218,0.10)",
                               borderRadius: 12,
                               padding: "12px 16px",
                               marginBottom: 12,
@@ -2268,7 +2267,7 @@ export default function AttemptResultsPage() {
                               style={{
                                 fontSize: 11,
                                 fontWeight: 700,
-                                color: "#1d4ed8",
+                                color: "#7FB0EA",
                                 letterSpacing: "0.06em",
                                 textTransform: "uppercase",
                                 marginBottom: 6,
@@ -2279,7 +2278,7 @@ export default function AttemptResultsPage() {
                             <div
                               style={{
                                 fontSize: 14,
-                                color: "#1e3a5f",
+                                color: "var(--text)",
                                 lineHeight: 1.6,
                               }}
                             >
@@ -2321,7 +2320,7 @@ export default function AttemptResultsPage() {
                                           marginBottom: 4,
                                         }}
                                       >
-                                        <span style={{ color: "#3b82f6" }}>
+                                        <span style={{ color: "#7FB0EA" }}>
                                           •
                                         </span>
                                         <span>{fullText || "(No answer)"}</span>
@@ -2351,7 +2350,7 @@ export default function AttemptResultsPage() {
                                       <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
                                         {listItems.map((it, i) => (
                                           <div key={i} style={{ display: "flex", gap: 6 }}>
-                                            <span style={{ color: "#3b82f6", flexShrink: 0 }}>•</span>
+                                            <span style={{ color: "#7FB0EA", flexShrink: 0 }}>•</span>
                                             <span dangerouslySetInnerHTML={{ __html: renderMath(it) }} />
                                           </div>
                                         ))}
@@ -2382,8 +2381,8 @@ export default function AttemptResultsPage() {
                           {/* AI Feedback */}
                           <div
                             style={{
-                              background: correct ? "var(--bg-secondary)" : "#fffbeb",
-                              border: `1px solid ${correct ? "#bbf7d0" : "#fde68a"}`,
+                              background: correct ? "var(--bg-secondary)" : "rgba(232,182,91,0.10)",
+                              border: `1px solid ${correct ? "rgba(60,203,139,0.35)" : "rgba(232,182,91,0.35)"}`,
                               borderRadius: 12,
                               padding: "14px 16px",
                               marginBottom: 12,
@@ -2394,7 +2393,7 @@ export default function AttemptResultsPage() {
                               style={{
                                 fontSize: 17,
                                 fontWeight: 700,
-                                color: correct ? "#16a34a" : "#92400e",
+                                color: correct ? "#3CCB8B" : "#F2C978",
                                 marginBottom: 8,
                                 transform: "rotate(-1deg)",
                                 display: "inline-block",
@@ -2406,7 +2405,7 @@ export default function AttemptResultsPage() {
                               className="kalam"
                               style={{
                                 fontSize: 15,
-                                color: correct ? "#065f46" : "#78350f",
+                                color: correct ? "#6EE7A8" : "#F2C978",
                                 lineHeight: 1.8,
                               }}
                               dangerouslySetInnerHTML={{
@@ -2428,13 +2427,13 @@ export default function AttemptResultsPage() {
                                 style={{
                                   marginTop: 10,
                                   paddingTop: 10,
-                                  borderTop: `1px solid ${correct ? "#bbf7d0" : "#fde68a"}`,
+                                  borderTop: `1px solid ${correct ? "rgba(60,203,139,0.35)" : "rgba(232,182,91,0.35)"}`,
                                 }}
                               >
                                 <p
                                   style={{
                                     fontSize: 13,
-                                    color: correct ? "#065f46" : "#78350f",
+                                    color: correct ? "#6EE7A8" : "#F2C978",
                                   }}
                                   dangerouslySetInnerHTML={{
                                     __html:
@@ -2466,7 +2465,7 @@ export default function AttemptResultsPage() {
                                   style={{
                                     fontSize: 11,
                                     fontWeight: 700,
-                                    color: "#7c3aed",
+                                    color: "#C4B5FD",
                                     letterSpacing: "0.06em",
                                     textTransform: "uppercase",
                                     marginBottom: 6,
@@ -2530,7 +2529,7 @@ export default function AttemptResultsPage() {
                             ).length > 0 && (
                               <div
                                 style={{
-                                  background: "#fff7ed",
+                                  background: "rgba(245,158,91,0.10)",
                                   border: "1px solid #fed7aa",
                                   borderRadius: 12,
                                   padding: "12px 16px",
@@ -2542,7 +2541,7 @@ export default function AttemptResultsPage() {
                                   style={{
                                     fontSize: 15,
                                     fontWeight: 700,
-                                    color: "#c2410c",
+                                    color: "#F5A776",
                                     marginBottom: 6,
                                   }}
                                 >
@@ -2594,7 +2593,7 @@ export default function AttemptResultsPage() {
               style={{
                 padding: "16px 20px",
                 borderRadius: 16,
-                background: "#eff6ff",
+                background: "rgba(77,141,218,0.10)",
                 border: "1px solid #bfdbfe",
               }}
             >
@@ -2602,13 +2601,13 @@ export default function AttemptResultsPage() {
                 style={{
                   fontSize: 14,
                   fontWeight: 700,
-                  color: "#1d4ed8",
+                  color: "#7FB0EA",
                   marginBottom: 4,
                 }}
               >
                 You have used your 3 free quizzes
               </p>
-              <p style={{ fontSize: 13, color: "#1e40af", lineHeight: 1.5 }}>
+              <p style={{ fontSize: 13, color: "#7FB0EA", lineHeight: 1.5 }}>
                 Subscribe for KES 500/month to keep going - unlimited quizzes,
                 all learning areas, Grades 4-10.
               </p>
@@ -2625,7 +2624,7 @@ export default function AttemptResultsPage() {
                     minWidth: 140,
                     padding: "14px 0",
                     borderRadius: 14,
-                    background: "linear-gradient(135deg, #1a6fc4, #0ea5c9)",
+                    background: "#0E7490",
                     color: "#fff",
                     fontSize: 14,
                     fontWeight: 700,
@@ -2701,7 +2700,7 @@ export default function AttemptResultsPage() {
               marginTop: 16,
               padding: "16px 20px",
               borderRadius: 16,
-              background: "#fffbeb",
+              background: "rgba(232,182,91,0.10)",
               border: "2px solid #fde68a",
               textAlign: "center",
             }}
@@ -2710,13 +2709,13 @@ export default function AttemptResultsPage() {
               style={{
                 fontSize: 14,
                 fontWeight: 700,
-                color: "#92400e",
+                color: "#F2C978",
                 marginBottom: 4,
               }}
             >
               You have used all your free quizzes!
             </p>
-            <p style={{ fontSize: 13, color: "#b45309" }}>
+            <p style={{ fontSize: 13, color: "#F2C978" }}>
               Subscribe now to unlock unlimited access and continue your
               learning journey.
             </p>

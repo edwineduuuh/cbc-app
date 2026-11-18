@@ -50,47 +50,9 @@ export default function FacilitatorLayout({ children }) {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 py-6 lg:flex lg:gap-6">
-        {/* Nav: a sidebar on desktop, a scrolling strip on a phone. Most
-            Kenyan teachers will open this on a phone. */}
-        <nav className="lg:w-56 lg:shrink-0 mb-5 lg:mb-0">
-          <p className="hidden lg:block px-3 pb-2 text-xs font-semibold uppercase tracking-wide text-gray-400">
-            Facilitator
-          </p>
-          <ul className="flex lg:flex-col gap-2 overflow-x-auto lg:overflow-visible pb-1 -mx-1 px-1">
-            {NAV.map(({ href, label, icon: Icon, exact, soon }) => {
-              const active = exact ? pathname === href : pathname.startsWith(href);
-              const cls = active
-                ? "bg-emerald-600 text-white"
-                : soon
-                ? "text-gray-400"
-                : "text-gray-700 hover:bg-gray-100";
-              const content = (
-                <span className={`flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-medium whitespace-nowrap ${cls}`}>
-                  <Icon className="w-4 h-4 shrink-0" />
-                  {label}
-                  {soon && (
-                    <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-gray-100 text-gray-500">
-                      Soon
-                    </span>
-                  )}
-                </span>
-              );
-              return (
-                <li key={href}>
-                  {soon ? (
-                    <span className="block cursor-default" aria-disabled="true">{content}</span>
-                  ) : (
-                    <Link href={href} className="block">{content}</Link>
-                  )}
-                </li>
-              );
-            })}
-          </ul>
-        </nav>
-
-        <main className="flex-1 min-w-0">{children}</main>
+    <div className="min-h-screen">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 lg:py-8">
+        <main className="min-w-0">{children}</main>
       </div>
     </div>
   );

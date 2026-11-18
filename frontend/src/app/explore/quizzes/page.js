@@ -120,7 +120,7 @@ function QuizzesContent() {
   };
 
   return (
-    <div style={{ minHeight: "100vh", background: "var(--bg)", fontFamily: "'Lato', sans-serif", paddingBottom: 60, paddingTop: 24 }}>
+    <div style={{ minHeight: "100vh", background: "var(--bg)", fontFamily: "var(--font-sans)", paddingBottom: 60, paddingTop: 24 }}>
       <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
       <div style={{ maxWidth: 800, margin: "0 auto", padding: "0 16px" }}>
 
@@ -129,7 +129,7 @@ function QuizzesContent() {
           onClick={() => router.push(`/explore?grade=${grade}`)}
           style={{
             display: "inline-flex", alignItems: "center", gap: 6,
-            background: "transparent", border: "none", color: "#1a6fc4",
+            background: "transparent", border: "none", color: "#20B8A6",
             fontSize: 14, fontWeight: 700, padding: "4px 0", marginBottom: 14, cursor: "pointer",
           }}
         >
@@ -137,7 +137,7 @@ function QuizzesContent() {
         </button>
 
         <div style={{
-          background: "linear-gradient(135deg, #0f4c8a 0%, #1a6fc4 100%)",
+          background: "var(--sidebar)",
           borderRadius: 20, padding: "22px 24px", marginBottom: 16, color: "#fff",
           display: "flex", alignItems: "center", gap: 14,
         }}>
@@ -159,7 +159,7 @@ function QuizzesContent() {
               <button key={tab.id} onClick={() => { setSelectedTab(tab.id); setSelectedStrand(null); }}
                 style={{
                   padding: "6px 14px", borderRadius: 20, whiteSpace: "nowrap", border: "none",
-                  background: selectedTab === tab.id ? "#1a6fc4" : "var(--bg-secondary)",
+                  background: selectedTab === tab.id ? "#0E7490" : "var(--bg-secondary)",
                   color: selectedTab === tab.id ? "#fff" : "var(--text)",
                   fontSize: 13, fontWeight: selectedTab === tab.id ? 700 : 500, transition: "all 0.15s",
                 }}>
@@ -176,7 +176,7 @@ function QuizzesContent() {
                   padding: "4px 12px", borderRadius: 20, fontSize: 12,
                   border: `1px solid ${!selectedStrand ? "#bdd7f5" : "var(--border)"}`,
                   background: !selectedStrand ? "#e8f4ff" : "var(--bg-secondary)",
-                  color: !selectedStrand ? "#1a6fc4" : "var(--text)",
+                  color: !selectedStrand ? "#20B8A6" : "var(--text)",
                   fontWeight: !selectedStrand ? 700 : 400,
                 }}>
                 All strands
@@ -187,7 +187,7 @@ function QuizzesContent() {
                     padding: "4px 12px", borderRadius: 20, fontSize: 12,
                     border: `1px solid ${selectedStrand?.id === strand.id ? "#bdd7f5" : "var(--border)"}`,
                     background: selectedStrand?.id === strand.id ? "#e8f4ff" : "var(--bg-secondary)",
-                    color: selectedStrand?.id === strand.id ? "#1a6fc4" : "var(--text)",
+                    color: selectedStrand?.id === strand.id ? "#20B8A6" : "var(--text)",
                     fontWeight: selectedStrand?.id === strand.id ? 700 : 400,
                   }}>
                   {strand.name}
@@ -199,7 +199,7 @@ function QuizzesContent() {
           {/* Quiz list */}
           {loadingQuizzes ? (
             <div style={{ display: "flex", justifyContent: "center", padding: "32px 0" }}>
-              <div style={{ width: 32, height: 32, border: "3px solid var(--border)", borderTopColor: "#1a6fc4", borderRadius: "50%", animation: "spin 0.8s linear infinite" }} />
+              <div style={{ width: 32, height: 32, border: "3px solid var(--border)", borderTopColor: "#20B8A6", borderRadius: "50%", animation: "spin 0.8s linear infinite" }} />
             </div>
           ) : filteredQuizzes.length === 0 ? (
             <div style={{ textAlign: "center", padding: "40px 16px" }}>
@@ -242,8 +242,8 @@ function QuizzesContent() {
                     disabled={!!loadingQuizId}
                     style={{
                       padding: "14px 16px", borderRadius: 16,
-                      border: `1.5px solid ${isThisLoading ? "#1a6fc4" : "var(--border)"}`,
-                      background: isThisLoading ? "#f0f7ff" : "var(--bg-card)",
+                      border: `1.5px solid ${isThisLoading ? "#20B8A6" : "var(--border)"}`,
+                      background: isThisLoading ? "rgba(32,184,166,0.10)" : "var(--bg-card)",
                       display: "flex", alignItems: "center", justifyContent: "space-between",
                       gap: 12, textAlign: "left", transition: "all 0.15s",
                       opacity: loadingQuizId && !isThisLoading ? 0.5 : 1,
@@ -257,7 +257,7 @@ function QuizzesContent() {
                         <span style={{
                           fontSize: 11, padding: "2px 8px", borderRadius: 20,
                           background: isExam ? "#f0eeff" : "#e8f4ff",
-                          color: isExam ? "#534ab7" : "#1a6fc4", fontWeight: 600,
+                          color: isExam ? "#534ab7" : "#20B8A6", fontWeight: 600,
                         }}>
                           {isExam ? "Integrated assessment" : "Strand quiz"}
                         </span>
@@ -277,7 +277,7 @@ function QuizzesContent() {
                       )}
                     </div>
                     {isThisLoading
-                      ? <Loader2 size={18} color="#1a6fc4" style={{ flexShrink: 0, animation: "spin 0.8s linear infinite" }} />
+                      ? <Loader2 size={18} color="#20B8A6" style={{ flexShrink: 0, animation: "spin 0.8s linear infinite" }} />
                       : <ChevronRight size={18} color="#bcc3d0" style={{ flexShrink: 0 }} />
                     }
                   </button>

@@ -157,9 +157,8 @@ export default function PremiumExplore() {
   return (
     <div className="min-h-screen bg-gray-50">
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=DM+Sans:wght@400;500;600;700&display=swap');
-        .font-display { font-family: 'Playfair Display', serif; }
-        * { font-family: 'DM Sans', sans-serif; }
+        .font-display { font-family: var(--font-display); }
+        * { font-family: var(--font-sans); }
       `}</style>
 
       {/* Header */}

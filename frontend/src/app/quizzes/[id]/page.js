@@ -169,13 +169,13 @@ function PassageContent({
           style={{
             display: "inline-block",
             minWidth: 80,
-            borderBottom: `2px solid ${isActive ? "#1a6fc4" : answer ? "#2563eb" : "#8892a4"}`,
+            borderBottom: `2px solid ${isActive ? "#20B8A6" : answer ? "#7FB0EA" : "#8892a4"}`,
             background: isActive
               ? "#e8f4ff"
               : answer
-                ? "#eff6ff"
+                ? "rgba(77,141,218,0.10)"
                 : "transparent",
-            color: isActive ? "#1a6fc4" : answer ? "#1d4ed8" : "var(--text)",
+            color: isActive ? "#20B8A6" : answer ? "#7FB0EA" : "var(--text)",
             fontWeight: answer ? 700 : 400,
             padding: "0 6px 2px",
             borderRadius: 4,
@@ -215,7 +215,7 @@ function PassageContent({
   if (t === "dialogue") {
     const lines = content.split("\n").filter((l) => l.trim() !== "");
     const speakerColors = [
-      "#1a6fc4",
+      "#20B8A6",
       "#1d8f57",
       "#c0334a",
       "#d4900a",
@@ -261,7 +261,7 @@ function PassageContent({
                     maxWidth: 80,
                     flexShrink: 0,
                     paddingTop: 3,
-                    fontFamily: "'Lato', sans-serif",
+                    fontFamily: "var(--font-sans)",
                     textTransform: "uppercase",
                     letterSpacing: "0.03em",
                     lineHeight: 1.3,
@@ -421,7 +421,7 @@ function MCQOption({ letter, text, imageUrl, selected, onClick }) {
       idle: "#e8f4ff",
       idleBorder: "#bdd7f5",
       idleText: "#1e6bb8",
-      activeBg: "#1a6fc4",
+      activeBg: "#0E7490",
       activeText: "#fff",
     },
     B: {
@@ -545,11 +545,11 @@ function PartAnswerBlock({ value, onChange, isKiswahili }) {
             fontSize: 15,
             color: "var(--text)",
             background: "var(--bg-card)",
-            fontFamily: "'Lato', sans-serif",
+            fontFamily: "var(--font-sans)",
             lineHeight: 1.7,
             resize: "none",
           }}
-          onFocus={(e) => (e.target.style.borderColor = "#1a6fc4")}
+          onFocus={(e) => (e.target.style.borderColor = "#20B8A6")}
           onBlur={(e) => (e.target.style.borderColor = "#e8eaf0")}
         />
         <span
@@ -707,12 +707,12 @@ function MatchingTable({ tableData, answer, onAnswer }) {
   };
 
   return (
-    <div style={{ fontFamily: "'Lato', sans-serif" }}>
+    <div style={{ fontFamily: "var(--font-sans)" }}>
       {/* Instructions */}
       <p
         style={{
           fontSize: 12,
-          color: "#1a6fc4",
+          color: "#20B8A6",
           fontWeight: 700,
           marginBottom: 12,
           letterSpacing: "0.04em",
@@ -794,7 +794,7 @@ function MatchingTable({ tableData, answer, onAnswer }) {
                       borderBottom:
                         ri < dataRows.length - 1 ? "1px solid var(--border)" : "none",
                       background: isTarget
-                        ? "#eff6ff"
+                        ? "rgba(77,141,218,0.10)"
                         : placed.length
                           ? "var(--bg-secondary)"
                           : "transparent",
@@ -810,24 +810,24 @@ function MatchingTable({ tableData, answer, onAnswer }) {
                               display: "inline-flex",
                               alignItems: "center",
                               gap: 6,
-                              background: "#dcfce7",
+                              background: "rgba(60,203,139,0.14)",
                               borderRadius: 8,
                               padding: "4px 8px",
                               fontSize: 13,
                               fontWeight: 600,
-                              color: "#065f46",
+                              color: "#6EE7A8",
                             }}
                           >
                             {txt}
                             <button
                               onClick={(e) => removeChip(key, txt, e)}
                               style={{
-                                background: "#fee2e2",
+                                background: "rgba(240,113,120,0.14)",
                                 border: "none",
                                 borderRadius: 6,
                                 padding: "1px 6px",
                                 fontSize: 11,
-                                color: "#dc2626",
+                                color: "#F07178",
                                 cursor: "pointer",
                                 fontWeight: 700,
                                 flexShrink: 0,
@@ -838,16 +838,16 @@ function MatchingTable({ tableData, answer, onAnswer }) {
                           </span>
                         ))}
                         {multiMode && isTarget && (
-                          <span style={{ fontSize: 12, color: "#1a6fc4", fontWeight: 700 }}>+ add</span>
+                          <span style={{ fontSize: 12, color: "#20B8A6", fontWeight: 700 }}>+ add</span>
                         )}
                       </div>
                     ) : (
                       <span
                         style={{
                           fontSize: 13,
-                          color: isTarget ? "#1a6fc4" : "var(--text-muted)",
+                          color: isTarget ? "#20B8A6" : "var(--text-muted)",
                           fontWeight: isTarget ? 700 : 400,
-                          border: `2px dashed ${isTarget ? "#1a6fc4" : "var(--border)"}`,
+                          border: `2px dashed ${isTarget ? "#20B8A6" : "var(--border)"}`,
                           borderRadius: 8,
                           padding: "6px 12px",
                           display: "block",
@@ -893,8 +893,8 @@ function MatchingTable({ tableData, answer, onAnswer }) {
                     fontSize: 13,
                     fontWeight: 600,
                     borderRadius: 10,
-                    border: `2px solid ${isSel ? "#1a6fc4" : "var(--border)"}`,
-                    background: isSel ? "#1a6fc4" : "var(--bg-card)",
+                    border: `2px solid ${isSel ? "#20B8A6" : "var(--border)"}`,
+                    background: isSel ? "#0E7490" : "var(--bg-card)",
                     color: isSel ? "#fff" : "var(--text)",
                     cursor: "pointer",
                     transition: "all 0.15s",
@@ -914,7 +914,7 @@ function MatchingTable({ tableData, answer, onAnswer }) {
         <p
           style={{
             fontSize: 13,
-            color: "#059669",
+            color: "#3CCB8B",
             fontWeight: 700,
             textAlign: "center",
             padding: "8px 0",
@@ -966,7 +966,7 @@ function FillInTable({ tableData, answer, onAnswer }) {
                     fontSize: 14,
                     fontWeight: r === 0 ? 700 : 400,
                     color: "var(--text)",
-                    background: cell.e ? "#eff6ff" : "inherit",
+                    background: cell.e ? "rgba(77,141,218,0.10)" : "inherit",
                     minWidth: 100,
                   }}
                 >
@@ -984,7 +984,7 @@ function FillInTable({ tableData, answer, onAnswer }) {
                         fontWeight: 500,
                         color: "#1e3a5f",
                         outline: "none",
-                        fontFamily: "'Lato', sans-serif",
+                        fontFamily: "var(--font-sans)",
                       }}
                     />
                   ) : (
@@ -1044,13 +1044,13 @@ function QuestionNav({ questions, answers, currentIdx, onJump, show }) {
                   height: 34,
                   borderRadius: 9,
                   border: current
-                    ? "2px solid #1a6fc4"
+                    ? "2px solid #20B8A6"
                     : "2px solid transparent",
                   cursor: "pointer",
                   fontWeight: 700,
                   fontSize: 12,
                   background: current
-                    ? "#1a6fc4"
+                    ? "#20B8A6"
                     : answered
                       ? "#d4edda"
                       : "var(--bg-secondary)",
@@ -1059,7 +1059,7 @@ function QuestionNav({ questions, answers, currentIdx, onJump, show }) {
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  fontFamily: "'Syne', sans-serif",
+                  fontFamily: "var(--font-sans)",
                   flexShrink: 0,
                 }}
               >
@@ -1128,7 +1128,7 @@ function SubmitModal({ open, onConfirm, onCancel, unanswered, submitting }) {
                 margin: "0 auto 20px",
               }}
             >
-              <Send size={24} color="#1a6fc4" />
+              <Send size={24} color="#20B8A6" />
             </div>
             <h3
               style={{
@@ -1137,7 +1137,7 @@ function SubmitModal({ open, onConfirm, onCancel, unanswered, submitting }) {
                 textAlign: "center",
                 color: "var(--text)",
                 marginBottom: 10,
-                fontFamily: "'Syne', sans-serif",
+                fontFamily: "var(--font-sans)",
               }}
             >
               Submit Quiz?
@@ -1164,11 +1164,11 @@ function SubmitModal({ open, onConfirm, onCancel, unanswered, submitting }) {
               <p
                 style={{
                   fontSize: 14,
-                  color: "#16a34a",
+                  color: "#3CCB8B",
                   fontWeight: 600,
                   textAlign: "center",
                   marginBottom: 24,
-                  fontFamily: "'Lato', sans-serif",
+                  fontFamily: "var(--font-sans)",
                 }}
               >
                 ✓ All questions answered. Ready to submit!
@@ -1187,7 +1187,7 @@ function SubmitModal({ open, onConfirm, onCancel, unanswered, submitting }) {
                 <p
                   style={{
                     fontSize: 13,
-                    color: "#1a6fc4",
+                    color: "#20B8A6",
                     fontWeight: 600,
                     marginBottom: 6,
                   }}
@@ -1210,7 +1210,7 @@ function SubmitModal({ open, onConfirm, onCancel, unanswered, submitting }) {
                   fontSize: 14,
                   fontWeight: 600,
                   cursor: "pointer",
-                  fontFamily: "'Syne', sans-serif",
+                  fontFamily: "var(--font-sans)",
                 }}
               >
                 Go Back
@@ -1223,7 +1223,7 @@ function SubmitModal({ open, onConfirm, onCancel, unanswered, submitting }) {
                   padding: "12px 0",
                   borderRadius: 12,
                   border: "none",
-                  background: "linear-gradient(135deg, #1a6fc4, #0ea5c9)",
+                  background: "#0E7490",
                   color: "#fff",
                   fontSize: 14,
                   fontWeight: 700,
@@ -1233,7 +1233,7 @@ function SubmitModal({ open, onConfirm, onCancel, unanswered, submitting }) {
                   alignItems: "center",
                   justifyContent: "center",
                   gap: 8,
-                  fontFamily: "'Syne', sans-serif",
+                  fontFamily: "var(--font-sans)",
                 }}
               >
                 {submitting ? (
@@ -1271,10 +1271,9 @@ function ResultsScreen({ result, quiz }) {
         minHeight: "100vh",
         background: "linear-gradient(160deg, #f0f6ff 0%, #f9fff4 100%)",
         padding: "24px 16px 80px",
-        fontFamily: "'Lato', sans-serif",
+        fontFamily: "var(--font-sans)",
       }}
     >
-      <style>{`@import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Lato:wght@400;500;600;700&display=swap');`}</style>
       <div style={{ maxWidth: 600, margin: "0 auto" }}>
         <div
           style={{
@@ -1319,7 +1318,7 @@ function ResultsScreen({ result, quiz }) {
                 fontSize: 48,
                 fontWeight: 800,
                 color: "var(--text)",
-                fontFamily: "'Syne', sans-serif",
+                fontFamily: "var(--font-sans)",
               }}
             >
               {score}%
@@ -1352,7 +1351,7 @@ function ResultsScreen({ result, quiz }) {
               textAlign: "center",
               color: "var(--text)",
               marginBottom: 20,
-              fontFamily: "'Syne', sans-serif",
+              fontFamily: "var(--font-sans)",
             }}
           >
             {passed ? "Well done!" : "📚 Keep going!"}
@@ -1403,7 +1402,7 @@ function ResultsScreen({ result, quiz }) {
                     fontSize: 16,
                     fontWeight: 700,
                     color: "var(--text)",
-                    fontFamily: "'Syne', sans-serif",
+                    fontFamily: "var(--font-sans)",
                   }}
                 >
                   {value}
@@ -1436,7 +1435,7 @@ function ResultsScreen({ result, quiz }) {
                   padding: "12px 0",
                   borderRadius: 12,
                   border: "none",
-                  background: "linear-gradient(135deg, #1a6fc4, #0ea5c9)",
+                  background: "#0E7490",
                   color: "#fff",
                   fontSize: 14,
                   fontWeight: 700,
@@ -1464,7 +1463,7 @@ function ResultsScreen({ result, quiz }) {
               fontSize: 18,
               fontWeight: 800,
               marginBottom: 8,
-              fontFamily: "'Syne', sans-serif",
+              fontFamily: "var(--font-sans)",
             }}
           >
             Create a free account to unlock full feedback
@@ -1531,7 +1530,7 @@ function ResultsScreen({ result, quiz }) {
             fontWeight: 800,
             color: "var(--text)",
             marginBottom: 16,
-            fontFamily: "'Syne', sans-serif",
+            fontFamily: "var(--font-sans)",
           }}
         >
           Question Breakdown
@@ -1623,7 +1622,7 @@ function ResultsScreen({ result, quiz }) {
                   style={{
                     fontSize: 12,
                     fontWeight: 700,
-                    color: "#1a6fc4",
+                    color: "#20B8A6",
                     marginBottom: 4,
                   }}
                 >
@@ -1676,7 +1675,7 @@ function ResultsScreen({ result, quiz }) {
                   <Link href="/register?reason=quota">
                     <button
                       style={{
-                        background: "#1a6fc4",
+                        background: "#0E7490",
                         color: "#fff",
                         padding: "8px 16px",
                         borderRadius: 8,
@@ -1815,7 +1814,7 @@ function WorkingPanel({ questionIdx, onWorkingCapture }) {
           borderRadius: 10,
           border: "2px dashed #bdd7f5",
           background: hasWorking ? "#e8f4ff" : "var(--bg-secondary)",
-          color: hasWorking ? "#1a6fc4" : "var(--text-muted)",
+          color: hasWorking ? "#20B8A6" : "var(--text-muted)",
           fontSize: 13,
           fontWeight: 600,
           cursor: "pointer",
@@ -1843,9 +1842,9 @@ function WorkingPanel({ questionIdx, onWorkingCapture }) {
                   borderRadius: 8,
                   fontSize: 12,
                   fontWeight: 700,
-                  border: "2px solid " + (mode === m ? "#1a6fc4" : "var(--border)"),
+                  border: "2px solid " + (mode === m ? "#20B8A6" : "var(--border)"),
                   background: mode === m ? "#e8f4ff" : "var(--bg-card)",
-                  color: mode === m ? "#1a6fc4" : "var(--text-muted)",
+                  color: mode === m ? "#20B8A6" : "var(--text-muted)",
                   cursor: "pointer",
                 }}
               >
@@ -1915,7 +1914,7 @@ function WorkingPanel({ questionIdx, onWorkingCapture }) {
                 style={{
                   padding: "12px 24px",
                   borderRadius: 12,
-                  background: "linear-gradient(135deg, #1a6fc4, #0ea5c9)",
+                  background: "#0E7490",
                   color: "#fff",
                   border: "none",
                   fontSize: 14,
@@ -1961,13 +1960,13 @@ function TimerBadge({ totalSeconds, onExpire }) {
         animation: isUrgent ? "pulse 1s infinite" : "none",
       }}
     >
-      <Clock size={14} color={isUrgent ? "#c0334a" : "#1a6fc4"} />
+      <Clock size={14} color={isUrgent ? "#c0334a" : "#20B8A6"} />
       <span
         style={{
           fontSize: 15,
           fontWeight: 800,
-          color: isUrgent ? "#c0334a" : "#1a6fc4",
-          fontFamily: "'Syne', sans-serif",
+          color: isUrgent ? "#c0334a" : "#20B8A6",
+          fontFamily: "var(--font-sans)",
           fontVariantNumeric: "tabular-nums",
         }}
       >
@@ -2332,7 +2331,7 @@ export default function QuizTakePage({ params }) {
               width: 48,
               height: 48,
               border: "3px solid var(--border)",
-              borderTopColor: "#1a6fc4",
+              borderTopColor: "#20B8A6",
               borderRadius: "50%",
               animation: "spin 0.8s linear infinite",
               margin: "0 auto 16px",
@@ -2342,7 +2341,7 @@ export default function QuizTakePage({ params }) {
             style={{
               color: "var(--text-muted)",
               fontSize: 14,
-              fontFamily: "'Lato', sans-serif",
+              fontFamily: "var(--font-sans)",
             }}
           >
             Loading quiz…
@@ -2372,7 +2371,7 @@ export default function QuizTakePage({ params }) {
             <button
               style={{
                 marginTop: 16,
-                color: "#1a6fc4",
+                color: "#20B8A6",
                 background: "none",
                 border: "none",
                 cursor: "pointer",
@@ -2462,7 +2461,7 @@ export default function QuizTakePage({ params }) {
                     padding: 16,
                     borderRadius: 16,
                     cursor: "pointer",
-                    border: `2px solid ${active ? "#1a6fc4" : "var(--border)"}`,
+                    border: `2px solid ${active ? "#20B8A6" : "var(--border)"}`,
                     background: active ? "rgba(26,111,196,0.08)" : "var(--bg-card)",
                   }}
                 >
@@ -2470,7 +2469,7 @@ export default function QuizTakePage({ params }) {
                     style={{
                       fontWeight: 800,
                       fontSize: 15,
-                      color: active ? "#1a6fc4" : "var(--text)",
+                      color: active ? "#20B8A6" : "var(--text)",
                       marginBottom: 4,
                     }}
                   >
@@ -2487,8 +2486,8 @@ export default function QuizTakePage({ params }) {
             <p
               style={{
                 fontSize: 12,
-                color: "#b45309",
-                background: "#fffbeb",
+                color: "#F2C978",
+                background: "rgba(232,182,91,0.10)",
                 border: "1px solid #fde68a",
                 borderRadius: 10,
                 padding: "8px 10px",
@@ -2508,7 +2507,7 @@ export default function QuizTakePage({ params }) {
               height: 50,
               borderRadius: 14,
               border: "none",
-              background: "linear-gradient(135deg, #1a6fc4, #0ea5c9)",
+              background: "#0E7490",
               color: "#fff",
               fontSize: 16,
               fontWeight: 800,
@@ -2585,7 +2584,6 @@ export default function QuizTakePage({ params }) {
       }}
     >
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Lato:wght@400;500;600;700&display=swap');
         @keyframes spin { to { transform: rotate(360deg); } }
         @keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:0.7; } }
         @keyframes tiltNudge { 0%,55%,100% { transform: rotate(0deg); } 70%,85% { transform: rotate(90deg); } }
@@ -2684,7 +2682,7 @@ export default function QuizTakePage({ params }) {
                 transition={{ duration: 0.4 }}
                 style={{
                   height: "100%",
-                  background: "linear-gradient(90deg, #1a6fc4, #0ea5c9)",
+                  background: "#0E7490",
                   borderRadius: 99,
                 }}
               />
@@ -2711,7 +2709,7 @@ export default function QuizTakePage({ params }) {
               flexShrink: 0,
             }}
           >
-            <Menu size={16} color={showNav ? "#1a6fc4" : "#6b7280"} />
+            <Menu size={16} color={showNav ? "#20B8A6" : "#6b7280"} />
           </button>
         </div>
       </div>
@@ -2844,7 +2842,7 @@ export default function QuizTakePage({ params }) {
                 fontWeight: 800,
                 color: "var(--text)",
                 marginBottom: 16,
-                fontFamily: "'Syne', sans-serif",
+                fontFamily: "var(--font-sans)",
               }}
             >
               {currentQ.passage.title}
@@ -2880,7 +2878,7 @@ export default function QuizTakePage({ params }) {
                 <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
                   <div
                     style={{
-                      background: "#1a6fc4",
+                      background: "#0E7490",
                       color: "#fff",
                       width: 36,
                       height: 36,
@@ -2890,7 +2888,7 @@ export default function QuizTakePage({ params }) {
                       justifyContent: "center",
                       fontWeight: 800,
                       fontSize: 15,
-                      fontFamily: "'Syne', sans-serif",
+                      fontFamily: "var(--font-sans)",
                       flexShrink: 0,
                     }}
                   >
@@ -3112,11 +3110,11 @@ export default function QuizTakePage({ params }) {
                     fontWeight: 500,
                     color: "var(--text)",
                     background: "var(--bg-card)",
-                    fontFamily: "'Lato', sans-serif",
+                    fontFamily: "var(--font-sans)",
                     transition: "border-color 0.15s",
                     boxShadow: "0 2px 8px rgba(0,0,0,0.04)",
                   }}
-                  onFocus={(e) => (e.target.style.borderColor = "#1a6fc4")}
+                  onFocus={(e) => (e.target.style.borderColor = "#20B8A6")}
                   onBlur={(e) => (e.target.style.borderColor = "#e8eaf0")}
                 />
               ) : null}
@@ -3175,13 +3173,13 @@ export default function QuizTakePage({ params }) {
                         fontSize: 15,
                         color: "var(--text)",
                         background: "var(--bg-card)",
-                        fontFamily: "'Lato', sans-serif",
+                        fontFamily: "var(--font-sans)",
                         lineHeight: 1.7,
                         resize: "none",
                         transition: "border-color 0.15s",
                         boxShadow: "0 2px 8px rgba(0,0,0,0.04)",
                       }}
-                      onFocus={(e) => (e.target.style.borderColor = "#1a6fc4")}
+                      onFocus={(e) => (e.target.style.borderColor = "#20B8A6")}
                       onBlur={(e) => (e.target.style.borderColor = "#e8eaf0")}
                     />
                     <span
@@ -3400,7 +3398,7 @@ export default function QuizTakePage({ params }) {
                               width: 32,
                               height: 32,
                               borderRadius: 8,
-                              background: "#1a6fc4",
+                              background: "#0E7490",
                               color: "#fff",
                               display: "flex",
                               alignItems: "center",
@@ -3494,7 +3492,7 @@ export default function QuizTakePage({ params }) {
           const f = fb.feedback || {};
           const full = fb.max_marks > 0 ? fb.marks_awarded >= fb.max_marks : fb.is_correct;
           const zero = (fb.marks_awarded ?? 0) <= 0;
-          const color = full ? "#1d8f57" : zero ? "#dc2626" : "#d4900a";
+          const color = full ? "#1d8f57" : zero ? "#F07178" : "#d4900a";
           const bg = full ? "#eafaf3" : zero ? "#fdeef0" : "#fff8e6";
           // Strip a leading verdict word (the heading already shows it) and turn
           // literal \n / real newlines into proper line breaks for clean spacing.
@@ -3615,7 +3613,7 @@ export default function QuizTakePage({ params }) {
                 border: "none",
                 background: checking
                   ? "#94a3b8"
-                  : "linear-gradient(135deg, #7c3aed, #1a6fc4)",
+                  : "#0E7490",
                 color: "#fff",
                 fontSize: 15,
                 fontWeight: 700,
@@ -3624,7 +3622,7 @@ export default function QuizTakePage({ params }) {
                 alignItems: "center",
                 justifyContent: "center",
                 gap: 8,
-                fontFamily: "'Syne', sans-serif",
+                fontFamily: "var(--font-sans)",
                 boxShadow: "0 4px 16px rgba(124,58,237,0.3)",
               }}
             >
@@ -3638,7 +3636,7 @@ export default function QuizTakePage({ params }) {
                 height: 48,
                 borderRadius: 14,
                 border: "none",
-                background: "linear-gradient(135deg, #1a6fc4, #0ea5c9)",
+                background: "#0E7490",
                 color: "#fff",
                 fontSize: 15,
                 fontWeight: 700,
@@ -3647,7 +3645,7 @@ export default function QuizTakePage({ params }) {
                 alignItems: "center",
                 justifyContent: "center",
                 gap: 8,
-                fontFamily: "'Syne', sans-serif",
+                fontFamily: "var(--font-sans)",
                 boxShadow: "0 4px 16px rgba(26,111,196,0.3)",
               }}
             >
@@ -3670,7 +3668,7 @@ export default function QuizTakePage({ params }) {
                 alignItems: "center",
                 justifyContent: "center",
                 gap: 8,
-                fontFamily: "'Syne', sans-serif",
+                fontFamily: "var(--font-sans)",
                 boxShadow: "0 4px 16px rgba(29,143,87,0.3)",
               }}
             >

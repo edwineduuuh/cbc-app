@@ -250,7 +250,7 @@ export default function LifeSkills() {
       {/* Hero */}
       <div
         style={{
-          background: "linear-gradient(135deg, #1e3a5f 0%, #2563eb 60%, #7c3aed 100%)",
+          background: "var(--sidebar)", border: "1px solid var(--border)",
           padding: "52px 24px 44px",
           textAlign: "center",
           position: "relative",
@@ -331,8 +331,8 @@ export default function LifeSkills() {
                       padding: "7px 18px",
                       borderRadius: 20,
                       border: "1.5px solid",
-                      borderColor: filter === f ? "#2563eb" : "var(--border)",
-                      background: filter === f ? "#2563eb" : "var(--bg-card)",
+                      borderColor: filter === f ? "#0E7490" : "var(--border)",
+                      background: filter === f ? "#0E7490" : "var(--bg-card)",
                       color: filter === f ? "#fff" : "var(--text-muted)",
                       fontWeight: 600,
                       fontSize: 13,

@@ -210,7 +210,7 @@ export default function ChemTextBar({ textareaRef, value, onChange }) {
         style={{
           display: "inline-flex", alignItems: "center", gap: 6,
           fontSize: 12, fontWeight: 600,
-          color: open ? "#1a6fc4" : "#6b7280",
+          color: open ? "#20B8A6" : "#6b7280",
           background: open ? "#eff6ff" : "#f3f4f6",
           border: "1px solid " + (open ? "#bfdbfe" : "#e5e7eb"),
           borderRadius: 8, padding: "5px 12px", cursor: "pointer",
@@ -229,7 +229,7 @@ export default function ChemTextBar({ textareaRef, value, onChange }) {
                 style={{
                   padding: "4px 12px", fontSize: 12, fontWeight: 600, borderRadius: 6,
                   border: "none", cursor: "pointer",
-                  background: tab === t ? "#1a6fc4" : "transparent",
+                  background: tab === t ? "#0E7490" : "transparent",
                   color: tab === t ? "#fff" : "#6b7280", transition: "all 0.15s",
                 }}>{t}</button>
             ))}

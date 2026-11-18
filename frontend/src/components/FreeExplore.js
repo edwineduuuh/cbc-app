@@ -165,8 +165,7 @@ export default function ExplorePage() {
   return (
     <div className="min-h-screen bg-gray-50">
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap');
-        body { font-family: 'DM Sans', sans-serif; }
+        body { font-family: var(--font-sans); }
       `}</style>
 
       {/* Header */}

@@ -156,7 +156,7 @@ export default function JoinPage() {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          fontFamily: "system-ui, sans-serif",
+          fontFamily: "var(--font-sans)",
           padding: 20,
         }}
       >
@@ -306,7 +306,7 @@ export default function JoinPage() {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          fontFamily: "system-ui, sans-serif",
+          fontFamily: "var(--font-sans)",
           padding: 20,
         }}
       >
@@ -324,7 +324,7 @@ export default function JoinPage() {
             style={{
               width: 70,
               height: 70,
-              background: "linear-gradient(135deg, #3b82f6, #2563eb)",
+              background: "#0E7490",
               borderRadius: 20,
               display: "flex",
               alignItems: "center",
@@ -388,7 +388,7 @@ export default function JoinPage() {
             disabled={busy || !nickname.trim()}
             style={{
               width: "100%",
-              background: "linear-gradient(135deg, #3b82f6, #2563eb)",
+              background: "#0E7490",
               color: "white",
               border: "none",
               borderRadius: 12,
@@ -420,7 +420,7 @@ export default function JoinPage() {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          fontFamily: "system-ui, sans-serif",
+          fontFamily: "var(--font-sans)",
           padding: 20,
         }}
       >
@@ -526,7 +526,7 @@ export default function JoinPage() {
           background: "linear-gradient(135deg, #0a3d1f 0%, #1a7a42 100%)",
           display: "flex",
           flexDirection: "column",
-          fontFamily: "system-ui, sans-serif",
+          fontFamily: "var(--font-sans)",
           padding: 20,
         }}
       >
@@ -742,7 +742,7 @@ export default function JoinPage() {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          fontFamily: "system-ui, sans-serif",
+          fontFamily: "var(--font-sans)",
           padding: 20,
         }}
       >

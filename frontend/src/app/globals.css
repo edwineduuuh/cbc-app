@@ -18,7 +18,8 @@
 
 :root {
   /* ONE theme: dark (owner's decision, Nov 2026). No light palette. */
-  --bg:                #080F1D;
+  --bg:                #081321;   /* page */
+  --sidebar:           #0F1F3D;
   --bg-card:           #14243A;
   --bg-secondary:      #1B2C43;
   --text:              #F5F7FA;
@@ -95,13 +96,115 @@ select:disabled {
   overflow: visible !important;
 }
 
-/* Reserve room for the fixed mobile bottom tab bar (NavBar). The class is
-   toggled on <body> only while the bottom bar is actually shown, so pages
-   without the nav (login/register/quiz) keep their normal spacing. */
-@media (max-width: 767px) {
-  body.has-bottom-nav {
-    padding-bottom: calc(4.25rem + env(safe-area-inset-bottom));
-  }
+/* ═══════════════════════════════════════════════════════════════════
+   APP SHELL (components/NavBar.js)
+   Desktop ≥1024px: fixed 256px sidebar (72px collapsed); content is
+   pushed right by body.has-sidebar. Below 1024px: sticky top bar, plus a
+   bottom tab bar for students (body.has-bottom-nav).
+   ═══════════════════════════════════════════════════════════════════ */
+@media (min-width: 1024px) {
+  body.has-sidebar { padding-left: 256px; }
+  body.has-sidebar.sidebar-collapsed { padding-left: 72px; }
+  /* These rules sit after Tailwind's lg:hidden, so hide them explicitly. */
+  .ss-topbar, .ss-bottombar { display: none !important; }
+}
+@media (max-width: 1023px) {
+  .ss-sidebar { display: none !important; }
+}
+@media (max-width: 1023px) {
+  body.has-bottom-nav { padding-bottom: calc(4.5rem + env(safe-area-inset-bottom)); }
+}
+
+.ss-sidebar {
+  position: fixed; inset: 0 auto 0 0; z-index: 50;
+  width: 256px; flex-direction: column;
+  background: var(--sidebar);
+  border-right: 1px solid var(--border);
+  transition: width 0.18s ease;
+}
+.ss-sidebar[data-collapsed] { width: 72px; }
+
+.ss-nav-title {
+  padding: 0 12px 6px; font-size: 11px; font-weight: 600;
+  letter-spacing: 0.08em; text-transform: uppercase; color: #7F93AB;
+}
+.ss-nav-row {
+  position: relative; display: flex; align-items: center; gap: 12px;
+  min-height: 42px; padding: 0 12px; border-radius: 8px;
+  font-size: 14px; font-weight: 500; color: var(--text-muted);
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+.ss-sidebar[data-collapsed] .ss-nav-row { justify-content: center; padding: 0; }
+a:hover > .ss-nav-row, button:hover > .ss-nav-row { background: rgba(255,255,255,0.05); color: var(--text); }
+.ss-nav-row[data-active] { background: rgba(32,184,166,0.12); color: var(--text); font-weight: 600; }
+.ss-nav-row[data-active]::before {
+  content: ""; position: absolute; left: -12px; top: 9px; bottom: 9px;
+  width: 3px; border-radius: 0 3px 3px 0; background: var(--accent);
+}
+.ss-nav-row[data-active] svg { color: var(--accent); }
+.ss-nav-row[data-soon] { opacity: 0.55; cursor: default; }
+.ss-soon {
+  margin-left: auto; font-size: 10px; font-weight: 600; padding: 2px 6px;
+  border-radius: 6px; background: rgba(169,185,204,0.12); color: var(--text-muted);
+}
+.ss-divider { height: 1px; background: var(--border); }
+.ss-footer { border-top: 1px solid var(--border); }
+.ss-upgrade {
+  display: flex; align-items: center; gap: 10px; margin-bottom: 8px;
+  padding: 10px 12px; border-radius: 8px; font-size: 13px; font-weight: 600;
+  color: var(--highlight); background: rgba(232,182,91,0.10);
+  border: 1px solid rgba(232,182,91,0.25);
+}
+.ss-upgrade:hover { background: rgba(232,182,91,0.16); }
+.ss-user { display: flex; align-items: center; gap: 10px; padding: 8px 4px 0; }
+.ss-avatar {
+  width: 34px; height: 34px; flex-shrink: 0; border-radius: 9999px;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: #1B2C43; color: var(--accent); font-weight: 700; font-size: 14px;
+  border: 1px solid var(--border);
+}
+.ss-icon-btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 36px; height: 36px; border-radius: 8px; color: var(--text-muted);
+}
+.ss-icon-btn:hover { background: rgba(255,255,255,0.06); color: var(--text); }
+
+.ss-topbar {
+  position: sticky; top: 0; z-index: 50; height: 56px;
+  display: flex; align-items: center; gap: 8px; padding: 0 12px 0 16px;
+  background: rgba(15,31,61,0.94); backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--border);
+}
+.ss-upgrade-chip {
+  display: inline-flex; align-items: center; gap: 4px; height: 32px; padding: 0 10px;
+  border-radius: 8px; font-size: 12px; font-weight: 600;
+  color: var(--highlight); background: rgba(232,182,91,0.10); border: 1px solid rgba(232,182,91,0.25);
+}
+
+.ss-bottombar {
+  position: fixed; inset: auto 0 0 0; z-index: 50; display: flex;
+  background: rgba(15,31,61,0.97); backdrop-filter: blur(8px);
+  border-top: 1px solid var(--border);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+.ss-tab {
+  flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px;
+  min-height: 58px; justify-content: center;
+  font-size: 11px; font-weight: 600; color: var(--text-muted);
+}
+.ss-tab[data-active] { color: var(--accent); }
+
+.ss-scrim { background: rgba(4, 9, 18, 0.6); }
+.ss-drawer {
+  position: absolute; inset: 0 auto 0 0; width: min(300px, 86vw);
+  display: flex; flex-direction: column;
+  background: var(--sidebar); border-right: 1px solid var(--border);
+}
+.ss-sheet {
+  position: absolute; inset: auto 0 0 0; max-height: 85vh; overflow-y: auto;
+  border-radius: 16px 16px 0 0; background: var(--sidebar);
+  border-top: 1px solid var(--border);
+  padding-bottom: env(safe-area-inset-bottom);
 }
 
 .katex .sqrt-sign svg,
@@ -172,6 +275,56 @@ html.dark select {
 }
 html.dark input::placeholder,
 html.dark textarea::placeholder { color: var(--dk-text-3) !important; }
+
+/* ── Brand fills (Nov 2026 overhaul) ──
+   Older pages paint banners and buttons in saturated blue / indigo /
+   violet / purple / emerald, each page differently. On the navy theme
+   they read as off-brand, so solid fills land on the brand teal (white
+   text stays at 5.4:1). Light tints (-50/-100) and semantic reds/ambers
+   are left alone: they carry meaning (errors, warnings, correct). */
+html.dark .bg-blue-500, html.dark .bg-blue-600, html.dark .bg-blue-700,
+html.dark .bg-indigo-500, html.dark .bg-indigo-600, html.dark .bg-indigo-700,
+html.dark .bg-violet-600, html.dark .bg-purple-600, html.dark .bg-purple-700,
+html.dark .bg-sky-600, html.dark .bg-cyan-600, html.dark .bg-cyan-700,
+html.dark .bg-teal-600, html.dark .bg-teal-700, html.dark .bg-slate-700,
+html.dark .bg-emerald-600, html.dark .bg-emerald-700 { background-color: #0E7490 !important; }
+html.dark .hover\:bg-blue-700:hover, html.dark .hover\:bg-indigo-700:hover,
+html.dark .hover\:bg-emerald-700:hover, html.dark .hover\:bg-teal-700:hover,
+html.dark .hover\:bg-teal-800:hover, html.dark .hover\:bg-slate-800:hover,
+html.dark .hover\:bg-cyan-800:hover { background-color: #0B6176 !important; }
+/* saturated gradient banners -> calm navy panel */
+html.dark .bg-gradient-to-r.from-blue-600, html.dark .bg-gradient-to-br.from-blue-600,
+html.dark .bg-gradient-to-r.from-indigo-600, html.dark .bg-gradient-to-br.from-indigo-600,
+html.dark .bg-gradient-to-r.from-purple-600, html.dark .bg-gradient-to-br.from-purple-600,
+html.dark .bg-gradient-to-br.from-emerald-500, html.dark .bg-gradient-to-r.from-emerald-500 {
+  background-image: none !important; background-color: var(--sidebar) !important;
+}
+
+/* ── Coloured text that was dark-on-white becomes unreadable on navy ── */
+html.dark .text-blue-600, html.dark .text-blue-700, html.dark .text-blue-800, html.dark .text-blue-900,
+html.dark .text-indigo-600, html.dark .text-indigo-700, html.dark .text-indigo-800,
+html.dark .text-sky-700, html.dark .text-sky-800, html.dark .text-sky-900 { color: #7FB0EA !important; }
+html.dark .text-teal-600, html.dark .text-teal-700, html.dark .text-teal-800, html.dark .text-teal-900,
+html.dark .text-cyan-600, html.dark .text-cyan-700, html.dark .text-cyan-800, html.dark .text-cyan-900,
+html.dark .text-emerald-700, html.dark .text-emerald-800, html.dark .text-emerald-900 { color: #5FD3C4 !important; }
+html.dark .text-purple-600, html.dark .text-purple-700, html.dark .text-purple-800,
+html.dark .text-violet-600, html.dark .text-violet-700 { color: #C4B5FD !important; }
+html.dark .text-amber-700, html.dark .text-amber-800, html.dark .text-amber-900,
+html.dark .text-yellow-700, html.dark .text-yellow-800 { color: #F2C978 !important; }
+html.dark .text-red-600, html.dark .text-red-700, html.dark .text-red-800 { color: #F7A1A7 !important; }
+html.dark .text-slate-700, html.dark .text-slate-800, html.dark .text-slate-900 { color: var(--dk-text) !important; }
+html.dark .text-slate-600, html.dark .text-slate-500 { color: var(--dk-text-3) !important; }
+
+/* light tints used as panel backgrounds */
+html.dark .bg-teal-50, html.dark .bg-cyan-50, html.dark .bg-emerald-50 { background-color: rgba(32,184,166,0.10) !important; }
+html.dark .bg-blue-50, html.dark .bg-indigo-50, html.dark .bg-sky-50 { background-color: rgba(77,141,218,0.10) !important; }
+html.dark .bg-amber-50, html.dark .bg-yellow-50 { background-color: rgba(232,182,91,0.10) !important; }
+html.dark .bg-red-50, html.dark .bg-rose-50 { background-color: rgba(240,113,120,0.10) !important; }
+html.dark .bg-purple-50, html.dark .bg-violet-50 { background-color: rgba(167,139,250,0.10) !important; }
+html.dark .border-teal-200, html.dark .border-cyan-200, html.dark .border-emerald-200 { border-color: rgba(32,184,166,0.35) !important; }
+html.dark .border-blue-200, html.dark .border-indigo-200 { border-color: rgba(77,141,218,0.35) !important; }
+html.dark .border-amber-200, html.dark .border-yellow-200 { border-color: rgba(232,182,91,0.35) !important; }
+html.dark .border-red-200 { border-color: rgba(240,113,120,0.35) !important; }
 /* Gentle "sonar" glow to draw attention to the Live Lessons CTA (money-maker).
    Subtle expanding ring, not a harsh blink. */
 @keyframes liveGlow {

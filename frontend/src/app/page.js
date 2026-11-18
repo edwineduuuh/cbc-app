@@ -61,7 +61,7 @@ function FAQItem({ q, a }) {
       >
         <span
           style={{
-            fontFamily: "'Cormorant Garamond', serif",
+            fontFamily: "var(--font-display)",
             fontSize: 17,
             fontWeight: 600,
             color: "var(--text)",
@@ -86,7 +86,7 @@ function FAQItem({ q, a }) {
           >
             <p
               className="pb-5 leading-relaxed text-sm"
-              style={{ color: "var(--text)", fontFamily: "'DM Sans', sans-serif" }}
+              style={{ color: "var(--text)", fontFamily: "var(--font-sans)" }}
             >
               {a}
             </p>
@@ -186,11 +186,10 @@ export default function LandingPage() {
   return (
     <div
       className="min-h-screen"
-      style={{ background: "var(--bg)", fontFamily: "'DM Sans', sans-serif" }}
+      style={{ background: "var(--bg)", fontFamily: "var(--font-sans)" }}
     >
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=DM+Sans:wght@300;400;500;600;700&display=swap');
-        .font-display { font-family: 'Cormorant Garamond', serif; }
+        .font-display { font-family: var(--font-display); }
         .teal-text { color: #20B8A6; }
         .card-lift { transition: all 0.3s ease; }
         .card-lift:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(0,0,0,0.1); }
@@ -409,7 +408,7 @@ export default function LandingPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, delay: 0.1 }}
                 style={{
-                  fontFamily: "'Cormorant Garamond', serif",
+                  fontFamily: "var(--font-display)",
                   fontSize: "clamp(34px, 5vw, 58px)",
                   lineHeight: 1.12,
                   color: "var(--text)",
@@ -827,7 +826,7 @@ export default function LandingPage() {
             <FadeIn key={s.label} delay={i * 0.08}>
               <div
                 style={{
-                  fontFamily: "'Cormorant Garamond', serif",
+                  fontFamily: "var(--font-display)",
                   fontSize: 30,
                   fontWeight: 700,
                   color: "#06b6d4",
@@ -868,7 +867,7 @@ export default function LandingPage() {
             </p>
             <blockquote
               style={{
-                fontFamily: "'Cormorant Garamond', serif",
+                fontFamily: "var(--font-display)",
                 fontSize: "clamp(24px, 3.5vw, 42px)",
                 color: "var(--text)",
                 lineHeight: 1.5,
@@ -930,7 +929,7 @@ export default function LandingPage() {
             </p>
             <h2
               style={{
-                fontFamily: "'Cormorant Garamond', serif",
+                fontFamily: "var(--font-display)",
                 fontSize: "clamp(28px, 4vw, 48px)",
                 color: "white",
                 lineHeight: 1.2,
@@ -985,7 +984,7 @@ export default function LandingPage() {
             </p>
             <h2
               style={{
-                fontFamily: "'Cormorant Garamond', serif",
+                fontFamily: "var(--font-display)",
                 fontSize: "clamp(34px, 4vw, 56px)",
                 color: "var(--text)",
                 lineHeight: 1.1,
@@ -1072,7 +1071,7 @@ export default function LandingPage() {
             </p>
             <h2
               style={{
-                fontFamily: "'Cormorant Garamond', serif",
+                fontFamily: "var(--font-display)",
                 fontSize: "clamp(34px, 4vw, 56px)",
                 color: "var(--text)",
                 lineHeight: 1.1,
@@ -1103,7 +1102,7 @@ export default function LandingPage() {
                   >
                     <span
                       style={{
-                        fontFamily: "'Cormorant Garamond', serif",
+                        fontFamily: "var(--font-display)",
                         fontSize: 18,
                         fontWeight: 700,
                         color: "white",
@@ -1179,7 +1178,7 @@ export default function LandingPage() {
             </p>
             <h2
               style={{
-                fontFamily: "'Cormorant Garamond', serif",
+                fontFamily: "var(--font-display)",
                 fontSize: 38,
                 fontWeight: 700,
                 color: "var(--text)",
@@ -1244,7 +1243,7 @@ export default function LandingPage() {
                   </div>
                   <h3
                     style={{
-                      fontFamily: "'Cormorant Garamond', serif",
+                      fontFamily: "var(--font-display)",
                       fontSize: 20,
                       fontWeight: 700,
                       color: "var(--text)",
@@ -1303,7 +1302,7 @@ export default function LandingPage() {
             </p>
             <h2
               style={{
-                fontFamily: "'Cormorant Garamond', serif",
+                fontFamily: "var(--font-display)",
                 fontSize: "clamp(34px, 4vw, 56px)",
                 color: "var(--text)",
                 lineHeight: 1.1,
@@ -1356,7 +1355,7 @@ export default function LandingPage() {
                     <span style={{ color: "var(--text-muted)", fontSize: 13, fontWeight: 600, marginBottom: 10 }}>KES</span>
                     <span
                       style={{
-                        fontFamily: "'Cormorant Garamond', serif",
+                        fontFamily: "var(--font-display)",
                         fontSize: 52,
                         fontWeight: 700,
                         color: "var(--text)",
@@ -1483,7 +1482,7 @@ export default function LandingPage() {
                     <span style={{ color: "var(--text-muted)", fontSize: 13, fontWeight: 600, marginBottom: 10 }}>KES</span>
                     <span
                       style={{
-                        fontFamily: "'Cormorant Garamond', serif",
+                        fontFamily: "var(--font-display)",
                         fontSize: 52,
                         fontWeight: 700,
                         color: "var(--text)",
@@ -1621,7 +1620,7 @@ export default function LandingPage() {
                     <span style={{ color: "var(--text-muted)", fontSize: 13, fontWeight: 600, marginBottom: 10 }}>KES</span>
                     <span
                       style={{
-                        fontFamily: "'Cormorant Garamond', serif",
+                        fontFamily: "var(--font-display)",
                         fontSize: 52,
                         fontWeight: 700,
                         color: "var(--text)",
@@ -1741,7 +1740,7 @@ export default function LandingPage() {
             </p>
             <h2
               style={{
-                fontFamily: "'Cormorant Garamond', serif",
+                fontFamily: "var(--font-display)",
                 fontSize: "clamp(34px, 4vw, 56px)",
                 color: "var(--text)",
                 lineHeight: 1.1,
@@ -1796,7 +1795,7 @@ export default function LandingPage() {
             </p>
             <h2
               style={{
-                fontFamily: "'Cormorant Garamond', serif",
+                fontFamily: "var(--font-display)",
                 fontSize: "clamp(38px, 5vw, 68px)",
                 color: "white",
                 lineHeight: 1.08,

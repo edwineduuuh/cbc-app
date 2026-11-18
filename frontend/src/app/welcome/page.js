@@ -52,14 +52,13 @@ export default function WelcomePage() {
   return (
     <>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700;900&family=DM+Sans:wght@400;500;600;700&display=swap');
-        .font-display { font-family: 'Cormorant Garamond', serif; }
-        * { font-family: 'DM Sans', sans-serif; }
+        .font-display { font-family: var(--font-display); }
+        * { font-family: var(--font-sans); }
       `}</style>
 
       <div
         className="min-h-screen flex items-center justify-center px-4"
-        style={{ background: "linear-gradient(160deg, #ffffff 0%, #f0f4f8 60%, #e8f4f8 100%)" }}
+        style={{ background: "var(--bg)" }}
       >
         <motion.div
           initial={{ opacity: 0, y: 24 }}
@@ -89,7 +88,7 @@ export default function WelcomePage() {
           <div className="flex items-center justify-center gap-2 bg-amber-50 border border-amber-200 rounded-xl px-5 py-3 mb-6">
             <span className="text-amber-500 text-base">✦</span>
             <p className="text-xs font-medium text-amber-800">
-              3 free quizzes are waiting for you
+              Your free daily quiz is waiting for you
             </p>
           </div>
 

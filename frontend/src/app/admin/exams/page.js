@@ -60,10 +60,10 @@ export default function AdminExamsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 p-6">
+    <div className="min-h-screen p-4 sm:p-6">
       <div className="max-w-6xl mx-auto">
-        <div className="flex items-center justify-between mb-6">
-          <h1 className="text-3xl font-bold text-gray-900">My Exams</h1>
+        <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">My Exams</h1>
           <Link href="/admin/exams/create">
             <button className="px-6 py-3 bg-emerald-600 text-white rounded-lg font-semibold hover:bg-emerald-700">
               + Create New Exam
@@ -81,14 +81,14 @@ export default function AdminExamsPage() {
             </Link>
           </div>
         ) : (
-          <div className="grid gap-4">
+          <div className="grid gap-4 min-w-0">
             {exams.map((exam) => (
               <div
                 key={exam.id}
-                className="bg-white rounded-xl p-6 shadow hover:shadow-lg transition-shadow"
+                className="bg-white rounded-xl p-5 sm:p-6 shadow hover:shadow-lg transition-shadow"
               >
-                <div className="flex items-start justify-between">
-                  <div className="flex-1">
+                <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+                  <div className="flex-1 min-w-0">
                     <h3 className="text-xl font-bold text-gray-900 mb-2">
                       {exam.title}
                     </h3>

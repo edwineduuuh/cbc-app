@@ -63,9 +63,8 @@ export default function LoginPage() {
   return (
     <>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;500;600;700&display=swap');
-        .font-display { font-family: 'Playfair Display', serif; }
-        body { font-family: 'DM Sans', sans-serif; }
+        .font-display { font-family: var(--font-display); }
+        body { font-family: var(--font-sans); }
         .hero-bg { background: linear-gradient(145deg, #0c4a6e 0%, #0e7490 50%, #06b6d4 100%); }
         .gold-gradient { background: linear-gradient(135deg, #f97316, #ea580c); }
         .dot-pattern { background-image: radial-gradient(circle, rgba(255,255,255,0.07) 1px, transparent 1px); background-size: 28px 28px; }
@@ -73,7 +72,7 @@ export default function LoginPage() {
           width: 100%; padding: 12px 16px; border: 2px solid #e5e7eb;
           border-radius: 12px; font-size: 14px; color: #111827;
           outline: none; transition: all 0.2s; background: #fafafa;
-          font-family: 'DM Sans', sans-serif;
+          font-family: var(--font-sans);
         }
         .input-field:focus { border-color: #0e7490; background: white; box-shadow: 0 0 0 3px rgba(14,116,144,0.1); }
         .input-field::placeholder { color: #9ca3af; }
@@ -257,6 +256,25 @@ export default function LoginPage() {
                     </button>
                   </div>
                 </div>
+
+                {/* Stays on screen until the next attempt - the toast alone
+                    vanished after 3s, so a wrong password looked like
+                    "nothing happened". */}
+                {error && (
+                  <p
+                    role="alert"
+                    className="text-sm rounded-xl px-4 py-3"
+                    style={{
+                      color: "#F7A1A7",
+                      background: "rgba(240,113,120,0.10)",
+                      border: "1px solid rgba(240,113,120,0.35)",
+                    }}
+                  >
+                    {error === "Invalid credentials"
+                      ? "That email and password don't match an account. Check them, or use Forgot password."
+                      : error}
+                  </p>
+                )}
 
                 <button
                   type="submit"

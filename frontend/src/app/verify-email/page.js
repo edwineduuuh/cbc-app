@@ -53,9 +53,8 @@ function VerifyEmailPage() {
   return (
     <>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700&family=DM+Sans:wght@400;500;600;700&display=swap');
-        .font-display { font-family: 'Cormorant Garamond', serif; }
-        * { font-family: 'DM Sans', sans-serif; }
+        .font-display { font-family: var(--font-display); }
+        * { font-family: var(--font-sans); }
       `}</style>
       <div
         className="min-h-screen flex items-center justify-center px-4"

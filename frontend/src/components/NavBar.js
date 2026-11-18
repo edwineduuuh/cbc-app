@@ -1,409 +1,341 @@
 "use client";
 
+/**
+ * App shell navigation - one component, three portals (agreed Nov 2026):
+ *
+ *   Student      left sidebar on desktop, bottom bar (max 5) on phones
+ *   Facilitator  left sidebar on desktop, drawer on phones
+ *   Admin        left sidebar on desktop, drawer on phones
+ *
+ * Each role sees only its own destinations, and only pages that exist:
+ * Library and Play join the student menu when they ship.
+ *
+ * The sidebar is fixed; page content is pushed right by body classes
+ * (has-sidebar / sidebar-collapsed / has-bottom-nav, see globals.css) so
+ * existing pages need no wrapper. Collapsed state is remembered per device.
+ */
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import Logo from "@/components/brand/Logo";
 import { useRouter, usePathname } from "next/navigation";
 import { useAuth } from "@/contexts/AuthContext";
+import Logo, { BrandSymbol } from "@/components/brand/Logo";
 import {
-  BookOpen,
-  BarChart3,
-  Home,
-  Settings,
-  LogOut,
-  ChevronDown,
-  Crown,
-  Sparkles,
-  Heart,
-  GraduationCap,
-  Layers,
-  Video,
-  Menu,
-  X,
+  Home, BookOpen, BarChart3, Settings, LogOut, Sparkles, Heart,
+  GraduationCap, Layers, Video, Menu, X, ClipboardCheck, Library,
+  CalendarDays, FileText, NotebookPen, Users, LayoutDashboard,
+  FileQuestion, ListChecks, ScrollText, BookText, Network, Upload,
+  Quote, PanelLeftClose, PanelLeftOpen, UserCircle,
 } from "lucide-react";
+
+const ADMIN_ROLES = ["admin", "superadmin"];
+
+function portalFor(user) {
+  if (!user) return null;
+  if (user.is_staff || user.is_superuser || ADMIN_ROLES.includes(user.role)) return "admin";
+  if (user.role === "teacher") return "facilitator";
+  return "student";
+}
+
+const NAV = {
+  student: {
+    home: "/dashboard",
+    groups: [
+      { items: [
+        { href: "/dashboard", label: "Home", icon: Home, mobile: true },
+        { href: "/explore", label: "Learn", icon: BookOpen, mobile: true, match: ["/explore", "/student/quizzes", "/attempts"] },
+        { href: "/tutor", label: "Tutor", icon: GraduationCap, mobile: true },
+        { href: "/flashcards", label: "Flash cards", icon: Layers },
+        { href: "/progress", label: "My progress", icon: BarChart3, mobile: true },
+      ]},
+      { title: "More", items: [
+        { href: "/live", label: "Live lessons", icon: Video },
+        { href: "/life-skills", label: "Life skills", icon: Heart },
+      ]},
+    ],
+  },
+  facilitator: {
+    home: "/facilitator",
+    groups: [
+      { title: "Studio", items: [
+        { href: "/facilitator", label: "Studio home", icon: LayoutDashboard, exact: true },
+        { href: "/facilitator/assessments", label: "Assessments", icon: ClipboardCheck },
+        { href: "/facilitator/library", label: "My library", icon: Library },
+        { label: "Schemes of work", icon: CalendarDays, soon: true },
+        { label: "Lesson plans", icon: FileText, soon: true },
+        { label: "Records of work", icon: NotebookPen, soon: true },
+      ]},
+      { title: "Classes", items: [
+        { href: "/teacher", label: "My classes", icon: Users, exact: true },
+      ]},
+    ],
+  },
+  admin: {
+    home: "/admin",
+    groups: [
+      { items: [
+        { href: "/admin", label: "Overview", icon: LayoutDashboard, exact: true },
+        { href: "/admin/analytics", label: "Analytics", icon: BarChart3 },
+      ]},
+      { title: "Question bank", items: [
+        { href: "/admin/questions", label: "Questions", icon: FileQuestion },
+        { href: "/admin/quizzes", label: "Quizzes", icon: ListChecks },
+        { href: "/admin/exams", label: "Exams", icon: ScrollText },
+        { href: "/admin/passages", label: "Passages", icon: BookText },
+        { href: "/admin/bulk-upload", label: "Bulk upload", icon: Upload },
+      ]},
+      { title: "Platform", items: [
+        { href: "/admin/topics", label: "Curriculum", icon: Network },
+        { href: "/admin/motivational", label: "Motivational", icon: Quote },
+      ]},
+    ],
+  },
+};
+
+// Pages with their own full-screen chrome: public pages, auth, onboarding
+// and the quiz player (a focused, distraction-free screen).
+function isChromeless(pathname) {
+  return (
+    pathname === "/" ||
+    ["/login", "/register", "/forgot-password", "/reset-password", "/verify-email", "/welcome", "/join"]
+      .some((p) => pathname === p || pathname.startsWith(p + "/")) ||
+    pathname.startsWith("/auth/") ||
+    pathname.startsWith("/quizzes/") ||
+    pathname.startsWith("/student/quiz/")
+  );
+}
+
+function isActive(item, pathname) {
+  if (!item.href) return false;
+  const base = item.href.split("?")[0];
+  if (item.exact) return pathname === base;
+  const roots = [base, ...(item.match || [])];
+  return roots.some((r) => pathname === r || pathname.startsWith(r + "/"));
+}
 
 export default function Navbar() {
   const { user, logout } = useAuth();
   const router = useRouter();
-  const pathname = usePathname();
-  const [showDropdown, setShowDropdown] = useState(false);
-  const [showMore, setShowMore] = useState(false);        // mobile sheet
-  const [showDeskMore, setShowDeskMore] = useState(false); // desktop dropdown
-  const [mounted, setMounted] = useState(false);
-  const [liveSeen, setLiveSeen] = useState(false);         // has this user opened Live Lessons?
+  const pathname = usePathname() || "/";
+  // Safe to read on first render: the shell renders nothing until the
+  // signed-in user has loaded on the client, so there is no server markup
+  // for this to disagree with.
+  const [collapsed, setCollapsed] = useState(() => {
+    try { return typeof window !== "undefined" && localStorage.getItem("sidebarCollapsed") === "1"; }
+    catch { return false; }
+  });
+  const [drawer, setDrawer] = useState(false);
 
-  const isTeacher = user?.role === "teacher" || user?.role === "admin";
-  const isStudent = !isTeacher;
+  const portal = portalFor(user);
+  const hide = !portal || isChromeless(pathname);
+  const nav = portal ? NAV[portal] : null;
 
-  // `primary` items are always visible (inline on desktop, tabs on mobile).
-  // The rest live under "More". Live Lessons is a highlighted CTA, handled
-  // separately so it stands out as a money-maker rather than a plain link.
-  const navLinks = isTeacher
-    ? [
-        { href: "/facilitator", label: "Facilitator Tools", icon: BookOpen, primary: true },
-        { href: "/teacher", label: "My Classes", icon: Home, primary: true },
-        { href: "/teacher?tab=analytics", label: "Analytics", icon: BarChart3, primary: true },
-      ]
-    : [
-        { href: "/dashboard", label: "Dashboard", icon: Home, primary: true },
-        { href: "/explore", label: "Browse", icon: BookOpen, primary: true },
-        { href: "/progress", label: "Progress", icon: BarChart3, primary: true },
-        { href: "/life-skills", label: "Life Skills", icon: Heart, primary: true },
-        { href: "/tutor", label: "Tutor", icon: GraduationCap },
-        { href: "/flashcards", label: "Flash Cards", icon: Layers },
-      ];
-
-  const liveLink = { href: "/live", label: "Live Lessons", icon: Video };
-
-  const primaryLinks = navLinks.filter((l) => l.primary);
-  const moreLinks = navLinks.filter((l) => !l.primary);
-  const showMoreTab = moreLinks.length > 0 || isStudent || !user?.has_subscription;
-
-  const hide =
-    !user ||
-    pathname === "/login" ||
-    pathname === "/register" ||
-    pathname.startsWith("/admin") ||
-    pathname.startsWith("/quizzes/") ||
-    pathname.startsWith("/student/quiz/");
-
-  // Reserve space for the fixed mobile bottom bar only while it is shown.
+  // Push page content clear of the fixed chrome.
   useEffect(() => {
+    const b = document.body.classList;
     if (hide) return;
-    document.body.classList.add("has-bottom-nav");
-    return () => document.body.classList.remove("has-bottom-nav");
-  }, [hide]);
+    b.add("has-sidebar");
+    if (portal === "student") b.add("has-bottom-nav");
+    else b.add("has-top-bar");
+    return () => b.remove("has-sidebar", "has-bottom-nav", "has-top-bar", "sidebar-collapsed");
+  }, [hide, portal]);
 
-  // Read the "seen Live Lessons" flag once mounted (avoids SSR/hydration flash).
   useEffect(() => {
-    setMounted(true);
-    try {
-      if (localStorage.getItem("seenLiveLessons") === "1") setLiveSeen(true);
-    } catch {}
-  }, []);
+    document.body.classList.toggle("sidebar-collapsed", collapsed && !hide);
+  }, [collapsed, hide]);
 
   if (hide) return null;
+
+  const toggleCollapsed = () => {
+    const next = !collapsed;
+    setCollapsed(next);
+    try { localStorage.setItem("sidebarCollapsed", next ? "1" : "0"); } catch {}
+  };
 
   const handleLogout = () => {
     logout();
     router.push("/login");
   };
 
-  const moreActive = moreLinks.some((l) => l.href === pathname);
+  const roleLabel =
+    portal === "admin" ? "Administrator"
+    : portal === "facilitator" ? "Facilitator"
+    : user.grade ? `Grade ${user.grade}` : "Student";
+  const initial = (user.first_name || user.username || "?").charAt(0).toUpperCase();
+  const showUpgrade = portal !== "admin" && !user.has_subscription;
 
-  // Show the "New" badge until the user has opened Live Lessons (per-browser).
-  const showLiveNew =
-    isStudent && mounted && !liveSeen && pathname !== "/live";
-  const markLiveSeen = () => {
-    try {
-      localStorage.setItem("seenLiveLessons", "1");
-    } catch {}
-    setLiveSeen(true);
-  };
+  const allItems = nav.groups.flatMap((g) => g.items);
+  const footerProps = { pathname, showUpgrade, onLogout: handleLogout, user, initial, roleLabel };
+  const mobileItems = allItems.filter((i) => i.mobile).slice(0, 4);
 
   return (
-    <nav className="bg-white border-b border-gray-200 sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        <div className="flex items-center justify-between h-16 gap-2">
-          {/* Logo */}
-          <Link
-            href={isTeacher ? "/teacher" : "/dashboard"}
-            className="flex items-center gap-2 shrink-0"
-          >
-            <Logo size={22} />
+    <>
+      {/* ── Desktop sidebar ── */}
+      <aside className="ss-sidebar hidden lg:flex" data-collapsed={collapsed || undefined}>
+        <div className={`flex items-center h-16 px-4 ${collapsed ? "justify-center" : "justify-between"}`}>
+          <Link href={nav.home} aria-label="StadiSpace home">
+            {collapsed ? <BrandSymbol size={30} /> : <Logo size={21} />}
           </Link>
-
-          {/* Desktop nav */}
-          <div className="hidden md:flex items-center gap-1">
-            {primaryLinks.map((link) => {
-              const isActive = pathname === link.href;
-              const Icon = link.icon;
-              return (
-                <Link key={link.href} href={link.href}>
-                  <button
-                    className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-semibold whitespace-nowrap transition-all ${
-                      isActive
-                        ? "bg-teal-50 text-teal-700"
-                        : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
-                    }`}
-                  >
-                    <Icon className="w-4 h-4" />
-                    {link.label}
-                  </button>
-                </Link>
-              );
-            })}
-
-            {/* More dropdown */}
-            {moreLinks.length > 0 && (
-              <div className="relative">
-                <button
-                  onClick={() => setShowDeskMore((v) => !v)}
-                  className={`flex items-center gap-1 px-3 py-2 rounded-lg text-sm font-semibold whitespace-nowrap transition-all ${
-                    moreActive
-                      ? "bg-teal-50 text-teal-700"
-                      : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
-                  }`}
-                >
-                  More
-                  <ChevronDown
-                    className={`w-4 h-4 transition-transform ${showDeskMore ? "rotate-180" : ""}`}
-                  />
-                </button>
-                {showDeskMore && (
-                  <>
-                    <div className="fixed inset-0 z-10" onClick={() => setShowDeskMore(false)} />
-                    <div className="absolute left-0 mt-2 w-48 bg-white rounded-xl shadow-lg border border-gray-200 py-2 z-20">
-                      {moreLinks.map((link) => {
-                        const Icon = link.icon;
-                        const isActive = pathname === link.href;
-                        return (
-                          <Link key={link.href} href={link.href} onClick={() => setShowDeskMore(false)}>
-                            <div
-                              className={`flex items-center gap-3 px-4 py-2.5 text-sm font-medium transition-colors ${
-                                isActive ? "text-teal-700 bg-teal-50" : "text-gray-700 hover:bg-gray-50"
-                              }`}
-                            >
-                              <Icon className="w-4 h-4 text-gray-400" />
-                              {link.label}
-                            </div>
-                          </Link>
-                        );
-                      })}
-                    </div>
-                  </>
-                )}
-              </div>
-            )}
-
-            {/* Live Lessons - highlighted money-maker (always glows) */}
-            {isStudent && (
-              <Link href="/live" onClick={markLiveSeen}>
-                <button
-                  className={`live-glow flex items-center gap-2 px-3 py-2 ml-1 rounded-lg text-sm font-bold whitespace-nowrap text-white transition-colors ${
-                    pathname === "/live" ? "bg-blue-700" : "bg-blue-600 hover:bg-blue-700"
-                  }`}
-                >
-                  <Video className="w-4 h-4" />
-                  Live Lessons
-                  {showLiveNew && (
-                    <span className="text-[9px] font-black uppercase tracking-wide bg-yellow-300 text-blue-900 px-1.5 py-0.5 rounded">
-                      New
-                    </span>
-                  )}
-                </button>
-              </Link>
-            )}
-
-            {/* Upgrade */}
-            {!user.has_subscription && (
-              <Link href="/subscribe">
-                <button className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-bold whitespace-nowrap bg-amber-500 text-white hover:bg-amber-600 transition-all shadow-sm hover:shadow-md">
-                  <Sparkles className="w-4 h-4" />
-                  Upgrade
-                </button>
-              </Link>
-            )}
-          </div>
-
-          {/* User Menu */}
-          <div className="relative shrink-0">
-            <button
-              onClick={() => setShowDropdown(!showDropdown)}
-              className="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-gray-50 transition-colors"
-            >
-              <div className="w-9 h-9 rounded-xl bg-teal-500 flex items-center justify-center text-white font-bold text-sm">
-                {user.username?.charAt(0).toUpperCase()}
-              </div>
-              <div className="hidden sm:block text-left">
-                <div className="text-sm font-semibold text-gray-900">
-                  {user.username}
-                </div>
-                <div className="text-xs text-gray-500">
-                  {isTeacher ? "Teacher" : `Grade ${user.grade || 9}`}
-                </div>
-              </div>
-              <ChevronDown
-                className={`w-4 h-4 text-gray-400 transition-transform ${
-                  showDropdown ? "rotate-180" : ""
-                }`}
-              />
-            </button>
-
-            {/* Dropdown */}
-            {showDropdown && (
-              <>
-                <div
-                  className="fixed inset-0 z-10"
-                  onClick={() => setShowDropdown(false)}
-                />
-                <div className="absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-lg border border-gray-200 py-2 z-20">
-                  {user.has_subscription && (
-                    <div className="px-4 py-2 mb-2">
-                      <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-yellow-400 text-white">
-                        <Crown className="w-4 h-4" />
-                        <span className="text-xs font-bold">
-                          Premium Member
-                        </span>
-                      </div>
-                    </div>
-                  )}
-
-                  <Link href="/settings">
-                    <button
-                      onClick={() => setShowDropdown(false)}
-                      className="w-full flex items-center gap-3 px-4 py-2.5 text-left text-sm text-gray-700 hover:bg-gray-50 transition-colors"
-                    >
-                      <Settings className="w-4 h-4 text-gray-400" />
-                      Settings
-                    </button>
-                  </Link>
-
-                  <div className="border-t border-gray-100 my-2" />
-
-                  <button
-                    onClick={handleLogout}
-                    className="w-full flex items-center gap-3 px-4 py-2.5 text-left text-sm text-red-600 hover:bg-red-50 transition-colors"
-                  >
-                    <LogOut className="w-4 h-4" />
-                    Logout
-                  </button>
-                </div>
-              </>
-            )}
-          </div>
-        </div>
-      </div>
-
-      {/* ── Mobile bottom tab bar (app-style) ── */}
-      <div
-        className="md:hidden fixed inset-x-0 bottom-0 z-50 border-t border-gray-200 bg-white/95 backdrop-blur-sm"
-        style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
-      >
-        <div className="flex items-stretch">
-          {primaryLinks.map((link) => {
-            const isActive = pathname === link.href;
-            const Icon = link.icon;
-            return (
-              <Link key={link.href} href={link.href} className="flex-1">
-                <span
-                  className={`flex flex-col items-center gap-0.5 py-2 text-[11px] font-semibold leading-tight transition-colors ${
-                    isActive ? "text-teal-600" : "text-gray-500"
-                  }`}
-                >
-                  <Icon className="w-5.5 h-5.5" />
-                  <span className="text-center">{link.label}</span>
-                </span>
-              </Link>
-            );
-          })}
-          {showMoreTab && (
-            <button
-              onClick={() => setShowMore(true)}
-              className={`relative flex flex-1 flex-col items-center gap-0.5 py-2 text-[11px] font-semibold leading-tight transition-colors ${
-                moreActive || showMore ? "text-teal-600" : "text-gray-500"
-              }`}
-            >
-              <Menu className="w-5.5 h-5.5" />
-              <span>More</span>
-              {showLiveNew && (
-                <span className="absolute top-1.5 right-[calc(50%-16px)] h-2.5 w-2.5 rounded-full bg-yellow-400 ring-2 ring-white" />
-              )}
+          {!collapsed && (
+            <button type="button" onClick={toggleCollapsed} className="ss-icon-btn" aria-label="Collapse sidebar">
+              <PanelLeftClose className="w-4 h-4" />
             </button>
           )}
         </div>
-      </div>
+        {collapsed && (
+          <button type="button" onClick={toggleCollapsed} className="ss-icon-btn mx-auto mb-2" aria-label="Expand sidebar">
+            <PanelLeftOpen className="w-4 h-4" />
+          </button>
+        )}
+        <NavGroups nav={nav} pathname={pathname} compact={collapsed} />
+        <ShellFooter {...footerProps} compact={collapsed} />
+      </aside>
 
-      {/* ── "More" sheet (mobile) ── */}
-      {showMore && (
-        <div className="md:hidden fixed inset-0 z-60">
-          <div
-            className="absolute inset-0 bg-black/40"
-            onClick={() => setShowMore(false)}
-          />
-          <div
-            className="absolute inset-x-0 bottom-0 rounded-t-3xl bg-white p-4 shadow-2xl"
-            style={{ paddingBottom: "calc(1rem + env(safe-area-inset-bottom))" }}
-          >
-            <div className="flex items-center justify-between mb-3">
-              <div className="mx-auto h-1 w-10 rounded-full bg-gray-300" />
-              <button
-                onClick={() => setShowMore(false)}
-                className="absolute right-4 top-4 text-gray-400 hover:text-gray-700"
-              >
+      {/* ── Phone/tablet top bar ── */}
+      <header className="ss-topbar lg:hidden">
+        {portal !== "student" && (
+          <button type="button" onClick={() => setDrawer(true)} className="ss-icon-btn" aria-label="Open menu">
+            <Menu className="w-5 h-5" />
+          </button>
+        )}
+        <Link href={nav.home} aria-label="StadiSpace home">
+          <Logo size={20} />
+        </Link>
+        <div className="ml-auto flex items-center gap-2">
+          {showUpgrade && (
+            <Link href="/subscribe" className="ss-upgrade-chip">
+              <Sparkles className="w-3.5 h-3.5" aria-hidden="true" /> Upgrade
+            </Link>
+          )}
+          {portal === "student" && (
+            <button type="button" onClick={() => setDrawer(true)} className="ss-avatar" aria-label="Account and more">
+              {initial}
+            </button>
+          )}
+        </div>
+      </header>
+
+      {/* ── Student bottom bar (phones/tablets) ── */}
+      {portal === "student" && (
+        <nav aria-label="Main" className="ss-bottombar lg:hidden">
+          {mobileItems.map((item) => {
+            const Icon = item.icon;
+            const active = isActive(item, pathname);
+            return (
+              <Link key={item.href} href={item.href} className="ss-tab" data-active={active || undefined}
+                aria-current={active ? "page" : undefined}>
+                <Icon className="w-5 h-5" aria-hidden="true" />
+                <span>{item.label === "My progress" ? "Progress" : item.label}</span>
+              </Link>
+            );
+          })}
+          <button type="button" onClick={() => setDrawer(true)} className="ss-tab" data-active={drawer || undefined}>
+            <UserCircle className="w-5 h-5" aria-hidden="true" />
+            <span>Me</span>
+          </button>
+        </nav>
+      )}
+
+      {/* ── Drawer: full menu for facilitator/admin, "Me" sheet for students ── */}
+      {drawer && (
+        <div className="lg:hidden fixed inset-0 z-[70]" role="dialog" aria-modal="true" aria-label="Menu">
+          <button type="button" className="absolute inset-0 w-full h-full ss-scrim" aria-label="Close menu"
+            onClick={() => setDrawer(false)} />
+          <div className={portal === "student" ? "ss-sheet" : "ss-drawer"}>
+            <div className="flex items-center justify-between h-14 px-4">
+              <Logo size={19} />
+              <button type="button" onClick={() => setDrawer(false)} className="ss-icon-btn" aria-label="Close menu">
                 <X className="w-5 h-5" />
               </button>
             </div>
-
-            <div className="grid grid-cols-3 gap-2">
-              {moreLinks.map((link) => {
-                const isActive = pathname === link.href;
-                const Icon = link.icon;
-                return (
-                  <Link key={link.href} href={link.href} onClick={() => setShowMore(false)}>
-                    <div
-                      className={`flex flex-col items-center gap-1.5 rounded-2xl border py-4 text-xs font-semibold transition-colors ${
-                        isActive
-                          ? "border-teal-200 bg-teal-50 text-teal-700"
-                          : "border-gray-100 bg-gray-50 text-gray-600"
-                      }`}
-                    >
-                      <Icon className="w-6 h-6" />
-                      {link.label}
-                    </div>
-                  </Link>
-                );
-              })}
-              {isStudent && (
-                <Link
-                  href={liveLink.href}
-                  onClick={() => {
-                    setShowMore(false);
-                    markLiveSeen();
-                  }}
-                >
-                  <div className="live-glow relative flex flex-col items-center gap-1.5 rounded-2xl bg-blue-600 py-4 text-xs font-bold text-white">
-                    {showLiveNew && (
-                      <span className="absolute top-1.5 right-1.5 text-[8px] font-black uppercase bg-yellow-300 text-blue-900 px-1 py-0.5 rounded">
-                        New
-                      </span>
-                    )}
-                    <Video className="w-6 h-6" />
-                    Live Lessons
-                  </div>
-                </Link>
-              )}
-              {!user.has_subscription && (
-                <Link href="/subscribe" onClick={() => setShowMore(false)}>
-                  <div className="flex flex-col items-center gap-1.5 rounded-2xl bg-amber-500 py-4 text-xs font-bold text-white">
-                    <Sparkles className="w-6 h-6" />
-                    Upgrade
-                  </div>
-                </Link>
-              )}
-            </div>
-
-            <div className="mt-3 border-t border-gray-100 pt-3 space-y-1">
-              <Link href="/settings" onClick={() => setShowMore(false)}>
-                <div className="flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium text-gray-700 hover:bg-gray-50">
-                  <Settings className="w-5 h-5 text-gray-400" />
-                  Settings
-                </div>
-              </Link>
-              <button
-                onClick={() => {
-                  setShowMore(false);
-                  handleLogout();
-                }}
-                className="flex w-full items-center gap-3 rounded-xl px-3 py-3 text-left text-sm font-medium text-red-600 hover:bg-red-50"
-              >
-                <LogOut className="w-5 h-5" />
-                Logout
-              </button>
-            </div>
+            {portal === "student" ? (
+              <nav aria-label="More" className="px-3 pb-2 flex flex-col gap-0.5">
+                {allItems.filter((i) => !i.mobile).map((item) => (
+                  <NavRow key={item.label} item={item} pathname={pathname} onNavigate={() => setDrawer(false)} />
+                ))}
+              </nav>
+            ) : (
+              <NavGroups nav={nav} pathname={pathname} onNavigate={() => setDrawer(false)} />
+            )}
+            <ShellFooter {...footerProps} onNavigate={() => setDrawer(false)} />
           </div>
         </div>
       )}
+    </>
+  );
+}
+
+/* ── one nav row, shared by sidebar and drawer ── */
+function NavRow({ item, pathname, compact, onNavigate }) {
+  const Icon = item.icon;
+  const active = isActive(item, pathname);
+  const body = (
+    <span
+      className="ss-nav-row"
+      data-active={active || undefined}
+      data-soon={item.soon || undefined}
+      title={compact ? item.label : undefined}
+    >
+      <Icon className="w-[18px] h-[18px] shrink-0" aria-hidden="true" />
+      {!compact && <span className="truncate">{item.label}</span>}
+      {!compact && item.soon && <span className="ss-soon">Soon</span>}
+    </span>
+  );
+  if (item.soon) return <div aria-disabled="true">{body}</div>;
+  return (
+    <Link href={item.href} onClick={onNavigate} aria-current={active ? "page" : undefined}>
+      {body}
+    </Link>
+  );
+}
+
+function NavGroups({ nav, pathname, compact, onNavigate }) {
+  return (
+    <nav aria-label="Main" className="flex-1 overflow-y-auto px-3 py-2">
+      {nav.groups.map((g, gi) => (
+        <div key={gi} className={gi ? "mt-5" : ""}>
+          {g.title && !compact && <p className="ss-nav-title">{g.title}</p>}
+          {g.title && compact && gi > 0 && <div className="ss-divider mx-2 mb-3" />}
+          <div className="flex flex-col gap-0.5">
+            {g.items.map((item) => (
+              <NavRow key={item.label} item={item} pathname={pathname} compact={compact} onNavigate={onNavigate} />
+            ))}
+          </div>
+        </div>
+      ))}
     </nav>
+  );
+}
+
+function ShellFooter({ pathname, showUpgrade, onLogout, user, initial, roleLabel, compact, onNavigate }) {
+  return (
+    <div className="px-3 pb-4 pt-3 ss-footer">
+      {showUpgrade && !compact && (
+        <Link href="/subscribe" onClick={onNavigate} className="ss-upgrade">
+          <Sparkles className="w-4 h-4" aria-hidden="true" />
+          <span>Upgrade to Premium</span>
+        </Link>
+      )}
+      <NavRow item={{ href: "/settings", label: "Settings", icon: Settings }} pathname={pathname}
+        compact={compact} onNavigate={onNavigate} />
+      <button type="button" onClick={onLogout} className="w-full text-left">
+        <span className="ss-nav-row" title={compact ? "Log out" : undefined}>
+          <LogOut className="w-[18px] h-[18px] shrink-0" aria-hidden="true" />
+          {!compact && <span>Log out</span>}
+        </span>
+      </button>
+      <div className={`ss-user mt-3 ${compact ? "justify-center" : ""}`}>
+        <span className="ss-avatar" aria-hidden="true">{initial}</span>
+        {!compact && (
+          <span className="min-w-0">
+            <span className="block truncate text-sm font-semibold" style={{ color: "var(--text)" }}>
+              {user.first_name || user.username}
+            </span>
+            <span className="block text-xs" style={{ color: "var(--text-muted)" }}>
+              {roleLabel}{user.has_subscription ? " · Premium" : ""}
+            </span>
+          </span>
+        )}
+      </div>
+    </div>
   );
 }

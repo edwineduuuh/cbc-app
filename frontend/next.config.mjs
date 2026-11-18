@@ -1,5 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Lets a second dev server run beside the first (e.g. one against the
+  // live API, one against a local Django). Unset = the normal ".next".
+  distDir: process.env.NEXT_DIST_DIR || ".next",
   images: {
     remotePatterns: [
       {

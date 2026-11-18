@@ -1,7 +1,6 @@
 "use client";
 import { useState, useEffect, useCallback } from "react";
 import { useAuth } from "@/contexts/AuthContext";
-import Logo from "@/components/brand/Logo";
 import { useTheme } from "@/hooks/useTheme";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
@@ -37,12 +36,14 @@ import AdminNavigation from "@/components/AdminNavigation";
 const API = process.env.NEXT_PUBLIC_API_URL || "https://cbc-backend-production-0fd4.up.railway.app/api";
 // ─── Stat Card ────────────────────────────────────────────────────────────────
 function StatCard({ label, value, icon: Icon, gradient, delay = 0 }) {
-  const gradients = {
-    emerald: "from-emerald-500 to-teal-600",
-    blue: "from-blue-500 to-indigo-600",
-    amber: "from-amber-400 to-orange-500",
-    rose: "from-rose-500 to-pink-600",
+  // Navy card; the accent colour lives only in the icon chip.
+  const accents = {
+    emerald: "#20B8A6",
+    blue: "#4D8DDA",
+    amber: "#E8B65B",
+    rose: "#F07178",
   };
+  const accent = accents[gradient] || accents.emerald;
   return (
     <motion.div
       initial={{ opacity: 0, y: 24 }}
@@ -50,16 +51,16 @@ function StatCard({ label, value, icon: Icon, gradient, delay = 0 }) {
       transition={{ delay, duration: 0.4, ease: "easeOut" }}
     >
       <div
-        className={`relative overflow-hidden rounded-2xl bg-gradient-to-br ${gradients[gradient]} p-6 text-white shadow-lg`}
+        className="rounded-xl p-5"
+        style={{ background: "var(--bg-card)", border: "1px solid var(--border)" }}
       >
-        <div className="absolute -right-4 -top-4 w-28 h-28 rounded-full bg-white/10" />
-        <div className="absolute -right-2 -bottom-6 w-20 h-20 rounded-full bg-white/5" />
-        <div className="relative">
-          <div className="w-11 h-11 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center mb-4">
-            <Icon className="w-5 h-5 text-white" />
+        <div>
+          <div className="w-10 h-10 rounded-lg flex items-center justify-center mb-4"
+            style={{ background: `${accent}1F` }}>
+            <Icon className="w-5 h-5" style={{ color: accent }} />
           </div>
-          <p className="text-4xl font-bold tracking-tight">{value ?? "-"}</p>
-          <p className="text-sm mt-1 text-white/80 font-medium">{label}</p>
+          <p className="text-3xl font-bold tracking-tight" style={{ color: "var(--text)" }}>{value ?? "-"}</p>
+          <p className="text-sm mt-1 font-medium" style={{ color: "var(--text-muted)" }}>{label}</p>
         </div>
       </div>
     </motion.div>
@@ -1192,7 +1193,7 @@ export default function AdminPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="flex items-center">
-              <Logo size={20} />
+              <h1 className="text-lg font-semibold" style={{ color: "var(--text)" }}>Overview</h1>
               <span className="text-[#A9B9CC] text-xs ml-3 font-medium hidden sm:inline">
                 Admin Panel
               </span>

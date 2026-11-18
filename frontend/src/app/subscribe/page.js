@@ -204,8 +204,7 @@ export default function SubscribePage() {
   return (
     <div className="min-h-screen bg-white">
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800;900&display=swap');
-        * { font-family: 'DM Sans', sans-serif; }
+        * { font-family: var(--font-sans); }
       `}</style>
 
       {/* Back navigation */}

@@ -176,7 +176,7 @@ function buildQuizExportHtml(data) {
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"/>
 <style>
   * { box-sizing: border-box; }
-  body { font-family: -apple-system, Segoe UI, Roboto, Lato, sans-serif; color: #1a2233; max-width: 820px; margin: 0 auto; padding: 28px 20px 80px; line-height: 1.6; }
+  body { font-family: var(--font-sans); color: #1a2233; max-width: 820px; margin: 0 auto; padding: 28px 20px 80px; line-height: 1.6; }
   h1 { font-size: 22px; margin: 0 0 4px; }
   .sub { color: #667; font-size: 13px; margin-bottom: 20px; }
   .toolbar { position: sticky; top: 0; background: #fff; padding: 10px 0; border-bottom: 1px solid #e6e8ef; margin-bottom: 18px; display: flex; gap: 10px; align-items: center; }

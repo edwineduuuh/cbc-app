@@ -27,7 +27,6 @@ import {
   Phone,
   AlertCircle,
   Crown,
-  Palette,
   Settings,
   Lock,
 } from "lucide-react";
@@ -167,17 +166,18 @@ function NavTab({ tab, active, onClick }) {
 // ─── Main ─────────────────────────────────────────────────────────────────────
 export default function SettingsPage() {
   useTheme(); // Force re-render when theme changes
-  const { user, logout } = useAuth();
+  const { user, logout, loading: authLoading } = useAuth();
   const { theme, setTheme } = useThemeContext(); // uses ThemeContext
   const router = useRouter();
   const [activeTab, setActiveTab] = useState("profile");
   const [toast, setToast] = useState(null);
 
+  // Wait for the saved login to load before deciding the user is signed out.
   useEffect(() => {
-    if (!user) {
+    if (!authLoading && !user) {
       router.push("/login");
     }
-  }, [user, router]);
+  }, [user, authLoading, router]);
 
   const handleThemeChange = (newTheme) => {
     setTheme(newTheme); // ThemeContext handles DOM + localStorage
@@ -194,7 +194,6 @@ export default function SettingsPage() {
 
   const tabs = [
     { id: "profile", label: "Profile", icon: User },
-    { id: "appearance", label: "Appearance", icon: Palette },
     { id: "subscription", label: "Subscription", icon: CreditCard },
     { id: "account", label: "Account", icon: Settings },
   ];
@@ -214,13 +213,13 @@ export default function SettingsPage() {
 
   return (
     <div
-      className="min-h-screen text-gray-900"
+      className="min-h-screen"
       style={{
-        backgroundColor: "#f9fafb",
-        fontFamily: "'DM Sans', sans-serif",
+        backgroundColor: "var(--bg)",
+        color: "var(--text)",
+        fontFamily: "var(--font-sans)",
       }}
     >
-      <style>{`@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=DM+Sans:wght@400;500;600;700&display=swap');`}</style>
 
       <Toast message={toast} onClose={() => setToast(null)} />
 
@@ -239,7 +238,7 @@ export default function SettingsPage() {
           </Link>
           <h1
             className="text-lg font-bold text-gray-900"
-            style={{ fontFamily: "'Playfair Display', serif" }}
+            style={{ fontFamily: "var(--font-display)" }}
           >
             Settings
           </h1>
@@ -412,34 +411,6 @@ export default function SettingsPage() {
                 </motion.div>
               )}
 
-              {/* Appearance */}
-              {activeTab === "appearance" && (
-                <motion.div
-                  key="appearance"
-                  initial={{ opacity: 0, y: 16 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -8 }}
-                  className="space-y-6"
-                >
-                  <Section
-                    title="Appearance"
-                    description="We are using a clean, light theme for a consistent experience."
-                  >
-                    <div
-                      className="rounded-2xl p-5"
-                      style={{
-                        background: "#fffde7",
-                        border: "1px solid #fff59d",
-                      }}
-                    >
-                      <p style={{ color: "#b8860b", fontSize: 14 }}>
-                        Theme customization is not available at this time.
-                      </p>
-                    </div>
-                  </Section>
-                </motion.div>
-              )}
-
               {/* Subscription */}
               {activeTab === "subscription" && (
                 <motion.div
@@ -597,12 +568,12 @@ export default function SettingsPage() {
                                 style={
                                   plan.highlight
                                     ? {
-                                        background: "#fffbeb",
-                                        border: "1px solid #fbbf24",
+                                        background: "rgba(232,182,91,0.10)",
+                                        border: "1px solid rgba(232,182,91,0.4)",
                                       }
                                     : {
-                                        background: "#f9fafb",
-                                        border: "1px solid #e5e7eb",
+                                        background: "var(--bg-secondary)",
+                                        border: "1px solid var(--border)",
                                       }
                                 }
                               >

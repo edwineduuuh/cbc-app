@@ -344,12 +344,51 @@ Games have **their own limits**: they never count against the free daily quiz or
 
 ---
 
+## 12d. Authentication: Google, Microsoft, Email (spec received Nov 2026)
+
+**Goal:** one Django account system, three sign-in methods (Continue with Google / Microsoft / Email). The role is chosen once at sign-up (Student or Facilitator, never Admin) and stored permanently. Facilitators wait for admin approval. Returning users never pick a role; the database decides where they land.
+
+**What exists today (audited):**
+| Piece | Where | State |
+|---|---|---|
+| Email + password register/login (email or username), JWT | `users/views.py` RegisterView/LoginView, `users/serializers.py` | Works. Self-service roles limited to student/teacher (Phase 0) |
+| Google + Microsoft login | allauth + dj-rest-auth: `GoogleLogin`, `MicrosoftLogin` (`users/views.py:367,400`), `users/adapters.py`, `/auth/google/callback`, `/auth/microsoft/callback` pages | Wired; new social users always become **student** (no role choice) |
+| Email verification, forgot/reset/change password | `verify_email`, `resend_verification`, `forgot_password`, `reset_password`, `change_password` | Exist (Resend email) |
+| "Facilitator" | stored as `role="teacher"` (sign-up label only) | No approval: a teacher is active immediately |
+| Account status | none | No pending / suspended / rejected |
+| Login throttling | none (`DEFAULT_THROTTLE_*` unset) | Brute force not limited |
+| Provider IDs | allauth `SocialAccount` table (provider + uid) | Already one-user-many-providers capable |
+
+**Security issue to fix first (before anything else in this phase):** `users/adapters.py` `pre_social_login` **auto-connects** a Google/Microsoft login to any existing account with the same email, without checking the provider marked the email verified. This contradicts §7 of the spec and is an account-takeover risk (Microsoft organisational accounts can present unverified emails), including for admin accounts. Fix: never auto-link; a matching email on a new provider → "This email already has a StadiSpace account, sign in with your existing method, then link this one from Settings".
+
+**Design (extends the existing model; no second user table, no reset of users):**
+- `User.status`: active / pending / suspended / rejected (migration: every existing account → `active`, so nobody is locked out). Role names unchanged in the DB (`teacher` = facilitator) to avoid touching every role check; labels say Facilitator.
+- `RoleChange` audit table: who changed whose role/status, from → to, when, why.
+- Provider identities: reuse allauth `SocialAccount` (already unique on provider + uid). Explicit linking from Settings only, while signed in.
+- Sign-up role: chosen on step 1, carried through Google/Microsoft via the OAuth `state` and checked server-side against the student/teacher allow-list (never trusted for admin). Facilitator → `status=pending`.
+- Email sign-ups: student active after verification; facilitator stays pending after verification until approved.
+- Enforcement: one backend permission check (`is_active_facilitator`) used by all facilitator endpoints (`facilitator_views`, teacher classroom/assign endpoints); suspended users get 403 everywhere (checked in the JWT auth class); pending facilitators get a clear 403 the frontend turns into the "awaiting approval" screen.
+- DRF throttling on login, register, forgot/reset password and verify (scoped rates).
+- Admin: "Facilitators" in the existing admin sidebar with Pending / Approved / Rejected / Suspended tabs; approve, reject, suspend, reinstate; every action writes `RoleChange`.
+- Redirects after any login: student → `/dashboard`; facilitator pending → `/awaiting-approval`; facilitator active → `/facilitator`; admin → `/admin`; suspended → `/account-restricted`.
+
+**UI:** sign-up step 1 Student / Facilitator → step 2 Google / Microsoft / Email → step 3 profile details → dashboard or awaiting approval. Sign-in page shows the three methods directly, plus links between Sign in and Create account.
+
+**Needs from you (Railway variables, never in code):** Google OAuth client ID/secret (Google Cloud Console), Microsoft Entra app registration (client ID/secret, "personal + organisational accounts", redirect URIs for stadispace.co.ke and localhost). I'll give exact redirect URIs and steps when we get there.
+
+**Tests (automated):** every row of the spec's §13 list, with Google/Microsoft mocked at the token-verification boundary; plus "existing accounts still log in after migration".
+
+**Deployment checklist:** migration on a copy of production first; confirm all existing users `active`; set the OAuth variables on Railway; deploy backend, then frontend; smoke-test each provider with a real account.
+
+---
+
 ## 13. Implementation phases
 
 | Phase | Scope | Push recommendation |
 |---|---|---|
 | **0. Security** | Done locally (§2) | **Push soon, after you test locally and run the Railway checks in §2.** Live exposure |
 | **1. Foundations** | Wordmark proposal → (after approval) tokens, fonts, dark default with saved-preference respect, core components, icon/og-image; `/api/v1`; `packages/shared` | After visual check |
+| **1b. Authentication** (§12d) | Fix social auto-linking (security) → account status + RoleChange audit → login throttling → role chosen at sign-up incl. Google/Microsoft → facilitator approval in admin → redirects + awaiting-approval / restricted screens → tests | Security fix: push as soon as tested. Rest: per step |
 | **2. Question bank workflow (A)** | Status/provenance, review queue, publish, quiz ownership, sub-strand linking tool (admin confirms), admin nav merge | After admin check |
 | **3. Website + student web** | Public pages (incl. privacy/terms), student shell with bottom nav, sub-strand hub, quiz player, results, recommendations, redirects | Per slice |
 | **4. Libraries + freemium** | `Resource` model, admin upload/manage screens, watermarking, video hosting, student library + viewer/player with resume, entitlements function, 10-question cap, fair-use limit | Per slice |

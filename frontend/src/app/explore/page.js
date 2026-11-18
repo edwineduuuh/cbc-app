@@ -79,12 +79,12 @@ function ExploreContent() {
   const firstName = user?.first_name || user?.username || "there";
 
   return (
-    <div style={{ minHeight: "100vh", background: "var(--bg)", fontFamily: "'Lato', sans-serif", paddingBottom: 60, paddingTop: 24 }}>
+    <div style={{ minHeight: "100vh", background: "var(--bg)", fontFamily: "var(--font-sans)", paddingBottom: 60, paddingTop: 24 }}>
       <div style={{ maxWidth: 800, margin: "0 auto", padding: "0 16px" }}>
 
         {/* Motivational header */}
         <div style={{
-          background: "linear-gradient(135deg, #0f4c8a 0%, #1a6fc4 100%)",
+          background: "var(--sidebar)",
           borderRadius: 20,
           padding: "28px 28px",
           marginBottom: 16,
@@ -125,8 +125,8 @@ function ExploreContent() {
         {/* Growing-library reassurance (always-on, friendly) */}
         <div style={{
           display: "flex", alignItems: "center", gap: 10,
-          background: "#fff7e6", border: "1px solid #ffe2a8", borderRadius: 14,
-          padding: "10px 14px", marginBottom: 16, fontSize: 13, color: "#8a6d3b", lineHeight: 1.5,
+          background: "rgba(232,182,91,0.10)", border: "1px solid rgba(232,182,91,0.35)", borderRadius: 14,
+          padding: "10px 14px", marginBottom: 16, fontSize: 13, color: "#F2C978", lineHeight: 1.5,
         }}>
           <span style={{ fontSize: 18, flexShrink: 0 }}></span>
           <span>
@@ -151,9 +151,9 @@ function ExploreContent() {
                   style={{
                     padding: "8px 18px",
                     borderRadius: 12,
-                    border: `2px solid ${isSelected ? "#1a6fc4" : "var(--border)"}`,
-                    background: isSelected ? "#1a6fc4" : isUserGrade ? "#f0f7ff" : "var(--bg-card)",
-                    color: isSelected ? "#fff" : isUserGrade ? "#1a6fc4" : "var(--text-muted)",
+                    border: `2px solid ${isSelected ? "#20B8A6" : "var(--border)"}`,
+                    background: isSelected ? "#0E7490" : isUserGrade ? "rgba(32,184,166,0.10)" : "var(--bg-card)",
+                    color: isSelected ? "#fff" : isUserGrade ? "#20B8A6" : "var(--text-muted)",
                     fontSize: 14,
                     fontWeight: isSelected || isUserGrade ? 700 : 500,
                     transition: "all 0.15s",
@@ -164,7 +164,7 @@ function ExploreContent() {
                   {isUserGrade && !isSelected && (
                     <span style={{
                       position: "absolute", top: -6, right: -6,
-                      background: "#1a6fc4", color: "#fff",
+                      background: "#0E7490", color: "#fff",
                       fontSize: 9, fontWeight: 800,
                       borderRadius: 20, padding: "1px 5px",
                       letterSpacing: "0.03em",
@@ -188,7 +188,7 @@ function ExploreContent() {
               </p>
               {loadingSubjects ? (
                 <div style={{ display: "flex", justifyContent: "center", padding: "20px 0" }}>
-                  <div style={{ width: 28, height: 28, border: "3px solid var(--border)", borderTopColor: "#1a6fc4", borderRadius: "50%", animation: "spin 0.8s linear infinite" }} />
+                  <div style={{ width: 28, height: 28, border: "3px solid var(--border)", borderTopColor: "#20B8A6", borderRadius: "50%", animation: "spin 0.8s linear infinite" }} />
                   <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
                 </div>
               ) : (
@@ -201,7 +201,7 @@ function ExploreContent() {
                         style={{
                           padding: "14px 14px",
                           borderRadius: 14,
-                          border: `2px solid ${isThisLoading ? "#1a6fc4" : "var(--border)"}`,
+                          border: `2px solid ${isThisLoading ? "#20B8A6" : "var(--border)"}`,
                           background: isThisLoading ? "#e8f4ff" : "var(--bg-secondary)",
                           display: "flex", alignItems: "center", gap: 10,
                           transition: "all 0.15s", textAlign: "left",
@@ -213,10 +213,10 @@ function ExploreContent() {
                         onMouseLeave={(e) => { if (!loadingSubjectId) e.currentTarget.style.borderColor = "var(--border)"; }}
                       >
                         <span style={{ fontSize: 24 }}>{s.icon || "📚"}</span>
-                        <span style={{ flex: 1, fontSize: 13, fontWeight: isThisLoading ? 700 : 500, color: isThisLoading ? "#1a6fc4" : "var(--text)", lineHeight: 1.3 }}>
+                        <span style={{ flex: 1, fontSize: 13, fontWeight: isThisLoading ? 700 : 500, color: isThisLoading ? "#20B8A6" : "var(--text)", lineHeight: 1.3 }}>
                           {s.name}
                         </span>
-                        {isThisLoading && <Loader2 size={16} color="#1a6fc4" style={{ flexShrink: 0, animation: "spin 0.8s linear infinite" }} />}
+                        {isThisLoading && <Loader2 size={16} color="#20B8A6" style={{ flexShrink: 0, animation: "spin 0.8s linear infinite" }} />}
                       </button>
                     );
                   })}
