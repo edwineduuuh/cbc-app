@@ -314,6 +314,17 @@ SOCIALACCOUNT_PROVIDERS = {
     }
 }
 
+# Sign-in keys come from Railway variables. Only add an app when its ID is set,
+# otherwise allauth falls back to SocialApp rows in the database.
+for _provider, _prefix in (('google', 'GOOGLE'), ('microsoft', 'MICROSOFT')):
+    _cid = os.environ.get(f'{_prefix}_CLIENT_ID', '').strip()
+    if _cid:
+        SOCIALACCOUNT_PROVIDERS[_provider]['APP'] = {
+            'client_id': _cid,
+            'secret': os.environ.get(f'{_prefix}_CLIENT_SECRET', '').strip(),
+            'key': '',
+        }
+
 SOCIALACCOUNT_ADAPTER = 'users.adapters.CustomSocialAccountAdapter'
 SOCIALACCOUNT_AUTO_SIGNUP = True
 ACCOUNT_EMAIL_VERIFICATION = 'none'
