@@ -94,6 +94,7 @@ INSTALLED_APPS = [
 
     'users',
     'questions',
+    'library',
 
     'cloudinary_storage',
     'anymail',

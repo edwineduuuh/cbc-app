@@ -8,7 +8,7 @@
  *   Admin        left sidebar on desktop, drawer on phones
  *
  * Each role sees only its own destinations, and only pages that exist:
- * Library and Play join the student menu when they ship.
+ * Play joins the student menu when it ships.
  *
  * The sidebar is fixed; page content is pushed right by body classes
  * (has-sidebar / sidebar-collapsed / has-bottom-nav, see globals.css) so
@@ -25,7 +25,7 @@ import {
   CalendarDays, FileText, NotebookPen, LayoutDashboard,
   FileQuestion, ListChecks, ScrollText, BookText, Network, Upload,
   Quote, PanelLeftClose, PanelLeftOpen, UserCircle,
-  UserCog,
+  UserCog, PlayCircle,
 } from "lucide-react";
 
 const ADMIN_ROLES = ["admin", "superadmin"];
@@ -48,6 +48,11 @@ const NAV = {
         { href: "/flashcards", label: "Flash cards", icon: Layers },
         { href: "/progress", label: "My progress", icon: BarChart3, mobile: true },
       ]},
+      { title: "Library", items: [
+        { href: "/library", label: "PDF library", icon: FileText },
+        { href: "/books", label: "Books", icon: BookText },
+        { href: "/videos", label: "Videos", icon: PlayCircle },
+      ]},
       { title: "More", items: [
         { href: "/live", label: "Live lessons", icon: Video },
         { href: "/life-skills", label: "Life skills", icon: Heart },
@@ -61,6 +66,7 @@ const NAV = {
         { href: "/facilitator", label: "Studio home", icon: LayoutDashboard, exact: true },
         { href: "/facilitator/assessments", label: "Assessments", icon: ClipboardCheck },
         { href: "/facilitator/library", label: "My library", icon: Library },
+        { href: "/facilitator/revision-notes", label: "Revision notes", icon: BookOpen },
         { label: "Schemes of work", icon: CalendarDays, soon: true },
         { label: "Lesson plans", icon: FileText, soon: true },
         { label: "Records of work", icon: NotebookPen, soon: true },
@@ -81,6 +87,9 @@ const NAV = {
         { href: "/admin/exams", label: "Exams", icon: ScrollText },
         { href: "/admin/passages", label: "Passages", icon: BookText },
         { href: "/admin/bulk-upload", label: "Bulk upload", icon: Upload },
+      ]},
+      { title: "Content", items: [
+        { href: "/admin/library", label: "Library", icon: Library },
       ]},
       { title: "Platform", items: [
         { href: "/admin/topics", label: "Curriculum", icon: Network },
