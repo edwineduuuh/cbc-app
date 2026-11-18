@@ -167,3 +167,115 @@ class ResourceAuditLog(models.Model):
     class Meta:
         db_table = "library_audit_log"
         ordering = ["-created_at"]
+
+
+class ExtractionRun(models.Model):
+    """One AI pass over a PDF: find the questions, propose curriculum mappings.
+
+    Nothing a run produces is usable until an admin approves it.
+    """
+    QUEUED, RUNNING, DONE, FAILED = "queued", "running", "done", "failed"
+    STATUSES = [(QUEUED, "Queued"), (RUNNING, "Running"), (DONE, "Done"), (FAILED, "Failed")]
+
+    resource = models.ForeignKey(Resource, on_delete=models.CASCADE, related_name="extraction_runs")
+    status = models.CharField(max_length=10, choices=STATUSES, default=QUEUED)
+    error = models.TextField(blank=True, default="")
+    pages_read = models.IntegerField(default=0)
+    pages_total = models.IntegerField(default=0)
+    # What the AI thinks the whole document is - shown to the admin, never
+    # copied onto the questions (a PDF can span many strands).
+    document_guess = models.JSONField(default=dict, blank=True)
+    notes = models.JSONField(default=list, blank=True)
+    started_by = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True,
+                                   on_delete=models.SET_NULL, related_name="+")
+    created_at = models.DateTimeField(auto_now_add=True)
+    finished_at = models.DateTimeField(null=True, blank=True)
+
+    class Meta:
+        db_table = "library_extraction_runs"
+        ordering = ["-created_at"]
+
+
+class ExtractedQuestion(models.Model):
+    """A question found in an uploaded PDF, with its proposed and approved
+    curriculum mapping. The original text, answer, PDF and page are kept
+    exactly as found; an admin correction is stored alongside, never over it.
+    """
+    PROPOSED, APPROVED, REJECTED = "proposed", "approved", "rejected"
+    REVIEW = [(PROPOSED, "Awaiting review"), (APPROVED, "Approved"), (REJECTED, "Rejected")]
+
+    run = models.ForeignKey(ExtractionRun, on_delete=models.CASCADE, related_name="questions")
+    resource = models.ForeignKey(Resource, on_delete=models.CASCADE, related_name="extracted_questions")
+    page = models.IntegerField()
+    label = models.CharField(max_length=40, blank=True, default="")
+    order = models.IntegerField(default=0)
+
+    original_text = models.TextField()
+    original_answer = models.TextField(blank=True, default="")
+    options = models.JSONField(default=list, blank=True)
+    marks = models.IntegerField(null=True, blank=True)
+    question_type = models.CharField(max_length=20, blank=True, default="")
+    refers_to_figure = models.BooleanField(default=False)
+    text_verified = models.BooleanField(default=False,
+                                        help_text="The text was found on the stated page")
+
+    # The AI's proposal - only ever entries that exist in the curriculum tables.
+    proposed_substrand = models.ForeignKey("questions.Substrand", null=True, blank=True,
+                                           on_delete=models.SET_NULL, related_name="+")
+    proposed_topic = models.ForeignKey("questions.Topic", null=True, blank=True,
+                                       on_delete=models.SET_NULL, related_name="+")
+    confidence = models.FloatField(default=0)
+    alternatives = models.JSONField(default=list, blank=True)   # [{substrand_id, confidence}]
+    reason = models.TextField(blank=True, default="")
+    flags = models.JSONField(default=list, blank=True)
+
+    # The admin's decision.
+    review_status = models.CharField(max_length=10, choices=REVIEW, default=PROPOSED, db_index=True)
+    substrand = models.ForeignKey("questions.Substrand", null=True, blank=True,
+                                  on_delete=models.SET_NULL, related_name="extracted_questions")
+    topic = models.ForeignKey("questions.Topic", null=True, blank=True,
+                              on_delete=models.SET_NULL, related_name="extracted_questions")
+    grade = models.IntegerField(null=True, blank=True, db_index=True)
+    subject = models.ForeignKey("questions.Subject", null=True, blank=True,
+                                on_delete=models.SET_NULL, related_name="extracted_questions")
+    corrected = models.BooleanField(default=False)
+    edited_text = models.TextField(blank=True, default="")
+    edited_answer = models.TextField(blank=True, default="")
+    reviewed_by = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True,
+                                    on_delete=models.SET_NULL, related_name="+")
+    reviewed_at = models.DateTimeField(null=True, blank=True)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        db_table = "library_extracted_questions"
+        ordering = ["resource", "page", "order"]
+
+    @property
+    def text(self):
+        return self.edited_text or self.original_text
+
+    @property
+    def answer(self):
+        return self.edited_answer or self.original_answer
+
+    def approve(self, substrand, user, *, corrected=False):
+        topic = substrand.topic
+        self.substrand = substrand
+        self.topic = topic
+        self.grade = topic.grade
+        self.subject_id = topic.subject_id
+        self.corrected = corrected
+        self.review_status = self.APPROVED
+        self.reviewed_by = user
+        self.reviewed_at = timezone.now()
+
+
+def approved_question_pool():
+    """What the Assessment Generator may draw on from PDFs: approved mappings,
+    from resources the admin has marked as generator sources."""
+    return ExtractedQuestion.objects.filter(
+        review_status=ExtractedQuestion.APPROVED,
+        substrand__isnull=False,
+        resource__extraction_eligible=True,
+    ).exclude(resource__status=Resource.ARCHIVED)

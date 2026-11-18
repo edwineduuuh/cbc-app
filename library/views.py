@@ -237,6 +237,18 @@ def _jsonable(d):
             for k, v in d.items()}
 
 
+def _auto_analyse(r, user, changes):
+    """A new or replaced PDF is read and mapped straight away, so the
+    proposals are waiting by the time the admin opens the review page."""
+    if "file" not in changes or r.kind != Resource.KIND_PDF:
+        return
+    from .extraction import start_extraction
+    try:
+        start_extraction(r, user)
+    except Exception:
+        pass   # the upload itself succeeded; the admin can press Analyse
+
+
 @api_view(["GET"])
 @permission_classes([IsAdminUser])
 def admin_meta(request):
@@ -270,6 +282,7 @@ def admin_list(request):
         return Response({"error": "Pick a category that matches the resource type."}, status=400)
     r.save()
     _log(r, request.user, "created", changes)
+    _auto_analyse(r, request.user, changes)
     return Response(_item(r, request, admin=True), status=201)
 
 
@@ -300,6 +313,7 @@ def admin_detail(request, pk):
     r.save()
     if changes:
         _log(r, request.user, "updated", changes)
+    _auto_analyse(r, request.user, changes)
     return Response(_item(r, request, admin=True))
 
 

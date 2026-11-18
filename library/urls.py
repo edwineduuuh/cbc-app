@@ -1,6 +1,6 @@
 from django.urls import path
 
-from . import views
+from . import review_views, views
 
 urlpatterns = [
     path("library/", views.student_library, name="library-list"),
@@ -13,4 +13,11 @@ urlpatterns = [
     path("admin/library/<int:pk>/", views.admin_detail, name="admin-library-detail"),
     path("admin/library/<int:pk>/publish/", views.admin_publish, name="admin-library-publish"),
     path("admin/library/<int:pk>/archive/", views.admin_archive, name="admin-library-archive"),
+    path("admin/library/<int:pk>/analyse/", review_views.admin_analyse, name="admin-library-analyse"),
+    path("admin/library/<int:pk>/extraction/", review_views.admin_extraction,
+         name="admin-library-extraction"),
+    path("admin/library/<int:pk>/extraction/approve-confident/", review_views.admin_approve_confident,
+         name="admin-library-approve-confident"),
+    path("admin/library/questions/<int:qid>/review/", review_views.admin_review_question,
+         name="admin-library-review-question"),
 ]

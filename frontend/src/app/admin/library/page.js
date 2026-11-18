@@ -1,7 +1,8 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import { Plus, Search, Upload, X, Archive, Send, Pencil, Trash2 } from "lucide-react";
+import Link from "next/link";
+import { Plus, Search, Upload, X, Archive, Send, Pencil, Trash2, ListChecks } from "lucide-react";
 import { fetchWithAuth } from "@/lib/api";
 
 const API = process.env.NEXT_PUBLIC_API_URL || "https://cbc-backend-production-0fd4.up.railway.app/api";
@@ -194,6 +195,11 @@ export default function AdminLibraryPage() {
                     </p>
                   </div>
                   <div className="flex gap-2 flex-wrap">
+                    {r.kind === "pdf" && r.has_file && (
+                      <Link href={`/admin/library/${r.id}/review`} className="flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-semibold" style={{ background: "#1B2C43", border: "1px solid #24384F" }}>
+                        <ListChecks className="w-3.5 h-3.5" /> Questions
+                      </Link>
+                    )}
                     <button onClick={() => edit(r)} className="flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-semibold" style={{ background: "#1B2C43", border: "1px solid #24384F" }}><Pencil className="w-3.5 h-3.5" /> Edit</button>
                     {r.status !== "published" && <button onClick={() => act(r, "publish")} className="flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-semibold" style={{ background: "#0E7490", color: "#fff" }}><Send className="w-3.5 h-3.5" /> Publish</button>}
                     {r.status === "published" && <button onClick={() => act(r, "archive")} className="flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-semibold" style={{ background: "#1B2C43", border: "1px solid #24384F" }}><Archive className="w-3.5 h-3.5" /> Archive</button>}
@@ -264,7 +270,9 @@ export default function AdminLibraryPage() {
                   </Field>
                 </>
               ) : (
-                <Field label={form.has_file ? "Replace PDF" : "PDF file"} hint="The original is kept untouched; learners get a copy with the StadiSpace footer on every page.">
+                <Field label={form.has_file ? "Replace PDF" : "PDF file"} hint={form.kind === "pdf"
+                  ? "The original is kept untouched; learners get a copy with the StadiSpace footer. After upload, AI finds the questions and suggests where each fits in the curriculum for you to review."
+                  : "The original is kept untouched; learners get a copy with the StadiSpace footer on every page."}>
                   <input type="file" accept="application/pdf,.pdf" onChange={(e) => setFiles((f) => ({ ...f, file: e.target.files[0] }))} className="text-sm" />
                 </Field>
               )}

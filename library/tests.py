@@ -2,6 +2,7 @@
 import shutil
 import tempfile
 from datetime import timedelta
+from unittest import mock
 
 import fitz
 from django.contrib.auth import get_user_model
@@ -43,6 +44,10 @@ class LibraryAccess(APITestCase):
         shutil.rmtree(MEDIA, ignore_errors=True)
 
     def setUp(self):
+        # Uploading a PDF starts an AI analysis; not wanted in access tests.
+        p = mock.patch("library.extraction.start_extraction")
+        p.start()
+        self.addCleanup(p.stop)
         self.free = User.objects.create_user("free", "free@x.invalid", "pw-123456", role="student")
         self.paid = User.objects.create_user("paid", "paid@x.invalid", "pw-123456", role="student")
         plan = SubscriptionPlan.objects.create(name="Monthly", slug="m", price_kes=999, duration_days=30)

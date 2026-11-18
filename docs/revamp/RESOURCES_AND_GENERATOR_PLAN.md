@@ -54,6 +54,17 @@ with the StadiSpace footer stamped on every page.
 2. **Admin content management** — upload/edit/publish/archive in the existing
    admin portal; audit log of admin actions; student pages (PDF Library, Books,
    Videos) with upgrade screen; facilitator Revision Notes page.
+2b. **AI curriculum mapping of PDFs** (done) — every uploaded PDF is read
+   (`library/extraction.py`): questions are separated from worked examples,
+   explanations and answer keys; each question is checked against the text of
+   its page; each is mapped on its own to a sub-strand chosen only from the
+   curriculum tables (any other ID is discarded); grade and strand come from
+   the database, never the model; confidence + flags (low confidence,
+   ambiguous, no mapping, invented entry, no answer, needs figure, text not on
+   page, grade differs). Everything starts "proposed"; admin approves,
+   corrects (curriculum picker only), rejects or edits (original kept) at
+   Admin → Library → Questions. `approved_question_pool()` = approved + from
+   a generator-source PDF. Re-analysis keeps admin decisions.
 3. **Generator retrieval** — question-bank retrieval by grade/area/strand/
    substrand/type/difficulty/marks; PDF extraction (questions vs worked
    examples vs answer keys) from eligible resources only, into a reviewed
