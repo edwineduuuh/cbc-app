@@ -1,5 +1,6 @@
 import "./globals.css";
 import Script from "next/script";
+import { DM_Sans, Cormorant_Garamond } from "next/font/google";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import ThemeWrapper from "@/components/ThemeWrapper";
@@ -7,6 +8,14 @@ import WhatsAppButton from "@/components/WhatsAppButton";
 import Navbar from "@/components/NavBar";
 
 const BASE_URL = "https://stadispace.co.ke";
+
+// Brand type, loaded once and self-hosted by Next (no runtime Google Fonts
+// request). DM Sans: interface. Cormorant Garamond: the wordmark and public
+// headlines only. Exposed as --font-sans / --font-display.
+const dmSans = DM_Sans({ subsets: ["latin"], variable: "--font-sans", display: "swap" });
+const cormorant = Cormorant_Garamond({
+  subsets: ["latin"], weight: ["600", "700"], variable: "--font-display", display: "swap",
+});
 
 export const metadata = {
   metadataBase: new URL(BASE_URL),
@@ -41,13 +50,13 @@ export const metadata = {
     siteName: "StadiSpace",
     title: "StadiSpace - CBE Quizzes & Learning for Kenyan Students",
     description:
-      "Interactive quizzes, instant marking of MCQ and structured questions, and progress tracking for CBE students in Grades 4-10. Start with 3 free quizzes - no card required.",
+      "Interactive quizzes, instant marking of MCQ and structured questions, and progress tracking for CBE students in Grades 4-10. Start free with a quiz every day.",
     images: [
       {
-        url: "/og-image.png",
+        url: "/opengraph-image.png",
         width: 1200,
         height: 630,
-        alt: "StadiSpace - CBE Learning Platform for Kenya",
+        alt: "StadiSpace: CBE practice set by Kenyan teachers",
       },
     ],
   },
@@ -57,7 +66,7 @@ export const metadata = {
     title: "StadiSpace - CBE Quizzes for Kenyan Students",
     description:
       "Interactive quizzes, instant marking of MCQ and structured questions, and progress tracking for CBE students in Grades 4-10.",
-    images: ["/og-image.png"],
+    images: ["/opengraph-image.png"],
   },
 
   robots: {
@@ -85,8 +94,8 @@ const structuredData = {
   name: "StadiSpace",
   alternateName: "StadiSpace Kenya",
   url: BASE_URL,
-  logo: `${BASE_URL}/og-image.png`,
-  image: `${BASE_URL}/og-image.png`,
+  logo: `${BASE_URL}/icon.png`,
+  image: `${BASE_URL}/opengraph-image.png`,
   description:
     "StadiSpace is a Kenyan online learning platform for CBE (Competency Based Education) students in Grades 4-10. It offers interactive quizzes with instant marking of MCQ and structured questions, an AI-free hand-crafted question bank, and detailed progress tracking. It is a Kenya-based education service and is not affiliated with any other organisation of the same name.",
   address: {
@@ -125,7 +134,7 @@ const initThemeScript = `
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" className={`${dmSans.variable} ${cormorant.variable}`} suppressHydrationWarning>
       <head>
         <link
           rel="stylesheet"

@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import Logo from "@/components/brand/Logo";
 import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
 import Toast from "@/components/ui/Toast";
@@ -92,17 +93,7 @@ export default function LoginPage() {
 
           {/* Logo */}
           <div className="relative flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center">
-              <BookOpen className="w-5 h-5 text-white" />
-            </div>
-            <div className="leading-none">
-              <span className="font-display text-lg font-bold text-white block">
-                StadiSpace
-              </span>
-              <span className="text-[10px] font-semibold text-cyan-300 tracking-widest uppercase block">
-                Learning Platform
-              </span>
-            </div>
+            <Logo size={24} tone="mono" />
           </div>
 
           {/* Center content */}

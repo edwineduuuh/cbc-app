@@ -54,8 +54,6 @@ if not SECRET_KEY:
 
 DEBUG = os.environ.get('DEBUG', 'False').strip().upper() == 'TRUE'
 ALLOWED_HOSTS = [
-    '.onrender.com',
-    'cbc-backend-76im.onrender.com',
     '.railway.app',
     'localhost',
     '127.0.0.1',
@@ -270,7 +268,7 @@ CORS_ALLOW_CREDENTIALS = True
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost:3000",
     "https://cbc-app-9nlr.vercel.app",
-    "https://cbc-backend-production-8bc4.up.railway.app",
+    "https://cbc-backend-production-0fd4.up.railway.app",
     "https://stadispace.co.ke",
     "https://www.stadispace.co.ke",
 ]

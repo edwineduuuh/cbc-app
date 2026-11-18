@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Logo from "@/components/brand/Logo";
 import { useRouter, usePathname } from "next/navigation";
 import { useAuth } from "@/contexts/AuthContext";
 import {
@@ -109,9 +110,7 @@ export default function Navbar() {
             href={isTeacher ? "/teacher" : "/dashboard"}
             className="flex items-center gap-2 shrink-0"
           >
-            <div className="font-bold text-white text-xl px-3 py-2 rounded-xl bg-slate-800">
-              StadiSpace
-            </div>
+            <Logo size={22} />
           </Link>
 
           {/* Desktop nav */}

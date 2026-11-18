@@ -2,8 +2,9 @@
 import { useState, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import Link from "next/link";
+import Logo from "@/components/brand/Logo";
 import { motion } from "framer-motion";
-import { BookOpen, Eye, EyeOff, ArrowRight, CheckCircle } from "lucide-react";
+import { Eye, EyeOff, ArrowRight, CheckCircle } from "lucide-react";
 
 const API = process.env.NEXT_PUBLIC_API_URL || "https://cbc-backend-production-0fd4.up.railway.app/api";
 
@@ -62,10 +63,7 @@ function ResetPasswordForm() {
         className="w-full max-w-md"
       >
         <div className="flex items-center gap-2 mb-8">
-          <div className="w-9 h-9 rounded-xl bg-cyan-700 flex items-center justify-center">
-            <BookOpen className="w-4 h-4 text-white" />
-          </div>
-          <span className="font-bold text-gray-900 text-lg">StadiSpace</span>
+          <Logo size={22} />
         </div>
 
         {!success ? (

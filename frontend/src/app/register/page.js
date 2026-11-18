@@ -4,8 +4,9 @@ import { useState } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import Logo from "@/components/brand/Logo";
 import Toast from "@/components/ui/Toast";
-import { BookOpen, ArrowRight, Eye, EyeOff, CheckCircle } from "lucide-react";
+import { ArrowRight, Eye, EyeOff, CheckCircle } from "lucide-react";
 import { Suspense } from "react";
 
 function RegisterPage() {
@@ -140,15 +141,7 @@ function RegisterPage() {
           <div className="dot-pattern absolute inset-0" />
 
           <div className="relative flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center">
-              <BookOpen className="w-5 h-5 text-white" />
-            </div>
-            <div className="leading-none">
-              <span className="font-display text-lg font-bold text-white block">StadiSpace</span>
-              <span className="text-[10px] font-semibold text-cyan-300 tracking-widest uppercase block">
-                Learning Platform
-              </span>
-            </div>
+            <Logo size={24} tone="mono" />
           </div>
 
           <div className="relative">
@@ -187,10 +180,7 @@ function RegisterPage() {
             >
               {/* Mobile logo */}
               <div className="lg:hidden flex items-center gap-2.5 mb-8">
-                <div className="w-9 h-9 rounded-xl bg-teal-700 flex items-center justify-center">
-                  <BookOpen className="w-4 h-4 text-white" />
-                </div>
-                <span className="font-display text-lg font-bold text-teal-900">StadiSpace</span>
+                <Logo size={22} />
               </div>
 
               {reason === "quota" && (

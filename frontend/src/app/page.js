@@ -4,6 +4,7 @@ import { useTheme } from "@/hooks/useTheme";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import Logo from "@/components/brand/Logo";
 import {
   BookOpen,
   Trophy,
@@ -210,10 +211,8 @@ export default function LandingPage() {
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
-            <Link href="/">
-              <div className="font-bold text-white text-xl px-3 py-2 rounded-xl bg-slate-800">
-                StadiSpace
-              </div>
+            <Link href="/" aria-label="StadiSpace home">
+              <Logo size={22} tone="onLight" />
             </Link>
 
             <div className="hidden md:flex items-center gap-8">
@@ -1905,9 +1904,7 @@ export default function LandingPage() {
           >
             <div className="col-span-2">
               <div style={{ marginBottom: 16 }}>
-                <div className="font-bold text-white text-xl px-3 py-2 rounded-xl bg-slate-800 inline-block">
-                  StadiSpace
-                </div>
+                <Logo size={24} tone="onDark" />
               </div>
               <p
                 style={{

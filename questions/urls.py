@@ -28,9 +28,8 @@ def health(request):
     except Exception:
         db = "down"
 
-    # Railway and Render both inject the deployed commit.
-    commit = (os.environ.get("RAILWAY_GIT_COMMIT_SHA")
-              or os.environ.get("RENDER_GIT_COMMIT") or "")
+    # Railway injects the deployed commit.
+    commit = os.environ.get("RAILWAY_GIT_COMMIT_SHA") or ""
 
     diagrams = {}
     try:

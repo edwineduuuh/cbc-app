@@ -234,8 +234,8 @@ CORS_ALLOWED_ORIGINS = [
 CORS_ALLOWED_ORIGINS=https://your-production-domain.vercel.app,https://www.yourdomain.com
 ```
 
-**Update Render/deployment platform:**
-- Go to Render dashboard
+**Update Railway (backend platform):**
+- Go to Railway dashboard
 - Environment variables
 - Add `CORS_ALLOWED_ORIGINS` with your production URLs
 
@@ -351,7 +351,7 @@ export const config = {
 
 Find this pattern:
 ```javascript
-const API = process.env.NEXT_PUBLIC_API_URL || "https://cbc-backend-76im.onrender.com/api";
+const API = process.env.NEXT_PUBLIC_API_URL || "https://cbc-backend-production-0fd4.up.railway.app/api";
 ```
 
 Replace with:
@@ -435,7 +435,7 @@ git add .
 git commit -m "fix: critical security and performance fixes"
 
 # 2. Deploy backend first
-git push render main  # or your backend hosting
+git push origin master  # or your backend hosting
 
 # 3. Verify backend is up
 curl https://your-backend.com/api/health
@@ -444,7 +444,7 @@ curl https://your-backend.com/api/health
 git push vercel main  # or your frontend hosting
 
 # 5. Monitor for errors
-# Check Render logs
+# Check Railway logs
 # Check Vercel logs
 # Check user reports
 ```
@@ -458,14 +458,14 @@ If something breaks:
 ```bash
 # Backend
 git revert HEAD
-git push render main
+git push origin master
 
 # Frontend
 git revert HEAD
 git push vercel main
 
 # Or use platform rollback:
-# Render: Dashboard → Deployments → Redeploy previous version
+# Railway: Dashboard → Deployments → Redeploy previous version
 # Vercel: Dashboard → Deployments → Rollback
 ```
 
@@ -476,7 +476,7 @@ git push vercel main
 1. **Build fails**: Check error message, ensure all imports are correct
 2. **Tests fail**: Run `python manage.py test --verbosity=2` for details
 3. **API not connecting**: Verify CORS_ALLOWED_ORIGINS includes your frontend URL
-4. **Payments not working**: Check Render logs for mpesa_callback errors
+4. **Payments not working**: Check Railway logs for mpesa_callback errors
 
 ---
 

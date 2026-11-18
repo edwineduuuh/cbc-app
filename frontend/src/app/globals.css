@@ -15,6 +15,22 @@
   --font-mono: var(--font-geist-mono);
 }
 
+/* ── Brand (approved Option C) ────────────────────────────────────────
+   Used by components/brand/Logo.jsx. Light-mode teal is the original
+   #0E7490 (white-on-#20B8A6 and #20B8A6-on-white both fail contrast). */
+:root {
+  --brand-ink: #0F1F3D;
+  --brand-accent: #0E7490;
+  --brand-tile: #0F1F3D;
+  --brand-path: #20B8A6;
+  --brand-goal: #E8B65B;
+}
+html.dark {
+  --brand-ink: #F5F7FA;
+  --brand-accent: #20B8A6;
+  --brand-tile: #14243A;
+}
+
 /* Dark mode is controlled by .dark class only - see ThemeContext.js */
 html.dark {
   --background: #0a0a0a;

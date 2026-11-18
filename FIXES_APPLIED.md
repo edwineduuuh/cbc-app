@@ -95,9 +95,9 @@ python manage.py migrate
 
 ### 2. Set Environment Variables
 
-**On Render (Backend):**
+**On Railway (Backend):**
 
-Go to Render Dashboard → Your Service → Environment
+Go to Railway dashboard → Your Service → Environment
 
 Add these variables:
 ```bash
@@ -117,7 +117,7 @@ Go to Vercel Dashboard → Your Project → Settings → Environment Variables
 
 ```bash
 # Required
-NEXT_PUBLIC_API_URL=https://your-backend.onrender.com/api
+NEXT_PUBLIC_API_URL=https://your-backend.up.railway.app/api
 ```
 
 ### 3. Test Critical Paths
@@ -170,7 +170,7 @@ grep -r "console\." . --include="*.js" --include="*.jsx"
 Before deploying:
 
 - [ ] Migrations ran successfully (`python manage.py migrate`)
-- [ ] Environment variables set on Render
+- [ ] Environment variables set on Railway
 - [ ] Environment variables set on Vercel
 - [ ] Backend starts without errors (`python manage.py check`)
 - [ ] Frontend builds successfully (`npm run build`)
@@ -202,7 +202,7 @@ Before deploying:
    ```
 
 2. **Run migrations on production:**
-   - Render will auto-deploy
+   - Railway will auto-deploy
    - Check logs for migration success
 
 3. **Frontend Second:**
@@ -214,7 +214,7 @@ Before deploying:
    ```
 
 4. **Monitor:**
-   - Check Render logs for errors
+   - Check Railway logs for errors
    - Check Vercel deployment success
    - Test login/payment flows
 

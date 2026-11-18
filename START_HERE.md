@@ -277,7 +277,7 @@ python manage.py migrate questions zero
 
 ### "Production deploy broke"
 ```bash
-# Rollback on Render
+# Rollback on Railway
 # Dashboard → Deployments → Previous version
 
 # Rollback on Vercel

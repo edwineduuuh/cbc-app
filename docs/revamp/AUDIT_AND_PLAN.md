@@ -4,7 +4,7 @@
 
 **What changed in v2:** your eight decisions, the two-content-systems rule, the resource-library and freemium requirements, the app-store payment research, and the Phase 0 results.
 
-**Correction:** production runs on **Railway**. The Render Postgres in the local `.env` is **not** production. Production checks run on Railway (`railway run python manage.py <command>`).
+**Correction:** production runs on **Railway**. The local `.env` still pointed at an old Render Postgres; all Render references have now been replaced with Railway (Nov 2026). Production checks run on Railway (`railway run python manage.py <command>`).
 
 ---
 
@@ -105,7 +105,7 @@ StadiSpace serves individual students and educators. There is no school-manageme
 | Automated tests | ✅ 18 (Phase 0); previously 0 |
 | Brand | Navy `#0F1F3D` + teal `#0E7490`, Cormorant Garamond + DM Sans on landing; green app icon (off-brand); 10 font families; `og-image.png` missing |
 
-Legacy/dead code (kept until you approve removal): `ai_service.py`, `mpesa_api.py` (Daraja, unused), `CanAccessQuestion`, `IsAdminOrTeacher` (no longer used for content), `UserProfile.free_quizzes_remaining`, root `data*.json`, old `*_FIXES.md`, `render.yaml`.
+Legacy/dead code (kept until you approve removal): `ai_service.py`, `mpesa_api.py` (Daraja, unused), `CanAccessQuestion`, `IsAdminOrTeacher` (no longer used for content), `UserProfile.free_quizzes_remaining`, root `data*.json`, old `*_FIXES.md`. (`render.yaml` removed.)
 
 ---
 
@@ -183,7 +183,7 @@ Later actions without re-uploading: edit details, re-categorise, switch Free ↔
 
 ### 6.3 PDF delivery and watermarking
 - Students never get the storage URL. The app asks `GET /library/resources/<id>/open/`. The backend checks published + entitlement, then streams the file or returns a link valid for a few minutes. Guessing a URL or calling the API as a free user returns **403**. This is tested like Phase 0.
-- **Watermark** applied by the backend with **PyMuPDF (already installed)**: a small "StadiSpace · stadispace.co.ke" footer on every page and a faint diagonal mark at low opacity, placed as an overlay so the original text and layout stay untouched and selectable. The branded copy is generated once per upload and cached. The original stays private.
+- **Watermark** applied by the backend with **PyMuPDF (already installed)**: a small footer on every page reading **"StadiSpace · stadispace.co.ke · 0704 699683 / 0717 946 924"** (symbol + domain + both phone numbers, as approved; 0717 946 924 is also the WhatsApp number used in the app) and a faint centred symbol at about 6% opacity, placed as an overlay so the original text and layout stay untouched and selectable. The branded copy is generated once per upload and cached. The original stays private.
 - Optional (decision D-new2): also stamp "Downloaded by <student name>" on download copies to discourage sharing.
 - On phones: in-app viewer (web: PDF.js-based page viewer sized to screen width with pinch zoom; app: native PDF view), page memory via `ResourceProgress`, download button only when allowed.
 
@@ -301,6 +301,40 @@ Rules: never edit an applied migration; `makemigrations --check` in CI; test on 
 
 ---
 
+## 12b. Play: educational games (added Nov 2026, your proposal)
+
+**What it is:** a first-class student section, next to Learn. **Learn** is serious curriculum practice (the teacher-set bank, resources, progress). **Play** is trivia, puzzles and challenges that are fun on their own. They're bridged both ways: a fractions game ends with "Practise fractions in Learn"; a science trivia round links to the matching sub-strand. Positioned as "challenge your mind", not "more quizzes".
+
+**Content:** created and managed only by you in the admin portal, like everything central. No facilitator or student uploads. Each game item can be tagged to grade / learning area / sub-strand so the Learn bridge works. Play content is its **own content system (C)**: it doesn't touch the question bank (A) or the generator (B).
+
+**Stages**
+
+| Stage | Games | Plus |
+|---|---|---|
+| **1. Launch** | Daily Trivia (5 questions/day, mixed subjects), True or False (fast rounds, misconceptions), Match It (pairs), Brain Battles (patterns, sequences, missing numbers) | XP, badges, streaks, personal bests |
+| **2. Expand** | Word games (anagrams/unscramble, spelling, word search; English and Kiswahili), Picture Quiz, Mystery Challenge (clues revealed one by one), Spot the Mistake, Sort It Out (timelines, life cycles, processes), Odd One Out, Who Am I? | Levels |
+| **3. Advanced** | Adaptive difficulty, richer puzzles, timed tournaments, optional **anonymous** competitions | Topic mastery rewards |
+
+**Rewards:** XP, badges, streaks (separate from the quiz streak, or merged: decide at build), personal bests, levels. **No public leaderboards with children's real names.** Personal progress first; any later competition is anonymous and opt-in. Badges get designed icons in the brand style, not emoji.
+
+**Free vs Premium** (configurable in admin, not hard-coded):
+
+| | Free | Premium |
+|---|---|---|
+| Daily Trivia | 1 round/day | Unlimited |
+| Brain Games | 2/day | Unlimited |
+| Word, Mystery, Match, Sort | Selected games | Full library |
+| XP, badges, streaks | Yes | Yes |
+| Progress | Basic | Detailed |
+
+Games have **their own limits**: they never count against the free daily quiz or Premium's quiz fair-use limit.
+
+**Data (additive):** `GameItem` (game type, prompt/payload JSON per type, answer, explanation, grade/subject/topic/substrand tags, difficulty, access free/premium, status), `DailyTrivia` (date → 5 items), `GamePlay` (user, game, score, time, xp), `Badge` + `UserBadge`, XP and level fields on the profile. Answers are checked **server-side**, never shipped to the browser (same rule as Phase 0).
+
+**Navigation:** the student bottom nav becomes **Home · Learn · Play · Library · Me**, with Progress reached from Home and Me (five tabs is the comfortable maximum on a phone).
+
+---
+
 ## 13. Implementation phases
 
 | Phase | Scope | Push recommendation |
@@ -310,6 +344,7 @@ Rules: never edit an applied migration; `makemigrations --check` in CI; test on 
 | **2. Question bank workflow (A)** | Status/provenance, review queue, publish, quiz ownership, sub-strand linking tool (admin confirms), admin nav merge | After admin check |
 | **3. Website + student web** | Public pages (incl. privacy/terms), student shell with bottom nav, sub-strand hub, quiz player, results, recommendations, redirects | Per slice |
 | **4. Libraries + freemium** | `Resource` model, admin upload/manage screens, watermarking, video hosting, student library + viewer/player with resume, entitlements function, 10-question cap, fair-use limit | Per slice |
+| **4b. Play, Stage 1** (§12b) | Admin game-content screens; Daily Trivia, True or False, Match It, Brain Battles; XP, badges, streaks, personal bests; free/premium game limits; Learn ↔ Play links. Stages 2–3 follow once Stage 1 is in use | Per game |
 | **5. Educator Studio (B)** | Merge `/teacher` + `/facilitator`; blueprint, regenerate/lock, dedup, diagrams, PDF/DOCX; `bench_generation` + blind review screen; then Schemes → Plans → Notes → Records | Per tool |
 | **6. Parent architecture** | Role, link + consent, summary API | Yes |
 | **7. Mobile foundation** | Expo app: auth, nav, theme, Home/Learn/Library/quiz/progress, offline queue, deep links | EAS builds |
