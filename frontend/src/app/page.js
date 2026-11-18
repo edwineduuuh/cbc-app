@@ -141,7 +141,7 @@ export default function LandingPage() {
     {
       n: "01",
       title: "Sign up. It's free.",
-      desc: "Create your account in under a minute. No card required. You get 3 free quizzes the moment you're in.",
+      desc: "Create your account in under a minute. No card required. You get a free quiz every day, from day one.",
     },
     {
       n: "02",
@@ -151,7 +151,7 @@ export default function LandingPage() {
     {
       n: "03",
       title: "Subscribe when ready.",
-      desc: "After your 3 free quizzes, unlock unlimited practice for less than the cost of a single tutor session.",
+      desc: "When you want more than one quiz a day, unlock unlimited practice for less than the cost of a single tutor session.",
     },
   ];
 
@@ -239,7 +239,7 @@ export default function LandingPage() {
                   style={{ color: "var(--text)", fontSize: 14, fontWeight: 600 }}
                   className="hover:text-teal-600 transition-colors px-4 py-2"
                 >
-                  Sign In
+                  Sign in
                 </button>
               </Link>
               <Link href="/register">
@@ -256,7 +256,7 @@ export default function LandingPage() {
                   }}
                   className="hover:opacity-90 transition-all hover:scale-[1.02]"
                 >
-                  Start Free →
+                  Get started
                 </button>
               </Link>
             </div>
@@ -318,7 +318,7 @@ export default function LandingPage() {
                         background: "transparent",
                       }}
                     >
-                      Sign In
+                      Sign in
                     </button>
                   </Link>
                   <Link href="/register">
@@ -334,7 +334,7 @@ export default function LandingPage() {
                         border: "none",
                       }}
                     >
-                      Start Free →
+                      Get started
                     </button>
                   </Link>
                 </div>
@@ -400,7 +400,7 @@ export default function LandingPage() {
                     textTransform: "uppercase",
                   }}
                 >
-                  Grade 4 - Grade 10 · Expert-Made Questions
+                  Learn · Practise · Play
                 </span>
               </motion.div>
 
@@ -417,14 +417,8 @@ export default function LandingPage() {
                   fontWeight: 700,
                 }}
               >
-                A space where
-                <br />
-                <span className="teal-text"> learning and </span>
-                {/* <br />
-                and 
-                <br /> */}
-                <em style={{ color: "var(--accent)" }}>fun </em>
-                thrive together.
+                Where focused practice builds{" "}
+                <span className="teal-text">lasting understanding.</span>
               </motion.h1>
 
               <motion.p
@@ -439,18 +433,16 @@ export default function LandingPage() {
                   maxWidth: 520,
                 }}
               >
-                Where every question becomes a quest, every answer sparks
-                momentum, and every mistake becomes a step toward mastery.{" "}
-                <strong style={{ color: "var(--text)" }}>
-                  Don't take our word for it. Try us.
-                </strong>
+                Curriculum practice for Grades 4 to 10, set by Kenyan teachers,
+                with instant marking and clear explanations. Revision resources,
+                trivia and educational games are on the way.
               </motion.p>
 
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.35 }}
-                className="flex flex-col sm:flex-row gap-3 mb-8"
+                className="flex flex-col items-start gap-4 mb-8"
               >
                 <Link href="/register">
                   <button
@@ -469,26 +461,16 @@ export default function LandingPage() {
                     }}
                     className="hover:scale-[1.02] transition-all duration-200 group"
                   >
-                    Start Free Trial - 3 Quizzes
+                    Create your free account
                     <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                   </button>
                 </Link>
-                <a href="#how-it-works">
-                  <button
-                    style={{
-                      color: "var(--text)",
-                      fontWeight: 600,
-                      fontSize: 15,
-                      padding: "15px 28px",
-                      borderRadius: 14,
-                      border: "1px solid var(--border)",
-                      background: "var(--bg-card)",
-                    }}
-                    className="hover:border-teal-300 hover:text-teal-700 transition-all"
-                  >
-                    See how it works
-                  </button>
-                </a>
+                <p style={{ color: "var(--text-muted)", fontSize: 15 }}>
+                  Already have an account?{" "}
+                  <Link href="/login" style={{ color: "var(--accent)", fontWeight: 600 }}>
+                    Sign in
+                  </Link>
+                </p>
               </motion.div>
 
               <motion.div
@@ -497,34 +479,11 @@ export default function LandingPage() {
                 transition={{ delay: 0.6 }}
                 className="flex items-center gap-4"
               >
-                <div style={{ display: "flex" }}>
-                  {["#0e7490", "#1e3a6e", "#16a34a", "#0f1f3d"].map((c, i) => (
-                    <div
-                      key={i}
-                      style={{
-                        width: 32,
-                        height: 32,
-                        borderRadius: "50%",
-                        background: c,
-                        border: "2px solid var(--border)",
-                        marginLeft: i > 0 ? -8 : 0,
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        color: "white",
-                        fontSize: 11,
-                        fontWeight: 700,
-                      }}
-                    >
-                      {["A", "B", "W", "M"][i]}
-                    </div>
-                  ))}
-                </div>
                 <p style={{ color: "var(--text-muted)", fontSize: 13 }}>
                   <span style={{ color: "var(--text)", fontWeight: 600 }}>
-                    3 free quizzes
+                    Free to start:
                   </span>{" "}
-                  to start. No card. No pressure.
+                  one quiz every day. No card needed.
                 </p>
               </motion.div>
             </div>
@@ -978,7 +937,7 @@ export default function LandingPage() {
                 marginBottom: 24,
               }}
             >
-              3 free quizzes. Sign up in seconds.
+              A free quiz every day. Sign up in seconds.
               <br />
               <em style={{ color: "rgba(255,255,255,0.75)" }}>
                 Just your child and a question.
@@ -1191,7 +1150,7 @@ export default function LandingPage() {
                 }}
                 className="hover:opacity-90 hover:scale-[1.02] transition-all"
               >
-                Start Free Trial <ArrowRight className="w-4 h-4" />
+                Create your free account <ArrowRight className="w-4 h-4" />
               </button>
             </Link>
             <p style={{ color: "var(--text-muted)", fontSize: 13, marginTop: 12 }}>
@@ -1860,7 +1819,7 @@ export default function LandingPage() {
                 margin: "0 auto 40px",
               }}
             >
-              3 free quizzes. No card. Sign up in seconds. Just a student, a
+              A free quiz every day. No card. Sign up in seconds. Just a student, a
               question, and everything that follows when they finally understand{" "}
               <em>why.</em>
             </p>
@@ -1881,12 +1840,12 @@ export default function LandingPage() {
                 }}
                 className="hover:scale-[1.03] transition-all duration-200 group"
               >
-                Start Free Trial
+                Create your free account
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </button>
             </Link>
             <p style={{ color: "var(--text)", fontSize: 13, marginTop: 16 }}>
-              3 free quizzes · M-Pesa accepted · Cancel anytime
+              Free quiz every day · M-Pesa accepted · Cancel anytime
             </p>
           </FadeIn>
         </div>
@@ -1925,7 +1884,7 @@ export default function LandingPage() {
                   ["#features", "Why StadiSpace"],
                   ["#pricing", "Pricing"],
                   ["#faq", "FAQ"],
-                  ["/register", "Start Free"],
+                  ["/register", "Get started"],
                 ],
               },
               {

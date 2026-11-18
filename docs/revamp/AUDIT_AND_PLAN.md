@@ -335,6 +335,15 @@ Games have **their own limits**: they never count against the free daily quiz or
 
 ---
 
+## 12c. Sign-up flow (agreed Nov 2026)
+
+- **Website:** market first, sign up second, sign in always visible. The homepage is never a login portal. Main action **Create your free account**; **Sign in** in the top bar and under the main button. Signed-in visitors go straight to their dashboard. *Hero done Nov 2026: "Learn · Practise · Play" / "Where focused practice builds lasting understanding."; every "3 free quizzes" claim corrected to the real one-quiz-a-day free tier; decorative avatar row removed.*
+- **Mobile app:** a welcome screen with Create an account / Sign in, skipped for signed-in users (Phase 7).
+- **Journey:** discover → see what it offers → create free account → Free Starter immediately → explore Learn / Library / Play → upgrade when they want Premium.
+- Copy only claims what exists: until the library and Play ship, the hero says they are "on the way".
+
+---
+
 ## 13. Implementation phases
 
 | Phase | Scope | Push recommendation |
@@ -347,7 +356,7 @@ Games have **their own limits**: they never count against the free daily quiz or
 | **4b. Play, Stage 1** (§12b) | Admin game-content screens; Daily Trivia, True or False, Match It, Brain Battles; XP, badges, streaks, personal bests; free/premium game limits; Learn ↔ Play links. Stages 2–3 follow once Stage 1 is in use | Per game |
 | **5. Educator Studio (B)** | Merge `/teacher` + `/facilitator`; blueprint, regenerate/lock, dedup, diagrams, PDF/DOCX; `bench_generation` + blind review screen; then Schemes → Plans → Notes → Records | Per tool |
 | **6. Parent architecture** | Role, link + consent, summary API | Yes |
-| **7. Mobile foundation** | Expo app: auth, nav, theme, Home/Learn/Library/quiz/progress, offline queue, deep links | EAS builds |
+| **7. Mobile foundation** | Expo app: **welcome screen** (logo, "Your learning space awaits.", Create an account / Sign in, "Free to get started"; skipped when already signed in → straight to Home), auth, nav, theme, Home/Learn/Play/Library/quiz/progress, offline queue, deep links | EAS builds |
 | **8. Payments sync** | `Subscription.source`, `PaymentEvent`, Apple IAP + server verification; final policy re-check | Yes |
 | **9. Test pass** | 6 widths, real Android + iPhones, sandbox purchases, accessibility | — |
 | **10. Store submission** | Listings, privacy forms, closed testing, review | — |
