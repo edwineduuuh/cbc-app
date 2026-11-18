@@ -153,8 +153,12 @@ def revive(o) -> bool:
         return False
     logger.warning("restarting assessment %s after its worker died (attempt %s)",
                    o.pk, attempts + 1)
-    _launch(o.pk, inputs.get("substrands") or ([o.substrand_id] if o.substrand_id else []),
-            inputs, o.teacher_id)
+    if o.tool != "assessment":
+        from .studio_views import launch as studio_launch
+        studio_launch(o.pk)
+    else:
+        _launch(o.pk, inputs.get("substrands") or ([o.substrand_id] if o.substrand_id else []),
+                inputs, o.teacher_id)
     return True
 
 

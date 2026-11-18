@@ -25,7 +25,9 @@ const API =
  * Calls onSelect(selection | null) where selection is
  * { grade, subjectId, subjectName, strandIds, substrandIds, substrands }.
  */
-export default function CurriculumPicker({ onSelect }) {
+// wholeSubject: report the grade and subject even with nothing ticked (a
+// scheme or record can cover the whole subject).
+export default function CurriculumPicker({ onSelect, wholeSubject = false }) {
   const [grades, setGrades] = useState([]);
   const [subjects, setSubjects] = useState([]);
   const [tree, setTree] = useState([]);
@@ -139,7 +141,7 @@ export default function CurriculumPicker({ onSelect }) {
   }, [tree, strandIds, subIds]);
 
   useEffect(() => {
-    if (!grade || !subject || chosen.length === 0) {
+    if (!grade || !subject || (chosen.length === 0 && !wholeSubject)) {
       onSelect?.(null);
       return;
     }
@@ -153,7 +155,7 @@ export default function CurriculumPicker({ onSelect }) {
     });
     // onSelect is a setter from the page; including it would loop.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [grade, subject, strandIds, subIds, chosen, subjects]);
+  }, [grade, subject, strandIds, subIds, chosen, subjects, wholeSubject]);
 
   const toggleStrand = (t) => {
     setStrandIds((cur) => {

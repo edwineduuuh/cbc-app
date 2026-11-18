@@ -5,6 +5,15 @@ import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import { fetchWithAuth } from "@/lib/api";
 import MathText from "@/components/MathText";
+import StudioDocument from "@/components/studio/StudioDocument";
+
+const STUDIO = {
+  scheme_of_work: { making: "Laying out the term from the KICD design and planning each lesson...",
+                    wait: "Usually under a minute", again: "/facilitator/schemes", noun: "scheme of work" },
+  lesson_plan: { making: "Writing the lesson plan from the sub-strand's curriculum design...",
+                 wait: "Usually under a minute", again: "/facilitator/plans", noun: "lesson plan" },
+  record_of_work: { again: "/facilitator/records", noun: "record of work" },
+};
 import {
   ArrowLeft, Bookmark, Check, Copy, Loader2, Pencil, Printer, AlertTriangle,
 } from "lucide-react";
@@ -210,8 +219,9 @@ export default function LibraryItemPage() {
 
   // Still being written. The server is doing it, not this page, so there is
   // nothing to lose by navigating away.
+  const studio = STUDIO[item.tool];
   if (item.status === "running") {
-    const stage =
+    const stage = studio ? studio.making :
       waited < 80 ? "Writing the questions and their marking schemes..."
       : waited < 110 ? "Checking every question against the sub-strand..."
       : waited < 140 ? "Replacing any question that failed the check..."
@@ -229,7 +239,7 @@ export default function LibraryItemPage() {
             {item.covers ? ` · ${item.covers}` : ""}
           </p>
           <p className="mt-4 text-xs text-gray-400">
-            About two minutes in total. You can close this page - it is being
+            {studio ? studio.wait : "About two minutes in total"}. You can close this page - it is being
             built on the server and will be waiting in My Library.
           </p>
         </div>
@@ -245,12 +255,12 @@ export default function LibraryItemPage() {
         </Link>
         <div className="bg-white rounded-2xl border border-red-200 p-8">
           <p className="flex items-center gap-2 text-sm font-semibold text-red-700">
-            <AlertTriangle className="w-4 h-4" /> This paper could not be generated
+            <AlertTriangle className="w-4 h-4" /> This {studio ? studio.noun : "paper"} could not be generated
           </p>
           {item.error && (
             <p className="mt-2 text-xs text-gray-600 font-mono break-words">{item.error}</p>
           )}
-          <Link href="/facilitator/assessments"
+          <Link href={studio ? studio.again : "/facilitator/assessments"}
                 className="mt-5 inline-flex rounded-xl bg-emerald-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-emerald-700">
             Try again
           </Link>
@@ -258,6 +268,8 @@ export default function LibraryItemPage() {
       </div>
     );
   }
+
+  if (studio) return <StudioDocument item={item} setItem={setItem} />;
 
   const p = item.payload || {};
   const questions = p.questions || [];

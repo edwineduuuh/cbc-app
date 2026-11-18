@@ -4,7 +4,7 @@ from django.conf.urls.static import static
 from django.db import connection
 from django.http import JsonResponse
 from . import views
-from . import facilitator_views
+from . import facilitator_views, studio_views
 from .diagram_views import diagram_file
 
 def health(request):
@@ -248,6 +248,9 @@ path('admin/motivational/<int:pk>/', views.MotivationalContentAdminDetailView.as
 path('facilitator/curriculum/', facilitator_views.curriculum_tree, name='facilitator-curriculum'),
 path('facilitator/assessments/generate/', facilitator_views.generate_assessment_view, name='facilitator-generate-assessment'),
 path('facilitator/library/', facilitator_views.my_library, name='facilitator-library'),
+    path('facilitator/schemes/generate/', studio_views.generate_scheme, name='facilitator-generate-scheme'),
+    path('facilitator/plans/generate/', studio_views.generate_plan, name='facilitator-generate-plan'),
+    path('facilitator/records/', studio_views.create_record, name='facilitator-create-record'),
 path('facilitator/library/<int:pk>/', facilitator_views.library_item, name='facilitator-library-item'),
 
     # Public on purpose - an <img> cannot carry a token. See diagram_views.

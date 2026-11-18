@@ -23,21 +23,18 @@ const TOOLS = [
     icon: CalendarDays,
     title: "Schemes of Work",
     blurb: "Plan a term week by week from the curriculum design.",
-    soon: true,
   },
   {
     href: "/facilitator/plans",
     icon: FileText,
     title: "Lesson Plans",
     blurb: "Plan a lesson from a strand and sub-strand, ready to teach from.",
-    soon: true,
   },
   {
     href: "/facilitator/records",
     icon: NotebookPen,
     title: "Records of Work",
     blurb: "Log the lessons you taught each week, from your scheme or from scratch.",
-    soon: true,
   },
   {
     href: "/facilitator/library",
