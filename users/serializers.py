@@ -134,8 +134,8 @@ class RegisterSerializer(serializers.ModelSerializer):
             parent_phone=validated_data.get('parent_phone', ''),
             parent_email=validated_data.get('parent_email', ''),
             school_name=validated_data.get('school_name', ''),
-            # Students activate by verifying their email; facilitators wait
-            # for an administrator even after verifying.
+            # Everyone activates by verifying their email (facilitators also
+            # need approval only if FACILITATOR_REQUIRES_APPROVAL is on).
             status=User.STATUS_PENDING,
         )
 

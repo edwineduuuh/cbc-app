@@ -125,6 +125,12 @@ export function AuthProvider({ children }) {
   const redirectByRole = (userData) => {
     if (!userData) return "/login";
 
+    const isStaff = userData.is_superuser || userData.is_staff ||
+      ["admin", "superadmin", "super_admin"].includes(userData.role);
+    if (!isStaff && userData.status && userData.status !== "active") {
+      return "/account-status";
+    }
+
     if (userData.role === "teacher") {
       return "/facilitator";
     }
@@ -170,6 +176,21 @@ export function AuthProvider({ children }) {
     }
   };
 
+  // Finish any sign-in that ended with StadiSpace tokens (Google, Microsoft).
+  const completeSignIn = async ({ access, refresh }) => {
+    localStorage.setItem("accessToken", access);
+    localStorage.setItem("refreshToken", refresh);
+    const userData = await getCurrentUser(access);
+    const quotaInfo = await fetchQuotaInfo(access);
+    const fullUser = { ...userData, ...quotaInfo };
+    setUser(fullUser);
+    localStorage.setItem("user", JSON.stringify(fullUser));
+    // A new learner from Google/Microsoft has no grade yet - /welcome asks.
+    const path = redirectByRole(fullUser);
+    router.replace(path === "/dashboard" && !fullUser.grade ? "/welcome" : path);
+    return fullUser;
+  };
+
   const register = async (userData) => {
     try {
       const data = await registerAPI(userData);
@@ -180,8 +201,11 @@ export function AuthProvider({ children }) {
       const fullUser = await getCurrentUser(data.tokens.access);
       setUser(fullUser);
 
-      // Students go to /welcome to complete their profile; other roles go to their dashboard
-      if (!fullUser.role || fullUser.role === "student") {
+      localStorage.setItem("user", JSON.stringify(fullUser));
+      // New email accounts must verify first; everyone else to their home.
+      if (fullUser.status && fullUser.status !== "active") {
+        router.replace("/account-status");
+      } else if (!fullUser.role || fullUser.role === "student") {
         router.replace("/welcome");
       } else {
         router.replace(redirectByRole(fullUser));
@@ -206,6 +230,7 @@ export function AuthProvider({ children }) {
     user,
     loading,
     login,
+    completeSignIn,
     register,
     logout,
   };

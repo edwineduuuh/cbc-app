@@ -27,6 +27,8 @@ from django.http import HttpResponseBadRequest
 
 User = get_user_model()
 
+from users.auth import facilitator_requires_approval
+
 SIGNUP_ROLES = (User.ROLE_STUDENT, User.ROLE_TEACHER)
 
 
@@ -89,7 +91,9 @@ class CustomSocialAccountAdapter(DefaultSocialAccountAdapter):
 
         user.role = _requested_role(request)
         user.email_verified = _provider_verified_email(sociallogin)
-        if user.role == User.ROLE_TEACHER:
+        # Verified email = in. Facilitators wait for a human only when the
+        # FACILITATOR_REQUIRES_APPROVAL setting is switched on.
+        if user.role == User.ROLE_TEACHER and facilitator_requires_approval():
             user.status = User.STATUS_PENDING
         else:
             user.status = User.STATUS_ACTIVE if user.email_verified else User.STATUS_PENDING

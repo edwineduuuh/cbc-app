@@ -500,9 +500,11 @@ def verify_email(request):
         return Response({'error': 'Verification link expired or invalid'}, status=400)
     user.email_verified = True
     user.save(update_fields=['email_verified'])
-    # A student is activated by verifying; a facilitator still waits for an
-    # administrator.
-    if user.role == User.ROLE_STUDENT and user.status == User.STATUS_PENDING:
+    # Verifying activates the account. A facilitator keeps waiting only when
+    # manual approval is switched on.
+    from users.auth import facilitator_requires_approval
+    needs_approval = user.role == User.ROLE_TEACHER and facilitator_requires_approval()
+    if user.status == User.STATUS_PENDING and not needs_approval:
         user.set_status(User.STATUS_ACTIVE, reason='email verified')
     return Response({'message': 'Email verified successfully', 'status': user.status})
 

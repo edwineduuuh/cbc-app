@@ -48,11 +48,19 @@ INACTIVE_ALLOWED_PATHS = (
 )
 
 
+def facilitator_requires_approval():
+    """Off by default: a facilitator who verifies their email is let in, and an
+    admin only steps in to suspend. Set FACILITATOR_REQUIRES_APPROVAL=true on
+    Railway to make every new facilitator wait for approval instead."""
+    from django.conf import settings
+    return bool(getattr(settings, "FACILITATOR_REQUIRES_APPROVAL", False))
+
+
 def account_block_payload(user):
     """The 403 body the frontend turns into the right screen."""
     if user.status == user.STATUS_PENDING:
         reason = ("awaiting_verification"
-                  if user.role == user.ROLE_STUDENT and not user.email_verified
+                  if not user.email_verified
                   else "awaiting_approval")
     else:
         reason = user.status            # "suspended" or "rejected"

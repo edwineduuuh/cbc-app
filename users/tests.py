@@ -14,6 +14,7 @@ from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
 from allauth.socialaccount.providers.microsoft.views import MicrosoftGraphOAuth2Adapter
 from django.contrib.auth.tokens import default_token_generator
 from django.core.cache import cache
+from django.test import override_settings
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
 from rest_framework.test import APIClient, APITestCase
@@ -70,6 +71,16 @@ class EmailRegistration(Base):
         self.assertEqual(u.status, "active")
         self.assertEqual(client_for(u).get("/api/attempts/").status_code, 200)
 
+    @mock.patch("users.views._send_verification_email")
+    def test_facilitator_is_active_after_verification(self, _send):
+        register("teacher", email="fa@example.invalid")
+        u = User.objects.get(email="fa@example.invalid")
+        self.assertEqual(client_for(u).get("/api/facilitator/library/").json()["reason"], "awaiting_verification")
+        verify(u)
+        u.refresh_from_db()
+        self.assertEqual((u.role, u.status), ("teacher", "active"))
+
+    @override_settings(FACILITATOR_REQUIRES_APPROVAL=True)
     @mock.patch("users.views._send_verification_email")
     def test_facilitator_stays_pending_after_verification(self, _send):
         register("teacher", email="f@example.invalid")
@@ -239,7 +250,13 @@ class SocialSignIn(Base):
         self.assertTrue(SocialAccount.objects.filter(user=u, provider="google", uid="g-123").exists())
         self.assertEqual(r.json()["user"]["status"], "active")
 
-    def test_google_facilitator_signup_waits_for_approval(self):
+    def test_google_facilitator_signup_is_active(self):
+        self.google(self.GOOGLE, role="facilitator")
+        u = User.objects.get(email="jane@gmail.example")
+        self.assertEqual((u.role, u.status), ("teacher", "active"))
+
+    @override_settings(FACILITATOR_REQUIRES_APPROVAL=True)
+    def test_google_facilitator_signup_waits_when_approval_is_on(self):
         self.google(self.GOOGLE, role="facilitator")
         u = User.objects.get(email="jane@gmail.example")
         self.assertEqual((u.role, u.status), ("teacher", "pending"))

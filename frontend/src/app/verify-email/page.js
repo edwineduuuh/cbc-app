@@ -36,9 +36,15 @@ function VerifyEmailPage() {
           // Update cached user so banner disappears without a full reload
           try {
             const cached = JSON.parse(localStorage.getItem("user") || "{}");
-            localStorage.setItem("user", JSON.stringify({ ...cached, email_verified: true }));
+            localStorage.setItem("user", JSON.stringify({ ...cached, email_verified: true, status: data.status || cached.status }));
           } catch (_) {}
-          setTimeout(() => router.replace("/dashboard"), 2500);
+          // Hard navigation so the app reloads with the now-active account;
+          // the dashboard sends facilitators on to /facilitator.
+          setTimeout(() => {
+            window.location.href = localStorage.getItem("accessToken")
+              ? (data.status === "active" ? "/dashboard" : "/account-status")
+              : "/login";
+          }, 2500);
         } else {
           setStatus("error");
           setMessage(data.error || "Verification failed.");

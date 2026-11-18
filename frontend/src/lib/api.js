@@ -37,7 +37,40 @@ export async function login(credentials) {
   const data = await resposne.json();
 
   if (!resposne.ok) {
-    throw new Error(data.error || "Login failed!");
+    throw new Error(accountBlockMessage(data) || data.error || "Login failed!");
+  }
+  return data;
+}
+
+// The backend answers a suspended/rejected/pending account with
+// {code: "account_inactive", reason}. Turn that into words a person can act on.
+export function accountBlockMessage(data) {
+  if (!data || data.code !== "account_inactive") return null;
+  return {
+    suspended: "This account has been suspended. Contact StadiSpace on 0704 699683 if you think this is a mistake.",
+    rejected: "This account was not approved. Contact StadiSpace on 0704 699683 for help.",
+    awaiting_verification: "Check your inbox and click the link we sent to verify your email.",
+    awaiting_approval: "Your facilitator account is waiting for approval.",
+  }[data.reason] || data.detail;
+}
+
+// Exchange a Google/Microsoft access token for StadiSpace tokens. `role` only
+// matters the first time (sign-up); for an existing account it is ignored.
+export async function socialLogin(provider, accessToken, role) {
+  const response = await fetch(`${API_URL}/auth/${provider}/`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ access_token: accessToken, ...(role ? { role } : {}) }),
+  });
+  let data = {};
+  try { data = await response.json(); } catch {}
+  if (!response.ok) {
+    if (data.code === "email_exists") {
+      throw new Error("An account with this email already exists. Sign in with your email and password instead.");
+    }
+    throw new Error(accountBlockMessage(data) || data.error || data.detail ||
+      (data.non_field_errors && data.non_field_errors[0]) ||
+      `${provider === "google" ? "Google" : "Microsoft"} sign-in failed. Try again.`);
   }
   return data;
 }
@@ -124,6 +157,19 @@ export async function fetchWithAuth(url, options = {}) {
       window.location.href = "/login";
       throw new Error("Session expired. Please log in again.");
     }
+  }
+
+  // An account that is not active (unverified, suspended…) is refused
+  // everywhere but its own profile - send the person to the screen that
+  // explains why, instead of leaving a page half-loaded.
+  if (response.status === 403) {
+    try {
+      const body = await response.clone().json();
+      if (body && body.code === "account_inactive" &&
+          !window.location.pathname.startsWith("/account-status")) {
+        window.location.href = `/account-status?reason=${encodeURIComponent(body.reason || "")}`;
+      }
+    } catch {}
   }
 
   return response;

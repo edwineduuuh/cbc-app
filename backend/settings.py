@@ -392,3 +392,7 @@ JAZZMIN_UI_TWEAKS = {
     "sidebar_nav_flat_style": True,
     "actions_sticky_top": True,
 }
+
+# New facilitators get in as soon as they verify their email. Switch this on to
+# make each one wait for an admin to approve them instead.
+FACILITATOR_REQUIRES_APPROVAL = os.environ.get('FACILITATOR_REQUIRES_APPROVAL', 'false').lower() == 'true'

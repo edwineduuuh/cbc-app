@@ -8,6 +8,7 @@ import Logo from "@/components/brand/Logo";
 import Toast from "@/components/ui/Toast";
 import { ArrowRight, Eye, EyeOff, CheckCircle } from "lucide-react";
 import { Suspense } from "react";
+import SocialLoginButtons, { OrDivider } from "@/components/SocialLoginButtons";
 
 function RegisterPage() {
   const searchParams = useSearchParams();
@@ -245,6 +246,16 @@ function RegisterPage() {
                         );
                       })}
                     </div>
+                  </div>
+
+                  {/* Fastest path: one tap with Google or Microsoft, carrying
+                      the role chosen above. Email sign-up continues below. */}
+                  <div>
+                    <SocialLoginButtons
+                      role={formData.role}
+                      onError={(m) => { setToastMessage(m); setShowToast(true); setTimeout(() => setShowToast(false), 6000); }}
+                    />
+                    <OrDivider label="OR SIGN UP WITH EMAIL" />
                   </div>
 
                   {/* First Name */}

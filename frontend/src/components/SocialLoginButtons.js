@@ -1,185 +1,152 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import { useAuth } from "@/contexts/AuthContext";
-import Button from "@/components/ui/Button";
-import { FcGoogle } from "react-icons/fc";
-import { FaMicrosoft } from "react-icons/fa";
+import { socialLogin } from "@/lib/api";
 
-const API = process.env.NEXT_PUBLIC_API_URL || "https://cbc-backend-production-0fd4.up.railway.app/api";
+// Provider pop-ups. Each returns an access token to /auth/<provider>/callback,
+// which posts it back to this window; the backend swaps it for our own tokens.
+const PROVIDERS = {
+  google: {
+    label: "Google",
+    message: "google-oauth-success",
+    url: (origin) =>
+      `https://accounts.google.com/o/oauth2/v2/auth?${new URLSearchParams({
+        client_id: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || "",
+        redirect_uri: `${origin}/auth/google/callback`,
+        response_type: "token",
+        scope: "openid email profile",
+        prompt: "select_account",
+      })}`,
+  },
+  microsoft: {
+    label: "Microsoft",
+    message: "microsoft-oauth-success",
+    url: (origin) =>
+      `https://login.microsoftonline.com/common/oauth2/v2.0/authorize?${new URLSearchParams({
+        client_id: process.env.NEXT_PUBLIC_MICROSOFT_CLIENT_ID || "",
+        redirect_uri: `${origin}/auth/microsoft/callback`,
+        response_type: "token",
+        scope: "openid email profile User.Read",
+        prompt: "select_account",
+      })}`,
+  },
+};
 
-export default function SocialLoginButtons() {
-  const router = useRouter();
-  const { login } = useAuth();
-  const [loading, setLoading] = useState(false);
+function GoogleMark() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 48 48" aria-hidden="true">
+      <path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.7 29.2 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.4-.4-3.5z" />
+      <path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z" />
+      <path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.3-11.3-8l-6.5 5C9.5 39.6 16.2 44 24 44z" />
+      <path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.2-2.2 4.2-4.1 5.6l6.2 5.2C37 39.2 44 34 44 24c0-1.3-.1-2.4-.4-3.5z" />
+    </svg>
+  );
+}
+
+function MicrosoftMark() {
+  return (
+    <svg width="17" height="17" viewBox="0 0 21 21" aria-hidden="true">
+      <rect x="1" y="1" width="9" height="9" fill="#F25022" />
+      <rect x="11" y="1" width="9" height="9" fill="#7FBA00" />
+      <rect x="1" y="11" width="9" height="9" fill="#00A4EF" />
+      <rect x="11" y="11" width="9" height="9" fill="#FFB900" />
+    </svg>
+  );
+}
+
+export const socialButtonCls =
+  "w-full flex items-center justify-center gap-3 rounded-xl px-4 py-3.5 text-[15px] font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed";
+export const socialButtonStyle = { background: "#1B2C43", color: "#F5F7FA", border: "1px solid #24384F" };
+
+/**
+ * role: "student" | "teacher" - sent on sign-up so a new account gets the
+ * right role. Leave empty on the sign-in page (existing accounts keep theirs;
+ * a brand-new one defaults to learner).
+ */
+export default function SocialLoginButtons({ role = "", onError }) {
+  const { completeSignIn } = useAuth();
+  const [busy, setBusy] = useState("");
   const [error, setError] = useState("");
 
-  const handleGoogleLogin = async () => {
-    setLoading(true);
-    setError("");
-
-    try {
-      // Open Google OAuth popup
-      const width = 500;
-      const height = 600;
-      const left = window.screen.width / 2 - width / 2;
-      const top = window.screen.height / 2 - height / 2;
-
-      const popup = window.open(
-        `https://accounts.google.com/o/oauth2/v2/auth?${new URLSearchParams({
-          client_id: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
-          redirect_uri: `${window.location.origin}/auth/google/callback`,
-          response_type: "token",
-          scope: "openid email profile",
-        })}`,
-        "Google Login",
-        `width=${width},height=${height},top=${top},left=${left}`,
-      );
-
-      // Listen for OAuth callback
-      window.addEventListener("message", async (event) => {
-        if (event.origin !== window.location.origin) return;
-
-        if (event.data.type === "google-oauth-success") {
-          const { access_token } = event.data;
-          popup?.close();
-
-          // Send token to backend
-          const response = await fetch(`${API}/auth/google/`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ access_token }),
-          });
-
-          const data = await response.json();
-
-          if (response.ok) {
-            // Store tokens
-            localStorage.setItem("accessToken", data.access);
-            localStorage.setItem("refreshToken", data.refresh);
-
-            // Login user
-            login(data.user);
-
-            // Redirect based on role
-            if (data.user.role === "student") {
-              router.push("/dashboard");
-            } else {
-              router.push("/admin");
-            }
-          } else {
-            setError(data.error || "Google login failed");
-          }
-        }
-      });
-    } catch (err) {
-      console.error("Google login error:", err);
-      setError("Failed to login with Google");
-    } finally {
-      setLoading(false);
-    }
+  const fail = (msg) => {
+    setError(msg);
+    onError?.(msg);
+    setBusy("");
   };
 
-  const handleMicrosoftLogin = async () => {
-    setLoading(true);
+  const start = (key) => {
+    const p = PROVIDERS[key];
     setError("");
+    setBusy(key);
 
-    try {
-      const width = 500;
-      const height = 600;
-      const left = window.screen.width / 2 - width / 2;
-      const top = window.screen.height / 2 - height / 2;
+    const w = 500, h = 640;
+    const left = window.screenX + (window.outerWidth - w) / 2;
+    const top = window.screenY + (window.outerHeight - h) / 2;
+    const popup = window.open(
+      p.url(window.location.origin),
+      `${key}-signin`,
+      `width=${w},height=${h},left=${left},top=${top}`,
+    );
+    if (!popup) return fail("Your browser blocked the sign-in window. Allow pop-ups for this site and try again.");
 
-      const popup = window.open(
-        `https://login.microsoftonline.com/common/oauth2/v2.0/authorize?${new URLSearchParams(
-          {
-            client_id: process.env.NEXT_PUBLIC_MICROSOFT_CLIENT_ID,
-            redirect_uri: `${window.location.origin}/auth/microsoft/callback`,
-            response_type: "token",
-            scope: "openid email profile User.Read",
-          },
-        )}`,
-        "Microsoft Login",
-        `width=${width},height=${height},top=${top},left=${left}`,
-      );
-
-      window.addEventListener("message", async (event) => {
-        if (event.origin !== window.location.origin) return;
-
-        if (event.data.type === "microsoft-oauth-success") {
-          const { access_token } = event.data;
-          popup?.close();
-
-          const response = await fetch(`${API}/auth/microsoft/`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ access_token }),
-          });
-
-          const data = await response.json();
-
-          if (response.ok) {
-            localStorage.setItem("accessToken", data.access);
-            localStorage.setItem("refreshToken", data.refresh);
-            login(data.user);
-
-            if (data.user.role === "student") {
-              router.push("/dashboard");
-            } else {
-              router.push("/admin");
-            }
-          } else {
-            setError(data.error || "Microsoft login failed");
-          }
-        }
-      });
-    } catch (err) {
-      console.error("Microsoft login error:", err);
-      setError("Failed to login with Microsoft");
-    } finally {
-      setLoading(false);
-    }
+    let done = false;
+    const cleanup = () => {
+      done = true;
+      window.removeEventListener("message", onMessage);
+      clearInterval(watch);
+    };
+    const onMessage = async (event) => {
+      if (event.origin !== window.location.origin || event.data?.type !== p.message) return;
+      cleanup();
+      try { popup.close(); } catch {}
+      try {
+        const data = await socialLogin(key, event.data.access_token, role);
+        await completeSignIn(data.tokens || { access: data.access, refresh: data.refresh });
+      } catch (e) {
+        fail(e.message);
+      }
+    };
+    // The person closed the pop-up without finishing.
+    const watch = setInterval(() => {
+      if (!done && popup.closed) {
+        cleanup();
+        setBusy("");
+      }
+    }, 600);
+    window.addEventListener("message", onMessage);
   };
 
   return (
     <div className="space-y-3">
-      {error && (
-        <div className="p-3 bg-red-50 border border-red-200 rounded-lg text-sm text-red-800">
+      <button type="button" onClick={() => start("google")} disabled={!!busy}
+        className={socialButtonCls} style={socialButtonStyle}>
+        {busy === "google" ? <Spinner /> : <GoogleMark />} Continue with Google
+      </button>
+      <button type="button" onClick={() => start("microsoft")} disabled={!!busy}
+        className={socialButtonCls} style={socialButtonStyle}>
+        {busy === "microsoft" ? <Spinner /> : <MicrosoftMark />} Continue with Microsoft
+      </button>
+      {error && !onError && (
+        <p role="alert" className="text-sm rounded-xl px-4 py-3"
+          style={{ color: "#F7A1A7", background: "rgba(240,113,120,0.10)", border: "1px solid rgba(240,113,120,0.35)" }}>
           {error}
-        </div>
+        </p>
       )}
+    </div>
+  );
+}
 
-      <button
-        onClick={handleGoogleLogin}
-        disabled={loading}
-        className="w-full flex items-center justify-center gap-3 px-4 py-3 border-2 border-gray-300 rounded-xl hover:bg-gray-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-      >
-        <FcGoogle className="w-5 h-5" />
-        <span className="font-medium text-gray-700">Continue with Google</span>
-      </button>
+function Spinner() {
+  return <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />;
+}
 
-      <button
-        onClick={handleMicrosoftLogin}
-        disabled={loading}
-        className="w-full flex items-center justify-center gap-3 px-4 py-3 border-2 border-gray-300 rounded-xl hover:bg-gray-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-      >
-        <FaMicrosoft className="w-5 h-5 text-blue-600" />
-        <span className="font-medium text-gray-700">
-          Continue with Microsoft
-        </span>
-      </button>
-
-      <div className="relative my-6">
-        <div className="absolute inset-0 flex items-center">
-          <div className="w-full border-t border-gray-300"></div>
-        </div>
-        <div className="relative flex justify-center text-sm">
-          <span className="px-4 bg-white text-gray-500">
-            Or continue with email
-          </span>
-        </div>
-      </div>
+export function OrDivider({ label = "OR" }) {
+  return (
+    <div className="flex items-center gap-3 my-5" aria-hidden="true">
+      <span className="flex-1 h-px" style={{ background: "#24384F" }} />
+      <span className="text-xs tracking-widest" style={{ color: "#A9B9CC" }}>{label}</span>
+      <span className="flex-1 h-px" style={{ background: "#24384F" }} />
     </div>
   );
 }

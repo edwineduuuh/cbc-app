@@ -25,6 +25,7 @@ import {
   CalendarDays, FileText, NotebookPen, LayoutDashboard,
   FileQuestion, ListChecks, ScrollText, BookText, Network, Upload,
   Quote, PanelLeftClose, PanelLeftOpen, UserCircle,
+  UserCog,
 } from "lucide-react";
 
 const ADMIN_ROLES = ["admin", "superadmin"];
@@ -72,6 +73,7 @@ const NAV = {
       { items: [
         { href: "/admin", label: "Overview", icon: LayoutDashboard, exact: true },
         { href: "/admin/analytics", label: "Analytics", icon: BarChart3 },
+        { href: "/admin/accounts", label: "Accounts", icon: UserCog },
       ]},
       { title: "Question bank", items: [
         { href: "/admin/questions", label: "Questions", icon: FileQuestion },
@@ -93,7 +95,7 @@ const NAV = {
 function isChromeless(pathname) {
   return (
     pathname === "/" ||
-    ["/login", "/register", "/forgot-password", "/reset-password", "/verify-email", "/welcome"]
+    ["/login", "/register", "/forgot-password", "/reset-password", "/verify-email", "/welcome", "/account-status"]
       .some((p) => pathname === p || pathname.startsWith(p + "/")) ||
     pathname.startsWith("/auth/") ||
     pathname.startsWith("/quizzes/") ||
