@@ -99,7 +99,7 @@ def _is_facilitator(user):
 # A paper takes about two minutes. Past this, the container was redeployed or
 # restarted mid-generation and the thread went with it - the row would say
 # "generating" forever, so it is reported as failed instead.
-STALE_AFTER = timedelta(minutes=10)
+STALE_AFTER = timedelta(minutes=20)   # hard cap, resumes included
 
 
 # A running job touches updated_at every HEARTBEAT seconds. No touch for
@@ -109,13 +109,64 @@ HEARTBEAT = 20
 DEAD_AFTER = timedelta(seconds=90)
 
 
+MAX_ATTEMPTS = 3
+
+
 def _status_of(o: GeneratedOutput) -> str:
     if o.status == GeneratedOutput.STATUS_RUNNING:
-        now = timezone.now()
-        if now - o.created_at > STALE_AFTER or (
-                o.updated_at and now - o.updated_at > DEAD_AFTER):
+        if timezone.now() - o.created_at > STALE_AFTER:
+            return GeneratedOutput.STATUS_FAILED
+        if _is_dead(o) and (o.inputs or {}).get("_attempts", 1) >= MAX_ATTEMPTS:
             return GeneratedOutput.STATUS_FAILED
     return o.status
+
+
+def _is_dead(o) -> bool:
+    return bool(o.status == GeneratedOutput.STATUS_RUNNING and o.updated_at
+                and timezone.now() - o.updated_at > DEAD_AFTER)
+
+
+def _launch(output_id, substrand_ids, inputs, user_id):
+    threading.Thread(
+        target=_build_assessment,
+        args=(output_id, substrand_ids, inputs, user_id),
+        daemon=True,
+        name=f"assessment-{output_id}",
+    ).start()
+
+
+def revive(o) -> bool:
+    """Start a paper again if the worker writing it died (a deploy or a
+    restart). Claimed with a conditional update, so when several workers
+    notice at once only one of them restarts it. Returns True if restarted."""
+    if not _is_dead(o):
+        return False
+    inputs = dict(o.inputs or {})
+    attempts = inputs.get("_attempts", 1)
+    if attempts >= MAX_ATTEMPTS:
+        return False
+    inputs["_attempts"] = attempts + 1
+    claimed = GeneratedOutput.objects.filter(
+        pk=o.pk, status=GeneratedOutput.STATUS_RUNNING, updated_at=o.updated_at,
+    ).update(updated_at=timezone.now(), inputs=inputs)
+    if not claimed:
+        return False
+    logger.warning("restarting assessment %s after its worker died (attempt %s)",
+                   o.pk, attempts + 1)
+    _launch(o.pk, inputs.get("substrands") or ([o.substrand_id] if o.substrand_id else []),
+            inputs, o.teacher_id)
+    return True
+
+
+def revive_dead_jobs():
+    """Pick up every paper whose worker died. Run by the watchdog."""
+    cutoff = timezone.now() - DEAD_AFTER
+    for o in GeneratedOutput.objects.filter(status=GeneratedOutput.STATUS_RUNNING,
+                                            updated_at__lt=cutoff):
+        try:
+            revive(o)
+        except Exception:
+            logger.exception("could not restart assessment %s", o.pk)
 
 
 def _heartbeat(output_id, stop):
@@ -307,12 +358,7 @@ def generate_assessment_view(request):
     # the browser reported "Failed to fetch" for a paper that had actually
     # been written. Nothing now depends on the connection staying up - the
     # facilitator can close the tab and the paper still lands in My Library.
-    threading.Thread(
-        target=_build_assessment,
-        args=(out.id, [s.id for s in chosen], inputs, request.user.id),
-        daemon=True,
-        name=f"assessment-{out.id}",
-    ).start()
+    _launch(out.id, [s.id for s in chosen], inputs, request.user.id)
 
     return Response({"id": out.id, **_summarise(out)},
                     status=status.HTTP_202_ACCEPTED)
@@ -334,18 +380,27 @@ def _build_assessment(output_id, substrand_ids, inputs, user_id):
             key=lambda s: order.get(s.id, 0))
         user = get_user_model().objects.filter(pk=user_id).first()
 
-        payload = generate_assessment(
-            subs,
-            count=inputs["count"],
-            description=inputs["description"],
-            mcq_ratio=inputs["mcq_ratio"],
-            user=user,
-            diagrams=inputs["diagrams"],
-            # Hand the paper over as soon as it is written. A drawn picture
-            # takes most of a minute, and nobody should watch a spinner with
-            # a finished paper behind it.
-            defer_images=True,
-        )
+        def build():
+            return generate_assessment(
+                subs,
+                count=inputs["count"],
+                description=inputs["description"],
+                mcq_ratio=inputs["mcq_ratio"],
+                user=user,
+                diagrams=inputs["diagrams"],
+                # Hand the paper over as soon as it is written. A drawn
+                # picture takes most of a minute, and nobody should watch a
+                # spinner with a finished paper behind it.
+                defer_images=True,
+            )
+
+        try:
+            payload = build()
+        except Exception as first:
+            # Providers have bad seconds (rate limits, timeouts, overload).
+            # One more try costs a minute; a failed paper costs a facilitator.
+            logger.warning("assessment %s failed once (%s); trying again", output_id, first)
+            payload = build()
         GeneratedOutput.objects.filter(pk=output_id).update(
             payload=payload,
             title=(payload.get("title") or "").strip()[:200] or "Assessment",
@@ -401,6 +456,8 @@ def library_item(request, pk):
     out = get_object_or_404(GeneratedOutput, pk=pk, teacher=request.user)
 
     if request.method == "GET":
+        if revive(out):
+            out.refresh_from_db()
         return Response({**_summarise(out), "payload": out.payload,
                          "inputs": out.inputs})
 
