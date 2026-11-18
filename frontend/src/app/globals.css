@@ -317,6 +317,12 @@ html.dark .text-slate-600, html.dark .text-slate-500 { color: var(--dk-text-3) !
 
 /* light tints used as panel backgrounds */
 html.dark .bg-teal-50, html.dark .bg-cyan-50, html.dark .bg-emerald-50 { background-color: rgba(32,184,166,0.10) !important; }
+/* Opacity variants (bg-emerald-50/60 etc.) are separate class names and were
+   left as pale light boxes with faded text. */
+html.dark [class*="bg-emerald-50/"], html.dark [class*="bg-teal-50/"], html.dark [class*="bg-cyan-50/"] { background-color: rgba(32,184,166,0.10) !important; }
+html.dark [class*="bg-amber-50/"], html.dark [class*="bg-yellow-50/"] { background-color: rgba(232,182,91,0.10) !important; }
+html.dark [class*="bg-red-50/"], html.dark [class*="bg-rose-50/"] { background-color: rgba(240,113,120,0.10) !important; }
+html.dark [class*="bg-gray-50/"], html.dark [class*="bg-slate-50/"] { background-color: var(--bg-secondary) !important; }
 html.dark .bg-blue-50, html.dark .bg-indigo-50, html.dark .bg-sky-50 { background-color: rgba(77,141,218,0.10) !important; }
 html.dark .bg-amber-50, html.dark .bg-yellow-50 { background-color: rgba(232,182,91,0.10) !important; }
 html.dark .bg-red-50, html.dark .bg-rose-50 { background-color: rgba(240,113,120,0.10) !important; }
