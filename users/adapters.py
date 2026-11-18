@@ -58,13 +58,32 @@ class CustomSocialAccountAdapter(DefaultSocialAccountAdapter):
         if sociallogin.is_existing:
             return
         email = (sociallogin.user.email or "").strip().lower()
-        if email and User.objects.filter(email__iexact=email).exists():
+        existing = User.objects.filter(email__iexact=email).first() if email else None
+        if existing and _provider_verified_email(sociallogin):
+            # Google has confirmed this person owns the email, so this is the
+            # same person: attach Google to their account and sign them in.
+            # (Done by hand rather than allauth's auto-connect, which would
+            # wipe the password of every account whose email we never
+            # verified - i.e. lock most learners out of email sign-in.)
+            sociallogin.user = existing
+            sociallogin.save(request, connect=True)
+            changed = []
+            if not existing.email_verified:
+                existing.email_verified = True
+                changed.append("email_verified")
+            if changed:
+                existing.save(update_fields=changed)
+            from users.auth import facilitator_requires_approval
+            needs_approval = existing.role == User.ROLE_TEACHER and facilitator_requires_approval()
+            if existing.status == User.STATUS_PENDING and not needs_approval:
+                existing.set_status(User.STATUS_ACTIVE, reason="email confirmed by Google")
+            return
+        if existing:
             raise ImmediateHttpResponse(HttpResponseBadRequest(
                 json.dumps({
                     "code": "email_exists",
                     "detail": "This email already has a StadiSpace account. Sign in "
-                              "the way you usually do; you can link this sign-in "
-                              "method from Settings afterwards.",
+                              "with your email and password instead.",
                 }),
                 content_type="application/json",
             ))

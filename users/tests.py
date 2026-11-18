@@ -282,9 +282,20 @@ class SocialSignIn(Base):
         self.assertEqual(u.role, "teacher")
         self.assertEqual(User.objects.filter(email="jane@gmail.example").count(), 1)
 
-    def test_no_silent_linking_to_an_existing_email(self):
-        victim = User.objects.create_user("victim", "jane@gmail.example", PW, role="admin")
+    def test_google_verified_email_signs_into_existing_account(self):
+        u = User.objects.create_user("jane", "jane@gmail.example", PW, role="student")
         r = self.google(self.GOOGLE)
+        self.assertEqual(r.status_code, 200, r.content)
+        self.assertEqual(r.json()["user"]["id"], u.id)
+        self.assertTrue(SocialAccount.objects.filter(user=u, provider="google").exists())
+        self.assertEqual(User.objects.filter(email__iexact="jane@gmail.example").count(), 1)
+        u.refresh_from_db()
+        self.assertTrue(u.email_verified)
+        self.assertTrue(u.check_password(PW))       # email sign-in still works
+
+    def test_unverified_provider_email_is_not_linked(self):
+        victim = User.objects.create_user("victim", "jane@gmail.example", PW, role="admin")
+        r = self.google({**self.GOOGLE, "email_verified": False})
         self.assertEqual(r.status_code, 400)
         self.assertNotIn("access", r.json())
         self.assertFalse(SocialAccount.objects.filter(user=victim).exists())

@@ -65,6 +65,11 @@ export async function socialLogin(provider, accessToken, role) {
   let data = {};
   try { data = await response.json(); } catch {}
   if (!response.ok) {
+    // allauth's refusal arrives wrapped as text inside non_field_errors.
+    const wrapped = data.non_field_errors && data.non_field_errors[0];
+    if (typeof wrapped === "string" && wrapped.trim().startsWith("{")) {
+      try { data = { ...data, ...JSON.parse(wrapped), non_field_errors: undefined }; } catch {}
+    }
     if (data.code === "email_exists") {
       throw new Error("An account with this email already exists. Sign in with your email and password instead.");
     }
