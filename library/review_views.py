@@ -15,7 +15,7 @@ from rest_framework.response import Response
 from questions.models import Substrand
 from questions.permissions import IsAdminUser
 
-from .extraction import CONFIDENT, FLAG_TEXT, start_extraction
+from .extraction import CONFIDENT, FLAG_TEXT, is_stale, start_extraction
 from .models import ExtractedQuestion, Resource
 from .views import _item, _log
 
@@ -43,6 +43,7 @@ def _eq_item(q, subs=None):
         "edited": bool(q.edited_text or q.edited_answer),
         "options": q.options, "marks": q.marks, "question_type": q.question_type,
         "refers_to_figure": q.refers_to_figure, "text_verified": q.text_verified,
+        "from_scan": q.from_scan, "figure": _figure_url(q),
         "proposed": _sub_label(q.proposed_substrand),
         "confidence": q.confidence,
         "alternatives": [x for x in (alt(a) for a in q.alternatives) if x],
@@ -54,11 +55,21 @@ def _eq_item(q, subs=None):
     }
 
 
+def _figure_url(q):
+    try:
+        return q.figure.url if q.figure else None
+    except Exception:
+        return None
+
+
 def _run_item(run):
     if not run:
         return None
-    return {"id": run.id, "status": run.status, "error": run.error,
+    status = "failed" if is_stale(run) else run.status
+    return {"id": run.id, "status": status,
+            "error": run.error or ("Stopped before finishing - press Analyse again." if status != run.status else ""),
             "pages_read": run.pages_read, "pages_total": run.pages_total,
+            "scanned_pages": run.scanned_pages,
             "document_guess": run.document_guess, "notes": run.notes,
             "created_at": run.created_at, "finished_at": run.finished_at}
 
@@ -71,7 +82,7 @@ def admin_analyse(request, pk):
         return Response({"error": "Not found."}, status=404)
     if r.kind != Resource.KIND_PDF or not r.file:
         return Response({"error": "Only uploaded PDFs can be analysed."}, status=400)
-    if r.extraction_runs.filter(status__in=["queued", "running"]).exists():
+    if any(not is_stale(x) for x in r.extraction_runs.filter(status__in=["queued", "running"])):
         return Response({"error": "An analysis is already running."}, status=409)
     run = start_extraction(r, request.user)
     _log(r, request.user, "analysed")

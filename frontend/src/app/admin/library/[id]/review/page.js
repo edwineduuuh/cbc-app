@@ -21,6 +21,12 @@ const TABS = [
   ["rejected", "Rejected"],
 ];
 
+// Locally stored files come back as "/media/..."; Cloudinary ones are absolute.
+function mediaUrl(u) {
+  if (!u || /^https?:/.test(u)) return u;
+  return API.replace(/\/api\/?$/, "") + u;
+}
+
 function pct(n) { return `${Math.round((n || 0) * 100)}%`; }
 function mapLabel(m) { return m ? `Grade ${m.grade} · ${m.subject || ""} · ${m.strand} › ${m.name}` : "No mapping"; }
 
@@ -100,6 +106,7 @@ function QuestionCard({ q, onChange }) {
         {q.marks != null && <span>· {q.marks} mark{q.marks === 1 ? "" : "s"}</span>}
         {q.question_type && <span>· {q.question_type.replace("_", " ")}</span>}
         {q.edited && <span className="rounded-full px-2 py-0.5" style={{ background: "#1B2C43" }}>edited</span>}
+        {q.from_scan && <span className="rounded-full px-2 py-0.5" style={{ background: "#1B2C43" }}>from scan</span>}
         {status !== "proposed" && (
           <span className="ml-auto rounded-full px-2 py-0.5 font-semibold uppercase"
             style={status === "approved" ? { color: "#5EE6C1", background: "rgba(32,184,166,0.12)" } : { color: "#A9B9CC", background: "rgba(169,185,204,0.12)" }}>
@@ -121,6 +128,11 @@ function QuestionCard({ q, onChange }) {
       ) : (
         <>
           <p className="text-[15px] leading-relaxed whitespace-pre-wrap mb-2">{q.text}</p>
+          {q.figure && (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img src={mediaUrl(q.figure)} alt={`Figure for question ${q.label}`}
+              className="max-h-72 rounded-lg mb-2 bg-white p-1" />
+          )}
           {q.options?.length > 0 && <ul className="text-sm mb-2 space-y-0.5" style={C.muted}>{q.options.map((o, i) => <li key={i}>{o}</li>)}</ul>}
           <p className="text-sm mb-3"><span style={C.faint}>Answer: </span>{q.answer || <span style={{ color: "#F5C76B" }}>none found</span>}</p>
         </>
@@ -255,13 +267,17 @@ export default function ReviewPage() {
           {!data.run ? (
             <p className="text-sm" style={C.muted}>Not analysed yet.</p>
           ) : running ? (
-            <p className="text-sm flex items-center gap-2"><RefreshCw className="w-4 h-4 animate-spin" style={{ color: "#20B8A6" }} /> Reading the PDF and matching questions to the curriculum… this takes a minute or two.</p>
+            <p className="text-sm flex items-center gap-2"><RefreshCw className="w-4 h-4 animate-spin" style={{ color: "#20B8A6" }} />
+              {data.run.pages_total
+                ? `Reading page ${Math.min(data.run.pages_read + 1, data.run.pages_total)} of ${data.run.pages_total}, then matching questions to the curriculum…`
+                : "Opening the PDF…"}</p>
           ) : data.run.status === "failed" ? (
             <p className="text-sm" style={{ color: "#F7A1A7" }}>The analysis failed: {data.run.error}</p>
           ) : (
             <div className="text-sm space-y-1">
               <p>
-                Read {data.run.pages_read} of {data.run.pages_total} pages ·{" "}
+                Read all {data.run.pages_total} pages
+                {data.run.scanned_pages ? ` (${data.run.scanned_pages} scanned)` : ""} ·{" "}
                 {data.run.document_guess?.learning_area || "learning area unknown"}
                 {data.run.document_guess?.grade_used ? ` · around Grade ${data.run.document_guess.grade_used}` : ""}
               </p>

@@ -182,6 +182,8 @@ class ExtractionRun(models.Model):
     error = models.TextField(blank=True, default="")
     pages_read = models.IntegerField(default=0)
     pages_total = models.IntegerField(default=0)
+    scanned_pages = models.IntegerField(default=0)
+    updated_at = models.DateTimeField(auto_now=True)   # progress heartbeat
     # What the AI thinks the whole document is - shown to the admin, never
     # copied onto the questions (a PDF can span many strands).
     document_guess = models.JSONField(default=dict, blank=True)
@@ -218,6 +220,11 @@ class ExtractedQuestion(models.Model):
     refers_to_figure = models.BooleanField(default=False)
     text_verified = models.BooleanField(default=False,
                                         help_text="The text was found on the stated page")
+    from_scan = models.BooleanField(default=False,
+                                    help_text="Read from a scanned page image (OCR) - check the wording")
+    figure = models.ImageField(upload_to="library/figures/", storage=image_storage,
+                               null=True, blank=True, max_length=300,
+                               help_text="The diagram, table or graph the question needs, cut from the PDF page")
 
     # The AI's proposal - only ever entries that exist in the curriculum tables.
     proposed_substrand = models.ForeignKey("questions.Substrand", null=True, blank=True,

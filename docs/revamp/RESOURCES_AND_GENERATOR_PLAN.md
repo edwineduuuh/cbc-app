@@ -65,6 +65,12 @@ with the StadiSpace footer stamped on every page.
    corrects (curriculum picker only), rejects or edits (original kept) at
    Admin → Library → Questions. `approved_question_pool()` = approved + from
    a generator-source PDF. Re-analysis keeps admin decisions.
+   No page limit: every page is read in overlapping windows (progress saved,
+   a run killed by a restart can be re-run). Scanned pages and pages with
+   diagrams/tables/maths are sent to the model as images (OCR via the
+   configured AI provider); scan-read questions are marked for wording
+   checks. Figures are cut from the page (model's box, else the drawings
+   between this question and the next) and stored with the question.
 3. **Generator retrieval** — question-bank retrieval by grade/area/strand/
    substrand/type/difficulty/marks; PDF extraction (questions vs worked
    examples vs answer keys) from eligible resources only, into a reviewed

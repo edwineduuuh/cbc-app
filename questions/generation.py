@@ -81,7 +81,23 @@ def cost_usd(model: str, tokens_in: int, tokens_out: int) -> float:
 
 
 # ── providers ─────────────────────────────────────────────────────────────
-def _call_openai(system, prompt, model, max_tokens, want_json):
+# `images` is an optional list of PNG bytes (e.g. rendered PDF pages) sent
+# alongside the prompt. Every provider here can read images; calls that pass
+# none are byte-for-byte what they were before.
+def _b64(data: bytes) -> str:
+    import base64
+    return base64.b64encode(data).decode("ascii")
+
+
+def _openai_content(prompt, images):
+    if not images:
+        return prompt
+    return [{"type": "text", "text": prompt}] + [
+        {"type": "image_url", "image_url": {"url": f"data:image/png;base64,{_b64(im)}"}}
+        for im in images]
+
+
+def _call_openai(system, prompt, model, max_tokens, want_json, images=None):
     from openai import OpenAI
 
     # The SDK's default is a 600 second timeout with retries on top, so a
@@ -93,7 +109,7 @@ def _call_openai(system, prompt, model, max_tokens, want_json):
         "model": model,
         "messages": [
             {"role": "system", "content": system},
-            {"role": "user", "content": prompt},
+            {"role": "user", "content": _openai_content(prompt, images)},
         ],
         "max_completion_tokens": max_tokens,
     }
@@ -105,7 +121,7 @@ def _call_openai(system, prompt, model, max_tokens, want_json):
             getattr(u, "prompt_tokens", 0), getattr(u, "completion_tokens", 0))
 
 
-def _call_anthropic(system, prompt, model, max_tokens, want_json):
+def _call_anthropic(system, prompt, model, max_tokens, want_json, images=None):
     import anthropic
 
     client = anthropic.Anthropic(api_key=settings.ANTHROPIC_API_KEY,
@@ -121,7 +137,10 @@ def _call_anthropic(system, prompt, model, max_tokens, want_json):
         # given tool, so the prefix bills at ~10% after the first call.
         "system": [{"type": "text", "text": system,
                     "cache_control": {"type": "ephemeral"}}],
-        "messages": [{"role": "user", "content": prompt}],
+        "messages": [{"role": "user", "content": prompt if not images else [
+            {"type": "image", "source": {"type": "base64", "media_type": "image/png",
+                                         "data": _b64(im)}} for im in images
+        ] + [{"type": "text", "text": prompt}]}],
     }
 
     # Writing a paper from a design does not need deep reasoning, and the
@@ -136,7 +155,7 @@ def _call_anthropic(system, prompt, model, max_tokens, want_json):
     return text, r.usage.input_tokens, r.usage.output_tokens
 
 
-def _call_gemini(system, prompt, model, max_tokens, want_json):
+def _call_gemini(system, prompt, model, max_tokens, want_json, images=None):
     from google import genai
     from google.genai import types
 
@@ -147,7 +166,9 @@ def _call_gemini(system, prompt, model, max_tokens, want_json):
         temperature=0.4,
         response_mime_type="application/json" if want_json else "text/plain",
     )
-    r = client.models.generate_content(model=model, contents=prompt, config=cfg)
+    contents = prompt if not images else [
+        types.Part.from_bytes(data=im, mime_type="image/png") for im in images] + [prompt]
+    r = client.models.generate_content(model=model, contents=contents, config=cfg)
     # Gemini returns an empty candidate when a safety filter trips. Treat that
     # as an error rather than silently producing nothing - the same failure
     # that got Gemini pulled from grading (commits 4bde1e35, 53b5cfbe).
@@ -161,7 +182,7 @@ def _call_gemini(system, prompt, model, max_tokens, want_json):
             getattr(um, "candidates_token_count", 0) if um else 0)
 
 
-def _call_openrouter(system, prompt, model, max_tokens, want_json):
+def _call_openrouter(system, prompt, model, max_tokens, want_json, images=None):
     import requests
 
     r = requests.post(
@@ -171,7 +192,7 @@ def _call_openrouter(system, prompt, model, max_tokens, want_json):
             "model": model,
             "messages": [
                 {"role": "system", "content": system},
-                {"role": "user", "content": prompt},
+                {"role": "user", "content": _openai_content(prompt, images)},
             ],
             "max_tokens": max_tokens,
             **({"response_format": {"type": "json_object"}} if want_json else {}),
@@ -198,7 +219,7 @@ _PROVIDERS = {
 def generate(prompt: str, system: str = "", *, max_tokens: int = 4000,
              want_json: bool = False, model: str | None = None,
              provider: str | None = None, task: str = "generate",
-             user=None) -> str:
+             user=None, images: list | None = None) -> str:
     """Generate text with the configured provider. Returns the raw string.
 
     Logs the call to ApiCall whatever the outcome, so spend and failures are
@@ -213,7 +234,8 @@ def generate(prompt: str, system: str = "", *, max_tokens: int = 4000,
     started = time.time()
     text, tin, tout, err = "", 0, 0, ""
     try:
-        text, tin, tout = fn(system, prompt, mdl, max_tokens, want_json)
+        text, tin, tout = (fn(system, prompt, mdl, max_tokens, want_json, images=images)
+                           if images else fn(system, prompt, mdl, max_tokens, want_json))
         if not (text or "").strip():
             raise GenerationError(f"{prov}/{mdl} returned an empty response")
         return text
