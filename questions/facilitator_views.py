@@ -102,11 +102,32 @@ def _is_facilitator(user):
 STALE_AFTER = timedelta(minutes=10)
 
 
+# A running job touches updated_at every HEARTBEAT seconds. No touch for
+# DEAD_AFTER means the worker was killed (a deploy or restart) - say so in
+# about a minute and a half instead of leaving a spinner up for ten.
+HEARTBEAT = 20
+DEAD_AFTER = timedelta(seconds=90)
+
+
 def _status_of(o: GeneratedOutput) -> str:
-    if (o.status == GeneratedOutput.STATUS_RUNNING
-            and timezone.now() - o.created_at > STALE_AFTER):
-        return GeneratedOutput.STATUS_FAILED
+    if o.status == GeneratedOutput.STATUS_RUNNING:
+        now = timezone.now()
+        if now - o.created_at > STALE_AFTER or (
+                o.updated_at and now - o.updated_at > DEAD_AFTER):
+            return GeneratedOutput.STATUS_FAILED
     return o.status
+
+
+def _heartbeat(output_id, stop):
+    """Touch the output while it is being built, from its own thread."""
+    from django.db import connection
+    try:
+        while not stop.wait(HEARTBEAT):
+            GeneratedOutput.objects.filter(
+                pk=output_id, status=GeneratedOutput.STATUS_RUNNING
+            ).update(updated_at=timezone.now())
+    finally:
+        connection.close()
 
 
 def _summarise(o: GeneratedOutput) -> dict:
@@ -302,6 +323,9 @@ def _build_assessment(output_id, substrand_ids, inputs, user_id):
     from django.contrib.auth import get_user_model
     from django.db import connection
 
+    stop = threading.Event()
+    threading.Thread(target=_heartbeat, args=(output_id, stop), daemon=True,
+                     name=f"heartbeat-{output_id}").start()
     try:
         order = {sid: i for i, sid in enumerate(substrand_ids)}
         subs = sorted(
@@ -337,6 +361,7 @@ def _build_assessment(output_id, substrand_ids, inputs, user_id):
             status=GeneratedOutput.STATUS_FAILED,
             error=f"{type(e).__name__}: {e}"[:500])
     finally:
+        stop.set()
         # A thread gets its own connection; leaving it open leaks one per
         # paper until the pool is exhausted.
         connection.close()

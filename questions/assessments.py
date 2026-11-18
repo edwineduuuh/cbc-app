@@ -247,8 +247,8 @@ def _bullets(items, limit=None, indent=""):
 # writes the questions one after another and we wait for all of them. Six
 # questions is about forty seconds, and six calls of six run in the time of
 # one - so a fifty question paper costs roughly what eight questions cost.
-QUESTIONS_PER_CALL = 6
-MAX_PARALLEL_CALLS = 9
+QUESTIONS_PER_CALL = 3
+MAX_PARALLEL_CALLS = 14
 
 # What the facilitator typed decides the mix. Working it out here rather
 # than asking the model keeps every parallel part consistent with the rest,

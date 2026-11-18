@@ -34,7 +34,7 @@ from questions.generation import generate_json
 logger = logging.getLogger("generation")
 
 # Questions per checking call. Small enough that the batches finish together.
-REVIEW_BATCH = 8
+REVIEW_BATCH = 3
 
 REVIEW_SYSTEM = """You are a Kenyan examiner checking a paper before it is \
 printed. You have not been shown anyone's answer key.
@@ -275,9 +275,38 @@ def _fault(q, v):
     return None
 
 
+REPAIR_PER_CALL = 2
+
+
 def _repair(faults, substrands, *, count_by_type, description, user,
             keeping=None):
-    """Generate replacements for the questions that were thrown out."""
+    """Generate replacements for the questions that were thrown out, a couple
+    per call and all calls at once - one call writing five replacements in
+    turn took about forty seconds."""
+    if len(faults) <= REPAIR_PER_CALL:
+        return _repair_one(faults, substrands, count_by_type=count_by_type,
+                           description=description, user=user, keeping=keeping)
+    chunks = [faults[i:i + REPAIR_PER_CALL] for i in range(0, len(faults), REPAIR_PER_CALL)]
+
+    def run(chunk):
+        from django.db import connection
+        by_type = {}
+        for t, _, _ in chunk:
+            by_type[t] = by_type.get(t, 0) + 1
+        try:
+            return _repair_one(chunk, substrands, count_by_type=by_type,
+                               description=description, user=user, keeping=keeping)
+        finally:
+            connection.close()
+
+    with ThreadPoolExecutor(max_workers=len(chunks)) as pool:
+        parts = list(pool.map(run, chunks))
+    return [q for part in parts for q in part]
+
+
+def _repair_one(faults, substrands, *, count_by_type, description, user,
+                keeping=None):
+    """One replacement call."""
     from questions.assessments import (SCHEMA, SYSTEM, _as_list, build_prompt,
                                        token_budget)
 
