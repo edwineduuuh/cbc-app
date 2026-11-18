@@ -57,7 +57,7 @@ export function accountBlockMessage(data) {
 // Exchange a Google/Microsoft access token for StadiSpace tokens. `role` only
 // matters the first time (sign-up); for an existing account it is ignored.
 export async function socialLogin(provider, accessToken, role) {
-  const response = await fetch(`${API_URL}/auth/${provider}/`, {
+  const response = await fetch(`${API_URL}/auth/auth/${provider}/`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ access_token: accessToken, ...(role ? { role } : {}) }),

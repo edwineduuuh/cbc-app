@@ -219,6 +219,24 @@ def _social_login_response(view, response):
     })
 
 
+def _social_post(view, request, *args, **kwargs):
+    """Run the provider login; a token Google/Microsoft rejects (expired,
+    wrong app) is the person's problem to retry, not a server error."""
+    from allauth.socialaccount.models import SocialApp
+    from allauth.socialaccount.providers.oauth2.client import OAuth2Error
+    try:
+        response = super(type(view), view).post(request, *args, **kwargs)
+    except SocialApp.DoesNotExist:
+        return Response({"code": "provider_not_configured",
+                         "error": "This sign-in option isn't switched on yet. Use email for now."},
+                        status=503)
+    except OAuth2Error:
+        return Response({"code": "provider_rejected",
+                         "error": "That sign-in couldn't be confirmed. Please try again."},
+                        status=400)
+    return _social_login_response(view, response)
+
+
 class GoogleLogin(SocialLoginView):
     """
     Google OAuth login endpoint
@@ -234,7 +252,7 @@ class GoogleLogin(SocialLoginView):
         # The adapter sees the plain Django request; hand it the sign-up role
         # (only used if this is a brand-new account, and allow-listed there).
         request._request.stadispace_signup_role = request.data.get("role", "")
-        return _social_login_response(self, super().post(request, *args, **kwargs))
+        return _social_post(self, request, *args, **kwargs)
 
 
 class MicrosoftLogin(SocialLoginView):
@@ -252,7 +270,7 @@ class MicrosoftLogin(SocialLoginView):
         # The adapter sees the plain Django request; hand it the sign-up role
         # (only used if this is a brand-new account, and allow-listed there).
         request._request.stadispace_signup_role = request.data.get("role", "")
-        return _social_login_response(self, super().post(request, *args, **kwargs))
+        return _social_post(self, request, *args, **kwargs)
 
 
 # This import used to be indented inside MicrosoftLogin, which replaced the
