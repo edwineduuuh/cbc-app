@@ -123,6 +123,7 @@ def generate_scheme(request):
         "start_date": _text(d, "start_date", 10), "break_weeks": _breaks(d.get("break_weeks")),
         "school": _text(d, "school"), "teacher": _text(d, "teacher"), "class_name": _text(d, "class_name", 60),
         "first_week": _int(d.get("first_week"), 1, 1, 52), "notes": _text(d, "notes", 600),
+        "reserve": _int(d.get("reserve"), 0, 0, 20),
     }
     return _create(request, "scheme_of_work",
                    f"Grade {grade} {subject.name} - Term {inputs['term']} Scheme of Work",

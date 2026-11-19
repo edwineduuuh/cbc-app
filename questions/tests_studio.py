@@ -77,13 +77,20 @@ class TermPlan(Base):
         self.assertEqual(lessons[-1]["substrand"], "Algebraic Expressions")
         self.assertEqual(sum(1 for r in lessons if r["substrand_id"]), 9)
 
-    def test_spare_lessons_become_revision_then_assessment(self):
-        subs = studio.ordered_substrands(7, self.maths.id, [self.whole.topic_id])
-        rows, warnings = studio.plan_term(subs, weeks=2, lessons_per_week=5)
+    def test_spare_room_is_filled_by_stretching_not_revision(self):
+        subs = studio.ordered_substrands(7, self.maths.id, [self.whole.topic_id])   # 2 + 3 lessons
+        rows, warnings = studio.plan_term(subs, weeks=2, lessons_per_week=5)        # 10 slots
         names = [r["substrand"] for r in rows]
-        self.assertEqual(names[-1], "End-of-term assessment")
-        self.assertIn("Revision", names)
-        self.assertTrue(warnings)
+        self.assertNotIn("Revision", names)
+        self.assertEqual((names.count("Whole Numbers"), names.count("Fractions")), (4, 6))
+        self.assertEqual(rows[0]["of"], 4)
+        self.assertFalse(warnings)
+
+    def test_revision_only_when_asked_for(self):
+        subs = studio.ordered_substrands(7, self.maths.id, [self.whole.topic_id])
+        rows, _ = studio.plan_term(subs, weeks=2, lessons_per_week=5, reserve=3)
+        names = [r["substrand"] for r in rows]
+        self.assertEqual(names[-3:], ["Revision", "Revision", "End-of-term assessment"])
 
     def test_too_much_for_the_term_is_squeezed_and_said(self):
         subs = studio.ordered_substrands(7, self.maths.id)
@@ -91,7 +98,7 @@ class TermPlan(Base):
         self.assertEqual(len(rows), 4)
         self.assertEqual({r["substrand"] for r in rows},
                          {"Whole Numbers", "Fractions", "Algebraic Expressions"})   # none dropped
-        self.assertIn("shortened", warnings[0])
+        self.assertIn("fewer lessons", warnings[0])
 
     def test_whole_subject_terms_follow_on(self):
         subs = studio.ordered_substrands(7, self.maths.id)          # 9 lessons over the year
@@ -149,7 +156,7 @@ class LessonPlan(Base):
         plan = p["plan"]
         self.assertEqual(plan["introduction"]["minutes"] + plan["development"][0]["minutes"]
                          + plan["conclusion"]["minutes"], 40)
-        self.assertEqual(plan["rubric"][0]["indicator"], "Forms expressions")
+        self.assertNotIn("rubric", plan)
         self.assertEqual(len(plan["quick_check"]), 3)
         self.assertTrue(all(q["question"].startswith("Simplify") for q in plan["quick_check"]))
 
@@ -223,3 +230,16 @@ class SchoolWeekNumbers(Base):
             studio.lesson_breakdown(self.fractions, 3, notes="rural school, no lab")
         self.assertEqual(ai.call_count, 2)
         self.assertIn("rural school", ai.call_args_list[1][0][0])
+
+
+class Names(Base):
+    def test_glued_names_are_tidied(self):
+        self.assertEqual(studio.clean_name("Integers Simple and combined operations on Integers"), "Integers")
+        self.assertEqual(studio.clean_name("Cubes and Cube Roots"), "Cubes and Cube Roots")
+
+    def test_missing_duration_takes_the_siblings_average(self):
+        self.fractions.suggested_duration = ""
+        self.fractions.save()
+        subs = studio.ordered_substrands(7, self.maths.id)          # 2, ?, 4 -> ? = 3
+        rows, _ = studio.plan_term(subs, weeks=1, lessons_per_week=9)
+        self.assertEqual(sum(1 for r in rows if r["substrand"] == "Fractions"), 3)

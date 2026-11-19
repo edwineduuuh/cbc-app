@@ -3,7 +3,6 @@
 What is decided by code, from the curriculum tables, and never by the model:
   - which sub-strands a term covers, in what order, in which week and lesson
     (from each sub-strand's KICD "suggested duration");
-  - the rubric (the strand's KICD assessment rubric);
   - the quick-check questions (from the vetted StadiSpace question bank);
   - that a lesson plan's timings add up to the lesson length.
 
@@ -30,7 +29,7 @@ from .models import Question, Substrand, Topic
 logger = logging.getLogger("generation")
 
 DEFAULT_LESSONS = 2          # a sub-strand with no suggested duration
-BREAKDOWN_VERSION = 1        # bump to invalidate cached lesson breakdowns
+BREAKDOWN_VERSION = 2        # bump to invalidate cached lesson breakdowns
 ASSESSMENT_DEFAULT = ["Oral questions", "Observation", "Written exercise"]
 
 
@@ -51,9 +50,18 @@ def ordered_substrands(grade, subject_id, strand_ids=None):
                                      _code_key(s.kicd_code), s.order or 0, s.name))
 
 
-def lessons_for(s) -> int:
+def lessons_for(s, default=DEFAULT_LESSONS) -> int:
     m = re.search(r"\d+", s.suggested_duration or "")
-    return max(1, int(m.group())) if m else DEFAULT_LESSONS
+    return max(1, int(m.group())) if m else default
+
+
+def clean_name(name: str) -> str:
+    """A few KICD imports glued the sub-strand's description onto its name
+    ('Integers Simple and combined operations on Integers'). Show the name."""
+    words = (name or "").split()
+    if len(words) > 4 and words[-1].lower() == words[0].lower():
+        return words[0]
+    return name or ""
 
 
 def _clean_list(items):
@@ -70,8 +78,39 @@ def _clean_list(items):
 
 # ── the term plan (pure code) ───────────────────────────────────────────────
 
+def _fit(stream, target):
+    """Give each sub-strand a share of `target` lessons in proportion to what
+    KICD suggests for it - stretching when the term has room, squeezing when it
+    has not - with every sub-strand keeping at least one lesson."""
+    groups = []
+    for s, k, n in stream:
+        if not groups or groups[-1][0].id != s.id:
+            groups.append([s, 0])
+        groups[-1][1] += 1
+    if not groups or target <= 0:
+        return []
+    total = sum(g[1] for g in groups)
+    exact = [g[1] * target / total for g in groups]
+    alloc = [max(1, int(x)) for x in exact]
+    # Hand out what rounding down left over, largest remainders first.
+    order = sorted(range(len(groups)), key=lambda i: exact[i] - int(exact[i]), reverse=True)
+    i = 0
+    while sum(alloc) < target and order:
+        alloc[order[i % len(order)]] += 1
+        i += 1
+    while sum(alloc) > target:
+        j = max(range(len(alloc)), key=lambda x: alloc[x])
+        if alloc[j] == 1:
+            break
+        alloc[j] -= 1
+    out = []
+    for (s, _), a in zip(groups, alloc):
+        out += [(s, k, a) for k in range(1, a + 1)]
+    return out[:target]
+
+
 def plan_term(subs, *, weeks, lessons_per_week, term=1, break_weeks=None, whole_subject=False,
-              first_week=1):
+              first_week=1, reserve=0):
     """Lay the sub-strands out over the term's lesson slots.
 
     whole_subject: the design is a year's work, so term N takes the Nth third
@@ -84,38 +123,27 @@ def plan_term(subs, *, weeks, lessons_per_week, term=1, break_weeks=None, whole_
     capacity = len(teaching) * lessons_per_week
     warnings = []
 
+    # A sub-strand missing its suggested duration gets its siblings' average,
+    # not a token two lessons.
+    known = [lessons_for(s, 0) for s in subs if lessons_for(s, 0)]
+    default = round(sum(known) / len(known)) if known else DEFAULT_LESSONS
     stream = []                                  # (substrand, lesson k of n)
     for s in subs:
-        n = lessons_for(s)
+        n = lessons_for(s, default)
         stream += [(s, k, n) for k in range(1, n + 1)]
     if whole_subject and stream:
         t = min(max(int(term or 1), 1), 3)
         a, b = round(len(stream) * (t - 1) / 3), round(len(stream) * t / 3)
         stream = stream[a:b]
 
-    if len(stream) > capacity and capacity > 0:
-        # Squeeze: every sub-strand keeps at least one lesson, the rest shrink
-        # in proportion. Said out loud - the teacher may prefer fewer strands.
-        warnings.append(f"The curriculum suggests {len(stream)} lessons but the term has "
-                        f"{capacity}. Lessons were shortened to fit - consider ticking fewer strands.")
-        groups = []
-        for s, k, n in stream:
-            if not groups or groups[-1][0].id != s.id:
-                groups.append([s, 0, n])
-            groups[-1][1] += 1
-        total = sum(g[1] for g in groups)
-        alloc = [max(1, round(g[1] * capacity / total)) for g in groups]
-        while sum(alloc) > capacity:
-            i = max(range(len(alloc)), key=lambda j: alloc[j])
-            if alloc[i] == 1:
-                break
-            alloc[i] -= 1
-        stream = []
-        for (s, _, n), a in zip(groups, alloc):
-            stream += [(s, k, a) for k in range(1, a + 1)]
-        stream = stream[:capacity]
-
-    spare = capacity - len(stream)
+    # Revision / exam lessons only when the teacher asked for them.
+    reserve = max(0, min(int(reserve or 0), capacity))
+    target = capacity - reserve
+    if len(stream) > target:
+        warnings.append(f"The curriculum suggests {len(stream)} lessons for this but the term has "
+                        f"{target}. Each sub-strand was given fewer lessons to fit - "
+                        f"consider ticking fewer strands.")
+    stream = _fit(stream, target) if stream else []
     rows, i = [], 0
     for w in week_numbers:
         if w in break_weeks:
@@ -125,18 +153,16 @@ def plan_term(subs, *, weeks, lessons_per_week, term=1, break_weeks=None, whole_
             if i < len(stream):
                 s, k, n = stream[i]
                 rows.append({"week": w, "lesson": lesson, "substrand_id": s.id,
-                             "strand": s.topic.name, "substrand": s.name,
+                             "strand": s.topic.name, "substrand": clean_name(s.name),
+                             "strand_code": s.topic.kicd_code or "",
                              "kicd_code": s.kicd_code or "", "part": k, "of": n})
             else:
-                # Spare slots at the end: revision, then an end-of-term assessment.
+                # Reserved slots at the end: revision, then an end-of-term assessment.
                 last = (i == capacity - 1)
                 rows.append({"week": w, "lesson": lesson, "substrand_id": None,
                              "strand": "", "substrand": "End-of-term assessment" if last else "Revision",
                              "kicd_code": "", "part": 0, "of": 0})
             i += 1
-    if spare > 0 and stream:
-        warnings.append(f"{spare} lesson{'s' if spare != 1 else ''} at the end of term set aside "
-                        f"for revision and assessment.")
     return rows, warnings
 
 
@@ -154,8 +180,8 @@ def _breakdown_prompt(s, n, notes=""):
     def lines(xs):
         return "\n".join(f"- {x}" for x in xs) or "- (none listed)"
     return f"""Grade {s.topic.grade} {s.topic.subject.name}
-Strand: {s.topic.name}
-Sub-strand: {s.name} ({n} lessons)
+Strand: {s.topic.kicd_code or ''} {s.topic.name}
+Sub-strand: {s.kicd_code or ''} {clean_name(s.name)} ({n} lessons)
 
 KICD specific learning outcomes:
 {lines(_clean_list(s.learning_outcomes))}
@@ -170,15 +196,28 @@ KICD suggested resources:
 {lines(_clean_list(s.resources))}
 
 {("About this class (adapt the activities and resources to it, never the outcomes): " + notes) if notes else ""}
-Split this sub-strand into exactly {n} lessons, in teaching order. Share the
-outcomes and experiences out so every one is covered once and the lessons build
-on each other. For each lesson give:
-  outcomes     - 1 to 3 specific outcomes for that lesson, worded "By the end of the
-                 lesson, the learner should be able to:" items (lower-case verb first)
-  experiences  - 2 to 4 learner activities for that lesson
-  inquiry_question - one key inquiry question
-  resources    - 2 to 4 learning resources (from the design where it lists them)
-  assessment   - 1 to 3 assessment methods (e.g. oral questions, observation, written exercise)
+Split this sub-strand into exactly {n} lessons, in teaching order, the way an
+experienced Kenyan teacher writes a scheme of work:
+- Every KICD outcome and experience is covered, and the lessons build from simple
+  to applied. With more lessons than outcomes, break each outcome into smaller
+  steps (e.g. addition and subtraction first, then multiplication, then division,
+  then order of operations, then real-life use).
+- If there are 3 or more lessons, the LAST lesson consolidates the sub-strand:
+  learners review it and do an assessment task (quiz, self-assessment).
+For each lesson give:
+  outcomes     - 1 to 3 outcomes completing "By the end of the lesson, the learner
+                 should be able to:", lower-case verb first (e.g. "perform division of
+                 integers accurately"). Never repeat that lead-in.
+  experiences  - 2 to 3 activities completing "The learner is guided to:", lower-case
+                 verb first (e.g. "discuss with peers ...", "play games involving ...").
+                 Never repeat that lead-in.
+  inquiry_question - one of the KICD key inquiry questions above, word for word
+  resources    - start with "Learner's course book" and "Teacher's guide", then 1 or 2
+                 that fit the lesson (Charts, Number cards, Realia, Pictures,
+                 Digital devices, ...)
+  assessment   - exactly 2 methods, varied across lessons, from: Written exercise,
+                 Oral questions, Observation, Peer assessment, Self-assessment, Quiz,
+                 Practical task, Checklist
 
 Return JSON: {{"lessons": [{{"outcomes": [...], "experiences": [...], "inquiry_question": "...",
   "resources": [...], "assessment": [...]}}]}}"""
@@ -194,10 +233,11 @@ def _fallback_breakdown(s, n):
     for k in range(n):
         lessons.append({
             "outcomes": [outs[j] for j in range(len(outs)) if j % n == k] or [outs[k % len(outs)]],
+        # (fallback resources/assessment below follow the usual scheme format)
             "experiences": [exps[j] for j in range(len(exps)) if j % n == k] or [exps[k % len(exps)]],
             "inquiry_question": kiq[k % len(kiq)] if kiq else "",
-            "resources": res[:4],
-            "assessment": ASSESSMENT_DEFAULT[:2],
+            "resources": ["Learner's course book", "Teacher's guide"] + res[:2],
+            "assessment": [ASSESSMENT_DEFAULT[k % 3], ASSESSMENT_DEFAULT[(k + 1) % 3]],
         })
     return lessons
 
@@ -277,7 +317,8 @@ def build_scheme(inputs, *, user=None):
     rows, warnings = plan_term(
         subs, weeks=inputs["weeks"], lessons_per_week=inputs["lessons_per_week"],
         term=inputs.get("term", 1), break_weeks=inputs.get("break_weeks"),
-        whole_subject=not inputs.get("strands"), first_week=inputs.get("first_week") or 1)
+        whole_subject=not inputs.get("strands"), first_week=inputs.get("first_week") or 1,
+        reserve=inputs.get("reserve") or 0)
     notes = (inputs.get("notes") or "").strip()
 
     needed = {}                                  # substrand id -> n lessons used
@@ -447,15 +488,15 @@ def build_lesson_plan(inputs, *, user=None):
                                      "values", "pcis", "links", "introduction", "development",
                                      "conclusion", "differentiation", "extended_activity", "assessment")}
     fix_timings(plan, minutes)
-    plan["rubric"] = s.topic.assessment_rubric or []
     plan["quick_check"] = quick_check(s)
     return {
         "kind": "lesson_plan",
-        "title": f"{s.name} - Grade {s.topic.grade} {s.topic.subject.name} lesson plan",
+        "title": f"{clean_name(s.name)} - Grade {s.topic.grade} {s.topic.subject.name} lesson plan",
         "meta": {k: inputs.get(k) for k in ("school", "teacher", "class_name", "roll", "date",
                                             "term", "week", "lesson")}
                 | {"grade": s.topic.grade, "subject": s.topic.subject.name, "minutes": minutes,
-                   "strand": s.topic.name, "substrand": s.name, "kicd_code": s.kicd_code or ""},
+                   "strand": s.topic.name, "substrand": clean_name(s.name), "kicd_code": s.kicd_code or "",
+                   "strand_code": s.topic.kicd_code or ""},
         "plan": plan,
         "covers": f"{s.topic.name} › {s.name}",
     }

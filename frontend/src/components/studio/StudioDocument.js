@@ -6,7 +6,22 @@ import { useRouter } from "next/navigation";
 import { ArrowLeft, Bookmark, Download, Printer, Pencil, Check, Loader2, FileText, AlertTriangle } from "lucide-react";
 import { fetchWithAuth } from "@/lib/api";
 import { API } from "@/components/studio/StudioForm";
-import { downloadWord, printDoc } from "@/components/studio/exportDoc";
+import { documentHtml, downloadWord, printDoc } from "@/components/studio/exportDoc";
+
+/** The document exactly as it prints, on white sheets. */
+function Preview({ tool, payload }) {
+  const ref = useRef(null);
+  const [height, setHeight] = useState(900);
+  const html = useMemo(() => documentHtml(tool, payload), [tool, payload]);
+  return (
+    <iframe ref={ref} title="Preview" srcDoc={html}
+      onLoad={() => {
+        try { setHeight(ref.current.contentDocument.documentElement.scrollHeight + 20); } catch {}
+      }}
+      className="w-full rounded-2xl border border-gray-200"
+      style={{ height, background: "#dfe4e9" }} />
+  );
+}
 
 const toLines = (xs) => (xs || []).join("\n");
 const fromLines = (s) => String(s || "").split("\n").map((x) => x.trim()).filter(Boolean);
@@ -325,6 +340,7 @@ function RecordView({ payload, setPayload }) {
 export default function StudioDocument({ item, setItem }) {
   const [payload, setPayload] = useState(item.payload || {});
   const [editing, setEditing] = useState(false);
+  const [tab, setTab] = useState(item.tool === "record_of_work" ? "log" : "preview");
   const [saved, setSaved] = useState("saved");      // saved | saving | unsaved | error
   const first = useRef(true);
   const isRecord = item.tool === "record_of_work";
@@ -364,7 +380,7 @@ export default function StudioDocument({ item, setItem }) {
           <Bookmark className={`w-4 h-4 ${item.bookmarked ? "fill-emerald-600 text-emerald-600" : "text-gray-400"}`} />
         </button>
         {!isRecord && (
-          <button onClick={() => (editing ? finishEditing() : setEditing(true))}
+          <button onClick={() => { if (editing) finishEditing(); else { setEditing(true); setTab("edit"); } }}
             className={`flex items-center gap-1.5 rounded-lg border px-3 py-2 text-xs font-medium ${editing ? "border-emerald-500 bg-emerald-50 text-emerald-700" : "border-gray-200 text-gray-700 hover:bg-gray-50"}`}>
             {editing ? <Check className="w-3.5 h-3.5" /> : <Pencil className="w-3.5 h-3.5" />} {editing ? "Done" : "Edit"}
           </button>
@@ -382,9 +398,19 @@ export default function StudioDocument({ item, setItem }) {
         {saved === "saving" ? "Saving…" : saved === "error" ? "Couldn't save - check your connection." : saved === "unsaved" ? "Unsaved changes" : "All changes saved"}
       </p>
 
-      {item.tool === "scheme_of_work" && <SchemeView item={item} payload={payload} setPayload={setPayload} editing={editing} />}
-      {item.tool === "lesson_plan" && <PlanView payload={payload} setPayload={setPayload} editing={editing} />}
-      {item.tool === "record_of_work" && <RecordView payload={payload} setPayload={setPayload} />}
+      <div className="flex gap-1 mb-3 rounded-xl border border-gray-200 p-1 w-fit">
+        {[["preview", "Preview"], [isRecord ? "log" : "edit", isRecord ? "Log this week" : "Edit"]].map(([v, l]) => (
+          <button key={v} onClick={() => { setTab(v); if (v !== "edit") setEditing(false); }}
+            className={`rounded-lg px-3.5 py-1.5 text-xs font-semibold ${tab === v ? "bg-emerald-600 text-white" : "text-gray-600"}`}>
+            {l}
+          </button>
+        ))}
+      </div>
+
+      {tab === "preview" && <Preview tool={item.tool} payload={{ ...payload, title: item.title }} />}
+      {tab === "edit" && item.tool === "scheme_of_work" && <SchemeView item={item} payload={payload} setPayload={setPayload} editing />}
+      {tab === "edit" && item.tool === "lesson_plan" && <PlanView payload={payload} setPayload={setPayload} editing />}
+      {tab === "log" && <RecordView payload={payload} setPayload={setPayload} />}
     </div>
   );
 }
