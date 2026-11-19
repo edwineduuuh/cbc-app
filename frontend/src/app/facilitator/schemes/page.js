@@ -17,6 +17,7 @@ export default function SchemesPage() {
   const [startDate, setStartDate] = useState("");
   const [breaks, setBreaks] = useState({});        // {week: label}
   const [notes, setNotes] = useState("");
+  const [reserve, setReserve] = useState("0");
   const [school, setSchool] = useRemembered("school");
   const [teacher, setTeacher] = useRemembered("teacher");
   const [className, setClassName] = useState("");
@@ -38,7 +39,7 @@ export default function SchemesPage() {
     run({
       grade: sel.grade, subject: sel.subjectId, strands: sel.strandIds,
       term, year, weeks, lessons_per_week: perWeek, first_week: firstWeek,
-      start_date: startDate, break_weeks: breaks, notes, school, teacher, class_name: className,
+      start_date: startDate, break_weeks: breaks, notes, reserve, school, teacher, class_name: className,
     });
 
   return (
@@ -71,6 +72,10 @@ export default function SchemesPage() {
             <Field label="School" optional><input value={school} onChange={(e) => setSchool(e.target.value)} className={inputCls} /></Field>
             <Field label="Teacher" optional><input value={teacher} onChange={(e) => setTeacher(e.target.value)} className={inputCls} /></Field>
             <Field label="Class or stream" optional><input value={className} onChange={(e) => setClassName(e.target.value)} placeholder="For example: 7 East" className={inputCls} /></Field>
+            <Field label="Lessons for revision and exams" hint="At the end of term. None by default - the whole term is taught.">
+              <Select value={reserve} onChange={setReserve}
+                options={Array.from({ length: 11 }, (_, i) => [String(i), i === 0 ? "None" : `${i} lesson${i > 1 ? "s" : ""}`])} />
+            </Field>
             <Field label="First teaching week number"><input type="number" min="1" max="52" value={firstWeek} onChange={(e) => setFirstWeek(e.target.value)} className={inputCls} /></Field>
             <Field label="Monday of the first week" optional className="col-span-2" hint="Each week then shows its dates.">
               <input type="date" value={startDate} onChange={(e) => setStartDate(e.target.value)} className={inputCls} />
