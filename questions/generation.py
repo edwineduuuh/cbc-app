@@ -28,6 +28,9 @@ logger = logging.getLogger("generation")
 # USD per token (input, output). Keep in sync with the providers' pricing
 # pages; wrong numbers here mean a cost dashboard that lies.
 PRICES = {
+    # DeepSeek - peak-hour rates (off-peak is half). Cache hits bill far lower.
+    "deepseek-flash":      (0.30 / 1e6, 1.20 / 1e6),
+    "deepseek-v4-pro":     (1.32 / 1e6, 3.96 / 1e6),
     # OpenAI
     "gpt-6-luna":          (0.10 / 1e6, 0.50 / 1e6),
     "gpt-6.1-terra":       (1.00 / 1e6, 5.00 / 1e6),
@@ -57,6 +60,7 @@ DEFAULT_MODEL = {
     "anthropic": "claude-haiku-4-5",
     "gemini": "gemini-2.5-flash",
     "openrouter": "google/gemini-2.5-flash",
+    "deepseek": "deepseek-flash",
 }
 
 
@@ -207,11 +211,36 @@ def _call_openrouter(system, prompt, model, max_tokens, want_json, images=None):
             u.get("prompt_tokens", 0), u.get("completion_tokens", 0))
 
 
+def _call_deepseek(system, prompt, model, max_tokens, want_json, images=None):
+    """DeepSeek speaks the OpenAI API. Thinking is switched off: these tasks
+    follow a fixed format, and thinking tokens are billed as output."""
+    from openai import OpenAI
+
+    client = OpenAI(api_key=settings.DEEPSEEK_API_KEY, base_url="https://api.deepseek.com",
+                    timeout=150.0, max_retries=1)
+    kwargs = {
+        "model": model,
+        "messages": [
+            {"role": "system", "content": system},
+            {"role": "user", "content": _openai_content(prompt, images)},
+        ],
+        "max_tokens": max_tokens,
+        "extra_body": {"thinking": {"type": "disabled"}},
+    }
+    if want_json:
+        kwargs["response_format"] = {"type": "json_object"}
+    r = client.chat.completions.create(**kwargs)
+    u = r.usage
+    return (r.choices[0].message.content or "",
+            getattr(u, "prompt_tokens", 0), getattr(u, "completion_tokens", 0))
+
+
 _PROVIDERS = {
     "openai": _call_openai,
     "anthropic": _call_anthropic,
     "gemini": _call_gemini,
     "openrouter": _call_openrouter,
+    "deepseek": _call_deepseek,
 }
 
 

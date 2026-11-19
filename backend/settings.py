@@ -42,6 +42,7 @@ OPENAI_API_KEY = os.environ.get('OPENAI_API_KEY')
 GEN_PROVIDER = os.environ.get('GEN_PROVIDER', 'openai')
 GEN_MODEL = os.environ.get('GEN_MODEL', '')          # blank = provider default
 OPENROUTER_API_KEY = os.environ.get('OPENROUTER_API_KEY')
+DEEPSEEK_API_KEY = os.environ.get('DEEPSEEK_API_KEY')
 
 # Validate SECRET_KEY
 from django.core.exceptions import ImproperlyConfigured
