@@ -36,12 +36,7 @@ export default function PlansPage() {
       </p>
 
       <div className="bg-white rounded-2xl border border-gray-200 p-5 sm:p-6 space-y-5">
-        <CurriculumPicker onSelect={setSel} />
-        {subs.length > 1 && (
-          <p className="text-sm text-amber-800 bg-amber-50 border border-amber-200 rounded-xl px-3 py-2">
-            A lesson plan is for one sub-strand. Tick just one.
-          </p>
-        )}
+        <CurriculumPicker onSelect={setSel} single />
         {one && (one.learning_outcomes || []).length > 0 && (
           <div className="rounded-xl border border-emerald-200 bg-emerald-50/60 p-4">
             <p className="text-xs font-semibold uppercase tracking-wide text-emerald-800">KICD outcomes for this sub-strand</p>
@@ -79,7 +74,7 @@ export default function PlansPage() {
         <ErrorNote error={error} />
         <SubmitButton busy={busy} disabled={!one}
           onClick={() => run({ substrand: one.id, minutes, date, term, week, focus, school, teacher, class_name: className, roll })}>
-          Generate lesson plan
+          {one ? "Generate lesson plan" : "Pick the sub-strand this lesson is on"}
         </SubmitButton>
         <p className="text-[11px] text-center text-gray-400">
           Tip: open a scheme of work and press <b>Plan</b> on any row to make that lesson&apos;s plan in one click.

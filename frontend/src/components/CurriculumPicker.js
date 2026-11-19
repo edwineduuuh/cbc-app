@@ -27,7 +27,8 @@ const API =
  */
 // wholeSubject: report the grade and subject even with nothing ticked (a
 // scheme or record can cover the whole subject).
-export default function CurriculumPicker({ onSelect, wholeSubject = false }) {
+// single: exactly one sub-strand (a lesson plan) - ticking another replaces it.
+export default function CurriculumPicker({ onSelect, wholeSubject = false, single = false }) {
   const [grades, setGrades] = useState([]);
   const [subjects, setSubjects] = useState([]);
   const [tree, setTree] = useState([]);
@@ -131,6 +132,10 @@ export default function CurriculumPicker({ onSelect, wholeSubject = false }) {
   // A strand ticked with no children ticked means all of its children, so the
   // summary has to resolve that the same way the backend does.
   const chosen = useMemo(() => {
+    if (single) {
+      // Only an explicitly ticked sub-strand counts; a strand alone is not a lesson.
+      return tree.flatMap((t) => t.substrands).filter((s) => subIds.includes(s.id)).slice(0, 1);
+    }
     const out = [];
     for (const t of tree) {
       if (!strandIds.includes(t.id)) continue;
@@ -138,7 +143,7 @@ export default function CurriculumPicker({ onSelect, wholeSubject = false }) {
       out.push(...(ticked.length ? ticked : t.substrands));
     }
     return out;
-  }, [tree, strandIds, subIds]);
+  }, [tree, strandIds, subIds, single]);
 
   useEffect(() => {
     if (!grade || !subject || (chosen.length === 0 && !wholeSubject)) {
@@ -158,6 +163,11 @@ export default function CurriculumPicker({ onSelect, wholeSubject = false }) {
   }, [grade, subject, strandIds, subIds, chosen, subjects, wholeSubject]);
 
   const toggleStrand = (t) => {
+    if (single) {
+      setStrandIds((cur) => (cur.includes(t.id) ? [] : [t.id]));
+      setSubIds([]);
+      return;
+    }
     setStrandIds((cur) => {
       if (cur.includes(t.id)) {
         // Untick its children too, or they linger invisibly and come back
@@ -171,6 +181,11 @@ export default function CurriculumPicker({ onSelect, wholeSubject = false }) {
   };
 
   const toggleSub = (t, s) => {
+    if (single) {
+      setSubIds((cur) => (cur.includes(s.id) ? [] : [s.id]));
+      setStrandIds([t.id]);
+      return;
+    }
     setSubIds((cur) =>
       cur.includes(s.id) ? cur.filter((id) => id !== s.id) : [...cur, s.id]);
     setStrandIds((cur) => (cur.includes(t.id) ? cur : [...cur, t.id]));
@@ -227,10 +242,12 @@ export default function CurriculumPicker({ onSelect, wholeSubject = false }) {
               </p>
             </div>
             <div className="flex gap-3">
-              <button type="button" className={linkCls}
-                      onClick={() => setStrandIds(tree.map((t) => t.id))}>
-                Select all
-              </button>
+              {!single && (
+                <button type="button" className={linkCls}
+                        onClick={() => setStrandIds(tree.map((t) => t.id))}>
+                  Select all
+                </button>
+              )}
               <button type="button" className={linkCls}
                       onClick={() => { setStrandIds([]); setSubIds([]); }}>
                 Clear
@@ -278,13 +295,15 @@ export default function CurriculumPicker({ onSelect, wholeSubject = false }) {
                       {t.kicd_code ? `${t.kicd_code} ` : ""}{t.name}
                     </p>
                     <div className="flex gap-3 shrink-0">
-                      <button type="button" className={linkCls}
-                              onClick={() => setSubIds((cur) => [
-                                ...cur.filter((id) => !t.substrands.some((s) => s.id === id)),
-                                ...t.substrands.map((s) => s.id),
-                              ])}>
-                        All
-                      </button>
+                      {!single && (
+                        <button type="button" className={linkCls}
+                                onClick={() => setSubIds((cur) => [
+                                  ...cur.filter((id) => !t.substrands.some((s) => s.id === id)),
+                                  ...t.substrands.map((s) => s.id),
+                                ])}>
+                          All
+                        </button>
+                      )}
                       <button type="button" className={linkCls}
                               onClick={() => setSubIds((cur) =>
                                 cur.filter((id) => !t.substrands.some((s) => s.id === id)))}>
