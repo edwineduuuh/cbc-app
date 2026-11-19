@@ -93,11 +93,21 @@ def _b64(data: bytes) -> str:
     return base64.b64encode(data).decode("ascii")
 
 
+def _image_mime(data: bytes) -> str:
+    if data[:3] == b"\xff\xd8\xff":
+        return "image/jpeg"
+    if data[:4] == b"RIFF" and data[8:12] == b"WEBP":
+        return "image/webp"
+    if data[:3] == b"GIF":
+        return "image/gif"
+    return "image/png"
+
+
 def _openai_content(prompt, images):
     if not images:
         return prompt
     return [{"type": "text", "text": prompt}] + [
-        {"type": "image_url", "image_url": {"url": f"data:image/png;base64,{_b64(im)}"}}
+        {"type": "image_url", "image_url": {"url": f"data:{_image_mime(im)};base64,{_b64(im)}"}}
         for im in images]
 
 
@@ -211,21 +221,29 @@ def _call_openrouter(system, prompt, model, max_tokens, want_json, images=None):
             u.get("prompt_tokens", 0), u.get("completion_tokens", 0))
 
 
-def _call_deepseek(system, prompt, model, max_tokens, want_json, images=None):
-    """DeepSeek speaks the OpenAI API. Thinking is switched off: these tasks
-    follow a fixed format, and thinking tokens are billed as output."""
+def deepseek_client():
     from openai import OpenAI
+    return OpenAI(api_key=settings.DEEPSEEK_API_KEY, base_url="https://api.deepseek.com",
+                  timeout=180.0, max_retries=1)
 
-    client = OpenAI(api_key=settings.DEEPSEEK_API_KEY, base_url="https://api.deepseek.com",
-                    timeout=150.0, max_retries=1)
+
+# Thinking tokens are billed as output and count against max_tokens, so a
+# thinking call gets this much extra room or its answer is cut off.
+THINKING_HEADROOM = 8000
+
+
+def _call_deepseek(system, prompt, model, max_tokens, want_json, images=None, thinking=False):
+    """DeepSeek speaks the OpenAI API. Thinking is chosen per service in
+    questions/ai_routing.py (the benchmark found it helps question writing,
+    PDF reading and marking, and is wasted on schemes and lesson plans)."""
+    client = deepseek_client()
     kwargs = {
         "model": model,
-        "messages": [
-            {"role": "system", "content": system},
+        "messages": ([{"role": "system", "content": system}] if system else []) + [
             {"role": "user", "content": _openai_content(prompt, images)},
         ],
-        "max_tokens": max_tokens,
-        "extra_body": {"thinking": {"type": "disabled"}},
+        "max_tokens": max_tokens + (THINKING_HEADROOM if thinking else 0),
+        "extra_body": {"thinking": {"type": "enabled" if thinking else "disabled"}},
     }
     if want_json:
         kwargs["response_format"] = {"type": "json_object"}
@@ -245,26 +263,20 @@ _PROVIDERS = {
 
 
 # ── public API ────────────────────────────────────────────────────────────
-def generate(prompt: str, system: str = "", *, max_tokens: int = 4000,
-             want_json: bool = False, model: str | None = None,
-             provider: str | None = None, task: str = "generate",
-             user=None, images: list | None = None) -> str:
-    """Generate text with the configured provider. Returns the raw string.
-
-    Logs the call to ApiCall whatever the outcome, so spend and failures are
-    both visible without reaching for provider dashboards.
-    """
-    prov = (provider or _provider()).strip().lower()
-    mdl = _model(model)
+def _attempt(prov, mdl, thinking, system, prompt, max_tokens, want_json, images, task, user):
+    """One call to one provider, always logged."""
     fn = _PROVIDERS.get(prov)
     if not fn:
-        raise GenerationError(f"Unknown GEN_PROVIDER {prov!r}")
-
+        raise GenerationError(f"Unknown provider {prov!r}")
+    kw = {}
+    if images:
+        kw["images"] = images
+    if prov == "deepseek":
+        kw["thinking"] = thinking
     started = time.time()
     text, tin, tout, err = "", 0, 0, ""
     try:
-        text, tin, tout = (fn(system, prompt, mdl, max_tokens, want_json, images=images)
-                           if images else fn(system, prompt, mdl, max_tokens, want_json))
+        text, tin, tout = fn(system, prompt, mdl, max_tokens, want_json, **kw)
         if not (text or "").strip():
             raise GenerationError(f"{prov}/{mdl} returned an empty response")
         return text
@@ -276,6 +288,41 @@ def generate(prompt: str, system: str = "", *, max_tokens: int = 4000,
         _log_call(task=task, provider=prov, model=mdl, user=user,
                   tokens_in=tin, tokens_out=tout, error=err,
                   ms=int((time.time() - started) * 1000))
+
+
+def generate(prompt: str, system: str = "", *, max_tokens: int = 4000,
+             want_json: bool = False, model: str | None = None,
+             provider: str | None = None, task: str = "generate",
+             user=None, images: list | None = None, thinking: bool = False) -> str:
+    """Generate text and return the raw string.
+
+    The model comes from questions/ai_routing.py for the service this task
+    belongs to; an explicit provider/model overrides that. A routed call that
+    fails is retried once on the service's fallback (Terra). Every attempt is
+    logged to ApiCall, so spend and failures are visible.
+    """
+    from questions import ai_routing
+
+    if provider or model:
+        prov = (provider or _provider()).strip().lower()
+        return _attempt(prov, _model(model), thinking, system, prompt, max_tokens,
+                        want_json, images, task, user)
+
+    service = ai_routing.service_for_task(task)
+    route = ai_routing.route_for(service) if service else None
+    if route is None:
+        return _attempt(_provider(), _model(), False, system, prompt, max_tokens,
+                        want_json, images, task, user)
+    try:
+        return _attempt(route.provider, route.model, route.thinking, system, prompt,
+                        max_tokens, want_json, images, task, user)
+    except Exception as first:
+        fb = ai_routing.fallback_for(service, route)
+        if not fb:
+            raise
+        logger.warning("task=%s: %s failed (%s); falling back to %s", task, route, first, fb)
+        return _attempt(fb.provider, fb.model, fb.thinking, system, prompt, max_tokens,
+                        want_json, images, task, user)
 
 
 def generate_json(prompt: str, system: str = "", **kw) -> dict | list:

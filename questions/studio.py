@@ -305,6 +305,20 @@ def lesson_breakdown(s, n, *, user=None, lessons=None, notes=""):
     return lessons, "ai"
 
 
+def kicd_inquiry_question(written: str, s, lesson_index: int) -> str:
+    """The key inquiry question exactly as KICD prints it. Models reword it
+    (every model in the 19 Nov benchmark did), so code picks: the KICD
+    question the model's version is closest to, else one in turn."""
+    # Some KICD imports keep the design's numbering ("1. How do we ...").
+    kiqs = [re.sub(r"^\s*\d+[.)]\s*", "", k) for k in _clean_list(s.inquiry_questions)]
+    if not kiqs:
+        return written
+    words = lambda x: set(re.sub(r"[^a-z0-9 ]+", " ", (x or "").lower()).split())
+    w = words(written)
+    best = max(kiqs, key=lambda k: len(words(k) & w))
+    return best if w and len(words(best) & w) >= 2 else kiqs[lesson_index % len(kiqs)]
+
+
 def practice_counts(sub_ids):
     return dict(Question.objects.filter(substrand_id__in=sub_ids)
                 .values("substrand_id").annotate(n=Count("id")).values_list("substrand_id", "n"))
@@ -359,7 +373,8 @@ def build_scheme(inputs, *, user=None):
                           "remarks": ""})
             continue
         lessons, _ = details[sid]
-        L = lessons[r["part"] - 1]
+        L = dict(lessons[r["part"] - 1])
+        L["inquiry_question"] = kicd_inquiry_question(L.get("inquiry_question", ""), by_id[sid], r["part"] - 1)
         r.update({**L, "remarks": "", "practice_questions": practice.get(sid, 0)})
     if used_fallback:
         warnings.append("Some lessons were laid out straight from the KICD design because the "

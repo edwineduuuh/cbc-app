@@ -11,10 +11,14 @@ and then served instantly and for free to every student after.
 Built fresh. Does NOT import or depend on the abandoned ai_service.py.
 """
 import json
+import logging
+import time
 import re
 
 import anthropic
 from django.conf import settings
+
+logger = logging.getLogger("generation")
 
 # Generation (lessons, flashcards) - max quality; cached, so the cost is
 # one-time per sub-strand. Opus is the most capable model.
@@ -34,7 +38,7 @@ def _get_claude():
 
 
 def _call_claude(system: str, messages: list, max_tokens: int = 3000,
-                 model: str = CLAUDE_MODEL, cache_system: bool = True) -> str:
+                 model: str = CLAUDE_MODEL, cache_system: bool = True, task: str = "tutor-lesson") -> str:
     # NB: no `temperature` - Opus 4.8 rejects sampling params (400). Sonnet is
     # fine without it too.
     #
@@ -47,12 +51,22 @@ def _call_claude(system: str, messages: list, max_tokens: int = 3000,
         "text": system,
         **({"cache_control": {"type": "ephemeral"}} if cache_system else {}),
     }]
+    started = time.time()
     response = _get_claude().messages.create(
         model=model,
         max_tokens=max_tokens,
         system=system_param,
         messages=messages,
     )
+    try:   # record usage, like generation calls
+        from questions.generation import _log_call
+        u = response.usage
+        _log_call(task=task, provider="anthropic", model=model, user=None,
+                  tokens_in=(u.input_tokens or 0) + (getattr(u, "cache_read_input_tokens", 0) or 0)
+                  + (getattr(u, "cache_creation_input_tokens", 0) or 0),
+                  tokens_out=u.output_tokens or 0, error="", ms=int((time.time() - started) * 1000))
+    except Exception:
+        pass
     # Return the first text block (robust whether or not thinking is on).
     return next((b.text for b in response.content if b.type == "text"), "")
 
@@ -335,4 +349,52 @@ def tutor_chat(topic, history: list, attachment: dict = None, max_tokens: int = 
             prev["content"][-1] = {**prev["content"][-1],
                                    "cache_control": {"type": "ephemeral"}}
 
-    return _call_claude(system, messages, max_tokens=max_tokens, model=CLAUDE_CHAT_MODEL)
+    from questions import ai_routing
+    route = ai_routing.route_for("tutor") or ai_routing.CURRENT["tutor"]
+    # DeepSeek reads images but not PDFs: a PDF attachment stays on Claude.
+    if route.provider == "deepseek" and not (block and block.get("type") == "document"):
+        try:
+            return _deepseek_chat(system, messages, max_tokens, route)
+        except Exception as e:
+            logger.warning("tutor %s failed (%s); falling back to Claude", route, e)
+    model = route.model if route.provider == "anthropic" else CLAUDE_CHAT_MODEL
+    return _call_claude(system, messages, max_tokens=max_tokens, model=model, task="tutor")
+
+
+def _deepseek_chat(system, messages, max_tokens, route):
+    """The tutor conversation on DeepSeek (OpenAI-style messages), logged."""
+    from questions.generation import THINKING_HEADROOM, _log_call, deepseek_client
+
+    def convert(content):
+        if isinstance(content, str):
+            return content
+        parts = []
+        for b in content:
+            if b.get("type") == "text":
+                parts.append({"type": "text", "text": b["text"]})
+            elif b.get("type") == "image":
+                src = b["source"]
+                parts.append({"type": "image_url",
+                              "image_url": {"url": f"data:{src['media_type']};base64,{src['data']}"}})
+        return parts
+    msgs = [{"role": "system", "content": system}] + [
+        {"role": m["role"], "content": convert(m["content"])} for m in messages]
+    started = time.time()
+    tin = tout = 0
+    err = ""
+    try:
+        r = deepseek_client().chat.completions.create(
+            model=route.model, messages=msgs,
+            max_tokens=max_tokens + (THINKING_HEADROOM if route.thinking else 0),
+            extra_body={"thinking": {"type": "enabled" if route.thinking else "disabled"}})
+        tin, tout = r.usage.prompt_tokens, r.usage.completion_tokens
+        text = r.choices[0].message.content or ""
+        if not text.strip():
+            raise RuntimeError("DeepSeek returned an empty reply")
+        return text
+    except Exception as e:
+        err = f"{type(e).__name__}: {e}"[:400]
+        raise
+    finally:
+        _log_call(task="tutor", provider="deepseek", model=route.model, user=None, tokens_in=tin,
+                  tokens_out=tout, error=err, ms=int((time.time() - started) * 1000))

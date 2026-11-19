@@ -43,6 +43,12 @@ GEN_PROVIDER = os.environ.get('GEN_PROVIDER', 'openai')
 GEN_MODEL = os.environ.get('GEN_MODEL', '')          # blank = provider default
 OPENROUTER_API_KEY = os.environ.get('OPENROUTER_API_KEY')
 DEEPSEEK_API_KEY = os.environ.get('DEEPSEEK_API_KEY')
+# Which model runs which service: see questions/ai_routing.py. Defaults keep
+# today's models; AI_PROFILE=deepseek applies the benchmarked routes.
+AI_PROFILE = os.environ.get('AI_PROFILE', '')
+AI_TUTOR_PILOT = os.environ.get('AI_TUTOR_PILOT', 'false').lower() == 'true'
+AI_ROUTE_OVERRIDES = {s: os.environ.get(f'AI_ROUTE_{s.upper()}', '') for s in (
+    'scheme', 'lesson_plan', 'assessment', 'pdf', 'marking', 'marking_kiswahili', 'tutor')}
 
 # Validate SECRET_KEY
 from django.core.exceptions import ImproperlyConfigured

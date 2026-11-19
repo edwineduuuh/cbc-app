@@ -622,10 +622,49 @@ def _call_ai(
     model); everything else uses the default grading model.
     Returns the raw text response.
     """
-    model = KISWAHILI_MODEL if kiswahili else CLAUDE_MODEL
-    result = _call_claude(prompt, working_image, max_tokens, model=model)
-    print(f"🤖 API used: Claude ({model}){' [kiswahili]' if kiswahili else ''}")
-    return result
+    from questions import ai_routing
+
+    service = "marking_kiswahili" if kiswahili else "marking"
+    route = ai_routing.route_for(service) or ai_routing.CURRENT[service]
+    if route.provider == "anthropic":
+        return _call_claude(prompt, working_image, max_tokens, model=route.model, task=service)
+    try:
+        return _call_deepseek_marking(prompt, working_image, max_tokens, route, service)
+    except Exception as e:
+        # Never leave a learner without a mark: fall back to Claude.
+        fb = ai_routing.fallback_for(service, route) or ai_routing.CURRENT[service]
+        print(f"⚠ {route} marking failed ({e}); falling back to {fb}")
+        return _call_claude(prompt, working_image, max_tokens, model=fb.model, task=service)
+
+
+def _call_deepseek_marking(prompt, working_image, max_tokens, route, service):
+    """Mark with DeepSeek through the shared generation layer (logged)."""
+    import base64
+    from questions.generation import generate
+
+    images = None
+    text = prompt.replace(_CACHE_BREAK, "")
+    if working_image:
+        images = [base64.b64decode(_extract_base64_payload(working_image))]
+        text += "\n\nThe student has shared a photo of their working above."
+    out = generate(text, "", max_tokens=max_tokens, provider=route.provider, model=route.model,
+                   thinking=route.thinking, task=service, images=images)
+    if not out.strip():
+        raise Exception("DeepSeek returned empty response")
+    return out
+
+
+def _log_claude_usage(response, model, task, started):
+    """Record tokens and time for a Claude call, like generation calls are."""
+    try:
+        from questions.generation import _log_call
+        u = response.usage
+        tin = (u.input_tokens or 0) + (getattr(u, "cache_read_input_tokens", 0) or 0) \
+            + (getattr(u, "cache_creation_input_tokens", 0) or 0)
+        _log_call(task=task, provider="anthropic", model=model, user=None, tokens_in=tin,
+                  tokens_out=u.output_tokens or 0, error="", ms=int((time.time() - started) * 1000))
+    except Exception:
+        pass
 
 
 def _is_model_unavailable(exc) -> bool:
@@ -647,6 +686,7 @@ def _call_claude(
     working_image: str | None = None,
     max_tokens: int = MAX_TOKENS_DEFAULT,
     model: str = CLAUDE_MODEL,
+    task: str = "marking",
 ) -> str:
     """Call Anthropic Claude. Returns raw text response."""
     content = []
@@ -696,7 +736,9 @@ def _call_claude(
         model_dead, last_exc = False, None
         for attempt in range(MAX_RETRIES):
             try:
+                started = time.time()
                 response = _get_claude().messages.create(**params)
+                _log_claude_usage(response, params["model"], task, started)
                 text = next((b.text for b in response.content if b.type == "text"), "")
                 if not text:
                     raise Exception("Claude returned empty response")
