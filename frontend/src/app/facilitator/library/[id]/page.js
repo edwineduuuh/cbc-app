@@ -4,7 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import { fetchWithAuth } from "@/lib/api";
-import MathText from "@/components/MathText";
+import MathText from "@/components/MathText.js";
 import StudioDocument from "@/components/studio/StudioDocument";
 
 const STUDIO = {
@@ -23,6 +23,29 @@ const API =
   "https://cbc-backend-production-0fd4.up.railway.app/api";
 
 const TYPE_LABEL = { mcq: "Multiple choice", structured: "Structured" };
+
+// Paper tidying done here as well as on the server, so papers made before
+// the server fix print correctly too.
+const marksLabel = (n) => `${n} ${Number(n) === 1 ? "mark" : "marks"}`;
+const stripMarks = (t) => String(t || "").replace(/\s*\(\s*\d+\s*marks?\s*\)\s*$/i, "");
+const FIGURE_ABOVE = /\b(the|this)\s+(sketch map|map|diagram|figure|graph|table|picture|chart|illustration|photograph)\s+above\b/gi;
+const stemText = (q) => {
+  let t = q.question_text || "";
+  if (q.diagram || q.plot) t = t.replace(FIGURE_ABOVE, "$1 $2 below");
+  return (q.parts || []).length ? t : stripMarks(t);
+};
+const NUM_WORDS = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten",
+  "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen", "twenty"];
+function instructionsFor(questions) {
+  const n = questions.length;
+  if (!n) return "";
+  const count = n < NUM_WORDS.length ? `${NUM_WORDS[n]} (${n})` : String(n);
+  const kinds = new Set(questions.map((q) => (q.type || "").toLowerCase()));
+  const out = [`Answer all ${count} questions.`];
+  if (kinds.has("mcq")) out.push("For multiple-choice questions, write the letter of the best answer.");
+  if ([...kinds].some((k) => k !== "mcq")) out.push("For structured questions, write your answers in the spaces provided.");
+  return out.join(" ");
+}
 
 // The backend hands back a root-relative path ("/api/diagrams/<key>.png").
 // Rendered here that resolves against the *frontend's* origin, where nothing
@@ -178,13 +201,13 @@ export default function LibraryItemPage() {
         item.title,
         `${qs.length} questions · ${p.total_marks} marks`,
         p.covers ? `Covers: ${p.covers}` : "",
-        "", p.instructions || "", "",
+        "", instructionsFor(qs), "",
         ...qs.map((q) => {
-          const head = `${q.number}. ${q.question_text}  (${q.marks} ${q.marks === 1 ? "mark" : "marks"})`;
+          const head = `${q.number}. ${stemText(q)}  (${marksLabel(q.marks)})`;
           const opts = q.options
             ? Object.entries(q.options).map(([k, v]) => `   ${k}) ${v}`) : [];
           const parts = (q.parts || []).map(
-            (pt) => `   (${pt.label}) ${pt.question_text}${pt.marks ? `  (${pt.marks} marks)` : ""}`);
+            (pt) => `   (${pt.label}) ${stripMarks(pt.question_text)}${pt.marks ? `  (${marksLabel(pt.marks)})` : ""}`);
           return [head, ...opts, ...parts].join("\n");
         }),
       ].filter(Boolean).join("\n");
@@ -365,8 +388,8 @@ export default function LibraryItemPage() {
             {` · ${questions.length} questions · ${p.total_marks} marks`}
           </p>
           {p.covers && <p className="text-xs text-gray-500 mt-0.5">Covers: {p.covers}</p>}
-          {!showScheme && p.instructions && (
-            <p className="mt-3 text-sm text-gray-700"><strong>Instructions:</strong> {p.instructions}</p>
+          {!showScheme && questions.length > 0 && (
+            <p className="mt-3 text-sm text-gray-700"><strong>Instructions:</strong> {instructionsFor(questions)}</p>
           )}
           {!showScheme && (
             <div className="mt-4 hidden print:grid grid-cols-2 gap-6 text-sm">
@@ -387,7 +410,7 @@ export default function LibraryItemPage() {
                       onChange={(e) => editQuestion(idx, { question_text: e.target.value })}
                       className="w-full rounded-lg border border-gray-200 px-2 py-1.5 text-sm" />
                   ) : (
-                    <p className="text-sm text-gray-900"><MathText>{q.question_text}</MathText></p>
+                    <p className="text-sm text-gray-900"><MathText>{stemText(q)}</MathText></p>
                   )}
 
                   {!showScheme && (
@@ -406,8 +429,8 @@ export default function LibraryItemPage() {
                         <ul className="mt-2 space-y-3">
                           {q.parts.map((part, pi) => (
                             <li key={pi} className="text-sm text-gray-800">
-                              ({part.label}) <MathText>{part.question_text}</MathText>
-                              {part.marks ? <span className="text-gray-400"> ({part.marks} marks)</span> : null}
+                              ({part.label}) <MathText>{stripMarks(part.question_text)}</MathText>
+                              {part.marks ? <span className="text-gray-500"> ({marksLabel(part.marks)})</span> : null}
                               <AnswerLines marks={part.marks} />
                             </li>
                           ))}

@@ -31,6 +31,13 @@ function render(tex, display) {
   }
 }
 
+// Generated text sometimes marks emphasis as **best**; print it bold
+// rather than with the asterisks.
+function withBold(text) {
+  if (!text.includes("**")) return text;
+  return text.split(/\*\*([^*\n]+)\*\*/g).map((seg, i) => (i % 2 ? <strong key={i}>{seg}</strong> : seg));
+}
+
 export default function MathText({ children, className = "" }) {
   const text = typeof children === "string" ? children : "";
 
@@ -63,7 +70,7 @@ export default function MathText({ children, className = "" }) {
             dangerouslySetInnerHTML={{ __html: p.html }}
           />
         ) : (
-          <span key={i} className="whitespace-pre-wrap">{p.value}</span>
+          <span key={i} className="whitespace-pre-wrap">{withBold(p.value)}</span>
         )
       )}
     </span>

@@ -294,6 +294,17 @@ def plan_mix(count: int, grade, description: str, mcq_ratio=None):
     return n_mcq, count - n_mcq
 
 
+# Parts of one paper are written at the same time and cannot see each other.
+# Giving each part its own style is what stops four parts all writing the
+# obvious scenario question.
+PART_STYLES = [
+    "explain and use the key ideas directly, in classroom terms - no story scenarios",
+    "apply the ideas to a real Kenyan situation; each question a different kind of situation",
+    "interpret given information: a short table, figures, a timeline, a source extract or a described picture",
+    "compare, evaluate or justify a view with reasons",
+]
+
+
 def plan_jobs(n_mcq: int, n_struct: int, subs: list) -> list[dict]:
     """Split the paper into parts that can be written at the same time.
 
@@ -456,7 +467,11 @@ def build_prompt(substrands, *, count=10, description="", mcq_ratio=None,
             + (", ".join(f"[S{t}]" for t in mine) if mine else "the design")
             + ", and make them unmistakably different in shape and setting "
               "from anything an obvious first attempt would produce, so the "
-              "finished paper does not repeat itself.\n")
+              "finished paper does not repeat itself.\n"
+            + f"YOUR PART'S STYLE: {PART_STYLES[(part['part'] - 1) % len(PART_STYLES)]}\n"
+              "No two questions in the whole paper may use the same KIND of situation "
+              "(for example, only ONE story where someone offers goods in exchange "
+              "for other goods), so keep to your style.\n")
 
     design = "\n\n".join(blocks)
     competencies = _bullets(subs[0].core_competencies, 4)
@@ -645,6 +660,45 @@ def generate_assessment(substrands, *, count=10, description="",
     logger.info("assessment built in %.1fs: %s", marks[-1][1],
                 ", ".join(f"{n}@{t}s" for n, t in marks[1:]))
     data["seconds"] = marks[-1][1]
+    return tidy_paper(data)
+
+
+_NUM_WORDS = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine",
+              "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen",
+              "seventeen", "eighteen", "nineteen", "twenty"]
+_TRAILING_MARKS = re.compile(r"\s*\(\s*\d+\s*marks?\s*\)\s*$", re.I)
+_FIGURE_ABOVE = re.compile(r"\b(the|this)\s+(sketch map|map|diagram|figure|graph|table|picture|chart|illustration|photograph)\s+above\b", re.I)
+
+
+def paper_instructions(questions) -> str:
+    """Instructions written from the questions actually on the paper."""
+    n = len(questions)
+    count = f"{_NUM_WORDS[n]} ({n})" if n < len(_NUM_WORDS) else str(n)
+    kinds = {(q.get("type") or "").lower() for q in questions}
+    lines = [f"Answer all {count} questions."]
+    if "mcq" in kinds:
+        lines.append("For multiple-choice questions, write the letter of the best answer.")
+    if kinds - {"mcq"}:
+        lines.append("For structured questions, write your answers in the spaces provided.")
+    return " ".join(lines)
+
+
+def tidy_paper(data: dict) -> dict:
+    """Fixes code can make reliably, so they never depend on the model:
+    instructions that match the paper, marks printed once, and a figure
+    that prints below its question called 'below'."""
+    qs = data.get("questions") or []
+    for q in qs:
+        if q.get("diagram") or q.get("plot") or q.get("figure"):
+            q["question_text"] = _FIGURE_ABOVE.sub(lambda m: f"{m.group(1)} {m.group(2)} below",
+                                                   q.get("question_text") or "")
+        for part in q.get("parts") or []:
+            if isinstance(part, dict) and part.get("question_text"):
+                part["question_text"] = _TRAILING_MARKS.sub("", part["question_text"])
+        if q.get("question_text") and not q.get("parts"):
+            q["question_text"] = _TRAILING_MARKS.sub("", q["question_text"])
+    if qs:
+        data["instructions"] = paper_instructions(qs)
     return data
 
 

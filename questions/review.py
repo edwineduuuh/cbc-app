@@ -83,7 +83,11 @@ answer is stated in its own wording is always shallow.
 
 6. "setting" - two or three words naming the scenario, such as "road ramp", \
 "matatu fare", "maize harvest", "none" if it has no real-world setting. Use \
-the same words for the same scenario so repeats can be spotted.
+the same words for the same scenario so repeats can be spotted. Two stories \
+of the same KIND are the same setting even with different people, places and \
+goods: "someone offers goods in exchange for other goods" is one setting \
+("barter offer") whether it is milk for maize or goats for a pot. A later \
+question with the same kind of story as an earlier one is a repeat.
 
 A question may refer to "the diagram above" or "the graph above". The figure \
 IS printed with it on the paper, and is described in square brackets under \
@@ -179,10 +183,19 @@ def _verdicts(payload, user, subject_name=""):
     batches = [questions[i:i + REVIEW_BATCH]
                for i in range(0, len(questions), REVIEW_BATCH)]
 
+    # Each batch is checked separately (in parallel), so give every batch the
+    # whole paper in one line per question - otherwise "repeats" and
+    # "setting" can only compare a question with the two beside it, and a
+    # paper of three barter stories sails through.
+    whole = "\n".join(f'Question {q["number"]}: {" ".join(str(q.get("question_text", "")).split())[:180]}'
+                      for q in questions)
+
     def check(batch):
         from django.db import connection
         try:
-            prompt = (context + "Check these questions.\n\n"
+            prompt = (context
+                      + "THE WHOLE PAPER, for judging \"repeats\" and \"setting\" only:\n"
+                      + whole + "\n\nNow check ONLY these questions (report only these numbers).\n\n"
                       + "\n\n".join(_block(q) for q in batch))
             return generate_json(
                 prompt, REVIEW_SYSTEM,

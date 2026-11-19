@@ -339,3 +339,17 @@ html.dark .border-red-200 { border-color: rgba(240,113,120,0.35) !important; }
   100% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0); }
 }
 .live-glow { animation: liveGlow 2.2s ease-out infinite; }
+
+
+/* ── Printing ────────────────────────────────────────────────────────────
+   A printed paper is the paper: no app navigation, and dark text on white
+   paper. The dark theme otherwise prints pale grey words that are hard to
+   read and waste nothing but the teacher's photocopy budget. */
+@media print {
+  .ss-sidebar, .ss-topbar, .ss-bottombar, .ss-drawer { display: none !important; }
+  body, body.has-sidebar, body.sidebar-collapsed, body.has-bottom-nav { padding: 0 !important; margin: 0 !important; }
+  html, html.dark, html body, html.dark body, html.dark main { background: #fff !important; }
+  html.dark article, html.dark article * { color: #111 !important; }
+  html.dark article { background: #fff !important; border: 0 !important; }
+  html.dark article [class*="border"] { border-color: #9ca3af !important; }
+}
