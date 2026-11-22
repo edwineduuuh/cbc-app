@@ -21,6 +21,7 @@ import {
 } from "lucide-react";
 import katex from "katex";
 import "katex/dist/katex.min.css";
+import { renderMathHtml } from "@/lib/math";
 import SimpleMathInput from "@/components/SimpleMathInput";
 import ChemTextBar from "@/components/ChemTextBar";
 
@@ -50,10 +51,7 @@ function _katex(expr, display) {
   }
 }
 function renderMath(text) {
-  if (!text) return "";
-  return text
-    .replace(/\$\$([\s\S]+?)\$\$/g, (_, expr) => _katex(expr, true))
-    .replace(/\$([\s\S]+?)\$/g, (_, expr) => _katex(expr, false));
+  return renderMathHtml(text);
 }
 
 // ─── Timer Hook ───────────────────────────────────────────────────────────────

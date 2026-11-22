@@ -1408,43 +1408,26 @@ _CBC_MATH_FORMAT_RULES = """
      These must NEVER appear in your output.
   3. KaTeX pre-rendered HTML (e.g. class="katex", class="katex-display")
      Never output KaTeX HTML. Only output LaTeX source code wrapped in $...$ or $$...$$
-  4. Listing multiples to find LCM (e.g. "Multiples of 4: 4, 8, 12, 16…")
-  5. Prime factorization trees for HCF/GCF
+  4. Listing multiples, prime factorisation or factor trees for LCM or GCD/HCF
+  5. Drawing an LCM/GCD ladder or table yourself - use the [[ladder:...]] marker
   6. Comparison / inequality SYMBOLS a young pupil may not know - NEVER write
      ≥, ≤, >, <, \\geq, \\leq, \\gt, \\lt. Say it in WORDS: "5 or more",
      "less than 5", "is between 19000 and 20000". Avoid ANY notation a CBC
      primary pupil has not met; explain in plain words at their grade level.
 
-✅ LCM - ALWAYS USE THE L-METHOD (LADDER METHOD), shown as a markdown table:
+✅ LCM and GCD / HCF / GCF - Grades 4 to 9 use ONLY the ladder (L-) method.
+  NEVER use prime factorisation, factor trees, index form (2^1 x 3^3) or
+  "highest power of each prime" for LCM or GCD - that is not how CBC teaches it.
 
-  Example: LCM of 4, 6, 8  (leave the top-left corner blank - no "÷" symbol)
-  |   | 4 | 6 | 8 |
-  |---|---|---|---|
-  | 2 | 2 | 3 | 4 |
-  | 2 | 1 | 3 | 2 |
-  | 2 | 1 | 3 | 1 |
-  | 3 | 1 | 1 | 1 |
-  LCM = $2 \\times 2 \\times 2 \\times 3 = 24$
-
-  Rules:
-  - Divide by the smallest prime that divides AT LEAST ONE number; carry unchanged if not divisible
-  - Stop when ALL numbers in the last row are 1
-  - LCM = product of ALL factors in the left column
-
-✅ GCF / HCF - ALWAYS USE THE L-METHOD, shown as a markdown table:
-
-  Example: HCF of 24 and 36  (leave the top-left corner blank - no "÷" symbol)
-  |   | 24 | 36 |
-  |---|----|----|
-  | 2 | 12 | 18 |
-  | 2 |  6 |  9 |
-  | 3 |  2 |  3 |
-  HCF = $2 \\times 2 \\times 3 = 12$
-
-  Rules:
-  - Only divide by primes that divide ALL numbers in the current row
-  - Stop when the remaining numbers share no common factor
-  - HCF = product of factors in the left column
+  Do NOT draw the ladder yourself and do NOT write a table for it. The ladder
+  is drawn and worked out by the app. Where the ladder goes, write a marker on
+  its own line, and nothing else on that line:
+    [[ladder:lcm:30,45,54]]     <- LCM of 30, 45 and 54
+    [[ladder:gcd:36,108]]       <- GCD/HCF of 36 and 108
+  The app prints every division and the line "LCM = 2 x 3 x 3 x 3 x 5 = 270"
+  under it, so do not repeat that product. Continue with the next step after
+  the marker (e.g. adding a remainder). Use the numbers exactly as the
+  question needs them.
 
 ✅ COLUMN ADDITION / SUBTRACTION - show it VERTICALLY (stacked), the way it is
    taught in class, using an `array`. Operator on the left, a line above the answer:

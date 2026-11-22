@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import katex from "katex";
 import "katex/dist/katex.min.css";
+import { renderMathHtml } from "@/lib/math";
 
 function _patchKatexSvg(html) {
   return html.replace(/<svg([^>]*)>/g, (_, attrs) => {
@@ -29,10 +30,7 @@ function _katex(expr, display) {
   }
 }
 function renderMath(text) {
-  if (!text) return "";
-  return String(text)
-    .replace(/\$\$([\s\S]+?)\$\$/g, (_, expr) => _katex(expr, true))
-    .replace(/\$([\s\S]+?)\$/g,     (_, expr) => _katex(expr, false));
+  return renderMathHtml(text);
 }
 // Preserve pasted paragraphs/line breaks for explanation & feedback text only.
 function _preserveBreaks(html) {

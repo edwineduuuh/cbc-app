@@ -3,6 +3,7 @@
 import { useMemo } from "react";
 import katex from "katex";
 import "katex/dist/katex.min.css";
+import { latexToText } from "@/lib/math";
 
 /**
  * Text that may contain mathematics, typeset properly.
@@ -22,7 +23,7 @@ function render(tex, display) {
   try {
     return katex.renderToString(tex, {
       displayMode: display,
-      throwOnError: false,
+      throwOnError: true,
       strict: false,
       output: "html",
     });
@@ -52,7 +53,7 @@ export default function MathText({ children, className = "" }) {
       const tex = (m[1] ?? m[2] ?? "").trim();
       const html = tex ? render(tex, m[1] != null) : null;
       out.push(html ? { type: "math", html, display: m[1] != null }
-                    : { type: "text", value: m[0] });
+                    : { type: "text", value: latexToText(tex) });
       last = m.index + m[0].length;
     }
     if (last < text.length) out.push({ type: "text", value: text.slice(last) });

@@ -24,6 +24,7 @@ import PhysicsFormulaBar from "@/components/PhysicsFormulaBar";
 import FinancialStatementInput from "@/components/FinancialStatementInput";
 import katex from "katex";
 import "katex/dist/katex.min.css";
+import { renderMathHtml, tidyFeedback } from "@/lib/math";
 
 const nunito = Nunito({
   subsets: ["latin"],
@@ -83,12 +84,7 @@ function _mdTableToHtml(text) {
 
 function renderMath(text) {
   if (!text) return "";
-  const withTables = _mdTableToHtml(text);
-  return withTables
-    .replace(/\$\$([\s\S]+?)\$\$/g, (_, expr) => _katex(expr, true))
-    .replace(/\$([\s\S]+?)\$/g, (_, expr) => _katex(expr, false))
-    .replace(/\\\[([\s\S]+?)\\\]/g, (_, expr) => _katex(expr, true))
-    .replace(/\\\(([\s\S]+?)\\\)/g, (_, expr) => _katex(expr, false));
+  return renderMathHtml(_mdTableToHtml(text));
 }
 
 // Renders text preserving newlines as <br/> and processing math
@@ -3496,17 +3492,28 @@ export default function QuizTakePage({ params }) {
           const bg = full ? "rgba(32,184,166,0.12)" : zero ? "rgba(240,113,120,0.12)" : "rgba(232,182,91,0.12)";
           // Strip a leading verdict word (the heading already shows it) and turn
           // literal \n / real newlines into proper line breaks for clean spacing.
-          const body = (f.feedback || "")
+          const body = tidyFeedback(f.feedback || "")
             .trim()
             .replace(/^(Correct!|Not quite\.?|Partially correct\.?)\s*/i, "");
           // Split on literal \n / real newlines into clean, spaced paragraphs.
-          const segs = body.split(/\\n|\r\n|\n/).map((s) => s.trim()).filter(Boolean);
-          const fbHtml = segs
-            .map(
-              (s, i, a) =>
-                `<p style="margin:0 0 ${i < a.length - 1 ? "10px" : "0"} 0">${renderMath(s)}</p>`,
-            )
-            .join("");
+          // Tables first (they span lines), then one paragraph per line.
+          const segs = _mdTableToHtml(body.replace(/\\n/g, "\n"))
+            .split(/\r\n|\n/).map((s) => s.trim()).filter(Boolean);
+          const paras = (list) =>
+            list
+              .map(
+                (s, i, a) =>
+                  `<p style="margin:0 0 ${i < a.length - 1 ? "10px" : "0"} 0">${renderMath(s)}</p>`,
+              )
+              .join("");
+          const fbHtml = paras(segs);
+          // The worked solution for THIS answer. On a wrong maths answer the
+          // marker writes it into study_tip, not feedback - it was never shown.
+          const tip = tidyFeedback(f.study_tip || "").trim();
+          const tipHtml =
+            tip && !(f.feedback || "").includes(tip.slice(0, 60))
+              ? paras(_mdTableToHtml(tip).split(/\n/).map((s) => s.trim()).filter(Boolean))
+              : "";
           return (
             <div style={{ maxWidth: 680, margin: "16px auto 110px", padding: "0 16px" }}>
               <div style={{ background: bg, border: `1.5px solid ${color}44`, borderRadius: 16, padding: 16 }}>
@@ -3538,6 +3545,18 @@ export default function QuizTakePage({ params }) {
                     style={{ fontSize: 13.5, color: "var(--text)", lineHeight: 1.75 }}
                     dangerouslySetInnerHTML={{ __html: fbHtml }}
                   />
+                )}
+                {tipHtml && (
+                  <div style={{ marginTop: 12, paddingTop: 12, borderTop: "1px solid var(--border)" }}>
+                    <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.06em",
+                                textTransform: "uppercase", color, marginBottom: 6 }}>
+                      How to work it out
+                    </p>
+                    <div
+                      style={{ fontSize: 13.5, color: "var(--text)", lineHeight: 1.75 }}
+                      dangerouslySetInnerHTML={{ __html: tipHtml }}
+                    />
+                  </div>
                 )}
                 {f.explanation_image_url && (
                   <img

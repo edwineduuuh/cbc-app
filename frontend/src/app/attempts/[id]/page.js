@@ -20,6 +20,7 @@ import {
 } from "lucide-react";
 import katex from "katex";
 import "katex/dist/katex.min.css";
+import { renderMathHtml, tidyFeedback } from "@/lib/math";
 import FinancialStatementInput from "@/components/FinancialStatementInput";
 const API =
   process.env.NEXT_PUBLIC_API_URL ||
@@ -90,15 +91,7 @@ function _mdTableToHtml(text) {
 
 function renderMath(text) {
   if (!text) return "";
-  if (text.includes('class="katex"') || text.includes("class='katex'"))
-    return text;
-  const withTables = _mdTableToHtml(text);
-  const rendered = withTables
-    .replace(/\$\$([\s\S]+?)\$\$/g, (_, expr) => _katex(expr, true))
-    .replace(/\$([\s\S]+?)\$/g, (_, expr) => _katex(expr, false))
-    .replace(/\\\[([\s\S]+?)\\\]/g, (_, expr) => _katex(expr, true))
-    .replace(/\\\(([\s\S]+?)\\\)/g, (_, expr) => _katex(expr, false));
-  return rendered;
+  return renderMathHtml(_mdTableToHtml(text));
 }
 // Keep the author's paragraphs and line breaks exactly as pasted. Math is
 // already rendered to KaTeX and tables to HTML, so the only newlines left here
@@ -1238,7 +1231,7 @@ export default function AttemptResultsPage() {
                 )
               : "",
             feedback: renderMath(
-              item.feedback
+              tidyFeedback(item.feedback)
                 ?.replace(
                   /\(([a-z])\)\s*/g,
                   "<br/><strong>Part ($1):</strong> ",
@@ -2158,7 +2151,7 @@ export default function AttemptResultsPage() {
                               {correct ? "✓ Feedback" : "Feedback"}
                             </p>
                             <p style={{ fontSize: 14, color: "var(--text)", lineHeight: 1.7, margin: 0 }}
-                              dangerouslySetInnerHTML={{ __html: renderRich(item.feedback) }}
+                              dangerouslySetInnerHTML={{ __html: renderRich(tidyFeedback(item.feedback)) }}
                             />
                           </div>
                         )}
@@ -2381,7 +2374,7 @@ export default function AttemptResultsPage() {
                               right / partly / wrong, so the text doesn't repeat it. */}
                           {(() => {
                             const accent = correct ? "#3CCB8B" : "#E8B65B";
-                            const body = (item.feedback || "")
+                            const body = tidyFeedback(item.feedback || "")
                               .replace(/^\s*(✓\s*)?(Correct!?|Not quite\.?|Partially correct\.?)\s*/i, "");
                             const note = (item.personalized_message || "").trim();
                             const tip = (item.study_tip || "").trim();
