@@ -84,6 +84,14 @@ def redact_table(table_data):
         for row in rows[1:]:
             if isinstance(row[ec], dict):
                 row[ec] = {**row[ec], "a": "", "v": "", "e": True}
+    # A header-row cell with text is a column label, even when it was saved
+    # as a fill-in cell by mistake ("Acidic Solution" / "Basic Solution"):
+    # blanking it left learners with no column headings at all.
+    if len(rows) > 1 and isinstance(rows[0], list):
+        for cell in rows[0]:
+            if isinstance(cell, dict) and cell.get("e") and str(cell.get("v") or "").strip():
+                cell["e"] = False
+                cell.pop("a", None)
     for row in rows:
         for cell in row:
             if isinstance(cell, dict) and cell.get("e"):

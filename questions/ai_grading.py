@@ -2586,6 +2586,10 @@ def _grade_table(question, student_answer) -> dict:
     editable_cells = []
     for r_idx, row in enumerate(rows):
         for c_idx, cell in enumerate(row):
+            # A header-row cell with text is a column label (see redact_table),
+            # not something the learner answers.
+            if r_idx == 0 and len(rows) > 1 and str(cell.get("v") or "").strip():
+                continue
             if cell.get("e"):
                 editable_cells.append((r_idx, c_idx, str(cell.get("a", "")).strip()))
 

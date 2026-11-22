@@ -895,7 +895,7 @@ function FillInTable({ tableData, answer, onAnswer }) {
                         background: "transparent",
                         fontSize: 14,
                         fontWeight: 500,
-                        color: "#1e3a5f",
+                        color: "var(--text)",
                         outline: "none",
                         fontFamily: "var(--font-sans)",
                       }}
@@ -1541,7 +1541,7 @@ function ResultsScreen({ result, quiz }) {
                 >
                   YOUR ANSWER
                 </p>
-                <p style={{ fontSize: 14, color: "#1e3a5f" }}>
+                <p style={{ fontSize: 14, color: "var(--text)" }}>
                   {item.student_answer || "(No answer)"}
                 </p>
               </div>
@@ -1919,6 +1919,7 @@ export default function QuizTakePage({ params }) {
   const [started, setStarted] = useState(false);
   const [mode, setMode] = useState("practice"); // 'practice' | 'exam'
   const [feedbacks, setFeedbacks] = useState({}); // index -> grade-one response
+  const [checkErrors, setCheckErrors] = useState({}); // index -> why a check failed
   const [checking, setChecking] = useState(false);
 
   // Passage questions read better in landscape - detect a phone held portrait so
@@ -2073,20 +2074,40 @@ export default function QuizTakePage({ params }) {
     // once the input area is locked for checking.
     if (typeof document !== "undefined") document.activeElement?.blur?.();
     setChecking(true);
+    const idx = currentIdx;
+    setCheckErrors((p) => ({ ...p, [idx]: null }));
+    // Never spin forever: a check that takes over 2 minutes is reported.
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 120000);
     try {
       const res = await fetchWithAuth(`${API}/quizzes/grade-one/`, {
         method: "POST",
+        signal: controller.signal,
         body: JSON.stringify({
           question_id: currentQ.id,
           answer: ans ?? "",
-          working_image: workingImages[currentIdx] || undefined,
+          working_image: workingImages[idx] || undefined,
         }),
       });
-      const d = await res.json();
-      if (res.ok) setFeedbacks((p) => ({ ...p, [currentIdx]: d }));
-    } catch {
-      /* ignore - they can still move on */
+      const d = await res.json().catch(() => ({}));
+      if (res.ok) setFeedbacks((p) => ({ ...p, [idx]: d }));
+      else
+        setCheckErrors((p) => ({
+          ...p,
+          [idx]: res.status >= 500
+            ? "The marker had a problem with this answer."
+            : d?.error || "This answer couldn't be checked.",
+        }));
+    } catch (e) {
+      // A failed check used to reset silently, as if nothing happened.
+      setCheckErrors((p) => ({
+        ...p,
+        [idx]: e?.name === "AbortError"
+          ? "Checking took too long."
+          : "No connection to the marker.",
+      }));
     } finally {
+      clearTimeout(timer);
       setChecking(false);
     }
   };
@@ -3453,6 +3474,46 @@ export default function QuizTakePage({ params }) {
               </div>
             </motion.div>
           </AnimatePresence>
+
+          {/* Practice mode: a check that failed says so, with a retry */}
+      {mode === "practice" && !feedbacks[currentIdx] && checkErrors[currentIdx] && (
+        <div style={{ maxWidth: 680, margin: "16px auto 110px", padding: "0 16px" }}>
+          <div
+            role="alert"
+            style={{
+              background: "rgba(240,113,120,0.10)",
+              border: "1.5px solid rgba(240,113,120,0.35)",
+              borderRadius: 16,
+              padding: 16,
+              display: "flex",
+              alignItems: "center",
+              gap: 12,
+              flexWrap: "wrap",
+            }}
+          >
+            <span style={{ fontSize: 14, color: "var(--text)", flex: 1, minWidth: 200 }}>
+              <b style={{ color: "#F07178" }}>Not checked. </b>
+              {checkErrors[currentIdx]} Your answer is saved.
+            </span>
+            <button
+              type="button"
+              onClick={checkAnswer}
+              disabled={checking}
+              style={{
+                padding: "8px 16px",
+                borderRadius: 10,
+                border: "none",
+                background: "#20B8A6",
+                color: "#fff",
+                fontWeight: 700,
+                cursor: "pointer",
+              }}
+            >
+              {checking ? "Checking…" : "Try again"}
+            </button>
+          </div>
+        </div>
+      )}
 
           {/* Practice-mode immediate feedback */}
       {mode === "practice" &&

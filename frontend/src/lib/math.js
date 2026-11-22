@@ -86,7 +86,10 @@ export function tidyFeedback(text, { hasWorkedSolution = false } = {}) {
   // (often by another method), so drop it. With no worked solution anywhere
   // it IS the explanation, so it stays.
   const cut = s.search(/\n\s*\n\s*(?:\*\*)?(?:Explanation|Maelezo)(?:\*\*)?\s*:/);
-  if (cut > 0 && (hasWorkedSolution || /\b(?:Step|Hatua(?: ya)?) 1\b|\[\[\s*ladder/i.test(s.slice(0, cut))))
+  // A pasted block that is raw data (a JSON marking scheme: "{ "matrix": …")
+  // is machinery, never something a learner should read.
+  const isData = cut > 0 && /^\s*\n?\s*(?:\*\*)?(?:Explanation|Maelezo)(?:\*\*)?\s*:\s*[{[]/.test(s.slice(cut));
+  if (cut > 0 && (isData || hasWorkedSolution || /\b(?:Step|Hatua(?: ya)?) 1\b|\[\[\s*ladder/i.test(s.slice(0, cut))))
     s = s.slice(0, cut);
   s = redrawOldLadders(s);
   // A key saved with its own label ("Correct Answer: 10 words") reads
