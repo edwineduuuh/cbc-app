@@ -167,10 +167,17 @@ function ladderHtml(kind, raw) {
  * computed ladder prints its own.
  */
 function redrawOldLadders(s) {
-  const TABLE = /(^|\n)[ \t]*\|[ \t]*\|((?:[ \t]*\d+[ \t]*\|)+)[ \t]*\n[ \t]*\|[-| :]+\|[ \t]*((?:\n[ \t]*\|[ \t]*\d*[ \t]*\|(?:[ \t]*\d+[ \t]*\|)+[ \t]*)+)(\n[^\n]*(?:LCM|GCD|HCF|GCF)[^\n]*=[^\n]*)?/gi;
+  // A cell is a whole number, bare or written as maths: 30, $30$, \(30\), **30**.
+  const N = String.raw`[ \t]*(?:\$|\\\(|\*\*)?[ \t]*\d+[ \t]*(?:\$|\\\)|\*\*)?[ \t]*`;
+  const E = String.raw`[ \t]*(?:\$|\\\(|\*\*)?[ \t]*(?:\d+|÷)?[ \t]*(?:\$|\\\)|\*\*)?[ \t]*`;
+  const TABLE = new RegExp(
+    String.raw`(^|\n)[ \t]*\|${E}\|((?:${N}\|)+)[ \t]*\n[ \t]*\|[-| :]+\|[ \t]*((?:\n[ \t]*\|${E}\|(?:${N}\|)+[ \t]*)+)(\n[ \t]*\n?[^\n]*(?:LCM|GCD|HCF|GCF)[^\n]*=[^\n]*)?`,
+    "gi",
+  );
+  const cells = (line) => line.split("|").map((c) => c.replace(/[^\d]/g, "")).filter(Boolean).map(Number);
   return s.replace(TABLE, (whole, lead, head, rows, productLine) => {
-    const nums = head.split("|").map((c) => c.trim()).filter(Boolean).map(Number);
-    const last = rows.trim().split("\n").pop().split("|").map((c) => c.trim()).filter(Boolean).map(Number);
+    const nums = cells(head);
+    const last = cells(rows.trim().split("\n").pop()).slice(1);
     const kindHint = (productLine || "").match(/LCM|GCD|HCF|GCF/i)?.[0];
     const kind = kindHint ? kindHint.toLowerCase() : last.every((n) => n === 1) ? "lcm" : "gcd";
     if (nums.length < 2) return whole;
