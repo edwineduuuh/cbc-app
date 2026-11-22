@@ -6,6 +6,7 @@ from django.http import JsonResponse
 from . import views
 from . import facilitator_views, studio_views
 from .diagram_views import diagram_file
+from .draft_views import quiz_draft
 
 def health(request):
     """Lightweight keep-warm endpoint. Touches the DB with a trivial query so a
@@ -145,6 +146,7 @@ urlpatterns = [
     path('quizzes/<int:pk>/', QuizDetailView.as_view(), name='quiz-detail'),
     path('quizzes/submit/', submit_quiz, name='submit_quiz'),
     path('quizzes/grade-one/', grade_one, name='grade_one'),
+    path('quizzes/<int:quiz_id>/draft/', quiz_draft, name='quiz_draft'),
     path('attempts/', AttemptListView.as_view(), name='attempt-list'),
     path('attempts/<int:pk>/', AttemptDetailView.as_view(), name='attempt-detail'),
     # (A second 'attempts/<int:attempt_id>/' -> get_attempt_results was here.

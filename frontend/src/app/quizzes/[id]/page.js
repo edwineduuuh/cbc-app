@@ -1828,17 +1828,39 @@ function WorkingPanel({ questionIdx, onWorkingCapture }) {
 }
 
 // ─── Saved progress ───────────────────────────────────────────────────────────
+// Signed-in learners' drafts live on the server (so they follow the learner to
+// any device) with a copy on this device for instant, offline-safe saving.
+// Guests only have the device copy.
 // A draft only counts if it was saved for exactly these questions (a quiz the
-// teacher has since edited starts fresh) and within the last 30 days.
-function readDraft(key, questions) {
+// teacher has since edited starts fresh), within the last 30 days, and has at
+// least one answer.
+function usableDraft(d, questions) {
+  if (!d || typeof d !== "object") return null;
+  if (Date.now() - (d.savedAt || 0) > 30 * 864e5) return null;
+  if (JSON.stringify(d.qids) !== JSON.stringify(questions.map((q) => q.id))) return null;
+  if (!Object.keys(d.answers || {}).length) return null;
+  return d;
+}
+
+function readLocalDraft(key) {
   try {
-    const d = JSON.parse(localStorage.getItem(key) || "null");
-    if (!d || Date.now() - (d.savedAt || 0) > 30 * 864e5) return null;
-    const ids = questions.map((q) => q.id);
-    if (JSON.stringify(d.qids) !== JSON.stringify(ids)) return null;
-    return d;
+    return JSON.parse(localStorage.getItem(key) || "null");
   } catch {
     return null;
+  }
+}
+
+async function readServerDraft(quizId) {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 6000); // never hold the quiz up
+  try {
+    const res = await fetchWithAuth(`${API}/quizzes/${quizId}/draft/`, { signal: controller.signal });
+    if (!res.ok) return null;
+    return (await res.json())?.draft || null;
+  } catch {
+    return null;
+  } finally {
+    clearTimeout(timer);
   }
 }
 
@@ -1930,6 +1952,9 @@ export default function QuizTakePage({ params }) {
   const [resumeOffer, setResumeOffer] = useState(null); // saved draft awaiting a choice
   const draftReady = useRef(false); // no saving until the resume choice is made
   const draftKey = `ss_quiz_draft_${user?.id ?? "guest"}_${quizId}`;
+  const [draftChecked, setDraftChecked] = useState(false); // hold the quiz until we know
+  const serverSave = useRef(null); // pending debounced save to the server
+  const lookedUp = useRef(null); // the draft key already looked up (once only)
 
   // Passage questions read better in landscape - detect a phone held portrait so
   // we can nudge the reader to rotate. Auto-clears the moment they turn sideways.
@@ -1990,27 +2015,63 @@ export default function QuizTakePage({ params }) {
     })();
   }, [quizId, user, guestSessionFromUrl, router]);
 
-  // Once the quiz and the signed-in user are known, look for a saved draft.
+  // Once the quiz and the signed-in user are known, look for a saved draft:
+  // this device's copy and the server's, whichever was saved last.
   useEffect(() => {
     if (!questions.length || authLoading || draftReady.current) return;
-    const d = readDraft(draftKey, questions);
-    if (d && Object.keys(d.answers || {}).length) setResumeOffer(d);
-    else draftReady.current = true;
-  }, [questions, authLoading, draftKey]);
+    if (lookedUp.current === draftKey) return; // the user object refreshing must not re-ask
+    lookedUp.current = draftKey;
+    (async () => {
+      const local = usableDraft(readLocalDraft(draftKey), questions);
+      const remote = user ? usableDraft(await readServerDraft(quizId), questions) : null;
+      if (draftReady.current) return; // the learner already chose
+      const d = [local, remote].filter(Boolean).sort((a, b) => b.savedAt - a.savedAt)[0];
+      if (d) setResumeOffer(d);
+      else draftReady.current = true;
+      setDraftChecked(true);
+    })();
+  }, [questions, authLoading, draftKey, user, quizId]);
 
-  // Save progress as the learner goes.
+  // Save progress as the learner goes: on this device at once, on the server
+  // a moment after the learner pauses (one request, not one per keystroke).
+  const flushServerSave = useCallback(() => {
+    const pending = serverSave.current;
+    if (!pending) return;
+    clearTimeout(pending.timer);
+    serverSave.current = null;
+    fetchWithAuth(`${API}/quizzes/${quizId}/draft/`, {
+      method: "PUT",
+      keepalive: true,
+      body: JSON.stringify({ draft: pending.draft }),
+    }).catch(() => {});
+  }, [quizId]);
+
   useEffect(() => {
     if (!draftReady.current || submittedRef.current || !questions.length) return;
-    try {
-      localStorage.setItem(draftKey, JSON.stringify({
-        qids: questions.map((q) => q.id),
-        answers, feedbacks, currentIdx,
-        flagged: [...flagged],
-        startedAt: quizStartedAt.current,
-        savedAt: Date.now(),
-      }));
-    } catch {}
-  }, [answers, feedbacks, currentIdx, flagged, questions, draftKey]);
+    const draft = {
+      qids: questions.map((q) => q.id),
+      answers, feedbacks, currentIdx,
+      flagged: [...flagged],
+      startedAt: quizStartedAt.current,
+      savedAt: Date.now(),
+    };
+    try { localStorage.setItem(draftKey, JSON.stringify(draft)); } catch {}
+    if (!user || !Object.keys(answers).length) return;
+    if (serverSave.current) clearTimeout(serverSave.current.timer);
+    serverSave.current = { draft, timer: setTimeout(flushServerSave, 1500) };
+  }, [answers, feedbacks, currentIdx, flagged, questions, draftKey, user, flushServerSave]);
+
+  // Leaving the page or switching apps: send the pending save right away.
+  useEffect(() => {
+    const onHide = () => { if (document.visibilityState === "hidden") flushServerSave(); };
+    document.addEventListener("visibilitychange", onHide);
+    window.addEventListener("pagehide", flushServerSave);
+    return () => {
+      document.removeEventListener("visibilitychange", onHide);
+      window.removeEventListener("pagehide", flushServerSave);
+      flushServerSave();
+    };
+  }, [flushServerSave]);
 
   const continueDraft = () => {
     const d = resumeOffer;
@@ -2024,14 +2085,20 @@ export default function QuizTakePage({ params }) {
   };
 
   const startOver = () => {
-    try { localStorage.removeItem(draftKey); } catch {}
+    clearDraft();
     quizStartedAt.current = new Date().toISOString();
     draftReady.current = true;
     setResumeOffer(null);
   };
 
+  // Forget the draft everywhere. Any save still waiting is dropped first, so
+  // it can't bring the draft back after a submit or "Start over".
   const clearDraft = () => {
+    if (serverSave.current) clearTimeout(serverSave.current.timer);
+    serverSave.current = null;
     try { localStorage.removeItem(draftKey); } catch {}
+    if (user)
+      fetchWithAuth(`${API}/quizzes/${quizId}/draft/`, { method: "DELETE", keepalive: true }).catch(() => {});
   };
 
   // Preload EVERY image the quiz can show - question images AND MCQ option
@@ -2299,7 +2366,7 @@ export default function QuizTakePage({ params }) {
     });
   };
 
-  if (loading) {
+  if (loading || (questions.length > 0 && !draftChecked)) {
     return (
       <div
         style={{

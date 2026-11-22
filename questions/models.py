@@ -1515,3 +1515,18 @@ class LiveBooking(models.Model):
     @property
     def window_label(self):
         return LIVE_WINDOW_LABEL.get(self.window_key, self.window_key)
+
+
+class QuizDraft(models.Model):
+    """A learner's unfinished quiz - answers, checked feedback, position - so
+    they can continue on any device. Deleted when the quiz is submitted."""
+    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name='quiz_drafts')
+    quiz = models.ForeignKey('Quiz', on_delete=models.CASCADE, related_name='drafts')
+    data = models.JSONField(default=dict)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        constraints = [models.UniqueConstraint(fields=['user', 'quiz'], name='one_draft_per_user_quiz')]
+
+    def __str__(self):
+        return f"Draft {self.user_id} / quiz {self.quiz_id}"

@@ -1354,6 +1354,9 @@ def submit_quiz(request):
         )
         if parsed_started_at:
             Attempt.objects.filter(pk=attempt.pk).update(started_at=parsed_started_at)
+        # Submitted: the unfinished-quiz draft is no longer needed on any device.
+        from .models import QuizDraft
+        QuizDraft.objects.filter(user=user, quiz=quiz).delete()
 
         _GRADING_EXECUTOR.submit(
             _run_grading_task,
