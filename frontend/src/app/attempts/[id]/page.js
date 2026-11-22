@@ -21,6 +21,7 @@ import {
 import katex from "katex";
 import "katex/dist/katex.min.css";
 import { renderMathHtml, tidyFeedback } from "@/lib/math";
+import WorkedFeedback from "@/components/quiz/WorkedFeedback";
 import FinancialStatementInput from "@/components/FinancialStatementInput";
 const API =
   process.env.NEXT_PUBLIC_API_URL ||
@@ -1875,17 +1876,13 @@ export default function AttemptResultsPage() {
                                     </div>
                                   </div>
 
-                                  {/* Feedback */}
-                                  {part.feedback && (
+                                  {/* Feedback + worked solution for this part */}
+                                  {(part.feedback || part.study_tip) && (
                                     <div
                                       style={{
-                                        background: pCorrect
-                                          ? "var(--bg-secondary)"
-                                          : pPartial
-                                            ? "rgba(232,182,91,0.10)"
-                                            : "rgba(245,158,91,0.10)",
+                                        background: "var(--bg-secondary)",
                                         borderRadius: 10,
-                                        padding: "10px 14px",
+                                        padding: "12px 16px",
                                         borderLeft: `3px solid ${pColor}`,
                                       }}
                                     >
@@ -1896,26 +1893,16 @@ export default function AttemptResultsPage() {
                                           color: pColor,
                                           textTransform: "uppercase",
                                           letterSpacing: "0.06em",
-                                          marginBottom: 5,
+                                          marginBottom: 6,
                                         }}
                                       >
-                                        {pCorrect ? "✓ Feedback" : "Feedback"}
+                                        Feedback
                                       </p>
-                                      <p
-                                        style={{
-                                          fontSize: 13,
-                                          color: "var(--text)",
-                                          lineHeight: 1.7,
-                                          margin: 0,
-                                        }}
-                                        dangerouslySetInnerHTML={{
-                                          __html: renderMath(
-                                            (part.feedback || "").replace(
-                                              /\\n|\n/g,
-                                              "<br/>",
-                                            ),
-                                          ),
-                                        }}
+                                      <WorkedFeedback
+                                        feedback={part.feedback}
+                                        studyTip={part.study_tip}
+                                        accent={pColor}
+                                        fontSize={13.5}
                                       />
                                     </div>
                                   )}

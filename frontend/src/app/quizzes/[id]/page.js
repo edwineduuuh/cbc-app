@@ -26,6 +26,7 @@ import katex from "katex";
 import "katex/dist/katex.min.css";
 import { renderMathHtml, tidyFeedback } from "@/lib/math";
 import AnswerOption, { optionTex, correctLetterOf } from "@/components/quiz/AnswerOption";
+import WorkedFeedback, { statusOf, partResultsOf } from "@/components/quiz/WorkedFeedback";
 
 const nunito = Nunito({
   subsets: ["latin"],
@@ -421,20 +422,27 @@ function MCQOption({ letter, text, imageUrl, selected, onClick, mark, disabled }
 
 // ─── Part Answer Block - full Chemistry + Physics formula bars for multipart ──
 
-function PartAnswerBlock({ value, onChange, isKiswahili }) {
+function PartAnswerBlock({ value, onChange, isKiswahili, subject = "", disabled = false }) {
   const partRef = useRef(null);
+  // Chemistry / Physics symbol bars only where they belong - not on Maths,
+  // English or Social Studies parts.
+  const chem = /chem|science/i.test(subject);
+  const phys = /physic|science/i.test(subject);
   return (
     <div>
-      <ChemTextBar textareaRef={partRef} value={value} onChange={onChange} />
-      <PhysicsFormulaBar
-        textareaRef={partRef}
-        value={value}
-        onChange={onChange}
-      />
+      {chem && !disabled && <ChemTextBar textareaRef={partRef} value={value} onChange={onChange} />}
+      {phys && !disabled && (
+        <PhysicsFormulaBar
+          textareaRef={partRef}
+          value={value}
+          onChange={onChange}
+        />
+      )}
       <div style={{ position: "relative" }}>
         <textarea
           ref={partRef}
           value={value}
+          readOnly={disabled}
           onChange={(e) => onChange(e.target.value)}
           rows={3}
           placeholder={
@@ -455,7 +463,7 @@ function PartAnswerBlock({ value, onChange, isKiswahili }) {
             resize: "none",
           }}
           onFocus={(e) => (e.target.style.borderColor = "#20B8A6")}
-          onBlur={(e) => (e.target.style.borderColor = "#e8eaf0")}
+          onBlur={(e) => (e.target.style.borderColor = "var(--border)")}
         />
         <span
           style={{
@@ -3265,6 +3273,13 @@ export default function QuizTakePage({ params }) {
                         ? (answers[currentIdx]?.[part.id] ?? "")
                         : "";
                     const blankNum = parseInt(part.part_label);
+                    // Practice mode: this part's own result, shown under it.
+                    const practiceFb = mode === "practice" ? feedbacks[currentIdx] : null;
+                    const partResult = partResultsOf(practiceFb?.feedback, currentQ.parts).find(
+                      (r) => String(r.part_id) === String(part.id) ||
+                             String(r.part_label) === String(part.part_label),
+                    );
+                    const pst = statusOf(partResult);
 
                     const handlePartAnswer = (value) => {
                       if (practiceLocked) return;
@@ -3293,11 +3308,14 @@ export default function QuizTakePage({ params }) {
                     return (
                       <div
                         key={part.id}
+                        id={`part-${part.id}`}
                         style={{
                           background: "var(--bg-card)",
                           borderRadius: 16,
                           padding: 20,
-                          border: "2px solid var(--border)",
+                          border: `2px solid ${pst ? pst.color + "88" : "var(--border)"}`,
+                          scrollMarginTop: 90,
+                          transition: "border-color 0.2s ease",
                         }}
                       >
                         <div
@@ -3336,6 +3354,25 @@ export default function QuizTakePage({ params }) {
                               ? "alama"
                               : `mark${part.max_marks !== 1 ? "s" : ""}`}
                           </span>
+                          {pst && (
+                            <span
+                              style={{
+                                marginLeft: "auto",
+                                display: "inline-flex",
+                                alignItems: "center",
+                                gap: 6,
+                                padding: "4px 10px",
+                                borderRadius: 999,
+                                background: pst.tint,
+                                border: `1px solid ${pst.color}55`,
+                                color: pst.color,
+                                fontSize: 12.5,
+                                fontWeight: 800,
+                              }}
+                            >
+                              {pst.icon} {partResult.marks_awarded}/{partResult.max_marks}
+                            </span>
+                          )}
                         </div>
                         <p
                           style={{
@@ -3359,6 +3396,15 @@ export default function QuizTakePage({ params }) {
                                   letter={letter}
                                   text={text}
                                   selected={partAnswer === letter}
+                                  mark={(() => {
+                                    if (!partResult) return null;
+                                    const right = partResult.is_correct ? partAnswer
+                                      : correctLetterOf(partResult.correct_answer);
+                                    if (letter === right) return "correct";
+                                    if (letter === partAnswer) return "wrong";
+                                    return "dim";
+                                  })()}
+                                  disabled={!!partResult}
                                   onClick={() => handlePartAnswer(letter)}
                                 />
                               );
@@ -3388,7 +3434,36 @@ export default function QuizTakePage({ params }) {
                             value={partAnswer}
                             onChange={(val) => handlePartAnswer(val)}
                             isKiswahili={isKiswahili}
+                            subject={currentQ?.subject_name || ""}
+                            disabled={!!partResult}
                           />
+                        )}
+                        {partResult && (
+                          <div
+                            style={{
+                              marginTop: 14,
+                              background: pst.tint,
+                              borderLeft: `3px solid ${pst.color}`,
+                              borderRadius: 12,
+                              padding: "12px 16px",
+                            }}
+                          >
+                            <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.06em",
+                                        textTransform: "uppercase", color: pst.color, marginBottom: 6 }}>
+                              {pst.label}
+                            </p>
+                            {pst.key !== "full" && partResult.correct_answer && part.question_type !== "mcq" && (
+                              <p style={{ fontSize: 13.5, color: "var(--text)", marginBottom: 8 }}>
+                                <b>Correct answer: </b>
+                                <span dangerouslySetInnerHTML={{ __html: renderMath(String(partResult.correct_answer)) }} />
+                              </p>
+                            )}
+                            <WorkedFeedback
+                              feedback={partResult.feedback}
+                              studyTip={partResult.study_tip}
+                              accent={pst.color}
+                            />
+                          </div>
                         )}
                       </div>
                     );
@@ -3405,13 +3480,15 @@ export default function QuizTakePage({ params }) {
         (() => {
           const fb = feedbacks[currentIdx];
           const f = fb.feedback || {};
+          // Questions with parts: feedback lives under each part, this card is a summary.
+          const partList = partResultsOf(f, currentQ.parts);
           const full = fb.max_marks > 0 ? fb.marks_awarded >= fb.max_marks : fb.is_correct;
           const zero = (fb.marks_awarded ?? 0) <= 0;
           const color = full ? "#1d8f57" : zero ? "#F07178" : "#d4900a";
           const bg = full ? "rgba(32,184,166,0.12)" : zero ? "rgba(240,113,120,0.12)" : "rgba(232,182,91,0.12)";
           // Strip a leading verdict word (the heading already shows it) and turn
           // literal \n / real newlines into proper line breaks for clean spacing.
-          const body = tidyFeedback(f.feedback || "")
+          const body = tidyFeedback(partList.length ? "" : f.feedback || "")
             .trim()
             .replace(/^(Correct!|Not quite\.?|Partially correct\.?)\s*/i, "");
           // Split on literal \n / real newlines into clean, spaced paragraphs.
@@ -3428,7 +3505,7 @@ export default function QuizTakePage({ params }) {
           const fbHtml = paras(segs);
           // The worked solution for THIS answer. On a wrong maths answer the
           // marker writes it into study_tip, not feedback - it was never shown.
-          const tip = tidyFeedback(f.study_tip || "").trim();
+          const tip = tidyFeedback(partList.length ? "" : f.study_tip || "").trim();
           const tipHtml =
             tip && !(f.feedback || "").includes(tip.slice(0, 60))
               ? paras(_mdTableToHtml(tip).split(/\n/).map((s) => s.trim()).filter(Boolean))
@@ -3451,6 +3528,34 @@ export default function QuizTakePage({ params }) {
                     {fb.marks_awarded}/{fb.max_marks}
                   </span>
                 </div>
+                {partList.length > 0 && (
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginTop: 4 }}>
+                    {partList.map((r) => {
+                      const st = statusOf(r);
+                      const part = (currentQ.parts || []).find(
+                        (p) => String(p.id) === String(r.part_id) || String(p.part_label) === String(r.part_label));
+                      return (
+                        <button
+                          key={r.part_id ?? r.part_label}
+                          type="button"
+                          onClick={() => part && document.getElementById(`part-${part.id}`)
+                            ?.scrollIntoView({ behavior: "smooth", block: "start" })}
+                          style={{
+                            display: "inline-flex", alignItems: "center", gap: 6,
+                            padding: "6px 12px", borderRadius: 999, cursor: "pointer",
+                            background: st.tint, border: `1px solid ${st.color}55`,
+                            color: st.color, fontSize: 13, fontWeight: 800,
+                          }}
+                        >
+                          ({r.part_label}) {st.icon} {r.marks_awarded}/{r.max_marks}
+                        </button>
+                      );
+                    })}
+                    <p style={{ width: "100%", fontSize: 12.5, color: "var(--text-muted)", marginTop: 4 }}>
+                      Each part&apos;s feedback is under its answer above.
+                    </p>
+                  </div>
+                )}
                 {f.correct_answer && !full && (
                   <p style={{ fontSize: 13, color: "var(--text)", marginBottom: 6 }}>
                     <b>Correct answer:</b>{" "}

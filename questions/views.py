@@ -848,7 +848,7 @@ def _build_detailed_feedback(questions, results, answers, working_images):
     """Build the detailed_feedback dict from grading results. Pure function, no DB."""
     detailed_feedback = {}
     for question, result in zip(questions, results):
-        if question.question_type == 'multipart':
+        if question.question_type == 'multipart' or result.get('part_results'):
             detailed_feedback[str(question.id)] = {
                 'question_text': question.question_text,
                 'question_type': 'multipart',
@@ -1166,7 +1166,7 @@ def submit_quiz(request):
         # Build feedback
         detailed_feedback = {}
         for question, result in zip(questions, results):
-            if question.question_type == 'multipart':
+            if question.question_type == 'multipart' or result.get('part_results'):
                 detailed_feedback[str(question.id)] = {
                     'question_text': question.question_text,
                     'question_type': 'multipart',
