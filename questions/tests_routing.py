@@ -15,7 +15,9 @@ class Routes(TestCase):
         self.assertIsNone(ai_routing.route_for("scheme"))                      # GEN_PROVIDER as before
         self.assertEqual(ai_routing.route_for("marking"), Route("anthropic", "claude-sonnet-4-6"))
         self.assertEqual(ai_routing.route_for("marking_kiswahili"), Route("anthropic", "claude-opus-4-8"))
-        self.assertEqual(ai_routing.route_for("tutor").provider, "anthropic")
+        # The tutor moved to DeepSeek (Nov 2026): chat fast, lessons with thinking.
+        self.assertEqual(ai_routing.route_for("tutor"), Route("deepseek", "deepseek-flash"))
+        self.assertEqual(ai_routing.route_for("tutor_lessons"), Route("deepseek", "deepseek-flash", True))
 
     @override_settings(AI_PROFILE="deepseek")
     def test_deepseek_profile_is_the_benchmarked_one(self):
@@ -24,7 +26,7 @@ class Routes(TestCase):
         for s in ("assessment", "pdf", "marking"):
             self.assertEqual(ai_routing.route_for(s), Route("deepseek", "deepseek-flash", True), s)
         self.assertEqual(ai_routing.route_for("marking_kiswahili"), Route("anthropic", "claude-opus-4-8"))
-        self.assertEqual(ai_routing.route_for("tutor").provider, "anthropic")      # pilot off
+        self.assertEqual(ai_routing.route_for("tutor").provider, "deepseek")
 
     @override_settings(AI_PROFILE="deepseek", AI_TUTOR_PILOT=True)
     def test_tutor_pilot_switch(self):
@@ -114,11 +116,37 @@ class Tutor(TestCase):
                 mock.patch.object(tutor, "_call_claude", return_value="claude"):
             self.assertEqual(tutor.tutor_chat(self.topic, [{"role": "user", "content": "hi"}]), "claude")
 
-    def test_default_tutor_is_claude(self):
+    def test_default_tutor_is_deepseek(self):
+        with mock.patch.object(tutor, "_deepseek_chat", return_value="ds") as ds, \
+                mock.patch.object(tutor, "_call_claude", return_value="claude") as claude:
+            self.assertEqual(tutor.tutor_chat(self.topic, [{"role": "user", "content": "hi"}]), "ds")
+            claude.assert_not_called()
+
+    @override_settings(AI_ROUTE_OVERRIDES={"tutor": "anthropic:claude-sonnet-4-6"})
+    def test_tutor_can_be_switched_back_to_claude_by_setting(self):
         with mock.patch.object(tutor, "_deepseek_chat") as ds, \
                 mock.patch.object(tutor, "_call_claude", return_value="claude"):
             self.assertEqual(tutor.tutor_chat(self.topic, [{"role": "user", "content": "hi"}]), "claude")
             ds.assert_not_called()
+
+
+class TutorLessonsOnDeepSeek(TestCase):
+    def test_lessons_are_written_by_deepseek_with_thinking(self):
+        with mock.patch("questions.generation.generate", return_value='{"heading": "x"}') as gen, \
+                mock.patch.object(tutor, "_call_claude") as claude:
+            self.assertEqual(tutor._write_content("sys", "prompt", 5000, task="tutor-lesson"), '{"heading": "x"}')
+        self.assertEqual(gen.call_args.kwargs["provider"], "deepseek")
+        self.assertTrue(gen.call_args.kwargs["thinking"])
+        self.assertTrue(gen.call_args.kwargs["want_json"])
+        claude.assert_not_called()
+
+    def test_failure_or_bad_json_falls_back_to_claude_opus(self):
+        for bad in (RuntimeError("down"), None):
+            kw = {"side_effect": bad} if bad else {"return_value": "not json at all"}
+            with mock.patch("questions.generation.generate", **kw), \
+                    mock.patch.object(tutor, "_call_claude", return_value='{"heading": "c"}') as claude:
+                self.assertEqual(tutor._write_content("sys", "p", 5000, task="tutor-lesson"), '{"heading": "c"}')
+            self.assertEqual(claude.call_args.kwargs["model"], "claude-opus-4-8")
 
 
 class InquiryQuestion(TestCase):

@@ -319,6 +319,23 @@ class AdminStatsView(APIView):
         return Response(stats)
 
 
+# Curriculum staff see every strand (to tidy or move questions); everyone else
+# sees only the official KICD strands.
+_SEES_ALL_STRANDS = ("admin", "superadmin", "content_editor")
+
+
+def official_topics(queryset, user=None):
+    """Only official strands: ones with KICD sub-strands. Hides the legacy
+    "Imported Questions - Grade N" / "Assorted Questions" buckets. Their
+    questions are untouched - deleting a strand would delete them too."""
+    if user is not None and getattr(user, "is_authenticated", False) and (
+            getattr(user, "is_staff", False) or getattr(user, "role", "") in _SEES_ALL_STRANDS):
+        return queryset
+    from django.db.models import Exists, OuterRef
+    kicd = Substrand.objects.filter(topic=OuterRef("pk")).exclude(learning_outcomes=[])
+    return queryset.filter(Exists(kicd)).exclude(name__istartswith="Imported Questions")
+
+
 class SubjectListView(generics.ListAPIView):
     serializer_class = SubjectSerializer
     permission_classes = [AllowAny]
@@ -328,10 +345,8 @@ class SubjectListView(generics.ListAPIView):
         if grade:
             # Only return subjects that have at least one topic
             # with at least one question at this grade
-            return Subject.objects.filter(
-                topics__grade=grade,
-                # topics__questions__isnull=False
-            ).distinct()
+            topics = official_topics(Topic.objects.filter(grade=grade), self.request.user)
+            return Subject.objects.filter(topics__in=topics).distinct()
         return Subject.objects.all()
 
     def get_serializer_context(self):
@@ -348,7 +363,7 @@ class TopicListView(generics.ListAPIView):
     permission_classes = [AllowAny]
 
     def get_queryset(self):
-        queryset = Topic.objects.all()
+        queryset = official_topics(Topic.objects.all(), self.request.user)
         subject_id = self.request.query_params.get('subject')
         grade = self.request.query_params.get('grade')
         

@@ -11,7 +11,8 @@ Railway settings switch it:
                            AI_ROUTE_MARKING=anthropic:claude-sonnet-4-6
 
 Services: scheme, lesson_plan, assessment (writing, checking, replacing),
-pdf (reading and curriculum mapping), marking, marking_kiswahili, tutor.
+pdf (reading and curriculum mapping), marking, marking_kiswahili, tutor (the
+chat), tutor_lessons (tutor lessons and flash cards).
 
 A route that fails falls back once (generation to Terra, marking and tutor to
 Claude) so a provider outage never blocks a teacher or a learner.
@@ -22,7 +23,8 @@ from dataclasses import dataclass
 
 from django.conf import settings
 
-SERVICES = ("scheme", "lesson_plan", "assessment", "pdf", "marking", "marking_kiswahili", "tutor")
+SERVICES = ("scheme", "lesson_plan", "assessment", "pdf", "marking", "marking_kiswahili", "tutor",
+            "tutor_lessons")
 
 
 @dataclass(frozen=True)
@@ -51,7 +53,11 @@ CURRENT = {
     "pdf": None,
     "marking": Route("anthropic", "claude-sonnet-4-6"),
     "marking_kiswahili": Route("anthropic", "claude-opus-4-8"),
-    "tutor": Route("anthropic", "claude-sonnet-4-6"),
+    # The tutor runs on DeepSeek (Nov 22 2026), Claude as the fallback. Chat
+    # without thinking - a learner is waiting on every reply; lessons and
+    # flash cards with thinking - they are written in the background, once.
+    "tutor": Route("deepseek", "deepseek-flash"),
+    "tutor_lessons": Route("deepseek", "deepseek-flash", thinking=True),
 }
 
 # What the benchmark recommended.
@@ -62,7 +68,8 @@ DEEPSEEK = {
     "pdf": Route("deepseek", "deepseek-flash", thinking=True),
     "marking": Route("deepseek", "deepseek-flash", thinking=True),
     "marking_kiswahili": Route("anthropic", "claude-opus-4-8"),   # Claude Opus stays: 30/30
-    "tutor": Route("anthropic", "claude-sonnet-4-6"),             # until the pilot is switched on
+    "tutor": Route("deepseek", "deepseek-flash"),
+    "tutor_lessons": Route("deepseek", "deepseek-flash", thinking=True),
 }
 TUTOR_PILOT = Route("deepseek", "deepseek-flash", thinking=True)
 
@@ -74,6 +81,7 @@ FALLBACK = {
     "marking": Route("anthropic", "claude-sonnet-4-6"),
     "marking_kiswahili": Route("anthropic", "claude-sonnet-4-6"),
     "tutor": Route("anthropic", "claude-sonnet-4-6"),
+    "tutor_lessons": Route("anthropic", "claude-opus-4-8"),
 }
 
 

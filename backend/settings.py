@@ -48,7 +48,8 @@ DEEPSEEK_API_KEY = os.environ.get('DEEPSEEK_API_KEY')
 AI_PROFILE = os.environ.get('AI_PROFILE', '')
 AI_TUTOR_PILOT = os.environ.get('AI_TUTOR_PILOT', 'false').lower() == 'true'
 AI_ROUTE_OVERRIDES = {s: os.environ.get(f'AI_ROUTE_{s.upper()}', '') for s in (
-    'scheme', 'lesson_plan', 'assessment', 'pdf', 'marking', 'marking_kiswahili', 'tutor')}
+    'scheme', 'lesson_plan', 'assessment', 'pdf', 'marking', 'marking_kiswahili', 'tutor',
+    'tutor_lessons')}
 
 # Validate SECRET_KEY
 from django.core.exceptions import ImproperlyConfigured

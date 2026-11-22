@@ -73,6 +73,26 @@ def _call_claude(system: str, messages: list, max_tokens: int = 3000,
     return next((b.text for b in response.content if b.type == "text"), "")
 
 
+def _write_content(system: str, prompt: str, max_tokens: int, task: str) -> str:
+    """Write a lesson or deck on the tutor_lessons route (DeepSeek), falling
+    back to Claude if it fails or returns something that is not JSON."""
+    from questions import ai_routing
+    route = ai_routing.route_for("tutor_lessons") or ai_routing.CURRENT["tutor_lessons"]
+    if route.provider != "anthropic":
+        try:
+            from questions.generation import generate
+            raw = generate(prompt, system, max_tokens=max_tokens, want_json=True,
+                           provider=route.provider, model=route.model,
+                           thinking=route.thinking, task=task)
+            _parse_json(raw)                 # unusable output -> fall back
+            return raw
+        except Exception as e:
+            logger.warning("tutor content on %s failed (%s); falling back to Claude", route, e)
+    fb = ai_routing.FALLBACK["tutor_lessons"] if route.provider != "anthropic" else route
+    return _call_claude(system, [{"role": "user", "content": prompt}],
+                        max_tokens=max_tokens, model=fb.model, task=task)
+
+
 def _parse_json(raw_text: str) -> dict:
     """Tolerant JSON extraction (same approach used elsewhere in the codebase)."""
     raw = raw_text.strip()
@@ -245,7 +265,7 @@ words are enough. Never draw with text characters.
   or {{"type": "number_line", "min": -2, "max": 8, "step": 1,
     "mark": [{{"at": 2, "closed": true}}], "shade": [{{"from": 2, "to": 6}}], "alt": "..."}}"""
 
-    raw = _call_claude(LESSON_SYSTEM, [{"role": "user", "content": user}], max_tokens=5000)
+    raw = _write_content(LESSON_SYSTEM, user, 5000, task="tutor-lesson")
     lesson = _parse_json(raw)
     lesson["v"] = LESSON_VERSION
     _prepare_figures(lesson)
@@ -345,7 +365,7 @@ Return ONLY:
 
 Keep fronts short. Ground answers in the real content above. Grade-appropriate."""
 
-    raw = _call_claude(FLASHCARD_SYSTEM, [{"role": "user", "content": user}], max_tokens=3500)
+    raw = _write_content(FLASHCARD_SYSTEM, user, 3500, task="tutor-flashcards")
     data = _parse_json(raw)
     cards = []
     for c in data.get("cards", []):
