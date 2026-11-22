@@ -24,7 +24,7 @@ import PhysicsFormulaBar from "@/components/PhysicsFormulaBar";
 import FinancialStatementInput from "@/components/FinancialStatementInput";
 import katex from "katex";
 import "katex/dist/katex.min.css";
-import { renderMathHtml, tidyFeedback } from "@/lib/math";
+import { renderMathHtml, tidyFeedback, answerHtml } from "@/lib/math";
 import AnswerOption, { optionTex, correctLetterOf } from "@/components/quiz/AnswerOption";
 import { statusOf, partResultsOf, PartFeedbackDropdown } from "@/components/quiz/WorkedFeedback";
 
@@ -3442,7 +3442,7 @@ export default function QuizTakePage({ params }) {
                           <PartFeedbackDropdown
                             result={partResult}
                             showCorrect={part.question_type !== "mcq"}
-                            renderAnswer={renderMath}
+
                           />
                         )}
                       </div>
@@ -3468,9 +3468,11 @@ export default function QuizTakePage({ params }) {
           const bg = full ? "rgba(32,184,166,0.12)" : zero ? "rgba(240,113,120,0.12)" : "rgba(232,182,91,0.12)";
           // Strip a leading verdict word (the heading already shows it) and turn
           // literal \n / real newlines into proper line breaks for clean spacing.
-          const body = tidyFeedback(partList.length ? "" : f.feedback || "")
+          const body = tidyFeedback(partList.length ? "" : f.feedback || "", { hasWorkedSolution: !!(f.study_tip || "").trim() })
             .trim()
-            .replace(/^(Correct!|Not quite\.?|Partially correct\.?)\s*/i, "");
+            .replace(/^(Correct!|Not quite\.?|Partially correct\.?)\s*/i, "")
+            // "Correct answer: …" is already shown above it - don't say it twice.
+            .replace(f.correct_answer && !full ? /^The correct answer is[^\n]*?\.(?=\s|$)\s*/i : /$^/, "");
           // Split on literal \n / real newlines into clean, spaced paragraphs.
           // Tables first (they span lines), then one paragraph per line.
           const segs = _mdTableToHtml(body.replace(/\\n/g, "\n"))
@@ -3542,9 +3544,15 @@ export default function QuizTakePage({ params }) {
                 {f.correct_answer && !full && (
                   <p style={{ fontSize: 13, color: "var(--text)", marginBottom: 6 }}>
                     <b>Correct answer:</b>{" "}
-                    {typeof f.correct_answer === "string"
-                      ? f.correct_answer
-                      : JSON.stringify(f.correct_answer)}
+                    <span
+                      dangerouslySetInnerHTML={{
+                        __html: answerHtml(
+                          typeof f.correct_answer === "string"
+                            ? f.correct_answer
+                            : JSON.stringify(f.correct_answer),
+                        ),
+                      }}
+                    />
                   </p>
                 )}
                 {body && (

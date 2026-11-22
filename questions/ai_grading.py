@@ -319,6 +319,62 @@ def _clean_num(s: str) -> str:
     return match.group() if match else ""
 
 
+def _balance_braces(s: str) -> str:
+    """Close braces a teacher forgot ('5\\frac{1}{3' -> '5\\frac{1}{3}')."""
+    s = str(s or "")
+    missing = s.count("{") - s.count("}")
+    return s + "}" * missing if missing > 0 else s
+
+
+_UNICODE_FRACTIONS = {"½": 0.5, "⅓": 1 / 3, "⅔": 2 / 3, "¼": 0.25, "¾": 0.75, "⅕": 0.2, "⅖": 0.4,
+                      "⅗": 0.6, "⅘": 0.8, "⅙": 1 / 6, "⅚": 5 / 6, "⅛": 0.125, "⅜": 0.375, "⅝": 0.625, "⅞": 0.875}
+
+
+def _num_value(s: str):
+    """The numeric value of a plain answer, or None.
+
+    Understands what learners and teachers actually write: 12, -3.5, 1,200,
+    16/3, \\frac{16}{3}, \\dfrac{16}{3}, mixed numbers 5\\frac{1}{3}, '5 1/3',
+    5⅓, and $…$ around any of them. A forgotten closing brace is repaired.
+    Anything with other words or symbols is not a plain number: None.
+    """
+    t = _balance_braces(str(s or "")).strip().strip("$").strip()
+    t = re.sub(r"\\[,!;: ]|\\left|\\right", "", t).replace("−", "-").strip()
+    t = re.sub(r"^([a-zA-Z]\w*)\s*=\s*", "", t)
+    if not t:
+        return None
+    sign = -1.0 if t.startswith("-") else 1.0
+    t = t.lstrip("+-").strip()
+    m = re.fullmatch(r"(\d+)?\s*\\[dt]?frac\s*\{\s*(\d+(?:\.\d+)?)\s*\}\s*\{\s*(\d+(?:\.\d+)?)\s*\}", t)
+    if m:
+        whole, num, den = m.group(1), float(m.group(2)), float(m.group(3))
+        return None if den == 0 else sign * ((float(whole) if whole else 0.0) + num / den)
+    m = re.fullmatch(r"(?:(\d+)\s+)?(\d+)\s*/\s*(\d+)", t)
+    if m:
+        whole, num, den = m.group(1), float(m.group(2)), float(m.group(3))
+        return None if den == 0 else sign * ((float(whole) if whole else 0.0) + num / den)
+    m = re.fullmatch(r"(\d+)?\s*([½⅓⅔¼¾⅕⅖⅗⅘⅙⅚⅛⅜⅝⅞])", t)
+    if m:
+        return sign * ((float(m.group(1)) if m.group(1) else 0.0) + _UNICODE_FRACTIONS[m.group(2)])
+    m = re.fullmatch(r"\d{1,3}(?:,\d{3})+(?:\.\d+)?|\d+(?:\.\d+)?|\.\d+", t)
+    if m:
+        return sign * float(t.replace(",", ""))
+    return None
+
+
+def _rounds_to(student_raw: str, value: float) -> bool:
+    """True when the learner gave the exact value correctly rounded to 2 or
+    more decimal places (5.33 or 5.333 for 16/3)."""
+    m = re.fullmatch(r"\s*-?\d+\.(\d{2,})\s*", str(student_raw or "").strip("$ "))
+    if not m:
+        return False
+    places = len(m.group(1))
+    try:
+        return round(float(str(student_raw).strip("$ ")), places) == round(value, places)
+    except ValueError:
+        return False
+
+
 def _strip_assignment(s: str) -> str:
     """Strip variable assignment prefix so 'x = 3' compares equal to '3'."""
     m = re.match(r'^[a-zA-Z_]\w*\s*=\s*(.+)$', str(s).strip())
@@ -2087,7 +2143,7 @@ def _grade_math(question, student_answer: str, working_image: str | None = None)
     sw          = _is_kiswahili(question)
     grade       = getattr(getattr(question, "topic", None), "grade", 7)
     student_str = str(student_answer).strip()
-    correct_str = str(question.correct_answer).strip()
+    correct_str = _balance_braces(str(question.correct_answer).strip())
 
     # Build list of all accepted correct answers
     all_correct = [correct_str]
@@ -2170,9 +2226,26 @@ def _grade_math(question, student_answer: str, working_image: str | None = None)
     student_bare = _strip_assignment(student_str)
     all_correct_bare = [_strip_assignment(ca) for ca in all_correct]
 
+    # Exact-value check that understands fractions and mixed numbers on BOTH
+    # sides (5\frac{1}{3}, 16/3, 5⅓, a forgotten closing brace) - the plain
+    # check below skips any key containing letters, so "5\frac{1}{3" never
+    # got compared as a number at all.
+    near_miss_candidate = None  # (s_num, c_num) for the closest near-miss found
+    s_val = _num_value(student_bare)
+    if s_val is not None:
+        for ca_bare in all_correct_bare:
+            c_val = _num_value(ca_bare)
+            if c_val is None:
+                continue
+            if abs(s_val - c_val) < 1e-9 or _rounds_to(student_bare, c_val):
+                return _on_correct(student_bare)
+            diff = abs(s_val - c_val)
+            rel = diff / abs(c_val) if c_val else float("inf")
+            if diff <= 0.05 or rel <= 0.02:
+                near_miss_candidate = (s_val, c_val)
+
     # Fast numeric check against all accepted answers
     s_clean = _clean_num(student_bare)
-    near_miss_candidate = None  # (s_num, c_num) for the closest near-miss found
     if s_clean:
         try:
             s_num = float(s_clean)
@@ -2221,7 +2294,8 @@ def _grade_math(question, student_answer: str, working_image: str | None = None)
     # Resolve near-miss before falling through to AI
     if near_miss_candidate:
         s_v, c_v = near_miss_candidate
-        return _on_near_miss(f"{s_v:g}", f"{c_v:g}")
+        shown = correct_str.strip("$ ") if _num_value(correct_str) is not None else f"{c_v:g}"
+        return _on_near_miss(f"{s_v:g}", shown)
 
     # AI semantic check
     try:

@@ -2112,7 +2112,7 @@ export default function AttemptResultsPage() {
                               {correct ? "✓ Feedback" : "Feedback"}
                             </p>
                             <p style={{ fontSize: 14, color: "var(--text)", lineHeight: 1.7, margin: 0 }}
-                              dangerouslySetInnerHTML={{ __html: renderRich(tidyFeedback(item.feedback)) }}
+                              dangerouslySetInnerHTML={{ __html: renderRich(tidyFeedback(item.feedback, { hasWorkedSolution: !!(item.study_tip || "").trim() })) }}
                             />
                           </div>
                         )}
@@ -2335,7 +2335,7 @@ export default function AttemptResultsPage() {
                               right / partly / wrong, so the text doesn't repeat it. */}
                           {(() => {
                             const accent = correct ? "#3CCB8B" : "#E8B65B";
-                            const body = tidyFeedback(item.feedback || "")
+                            const body = tidyFeedback(item.feedback || "", { hasWorkedSolution: !!(item.study_tip || "").trim() })
                               .replace(/^\s*(✓\s*)?(Correct!?|Not quite\.?|Partially correct\.?)\s*/i, "");
                             const note = (item.personalized_message || "").trim();
                             const tip = tidyFeedback(item.study_tip || "").trim();

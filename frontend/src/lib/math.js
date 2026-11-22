@@ -52,7 +52,10 @@ export function latexToText(s) {
 
 /** Render one TeX fragment to HTML; null if it does not parse. */
 export function texToHtml(tex, display) {
-  const clean = String(tex || "").trim();
+  let clean = String(tex || "").trim();
+  // A forgotten closing brace ("5\frac{1}{3") would fail and print as "513".
+  const missing = (clean.match(/\{/g) || []).length - (clean.match(/\}/g) || []).length;
+  if (missing > 0) clean += "}".repeat(missing);
   if (!clean) return null;
   try {
     return patchSvg(
@@ -74,15 +77,17 @@ export function texToHtml(tex, display) {
  *  - sentences glued together ("terms.The") get their space back.
  * Text inside math delimiters is never touched.
  */
-export function tidyFeedback(text) {
+export function tidyFeedback(text, { hasWorkedSolution = false } = {}) {
   if (!text) return "";
   let s = String(text).replace(/\\r\\n|\\n/g, "\n").replace(/\r\n/g, "\n");
-  // Older servers paste the teacher's raw notes under the worked solution
-  // ("…\n\nExplanation: …"). When a worked solution is already there, the
-  // pasted copy only repeats it (often by another method), so drop it. With
-  // no worked solution it IS the explanation, so it stays.
+  // Older servers paste the teacher's raw notes under the feedback
+  // ("…\n\nExplanation: …"). When a worked solution is on the page - in the
+  // feedback itself or shown separately - the pasted copy only repeats it
+  // (often by another method), so drop it. With no worked solution anywhere
+  // it IS the explanation, so it stays.
   const cut = s.search(/\n\s*\n\s*(?:\*\*)?(?:Explanation|Maelezo)(?:\*\*)?\s*:/);
-  if (cut > 0 && /\b(?:Step|Hatua(?: ya)?) 1\b|\[\[\s*ladder/i.test(s.slice(0, cut))) s = s.slice(0, cut);
+  if (cut > 0 && (hasWorkedSolution || /\b(?:Step|Hatua(?: ya)?) 1\b|\[\[\s*ladder/i.test(s.slice(0, cut))))
+    s = s.slice(0, cut);
   s = redrawOldLadders(s);
   const re = new RegExp(MATH_RE.source, "g");
   let out = "", last = 0, m;
@@ -185,6 +190,14 @@ function redrawOldLadders(s) {
     if (nums.length < 2) return whole;
     return `${lead}[[ladder:${kind}:${nums.join(",")}]]`;
   });
+}
+
+/** A correct answer for display: bare LaTeX ("5\frac{1}{3}") becomes maths. */
+export function answerHtml(answer) {
+  const s = String(answer ?? "").trim();
+  if (!s) return "";
+  const bareTex = /\\[a-zA-Z]+|\^|_\{/.test(s) && !/\$|\\\(|\\\[/.test(s);
+  return renderMathHtml(bareTex ? `$${s}$` : s);
 }
 
 /** Text with $…$, $$…$$, \(…\), \[…\] math -> HTML string, in one pass. */

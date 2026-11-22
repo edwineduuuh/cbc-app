@@ -1,6 +1,6 @@
 "use client";
 
-import { renderMathHtml, tidyFeedback } from "@/lib/math";
+import { renderMathHtml, tidyFeedback, answerHtml } from "@/lib/math";
 
 /**
  * Feedback for one answer (a whole question or one part), laid out the same
@@ -20,8 +20,8 @@ function mdTables(text) {
   });
 }
 
-export function feedbackParagraphs(text) {
-  const t = tidyFeedback(text || "")
+export function feedbackParagraphs(text, opts) {
+  const t = tidyFeedback(text || "", opts)
     .trim()
     .replace(/^\s*(✓\s*)?(Correct!?|Not quite\.?|Partially correct\.?)\s*/i, "");
   if (!t) return "";
@@ -34,7 +34,7 @@ export function feedbackParagraphs(text) {
 }
 
 export default function WorkedFeedback({ feedback, studyTip, accent = "#20B8A6", fontSize = 13.5 }) {
-  const body = feedbackParagraphs(feedback);
+  const body = feedbackParagraphs(feedback, { hasWorkedSolution: !!(studyTip || "").trim() });
   const tipText = (studyTip || "").trim();
   const tip = tipText && !(feedback || "").includes(tipText.slice(0, 60)) ? feedbackParagraphs(tipText) : "";
   if (!body && !tip) return null;
@@ -128,7 +128,7 @@ export function PartFeedbackDropdown({ result, showCorrect = true, renderAnswer 
         {showCorrect && st.key !== "full" && result.correct_answer ? (
           <p style={{ fontSize: 13.5, color: "var(--text)", marginBottom: 10 }}>
             <b>Correct answer: </b>
-            <span dangerouslySetInnerHTML={{ __html: renderAnswer ? renderAnswer(String(result.correct_answer)) : renderMathHtml(String(result.correct_answer)) }} />
+            <span dangerouslySetInnerHTML={{ __html: renderAnswer ? renderAnswer(String(result.correct_answer)) : answerHtml(String(result.correct_answer)) }} />
           </p>
         ) : null}
         <WorkedFeedback feedback={result.feedback} studyTip={result.study_tip} accent={st.color} />
