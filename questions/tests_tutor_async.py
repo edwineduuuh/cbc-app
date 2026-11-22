@@ -97,13 +97,13 @@ class TutorFollowsKicd(TutorNeverBlocks):
             self.assertIn(text, block)
         sent = {}
 
-        def fake_claude(system, messages, max_tokens=0, **k):
-            sent["prompt"] = messages[0]["content"]
+        def fake_ai(prompt, system="", **k):
+            sent["prompt"] = prompt
             return ('{"heading": "Separating", "sections": ['
                     '{"title": "Filtration", "body": "b", "diagram": {"subject": "a filter funnel", "labels": ["filter paper"]}},'
                     '{"title": "Graph", "body": "b", "plot": {"type": "number_line", "min": 0, "max": 5, "step": 1}},'
                     '{"title": "Words", "body": "b"}]}')
-        with mock.patch.object(tutor, "_call_claude", fake_claude):
+        with mock.patch("questions.generation.generate", fake_ai),                 mock.patch.object(tutor, "_call_claude", side_effect=AssertionError("no fallback expected")):
             lesson = tutor.generate_lesson(self.topic, substrand=self.sub_a)
         self.assertIn("Teach EVERY specific learning outcome", sent["prompt"])
         self.assertIn("explain evaporation", sent["prompt"])
@@ -137,3 +137,22 @@ class TutorFollowsKicd(TutorNeverBlocks):
         self.assertEqual(len(diagrams), 1)
         self.assertRegex(diagrams[0]["url"], r"^/api/diagrams/[0-9a-f]{32}\.png$")
         self.assertEqual(len(self.pool.jobs), 1)                     # drawing started
+
+
+class DiagramsAreSmall(TutorNeverBlocks):
+    def test_line_art_is_compressed(self):
+        import io
+        from PIL import Image, ImageDraw
+        from questions.diagrams import _compress_line_art
+        im = Image.new("RGB", (1024, 1024), (252, 252, 250))
+        d = ImageDraw.Draw(im)
+        for i in range(0, 1024, 40):
+            d.line([(i, 0), (1024 - i, 1024)], fill=(10, 10, 12), width=3)
+        raw = io.BytesIO(); im.save(raw, "PNG")
+        small = _compress_line_art(raw.getvalue())
+        self.assertLess(len(small), len(raw.getvalue()))
+        self.assertEqual(Image.open(io.BytesIO(small)).size, (1024, 1024))
+
+    def test_unreadable_image_is_kept_as_is(self):
+        from questions.diagrams import _compress_line_art
+        self.assertEqual(_compress_line_art(b"not a png"), b"not a png")

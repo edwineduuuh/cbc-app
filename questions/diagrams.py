@@ -115,6 +115,24 @@ def generate_diagram(spec: dict, *, user=None) -> str | None:
         pass
 
 
+def _compress_line_art(data: bytes) -> bytes:
+    """Black-and-white line art as an 8-grey PNG: ~40 KB instead of ~1 MB,
+    which matters to a learner on mobile data. Near-white is snapped to white
+    and near-black to black first, so the image model's faint noise does not
+    cost bytes. Any problem: keep the original."""
+    try:
+        import io
+        from PIL import Image
+        im = Image.open(io.BytesIO(data)).convert("L")
+        im = im.point(lambda v: 255 if v > 200 else (0 if v < 70 else v))
+        out = io.BytesIO()
+        im.convert("P", palette=Image.Palette.ADAPTIVE, colors=8).save(out, "PNG", optimize=True)
+        small = out.getvalue()
+        return small if 0 < len(small) < len(data) else data
+    except Exception:
+        return data
+
+
 def _store(data: bytes, key: str, spec: dict) -> str | None:
     """Keep the PNG in the database and return the URL that serves it.
 
@@ -127,6 +145,7 @@ def _store(data: bytes, key: str, spec: dict) -> str | None:
 
     if not data:
         return None
+    data = _compress_line_art(data)
     d, _ = Diagram.objects.get_or_create(
         key=key,
         defaults={

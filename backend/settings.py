@@ -16,8 +16,13 @@ from pathlib import Path
 from dotenv import load_dotenv
 import dj_database_url
 
-# Load environment variables from .env file
+# Load environment variables from .env files (local development only - on
+# Railway they are real environment variables). load_dotenv() stops at the
+# first .env it finds (backend/.env), so keys kept only in the project-root
+# .env (DeepSeek, OpenAI, Gemini) never loaded. The root file is read second
+# and never overrides a value already set.
 load_dotenv()
+load_dotenv(Path(__file__).resolve().parent.parent / ".env")
 
 # Security: Never log credentials
 CLOUDINARY_STORAGE = {

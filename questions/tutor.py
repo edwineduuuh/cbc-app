@@ -256,7 +256,9 @@ apparatus far better with a picture. Give a section a "diagram" whenever a
 picture genuinely helps - most lessons need two or three. Leave it out where
 words are enough. Never draw with text characters.
 - "diagram" is a labelled black-and-white textbook drawing: "subject" says
-  exactly what to draw, "labels" (up to 6) are the parts to label.
+  exactly what to draw, "labels" (up to 6) are the parts to label. The artist
+  draws exactly what you write, so describe it accurately: a mixture is
+  drawn mixed together (not in layers), parts are in their real positions.
 - For a mathematical figure (a coordinate graph, a line, an inequality, a
   number line) use "plot" INSTEAD of "diagram" - it is drawn exactly:
   {{"type": "cartesian", "x_range": [-3, 3], "y_range": [-3, 5],
@@ -661,7 +663,9 @@ def extract_chat_diagrams(reply: str):
         spec["alt"] = spec["subject"]
         diagrams.append({"url": f"/api/diagrams/{diagram_key(spec)}.png", "alt": spec["subject"]})
         _GEN_POOL.submit(_draw_in_background, spec)
-    return _DIAGRAM_MARK.sub("", reply or "").strip(), diagrams
+    text = _DIAGRAM_MARK.sub("", reply or "")
+    text = re.sub(r"\n{3,}", "\n\n", text)      # no gap where a marker was
+    return text.strip(), diagrams
 
 
 def _draw_in_background(spec):
