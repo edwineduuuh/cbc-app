@@ -3521,8 +3521,6 @@ export default function QuizTakePage({ params }) {
                           onClick={() => {
                             const el = part && document.getElementById(`part-${part.id}`);
                             if (!el) return;
-                            const dd = el.querySelector("details");
-                            if (dd) dd.open = true;
                             el.scrollIntoView({ behavior: "smooth", block: "start" });
                           }}
                           style={{
@@ -3537,7 +3535,7 @@ export default function QuizTakePage({ params }) {
                       );
                     })}
                     <p style={{ width: "100%", fontSize: 12.5, color: "var(--text-muted)", marginTop: 4 }}>
-                      Open each part above to see its feedback and working.
+                      Each part&apos;s feedback and working is under its answer above.
                     </p>
                   </div>
                 )}

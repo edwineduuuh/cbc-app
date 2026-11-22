@@ -97,11 +97,10 @@ export function PartFeedbackDropdown({ result, showCorrect = true, renderAnswer 
   const st = statusOf(result);
   if (!st) return null;
   return (
-    <details className="ss-part-dropdown" style={{ marginTop: 14 }}>
-      <summary
+    // Always open under its part - no toggle to find.
+    <div className="ss-part-feedback" style={{ marginTop: 14 }}>
+      <div
         style={{
-          listStyle: "none",
-          cursor: "pointer",
           display: "flex",
           alignItems: "center",
           gap: 10,
@@ -112,14 +111,11 @@ export function PartFeedbackDropdown({ result, showCorrect = true, renderAnswer 
           color: "var(--text)",
           fontSize: 13.5,
           fontWeight: 600,
-          userSelect: "none",
         }}
       >
         <span style={{ color: st.color, fontWeight: 800 }}>{st.icon} {st.label}</span>
         <span style={{ color: "var(--text-muted)", fontWeight: 500 }}>· Feedback &amp; working</span>
-        <span className="ss-part-chevron" aria-hidden="true"
-              style={{ marginLeft: "auto", color: "var(--text-muted)", transition: "transform 0.2s ease" }}>▾</span>
-      </summary>
+      </div>
       <div
         style={{
           marginTop: 8,
@@ -137,7 +133,7 @@ export function PartFeedbackDropdown({ result, showCorrect = true, renderAnswer 
         ) : null}
         <WorkedFeedback feedback={result.feedback} studyTip={result.study_tip} accent={st.color} />
       </div>
-    </details>
+    </div>
   );
 }
 
