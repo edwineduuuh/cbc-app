@@ -160,6 +160,8 @@ def _resolve_topic_and_substrands(request):
         substrands = list(
             topic.substrands.filter(id__in=ids).order_by("order", "name")
         )
+    else:
+        substrands = list(topic.substrands.order_by("order", "name"))  # whole strand
     return topic, substrands
 
 
@@ -189,6 +191,9 @@ def teach_topic(request, topic_id):
     if raw:
         ids = [int(x) for x in raw.split(",") if x.strip().isdigit()]
         substrands = list(topic.substrands.filter(id__in=ids).order_by("order", "name"))
+    else:
+        # The whole strand: every sub-strand, in KICD order, as a series.
+        substrands = list(topic.substrands.order_by("order", "name"))
 
     force = _wants_force(request)  # admin/teacher + ?refresh=1 → regenerate
     retry = request.query_params.get("retry") == "1"
@@ -269,7 +274,8 @@ def tutor_chat(request):
             status=status.HTTP_502_BAD_GATEWAY,
         )
 
-    return Response({"reply": reply, "remaining": remaining})
+    reply, diagrams = tutor.extract_chat_diagrams(reply)
+    return Response({"reply": reply, "diagrams": diagrams, "remaining": remaining})
 
 
 # ─────────────────────────────────────────────────────────────

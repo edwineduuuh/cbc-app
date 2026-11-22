@@ -26,6 +26,40 @@ const API =
 
 const STAFF_ROLES = ["admin", "superadmin", "teacher", "school_admin"];
 
+// Diagram URLs are "/api/diagrams/<key>.png" on the backend's origin.
+const BACKEND_ORIGIN = API.replace(/\/api\/?$/, "");
+
+/* A diagram that may still be being drawn: retry until it arrives. */
+function Figure({ url, alt, pending }) {
+  const [attempt, setAttempt] = useState(0);
+  const [failed, setFailed] = useState(false);
+  if (pending || !url) {
+    return (
+      <div className="mt-3 flex h-40 items-center justify-center gap-2 rounded-xl border border-dashed border-gray-300 text-sm text-gray-500 dark:border-gray-600 dark:text-gray-400">
+        <Loader2 className="h-4 w-4 animate-spin" /> Drawing the diagram…
+      </div>
+    );
+  }
+  if (failed) return null;
+  const src = `${BACKEND_ORIGIN}${url}${attempt ? `?try=${attempt}` : ""}`;
+  return (
+    <figure className="mt-3 overflow-hidden rounded-xl bg-white p-2">
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src={src}
+        alt={alt || "Diagram"}
+        className="mx-auto max-h-96 w-auto"
+        onError={() => {
+          // Not drawn yet (chat diagrams start drawing as the reply arrives).
+          if (attempt < 30) setTimeout(() => setAttempt((a) => a + 1), 3000);
+          else setFailed(true);
+        }}
+      />
+      {alt && <figcaption className="mt-1 text-center text-xs text-gray-500">{alt}</figcaption>}
+    </figure>
+  );
+}
+
 const MAX_UPLOAD_MB = 6;
 const ACCEPTED_UPLOAD = "image/png,image/jpeg,image/webp,image/gif,application/pdf";
 
@@ -53,6 +87,7 @@ function LessonBody({ lesson }) {
             {s.title}
           </h3>
           <Markdown className="text-gray-700 dark:text-gray-200">{s.body}</Markdown>
+          {s.diagram && <Figure url={s.diagram.url} alt={s.diagram.alt} pending={s.diagram.pending} />}
           {s.example && (
             <div className="mt-3 rounded-xl bg-emerald-50 p-3 text-gray-800 dark:bg-emerald-900/20 dark:text-gray-100">
               <span className="mb-1 block text-xs font-bold uppercase tracking-wide text-emerald-600">Example</span>
@@ -219,7 +254,7 @@ function LessonSeries({ selection, onBack }) {
       });
       const d = await res.json();
       if (!res.ok) throw new Error(d.error || "Tutor unavailable");
-      setMessages((m) => [...m, { role: "assistant", content: d.reply }]);
+      setMessages((m) => [...m, { role: "assistant", content: d.reply, diagrams: d.diagrams || [] }]);
     } catch (e) {
       setMessages((m) => [...m, { role: "assistant", content: `⚠️ ${e.message}` }]);
     } finally {
@@ -378,6 +413,7 @@ function LessonSeries({ selection, onBack }) {
                   </div>
                 )}
                 {m.role === "assistant" ? <Markdown>{m.content}</Markdown> : <span className="whitespace-pre-line">{m.content}</span>}
+                {(m.diagrams || []).map((dg) => <Figure key={dg.url} url={dg.url} alt={dg.alt} />)}
               </div>
             </div>
           ))}

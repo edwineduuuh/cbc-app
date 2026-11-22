@@ -132,6 +132,42 @@ mathematics (wrap inline math in \\( \\) and display math in \\[ \\]).
 Respond with VALID JSON ONLY - no markdown fences, no text outside the JSON."""
 
 
+def _kicd_block(topic, substrand=None) -> str:
+    """The official KICD curriculum design, verbatim - the lesson's syllabus.
+
+    For one sub-strand: its specific learning outcomes, suggested learning
+    experiences, key inquiry questions, competencies, values and PCIs. For a
+    whole strand: every sub-strand's outcomes."""
+    def bullets(items, limit=12):
+        items = [str(i).strip() for i in (items or []) if str(i).strip()][:limit]
+        return "\n".join(f"  - {i}" for i in items)
+
+    if substrand is not None:
+        s = substrand
+        parts = [f"KICD CURRICULUM DESIGN - sub-strand {s.kicd_code + ' ' if s.kicd_code else ''}{s.name}"]
+        for title, items in (
+            ("Specific learning outcomes (by the end of the sub-strand the learner should be able to)",
+             s.learning_outcomes),
+            ("Suggested learning experiences", s.learning_experiences),
+            ("Key inquiry question(s)", s.inquiry_questions),
+            ("Core competencies", s.core_competencies),
+            ("Values", s.values),
+            ("Pertinent and contemporary issues", s.pertinent_issues),
+        ):
+            if items:
+                parts.append(f"{title}:\n{bullets(items)}")
+        return "\n\n".join(parts) if len(parts) > 1 else ""
+
+    subs = list(topic.substrands.order_by("order", "name"))
+    lines = []
+    for s in subs:
+        if s.learning_outcomes:
+            lines.append(f"{s.kicd_code + ' ' if s.kicd_code else ''}{s.name}:\n{bullets(s.learning_outcomes, 8)}")
+    if not lines:
+        return ""
+    return "KICD CURRICULUM DESIGN - specific learning outcomes for this strand:\n\n" + "\n\n".join(lines)
+
+
 def _source_block(topic) -> str:
     source = _harvest_topic_content(topic)
     if source.strip():
@@ -152,12 +188,27 @@ def generate_lesson(topic, substrand=None) -> dict:
         if substrand else ""
     )
     scope_name = substrand.name if substrand else topic.name
+    kicd = _kicd_block(topic, substrand)
+    kicd_rules = (
+        f"""
+
+{kicd}
+
+THE KICD DESIGN ABOVE IS THE SYLLABUS. Follow it exactly:
+- Teach EVERY specific learning outcome listed - each one must be clearly
+  covered by a section. Do not skip any, and do not teach beyond them.
+- Build examples and activities from the suggested learning experiences.
+- Answer the key inquiry question(s) by the end of the lesson.
+- Where it fits naturally, show the values and pertinent issues in examples.
+"""
+        if kicd else ""
+    )
 
     user = f"""Write a CBC/CBE lesson.
 
 Subject: {topic.subject.name}
 Grade: {topic.grade}
-Strand: {topic.name}{focus}{_source_block(topic)}
+Strand: {topic.name}{focus}{kicd_rules}{_source_block(topic)}
 Return ONLY this JSON shape:
 {{
   "heading": "Engaging lesson title for {scope_name}",
@@ -166,7 +217,10 @@ Return ONLY this JSON shape:
     {{
       "title": "Sub-concept title",
       "body": "Clear explanation in 2-4 short paragraphs, grade-appropriate",
-      "example": "A concrete worked example (use LaTeX for any maths)"
+      "example": "A concrete worked example (use LaTeX for any maths)",
+      "diagram": {{"subject": "what to draw, e.g. a fibreglass sheet showing glass fibres inside resin",
+                   "labels": ["glass fibres", "resin"],
+                   "alt": "one sentence describing the picture"}}
     }}
   ],
   "key_terms": [{{"term": "word", "definition": "simple meaning"}}],
@@ -174,10 +228,73 @@ Return ONLY this JSON shape:
   "ready_check": "One friendly question that checks readiness to try a quiz"
 }}
 
-Aim for 3-5 sections. Tight and teachable, not a textbook dump."""
+Aim for 3-6 sections (enough to cover every learning outcome). Tight and
+teachable, not a textbook dump.
 
-    raw = _call_claude(LESSON_SYSTEM, [{"role": "user", "content": user}], max_tokens=3500)
-    return _parse_json(raw)
+FIGURES: a learner understands structures, processes, tools, drawings and
+apparatus far better with a picture. Give a section a "diagram" whenever a
+picture genuinely helps - most lessons need two or three. Leave it out where
+words are enough. Never draw with text characters.
+- "diagram" is a labelled black-and-white textbook drawing: "subject" says
+  exactly what to draw, "labels" (up to 6) are the parts to label.
+- For a mathematical figure (a coordinate graph, a line, an inequality, a
+  number line) use "plot" INSTEAD of "diagram" - it is drawn exactly:
+  {{"type": "cartesian", "x_range": [-3, 3], "y_range": [-3, 5],
+    "lines": [{{"equation": "y = 2x + 1"}}], "points": [{{"x": 1, "y": 3, "label": "A"}}],
+    "alt": "..."}}
+  or {{"type": "number_line", "min": -2, "max": 8, "step": 1,
+    "mark": [{{"at": 2, "closed": true}}], "shade": [{{"from": 2, "to": 6}}], "alt": "..."}}"""
+
+    raw = _call_claude(LESSON_SYSTEM, [{"role": "user", "content": user}], max_tokens=5000)
+    lesson = _parse_json(raw)
+    lesson["v"] = LESSON_VERSION
+    _prepare_figures(lesson)
+    return lesson
+
+
+# Bump to rewrite every cached lesson the next time it is opened (the old one
+# is shown until the new one is ready). v2: KICD-led + diagrams.
+LESSON_VERSION = 2
+
+
+def _prepare_figures(lesson: dict) -> None:
+    """Maths plots are drawn at once (exact and free). Pictures for the image
+    model are marked pending - draw_lesson_diagrams fills them in."""
+    from questions.diagrams import attach_plot
+    for sec in lesson.get("sections") or []:
+        if not isinstance(sec, dict):
+            continue
+        if attach_plot(sec):                 # sets sec["diagram"] = {url, alt, exact}
+            continue
+        spec = sec.get("diagram")
+        if isinstance(spec, dict) and str(spec.get("subject") or "").strip():
+            sec["diagram"] = {"spec": spec, "alt": spec.get("alt") or spec["subject"], "pending": True}
+        else:
+            sec.pop("diagram", None)
+
+
+def draw_lesson_diagrams(lesson: dict) -> bool:
+    """Draw every pending picture, in parallel. Returns True if any changed.
+    A picture that fails is dropped - the lesson still reads without it."""
+    from concurrent.futures import ThreadPoolExecutor
+    from questions.diagrams import generate_diagram
+
+    pending = [sec for sec in lesson.get("sections") or []
+               if isinstance(sec, dict) and isinstance(sec.get("diagram"), dict)
+               and sec["diagram"].get("pending")]
+    if not pending:
+        return False
+
+    def draw(sec):
+        return sec, generate_diagram(sec["diagram"]["spec"])
+
+    with ThreadPoolExecutor(max_workers=4) as pool:
+        for sec, url in pool.map(draw, pending):
+            if url:
+                sec["diagram"] = {"url": url, "alt": sec["diagram"]["alt"]}
+            else:
+                sec.pop("diagram", None)
+    return True
 
 
 # ─────────────────────────────────────────────────────────────
@@ -204,7 +321,10 @@ def generate_flashcards(topic, substrand=None, count: int = 12) -> list:
 
 Subject: {topic.subject.name}
 Grade: {topic.grade}
-Strand: {topic.name}{focus}{_source_block(topic)}
+Strand: {topic.name}{focus}
+{_kicd_block(topic, substrand)}
+Cover every specific learning outcome above (when given) - nothing beyond it.
+{_source_block(topic)}
 Make a varied, engaging deck for "{scope_name}". Use a MIX of card types:
 - "concept": a definition / what-is question
 - "application": a short real-life Kenyan scenario (CBE competency)
@@ -254,7 +374,13 @@ Rules:
 - Match the student's grade level: simple words, short sentences, Kenyan examples.
 - Be encouraging. Never be condescending.
 - Use LaTeX for maths: inline \\( \\), display \\[ \\].
-- Keep replies focused - a few short paragraphs at most."""
+- Keep replies focused - a few short paragraphs at most.
+- Teach what the KICD curriculum design (given below) says for this grade -
+  its learning outcomes are the boundary of what this learner needs.
+- When a picture would genuinely help (a structure, a tool, a process, a type
+  of drawing, apparatus), add it on its own line in exactly this form:
+  [[diagram: what to draw | label one; label two]]
+  At most two per reply. Never draw pictures with text characters."""
 
 
 SUPPORTED_IMAGE_TYPES = {"image/png", "image/jpeg", "image/webp", "image/gif"}
@@ -293,6 +419,12 @@ def tutor_chat(topic, history: list, attachment: dict = None, max_tokens: int = 
         f"You are teaching: {topic.subject.name} - Grade {topic.grade} - "
         f"{topic.name}."
     )
+    try:
+        kicd = _kicd_block(topic)     # the design is a bonus - never break chat
+    except Exception:
+        kicd = ""
+    if kicd:
+        context += "\n\n" + kicd
     system = f"{TUTOR_SYSTEM}\n\n{context}"
 
     # Sanitise to the roles/keys the API expects.
@@ -423,7 +555,10 @@ def _generate_and_store(kind, topic_id, substrand_id, key):
             raise ValueError("empty content")
         holder = sub or topic
         setattr(holder, field, content)
-        holder.save(update_fields=[field])
+        holder.save(update_fields=[field])     # the text is readable now
+        if kind == "lesson" and draw_lesson_diagrams(content):
+            setattr(holder, field, content)
+            holder.save(update_fields=[field])  # ...and now with its pictures
     except Exception as e:
         print(f"⚠ tutor {kind} generation failed for topic {topic_id}/{substrand_id}: {e}")
         try:
@@ -472,9 +607,48 @@ def unit_status(kind, topic, substrand=None, force=False, retry=False):
         return cached, "writing"
     if writing:
         return cached, "writing"
+    if cached and kind == "lesson" and (cached.get("v") or 1) < LESSON_VERSION and not failed:
+        start()                     # an older lesson: show it while it is rewritten
+        return cached, "writing"    # (a failed rewrite keeps the old one for now)
     if cached:
         return cached, "ready"
     if failed and not retry:
         return None, "failed"
     start()
     return None, "writing"
+
+
+# ─────────────────────────────────────────────────────────────
+#  DIAGRAMS IN CHAT
+# ─────────────────────────────────────────────────────────────
+_DIAGRAM_MARK = re.compile(r"^[ \t]*\[\[diagram:\s*(.+?)\]\][ \t]*$", re.M)
+
+
+def extract_chat_diagrams(reply: str):
+    """Pull [[diagram: subject | a; b]] markers out of a tutor reply.
+
+    Returns (reply_without_markers, [{"url", "alt"}]). Each picture starts
+    drawing in the background; its URL is fixed up front (same prompt, same
+    key), so the page shows it as soon as it has been drawn."""
+    from questions.diagrams import diagram_key, generate_diagram
+    diagrams = []
+    for m in list(_DIAGRAM_MARK.finditer(reply or ""))[:2]:
+        subject, _, labels = m.group(1).partition("|")
+        spec = {"subject": subject.strip(),
+                "labels": [l.strip() for l in labels.split(";") if l.strip()][:6]}
+        if not spec["subject"]:
+            continue
+        spec["alt"] = spec["subject"]
+        diagrams.append({"url": f"/api/diagrams/{diagram_key(spec)}.png", "alt": spec["subject"]})
+        _GEN_POOL.submit(_draw_in_background, spec)
+    return _DIAGRAM_MARK.sub("", reply or "").strip(), diagrams
+
+
+def _draw_in_background(spec):
+    from django.db import close_old_connections, connection
+    from questions.diagrams import generate_diagram
+    close_old_connections()
+    try:
+        generate_diagram(spec)
+    finally:
+        connection.close()

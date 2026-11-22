@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { fetchWithAuth } from "@/lib/api";
+import { useAuth } from "@/contexts/AuthContext";
 import { Loader2, Sparkles, Check } from "lucide-react";
 
 const API =
@@ -33,7 +34,9 @@ const THEMES = {
 export default function SubstrandPicker({ onStart, accent = "indigo", startLabel = "Start" }) {
   const t = THEMES[accent] || THEMES.indigo;
 
-  const [grade, setGrade] = useState("");
+  const { user } = useAuth();
+  // Start on the learner's own grade.
+  const [grade, setGrade] = useState(() => (user?.grade ? String(user.grade) : ""));
   const [subjects, setSubjects] = useState([]);
   const [subject, setSubject] = useState("");
   const [topics, setTopics] = useState([]);
@@ -43,16 +46,22 @@ export default function SubstrandPicker({ onStart, accent = "indigo", startLabel
   const [loadingSubs, setLoadingSubs] = useState(false);
   const [selected, setSelected] = useState(() => new Set());
 
+  // Only the learning areas this grade actually has (a Grade 9 learner must
+  // not see Grade 10 subjects).
   useEffect(() => {
-    fetchWithAuth(`${API}/subjects/`)
+    if (!grade) return;
+    let alive = true;
+    fetchWithAuth(`${API}/subjects/?grade=${grade}`)
       .then((r) => r.json())
       .then((d) => {
+        if (!alive) return;
         const list = Array.isArray(d) ? d : d.results || [];
         // Kiswahili is blocked from AI lessons/flash cards (AI invents wrong grammar)
         setSubjects(list.filter((s) => (s.name || "").trim().toLowerCase() !== "kiswahili"));
       })
       .catch(() => {});
-  }, []);
+    return () => { alive = false; };
+  }, [grade]);
 
   const loadTopics = (sub, gr) => {
     setTopicId("");
@@ -105,7 +114,7 @@ export default function SubstrandPicker({ onStart, accent = "indigo", startLabel
     const chosen = subs.filter((s) => selected.has(s.id)).map((s) => s.name);
     const scope =
       ids.length === 0
-        ? "Whole strand"
+        ? subs.length ? `Whole strand (all ${subs.length} sub-strands)` : "Whole strand"
         : ids.length === subs.length
         ? "All sub-strands"
         : chosen.join(", ");
@@ -125,7 +134,9 @@ export default function SubstrandPicker({ onStart, accent = "indigo", startLabel
           onChange={(e) => {
             const v = e.target.value;
             setGrade(v);
-            loadTopics(subject, v);
+            // The learning area may not exist in the new grade: pick again.
+            setSubject("");
+            loadTopics("", v);
           }}
           className="rounded-xl border border-gray-300 bg-white px-4 py-3 text-gray-900 dark:border-gray-700 dark:bg-gray-800 dark:text-white"
         >
@@ -143,8 +154,8 @@ export default function SubstrandPicker({ onStart, accent = "indigo", startLabel
           }}
           className="rounded-xl border border-gray-300 bg-white px-4 py-3 text-gray-900 dark:border-gray-700 dark:bg-gray-800 dark:text-white"
         >
-          <option value="">Learning area</option>
-          {subjects.map((s) => (
+          <option value="">{grade ? "Learning area" : "Choose a grade first"}</option>
+          {(grade ? subjects : []).map((s) => (
             <option key={s.id} value={s.id}>{s.name}</option>
           ))}
         </select>
@@ -178,7 +189,7 @@ export default function SubstrandPicker({ onStart, accent = "indigo", startLabel
         <div>
           <div className="mb-1 flex items-center justify-between">
             <label className="text-sm font-semibold text-gray-500">
-              Sub-strands <span className="font-normal">(pick one or more)</span>
+              Sub-strands <span className="font-normal">(optional - none ticked teaches the whole strand)</span>
             </label>
             {subs.length > 0 && (
               <button onClick={toggleAll} className={`text-sm font-semibold hover:underline ${t.link}`}>
@@ -233,6 +244,11 @@ export default function SubstrandPicker({ onStart, accent = "indigo", startLabel
         >
           <Sparkles className="h-4 w-4" />
           {startLabel}
+          {selected.size
+            ? ` - ${selected.size} sub-strand${selected.size > 1 ? "s" : ""}`
+            : subs.length
+            ? " - the whole strand"
+            : ""}
         </button>
       )}
     </div>
