@@ -2377,7 +2377,7 @@ export default function AttemptResultsPage() {
                             const body = tidyFeedback(item.feedback || "")
                               .replace(/^\s*(✓\s*)?(Correct!?|Not quite\.?|Partially correct\.?)\s*/i, "");
                             const note = (item.personalized_message || "").trim();
-                            const tip = (item.study_tip || "").trim();
+                            const tip = tidyFeedback(item.study_tip || "").trim();
                             const showTip = tip && !(item.feedback || "").includes(tip.slice(0, 80));
                             return (
                               <div

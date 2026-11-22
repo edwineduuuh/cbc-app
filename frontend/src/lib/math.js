@@ -83,6 +83,7 @@ export function tidyFeedback(text) {
   // no worked solution it IS the explanation, so it stays.
   const cut = s.search(/\n\s*\n\s*(?:\*\*)?(?:Explanation|Maelezo)(?:\*\*)?\s*:/);
   if (cut > 0 && /\b(?:Step|Hatua(?: ya)?) 1\b|\[\[\s*ladder/i.test(s.slice(0, cut))) s = s.slice(0, cut);
+  s = redrawOldLadders(s);
   const re = new RegExp(MATH_RE.source, "g");
   let out = "", last = 0, m;
   const prose = (t) =>
@@ -142,7 +143,7 @@ function ladderHtml(kind, raw) {
   const body = steps
     .map(
       (s) =>
-        `<tr><td style="${cell};font-weight:700;border-right:2px solid currentColor">${s.divisor}</td>` +
+        `<tr><td style="${cell};font-weight:800;color:#E8B65B;border-right:2px solid var(--text, #e8eef5)">${s.divisor}</td>` +
         s.row.map((n) => `<td style="${cell};border-bottom:1.5px solid currentColor">${n}</td>`).join("") +
         `</tr>`,
     )
@@ -155,6 +156,26 @@ function ladderHtml(kind, raw) {
     `<div style="margin:10px 0;overflow-x:auto"><table style="border-collapse:collapse;font-size:15px;margin:0 auto">` +
     `<tbody>${body}${end}</tbody></table>${total}</div>`
   );
+}
+
+/**
+ * Ladders the AI drew itself as a markdown table (older answers, still in the
+ * cache) put every divisor one row too low and sometimes divide wrongly.
+ * Recognise them - blank top-left cell, whole numbers across the top, a
+ * divisor column - and replace them with the computed ladder. The product
+ * line the AI wrote under it ("LCM = 2 x 3 ... = 270") is dropped because the
+ * computed ladder prints its own.
+ */
+function redrawOldLadders(s) {
+  const TABLE = /(^|\n)[ \t]*\|[ \t]*\|((?:[ \t]*\d+[ \t]*\|)+)[ \t]*\n[ \t]*\|[-| :]+\|[ \t]*((?:\n[ \t]*\|[ \t]*\d*[ \t]*\|(?:[ \t]*\d+[ \t]*\|)+[ \t]*)+)(\n[^\n]*(?:LCM|GCD|HCF|GCF)[^\n]*=[^\n]*)?/gi;
+  return s.replace(TABLE, (whole, lead, head, rows, productLine) => {
+    const nums = head.split("|").map((c) => c.trim()).filter(Boolean).map(Number);
+    const last = rows.trim().split("\n").pop().split("|").map((c) => c.trim()).filter(Boolean).map(Number);
+    const kindHint = (productLine || "").match(/LCM|GCD|HCF|GCF/i)?.[0];
+    const kind = kindHint ? kindHint.toLowerCase() : last.every((n) => n === 1) ? "lcm" : "gcd";
+    if (nums.length < 2) return whole;
+    return `${lead}[[ladder:${kind}:${nums.join(",")}]]`;
+  });
 }
 
 /** Text with $…$, $$…$$, \(…\), \[…\] math -> HTML string, in one pass. */
