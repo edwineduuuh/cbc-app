@@ -34,7 +34,9 @@ SOURCE_QUESTION_LIMIT = 40
 def _get_claude():
     """Fresh client per call - matches ai_grading.py to avoid closed-client
     issues under threads."""
-    return anthropic.Anthropic(api_key=settings.ANTHROPIC_API_KEY)
+    # A stuck call must not hold a generation slot for the SDK's 10-minute
+    # default; one retry, then give up (the unit is retried on the next visit).
+    return anthropic.Anthropic(api_key=settings.ANTHROPIC_API_KEY, timeout=120, max_retries=1)
 
 
 def _call_claude(system: str, messages: list, max_tokens: int = 3000,
@@ -178,17 +180,6 @@ Aim for 3-5 sections. Tight and teachable, not a textbook dump."""
     return _parse_json(raw)
 
 
-def get_or_create_lesson(topic, substrand=None, force: bool = False) -> dict:
-    """Return the cached lesson (per sub-strand, or whole-strand fallback)."""
-    holder = substrand or topic
-    if holder.cached_ai_lesson and not force:
-        return holder.cached_ai_lesson
-    lesson = generate_lesson(topic, substrand=substrand)
-    holder.cached_ai_lesson = lesson
-    holder.save(update_fields=["cached_ai_lesson"])
-    return lesson
-
-
 # ─────────────────────────────────────────────────────────────
 #  FLASH CARD DECK GENERATION (hybrid, CBE, cached)
 # ─────────────────────────────────────────────────────────────
@@ -247,17 +238,6 @@ Keep fronts short. Ground answers in the real content above. Grade-appropriate."
                 "why": (c.get("why") or "").strip(),
                 "type": c.get("type", "concept"),
             })
-    return cards
-
-
-def get_or_create_flashcards(topic, substrand=None, force: bool = False) -> list:
-    """Return the cached deck (per sub-strand, or whole-strand fallback)."""
-    holder = substrand or topic
-    if holder.cached_flashcards and not force:
-        return holder.cached_flashcards
-    cards = generate_flashcards(topic, substrand=substrand)
-    holder.cached_flashcards = cards
-    holder.save(update_fields=["cached_flashcards"])
     return cards
 
 
@@ -398,3 +378,103 @@ def _deepseek_chat(system, messages, max_tokens, route):
     finally:
         _log_call(task="tutor", provider="deepseek", model=route.model, user=None, tokens_in=tin,
                   tokens_out=tout, error=err, ms=int((time.time() - started) * 1000))
+
+
+# ─────────────────────────────────────────────────────────────
+#  BACKGROUND GENERATION - a learner never waits on an open request
+# ─────────────────────────────────────────────────────────────
+# Writing one lesson or deck takes the AI 30-60s. Requests return at once with
+# whatever is ready; missing units are written in the background (in parallel)
+# and the page polls until they land. A cross-worker lock in the shared DB
+# cache stops two learners from paying for the same unit twice.
+
+from concurrent.futures import ThreadPoolExecutor as _Pool
+
+try:
+    from django.core.cache import caches as _caches
+    _gen_cache = _caches["grades"]
+except Exception:   # pragma: no cover - cache table missing
+    from django.core.cache import cache as _gen_cache
+
+GEN_LOCK_SECONDS = 300          # a unit still "writing" after this is retried
+GEN_FAILED_SECONDS = 120        # how long a failure is reported before retrying
+_GEN_POOL = _Pool(max_workers=4, thread_name_prefix="tutor-gen")
+
+_GEN_KINDS = {
+    "lesson": ("cached_ai_lesson", lambda topic, sub: generate_lesson(topic, substrand=sub)),
+    "cards": ("cached_flashcards", lambda topic, sub: generate_flashcards(topic, substrand=sub)),
+}
+
+
+def _gen_key(kind, topic, substrand):
+    return f"tutor-gen:{kind}:{topic.id}:{substrand.id if substrand else 0}"
+
+
+def _generate_and_store(kind, topic_id, substrand_id, key):
+    from django.db import close_old_connections, connection
+    from .models import Substrand, Topic
+    close_old_connections()
+    try:
+        topic = Topic.objects.select_related("subject").get(pk=topic_id)
+        sub = Substrand.objects.get(pk=substrand_id) if substrand_id else None
+        field, make = _GEN_KINDS[kind]
+        content = make(topic, sub)
+        if not content:
+            raise ValueError("empty content")
+        holder = sub or topic
+        setattr(holder, field, content)
+        holder.save(update_fields=[field])
+    except Exception as e:
+        print(f"⚠ tutor {kind} generation failed for topic {topic_id}/{substrand_id}: {e}")
+        try:
+            _gen_cache.set(key + ":failed", 1, GEN_FAILED_SECONDS)
+        except Exception:
+            pass
+    finally:
+        try:
+            _gen_cache.delete(key)
+        except Exception:
+            pass
+        connection.close()
+
+
+def unit_status(kind, topic, substrand=None, force=False, retry=False):
+    """(content_or_None, state) without ever waiting on the AI.
+
+    state: "ready"   - content is cached and current
+           "writing" - being written now (content may be the old version
+                       when an admin is regenerating)
+           "failed"  - the last attempt failed; pass retry=True to try again
+    """
+    field, _ = _GEN_KINDS[kind]
+    holder = substrand or topic
+    cached = getattr(holder, field) or None
+    key = _gen_key(kind, topic, substrand)
+
+    def start():
+        try:
+            if not _gen_cache.add(key, 1, GEN_LOCK_SECONDS):
+                return              # someone else is already writing it
+            _gen_cache.delete(key + ":failed")
+        except Exception:
+            pass                    # cache down: still generate, just unlocked
+        _GEN_POOL.submit(_generate_and_store, kind, topic.id,
+                         substrand.id if substrand else None, key)
+
+    try:
+        writing = _gen_cache.get(key) is not None
+        failed = _gen_cache.get(key + ":failed") is not None
+    except Exception:
+        writing = failed = False
+
+    if force and not writing:
+        start()
+        return cached, "writing"
+    if writing:
+        return cached, "writing"
+    if cached:
+        return cached, "ready"
+    if failed and not retry:
+        return None, "failed"
+    start()
+    return None, "writing"

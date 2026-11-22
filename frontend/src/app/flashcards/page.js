@@ -44,12 +44,29 @@ function Deck({ selection, onBack }) {
   const [flipped, setFlipped] = useState(false);
   const [regenerating, setRegenerating] = useState(false);
   const mounted = useRef(true);
-  useEffect(() => () => { mounted.current = false; }, []);
+  // Set true on (re)mount too: React's dev double-mount runs the cleanup once,
+  // and a flag left false made every result get ignored - stuck spinner.
+  useEffect(() => {
+    mounted.current = true;
+    return () => { mounted.current = false; };
+  }, []);
 
-  const fetchCards = useCallback((force) => {
+  // Decks not written yet are written on the server in the background; poll
+  // until every selected sub-strand's deck has arrived.
+  const [pending, setPending] = useState(false);
+  const [failedUnits, setFailedUnits] = useState(0);
+  const pollTimer = useRef(null);
+  const pollStarted = useRef(0);
+  const pollAgain = useRef(null);
+  useEffect(() => () => clearTimeout(pollTimer.current), []);
+
+  const fetchCards = useCallback((force, retry) => {
+    clearTimeout(pollTimer.current);
+    if (force || retry || !pollStarted.current) pollStarted.current = Date.now();
     const params = [`topic=${selection.topicId}`];
     if (selection.substrandIds.length) params.push(`substrands=${selection.substrandIds.join(",")}`);
     if (force) params.push("refresh=1");
+    if (retry) params.push("retry=1");
     return fetchWithAuth(`${API}/flashcards/?${params.join("&")}`)
       .then(async (r) => {
         if (!r.ok) {
@@ -62,9 +79,24 @@ function Deck({ selection, onBack }) {
       })
       .then((d) => {
         if (!mounted.current) return;
-        setCards(d.cards || []);
-        setI(0);
-        setFlipped(false);
+        const incoming = d.cards || [];
+        // New decks join the end of the one being studied - never yank the
+        // learner back to card 1 mid-revision.
+        setCards((prev) => {
+          if (!prev.length || force) {
+            setI(0);
+            setFlipped(false);
+            return incoming;
+          }
+          const seen = new Set(prev.map((c) => `${c.substrand}|${c.front}`));
+          return [...prev, ...incoming.filter((c) => !seen.has(`${c.substrand}|${c.front}`))];
+        });
+        setError("");
+        setPending(!!d.pending);
+        setFailedUnits(d.failed || 0);
+        if (d.pending && Date.now() - pollStarted.current < 4 * 60 * 1000) {
+          pollTimer.current = setTimeout(() => pollAgain.current?.(), 3000);
+        }
       })
       .catch((e) => {
         if (!mounted.current) return;
@@ -75,6 +107,7 @@ function Deck({ selection, onBack }) {
   }, [selection]);
 
   useEffect(() => {
+    pollAgain.current = () => fetchCards(false);
     fetchCards(false);
   }, [fetchCards]);
 
@@ -138,6 +171,35 @@ function Deck({ selection, onBack }) {
     );
   }
 
+  if (!error && !cards.length && pending) {
+    return (
+      <div className="flex h-[60vh] flex-col items-center justify-center gap-3 px-4 text-center text-gray-500">
+        <Loader2 className="h-8 w-8 animate-spin text-indigo-600" />
+        <p className="font-semibold text-gray-900 dark:text-white">Writing your flash cards…</p>
+        <p className="max-w-sm text-sm">
+          The first time a deck is opened it takes about a minute to write. After that it opens instantly,
+          for you and everyone else.
+        </p>
+      </div>
+    );
+  }
+
+  if (!error && !cards.length && failedUnits) {
+    return (
+      <div className="mx-auto max-w-xl px-4 py-16 text-center">
+        <p className="mb-4 text-gray-700 dark:text-gray-200">We couldn&apos;t write these flash cards just now.</p>
+        <div className="flex items-center justify-center gap-3">
+          <button onClick={() => fetchCards(false, true)} className="rounded-full bg-indigo-600 px-6 py-2 font-semibold text-white">
+            Try again
+          </button>
+          <button onClick={onBack} className="rounded-full border border-gray-300 px-6 py-2 font-semibold text-gray-700 dark:border-gray-700 dark:text-gray-200">
+            Back
+          </button>
+        </div>
+      </div>
+    );
+  }
+
   if (error || !cards.length) {
     return (
       <div className="mx-auto max-w-xl px-4 py-16 text-center">
@@ -171,6 +233,12 @@ function Deck({ selection, onBack }) {
           </button>
         )}
       </div>
+
+      {pending && (
+        <p className="mb-3 flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
+          <Loader2 className="h-4 w-4 animate-spin" /> More cards are being written - they&apos;ll join the end of this deck.
+        </p>
+      )}
 
       <div className="mb-3 flex items-center justify-between text-sm text-gray-500">
         <span className="truncate pr-2">{selection.title}</span>

@@ -116,12 +116,27 @@ function LessonSeries({ selection, onBack }) {
   const fileInputRef = useRef(null);
   const textareaRef = useRef(null);
   const mounted = useRef(true);
-  useEffect(() => () => { mounted.current = false; }, []);
+  // Set true on (re)mount too: React's dev double-mount runs the cleanup once,
+  // and a flag left false made every result get ignored - stuck spinner.
+  useEffect(() => {
+    mounted.current = true;
+    return () => { mounted.current = false; };
+  }, []);
 
-  const fetchLessons = useCallback((force) => {
+  // Lessons not written yet are written on the server in the background; we
+  // poll every few seconds and show each lesson the moment it is ready.
+  const pollTimer = useRef(null);
+  const pollStarted = useRef(0);
+  const pollAgain = useRef(null); // the latest fetchLessons, for the poll timer
+  useEffect(() => () => clearTimeout(pollTimer.current), []);
+
+  const fetchLessons = useCallback((force, retry) => {
+    clearTimeout(pollTimer.current);
+    if (force || retry || !pollStarted.current) pollStarted.current = Date.now();
     const params = [];
     if (selection.substrandIds.length) params.push(`substrands=${selection.substrandIds.join(",")}`);
     if (force) params.push("refresh=1");
+    if (retry) params.push("retry=1");
     const url = `${API}/tutor/topics/${selection.topicId}/lesson/${params.length ? `?${params.join("&")}` : ""}`;
     return fetchWithAuth(url)
       .then(async (r) => {
@@ -133,7 +148,15 @@ function LessonSeries({ selection, onBack }) {
         }
         return r.json();
       })
-      .then((d) => mounted.current && setData(d))
+      .then((d) => {
+        if (!mounted.current) return;
+        setData(d);
+        setError("");
+        // Keep polling while anything is being written (give up after 4 min).
+        if (d.pending && Date.now() - pollStarted.current < 4 * 60 * 1000) {
+          pollTimer.current = setTimeout(() => pollAgain.current?.(), 3000);
+        }
+      })
       .catch((e) => {
         if (!mounted.current) return;
         setError(e.message);
@@ -143,6 +166,7 @@ function LessonSeries({ selection, onBack }) {
   }, [selection]);
 
   useEffect(() => {
+    pollAgain.current = () => fetchLessons(false);
     fetchLessons(false);
   }, [fetchLessons]);
 
@@ -151,6 +175,8 @@ function LessonSeries({ selection, onBack }) {
     setError("");
     fetchLessons(true).finally(() => mounted.current && setRegenerating(false));
   };
+
+  const retryFailed = () => fetchLessons(false, true);
 
   const onPickFile = (e) => {
     const f = e.target.files?.[0];
@@ -186,6 +212,9 @@ function LessonSeries({ selection, onBack }) {
       const apiMessages = next.map(({ role, content }) => ({ role, content }));
       const res = await fetchWithAuth(`${API}/tutor/chat/`, {
         method: "POST",
+        // A full answer (or one about an attached photo) can take longer than
+        // the site-wide 25s request limit.
+        signal: AbortSignal.timeout(60000),
         body: JSON.stringify({ topic_id: selection.topicId, messages: apiMessages, attachment }),
       });
       const d = await res.json();
@@ -240,7 +269,10 @@ function LessonSeries({ selection, onBack }) {
 
   const topic = data?.topic || {};
   const lessons = data?.lessons || [];
-  const current = lessons[active]?.lesson || {};
+  const currentEntry = lessons[active] || {};
+  const current = currentEntry.lesson || {};
+  const readyCount = lessons.filter((l) => l.lesson).length;
+  const stillWriting = !!data?.pending;
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-8">
@@ -281,13 +313,51 @@ function LessonSeries({ selection, onBack }) {
                   : "bg-gray-100 text-gray-600 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-300"
               }`}
             >
+              {!l.lesson && l.status === "writing" && (
+                <Loader2 className="mr-1.5 inline h-3.5 w-3.5 animate-spin" />
+              )}
               {l.substrand?.name || "Whole strand"}
             </button>
           ))}
         </div>
       )}
 
-      <LessonBody lesson={current} />
+      {stillWriting && lessons.length > 1 && (
+        <p className="mb-4 text-sm text-gray-500 dark:text-gray-400">
+          {readyCount} of {lessons.length} lessons ready - the rest will appear here as soon as they&apos;re written.
+        </p>
+      )}
+
+      {currentEntry.lesson ? (
+        <LessonBody lesson={current} />
+      ) : currentEntry.status === "failed" ? (
+        <div className="rounded-2xl border border-gray-200 bg-white p-8 text-center dark:border-gray-700 dark:bg-gray-800">
+          <p className="mb-4 text-gray-700 dark:text-gray-200">
+            We couldn&apos;t write this lesson just now.
+          </p>
+          <button onClick={retryFailed} className="rounded-full bg-emerald-600 px-6 py-2 font-semibold text-white">
+            Try again
+          </button>
+        </div>
+      ) : stillWriting ? (
+        <div className="flex flex-col items-center gap-3 rounded-2xl border border-gray-200 bg-white p-10 text-center dark:border-gray-700 dark:bg-gray-800">
+          <Loader2 className="h-8 w-8 animate-spin text-emerald-600" />
+          <p className="font-semibold text-gray-900 dark:text-white">
+            Writing your lesson on {currentEntry.substrand?.name || topic.name}…
+          </p>
+          <p className="max-w-sm text-sm text-gray-500 dark:text-gray-400">
+            The first time a lesson is opened it takes about a minute to write. After that it opens instantly,
+            for you and everyone else.
+          </p>
+        </div>
+      ) : (
+        <div className="rounded-2xl border border-gray-200 bg-white p-8 text-center dark:border-gray-700 dark:bg-gray-800">
+          <p className="mb-4 text-gray-700 dark:text-gray-200">This lesson is taking longer than usual.</p>
+          <button onClick={retryFailed} className="rounded-full bg-emerald-600 px-6 py-2 font-semibold text-white">
+            Check again
+          </button>
+        </div>
+      )}
 
       {/* Chat */}
       <div className="mt-10">

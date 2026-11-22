@@ -191,29 +191,24 @@ def teach_topic(request, topic_id):
         substrands = list(topic.substrands.filter(id__in=ids).order_by("order", "name"))
 
     force = _wants_force(request)  # admin/teacher + ?refresh=1 → regenerate
+    retry = request.query_params.get("retry") == "1"
 
-    try:
-        if substrands:
-            lessons = [
-                {"substrand": {"id": s.id, "name": s.name},
-                 "lesson": tutor.get_or_create_lesson(topic, substrand=s, force=force)}
-                for s in substrands
-            ]
-        else:
-            lessons = [
-                {"substrand": None,
-                 "lesson": tutor.get_or_create_lesson(topic, force=force)}
-            ]
-    except Exception as e:
-        return Response(
-            {"error": f"Could not generate lesson: {type(e).__name__}"},
-            status=status.HTTP_502_BAD_GATEWAY,
-        )
+    # Never wait on the AI here: ready lessons come back at once, missing ones
+    # are written in the background and the page polls (see tutor.unit_status).
+    lessons = []
+    for s in (substrands or [None]):
+        content, state = tutor.unit_status("lesson", topic, s, force=force, retry=retry)
+        lessons.append({
+            "substrand": {"id": s.id, "name": s.name} if s else None,
+            "lesson": content,
+            "status": state,
+        })
 
     return Response({
         "topic": {"id": topic.id, "name": topic.name, "grade": topic.grade,
                   "subject": topic.subject.name},
         "lessons": lessons,
+        "pending": any(l["status"] == "writing" for l in lessons),
     })
 
 
@@ -299,21 +294,16 @@ def flashcards_feed(request):
         return Response(_PAYWALL, status=status.HTTP_402_PAYMENT_REQUIRED)
 
     force = _wants_force(request)  # admin/teacher + ?refresh=1 → regenerate
+    retry = request.query_params.get("retry") == "1"
 
-    try:
-        cards = []
-        if substrands:
-            for s in substrands:
-                for c in tutor.get_or_create_flashcards(topic, substrand=s, force=force):
-                    cards.append({**c, "substrand": s.name})
-        else:
-            for c in tutor.get_or_create_flashcards(topic, force=force):
-                cards.append({**c, "substrand": None})
-    except Exception as e:
-        return Response(
-            {"error": f"Could not generate cards: {type(e).__name__}"},
-            status=status.HTTP_502_BAD_GATEWAY,
-        )
+    # Same as lessons: never wait on the AI; decks still being written are
+    # reported as pending and the page polls.
+    cards, states = [], []
+    for s in (substrands or [None]):
+        deck, state = tutor.unit_status("cards", topic, s, force=force, retry=retry)
+        states.append(state)
+        for c in (deck or []):
+            cards.append({**c, "substrand": s.name if s else None})
 
     random.shuffle(cards)  # shuffle across all selected sub-strands
     return Response({
@@ -321,4 +311,7 @@ def flashcards_feed(request):
                   "subject": topic.subject.name},
         "cards": cards,
         "count": len(cards),
+        "pending": "writing" in states,
+        "failed": states.count("failed"),
+        "units": len(states),
     })
