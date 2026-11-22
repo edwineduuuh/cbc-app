@@ -1915,9 +1915,7 @@ export default function QuizTakePage({ params }) {
   const quizStartedAt = useRef(new Date().toISOString());
   const structuredTextareaRef = useRef(null);
 
-  // Practice vs Exam mode + per-question immediate feedback (Practice only)
-  const [started, setStarted] = useState(false);
-  const [mode, setMode] = useState("practice"); // 'practice' | 'exam'
+  // One mode: every question is checked as soon as it is answered.
   const [feedbacks, setFeedbacks] = useState({}); // index -> grade-one response
   const [checkErrors, setCheckErrors] = useState({}); // index -> why a check failed
   const [checking, setChecking] = useState(false);
@@ -1972,8 +1970,7 @@ export default function QuizTakePage({ params }) {
         const data = await res.json();
         setQuiz(data);
         setQuestions(data.questions || []);
-        // Exam-type quizzes default to Exam mode (no immediate feedback).
-        if (data.quiz_type === "exam") setMode("exam");
+        quizStartedAt.current = new Date().toISOString();
       } catch (err) {
         console.error("❌ Failed to load quiz:", err);
       } finally {
@@ -2025,12 +2022,12 @@ export default function QuizTakePage({ params }) {
 
   const handleAnswer = useCallback(
     (value) => {
-      // Practice mode: once the answer is being checked or has been checked,
-      // it is locked - the feedback is tied to exactly what was submitted.
-      if (mode === "practice" && (checking || feedbacks[currentIdx])) return;
+      // Once the answer is being checked or has been checked it is locked -
+      // the feedback is tied to exactly what was submitted.
+      if (checking || feedbacks[currentIdx]) return;
       setAnswers((prev) => ({ ...prev, [currentIdx]: value }));
     },
-    [currentIdx, mode, checking, feedbacks],
+    [currentIdx, checking, feedbacks],
   );
 
   // Capture current math-field value before navigating away
@@ -2057,7 +2054,7 @@ export default function QuizTakePage({ params }) {
     setTimeout(() => setShowSubmitModal(true), 50);
   }, [captureMathField]);
 
-  // Practice mode: grade the current question immediately for instant feedback.
+  // Grade the current question immediately for instant feedback.
   const checkAnswer = async () => {
     if (checking || feedbacks[currentIdx]) return;
     const ans = answers[currentIdx];
@@ -2331,130 +2328,9 @@ export default function QuizTakePage({ params }) {
   const isFinancial = currentQ.question_type === "financial_statement";
   const isKiswahili = /kiswahili/i.test(currentQ?.subject_name || "");
 
-  // Practice mode: lock the answer inputs while checking is in flight AND after
-  // feedback has appeared, so the choice/answer can't be changed once committed.
-  const practiceLocked =
-    mode === "practice" && (checking || !!feedbacks[currentIdx]);
-
-  // Start screen: pick Practice vs Exam before the quiz (and timer) begins.
-  if (quiz && !started) {
-    const examType = quiz.quiz_type === "exam";
-    return (
-      <div
-        className={nunito.className}
-        style={{
-          minHeight: "100vh",
-          background: "var(--bg)",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          padding: 20,
-        }}
-      >
-        <div
-          style={{
-            maxWidth: 460,
-            width: "100%",
-            background: "var(--bg-card)",
-            border: "1px solid var(--border)",
-            borderRadius: 24,
-            padding: 28,
-            textAlign: "center",
-          }}
-        >
-          <h1 style={{ fontSize: 22, fontWeight: 800, color: "var(--text)", marginBottom: 6 }}>
-            {quiz.title}
-          </h1>
-          <p style={{ color: "var(--text-muted)", fontSize: 14, marginBottom: 22 }}>
-            {totalQ} question{totalQ !== 1 ? "s" : ""}
-            {quiz.duration_minutes ? ` · ${quiz.duration_minutes} min` : ""}
-          </p>
-          <p
-            style={{
-              fontSize: 12,
-              fontWeight: 700,
-              color: "var(--text-muted)",
-              textTransform: "uppercase",
-              letterSpacing: "0.06em",
-              marginBottom: 12,
-            }}
-          >
-            How do you want to take it?
-          </p>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 20 }}>
-            {[
-              { id: "practice", title: "Practice", desc: "Feedback after each question" },
-              { id: "exam", title: "Exam", desc: "Feedback only at the end" },
-            ].map((m) => {
-              const active = mode === m.id;
-              return (
-                <button
-                  key={m.id}
-                  onClick={() => setMode(m.id)}
-                  style={{
-                    textAlign: "left",
-                    padding: 16,
-                    borderRadius: 16,
-                    cursor: "pointer",
-                    border: `2px solid ${active ? "#20B8A6" : "var(--border)"}`,
-                    background: active ? "rgba(26,111,196,0.08)" : "var(--bg-card)",
-                  }}
-                >
-                  <div
-                    style={{
-                      fontWeight: 800,
-                      fontSize: 15,
-                      color: active ? "#20B8A6" : "var(--text)",
-                      marginBottom: 4,
-                    }}
-                  >
-                    {m.title}
-                  </div>
-                  <div style={{ fontSize: 12, color: "var(--text-muted)", lineHeight: 1.4 }}>
-                    {m.desc}
-                  </div>
-                </button>
-              );
-            })}
-          </div>
-          {examType && (
-            <p
-              style={{
-                fontSize: 12,
-                color: "#F2C978",
-                background: "rgba(232,182,91,0.10)",
-                border: "1px solid #fde68a",
-                borderRadius: 10,
-                padding: "8px 10px",
-                marginBottom: 16,
-              }}
-            >
-              This is an exam-style quiz - Exam mode is recommended.
-            </p>
-          )}
-          <button
-            onClick={() => {
-              quizStartedAt.current = new Date().toISOString();
-              setStarted(true);
-            }}
-            style={{
-              width: "100%",
-              height: 50,
-              borderRadius: 14,
-              border: "none",
-              background: "#0E7490",
-              color: "#fff",
-              fontSize: 16,
-              fontWeight: 800,
-              cursor: "pointer",
-            }}
-          >
-            Start Quiz →
-          </button>
-        </div>
-      </div>
-    );
-  }
+  // Lock the answer inputs while checking is in flight AND after feedback has
+  // appeared, so the choice/answer can't be changed once committed.
+  const practiceLocked = checking || !!feedbacks[currentIdx];
 
   // Build answeredBlanks map: { blankNum: optionText } - scoped to current passage only
   const answeredBlanks = {};
@@ -2613,6 +2489,7 @@ export default function QuizTakePage({ params }) {
               }}
             >
               <motion.div
+                initial={false}
                 animate={{ width: `${progressPct}%` }}
                 transition={{ duration: 0.4 }}
                 style={{
@@ -2970,7 +2847,7 @@ export default function QuizTakePage({ params }) {
                 </div>
               )}
 
-              {/* Answer inputs - Practice mode locks them once checking starts */}
+              {/* Answer inputs - locked once checking starts */}
               <div
                 style={{
                   pointerEvents: practiceLocked ? "none" : "auto",
@@ -3001,7 +2878,7 @@ export default function QuizTakePage({ params }) {
                         imageUrl={imageUrl}
                         selected={answers[currentIdx] === letter}
                         mark={(() => {
-                          const fb = mode === "practice" ? feedbacks[currentIdx] : null;
+                          const fb = feedbacks[currentIdx];
                           if (!fb) return null;
                           const right = fb.is_correct ? answers[currentIdx]
                             : correctLetterOf(fb.feedback?.correct_answer);
@@ -3009,7 +2886,7 @@ export default function QuizTakePage({ params }) {
                           if (letter === answers[currentIdx]) return "wrong";
                           return "dim";
                         })()}
-                        disabled={mode === "practice" && !!feedbacks[currentIdx]}
+                        disabled={!!feedbacks[currentIdx]}
                         onClick={() => handleAnswer(letter)}
                       />
                     );
@@ -3295,8 +3172,8 @@ export default function QuizTakePage({ params }) {
                         ? (answers[currentIdx]?.[part.id] ?? "")
                         : "";
                     const blankNum = parseInt(part.part_label);
-                    // Practice mode: this part's own result, shown under it.
-                    const practiceFb = mode === "practice" ? feedbacks[currentIdx] : null;
+                    // This part's own result, shown under it.
+                    const practiceFb = feedbacks[currentIdx];
                     const partResult = partResultsOf(practiceFb?.feedback, currentQ.parts).find(
                       (r) => String(r.part_id) === String(part.id) ||
                              String(r.part_label) === String(part.part_label),
@@ -3476,8 +3353,8 @@ export default function QuizTakePage({ params }) {
             </motion.div>
           </AnimatePresence>
 
-          {/* Practice mode: a check that failed says so, with a retry */}
-      {mode === "practice" && !feedbacks[currentIdx] && checkErrors[currentIdx] && (
+          {/* A check that failed says so, with a retry */}
+      {!feedbacks[currentIdx] && checkErrors[currentIdx] && (
         <div style={{ maxWidth: 680, margin: "16px auto 110px", padding: "0 16px" }}>
           <div
             role="alert"
@@ -3516,9 +3393,8 @@ export default function QuizTakePage({ params }) {
         </div>
       )}
 
-          {/* Practice-mode immediate feedback */}
-      {mode === "practice" &&
-        feedbacks[currentIdx] &&
+          {/* Immediate feedback */}
+      {feedbacks[currentIdx] &&
         (() => {
           const fb = feedbacks[currentIdx];
           const f = fb.feedback || {};
@@ -3698,7 +3574,7 @@ export default function QuizTakePage({ params }) {
             <ArrowLeft size={20} color="#6b7280" />
           </button>
 
-          {mode === "practice" && !feedbacks[currentIdx] ? (
+          {!feedbacks[currentIdx] ? (
             <button
               onClick={checkAnswer}
               disabled={checking}
