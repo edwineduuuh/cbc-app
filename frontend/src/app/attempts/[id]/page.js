@@ -1623,9 +1623,8 @@ export default function AttemptResultsPage() {
                           )}
                         </span>
                         <span
-                          className="kalam"
                           style={{
-                            fontSize: 15,
+                            fontSize: 13,
                             fontWeight: 700,
                             padding: "3px 10px",
                             borderRadius: 20,
@@ -2378,114 +2377,59 @@ export default function AttemptResultsPage() {
                     {/* ── Feedback + study tip + points - shown for all non-multipart types ── */}
                     {item.question_type !== "multipart" && (
                       <>
-                          {/* AI Feedback */}
-                          <div
-                            style={{
-                              background: correct ? "var(--bg-secondary)" : "rgba(232,182,91,0.10)",
-                              border: `1px solid ${correct ? "rgba(60,203,139,0.35)" : "rgba(232,182,91,0.35)"}`,
-                              borderRadius: 12,
-                              padding: "14px 16px",
-                              marginBottom: 12,
-                            }}
-                          >
-                            <p
-                              className="kalam"
-                              style={{
-                                fontSize: 17,
-                                fontWeight: 700,
-                                color: correct ? "#3CCB8B" : "#F2C978",
-                                marginBottom: 8,
-                                transform: "rotate(-1deg)",
-                                display: "inline-block",
-                              }}
-                            >
-                              {correct ? "✓ Correct!" : "Feedback"}
-                            </p>
-                            <div
-                              className="kalam"
-                              style={{
-                                fontSize: 15,
-                                color: correct ? "#6EE7A8" : "#F2C978",
-                                lineHeight: 1.8,
-                              }}
-                              dangerouslySetInnerHTML={{
-                                __html: renderMath(
-                                  item.feedback
-                                    ?.replace(
-                                      /\(([a-z])\)\s*/g,
-                                      "<br/><strong>Part ($1):</strong> ",
-                                    )
-                                    ?.replace(/^<br\/>/, "")
-                                    ?.replace(/\\n|\n/g, "<br/>") || "",
-                                ),
-                              }}
-                            />
-
-                            {/* Personalized message */}
-                            {item.personalized_message && (
-                              <div
-                                style={{
-                                  marginTop: 10,
-                                  paddingTop: 10,
-                                  borderTop: `1px solid ${correct ? "rgba(60,203,139,0.35)" : "rgba(232,182,91,0.35)"}`,
-                                }}
-                              >
-                                <p
-                                  style={{
-                                    fontSize: 13,
-                                    color: correct ? "#6EE7A8" : "#F2C978",
-                                  }}
-                                  dangerouslySetInnerHTML={{
-                                    __html:
-                                      "💡 " +
-                                      renderMath(
-                                        item.personalized_message || "",
-                                      ),
-                                  }}
-                                />
-                              </div>
-                            )}
-                          </div>
-
-                          {/* Study tip - hide if it's a duplicate of the feedback */}
-                          {item.study_tip &&
-                            !item.feedback?.includes(
-                              item.study_tip?.slice(0, 80),
-                            ) && (
+                          {/* Feedback: one calm card. The marks chip above already says
+                              right / partly / wrong, so the text doesn't repeat it. */}
+                          {(() => {
+                            const accent = correct ? "#3CCB8B" : "#E8B65B";
+                            const body = (item.feedback || "")
+                              .replace(/^\s*(✓\s*)?(Correct!?|Not quite\.?|Partially correct\.?)\s*/i, "");
+                            const note = (item.personalized_message || "").trim();
+                            const tip = (item.study_tip || "").trim();
+                            const showTip = tip && !(item.feedback || "").includes(tip.slice(0, 80));
+                            return (
                               <div
                                 style={{
                                   background: "var(--bg-secondary)",
-                                  border: "1px solid #e9d5ff",
-                                  borderRadius: 12,
+                                  borderLeft: `3px solid ${accent}`,
+                                  borderRadius: 10,
                                   padding: "12px 16px",
                                   marginBottom: 12,
                                 }}
                               >
-                                <p
-                                  style={{
-                                    fontSize: 11,
-                                    fontWeight: 700,
-                                    color: "#C4B5FD",
-                                    letterSpacing: "0.06em",
-                                    textTransform: "uppercase",
-                                    marginBottom: 6,
-                                  }}
-                                >
-                                  📚 Study Tip
+                                <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.06em",
+                                            textTransform: "uppercase", color: accent, marginBottom: 6 }}>
+                                  Feedback
                                 </p>
-                                <div
-                                  className="kalam"
-                                  style={{
-                                    fontSize: 14,
-                                    color: "#581c87",
-                                    lineHeight: 1.8,
-                                  }}
-                                  dangerouslySetInnerHTML={{
-                                    __html: renderRich(item.study_tip),
-                                  }}
-                                />
+                                {body && (
+                                  <div
+                                    style={{ fontSize: 14.5, color: "var(--text)", lineHeight: 1.7 }}
+                                    dangerouslySetInnerHTML={{
+                                      __html: renderMath(
+                                        body
+                                          .replace(/\(([a-z])\)\s*/g, "<br/><strong>Part ($1):</strong> ")
+                                          .replace(/^<br\/>/, "")
+                                          .replace(/\\n|\n/g, "<br/>"),
+                                      ),
+                                    }}
+                                  />
+                                )}
+                                {note && (
+                                  <p style={{ fontSize: 13, color: "var(--text-muted)", marginTop: 8 }}
+                                     dangerouslySetInnerHTML={{ __html: renderMath(note) }} />
+                                )}
+                                {showTip && (
+                                  <div style={{ display: "flex", gap: 8, marginTop: 10, paddingTop: 10,
+                                                borderTop: "1px solid var(--border)" }}>
+                                    <span aria-hidden="true">💡</span>
+                                    <div style={{ fontSize: 13.5, color: "var(--text-muted)", lineHeight: 1.65 }}>
+                                      <strong style={{ color: "var(--text)", fontWeight: 600 }}>Study tip: </strong>
+                                      <span dangerouslySetInnerHTML={{ __html: renderRich(tip) }} />
+                                    </div>
+                                  </div>
+                                )}
                               </div>
-                            )}
+                            );
+                          })()}
 
                           {/* Explanation diagram (optional, set by the teacher) */}
                           {item.explanation_image_url && (
@@ -2523,52 +2467,35 @@ export default function AttemptResultsPage() {
                           )}
 
                           {/* Points missed */}
-                          {(Array.isArray(item.points_missed)
+                          {(() => {
+                            const missed = Array.isArray(item.points_missed)
                               ? item.points_missed
-                              : item.points_missed ? [String(item.points_missed)] : []
-                            ).length > 0 && (
+                              : item.points_missed ? [String(item.points_missed)] : [];
+                            if (!missed.length) return null;
+                            return (
                               <div
                                 style={{
-                                  background: "rgba(245,158,91,0.10)",
-                                  border: "1px solid #fed7aa",
-                                  borderRadius: 12,
+                                  background: "var(--bg-secondary)",
+                                  borderLeft: "3px solid #F07178",
+                                  borderRadius: 10,
                                   padding: "12px 16px",
                                   marginBottom: 12,
                                 }}
                               >
-                                <p
-                                  className="kalam"
-                                  style={{
-                                    fontSize: 15,
-                                    fontWeight: 700,
-                                    color: "#F5A776",
-                                    marginBottom: 6,
-                                  }}
-                                >
-                                  ✗ Points Missed
+                                <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.06em",
+                                            textTransform: "uppercase", color: "#F07178", marginBottom: 6 }}>
+                                  What was missing
                                 </p>
-                                <ul style={{ margin: 0, paddingLeft: 16 }}>
-                                  {(Array.isArray(item.points_missed)
-                                    ? item.points_missed
-                                    : [String(item.points_missed)]
-                                  ).map((point, i) => (
-                                    <li
-                                      key={i}
-                                      className="kalam"
-                                      style={{
-                                        fontSize: 14,
-                                        color: "#9a3412",
-                                        lineHeight: 1.7,
-                                        marginBottom: 2,
-                                      }}
-                                      dangerouslySetInnerHTML={{
-                                        __html: renderMath(point),
-                                      }}
-                                    />
+                                <ul style={{ margin: 0, paddingLeft: 18 }}>
+                                  {missed.map((point, i) => (
+                                    <li key={i}
+                                        style={{ fontSize: 14, color: "var(--text)", lineHeight: 1.65, marginBottom: 2 }}
+                                        dangerouslySetInnerHTML={{ __html: renderMath(point) }} />
                                   ))}
                                 </ul>
                               </div>
-                            )}
+                            );
+                          })()}
                       </>
                     )}
                   </div>
