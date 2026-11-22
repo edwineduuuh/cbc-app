@@ -69,13 +69,14 @@ class PhraseKeysUseCappedAI(SimpleTestCase):
         def slow(*a, **k):
             time.sleep(3)
             return "MARKS: 2"
-        with mock.patch.object(ai_grading, "_call_ai", slow), \
+        with mock.patch.object(ai_grading, "_call_ai_now", slow), \
              mock.patch.object(ai_grading, "TABLE_AI_DEADLINE_SECONDS", 0.5):
             t = time.time()
             r = _grade_table(_q(self.ROWS, 2), {"1_1": "takes in water"})
             self.assertLess(time.time() - t, 2)
         self.assertEqual(r["marks_awarded"], 0)
         self.assertIn("absorbs water", r["points_missed"][0])
+        self.assertTrue(r["unmarked"])                      # not final, so never cached
 
     def test_ai_can_accept_a_rewording(self):
         with mock.patch.object(ai_grading, "_call_ai", lambda *a, **k: "MARKS: 2\nFEEDBACK: Good."):

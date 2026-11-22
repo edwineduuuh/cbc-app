@@ -1077,6 +1077,11 @@ def grade_one(request):
         result = grade_answer(question, answer, working_image)
     except Exception as exc:
         return Response({'error': f'Grading failed: {type(exc).__name__}'}, status=502)
+    if result.get('unmarked'):
+        # The AI didn't answer in time - not a verdict. The learner retries;
+        # nothing was cached, so the next try marks it fresh.
+        return Response({'error': "The marker is busy right now. Your answer is saved - tap Try again.",
+                         'unmarked': True}, status=503)
 
     wi = {str(question.id): working_image} if working_image else {}
     fb = _build_detailed_feedback([question], [result], {str(question.id): answer}, wi)

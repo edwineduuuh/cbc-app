@@ -16,8 +16,15 @@ def _grade_one(question, student_answer, working_image):
     each part with full PASSAGE (dialogue) and parent-stem context. We must NOT
     re-implement multipart here: the old local proxy had no `.parts` and no
     `passage`, so every multipart/dialogue part crashed with 'Grading error'.
+
+    Nobody is waiting on end-of-quiz marking, so an answer the AI couldn't
+    mark in time gets a second try before it is reported as unmarked.
     """
-    return grade_answer(question, student_answer, working_image)
+    result = grade_answer(question, student_answer, working_image)
+    if result.get("unmarked"):
+        time.sleep(2)
+        result = grade_answer(question, student_answer, working_image)
+    return result
 
 
 def grade_quiz_parallel(questions, answers, max_workers=5, working_images=None):
@@ -67,7 +74,8 @@ def grade_quiz_parallel(questions, answers, max_workers=5, working_images=None):
                 results[index] = {
                     'marks_awarded': 0,
                     'max_marks': question.max_marks,
-                    'feedback': 'Grading error - will be reviewed manually',
+                    'feedback': "We couldn't mark this answer. Your answer is saved.",
+                    'unmarked': True,
                     'is_correct': False,
                     'error': str(e)
                 }

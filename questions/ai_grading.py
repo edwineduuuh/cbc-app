@@ -39,7 +39,10 @@ def _get_gemini():
 def _get_claude():
     """Return a fresh Claude client each time to avoid 'client has been closed'
     errors in threaded parallel grading (ThreadPoolExecutor)."""
-    return anthropic.Anthropic(api_key=settings.ANTHROPIC_API_KEY)
+    # Our own loop retries; the SDK's silent retries and 10-minute default
+    # timeout are what let one slow answer hold a learner for minutes.
+    return anthropic.Anthropic(api_key=settings.ANTHROPIC_API_KEY,
+                               timeout=AI_DEADLINE_LONG + 10, max_retries=0)
 
 # Grading runs on Sonnet - strong at marking, ~40% cheaper output than Opus.
 # If this model is ever retired, _call_claude auto-falls-back to a working one
@@ -268,6 +271,17 @@ def _empty_result(max_marks: int, feedback: str, message: str) -> dict:
     }
 
 
+def _unmarked_result(max_marks: int, sw: bool = False) -> dict:
+    """The marker could not reach a verdict (AI slow or failed). Never shown as
+    a wrong answer and never cached - practice mode asks the learner to try
+    again and the end-of-quiz marking retries it."""
+    msg = ("Hatukuweza kusahihisha jibu hili sasa hivi. Jibu lako limehifadhiwa."
+           if sw else "We couldn't mark this answer just now. Your answer is saved.")
+    r = _empty_result(max_marks, msg, msg)
+    r["unmarked"] = True
+    return r
+
+
 def _correct_result(max_marks: int, feedback: str, message: str,
                     study_tip: str = "", points_earned: list = None) -> dict:
     return {
@@ -434,59 +448,6 @@ def _clean_correct_answer(text: str) -> str:
     cleaned = re.sub(r"\.{2,}", ".", cleaned)
     cleaned = re.sub(r"\s{2,}", " ", cleaned)
     return cleaned.strip()
-
-
-def _format_scheme_as_bullets(text: str, sw: bool = True) -> str:
-    """Convert a flat marking-scheme / choice list into a readable bullet list.
-
-    Handles multiple patterns:
-      - Kiswahili label sections: 'Label: text. Label: text.'
-      - MCQ option lists:         'A: text. B: text. C: text.'
-      - Numbered lists:           '1. text. 2. text. 3. text.'
-    """
-    if not text:
-        return text
-
-    cleaned = _clean_correct_answer(text)
-
-    # Strip known intro headers
-    header_re = re.compile(
-        r'^(Majibu\s+[Yy]anayokubalika[^:]*:|Jibu\s+sahihi\s*:|Any\s+\w+\s+(?:correct\s+)?(?:pairs?|answers?)\s+from\s*:)\s*',
-        re.IGNORECASE,
-    )
-    m = header_re.match(cleaned)
-    header = "Majibu yanayokubalika" if sw else "Acceptable answers"
-    body = cleaned
-    if m:
-        body = cleaned[m.end():].strip()
-
-    # Try each split pattern in priority order
-    patterns = [
-        r'\.(?=[A-Z][a-zA-Z /]+:)',          # Kiswahili label sections
-        r'\.(?=[A-D]:\s)',                    # MCQ choices A: B: C: D:
-        r'(?<=\.)\s+(?=[A-D]:\s)',            # MCQ choices with space
-        r'(?<=[a-z\)\'"])\.\s+(?=\d+\.\s)',  # Numbered list items
-    ]
-    parts = None
-    for pat in patterns:
-        candidate = re.split(pat, body)
-        candidate = [p.strip().rstrip(".,") for p in candidate if p.strip()]
-        if len(candidate) >= 2:
-            parts = candidate
-            break
-
-    # Also handle comma-separated short items like "hill/will, roar/door, birds/words"
-    if parts is None and "," in body and len(body) < 300:
-        candidate = [p.strip() for p in body.split(",") if p.strip()]
-        if len(candidate) >= 3:
-            parts = candidate
-            header = "Acceptable pairs" if not sw else "Jozi zinazokubalika"
-
-    if not parts:
-        return cleaned
-
-    bullets = "\n".join(f"• {p}" for p in parts)
-    return f"{header}:\n{bullets}"
 
 
 def _sanitize_answer(text: str) -> str:
@@ -667,7 +628,52 @@ def _detect_image_media_type(base64_data: str) -> str:
     return "image/png"
 
 
+class MarkingTimeout(Exception):
+    """An AI marking call ran past its deadline."""
+
+
+# A learner is waiting on every marking call: short replies (verdicts,
+# explanations) get 15s, long ones (worked solutions, essay marking) 25s.
+AI_DEADLINE_SHORT = 15
+AI_DEADLINE_LONG = 25
+
+
 def _call_ai(
+    prompt: str,
+    working_image: str | None = None,
+    max_tokens: int = MAX_TOKENS_DEFAULT,
+    kiswahili: bool = False,
+    deadline: float | None = None,
+) -> str:
+    """_call_ai_now with a hard deadline. Raises MarkingTimeout when the model
+    runs over - callers then fall back instead of making the learner wait."""
+    import threading
+    seconds = deadline or (AI_DEADLINE_LONG if max_tokens >= 1000 else AI_DEADLINE_SHORT)
+    box = {}
+
+    def work():
+        try:
+            box["out"] = _call_ai_now(prompt, working_image, max_tokens, kiswahili)
+        except BaseException as e:      # handed back to the caller below
+            box["err"] = e
+        finally:
+            try:
+                from django.db import connection
+                connection.close()      # the usage log opened one in this thread
+            except Exception:
+                pass
+
+    t = threading.Thread(target=work, daemon=True, name="ai-marking")
+    t.start()
+    t.join(seconds)
+    if t.is_alive():
+        raise MarkingTimeout(f"AI marking took over {seconds}s")
+    if "err" in box:
+        raise box["err"]
+    return box["out"]
+
+
+def _call_ai_now(
     prompt: str,
     working_image: str | None = None,
     max_tokens: int = MAX_TOKENS_DEFAULT,
@@ -1506,18 +1512,6 @@ _CBC_MATH_FORMAT_RULES = """
 """
 
 
-def _build_math_study_tip_prompt(question, correct_answer, grade: int) -> str:
-    return f"""You are a Kenyan CBC Grade {grade} maths teacher.
-A student just got this question RIGHT.
-
-QUESTION: {question.question_text}
-CORRECT ANSWER: {correct_answer}
-
-Write ONE short sentence (max 12 words) as a helpful tip for this type of problem.
-Use simple words a Grade {grade} student understands.
-Write ONLY the tip. No extra text."""
-
-
 def _build_math_working_prompt(question, correct_answer: str, grade: int) -> str:
     return f"""You are a Kenyan CBC Grade {grade} maths teacher.
 
@@ -1673,6 +1667,7 @@ def _grade_fill_blank(question, student_answer: str) -> dict:
                 spelling_note = raw_correct.split("|")[0].split(";")[0].strip()
         except Exception as e:
             print(f"⚠ AI fill-blank fallback failed: {e}")
+            return _unmarked_result(question.max_marks, sw)
 
     if is_correct:
         if spelling_note and _normalise(spelling_note) != student_norm:
@@ -2119,6 +2114,31 @@ def _short_numeric_correct(question, student_answer: str) -> bool:
     return False
 
 
+def _math_working(question, correct_str: str, grade, sw: bool) -> str:
+    """The worked solution shown with a right (or nearly right) answer. It
+    depends only on the question, so it is written once and reused for every
+    learner - after the first, a correct answer needs no AI call at all."""
+    src = f"{question.question_text}\n{correct_str}\n{grade}\n{sw}"
+    key = "math_working:" + hashlib.sha256(src.encode("utf-8")).hexdigest()[:32]
+    try:
+        cached = grade_cache.get(key)
+    except Exception:
+        cached = None
+    if cached:
+        return cached
+    working = _call_ai(
+        _build_math_working_prompt(question, correct_str, grade),
+        max_tokens=1200,
+        kiswahili=sw,
+    ).strip().replace("```", "").replace("**", "")
+    if working:
+        try:
+            grade_cache.set(key, working, GRADE_CACHE_TTL)
+        except Exception:
+            pass
+    return working
+
+
 def _grade_math(question, student_answer: str, working_image: str | None = None) -> dict:
     """
     Math grader.
@@ -2164,11 +2184,7 @@ def _grade_math(question, student_answer: str, working_image: str | None = None)
         """Close but not exact - partial marks + correct working."""
         partial = max(1, question.max_marks - 1) if question.max_marks >= 2 else 0
         try:
-            working = _call_ai(
-                _build_math_working_prompt(question, correct_str, grade),
-                max_tokens=1200,
-                kiswahili=sw,
-            ).strip().replace("```", "").replace("**", "")
+            working = _math_working(question, correct_str, grade, sw)
             feedback = (
                 f"Almost! Your answer ${student_val}$ is very close but not exact. "
                 f"The correct answer is ${correct_val}$. Check your rounding.\n{working}"
@@ -2194,25 +2210,17 @@ def _grade_math(question, student_answer: str, working_image: str | None = None)
     def _on_correct(display_value):
         praise = _praise(sw)
         try:
-            working = _call_ai(
-                _build_math_working_prompt(question, correct_str, grade),
-                max_tokens=1200,
-                kiswahili=sw,
-            ).strip().replace("```", "").replace("**", "")
+            working = _math_working(question, correct_str, grade, sw)
             feedback = f"{praise} Let me show you the correct working:\n{working}"
             tip = working
         except Exception:
-            try:
-                tip = _call_ai(
-                    _build_math_study_tip_prompt(question, display_value, grade),
-                    kiswahili=sw,
-                )
-            except Exception:
-                tip = (
-                    "Endelea kufanya mazoezi ya matatizo kama haya!"
-                    if sw else
-                    "Keep practising similar problems to get even faster!"
-                )
+            # The mark is certain; don't make the learner wait on a second
+            # AI call just for a tip.
+            tip = (
+                "Endelea kufanya mazoezi ya matatizo kama haya!"
+                if sw else
+                "Keep practising similar problems to get even faster!"
+            )
             feedback = f"{praise} {tip}"
         return _correct_result(
             max_marks     = question.max_marks,
@@ -2297,26 +2305,37 @@ def _grade_math(question, student_answer: str, working_image: str | None = None)
         shown = correct_str.strip("$ ") if _num_value(correct_str) is not None else f"{c_v:g}"
         return _on_near_miss(f"{s_v:g}", shown)
 
-    # AI semantic check
-    try:
-        verdict = _call_ai(
-            _build_fill_blank_ai_prompt(question, student_str, correct_str, sw),
-            working_image=working_image,
-            kiswahili=sw,
-        ).strip().upper()
+    # AI semantic check and the worked solution for a wrong answer run at the
+    # same time - the learner waits for one AI call, not two in a row.
+    # A plain number against plain-number keys was already compared exactly
+    # above - it is simply wrong; no AI verdict needed.
+    plainly_wrong = (not working_image and s_val is not None
+                     and all(_num_value(ca) is not None for ca in all_correct_bare))
+    pool = ThreadPoolExecutor(max_workers=2)
+    verdict_job = None if plainly_wrong else pool.submit(
+        _call_ai,
+        _build_fill_blank_ai_prompt(question, student_str, correct_str, sw),
+        working_image, MAX_TOKENS_DEFAULT, sw,
+    )
+    solution_job = pool.submit(
+        _call_ai,
+        _build_math_solution_prompt(question, student_str, correct_str, grade),
+        working_image, 1200, sw,
+    )
+    pool.shutdown(wait=False)
+    if verdict_job is not None:
+        try:
+            verdict = verdict_job.result().strip().upper()
+        except Exception:
+            # No verdict: don't mark a possibly-right answer wrong.
+            solution_job.cancel()
+            return _unmarked_result(question.max_marks, sw)
         if verdict in ("TRUE", "KWELI"):
             return _on_correct(student_str)
-    except Exception:
-        pass
 
-    # Incorrect - generate step-by-step solution
+    # Incorrect - step-by-step solution
     try:
-        solution = _call_ai(
-            _build_math_solution_prompt(question, student_str, correct_str, grade),
-            working_image=working_image,
-            max_tokens=1200,
-            kiswahili=sw,
-        ).strip().replace("```", "").replace("**", "")
+        solution = solution_job.result().strip().replace("```", "").replace("**", "")
     except Exception:
         solution = (
             f"Jibu sahihi ni {correct_str}. Angalia hatua zako na ujaribu tena."
@@ -2339,6 +2358,16 @@ def _grade_math(question, student_answer: str, working_image: str | None = None)
             f"Jibu sahihi: {correct_str}" if sw else f"Correct answer: {_wrap_math(correct_str)}"
         ],
     }
+
+
+def _matches_short_key(question, student) -> bool:
+    """The answer equals the teacher's key (or an accepted alternative) and the
+    key is short - a word, number or short phrase, not a scheme to judge."""
+    keys = [getattr(question, "correct_answer", "") or ""]
+    extra = getattr(question, "correct_answers", None)
+    if isinstance(extra, list):
+        keys += [str(k) for k in extra if k]
+    return any(k.strip() and len(k.split()) <= 4 and _cell_matches(student, k) for k in keys)
 
 
 def _grade_with_ai(
@@ -2378,6 +2407,15 @@ def _grade_with_ai(
             message       = _encourage(sw),
             study_tip     = "",
             points_earned = [str(student_answer).strip()],
+        )
+    # A short answer that matches the teacher's key needs no AI.
+    if qt == "structured" and not working_image and _matches_short_key(question, student_raw):
+        return _correct_result(
+            max_marks     = question.max_marks,
+            feedback      = _praise(sw) + (" Sahihi!" if sw else " Correct!"),
+            message       = _encourage(sw),
+            study_tip     = "",
+            points_earned = [student_raw],
         )
     try:
         prompt   = _build_marking_prompt(question, student_answer, sw, bool(working_image))
@@ -2443,46 +2481,8 @@ def _grade_with_ai(
         except Exception:
             pass
 
-        correct_answer = getattr(question, "correct_answer", None)
-        explanation    = getattr(question, "explanation", None)
-
-        if correct_answer or explanation:
-            # Fuzzy same-check: treat explanation as duplicate if it shares the first 80 chars
-            _ca_str = str(correct_answer).strip() if correct_answer else ""
-            _ex_str = str(explanation).strip() if explanation else ""
-            _same = bool(_ca_str and _ex_str and (
-                _ca_str == _ex_str or
-                (_ca_str[:80] and _ex_str[:80] and _ca_str[:80] == _ex_str[:80])
-            ))
-            _src = _ca_str or _ex_str
-            _fmt = _format_scheme_as_bullets(_src, sw=sw) if _src else ""
-            if sw:
-                fallback_feedback = (
-                    f"Jibu si sahihi.\n{_fmt}" if _fmt
-                    else "Jibu si sahihi. Angalia jibu sahihi na mwalimu wako."
-                )
-            else:
-                fallback_feedback = (
-                    f"Not quite.\n{_fmt}" if _fmt
-                    else "Not quite. Please review the correct answer with your teacher."
-                )
-            return {
-                "marks_awarded":        0,
-                "max_marks":            question.max_marks,
-                "feedback":             fallback_feedback,
-                "is_correct":           False,
-                "personalized_message": _near_miss(sw),
-                "study_tip":            explanation or "",
-                "points_earned":        [],
-                "points_missed":        [],
-            }
-
-        msg = (
-            "Alama haikusomwa kwa sasa. Jibu lako limerekodi - jaribu tena baadaye."
-            if sw else
-            "Marking is temporarily unavailable. Your answer was saved - please try again later."
-        )
-        return _empty_result(question.max_marks, msg, _near_miss(sw))
+        # Not a verdict: never mark the learner wrong because the AI failed.
+        return _unmarked_result(question.max_marks, sw)
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -2767,7 +2767,7 @@ EARNED: [comma-separated list of what the student got right, e.g. "Input role, P
 MISSED: [comma-separated list of what was wrong/missing with the correct answer, e.g. "Output role: should be 'presents results to user'"]"""
 
     try:
-        response = _call_ai_within(prompt, TABLE_AI_DEADLINE_SECONDS, kiswahili=sw).strip()
+        response = _call_ai(prompt, kiswahili=sw, deadline=TABLE_AI_DEADLINE_SECONDS).strip()
         marks_awarded = 0
         feedback = ""
         earned = []
@@ -2808,23 +2808,15 @@ MISSED: [comma-separated list of what was wrong/missing with the correct answer,
         }
 
     except Exception as e:
-        # Too slow or failed: the key-matched result stands - the learner is
-        # never left waiting on the AI.
+        # Too slow or failed: the key-matched marks stand, but the reworded
+        # cells weren't judged - flagged so it isn't cached as final.
         print(f"⚠ Holistic table grading failed: {e} - using the key match")
-        return quick["result"]
+        result = dict(quick["result"])
+        result["unmarked"] = True
+        return result
 
 
 TABLE_AI_DEADLINE_SECONDS = 12
-_AI_POOL = None
-
-
-def _call_ai_within(prompt, seconds, **kw):
-    """_call_ai with a hard deadline; raises TimeoutError when it runs over."""
-    global _AI_POOL
-    from concurrent.futures import ThreadPoolExecutor
-    if _AI_POOL is None:
-        _AI_POOL = ThreadPoolExecutor(max_workers=8, thread_name_prefix="ai-deadline")
-    return _AI_POOL.submit(_call_ai, prompt, **kw).result(timeout=seconds)
 
 
 def _cell_matches(student, key) -> bool:
@@ -3557,6 +3549,8 @@ def _grade_multipart(question, student_answer, working_image=None) -> dict:
         "points_earned":        all_earned,
         "points_missed":        all_missed,
         "part_results":         part_results_list,
+        # Any part the marker couldn't decide makes the whole question undecided.
+        "unmarked":             any(r[1].get("unmarked") for r in results.values()),
     }
 
 
@@ -3661,8 +3655,9 @@ def grade_answer(
     # Always surface the admin explanation + an acknowledgement (premium feel)
     result = _augment_feedback(question, result)
 
-    # Cache the result (persistent, shared across workers)
-    if cache_key:
+    # Cache the result (persistent, shared across workers) - but never a
+    # result the marker couldn't decide, or it would stick for everyone.
+    if cache_key and not result.get("unmarked"):
         try:
             grade_cache.set(cache_key, result, GRADE_CACHE_TTL)
         except Exception:

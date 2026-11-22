@@ -2195,10 +2195,11 @@ export default function QuizTakePage({ params }) {
     setChecking(true);
     const idx = currentIdx;
     setCheckErrors((p) => ({ ...p, [idx]: null }));
-    // Marking is instant against the key; the server caps any AI step at
-    // ~12s, so 30s here only catches a dead connection.
+    // Answers that match the key are marked instantly; the server caps any
+    // AI step at 25s and answers "busy" rather than wait longer, so 40s here
+    // only catches a dead connection.
     const controller = new AbortController();
-    const timer = setTimeout(() => controller.abort(), 30000);
+    const timer = setTimeout(() => controller.abort(), 40000);
     try {
       const res = await fetchWithAuth(`${API}/quizzes/grade-one/`, {
         method: "POST",
@@ -2214,9 +2215,10 @@ export default function QuizTakePage({ params }) {
       else
         setCheckErrors((p) => ({
           ...p,
-          [idx]: res.status >= 500
-            ? "The marker had a problem with this answer."
-            : d?.error || "This answer couldn't be checked.",
+          [idx]: d?.error ||
+            (res.status >= 500
+              ? "The marker had a problem with this answer."
+              : "This answer couldn't be checked."),
         }));
     } catch (e) {
       // A failed check used to reset silently, as if nothing happened.
