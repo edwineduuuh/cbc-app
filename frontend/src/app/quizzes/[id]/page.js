@@ -26,7 +26,7 @@ import katex from "katex";
 import "katex/dist/katex.min.css";
 import { renderMathHtml, tidyFeedback } from "@/lib/math";
 import AnswerOption, { optionTex, correctLetterOf } from "@/components/quiz/AnswerOption";
-import WorkedFeedback, { statusOf, partResultsOf } from "@/components/quiz/WorkedFeedback";
+import { statusOf, partResultsOf, PartFeedbackDropdown } from "@/components/quiz/WorkedFeedback";
 
 const nunito = Nunito({
   subsets: ["latin"],
@@ -3439,31 +3439,11 @@ export default function QuizTakePage({ params }) {
                           />
                         )}
                         {partResult && (
-                          <div
-                            style={{
-                              marginTop: 14,
-                              background: pst.tint,
-                              borderLeft: `3px solid ${pst.color}`,
-                              borderRadius: 12,
-                              padding: "12px 16px",
-                            }}
-                          >
-                            <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.06em",
-                                        textTransform: "uppercase", color: pst.color, marginBottom: 6 }}>
-                              {pst.label}
-                            </p>
-                            {pst.key !== "full" && partResult.correct_answer && part.question_type !== "mcq" && (
-                              <p style={{ fontSize: 13.5, color: "var(--text)", marginBottom: 8 }}>
-                                <b>Correct answer: </b>
-                                <span dangerouslySetInnerHTML={{ __html: renderMath(String(partResult.correct_answer)) }} />
-                              </p>
-                            )}
-                            <WorkedFeedback
-                              feedback={partResult.feedback}
-                              studyTip={partResult.study_tip}
-                              accent={pst.color}
-                            />
-                          </div>
+                          <PartFeedbackDropdown
+                            result={partResult}
+                            showCorrect={part.question_type !== "mcq"}
+                            renderAnswer={renderMath}
+                          />
                         )}
                       </div>
                     );
@@ -3538,8 +3518,13 @@ export default function QuizTakePage({ params }) {
                         <button
                           key={r.part_id ?? r.part_label}
                           type="button"
-                          onClick={() => part && document.getElementById(`part-${part.id}`)
-                            ?.scrollIntoView({ behavior: "smooth", block: "start" })}
+                          onClick={() => {
+                            const el = part && document.getElementById(`part-${part.id}`);
+                            if (!el) return;
+                            const dd = el.querySelector("details");
+                            if (dd) dd.open = true;
+                            el.scrollIntoView({ behavior: "smooth", block: "start" });
+                          }}
                           style={{
                             display: "inline-flex", alignItems: "center", gap: 6,
                             padding: "6px 12px", borderRadius: 999, cursor: "pointer",
@@ -3552,7 +3537,7 @@ export default function QuizTakePage({ params }) {
                       );
                     })}
                     <p style={{ width: "100%", fontSize: 12.5, color: "var(--text-muted)", marginTop: 4 }}>
-                      Each part&apos;s feedback is under its answer above.
+                      Open each part above to see its feedback and working.
                     </p>
                   </div>
                 )}

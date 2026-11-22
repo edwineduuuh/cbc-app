@@ -358,3 +358,8 @@ html.dark .border-red-200 { border-color: rgba(240,113,120,0.35) !important; }
 .ss-answer-option[aria-pressed="false"]:not(:disabled):hover {
   border-color: rgba(255, 255, 255, 0.24) !important;
 }
+
+/* Part feedback dropdowns (FAQ style). */
+.ss-part-dropdown > summary::-webkit-details-marker { display: none; }
+.ss-part-dropdown[open] .ss-part-chevron { transform: rotate(180deg); }
+.ss-part-dropdown > summary:hover { filter: brightness(1.12); }

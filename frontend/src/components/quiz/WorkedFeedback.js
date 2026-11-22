@@ -89,6 +89,58 @@ export function partResultsOf(fb, parts) {
   });
 }
 
+/**
+ * One part's feedback as an FAQ-style dropdown, placed directly under that
+ * part. Closed by default; the header already says right / wrong and marks.
+ */
+export function PartFeedbackDropdown({ result, showCorrect = true, renderAnswer }) {
+  const st = statusOf(result);
+  if (!st) return null;
+  return (
+    <details className="ss-part-dropdown" style={{ marginTop: 14 }}>
+      <summary
+        style={{
+          listStyle: "none",
+          cursor: "pointer",
+          display: "flex",
+          alignItems: "center",
+          gap: 10,
+          padding: "11px 14px",
+          borderRadius: 12,
+          background: st.tint,
+          border: `1px solid ${st.color}44`,
+          color: "var(--text)",
+          fontSize: 13.5,
+          fontWeight: 600,
+          userSelect: "none",
+        }}
+      >
+        <span style={{ color: st.color, fontWeight: 800 }}>{st.icon} {st.label}</span>
+        <span style={{ color: "var(--text-muted)", fontWeight: 500 }}>· Feedback &amp; working</span>
+        <span className="ss-part-chevron" aria-hidden="true"
+              style={{ marginLeft: "auto", color: "var(--text-muted)", transition: "transform 0.2s ease" }}>▾</span>
+      </summary>
+      <div
+        style={{
+          marginTop: 8,
+          background: "var(--bg-secondary)",
+          borderLeft: `3px solid ${st.color}`,
+          borderRadius: 12,
+          padding: "12px 16px",
+        }}
+      >
+        {showCorrect && st.key !== "full" && result.correct_answer ? (
+          <p style={{ fontSize: 13.5, color: "var(--text)", marginBottom: 10 }}>
+            <b>Correct answer: </b>
+            <span dangerouslySetInnerHTML={{ __html: renderAnswer ? renderAnswer(String(result.correct_answer)) : renderMathHtml(String(result.correct_answer)) }} />
+          </p>
+        ) : null}
+        <WorkedFeedback feedback={result.feedback} studyTip={result.study_tip} accent={st.color} />
+      </div>
+    </details>
+  );
+}
+
 /** Status colours shared by part cards and chips. */
 export function statusOf(r) {
   if (!r) return null;

@@ -91,7 +91,9 @@ export function tidyFeedback(text) {
       .replace(/([a-z)])\.([A-Z])/g, "$1. $2")
       .replace(/[ \t]*\n?[ \t]*(?=\b(?:Step|Hatua(?: ya)?) \d+\s*[:.)])/g, (hit, off) => (off === 0 ? "" : "\n\n"));
   while ((m = re.exec(s)) !== null) {
-    out += prose(s.slice(last, m.index)) + m[0];
+    // A maths block written over several lines (\[ … \], $$ … $$) stays one
+    // block: later steps split text into paragraphs on line breaks.
+    out += prose(s.slice(last, m.index)) + m[0].replace(/\s*\n\s*/g, " ");
     last = m.index + m[0].length;
   }
   out += prose(s.slice(last));

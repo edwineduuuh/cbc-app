@@ -21,7 +21,7 @@ import {
 import katex from "katex";
 import "katex/dist/katex.min.css";
 import { renderMathHtml, tidyFeedback } from "@/lib/math";
-import WorkedFeedback from "@/components/quiz/WorkedFeedback";
+import { PartFeedbackDropdown } from "@/components/quiz/WorkedFeedback";
 import FinancialStatementInput from "@/components/FinancialStatementInput";
 const API =
   process.env.NEXT_PUBLIC_API_URL ||
@@ -1876,35 +1876,9 @@ export default function AttemptResultsPage() {
                                     </div>
                                   </div>
 
-                                  {/* Feedback + worked solution for this part */}
+                                  {/* Feedback + worked solution for this part, as a dropdown */}
                                   {(part.feedback || part.study_tip) && (
-                                    <div
-                                      style={{
-                                        background: "var(--bg-secondary)",
-                                        borderRadius: 10,
-                                        padding: "12px 16px",
-                                        borderLeft: `3px solid ${pColor}`,
-                                      }}
-                                    >
-                                      <p
-                                        style={{
-                                          fontSize: 11,
-                                          fontWeight: 700,
-                                          color: pColor,
-                                          textTransform: "uppercase",
-                                          letterSpacing: "0.06em",
-                                          marginBottom: 6,
-                                        }}
-                                      >
-                                        Feedback
-                                      </p>
-                                      <WorkedFeedback
-                                        feedback={part.feedback}
-                                        studyTip={part.study_tip}
-                                        accent={pColor}
-                                        fontSize={13.5}
-                                      />
-                                    </div>
+                                    <PartFeedbackDropdown result={part} showCorrect={false} />
                                   )}
 
                                 </div>
