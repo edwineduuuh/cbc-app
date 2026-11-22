@@ -2720,6 +2720,13 @@ def _grade_table_holistic(question, cell_answers, editable_cells, all_rows, max_
             parts.append(col_dict[c_idx] or "(blank)")
         return " | ".join(parts)
 
+    # ── Fast path: match every cell against the teacher's key (instant). ──
+    # The AI is only asked about cells whose key is a phrase a learner could
+    # word differently; a short key ("Red", "45") is simply right or wrong.
+    quick = _table_key_match(editable_cells, cell_answers, all_rows, static_by_row, max_marks, sw)
+    if not quick["needs_ai"]:
+        return quick["result"]
+
     correct_lines = [f"  Row {r+1}: {_fmt_row(r, d['correct'])}" for r, d in sorted(row_data.items())]
     student_lines = [f"  Row {r+1}: {_fmt_row(r, d['student'])}" for r, d in sorted(row_data.items())]
 
@@ -2760,7 +2767,7 @@ EARNED: [comma-separated list of what the student got right, e.g. "Input role, P
 MISSED: [comma-separated list of what was wrong/missing with the correct answer, e.g. "Output role: should be 'presents results to user'"]"""
 
     try:
-        response = _call_ai(prompt, kiswahili=sw).strip()
+        response = _call_ai_within(prompt, TABLE_AI_DEADLINE_SECONDS, kiswahili=sw).strip()
         marks_awarded = 0
         feedback = ""
         earned = []
@@ -2782,7 +2789,8 @@ MISSED: [comma-separated list of what was wrong/missing with the correct answer,
                 raw = line.split(":", 1)[1].strip()
                 missed = [m.strip() for m in raw.split(",") if m.strip().lower() not in ("", "none", "-")]
 
-        marks_awarded = max(0, min(marks_awarded, max_marks))
+        # Cells that match the key are never marked down by the AI.
+        marks_awarded = max(quick["result"]["marks_awarded"], min(marks_awarded, max_marks), 0)
         is_correct = marks_awarded == max_marks
         print(f"✅ Holistic table grade: {marks_awarded}/{max_marks}")
         return {
@@ -2800,34 +2808,125 @@ MISSED: [comma-separated list of what was wrong/missing with the correct answer,
         }
 
     except Exception as e:
-        print(f"⚠ Holistic table grading failed: {e} - falling back to normalised match")
-        # Fallback: normalised string match per cell
-        marks_per_cell = max_marks / len(editable_cells) if editable_cells else max_marks
-        marks_awarded = 0
-        earned, missed = [], []
-        for r_idx, c_idx, correct_answer in editable_cells:
-            key = f"{r_idx}_{c_idx}"
-            student_val = cell_answers.get(key, "").strip()
-            label = f"Row {r_idx+1}, Col {c_idx+1}"
-            if not student_val:
-                missed.append(f"{label}: (no answer)")
-            elif _normalise(student_val) == _normalise(correct_answer):
-                marks_awarded += marks_per_cell
-                earned.append(f"{label}: {student_val} ✓")
-            else:
-                missed.append(f"{label}: got '{student_val}', correct: {correct_answer or '?'}")
-        marks_awarded = max(0, min(round(marks_awarded), max_marks))
-        is_correct = marks_awarded == max_marks
-        return {
-            "marks_awarded": marks_awarded,
+        # Too slow or failed: the key-matched result stands - the learner is
+        # never left waiting on the AI.
+        print(f"⚠ Holistic table grading failed: {e} - using the key match")
+        return quick["result"]
+
+
+TABLE_AI_DEADLINE_SECONDS = 12
+_AI_POOL = None
+
+
+def _call_ai_within(prompt, seconds, **kw):
+    """_call_ai with a hard deadline; raises TimeoutError when it runs over."""
+    global _AI_POOL
+    from concurrent.futures import ThreadPoolExecutor
+    if _AI_POOL is None:
+        _AI_POOL = ThreadPoolExecutor(max_workers=8, thread_name_prefix="ai-deadline")
+    return _AI_POOL.submit(_call_ai, prompt, **kw).result(timeout=seconds)
+
+
+def _cell_matches(student, key) -> bool:
+    """A typed cell against the teacher's key: case, spacing and small typos
+    are forgiven; numbers are compared by value."""
+    import difflib
+    s, k = _normalise(student), _normalise(key)
+    if not s or not k:
+        return False
+    if s == k:
+        return True
+    sv, kv = _num_value(student), _num_value(key)
+    if sv is not None and kv is not None:
+        return abs(sv - kv) < 1e-6
+    if re.search(r"\d", s) or re.search(r"\d", k):
+        return False                       # "45" vs "54" is not a typo
+    return len(k) >= 4 and difflib.SequenceMatcher(None, s, k).ratio() >= 0.85
+
+
+def _is_phrase(key) -> bool:
+    """A key a learner could fairly word differently (more than three words)."""
+    return len(str(key or "").split()) > 3
+
+
+def _table_key_match(editable_cells, cell_answers, all_rows, static_by_row, max_marks, sw):
+    """Mark a table against its key without the AI.
+
+    Returns {"result": <grade dict>, "needs_ai": bool}. needs_ai is True only
+    when a wrong cell's key is a phrase the AI should judge for meaning."""
+    header = all_rows[0] if all_rows else []
+
+    def label(r, c):
+        row_name = next(iter(static_by_row.get(r, {}).values()), "") if r else ""
+        col_name = ""
+        if r and c < len(header) and not header[c].get("e"):
+            col_name = str(header[c].get("v") or "").strip()
+        if row_name and col_name:
+            return f"{row_name} ({col_name})"
+        return row_name or col_name or f"Row {r + 1}, Column {c + 1}"
+
+    def got_at(r, c):
+        v = cell_answers.get(f"{r}_{c}", "")
+        return v.strip() if isinstance(v, str) else ""
+
+    # Rows with no printed label may be answered in any order: a learner's row
+    # that wholly matches another key row is marked against that row.
+    keys = {(r, c): k for r, c, k in editable_cells}
+    cols_of = {}
+    for r, c, _ in editable_cells:
+        cols_of.setdefault(r, []).append(c)
+    free = [r for r in cols_of if r and not static_by_row.get(r)]
+
+    def row_fits(student_r, key_r):
+        return cols_of[student_r] == cols_of[key_r] and all(
+            _cell_matches(got_at(student_r, c), keys[(key_r, c)]) for c in cols_of[key_r])
+
+    key_for = {}
+    unused = [r for r in free if not row_fits(r, r)]
+    for r in list(unused):
+        match = next((k for k in unused if k != r and row_fits(r, k)), None)
+        if match is not None:
+            key_for[r] = match
+            unused.remove(match)
+
+    per_cell = max_marks / len(editable_cells)
+    right, earned, missed, needs_ai = 0, [], [], False
+    for r, c, key in editable_cells:
+        if r in key_for:
+            key = keys[(key_for[r], c)]
+        got = cell_answers.get(f"{r}_{c}", "")
+        got = got.strip() if isinstance(got, str) else ""
+        if got and _cell_matches(got, key):
+            right += 1
+            earned.append(f"{label(r, c)}: {got} ✓")
+            continue
+        if got and (not key or _is_phrase(key)):
+            needs_ai = True                # no cell key, or a phrase: judge meaning
+        shown = key or "(see model answer)"
+        missed.append(f"{label(r, c)}: " + (f"you wrote '{got}', the answer is {shown}" if got
+                                            else f"no answer, the answer is {shown}"))
+
+    marks = max(0, min(round(right * per_cell), max_marks))
+    is_correct = right == len(editable_cells)
+    if is_correct:
+        feedback = _praise(sw) + (" Jedwali lako lote ni sahihi!" if sw else " All cells correct!")
+    elif sw:
+        feedback = f"Umepata seli {right} kati ya {len(editable_cells)} sahihi."
+    else:
+        feedback = f"You got {right} of {len(editable_cells)} cells right."
+    return {
+        "needs_ai": needs_ai and not is_correct,
+        "result": {
+            "marks_awarded": marks,
             "max_marks": max_marks,
-            "feedback": f"You got {marks_awarded} out of {max_marks} marks.",
+            "feedback": feedback,
             "is_correct": is_correct,
             "personalized_message": _encourage(sw) if is_correct else _near_miss(sw),
             "study_tip": "",
             "points_earned": earned,
             "points_missed": missed,
-        }
+        },
+    }
 
 
 # ─────────────────────────────────────────────────────────────────────────────

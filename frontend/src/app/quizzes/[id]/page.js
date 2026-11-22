@@ -2076,9 +2076,10 @@ export default function QuizTakePage({ params }) {
     setChecking(true);
     const idx = currentIdx;
     setCheckErrors((p) => ({ ...p, [idx]: null }));
-    // Never spin forever: a check that takes over 2 minutes is reported.
+    // Marking is instant against the key; the server caps any AI step at
+    // ~12s, so 30s here only catches a dead connection.
     const controller = new AbortController();
-    const timer = setTimeout(() => controller.abort(), 120000);
+    const timer = setTimeout(() => controller.abort(), 30000);
     try {
       const res = await fetchWithAuth(`${API}/quizzes/grade-one/`, {
         method: "POST",
