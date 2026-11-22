@@ -45,3 +45,20 @@ class QuizDrafts(APITestCase):
 
     def test_signed_out_cannot_use_drafts(self):
         self.assertIn(self.client.get(self.url()).status_code, (401, 403))
+
+    def test_list_of_unfinished_quizzes(self):
+        QuizDraft.objects.create(user=self.me, quiz=self.quiz,
+                                 data={"qids": [1, 2, 3], "answers": {"0": "a", "1": "b"}, "currentIdx": 2})
+        QuizDraft.objects.create(user=self.other, quiz=self.quiz, data={"qids": [1], "answers": {"0": "x"}})
+        self.client.force_authenticate(self.me)
+        r = self.client.get("/api/quizzes/drafts/")
+        self.assertEqual(r.data, [{"quiz_id": self.quiz.id, "answered": 2, "total": 3, "current": 3,
+                                   "updated_at": r.data[0]["updated_at"]}])
+
+
+class BadFilters(APITestCase):
+    def test_undefined_filter_is_400_not_500(self):
+        u = User.objects.create_user("f1", "f1@example.invalid", "pw-12345!", role="student")
+        self.client.force_authenticate(u)
+        r = self.client.get("/api/quizzes/?grade=7&subject=undefined")
+        self.assertEqual(r.status_code, 400)

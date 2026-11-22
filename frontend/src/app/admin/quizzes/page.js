@@ -20,7 +20,6 @@ import {
   ChevronRight,
   Loader2,
   X,
-  Clock,
   Award,
   Users,
   FileText,
@@ -205,7 +204,7 @@ function buildQuizExportHtml(data) {
 </head><body>
   <div class="toolbar"><button onclick="window.print()">Print / Save as PDF</button><span class="sub" style="margin:0">Pre-publish review copy</span></div>
   <h1>${_esc(data.title)}</h1>
-  <div class="sub">Grade ${_esc(data.grade)} · ${_esc(data.subject_name)} · ${_esc((data.quiz_type || "").toString())} · ${data.question_count} questions · ${data.duration_minutes} min · ${data.passing_score}% pass<br/>Exported ${_esc(now)}</div>
+  <div class="sub">Grade ${_esc(data.grade)} · ${_esc(data.subject_name)} · ${_esc((data.quiz_type || "").toString())} · ${data.question_count} questions · ${data.passing_score}% pass<br/>Exported ${_esc(now)}</div>
   ${questions}
 <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
@@ -895,10 +894,6 @@ function QuizCard({ quiz, onDelete, onTogglePublish }) {
         <div className="flex items-center gap-1.5 text-xs text-gray-600">
           <FileText className="w-3.5 h-3.5 text-gray-400" />
           <span>{quiz.total_questions || 0} Qs</span>
-        </div>
-        <div className="flex items-center gap-1.5 text-xs text-gray-600">
-          <Clock className="w-3.5 h-3.5 text-gray-400" />
-          <span>{quiz.duration_minutes} min</span>
         </div>
         <div className="flex items-center gap-1.5 text-xs text-gray-600">
           <Award className="w-3.5 h-3.5 text-gray-400" />

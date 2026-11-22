@@ -238,6 +238,8 @@ REST_FRAMEWORK = {
         'login': '10/min',   # per IP + account being tried
         'auth': '20/min',    # per IP: register, social, reset, verify
     },
+    # A bad filter like ?subject=undefined answers 400 instead of crashing.
+    'EXCEPTION_HANDLER': 'backend.api_errors.api_exception_handler',
 }
 
 # JWT Configuration

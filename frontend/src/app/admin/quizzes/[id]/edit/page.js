@@ -875,21 +875,7 @@ export default function EditQuizPage() {
             </div>
           </div>
 
-          <div className="grid grid-cols-4 gap-4 items-end">
-            <div>
-              <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1.5">
-                Duration (mins)
-              </label>
-              <input
-                type="number"
-                className="w-full border-2 border-gray-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:border-indigo-400"
-                value={form.duration_minutes}
-                onChange={(e) =>
-                  setForm({ ...form, duration_minutes: e.target.value })
-                }
-                min="0"
-              />
-            </div>
+          <div className="grid grid-cols-3 gap-4 items-end">
             <div>
               <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1.5">
                 Passing Score (%)

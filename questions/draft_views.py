@@ -31,3 +31,29 @@ def quiz_draft(request, quiz_id):
         return Response({'error': 'Quiz not found'}, status=404)
     QuizDraft.objects.update_or_create(user=request.user, quiz_id=quiz_id, defaults={'data': data})
     return Response(status=204)
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def my_quiz_drafts(request):
+    """GET /api/quizzes/drafts/ - the learner's unfinished quizzes, for the
+    "Continue" badges on quiz lists. Drafts older than 30 days are ignored
+    (the quiz page ignores them too)."""
+    from datetime import timedelta
+    from django.utils import timezone
+
+    since = timezone.now() - timedelta(days=30)
+    out = []
+    for d in QuizDraft.objects.filter(user=request.user, updated_at__gte=since).only('quiz_id', 'data', 'updated_at'):
+        data = d.data or {}
+        answered = len(data.get('answers') or {})
+        if not answered:
+            continue
+        out.append({
+            'quiz_id': d.quiz_id,
+            'answered': answered,
+            'total': len(data.get('qids') or []),
+            'current': int(data.get('currentIdx') or 0) + 1,
+            'updated_at': d.updated_at.isoformat(),
+        })
+    return Response(out)

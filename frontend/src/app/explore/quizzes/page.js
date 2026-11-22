@@ -80,6 +80,46 @@ function QuizzesContent() {
       .catch(() => {});
   }, [user]);
 
+  // Unfinished quizzes (saved on the server) - for the "Continue" badges.
+  const [serverDrafts, setServerDrafts] = useState({});
+  const [openedAt] = useState(() => Date.now()); // render stays pure
+  useEffect(() => {
+    if (!user) return;
+    const token = localStorage.getItem("accessToken");
+    fetch(`${API}/quizzes/drafts/`, { headers: { Authorization: `Bearer ${token}` } })
+      .then((r) => (r.ok ? r.json() : []))
+      .then((list) => {
+        const map = {};
+        (Array.isArray(list) ? list : []).forEach((d) => { map[d.quiz_id] = d; });
+        setServerDrafts(map);
+      })
+      .catch(() => {});
+  }, [user]);
+
+  // The newer of this device's copy and the server's (same rules as the quiz
+  // page: under 30 days old, at least one answer, quiz not changed since).
+  const draftFor = (quiz) => {
+    let local = null;
+    try {
+      local = JSON.parse(localStorage.getItem(`ss_quiz_draft_${user?.id ?? "guest"}_${quiz.id}`) || "null");
+    } catch {}
+    const fromLocal =
+      local && openedAt - (local.savedAt || 0) < 30 * 864e5 && Object.keys(local.answers || {}).length
+        ? {
+            answered: Object.keys(local.answers).length,
+            total: (local.qids || []).length,
+            current: (local.currentIdx || 0) + 1,
+            at: local.savedAt,
+          }
+        : null;
+    const s = serverDrafts[quiz.id];
+    const fromServer = s ? { ...s, at: Date.parse(s.updated_at) } : null;
+    const d = [fromLocal, fromServer].filter(Boolean).sort((a, b) => b.at - a.at)[0];
+    if (!d) return null;
+    if (quiz.total_questions && d.total && d.total !== quiz.total_questions) return null;
+    return d;
+  };
+
   // Load strands + quizzes
   useEffect(() => {
     if (!grade || !subjectId) return;
@@ -174,8 +214,8 @@ function QuizzesContent() {
               <button onClick={() => setSelectedStrand(null)}
                 style={{
                   padding: "4px 12px", borderRadius: 20, fontSize: 12,
-                  border: `1px solid ${!selectedStrand ? "#bdd7f5" : "var(--border)"}`,
-                  background: !selectedStrand ? "#e8f4ff" : "var(--bg-secondary)",
+                  border: `1px solid ${!selectedStrand ? "rgba(32,184,166,0.45)" : "var(--border)"}`,
+                  background: !selectedStrand ? "rgba(32,184,166,0.14)" : "var(--bg-secondary)",
                   color: !selectedStrand ? "#20B8A6" : "var(--text)",
                   fontWeight: !selectedStrand ? 700 : 400,
                 }}>
@@ -185,8 +225,8 @@ function QuizzesContent() {
                 <button key={strand.id} onClick={() => setSelectedStrand(strand)}
                   style={{
                     padding: "4px 12px", borderRadius: 20, fontSize: 12,
-                    border: `1px solid ${selectedStrand?.id === strand.id ? "#bdd7f5" : "var(--border)"}`,
-                    background: selectedStrand?.id === strand.id ? "#e8f4ff" : "var(--bg-secondary)",
+                    border: `1px solid ${selectedStrand?.id === strand.id ? "rgba(32,184,166,0.45)" : "var(--border)"}`,
+                    background: selectedStrand?.id === strand.id ? "rgba(32,184,166,0.14)" : "var(--bg-secondary)",
                     color: selectedStrand?.id === strand.id ? "#20B8A6" : "var(--text)",
                     fontWeight: selectedStrand?.id === strand.id ? 700 : 400,
                   }}>
@@ -232,6 +272,7 @@ function QuizzesContent() {
             <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
               {filteredQuizzes.map((quiz) => {
                 const attempt = attempts[quiz.id];
+                const draft = draftFor(quiz);
                 const score = attempt ? Math.round(attempt.score) : null;
                 const isExam = quiz.quiz_type === "exam";
                 const scoreColor = score >= 75 ? "#1d8f57" : score >= 50 ? "#d4900a" : "#c0334a";
@@ -249,28 +290,43 @@ function QuizzesContent() {
                       opacity: loadingQuizId && !isThisLoading ? 0.5 : 1,
                       cursor: loadingQuizId ? "default" : "pointer",
                     }}
-                    onMouseEnter={(e) => { if (!loadingQuizId) { e.currentTarget.style.borderColor = "#bdd7f5"; e.currentTarget.style.boxShadow = "0 2px 12px rgba(26,111,196,0.08)"; }}}
-                    onMouseLeave={(e) => { if (!loadingQuizId) { e.currentTarget.style.borderColor = "#e8eaf0"; e.currentTarget.style.boxShadow = "none"; }}}>
+                    onMouseEnter={(e) => { if (!loadingQuizId) { e.currentTarget.style.borderColor = "rgba(32,184,166,0.45)"; e.currentTarget.style.boxShadow = "0 2px 12px rgba(0,0,0,0.25)"; }}}
+                    onMouseLeave={(e) => { if (!loadingQuizId) { e.currentTarget.style.borderColor = "var(--border)"; e.currentTarget.style.boxShadow = "none"; }}}>
                     <div style={{ flex: 1 }}>
                       <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 5, flexWrap: "wrap" }}>
                         <span style={{ fontSize: 14, fontWeight: 600, color: "var(--text)" }}>{quiz.title}</span>
                         <span style={{
                           fontSize: 11, padding: "2px 8px", borderRadius: 20,
-                          background: isExam ? "#f0eeff" : "#e8f4ff",
-                          color: isExam ? "#534ab7" : "#20B8A6", fontWeight: 600,
+                          background: isExam ? "rgba(155,140,255,0.16)" : "rgba(32,184,166,0.14)",
+                          color: isExam ? "#B4A9FF" : "#20B8A6", fontWeight: 600,
                         }}>
                           {isExam ? "Integrated assessment" : "Strand quiz"}
                         </span>
                       </div>
                       <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
                         <span style={{ fontSize: 12, color: "var(--text-muted)" }}>
-                          {quiz.total_questions || 0} questions · {quiz.duration_minutes || 30} mins
+                          {quiz.total_questions || 0} questions
                         </span>
+                        {draft && (
+                          <span style={{
+                            fontSize: 11, fontWeight: 700, padding: "2px 8px", borderRadius: 20,
+                            background: "rgba(32,184,166,0.14)", color: "#20B8A6",
+                          }}>
+                            In progress · {draft.answered}/{draft.total || quiz.total_questions} answered
+                          </span>
+                        )}
                         {score !== null && (
-                          <span style={{ fontSize: 12, fontWeight: 700, color: scoreColor }}>Last: {score}%</span>
+                          <span style={{ fontSize: 12, fontWeight: 700, color: scoreColor }}>Best: {score}%</span>
                         )}
                       </div>
-                      {score !== null && (
+                      {draft ? (
+                        <div style={{ height: 3, background: "var(--bg)", borderRadius: 99, marginTop: 8, overflow: "hidden" }}>
+                          <div style={{
+                            height: "100%", borderRadius: 99, background: "#20B8A6",
+                            width: `${Math.min(100, (draft.answered / (draft.total || quiz.total_questions || 1)) * 100)}%`,
+                          }} />
+                        </div>
+                      ) : score !== null && (
                         <div style={{ height: 3, background: "var(--bg)", borderRadius: 99, marginTop: 8, overflow: "hidden" }}>
                           <div style={{ height: "100%", width: `${score}%`, background: scoreColor, borderRadius: 99, transition: "width 0.6s ease" }} />
                         </div>
@@ -278,7 +334,16 @@ function QuizzesContent() {
                     </div>
                     {isThisLoading
                       ? <Loader2 size={18} color="#20B8A6" style={{ flexShrink: 0, animation: "spin 0.8s linear infinite" }} />
-                      : <ChevronRight size={18} color="#bcc3d0" style={{ flexShrink: 0 }} />
+                      : draft
+                        ? (
+                          <span style={{
+                            flexShrink: 0, fontSize: 12.5, fontWeight: 800, color: "#fff",
+                            background: "#0E7490", padding: "7px 12px", borderRadius: 12,
+                          }}>
+                            Continue
+                          </span>
+                        )
+                        : <ChevronRight size={18} color="var(--text-muted)" style={{ flexShrink: 0 }} />
                     }
                   </button>
                 );

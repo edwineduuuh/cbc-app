@@ -190,7 +190,6 @@ export default function CreateQuizPage() {
   const [subject, setSubject] = useState("");
   const [grade, setGrade] = useState("");
   const [quizType, setQuizType] = useState("topical");
-  const [duration, setDuration] = useState(30);
   const [passingScore, setPassingScore] = useState(50);
   const [isB2C, setIsB2C] = useState(true);
   const [availableToTeachers, setAvailableToTeachers] = useState(true);
@@ -388,7 +387,6 @@ export default function CreateQuizPage() {
           subject: parseInt(subject),
           grade: parseInt(grade),
           quiz_type: quizType,
-          duration_minutes: parseInt(duration),
           passing_score: parseInt(passingScore),
           is_active: true,
           is_b2c: isB2C,
@@ -827,29 +825,9 @@ export default function CreateQuizPage() {
                     <span className="w-7 h-7 bg-indigo-100 text-indigo-700 rounded-lg flex items-center justify-center text-sm font-bold">
                       3
                     </span>
-                    Time &amp; Scoring
+                    Scoring
                   </h2>
                   <div className="grid grid-cols-2 gap-5">
-                    <div>
-                      <label className="flex items-center gap-1.5 text-sm font-semibold text-gray-700 mb-1.5">
-                        <Clock className="w-4 h-4 text-indigo-500" /> Time Limit
-                        (minutes)
-                      </label>
-                      <div className="flex items-center gap-3">
-                        <input
-                          type="range"
-                          min={5}
-                          max={180}
-                          step={5}
-                          value={duration}
-                          onChange={(e) => setDuration(e.target.value)}
-                          className="flex-1 accent-indigo-600"
-                        />
-                        <span className="w-14 text-center py-2 bg-indigo-50 text-indigo-700 font-bold text-sm rounded-lg border border-indigo-200">
-                          {duration}m
-                        </span>
-                      </div>
-                    </div>
                     <div>
                       <label className="flex items-center gap-1.5 text-sm font-semibold text-gray-700 mb-1.5">
                         <Award className="w-4 h-4 text-indigo-500" /> Passing
@@ -1205,12 +1183,6 @@ export default function CreateQuizPage() {
                       <dt className="text-gray-500">Type</dt>
                       <dd className="font-medium text-gray-900 capitalize">
                         {quizType}
-                      </dd>
-                    </div>
-                    <div className="flex justify-between gap-2">
-                      <dt className="text-gray-500">Duration</dt>
-                      <dd className="font-medium text-gray-900">
-                        {duration} min
                       </dd>
                     </div>
                     <div className="flex justify-between gap-2">

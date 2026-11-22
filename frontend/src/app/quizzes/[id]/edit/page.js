@@ -8,7 +8,6 @@ import Card from "@/components/ui/Card";
 import Button from "@/components/ui/Button";
 import {
   BookOpen,
-  Clock,
   Award,
   ArrowLeft,
   Search,
@@ -218,10 +217,6 @@ export default function QuizzesPage() {
                       <div className="flex items-center gap-2 text-sm text-gray-600">
                         <Award className="w-4 h-4" />
                         <span>{quiz.total_questions} Questions</span>
-                      </div>
-                      <div className="flex items-center gap-2 text-sm text-gray-600">
-                        <Clock className="w-4 h-4" />
-                        <span>{quiz.duration_minutes} minutes</span>
                       </div>
                     </div>
 

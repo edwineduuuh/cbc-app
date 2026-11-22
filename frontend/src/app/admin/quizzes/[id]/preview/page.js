@@ -6,7 +6,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import { motion } from "framer-motion";
 import Card from "@/components/ui/Card";
 import Button from "@/components/ui/Button";
-import { ArrowLeft, BookOpen, Clock, Award } from "lucide-react";
+import { ArrowLeft, BookOpen, Award } from "lucide-react";
 import Link from "next/link";
 
 const API =
@@ -108,13 +108,6 @@ export default function QuizPreviewPage() {
               <div>
                 <p className="text-xs text-gray-500">Questions</p>
                 <p className="font-semibold">{quiz.questions?.length || 0}</p>
-              </div>
-            </div>
-            <div className="flex items-center gap-3">
-              <Clock className="w-5 h-5 text-purple-600" />
-              <div>
-                <p className="text-xs text-gray-500">Duration</p>
-                <p className="font-semibold">{quiz.duration_minutes} min</p>
               </div>
             </div>
             <div className="flex items-center gap-3">
