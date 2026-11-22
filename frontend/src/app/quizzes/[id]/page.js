@@ -425,21 +425,21 @@ function MCQOption({ letter, text, imageUrl, selected, onClick }) {
       activeText: "#fff",
     },
     B: {
-      idle: "#eafaf3",
+      idle: "rgba(32,184,166,0.12)",
       idleBorder: "#a8e6c4",
       idleText: "#1a7a4a",
       activeBg: "#1d8f57",
       activeText: "#fff",
     },
     C: {
-      idle: "#fff8e6",
+      idle: "rgba(232,182,91,0.12)",
       idleBorder: "#f0d690",
       idleText: "#9a6c00",
       activeBg: "#d4900a",
       activeText: "#fff",
     },
     D: {
-      idle: "#fdeef0",
+      idle: "rgba(240,113,120,0.12)",
       idleBorder: "#f5b8c0",
       idleText: "#c0334a",
       activeBg: "#c0334a",
@@ -1564,7 +1564,7 @@ function ResultsScreen({ result, quiz }) {
                       width: 32,
                       height: 32,
                       borderRadius: 8,
-                      background: item.is_correct ? "#d4edda" : "#fdeef0",
+                      background: item.is_correct ? "#d4edda" : "rgba(240,113,120,0.12)",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
@@ -1591,7 +1591,7 @@ function ResultsScreen({ result, quiz }) {
                     fontSize: 13,
                     fontWeight: 700,
                     color: item.is_correct ? "#1d8f57" : "#c0334a",
-                    background: item.is_correct ? "#d4edda" : "#fdeef0",
+                    background: item.is_correct ? "#d4edda" : "rgba(240,113,120,0.12)",
                     padding: "4px 10px",
                     borderRadius: 8,
                   }}
@@ -1955,7 +1955,7 @@ function TimerBadge({ totalSeconds, onExpire }) {
         gap: 6,
         padding: "8px 14px",
         borderRadius: 12,
-        background: isUrgent ? "#fdeef0" : "#f0f6ff",
+        background: isUrgent ? "rgba(240,113,120,0.12)" : "#f0f6ff",
         border: `2px solid ${isUrgent ? "#f5b8c0" : "#bdd7f5"}`,
         animation: isUrgent ? "pulse 1s infinite" : "none",
       }}
@@ -2958,7 +2958,7 @@ export default function QuizTakePage({ params }) {
                     height: 36,
                     borderRadius: 10,
                     border: `2px solid ${flagged.has(currentIdx) ? "#f0d690" : "var(--border)"}`,
-                    background: flagged.has(currentIdx) ? "#fff8e6" : "var(--bg-card)",
+                    background: flagged.has(currentIdx) ? "rgba(232,182,91,0.12)" : "var(--bg-card)",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
@@ -3493,7 +3493,7 @@ export default function QuizTakePage({ params }) {
           const full = fb.max_marks > 0 ? fb.marks_awarded >= fb.max_marks : fb.is_correct;
           const zero = (fb.marks_awarded ?? 0) <= 0;
           const color = full ? "#1d8f57" : zero ? "#F07178" : "#d4900a";
-          const bg = full ? "#eafaf3" : zero ? "#fdeef0" : "#fff8e6";
+          const bg = full ? "rgba(32,184,166,0.12)" : zero ? "rgba(240,113,120,0.12)" : "rgba(232,182,91,0.12)";
           // Strip a leading verdict word (the heading already shows it) and turn
           // literal \n / real newlines into proper line breaks for clean spacing.
           const body = (f.feedback || "")
@@ -3685,7 +3685,7 @@ export default function QuizTakePage({ params }) {
                 height: 48,
                 borderRadius: 14,
                 border: "2px solid #a8e6c4",
-                background: "#eafaf3",
+                background: "rgba(32,184,166,0.12)",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",

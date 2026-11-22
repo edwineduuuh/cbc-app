@@ -38,14 +38,14 @@ function getCBEGrade(pct) {
       grade: "EE1",
       label: "Exceeding Expectations",
       color: "#059669",
-      bg: "#ecfdf5",
+      bg: "rgba(32,184,166,0.12)",
     };
   if (pct >= 75)
     return {
       grade: "EE2",
       label: "Exceeding Expectations",
       color: "#10b981",
-      bg: "#ecfdf5",
+      bg: "rgba(32,184,166,0.12)",
     };
   if (pct >= 58)
     return {
@@ -66,27 +66,27 @@ function getCBEGrade(pct) {
       grade: "AE1",
       label: "Approaching Expectations",
       color: "#d97706",
-      bg: "#fffbeb",
+      bg: "rgba(232,182,91,0.12)",
     };
   if (pct >= 21)
     return {
       grade: "AE2",
       label: "Approaching Expectations",
       color: "#f59e0b",
-      bg: "#fffbeb",
+      bg: "rgba(232,182,91,0.12)",
     };
   if (pct >= 11)
     return {
       grade: "BE1",
       label: "Below Expectations",
       color: "#dc2626",
-      bg: "#fef2f2",
+      bg: "rgba(240,113,120,0.12)",
     };
   return {
     grade: "BE2",
     label: "Below Expectations",
     color: "#dc2626",
-    bg: "#fef2f2",
+    bg: "rgba(240,113,120,0.12)",
   };
 }
 

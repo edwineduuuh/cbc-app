@@ -15,7 +15,7 @@ const TYPE_LABELS = {
 const TYPE_COLORS = {
   quote: { bg: "#eff6ff", border: "#bfdbfe", badge: "#3b82f6", text: "#1e40af" },
   story: { bg: "#fdf4ff", border: "#e9d5ff", badge: "#9333ea", text: "#6b21a8" },
-  tip:   { bg: "#f0fdf4", border: "#bbf7d0", badge: "#22c55e", text: "#15803d" },
+  tip:   { bg: "rgba(32,184,166,0.12)", border: "#bbf7d0", badge: "#22c55e", text: "#15803d" },
 };
 
 function ContentCard({ item, onClick }) {

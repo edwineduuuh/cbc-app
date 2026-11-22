@@ -96,21 +96,21 @@ function MCQOption({ letter, text, selected, onClick }) {
       activeText: "#fff",
     },
     B: {
-      idle: "#eafaf3",
+      idle: "rgba(32,184,166,0.12)",
       idleBorder: "#a8e6c4",
       idleText: "#1a7a4a",
       activeBg: "#1d8f57",
       activeText: "#fff",
     },
     C: {
-      idle: "#fff8e6",
+      idle: "rgba(232,182,91,0.12)",
       idleBorder: "#f0d690",
       idleText: "#9a6c00",
       activeBg: "#d4900a",
       activeText: "#fff",
     },
     D: {
-      idle: "#fdeef0",
+      idle: "rgba(240,113,120,0.12)",
       idleBorder: "#f5b8c0",
       idleText: "#c0334a",
       activeBg: "#c0334a",
@@ -715,7 +715,7 @@ function ResultsScreen({ result, quiz }) {
                       return feedback.part_results.map((part) => {
                         const partCorrect = part.is_correct;
                         const borderColor = partCorrect ? "#1d8f57" : "#c0334a";
-                        const bg = partCorrect ? "rgba(60,203,139,0.10)" : "#fff5f5";
+                        const bg = partCorrect ? "rgba(60,203,139,0.10)" : "rgba(240,113,120,0.12)";
                         return (
                           <div
                             key={`${qId}-${part.part_id}`}
@@ -1155,7 +1155,7 @@ function TimerBadge({ totalSeconds, onExpire }) {
         gap: 6,
         padding: "8px 14px",
         borderRadius: 12,
-        background: isUrgent ? "#fdeef0" : "#f0f6ff",
+        background: isUrgent ? "rgba(240,113,120,0.12)" : "#f0f6ff",
         border: `2px solid ${isUrgent ? "#f5b8c0" : "#bdd7f5"}`,
         animation: isUrgent ? "pulse 1s infinite" : "none",
       }}
@@ -1745,7 +1745,7 @@ export default function QuizTakePage({ params }) {
                   height: 36,
                   borderRadius: 10,
                   border: `2px solid ${flagged.has(currentIdx) ? "#f0d690" : "#e8eaf0"}`,
-                  background: flagged.has(currentIdx) ? "#fff8e6" : "#fff",
+                  background: flagged.has(currentIdx) ? "rgba(232,182,91,0.12)" : "#fff",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
@@ -2099,7 +2099,7 @@ export default function QuizTakePage({ params }) {
                 height: 48,
                 borderRadius: 14,
                 border: "2px solid #a8e6c4",
-                background: "#eafaf3",
+                background: "rgba(32,184,166,0.12)",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",

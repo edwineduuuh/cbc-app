@@ -1886,6 +1886,7 @@ def _mcq_det_result(question, is_correct, correct_display, sw, admin_expl):
     """Deterministic MCQ result with NO AI. Serves the teacher's explanation
     (cleaned, never reworded) if one exists. Works for cloze/multipart parts too
     (the part proxy exposes part.explanation)."""
+    correct_display = str(correct_display or "").rstrip(" .")   # option text may end in '.'
     if sw:
         verdict = "Jibu ni sahihi!" if is_correct else f"Jibu si sahihi. Jibu sahihi ni {correct_display}."
         missed = f"Jibu sahihi: {correct_display}"
@@ -1907,6 +1908,81 @@ def _mcq_det_result(question, is_correct, correct_display, sw, admin_expl):
     }
 
 
+def _choice_explanation(question, chosen_letter, chosen_text, correct_letter, correct_text,
+                        options_map, sw) -> str:
+    """An explanation written for the option THIS learner chose: why it is
+    right, or why it is not and why the correct one is. The teacher's
+    explanation is the source of facts but is never shown word for word.
+
+    Generated once per question and option, then cached on the question, so
+    the cost is per question (at most four calls), not per learner. Kiswahili
+    with no teacher explanation gets none: the AI must not invent grammar.
+    Runs on the marking route (DeepSeek; Kiswahili on Claude Opus)."""
+    import hashlib
+
+    teacher = _strip_html(str(getattr(question, "explanation", "") or "")).strip()
+    if sw and not teacher:
+        return ""
+    src = hashlib.sha1(json.dumps([question.question_text, options_map, correct_letter, correct_text, teacher],
+                                  ensure_ascii=False, default=str).encode("utf-8")).hexdigest()[:16]
+    key = chosen_letter or _normalise(chosen_text)[:60] or "none"
+    cache = getattr(question, "cached_ai_explanation", None)
+    cache = dict(cache) if isinstance(cache, dict) else {}
+    by_option = dict(cache.get("by_option") or {}) if cache.get("by_option_src") == src else {}
+    if by_option.get(key):
+        return by_option[key]
+
+    grade = getattr(getattr(question, "topic", None), "grade", 7)
+    opts = "\n".join(f"{k}) {v}" for k, v in options_map.items() if v)
+    right = chosen_letter == correct_letter if chosen_letter else _normalise(chosen_text) == _normalise(correct_text)
+    correct_label = f"{correct_letter}) {correct_text}" if correct_letter else correct_text
+    chosen_label = f"{chosen_letter}) {chosen_text}" if chosen_letter else (chosen_text or "(no valid choice)")
+    if sw:
+        prompt = (
+            f"Wewe ni mwalimu mpole wa Kiswahili nchini Kenya. Mwanafunzi wa Gredi {grade} amejibu swali hili.\n\n"
+            f"Swali: {question.question_text}\n{opts}\n\nJibu sahihi: {correct_label}\n"
+            f"Mwanafunzi alichagua: {chosen_label}\n\n"
+            f"MAELEZO YA MWALIMU (chanzo pekee cha ukweli; USINAKILI neno kwa neno):\n{teacher}\n\n"
+            + ("Andika sentensi 2 hadi 3 kumweleza kwa nini chaguo lake ni sahihi."
+               if right else
+               "Andika sentensi 2 hadi 3: kwanza kwa nini chaguo lake si sahihi, kisha kwa nini jibu sahihi ni sahihi.")
+            + " Tumia maelezo ya mwalimu tu - usibuni kanuni za sarufi. Kiswahili sanifu, rahisi. "
+              "Usianze kwa 'Sahihi' au 'Si sahihi'.\n\nJSON: {\"explanation\": \"...\"}")
+    else:
+        source = (f"TEACHER'S EXPLANATION (your source of facts; do NOT copy it word for word):\n{teacher}\n\n"
+                  if teacher else "")
+        prompt = (
+            f"You are a kind Kenyan CBC/CBE teacher. A Grade {grade} learner answered this multiple-choice question.\n\n"
+            f"Question: {question.question_text}\n{opts}\n\nCorrect answer: {correct_label}\n"
+            f"The learner chose: {chosen_label}\n\n{source}"
+            + ("Write 2 to 3 short sentences telling the learner why their choice is right."
+               if right else
+               "Write 2 to 3 short sentences: first why the option they chose is not right (the "
+               "misunderstanding behind it), then why the correct answer is right.")
+            + (" Use only facts from the teacher's explanation and the question; do not invent facts."
+               if teacher else " Do not invent facts.")
+            + f" Simple words for Grade {grade}. Talk to the learner as 'you'. Do not start with "
+              "'Correct' or 'Not quite' - that is added separately.\n\nJSON: {\"explanation\": \"...\"}")
+    try:
+        data = _parse_json_response(_call_ai(prompt, None, 500, kiswahili=sw))
+        text = str((data or {}).get("explanation") or "").strip()
+    except Exception as e:
+        print(f"⚠ choice explanation failed for Q{getattr(question, 'id', '?')}: {e}")
+        return ""
+    if not text:
+        return ""
+    by_option[key] = text
+    cache.update(by_option=by_option, by_option_src=src)
+    try:
+        from questions.models import Question
+        if isinstance(question, Question) and question.pk:
+            Question.objects.filter(pk=question.pk).update(cached_ai_explanation=cache)
+            question.cached_ai_explanation = cache
+    except Exception as cache_err:
+        print(f"⚠ explanation cache save failed: {cache_err}")
+    return text
+
+
 def _grade_mcq(question, student_answer: str) -> dict:
     sw = _is_kiswahili(question)
     student_raw = str(student_answer or "").strip()
@@ -1923,7 +1999,7 @@ def _grade_mcq(question, student_answer: str) -> dict:
         if sw or admin_expl:
             correct_disp = _clean_correct_answer(question.correct_answer or "")
             is_correct = _normalise(student_raw) == _normalise(correct_disp)
-            shown = _present_explanation(question, admin_expl, sw) if admin_expl else ""
+            shown = _choice_explanation(question, None, student_raw, None, correct_disp, {}, sw)
             return _mcq_det_result(question, is_correct, correct_disp, sw, shown)
         return _grade_with_ai(question, student_answer)
 
@@ -1948,156 +2024,17 @@ def _grade_mcq(question, student_answer: str) -> dict:
 
     is_correct = selected_letter == correct_letter
 
-    # If the teacher wrote an explanation, serve it (cleaned, never reworded) -
-    # for Kiswahili and English. Kiswahili without one stays bare (no AI
-    # inventing grammar). Only English-without-explanation falls back to the AI.
-    if sw or admin_expl:
-        correct_text = options_map.get(correct_letter, "")
-        if sw:
-            correct_display = (f"{correct_letter}) {correct_text}".strip()
-                               if correct_text else correct_letter)
-        else:
-            correct_display = (f"Option {correct_letter}: {correct_text}".strip()
-                               if correct_text else f"Option {correct_letter}")
-        shown = _present_explanation(question, admin_expl, sw) if admin_expl else ""
-        return _mcq_det_result(question, is_correct, correct_display, sw, shown)
-
-    # ── English, no teacher explanation - AI writes one (cached) ──────────
-    cached = getattr(question, 'cached_ai_explanation', None)
-    if cached and isinstance(cached, dict) and cached.get('feedback'):
-        # Invalidate stale entries that contain broken LaTeX arrays or raw KaTeX HTML
-        _stale_markers = (
-            '\\begin{', 'class="katex"', "class='katex'", 'arrayr', '<span',
-            # Old non-neutral feedback that referenced the student's choice and
-            # produced contradictions ("Not quite. You chose B, which is right").
-            'you chose', 'you picked', 'you selected', 'your choice',
-            'which is exactly right', 'you are right', 'you got it right',
-        )
-        _cache_text = " ".join((
-            cached.get('feedback', '') or '',
-            cached.get('feedback_correct', '') or '',
-            cached.get('feedback_wrong', '') or '',
-            cached.get('study_tip', '') or '',
-        )).lower()
-        if any(m in _cache_text for m in _stale_markers):
-            cached = None  # force fresh generation in the new neutral format
-    if cached and isinstance(cached, dict) and cached.get('feedback'):
-        correct_text = options_map.get(correct_letter, "(unknown)")
-        if is_correct:
-            feedback = cached.get('feedback_correct', cached['feedback'])
-            return {
-                "marks_awarded":        question.max_marks,
-                "max_marks":            question.max_marks,
-                "feedback":             feedback,
-                "is_correct":           True,
-                "personalized_message": _encourage(sw),
-                "study_tip":            cached.get('study_tip', ''),
-                # truthy so _augment_feedback won't append the admin explanation
-                # again - the cached feedback already explains
-                "explanation":          cached.get('explanation') or feedback,
-                "points_earned":        [f"Option {correct_letter}: {correct_text}"],
-                "points_missed":        [],
-            }
-        else:
-            feedback = cached.get('feedback_wrong', cached['feedback'])
-            return {
-                "marks_awarded":        0,
-                "max_marks":            question.max_marks,
-                "feedback":             feedback,
-                "is_correct":           False,
-                "personalized_message": _near_miss(sw),
-                "study_tip":            cached.get('study_tip', ''),
-                # truthy so _augment_feedback won't append the admin explanation
-                # again - the cached feedback already explains
-                "explanation":          cached.get('explanation') or feedback,
-                "points_earned":        [],
-                "points_missed":        [f"Correct answer: Option {correct_letter}: {correct_text}"],
-            }
-
-    # ── No cache - call AI once, then cache the NEUTRAL explanation ───────
-    try:
-        ai_result = _grade_with_ai(question, student_answer)
-
-        correct_text = options_map.get(correct_letter, "")
-        _body = _neutral_mcq_body(ai_result.get('feedback', ''))
-        _ok_fb  = f"Correct! {_body}".strip()
-        _bad_fb = (f"Not quite. The correct answer is Option {correct_letter}: "
-                   f"{correct_text}. {_body}").strip()
-
-        # Cache for future students (the body is choice-independent, so it's
-        # safe to reuse for both correct and wrong answers)
-        try:
-            from questions.models import Question
-            cache_data = {
-                'feedback': _body,
-                'feedback_correct': _ok_fb,
-                'feedback_wrong':   _bad_fb,
-                'study_tip': ai_result.get('study_tip', ''),
-                'explanation': _body,
-            }
-            Question.objects.filter(pk=question.pk).update(cached_ai_explanation=cache_data)
-        except Exception as cache_err:
-            print(f"⚠ Cache save failed for Q{getattr(question, 'id', '?')}: {cache_err}")
-
-        return {
-            **ai_result,
-            # 🔒 Verdict is OURS - AI cannot touch these
-            "marks_awarded": question.max_marks if is_correct else 0,
-            "is_correct":    is_correct,
-            "feedback":      _ok_fb if is_correct else _bad_fb,
-            # set so _augment_feedback knows there's already an explanation and
-            # doesn't append the admin one again (avoids a duplicate)
-            "explanation":   _body,
-            "points_earned": ai_result.get("points_earned", []) if is_correct else [],
-            "points_missed": ai_result.get("points_missed", []) if not is_correct else [],
-            "personalized_message": _encourage(sw) if is_correct else _near_miss(sw),
-        }
-    except Exception as e:
-        print(f"⚠ AI feedback failed for MCQ Q{getattr(question, 'id', '?')}: {e}")
-
-    # ── Bare fallback if AI completely dies ───────────────────────────────
-    correct_text = options_map.get(correct_letter, "(unknown)")
-    explanation  = getattr(question, "explanation", None) or ""
-    if is_correct:
-        if sw:
-            feedback = f"Hongera! Chaguo {correct_letter}: {correct_text} ni sahihi."
-            if explanation:
-                feedback += f" {explanation}"
-            feedback += f"\nKumbuka: {explanation}" if explanation else ""
-        else:
-            feedback = f"Correct! You have chosen the right answer. Option {correct_letter}: {correct_text} is correct."
-            if explanation:
-                feedback += f" {explanation}"
-                feedback += f"\nRemember: {explanation}"
-        return {
-            "marks_awarded":        question.max_marks,
-            "max_marks":            question.max_marks,
-            "feedback":             feedback,
-            "is_correct":           True,
-            "personalized_message": _encourage(sw),
-            "study_tip":            explanation,
-            "points_earned":        [f"Option {correct_letter}: {correct_text}"],
-            "points_missed":        [],
-        }
-
+    correct_text = options_map.get(correct_letter, "")
     if sw:
-        feedback = f"Jibu si sahihi. Jibu sahihi ni {correct_letter}: {correct_text}."
-        if explanation:
-            feedback += f" {explanation}"
+        correct_display = (f"{correct_letter}) {correct_text}".strip()
+                           if correct_text else correct_letter)
     else:
-        feedback = f"Not quite. The correct answer is Option {correct_letter}: {correct_text}."
-        if explanation:
-            feedback += f" {explanation}"
-    return {
-        "marks_awarded":        0,
-        "max_marks":            question.max_marks,
-        "feedback":             feedback,
-        "is_correct":           False,
-        "personalized_message": _near_miss(sw),
-        "study_tip":            explanation,
-        "points_earned":        [],
-        "points_missed":        [f"Correct answer: Option {correct_letter}: {correct_text}"],
-    }
+        correct_display = (f"Option {correct_letter}: {correct_text}".strip()
+                           if correct_text else f"Option {correct_letter}")
+    chosen_text = options_map.get(selected_letter, "") if selected_letter else student_raw
+    shown = _choice_explanation(question, selected_letter, chosen_text, correct_letter,
+                                correct_text, options_map, sw)
+    return _mcq_det_result(question, is_correct, correct_display, sw, shown)
 
 
 def _wrap_math(s: str) -> str:
@@ -3485,17 +3422,10 @@ def _augment_feedback(question, result: dict) -> dict:
     # grader machinery ("the API should validate…", category tables, override
     # rules). _studentize_explanation rewrites machinery into student teaching
     # (or hides it) and passes clean prose straight through.
-    raw_expl = (getattr(question, "explanation", "") or "").strip()
-    admin_expl = _studentize_explanation(question, raw_expl, sw)
-    # Only surface the admin explanation when grading produced NO explanation of
-    # its own (e.g. bare Kiswahili "Jibu sahihi: C"). If the feedback already
-    # explains, appending again just duplicates it.
-    already_has = bool((result.get("explanation") or "").strip())
-    fb = (result.get("feedback") or "").strip()
-    if admin_expl and not already_has and admin_expl not in fb:
-        result["explanation"] = admin_expl
-        label = "Maelezo" if sw else "Explanation"
-        result["feedback"] = f"{fb}\n\n{label}: {admin_expl}".strip()
+    # The teacher's explanation is NOT pasted under the result any more: it is
+    # the SOURCE the marking feedback (structured) and the per-choice
+    # explanation (MCQ) are written from, so what the learner reads responds
+    # to what they actually answered.
 
     # Safety net: even the grader's OWN feedback/tip can echo the scheme back
     # (it's fed the marking scheme). Strip any line that is clearly machinery so
