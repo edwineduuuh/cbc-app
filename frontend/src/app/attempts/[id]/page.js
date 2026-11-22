@@ -20,8 +20,8 @@ import {
 } from "lucide-react";
 import katex from "katex";
 import "katex/dist/katex.min.css";
-import { renderMathHtml, tidyFeedback } from "@/lib/math";
-import { PartFeedbackDropdown } from "@/components/quiz/WorkedFeedback";
+import { renderMathHtml, tidyFeedback, answerHtml } from "@/lib/math";
+import { PartFeedbackDropdown, partResultsOf } from "@/components/quiz/WorkedFeedback";
 import FinancialStatementInput from "@/components/FinancialStatementInput";
 const API =
   process.env.NEXT_PUBLIC_API_URL ||
@@ -1215,10 +1215,12 @@ export default function AttemptResultsPage() {
             student_answer: item.student_answer
               ? typeof item.student_answer === "object"
                 ? Object.entries(item.student_answer)
-                    .map(
-                      ([partId, ans]) =>
-                        `<strong>${partId}:</strong> ${String(ans)}`,
-                    )
+                    .map(([partId, ans], i) => {
+                      const qq = results.quiz?.questions?.find((q) => String(q.id) === String(qId));
+                      const part = (qq?.parts || []).find((pp) => String(pp.id) === String(partId));
+                      const label = part?.part_label || String.fromCharCode(97 + i);
+                      return `<strong>(${label})</strong> ${answerHtml(String(ans ?? ""))}`;
+                    })
                     .join("<br/>")
                 : renderMath(
                     item.question_type === "math"
@@ -1226,20 +1228,16 @@ export default function AttemptResultsPage() {
                       : item.student_answer,
                   )
               : "<em>No answer provided</em>",
+            // Maths first, line breaks after - a <br/> inside a formula breaks it.
             correct_answer: item.correct_answer
-              ? renderMath(
-                  item.correct_answer.replace(/\\n|\n/g, "<br/>") || "",
-                )
+              ? answerHtml(String(item.correct_answer).replace(/\\n/g, "\n")).replace(/\n/g, "<br/>")
               : "",
             feedback: renderMath(
-              tidyFeedback(item.feedback)
-                ?.replace(
-                  /\(([a-z])\)\s*/g,
-                  "<br/><strong>Part ($1):</strong> ",
-                )
-                ?.replace(/^<br\/>/, "")
-                ?.replace(/\\n|\n/g, "<br/>") || "",
-            ),
+              tidyFeedback(item.feedback || "", { hasWorkedSolution: !!(item.study_tip || "").trim() })
+                .replace(/(^|\n)\s*\(([a-z])\)\s*/g, "$1<strong>Part ($2):</strong> "),
+            )
+              .replace(/\n{2,}/g, "<br/><br/>")
+              .replace(/\n/g, "<br/>"),
           };
         })}
         quizType={results.quiz?.subject || "Quiz"}
@@ -1897,10 +1895,8 @@ export default function AttemptResultsPage() {
                           (q) => String(q.id) === String(qId),
                         );
                         const parts = quizQ?.parts || [];
-                        // Split only at part boundaries "(N) ..." - preserves internal newlines in each segment
-                        const feedbackSegments = (item.feedback || "")
-                          .split(/\n+(?=\((?:\d+|[a-z]+)\))/i)
-                          .filter((s) => s.trim());
+                        // One result per part, split from the combined "(a) … (b) …" text.
+                        const partResults = partResultsOf({ feedback: item.feedback }, parts);
                         return (
                           <div
                             style={{
@@ -1911,19 +1907,17 @@ export default function AttemptResultsPage() {
                             }}
                           >
                             {parts.map((part, pi) => {
-                              const letter = String(
-                                item.student_answer[part.id] || "",
-                              ).toUpperCase();
-                              const fullText = letter
-                                ? part[`option_${letter.toLowerCase()}`] ||
-                                  letter
-                                : "";
-                              const segFeedback = feedbackSegments[pi] || "";
-                              // Determine correctness from feedback text - part.correct_answer may be full text, not a letter
-                              const isCorrect =
-                                /\((?:\d+|[a-z]+)\)\s*(?:correct|excellent|spot on|well done|perfect|great|yes|hongera|vizuri|sahihi|nzuri)/i.test(
-                                  segFeedback,
-                                );
+                              const raw = String(item.student_answer[part.id] ?? "").trim();
+                              // MCQ part: show the option's text, not just its letter.
+                              const fullText =
+                                part.question_type === "mcq" && /^[A-Da-d]$/.test(raw)
+                                  ? part[`option_${raw.toLowerCase()}`] || raw.toUpperCase()
+                                  : raw;
+                              const pr = partResults.find(
+                                (r) => String(r.part_id) === String(part.id) ||
+                                       String(r.part_label) === String(part.part_label),
+                              ) || partResults[pi];
+                              const isCorrect = pr ? pr.is_correct : false;
                               const pColor = isCorrect ? "#3CCB8B" : "#F07178";
                               const pBg = isCorrect ? "rgba(60,203,139,0.10)" : "rgba(240,113,120,0.10)";
                               const pBorder = isCorrect ? "rgba(60,203,139,0.35)" : "rgba(240,113,120,0.35)";
@@ -1968,7 +1962,7 @@ export default function AttemptResultsPage() {
                                         fontSize: 14,
                                       }}
                                     >
-                                      {pi + 1}
+                                      {part.part_label || pi + 1}
                                     </div>
                                     <p
                                       style={{
@@ -1980,9 +1974,9 @@ export default function AttemptResultsPage() {
                                         flex: 1,
                                       }}
                                       dangerouslySetInnerHTML={{
-                                        __html: renderMath(
-                                          part.question_text || "",
-                                        ),
+                                        __html:
+                                          renderMath(part.question_text || "") ||
+                                          `<span style="color:var(--text-muted);font-weight:500">Part (${part.part_label || pi + 1})</span>`,
                                       }}
                                     />
                                   </div>
@@ -2021,7 +2015,9 @@ export default function AttemptResultsPage() {
                                           margin: 0,
                                         }}
                                       >
-                                        {fullText || (
+                                        {fullText ? (
+                                          <span dangerouslySetInnerHTML={{ __html: answerHtml(fullText) }} />
+                                        ) : (
                                           <span
                                             style={{
                                               color: "var(--text-muted)",
@@ -2033,46 +2029,14 @@ export default function AttemptResultsPage() {
                                         )}
                                       </p>
                                     </div>
-                                    {segFeedback && (
-                                      <div
-                                        style={{
-                                          background: isCorrect
-                                            ? "var(--bg-secondary)"
-                                            : "rgba(245,158,91,0.10)",
-                                          borderRadius: 10,
-                                          padding: "10px 14px",
-                                          borderLeft: `3px solid ${pColor}`,
+                                    {pr && (
+                                      <PartFeedbackDropdown
+                                        result={{
+                                          ...pr,
+                                          correct_answer: pr.correct_answer || part.correct_answer || "",
                                         }}
-                                      >
-                                        <p
-                                          style={{
-                                            fontSize: 11,
-                                            fontWeight: 700,
-                                            color: pColor,
-                                            textTransform: "uppercase",
-                                            letterSpacing: "0.06em",
-                                            marginBottom: 4,
-                                          }}
-                                        >
-                                          Feedback
-                                        </p>
-                                        <p
-                                          style={{
-                                            fontSize: 13,
-                                            color: "var(--text)",
-                                            lineHeight: 1.7,
-                                            margin: 0,
-                                          }}
-                                          dangerouslySetInnerHTML={{
-                                            __html: renderMath(
-                                              segFeedback.replace(
-                                                /\\n|\n/g,
-                                                "<br/>",
-                                              ),
-                                            ),
-                                          }}
-                                        />
-                                      </div>
+                                        showCorrect={part.question_type !== "mcq"}
+                                      />
                                     )}
                                   </div>
                                 </div>
@@ -2329,7 +2293,10 @@ export default function AttemptResultsPage() {
                       )}
 
                     {/* ── Feedback + study tip + points - shown for all non-multipart types ── */}
-                    {item.question_type !== "multipart" && (
+                    {item.question_type !== "multipart" &&
+                      // Questions with parts show each part's feedback above - not again here.
+                      !(typeof item.student_answer === "object" && item.student_answer !== null &&
+                        (results.quiz?.questions?.find((q) => String(q.id) === String(qId))?.parts || []).length > 0) && (
                       <>
                           {/* Feedback: one calm card. The marks chip above already says
                               right / partly / wrong, so the text doesn't repeat it. */}

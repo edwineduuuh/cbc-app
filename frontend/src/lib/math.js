@@ -89,6 +89,9 @@ export function tidyFeedback(text, { hasWorkedSolution = false } = {}) {
   if (cut > 0 && (hasWorkedSolution || /\b(?:Step|Hatua(?: ya)?) 1\b|\[\[\s*ladder/i.test(s.slice(0, cut))))
     s = s.slice(0, cut);
   s = redrawOldLadders(s);
+  // A key saved with its own label ("Correct Answer: 10 words") reads
+  // "The correct answer is Correct Answer: 10 words" - drop the label.
+  s = s.replace(/(correct answer is\s*\$?\s*)(?:Correct\s+answer|Answer)\s*[:\-]\s*/gi, "$1");
   const re = new RegExp(MATH_RE.source, "g");
   let out = "", last = 0, m;
   const prose = (t) =>
@@ -210,6 +213,12 @@ export function renderMathHtml(text) {
     .replace(MATH_RE, (whole, dd, br, pa, d) => {
       const display = dd != null || br != null;
       const tex = dd ?? br ?? pa ?? d;
+      // Words wrapped as maths ("$Correct Answer: 10 words (Accept 10)$") would
+      // render as squashed italic letters. Plain words with no LaTeX
+      // commands are a sentence: show them as text.
+      if (!/\\[a-zA-Z]/.test(tex) && /[A-Za-z]{3,}[\s(),.:;]+[A-Za-z]{3,}/.test(tex)) {
+        return tex.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").trim();
+      }
       return texToHtml(tex, display) ?? latexToText(tex);
     })
     .replace(LADDER_RE, (whole, kind, nums) => ladderHtml(kind, nums) ?? "");
