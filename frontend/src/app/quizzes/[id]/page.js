@@ -11,7 +11,6 @@ import {
   ArrowLeft,
   ArrowRight,
   CheckCircle,
-  Clock,
   Flag,
   Send,
   Loader2,
@@ -107,35 +106,6 @@ function renderTextWithBlanks(text, answeredBlanks = {}) {
   });
   return result.replace(/\n/g, "<br/>");
 }
-// ─── Timer Hook ───────────────────────────────────────────────────────────────
-function useTimer(totalSeconds, onExpire) {
-  const [remaining, setRemaining] = useState(totalSeconds);
-  const intervalRef = useRef(null);
-  useEffect(() => {
-    intervalRef.current = setInterval(() => {
-      setRemaining((prev) => {
-        if (prev <= 1) {
-          clearInterval(intervalRef.current);
-          onExpire();
-          return 0;
-        }
-        return prev - 1;
-      });
-    }, 1000);
-    return () => clearInterval(intervalRef.current);
-  }, []);
-  const pct = (remaining / totalSeconds) * 100;
-  const mins = Math.floor(remaining / 60);
-  const secs = remaining % 60;
-  const isUrgent = pct < 20;
-  return {
-    display: `${String(mins).padStart(2, "0")}:${String(secs).padStart(2, "0")}`,
-    pct,
-    isUrgent,
-    remaining,
-  };
-}
-
 // ─── Passage Content Formatter ────────────────────────────────────────────────
 function PassageContent({
   type,
@@ -1857,34 +1827,70 @@ function WorkingPanel({ questionIdx, onWorkingCapture }) {
   );
 }
 
-// ─── Timer Badge ──────────────────────────────────────────────────────────────
-function TimerBadge({ totalSeconds, onExpire }) {
-  const { display, isUrgent } = useTimer(totalSeconds, onExpire);
+// ─── Saved progress ───────────────────────────────────────────────────────────
+// A draft only counts if it was saved for exactly these questions (a quiz the
+// teacher has since edited starts fresh) and within the last 30 days.
+function readDraft(key, questions) {
+  try {
+    const d = JSON.parse(localStorage.getItem(key) || "null");
+    if (!d || Date.now() - (d.savedAt || 0) > 30 * 864e5) return null;
+    const ids = questions.map((q) => q.id);
+    if (JSON.stringify(d.qids) !== JSON.stringify(ids)) return null;
+    return d;
+  } catch {
+    return null;
+  }
+}
+
+function ResumePrompt({ draft, total, onContinue, onRestart }) {
+  const answered = Object.keys(draft.answers || {}).length;
+  const at = Math.min((draft.currentIdx || 0) + 1, total);
   return (
     <div
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="resume-title"
       style={{
-        display: "flex",
-        alignItems: "center",
-        gap: 6,
-        padding: "8px 14px",
-        borderRadius: 12,
-        background: isUrgent ? "rgba(240,113,120,0.12)" : "#f0f6ff",
-        border: `2px solid ${isUrgent ? "#f5b8c0" : "#bdd7f5"}`,
-        animation: isUrgent ? "pulse 1s infinite" : "none",
+        position: "fixed", inset: 0, zIndex: 1000, display: "flex",
+        alignItems: "center", justifyContent: "center", padding: 16,
+        background: "rgba(5,10,20,0.72)",
       }}
     >
-      <Clock size={14} color={isUrgent ? "#c0334a" : "#20B8A6"} />
-      <span
+      <div
         style={{
-          fontSize: 15,
-          fontWeight: 800,
-          color: isUrgent ? "#c0334a" : "#20B8A6",
-          fontFamily: "var(--font-sans)",
-          fontVariantNumeric: "tabular-nums",
+          width: "100%", maxWidth: 400, background: "var(--bg-card)",
+          border: "1px solid var(--border)", borderRadius: 20, padding: 24,
         }}
       >
-        {display}
-      </span>
+        <h2 id="resume-title" style={{ fontSize: 20, fontWeight: 800, color: "var(--text)", margin: "0 0 8px" }}>
+          Continue where you left off?
+        </h2>
+        <p style={{ fontSize: 14, color: "var(--text-muted)", lineHeight: 1.5, margin: "0 0 20px" }}>
+          You answered {answered} of {total} question{total !== 1 ? "s" : ""} and stopped at
+          question {at}. Your answers and feedback are saved.
+        </p>
+        <button
+          onClick={onContinue}
+          autoFocus
+          style={{
+            width: "100%", height: 48, borderRadius: 14, border: "none",
+            background: "#0E7490", color: "#fff", fontSize: 15, fontWeight: 800,
+            cursor: "pointer", marginBottom: 10,
+          }}
+        >
+          Continue from question {at}
+        </button>
+        <button
+          onClick={onRestart}
+          style={{
+            width: "100%", height: 44, borderRadius: 14, background: "transparent",
+            border: "1px solid var(--border)", color: "var(--text-muted)",
+            fontSize: 14, fontWeight: 700, cursor: "pointer",
+          }}
+        >
+          Start over
+        </button>
+      </div>
     </div>
   );
 }
@@ -1893,7 +1899,7 @@ function TimerBadge({ totalSeconds, onExpire }) {
 export default function QuizTakePage({ params }) {
   const resolvedParams = use(params);
   const quizId = resolvedParams.id;
-  const { user } = useAuth();
+  const { user, loading: authLoading } = useAuth();
   const router = useRouter();
   const searchParams = useSearchParams();
   const guestSessionFromUrl = searchParams.get("guest_session");
@@ -1919,6 +1925,11 @@ export default function QuizTakePage({ params }) {
   const [feedbacks, setFeedbacks] = useState({}); // index -> grade-one response
   const [checkErrors, setCheckErrors] = useState({}); // index -> why a check failed
   const [checking, setChecking] = useState(false);
+
+  // Unfinished quizzes are saved on this device and offered back on return.
+  const [resumeOffer, setResumeOffer] = useState(null); // saved draft awaiting a choice
+  const draftReady = useRef(false); // no saving until the resume choice is made
+  const draftKey = `ss_quiz_draft_${user?.id ?? "guest"}_${quizId}`;
 
   // Passage questions read better in landscape - detect a phone held portrait so
   // we can nudge the reader to rotate. Auto-clears the moment they turn sideways.
@@ -1978,6 +1989,50 @@ export default function QuizTakePage({ params }) {
       }
     })();
   }, [quizId, user, guestSessionFromUrl, router]);
+
+  // Once the quiz and the signed-in user are known, look for a saved draft.
+  useEffect(() => {
+    if (!questions.length || authLoading || draftReady.current) return;
+    const d = readDraft(draftKey, questions);
+    if (d && Object.keys(d.answers || {}).length) setResumeOffer(d);
+    else draftReady.current = true;
+  }, [questions, authLoading, draftKey]);
+
+  // Save progress as the learner goes.
+  useEffect(() => {
+    if (!draftReady.current || submittedRef.current || !questions.length) return;
+    try {
+      localStorage.setItem(draftKey, JSON.stringify({
+        qids: questions.map((q) => q.id),
+        answers, feedbacks, currentIdx,
+        flagged: [...flagged],
+        startedAt: quizStartedAt.current,
+        savedAt: Date.now(),
+      }));
+    } catch {}
+  }, [answers, feedbacks, currentIdx, flagged, questions, draftKey]);
+
+  const continueDraft = () => {
+    const d = resumeOffer;
+    setAnswers(d.answers || {});
+    setFeedbacks(d.feedbacks || {});
+    setFlagged(new Set(d.flagged || []));
+    setCurrentIdx(Math.min(d.currentIdx || 0, questions.length - 1));
+    if (d.startedAt) quizStartedAt.current = d.startedAt;
+    draftReady.current = true;
+    setResumeOffer(null);
+  };
+
+  const startOver = () => {
+    try { localStorage.removeItem(draftKey); } catch {}
+    quizStartedAt.current = new Date().toISOString();
+    draftReady.current = true;
+    setResumeOffer(null);
+  };
+
+  const clearDraft = () => {
+    try { localStorage.removeItem(draftKey); } catch {}
+  };
 
   // Preload EVERY image the quiz can show - question images AND MCQ option
   // images - the moment the quiz loads, so a timed student never waits for an
@@ -2210,6 +2265,7 @@ export default function QuizTakePage({ params }) {
         );
         localStorage.setItem("device_quizzes_used", String(used + 1));
         submittedRef.current = true;
+        clearDraft();
         setResult(data);
         return;
       }
@@ -2218,6 +2274,7 @@ export default function QuizTakePage({ params }) {
       // results page unmounts this screen. We deliberately do NOT flip submitting
       // back to false here - that gap is what let kids re-click and double-submit.
       submittedRef.current = true;
+      clearDraft();
       if (data.id) router.replace(`/attempts/${data.id}`);
       else setResult(data);
     } catch (error) {
@@ -2241,10 +2298,6 @@ export default function QuizTakePage({ params }) {
       return next;
     });
   };
-
-  const handleTimerExpire = useCallback(() => {
-    if (!result) openSubmitModal();
-  }, [result, openSubmitModal]);
 
   if (loading) {
     return (
@@ -2285,6 +2338,18 @@ export default function QuizTakePage({ params }) {
   }
 
   if (result) return <ResultsScreen result={result} quiz={quiz} />;
+
+  if (resumeOffer)
+    return (
+      <div className={nunito.className} style={{ minHeight: "100vh", background: "var(--bg)" }}>
+        <ResumePrompt
+          draft={resumeOffer}
+          total={totalQ}
+          onContinue={continueDraft}
+          onRestart={startOver}
+        />
+      </div>
+    );
 
   if (!currentQ) {
     return (
@@ -2500,12 +2565,6 @@ export default function QuizTakePage({ params }) {
               />
             </div>
           </div>
-          {quiz?.duration_minutes && (
-            <TimerBadge
-              totalSeconds={quiz.duration_minutes * 60}
-              onExpire={handleTimerExpire}
-            />
-          )}
           <button
             onClick={() => setShowNav((p) => !p)}
             style={{
