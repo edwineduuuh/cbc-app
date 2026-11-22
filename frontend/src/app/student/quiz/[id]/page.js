@@ -22,6 +22,7 @@ import {
 import katex from "katex";
 import "katex/dist/katex.min.css";
 import { renderMathHtml } from "@/lib/math";
+import AnswerOption, { optionTex, correctLetterOf } from "@/components/quiz/AnswerOption";
 import SimpleMathInput from "@/components/SimpleMathInput";
 import ChemTextBar from "@/components/ChemTextBar";
 
@@ -85,90 +86,8 @@ function useTimer(totalSeconds, onExpire) {
 
 // ─── MCQ Option ───────────────────────────────────────────────────────────────
 function MCQOption({ letter, text, selected, onClick }) {
-  const colorMap = {
-    A: {
-      idle: "#e8f4ff",
-      idleBorder: "#bdd7f5",
-      idleText: "#1e6bb8",
-      activeBg: "#0E7490",
-      activeText: "#fff",
-    },
-    B: {
-      idle: "rgba(32,184,166,0.12)",
-      idleBorder: "#a8e6c4",
-      idleText: "#1a7a4a",
-      activeBg: "#1d8f57",
-      activeText: "#fff",
-    },
-    C: {
-      idle: "rgba(232,182,91,0.12)",
-      idleBorder: "#f0d690",
-      idleText: "#9a6c00",
-      activeBg: "#d4900a",
-      activeText: "#fff",
-    },
-    D: {
-      idle: "rgba(240,113,120,0.12)",
-      idleBorder: "#f5b8c0",
-      idleText: "#c0334a",
-      activeBg: "#c0334a",
-      activeText: "#fff",
-    },
-  };
-  const c = colorMap[letter];
-  const bg = selected ? c.activeBg : c.idle;
-  const border = selected ? c.activeBg : c.idleBorder;
-  const textColor = selected ? c.activeText : "#1a1a2e";
-
   return (
-    <button
-      onClick={onClick}
-      style={{
-        background: bg,
-        border: `2px solid ${border}`,
-        borderRadius: 16,
-        padding: "14px 18px",
-        display: "flex",
-        alignItems: "center",
-        gap: 14,
-        width: "100%",
-        cursor: "pointer",
-        transition: "all 0.15s ease",
-        boxShadow: selected
-          ? `0 4px 20px ${c.activeBg}44`
-          : "0 2px 8px rgba(0,0,0,0.04)",
-      }}
-    >
-      <div
-        style={{
-          width: 36,
-          height: 36,
-          borderRadius: 10,
-          background: selected ? "rgba(255,255,255,0.25)" : c.idleBorder,
-          color: selected ? c.activeText : c.idleText,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          fontWeight: 800,
-          fontSize: 14,
-          flexShrink: 0,
-        }}
-      >
-        {letter}
-      </div>
-      <span
-        style={{
-          fontSize: 15,
-          fontWeight: selected ? 600 : 500,
-          color: textColor,
-          lineHeight: 1.5,
-          textAlign: "left",
-          flex: 1,
-        }}
-        dangerouslySetInnerHTML={{ __html: renderMath(text) }}
-      />
-      {selected && <CheckCircle size={20} color={c.activeText} />}
-    </button>
+    <AnswerOption letter={letter} html={renderMath(optionTex(text))} selected={selected} onClick={onClick} />
   );
 }
 

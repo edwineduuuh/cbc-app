@@ -353,3 +353,8 @@ html.dark .border-red-200 { border-color: rgba(240,113,120,0.35) !important; }
   html.dark article { background: #fff !important; border: 0 !important; }
   html.dark article [class*="border"] { border-color: #9ca3af !important; }
 }
+
+/* Answer options: a faint lift on hover, only while still choosable and unselected. */
+.ss-answer-option[aria-pressed="false"]:not(:disabled):hover {
+  border-color: rgba(255, 255, 255, 0.24) !important;
+}
