@@ -1,5 +1,6 @@
 "use client";
 
+import PrintBranding from "./PrintBranding";
 import {
   CheckCircle,
   XCircle,
@@ -126,6 +127,7 @@ export default function ImprovedFeedbackDisplay({ attempt, quiz }) {
 
   return (
     <div className="max-w-5xl mx-auto space-y-6 p-6">
+      <PrintBranding />
       {/* Overall Score Card */}
       <div
         className={`rounded-2xl border-2 p-8 ${passed ? "border-green-500 bg-green-50" : "border-orange-500 bg-orange-50"}`}
@@ -501,7 +503,7 @@ export default function ImprovedFeedbackDisplay({ attempt, quiz }) {
       </div>
 
       {/* Action Buttons */}
-      <div className="flex gap-4 justify-center">
+      <div className="flex gap-4 justify-center print:hidden">
         <button
           onClick={() => window.print()}
           className="px-6 py-3 bg-gray-900 text-white rounded-lg font-semibold hover:bg-gray-800 transition-colors"

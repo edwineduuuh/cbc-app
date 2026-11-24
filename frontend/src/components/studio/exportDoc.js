@@ -5,6 +5,26 @@
  */
 export const FOOTER = "StadiSpace · stadispace.co.ke · 0704 699683 / 0717 946 924";
 
+// Absolute, so the logo and QR also load inside a downloaded Word file.
+const SITE = "https://stadispace.co.ke";
+const LOGO = `${SITE}/brand/symbol-512.png`;
+const QR = `${SITE}/brand/qr-stadispace.png`;
+const PRODUCTS = "For learners: CBE practice quizzes marked instantly · Interactive lessons · Trivia & flash cards · Books & videos · Grades 4 - 11";
+
+/** Branded footer: logo, domain + phones, learner products, QR. A table, so Word keeps the layout. */
+function brandFoot(extra = "") {
+  return `<table class="foot"><tr>
+    <td class="fl"><img src="${LOGO}" width="26" height="26" alt=""></td>
+    <td><b>StadiSpace · stadispace.co.ke</b> · 0704 699683 / 0717 946 924${extra ? ` · ${esc(extra)}` : ""}<br>${esc(PRODUCTS)}</td>
+    <td class="fq">Scan to practise <img src="${QR}" width="44" height="44" alt="QR code to stadispace.co.ke"></td>
+  </tr></table>`;
+}
+
+/** Faint slanted logo + name across every printed page (print view only). */
+const WATERMARK = `<div class="wm" aria-hidden="true"><div class="wm-grid">${
+  `<div class="wm-cell"><img src="${LOGO}" alt=""><span>StadiSpace</span></div>`.repeat(48)
+}</div></div>`;
+
 const esc = (s) =>
   String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 const list = (xs) => (xs || []).filter(Boolean).map((x) => `<div>• ${esc(x)}</div>`).join("");
@@ -30,7 +50,22 @@ const STYLE = `
   .box td { border: 1px solid #b9c3cc; font-size: 9pt; }
   .meta td { border: none; padding: 1pt 10pt 1pt 0; font-size: 9.5pt; }
   .muted { color: #666; }
-  .foot { margin-top: 10pt; font-size: 7.5pt; color: #888; text-align: center; }
+  table.foot { margin-top: 12pt; width: 100%; border-collapse: collapse; border-top: 1px solid #c9d1d9; }
+  table.foot td { border: none; padding: 5pt 4pt 0; font-size: 7.5pt; color: #555; vertical-align: middle; line-height: 1.4; }
+  table.foot td b { color: #14243a; }
+  table.foot td.fl { width: 30pt; }
+  table.foot td.fq { width: 110pt; text-align: right; font-weight: bold; color: #374151; white-space: nowrap; }
+  table.foot td.fq img { vertical-align: middle; margin-left: 4pt; }
+  .wm { display: none; }
+  @media screen, print {
+    .wm { display: block; position: fixed; inset: 0; overflow: hidden; pointer-events: none; z-index: 0; }
+    .wm-grid { position: absolute; inset: -40%; display: grid; grid-template-columns: repeat(4, 1fr); row-gap: 140px;
+               align-content: space-around; justify-items: center; transform: rotate(-30deg); }
+    .wm-cell { display: flex; align-items: center; gap: 10px; opacity: .06; }
+    .wm-cell img { width: 44px; height: 44px; }
+    .wm-cell span { font: 800 32px Arial, Helvetica, sans-serif; color: #111827; }
+    .sheet { position: relative; z-index: 1; }
+  }
   .pb { page-break-before: always; }
   @media screen {
     body { background: #dfe4e9; padding: 18px 0; }
@@ -88,7 +123,7 @@ export function schemeHtml(p) {
     return `<div class="sheet land${i ? " pb" : ""}">
       ${i === 0 ? `<h1>SCHEME OF WORK</h1><div class="line">${line}</div>` : ""}
       <table><thead>${SCHEME_HEAD}</thead><tbody>${body}</tbody></table>
-      <div class="foot">${esc(FOOTER)} · Page ${i + 1}</div></div>`;
+      ${brandFoot(`Page ${i + 1}`)}</div>`;
   }).join("");
   return `<div class="land">${pages}</div>`;
 }
@@ -131,7 +166,7 @@ export function planHtml(p) {
     ${qc}
     <h2>Reflection on the lesson</h2><div>${esc(pl.reflection || "")}</div>
     <div style="height:50pt;border-bottom:1px solid #aaa"></div>
-    <div class="foot">${esc(FOOTER)}</div></div></div>`;
+    ${brandFoot()}</div></div>`;
 }
 
 const STATUS = { taught: "Taught", partly: "Partly taught", not_taught: "Not taught" };
@@ -152,13 +187,13 @@ export function recordHtml(p) {
     <table><thead><tr><th>Week</th><th>Lesson</th><th>Date</th><th>Strand / sub-strand</th><th>Work covered</th>
     <th>Status</th><th>Reflection / remarks</th></tr></thead><tbody>${body}</tbody></table>
     <p style="margin-top:18pt">Head of department: ____________________ &nbsp; Sign: __________ &nbsp; Date: __________</p>
-    <div class="foot">${esc(FOOTER)}</div></div></div>`;
+    ${brandFoot()}</div></div>`;
 }
 
 const RENDER = { scheme_of_work: schemeHtml, lesson_plan: planHtml, record_of_work: recordHtml };
 
-export function documentHtml(tool, payload) {
-  const inner = (RENDER[tool] || (() => ""))(payload || {});
+export function documentHtml(tool, payload, { print = false } = {}) {
+  const inner = (print ? WATERMARK : "") + (RENDER[tool] || (() => ""))(payload || {});
   return `<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word">
     <head><meta charset="utf-8"><title>${esc(payload?.title || "StadiSpace")}</title><style>${STYLE}</style></head>
     <body>${inner}</body></html>`;
@@ -177,7 +212,7 @@ export function downloadWord(tool, payload) {
 export function printDoc(tool, payload) {
   const w = window.open("", "_blank");
   if (!w) return false;
-  w.document.write(documentHtml(tool, payload));
+  w.document.write(documentHtml(tool, payload, { print: true }));
   w.document.close();
   w.focus();
   setTimeout(() => w.print(), 300);
