@@ -1530,3 +1530,39 @@ class QuizDraft(models.Model):
 
     def __str__(self):
         return f"Draft {self.user_id} / quiz {self.quiz_id}"
+
+
+class BankQuestion(models.Model):
+    """One reviewed assessment question, stored exactly as it prints, filed
+    under its KICD sub-strand and reused by every later paper (questions/bank.py)."""
+    OK, FLAGGED, RETIRED = "ok", "flagged", "retired"
+    STATUS_CHOICES = [(OK, "OK"), (FLAGGED, "Flagged"), (RETIRED, "Retired")]
+
+    substrand = models.ForeignKey('Substrand', on_delete=models.CASCADE, related_name='bank_questions')
+    qtype = models.CharField(max_length=20, default='structured')
+    marks = models.PositiveSmallIntegerField(default=1)
+    has_figure = models.BooleanField(default=False)
+    data = models.JSONField(help_text="The question exactly as a paper prints it")
+    fingerprint = models.CharField(max_length=64, unique=True)
+    source = models.CharField(max_length=20, default='generated', help_text="generated | teacher")
+    status = models.CharField(max_length=12, choices=STATUS_CHOICES, default=OK, db_index=True)
+    times_used = models.PositiveIntegerField(default=0)
+    model_used = models.CharField(max_length=60, blank=True, default='')
+    created_by = models.ForeignKey(get_user_model(), on_delete=models.SET_NULL, null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        indexes = [models.Index(fields=['substrand', 'status', 'qtype'])]
+
+    def __str__(self):
+        return f"[{self.qtype}] {str(self.data.get('question_text', ''))[:60]}"
+
+
+class BankUse(models.Model):
+    """A teacher has had this bank question - they will not get it again."""
+    teacher = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name='bank_uses')
+    question = models.ForeignKey(BankQuestion, on_delete=models.CASCADE, related_name='uses')
+    used_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        constraints = [models.UniqueConstraint(fields=['teacher', 'question'], name='one_use_per_teacher_question')]

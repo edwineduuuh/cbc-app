@@ -616,9 +616,13 @@ def _teacher_block(description: str) -> str:
 def generate_assessment(substrands, *, count=10, description="",
                         mcq_ratio=None, user=None, diagrams=True,
                         verify=True, full_paper=False,
-                        defer_images=False) -> dict:
-    """Generate one assessment over one or more sub-strands."""
+                        defer_images=False, bank=True) -> dict:
+    """Generate one assessment over one or more sub-strands.
+
+    Bank first (questions/bank.py): reviewed questions already paid for fill
+    as much of the paper as they can, and only the shortfall is written."""
     subs = _as_list(substrands)
+    picked = []
     started = time.time()
     marks = [("start", 0.0)]
 
@@ -634,11 +638,32 @@ def generate_assessment(substrands, *, count=10, description="",
         # turn, which is what made a short paper take two minutes.
         n_mcq, n_struct = plan_mix(count, grade, description, mcq_ratio)
         quota = figure_quota(description, diagrams, count)
-        if count <= SINGLE_CALL_MAX:
+        gen_desc = description
+        if bank:
+            from questions import bank as qbank
+            if not qbank.wants_fresh(description):
+                try:
+                    picked = qbank.pick(subs, n_mcq=n_mcq, n_struct=n_struct,
+                                        figures=quota, teacher=user)
+                except Exception as e:          # the bank is a saving, never a blocker
+                    logger.warning("bank pick failed: %s", e)
+                    picked = []
+            p_mcq = sum(1 for q in picked if q.get("type") == "mcq")
+            n_mcq -= p_mcq
+            n_struct -= len(picked) - p_mcq
+            quota = max(0, quota - sum(1 for q in picked if qbank._has_figure(q)))
+            if picked:
+                gen_desc = (description.strip() + "\n\n" if description.strip() else "") + (
+                    "These questions are already on the paper - write DIFFERENT ones, "
+                    "on other outcomes and in other settings:\n"
+                    + "\n".join(f"- {str(q.get('question_text') or '')[:160]}" for q in picked))
+            mark(f"bank-{len(picked)}")
+        count_new = n_mcq + n_struct
+        if count_new <= SINGLE_CALL_MAX:
             # One writer for the whole paper. Parts written blind to each
             # other read as stitched together - the single biggest quality
             # gap against a paper a teacher wrote in one go.
-            jobs = [{"type": "mixed", "count": count, "part": 1, "parts": 1,
+            jobs = [{"type": "mixed", "count": count_new, "part": 1, "parts": 1,
                      "subs": subs, "n_mcq": n_mcq}]
         else:
             jobs = plan_jobs(n_mcq, n_struct, subs)
@@ -655,12 +680,12 @@ def generate_assessment(substrands, *, count=10, description="",
             try:
                 if job["type"] == "mixed":
                     prompt = build_prompt(
-                        subs, count=job["count"], description=description,
+                        subs, count=job["count"], description=gen_desc,
                         mcq_ratio=job["n_mcq"] / max(1, job["count"]),
                         want_diagram=job["figures"])
                 else:
                     prompt = build_prompt(
-                        subs, count=job["count"], description=description,
+                        subs, count=job["count"], description=gen_desc,
                         want_diagram=job["figures"],
                         section={"name": "", "type": job["type"],
                                  "marks": 5, "count": job["count"]},
@@ -675,7 +700,9 @@ def generate_assessment(substrands, *, count=10, description="",
             finally:
                 connection.close()
 
-        if len(jobs) == 1:
+        if count_new <= 0:
+            results = []                         # the bank filled the whole paper
+        elif len(jobs) == 1:
             results = [write(jobs[0])]
         else:
             with ThreadPoolExecutor(max_workers=len(jobs)) as pool:
@@ -685,7 +712,7 @@ def generate_assessment(substrands, *, count=10, description="",
             if not data and isinstance(part, dict):
                 data = {k: v for k, v in part.items() if k != "questions"}
             raw += got
-        if not raw:
+        if not raw and not picked:
             raise ValueError("Generator returned no questions")
         # Multiple-choice first, as every KNEC paper orders them.
         raw.sort(key=lambda q: 0 if (q.get("type") or "") == "mcq" else 1)
@@ -722,7 +749,7 @@ def generate_assessment(substrands, *, count=10, description="",
     data = _validate(data, subs)
     mark("written")
 
-    if verify:
+    if verify and data.get("questions"):
         # Before diagrams, so we never pay to draw a picture for a question
         # that is about to be thrown out.
         from questions.review import review_paper
@@ -750,7 +777,41 @@ def generate_assessment(substrands, *, count=10, description="",
     logger.info("assessment built in %.1fs: %s", marks[-1][1],
                 ", ".join(f"{n}@{t}s" for n, t in marks[1:]))
     data["seconds"] = marks[-1][1]
+    if bank and not sections:
+        data = _merge_bank(data, picked, subs, user)
     return tidy_paper(data)
+
+
+def _merge_bank(data, picked, subs, user):
+    """Bank the freshly written questions, then join the bank's questions in."""
+    from questions import ai_routing
+    from questions import bank as qbank
+
+    fresh = list(data.get("questions") or [])
+    route = ai_routing.route_for("assessment")
+    qbank.save_to_bank(fresh, user=user, model_used=getattr(route, "model", "") or "")
+    if not picked:
+        return data
+    merged = picked + fresh
+    merged.sort(key=lambda q: 0 if (q.get("type") or "") == "mcq" else 1)
+    for i, q in enumerate(merged, start=1):
+        q["number"] = i
+    data["questions"] = merged
+    data["total_marks"] = sum(int(q.get("marks") or 0) for q in merged)
+    if not data.get("title"):
+        data["title"] = f"Grade {subs[0].topic.grade} {subs[0].topic.subject.name} assessment"
+    data["covers"] = data.get("covers") or _covers(subs)
+    # Coverage is about the whole paper, not just the part that was written.
+    covered = {q.get("substrand_id") for q in merged}
+    missing = [_label(s) for s in subs if s.id not in covered]
+    warnings = [w for w in (data.get("warnings") or []) if not w.startswith("No question was set on")]
+    if missing:
+        warnings.append("No question was set on: " + "; ".join(missing)
+                        + ". Ask for more questions, or tick fewer sub-strands.")
+    data["warnings"] = warnings
+    data["from_bank"] = len(picked)
+    qbank.record_use(user, picked)
+    return data
 
 
 _NUM_WORDS = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine",
