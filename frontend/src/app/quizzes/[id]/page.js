@@ -6,7 +6,6 @@ import { useAuth } from "@/contexts/AuthContext";
 import { useRouter, useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
-import { Nunito } from "next/font/google";
 import {
   ArrowLeft,
   ArrowRight,
@@ -27,10 +26,6 @@ import { renderMathHtml, tidyFeedback, answerHtml } from "@/lib/math";
 import AnswerOption, { optionTex, correctLetterOf } from "@/components/quiz/AnswerOption";
 import { statusOf, partResultsOf, PartFeedbackDropdown } from "@/components/quiz/WorkedFeedback";
 
-const nunito = Nunito({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
-});
 
 /* Serve Cloudinary images straight from its CDN with auto format/quality and a
    width cap - far faster than proxying through the Next.js image optimizer. */
@@ -2410,7 +2405,7 @@ export default function QuizTakePage({ params }) {
 
   if (resumeOffer)
     return (
-      <div className={nunito.className} style={{ minHeight: "100vh", background: "var(--bg)" }}>
+      <div style={{ minHeight: "100vh", background: "var(--bg)" }}>
         <ResumePrompt
           draft={resumeOffer}
           total={totalQ}
@@ -2501,7 +2496,6 @@ export default function QuizTakePage({ params }) {
 
   return (
     <div
-      className={nunito.className}
       style={{
         minHeight: "100vh",
         background: "var(--bg)",
