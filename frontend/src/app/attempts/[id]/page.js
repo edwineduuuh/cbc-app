@@ -956,8 +956,11 @@ export default function AttemptResultsPage() {
         format: "a4",
         orientation: "portrait",
       });
-      const pageWidth = pdf.internal.pageSize.getWidth() - 20;
-      const pageHeight = pdf.internal.pageSize.getHeight() - 20;
+      const pdfWidth = pdf.internal.pageSize.getWidth();
+      const pdfHeight = pdf.internal.pageSize.getHeight();
+      const FOOT = 22;                                  // mm kept for the branded footer
+      const pageWidth = pdfWidth - 20;
+      const pageHeight = pdfHeight - 10 - FOOT;         // content shown per page
       const imgHeight = (canvas.height * pageWidth) / canvas.width;
       let position = 10;
       let remainingHeight = imgHeight;
@@ -972,16 +975,58 @@ export default function AttemptResultsPage() {
         remainingHeight -= pageHeight;
       }
 
+      // StadiSpace branding on every page: faint slanted watermark + footer.
+      const svgToPng = (src, px) => new Promise((resolve) => {
+        const img = new Image();
+        img.onload = () => {
+          const c = document.createElement("canvas");
+          c.width = px; c.height = px;
+          c.getContext("2d").drawImage(img, 0, 0, px, px);
+          resolve(c.toDataURL("image/png"));
+        };
+        img.onerror = () => resolve(null);
+        img.src = src;
+      });
+      const [logo, qr] = await Promise.all([
+        svgToPng("/brand/symbol.svg", 160),
+        svgToPng("/brand/qr-stadispace.svg", 320),
+      ]);
       const pageCount = pdf.getNumberOfPages();
-      const pdfWidth = pdf.internal.pageSize.getWidth();
-      const pdfHeight = pdf.internal.pageSize.getHeight();
-      pdf.setFontSize(10);
-      pdf.setTextColor("#64748b");
       for (let page = 1; page <= pageCount; page += 1) {
         pdf.setPage(page);
-        pdf.text(`Page ${page} of ${pageCount}`, pdfWidth / 2, pdfHeight - 10, {
-          align: "center",
-        });
+        pdf.saveGraphicsState();
+        pdf.setGState(new pdf.GState({ opacity: 0.06 }));
+        pdf.setFont("helvetica", "bold");
+        pdf.setFontSize(30);
+        pdf.setTextColor("#111827");
+        for (let row = 0; row < 9; row += 1) {
+          for (let col = 0; col < 3; col += 1) {
+            const x = -20 + col * 85 + (row % 2) * 40;
+            const y = 30 + row * 38;
+            if (logo) pdf.addImage(logo, "PNG", x, y - 9, 11, 11, undefined, "FAST", 30);
+            pdf.text("StadiSpace", x + 13, y, { angle: 30 });
+          }
+        }
+        pdf.restoreGraphicsState();
+
+        // Footer band
+        const top = pdfHeight - FOOT;
+        pdf.setFillColor("#ffffff");
+        pdf.rect(0, top, pdfWidth, FOOT, "F");
+        pdf.setDrawColor("#d1d5db");
+        pdf.setLineWidth(0.2);
+        pdf.line(10, top + 2, pdfWidth - 10, top + 2);
+        if (logo) pdf.addImage(logo, "PNG", 10, top + 5, 9, 9);
+        if (qr) pdf.addImage(qr, "PNG", pdfWidth - 26, top + 3.5, 16, 16);
+        pdf.setFont("helvetica", "bold");
+        pdf.setFontSize(9);
+        pdf.setTextColor("#111827");
+        pdf.text("StadiSpace · stadispace.co.ke", 22, top + 8.5);
+        pdf.setFont("helvetica", "normal");
+        pdf.setFontSize(7);
+        pdf.setTextColor("#4b5563");
+        pdf.text("CBE practice quizzes marked instantly · Interactive lessons · Trivia & flash cards · Books & videos", 22, top + 12.5);
+        pdf.text(`Grades 4 - 11 · Call or WhatsApp 0704 699683 / 0717 946 924 · Page ${page} of ${pageCount}`, 22, top + 16.5);
       }
 
       pdf.save(`stadispace-result-${Math.round(results?.score ?? 0)}pct.pdf`);

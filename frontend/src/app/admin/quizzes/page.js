@@ -162,7 +162,38 @@ function _questionBlockHtml(q, n) {
   </section>`;
 }
 
-function buildQuizExportHtml(data) {
+// Brand images embedded in the file, so the export is branded even offline.
+async function _brandImages() {
+  const toData = async (path) => {
+    try {
+      const r = await fetch(path);
+      if (!r.ok) return "";
+      const svg = await r.text();
+      return "data:image/svg+xml;base64," + btoa(unescape(encodeURIComponent(svg)));
+    } catch { return ""; }
+  };
+  const [logo, qr] = await Promise.all([toData("/brand/symbol.svg"), toData("/brand/qr-stadispace.svg")]);
+  return { logo, qr };
+}
+
+function _brandHtml(brand) {
+  const tile = `<div class="wm-cell">${brand.logo ? `<img src="${brand.logo}" alt=""/>` : ""}<span>StadiSpace</span></div>`;
+  return {
+    watermark: `<div class="wm" aria-hidden="true"><div class="wm-grid">${tile.repeat(40)}</div></div>`,
+    footer: `<footer class="ss-foot">
+    ${brand.logo ? `<img class="ss-logo" src="${brand.logo}" alt=""/>` : ""}
+    <div class="ss-text">
+      <b>StadiSpace · <span class="ss-dom">stadispace.co.ke</span></b><br/>
+      For learners: CBE practice quizzes marked instantly · Interactive lessons · Trivia &amp; flash cards · Books &amp; videos<br/>
+      Grades 4 - 11 · Call or WhatsApp 0704 699683 / 0717 946 924
+    </div>
+    ${brand.qr ? `<div class="ss-qr"><span>Scan to<br/>practise</span><img src="${brand.qr}" alt="QR code to stadispace.co.ke"/></div>` : ""}
+  </footer>`,
+  };
+}
+
+function buildQuizExportHtml(data, brand = {}) {
+  const b = _brandHtml(brand);
   const questions = (data.questions || [])
     .map((q, i) => _questionBlockHtml(q, i + 1))
     .join("\n");
@@ -199,13 +230,32 @@ function buildQuizExportHtml(data) {
   .parts { margin-top: 10px; border-left: 3px solid #eef2ff; padding-left: 14px; }
   .part { margin-bottom: 12px; }
   .ptext { font-size: 14px; }
-  @media print { .toolbar { display: none; } .q { break-inside: avoid; } body { padding-top: 0; } }
+  .wm { position: fixed; inset: 0; overflow: hidden; pointer-events: none; z-index: 0; }
+  .wm-grid { position: absolute; inset: -40%; display: grid; grid-template-columns: repeat(4, 1fr); row-gap: 150px; align-content: space-around; justify-items: center; transform: rotate(-30deg); }
+  .wm-cell { display: flex; align-items: center; gap: 10px; opacity: .06; }
+  .wm-cell img { width: 48px; height: 48px; }
+  .wm-cell span { font-size: 34px; font-weight: 800; color: #111827; letter-spacing: -.02em; }
+  .page { position: relative; z-index: 1; }
+  .ss-foot { position: relative; z-index: 1; display: flex; align-items: center; gap: 14px; margin-top: 36px; padding-top: 10px; border-top: 1px solid #d1d5db; font-size: 10.5px; line-height: 1.5; color: #4b5563; background: #fff; }
+  .ss-foot b { color: #111827; } .ss-dom { color: #047857; }
+  .ss-logo { width: 32px; height: 32px; flex-shrink: 0; }
+  .ss-text { flex: 1; min-width: 0; }
+  .ss-qr { display: flex; align-items: center; gap: 8px; font-size: 10px; font-weight: 600; text-align: right; color: #374151; }
+  .ss-qr img { width: 56px; height: 56px; }
+  @media print {
+    .toolbar { display: none; } .q { break-inside: avoid; } body { padding-top: 0; padding-bottom: 30mm; }
+    .ss-foot { position: fixed; left: 0; right: 0; bottom: 0; margin: 0; padding: 6px 12mm 6mm; }
+  }
 </style>
 </head><body>
+  ${b.watermark}
+  <div class="page">
   <div class="toolbar"><button onclick="window.print()">Print / Save as PDF</button><span class="sub" style="margin:0">Pre-publish review copy</span></div>
   <h1>${_esc(data.title)}</h1>
   <div class="sub">Grade ${_esc(data.grade)} · ${_esc(data.subject_name)} · ${_esc((data.quiz_type || "").toString())} · ${data.question_count} questions · ${data.passing_score}% pass<br/>Exported ${_esc(now)}</div>
   ${questions}
+  </div>
+  ${b.footer}
 <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
 <script>
@@ -820,7 +870,7 @@ function QuizCard({ quiz, onDelete, onTogglePublish }) {
       const res = await fetchWithAuth(`${API}/admin/quizzes/${quiz.id}/export/`);
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const data = await res.json();
-      const html = buildQuizExportHtml(data);
+      const html = buildQuizExportHtml(data, await _brandImages());
       const blob = new Blob([html], { type: "text/html;charset=utf-8" });
       const url = URL.createObjectURL(blob);
       const safe =

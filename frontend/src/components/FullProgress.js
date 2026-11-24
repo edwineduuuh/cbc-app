@@ -727,7 +727,7 @@ export default function FullProgress() {
     .map((s) => ({ label: s.name, value: Math.round(s.avg) }));
 
   const handleShare = async () => {
-    const text = `📊 ${studentName}'s StadiSpace Progress Report\n${gradeLabel ? gradeLabel + " • " : ""}${cbeGrade.grade} - ${cbeGrade.label}\n${subjects.length} learning areas • ${completed.length} quizzes\nOverall Average: ${Math.round(avgScore)}%\n\nTrack CBE progress at stadispace.com`;
+    const text = `📊 ${studentName}'s StadiSpace Progress Report\n${gradeLabel ? gradeLabel + " • " : ""}${cbeGrade.grade} - ${cbeGrade.label}\n${subjects.length} learning areas • ${completed.length} quizzes\nOverall Average: ${Math.round(avgScore)}%\n\nTrack CBE progress at stadispace.co.ke`;
     if (navigator.share) {
       try {
         await navigator.share({
@@ -780,11 +780,26 @@ export default function FullProgress() {
           .print-only { display: block !important; }
           * { box-shadow: none !important; }
           .print-page { padding: 0 !important; }
+          .ss-wm { position: fixed !important; inset: 0; overflow: hidden; pointer-events: none; z-index: 0; }
+          .print-page > * { position: relative; z-index: 1; }
         }
         @media screen { .print-only { display: none !important; } }
       `}</style>
 
       <div ref={printRef} className="min-h-screen bg-gray-50">
+        {/* StadiSpace watermark on every printed page */}
+        <div className="print-only ss-wm" aria-hidden="true">
+          <div style={{ position: "absolute", inset: "-40%", display: "grid", gridTemplateColumns: "repeat(4, 1fr)",
+                        rowGap: 150, alignContent: "space-around", justifyItems: "center", transform: "rotate(-30deg)" }}>
+            {Array.from({ length: 40 }).map((_, i) => (
+              <div key={i} style={{ display: "flex", alignItems: "center", gap: 10, opacity: 0.06 }}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="/brand/symbol.svg" alt="" style={{ width: 44, height: 44 }} />
+                <span style={{ fontSize: 32, fontWeight: 800, color: "#111827" }}>StadiSpace</span>
+              </div>
+            ))}
+          </div>
+        </div>
         <div className="max-w-4xl mx-auto px-4 sm:px-6 py-6 pb-20 space-y-6 print-page">
           {/* ══════ PRINT HEADER (only visible when printing) ══════ */}
           <div className="print-only print-break">
@@ -840,7 +855,7 @@ export default function FullProgress() {
                       margin: "2px 0 0 0",
                     }}
                   >
-                    stadispace.com
+                    stadispace.co.ke
                   </p>
                 </div>
               </div>
@@ -1619,7 +1634,7 @@ export default function FullProgress() {
                 <p
                   style={{ fontSize: 9, color: "#9ca3af", margin: "2px 0 0 0" }}
                 >
-                  Competency-Based Education Progress Platform • stadispace.com
+                  Competency-Based Education Progress Platform • stadispace.co.ke
                 </p>
               </div>
               <div style={{ textAlign: "right" }}>
