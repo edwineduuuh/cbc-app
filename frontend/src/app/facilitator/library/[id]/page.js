@@ -135,7 +135,7 @@ function PaperFooter() {
         <p>
           For learners: CBE practice quizzes marked instantly · Interactive lessons · Trivia &amp; flash cards · Books &amp; videos
         </p>
-        <p>Grades 4 - 10 · Call or WhatsApp 0704 699683 / 0717 946 924</p>
+        <p>Grades 4 - 11 · Call or WhatsApp 0704 699683 / 0717 946 924</p>
       </div>
       <div className="flex shrink-0 items-center gap-2">
         <span className="text-right text-[10px] font-semibold text-gray-700">Scan to<br />practise</span>
