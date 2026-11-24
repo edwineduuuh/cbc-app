@@ -138,3 +138,66 @@ class HandWritten(TestCase):
     def test_a_question_without_a_substrand_is_not_used(self):
         bank.sync_handwritten([self.sub])
         self.assertFalse(BankQuestion.objects.filter(data__question_text="unfiled").exists())
+
+
+class FromLibraryPDFs(TestCase):
+    """Questions approved in the admin Library review go onto teachers' papers."""
+
+    @classmethod
+    def setUpTestData(cls):
+        from library.models import ExtractedQuestion, ExtractionRun, Resource
+        cls.teacher = User.objects.create_user("lib1", "lib1@example.invalid", "pw-12345!", role="teacher")
+        subj = Subject.objects.create(name="Mathematics", slug="maths")
+        topic = Topic.objects.create(subject=subj, grade=7, name="Numbers", slug="numbers")
+        cls.sub = Substrand.objects.create(topic=topic, name="Fractions", learning_outcomes=["add fractions"])
+        cls.res = Resource.objects.create(kind="pdf", category="worksheets", title="Fractions test",
+                                          extraction_eligible=True)
+        run = ExtractionRun.objects.create(resource=cls.res)
+
+        def eq(label, text, answer="", options=(), status="approved", **kw):
+            return ExtractedQuestion.objects.create(
+                run=run, resource=cls.res, page=1, label=label, original_text=text,
+                original_answer=answer, options=list(options), review_status=status,
+                substrand=cls.sub if status == "approved" else None, **kw)
+        cls.q_mcq = eq("1", "What is 1/2 + 1/4?", "B", ["A. 2/6", "B. 3/4", "C. 1/8", "D. 2/4"])
+        cls.q_a = eq("2(a)", "Simplify 6/8.", "3/4", marks=1)
+        cls.q_b = eq("2(b)", "Write 3/4 as a percentage.", "75%", marks=2)
+        cls.q_noans = eq("3", "Explain why 2/4 = 1/2.")
+        cls.q_fig = eq("4", "Shade 3/8 of the figure.", "3 parts shaded", refers_to_figure=True)
+        cls.q_pending = eq("5", "What is 1/3 of 9?", "3", status="proposed")
+
+    def test_approved_questions_fill_the_paper_for_free(self):
+        no_ai = mock.patch.object(assessments, "generate_json", side_effect=AssertionError("AI called"))
+        with no_ai:
+            p = assessments.generate_assessment([self.sub], count=2, description="", mcq_ratio=0.5,
+                                                user=self.teacher, verify=False, diagrams=False)
+        mcq_q = next(q for q in p["questions"] if q["type"] == "mcq")
+        self.assertEqual(mcq_q["correct_answer"], "B")
+        self.assertEqual(mcq_q["options"]["B"], "3/4")
+        two = next(q for q in p["questions"] if q["type"] == "structured")
+        self.assertEqual([x["label"] for x in two["parts"]], ["(a)", "(b)"])     # 2(a) + 2(b) kept together
+        self.assertEqual(two["marks"], 3)
+
+    def test_only_usable_approved_questions_are_banked(self):
+        bank.sync_library([self.sub])
+        texts = str(list(BankQuestion.objects.filter(source="library", status="ok").values_list("data", flat=True)))
+        self.assertIn("1/2 + 1/4", texts)
+        for left_out in ("Explain why", "Shade 3/8", "1/3 of 9"):   # no answer, missing figure, not approved
+            self.assertNotIn(left_out, texts)
+
+    def test_unapproving_or_editing_follows_the_review(self):
+        bank.sync_library([self.sub])
+        self.q_mcq.edited_text = "Work out 1/2 + 1/4."
+        self.q_mcq.save()
+        self.q_b.review_status = "rejected"
+        self.q_b.save()
+        bank.sync_library([self.sub])
+        live = BankQuestion.objects.filter(source="library", status="ok")
+        self.assertIn("Work out 1/2 + 1/4.", str(list(live.values_list("data", flat=True))))
+        self.assertFalse(any("parts" in b.data for b in live))      # 2(a) now stands alone
+
+    def test_resource_not_marked_as_a_source_is_not_used(self):
+        self.res.extraction_eligible = False
+        self.res.save()
+        bank.sync_library([self.sub])
+        self.assertFalse(BankQuestion.objects.filter(source="library", status="ok").exists())

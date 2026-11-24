@@ -109,14 +109,18 @@ def pick(subs, *, n_mcq: int, n_struct: int, figures: int, teacher=None) -> list
         sync_handwritten(subs)        # your own questions come in first
     except Exception as e:
         logger.warning("could not sync hand-written questions: %s", e)
+    try:
+        sync_library(subs)            # approved questions from uploaded PDFs
+    except Exception as e:
+        logger.warning("could not sync library questions: %s", e)
     qs = BankQuestion.objects.filter(substrand__in=subs, status=BankQuestion.OK)
     if teacher is not None and getattr(teacher, "pk", None):
         used = BankUse.objects.filter(teacher=teacher).values("question_id")
         qs = qs.exclude(pk__in=used)
     pool = list(qs.only("id", "substrand_id", "qtype", "has_figure", "times_used", "data", "source"))
     random.shuffle(pool)
-    # Hand-written questions first, then the least used.
-    pool.sort(key=lambda b: (b.source != "teacher", b.times_used))
+    # Questions you wrote or approved first, then the least used.
+    pool.sort(key=lambda b: (b.source not in ("teacher", "library"), b.times_used))
 
     chosen, per_sub = [], {}
     want = {"mcq": n_mcq, "structured": n_struct}
@@ -285,3 +289,123 @@ def sync_handwritten(subs) -> None:
     # A question deleted from the editor leaves its mirror behind: retire it.
     BankQuestion.objects.filter(substrand__in=subs, source="teacher",
                                 source_question=None).update(status=BankQuestion.RETIRED)
+
+
+# ─────────────────────────────────────────────────────────────
+#  Approved questions from uploaded PDFs (admin Library review)
+# ─────────────────────────────────────────────────────────────
+_SUBPART = re.compile(r"^\s*(\d+)\s*\(?\s*([a-z]|i{1,3}|iv|v)\s*\)?\s*$", re.I)
+_OPT = re.compile(r"^\s*\(?([A-Ha-h])[\).:\-]\s*(.*)$", re.S)
+
+
+def _options(raw) -> dict:
+    """['A. 12', 'B) 14', ...] -> {'A': '12', 'B': '14'}"""
+    out = {}
+    for i, o in enumerate(raw or []):
+        m = _OPT.match(str(o))
+        k, v = (m.group(1).upper(), m.group(2).strip()) if m else ("ABCDEFGH"[i], str(o).strip())
+        if v:
+            out[k] = v
+    return out
+
+
+def _mcq_key(answer: str, opts: dict):
+    a = (answer or "").strip()
+    m = re.match(r"^\(?([A-Ha-h])\b[\).:]?", a)
+    if m and m.group(1).upper() in opts:
+        return m.group(1).upper()
+    for k, v in opts.items():                       # the answer written out in full
+        if a and a.rstrip(".").lower() == v.rstrip(".").lower():
+            return k
+    return None
+
+
+def from_extracted(q):
+    """One approved PDF question as a paper question, or None if it cannot print
+    on its own (no answer, a figure we don't have, an MCQ with no clear key)."""
+    text = (q.edited_text or q.original_text or "").strip()
+    answer = (q.edited_answer or q.original_answer or "").strip()
+    if not text or not q.substrand_id:
+        return None
+    data = {"substrand_id": q.substrand_id, "question_text": text}
+    try:
+        if q.figure:
+            data["diagram"] = {"url": q.figure.url, "alt": "Figure for this question"}
+    except Exception:
+        pass
+    if q.refers_to_figure and "diagram" not in data:
+        return None
+    opts = _options(q.options)
+    if len(opts) >= 2:
+        key = _mcq_key(answer, opts)
+        if not key:
+            return None
+        data.update(type="mcq", marks=1, options=opts, correct_answer=key)
+        return data
+    if not answer:
+        return None
+    marks = max(1, int(q.marks or 1))
+    data.update(type="structured", marks=marks, marking_scheme=_scheme(None, marks, answer))
+    return data
+
+
+def _group_subparts(items):
+    """'3(a)', '3(b)' from the same PDF become one question with parts."""
+    groups, out = {}, []
+    for q, d in items:
+        m = _SUBPART.match(q.label or "")
+        if m and d.get("type") == "structured" and "diagram" not in d:
+            groups.setdefault((q.resource_id, m.group(1), q.substrand_id), []).append((q, d, m.group(2)))
+        else:
+            out.append((f"extracted:{q.id}", d))
+    for (_res, num, sub), parts in groups.items():
+        if len(parts) == 1:
+            q, d, _ = parts[0]
+            out.append((f"extracted:{q.id}", d))
+            continue
+        scheme = []
+        for _q, d, lab in parts:
+            scheme += [{**g, "part": f"({lab})"} for g in d["marking_scheme"]]
+        out.append((
+            "extracted:" + "+".join(str(q.id) for q, _, _ in parts),
+            {"substrand_id": sub, "type": "structured", "question_text": "",
+             "parts": [{"label": f"({lab})", "question_text": d["question_text"], "marks": d["marks"]}
+                       for _q, d, lab in parts],
+             "marking_scheme": scheme, "marks": sum(d["marks"] for _q, d, _ in parts)}))
+    return out
+
+
+def sync_library(subs) -> None:
+    """Mirror approved PDF questions for these sub-strands into the bank, and
+    retire mirrors whose question was un-approved, re-mapped or edited away."""
+    from library.models import approved_question_pool
+    from questions.models import BankQuestion
+
+    # Approved, from a resource marked as a generator source, not archived.
+    approved = (approved_question_pool().filter(substrand__in=subs)
+                .order_by("resource_id", "page", "order"))
+    items = []
+    for q in approved:
+        try:
+            d = from_extracted(q)
+        except Exception as e:
+            logger.warning("extracted question %s could not be banked: %s", q.id, e)
+            d = None
+        if d:
+            items.append((q, d))
+    live = set()
+    have = {b.fingerprint: b for b in BankQuestion.objects.filter(substrand__in=subs, source="library")}
+    for fp, data in _group_subparts(items):
+        live.add(fp)
+        fields = dict(substrand_id=data["substrand_id"], qtype=data["type"], marks=data["marks"],
+                      has_figure=_has_figure(data), data=data, status=BankQuestion.OK)
+        b = have.get(fp)
+        if b is None:
+            BankQuestion.objects.update_or_create(fingerprint=fp, defaults={**fields, "source": "library"})
+        elif b.data != data or b.status != BankQuestion.OK:
+            for k, v in fields.items():
+                setattr(b, k, v)
+            b.save()
+    stale = [b.pk for fp, b in have.items() if fp not in live and b.status == BankQuestion.OK]
+    if stale:
+        BankQuestion.objects.filter(pk__in=stale).update(status=BankQuestion.RETIRED)
