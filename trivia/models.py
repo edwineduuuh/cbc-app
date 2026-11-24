@@ -135,6 +135,8 @@ class TriviaGame(models.Model):
     streak = models.PositiveIntegerField(default=0)
     best_streak = models.PositiveIntegerField(default=0)
     xp_earned = models.PositiveIntegerField(default=0)
+    # Power-ups: {"used": [{"type", "position"}], "q": {state for the question on screen}}
+    power_state = models.JSONField(default=dict, blank=True)
     started_at = models.DateTimeField(auto_now_add=True, db_index=True)
     finished_at = models.DateTimeField(null=True, blank=True)
 
@@ -181,6 +183,9 @@ class TriviaProfile(models.Model):
     best_survival = models.PositiveIntegerField(default=0)
     daily_done = models.PositiveIntegerField(default=0)
     show_on_leaderboard = models.BooleanField(default=True)
+    # Power-ups held, e.g. {"fifty": 2, "time": 1}. Null until first used, then
+    # filled with the starting allowance from the settings.
+    powerups = models.JSONField(null=True, blank=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:

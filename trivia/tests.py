@@ -367,3 +367,114 @@ class AdminContent(Base):
 
     def test_category_with_questions_cannot_be_deleted(self):
         self.assertEqual(self.a.delete(f"/api/admin/trivia/categories/{self.sci.pk}/").status_code, 409)
+
+
+class PowerUps(Base):
+    def start(self, mode="quick"):
+        g = engine.start_game(self.student, mode)
+        engine.serve(g)
+        g.refresh_from_db()
+        return g
+
+    def use(self, g, kind):
+        return self.c.post(f"/api/trivia/games/{g.pk}/powerup/", {"type": kind, "position": g.current},
+                           format="json")
+
+    def test_new_players_start_with_one_of_each(self):
+        h = self.c.get("/api/trivia/home/").json()
+        self.assertEqual({i["key"]: i["have"] for i in h["powerups"]["items"]},
+                         {"fifty": 1, "time": 1, "second": 1, "double": 1})
+
+    def test_fifty_fifty_hides_two_wrong_answers_never_the_right_one(self):
+        g = self.start()
+        r = self.use(g, "fifty").json()
+        self.assertEqual(len(r["hidden"]), 2)
+        self.assertNotIn(g.shown_order.index(0), r["hidden"])
+        self.assertEqual(r["power"]["inventory"]["fifty"], 0)
+        self.assertEqual(self.use(g, "fifty").status_code, 400)          # none left / already used
+
+    def test_extra_time_moves_the_server_deadline(self):
+        g = self.start()
+        self.use(g, "time")
+        g.refresh_from_db()
+        g.served_at = timezone.now() - datetime.timedelta(seconds=24)     # past 20s, inside 20+10
+        g.save()
+        out = engine.submit(g, 0, g.shown_order.index(0))
+        self.assertTrue(out["correct"])
+        self.assertFalse(out["timed_out"])
+
+    def test_second_chance_forgives_one_wrong_answer(self):
+        g = self.start()
+        self.use(g, "second")
+        g.refresh_from_db()
+        wrong = (g.shown_order.index(0) + 1) % 4
+        r = engine.submit(g, 0, wrong)
+        self.assertTrue(r["retry"])
+        self.assertEqual(r["wrong_index"], wrong)
+        self.assertFalse(TriviaAnswer.objects.filter(game=g).exists())    # nothing recorded yet
+        g.refresh_from_db()
+        out = engine.submit(g, 0, g.shown_order.index(0))
+        self.assertTrue(out["correct"])
+
+    def test_second_chance_saves_a_survival_run(self):
+        g = self.start("survival")
+        self.use(g, "second")
+        g.refresh_from_db()
+        self.assertTrue(engine.submit(g, 0, (g.shown_order.index(0) + 1) % 4)["retry"])
+        g.refresh_from_db()
+        self.assertEqual(g.status, "active")
+
+    def test_double_points(self):
+        g = self.start()
+        self.use(g, "double")
+        g.refresh_from_db()
+        out = engine.submit(g, 0, g.shown_order.index(0))
+        self.assertTrue(out["double"])
+        self.assertGreaterEqual(out["points"], 280)                       # (100 + bonus) x 2
+
+    def test_cannot_use_what_you_dont_have_or_in_the_daily(self):
+        prof = engine.profile_for(self.student)
+        prof.powerups = {"fifty": 0, "time": 0, "second": 0, "double": 0}
+        prof.save()
+        self.assertEqual(self.use(self.start(), "time").status_code, 400)
+        prof.powerups = {"fifty": 1, "time": 1, "second": 1, "double": 1}
+        prof.save()
+        r = self.use(self.start("daily"), "time")
+        self.assertEqual(r.status_code, 400)
+        self.assertIn("Daily", r.json()["error"])
+
+    def test_per_game_limit(self):
+        save_config({"powerups": {"per_game": 1}})
+        g = self.start()
+        self.assertEqual(self.use(g, "time").status_code, 200)
+        self.assertEqual(self.use(g, "double").status_code, 400)
+
+    def test_streaks_earn_power_ups_up_to_the_cap(self):
+        prof = engine.profile_for(self.student)
+        prof.powerups = {"fifty": 0, "time": 2, "second": 0, "double": 0}
+        prof.save()
+        g = self.start()
+        earned = []
+        for pos in range(5):
+            out = engine.submit(g, pos, g.shown_order.index(0))
+            earned += [e["key"] for e in out["earned_powerups"]]
+            if not out["game_over"]:
+                engine.serve(g)
+                g.refresh_from_db()
+        self.assertIn("time", earned)        # 3 in a row
+        self.assertIn("fifty", earned)       # 5 in a row
+        inv = TriviaProfile.objects.get(user=self.student).powerups
+        self.assertEqual(inv["time"], 3)     # capped at max 3
+        self.assertEqual(inv["fifty"], 1)
+
+    def test_daily_challenge_awards_second_chance(self):
+        prof = engine.profile_for(self.student)
+        prof.powerups = {"fifty": 0, "time": 0, "second": 0, "double": 0}
+        prof.save()
+        _, last = self.play(mode="daily", right=False)
+        self.assertIn("second", [e["key"] for e in last["results"]["earned_powerups"]])
+
+    def test_admin_can_switch_power_ups_off(self):
+        save_config({"powerups": {"enabled": False}})
+        self.assertIsNone(self.c.get("/api/trivia/home/").json()["powerups"])
+        self.assertEqual(self.use(self.start(), "time").status_code, 400)

@@ -122,6 +122,11 @@ export default function Results({ res, onPlayAgain }) {
             ))}
           </ul>
         )}
+        {(res.earned_powerups || []).length > 0 && (
+          <p className="mt-3 text-sm font-semibold" style={{ color: "#E8B65B" }}>
+            Power-ups earned: {res.earned_powerups.map((e) => `${e.icon} ${e.name}`).join(", ")}
+          </p>
+        )}
         {(res.new_badges || []).length > 0 && (
           <div className="flex flex-wrap justify-center gap-2 mt-4">
             {res.new_badges.map((b) => (

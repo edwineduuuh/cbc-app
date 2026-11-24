@@ -74,6 +74,15 @@ function Game() {
   const sending = useRef(false);
   const advanceTimer = useRef(null);
   const resumed = useRef(!!resumeId);          // opened on an existing game (no "play again")
+  const [power, setPower] = useState(null);     // server's power-up state for this question
+  const [powerBusy, setPowerBusy] = useState(false);
+  const [toast, setToast] = useState(null);
+  const toastTimer = useRef(null);
+  const flash = useCallback((text) => {
+    clearTimeout(toastTimer.current);
+    setToast({ text, id: Date.now() });
+    toastTimer.current = setTimeout(() => setToast(null), 2200);
+  }, []);
   const starting = useRef(false);
 
 
@@ -85,6 +94,7 @@ function Game() {
     setFb(null);
     setScore(question.score ?? 0);
     setStreak(question.streak ?? 0);
+    setPower(question.power || null);
     deadline.current = Date.now() + question.seconds_left * 1000;
     lastTick.current = 99;
     setLeft(question.seconds_left);
@@ -156,7 +166,22 @@ function Game() {
     setPhase("sending");
     try {
       const r = await triviaApi(`games/${game.id}/answer/`, { method: "POST", body: { position: q.position, answer } });
+      if (r.retry) {
+        // Second chance: cross out the wrong pick, keep the clock running.
+        play("wrong");
+        setPower((pw) => pw && { ...pw, q: { ...pw.q, second: false,
+          wrong: r.wrong_index != null ? [...pw.q.wrong, r.wrong_index] : pw.q.wrong } });
+        setChosen(null);
+        setTyped("");
+        deadline.current = Date.now() + r.seconds_left * 1000;
+        flash("🛡️ Second chance! Try again");
+        setPhase("question");
+        return;
+      }
       setFb(r);
+      if (r.earned_powerups?.length) {
+        setTimeout(() => { play("badge"); flash(`You earned ${r.earned_powerups.map((e) => `${e.icon} ${e.name}`).join(" + ")}!`); }, 500);
+      }
       setScore(r.score);
       setStreak(r.streak);
       play(r.correct ? "correct" : "wrong");
@@ -173,7 +198,7 @@ function Game() {
     } finally {
       sending.current = false;
     }
-  }, [q, game, loadNext]);
+  }, [q, game, loadNext, flash]);
 
   // The clock. The server decides what counts as late; this just shows it.
   useEffect(() => {
@@ -194,6 +219,25 @@ function Game() {
     clearTimeout(advanceTimer.current);
     if (fb?.game_over) { setResults(fb.results); setPhase("results"); }
     else loadNext(game.id);
+  };
+
+  const activatePower = async (kind) => {
+    if (phase !== "question" || powerBusy || !game || !q) return;
+    setPowerBusy(true);
+    try {
+      const r = await triviaApi(`games/${game.id}/powerup/`, { method: "POST", body: { type: kind, position: q.position } });
+      setPower(r.power);
+      deadline.current = Date.now() + r.seconds_left * 1000;
+      play("xp");
+      if (kind === "time") flash(`⏳ +${r.added_seconds} seconds`);
+      if (kind === "fifty") flash("✂️ Two wrong answers gone");
+      if (kind === "second") flash("🛡️ Second chance ready");
+      if (kind === "double") flash("💎 Double points on this one");
+    } catch (e) {
+      flash(e.message);
+    } finally {
+      setPowerBusy(false);
+    }
   };
 
   const choose = (i) => {
@@ -232,6 +276,7 @@ function Game() {
 
   const options = q?.options || [];
   const isTF = q?.type === "true_false";
+  const pq = power?.q || { hidden: [], wrong: [], used: [], extra: 0 };
   const answered = phase === "feedback" || phase === "sending";
   const total = q?.total ?? game?.total;
 
@@ -277,7 +322,7 @@ function Game() {
                     <Flame className="w-4 h-4" fill="currentColor" />{streak}
                   </motion.span>
                 )}
-                <TimerRing left={answered ? (fb?.timed_out ? 0 : left) : left} limit={q.time_limit} />
+                <TimerRing left={answered ? (fb?.timed_out ? 0 : left) : left} limit={q.time_limit + (pq.extra || 0)} />
               </div>
             </div>
 
@@ -300,11 +345,13 @@ function Game() {
               <div className={`grid gap-3 ${isTF ? "grid-cols-2" : "grid-cols-1 sm:grid-cols-2"}`}>
                 {options.map((opt, i) => {
                   const isRight = fb && fb.correct_index === i;
-                  const isWrongPick = fb && chosen === i && !fb.correct;
-                  const dim = fb && !isRight && !isWrongPick;
+                  const isWrongPick = (fb && chosen === i && !fb.correct) || (!fb && pq.wrong.includes(i));
+                  const gone = !fb && pq.hidden.includes(i);
+                  const dim = (fb && !isRight && !isWrongPick) || gone;
                   const base = isTF ? (i === 0 ? "#3CCB8B" : "#F07178") : OPTION_COLORS[i % OPTION_COLORS.length];
                   return (
-                    <motion.button key={i} disabled={answered} onClick={() => choose(i)}
+                    <motion.button key={i} disabled={answered || gone || pq.wrong.includes(i)} onClick={() => choose(i)}
+                      aria-hidden={gone || undefined}
                       whileTap={!answered ? { scale: 0.97 } : {}} whileHover={!answered ? { y: -2 } : {}}
                       animate={isWrongPick ? { x: [0, -10, 10, -6, 6, 0] } : isRight ? { scale: [1, 1.04, 1] } : {}}
                       transition={{ duration: 0.4 }}
@@ -312,7 +359,8 @@ function Game() {
                       style={{
                         background: isRight ? "rgba(60,203,139,0.22)" : isWrongPick ? "rgba(240,113,120,0.22)" : chosen === i ? `${base}33` : "#14243A",
                         border: `2px solid ${isRight ? "#3CCB8B" : isWrongPick ? "#F07178" : chosen === i ? base : "#26384F"}`,
-                        opacity: dim ? 0.45 : 1,
+                        opacity: gone ? 0.12 : dim ? 0.45 : 1,
+                        textDecoration: gone ? "line-through" : "none",
                       }}>
                       {!isTF && (
                         <span className="shrink-0 w-9 h-9 rounded-xl flex items-center justify-center text-sm font-extrabold" style={{ background: base, color: "#080F1D" }}>{LETTERS[i]}</span>
@@ -326,6 +374,36 @@ function Game() {
               </div>
             )}
 
+            {power?.allowed && power.kinds.length > 0 && !fb && (
+              <div className="mt-4">
+                <div className="flex flex-wrap items-center gap-2">
+                  {power.kinds.map((k) => {
+                    const have = power.inventory[k.key] || 0;
+                    const usedHere = pq.used.includes(k.key);
+                    const fiftyNA = k.key === "fifty" && (q.type === "true_false" || q.type === "short" || options.length < 3);
+                    const off = phase !== "question" || powerBusy || have <= 0 || usedHere || fiftyNA || power.left_this_game <= 0;
+                    return (
+                      <motion.button key={k.key} onClick={() => activatePower(k.key)} disabled={off}
+                        whileTap={!off ? { scale: 0.9 } : {}} whileHover={!off ? { y: -2 } : {}}
+                        title={`${k.name}: ${k.description}`} aria-label={`${k.name} (${have} left)`}
+                        className="relative flex items-center gap-1.5 rounded-2xl px-3 py-2 text-sm font-bold disabled:opacity-35"
+                        style={{ background: usedHere ? "rgba(232,182,91,0.22)" : "#14243A",
+                                 border: `1px solid ${usedHere ? "#E8B65B" : "#26384F"}` }}>
+                        <span className="text-lg leading-none">{k.icon}</span>
+                        <span className="hidden sm:inline">{k.name}</span>
+                        <span className="rounded-full px-1.5 text-[11px] font-extrabold"
+                          style={{ background: have ? "#E8B65B" : "#26384F", color: have ? "#080F1D" : "#A9B9CC" }}>{have}</span>
+                      </motion.button>
+                    );
+                  })}
+                </div>
+                <p className="text-[11px] mt-1.5" style={muted}>
+                  {power.left_this_game > 0 ? `Power-ups: ${power.left_this_game} more this game` : "No more power-ups this game"}
+                  {pq.second ? " · 🛡️ second chance ready" : ""}{pq.double ? " · 💎 double points on" : ""}
+                </p>
+              </div>
+            )}
+
             <AnimatePresence>
               {fb && (
                 <motion.div initial={{ y: 30, opacity: 0 }} animate={{ y: 0, opacity: 1 }} className="mt-5 rounded-2xl p-4 relative overflow-hidden"
@@ -336,7 +414,7 @@ function Game() {
                       {fb.correct ? (fb.milestone ? `🔥 ${fb.milestone} in a row!` : "Correct!") : fb.timed_out ? "Time's up!" : "Not quite"}
                     </p>
                     {fb.points > 0 && (
-                      <motion.span initial={{ y: 10, scale: 0.6 }} animate={{ y: 0, scale: 1 }} className="text-xl font-extrabold" style={{ color: "#E8B65B" }}>+{fb.points}</motion.span>
+                      <motion.span initial={{ y: 10, scale: 0.6 }} animate={{ y: 0, scale: 1 }} className="text-xl font-extrabold" style={{ color: "#E8B65B" }}>{fb.double ? "💎 " : ""}+{fb.points}</motion.span>
                     )}
                   </div>
                   {!fb.correct && <p className="text-sm mt-1">Answer: <b>{fb.correct_answer}</b></p>}
@@ -354,6 +432,16 @@ function Game() {
           </motion.div>
         </AnimatePresence>
       )}
+
+      <AnimatePresence>
+        {toast && (
+          <motion.div key={toast.id} initial={{ y: -30, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: -30, opacity: 0 }}
+            className="fixed left-1/2 top-4 z-[95] -translate-x-1/2 rounded-2xl px-4 py-2.5 text-sm font-extrabold shadow-xl"
+            style={{ background: "#E8B65B", color: "#080F1D" }} role="status">
+            {toast.text}
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <AnimatePresence>
         {confirmExit && (

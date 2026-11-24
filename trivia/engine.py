@@ -226,6 +226,127 @@ def public_question(q: TriviaQuestion, order: list, position: int, game: TriviaG
     return data
 
 
+# ── Power-ups ────────────────────────────────────────────────
+POWERUPS = {
+    "fifty": ("50/50", "✂️", "Removes two wrong answers"),
+    "time": ("Extra time", "⏳", "More seconds on the clock"),
+    "second": ("Second chance", "🛡️", "One more try if you get it wrong"),
+    "double": ("Double points", "💎", "Doubles the points for this question"),
+}
+
+
+def _q_state(game) -> dict:
+    """Power-up state for the question on screen (reset for every new question)."""
+    st = game.power_state or {}
+    q = st.get("q") or {}
+    if q.get("position") != game.current:
+        q = {"position": game.current, "hidden": [], "extra": 0, "second": False, "double": False,
+             "used": [], "wrong": []}
+    return q
+
+
+def inventory(prof: TriviaProfile, cfg) -> dict:
+    """What the player holds; the first time, the starting allowance."""
+    pc = cfg["powerups"]
+    if prof.powerups is None:
+        prof.powerups = {k: int((pc.get(k) or {}).get("start", 0)) for k in POWERUPS}
+        prof.save(update_fields=["powerups", "updated_at"])
+    return {k: int(prof.powerups.get(k, 0)) for k in POWERUPS}
+
+
+def _grant(prof: TriviaProfile, kind: str, cfg) -> bool:
+    inv = inventory(prof, cfg)
+    if inv[kind] >= int(cfg["powerups"][kind].get("max", 3)):
+        return False
+    inv[kind] += 1
+    prof.powerups = inv
+    return True
+
+
+def _powers_allowed(game, cfg) -> bool:
+    pc = cfg["powerups"]
+    return bool(pc.get("enabled")) and (game.mode != TriviaGame.DAILY or bool(pc.get("in_daily")))
+
+
+def power_public(game, prof, cfg) -> dict:
+    pc = cfg["powerups"]
+    used = (game.power_state or {}).get("used") or []
+    q = _q_state(game)
+    return {
+        "allowed": _powers_allowed(game, cfg),
+        "left_this_game": max(0, int(pc.get("per_game", 3)) - len(used)),
+        "inventory": inventory(prof, cfg),
+        "kinds": [{"key": k, "name": n, "icon": i, "description": d}
+                  for k, (n, i, d) in POWERUPS.items() if (pc.get(k) or {}).get("enabled")],
+        "q": {"hidden": q["hidden"], "extra": q["extra"], "second": q["second"], "double": q["double"],
+              "used": q["used"], "wrong": q["wrong"]},
+    }
+
+
+def use_powerup(game: TriviaGame, kind: str, position: int) -> dict:
+    cfg = get_config()
+    pc = cfg["powerups"]
+    with transaction.atomic():
+        game = TriviaGame.objects.select_for_update().get(pk=game.pk)
+        prof = TriviaProfile.objects.select_for_update().get_or_create(user=game.user)[0]
+        if game.status != TriviaGame.ACTIVE or position != game.current or game.served_at is None:
+            raise GameError("That question isn't on screen any more.", 409)
+        if TriviaAnswer.objects.filter(game=game, position=position).exists():
+            raise GameError("You've already answered this one.", 409)
+        if kind not in POWERUPS or not (pc.get(kind) or {}).get("enabled"):
+            raise GameError("That power-up isn't available.")
+        if not _powers_allowed(game, cfg):
+            raise GameError("Power-ups are off in this game - the Daily Challenge is the same for everyone.")
+        st = dict(game.power_state or {})
+        used = list(st.get("used") or [])
+        if len(used) >= int(pc.get("per_game", 3)):
+            raise GameError("You've used all your power-ups for this game.")
+        q_state = _q_state(game)
+        if kind in q_state["used"]:
+            raise GameError("Already used on this question.")
+        inv = inventory(prof, cfg)
+        if inv[kind] <= 0:
+            raise GameError("You don't have that power-up yet - keep playing to earn one.")
+        q = TriviaQuestion.objects.get(pk=game.question_ids[position])
+        base_limit = time_limit(q, cfg)
+        elapsed = (timezone.now() - game.served_at).total_seconds()
+        if elapsed > base_limit + q_state["extra"]:
+            raise GameError("Time's already up.", 409)
+
+        effect = {}
+        if kind == "fifty":
+            if q.qtype not in (TriviaQuestion.MCQ, TriviaQuestion.PICTURE) or len(q.options) < 3:
+                raise GameError("50/50 works on questions with three or more choices.")
+            correct_shown = game.shown_order.index(q.correct_index)
+            wrong = [i for i in range(len(game.shown_order))
+                     if i != correct_shown and i not in q_state["wrong"] and i not in q_state["hidden"]]
+            random.shuffle(wrong)
+            # Remove two wrong answers, always leaving at least one wrong choice.
+            remove = wrong[: min(2, max(0, len(wrong) - 1))]
+            q_state["hidden"] = sorted(q_state["hidden"] + remove)
+            effect["hidden"] = q_state["hidden"]
+        elif kind == "time":
+            add = int(pc["time"].get("seconds", 10))
+            q_state["extra"] += add
+            effect["added_seconds"] = add
+        elif kind == "second":
+            q_state["second"] = True
+        elif kind == "double":
+            q_state["double"] = True
+
+        q_state["used"].append(kind)
+        used.append({"type": kind, "position": position})
+        st["used"], st["q"] = used, q_state
+        game.power_state = st
+        game.save(update_fields=["power_state"])
+        inv[kind] -= 1
+        prof.powerups = inv
+        prof.save(update_fields=["powerups", "updated_at"])
+        return {"used": kind, **effect,
+                "seconds_left": max(0, round(base_limit + q_state["extra"] - elapsed, 1)),
+                "power": power_public(game, prof, cfg)}
+
+
 def serve(game: TriviaGame, request=None) -> dict:
     """The question now on screen; moves on when the current one is answered.
     Calling it twice without answering returns the same question and clock."""
@@ -260,8 +381,9 @@ def serve(game: TriviaGame, request=None) -> dict:
             q = TriviaQuestion.objects.select_related("category").get(pk=game.question_ids[game.current])
         out = public_question(q, game.shown_order, game.current, game, cfg, request)
         elapsed = (timezone.now() - game.served_at).total_seconds()
-        out["seconds_left"] = max(0, round(out["time_limit"] - elapsed, 1))
+        out["seconds_left"] = max(0, round(out["time_limit"] + _q_state(game)["extra"] - elapsed, 1))
         out["score"], out["streak"] = game.score, game.streak
+        out["power"] = power_public(game, profile_for(game.user), cfg)
         return out
 
 
@@ -296,16 +418,38 @@ def submit(game: TriviaGame, position: int, given, request=None) -> dict:
             raise GameError("This question was removed. Carry on to the next one.", 409)
 
         now = timezone.now()
-        limit = time_limit(q, cfg)
+        q_state = _q_state(game)
+        limit = time_limit(q, cfg) + q_state["extra"]
         elapsed = (now - game.served_at).total_seconds()
         timed_out = given is None or elapsed > limit + float(cfg.get("grace_seconds", 2))
         right, given_text = (False, "") if given is None else _is_right(q, given, game.shown_order)
         correct = right and not timed_out
+
+        # Second chance: a wrong (not late) answer is forgiven once - same
+        # question, same clock, that choice crossed out.
+        if not correct and not timed_out and q_state["second"]:
+            q_state["second"] = False
+            wrong_idx = None
+            if q.qtype != TriviaQuestion.SHORT:
+                try:
+                    wrong_idx = int(given)
+                    q_state["wrong"].append(wrong_idx)
+                except (TypeError, ValueError):
+                    pass
+            st = dict(game.power_state or {})
+            st["q"] = q_state
+            game.power_state = st
+            game.save(update_fields=["power_state"])
+            return {"retry": True, "wrong_index": wrong_idx,
+                    "seconds_left": max(0, round(limit - elapsed, 1))}
+
         points = 0
         if correct:
             points = int(cfg["points"].get(q.difficulty, 100))
             frac = max(0.0, 1.0 - min(elapsed, limit) / limit)
             points += round(int(cfg.get("speed_bonus_max", 0)) * frac)
+            if q_state["double"]:
+                points *= 2
 
         correct_text = (", ".join(q.accepted_answers[:1]) if q.qtype == TriviaQuestion.SHORT
                         else (q.options[q.correct_index] if q.correct_index is not None else ""))
@@ -315,6 +459,7 @@ def submit(game: TriviaGame, position: int, given, request=None) -> dict:
             "options": [q.options[i] for i in game.shown_order] if q.qtype != TriviaQuestion.SHORT else [],
             "correct": correct_text, "explanation": q.explanation,
             "image": image_url(q.image, request), "image_alt": q.image_alt,
+            "powerups": list(q_state["used"]),
         }
         TriviaAnswer.objects.create(game=game, question=q, position=position, snapshot=snapshot,
                                     given=given_text, is_correct=correct, timed_out=timed_out,
@@ -340,7 +485,15 @@ def submit(game: TriviaGame, position: int, given, request=None) -> dict:
             prof.best_streak = max(prof.best_streak, prof.current_streak)
         else:
             prof.current_streak = 0
-        prof.save(update_fields=["answered", "correct", "current_streak", "best_streak", "updated_at"])
+        earned = []
+        pc = cfg["powerups"]
+        if correct and pc.get("enabled"):
+            for kind in POWERUPS:
+                rule = pc.get(kind) or {}
+                n = int(rule.get("earn_streak") or 0)
+                if rule.get("enabled") and n and game.streak % n == 0 and _grant(prof, kind, cfg):
+                    earned.append({"key": kind, "name": POWERUPS[kind][0], "icon": POWERUPS[kind][1]})
+        prof.save(update_fields=["answered", "correct", "current_streak", "best_streak", "powerups", "updated_at"])
 
         shown_correct = None
         if q.qtype != TriviaQuestion.SHORT and q.correct_index is not None:
@@ -354,6 +507,8 @@ def submit(game: TriviaGame, position: int, given, request=None) -> dict:
             "milestone": game.streak if (correct and game.streak in cfg.get("streak_milestones", [])) else None,
             "answered": game.answered, "game_over": bool(last or survival_over),
             "feedback_ms": int(cfg.get("feedback_ms", 2200)),
+            "double": bool(correct and q_state["double"]),
+            "earned_powerups": earned,
         }
     if out["game_over"]:
         out["results"] = finish(game, request=request)
@@ -450,7 +605,7 @@ def finish(game: TriviaGame, *, abandoned=False, request=None) -> dict:
 
     prof = profile_for(user)
     before = level_for(prof.xp, cfg)
-    record, new_badges, xp_parts = {}, [], []
+    record, new_badges, xp_parts, earned_powerups = {}, [], [], []
     answers = list(game.answers.all())
 
     if first_close and game.status == TriviaGame.FINISHED:
@@ -466,6 +621,13 @@ def finish(game: TriviaGame, *, abandoned=False, request=None) -> dict:
                 prof.best_survival = max(prof.best_survival, game.correct)
             if game.mode == TriviaGame.DAILY:
                 prof.daily_done += 1
+                pc = cfg["powerups"]
+                for kind in POWERUPS:
+                    rule = pc.get(kind) or {}
+                    if pc.get("enabled") and rule.get("enabled") and rule.get("earn_daily") \
+                            and _grant(prof, kind, cfg):
+                        earned_powerups.append({"key": kind, "name": POWERUPS[kind][0],
+                                                "icon": POWERUPS[kind][1]})
             prof.save()
 
         earned = sum(int(cfg["xp"].get(x.snapshot.get("difficulty"), 10)) for x in answers if x.is_correct)
@@ -492,6 +654,7 @@ def finish(game: TriviaGame, *, abandoned=False, request=None) -> dict:
     return results(game, request=request, extra={
         "xp_breakdown": xp_parts, "new_badges": new_badges, "records": record,
         "level_before": before, "level": after, "level_up": after["level"] > before["level"],
+        "earned_powerups": earned_powerups,
     })
 
 

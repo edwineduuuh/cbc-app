@@ -11,6 +11,7 @@ urlpatterns = [
     path("trivia/games/<int:pk>/question/", views.question, name="trivia-question"),
     path("trivia/games/<int:pk>/answer/", views.answer, name="trivia-answer"),
     path("trivia/games/<int:pk>/finish/", views.finish, name="trivia-finish"),
+    path("trivia/games/<int:pk>/powerup/", views.powerup, name="trivia-powerup"),
     path("trivia/achievements/", views.achievements, name="trivia-achievements"),
     path("trivia/leaderboard/", views.leaderboard, name="trivia-leaderboard"),
     path("trivia/profile/", views.profile, name="trivia-profile"),

@@ -166,6 +166,29 @@ export default function TriviaHome() {
         </motion.section>
 
 
+        {/* ── Power-ups ── */}
+        {data.powerups && data.powerups.items.length > 0 && (
+          <motion.section {...fade} transition={{ delay: 0.03 }} className="rounded-3xl p-4 sm:p-5 mb-6" style={card}>
+            <div className="flex items-baseline justify-between gap-3 mb-3">
+              <h2 className="font-extrabold">Your power-ups</h2>
+              <p className="text-xs" style={muted}>Up to {data.powerups.per_game} per game{data.powerups.in_daily ? "" : " · not in the Daily Challenge"}</p>
+            </div>
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-2">
+              {data.powerups.items.map((pu) => (
+                <div key={pu.key} className="rounded-2xl p-3 flex items-start gap-3" style={{ background: "rgba(8,19,33,0.55)" }}>
+                  <span className="text-2xl leading-none">{pu.icon}</span>
+                  <div className="min-w-0">
+                    <p className="font-bold text-sm">{pu.name} <span className="ml-1 rounded-full px-1.5 text-[11px] font-extrabold"
+                      style={{ background: pu.have ? "#E8B65B" : "#26384F", color: pu.have ? "#080F1D" : "#A9B9CC" }}>{pu.have}/{pu.max}</span></p>
+                    <p className="text-[11px] mt-0.5" style={muted}>{pu.description}</p>
+                    {pu.earn && <p className="text-[11px] mt-0.5" style={{ color: "#20B8A6" }}>Earn: {pu.earn}</p>}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </motion.section>
+        )}
+
         {/* ── Daily challenge ── */}
         {daily.enabled && (daily.available || daily.status !== "not_started") && (
           <motion.section {...fade} transition={{ delay: 0.05 }} className="rounded-3xl p-5 mb-6 flex flex-col sm:flex-row sm:items-center gap-4"

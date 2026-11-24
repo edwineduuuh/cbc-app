@@ -39,6 +39,18 @@ DEFAULTS = {
         {"xp": 6000, "name": "Legend"},
     ],
     "streak_milestones": [3, 5, 10],
+    # One-use helpers, earned by playing (never bought). "earn_streak": one more
+    # each time a player reaches N in a row in a game; "earn_daily": one more for
+    # finishing the Daily Challenge. "max": most a player can hold.
+    "powerups": {
+        "enabled": True,
+        "in_daily": False,            # the Daily Challenge stays equal for everyone
+        "per_game": 3,                # most power-ups one game can use
+        "fifty":  {"enabled": True, "start": 1, "max": 3, "earn_streak": 5, "earn_daily": False},
+        "time":   {"enabled": True, "start": 1, "max": 3, "earn_streak": 3, "earn_daily": False, "seconds": 10},
+        "second": {"enabled": True, "start": 1, "max": 3, "earn_streak": 10, "earn_daily": True},
+        "double": {"enabled": True, "start": 1, "max": 3, "earn_streak": 7, "earn_daily": False},
+    },
     "leaderboards": {"enabled": True, "overall": True, "weekly": True, "daily": True, "category": True},
     "avoid_repeat_last": 300,                  # skip a player's last N questions when the bank allows
 }

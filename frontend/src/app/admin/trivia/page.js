@@ -649,6 +649,46 @@ function NumRow({ label, obj, onChange, suffix }) {
   );
 }
 
+const POWER_NAMES = { fifty: "✂️ 50/50", time: "⏳ Extra time", second: "🛡️ Second chance", double: "💎 Double points" };
+
+function PowerUpSettings({ pc, onChange }) {
+  const setKind = (k, field, v) => onChange({ ...pc, [k]: { ...pc[k], [field]: v } });
+  const num = "w-16 rounded-lg px-2 py-1 text-sm";
+  return (
+    <div className="rounded-xl p-3" style={C.card}>
+      <p className="text-xs font-semibold uppercase tracking-wide mb-2" style={C.muted}>Power-ups (earned by playing, never bought)</p>
+      <div className="flex flex-wrap gap-4 text-sm mb-3">
+        <label className="flex items-center gap-2"><input type="checkbox" checked={!!pc.enabled} onChange={(e) => onChange({ ...pc, enabled: e.target.checked })} /> Power-ups on</label>
+        <label className="flex items-center gap-2"><input type="checkbox" checked={!!pc.in_daily} onChange={(e) => onChange({ ...pc, in_daily: e.target.checked })} /> Allowed in the Daily Challenge</label>
+        <label className="flex items-center gap-2" style={C.muted}>Most per game
+          <input type="number" min={0} max={20} value={pc.per_game} onChange={(e) => onChange({ ...pc, per_game: Number(e.target.value) })} className={num} style={C.field} /></label>
+      </div>
+      <div className="overflow-x-auto">
+        <table className="w-full text-sm">
+          <thead><tr className="text-left text-xs" style={C.muted}>
+            <th className="py-1 pr-3">Power-up</th><th className="pr-3">On</th><th className="pr-3">New players get</th>
+            <th className="pr-3">Most held</th><th className="pr-3">Earn one every N in a row</th><th className="pr-3">Earn from Daily</th><th>Seconds added</th>
+          </tr></thead>
+          <tbody>
+            {Object.entries(POWER_NAMES).map(([k, name]) => (
+              <tr key={k} style={{ borderTop: "1px solid #1F3350" }}>
+                <td className="py-2 pr-3 font-semibold whitespace-nowrap">{name}</td>
+                <td className="pr-3"><input type="checkbox" checked={!!pc[k]?.enabled} onChange={(e) => setKind(k, "enabled", e.target.checked)} aria-label={`${name} on`} /></td>
+                <td className="pr-3"><input type="number" min={0} value={pc[k]?.start ?? 0} onChange={(e) => setKind(k, "start", Number(e.target.value))} className={num} style={C.field} aria-label={`${name} starting amount`} /></td>
+                <td className="pr-3"><input type="number" min={1} value={pc[k]?.max ?? 3} onChange={(e) => setKind(k, "max", Number(e.target.value))} className={num} style={C.field} aria-label={`${name} most held`} /></td>
+                <td className="pr-3"><input type="number" min={0} value={pc[k]?.earn_streak ?? 0} onChange={(e) => setKind(k, "earn_streak", Number(e.target.value))} className={num} style={C.field} aria-label={`${name} streak to earn`} /></td>
+                <td className="pr-3"><input type="checkbox" checked={!!pc[k]?.earn_daily} onChange={(e) => setKind(k, "earn_daily", e.target.checked)} aria-label={`${name} earned from Daily`} /></td>
+                <td>{k === "time" ? <input type="number" min={3} max={60} value={pc.time?.seconds ?? 10} onChange={(e) => setKind("time", "seconds", Number(e.target.value))} className={num} style={C.field} aria-label="Seconds added" /> : <span style={C.muted}>-</span>}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p className="text-[11px] mt-2" style={C.muted}>&ldquo;New players get&rdquo; applies to players who haven&apos;t used power-ups yet. 0 in &ldquo;every N in a row&rdquo; means streaks don&apos;t earn it.</p>
+    </div>
+  );
+}
+
 function Settings() {
   const [cfg, setCfg] = useState(null);
   const [info, setInfo] = useState(null);
@@ -693,6 +733,7 @@ function Settings() {
           <span className="text-xs" style={C.muted}>Only works before anyone has played it. Today ({info?.today}, {cfg.timezone}): {info?.today_challenge ? `${info.today_challenge.questions} questions picked` : "not picked yet"}.</span>
         </div>
       </div>
+      <PowerUpSettings pc={cfg.powerups} onChange={(v) => set("powerups", v)} />
       <NumRow label="Timer per question (seconds)" obj={cfg.timers} onChange={(v) => set("timers", v)} suffix="A question's own timer overrides this." />
       <NumRow label="Points for a correct answer" obj={cfg.points} onChange={(v) => set("points", v)} />
       <NumRow label="XP for a correct answer" obj={cfg.xp} onChange={(v) => set("xp", v)} />

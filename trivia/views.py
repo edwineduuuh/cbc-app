@@ -74,6 +74,26 @@ def _stats(user, prof, cfg):
     }
 
 
+def _powerups_home(prof, cfg):
+    pc = cfg["powerups"]
+    if not pc.get("enabled"):
+        return None
+    inv = engine.inventory(prof, cfg)
+    out = []
+    for k, (name, icon, desc) in engine.POWERUPS.items():
+        rule = pc.get(k) or {}
+        if not rule.get("enabled"):
+            continue
+        how = []
+        if rule.get("earn_streak"):
+            how.append(f"{rule['earn_streak']} in a row")
+        if rule.get("earn_daily"):
+            how.append("finish the Daily Challenge")
+        out.append({"key": k, "name": name, "icon": icon, "description": desc, "have": inv[k],
+                    "max": rule.get("max", 3), "earn": " or ".join(how) or None})
+    return {"items": out, "per_game": pc.get("per_game", 3), "in_daily": bool(pc.get("in_daily"))}
+
+
 @api_view(["GET"])
 @permission_classes([CanPlay])
 def home(request):
@@ -127,6 +147,7 @@ def home(request):
         "player": {"name": display_name(user), **_stats(user, prof, cfg)},
         "modes": modes, "categories": categories, "daily": daily, "recent": recent,
         "leaderboards": cfg["leaderboards"], "feedback_ms": cfg.get("feedback_ms", 2200),
+        "powerups": _powerups_home(prof, cfg),
         "levels": cfg["levels"],
     })
 
@@ -172,6 +193,22 @@ def answer(request, pk):
         return Response({"error": "Which question is this answer for?"}, status=400)
     try:
         return Response(engine.submit(game, position, d.get("answer"), request))
+    except engine.GameError as e:
+        return _err(e)
+
+
+@api_view(["POST"])
+@permission_classes([CanPlay])
+@throttle_classes([TriviaThrottle])
+def powerup(request, pk):
+    game = _own_game(request, pk)
+    d = request.data or {}
+    try:
+        position = int(d.get("position"))
+    except (TypeError, ValueError):
+        return Response({"error": "Which question is this for?"}, status=400)
+    try:
+        return Response(engine.use_powerup(game, str(d.get("type") or ""), position))
     except engine.GameError as e:
         return _err(e)
 
