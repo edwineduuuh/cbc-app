@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { socialLogin } from "@/lib/api";
+import { OAUTH_CHANNEL, OAUTH_ROLE_KEY } from "@/components/OAuthCallback";
 
 // Provider pop-ups. Each returns an access token to /auth/<provider>/callback,
 // which posts it back to this window; the backend swaps it for our own tokens.
@@ -89,32 +90,46 @@ export default function SocialLoginButtons({ role = "", onError }) {
       `width=${w},height=${h},left=${left},top=${top}`,
     );
     if (!popup) return fail("Your browser blocked the sign-in window. Allow pop-ups for this site and try again.");
+    // For the pop-up, in case it has to finish the sign-in on its own.
+    try { localStorage.setItem(OAUTH_ROLE_KEY, role || ""); } catch {}
 
+    // The token arrives by postMessage (window.opener) or, when Google's
+    // isolation cut that link, by BroadcastChannel - see OAuthCallback.
     let done = false;
+    let channel = null;
     const cleanup = () => {
       done = true;
       window.removeEventListener("message", onMessage);
+      try { channel?.close(); } catch {}
       clearInterval(watch);
+      clearTimeout(giveUp);
     };
-    const onMessage = async (event) => {
-      if (event.origin !== window.location.origin || event.data?.type !== p.message) return;
+    const receive = async (msg) => {
+      if (done || msg?.type !== p.message || !msg.access_token) return;
+      try { channel?.postMessage({ type: "ack", provider: key }); } catch {}
       cleanup();
       try { popup.close(); } catch {}
       try {
-        const data = await socialLogin(key, event.data.access_token, role);
+        const data = await socialLogin(key, msg.access_token, role);
         await completeSignIn(data.tokens || { access: data.access, refresh: data.refresh });
       } catch (e) {
         fail(e.message);
       }
     };
-    // The person closed the pop-up without finishing.
-    const watch = setInterval(() => {
-      if (!done && popup.closed) {
-        cleanup();
-        setBusy("");
-      }
-    }, 600);
+    const onMessage = (event) => {
+      if (event.origin === window.location.origin) receive(event.data);
+    };
+    try {
+      channel = new BroadcastChannel(OAUTH_CHANNEL);
+      channel.onmessage = (e) => receive(e.data);
+    } catch {}
     window.addEventListener("message", onMessage);
+    // A cut opener link also makes the pop-up *look* closed, so a closed
+    // pop-up only stops the spinner - we keep listening for its token.
+    const watch = setInterval(() => {
+      if (!done && popup.closed) setBusy("");
+    }, 600);
+    const giveUp = setTimeout(cleanup, 5 * 60 * 1000);
   };
 
   return (
