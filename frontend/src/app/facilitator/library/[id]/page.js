@@ -133,7 +133,7 @@ function PaperFooter() {
           StadiSpace · <span className="text-emerald-700">stadispace.co.ke</span>
         </p>
         <p>
-          For learners: CBE practice quizzes marked instantly · AI Tutor · Flash cards · Books &amp; videos
+          For learners: CBE practice quizzes marked instantly · Interactive lessons · Trivia &amp; flash cards · Books &amp; videos
         </p>
         <p>Grades 4 - 10 · Call or WhatsApp 0704 699683 / 0717 946 924</p>
       </div>
