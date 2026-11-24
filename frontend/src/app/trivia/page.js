@@ -114,7 +114,6 @@ export default function TriviaHome() {
 
   const p = data.player;
   const quick = data.modes.find((m) => m.key === "quick");
-  const noQuestions = !data.modes.some((m) => m.available);
   const daily = data.daily;
 
   return (
@@ -166,16 +165,9 @@ export default function TriviaHome() {
           </div>
         </motion.section>
 
-        {noQuestions && (
-          <div className="rounded-2xl p-6 mb-6 text-center" style={card}>
-            <p className="text-4xl mb-2">🛠️</p>
-            <p className="font-semibold">The question deck is being stocked</p>
-            <p className="text-sm mt-1" style={muted}>Trivia games open as soon as the first questions are published. Check back soon!</p>
-          </div>
-        )}
 
         {/* ── Daily challenge ── */}
-        {daily.enabled && (
+        {daily.enabled && (daily.available || daily.status !== "not_started") && (
           <motion.section {...fade} transition={{ delay: 0.05 }} className="rounded-3xl p-5 mb-6 flex flex-col sm:flex-row sm:items-center gap-4"
             style={{ background: "linear-gradient(100deg, rgba(232,182,91,0.16), rgba(32,184,166,0.08))", border: "1px solid rgba(232,182,91,0.35)" }}>
             <div className="text-4xl">📅</div>
@@ -208,9 +200,9 @@ export default function TriviaHome() {
         )}
 
         {/* ── Modes ── */}
-        <h2 className="text-lg font-extrabold mb-3">Choose your challenge</h2>
+        {data.modes.some((m) => m.key !== "daily" && m.available) && <h2 className="text-lg font-extrabold mb-3">Choose your challenge</h2>}
         <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 mb-8">
-          {data.modes.filter((m) => m.key !== "daily").map((m, i) => (
+          {data.modes.filter((m) => m.key !== "daily" && m.available).map((m, i) => (
             <motion.button key={m.key} {...fade} transition={{ delay: 0.04 * i }}
               whileHover={m.available ? { y: -4 } : {}} whileTap={m.available ? { scale: 0.97 } : {}}
               disabled={!m.available} onClick={() => openMode(m)}
@@ -219,18 +211,18 @@ export default function TriviaHome() {
               <p className="font-extrabold sm:text-lg">{m.name}</p>
               <p className="text-xs sm:text-sm mt-1 line-clamp-2" style={muted}>{m.description}</p>
               <p className="text-[11px] font-semibold mt-3" style={{ color: m.available ? "#20B8A6" : "#A9B9CC" }}>
-                {!m.available ? "Questions coming soon" : m.key === "survival" ? `Best run: ${p.best_survival}` : `${m.questions} questions`}
+                {m.key === "survival" ? `Best run: ${p.best_survival}` : `${m.questions} questions`}
               </p>
             </motion.button>
           ))}
         </div>
 
         {/* ── Categories ── */}
-        {data.categories.length > 0 && (
+        {data.categories.some((c) => c.questions > 0) && (
           <>
             <h2 className="text-lg font-extrabold mb-3">Categories</h2>
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 mb-8">
-              {data.categories.map((c) => (
+              {data.categories.filter((c) => c.questions > 0).map((c) => (
                 <motion.button key={c.id} whileHover={c.questions ? { y: -3 } : {}} whileTap={c.questions ? { scale: 0.97 } : {}}
                   disabled={!c.questions}
                   onClick={() => openMode(data.modes.find((m) => m.key === "category") || { key: "category", name: "Category Challenge", icon: "🎯" }, c.id)}
@@ -241,7 +233,7 @@ export default function TriviaHome() {
                     ? <img src={c.image} alt="" className="w-9 h-9 rounded-lg object-cover mb-2" />
                     : <div className="text-2xl mb-2">{c.icon}</div>}
                   <p className="font-bold text-sm">{c.name}</p>
-                  <p className="text-[11px] mt-0.5" style={muted}>{c.questions ? `${c.questions} question${c.questions === 1 ? "" : "s"}` : "Coming soon"}</p>
+                  <p className="text-[11px] mt-0.5" style={muted}>{`${c.questions} question${c.questions === 1 ? "" : "s"}`}</p>
                 </motion.button>
               ))}
             </div>
