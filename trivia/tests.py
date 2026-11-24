@@ -517,3 +517,28 @@ class ExplanationPicture(Base):
 
         a.patch(f"/api/admin/trivia/questions/{qid}/", {"remove_explanation_image": True}, format="json")
         self.assertFalse(TriviaQuestion.objects.get(pk=qid).explanation_image)
+
+
+class DailyAllowance(Base):
+    def test_games_shrink_then_stop_when_todays_questions_are_used(self):
+        from .config import save_config
+        save_config({"daily_questions": 12})
+        g = engine.start_game(self.student, "quick")
+        self.assertEqual(len(g.question_ids), min(10, len(g.question_ids)))
+        for i in range(len(g.question_ids)):
+            engine.serve(g)
+            engine.submit(g, i, 0)
+        used = len(g.question_ids)
+        left = engine.questions_left_today(self.student)
+        self.assertEqual(left, 12 - used)
+        if left > 0:
+            g2 = engine.start_game(self.student, "quick")
+            self.assertLessEqual(len(g2.question_ids), left)
+            for i in range(len(g2.question_ids)):
+                engine.serve(g2)
+                engine.submit(g2, i, 0)
+        with self.assertRaises(engine.GameError) as e:
+            engine.start_game(self.student, "quick")
+        self.assertEqual(e.exception.status, 429)
+        # the Daily Challenge isn't part of the allowance
+        self.assertEqual(engine.start_game(self.student, "daily").mode, "daily")

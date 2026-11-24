@@ -754,9 +754,10 @@ function Settings() {
       <NumRow label="Timer per question (seconds)" obj={cfg.timers} onChange={(v) => set("timers", v)} suffix="A question's own timer overrides this." />
       <NumRow label="Points for a correct answer" obj={cfg.points} onChange={(v) => set("points", v)} />
       <NumRow label="XP for a correct answer" obj={cfg.xp} onChange={(v) => set("xp", v)} />
-      <div className="grid sm:grid-cols-4 gap-3">
+      <div className="grid sm:grid-cols-5 gap-3">
         <Field label="Max speed bonus (points)"><input type="number" min={0} value={cfg.speed_bonus_max} onChange={(e) => set("speed_bonus_max", Number(e.target.value))} className={input} style={C.field} /></Field>
         <Field label="Daily Challenge XP bonus"><input type="number" min={0} value={cfg.xp_daily_bonus} onChange={(e) => set("xp_daily_bonus", Number(e.target.value))} className={input} style={C.field} /></Field>
+        <Field label="Questions per player per day" hint="Outside the Daily Challenge. 0 = no limit"><input type="number" min={0} value={cfg.daily_questions ?? 50} onChange={(e) => set("daily_questions", Number(e.target.value))} className={input} style={C.field} /></Field>
         <Field label="Daily XP limit per player" hint="Stops farming"><input type="number" min={0} value={cfg.xp_daily_cap} onChange={(e) => set("xp_daily_cap", Number(e.target.value))} className={input} style={C.field} /></Field>
         <Field label="Answer screen (ms)" hint="Minimum time the answer + fact stay up"><input type="number" min={800} value={cfg.feedback_ms} onChange={(e) => set("feedback_ms", Number(e.target.value))} className={input} style={C.field} /></Field>
       </div>

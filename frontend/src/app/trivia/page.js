@@ -222,6 +222,20 @@ export default function TriviaHome() {
           </motion.section>
         )}
 
+        {/* ── Today's allowance ── */}
+        {data.allowance?.per_day && (
+          data.allowance.left > 0 ? (
+            <p className="text-sm mb-3" style={muted}>
+              <b style={{ color: "#20B8A6" }}>{data.allowance.left}</b> of {data.allowance.per_day} questions left today
+            </p>
+          ) : (
+            <div className="rounded-2xl p-4 mb-4 text-sm" style={{ background: "rgba(232,182,91,0.12)", border: "1px solid rgba(232,182,91,0.35)" }}>
+              <b>That&apos;s all {data.allowance.per_day} questions for today.</b> New ones open at midnight
+              {daily.status === "not_started" && daily.available ? " - the Daily Challenge is still waiting for you." : "."}
+            </div>
+          )
+        )}
+
         {/* ── Modes ── */}
         {data.modes.some((m) => m.key !== "daily" && m.available) && <h2 className="text-lg font-extrabold mb-3">Choose your challenge</h2>}
         <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 mb-8">

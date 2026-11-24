@@ -149,6 +149,8 @@ def home(request):
         "leaderboards": cfg["leaderboards"], "feedback_ms": cfg.get("feedback_ms", 2200),
         "powerups": _powerups_home(prof, cfg),
         "levels": cfg["levels"],
+        "allowance": {"per_day": int(cfg.get("daily_questions") or 0) or None,
+                      "left": engine.questions_left_today(user, cfg)},
     })
 
 

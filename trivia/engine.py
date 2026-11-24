@@ -158,6 +158,19 @@ def daily_challenge(day=None, cfg=None) -> TriviaDailyChallenge:
 
 # ── Starting, serving and answering ─────────────────────────
 
+def questions_left_today(user, cfg=None):
+    """How many more questions this player can get today outside the Daily
+    Challenge (None = no limit). A question counts once it has been shown."""
+    cfg = cfg or get_config()
+    limit = int(cfg.get("daily_questions") or 0)
+    if limit <= 0:
+        return None
+    start = local_day_start(local_today(cfg), cfg)
+    shown = sum(c + 1 for c in TriviaGame.objects.filter(user=user, started_at__gte=start, current__gte=0)
+                .exclude(mode=TriviaGame.DAILY).values_list("current", flat=True))
+    return max(0, limit - shown)
+
+
 def start_game(user, mode, *, category_id=None, difficulty="mixed") -> TriviaGame:
     cfg = get_config()
     modes = cfg["modes"]
@@ -195,6 +208,13 @@ def start_game(user, mode, *, category_id=None, difficulty="mixed") -> TriviaGam
                                                  total=len(ch.question_ids))
         except IntegrityError:
             raise GameError("You've already played today's challenge.", 409)
+
+    left = questions_left_today(user, cfg)
+    if left is not None:
+        if left <= 0:
+            raise GameError(f"You've played all {cfg['daily_questions']} questions for today. "
+                            "Come back tomorrow for more - the Daily Challenge is still yours if you haven't played it.", 429)
+        n = min(n, left)
 
     grade = getattr(user, "grade", None) if getattr(user, "role", "") == "student" else None
     ids = pick_questions(user, mode, n, category=category, difficulty=difficulty, cfg=cfg, grade=grade)

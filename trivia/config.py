@@ -22,7 +22,7 @@ DEFAULTS = {
         "true_false": {"enabled": True, "questions": 10},
         "teasers":    {"enabled": True, "questions": 8},
         "category":   {"enabled": True, "questions": 10},
-        "survival":   {"enabled": True, "questions": 60},   # most a survival run can last
+        "survival":   {"enabled": True, "questions": 30},   # most a survival run can last
     },
     # Mixed games: share of each difficulty. Younger learners (grade <= 6) never get "expert".
     "mix": {"easy": 0.4, "medium": 0.35, "hard": 0.2, "expert": 0.05},
@@ -52,6 +52,9 @@ DEFAULTS = {
         "double": {"enabled": True, "start": 1, "max": 3, "earn_streak": 7, "earn_daily": False},
     },
     "leaderboards": {"enabled": True, "overall": True, "weekly": True, "daily": True, "category": True},
+    # Most questions one player gets per day outside the Daily Challenge, so the
+    # bank isn't played through in one sitting. 0 = no limit.
+    "daily_questions": 50,
     "avoid_repeat_last": 300,                  # skip a player's last N questions when the bank allows
 }
 
