@@ -86,7 +86,7 @@ function Diagram({ diagram }) {
         src={src}
         alt={diagram.alt || "Diagram for this question"}
         onError={() => setFailed(true)}
-        className="mt-3 mb-1 max-w-sm w-full rounded-lg border border-gray-200 bg-white print:border-gray-400"
+        className="mx-auto mt-4 mb-2 block w-full max-w-md bg-white"
       />
     );
   }
@@ -98,6 +98,37 @@ function Diagram({ diagram }) {
       </figcaption>
       <p className="mt-1 text-sm italic text-gray-600">{diagram.alt}</p>
     </figure>
+  );
+}
+
+/** A table the question refers to, printed as a table. */
+function QuestionTable({ table }) {
+  if (!table || !(table.rows || []).length) return null;
+  return (
+    <table className="mt-3 mb-1 border-collapse text-sm text-gray-900">
+      {(table.headers || []).length > 0 && (
+        <thead>
+          <tr>
+            {table.headers.map((h, i) => (
+              <th key={i} className="border border-gray-500 bg-gray-50 px-3 py-1.5 text-left font-semibold">
+                <MathText>{String(h)}</MathText>
+              </th>
+            ))}
+          </tr>
+        </thead>
+      )}
+      <tbody>
+        {table.rows.map((row, ri) => (
+          <tr key={ri}>
+            {row.map((c, ci) => (
+              <td key={ci} className="border border-gray-500 px-3 py-1.5">
+                <MathText>{String(c)}</MathText>
+              </td>
+            ))}
+          </tr>
+        ))}
+      </tbody>
+    </table>
   );
 }
 
@@ -203,7 +234,9 @@ export default function LibraryItemPage() {
         p.covers ? `Covers: ${p.covers}` : "",
         "", instructionsFor(qs), "",
         ...qs.map((q) => {
-          const head = `${q.number}. ${stemText(q)}  (${marksLabel(q.marks)})`;
+          const head = `${q.number}. ${stemText(q)}  (${marksLabel(q.marks)})` +
+            (q.table ? "\n" + [q.table.headers || [], ...(q.table.rows || [])]
+              .filter((r) => r.length).map((r) => `   ${r.join(" | ")}`).join("\n") : "");
           const opts = q.options
             ? Object.entries(q.options).map(([k, v]) => `   ${k}) ${v}`) : [];
           const parts = (q.parts || []).map(
@@ -379,22 +412,38 @@ export default function LibraryItemPage() {
       </div>
 
       <article className="bg-white rounded-2xl border border-gray-200 p-6 sm:p-8 print:border-0 print:p-0">
-        <header className="mb-6 pb-4 border-b border-gray-200">
-          <h1 className="text-xl font-bold text-gray-900">
+        <header className="mb-6">
+          <h1 className="text-center text-xl font-bold uppercase tracking-wide text-gray-900">
             {item.title}{showScheme ? " - Marking scheme" : ""}
           </h1>
-          <p className="text-xs text-gray-500 mt-1">
+          <p className="mt-1 text-center text-sm text-gray-600">
             {item.grade ? `Grade ${item.grade} · ` : ""}{item.subject}
             {` · ${questions.length} questions · ${p.total_marks} marks`}
           </p>
-          {p.covers && <p className="text-xs text-gray-500 mt-0.5">Covers: {p.covers}</p>}
-          {!showScheme && questions.length > 0 && (
-            <p className="mt-3 text-sm text-gray-700"><strong>Instructions:</strong> {instructionsFor(questions)}</p>
-          )}
+          {/* Which sub-strands it covers is for the teacher, not the learner. */}
+          {p.covers && <p className="mt-1 text-center text-xs text-gray-400 print:hidden">Covers: {p.covers}</p>}
           {!showScheme && (
-            <div className="mt-4 hidden print:grid grid-cols-2 gap-6 text-sm">
-              <p className="border-b border-gray-400 pb-1">Name:</p>
-              <p className="border-b border-gray-400 pb-1">Class:</p>
+            <div className="mt-6 space-y-4 text-sm font-semibold text-gray-900">
+              <div className="flex items-end gap-2">
+                <span>Name:</span><span className="flex-1 border-b border-dashed border-gray-500" />
+              </div>
+              <div className="flex flex-wrap items-end gap-x-6 gap-y-4">
+                {[["Adm. No.:", "w-24"], ["Class:", "w-28"], ["Date:", "w-28"]].map(([label, w]) => (
+                  <div key={label} className="flex items-end gap-2">
+                    <span>{label}</span><span className={`${w} border-b border-dashed border-gray-500`} />
+                  </div>
+                ))}
+                <div className="flex items-end gap-2">
+                  <span>Score:</span><span className="w-16 border-b border-dashed border-gray-500" />
+                  <span className="font-normal">/ {p.total_marks}</span>
+                </div>
+              </div>
+            </div>
+          )}
+          {!showScheme && questions.length > 0 && (
+            <div className="mt-5 border-y border-gray-800 py-3">
+              <p className="text-sm font-bold text-gray-900">Instructions</p>
+              <p className="text-sm text-gray-800">{instructionsFor(questions)}</p>
             </div>
           )}
         </header>
@@ -415,6 +464,7 @@ export default function LibraryItemPage() {
 
                   {!showScheme && (
                     <>
+                      <QuestionTable table={q.table} />
                       <Diagram diagram={q.diagram} />
 
                       {q.type === "mcq" && q.options && (
@@ -439,9 +489,13 @@ export default function LibraryItemPage() {
                         <AnswerLines marks={q.marks} />
                       ) : null}
 
-                      <p className="mt-2 text-[11px] text-gray-400">
-                        {q.marks} {q.marks === 1 ? "mark" : "marks"}
-                        {` · ${TYPE_LABEL[q.type] || q.type}`}
+                      {!editing && (
+                        <p className="mt-2 text-right text-sm font-bold text-gray-900">
+                          ({marksLabel(q.marks)})
+                        </p>
+                      )}
+                      <p className="mt-1 text-[11px] text-gray-400 print:hidden">
+                        {TYPE_LABEL[q.type] || q.type}
                         {/* Which part of the design this one came from. On a
                             paper spanning several sub-strands that differs per
                             question, so the item's own label will not do. */}
@@ -482,15 +536,13 @@ export default function LibraryItemPage() {
                   )}
                 </div>
 
-                <span className="shrink-0 text-xs text-gray-500 whitespace-nowrap">
-                  {editing && !showScheme ? (
+                {editing && !showScheme && (
+                  <span className="shrink-0 text-xs text-gray-500 whitespace-nowrap">
                     <input type="number" min={0} value={q.marks}
                       onChange={(e) => editQuestion(idx, { marks: Number(e.target.value) })}
                       className="w-14 rounded border border-gray-200 px-1 py-0.5 text-right" />
-                  ) : (
-                    `(${q.marks})`
-                  )}
-                </span>
+                  </span>
+                )}
               </div>
             </li>
           ))}

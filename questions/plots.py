@@ -177,17 +177,32 @@ def _cartesian(spec: dict) -> tuple[str, str]:
     if nx > 60 or ny > 60:
         raise PlotError("too many grid lines")
 
+    # Axis titles: a real-world graph is read by its quantities ("Time
+    # (hours)", "Distance (km)"), and an unlabelled one is not a graph a
+    # learner can read. Pure x-y algebra leaves them out and keeps x and y.
+    x_label = str(spec.get("x_label") or "").strip()[:40]
+    y_label = str(spec.get("y_label") or "").strip()[:40]
+
     # Size the squares to the figure rather than fixing them: a 4x6 grid at a
     # fixed 44px prints too small for a learner to draw a line on, and a 20x20
-    # one would run off the page.
-    cell = max(26.0, min(74.0, 560.0 / max(nx, ny, 1)))
-    w, h = PAD * 2 + cell * nx, PAD * 2 + cell * ny
+    # one would run off the page. When the two axes step differently they
+    # measure different things (hours against km), so the cells need not be
+    # square - forcing them square made a 6-by-12 graph a tall thin strip.
+    if abs(xs - ys) < 1e-9:
+        cx = cy = max(26.0, min(74.0, 560.0 / max(nx, ny, 1)))
+    else:
+        cx = max(26.0, min(74.0, 520.0 / max(nx, 1)))
+        cy = max(20.0, min(74.0, 380.0 / max(ny, 1)))
+    pad_l = PAD + (26 if y_label else 0)
+    pad_b = PAD + (22 if x_label else 0)
+    pad_r, pad_t = PAD, PAD
+    w, h = pad_l + pad_r + cx * nx, pad_t + pad_b + cy * ny
 
     def px(x):
-        return PAD + (x - x0) / (x1 - x0) * (w - 2 * PAD)
+        return pad_l + (x - x0) / (x1 - x0) * (w - pad_l - pad_r)
 
     def py(y):
-        return h - PAD - (y - y0) / (y1 - y0) * (h - 2 * PAD)
+        return h - pad_b - (y - y0) / (y1 - y0) * (h - pad_t - pad_b)
 
     parts = [
         f'<rect width="{_fmt(w)}" height="{_fmt(h)}" fill="#ffffff"/>',
@@ -237,11 +252,25 @@ def _cartesian(spec: dict) -> tuple[str, str]:
         f'<path d="M{_fmt(ax_x)},{_fmt(py(y0))}V{_fmt(py(y1) - 10)}" '
         f'stroke="#111" stroke-width="1.6" fill="none"/>'
         f'<path d="M{_fmt(ax_x)},{_fmt(py(y1) - 10)}l-3.6,7h7.2z" fill="#111"/>')
-    parts.append(
-        f'<text x="{_fmt(px(x1) + 14)}" y="{_fmt(ax_y + 4)}" font-size="13" '
-        f'font-style="italic" fill="#111">x</text>'
-        f'<text x="{_fmt(ax_x + 7)}" y="{_fmt(py(y1) - 14)}" font-size="13" '
-        f'font-style="italic" fill="#111">y</text>')
+    if x_label:
+        parts.append(
+            f'<text x="{_fmt((px(x0) + px(x1)) / 2)}" y="{_fmt(h - 10)}" '
+            f'font-size="14" font-weight="600" text-anchor="middle" '
+            f'fill="#111">{_esc(x_label)}</text>')
+    else:
+        parts.append(
+            f'<text x="{_fmt(px(x1) + 14)}" y="{_fmt(ax_y + 4)}" font-size="13" '
+            f'font-style="italic" fill="#111">x</text>')
+    if y_label:
+        cy_mid = (py(y0) + py(y1)) / 2
+        parts.append(
+            f'<text x="16" y="{_fmt(cy_mid)}" font-size="14" font-weight="600" '
+            f'text-anchor="middle" fill="#111" '
+            f'transform="rotate(-90 16 {_fmt(cy_mid)})">{_esc(y_label)}</text>')
+    else:
+        parts.append(
+            f'<text x="{_fmt(ax_x + 7)}" y="{_fmt(py(y1) - 14)}" font-size="13" '
+            f'font-style="italic" fill="#111">y</text>')
 
     # tick labels
     for x in _frange(x0, x1, xs):
@@ -322,9 +351,12 @@ def _cartesian(spec: dict) -> tuple[str, str]:
                      f'fill="#111"/>')
         label = str(p.get("label") or "")
         if label:
+            # Up and to the left, with a white halo, so a label never sits
+            # on the line through its point.
             parts.append(
-                f'<text x="{_fmt(px(x) + 8)}" y="{_fmt(py(y) - 8)}" '
-                f'font-size="13" fill="#111">{_esc(label)}</text>')
+                f'<text x="{_fmt(px(x) - 9)}" y="{_fmt(py(y) - 9)}" '
+                f'font-size="14" font-weight="700" text-anchor="end" fill="#111" '
+                f'stroke="#fff" stroke-width="4" paint-order="stroke">{_esc(label)}</text>')
             described.append(f"the point {label} at ({_num(x)}, {_num(y)})")
         else:
             described.append(f"a point at ({_num(x)}, {_num(y)})")
@@ -336,7 +368,7 @@ def _cartesian(spec: dict) -> tuple[str, str]:
 
     svg = (f'<svg xmlns="http://www.w3.org/2000/svg" width="{_fmt(w)}" '
            f'height="{_fmt(h)}" viewBox="0 0 {_fmt(w)} {_fmt(h)}" '
-           f'role="img" aria-label="{_esc(alt)}">' + "".join(parts) + "</svg>")
+           f'role="img" font-family="Arial, Helvetica, sans-serif" aria-label="{_esc(alt)}">' + "".join(parts) + "</svg>")
     return svg, alt
 
 
@@ -442,7 +474,224 @@ def _esc(s: str) -> str:
             .replace(">", "&gt;").replace('"', "&quot;"))
 
 
+# ── geometry ──────────────────────────────────────────────────────────────
+def _anchor(dx: float) -> str:
+    """Text grows away from what it labels: to the right of it, to the left,
+    or centred when the label sits above or below."""
+    return "start" if dx > 0.35 else "end" if dx < -0.35 else "middle"
+
+
+def _geometry(spec: dict) -> tuple[str, str]:
+    """A geometry figure drawn to measure: named points, sides, side lengths,
+    angle arcs with their sizes, right-angle boxes and extended lines.
+
+    The model gives coordinates; this draws them exactly. An image model asked
+    for "a right-angled triangle with sides 5 m and 12 m" draws something
+    triangle-shaped with the labels wherever it likes - not a figure a learner
+    can trust.
+    """
+    import math
+
+    raw = spec.get("points") or {}
+    if isinstance(raw, list):           # [{"name": "A", "x": 0, "y": 0}, ...]
+        raw = {str(p.get("name") or p.get("label")): [p.get("x"), p.get("y")]
+               for p in raw if isinstance(p, dict)}
+    pts = {}
+    for name, xy in list(raw.items())[:16]:
+        try:
+            pts[str(name)] = (float(xy[0]), float(xy[1]))
+        except (TypeError, ValueError, IndexError):
+            raise PlotError(f"bad point {name!r}")
+    if len(pts) < 2:
+        raise PlotError("a geometry figure needs at least two points")
+
+    def pair(v):
+        if isinstance(v, dict):
+            v = v.get("side") or v.get("between") or [v.get("from"), v.get("to")]
+        if isinstance(v, str):
+            v = [c for c in v if c in pts] if len(v) <= 3 else v.split("-")
+        a, b = (str(v[0]), str(v[1])) if v and len(v) >= 2 else (None, None)
+        if a not in pts or b not in pts:
+            raise PlotError(f"unknown points in {v!r}")
+        return a, b
+
+    xs_ = [p[0] for p in pts.values()]
+    ys_ = [p[1] for p in pts.values()]
+    span_x = max(xs_) - min(xs_) or 1.0
+    span_y = max(ys_) - min(ys_) or 1.0
+    scale = min(460.0 / span_x, 300.0 / span_y)
+    pad = 56
+    w = span_x * scale + 2 * pad
+    h = span_y * scale + 2 * pad
+
+    def at(name):
+        x, y = pts[name]
+        return (pad + (x - min(xs_)) * scale, h - pad - (y - min(ys_)) * scale)
+
+    cxs = [at(n)[0] for n in pts]
+    cys = [at(n)[1] for n in pts]
+    centre = (sum(cxs) / len(cxs), sum(cys) / len(cys))
+
+    def unit(dx, dy):
+        d = math.hypot(dx, dy)
+        return (dx / d, dy / d) if d > 1e-9 else (0.0, -1.0)
+
+    parts = [f'<rect width="{_fmt(w)}" height="{_fmt(h)}" fill="#ffffff"/>']
+
+    fill = spec.get("fill") or spec.get("polygon_fill")
+    if isinstance(fill, list) and len(fill) >= 3 and all(str(n) in pts for n in fill):
+        poly = " ".join(f"{_fmt(at(str(n))[0])},{_fmt(at(str(n))[1])}" for n in fill)
+        parts.append(f'<polygon points="{poly}" fill="#f2f2f2"/>')
+
+    described = []
+    for seg in (spec.get("segments") or [])[:24]:
+        a, b = pair(seg)
+        (ax_, ay_), (bx_, by_) = at(a), at(b)
+        parts.append(f'<line x1="{_fmt(ax_)}" y1="{_fmt(ay_)}" x2="{_fmt(bx_)}" '
+                     f'y2="{_fmt(by_)}" stroke="#111" stroke-width="2.2" '
+                     f'stroke-linecap="round"/>')
+
+    for ra in (spec.get("right_angles") or [])[:8]:
+        v = str(ra.get("at")) if isinstance(ra, dict) else ""
+        if v not in pts:
+            continue
+        p1, p2 = pair(ra.get("between") or ra.get("sides") or [])
+        (vx, vy) = at(v)
+        u1 = unit(at(p1)[0] - vx, at(p1)[1] - vy)
+        u2 = unit(at(p2)[0] - vx, at(p2)[1] - vy)
+        k = 14
+        parts.append(
+            f'<path d="M{_fmt(vx + k * u1[0])},{_fmt(vy + k * u1[1])} '
+            f'L{_fmt(vx + k * u1[0] + k * u2[0])},{_fmt(vy + k * u1[1] + k * u2[1])} '
+            f'L{_fmt(vx + k * u2[0])},{_fmt(vy + k * u2[1])}" fill="none" '
+            f'stroke="#111" stroke-width="1.5"/>')
+        described.append(f"a right angle at {v}")
+
+    for an in (spec.get("angles") or [])[:10]:
+        if not isinstance(an, dict) or str(an.get("at")) not in pts:
+            continue
+        v = str(an["at"])
+        p1, p2 = pair(an.get("between") or an.get("sides") or [])
+        (vx, vy) = at(v)
+        u1 = unit(at(p1)[0] - vx, at(p1)[1] - vy)
+        u2 = unit(at(p2)[0] - vx, at(p2)[1] - vy)
+        a1, a2 = math.atan2(u1[1], u1[0]), math.atan2(u2[1], u2[0])
+        delta = (a2 - a1 + math.pi) % (2 * math.pi) - math.pi
+        r = 26
+        sweep = 1 if delta > 0 else 0
+        parts.append(
+            f'<path d="M{_fmt(vx + r * u1[0])},{_fmt(vy + r * u1[1])} '
+            f'A{r},{r} 0 0 {sweep} {_fmt(vx + r * u2[0])},{_fmt(vy + r * u2[1])}" '
+            f'fill="none" stroke="#111" stroke-width="1.5"/>')
+        text = str(an.get("text") or an.get("label") or "").strip()[:12]
+        if text:
+            bis = unit(u1[0] + u2[0], u1[1] + u2[1])
+            if abs(u1[0] + u2[0]) < 1e-6 and abs(u1[1] + u2[1]) < 1e-6:
+                bis = (-u1[1], u1[0])           # a straight angle: go sideways
+            # A narrow angle needs its label further out to clear the arms.
+            rl = r + 10 + max(0.0, (0.7 - abs(delta)) * 30)
+            parts.append(
+                f'<text x="{_fmt(vx + rl * bis[0])}" y="{_fmt(vy + rl * bis[1] + 5)}" '
+                f'font-size="15" text-anchor="{_anchor(bis[0])}" fill="#111" '
+                f'stroke="#fff" stroke-width="4" paint-order="stroke">{_esc(text)}</text>')
+            described.append(f"angle {text} at {v}")
+
+    for sl in (spec.get("side_labels") or [])[:12]:
+        if not isinstance(sl, dict):
+            continue
+        a, b = pair(sl)
+        text = str(sl.get("text") or sl.get("label") or "").strip()[:16]
+        if not text:
+            continue
+        (ax_, ay_), (bx_, by_) = at(a), at(b)
+        mx, my = (ax_ + bx_) / 2, (ay_ + by_) / 2
+        n = unit(-(by_ - ay_), bx_ - ax_)
+        # Put the label on the outside of the figure.
+        if (mx + n[0] - centre[0]) ** 2 + (my + n[1] - centre[1]) ** 2 < \
+                (mx - centre[0]) ** 2 + (my - centre[1]) ** 2:
+            n = (-n[0], -n[1])
+        italic = ' font-style="italic"' if len(text) <= 2 and text.isalpha() else ""
+        parts.append(
+            f'<text x="{_fmt(mx + 12 * n[0])}" y="{_fmt(my + 14 * n[1] + 5)}" '
+            f'font-size="15" text-anchor="{_anchor(n[0])}"{italic} fill="#111" '
+            f'stroke="#fff" stroke-width="4" paint-order="stroke">{_esc(text)}</text>')
+        described.append(f"side {a}{b} marked {text}")
+
+    dots = {str(d) for d in (spec.get("dots") or []) if str(d) in pts}
+    hidden = {str(d) for d in (spec.get("hide_labels") or [])}
+    # Every line leaving each point - including lines the point sits in the
+    # middle of (P on AB and on EF) - so its label can go in the widest gap
+    # between them instead of on top of one.
+    drawn = []
+    for seg in (spec.get("segments") or [])[:24]:
+        try:
+            drawn.append(pair(seg))
+        except PlotError:
+            pass
+
+    def directions(name):
+        x, y = at(name)
+        out = []
+        for a, b in drawn:
+            (ax_, ay_), (bx_, by_) = at(a), at(b)
+            for (ex, ey), other in (((ax_, ay_), (bx_, by_)), ((bx_, by_), (ax_, ay_))):
+                if abs(ex - x) < 0.5 and abs(ey - y) < 0.5:
+                    out.append(math.atan2(other[1] - y, other[0] - x))
+            # the point lies inside this segment: both ways out
+            seg_len = math.hypot(bx_ - ax_, by_ - ay_)
+            if seg_len > 1:
+                t = ((x - ax_) * (bx_ - ax_) + (y - ay_) * (by_ - ay_)) / seg_len ** 2
+                dist = abs((bx_ - ax_) * (ay_ - y) - (ax_ - x) * (by_ - ay_)) / seg_len
+                if 0.02 < t < 0.98 and dist < 1.0:
+                    out.append(math.atan2(by_ - ay_, bx_ - ax_))
+                    out.append(math.atan2(ay_ - by_, ax_ - bx_))
+        # A marked angle or right angle at this point is taken space too.
+        for mark in list(spec.get("angles") or []) + list(spec.get("right_angles") or []):
+            if not isinstance(mark, dict) or str(mark.get("at")) != name:
+                continue
+            try:
+                p1, p2 = pair(mark.get("between") or mark.get("sides") or [])
+            except PlotError:
+                continue
+            u1 = unit(at(p1)[0] - x, at(p1)[1] - y)
+            u2 = unit(at(p2)[0] - x, at(p2)[1] - y)
+            out.append(math.atan2(u1[1] + u2[1], u1[0] + u2[0]))
+        return out
+
+    for name in pts:
+        x, y = at(name)
+        if name in dots:
+            parts.append(f'<circle cx="{_fmt(x)}" cy="{_fmt(y)}" r="3.8" fill="#111"/>')
+        if name in hidden:
+            continue
+        angs = sorted(directions(name))
+        if angs:
+            gaps = [((angs[(i + 1) % len(angs)] - angs[i]) % (2 * math.pi) or 2 * math.pi, angs[i])
+                    for i in range(len(angs))]
+            width, start = max(gaps)
+            mid = start + width / 2
+            u = (math.cos(mid), math.sin(mid))
+        else:
+            u = unit(x - centre[0], y - centre[1])
+        parts.append(
+            f'<text x="{_fmt(x + 17 * u[0])}" y="{_fmt(y + 17 * u[1] + 6)}" '
+            f'font-size="16" font-weight="700" text-anchor="middle" '
+            f'fill="#111" stroke="#fff" stroke-width="4" paint-order="stroke">{_esc(name)}</text>')
+
+    alt = (spec.get("alt") or "").strip() or (
+        "A geometry figure with points " + ", ".join(pts)
+        + (" showing " + ", ".join(described) if described else "") + ".")
+    svg = (f'<svg xmlns="http://www.w3.org/2000/svg" width="{_fmt(w)}" '
+           f'height="{_fmt(h)}" viewBox="0 0 {_fmt(w)} {_fmt(h)}" '
+           f'role="img" font-family="Arial, Helvetica, sans-serif" aria-label="{_esc(alt)}">' + "".join(parts) + "</svg>")
+    return svg, alt
+
+
 _KINDS = {
+    "geometry": _geometry,
+    "shape": _geometry,
+    "triangle": _geometry,
+    "polygon": _geometry,
     "cartesian": _cartesian,
     "grid": _cartesian,
     "graph": _cartesian,

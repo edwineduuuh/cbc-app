@@ -40,6 +40,8 @@ PRICES = {
     "claude-haiku-4-5":    (1.00 / 1e6, 5.00 / 1e6),
     "claude-sonnet-4-6":   (3.00 / 1e6, 15.00 / 1e6),
     "claude-opus-4-8":     (5.00 / 1e6, 25.00 / 1e6),
+    "claude-opus-5-5":     (4.00 / 1e6, 20.00 / 1e6),
+    "claude-sonnet-5-5":   (2.00 / 1e6, 10.00 / 1e6),
     # Google
     "gemini-3.8-flash":    (0.75 / 1e6, 3.75 / 1e6),
     "gemini-3.1-flash-lite": (0.25 / 1e6, 1.50 / 1e6),
@@ -135,7 +137,7 @@ def _call_openai(system, prompt, model, max_tokens, want_json, images=None):
             getattr(u, "prompt_tokens", 0), getattr(u, "completion_tokens", 0))
 
 
-def _call_anthropic(system, prompt, model, max_tokens, want_json, images=None):
+def _call_anthropic(system, prompt, model, max_tokens, want_json, images=None, thinking=False):
     import anthropic
 
     client = anthropic.Anthropic(api_key=settings.ANTHROPIC_API_KEY,
@@ -157,13 +159,18 @@ def _call_anthropic(system, prompt, model, max_tokens, want_json, images=None):
         ] + [{"type": "text", "text": prompt}]}],
     }
 
-    # Writing a paper from a design does not need deep reasoning, and the
-    # thinking tokens are what crowded out the answer. Older SDKs do not
-    # know the parameter, so fall back rather than fail.
+    # Effort is chosen per service in questions/ai_routing.py: a route marked
+    # "thinking" (assessment papers) gets high effort - working answers out,
+    # checking marks add up - everything else stays low. Streamed, because a
+    # large max_tokens is refused without streaming (it could outlast the
+    # HTTP timeout). Older SDKs without the parameter fall back.
+    effort = "high" if thinking else "low"
     try:
-        r = client.messages.create(output_config={"effort": "low"}, **kwargs)
+        with client.messages.stream(output_config={"effort": effort}, **kwargs) as stream:
+            r = stream.get_final_message()
     except TypeError:
-        r = client.messages.create(**kwargs)
+        with client.messages.stream(**kwargs) as stream:
+            r = stream.get_final_message()
 
     text = "".join(b.text for b in r.content if b.type == "text")
     return text, r.usage.input_tokens, r.usage.output_tokens
@@ -271,7 +278,7 @@ def _attempt(prov, mdl, thinking, system, prompt, max_tokens, want_json, images,
     kw = {}
     if images:
         kw["images"] = images
-    if prov == "deepseek":
+    if prov in ("deepseek", "anthropic"):
         kw["thinking"] = thinking
     started = time.time()
     text, tin, tout, err = "", 0, 0, ""

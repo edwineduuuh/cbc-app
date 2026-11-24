@@ -23,8 +23,9 @@ class Routes(TestCase):
     def test_deepseek_profile_is_the_benchmarked_one(self):
         self.assertEqual(ai_routing.route_for("scheme"), Route("deepseek", "deepseek-flash"))
         self.assertEqual(ai_routing.route_for("lesson_plan"), Route("deepseek", "deepseek-flash"))
-        for s in ("assessment", "pdf", "marking"):
+        for s in ("pdf", "marking"):
             self.assertEqual(ai_routing.route_for(s), Route("deepseek", "deepseek-flash", True), s)
+        self.assertEqual(ai_routing.route_for("assessment"), Route("anthropic", "claude-opus-5-5", True))
         self.assertEqual(ai_routing.route_for("marking_kiswahili"), Route("anthropic", "claude-opus-4-8"))
         self.assertEqual(ai_routing.route_for("tutor").provider, "deepseek")
 
@@ -53,11 +54,12 @@ class Generation(TestCase):
         def fake(system, prompt, model, max_tokens, want_json, images=None, thinking=False):
             seen.update(model=model, thinking=thinking)
             return "ok", 10, 5
-        with mock.patch.dict(generation._PROVIDERS, {"deepseek": fake}):
+        with mock.patch.dict(generation._PROVIDERS, {"anthropic": fake}):
             self.assertEqual(generation.generate("p", task="assessment-mcq"), "ok")
-        self.assertEqual(seen, {"model": "deepseek-flash", "thinking": True})
+        # Papers are written by Claude Opus 5.5 at high effort.
+        self.assertEqual(seen, {"model": "claude-opus-5-5", "thinking": True})
         call = ApiCall.objects.get(task="assessment-mcq")
-        self.assertEqual((call.provider, call.tokens_in, call.tokens_out), ("deepseek", 10, 5))
+        self.assertEqual((call.provider, call.tokens_in, call.tokens_out), ("anthropic", 10, 5))
 
     @override_settings(AI_PROFILE="deepseek")
     def test_deepseek_failure_falls_back_to_terra(self):

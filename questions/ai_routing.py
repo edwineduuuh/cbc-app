@@ -49,7 +49,10 @@ def parse(spec: str | None) -> Route | None:
 CURRENT = {
     "scheme": None,
     "lesson_plan": None,
-    "assessment": None,
+    # Papers are the product: Claude Opus 5.5 at high effort (Nov 24 2026),
+    # after side-by-side papers from the default model read as stitched-
+    # together and ignored the teacher's instructions.
+    "assessment": Route("anthropic", "claude-opus-5-5", thinking=True),
     "pdf": None,
     "marking": Route("anthropic", "claude-sonnet-4-6"),
     "marking_kiswahili": Route("anthropic", "claude-opus-4-8"),
@@ -64,7 +67,7 @@ CURRENT = {
 DEEPSEEK = {
     "scheme": Route("deepseek", "deepseek-flash"),
     "lesson_plan": Route("deepseek", "deepseek-flash"),
-    "assessment": Route("deepseek", "deepseek-flash", thinking=True),
+    "assessment": Route("anthropic", "claude-opus-5-5", thinking=True),   # quality first
     "pdf": Route("deepseek", "deepseek-flash", thinking=True),
     "marking": Route("deepseek", "deepseek-flash", thinking=True),
     "marking_kiswahili": Route("anthropic", "claude-opus-4-8"),   # Claude Opus stays: 30/30

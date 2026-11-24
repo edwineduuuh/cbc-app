@@ -144,6 +144,14 @@ def _block(q) -> str:
     fig = _figure_line(q)
     if fig:
         lines.append(fig)
+    # The table the question refers to - without it "use the table below"
+    # looks unanswerable and the question is thrown out.
+    table = q.get("table")
+    if isinstance(table, dict) and table.get("rows"):
+        lines.append("  [TABLE PRINTED WITH THIS QUESTION]")
+        lines.append("    " + " | ".join(str(h) for h in table.get("headers") or []))
+        for row in table["rows"][:12]:
+            lines.append("    " + " | ".join(str(c) for c in row))
     for k in ("A", "B", "C", "D"):
         if k in opts:
             lines.append(f"  {k}) {opts[k]}")

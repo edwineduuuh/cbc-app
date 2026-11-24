@@ -127,15 +127,29 @@ the town or the crop for any other changes nothing about what is being \
 tested, the context is decoration - rewrite the question so the local detail \
 is what the learner reasons about.
 
-- A FIGURE WHERE POSITION MATTERS IS A "plot", NEVER A "diagram". If the \
-figure is a coordinate grid, a straight line, a shaded inequality region, a \
-number line, or anything a learner reads a value off, give the question a \
-"plot" object with the numbers in it. It is then drawn exactly from those \
-numbers. A "diagram" is passed to a picture model, which cannot put a point \
-at (3, 7) - ask it for a coordinate grid and it draws a picture of a blank \
-grid, which is useless to a question saying "use the diagram above". Use \
-"diagram" only for a picture of a real thing: a leaf section, an apparatus \
-set-up, a circuit, a map.
+- A FIGURE WHERE POSITION OR SIZE MATTERS IS A "plot", NEVER A "diagram". \
+A plot is drawn exactly from your numbers; a "diagram" goes to a picture \
+model that cannot draw to measure. So:
+  * a graph, straight line, inequality region or plotted points: plot type \
+"cartesian". A real-world graph ALWAYS names its axes with the quantity and \
+unit, e.g. "x_label": "Time (hours)", "y_label": "Distance (km)".
+  * a number line: plot type "number_line".
+  * ANY geometry figure - a triangle, rectangle, parallelogram, trapezium, \
+polygon, angles on a line, parallel lines with a transversal, a ramp, a roof \
+truss: plot type "geometry". Give each named point its coordinates (chosen \
+so the figure is in proportion), the segments to draw, side lengths in \
+"side_labels", angle sizes or letters in "angles", and right angles in \
+"right_angles". The labels must match the question exactly.
+  Use "diagram" only for a picture of a real thing that has no measurements \
+to read: a leaf section, an apparatus set-up, a circuit, a map, a tool.
+
+- A TABLE IS A "table", NEVER TEXT. Put any table in "table": {"headers": \
+[...], "rows": [[...], ...]} on the question and refer to "the table below". \
+Never write table rows into question_text with | characters.
+
+- THE TEACHER'S INSTRUCTIONS COME FIRST. Every instruction the teacher typed \
+must be met exactly - a number of figures, a topic, a type of question, a \
+difficulty, a context. They override every default in these rules.
 
 - WRITE MATHEMATICS AS MATHEMATICS, NOT AS TYPEWRITER TEXT. Put every \
 mathematical expression between single dollar signs, in LaTeX, and it is \
@@ -152,6 +166,8 @@ broken on a printed paper. When a question uses a diagram, set "diagram" on \
 that question describing what to draw and which parts to label, and write \
 the question so it refers to "the diagram above" - the picture is drawn \
 separately and placed there.
+
+- Plain text only inside the questions: no markdown, no ** for bold. A printed paper shows the asterisks.
 
 Return ONLY valid JSON. No markdown fences, no commentary."""
 
@@ -189,14 +205,29 @@ SCHEMA = """{
 }
 Omit "parts" for a single-part structured question. Omit "options",
 "correct_answer" for structured. Omit "marking_scheme" for mcq.
+A question with a table carries "table": {"headers": ["Item", "Cloth used"],
+"rows": [["Shirt", "$2\\frac{3}{4}$ m"], ["Trouser", "$1\\frac{5}{8}$ m"]]}.
 
-A mathematical figure uses "plot" INSTEAD of "diagram". Two types:
+A mathematical figure uses "plot" INSTEAD of "diagram". Three types:
 
  "plot": {"type": "cartesian",
-          "x_range": [-3, 3], "y_range": [-3, 5],
-          "lines": [{"equation": "y = 2x + 1", "style": "solid"}],
+          "x_range": [0, 6], "y_range": [0, 60], "x_step": 1, "y_step": 10,
+          "x_label": "Time (hours)", "y_label": "Distance (km)",
+          "lines": [{"equation": "y = 10x", "style": "solid"}],
           "shade": [{"inequality": "2x + y <= 6"}],
-          "points": [{"x": 3, "y": 7, "label": "A"}],
+          "points": [{"x": 2, "y": 20, "label": "A"}],
+          "alt": "one sentence describing it"}
+ (leave out x_label/y_label only for pure x-y algebra)
+
+ "plot": {"type": "geometry",
+          "points": {"A": [0, 0], "B": [12, 0], "C": [12, 5], "E": [16, 0]},
+          "segments": [["A", "B"], ["B", "C"], ["C", "A"], ["B", "E"]],
+          "fill": ["A", "B", "C"],
+          "side_labels": [{"side": ["A", "B"], "text": "12 m"},
+                          {"side": ["A", "C"], "text": "x"}],
+          "angles": [{"at": "B", "between": ["C", "E"], "text": "65°"}],
+          "right_angles": [{"at": "B", "between": ["A", "C"]}],
+          "dots": ["E"],
           "alt": "one sentence describing it"}
 
  "plot": {"type": "number_line", "min": -2, "max": 8, "step": 1,
@@ -213,26 +244,50 @@ keep the grid under about 15 steps each way. For a blank grid for a learner
 to plot on, give ranges and nothing else."""
 
 
-def _diagram_instruction(want_diagram, substrand):
-    """Ask for a diagram outright when the facilitator ticked the box.
+_WORD_NUM = {"one": 1, "a": 1, "an": 1, "two": 2, "three": 3, "four": 4,
+             "five": 5, "six": 6, "seven": 7, "eight": 8}
+_FIGURE_ASK = re.compile(
+    r"(\d+|one|two|three|four|five|six|seven|eight|an?)"
+    r"(?:\s*(?:to|-|–|or)\s*(\d+|two|three|four|five|six|seven|eight))?"
+    r"\s+(?:\w+\s+){0,2}?(?:diagrams?|figures?|graphs?|pictures?|drawings?|illustrations?|sketch(?:es)?)",
+    re.I)
 
-    Left to its own judgement the model almost never asks for one, so the
-    tick box did nothing. If it is ticked, one question must use a diagram.
-    """
-    if not want_diagram:
-        return ("DIAGRAMS: do not use any diagram in this assessment. "
-                "Write questions that stand on their own words.")
+
+def figure_quota(description: str, ticked: bool, count: int) -> int:
+    """How many questions must carry a figure.
+
+    What the teacher typed wins: "make at least 2 to 3 diagrams" means 3.
+    Ticking the box without a number means about one figure per four
+    questions. Neither means none. The old rule - exactly ONE figure, and
+    "do not use any diagram" sent to every other part of the paper -
+    overruled the teacher outright."""
+    m = _FIGURE_ASK.search(description or "")
+    if m:
+        def num(t):
+            return int(t) if t.isdigit() else _WORD_NUM.get(t.lower(), 1)
+        n = num(m.group(2)) if m.group(2) else num(m.group(1))
+        return max(1, min(n, count))
+    if ticked:
+        return max(1, min(count, round(count / 4)))
+    return 0
+
+
+def _diagram_instruction(quota, substrand=None):
+    """The figure instruction for one writing call: exactly `quota` figures."""
+    if quota is True:                      # older callers passed a flag
+        quota = 1
+    if not quota:
+        return ("FIGURES: none of YOUR questions needs a figure, unless the "
+                "teacher's instructions above ask for one.")
     return (
-        "FIGURES: exactly ONE question in this paper must be built around a "
-        "figure, and it must be a question that is genuinely better with one "
-        "- a graph to read, a number line, a labelled structure, an "
-        "apparatus set-up, a cycle, a map. Word that question so it refers "
-        "to the figure above it. If the figure is mathematical - a "
-        "coordinate grid, a line, a shaded inequality, a number line - give "
-        "it a \"plot\" object with the numbers in it, NOT a \"diagram\": a "
-        "plot is drawn exactly, a diagram is only a picture. Every other "
-        "question has neither."
-    )
+        f"FIGURES: exactly {quota} of your questions must each be built "
+        f"around a figure - questions that are genuinely better with one: a "
+        f"geometry figure with its lengths and angles, a graph to read, a "
+        f"number line, a labelled structure, an apparatus set-up, a map. Word "
+        f"each so it refers to \"the diagram below\" or \"the graph below\". "
+        f"Measurable figures are \"plot\" objects (geometry, cartesian, "
+        f"number_line) so they are drawn exactly; \"diagram\" is only for a "
+        f"picture of a real thing.")
 
 
 def _bullets(items, limit=None, indent=""):
@@ -249,6 +304,9 @@ def _bullets(items, limit=None, indent=""):
 # one - so a fifty question paper costs roughly what eight questions cost.
 QUESTIONS_PER_CALL = 3
 MAX_PARALLEL_CALLS = 14
+# Up to this many questions are written in ONE call by one writer (the paper
+# is built in the background, so the facilitator is not holding a request).
+SINGLE_CALL_MAX = 12
 
 # What the facilitator typed decides the mix. Working it out here rather
 # than asking the model keeps every parallel part consistent with the rest,
@@ -529,7 +587,7 @@ CORE COMPETENCIES THE DESIGN TARGETS:
 {competencies}
 {_rubric_text([t for t, _ in groups])}
 
-TEACHER'S REQUEST: {description.strip() or 'A standard classroom assessment.'}
+{_teacher_block(description)}
 {_diagram_instruction(want_diagram, subs)}
 
 Produce exactly {count} questions. {mix} Number them 1 to {count}, with any \
@@ -540,8 +598,19 @@ multiple-choice questions first. {spread}
 Every question must carry "sub": N, the number of the [S N] sub-strand it \
 assesses. Do not invent a tag that is not listed.
 
+Before you answer, check your paper against every one of the teacher's \
+instructions above and fix anything that does not meet them.
+
 Return JSON in exactly this shape:
 {SCHEMA}"""
+
+
+def _teacher_block(description: str) -> str:
+    text = (description or "").strip()
+    if not text:
+        return "TEACHER'S INSTRUCTIONS: none - a standard classroom assessment."
+    return ("TEACHER'S INSTRUCTIONS - these override every default in this "
+            "prompt. Meet each one exactly:\n" + text)
 
 
 def generate_assessment(substrands, *, count=10, description="",
@@ -564,18 +633,38 @@ def generate_assessment(substrands, *, count=10, description="",
         # whole paper means waiting for the model to write every question in
         # turn, which is what made a short paper take two minutes.
         n_mcq, n_struct = plan_mix(count, grade, description, mcq_ratio)
-        jobs = plan_jobs(n_mcq, n_struct, subs)
+        quota = figure_quota(description, diagrams, count)
+        if count <= SINGLE_CALL_MAX:
+            # One writer for the whole paper. Parts written blind to each
+            # other read as stitched together - the single biggest quality
+            # gap against a paper a teacher wrote in one go.
+            jobs = [{"type": "mixed", "count": count, "part": 1, "parts": 1,
+                     "subs": subs, "n_mcq": n_mcq}]
+        else:
+            jobs = plan_jobs(n_mcq, n_struct, subs)
+        # Spread the figures over the parts, structured parts first (that is
+        # where a figure with several questions about it belongs).
+        left = quota
+        for job in sorted(jobs, key=lambda j: j["type"] == "mcq"):
+            job["figures"] = min(left, job["count"])
+            left -= job["figures"]
         data, raw = {}, []
 
         def write(job):
             from django.db import connection
             try:
-                prompt = build_prompt(
-                    subs, count=job["count"], description=description,
-                    want_diagram=diagrams and job["part"] == 1,
-                    section={"name": "", "type": job["type"],
-                             "marks": 5, "count": job["count"]},
-                    part=job)
+                if job["type"] == "mixed":
+                    prompt = build_prompt(
+                        subs, count=job["count"], description=description,
+                        mcq_ratio=job["n_mcq"] / max(1, job["count"]),
+                        want_diagram=job["figures"])
+                else:
+                    prompt = build_prompt(
+                        subs, count=job["count"], description=description,
+                        want_diagram=job["figures"],
+                        section={"name": "", "type": job["type"],
+                                 "marks": 5, "count": job["count"]},
+                        part=job)
                 part = generate_json(prompt, SYSTEM,
                                      max_tokens=token_budget(job["count"]),
                                      task=f"assessment-{job['type']}",
@@ -611,7 +700,8 @@ def generate_assessment(substrands, *, count=10, description="",
         for i, sec in enumerate(sections):
             prompt = build_prompt(subs, count=sec["count"],
                                   description=description,
-                                  want_diagram=diagrams and i == len(sections) - 1,
+                                  want_diagram=(figure_quota(description, diagrams, count)
+                                                if i == len(sections) - 1 else 0),
                                   section=sec)
             part = generate_json(prompt, SYSTEM,
                                  max_tokens=token_budget(sec["count"]),
@@ -683,12 +773,52 @@ def paper_instructions(questions) -> str:
     return " ".join(lines)
 
 
+_PIPE_ROW = re.compile(r"^\s*\|?([^|\n]+\|[^\n]+?)\|?\s*$")
+_PIPE_RULE = re.compile(r"^\s*\|?\s*:?-{2,}:?\s*(\|\s*:?-{2,}:?\s*)*\|?\s*$")
+
+
+def _lift_table(q: dict) -> None:
+    """Rows written into the stem as 'Item | Cloth used' become a real table."""
+    if q.get("table"):
+        return
+    lines = (q.get("question_text") or "").split("\n")
+    start = next((i for i, l in enumerate(lines) if _PIPE_ROW.match(l)), None)
+    if start is None:
+        return
+    end = start
+    while end < len(lines) and (_PIPE_ROW.match(lines[end]) or _PIPE_RULE.match(lines[end])):
+        end += 1
+    rows = [[c.strip() for c in lines[i].strip().strip("|").split("|")]
+            for i in range(start, end) if not _PIPE_RULE.match(lines[i])]
+    if len(rows) < 2 or len({len(r) for r in rows}) != 1:
+        return
+    q["table"] = {"headers": rows[0], "rows": rows[1:]}
+    q["question_text"] = "\n".join(lines[:start] + lines[end:]).strip()
+
+
+_MD_EMPH = re.compile(r"\*\*(.+?)\*\*|__(.+?)__")
+
+
+def _unmark(q: dict) -> None:
+    """A printed paper has no markdown: '**total value**' prints as asterisks."""
+    def clean(t):
+        return _MD_EMPH.sub(lambda m: m.group(1) or m.group(2), t) if isinstance(t, str) else t
+    q["question_text"] = clean(q.get("question_text"))
+    for part in q.get("parts") or []:
+        if isinstance(part, dict):
+            part["question_text"] = clean(part.get("question_text"))
+    if isinstance(q.get("options"), dict):
+        q["options"] = {k: clean(v) for k, v in q["options"].items()}
+
+
 def tidy_paper(data: dict) -> dict:
     """Fixes code can make reliably, so they never depend on the model:
-    instructions that match the paper, marks printed once, and a figure
-    that prints below its question called 'below'."""
+    instructions that match the paper, marks printed once, tables as tables,
+    and a figure that prints below its question called 'below'."""
     qs = data.get("questions") or []
     for q in qs:
+        _lift_table(q)
+        _unmark(q)
         if q.get("diagram") or q.get("plot") or q.get("figure"):
             q["question_text"] = _FIGURE_ABOVE.sub(lambda m: f"{m.group(1)} {m.group(2)} below",
                                                    q.get("question_text") or "")
