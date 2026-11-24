@@ -38,6 +38,10 @@ export function Review({ items }) {
               </p>
               {!r.is_correct && <p className="text-sm"><span style={muted}>Correct answer: </span><b style={{ color: "#3CCB8B" }}>{r.correct_answer}</b></p>}
               {r.explanation && <p className="text-sm mt-2 rounded-xl px-3 py-2" style={{ background: "rgba(77,141,218,0.10)", color: "#CFE0F5" }}>💡 {r.explanation}</p>}
+              {r.explanation_image && (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img src={r.explanation_image} alt="Picture explaining the answer" className="mt-2 rounded-xl max-h-56 object-contain" style={{ background: "#0F1F3D" }} />
+              )}
             </div>
             <span className="text-sm font-bold shrink-0" style={{ color: r.points ? "#E8B65B" : "#5A6B80" }}>+{r.points}</span>
           </div>

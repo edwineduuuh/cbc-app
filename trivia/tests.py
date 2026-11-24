@@ -478,3 +478,42 @@ class PowerUps(Base):
         save_config({"powerups": {"enabled": False}})
         self.assertIsNone(self.c.get("/api/trivia/home/").json()["powerups"])
         self.assertEqual(self.use(self.start(), "time").status_code, 400)
+
+
+class ExplanationPicture(Base):
+    def setUp(self):
+        super().setUp()
+        import tempfile
+        from django.test import override_settings
+        self._media = override_settings(MEDIA_ROOT=tempfile.mkdtemp(),
+                                        DEFAULT_FILE_STORAGE="django.core.files.storage.FileSystemStorage")
+        self._media.enable()
+        self.addCleanup(self._media.disable)
+
+    def png(self):
+        from PIL import Image
+        buf = io.BytesIO()
+        Image.new("RGB", (8, 8), (32, 184, 166)).save(buf, "PNG")
+        buf.seek(0)
+        buf.name = "map.png"
+        return buf
+
+    def test_picture_shown_only_after_answering_and_kept_for_review(self):
+        a = client_for(self.admin)
+        r = a.post("/api/admin/trivia/questions/", {
+            "category": self.geo.pk, "type": "true_false", "text": "Lake Victoria is shared by three countries.",
+            "correct_index": "0", "explanation": "Kenya, Uganda and Tanzania.", "status": "published",
+            "explanation_image": self.png()}, format="multipart")
+        self.assertEqual(r.status_code, 201, r.content)
+        self.assertTrue(r.json()["explanation_image"])
+        qid = r.json()["id"]
+
+        g = TriviaGame.objects.create(user=self.student, mode="quick", question_ids=[qid], total=1)
+        before = engine.serve(g)
+        self.assertNotIn("explanation_image", str(before))               # nothing given away early
+        out = engine.submit(g, 0, 0)
+        self.assertIn("trivia/explanations/", out["explanation_image"])
+        self.assertIn("trivia/explanations/", engine.results(g)["review"][0]["explanation_image"])
+
+        a.patch(f"/api/admin/trivia/questions/{qid}/", {"remove_explanation_image": True}, format="json")
+        self.assertFalse(TriviaQuestion.objects.get(pk=qid).explanation_image)

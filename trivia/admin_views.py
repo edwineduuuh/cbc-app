@@ -105,7 +105,7 @@ def category_detail(request, pk):
 
 def _q(q, request, dupes=None):
     warnings = []
-    if not q.explanation.strip():
+    if not q.explanation.strip() and not q.explanation_image:
         warnings.append("No explanation or fun fact yet.")
     if q.qtype == TriviaQuestion.PICTURE and not q.image:
         warnings.append("Picture question without a picture.")
@@ -117,6 +117,7 @@ def _q(q, request, dupes=None):
         "image": engine.image_url(q.image, request), "image_alt": q.image_alt, "options": q.options,
         "correct_index": q.correct_index, "accepted_answers": q.accepted_answers,
         "explanation": q.explanation, "source": q.source, "time_limit": q.time_limit,
+        "explanation_image": engine.image_url(q.explanation_image, request),
         "min_grade": q.min_grade, "max_grade": q.max_grade, "status": q.status,
         "times_answered": q.times_answered, "times_correct": q.times_correct,
         "correct_rate": round(100 * q.times_correct / q.times_answered) if q.times_answered else None,
@@ -169,6 +170,10 @@ def apply_question(q: TriviaQuestion, data, files=None):
         q.image = files["image"]
     if _bool(data.get("remove_image", "")):
         q.image = None
+    if files.get("explanation_image"):
+        q.explanation_image = files["explanation_image"]
+    if _bool(data.get("remove_explanation_image", "")):
+        q.explanation_image = None
     if "status" in data:
         q.status = str(data["status"])
 

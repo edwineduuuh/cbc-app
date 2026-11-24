@@ -61,6 +61,10 @@ class TriviaQuestion(models.Model):
     # Short answer: every accepted spelling.
     accepted_answers = models.JSONField(default=list, blank=True)
     explanation = models.TextField(blank=True, default="")
+    # A picture that explains the answer (a labelled diagram, the landmark, a map ...),
+    # shown with the explanation after the player answers.
+    explanation_image = models.ImageField(upload_to="trivia/explanations/", storage=image_storage,
+                                          null=True, blank=True, max_length=300)
     source = models.CharField(max_length=300, blank=True, default="")
     time_limit = models.PositiveIntegerField(null=True, blank=True,
                                              help_text="Seconds; empty = the default for its difficulty")

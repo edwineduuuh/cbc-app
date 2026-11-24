@@ -458,6 +458,7 @@ def submit(game: TriviaGame, position: int, given, request=None) -> dict:
             "category_id": q.category_id, "category": q.category.name,
             "options": [q.options[i] for i in game.shown_order] if q.qtype != TriviaQuestion.SHORT else [],
             "correct": correct_text, "explanation": q.explanation,
+            "explanation_image": image_url(q.explanation_image, request),
             "image": image_url(q.image, request), "image_alt": q.image_alt,
             "powerups": list(q_state["used"]),
         }
@@ -504,6 +505,7 @@ def submit(game: TriviaGame, position: int, given, request=None) -> dict:
             "correct": correct, "timed_out": timed_out, "points": points,
             "correct_index": shown_correct, "correct_answer": correct_text,
             "explanation": q.explanation, "score": game.score, "streak": game.streak,
+            "explanation_image": snapshot["explanation_image"],
             "milestone": game.streak if (correct and game.streak in cfg.get("streak_milestones", [])) else None,
             "answered": game.answered, "game_over": bool(last or survival_over),
             "feedback_ms": int(cfg.get("feedback_ms", 2200)),
@@ -678,6 +680,7 @@ def results(game: TriviaGame, request=None, extra=None) -> dict:
             "your_answer": a.given, "correct_answer": a.snapshot.get("correct"),
             "is_correct": a.is_correct, "timed_out": a.timed_out, "points": a.points,
             "seconds": round(a.ms / 1000, 1), "explanation": a.snapshot.get("explanation"),
+            "explanation_image": a.snapshot.get("explanation_image"),
         } for a in answers],
     }
     if extra:

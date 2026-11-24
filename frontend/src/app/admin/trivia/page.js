@@ -123,7 +123,7 @@ const EMPTY_Q = { category: "", type: "mcq", difficulty: "medium", is_teaser: fa
   correct_index: null, accepted_answers: "", explanation: "", source: "", time_limit: "", min_grade: "", max_grade: "",
   status: "draft", image_alt: "" };
 
-function Preview({ f, cats, imgUrl }) {
+function Preview({ f, cats, imgUrl, explUrl }) {
   const cat = cats.find((c) => String(c.id) === String(f.category));
   const opts = f.type === "true_false" ? ["✓ TRUE", "✗ FALSE"] : f.options.filter(Boolean);
   return (
@@ -150,6 +150,8 @@ function Preview({ f, cats, imgUrl }) {
         </div>
       )}
       {f.explanation && <p className="text-sm mt-3 rounded-xl px-3 py-2" style={{ background: "rgba(77,141,218,0.10)", color: "#CFE0F5" }}>💡 <b>Did you know?</b> {f.explanation}</p>}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      {explUrl && <img src={explUrl} alt="Explanation picture" className="w-full max-h-44 object-contain rounded-xl mt-2" style={{ background: "#0F1F3D" }} />}
       <p className="text-[11px] mt-3" style={C.muted}>The green border marks the correct answer (players don&apos;t see it). Choices are shuffled for each player.</p>
     </div>
   );
@@ -164,6 +166,10 @@ function QuestionEditor({ initial, cats, onClose, onSaved }) {
   } : { ...EMPTY_Q, category: cats[0]?.id || "" });
   const [file, setFile] = useState(null);
   const [removeImg, setRemoveImg] = useState(false);
+  const [explFile, setExplFile] = useState(null);
+  const [removeExpl, setRemoveExpl] = useState(false);
+  const explUrl = useMemo(() => explFile ? URL.createObjectURL(explFile) : (!removeExpl && initial?.explanation_image) || null,
+    [explFile, removeExpl, initial]);
   const [saving, setSaving] = useState(false);
   const [err, setErr] = useState("");
   const [warn, setWarn] = useState([]);
@@ -178,16 +184,17 @@ function QuestionEditor({ initial, cats, onClose, onSaved }) {
       time_limit: f.time_limit, min_grade: f.min_grade, max_grade: f.max_grade,
       options: f.options.filter((o) => o.trim()), correct_index: f.correct_index,
       accepted_answers: f.accepted_answers.split(/\n|\|/).map((s) => s.trim()).filter(Boolean),
-      remove_image: removeImg,
+      remove_image: removeImg, remove_explanation_image: removeExpl,
     };
     try {
       let res;
       const path = initial ? `questions/${initial.id}/` : "questions/";
       const method = initial ? "PATCH" : "POST";
-      if (file) {
+      if (file || explFile) {
         const form = new FormData();
         Object.entries(body).forEach(([k, v]) => form.append(k, Array.isArray(v) ? JSON.stringify(v) : v ?? ""));
-        form.append("image", file);
+        if (file) form.append("image", file);
+        if (explFile) form.append("explanation_image", explFile);
         res = await api(path, { method, form });
       } else {
         res = await api(path, { method, body });
@@ -287,6 +294,16 @@ function QuestionEditor({ initial, cats, onClose, onSaved }) {
           <Field label="Explanation / fun fact" hint="Shown after every answer - this is where players learn something.">
             <textarea rows={2} value={f.explanation} onChange={(e) => set("explanation", e.target.value)} className={input} style={C.field} />
           </Field>
+          <div className="rounded-xl p-3" style={C.card}>
+            <p className="text-xs font-semibold uppercase tracking-wide mb-2" style={C.muted}>Explanation picture (optional)</p>
+            <p className="text-xs mb-2" style={{ color: "#7F93AB" }}>Shown with the explanation after the player answers - a labelled diagram, the map, the landmark. Never shown before they answer.</p>
+            <div className="flex flex-wrap items-center gap-3">
+              <input type="file" accept="image/*" onChange={(e) => { setExplFile(e.target.files?.[0] || null); setRemoveExpl(false); }} className="text-sm" aria-label="Explanation picture" />
+              {explUrl && (
+                <button type="button" onClick={() => { setExplFile(null); setRemoveExpl(true); }} className="text-xs underline" style={{ color: "#F07178" }}>Remove picture</button>
+              )}
+            </div>
+          </div>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
             <Field label="Source" className="col-span-2"><input value={f.source} onChange={(e) => set("source", e.target.value)} className={input} style={C.field} placeholder="Where the fact comes from" /></Field>
             <Field label="From grade"><input type="number" value={f.min_grade} onChange={(e) => set("min_grade", e.target.value)} className={input} style={C.field} /></Field>
@@ -305,7 +322,7 @@ function QuestionEditor({ initial, cats, onClose, onSaved }) {
             </button>
           </div>
         </div>
-        <Preview f={f} cats={cats} imgUrl={imgUrl} />
+        <Preview f={f} cats={cats} imgUrl={imgUrl} explUrl={explUrl} />
       </div>
     </Modal>
   );

@@ -186,7 +186,8 @@ function Game() {
       setStreak(r.streak);
       play(r.correct ? "correct" : "wrong");
       setPhase("feedback");
-      const wait = Math.min(9000, Math.max(r.feedback_ms || 2200, 1600 + (r.explanation || "").length * 35));
+      const wait = Math.min(12000, Math.max(r.feedback_ms || 2200,
+        1600 + (r.explanation || "").length * 35 + (r.explanation_image ? 3500 : 0)));
       setAdvanceIn(wait);
       advanceTimer.current = setTimeout(() => {
         if (r.game_over) { setResults(r.results); setPhase("results"); }
@@ -419,6 +420,11 @@ function Game() {
                   </div>
                   {!fb.correct && <p className="text-sm mt-1">Answer: <b>{fb.correct_answer}</b></p>}
                   {fb.explanation && <p className="text-sm mt-2" style={{ color: "#CFE0F5" }}>💡 <b>Did you know?</b> {fb.explanation}</p>}
+                  {fb.explanation_image && (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img src={fb.explanation_image} alt="Picture explaining the answer"
+                      className="mt-3 w-full max-h-64 object-contain rounded-xl" style={{ background: "#0F1F3D" }} />
+                  )}
                   <div className="flex items-center justify-end mt-3">
                     <button onClick={skipWait} className="rounded-xl px-4 py-2 text-sm font-extrabold flex items-center gap-1.5" style={{ background: "#F5F7FA", color: "#080F1D" }}>
                       {fb.game_over ? "See results" : "Next"} <ArrowRight className="w-4 h-4" />
