@@ -255,6 +255,7 @@ path('facilitator/library/', facilitator_views.my_library, name='facilitator-lib
     path('facilitator/plans/generate/', studio_views.generate_plan, name='facilitator-generate-plan'),
     path('facilitator/records/', studio_views.create_record, name='facilitator-create-record'),
 path('facilitator/library/<int:pk>/', facilitator_views.library_item, name='facilitator-library-item'),
+path('facilitator/library/<int:pk>/revise/', facilitator_views.revise_paper, name='facilitator-library-revise'),
 
     # Public on purpose - an <img> cannot carry a token. See diagram_views.
     # The extension is cosmetic: a drawn diagram is a PNG and a plotted one is

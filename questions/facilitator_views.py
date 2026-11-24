@@ -499,3 +499,104 @@ def library_item(request, pk):
         changed.append("edited_at")
         out.save(update_fields=changed)
     return Response({**_summarise(out), "payload": out.payload})
+
+
+# ── talk to the paper: "make Q3 harder", "change Q5's choices" ────────────
+REVISE_SYSTEM = """You are editing a school assessment paper for a Kenyan \
+teacher. You are given the whole paper as JSON and the teacher's instruction. \
+Change ONLY the questions the instruction is about; leave every other \
+question exactly as it is. Follow the instruction exactly.
+
+Every question you return must be complete and correct, in the same shape as \
+the paper's questions: a multiple-choice question has four options A-D, \
+exactly one correct "correct_answer", and is worth 1 mark - work any \
+calculation out in full and make sure the marked option is right. A \
+structured question has its parts and a full "marking_scheme" whose marks add \
+up to the question's marks. Keep the question's "number". Keep its "sub" / \
+"substrand" unless told to change the topic. Use $...$ LaTeX for maths, plain \
+text otherwise (no markdown). A measurable figure is a "plot" (types \
+cartesian, number_line, geometry - see the paper for the shape), a picture of \
+a real thing is a "diagram" with "subject", "labels", "alt". A table is \
+"table": {"headers": [...], "rows": [[...]]}.
+
+Return ONLY JSON: {"questions": [ the changed or new questions, complete ], \
+"remove": [numbers of questions to delete, if asked], \
+"summary": "one short sentence saying what you changed"}"""
+
+
+@api_view(["POST"])
+@permission_classes([IsFacilitator])
+def revise_paper(request, pk):
+    """POST /facilitator/library/<pk>/revise/ {"instruction": "..."}
+
+    The teacher says what to change in plain words; only those questions are
+    rewritten (with answer keys and marking schemes), figures are drawn, and
+    the paper is saved."""
+    import json as _json
+    from .assessments import SYSTEM, tidy_paper
+    from .diagrams import attach_plots, mark_image_pending
+    from .generation import generate_json
+
+    out = get_object_or_404(GeneratedOutput, pk=pk, teacher=request.user)
+    instruction = str((request.data or {}).get("instruction") or "").strip()[:2000]
+    if not instruction:
+        return Response({"error": "Say what you want changed."}, status=400)
+    payload = dict(out.payload or {})
+    questions = [q for q in payload.get("questions", []) if isinstance(q, dict)]
+    if not questions:
+        return Response({"error": "This paper has no questions to edit."}, status=400)
+
+    paper = {"title": payload.get("title"), "grade": out.grade,
+             "subject": getattr(out.subject, "name", ""), "questions": questions}
+    prompt = (f"THE PAPER:\n{_json.dumps(paper, ensure_ascii=False, default=str)}\n\n"
+              f"THE TEACHER'S INSTRUCTION:\n{instruction}")
+    try:
+        result = generate_json(prompt, REVISE_SYSTEM + "\n\n" + SYSTEM,
+                               max_tokens=8000, task="assessment-revise",
+                               user=request.user)
+    except Exception as e:
+        logger.warning("revise failed for output %s: %s", pk, e)
+        return Response({"error": "Couldn't make that change just now. Try again."}, status=502)
+
+    changed = [q for q in (result or {}).get("questions", []) if isinstance(q, dict)]
+    remove = {int(n) for n in (result or {}).get("remove", []) if str(n).isdigit()}
+    by_num = {int(q.get("number") or 0): q for q in questions}
+    for q in changed:
+        if isinstance(q.get("plot"), dict):
+            q.pop("diagram", None)          # an exact plot replaces a picture
+        try:
+            by_num[int(q.get("number") or 0) or max(by_num, default=0) + 1] = q
+        except (TypeError, ValueError):
+            continue
+    merged = [by_num[n] for n in sorted(by_num) if n not in remove]
+    for i, q in enumerate(merged, start=1):
+        q["number"] = i
+        if q.get("type") == "mcq":
+            q["marks"] = 1
+        try:
+            q["marks"] = int(q.get("marks") or 0)
+        except (TypeError, ValueError):
+            q["marks"] = 0
+
+    payload["questions"] = merged
+    payload = attach_plots(payload)          # maths figures: exact, instant
+    payload = mark_image_pending(payload)    # pictures: drawn in the background
+    payload = tidy_paper(payload)
+    payload["total_marks"] = sum(q["marks"] for q in merged)
+
+    out.payload = payload
+    out.edited_at = timezone.now()
+    out.save(update_fields=["payload", "edited_at"])
+    if payload.get("diagrams_pending"):
+        from .diagrams import draw_pending
+        user = request.user
+
+        def draw():
+            from django.db import connection
+            try:
+                draw_pending(out.id, user=user)
+            finally:
+                connection.close()
+        threading.Thread(target=draw, daemon=True).start()
+    return Response({**_summarise(out), "payload": out.payload,
+                     "summary": str((result or {}).get("summary") or "Done.")[:300]})

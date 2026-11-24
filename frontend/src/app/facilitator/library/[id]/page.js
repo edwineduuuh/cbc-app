@@ -15,7 +15,7 @@ const STUDIO = {
   record_of_work: { again: "/facilitator/records", noun: "record of work" },
 };
 import {
-  ArrowLeft, Bookmark, Check, Copy, Loader2, Pencil, Printer, AlertTriangle,
+  ArrowLeft, Bookmark, Check, Copy, Loader2, Pencil, Printer, AlertTriangle, Send, Sparkles,
 } from "lucide-react";
 
 const API =
@@ -98,6 +98,76 @@ function Diagram({ diagram }) {
       </figcaption>
       <p className="mt-1 text-sm italic text-gray-600">{diagram.alt}</p>
     </figure>
+  );
+}
+
+/** Tell StadiSpace what to change: "make Q3 harder", "new choices for Q5". */
+function ReviseBox({ itemId, onRevised }) {
+  const [text, setText] = useState("");
+  const [busy, setBusy] = useState(false);
+  const [log, setLog] = useState([]);   // [{ask, said, error}]
+  const send = async (ask) => {
+    const instruction = (ask ?? text).trim();
+    if (!instruction || busy) return;
+    setBusy(true);
+    setText("");
+    try {
+      const r = await fetchWithAuth(`${API}/facilitator/library/${itemId}/revise/`, {
+        method: "POST",
+        body: JSON.stringify({ instruction }),
+        signal: AbortSignal.timeout(180000),
+      });
+      const d = await r.json().catch(() => ({}));
+      if (!r.ok) throw new Error(d.error || "Couldn't make that change.");
+      onRevised(d);
+      setLog((l) => [...l, { ask: instruction, said: d.summary || "Done." }]);
+    } catch (e) {
+      setLog((l) => [...l, { ask: instruction, error: e.name === "TimeoutError" ? "That took too long. Try again." : e.message }]);
+      setText(instruction);
+    } finally {
+      setBusy(false);
+    }
+  };
+  const ideas = ["Make question 3 harder", "Give question 5 new choices", "Replace question 7 with a geometry question with a diagram", "Add a table to question 9"];
+  return (
+    <div className="mt-4 rounded-2xl border border-emerald-200 bg-emerald-50/60 p-4">
+      <p className="flex items-center gap-2 text-sm font-semibold text-emerald-800">
+        <Sparkles className="h-4 w-4" /> Ask StadiSpace to change this paper
+      </p>
+      {log.length > 0 && (
+        <ul className="mt-3 space-y-2">
+          {log.map((m, i) => (
+            <li key={i} className="text-sm">
+              <p className="font-medium text-gray-900">You: {m.ask}</p>
+              <p className={m.error ? "text-red-700" : "text-emerald-800"}>{m.error || m.said}</p>
+            </li>
+          ))}
+        </ul>
+      )}
+      <div className="mt-3 flex items-end gap-2">
+        <textarea value={text} rows={2} disabled={busy}
+          onChange={(e) => setText(e.target.value)}
+          onKeyDown={(e) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); send(); } }}
+          placeholder='e.g. "Make question 3 harder and change its choices"'
+          className="flex-1 resize-none rounded-xl border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 focus:border-emerald-500 focus:outline-none" />
+        <button onClick={() => send()} disabled={busy || !text.trim()}
+          className="flex h-10 items-center gap-1.5 rounded-xl bg-emerald-600 px-4 text-sm font-semibold text-white disabled:bg-gray-300">
+          {busy ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
+          {busy ? "Changing..." : "Change it"}
+        </button>
+      </div>
+      {busy && <p className="mt-2 text-xs text-gray-600">Rewriting those questions and their answers - about half a minute.</p>}
+      {!busy && log.length === 0 && (
+        <div className="mt-2 flex flex-wrap gap-1.5">
+          {ideas.map((t) => (
+            <button key={t} onClick={() => setText(t)}
+              className="rounded-full border border-emerald-200 bg-white px-2.5 py-1 text-xs text-emerald-800 hover:bg-emerald-50">
+              {t}
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
   );
 }
 
@@ -447,6 +517,7 @@ export default function LibraryItemPage() {
           </button>
         )}
         {saved && <p className="mt-2 text-xs text-emerald-700">Saved.</p>}
+        <ReviseBox itemId={id} onRevised={(d) => setItem((it) => ({ ...it, ...d }))} />
         {error && (
           <p className="mt-2 flex items-center gap-1.5 text-xs text-red-700">
             <AlertTriangle className="w-3.5 h-3.5" /> {error}
@@ -526,7 +597,23 @@ export default function LibraryItemPage() {
                       <QuestionTable table={q.table} />
                       <Diagram diagram={q.diagram} />
 
-                      {q.type === "mcq" && q.options && (
+                      {q.type === "mcq" && q.options && editing && (
+                        <div className="mt-2 space-y-1.5">
+                          {Object.entries(q.options).map(([k, v]) => (
+                            <label key={k} className="flex items-center gap-2 text-sm">
+                              <input type="radio" name={`correct-${idx}`} checked={q.correct_answer === k}
+                                onChange={() => editQuestion(idx, { correct_answer: k })}
+                                title="Correct answer" />
+                              <span className="w-4 font-semibold text-gray-700">{k})</span>
+                              <input value={v}
+                                onChange={(e) => editQuestion(idx, { options: { ...q.options, [k]: e.target.value } })}
+                                className="flex-1 rounded-lg border border-gray-200 px-2 py-1 text-sm" />
+                            </label>
+                          ))}
+                          <p className="text-[11px] text-gray-500">Tick the correct answer.</p>
+                        </div>
+                      )}
+                      {q.type === "mcq" && q.options && !editing && (
                         <ul className="mt-2 space-y-1">
                           {Object.entries(q.options).map(([k, v]) => (
                             <li key={k} className="text-sm text-gray-700">{k}) <MathText>{v}</MathText></li>
