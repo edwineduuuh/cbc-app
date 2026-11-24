@@ -1545,6 +1545,10 @@ class BankQuestion(models.Model):
     data = models.JSONField(help_text="The question exactly as a paper prints it")
     fingerprint = models.CharField(max_length=64, unique=True)
     source = models.CharField(max_length=20, default='generated', help_text="generated | teacher")
+    # A question written by hand in the question editor, mirrored here so
+    # teachers' papers use it. Kept in step with it on every paper build.
+    source_question = models.OneToOneField('Question', on_delete=models.SET_NULL, null=True,
+                                           blank=True, related_name='bank_copy')
     status = models.CharField(max_length=12, choices=STATUS_CHOICES, default=OK, db_index=True)
     times_used = models.PositiveIntegerField(default=0)
     model_used = models.CharField(max_length=60, blank=True, default='')

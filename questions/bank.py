@@ -105,13 +105,18 @@ def pick(subs, *, n_mcq: int, n_struct: int, figures: int, teacher=None) -> list
 
     if not subs or (n_mcq + n_struct) <= 0:
         return []
+    try:
+        sync_handwritten(subs)        # your own questions come in first
+    except Exception as e:
+        logger.warning("could not sync hand-written questions: %s", e)
     qs = BankQuestion.objects.filter(substrand__in=subs, status=BankQuestion.OK)
     if teacher is not None and getattr(teacher, "pk", None):
         used = BankUse.objects.filter(teacher=teacher).values("question_id")
         qs = qs.exclude(pk__in=used)
-    pool = list(qs.only("id", "substrand_id", "qtype", "has_figure", "times_used", "data"))
+    pool = list(qs.only("id", "substrand_id", "qtype", "has_figure", "times_used", "data", "source"))
     random.shuffle(pool)
-    pool.sort(key=lambda b: b.times_used)          # least used first
+    # Hand-written questions first, then the least used.
+    pool.sort(key=lambda b: (b.source != "teacher", b.times_used))
 
     chosen, per_sub = [], {}
     want = {"mcq": n_mcq, "structured": n_struct}
@@ -168,3 +173,115 @@ def record_use(teacher, questions) -> None:
     if teacher is not None and getattr(teacher, "pk", None):
         BankUse.objects.bulk_create([BankUse(teacher=teacher, question_id=i) for i in ids],
                                     ignore_conflicts=True)
+
+
+# ─────────────────────────────────────────────────────────────
+#  Hand-written questions (the question editor) on teachers' papers
+# ─────────────────────────────────────────────────────────────
+# Types a printed paper can carry. Accounting statements and passage-based
+# comprehension need their own layouts, so they stay quiz-only for now.
+_PAPER_TYPES = ("mcq", "structured", "math", "fill_blank", "essay", "multipart", "table")
+
+
+def _scheme(raw, marks: int, answer: str, extra=None) -> list:
+    """Any stored marking scheme (or a plain answer) as a paper marking scheme."""
+    award = f"Award {marks} mark{'s' if marks != 1 else ''} for a correct answer"
+    if isinstance(raw, list) and raw and all(isinstance(g, dict) for g in raw):
+        return raw
+    if isinstance(raw, dict) and raw.get("points"):
+        return [{"part": "", "award": raw.get("award") or award, "marks": marks,
+                 "points": [str(p) for p in raw["points"]]}]
+    if isinstance(raw, list) and raw:
+        return [{"part": "", "award": award, "marks": marks, "points": [str(p) for p in raw]}]
+    points = [str(a).strip() for a in ([answer] + list(extra or [])) if str(a or "").strip()]
+    return [{"part": "", "award": award, "marks": marks, "points": points}] if points else []
+
+
+def from_question(q):
+    """A hand-written Question as a paper question, or None if it cannot print."""
+    if q.question_type not in _PAPER_TYPES or q.passage_id or not q.substrand_id:
+        return None
+    data = {"substrand_id": q.substrand_id, "question_text": q.question_text or "",
+            "bloom_level": q.bloom_level or "", "command_verb": q.command_verb or ""}
+    try:
+        if q.question_image:
+            data["diagram"] = {"url": q.question_image.url, "alt": "Figure for this question"}
+    except Exception:
+        pass
+
+    if q.question_type == "mcq":
+        opts = {k: v for k, v in (("A", q.option_a), ("B", q.option_b),
+                                  ("C", q.option_c), ("D", q.option_d)) if (v or "").strip()}
+        key = (q.correct_answer or "").strip().upper()[:1]
+        if len(opts) < 2 or key not in opts:
+            return None
+        data.update(type="mcq", marks=1, options=opts, correct_answer=key)
+        return data
+
+    marks = max(1, int(q.max_marks or 1))
+    data.update(type="structured", marks=marks)
+
+    if q.question_type == "multipart":
+        parts, scheme = [], []
+        for p in q.parts.all().order_by("part_label"):
+            pm = max(1, int(p.max_marks or 1))
+            text = p.question_text or ""
+            if p.question_type == "mcq":
+                text += "".join(f"\n{k}) {v}" for k, v in (("A", p.option_a), ("B", p.option_b),
+                                                           ("C", p.option_c), ("D", p.option_d)) if v)
+            parts.append({"label": p.part_label, "question_text": text, "marks": pm})
+            for g in _scheme(p.marking_scheme, pm, p.correct_answer):
+                scheme.append({**g, "part": p.part_label})
+        if not parts or not scheme:
+            return None
+        data.update(parts=parts, marking_scheme=scheme,
+                    marks=sum(p["marks"] for p in parts))
+        return data
+
+    if q.question_type == "table":
+        rows = (q.table_data or {}).get("rows") or []
+        if len(rows) < 2:
+            return None
+        cells = [[("" if c.get("e") else str(c.get("v") or "")) for c in r] for r in rows]
+        answers = [str(c.get("a")) for r in rows for c in r if c.get("e") and c.get("a")]
+        data["table"] = {"headers": cells[0], "rows": cells[1:]}
+        data["marking_scheme"] = _scheme(q.marking_scheme, marks, "", answers)
+        return data if data["marking_scheme"] else None
+
+    extra = q.correct_answers if isinstance(q.correct_answers, list) else []
+    data["marking_scheme"] = _scheme(q.marking_scheme, marks, q.correct_answer, extra)
+    return data if data["marking_scheme"] else None
+
+
+def sync_handwritten(subs) -> None:
+    """Mirror the editor's questions for these sub-strands into the bank, and
+    keep each mirror in step with its question (edits, deletions)."""
+    from questions.models import BankQuestion, Question
+
+    have = {b.source_question_id: b for b in BankQuestion.objects.filter(
+        substrand__in=subs, source="teacher").exclude(source_question=None)}
+    for q in (Question.objects.filter(substrand__in=subs)
+              .select_related("substrand").prefetch_related("parts")):
+        try:
+            data = from_question(q)
+        except Exception as e:
+            logger.warning("question %s could not be banked: %s", q.id, e)
+            data = None
+        mirror = have.get(q.id)
+        if data is None:
+            if mirror and mirror.status == BankQuestion.OK:
+                mirror.status = BankQuestion.RETIRED
+                mirror.save(update_fields=["status"])
+            continue
+        fields = dict(substrand_id=q.substrand_id, qtype=data["type"], marks=data["marks"],
+                      has_figure=_has_figure(data), data=data, status=BankQuestion.OK)
+        if mirror is None:
+            BankQuestion.objects.create(fingerprint=f"question:{q.id}", source="teacher",
+                                        source_question=q, created_by=q.created_by, **fields)
+        elif mirror.data != data or mirror.status != BankQuestion.OK:
+            for k, v in fields.items():
+                setattr(mirror, k, v)
+            mirror.save()
+    # A question deleted from the editor leaves its mirror behind: retire it.
+    BankQuestion.objects.filter(substrand__in=subs, source="teacher",
+                                source_question=None).update(status=BankQuestion.RETIRED)
