@@ -101,6 +101,51 @@ function Diagram({ diagram }) {
   );
 }
 
+/** Faint StadiSpace logo + name tiled across the paper. Fixed when printing,
+ *  so every printed page carries it. */
+function Watermark() {
+  return (
+    <div aria-hidden="true"
+      className="pointer-events-none absolute inset-0 overflow-hidden print:fixed print:inset-0 z-0">
+      <div className="absolute -inset-[30%] grid grid-cols-3 content-around justify-items-center gap-y-40"
+        style={{ transform: "rotate(-30deg)" }}>
+        {Array.from({ length: 18 }).map((_, i) => (
+          <div key={i} className="flex items-center gap-3 opacity-[0.06]">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/brand/symbol.svg" alt="" className="h-14 w-14" />
+            <span className="text-4xl font-extrabold tracking-tight text-gray-900">StadiSpace</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/** Footer on every printed page: who made it, what learners get, how to reach us. */
+function PaperFooter() {
+  return (
+    <footer className="relative z-10 mt-10 flex items-center gap-4 border-t border-gray-300 pt-3 text-[10.5px] leading-snug text-gray-600
+                       print:fixed print:bottom-0 print:left-0 print:right-0 print:mt-0 print:bg-white print:px-[12mm] print:pb-[6mm]">
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src="/brand/symbol.svg" alt="" className="h-8 w-8 shrink-0" />
+      <div className="flex-1 min-w-0">
+        <p className="font-bold text-gray-900">
+          StadiSpace · <span className="text-emerald-700">stadispace.co.ke</span>
+        </p>
+        <p>
+          For learners: CBE practice quizzes marked instantly · AI Tutor · Flash cards · Books &amp; videos
+        </p>
+        <p>Grades 4 - 10 · Call or WhatsApp 0704 699683 / 0717 946 924</p>
+      </div>
+      <div className="flex shrink-0 items-center gap-2">
+        <span className="text-right text-[10px] font-semibold text-gray-700">Scan to<br />practise</span>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/brand/qr-stadispace.svg" alt="QR code to stadispace.co.ke" className="h-14 w-14" />
+      </div>
+    </footer>
+  );
+}
+
 /** A table the question refers to, printed as a table. */
 function QuestionTable({ table }) {
   if (!table || !(table.rows || []).length) return null;
@@ -135,7 +180,12 @@ function QuestionTable({ table }) {
 /** Ruled lines a learner writes on. Roughly two per mark, with a floor so a
  *  1-mark part is still usable, because a printed paper with nowhere to write
  *  is not a paper. */
-function AnswerLines({ marks }) {
+function AnswerLines({ marks, blank = false }) {
+  // Maths is worked, not written: clean space to work in, no ruled lines.
+  if (blank) {
+    const h = Math.max(4, Math.min(Number(marks) || 2, 10) * 2.2);
+    return <div className="mt-2" style={{ height: `${h}rem` }} aria-hidden="true" />;
+  }
   const n = Math.max(3, Math.min(Number(marks) || 2, 10) * 2);
   return (
     <div className="mt-2 space-y-5" aria-hidden="true">
@@ -330,6 +380,7 @@ export default function LibraryItemPage() {
   const p = item.payload || {};
   const questions = p.questions || [];
   const showScheme = tab === "scheme";
+  const isMaths = /math/i.test(item.subject || "");
 
   return (
     <div className="max-w-3xl">
@@ -411,7 +462,15 @@ export default function LibraryItemPage() {
         )}
       </div>
 
-      <article className="bg-white rounded-2xl border border-gray-200 p-6 sm:p-8 print:border-0 print:p-0">
+      <article className="relative overflow-hidden bg-white rounded-2xl border border-gray-200 p-6 sm:p-8 print:overflow-visible print:border-0 print:p-0">
+        <Watermark />
+        {/* A table footer repeats on every printed page and reserves its space,
+            so the fixed StadiSpace footer never prints over a question. */}
+        <table className="relative z-10 w-full border-collapse">
+          <tfoot className="hidden print:table-footer-group">
+            <tr><td><div style={{ height: "30mm" }} /></td></tr>
+          </tfoot>
+          <tbody><tr><td className="p-0 align-top">
         <header className="mb-6">
           <h1 className="text-center text-xl font-bold uppercase tracking-wide text-gray-900">
             {item.title}{showScheme ? " - Marking scheme" : ""}
@@ -481,12 +540,12 @@ export default function LibraryItemPage() {
                             <li key={pi} className="text-sm text-gray-800">
                               ({part.label}) <MathText>{stripMarks(part.question_text)}</MathText>
                               {part.marks ? <span className="text-gray-500"> ({marksLabel(part.marks)})</span> : null}
-                              <AnswerLines marks={part.marks} />
+                              <AnswerLines marks={part.marks} blank={isMaths} />
                             </li>
                           ))}
                         </ul>
                       ) : q.type === "structured" ? (
-                        <AnswerLines marks={q.marks} />
+                        <AnswerLines marks={q.marks} blank={isMaths} />
                       ) : null}
 
                       {!editing && (
@@ -547,6 +606,9 @@ export default function LibraryItemPage() {
             </li>
           ))}
         </ol>
+          </td></tr></tbody>
+        </table>
+        <PaperFooter />
       </article>
     </div>
   );
