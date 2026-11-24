@@ -432,9 +432,9 @@ export default function LandingPage() {
                   maxWidth: 520,
                 }}
               >
-                Curriculum practice for Grades 4 to 10, set by Kenyan teachers,
-                with instant marking and clear explanations. Revision resources,
-                trivia and educational games are on the way.
+                Curriculum practice for Grades 4 to 11, set by Kenyan teachers,
+                with instant marking and clear explanations. Plus revision resources
+                and StadiSpace Trivia - quick, fun rounds to challenge your brain.
               </motion.p>
 
               <motion.div

@@ -25,7 +25,7 @@ import {
   CalendarDays, FileText, NotebookPen, LayoutDashboard,
   FileQuestion, ListChecks, ScrollText, BookText, Network, Upload,
   Quote, PanelLeftClose, PanelLeftOpen, UserCircle,
-  UserCog, PlayCircle,
+  UserCog, PlayCircle, Gamepad2,
 } from "lucide-react";
 
 const ADMIN_ROLES = ["admin", "superadmin"];
@@ -45,6 +45,7 @@ const NAV = {
         { href: "/dashboard", label: "Home", icon: Home, mobile: true },
         { href: "/explore", label: "Learn", icon: BookOpen, mobile: true, match: ["/explore", "/attempts"] },
         { href: "/tutor", label: "Tutor", icon: GraduationCap, mobile: true },
+        { href: "/trivia", label: "Trivia", icon: Gamepad2, mobile: true },
         { href: "/flashcards", label: "Flash cards", icon: Layers },
         { href: "/progress", label: "My progress", icon: BarChart3, mobile: true },
       ]},
@@ -90,6 +91,7 @@ const NAV = {
       ]},
       { title: "Content", items: [
         { href: "/admin/library", label: "Library", icon: Library },
+        { href: "/admin/trivia", label: "Trivia", icon: Gamepad2 },
       ]},
       { title: "Platform", items: [
         { href: "/admin/topics", label: "Curriculum", icon: Network },
@@ -257,7 +259,7 @@ export default function Navbar() {
             </div>
             {portal === "student" ? (
               <nav aria-label="More" className="px-3 pb-2 flex flex-col gap-0.5">
-                {allItems.filter((i) => !i.mobile).map((item) => (
+                {allItems.filter((i) => !mobileItems.includes(i)).map((item) => (
                   <NavRow key={item.label} item={item} pathname={pathname} onNavigate={() => setDrawer(false)} />
                 ))}
               </nav>
