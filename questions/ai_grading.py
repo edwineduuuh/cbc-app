@@ -42,7 +42,7 @@ def _get_claude():
     # Our own loop retries; the SDK's silent retries and 10-minute default
     # timeout are what let one slow answer hold a learner for minutes.
     return anthropic.Anthropic(api_key=settings.ANTHROPIC_API_KEY,
-                               timeout=AI_DEADLINE_LONG + 10, max_retries=0)
+                               timeout=AI_HARD_LIMIT, max_retries=0)
 
 # Grading runs on Sonnet - strong at marking, ~40% cheaper output than Opus.
 # If this model is ever retired, _call_claude auto-falls-back to a working one
@@ -632,10 +632,25 @@ class MarkingTimeout(Exception):
     """An AI marking call ran past its deadline."""
 
 
-# A learner is waiting on every marking call: short replies (verdicts,
-# explanations) get 15s, long ones (worked solutions, essay marking) 25s.
-AI_DEADLINE_SHORT = 15
-AI_DEADLINE_LONG = 25
+# A marking call must never come back "busy". The main marker gets a head
+# start; if it hasn't answered by then, a second marker (Claude) starts in
+# parallel and the first good answer wins. Only if BOTH fail, or nothing
+# answers within AI_HARD_LIMIT, does the call give up.
+AI_DEADLINE_SHORT = 8       # head start for short replies (verdicts, explanations)
+AI_DEADLINE_LONG = 15       # head start for long ones (worked solutions, essays)
+AI_HARD_LIMIT = 100         # absolute cap, well inside gunicorn's 300s
+
+
+def _backup_marker(kiswahili: bool):
+    """The model raced against a slow main marker. Always a Claude model, and
+    a different one from the main route where possible."""
+    from questions import ai_routing
+    service = "marking_kiswahili" if kiswahili else "marking"
+    main = ai_routing.route_for(service) or ai_routing.CURRENT[service]
+    if main.provider == "anthropic":
+        return _MODEL_FALLBACKS.get(main.model, CLAUDE_MODEL), service
+    fb = ai_routing.fallback_for(service, main)
+    return (fb.model if fb and fb.provider == "anthropic" else CLAUDE_MODEL), service
 
 
 def _call_ai(
@@ -645,32 +660,61 @@ def _call_ai(
     kiswahili: bool = False,
     deadline: float | None = None,
 ) -> str:
-    """_call_ai_now with a hard deadline. Raises MarkingTimeout when the model
-    runs over - callers then fall back instead of making the learner wait."""
+    """Mark with the main marker; if it is slow, race a backup marker against
+    it and take the first good answer. Raises MarkingTimeout only when every
+    marker failed or nothing answered within AI_HARD_LIMIT seconds."""
     import threading
-    seconds = deadline or (AI_DEADLINE_LONG if max_tokens >= 1000 else AI_DEADLINE_SHORT)
-    box = {}
+    import time
+    head_start = deadline or (AI_DEADLINE_LONG if max_tokens >= 1000 else AI_DEADLINE_SHORT)
+    done = threading.Event()
+    lock = threading.Lock()
+    box = {"errors": [], "running": 0}
 
-    def work():
+    def run(fn, name):
         try:
-            box["out"] = _call_ai_now(prompt, working_image, max_tokens, kiswahili)
-        except BaseException as e:      # handed back to the caller below
-            box["err"] = e
+            out = fn()
+            if not (out or "").strip():
+                raise Exception(f"{name} returned nothing")
+            with lock:
+                box.setdefault("out", out)
+            done.set()
+        except BaseException as e:
+            with lock:
+                box["errors"].append(f"{name}: {type(e).__name__}: {e}")
         finally:
+            with lock:
+                box["running"] -= 1
+                if box["running"] == 0:
+                    done.set()          # nobody left - stop waiting
             try:
                 from django.db import connection
                 connection.close()      # the usage log opened one in this thread
             except Exception:
                 pass
 
-    t = threading.Thread(target=work, daemon=True, name="ai-marking")
-    t.start()
-    t.join(seconds)
-    if t.is_alive():
-        raise MarkingTimeout(f"AI marking took over {seconds}s")
-    if "err" in box:
-        raise box["err"]
-    return box["out"]
+    def start(fn, name):
+        with lock:
+            box["running"] += 1
+        threading.Thread(target=run, args=(fn, name), daemon=True, name=f"ai-marking-{name}").start()
+
+    started = time.monotonic()
+    start(lambda: _call_ai_now(prompt, working_image, max_tokens, kiswahili), "main")
+    done.wait(head_start)
+    if "out" in box:
+        return box["out"]
+
+    # Slow (or failed) - bring in the backup and take whichever answers first.
+    backup_model, service = _backup_marker(kiswahili)
+    print(f"⏱ marking slow after {time.monotonic() - started:.0f}s - racing backup {backup_model}")
+    start(lambda: _call_claude(prompt, working_image, max_tokens, model=backup_model, task=service), "backup")
+    while time.monotonic() - started < AI_HARD_LIMIT:
+        done.wait(0.5)                  # short polls: no missed wake-ups
+        if "out" in box:
+            return box["out"]
+        with lock:
+            if box["running"] == 0:
+                break
+    raise MarkingTimeout(f"No marker answered within {AI_HARD_LIMIT}s ({'; '.join(box['errors']) or 'timed out'})")
 
 
 def _call_ai_now(

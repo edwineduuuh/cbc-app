@@ -24,26 +24,56 @@ class Counter:
         return self.reply
 
 
-class Deadline(SimpleTestCase):
-    def test_slow_ai_is_cut_off(self):
-        with mock.patch.object(ag, "_call_ai_now", Counter(delay=3)):
+class NeverBusy(SimpleTestCase):
+    """A slow marker is raced, not given up on: the learner always gets a mark."""
+
+    def test_slow_main_marker_is_raced_by_the_backup(self):
+        with mock.patch.object(ag, "_call_ai_now", Counter(reply="MAIN", delay=3)), \
+             mock.patch.object(ag, "_call_claude", Counter(reply="BACKUP", delay=0)):
+            t = time.time()
+            self.assertEqual(ag._call_ai("hi", deadline=0.3), "BACKUP")
+            self.assertLess(time.time() - t, 1.5)
+
+    def test_main_marker_still_wins_if_it_answers_first(self):
+        with mock.patch.object(ag, "_call_ai_now", Counter(reply="MAIN", delay=0.5)), \
+             mock.patch.object(ag, "_call_claude", Counter(reply="BACKUP", delay=3)):
+            self.assertEqual(ag._call_ai("hi", deadline=0.2), "MAIN")
+
+    def test_a_failed_backup_does_not_lose_a_slow_main_answer(self):
+        def boom(*a, **k):
+            raise RuntimeError("backup down")
+        with mock.patch.object(ag, "_call_ai_now", Counter(reply="MAIN", delay=1)), \
+             mock.patch.object(ag, "_call_claude", boom):
+            self.assertEqual(ag._call_ai("hi", deadline=0.2), "MAIN")
+
+    def test_gives_up_only_when_every_marker_failed(self):
+        def boom(*a, **k):
+            raise RuntimeError("down")
+        with mock.patch.object(ag, "_call_ai_now", boom), mock.patch.object(ag, "_call_claude", boom):
             t = time.time()
             with self.assertRaises(ag.MarkingTimeout):
-                ag._call_ai("hi", deadline=0.3)
-            self.assertLess(time.time() - t, 1)
+                ag._call_ai("hi", deadline=0.2)
+            self.assertLess(time.time() - t, 2)     # no waiting out the full limit
+
+    def test_hard_limit(self):
+        with mock.patch.object(ag, "AI_HARD_LIMIT", 1), \
+             mock.patch.object(ag, "_call_ai_now", Counter(delay=4)), \
+             mock.patch.object(ag, "_call_claude", Counter(delay=4)):
+            with self.assertRaises(ag.MarkingTimeout):
+                ag._call_ai("hi", deadline=0.2)
 
     def test_claude_client_has_no_hidden_retries(self):
         with mock.patch.object(ag.anthropic, "Anthropic") as A:
             ag._get_claude()
         self.assertEqual(A.call_args.kwargs["max_retries"], 0)
-        self.assertLess(A.call_args.kwargs["timeout"], 60)
+        self.assertLessEqual(A.call_args.kwargs["timeout"], ag.AI_HARD_LIMIT)
 
 
 class FailureIsNotWrong(SimpleTestCase):
     def test_structured_ai_failure_is_unmarked(self):
         def boom(*a, **k):
             raise ag.MarkingTimeout("slow")
-        with mock.patch.object(ag, "_call_ai_now", boom):
+        with mock.patch.object(ag, "_call_ai_now", boom), mock.patch.object(ag, "_call_claude", boom):
             r = ag._grade_with_ai(_q("structured", "The heart pumps blood round the body", 2),
                                   "it moves blood")
         self.assertTrue(r["unmarked"])
@@ -106,7 +136,7 @@ class MathSpeed(SimpleTestCase):
     def test_no_verdict_is_unmarked(self):
         def boom(prompt, *a, **k):
             raise ag.MarkingTimeout("slow")
-        with mock.patch.object(ag, "_call_ai_now", boom):
+        with mock.patch.object(ag, "_call_ai_now", boom), mock.patch.object(ag, "_call_claude", boom):
             r = ag._grade_math(_q("math", "2x + 3", text="Simplify x + x + 3"), "x squared")
             time.sleep(0.2)                                # let the abandoned call settle
         self.assertTrue(r["unmarked"])

@@ -2190,41 +2190,43 @@ export default function QuizTakePage({ params }) {
     setChecking(true);
     const idx = currentIdx;
     setCheckErrors((p) => ({ ...p, [idx]: null }));
-    // Answers that match the key are marked instantly; the server caps any
-    // AI step at 25s and answers "busy" rather than wait longer, so 40s here
-    // only catches a dead connection.
-    const controller = new AbortController();
-    const timer = setTimeout(() => controller.abort(), 40000);
+    // The server races a backup marker when the main one is slow and only
+    // gives up after ~100s, so a check should always come back with a mark.
+    // A dropped connection or a rare failure is retried here once, quietly,
+    // before the learner sees anything.
+    const body = JSON.stringify({
+      question_id: currentQ.id,
+      answer: ans ?? "",
+      working_image: workingImages[idx] || undefined,
+    });
+    const once = async () => {
+      const controller = new AbortController();
+      const timer = setTimeout(() => controller.abort(), 130000);
+      try {
+        const res = await fetchWithAuth(`${API}/quizzes/grade-one/`, {
+          method: "POST", signal: controller.signal, body,
+        });
+        const d = await res.json().catch(() => ({}));
+        return { ok: res.ok, status: res.status, d };
+      } catch (e) {
+        return { ok: false, status: 0, d: {}, aborted: e?.name === "AbortError" };
+      } finally {
+        clearTimeout(timer);
+      }
+    };
     try {
-      const res = await fetchWithAuth(`${API}/quizzes/grade-one/`, {
-        method: "POST",
-        signal: controller.signal,
-        body: JSON.stringify({
-          question_id: currentQ.id,
-          answer: ans ?? "",
-          working_image: workingImages[idx] || undefined,
-        }),
-      });
-      const d = await res.json().catch(() => ({}));
-      if (res.ok) setFeedbacks((p) => ({ ...p, [idx]: d }));
+      let r = await once();
+      // Retry anything that isn't a real "no" from the server (4xx).
+      if (!r.ok && (r.status === 0 || r.status >= 500)) r = await once();
+      if (r.ok) setFeedbacks((p) => ({ ...p, [idx]: r.d }));
       else
         setCheckErrors((p) => ({
           ...p,
-          [idx]: d?.error ||
-            (res.status >= 500
-              ? "The marker had a problem with this answer."
-              : "This answer couldn't be checked."),
+          [idx]: r.status === 0
+            ? "No connection to the marker - check your internet."
+            : r.d?.error || "This answer couldn't be checked.",
         }));
-    } catch (e) {
-      // A failed check used to reset silently, as if nothing happened.
-      setCheckErrors((p) => ({
-        ...p,
-        [idx]: e?.name === "AbortError"
-          ? "Checking took too long."
-          : "No connection to the marker.",
-      }));
     } finally {
-      clearTimeout(timer);
       setChecking(false);
     }
   };
