@@ -2497,7 +2497,7 @@ def _grade_with_ai(
         feedback = f"{_verdict}\n{_body}".strip() if _body else _verdict
 
         cache.delete("ai_grading:consecutive_failures")
-        return {
+        return _ensure_lost_marks_reason({
             "marks_awarded":        marks,
             "max_marks":            question.max_marks,
             "feedback":             feedback,
@@ -2506,7 +2506,7 @@ def _grade_with_ai(
             "study_tip":            result.get("study_tip", ""),
             "points_earned":        _to_list(result.get("points_earned", [])),
             "points_missed":        _to_list(result.get("points_missed", [])),
-        }
+        }, question, student_raw, sw)
 
     except Exception as e:
         print(f"AI Grading Error (Q{getattr(question, 'id', '?')}): {e}")
@@ -3443,6 +3443,69 @@ def _route(
 
 
 # ─────────────────────────────────────────────────────────────────────────────
+#  EVERY LOST MARK IS EXPLAINED
+# ─────────────────────────────────────────────────────────────────────────────
+
+_VERDICT_RE = re.compile(
+    r'^(correct!|not quite\.?|partially correct\.?|vizuri!|'
+    r'jibu si sahihi\.?|sehemu ni sahihi\.?)\s*', re.I)
+
+
+def _has_reason(feedback) -> bool:
+    """Does the feedback say anything beyond the verdict ("Partially correct.")?"""
+    body = _VERDICT_RE.sub('', str(feedback or '').replace('\\n', '\n').strip())
+    return len(re.sub(r'\W', '', body)) >= 12
+
+
+def _missing_key_points(q, student_answer, how_many: int) -> list:
+    """Points from the teacher's structured key the answer did not cover - only
+    as many as the marks lost, so we never list alternatives they didn't need."""
+    points = _extract_scheme_points(q) if q is not None else None
+    if not points:
+        return []
+    items = _student_items(student_answer)
+    left = [d for d, _ in points if not any(_item_matches_point(i, d) for i in items)]
+    return left[:max(how_many, 1)]
+
+
+def _ensure_lost_marks_reason(result: dict, q, student_answer, sw: bool) -> dict:
+    """A part or question that lost marks must say why. The marker sometimes
+    returns the mark with only a verdict; fill the reason from the marker's own
+    points_missed, else from the teacher's key - never from AI knowledge."""
+    try:
+        marks = int(result.get("marks_awarded") or 0)
+        mx = int(result.get("max_marks") or 0)
+        if result.get("unmarked") or mx <= 0 or marks >= mx:
+            return result
+        fb = str(result.get("feedback") or "").strip()
+        if _has_reason(fb):
+            return result
+        missed = [str(p).strip() for p in _to_list(result.get("points_missed", []))
+                  if str(p).strip() and not re.match(r'\s*correct answer\s*:', str(p), re.I)]
+        if not missed:
+            missed = _missing_key_points(q, student_answer, mx - marks)
+            if missed:
+                result["points_missed"] = missed
+        if missed:
+            reason = ("Ulikosa:" if sw else "What you missed:") + "\n" + "\n".join(missed)
+        else:
+            key = _clean_correct_answer(str(getattr(q, "correct_answer", "") or "")) if q is not None else ""
+            if key and len(key) <= 80:
+                reason = f"Jibu lililohitajika: {key}" if sw else f"The answer needed: {key}"
+            else:
+                reason = ("Jibu lako halikugusa pointi zote za mpango wa alama hapa chini."
+                          if sw else "Your answer didn't cover every point in the marking key below.")
+        if marks > 0:
+            verdict = "Sehemu ni sahihi." if sw else "Partially correct."
+        else:
+            verdict = "Jibu si sahihi." if sw else "Not quite."
+        result["feedback"] = f"{verdict}\n{reason}"
+    except Exception as e:
+        print(f"⚠ lost-marks reason skipped: {e}")
+    return result
+
+
+# ─────────────────────────────────────────────────────────────────────────────
 #  MULTI-PART PROXY
 # ─────────────────────────────────────────────────────────────────────────────
 
@@ -3556,6 +3619,8 @@ def _grade_multipart(question, student_answer, working_image=None) -> dict:
     for part_id in sorted(results.keys()):
         label, result, raw_answer = results[part_id]
         part_obj = parts_by_id.get(part_id)
+        if part_obj is not None:
+            result = _ensure_lost_marks_reason(result, _PartProxy(part_obj), str(raw_answer or ""), sw)
         total_marks += result["marks_awarded"]
         total_max   += result["max_marks"]
 
@@ -3644,6 +3709,30 @@ def _augment_feedback(question, result: dict) -> dict:
     return result
 
 
+def _explain_cached(question, cached, student_answer, parts):
+    """Results cached before every lost mark was explained: fill the gaps."""
+    try:
+        sw = _is_kiswahili(question)
+        prs = cached.get("part_results")
+        if prs:
+            by_id = {p.id: p for p in parts}
+            changed = False
+            for pr in prs:
+                before = pr.get("feedback")
+                part = by_id.get(pr.get("part_id"))
+                _ensure_lost_marks_reason(pr, _PartProxy(part) if part else None,
+                                          pr.get("student_answer", ""), sw)
+                changed = changed or pr.get("feedback") != before
+            if changed:
+                cached["feedback"] = "\n\n".join(
+                    f"({pr.get('part_label')}) {pr.get('feedback', '')}" for pr in prs)
+        elif isinstance(student_answer, str):
+            _ensure_lost_marks_reason(cached, question, student_answer, sw)
+    except Exception as e:
+        print(f"⚠ cached reason skipped: {e}")
+    return cached
+
+
 def grade_answer(
     question,
     student_answer,
@@ -3685,7 +3774,7 @@ def grade_answer(
             cached = None  # e.g. cache table not yet created - grade normally
         if cached:
             print(f"✅ Cache hit for Q{question.id}")
-            return cached
+            return _explain_cached(question, cached, student_answer, parts)
 
     if parts:
         result = _grade_multipart(question, student_answer, working_image)
