@@ -363,7 +363,10 @@ class TopicListView(generics.ListAPIView):
     permission_classes = [AllowAny]
 
     def get_queryset(self):
-        queryset = official_topics(Topic.objects.all(), self.request.user)
+        # ?official=1 - KICD strands only, whoever asks (admin pickers use it so
+        # nothing gets filed under an old hand-typed strand).
+        who = None if self.request.query_params.get('official') else self.request.user
+        queryset = official_topics(Topic.objects.select_related('subject'), who)
         subject_id = self.request.query_params.get('subject')
         grade = self.request.query_params.get('grade')
         

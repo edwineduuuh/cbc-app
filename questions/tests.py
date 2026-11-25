@@ -251,3 +251,52 @@ class PaymentCallbackIsVerified(Fixtures):
         self._post({**self.forged, "challenge": "s3cret"})
         self.payment.refresh_from_db()
         self.assertEqual(self.payment.status, "verified")
+
+
+class QuizEditorUsesKicdStrands(Fixtures):
+    """The admin quiz editor: KICD strands only, every setting loaded, and the
+    question order kept exactly as arranged."""
+
+    @classmethod
+    def setUpTestData(cls):
+        super().setUpTestData()
+        from questions.models import Substrand
+        cls.kicd = Topic.objects.create(subject=cls.subject, grade=7, name="Living Things and their Environment",
+                                        slug="living-things-env", kicd_code="2.0")
+        cls.cells = Substrand.objects.create(topic=cls.kicd, name="Cells", slug="cells",
+                                             kicd_code="2.1", learning_outcomes=["describe a cell"])
+        cls.other_sub = Substrand.objects.create(topic=cls.topic, name="Old", slug="old")
+
+    def test_official_strand_list_hides_hand_typed_strands_even_for_admin(self):
+        a = client_for(self.admin)
+        everything = {t["id"] for t in a.get("/api/topics/?subject=%d&grade=7" % self.subject.pk).json()}
+        official = {t["id"] for t in a.get("/api/topics/?official=1&subject=%d&grade=7" % self.subject.pk).json()}
+        self.assertIn(self.topic.pk, everything)
+        self.assertEqual(official, {self.kicd.pk})
+
+    def test_editor_loads_every_setting_and_full_questions(self):
+        self.quiz.topic = self.kicd
+        self.quiz.save()
+        d = client_for(self.admin).get(f"/api/admin/quizzes/{self.quiz.pk}/").json()
+        for k in ("subject", "topic", "quiz_type", "is_active", "available_to_teachers", "duration_minutes"):
+            self.assertIn(k, d)
+        self.assertEqual(d["subject"], self.subject.pk)
+        self.assertEqual(d["topic"], self.kicd.pk)
+        self.assertIn("question_type", d["questions"][0])
+        self.assertIn("substrand_name", d["questions"][0])
+
+    def test_question_order_is_saved_as_arranged(self):
+        a = client_for(self.admin)
+        new = [self.matching.pk, self.mcq.pk, self.multipart.pk]
+        r = a.patch(f"/api/admin/quizzes/{self.quiz.pk}/", {"question_ids": new}, format="json")
+        self.assertEqual(r.status_code, 200, r.content)
+        got = [q["id"] for q in a.get(f"/api/admin/quizzes/{self.quiz.pk}/").json()["questions"]]
+        self.assertEqual(got, new)
+
+    def test_sub_strand_must_belong_to_the_strand(self):
+        a = client_for(self.admin)
+        r = a.patch(f"/api/admin/questions/{self.mcq.pk}/", {"topic": self.kicd.pk, "substrand": self.other_sub.pk}, format="json")
+        self.assertEqual(r.status_code, 400)
+        r = a.patch(f"/api/admin/questions/{self.mcq.pk}/", {"topic": self.kicd.pk, "substrand": self.cells.pk}, format="json")
+        self.assertEqual(r.status_code, 200, r.content)
+        self.assertEqual(r.json()["substrand_name"], "Cells")

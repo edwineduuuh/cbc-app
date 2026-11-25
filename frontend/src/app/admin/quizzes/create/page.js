@@ -22,27 +22,10 @@ import {
   FileQuestion,
   Hash,
   BarChart2,
-  Tag,
   Pencil,
 } from "lucide-react";
-import FinancialStatementEditor from "@/components/FinancialStatementEditor";
-
-const BLANK_EDIT = {
-  question_text: "",
-  question_type: "mcq",
-  difficulty: "easy",
-  option_a: "",
-  option_b: "",
-  option_c: "",
-  option_d: "",
-  correct_answer: "",
-  explanation: "",
-  statement_subtype: "",
-  marking_scheme: null,
-};
-
-const inputCls =
-  "w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500";
+import QuestionEditModal from "@/components/admin/QuestionEditModal";
+import { CurriculumChips, StrandPicker } from "@/components/admin/kicd";
 
 const API =
   process.env.NEXT_PUBLIC_API_URL ||
@@ -196,86 +179,27 @@ export default function CreateQuizPage() {
   const [description, setDescription] = useState("");
 
   // ── Step 2 state ───────────────────────────────────────────────
-  const [topics, setTopics] = useState([]);
   const [questions, setQuestions] = useState([]);
   const [selectedIds, setSelectedIds] = useState([]);
   const [loadingQ, setLoadingQ] = useState(false);
   const [filterGrade, setFilterGrade] = useState("");
-  const [filterTopic, setFilterTopic] = useState("");
+  const [filterStrand, setFilterStrand] = useState({ topic: "", substrand: "" });
   const [filterType, setFilterType] = useState("");
   const [filterDiff, setFilterDiff] = useState("");
   const [search, setSearch] = useState("");
   const [creating, setCreating] = useState(false);
 
-  // ── Inline question edit ───────────────────────────────────────
+
   const [editingQuestion, setEditingQuestion] = useState(null);
-  const [editForm, setEditForm] = useState(BLANK_EDIT);
-  const [editSaving, setEditSaving] = useState(false);
-
-  const openEdit = async (e, question) => {
+  const openEdit = (e, question) => {
     e.stopPropagation();
-    const token =
-      typeof window !== "undefined"
-        ? localStorage.getItem("accessToken")
-        : null;
-    try {
-      const res = await fetch(`${API}/admin/questions/${question.id}/`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      const data = res.ok ? await res.json() : question;
-      setEditForm({
-        topic: data.topic || "",
-        question_text: data.question_text || "",
-        question_type: data.question_type || "mcq",
-        difficulty: data.difficulty || "easy",
-        option_a: data.option_a || "",
-        option_b: data.option_b || "",
-        option_c: data.option_c || "",
-        option_d: data.option_d || "",
-        correct_answer: data.correct_answer || "",
-        explanation: data.explanation || "",
-      });
-      setEditingQuestion(data);
-    } catch {
-      setEditForm({ ...BLANK_EDIT, ...question });
-      setEditingQuestion(question);
-    }
+    setEditingQuestion(question);
   };
-
-  const saveEdit = async () => {
-    setEditSaving(true);
-    const token =
-      typeof window !== "undefined"
-        ? localStorage.getItem("accessToken")
-        : null;
-    try {
-      const res = await fetch(`${API}/admin/questions/${editingQuestion.id}/`, {
-        method: "PATCH",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(editForm),
-      });
-      if (res.ok) {
-        const updated = await res.json();
-        setQuestions((prev) =>
-          prev.map((q) => (q.id === updated.id ? { ...q, ...updated } : q)),
-        );
-        setEditingQuestion(null);
-        showToast("Question updated!", "success");
-      } else {
-        showToast("Failed to save question", "error");
-      }
-    } catch {
-      showToast("Network error", "error");
-    } finally {
-      setEditSaving(false);
-    }
+  const onQuestionSaved = (updated) => {
+    setQuestions((prev) => prev.map((q) => (q.id === updated.id ? { ...q, ...updated } : q)));
+    setEditingQuestion(null);
+    showToast("Question updated!", "success");
   };
-
-  const isMcqEdit =
-    editForm.question_type === "mcq" || editForm.question_type === "math";
 
   useEffect(() => {
     fetch(`${API}/subjects/`)
@@ -284,23 +208,6 @@ export default function CreateQuizPage() {
       .catch(() => {});
   }, []);
 
-  // Load topics when subject+filterGrade changes (step 2)
-  useEffect(() => {
-    if (!subject || !filterGrade) {
-      setTopics([]);
-      return;
-    }
-    const token =
-      typeof window !== "undefined"
-        ? localStorage.getItem("accessToken")
-        : null;
-    fetch(`${API}/admin/topics/?subject=${subject}&grade=${filterGrade}`, {
-      headers: token ? { Authorization: `Bearer ${token}` } : {},
-    })
-      .then((r) => r.json())
-      .then((d) => setTopics(Array.isArray(d) ? d : d.results || []))
-      .catch(() => {});
-  }, [subject, filterGrade]);
 
   // Load questions when step 2 is reached (or filters change)
   useEffect(() => {
@@ -315,7 +222,8 @@ export default function CreateQuizPage() {
       grade: filterGrade,
       page_size: 500,
     });
-    if (filterTopic) params.set("topic", filterTopic);
+    if (filterStrand.topic) params.set("topic", filterStrand.topic);
+    if (filterStrand.substrand) params.set("substrand", filterStrand.substrand);
     if (filterType) params.set("type", filterType);
     if (filterDiff) params.set("difficulty", filterDiff);
     fetch(`${API}/admin/questions/manage/?${params}`, {
@@ -325,7 +233,7 @@ export default function CreateQuizPage() {
       .then((d) => setQuestions(Array.isArray(d) ? d : d.results || []))
       .catch(() => setQuestions([]))
       .finally(() => setLoadingQ(false));
-  }, [step, subject, filterGrade, filterTopic, filterType, filterDiff]);
+  }, [step, subject, filterGrade, filterStrand, filterType, filterDiff]);
 
   const displayedQuestions = useMemo(() => {
     if (!search.trim()) return questions;
@@ -360,7 +268,7 @@ export default function CreateQuizPage() {
       return;
     }
     setFilterGrade(grade);
-    setFilterTopic("");
+    setFilterStrand({ topic: "", substrand: "" });
     setStep(2);
   };
 
@@ -388,8 +296,7 @@ export default function CreateQuizPage() {
           grade: parseInt(grade),
           quiz_type: quizType,
           passing_score: parseInt(passingScore),
-          is_active: true,
-          is_b2c: isB2C,
+          is_active: isB2C,
           available_to_teachers: availableToTeachers,
           question_ids: selectedIds,
         }),
@@ -425,241 +332,12 @@ export default function CreateQuizPage() {
         onClose={() => setToast((t) => ({ ...t, show: false }))}
       />
 
-      {/* Edit Question Modal */}
       {editingQuestion && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
-          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
-            <div className="flex items-center justify-between p-6 border-b">
-              <h2 className="text-xl font-bold">Edit Question</h2>
-              <button
-                onClick={() => setEditingQuestion(null)}
-                className="p-2 hover:bg-gray-100 rounded-lg"
-              >
-                <X className="w-5 h-5" />
-              </button>
-            </div>
-            <div className="p-6 space-y-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Question Text
-                </label>
-                <p className="text-xs text-gray-400 mb-1">
-                  Use <code>&lt;u&gt;word&lt;/u&gt;</code> to underline,{" "}
-                  <code>&lt;b&gt;</code> to bold, <code>$math$</code> for inline
-                  math
-                </p>
-                <textarea
-                  rows={3}
-                  className={inputCls}
-                  value={editForm.question_text}
-                  onChange={(e) =>
-                    setEditForm({ ...editForm, question_text: e.target.value })
-                  }
-                />
-              </div>
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Question Type
-                  </label>
-                  <select
-                    className={inputCls}
-                    value={editForm.question_type}
-                    onChange={(e) => {
-                      const t = e.target.value;
-                      const clear = t !== "mcq" && t !== "math";
-                      setEditForm({
-                        ...editForm,
-                        question_type: t,
-                        ...(clear && {
-                          option_a: "",
-                          option_b: "",
-                          option_c: "",
-                          option_d: "",
-                          correct_answer: "",
-                        }),
-                      });
-                    }}
-                  >
-                    <option value="mcq">MCQ</option>
-                    <option value="math">Math</option>
-                    <option value="fill_blank">Fill in the Blank</option>
-                    <option value="structured">Structured</option>
-                    <option value="essay">Essay</option>
-                    <option value="financial_statement">
-                      Financial Statement
-                    </option>
-                  </select>
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Difficulty
-                  </label>
-                  <select
-                    className={inputCls}
-                    value={editForm.difficulty}
-                    onChange={(e) =>
-                      setEditForm({ ...editForm, difficulty: e.target.value })
-                    }
-                  >
-                    <option value="easy">Easy</option>
-                    <option value="medium">Medium</option>
-                    <option value="hard">Hard</option>
-                  </select>
-                </div>
-              </div>
-              {isMcqEdit && (
-                <div className="grid grid-cols-2 gap-3">
-                  {["a", "b", "c", "d"].map((letter) => (
-                    <div key={letter}>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
-                        Option {letter.toUpperCase()}
-                      </label>
-                      <input
-                        type="text"
-                        className={inputCls}
-                        value={editForm[`option_${letter}`]}
-                        onChange={(e) =>
-                          setEditForm({
-                            ...editForm,
-                            [`option_${letter}`]: e.target.value,
-                          })
-                        }
-                      />
-                    </div>
-                  ))}
-                </div>
-              )}
-              {isMcqEdit ? (
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Correct Answer
-                  </label>
-                  <select
-                    className={inputCls}
-                    value={editForm.correct_answer}
-                    onChange={(e) =>
-                      setEditForm({
-                        ...editForm,
-                        correct_answer: e.target.value,
-                      })
-                    }
-                  >
-                    <option value="">Select…</option>
-                    <option value="A">A</option>
-                    <option value="B">B</option>
-                    <option value="C">C</option>
-                    <option value="D">D</option>
-                  </select>
-                </div>
-              ) : editForm.question_type === "fill_blank" ? (
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Correct Answer
-                  </label>
-                  <input
-                    type="text"
-                    className={inputCls}
-                    value={editForm.correct_answer}
-                    onChange={(e) =>
-                      setEditForm({
-                        ...editForm,
-                        correct_answer: e.target.value,
-                      })
-                    }
-                  />
-                </div>
-              ) : editForm.question_type === "financial_statement" ? (
-                <div className="space-y-3">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
-                      Statement Type
-                    </label>
-                    <select
-                      className={inputCls}
-                      value={editForm.statement_subtype || ""}
-                      onChange={(e) =>
-                        setEditForm({
-                          ...editForm,
-                          statement_subtype: e.target.value,
-                          marking_scheme: null,
-                        })
-                      }
-                    >
-                      <option value="">Select statement type…</option>
-                      <option value="balance_sheet">Balance Sheet</option>
-                      <option value="income_statement">Income Statement</option>
-                      <option value="trading_account">
-                        Trading / P&amp;L Account
-                      </option>
-                      <option value="cash_flow">Cash Flow Statement</option>
-                      <option value="t_account">T-Account / Ledger</option>
-                      <option value="trial_balance">Trial Balance</option>
-                    </select>
-                  </div>
-                  {editForm.statement_subtype && (
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Define Correct Answer Structure
-                      </label>
-                      <FinancialStatementEditor
-                        subtype={editForm.statement_subtype}
-                        value={editForm.marking_scheme}
-                        onChange={(schema) =>
-                          setEditForm({ ...editForm, marking_scheme: schema })
-                        }
-                      />
-                    </div>
-                  )}
-                </div>
-              ) : (
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Model Answer / Marking Scheme
-                  </label>
-                  <textarea
-                    rows={4}
-                    className={inputCls}
-                    value={editForm.explanation}
-                    onChange={(e) =>
-                      setEditForm({ ...editForm, explanation: e.target.value })
-                    }
-                  />
-                </div>
-              )}
-              {isMcqEdit && (
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Explanation
-                  </label>
-                  <textarea
-                    rows={2}
-                    className={inputCls}
-                    value={editForm.explanation}
-                    onChange={(e) =>
-                      setEditForm({ ...editForm, explanation: e.target.value })
-                    }
-                  />
-                </div>
-              )}
-            </div>
-            <div className="flex justify-end gap-3 p-6 border-t">
-              <button
-                onClick={() => setEditingQuestion(null)}
-                className="px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded-lg"
-              >
-                Cancel
-              </button>
-              <button
-                onClick={saveEdit}
-                disabled={editSaving}
-                className="px-4 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-lg disabled:opacity-50"
-              >
-                {editSaving ? "Saving…" : "Save Question"}
-              </button>
-            </div>
-          </div>
-        </div>
+        <QuestionEditModal
+          question={editingQuestion}
+          onClose={() => setEditingQuestion(null)}
+          onSaved={onQuestionSaved}
+        />
       )}
 
       {/* Header */}
@@ -865,8 +543,8 @@ export default function CreateQuizPage() {
                         key: "b2c",
                         checked: isB2C,
                         set: setIsB2C,
-                        label: "Students (public)",
-                        desc: "Any student on the platform can find and take this quiz.",
+                        label: "Students",
+                        desc: "Students can find and take this quiz. Untick to keep it hidden for now.",
                       },
                       {
                         key: "teacher",
@@ -950,7 +628,7 @@ export default function CreateQuizPage() {
                       value={filterGrade}
                       onChange={(e) => {
                         setFilterGrade(e.target.value);
-                        setFilterTopic("");
+                        setFilterStrand({ topic: "", substrand: "" });
                       }}
                       className={`px-3 py-2.5 text-sm border-2 rounded-xl focus:border-indigo-400 outline-none ${filterGrade != grade ? "border-amber-400 bg-amber-50 text-amber-800 font-semibold" : "border-gray-200"}`}
                     >
@@ -960,18 +638,14 @@ export default function CreateQuizPage() {
                         </option>
                       ))}
                     </select>
-                    <select
-                      value={filterTopic}
-                      onChange={(e) => setFilterTopic(e.target.value)}
-                      className="px-3 py-2.5 text-sm border-2 border-gray-200 rounded-xl focus:border-indigo-400 outline-none min-w-[150px]"
-                    >
-                      <option value="">All Strands</option>
-                      {topics.map((t) => (
-                        <option key={t.id} value={t.id}>
-                          {t.name}
-                        </option>
-                      ))}
-                    </select>
+                    <StrandPicker
+                      subject={subject}
+                      grade={filterGrade}
+                      value={filterStrand}
+                      onChange={setFilterStrand}
+                      className="contents"
+                      selectCls="px-3 py-2.5 text-sm border-2 border-gray-200 rounded-xl focus:border-indigo-400 outline-none min-w-[150px] max-w-[260px]"
+                    />
                     <select
                       value={filterType}
                       onChange={(e) => setFilterType(e.target.value)}
@@ -1074,12 +748,7 @@ export default function CreateQuizPage() {
                                 {q.question_text}
                               </p>
                               <div className="flex flex-wrap items-center gap-1.5 mt-2">
-                                {q.topic_name && (
-                                  <span className="flex items-center gap-1 text-xs px-2 py-0.5 bg-gray-100 text-gray-600 rounded-full">
-                                    <Tag className="w-3 h-3" />
-                                    {q.topic_name}
-                                  </span>
-                                )}
+                                <CurriculumChips q={q} />
                                 <span
                                   className={`text-xs px-2 py-0.5 rounded-full font-medium ${TYPE_COLORS[q.question_type] || "bg-gray-100 text-gray-600"}`}
                                 >

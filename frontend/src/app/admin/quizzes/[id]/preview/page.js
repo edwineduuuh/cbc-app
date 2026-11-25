@@ -8,6 +8,7 @@ import Card from "@/components/ui/Card";
 import Button from "@/components/ui/Button";
 import { ArrowLeft, BookOpen, Award } from "lucide-react";
 import Link from "next/link";
+import QuizTabs from "@/components/admin/QuizTabs";
 
 const API =
   process.env.NEXT_PUBLIC_API_URL ||
@@ -38,21 +39,15 @@ export default function QuizPreviewPage() {
       router.replace("/dashboard");
       return;
     }
-    if (!authLoading && user) fetchQuiz();
-  }, [user, authLoading]);
-
-  const fetchQuiz = async () => {
-    const token = localStorage.getItem("accessToken");
-    const res = await fetch(`${API}/admin/quizzes/${params.id}/`, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
-
-    if (res.ok) {
-      const data = await res.json();
-      setQuiz(data);
-    }
-    setLoading(false);
-  };
+    if (authLoading || !user) return;
+    fetch(`${API}/admin/quizzes/${params.id}/`, {
+      headers: { Authorization: `Bearer ${localStorage.getItem("accessToken")}` },
+    })
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => data && setQuiz(data))
+      .catch(() => {})
+      .finally(() => setLoading(false));
+  }, [user, authLoading, params.id, router]);
 
   if (loading) {
     return (
@@ -88,7 +83,11 @@ export default function QuizPreviewPage() {
             Back to Quizzes
           </Link>
           <h1 className="text-3xl font-bold text-gray-900">{quiz.title}</h1>
-          <p className="text-gray-600 mt-2">{quiz.description}</p>
+          <p className="text-gray-600 mt-2">
+            {quiz.subject_name} · Grade {quiz.grade}{quiz.topic_name ? ` · ${quiz.topic_name}` : ""}
+          </p>
+          {quiz.description && <p className="text-gray-500 mt-1 text-sm">{quiz.description}</p>}
+          <div className="mt-4"><QuizTabs id={quiz.id} active="preview" light /></div>
         </div>
       </div>
 
@@ -146,7 +145,7 @@ export default function QuizPreviewPage() {
                           key={option}
                           className={`p-3 rounded-lg border-2 ${
                             q.correct_answer === option
-                              ? "border-green-500 bg-green-50"
+                              ? "border-green-500 bg-green-500/10"
                               : "border-gray-200"
                           }`}
                         >
@@ -177,6 +176,11 @@ export default function QuizPreviewPage() {
                       <span className="text-xs px-2 py-1 bg-gray-100 text-gray-600 rounded">
                         {q.topic_name}
                       </span>
+                      {q.substrand_name ? (
+                        <span className="text-xs px-2 py-1 bg-teal-50 text-teal-700 rounded">› {q.substrand_name}</span>
+                      ) : (
+                        <span className="text-xs px-2 py-1 bg-amber-50 text-amber-700 rounded">No sub-strand</span>
+                      )}
                     </div>
                   </div>
                 </div>

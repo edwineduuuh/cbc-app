@@ -324,6 +324,16 @@ class QuestionDetailSerializer(serializers.ModelSerializer):
     passage_id     = serializers.IntegerField(write_only=True, required=False, allow_null=True)
     in_quizzes     = serializers.SerializerMethodField()
 
+    def validate(self, data):
+        data = super().validate(data)
+        topic = data.get('topic', getattr(self.instance, 'topic', None))
+        sub = data.get('substrand', getattr(self.instance, 'substrand', None))
+        if 'topic' in data and 'substrand' not in data and sub is not None and topic is not None                 and sub.topic_id != topic.pk:
+            data['substrand'] = None           # strand changed: the old sub-strand no longer fits
+        elif sub is not None and topic is not None and sub.topic_id != topic.pk:
+            raise serializers.ValidationError({'substrand': 'That sub-strand belongs to a different strand.'})
+        return data
+
     class Meta:
         model  = Question
         fields = [
@@ -433,6 +443,22 @@ class QuizListSerializer(serializers.ModelSerializer):
         }
 
 
+def set_quiz_questions(quiz, questions):
+    """Store a quiz's questions in exactly this order. Order is the M2M row
+    insertion order (see ordered_quiz_questions), and .set() leaves rows that
+    already exist where they are - so a reorder needs the rows rewritten."""
+    from django.db import transaction
+    wanted = [q.pk for q in questions]
+    current = list(Quiz.questions.through.objects.filter(quiz_id=quiz.pk)
+                   .order_by('id').values_list('question_id', flat=True))
+    if current == wanted:
+        return
+    with transaction.atomic():
+        quiz.questions.clear()
+        for q in questions:                 # one at a time: add(*many) doesn't keep order
+            quiz.questions.add(q)
+
+
 def ordered_quiz_questions(quiz):
     """Return a quiz's questions in the order they were ADDED (the order the
     creator selected them), not the Question model's default `-created_at`.
@@ -467,6 +493,28 @@ class QuizDetailSerializer(serializers.ModelSerializer):
 
     def get_questions(self, obj):
         return QuestionSerializer(
+            ordered_quiz_questions(obj), many=True, context=self.context
+        ).data
+
+
+class AdminQuizDetailSerializer(serializers.ModelSerializer):
+    """What the admin quiz editor loads: every setting it edits, and each
+    question in full (type, difficulty, marks, strand, sub-strand)."""
+    subject_name = serializers.CharField(source='subject.name', read_only=True)
+    topic_name   = serializers.CharField(source='topic.name', read_only=True, allow_null=True)
+    questions    = serializers.SerializerMethodField()
+
+    class Meta:
+        model  = Quiz
+        fields = [
+            'id', 'title', 'description', 'subject', 'subject_name', 'topic', 'topic_name',
+            'grade', 'questions', 'duration_minutes', 'passing_score', 'is_active',
+            'owner_type', 'available_to_teachers', 'quiz_type', 'term', 'set_number',
+            'created_at', 'updated_at',
+        ]
+
+    def get_questions(self, obj):
+        return QuestionDetailSerializer(
             ordered_quiz_questions(obj), many=True, context=self.context
         ).data
 
@@ -513,7 +561,7 @@ class QuizCreateUpdateSerializer(serializers.ModelSerializer):
         quiz = Quiz.objects.create(**validated_data)
         
         if questions:
-            quiz.questions.set(questions)
+            set_quiz_questions(quiz, questions)
         
         return quiz
 
@@ -526,7 +574,7 @@ class QuizCreateUpdateSerializer(serializers.ModelSerializer):
         instance.save()
         
         if questions is not None:
-            instance.questions.set(questions)
+            set_quiz_questions(instance, questions)
         
         return instance
 

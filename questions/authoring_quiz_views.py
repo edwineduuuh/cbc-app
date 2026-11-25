@@ -4,7 +4,7 @@ from rest_framework.permissions import IsAuthenticated
 from django.db import transaction
 from .models import Quiz, Subject, Topic, Question, ClassQuizAssignment  # ← ADD ClassQuizAssignment
 from users.models import Classroom  # ← ADD THIS LINE
-from .serializers import QuizDetailSerializer, QuizListSerializer, QuizCreateUpdateSerializer
+from .serializers import AdminQuizDetailSerializer, QuizDetailSerializer, QuizListSerializer, QuizCreateUpdateSerializer
 from .permissions import IsContentStaff, IsTeacherUser
 
 class QuizListCreateView(generics.ListCreateAPIView):
@@ -42,23 +42,8 @@ class QuizListCreateView(generics.ListCreateAPIView):
         return queryset.order_by('-created_at')
     
     def perform_create(self, serializer):
-        print("=== RECEIVED DATA ===")
-        print(self.request.data)
-        
-        # Get question_ids from request data BEFORE validation
-        question_ids = self.request.data.get('question_ids', [])
-        
-        print(f"=== QUESTION IDS: {question_ids} ===")
-        
-        # Save quiz
-        quiz = serializer.save(created_by=self.request.user)
-        
-        # FORCE attach questions
-        if question_ids:
-            quiz.questions.set(question_ids)
-            quiz.save()
-        
-        print(f"=== QUIZ CREATED WITH {quiz.questions.count()} QUESTIONS ===")
+        # The serializer attaches question_ids in the order they were picked.
+        serializer.save(created_by=self.request.user)
 
 class QuizDetailView(generics.RetrieveUpdateDestroyAPIView):
     """
@@ -72,14 +57,10 @@ class QuizDetailView(generics.RetrieveUpdateDestroyAPIView):
     def get_serializer_class(self):
         if self.request.method in ('PUT', 'PATCH'):
             return QuizCreateUpdateSerializer
-        return QuizDetailSerializer
+        return AdminQuizDetailSerializer
 
     def perform_update(self, serializer):
-        question_ids = self.request.data.get('question_ids')
-        quiz = serializer.save()
-        if question_ids is not None:
-            quiz.questions.set(question_ids)
-            quiz.save()
+        serializer.save()          # the serializer stores question_ids in the given order
 
 
 class QuizPublishView(generics.GenericAPIView):
