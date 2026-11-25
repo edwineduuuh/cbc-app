@@ -24,7 +24,7 @@ import katex from "katex";
 import "katex/dist/katex.min.css";
 import { renderMathHtml, tidyFeedback, answerHtml } from "@/lib/math";
 import AnswerOption, { optionTex, correctLetterOf } from "@/components/quiz/AnswerOption";
-import { statusOf, partResultsOf, PartFeedbackDropdown } from "@/components/quiz/WorkedFeedback";
+import { statusOf, partResultsOf, PartFeedbackDropdown, tipLabel, stripTipPrefix, isLongKey, keyHtml } from "@/components/quiz/WorkedFeedback";
 
 
 /* Serve Cloudinary images straight from its CDN with auto format/quality and a
@@ -2848,7 +2848,10 @@ export default function QuizTakePage({ params }) {
                               : currentQ.question_type
                                   ?.replace("_", " ")
                                   .toUpperCase() || "MCQ"
-                        : currentQ.question_type?.replace("_", " ") || "MCQ"}
+                        : ({ mcq: "Multiple choice", structured: "Written answer", essay: "Essay",
+                            fill_blank: "Fill in the blank", multipart: "Answer each part", math: "Maths",
+                            table: "Complete the table", financial_statement: "Financial statement",
+                          }[currentQ.question_type] || "Question")}
                     </span>
                     <span
                       style={{ fontSize: 13, color: "var(--text-muted)", marginLeft: 8 }}
@@ -2858,19 +2861,6 @@ export default function QuizTakePage({ params }) {
                         ? "alama"
                         : `mark${currentQ.max_marks !== 1 ? "s" : ""}`}
                     </span>
-                    {currentQ.created_at && (
-                      <span
-                        style={{ fontSize: 12, color: "var(--text-muted)", marginLeft: 8 }}
-                        title={new Date(currentQ.created_at).toLocaleString()}
-                      >
-                        · {isKiswahili ? "Imeongezwa" : "Added"}{" "}
-                        {new Date(currentQ.created_at).toLocaleDateString("en-GB", {
-                          day: "numeric",
-                          month: "short",
-                          year: "numeric",
-                        })}
-                      </span>
-                    )}
                     {flagged.has(currentIdx) && (
                       <span
                         style={{
@@ -3084,16 +3074,20 @@ export default function QuizTakePage({ params }) {
                         ? "Write your essay"
                         : "Write your answer"}
                   </p>
-                  <ChemTextBar
-                    textareaRef={structuredTextareaRef}
-                    value={answers[currentIdx] ?? ""}
-                    onChange={(val) => handleAnswer(val)}
-                  />
-                  <PhysicsFormulaBar
-                    textareaRef={structuredTextareaRef}
-                    value={answers[currentIdx] ?? ""}
-                    onChange={(val) => handleAnswer(val)}
-                  />
+                  {/chem|science/i.test(currentQ?.subject_name || "") && !/bio/i.test(currentQ?.subject_name || "") && (
+                    <ChemTextBar
+                      textareaRef={structuredTextareaRef}
+                      value={answers[currentIdx] ?? ""}
+                      onChange={(val) => handleAnswer(val)}
+                    />
+                  )}
+                  {/physic|science/i.test(currentQ?.subject_name || "") && !/bio/i.test(currentQ?.subject_name || "") && (
+                    <PhysicsFormulaBar
+                      textareaRef={structuredTextareaRef}
+                      value={answers[currentIdx] ?? ""}
+                      onChange={(val) => handleAnswer(val)}
+                    />
+                  )}
                   <div style={{ position: "relative" }}>
                     <textarea
                       ref={structuredTextareaRef}
@@ -3141,13 +3135,6 @@ export default function QuizTakePage({ params }) {
                         : `${(answers[currentIdx] ?? "").length} chars`}
                     </span>
                   </div>
-                  {currentQ.max_marks > 1 && (
-                    <p style={{ fontSize: 12, color: "var(--text-muted)", marginTop: 8 }}>
-                      {isKiswahili
-                        ? `Alama ${currentQ.max_marks} - toa jibu la kina.`
-                        : `Worth ${currentQ.max_marks} marks - provide a detailed answer.`}
-                    </p>
-                  )}
                 </div>
               )}
 
@@ -3493,7 +3480,7 @@ export default function QuizTakePage({ params }) {
           >
             <span style={{ fontSize: 14, color: "var(--text)", flex: 1, minWidth: 200 }}>
               <b style={{ color: "#F07178" }}>Not checked. </b>
-              {checkErrors[currentIdx]} Your answer is saved.
+              {checkErrors[currentIdx]}{/answer is saved/i.test(checkErrors[currentIdx] || "") ? "" : " Your answer is saved."}
             </span>
             <button
               type="button"
@@ -3547,7 +3534,7 @@ export default function QuizTakePage({ params }) {
           const fbHtml = paras(segs);
           // The worked solution for THIS answer. On a wrong maths answer the
           // marker writes it into study_tip, not feedback - it was never shown.
-          const tip = tidyFeedback(partList.length ? "" : f.study_tip || "").trim();
+          const tip = stripTipPrefix(tidyFeedback(partList.length ? "" : f.study_tip || "").trim());
           const tipHtml =
             tip && !(f.feedback || "").includes(tip.slice(0, 60))
               ? paras(_mdTableToHtml(tip).split(/\n/).map((s) => s.trim()).filter(Boolean))
@@ -3570,38 +3557,15 @@ export default function QuizTakePage({ params }) {
                     {fb.marks_awarded}/{fb.max_marks}
                   </span>
                 </div>
-                {partList.length > 0 && (
-                  <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginTop: 4 }}>
-                    {partList.map((r) => {
-                      const st = statusOf(r);
-                      const part = (currentQ.parts || []).find(
-                        (p) => String(p.id) === String(r.part_id) || String(p.part_label) === String(r.part_label));
-                      return (
-                        <button
-                          key={r.part_id ?? r.part_label}
-                          type="button"
-                          onClick={() => {
-                            const el = part && document.getElementById(`part-${part.id}`);
-                            if (!el) return;
-                            el.scrollIntoView({ behavior: "smooth", block: "start" });
-                          }}
-                          style={{
-                            display: "inline-flex", alignItems: "center", gap: 6,
-                            padding: "6px 12px", borderRadius: 999, cursor: "pointer",
-                            background: st.tint, border: `1px solid ${st.color}55`,
-                            color: st.color, fontSize: 13, fontWeight: 800,
-                          }}
-                        >
-                          ({r.part_label}) {st.icon} {r.marks_awarded}/{r.max_marks}
-                        </button>
-                      );
-                    })}
-                    <p style={{ width: "100%", fontSize: 12.5, color: "var(--text-muted)", marginTop: 4 }}>
-                      Each part&apos;s feedback and working is under its answer above.
+                {f.correct_answer && !full && currentQ.question_type !== "mcq" && isLongKey(f.correct_answer) && (
+                  <div style={{ fontSize: 13.5, color: "var(--text)", marginBottom: 10, lineHeight: 1.7 }}>
+                    <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.06em", textTransform: "uppercase", color: "#3CCB8B", marginBottom: 6 }}>
+                      Marking key
                     </p>
+                    <div dangerouslySetInnerHTML={{ __html: keyHtml(f.correct_answer) }} />
                   </div>
                 )}
-                {f.correct_answer && !full && (
+                {f.correct_answer && !full && currentQ.question_type !== "mcq" && !isLongKey(f.correct_answer) && (
                   <p style={{ fontSize: 13, color: "var(--text)", marginBottom: 6 }}>
                     <b>Correct answer:</b>{" "}
                     <span
@@ -3625,7 +3589,7 @@ export default function QuizTakePage({ params }) {
                   <div style={{ marginTop: 12, paddingTop: 12, borderTop: "1px solid var(--border)" }}>
                     <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.06em",
                                 textTransform: "uppercase", color, marginBottom: 6 }}>
-                      How to work it out
+                      {tipLabel(tip)}
                     </p>
                     <div
                       style={{ fontSize: 13.5, color: "var(--text)", lineHeight: 1.75 }}

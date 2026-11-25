@@ -21,7 +21,7 @@ import {
 import katex from "katex";
 import "katex/dist/katex.min.css";
 import { renderMathHtml, tidyFeedback, answerHtml } from "@/lib/math";
-import { PartFeedbackDropdown, partResultsOf } from "@/components/quiz/WorkedFeedback";
+import { PartFeedbackDropdown, partResultsOf, tipLabel, stripTipPrefix } from "@/components/quiz/WorkedFeedback";
 import FinancialStatementInput from "@/components/FinancialStatementInput";
 const API =
   process.env.NEXT_PUBLIC_API_URL ||
@@ -338,7 +338,7 @@ function ReportCard({
               {date}
             </p>
             <p style={{ margin: "8px 0 0", fontSize: 13, color: "var(--text)" }}>
-              {quizType || "Quiz"}
+              {quizTitle || quizType || "Quiz"}{quizTitle && quizType && quizType !== quizTitle ? ` · ${quizType}` : ""}
             </p>
           </div>
         </div>
@@ -1157,7 +1157,13 @@ export default function AttemptResultsPage() {
     );
 
   const feedback = results.detailed_feedback || {};
-  const questionIds = Object.keys(feedback);
+  // Same order the student saw them in the quiz - the feedback object's keys
+  // come back sorted by question id, which reversed some quizzes.
+  const quizOrder = (results.quiz?.questions || []).map((q) => String(q.id));
+  const questionIds = [
+    ...quizOrder.filter((id) => feedback[id]),
+    ...Object.keys(feedback).filter((id) => !quizOrder.includes(id)),
+  ];
   const score = Math.round(results.score);
   const gradeBand = getGradeBand(score, quizGrade);
   const message = getMessage(score);
@@ -1233,7 +1239,7 @@ export default function AttemptResultsPage() {
       {/* Hidden report card used only for PDF generation */}
       <ReportCard
         studentName={`${user?.first_name || user?.username || "Student"} ${user?.last_name || ""}`.trim()}
-        studentGrade={`Grade ${user?.grade || "N/A"}`}
+        studentGrade={`Grade ${quizGrade || results.quiz?.grade || user?.grade || "N/A"}`}
         studentId={user?.id}
         quizTitle={results.quiz?.title || "Quiz"}
         score={score}
@@ -1257,7 +1263,12 @@ export default function AttemptResultsPage() {
             index: index + 1,
             correct: item.is_correct,
             question_text: renderMath(item.question_text || ""),
-            student_answer: item.student_answer
+            student_answer: Array.isArray(item.part_results) && item.part_results.length
+              ? item.part_results
+                  .map((p, i) => `<strong>(${p.part_label || String.fromCharCode(97 + i)})</strong> ${
+                    p.student_answer ? answerHtml(String(p.student_answer)) : "<em>No answer</em>"} - ${p.marks_awarded}/${p.max_marks}`)
+                  .join("<br/>")
+              : item.student_answer
               ? typeof item.student_answer === "object"
                 ? Object.entries(item.student_answer)
                     .map(([partId, ans], i) => {
@@ -1279,13 +1290,16 @@ export default function AttemptResultsPage() {
               : "",
             feedback: renderMath(
               tidyFeedback(item.feedback || "", { hasWorkedSolution: !!(item.study_tip || "").trim() })
+                // The verdict and the correct answer have their own columns.
+                .replace(/^\s*(✓\s*)?(Correct!?|Not quite\.?|Partially correct\.?)\s*/i, "")
+                .replace(/^\s*The correct answer is[^\n]*?\.(?=\s|$)\s*/i, "")
                 .replace(/(^|\n)\s*\(([a-z])\)\s*/g, "$1<strong>Part ($2):</strong> "),
             )
               .replace(/\n{2,}/g, "<br/><br/>")
               .replace(/\n/g, "<br/>"),
           };
         })}
-        quizType={results.quiz?.subject || "Quiz"}
+        quizType={results.quiz?.subject_name || results.quiz?.title || "Quiz"}
         totalQuestions={results.total_questions}
         reportRef={reportCardRef}
       />
@@ -1643,21 +1657,7 @@ export default function AttemptResultsPage() {
                           }}
                         >
                           Question {index + 1}
-                          {item.question_type === "multipart" && (
-                            <span
-                              style={{
-                                fontSize: 11,
-                                fontWeight: 600,
-                                color: "#C4B5FD",
-                                background: "rgba(167,139,250,0.14)",
-                                borderRadius: 6,
-                                padding: "1px 6px",
-                                marginLeft: 8,
-                              }}
-                            >
-                              Multipart
-                            </span>
-                          )}
+
                         </span>
                         <span
                           style={{
@@ -1767,44 +1767,31 @@ export default function AttemptResultsPage() {
                               <div
                                 key={part.part_id ?? pi}
                                 style={{
-                                  borderRadius: 14,
-                                  border: `2px solid ${pBorder}`,
-                                  overflow: "hidden",
-                                  boxShadow: "0 1px 4px rgba(0,0,0,0.06)",
+                                  borderLeft: `3px solid ${pColor}`,
+                                  paddingLeft: 14,
                                 }}
                               >
                                 {/* Part header */}
                                 <div
                                   style={{
-                                    background: pBg,
-                                    padding: "12px 16px",
                                     display: "flex",
                                     alignItems: "flex-start",
-                                    gap: 12,
-                                    borderBottom: `1px solid ${pBorder}`,
+                                    gap: 10,
+                                    marginBottom: 10,
                                   }}
                                 >
                                   {/* Label badge */}
-                                  <div
+                                  <span
                                     style={{
-                                      width: 34,
-                                      height: 34,
-                                      borderRadius: 9,
                                       flexShrink: 0,
-                                      background: pColor,
-                                      color: "#fff",
-                                      display: "flex",
-                                      alignItems: "center",
-                                      justifyContent: "center",
                                       fontWeight: 800,
                                       fontSize: 14,
+                                      color: pColor,
+                                      lineHeight: 1.5,
                                     }}
                                   >
-                                    {part.part_label?.toUpperCase() ||
-                                      String.fromCharCode(
-                                        97 + pi,
-                                      ).toUpperCase()}
-                                  </div>
+                                    ({part.part_label || String.fromCharCode(97 + pi)})
+                                  </span>
                                   <div style={{ flex: 1 }}>
                                     <p
                                       style={{
@@ -1845,30 +1832,16 @@ export default function AttemptResultsPage() {
                                       {part.marks_awarded} / {part.max_marks}{" "}
                                       marks
                                     </span>
-                                    <span
-                                      style={{
-                                        fontSize: 11,
-                                        fontWeight: 600,
-                                        color: pColor,
-                                      }}
-                                    >
-                                      {pCorrect
-                                        ? "✓ Full marks"
-                                        : pPartial
-                                          ? "Partial credit"
-                                          : "✗ No marks"}
-                                    </span>
+
                                   </div>
                                 </div>
 
                                 {/* Part body */}
                                 <div
                                   style={{
-                                    background: "var(--bg-card)",
-                                    padding: "14px 16px",
                                     display: "flex",
                                     flexDirection: "column",
-                                    gap: 12,
+                                    gap: 0,
                                   }}
                                 >
                                   {/* Your answer */}
@@ -1901,6 +1874,7 @@ export default function AttemptResultsPage() {
                                       {studentAnswerText &&
                                       studentAnswerText !== "No answer" ? (
                                         <span
+                                          style={{ whiteSpace: "pre-wrap" }}
                                           dangerouslySetInnerHTML={{
                                             __html:
                                               renderMath(studentAnswerText),
@@ -2294,33 +2268,11 @@ export default function AttemptResultsPage() {
                                 (() => {
                                   const raw = String(item.student_answer || "");
                                   // Detect list answers and show vertically
-                                  let listItems = null;
-                                  if (raw.includes("\n")) {
-                                    listItems = raw.split(/\n+/).map(s => s.trim()).filter(Boolean);
-                                  } else if (/[,;]/.test(raw)) {
-                                    listItems = raw.split(/[,;]+/).map(s => s.trim()).filter(Boolean);
-                                  } else if (
-                                    raw === raw.toUpperCase() &&
-                                    raw.trim().split(/\s+/).length >= 2 &&
-                                    !/[.?!]/.test(raw)
-                                  ) {
-                                    // All-caps words separated by spaces (e.g. "HONEST RESPONSIBLE ADAPTABLE")
-                                    listItems = raw.trim().split(/\s+/).filter(Boolean);
-                                  }
-                                  if (listItems && listItems.length >= 2) {
-                                    return (
-                                      <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
-                                        {listItems.map((it, i) => (
-                                          <div key={i} style={{ display: "flex", gap: 6 }}>
-                                            <span style={{ color: "#7FB0EA", flexShrink: 0 }}>•</span>
-                                            <span dangerouslySetInnerHTML={{ __html: renderMath(it) }} />
-                                          </div>
-                                        ))}
-                                      </div>
-                                    );
-                                  }
+                                  // Exactly as the student wrote it: their own line breaks
+                                  // only - commas inside a sentence are not list items.
                                   return (
                                     <span
+                                      style={{ whiteSpace: "pre-wrap" }}
                                       dangerouslySetInnerHTML={{
                                         __html: renderMath(
                                           item.question_type === "math"
@@ -2348,9 +2300,18 @@ export default function AttemptResultsPage() {
                           {(() => {
                             const accent = correct ? "#3CCB8B" : "#E8B65B";
                             const body = tidyFeedback(item.feedback || "", { hasWorkedSolution: !!(item.study_tip || "").trim() })
-                              .replace(/^\s*(✓\s*)?(Correct!?|Not quite\.?|Partially correct\.?)\s*/i, "");
-                            const note = (item.personalized_message || "").trim();
-                            const tip = tidyFeedback(item.study_tip || "").trim();
+                              .replace(/^\s*(✓\s*)?(Correct!?|Not quite\.?|Partially correct\.?)\s*/i, "")
+                              .replace(/^\s*The correct answer is[^\n]*?\.(?=\s|$)\s*/i, "");
+                            const note = "";
+                            const tip = stripTipPrefix(tidyFeedback(item.study_tip || "").trim());
+                            const mcqCorrect = !correct && item.question_type === "mcq" && item.correct_answer
+                              ? (() => {
+                                  const quizQ = results.quiz?.questions?.find((q) => String(q.id) === String(qId));
+                                  const L = String(item.correct_answer).trim().toUpperCase().slice(0, 1);
+                                  const txt = quizQ?.[`option_${L.toLowerCase()}`];
+                                  return txt ? `${L}: ${txt}` : String(item.correct_answer);
+                                })()
+                              : "";
                             const showTip = tip && !(item.feedback || "").includes(tip.slice(0, 80));
                             return (
                               <div
@@ -2362,9 +2323,16 @@ export default function AttemptResultsPage() {
                                   marginBottom: 12,
                                 }}
                               >
+                                {mcqCorrect && (
+                                  <p style={{ fontSize: 14, color: "var(--text)", margin: "0 0 10px" }}>
+                                    <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.06em",
+                                                   textTransform: "uppercase", color: "#3CCB8B", marginRight: 8 }}>Correct answer</span>
+                                    <span dangerouslySetInnerHTML={{ __html: renderMath(mcqCorrect) }} />
+                                  </p>
+                                )}
                                 <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.06em",
                                             textTransform: "uppercase", color: accent, marginBottom: 6 }}>
-                                  Feedback
+                                  {correct ? "Feedback" : "Explanation"}
                                 </p>
                                 {body && (
                                   <div
@@ -2388,7 +2356,7 @@ export default function AttemptResultsPage() {
                                                 borderTop: "1px solid var(--border)" }}>
                                     <span aria-hidden="true">💡</span>
                                     <div style={{ fontSize: 13.5, color: "var(--text-muted)", lineHeight: 1.65 }}>
-                                      <strong style={{ color: "var(--text)", fontWeight: 600 }}>Study tip: </strong>
+                                      <strong style={{ color: "var(--text)", fontWeight: 600 }}>{tipLabel(tip)}: </strong>
                                       <span dangerouslySetInnerHTML={{ __html: renderRich(tip) }} />
                                     </div>
                                   </div>
@@ -2418,7 +2386,7 @@ export default function AttemptResultsPage() {
                                   marginBottom: 8,
                                 }}
                               >
-                                Diagram
+                                Explanation diagram
                               </p>
                               <img
                                 src={item.explanation_image_url}
@@ -2434,10 +2402,11 @@ export default function AttemptResultsPage() {
 
                           {/* Points missed */}
                           {(() => {
-                            const missed = Array.isArray(item.points_missed)
+                            const missed = (Array.isArray(item.points_missed)
                               ? item.points_missed
-                              : item.points_missed ? [String(item.points_missed)] : [];
-                            if (!missed.length) return null;
+                              : item.points_missed ? [String(item.points_missed)] : [])
+                              .filter((p) => !/^\s*correct answer\s*:/i.test(String(p)));
+                            if (!missed.length || item.question_type === "mcq") return null;
                             return (
                               <div
                                 style={{
@@ -2450,7 +2419,7 @@ export default function AttemptResultsPage() {
                               >
                                 <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.06em",
                                             textTransform: "uppercase", color: "#F07178", marginBottom: 6 }}>
-                                  What was missing
+                                  Points you missed
                                 </p>
                                 <ul style={{ margin: 0, paddingLeft: 18 }}>
                                   {missed.map((point, i) => (

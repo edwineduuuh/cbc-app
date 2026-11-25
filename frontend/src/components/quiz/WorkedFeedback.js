@@ -33,9 +33,31 @@ export function feedbackParagraphs(text, opts) {
     .join("");
 }
 
+/** The second block is either a worked solution or an exam tip - name it by what it is. */
+export function tipLabel(text) {
+  // "=" or numbered steps mean working; a formula like $CO_2$ in a memory tip does not.
+  const plain = String(text || "").replace(/\$[^$]*\$/g, "");
+  return /=|\bstep\s*\d|^\s*\d+[.)]\s/im.test(plain) ? "How to work it out" : "Exam tip";
+}
+
+/** Is this answer key a written (several-point) key rather than a short answer? */
+export const isLongKey = (a) => String(a || "").trim().length > 80;
+
+/**
+ * A teacher's marking key, one point per line: "Point one: ... . Point two: ..."
+ * becomes separate lines, so a long key reads as a list, not a wall of text.
+ */
+export function keyHtml(answer) {
+  const raw = String(answer || "").replace(/\\n/g, "\n")
+    .replace(/([.;])\s+(?=[A-Z][\w/()' -]{1,40}:\s)/g, "$1\n");
+  return answerHtml(raw).replace(/\n+/g, "<br/>");
+}
+
+export const stripTipPrefix = (t) => String(t || "").replace(/^\s*(exam\s*tip|study\s*tip|tip)\s*[:\-–]\s*/i, "");
+
 export default function WorkedFeedback({ feedback, studyTip, accent = "#20B8A6", fontSize = 13.5 }) {
   const body = feedbackParagraphs(feedback, { hasWorkedSolution: !!(studyTip || "").trim() });
-  const tipText = (studyTip || "").trim();
+  const tipText = stripTipPrefix((studyTip || "").trim());
   const tip = tipText && !(feedback || "").includes(tipText.slice(0, 60)) ? feedbackParagraphs(tipText) : "";
   if (!body && !tip) return null;
   return (
@@ -44,7 +66,7 @@ export default function WorkedFeedback({ feedback, studyTip, accent = "#20B8A6",
       {tip && (
         <div style={{ marginTop: body ? 12 : 0, paddingTop: body ? 12 : 0, borderTop: body ? "1px solid var(--border)" : "none" }}>
           <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.06em", textTransform: "uppercase", color: accent, marginBottom: 6 }}>
-            How to work it out
+            {tipLabel(tipText)}
           </p>
           <div dangerouslySetInnerHTML={{ __html: tip }} />
         </div>
@@ -98,27 +120,9 @@ export function PartFeedbackDropdown({ result, showCorrect = true, renderAnswer 
   if (!st) return null;
   return (
     // Always open under its part - no toggle to find.
-    <div className="ss-part-feedback" style={{ marginTop: 14 }}>
+    <div className="ss-part-feedback" style={{ marginTop: 12 }}>
       <div
         style={{
-          display: "flex",
-          alignItems: "center",
-          gap: 10,
-          padding: "11px 14px",
-          borderRadius: 12,
-          background: st.tint,
-          border: `1px solid ${st.color}44`,
-          color: "var(--text)",
-          fontSize: 13.5,
-          fontWeight: 600,
-        }}
-      >
-        <span style={{ color: st.color, fontWeight: 800 }}>{st.icon} {st.label}</span>
-        <span style={{ color: "var(--text-muted)", fontWeight: 500 }}>· Feedback &amp; working</span>
-      </div>
-      <div
-        style={{
-          marginTop: 8,
           background: "var(--bg-secondary)",
           borderLeft: `3px solid ${st.color}`,
           borderRadius: 12,
@@ -126,10 +130,19 @@ export function PartFeedbackDropdown({ result, showCorrect = true, renderAnswer 
         }}
       >
         {showCorrect && st.key !== "full" && result.correct_answer ? (
-          <p style={{ fontSize: 13.5, color: "var(--text)", marginBottom: 10 }}>
-            <b>Correct answer: </b>
-            <span dangerouslySetInnerHTML={{ __html: renderAnswer ? renderAnswer(String(result.correct_answer)) : answerHtml(String(result.correct_answer)) }} />
-          </p>
+          isLongKey(result.correct_answer) ? (
+            <div style={{ fontSize: 13.5, color: "var(--text)", marginBottom: 12, lineHeight: 1.7 }}>
+              <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.06em", textTransform: "uppercase", color: "#3CCB8B", marginBottom: 6 }}>
+                Marking key
+              </p>
+              <div dangerouslySetInnerHTML={{ __html: renderAnswer ? renderAnswer(String(result.correct_answer)) : keyHtml(result.correct_answer) }} />
+            </div>
+          ) : (
+            <p style={{ fontSize: 13.5, color: "var(--text)", marginBottom: 10 }}>
+              <b>Correct answer: </b>
+              <span dangerouslySetInnerHTML={{ __html: renderAnswer ? renderAnswer(String(result.correct_answer)) : answerHtml(String(result.correct_answer)) }} />
+            </p>
+          )
         ) : null}
         <WorkedFeedback feedback={result.feedback} studyTip={result.study_tip} accent={st.color} />
       </div>
