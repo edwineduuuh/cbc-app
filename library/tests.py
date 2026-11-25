@@ -190,3 +190,28 @@ class LibraryAccess(APITestCase):
         self.assertEqual(c.delete(f"/api/admin/library/{self.free_pdf.id}/").status_code, 409)
         self.assertEqual(c.post(f"/api/admin/library/{self.free_pdf.id}/archive/").status_code, 200)
         self.assertEqual(self.open(self.free, self.free_pdf).status_code, 404)
+
+
+class CloudinaryRead(APITestCase):
+    """The account blocks public PDF delivery, so files are read by a signed API download."""
+
+    def test_cloudinary_files_use_signed_download(self):
+        from unittest import mock
+        from .models import read_file
+
+        class FakeStorage:
+            def _prepend_prefix(self, name):
+                return "media/" + name
+
+            def _get_resource_type(self, name):
+                return "raw"
+
+        field = mock.Mock(storage=FakeStorage())
+        field.name = "library/docs/paper.pdf"
+        resp = mock.Mock(content=b"%PDF-1.4 x")
+        with mock.patch("requests.get", return_value=resp) as get, \
+                mock.patch("cloudinary.utils.private_download_url", return_value="https://api/x") as signed:
+            self.assertEqual(read_file(field), b"%PDF-1.4 x")
+        signed.assert_called_once_with("media/library/docs/paper.pdf", "", resource_type="raw", type="upload")
+        get.assert_called_once()
+        field.open.assert_not_called()

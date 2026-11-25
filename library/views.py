@@ -12,6 +12,7 @@
 Files are never linked directly. /open/ checks the rule in entitlements.py,
 then streams the PDF with the footer stamped on, or returns the video link.
 """
+import logging
 import mimetypes
 
 from django.db.models import Q
@@ -26,8 +27,10 @@ from rest_framework.response import Response
 from questions.permissions import IsAdminUser
 
 from . import entitlements as ent
-from .models import Resource, ResourceAuditLog
+from .models import Resource, ResourceAuditLog, read_file
 from .stamp import page_count, stamp_pdf
+
+logger = logging.getLogger(__name__)
 
 UPGRADE = {
     "code": "premium_required",
@@ -101,8 +104,11 @@ def _open_response(r: Resource, request):
         return Response({"kind": "video", "url": r.video_url or _url(r.video_file, request)})
     if not r.file:
         return Response({"error": "This resource has no file yet."}, status=404)
-    with r.file.open("rb") as fh:
-        raw = fh.read()
+    try:
+        raw = read_file(r.file)
+    except Exception:
+        logger.exception("Library file %s could not be fetched", r.pk)
+        return Response({"error": "This file couldn't be fetched. Please try again shortly."}, status=502)
     try:
         body = stamp_pdf(raw)
     except Exception:

@@ -450,8 +450,8 @@ def run_extraction(run_id):
     run.status = ExtractionRun.RUNNING
     run.save(update_fields=["status", "updated_at"])
     try:
-        with resource.file.open("rb") as fh:
-            data = fh.read()
+        from .models import read_file
+        data = read_file(resource.file)
         with fitz.open(stream=data, filetype="pdf") as doc:
             run.pages_total = doc.page_count
             run.save(update_fields=["pages_total", "updated_at"])

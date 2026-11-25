@@ -22,6 +22,24 @@ def _cloudinary_on():
     return str(getattr(settings, "DEFAULT_FILE_STORAGE", "")).startswith("cloudinary")
 
 
+def read_file(field) -> bytes:
+    """The stored file's bytes. On Cloudinary this uses a signed API download:
+    the account blocks public delivery of PDFs, so the plain file URL that
+    field.open() fetches answers 401."""
+    storage = field.storage
+    if hasattr(storage, "_prepend_prefix") and hasattr(storage, "_get_resource_type"):
+        import cloudinary.utils
+        import requests
+        url = cloudinary.utils.private_download_url(
+            storage._prepend_prefix(field.name), "",
+            resource_type=storage._get_resource_type(field.name), type="upload")
+        resp = requests.get(url, timeout=120)
+        resp.raise_for_status()
+        return resp.content
+    with field.open("rb") as fh:
+        return fh.read()
+
+
 def document_storage():
     if _cloudinary_on():
         from cloudinary_storage.storage import RawMediaCloudinaryStorage
