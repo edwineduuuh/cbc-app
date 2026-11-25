@@ -54,8 +54,8 @@ DEFAULTS = {
     "leaderboards": {"enabled": True, "overall": True, "weekly": True, "daily": True, "category": True},
     # Most questions one player gets per day outside the Daily Challenge, so the
     # bank isn't played through in one sitting. 0 = no limit.
-    "daily_questions": 50,
-    "daily_questions_premium": 150,           # students with a paid subscription
+    "daily_questions": 20,
+    "daily_questions_premium": 50,            # students with a paid subscription
     "avoid_repeat_last": 300,                  # skip a player's last N questions when the bank allows
 }
 

@@ -757,8 +757,8 @@ function Settings() {
       <div className="grid sm:grid-cols-3 gap-3">
         <Field label="Max speed bonus (points)"><input type="number" min={0} value={cfg.speed_bonus_max} onChange={(e) => set("speed_bonus_max", Number(e.target.value))} className={input} style={C.field} /></Field>
         <Field label="Daily Challenge XP bonus"><input type="number" min={0} value={cfg.xp_daily_bonus} onChange={(e) => set("xp_daily_bonus", Number(e.target.value))} className={input} style={C.field} /></Field>
-        <Field label="Questions a day - free students" hint="Outside the Daily Challenge. 0 = no limit"><input type="number" min={0} value={cfg.daily_questions ?? 50} onChange={(e) => set("daily_questions", Number(e.target.value))} className={input} style={C.field} /></Field>
-        <Field label="Questions a day - premium students" hint="Outside the Daily Challenge. 0 = no limit"><input type="number" min={0} value={cfg.daily_questions_premium ?? 150} onChange={(e) => set("daily_questions_premium", Number(e.target.value))} className={input} style={C.field} /></Field>
+        <Field label="Questions a day - free students" hint="Outside the Daily Challenge. 0 = no limit"><input type="number" min={0} value={cfg.daily_questions ?? 20} onChange={(e) => set("daily_questions", Number(e.target.value))} className={input} style={C.field} /></Field>
+        <Field label="Questions a day - premium students" hint="Outside the Daily Challenge. 0 = no limit"><input type="number" min={0} value={cfg.daily_questions_premium ?? 50} onChange={(e) => set("daily_questions_premium", Number(e.target.value))} className={input} style={C.field} /></Field>
         <Field label="Daily XP limit per player" hint="Stops farming"><input type="number" min={0} value={cfg.xp_daily_cap} onChange={(e) => set("xp_daily_cap", Number(e.target.value))} className={input} style={C.field} /></Field>
         <Field label="Answer screen (ms)" hint="Minimum time the answer + fact stay up"><input type="number" min={800} value={cfg.feedback_ms} onChange={(e) => set("feedback_ms", Number(e.target.value))} className={input} style={C.field} /></Field>
       </div>
