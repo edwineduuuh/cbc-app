@@ -542,3 +542,13 @@ class DailyAllowance(Base):
         self.assertEqual(e.exception.status, 429)
         # the Daily Challenge isn't part of the allowance
         self.assertEqual(engine.start_game(self.student, "daily").mode, "daily")
+
+
+class PremiumAllowance(Base):
+    def test_premium_students_get_the_premium_number(self):
+        from unittest import mock
+        from .config import save_config
+        save_config({"daily_questions": 5, "daily_questions_premium": 40})
+        self.assertEqual(engine.questions_left_today(self.student), 5)
+        with mock.patch("library.entitlements.has_student_premium", return_value=True):
+            self.assertEqual(engine.questions_left_today(self.student), 40)

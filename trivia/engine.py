@@ -158,11 +158,19 @@ def daily_challenge(day=None, cfg=None) -> TriviaDailyChallenge:
 
 # ── Starting, serving and answering ─────────────────────────
 
+def daily_question_limit(user, cfg=None) -> int:
+    """Questions per day outside the Daily Challenge (0 = no limit)."""
+    from library.entitlements import has_student_premium
+    cfg = cfg or get_config()
+    key = "daily_questions_premium" if has_student_premium(user) else "daily_questions"
+    return int(cfg.get(key) or 0)
+
+
 def questions_left_today(user, cfg=None):
     """How many more questions this player can get today outside the Daily
     Challenge (None = no limit). A question counts once it has been shown."""
     cfg = cfg or get_config()
-    limit = int(cfg.get("daily_questions") or 0)
+    limit = daily_question_limit(user, cfg)
     if limit <= 0:
         return None
     start = local_day_start(local_today(cfg), cfg)
@@ -212,7 +220,7 @@ def start_game(user, mode, *, category_id=None, difficulty="mixed") -> TriviaGam
     left = questions_left_today(user, cfg)
     if left is not None:
         if left <= 0:
-            raise GameError(f"You've played all {cfg['daily_questions']} questions for today. "
+            raise GameError(f"You've played all {daily_question_limit(user, cfg)} questions for today. "
                             "Come back tomorrow for more - the Daily Challenge is still yours if you haven't played it.", 429)
         n = min(n, left)
 
